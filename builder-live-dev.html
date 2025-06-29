@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1Betting Builder.io-Style Live Development</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0f0f0f;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .main-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: #1a1a1a;
+            border-right: 1px solid #333;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .toolbar {
+            background: #1a1a1a;
+            border-bottom: 1px solid #333;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .preview-area {
+            flex: 1;
+            background: #f5f5f5;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .status-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-online { background: #4ade80; }
+        .status-offline { background: #f43f5e; }
+        .status-loading { background: #fbbf24; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .status-name {
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .status-port {
+            font-size: 0.8rem;
+            color: #666;
+            font-family: 'Courier New', monospace;
+        }
+
+        .toolbar-btn {
+            background: #333;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 16px;
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .toolbar-btn:hover {
+            background: #555;
+        }
+
+        .toolbar-btn.primary {
+            background: #667eea;
+        }
+
+        .toolbar-btn.primary:hover {
+            background: #5a6fd8;
+        }
+
+        .preview-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
+        }
+
+        .resize-handle {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: #333;
+            cursor: col-resize;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .main-container:hover .resize-handle {
+            opacity: 1;
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: #4ade80;
+        }
+
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        .api-tester {
+            margin-top: 20px;
+        }
+
+        .api-input {
+            width: 100%;
+            background: #333;
+            border: 1px solid #555;
+            border-radius: 6px;
+            padding: 10px;
+            color: white;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .api-input::placeholder {
+            color: #777;
+        }
+
+        .api-result {
+            background: #000;
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #333;
+        }
+
+        .quick-links {
+            margin-top: 20px;
+        }
+
+        .quick-link {
+            display: block;
+            padding: 10px 0;
+            color: #667eea;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #333;
+            transition: color 0.2s;
+        }
+
+        .quick-link:hover {
+            color: #5a6fd8;
+        }
+
+        .device-preview {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .device-btn {
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            border-radius: 4px;
+            padding: 8px 12px;
+            color: white;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .device-btn.active {
+            background: #667eea;
+        }
+
+        .element-inspector {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 8px;
+            padding: 15px;
+            display: none;
+        }
+
+        .element-inspector.visible {
+            display: block;
+        }
+
+        .inspector-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+
+        .inspector-content {
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="logo">🚀 A1Betting Live</div>
+            
+            <div class="status-section">
+                <div class="section-title">Development Servers</div>
+                <div class="status-item">
+                    <div class="status-dot status-loading" id="frontend-dot"></div>
+                    <span class="status-name">Frontend</span>
+                    <span class="status-port">:5173</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-dot status-loading" id="backend-dot"></div>
+                    <span class="status-name">Backend</span>
+                    <span class="status-port">:8000</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-dot status-loading" id="docs-dot"></div>
+                    <span class="status-name">API Docs</span>
+                    <span class="status-port">/docs</span>
+                </div>
+            </div>
+
+            <div class="status-section">
+                <div class="section-title">Live Tools</div>
+                <div class="status-item">
+                    <div class="status-dot status-online"></div>
+                    <span class="status-name">Hot Reload</span>
+                    <span class="status-port">Active</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-dot status-online"></div>
+                    <span class="status-name">Auto Save</span>
+                    <span class="status-port">500ms</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-dot status-online"></div>
+                    <span class="status-name">Live Share</span>
+                    <span class="status-port">Ready</span>
+                </div>
+            </div>
+
+            <div class="api-tester">
+                <div class="section-title">API Tester</div>
+                <input type="text" id="api-endpoint" class="api-input" placeholder="/health" value="/health">
+                <button class="toolbar-btn primary" onclick="testAPI()">Test</button>
+                <div id="api-result" class="api-result">Ready to test...</div>
+            </div>
+
+            <div class="quick-links">
+                <div class="section-title">Quick Access</div>
+                <a href="http://localhost:5173" target="_blank" class="quick-link">🎨 Frontend App</a>
+                <a href="http://localhost:8000/docs" target="_blank" class="quick-link">📚 API Documentation</a>
+                <a href="http://localhost:8000/health" target="_blank" class="quick-link">🏥 Health Check</a>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="toolbar">
+                <div class="live-indicator">
+                    <div class="live-dot"></div>
+                    LIVE
+                </div>
+                <button class="toolbar-btn" onclick="refreshPreview()">🔄 Refresh</button>
+                <button class="toolbar-btn" onclick="toggleInspector()">🔍 Inspect</button>
+                <button class="toolbar-btn primary" onclick="openInVSCode()">📝 Edit in VS Code</button>
+                <div style="flex: 1;"></div>
+                <span id="last-update">Ready</span>
+            </div>
+
+            <div class="preview-area">
+                <div class="device-preview">
+                    <button class="device-btn active" onclick="setDevice('desktop')">💻 Desktop</button>
+                    <button class="device-btn" onclick="setDevice('tablet')">📱 Tablet</button>
+                    <button class="device-btn" onclick="setDevice('mobile')">📱 Mobile</button>
+                </div>
+
+                <iframe id="preview-frame" class="preview-frame" src="http://localhost:5173"></iframe>
+                
+                <div class="element-inspector" id="element-inspector">
+                    <div class="inspector-title">Element Inspector</div>
+                    <div class="inspector-content" id="inspector-content">
+                        Click on any element in the preview to inspect it
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="resize-handle"></div>
+    </div>
+
+    <script>
+        let inspectorVisible = false;
+        let lastUpdate = new Date();
+
+        function checkStatus() {
+            const services = [
+                { id: 'frontend', url: 'http://localhost:5173' },
+                { id: 'backend', url: 'http://localhost:8000/health' },
+                { id: 'docs', url: 'http://localhost:8000/docs' }
+            ];
+
+            services.forEach(service => {
+                fetch(service.url, { 
+                    method: 'GET', 
+                    mode: 'no-cors',
+                    cache: 'no-cache'
+                })
+                .then(() => {
+                    updateStatus(service.id, 'online');
+                })
+                .catch(() => {
+                    updateStatus(service.id, 'offline');
+                });
+            });
+        }
+
+        function updateStatus(serviceId, status) {
+            const dot = document.getElementById(`${serviceId}-dot`);
+            dot.className = `status-dot status-${status}`;
+        }
+
+        function refreshPreview() {
+            const frame = document.getElementById('preview-frame');
+            frame.src = frame.src + (frame.src.includes('?') ? '&' : '?') + 't=' + new Date().getTime();
+            updateLastUpdate();
+        }
+
+        function testAPI() {
+            const endpoint = document.getElementById('api-endpoint').value;
+            const result = document.getElementById('api-result');
+            
+            result.textContent = 'Testing...';
+            
+            fetch(`http://localhost:8000${endpoint}`)
+                .then(response => response.json())
+                .then(data => {
+                    result.textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    result.textContent = `Error: ${error.message}`;
+                });
+        }
+
+        function toggleInspector() {
+            const inspector = document.getElementById('element-inspector');
+            inspectorVisible = !inspectorVisible;
+            inspector.className = inspectorVisible ? 'element-inspector visible' : 'element-inspector';
+        }
+
+        function setDevice(type) {
+            const frame = document.getElementById('preview-frame');
+            const buttons = document.querySelectorAll('.device-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            switch(type) {
+                case 'desktop':
+                    frame.style.width = '100%';
+                    frame.style.height = '100%';
+                    break;
+                case 'tablet':
+                    frame.style.width = '768px';
+                    frame.style.height = '1024px';
+                    frame.style.margin = '20px auto';
+                    break;
+                case 'mobile':
+                    frame.style.width = '375px';
+                    frame.style.height = '667px';
+                    frame.style.margin = '20px auto';
+                    break;
+            }
+        }
+
+        function openInVSCode() {
+            // This would open VS Code - for now just show a message
+            alert('This would open the current file in VS Code. In a real implementation, this would use VS Code APIs.');
+        }
+
+        function updateLastUpdate() {
+            const now = new Date();
+            document.getElementById('last-update').textContent = `Updated ${now.toLocaleTimeString()}`;
+        }
+
+        // Initialize
+        checkStatus();
+        updateLastUpdate();
+        
+        // Auto-refresh every 5 seconds
+        setInterval(checkStatus, 5000);
+        
+        // Auto-refresh preview when frontend changes detected
+        let lastFrontendCheck = 0;
+        setInterval(() => {
+            fetch('http://localhost:5173', { method: 'HEAD', mode: 'no-cors' })
+                .then(() => {
+                    const now = Date.now();
+                    if (now - lastFrontendCheck > 1000) {
+                        refreshPreview();
+                        lastFrontendCheck = now;
+                    }
+                })
+                .catch(() => {});
+        }, 2000);
+
+        // Simulate element inspection (in real app, this would use postMessage from iframe)
+        document.getElementById('preview-frame').addEventListener('load', function() {
+            // This would set up communication with the iframe to enable element inspection
+            setTimeout(() => {
+                if (inspectorVisible) {
+                    document.getElementById('inspector-content').textContent = 
+                        'Real element inspection would be implemented here using iframe communication';
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

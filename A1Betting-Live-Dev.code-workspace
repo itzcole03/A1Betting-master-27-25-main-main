@@ -1,0 +1,83 @@
+{
+    "folders": [
+        {
+            "name": "A1Betting Root",
+            "path": "."
+        },
+        {
+            "name": "Frontend",
+            "path": "./frontend"
+        },
+        {
+            "name": "Backend",
+            "path": "./backend"
+        }
+    ],
+    "settings": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": "explicit",
+            "source.organizeImports": "explicit"
+        },
+        "typescript.preferences.includePackageJsonAutoImports": "on",
+        "files.associations": {
+            "*.tsx": "typescriptreact",
+            "*.ts": "typescript"
+        },
+        "emmet.includeLanguages": {
+            "javascript": "javascriptreact",
+            "typescript": "typescriptreact"
+        },
+        "liveServer.settings.port": 3001,
+        "liveServer.settings.root": "/frontend/dist",
+        "livePreview.defaultPreviewPath": "/frontend/dist/index.html",
+        "liveshare.autoShareServers": true,
+        "liveshare.autoShareTerminals": true,
+        "search.exclude": {
+            "**/node_modules": true,
+            "**/dist": true,
+            "**/build": true,
+            "**/.git": true,
+            "**/venv": true,
+            "**/__pycache__": true
+        },
+        "files.watcherExclude": {
+            "**/node_modules/**": true,
+            "**/dist/**": true,
+            "**/build/**": true,
+            "**/.git/**": true,
+            "**/venv/**": true,
+            "**/__pycache__/**": true
+        }
+    },
+    "extensions": {
+        "recommendations": [
+            "ritwickdey.liveserver",
+            "ms-vsliveshare.vsliveshare",
+            "ms-vscode.live-server",
+            "glenn2223.live-sass",
+            "vsls-contrib.codetour"
+        ]
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "Start Live Development",
+                "type": "shell",
+                "command": "${workspaceFolder}/start-live-dev.bat",
+                "group": {
+                    "kind": "build",
+                    "isDefault": true
+                },
+                "presentation": {
+                    "echo": true,
+                    "reveal": "always",
+                    "focus": true,
+                    "panel": "new"
+                },
+                "problemMatcher": []
+            }
+        ]
+    }
+}

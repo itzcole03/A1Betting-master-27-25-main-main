@@ -1,0 +1,27 @@
+# Prometheus configuration for A1Betting monitoring
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: "a1betting"
+
+scrape_configs:
+  # Backend API metrics
+  - job_name: "a1betting-api"
+    static_configs:
+      - targets: ["a1betting-backend:8000"]
+    metrics_path: "/health"
+    scrape_interval: 30s
+    scrape_timeout: 10s
+
+  # Prometheus self-monitoring
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+    scrape_interval: 30s
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: []

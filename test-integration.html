@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1Betting Integration Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background-color: #2a2a2a;
+        }
+        .status-ok { color: #4ade80; }
+        .status-error { color: #ef4444; }
+        .status-loading { color: #fbbf24; }
+        pre {
+            background-color: #1a1a1a;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        button {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background-color: #2563eb; }
+    </style>
+</head>
+<body>
+    <h1>🎯 A1Betting Frontend-Backend Integration Test</h1>
+    
+    <div class="test-section">
+        <h2>Backend Health Check</h2>
+        <p id="health-status" class="status-loading">Testing...</p>
+        <button onclick="testHealthCheck()">Test Health</button>
+        <pre id="health-response"></pre>
+    </div>
+
+    <div class="test-section">
+        <h2>PrizePicks Props Endpoint</h2>
+        <p id="props-status" class="status-loading">Testing...</p>
+        <button onclick="testPropsEndpoint()">Test Props</button>
+        <pre id="props-response"></pre>
+    </div>
+
+    <div class="test-section">
+        <h2>PrizePicks Recommendations Endpoint</h2>
+        <p id="recommendations-status" class="status-loading">Testing...</p>
+        <button onclick="testRecommendationsEndpoint()">Test Recommendations</button>
+        <pre id="recommendations-response"></pre>
+    </div>
+
+    <div class="test-section">
+        <h2>Frontend Server Status</h2>
+        <p id="frontend-status" class="status-ok">Frontend running on http://localhost:5173</p>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8000';
+
+        async function testHealthCheck() {
+            const statusEl = document.getElementById('health-status');
+            const responseEl = document.getElementById('health-response');
+            
+            statusEl.textContent = 'Testing...';
+            statusEl.className = 'status-loading';
+            
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    statusEl.textContent = '✅ Backend Health: OK';
+                    statusEl.className = 'status-ok';
+                } else {
+                    statusEl.textContent = '❌ Backend Health: Failed';
+                    statusEl.className = 'status-error';
+                }
+                
+                responseEl.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                statusEl.textContent = '❌ Backend Health: Connection Error';
+                statusEl.className = 'status-error';
+                responseEl.textContent = error.message;
+            }
+        }
+
+        async function testPropsEndpoint() {
+            const statusEl = document.getElementById('props-status');
+            const responseEl = document.getElementById('props-response');
+            
+            statusEl.textContent = 'Testing...';
+            statusEl.className = 'status-loading';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/prizepicks/props`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    statusEl.textContent = `✅ Props Endpoint: OK (${Array.isArray(data) ? data.length : 0} props)`;
+                    statusEl.className = 'status-ok';
+                } else {
+                    statusEl.textContent = '❌ Props Endpoint: Failed';
+                    statusEl.className = 'status-error';
+                }
+                
+                responseEl.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                statusEl.textContent = '❌ Props Endpoint: Connection Error';
+                statusEl.className = 'status-error';
+                responseEl.textContent = error.message;
+            }
+        }
+
+        async function testRecommendationsEndpoint() {
+            const statusEl = document.getElementById('recommendations-status');
+            const responseEl = document.getElementById('recommendations-response');
+            
+            statusEl.textContent = 'Testing...';
+            statusEl.className = 'status-loading';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/prizepicks/recommendations`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    statusEl.textContent = `✅ Recommendations Endpoint: OK (${Array.isArray(data) ? data.length : 0} recommendations)`;
+                    statusEl.className = 'status-ok';
+                } else {
+                    statusEl.textContent = '❌ Recommendations Endpoint: Failed';
+                    statusEl.className = 'status-error';
+                }
+                
+                responseEl.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                statusEl.textContent = '❌ Recommendations Endpoint: Connection Error';
+                statusEl.className = 'status-error';
+                responseEl.textContent = error.message;
+            }
+        }
+
+        // Auto-run tests on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                testHealthCheck();
+                testPropsEndpoint();
+                testRecommendationsEndpoint();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
