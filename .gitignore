@@ -18,11 +18,7 @@ coverage/
 !.env.example
 
 # IDEs & Editors
-.vscode/*
-!.vscode/extensions.json
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
+.vscode/
 .idea/
 .DS_Store
 *.sw?
@@ -33,8 +29,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-logs/
-*.log
 
 # OS
 Thumbs.db
@@ -43,43 +37,31 @@ Desktop.ini
 # Testing
 coverage/
 *.lcov
-.coverage
-htmlcov/
-.pytest_cache/
-.tox/
-nosetests.xml
 
-# Python specific
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
-venv/
-ENV/
-backend/venv/
-.env
-.venv
-develop-eggs/
-*.egg-info/
-.installed.cfg
-*.egg
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-
-# SQLite database files
-*.db
-*.sqlite
-*.sqlite3
-
-# Mock backend - since we're removing it
-frontend/backend-dev.js
-frontend/vite-backend-plugin.*
+# Storybook
+storybook-static/
 
 # Misc
 *.local
 *.log
 *.tmp
+
 .config/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-selfcheck.json
+*.egg-info/
+.tox/
+.hypothesis/
+.pytest_cache/
+
+# Database
+a1betting.db
+*.sqlite3
