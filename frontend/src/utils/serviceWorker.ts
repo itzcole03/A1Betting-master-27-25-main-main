@@ -1,4 +1,4 @@
-
+﻿
 
 /// <reference lib="webworker" />
 
@@ -6,8 +6,7 @@
 // Remove this if you upgrade TypeScript and the error disappears;
 declare interface SyncEvent extends ExtendableEvent {
   readonly tag: string;
-  readonly lastChance: boolean;
-}
+  readonly lastChance: boolean}
 
 
 const STATIC_ASSETS = [
@@ -30,8 +29,7 @@ const API_ROUTES = [
       caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS)),
       caches.open(API_CACHE_NAME)
     ])
-  );
-});
+  )});
 
 (self as unknown as ServiceWorkerGlobalScope).addEventListener('activate', (event: ExtendableEvent) => {
   event.waitUntil(
@@ -40,18 +38,15 @@ const API_ROUTES = [
         cacheNames;
           .filter(name => name !== CACHE_NAME && name !== API_CACHE_NAME)
           .map(name => caches.delete(name))
-      );
-    })
-  );
-});
+      );})
+  );});
 
 (self as unknown as ServiceWorkerGlobalScope).addEventListener('fetch', (event: FetchEvent) => {
 
   // Handle API requests;
   if (API_ROUTES.some(route => url.href.includes(route))) {
     event.respondWith(handleApiRequest(event.request));
-    return;
-  }
+    return;}
 
   // Handle static assets;
   event.respondWith(
@@ -61,14 +56,9 @@ const API_ROUTES = [
         if (response.status === 200) {
 
           caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, responseClone);
-          });
-        }
-        return response;
-      });
-    })
-  );
-});
+            cache.put(event.request, responseClone);});}
+        return response;});})
+  );});
 
 async function handleApiRequest(request: Request): Promise<Response> {
   try {
@@ -78,25 +68,20 @@ async function handleApiRequest(request: Request): Promise<Response> {
 
 
       await cache.put(request, responseClone);
-      return response;
-    }
-    throw new Error('Network response was not ok');
-  } catch (error) {
+      return response;}
+    throw new Error('Network response was not ok');} catch (error) {
     // Fall back to cache;
 
     if (cachedResponse) {
-      return cachedResponse;
-    }
-    throw error;
-  }
+      return cachedResponse;}
+    throw error;}
 }
 
 // Handle background sync for failed requests;
 (self as unknown as ServiceWorkerGlobalScope).addEventListener('sync', ((event: Event) => {
 
   if (syncEvent.tag === 'sync-projections') {
-    syncEvent.waitUntil(syncProjections());
-  }
+    syncEvent.waitUntil(syncProjections())}
 }) as EventListener);
 
 async function syncProjections() {
@@ -105,29 +90,24 @@ async function syncProjections() {
     failedRequests.map(async (request) => {
       try {
         await fetch(request);
-        await removeFailedRequest(request);
-      } catch (error) {
-        // console statement removed
-      }
+        await removeFailedRequest(request);} catch (error) {
+        // console statement removed}
     })
-  );
-}
+  );}
 
 // IndexedDB utilities for failed requests;
 
 
-// NOTE: If you store requests as POJOs, update this type to Promise<StoredRequest[]> and rehydrate as needed.
-async function getFailedRequests(): Promise<Request[]> {
+// NOTE: If you store requests as POJOs, update this type to Promise<StoredRequest[0]> and rehydrate as needed.
+async function getFailedRequests(): Promise<Request[0]> {
 
 
-  return store.getAll() as unknown as Request[];
-}
+  return store.getAll() as unknown as Request[0]}
 
 async function removeFailedRequest(request: Request) {
 
 
-  await store.delete(request.url);
-}
+  await store.delete(request.url)}
 
 function openDB(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
@@ -140,8 +120,8 @@ function openDB(): Promise<IDBDatabase> {
 
       if (target && 'result' in target) {
 
-        db.createObjectStore(storeName, { keyPath: 'url' });
-      }
-    };
-  });
-}
+        db.createObjectStore(storeName, { keyPath: 'url'})}
+    };});}
+
+
+

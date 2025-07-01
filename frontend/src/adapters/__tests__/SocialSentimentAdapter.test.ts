@@ -1,31 +1,29 @@
-import { SocialSentimentAdapter } from '@/SocialSentimentAdapter.ts';
+﻿import { SocialSentimentAdapter} from '@/SocialSentimentAdapter'
 
 describe('SocialSentimentAdapter', () => {
   let adapter: SocialSentimentAdapter;
 
   beforeEach(() => {
     adapter = new SocialSentimentAdapter();
-    adapter.clearCache();
-  });
+    adapter.clearCache()});
 
   it('should be available', async () => {
-    expect(await adapter.isAvailable()).toBe(true);
-  });
+    expect(await adapter.isAvailable()).toBe(true)});
 
   it('should fetch sentiment data and cache it', async () => {
-
     expect(Array.isArray(data)).toBe(true);
     expect(data.length).toBeGreaterThan(0);
     expect(data[0]).toHaveProperty('player');
     expect(data[0]).toHaveProperty('sentiment');
     // Should be cached;
 
-    expect(cached).toBe(data);
-  });
+    expect(cached).toBe(data)});
 
   it('should clear cache', async () => {
     await adapter.fetch();
     adapter.clearCache();
-    expect(adapter['cache'].data).toBeNull();
-  });
-});
+    expect(adapter['cache'].data).toBeNull()})});
+
+
+
+

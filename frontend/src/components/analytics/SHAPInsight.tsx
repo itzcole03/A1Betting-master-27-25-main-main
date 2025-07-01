@@ -1,11 +1,9 @@
-import React from 'react.ts';
+﻿import React from 'react';
 
 interface SHAPInsightProps {
-  modelName: string;
-  shapData: Record<string, number key={817366}>;
-}
+  modelName: string,`n  shapData: Record<string, number key={817366}>}
 
-export const SHAPInsight: React.FC<SHAPInsightProps key={973719}> = ({ modelName, shapData }) => {
+export const SHAPInsight: React.FC<SHAPInsightProps key={973719}> = ({ modelName, shapData}) => {
   return (
     <div className="shap-insight border p-2 m-2 rounded bg-white shadow" key={8010}>
       <h4 className="font-semibold" key={784993}>{modelName} SHAP Feature Importance</h4>
@@ -17,5 +15,9 @@ export const SHAPInsight: React.FC<SHAPInsightProps key={973719}> = ({ modelName
         ))}
       </ul>
     </div>
-  );
-};
+  )};
+
+
+
+
+`

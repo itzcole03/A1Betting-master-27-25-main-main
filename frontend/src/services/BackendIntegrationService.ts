@@ -1,77 +1,26 @@
-import axios from 'axios.ts';
-import { UnifiedLogger } from '@/unified/UnifiedLogger.ts';
-import { UnifiedCache } from '@/unified/UnifiedCache.ts';
+﻿import axios from 'axios';
+import { UnifiedLogger} from '@/unified/UnifiedLogger';
+import { UnifiedCache} from '@/unified/UnifiedCache';
 
 export interface BackendPredictionRequest {
-  player_id: string;
-  metric: string;
-  timeframe: string;
-  model_type?: string;
-  include_shap?: boolean;
-}
+  player_id: string,`n  metric: string;,`n  timeframe: string;
+  model_type?: string
+  include_shap?: boolean}
 
 export interface BackendPredictionResponse {
-  prediction: {
-    value: number;
-    confidence: number;
-    timestamp: string;
-  };
-  analysis: {
-    historical_trends: string[];
-    market_signals: string[];
-    risk_factors: string[];
-    model_breakdown: Record<string, number>;
-  };
+  prediction: {,`n  value: number;,`n  confidence: number,`n  timestamp: string};
+  analysis: {,`n  historical_trends: string[0];,`n  market_signals: string[0],`n  risk_factors: string[0];,`n  model_breakdown: Record<string, number>};
   shap_values?: {
-    feature: string;
-    value: number;
-    impact: number;
-  }[];
-  meta: {
-    model_version: string;
-    feature_count: number;
-    prediction_id: string;
-  };
-}
+    feature: string,`n  value: number;,`n  impact: number}[0];
+  meta: {,`n  model_version: string;,`n  feature_count: number,`n  prediction_id: string}}
 
 export interface BackendBettingOpportunity {
-  id: string;
-  player_name: string;
-  stat_type: string;
-  line: number;
-  over_odds: number;
-  under_odds: number;
-  confidence: number;
-  expected_value: number;
-  kelly_fraction: number;
-  risk_level: "low" | "medium" | "high";
-  time_remaining: string;
-  analysis: {
-    historical_trends: string[];
-    market_signals: string[];
-    risk_factors: string[];
-  };
-}
+  id: string,`n  player_name: string;,`n  stat_type: string,`n  line: number;,`n  over_odds: number,`n  under_odds: number;,`n  confidence: number,`n  expected_value: number;,`n  kelly_fraction: number,`n  risk_level: "low" | "medium" | "high";,`n  time_remaining: string,`n  analysis: {,`n  historical_trends: string[0],`n  market_signals: string[0];,`n  risk_factors: string[0]}}
 
 export interface BackendArbitrageOpportunity {
-  id: string;
-  sport: string;
-  event: string;
-  market: string;
-  bookmaker1: {
-    name: string;
-    odds: number;
-    stake: number;
-  };
-  bookmaker2: {
-    name: string;
-    odds: number;
-    stake: number;
-  };
-  profit: number;
-  profit_percentage: number;
-  expires_at: string;
-}
+  id: string,`n  sport: string;,`n  event: string,`n  market: string;,`n  bookmaker1: {,`n  name: string;,`n  odds: number,`n  stake: number};
+  bookmaker2: {,`n  name: string;,`n  odds: number,`n  stake: number};
+  profit: number,`n  profit_percentage: number;,`n  expires_at: string}
 
 class BackendIntegrationService {
   private static instance: BackendIntegrationService;
@@ -82,15 +31,12 @@ class BackendIntegrationService {
   private constructor() {
     this.logger = UnifiedLogger.getInstance();
     this.cache = UnifiedCache.getInstance();
-    this.baseURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
-  }
+    this.baseURL = import.meta.env.VITE_BACKEND_URL || "http: //localhost:8000"}
 
   static getInstance(): BackendIntegrationService {
     if (!BackendIntegrationService.instance) {
-      BackendIntegrationService.instance = new BackendIntegrationService();
-    }
-    return BackendIntegrationService.instance;
-  }
+      BackendIntegrationService.instance = new BackendIntegrationService()}
+    return BackendIntegrationService.instance;}
 
   async getPrediction(
     request: BackendPredictionRequest,
@@ -101,10 +47,9 @@ class BackendIntegrationService {
 
       if (cached) {
         this.logger.info("Returning cached prediction", {
-          playerId: request.player_id,
+          playerId: request.player_id
         });
-        return cached;
-      }
+        return cached;}
 
       // Make API call to backend;
       const response = await axios.post(
@@ -113,8 +58,8 @@ class BackendIntegrationService {
         {
           timeout: 10000,
           headers: {
-            "Content-Type": "application/json",
-          },
+            "Content-Type": "application/json"
+          }
         },
       );
 
@@ -123,84 +68,64 @@ class BackendIntegrationService {
 
       this.logger.info("Generated new prediction", {
         playerId: request.player_id,
-        confidence: result.prediction.confidence,
+        confidence: result.prediction.confidence
       });
 
-      return result;
-    } catch (error) {
+      return result;} catch (error) {
       this.logger.error("Failed to get prediction", {
         error: error.message,
-        request,
+//         request
       });
 
       // Return fallback prediction;
-      return this.getFallbackPrediction(request);
-    }
+      return this.getFallbackPrediction(request);}
   }
 
-  async getBettingOpportunities(params: {
-    sports: string[];
-    confidence_threshold: number;
-    time_window: string;
-    strategy_mode: string;
-  }): Promise<BackendBettingOpportunity[]> {
+  async getBettingOpportunities(params: {,`n  sports: string[0];,`n  confidence_threshold: number,`n  time_window: string;,`n  strategy_mode: string}): Promise<BackendBettingOpportunity[0]> {
     try {
       const response = await axios.get(
         `${this.baseURL}/api/betting/opportunities`,
         {
           params,
-          timeout: 15000,
+          timeout: 15000
         },
       );
 
       this.logger.info("Retrieved betting opportunities", {
         count: response.data.length,
-        strategy: params.strategy_mode,
+        strategy: params.strategy_mode
       });
 
-      return response.data;
-    } catch (error) {
+      return response.data;} catch (error) {
       this.logger.error("Failed to get betting opportunities", {
-        error: error.message,
+        error: error.message
       });
-      return this.getFallbackOpportunities();
-    }
+      return this.getFallbackOpportunities();}
   }
 
-  async getArbitrageOpportunities(params: {
-    sports: string[];
-    min_profit: number;
-    time_window: string;
-  }): Promise<BackendArbitrageOpportunity[]> {
+  async getArbitrageOpportunities(params: {,`n  sports: string[0];,`n  min_profit: number,`n  time_window: string}): Promise<BackendArbitrageOpportunity[0]> {
     try {
       const response = await axios.get(
         `${this.baseURL}/api/arbitrage/opportunities`,
         {
           params,
-          timeout: 15000,
+          timeout: 15000
         },
       );
 
       this.logger.info("Retrieved arbitrage opportunities", {
         count: response.data.length,
-        minProfit: params.min_profit,
+        minProfit: params.min_profit
       });
 
-      return response.data;
-    } catch (error) {
+      return response.data;} catch (error) {
       this.logger.error("Failed to get arbitrage opportunities", {
-        error: error.message,
+        error: error.message
       });
-      return [];
-    }
+      return [0];}
   }
 
-  async placeBet(request: {
-    opportunity_id: string;
-    amount: number;
-    bet_type: string;
-    selection: string;
-  }): Promise<{ success: boolean; bet_id?: string; error?: string }> {
+  async placeBet(request: {,`n  opportunity_id: string;,`n  amount: number,`n  bet_type: string;,`n  selection: string}): Promise<{ success: boolean; bet_id?: string error?: string}> {
     try {
       const response = await axios.post(
         `${this.baseURL}/api/betting/place`,
@@ -208,24 +133,22 @@ class BackendIntegrationService {
         {
           timeout: 10000,
           headers: {
-            "Content-Type": "application/json",
-          },
+            "Content-Type": "application/json"
+          }
         },
       );
 
       this.logger.info("Bet placed successfully", {
         betId: response.data.bet_id,
-        amount: request.amount,
+        amount: request.amount
       });
 
-      return { success: true, bet_id: response.data.bet_id };
-    } catch (error) {
+      return { success: true, bet_id: response.data.bet_id}} catch (error) {
       this.logger.error("Failed to place bet", {
         error: error.message,
-        request,
+//         request
       });
-      return { success: false, error: error.message };
-    }
+      return { success: false, error: error.message}}
   }
 
   async getShapExplanation(predictionId: string): Promise<any> {
@@ -233,39 +156,28 @@ class BackendIntegrationService {
       const response = await axios.get(
         `${this.baseURL}/api/explainability/shap/${predictionId}`,
         {
-          timeout: 10000,
+          timeout: 10000
         },
       );
 
-      return response.data;
-    } catch (error) {
+      return response.data;} catch (error) {
       this.logger.error("Failed to get SHAP explanation", {
         error: error.message,
-        predictionId,
+//         predictionId
       });
-      return null;
-    }
+      return null;}
   }
 
   async getModelStatus(): Promise<{
-    models: Array<{
-      id: string;
-      name: string;
-      status: "active" | "training" | "error";
-      accuracy: number;
-      last_update: string;
-    }>;
-  }> {
+    models: Array<{,`n  id: string;,`n  name: string,`n  status: "active" | "training" | "error";,`n  accuracy: number,`n  last_update: string}>}> {
     try {
       const response = await axios.get(`${this.baseURL}/api/models/status`, {
-        timeout: 5000,
+        timeout: 5000
       });
 
-      return response.data;
-    } catch (error) {
-      this.logger.error("Failed to get model status", { error: error.message });
-      return { models: [] };
-    }
+      return response.data;} catch (error) {
+      this.logger.error("Failed to get model status", { error: error.message});
+      return { models: [0]}}
   }
 
   private getFallbackPrediction(
@@ -276,33 +188,28 @@ class BackendIntegrationService {
     const baseValue = 20 + Math.random() * 30; // Base prediction value;
 
     return {
-      prediction: {
-        value: baseValue,
+      prediction: {,`n  value: baseValue,
         confidence,
-        timestamp: new Date().toISOString(),
+        timestamp: new Date().toISOString()
       },
-      analysis: {
-        historical_trends: [
+      analysis: {,`n  historical_trends: [
           "Recent form trending upward",
           "Strong home performance",
         ],
         market_signals: ["Line movement favorable", "Sharp money detected"],
         risk_factors: ["Weather concerns", "Injury report pending"],
-        model_breakdown: {
-          XGBoost: 0.4,
+        model_breakdown: {,`n  XGBoost: 0.4,
           "Neural Network": 0.35,
-          "Random Forest": 0.25,
-        },
+          "Random Forest": 0.25
+        }
       },
-      meta: {
-        model_version: "fallback-v1.0",
+      meta: {,`n  model_version: "fallback-v1.0",
         feature_count: 150,
-        prediction_id: `fallback-${Date.now()}`,
-      },
-    };
-  }
+        prediction_id: `fallback-${Date.now()}`
+      }
+    }}
 
-  private getFallbackOpportunities(): BackendBettingOpportunity[] {
+  private getFallbackOpportunities(): BackendBettingOpportunity[0] {
     // Generate sample opportunities when backend is unavailable;
     const players = [
       "LeBron James",
@@ -326,24 +233,20 @@ class BackendIntegrationService {
         | "medium"
         | "high",
       time_remaining: `${2 + Math.floor(Math.random() * 6)} hours`,
-      analysis: {
-        historical_trends: ["Strong recent performance", "Favorable matchup"],
+      analysis: {,`n  historical_trends: ["Strong recent performance", "Favorable matchup"],
         market_signals: ["Line value detected", "Public betting opposite"],
-        risk_factors: ["Usage rate variance", "Rest concerns"],
-      },
-    }));
-  }
+        risk_factors: ["Usage rate variance", "Rest concerns"]
+      }
+    }))}
 
   // Health check for backend connection;
   async healthCheck(): Promise<boolean> {
     try {
       const response = await axios.get(`${this.baseURL}/health`, {
-        timeout: 3000,
+        timeout: 3000
       });
-      return response.status === 200;
-    } catch (error) {
-      return false;
-    }
+      return response.status === 200;} catch (error) {
+      return false;}
   }
 
   // Start the backend if it's not running (development mode)
@@ -352,12 +255,14 @@ class BackendIntegrationService {
       try {
         this.logger.info("Attempting to start backend service...");
         // In production, this would trigger a backend startup;
-        // For now, just log the attempt;
-      } catch (error) {
-        this.logger.error("Failed to start backend", { error: error.message });
-      }
-    }
-  }
+        // For now, just log the attempt;} catch (error) {
+        this.logger.error("Failed to start backend", { error: error.message})}
+    }}
 }
 
 export default BackendIntegrationService;
+
+
+
+
+`

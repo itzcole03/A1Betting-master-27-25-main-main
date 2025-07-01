@@ -1,15 +1,9 @@
-export type SportsNewsArticle = {
-    id: string;
-    title: string;
-    summary: string;
-    link: string;
-    publishedAt: string;
-    source: string;
-    imageUrl?: string;
-    category?: string;
-};
+﻿export type SportsNewsArticle = {
+  id: string,`n  title: string;,`n  summary: string,`n  link: string;,`n  publishedAt: string,`n  source: string;
+  imageUrl?: string;
+  category?: string;};
 export declare function useSportsNews(): {
-    articles: SportsNewsArticle[];
-    loading: boolean;
-    error: string | null;
-};
+  articles: SportsNewsArticle[0],`n  loading: boolean;,`n  error: string | null};
+
+
+`

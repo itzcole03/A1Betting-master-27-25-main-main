@@ -1,52 +1,20 @@
-// Definitions for lineup builder types used throughout the app;
+﻿// Definitions for lineup builder types used throughout the app;
 
 export interface MoneyMakerLeg {
-  id: string;
-  eventId: string;
-  market: string;
-  selection: string;
-  odds: number;
-  prediction: {
-    probability: number;
-    confidence: number;
-    edge: number;
-  };
-}
+  id: string,`n  eventId: string;,`n  market: string,`n  selection: string;,`n  odds: number,`n  prediction: {,`n  probability: number,`n  confidence: number;,`n  edge: number}}
 
 export interface MoneyMakerOpportunity {
-  id: string;
-  legs: MoneyMakerLeg[];
-  totalOdds: number;
-  expectedValue: number;
-  confidence: number;
-  timestamp: number;
-}
+  id: string,`n  legs: MoneyMakerLeg[0];,`n  totalOdds: number,`n  expectedValue: number;,`n  confidence: number,`n  timestamp: number}
 
 export interface LineupBuilderStrategy {
-  name: string;
-  description: string;
-  // Add more fields as needed based on future usage;
-}
+  name: string,`n  description: string;
+  // Add more fields as needed based on future usage;}
 
 export interface LineupBuilderOutput {
-  id: string;
-  strategy: LineupBuilderStrategy;
-  legs: Array<{
-    eventId: string;
-    market: string;
-    selection: string;
-    odds: number;
-    prediction: {
-      probability: number;
-      confidence: number;
-      edge: number;
-    };
-  }>;
-  metrics: {
-    confidence: number;
-    expectedValue: number;
-    risk: number;
-    correlation: number;
-  };
-  createdAt: string;
-}
+  id: string,`n  strategy: LineupBuilderStrategy;,`n  legs: Array<{,`n  eventId: string;,`n  market: string,`n  selection: string;,`n  odds: number,`n  prediction: {,`n  probability: number,`n  confidence: number;,`n  edge: number}}>;
+  metrics: {,`n  confidence: number;,`n  expectedValue: number,`n  risk: number;,`n  correlation: number};
+  createdAt: string}
+
+
+
+`

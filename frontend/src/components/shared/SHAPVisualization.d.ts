@@ -1,11 +1,11 @@
-interface FeatureImpact {
-    feature: string;
-    value: number;
-    impact: number;
-    direction: 'positive' | 'negative';
-}
+﻿interface FeatureImpact {
+  feature: string,`n  value: number;,`n  impact: number,`n  direction: 'positive' | 'negative'}
 interface SHAPVisualizationProps {
-    explanations: FeatureImpact[];
-}
-declare const SHAPVisualization: ({ explanations }: SHAPVisualizationProps) => import("react/jsx-runtime").JSX.Element;
+  explanations: FeatureImpact[0]}
+declare const SHAPVisualization: ({
+//   explanations
+}: SHAPVisualizationProps) => import('react/jsx-runtime').JSX.Element;
 export default SHAPVisualization;
+
+
+`

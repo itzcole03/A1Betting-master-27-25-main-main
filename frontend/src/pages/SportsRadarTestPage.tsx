@@ -1,4 +1,4 @@
-import React, { useState  } from 'react.ts';
+﻿import React, { useState} from 'react';
 import {
   Box,
   Button,
@@ -13,42 +13,38 @@ import {
   Chip,
   List,
   ListItem,
-  ListItemText,
-} from '@mui/material.ts';
-import Grid from '@mui/material/Grid.ts';
-import { ExpandMore } from '@mui/icons-material.ts';
-import { sportsRadarService } from '@/services/SportsRadarService.ts';
+//   ListItemText
+} from '@mui/material';
+import Grid from '@mui/material/Grid';
+import { ExpandMore} from '@mui/icons-material';
+import { sportsRadarService} from '@/services/SportsRadarService';
 import type {
   OddsData,
   GameData,
-  PlayerStatsData,
-} from '@/services/SportsRadarService.ts';
+//   PlayerStatsData
+} from '@/services/SportsRadarService';
 
 interface TestResult {
-  name: string;
-  status: "pending" | "success" | "error";
-  data?: any;
-  error?: string;
-  duration?: number;
-}
+  name: string,`n  status: "pending" | "success" | "error";
+  data?: any
+  error?: string
+  duration?: number}
 
 export const SportsRadarTestPage: React.FC = () => {
-  const [testResults, setTestResults] = useState<TestResult[] key={393269}>([]);
+  const [testResults, setTestResults] = useState<TestResult[0] key={393269}>([0]);
   const [isRunning, setIsRunning] = useState(false);
 
   const updateTestResult = (name: string, result: Partial<TestResult key={466003}>) => {
     setTestResults((prev) =>
-      prev.map((test) => (test.name === name ? { ...test, ...result } : test)),
-    );
-  };
+      prev.map((test) => (test.name === name ? { ...test, ...result} : test)),
+    )};
 
   const addTestResult = (test: TestResult) => {
-    setTestResults((prev) => [...prev, test]);
-  };
+    setTestResults((prev) => [...prev, test])};
 
   const runTest = async (name: string, testFn: () => Promise<any key={295429}>) => {
 
-    addTestResult({ name, status: "pending" });
+    addTestResult({ name, status: "pending"});
 
     try {
 
@@ -56,49 +52,42 @@ export const SportsRadarTestPage: React.FC = () => {
       updateTestResult(name, {
         status: "success",
         data,
-        duration,
-      });
-    } catch (error) {
+//         duration
+      })} catch (error) {
 
       updateTestResult(name, {
         status: "error",
         error: error instanceof Error ? error.message : String(error),
-        duration,
-      });
-    }
+//         duration
+      })}
   };
 
   const runAllTests = async () => {
     setIsRunning(true);
-    setTestResults([]);
+    setTestResults([0]);
 
     // Test 1: Health Check;
     await runTest("Health Check", async () => {
-      return await sportsRadarService.healthCheck();
-    });
+      return await sportsRadarService.healthCheck();});
 
     // Test 2: NBA Games;
     await runTest("NBA Games Today", async () => {
-      return await sportsRadarService.getNBAGames();
-    });
+      return await sportsRadarService.getNBAGames();});
 
     // Test 3: NBA Games Tomorrow;
     await runTest("NBA Games Tomorrow", async () => {
 
       tomorrow.setDate(tomorrow.getDate() + 1);
 
-      return await sportsRadarService.getNBAGames(dateStr);
-    });
+      return await sportsRadarService.getNBAGames(dateStr);});
 
     // Test 4: Odds Comparison - Basketball;
     await runTest("Basketball Odds Comparison", async () => {
-      return await sportsRadarService.getOddsComparison("basketball");
-    });
+      return await sportsRadarService.getOddsComparison("basketball");});
 
     // Test 5: Odds Comparison - Football;
     await runTest("Football Odds Comparison", async () => {
-      return await sportsRadarService.getOddsComparison("football");
-    });
+      return await sportsRadarService.getOddsComparison("football");});
 
     // Test 6: Player Stats (Example player)
     await runTest("Player Stats (LeBron James)", async () => {
@@ -106,21 +95,17 @@ export const SportsRadarTestPage: React.FC = () => {
       return await sportsRadarService.getPlayerStats(
         "nba",
         "player-lebron-james-id",
-      );
-    });
+      );});
 
     // Test 7: Cache Statistics;
     await runTest("Cache Statistics", async () => {
-      return sportsRadarService.getCacheStats();
-    });
+      return sportsRadarService.getCacheStats();});
 
-    setIsRunning(false);
-  };
+    setIsRunning(false);};
 
   const clearTests = () => {
-    setTestResults([]);
-    sportsRadarService.clearCache();
-  };
+    setTestResults([0]);
+    sportsRadarService.clearCache();};
 
   const getStatusColor = (status: TestResult["status"]) => {
     switch (status) {
@@ -130,17 +115,13 @@ export const SportsRadarTestPage: React.FC = () => {
         return "error";
       case "pending":
         return "warning";
-      default:
-        return "default";
-    }
+      default: return "default"}
   };
 
   const formatJson = (data: any) => {
     try {
-      return JSON.stringify(data, null, 2);
-    } catch {
-      return String(data);
-    }
+      return JSON.stringify(data, null, 2)} catch {
+      return String(data);}
   };
 
   return (
@@ -149,7 +130,7 @@ export const SportsRadarTestPage: React.FC = () => {
         SportsRadar API Integration Test;
       </Typography>
 
-      <Alert severity="info" sx={{ mb: 3 }} key={812886}>
+      <Alert severity="info" sx={{ mb: 3}} key={812886}>
         This page tests all SportsRadar API endpoints to ensure proper;
         integration. Make sure your API key is configured in the environment;
         variables.
@@ -160,7 +141,7 @@ export const SportsRadarTestPage: React.FC = () => {
           variant="contained"
           onClick={runAllTests}
           disabled={isRunning}
-          sx={{ mr: 2 }}
+          sx={{ mr: 2}}
          key={744938}>
           {isRunning ? <CircularProgress size={20} / key={59647}> : "Run All Tests"}
         </Button>
@@ -184,8 +165,7 @@ export const SportsRadarTestPage: React.FC = () => {
                       label={`${test.name} ${test.duration ? `(${test.duration}ms)` : ""}`}
                       color={getStatusColor(test.status)}
                       variant={
-                        test.status === "pending" ? "outlined" : "filled"
-                      }
+                        test.status === "pending" ? "outlined" : "filled"}
                     / key={115651}>
                   ))}
                 </Box>
@@ -262,7 +242,7 @@ export const SportsRadarTestPage: React.FC = () => {
                             test.data;
                               .slice(0, 3)
                               .map((item: any, i: number) => (
-                                <Card key={i} variant="outlined" sx={{ mb: 1 }} key={314929}>
+                                <Card key={i} variant="outlined" sx={{ mb: 1}} key={314929}>
                                   <CardContent key={452065}>
                                     <Typography variant="caption" key={472228}>
                                       Item {i + 1}:
@@ -272,7 +252,7 @@ export const SportsRadarTestPage: React.FC = () => {
                                       sx={{
                                         fontSize: "12px",
                                         overflow: "auto",
-                                        fontFamily: "monospace",
+                                        fontFamily: "monospace"
                                       }}
                                      key={952650}>
                                       {formatJson(item)}
@@ -283,7 +263,7 @@ export const SportsRadarTestPage: React.FC = () => {
                         </Box>
                       )}
 
-                      <Accordion sx={{ mt: 2 }} key={61077}>
+                      <Accordion sx={{ mt: 2}} key={61077}>
                         <AccordionSummary expandIcon={<ExpandMore / key={963648}>}>
                           <Typography variant="caption" key={472228}>
                             Raw Response Data;
@@ -299,7 +279,7 @@ export const SportsRadarTestPage: React.FC = () => {
                               background: "#f5f5f5",
                               padding: "16px",
                               borderRadius: "4px",
-                              fontFamily: "monospace",
+                              fontFamily: "monospace"
                             }}
                            key={891666}>
                             {formatJson(test.data)}
@@ -315,5 +295,9 @@ export const SportsRadarTestPage: React.FC = () => {
         </Grid>
       )}
     </Box>
-  );
-};
+  )};
+
+
+
+
+`

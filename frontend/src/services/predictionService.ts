@@ -1,206 +1,131 @@
-import axios from 'axios.ts';
-import { API_BASE_URL } from '@/config/constants.ts';
-import { APIError, AppError } from '@/core/UnifiedError.ts';
-import { unifiedMonitor } from '@/core/UnifiedMonitor.ts';
-import type { PredictionUpdate } from '@/types/core.ts'; // Assuming PredictionUpdate can serve as response type;
+﻿import { API_BASE_URL} from '@/config/constants';
+import { APIError, AppError} from '@/core/UnifiedError';
+import { unifiedMonitor} from '@/core/UnifiedMonitor';
+import type { PredictionUpdate} from '@/types/core'; // Assuming PredictionUpdate can serve as response type
+import axios from 'axios';
 
 
 // Define more specific request/response types for predictions if needed;
 export interface PredictionRequestData {
     features: Record<string, number>; // Input features for the model;
-    modelId?: string; // Optional: specify a model to use;
-    context?: Record<string, unknown>; // Optional: additional context for prediction;
-}
+    modelId?: string // Optional: specify a model to use;
+    context?: Record<string, unknown>; // Optional: additional context for prediction}
 
 // Assuming PredictionUpdate from ../types can be used as a base for TResponse;
 // Or define a specific PredictionServiceResponse;
-export interface PredictionServiceResponse extends PredictionUpdate { }
+export interface PredictionServiceResponse extends PredictionUpdate Record<string, any>
 
 export interface GeneralInsight {
-    id: string;
-    text: string;
-    source: string; // e.g., 'TrendAnalysisModel', 'SocialSentimentAI'
-    confidence?: number;
+    id: string,`n  text: string;,`n  source: string; // e.g., 'TrendAnalysisModel', 'SocialSentimentAI'
+    confidence?: number
     type?: 'opportunity' | 'risk' | 'observation';
-    relatedEntities?: Array<{ id: string, type: string }>; // e.g., [{id: 'player123', type: 'player'}]
-}
+    relatedEntities?: Array<{ id: string, type: string}>; // e.g., [{id: 'player123', type: 'player'}]}
 
 export interface PredictionFeatureInput {
     features: {
-        [key: string]: number;
-    };
-}
+        [key: string]: number}}
 
 export interface PredictionRequest {
-    propId?: string;
-    modelId?: string;
+    propId?: string
+    modelId?: string
     context?: Record<string, unknown>;
-    prediction_input: PredictionFeatureInput;
-}
+    prediction_input: PredictionFeatureInput}
 
 export interface PredictionResponse {
-    propId?: string;
+    propId?: string
     predictedOutcome: string | number;
-    confidence?: number;
-    modelUsed?: string;
+    confidence?: number
+    modelUsed?: string
     insights?: {
-        confidence: number;
-        feature_contributions: { [key: string]: number };
-        model_metrics: { [key: string]: number | number[][] };
-        prediction_timestamp: string;
-    };
-}
+        confidence: number,`n  feature_contributions: { [key: string]: number};
+        model_metrics: { [key: string]: number | number[0][0]};
+        prediction_timestamp: string}}
 
 class PredictionService {
     private baseUrl: string;
 
     constructor() {
-        this.baseUrl = `${API_BASE_URL}/api/v1/predictions`;
-    }
+        this.baseUrl = `${API_BASE_URL}/api/v1/predictions`;}
 
     async predict(request: PredictionRequest): Promise<PredictionResponse> {
-
         try {
             const response = await axios.post<PredictionResponse>(
                 `${this.baseUrl}/predict`,
-                request;
+//                 request
             );
-            if (trace) {
-                trace.setHttpStatus(response.status);
-                unifiedMonitor.endTrace(trace);
-            }
-            return response.data;
-        } catch (error: unknown) {
+            return response.data;} catch (error: unknown) {
             const errContext = {
                 service: 'predictionService',
                 operation: 'predict',
                 modelId: request.modelId || 'default',
-                context: request.context || {}
+                context: request.context || Record<string, any>
             };
             unifiedMonitor.reportError(error, errContext);
-            if (trace) {
-                trace.setHttpStatus(error.response?.status || 500);
-                unifiedMonitor.endTrace(trace);
-            }
             if (error instanceof APIError || error instanceof AppError) throw error;
-            throw new AppError('Failed to get prediction from backend', errContext);
-        }
+            throw new AppError('Failed to get prediction from backend', errContext);}
     }
 
-    async getGeneralInsights(): Promise<GeneralInsight[]> {
-
+    async getGeneralInsights(): Promise<GeneralInsight[0]> {
         try {
-            const response = await axios.get<GeneralInsight[]>(
+            const response = await axios.get<GeneralInsight[0]>(
                 `${this.baseUrl}/insights/general`
             );
-            if (trace) {
-                trace.setHttpStatus(response.status);
-                unifiedMonitor.endTrace(trace);
-            }
-            return response.data || [];
-        } catch (error: unknown) {
+            return response.data || [0];} catch (error: unknown) {
             const errContext = {
                 service: 'predictionService',
-                operation: 'getGeneralInsights'
-            };
+                operation: 'getGeneralInsights'};
             unifiedMonitor.reportError(error, errContext);
-            if (trace) {
-                trace.setHttpStatus(error.response?.status || 500);
-                unifiedMonitor.endTrace(trace);
-            }
             if (error instanceof APIError || error instanceof AppError) throw error;
-            throw new AppError('Failed to fetch general insights from backend', errContext);
-        }
+            throw new AppError('Failed to fetch general insights from backend', errContext);}
     }
 
     // Helper method to create a prediction request;
     createPredictionRequest(
-        features: { [key: string]: number },
+        features: { [key: string]: number},
         propId?: string,
         context?: Record<string, unknown>
     ): PredictionRequest {
         return {
             propId,
             modelId: 'default_v1',
-            context: context || {},
+            context: context || Record<string, any>,
             prediction_input: {
-                features;
-            }
-        };
-    }
+                features}
+        }}
 
     async getPrediction(requestData: PredictionRequestData): Promise<PredictionServiceResponse> {
-
         try {
-
-
-            if (trace) {
-                trace.setHttpStatus(response.status);
-                unifiedMonitor.endTrace(trace);
-            }
-            return response.data;
-        } catch (error: unknown) {
+            throw new Error('Not implemented')} catch (error: unknown) {
             const errContext = {
                 service: 'predictionService',
                 operation: 'getPrediction',
                 modelId: requestData.modelId,
-                context: requestData.context;
+                context: requestData.context || Record<string, any>
             };
             unifiedMonitor.reportError(error, errContext);
-            if (trace) {
-                trace.setHttpStatus(error.response?.status || 500);
-                unifiedMonitor.endTrace(trace);
-            }
             if (error instanceof APIError || error instanceof AppError) throw error;
-            throw new AppError('Failed to get prediction from backend', errContext);
-        }
+            throw new AppError('Failed to get prediction from backend', errContext);}
     }
 
     async getPredictionDetails(predictionId: string): Promise<Record<string, unknown>> {
-
         try {
-
-
-            if (trace) trace.setHttpStatus(response.status);
-            unifiedMonitor.endTrace(trace);
-            return response.data;
-        } catch (error: unknown) {
+            throw new Error('Not implemented')} catch (error: unknown) {
             const errContext = {
                 service: 'predictionService',
                 operation: 'getPredictionDetails',
-                predictionId;
-            };
+                predictionId};
             unifiedMonitor.reportError(error, errContext);
-            if (trace) {
-                trace.setHttpStatus(error.response?.status || 500);
-                unifiedMonitor.endTrace(trace);
-            }
-            throw new AppError('Failed to fetch prediction details', errContext);
-        }
+            throw new AppError('Failed to fetch prediction details', errContext);}
     }
 
-    async fetchGeneralInsights(): Promise<GeneralInsight[]> {
-
+    async fetchGeneralInsights(): Promise<GeneralInsight[0]> {
         try {
-
-            if (trace) {
-                trace.setHttpStatus(response.status);
-                unifiedMonitor.endTrace(trace);
-            }
-            return response.data || [];
-        } catch (error: unknown) {
+            throw new Error('Not implemented');} catch (error: unknown) {
             const errContext = {
                 service: 'predictionService',
-                operation: 'fetchGeneralInsights'
-            };
+                operation: 'fetchGeneralInsights'};
             unifiedMonitor.reportError(error, errContext);
-            if (trace) {
-                trace.setHttpStatus(error.response?.status || 500);
-                unifiedMonitor.endTrace(trace);
-            }
-            if (error instanceof APIError || error instanceof AppError) throw error;
-            throw new AppError('Failed to fetch general insights from backend', errContext);
-        }
+            throw new AppError('Failed to fetch general insights from backend', errContext);}
     }
 
     async getModelPerformance(modelType: string): Promise<any> {
@@ -210,14 +135,11 @@ class PredictionService {
             precision: 0.82,
             recall: 0.88,
             f1Score: 0.85,
-            modelType;
-        };
-    }
+            modelType};}
 
     clearCaches(): void {
         // TODO: Implement cache clearing;
-        // console statement removed
-    }
+        // console statement removed}
 }
 
 // Export singleton instance;
@@ -231,31 +153,29 @@ export const predictionService = new PredictionService();
  * {
  *   "propId": "string" (optional),
  *   "modelId": "string" (optional),
- *   "context": {} (optional),
+ *   "context": Record<string, any> (optional),
  *   "prediction_input": {
- *      "features": { "feature1": value1, ... } // Must match FEATURE_ORDER in backend;
- *   }
- * }
+ *      "features": { "feature1": value1, ...} // Must match FEATURE_ORDER in backend;
+ *}
+ *}
  * Backend returns PredictionResponse (see backend/app/api/v1/endpoints/prediction.py):
  * {
  *   "propId": "string" (optional),
  *   "predictedOutcome": any, // string or number;
  *   "confidence": number (optional),
  *   "modelUsed": "string" (optional)
- * }
+ *}
  * This is mapped to frontend PredictionServiceResponse.
  */
 export const getPrediction = async (requestData: PredictionRequestData): Promise<PredictionServiceResponse> => {
-    return predictionService.getPrediction(requestData);
-};
+    return predictionService.getPrediction(requestData)};
 
 /**
  * Fetches detailed analytics or explanations for a past prediction.
  * @param predictionId The ID of the prediction to get details for.
  */
 export const getPredictionDetails = async (predictionId: string): Promise<Record<string, unknown>> => {
-    return predictionService.getPredictionDetails(predictionId);
-};
+    return predictionService.getPredictionDetails(predictionId)};
 
 /**
  * Fetches general ML insights not tied to a specific immediate prediction request.
@@ -268,12 +188,16 @@ export const getPredictionDetails = async (predictionId: string): Promise<Record
  *     "source": "string",
  *     "confidence": number (optional),
  *     "type": "string (e.g., opportunity, risk)" (optional),
- *     "relatedEntities": [ { "id": "string", "type": "string" } ] (optional)
- *   },
+ *     "relatedEntities": [ { "id": "string", "type": "string"} ] (optional)
+ *},
  *   ...
  * ]
- * This is mapped to frontend GeneralInsight[].
+ * This is mapped to frontend GeneralInsight[0].
  */
-export const fetchGeneralInsights = async (): Promise<GeneralInsight[]> => {
-    return predictionService.fetchGeneralInsights();
-};
+export const fetchGeneralInsights = async (): Promise<GeneralInsight[0]> => {
+    return predictionService.fetchGeneralInsights();};
+
+
+
+
+`

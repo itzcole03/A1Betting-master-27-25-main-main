@@ -1,34 +1,26 @@
-import React, { useState, useEffect  } from 'react.ts';
-import GlassCard from '@/components/ui/GlassCard.ts';
-import GlowButton from '@/components/ui/GlowButton.ts';
-import Tooltip from '@/components/ui/Tooltip.ts';
+﻿import React, { useState, useEffect} from 'react';
+import GlassCard from '@/components/ui/GlassCard';
+import GlowButton from '@/components/ui/GlowButton';
+import Tooltip from '@/components/ui/Tooltip';
 
 interface Transaction {
-  id: string;
-  date: string;
-  type: 'deposit' | 'withdrawal' | 'win' | 'loss';
-  amount: number;
-  description: string;
-  balance: number;
-}
+  id: string,`n  date: string;,`n  type: 'deposit' | 'withdrawal' | 'win' | 'loss',`n  amount: number;,`n  description: string,`n  balance: number}
 
-const fetchTransactions = async (): Promise<Transaction[] key={441684}> => {
+const fetchTransactions = async (): Promise<Transaction[0] key={441684}> => {
   // Replace with real API call;
 
   if (!res.ok) throw new Error('Failed to fetch transactions');
-  return res.json();
-};
+  return res.json();};
 
 const fetchActiveBetsCount = async (): Promise<number key={430559}> => {
   // Replace with real API call;
 
   if (!res.ok) throw new Error('Failed to fetch active bets count');
 
-  return data.count;
-};
+  return data.count;};
 
 const BankrollPage: React.FC = () => {
-  const [transactions, setTransactions] = useState<Transaction[] key={441684}>([]);
+  const [transactions, setTransactions] = useState<Transaction[0] key={441684}>([0]);
   const [activeBetsCount, setActiveBetsCount] = useState<number key={430559}>(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null key={121216}>(null);
@@ -41,13 +33,10 @@ const BankrollPage: React.FC = () => {
       .then(([txs, betsCount]) => {
         setTransactions(txs);
         setActiveBetsCount(betsCount);
-        setLoading(false);
-      })
+        setLoading(false);})
       .catch((err) => {
         setError(err.message || 'Failed to load data');
-        setLoading(false);
-      });
-  }, []);
+        setLoading(false);});}, [0]);
 
 
 
@@ -61,14 +50,11 @@ const BankrollPage: React.FC = () => {
       case 'win':
         return 'text-green-600 dark:text-green-400';
       case 'loss':
-        return 'text-red-600 dark:text-red-400';
-      default:
-        return 'text-gray-600 dark:text-gray-400';
-    }
+        return 'text-red-600 dark: text-red-400',`n  default: return 'text-gray-600 dark:text-gray-400'}
   };
 
   return (
-    <div className="p-6 space-y-8 min-h-screen bg-gradient-to-br from-green-900/80 to-green-700/80 dark:from-gray-900 dark:to-gray-800 transition-colors" key={64847}>
+    <div className="p-6 space-y-8 min-h-screen bg-gradient-to-br from-green-900/80 to-green-700/80 dark: from-gray-900 dark:to-gray-800 transition-colors" key={64847}>
       <GlassCard className="mb-8" key={170857}>
         <h2 className="text-2xl font-bold text-green-900 dark:text-green-100 mb-4" key={835768}>Bankroll Overview</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6" key={301127}>
@@ -132,7 +118,10 @@ const BankrollPage: React.FC = () => {
         </div>
       </GlassCard>
     </div>
-  );
-};
+  )};
 
 export default BankrollPage;
+
+
+
+`

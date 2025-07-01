@@ -1,5 +1,5 @@
-import { ModelMetadata } from './ModelMetadata.ts';
-import { ModelMetrics } from '@/types/ModelMetrics.ts';
+﻿import { ModelMetadata} from './ModelMetadata';
+import { ModelMetrics} from '@/types/ModelMetrics';
 
 export class ModelVersion {
   private readonly major: number;
@@ -15,7 +15,7 @@ export class ModelVersion {
     minor: number,
     patch: number,
     metadata: ModelMetadata,
-    metrics: ModelMetrics;
+    metrics: ModelMetrics
   ) {
     this.major = major;
     this.minor = minor;
@@ -23,50 +23,39 @@ export class ModelVersion {
     this.metadata = metadata;
     this.metrics = metrics;
     this.createdAt = new Date();
-    this.updatedAt = new Date();
-  }
+    this.updatedAt = new Date();}
 
   public getVersion(): string {
-    return `${this.major}.${this.minor}.${this.patch}`;
-  }
+    return `${this.major}.${this.minor}.${this.patch}`;}
 
   public getMetadata(): ModelMetadata {
-    return this.metadata;
-  }
+    return this.metadata;}
 
   public getMetrics(): ModelMetrics {
-    return this.metrics;
-  }
+    return this.metrics;}
 
   public getCreatedAt(): Date {
-    return this.createdAt;
-  }
+    return this.createdAt;}
 
   public getUpdatedAt(): Date {
-    return this.updatedAt;
-  }
+    return this.updatedAt;}
 
   public isCompatible(other: ModelVersion): boolean {
-    return this.major === other.major;
-  }
+    return this.major === other.major}
 
   public isNewerThan(other: ModelVersion): boolean {
     if (this.major !== other.major) return this.major > other.major;
     if (this.minor !== other.minor) return this.minor > other.minor;
-    return this.patch > other.patch;
-  }
+    return this.patch > other.patch;}
 
   public incrementPatch(): ModelVersion {
-    return new ModelVersion(this.major, this.minor, this.patch + 1, this.metadata, this.metrics);
-  }
+    return new ModelVersion(this.major, this.minor, this.patch + 1, this.metadata, this.metrics);}
 
   public incrementMinor(): ModelVersion {
-    return new ModelVersion(this.major, this.minor + 1, 0, this.metadata, this.metrics);
-  }
+    return new ModelVersion(this.major, this.minor + 1, 0, this.metadata, this.metrics);}
 
   public incrementMajor(): ModelVersion {
-    return new ModelVersion(this.major + 1, 0, 0, this.metadata, this.metrics);
-  }
+    return new ModelVersion(this.major + 1, 0, 0, this.metadata, this.metrics);}
 
   public toJSON(): object {
     return {
@@ -74,9 +63,8 @@ export class ModelVersion {
       metadata: this.metadata,
       metrics: this.metrics,
       createdAt: this.createdAt.toISOString(),
-      updatedAt: this.updatedAt.toISOString(),
-    };
-  }
+      updatedAt: this.updatedAt.toISOString()
+    }}
 
   public static fromJSON(json: any): ModelVersion {
     return new ModelVersion(
@@ -85,6 +73,9 @@ export class ModelVersion {
       json.version.split('.')[2],
       json.metadata,
       json.metrics;
-    );
-  }
+    );}
 }
+
+
+
+`

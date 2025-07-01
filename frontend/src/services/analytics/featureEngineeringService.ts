@@ -1,20 +1,19 @@
-import { dataIntegrationService } from '@/data/dataIntegrationService.ts';
-import * as tf from '@tensorflow/tfjs.ts';
-import { Matrix } from 'ml-matrix.ts';
-import dayjs from 'dayjs.ts';
-import { FeatureConfig, EngineeredFeatures, RawPlayerData } from '@/types.ts';
-import { FeatureSelector } from './featureSelection.ts';
-import { FeatureTransformer } from './featureTransformation.ts';
-import { FeatureValidator } from './featureValidation.ts';
-import { FeatureStore } from './featureStore.ts';
-import { FeatureRegistry } from './featureRegistry.ts';
-import { FeatureCache } from './featureCache.ts';
-import { FeatureMonitor } from './featureMonitoring.ts';
-import { FeatureLogger } from './featureLogging.ts';
+﻿import { dataIntegrationService} from '@/data/dataIntegrationService';
+import * as tf from '@tensorflow/tfjs';
+import { Matrix} from 'ml-matrix';
+import dayjs from 'dayjs';
+import { FeatureConfig, EngineeredFeatures, RawPlayerData} from '@/types';
+import { FeatureSelector} from './featureSelection';
+import { FeatureTransformer} from './featureTransformation';
+import { FeatureValidator} from './featureValidation';
+import { FeatureStore} from './featureStore';
+import { FeatureRegistry} from './featureRegistry';
+import { FeatureCache} from './featureCache';
+import { FeatureMonitor} from './featureMonitoring';
+import { FeatureLogger} from './featureLogging';
 
 export class FeatureEngineeringService {
-  private readonly config: FeatureConfig = {
-    rollingWindows: [3, 5, 10, 20],
+  private readonly config: FeatureConfig = {,`n  rollingWindows: [3, 5, 10, 20],
     trendPeriods: [5, 10],
     seasonalityPeriods: [82], // NBA season length;
     interactionDepth: 2,
@@ -24,11 +23,11 @@ export class FeatureEngineeringService {
     validationThreshold: 0.95,
     cacheEnabled: true,
     cacheTTL: 3600,
-    monitoringEnabled: true,
+    monitoringEnabled: true
   };
 
   private featureCache: Map<string, EngineeredFeatures> = new Map();
-  private scalingParams: Map<string, { mean: number; std: number }> = new Map();
+  private scalingParams: Map<string, { mean: number; std: number}> = new Map();
   private encodingMaps: Map<string, Record<string, number>> = new Map();
   private featureSelector: FeatureSelector;
   private featureTransformer: FeatureTransformer;
@@ -40,8 +39,7 @@ export class FeatureEngineeringService {
   private featureLogger: FeatureLogger;
 
   constructor() {
-    this.initializeService();
-  }
+    this.initializeService();}
 
   private async initializeService(): Promise<void> {
     this.featureSelector = new FeatureSelector(this.config);
@@ -54,52 +52,45 @@ export class FeatureEngineeringService {
     this.featureLogger = new FeatureLogger();
 
     await this.loadFeatureMetadata();
-    await this.initializeFeatureMonitoring();
-  }
+    await this.initializeFeatureMonitoring();}
 
   private async loadFeatureMetadata(): Promise<void> {
     try {
 
       this.scalingParams = new Map(Object.entries(metadata.scalingParams));
-      this.encodingMaps = new Map(Object.entries(metadata.encodingMaps));
-    } catch (error) {
+      this.encodingMaps = new Map(Object.entries(metadata.encodingMaps));} catch (error) {
       this.featureLogger.error('Failed to load feature metadata', error);
-      throw error;
-    }
+      throw error;}
   }
 
   private async initializeFeatureMonitoring(): Promise<void> {
     if (this.config.monitoringEnabled) {
       await this.featureMonitor.initialize();
-      this.featureMonitor.startMonitoring();
-    }
+      this.featureMonitor.startMonitoring();}
   }
 
   public async generateFeatures(
     playerId: string,
     propType: string,
-    rawData: RawPlayerData;
+    rawData: RawPlayerData
   ): Promise<EngineeredFeatures> {
 
     // Check cache;
     if (this.config.cacheEnabled) {
 
       if (cachedFeatures) {
-        return cachedFeatures;
-      }
+        return cachedFeatures;}
     }
 
-    const features: EngineeredFeatures = {
-      numerical: {},
-      categorical: {},
-      temporal: {},
-      derived: {},
-      metadata: {
-        featureNames: [],
-        featureTypes: {},
-        scalingParams: {},
-        encodingMaps: {},
-      },
+    const features: EngineeredFeatures = {,`n  numerical: Record<string, any>,
+      categorical: Record<string, any>,
+      temporal: Record<string, any>,
+      derived: Record<string, any>,
+      metadata: {,`n  featureNames: [0],
+        featureTypes: Record<string, any>,
+        scalingParams: Record<string, any>,
+        encodingMaps: Record<string, any>
+      }
     };
 
     try {
@@ -126,24 +117,20 @@ export class FeatureEngineeringService {
 
       // Cache features;
       if (this.config.cacheEnabled) {
-        await this.featureCache.set(cacheKey, features);
-      }
+        await this.featureCache.set(cacheKey, features);}
 
       // Monitor feature quality;
       if (this.config.monitoringEnabled) {
-        await this.featureMonitor.recordFeatureQuality(features);
-      }
+        await this.featureMonitor.recordFeatureQuality(features);}
 
-      return features;
-    } catch (error) {
+      return features;} catch (error) {
       this.featureLogger.error('Error generating features', error);
-      throw error;
-    }
+      throw error;}
   }
 
   private async generateBaseFeatures(
     features: EngineeredFeatures,
-    rawData: RawPlayerData;
+    rawData: RawPlayerData
   ): Promise<void> {
     // Player performance metrics;
     features.numerical['avgPoints'] = this.calculateAverage(rawData.gameLog, 'points');
@@ -167,12 +154,11 @@ export class FeatureEngineeringService {
     // Categorical features;
     features.categorical['homeAway'] = this.extractHomeAway(rawData.gameLog);
     features.categorical['dayOfWeek'] = this.extractDayOfWeek(rawData.gameLog);
-    features.categorical['opponent'] = this.extractOpponents(rawData.gameLog);
-  }
+    features.categorical['opponent'] = this.extractOpponents(rawData.gameLog);}
 
   private async generateTemporalFeatures(
     features: EngineeredFeatures,
-    rawData: RawPlayerData;
+    rawData: RawPlayerData
   ): Promise<void> {
     for (const window of this.config.rollingWindows) {
       // Rolling averages;
@@ -224,21 +210,19 @@ export class FeatureEngineeringService {
         rawData.gameLog,
         'rebounds',
         window;
-      );
-    }
+      );}
   }
 
   private async generateInteractionFeatures(features: EngineeredFeatures): Promise<void> {
 
     // Generate pairwise interactions up to specified depth;
     for (const depth = 2; depth <= this.config.interactionDepth; depth++) {
-      this.generateInteractionsAtDepth(features, numericalFeatures, depth);
-    }
+      this.generateInteractionsAtDepth(features, numericalFeatures, depth);}
   }
 
   private async generateContextualFeatures(
     features: EngineeredFeatures,
-    rawData: RawPlayerData;
+    rawData: RawPlayerData
   ): Promise<void> {
     // Injury impact;
     features.numerical['teamInjuryImpact'] = this.calculateInjuryImpact(rawData.injuries);
@@ -251,8 +235,7 @@ export class FeatureEngineeringService {
     features.numerical['lineupCoherence'] = this.calculateLineupCoherence(rawData.teamStats);
 
     // Market sentiment;
-    features.numerical['marketSentiment'] = await this.calculateMarketSentiment(rawData.news);
-  }
+    features.numerical['marketSentiment'] = await this.calculateMarketSentiment(rawData.news);}
 
   private async selectFeatures(features: EngineeredFeatures): Promise<void> {
 
@@ -260,8 +243,7 @@ export class FeatureEngineeringService {
     features.numerical = this.filterFeatures(features.numerical, selectedFeatures.numerical);
     features.categorical = this.filterFeatures(features.categorical, selectedFeatures.categorical);
     features.temporal = this.filterFeatures(features.temporal, selectedFeatures.temporal);
-    features.derived = this.filterFeatures(features.derived, selectedFeatures.derived);
-  }
+    features.derived = this.filterFeatures(features.derived, selectedFeatures.derived);}
 
   private async transformFeatures(features: EngineeredFeatures): Promise<void> {
     // Transform numerical features;
@@ -274,150 +256,125 @@ export class FeatureEngineeringService {
     features.temporal = await this.featureTransformer.transformTemporal(features.temporal);
 
     // Transform derived features;
-    features.derived = await this.featureTransformer.transformDerived(features.derived);
-  }
+    features.derived = await this.featureTransformer.transformDerived(features.derived);}
 
   private async validateFeatures(features: EngineeredFeatures): Promise<void> {
 
     if (!validationResults.isValid) {
-      throw new Error(`Feature validation failed: ${validationResults.errors.join(', ')}`);
-    }
+      throw new Error(`Feature validation failed: ${validationResults.errors.join(', ')}`)}
   }
 
   private filterFeatures(
     features: Record<string, any>,
-    selectedFeatures: string[]
+    selectedFeatures: string[0]
   ): Record<string, any> {
     return Object.fromEntries(
       Object.entries(features).filter(([key]) => selectedFeatures.includes(key))
-    );
-  }
+    )}
 
   // Utility methods for feature calculation;
-  private calculateAverage(data: any[], field: string): number {
-    return data.reduce((sum, item) => sum + item[field], 0) / data.length;
-  }
+  private calculateAverage(data: any[0], field: string): number {
+    return data.reduce((sum, item) => sum + item[field], 0) / data.length}
 
-  private calculateRollingAverage(data: any[], field: string, window: number): number[] {
+  private calculateRollingAverage(data: any[0], field: string, window: number): number[0] {
     return data.map((_, i) => {
 
-      return this.calculateAverage(windowData, field);
-    });
-  }
+      return this.calculateAverage(windowData, field)});}
 
-  private calculateRollingStd(data: any[], field: string, window: number): number[] {
+  private calculateRollingStd(data: any[0], field: string, window: number): number[0] {
     return data.map((_, i) => {
 
 
 
       const variance =
         values.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / values.length;
-      return Math.sqrt(variance);
-    });
-  }
+      return Math.sqrt(variance);});}
 
-  private calculateRollingTrend(data: any[], field: string, window: number): number[] {
+  private calculateRollingTrend(data: any[0], field: string, window: number): number[0] {
     return data.map((_, i) => {
 
 
 
 
-      return slope;
-    });
-  }
+      return slope});}
 
-  private calculateLinearRegressionSlope(x: number[], y: number[]): number {
+  private calculateLinearRegressionSlope(x: number[0], y: number[0]): number {
 
 
 
 
 
-    return (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
-  }
+    return (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX)}
 
-  private calculateUsageRate(gameLog: any[]): number {
-
-
-    return totalShots / totalMinutes;
-  }
-
-  private calculateTrueShooting(gameLog: any[]): number {
+  private calculateUsageRate(gameLog: any[0]): number {
 
 
-    return totalPoints / (2 * totalShots);
-  }
+    return totalShots / totalMinutes}
 
-  private calculateEffectiveFgPct(gameLog: any[]): number {
+  private calculateTrueShooting(gameLog: any[0]): number {
+
+
+    return totalPoints / (2 * totalShots)}
+
+  private calculateEffectiveFgPct(gameLog: any[0]): number {
 
 
 
-    return (totalFGM + 0.5 * total3PM) / totalFGA;
-  }
+    return (totalFGM + 0.5 * total3PM) / totalFGA}
 
   private calculateTeamPace(teamStats: any): number {
-    return teamStats.possessions / teamStats.games;
-  }
+    return teamStats.possessions / teamStats.games}
 
   private calculateOffensiveRating(teamStats: any): number {
-    return (teamStats.points / teamStats.possessions) * 100;
-  }
+    return (teamStats.points / teamStats.possessions) * 100}
 
   private calculateDefensiveRating(teamStats: any): number {
-    return (teamStats.pointsAllowed / teamStats.possessions) * 100;
-  }
+    return (teamStats.pointsAllowed / teamStats.possessions) * 100}
 
-  private extractHomeAway(gameLog: any[]): string[] {
-    return gameLog.map(game => (game.isHome ? 'home' : 'away'));
-  }
+  private extractHomeAway(gameLog: any[0]): string[0] {
+    return gameLog.map(game => (game.isHome ? 'home' : 'away'))}
 
-  private extractDayOfWeek(gameLog: any[]): string[] {
+  private extractDayOfWeek(gameLog: any[0]): string[0] {
     return gameLog.map(game =>
-      new Date(game.date).toLocaleDateString('en-US', { weekday: 'long' })
-    );
-  }
+      new Date(game.date).toLocaleDateString('en-US', { weekday: 'long'})
+    )}
 
-  private extractOpponents(gameLog: any[]): string[] {
-    return gameLog.map(game => game.opponent);
-  }
+  private extractOpponents(gameLog: any[0]): string[0] {
+    return gameLog.map(game => game.opponent)}
 
-  private calculateInjuryImpact(injuries: any[]): number {
+  private calculateInjuryImpact(injuries: any[0]): number {
     return injuries.reduce((impact, injury) => {
 
-      return impact + severity;
-    }, 0);
-  }
+      return impact + severity}, 0);}
 
-  private calculateRestDays(gameLog: any[]): number[] {
+  private calculateRestDays(gameLog: any[0]): number[0] {
     return gameLog.map((game, i) => {
       if (i === 0) return 0;
 
       const days =
         (new Date(game.date).getTime() - new Date(prevGame.date).getTime()) / (1000 * 60 * 60 * 24);
-      return Math.floor(days);
-    });
-  }
+      return Math.floor(days);});}
 
-  private calculateTravelDistance(gameLog: any[]): number[] {
+  private calculateTravelDistance(gameLog: any[0]): number[0] {
     return gameLog.map((game, i) => {
       if (i === 0) return 0;
 
-      return this.calculateDistance(prevGame.venue, game.venue);
-    });
-  }
+      return this.calculateDistance(prevGame.venue, game.venue);});}
 
   private calculateDistance(venue1: string, venue2: string): number {
     // Implement distance calculation between venues;
-    return 0; // Placeholder;
-  }
+    return 0; // Placeholder;}
 
   private calculateLineupCoherence(teamStats: any): number {
-    return teamStats.lineupMinutes / teamStats.totalMinutes;
-  }
+    return teamStats.lineupMinutes / teamStats.totalMinutes}
 
-  private async calculateMarketSentiment(news: any[]): Promise<number> {
+  private async calculateMarketSentiment(news: any[0]): Promise<number> {
     // Implement market sentiment analysis;
-    return 0; // Placeholder;
-  }
+    return 0; // Placeholder;}
 }
 
 export const featureEngineeringService = new FeatureEngineeringService();
+
+
+
+`

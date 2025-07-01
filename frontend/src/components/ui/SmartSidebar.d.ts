@@ -1,7 +1,8 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface SmartSidebarProps {
-    isOpen: boolean;
-    onClose: () => void;
-}
+  isOpen: boolean,`n  onClose: () => void}
 export declare const SmartSidebar: React.FC<SmartSidebarProps>;
-export {};
+export Record<string, any>;
+
+
+`

@@ -1,4 +1,4 @@
-// ============================================================================
+﻿// ============================================================================
 // UNIVERSAL SERVICE LAYER EXPORTS;
 // ============================================================================
 
@@ -9,8 +9,8 @@ export {
   UniversalUserService,
   UniversalAnalyticsService,
   createQueryKeys,
-  defaultQueryConfig,
-} from './UniversalServiceLayer.ts';
+//   defaultQueryConfig
+} from './UniversalServiceLayer';
 
 export type {
   APIResponse,
@@ -19,11 +19,11 @@ export type {
   Prediction,
   EngineMetrics,
   BetOpportunity,
-  UserProfile,
-} from './UniversalServiceLayer.ts';
+//   UserProfile
+} from './UniversalServiceLayer';
 
 // Default export;
-export { default } from './UniversalServiceLayer.ts';
+export { default} from './UniversalServiceLayer';
 
 // ============================================================================
 // CONVENIENCE EXPORTS;
@@ -53,3 +53,7 @@ export const ApiService = bettingService;
  * @deprecated Use UniversalServiceFactory.getUserService() instead;
  */
 export const authService = userService;
+
+
+
+

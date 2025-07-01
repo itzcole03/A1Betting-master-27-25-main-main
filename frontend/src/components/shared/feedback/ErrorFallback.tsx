@@ -1,8 +1,8 @@
-import React from 'react.ts';
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline.ts';
-import { FallbackProps } from 'react-error-boundary.ts';
+﻿import React from 'react';
+import { ExclamationTriangleIcon} from '@heroicons/react/24/outline';
+import { FallbackProps} from 'react-error-boundary';
 
-export default function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
+export default function ErrorFallback({ error, resetErrorBoundary}: FallbackProps) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8" key={117216}>
       <div className="max-w-md w-full space-y-8 text-center" key={886450}>
@@ -23,5 +23,7 @@ export default function ErrorFallback({ error, resetErrorBoundary }: FallbackPro
         </div>
       </div>
     </div>
-  );
-}
+  );}
+
+
+

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+﻿import React, { useState} from 'react';
+import { motion} from 'framer-motion';
 import {
   User,
   Mail,
@@ -13,50 +13,33 @@ import {
   Lock,
   Eye,
   EyeOff,
-  Save,
+//   Save
 } from 'lucide-react';
 
 interface User {
-  id: number;
-  email: string;
-  username: string;
-  fullName: string;
-  phone?: string;
-  address?: string;
-  dateOfBirth?: string;
-  profilePicture?: string;
-  tier: string;
-  memberSince: string;
-  balance: number;
-  totalBets: number;
-  totalWinnings: number;
-  winRate: number;
-}
+  id: number,`n  email: string;,`n  username: string,`n  fullName: string;
+  phone?: string
+  address?: string
+  dateOfBirth?: string
+  profilePicture?: string
+  tier: string,`n  memberSince: string;,`n  balance: number,`n  totalBets: number;,`n  totalWinnings: number,`n  winRate: number}
 
 interface UpdateUserData {
-  fullName?: string;
-  email?: string;
-  phone?: string;
-  address?: string;
-  dateOfBirth?: string;
-  password?: string;
+  fullName?: string
+  email?: string
+  phone?: string
+  address?: string
+  dateOfBirth?: string
+  password?: string
   notifications?: {
-    email: boolean;
-    sms: boolean;
-    push: boolean;
-  };
+    email: boolean,`n  sms: boolean;,`n  push: boolean};
   privacy?: {
-    profileVisible: boolean;
-    showStats: boolean;
-  };
-}
+    profileVisible: boolean,`n  showStats: boolean}}
 
 interface UserProfileProps {
-  user: User;
-  onUpdateProfile: (data: UpdateUserData) => Promise<boolean>;
-}
+  user: User,`n  onUpdateProfile: (data: UpdateUserData) => Promise<boolean>}
 
-const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile }) => {
+const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile}) => {
   const [activeTab, setActiveTab] = useState<string>('profile');
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -69,15 +52,13 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile }) => {
     address: user.address || '',
     dateOfBirth: user.dateOfBirth || '',
     password: '',
-    notifications: {
-      email: true,
+    notifications: {,`n  email: true,
       sms: false,
-      push: true,
+      push: true
     },
-    privacy: {
-      profileVisible: true,
-      showStats: true,
-    },
+    privacy: {,`n  profileVisible: true,
+      showStats: true
+    }
   });
 
   const handleSave = async () => {
@@ -86,22 +67,18 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile }) => {
       const success = await onUpdateProfile(formData);
       if (success) {
         setIsEditing(false);
-        alert('Profile updated successfully!');
-      } else {
-        alert('Failed to update profile. Please try again.');
-      }
+        alert('Profile updated successfully!')} else {
+        alert('Failed to update profile. Please try again.')}
     } catch (error) {
-      alert('An error occurred while updating your profile.');
-    } finally {
-      setIsLoading(false);
-    }
+      alert('An error occurred while updating your profile.')} finally {
+      setIsLoading(false)}
   };
 
   const tabs = [
-    { id: 'profile', label: 'Profile', icon: <User className='w-4 h-4' /> },
-    { id: 'account', label: 'Account', icon: <CreditCard className='w-4 h-4' /> },
-    { id: 'settings', label: 'Settings', icon: <Settings className='w-4 h-4' /> },
-    { id: 'security', label: 'Security', icon: <Shield className='w-4 h-4' /> },
+    { id: 'profile', label: 'Profile', icon: <User className='w-4 h-4' />},
+    { id: 'account', label: 'Account', icon: <CreditCard className='w-4 h-4' />},
+    { id: 'settings', label: 'Settings', icon: <Settings className='w-4 h-4' />},
+    { id: 'security', label: 'Security', icon: <Shield className='w-4 h-4' />},
   ];
 
   return (
@@ -110,8 +87,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile }) => {
         {/* Header */}
         <motion.div
           className='mb-8'
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: -20}}
+          animate={{ opacity: 1, y: 0}}
         >
           <h1 className='text-4xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mb-2'>
             Your Profile
@@ -122,8 +99,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile }) => {
         {/* Profile Header Card */}
         <motion.div
           className='bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-6 mb-8'
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 20}}
+          animate={{ opacity: 1, y: 0}}
         >
           <div className='flex items-center space-x-6'>
             <div className='w-20 h-20 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center'>
@@ -171,14 +148,11 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile }) => {
         <div className='bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl mb-8'>
           <div className='flex border-b border-white/10'>
             {tabs.map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+              <button key={tab.id}>`n                onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center space-x-2 px-6 py-4 transition-all ${
                   activeTab === tab.id
                     ? 'text-yellow-400 border-b-2 border-yellow-400'
-                    : 'text-gray-400 hover:text-white'
-                }`}
+                    : 'text-gray-400 hover:text-white'}`}
               >
                 {tab.icon}
                 <span>{tab.label}</span>
@@ -192,8 +166,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile }) => {
               <div className='space-y-6'>
                 <div className='flex items-center justify-between'>
                   <h3 className='text-xl font-semibold text-white'>Personal Information</h3>
-                  <button
-                    onClick={() => setIsEditing(!isEditing)}
+                  <button onClick={() => setIsEditing(!isEditing)}
                     className='px-4 py-2 bg-yellow-500/20 text-yellow-400 rounded-lg hover:bg-yellow-500/30 transition-all'
                   >
                     {isEditing ? 'Cancel' : 'Edit Profile'}
@@ -205,10 +178,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile }) => {
                     <label className='block text-gray-400 text-sm mb-2'>Full Name</label>
                     <div className='relative'>
                       <User className='absolute left-3 top-3 w-4 h-4 text-gray-400' />
-                      <input
-                        type='text'
-                        value={formData.fullName}
-                        onChange={e => setFormData({ ...formData, fullName: e.target.value })}
+                      <input type='text'
+                        value={formData.fullName}>`n                        onChange={e => setFormData({ ...formData, fullName: e.target.value})}
                         disabled={!isEditing}
                         className='w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50'
                       />
@@ -219,10 +190,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile }) => {
                     <label className='block text-gray-400 text-sm mb-2'>Email</label>
                     <div className='relative'>
                       <Mail className='absolute left-3 top-3 w-4 h-4 text-gray-400' />
-                      <input
-                        type='email'
-                        value={formData.email}
-                        onChange={e => setFormData({ ...formData, email: e.target.value })}
+                      <input type='email'
+                        value={formData.email}>`n                        onChange={e => setFormData({ ...formData, email: e.target.value})}
                         disabled={!isEditing}
                         className='w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50'
                       />
@@ -233,10 +202,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile }) => {
                     <label className='block text-gray-400 text-sm mb-2'>Phone</label>
                     <div className='relative'>
                       <Phone className='absolute left-3 top-3 w-4 h-4 text-gray-400' />
-                      <input
-                        type='tel'
-                        value={formData.phone}
-                        onChange={e => setFormData({ ...formData, phone: e.target.value })}
+                      <input type='tel'
+                        value={formData.phone}>`n                        onChange={e => setFormData({ ...formData, phone: e.target.value})}
                         disabled={!isEditing}
                         className='w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50'
                       />
@@ -247,10 +214,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile }) => {
                     <label className='block text-gray-400 text-sm mb-2'>Date of Birth</label>
                     <div className='relative'>
                       <Calendar className='absolute left-3 top-3 w-4 h-4 text-gray-400' />
-                      <input
-                        type='date'
-                        value={formData.dateOfBirth}
-                        onChange={e => setFormData({ ...formData, dateOfBirth: e.target.value })}
+                      <input type='date'
+                        value={formData.dateOfBirth}>`n                        onChange={e => setFormData({ ...formData, dateOfBirth: e.target.value})}
                         disabled={!isEditing}
                         className='w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50'
                       />
@@ -261,10 +226,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile }) => {
                     <label className='block text-gray-400 text-sm mb-2'>Address</label>
                     <div className='relative'>
                       <MapPin className='absolute left-3 top-3 w-4 h-4 text-gray-400' />
-                      <input
-                        type='text'
-                        value={formData.address}
-                        onChange={e => setFormData({ ...formData, address: e.target.value })}
+                      <input type='text'
+                        value={formData.address}>`n                        onChange={e => setFormData({ ...formData, address: e.target.value})}
                         disabled={!isEditing}
                         className='w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50'
                       />
@@ -274,18 +237,17 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile }) => {
 
                 {isEditing && (
                   <div className='flex justify-end space-x-4'>
-                    <button
-                      onClick={() => setIsEditing(false)}
+                    <button onClick={() => setIsEditing(false)}
                       className='px-6 py-2 bg-gray-500/20 text-gray-400 rounded-lg hover:bg-gray-500/30 transition-all'
                     >
-                      Cancel
+//                       Cancel
                     </button>
                     <motion.button
                       onClick={handleSave}
                       disabled={isLoading}
                       className='px-6 py-2 bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-semibold rounded-lg hover:from-yellow-400 hover:to-yellow-500 transition-all disabled:opacity-50 flex items-center'
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileHover={{ scale: 1.05}}
+                      whileTap={{ scale: 0.95}}
                     >
                       <Save className='w-4 h-4 mr-2' />
                       {isLoading ? 'Saving...' : 'Save Changes'}
@@ -310,15 +272,12 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile }) => {
                       </div>
                     </div>
                     <label className='relative inline-flex items-center cursor-pointer'>
-                      <input
-                        type='checkbox'
-                        checked={formData.notifications?.email}
-                        onChange={e =>
+                      <input type='checkbox'
+                        checked={formData.notifications?.email}>`n                        onChange={e =>
                           setFormData({
                             ...formData,
-                            notifications: { ...formData.notifications!, email: e.target.checked },
-                          })
-                        }
+                            notifications: { ...formData.notifications!, email: e.target.checked}
+                          })}
                         className='sr-only peer'
                       />
                       <div className="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-500"></div>
@@ -336,15 +295,12 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile }) => {
                       </div>
                     </div>
                     <label className='relative inline-flex items-center cursor-pointer'>
-                      <input
-                        type='checkbox'
-                        checked={formData.notifications?.push}
-                        onChange={e =>
+                      <input type='checkbox'
+                        checked={formData.notifications?.push}>`n                        onChange={e =>
                           setFormData({
                             ...formData,
-                            notifications: { ...formData.notifications!, push: e.target.checked },
-                          })
-                        }
+                            notifications: { ...formData.notifications!, push: e.target.checked}
+                          })}
                         className='sr-only peer'
                       />
                       <div className="w-11 h-6 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-500"></div>
@@ -363,16 +319,12 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile }) => {
                   <label className='block text-gray-400 text-sm mb-2'>Change Password</label>
                   <div className='relative'>
                     <Lock className='absolute left-3 top-3 w-4 h-4 text-gray-400' />
-                    <input
-                      type={showPassword ? 'text' : 'password'}
-                      value={formData.password}
-                      onChange={e => setFormData({ ...formData, password: e.target.value })}
+                    <input type={showPassword ? 'text' : 'password'}
+                      value={formData.password}>`n                      onChange={e => setFormData({ ...formData, password: e.target.value})}
                       placeholder='Enter new password'
                       className='w-full pl-10 pr-12 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400'
                     />
-                    <button
-                      type='button'
-                      onClick={() => setShowPassword(!showPassword)}
+                    <button type='button'>`n                      onClick={() => setShowPassword(!showPassword)}
                       className='absolute right-3 top-3 text-gray-400 hover:text-white'
                     >
                       {showPassword ? <EyeOff className='w-4 h-4' /> : <Eye className='w-4 h-4' />}
@@ -383,8 +335,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile }) => {
                 <motion.button
                   onClick={handleSave}
                   className='px-6 py-2 bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-semibold rounded-lg hover:from-yellow-400 hover:to-yellow-500 transition-all flex items-center'
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.05}}
+                  whileTap={{ scale: 0.95}}
                 >
                   <Shield className='w-4 h-4 mr-2' />
                   Update Security
@@ -395,13 +347,11 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )};
 
 // Default component with mock data
 const UserProfileWithMockData: React.FC = () => {
-  const mockUser: User = {
-    id: 1,
+  const mockUser: User = {,`n  id: 1,
     email: 'elite@example.com',
     username: 'elitebettor',
     fullName: 'Elite Bettor',
@@ -413,18 +363,21 @@ const UserProfileWithMockData: React.FC = () => {
     balance: 2500.0,
     totalBets: 127,
     totalWinnings: 8450.75,
-    winRate: 78.5,
+    winRate: 78.5
   };
 
   const handleUpdateProfile = async (data: UpdateUserData): Promise<boolean> => {
     // Mock API call
     await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log('Updating profile with:', data);
-    return true;
-  };
 
-  return <UserProfile user={mockUser} onUpdateProfile={handleUpdateProfile} />;
-};
+    return true};
+
+  return <UserProfile user={mockUser} onUpdateProfile={handleUpdateProfile} />};
 
 export default UserProfileWithMockData;
-export { UserProfile };
+export { UserProfile};
+
+
+
+
+`

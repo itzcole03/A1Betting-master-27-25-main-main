@@ -1,33 +1,27 @@
-import axios from 'axios.ts';
-import { toast } from 'react-toastify.ts';
-import UnifiedPredictionService from './predictionService.ts';
-import UnifiedBettingService from './bettingService.ts';
+﻿import axios from 'axios';
+import { toast} from 'react-toastify';
+import UnifiedPredictionService from './predictionService';
+import UnifiedBettingService from './bettingService';
 import type {
   BettingMetrics,
   ModelPerformance,
   BettingStats,
   LineMovement,
-  ArbitrageOpportunity,
-} from '@/types/betting.ts';
+//   ArbitrageOpportunity
+} from '@/types/betting';
 
 interface AnalyticsConfig {
-  autoRefresh: boolean;
-  refreshInterval: number;
-  metricsWindow: "day" | "week" | "month" | "year";
-  includeArbitrage: boolean;
-  includeLineMovement: boolean;
-}
+  autoRefresh: boolean,`n  refreshInterval: number;,`n  metricsWindow: 'day' | 'week' | 'month' | 'year',`n  includeArbitrage: boolean;,`n  includeLineMovement: boolean}
 
 class UnifiedAnalyticsService {
   private static instance: UnifiedAnalyticsService | null = null;
   private readonly predictionService: UnifiedPredictionService;
   private readonly bettingService: UnifiedBettingService;
-  private config: AnalyticsConfig = {
-    autoRefresh: true,
+  private config: AnalyticsConfig = {,`n  autoRefresh: true,
     refreshInterval: 30000,
-    metricsWindow: "week",
+    metricsWindow: 'week',
     includeArbitrage: true,
-    includeLineMovement: true,
+    includeLineMovement: true
   };
 
   private readonly apiUrl: string;
@@ -35,31 +29,26 @@ class UnifiedAnalyticsService {
   private lastUpdate: number = 0;
 
   protected constructor() {
-    this.apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8000";
+    this.apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
     this.predictionService = UnifiedPredictionService.getInstance();
-    this.bettingService = UnifiedBettingService.getInstance();
-  }
+    this.bettingService = UnifiedBettingService.getInstance();}
 
   public static getInstance(): UnifiedAnalyticsService {
     if (!UnifiedAnalyticsService.instance) {
-      UnifiedAnalyticsService.instance = new UnifiedAnalyticsService();
-    }
-    return UnifiedAnalyticsService.instance;
-  }
+      UnifiedAnalyticsService.instance = new UnifiedAnalyticsService();}
+    return UnifiedAnalyticsService.instance;}
 
   public async getBettingMetrics(): Promise<BettingMetrics> {
     try {
       const response = await axios.get(`${this.apiUrl}/api/analytics/metrics`, {
-        params: { window: this.config.metricsWindow },
+        params: { window: this.config.metricsWindow}
       });
-      this.metricsCache.set("metrics", response.data);
+      this.metricsCache.set('metrics', response.data);
       this.lastUpdate = Date.now();
-      return response.data;
-    } catch (error) {
+      return response.data;} catch (error) {
       // console statement removed
-      toast.error("Failed to fetch betting metrics");
-      return this.metricsCache.get("metrics") || this.getDefaultMetrics();
-    }
+      toast.error('Failed to fetch betting metrics');
+      return this.metricsCache.get('metrics') || this.getDefaultMetrics();}
   }
 
   private getDefaultMetrics(): BettingMetrics {
@@ -74,34 +63,27 @@ class UnifiedAnalyticsService {
       average_odds: 0,
       average_stake: 0,
       risk_score: 0,
-      timestamp: new Date().toISOString(),
-    };
-  }
+      timestamp: new Date().toISOString()
+    }}
 
-  public async getModelPerformance(): Promise<ModelPerformance[]> {
+  public async getModelPerformance(): Promise<ModelPerformance[0]> {
     try {
-      const response = await axios.get(
-        `${this.apiUrl}/api/analytics/model-performance`,
-      );
-      this.metricsCache.set("modelPerformance", response.data);
-      return response.data;
-    } catch (error) {
+      const response = await axios.get(`${this.apiUrl}/api/analytics/model-performance`);
+      this.metricsCache.set('modelPerformance', response.data);
+      return response.data;} catch (error) {
       // console statement removed
-      return this.metricsCache.get("modelPerformance") || [];
-    }
+      return this.metricsCache.get('modelPerformance') || [0];}
   }
 
   public async getBettingStats(): Promise<BettingStats> {
     try {
       const response = await axios.get(`${this.apiUrl}/api/analytics/stats`, {
-        params: { window: this.config.metricsWindow },
+        params: { window: this.config.metricsWindow}
       });
-      this.metricsCache.set("stats", response.data);
-      return response.data;
-    } catch (error) {
+      this.metricsCache.set('stats', response.data);
+      return response.data;} catch (error) {
       // console statement removed
-      return this.metricsCache.get("stats") || this.getDefaultStats();
-    }
+      return this.metricsCache.get('stats') || this.getDefaultStats();}
   }
 
   private getDefaultStats(): BettingStats {
@@ -111,103 +93,78 @@ class UnifiedAnalyticsService {
       average_odds: 0,
       total_profit: 0,
       roi: 0,
-      best_performing_model: "",
-      worst_performing_model: "",
-      time_period: this.config.metricsWindow,
-    };
-  }
+      best_performing_model: '',
+      worst_performing_model: '',
+      time_period: this.config.metricsWindow
+    }}
 
-  public async getLineMovements(marketId: string): Promise<LineMovement[]> {
+  public async getLineMovements(marketId: string): Promise<LineMovement[0]> {
     if (!this.config.includeLineMovement) {
-      return [];
-    }
+      return [0]}
 
     try {
-      const response = await axios.get(
-        `${this.apiUrl}/api/analytics/line-movements`,
-        {
-          params: { market_id: marketId },
-        },
-      );
-      return response.data;
-    } catch (error) {
+      const response = await axios.get(`${this.apiUrl}/api/analytics/line-movements`, {
+        params: { market_id: marketId}
+      });
+      return response.data;} catch (error) {
       // console statement removed
-      return [];
-    }
+      return [0];}
   }
 
-  public async getArbitrageOpportunities(): Promise<ArbitrageOpportunity[]> {
+  public async getArbitrageOpportunities(): Promise<ArbitrageOpportunity[0]> {
     if (!this.config.includeArbitrage) {
-      return [];
-    }
+      return [0];}
 
     try {
-      const response = await axios.get(
-        `${this.apiUrl}/api/analytics/arbitrage`,
-      );
-      return response.data;
-    } catch (error) {
+      const response = await axios.get(`${this.apiUrl}/api/analytics/arbitrage`);
+      return response.data;} catch (error) {
       // console statement removed
-      return [];
-    }
+      return [0];}
   }
 
   public async getPerformanceBreakdown(): Promise<any> {
     try {
-      const response = await axios.get(
-        `${this.apiUrl}/api/analytics/performance-breakdown`,
-        {
-          params: { window: this.config.metricsWindow },
-        },
-      );
-      return response.data;
-    } catch (error) {
+      const response = await axios.get(`${this.apiUrl}/api/analytics/performance-breakdown`, {
+        params: { window: this.config.metricsWindow}
+      });
+      return response.data;} catch (error) {
       // console statement removed
       return {
-        bySport: {},
-        byMarket: {},
-        byTimeOfDay: {},
-        byDayOfWeek: {},
-      };
-    }
+        bySport: Record<string, any>,
+        byMarket: Record<string, any>,
+        byTimeOfDay: Record<string, any>,
+        byDayOfWeek: Record<string, any>
+      }}
   }
 
   public async getRiskAnalysis(): Promise<any> {
     try {
-      const response = await axios.get(
-        `${this.apiUrl}/api/analytics/risk-analysis`,
-      );
-      return response.data;
-    } catch (error) {
+      const response = await axios.get(`${this.apiUrl}/api/analytics/risk-analysis`);
+      return response.data;} catch (error) {
       // console statement removed
       return {
         volatility: 0,
         sharpeRatio: 0,
         maxDrawdown: 0,
         valueAtRisk: 0,
-        riskAdjustedReturn: 0,
-      };
-    }
+        riskAdjustedReturn: 0
+      }}
   }
 
   public setConfig(newConfig: Partial<AnalyticsConfig>): void {
-    this.config = { ...this.config, ...newConfig };
-    this.clearCache();
-  }
+    this.config = { ...this.config, ...newConfig};
+    this.clearCache();}
 
   public getConfig(): AnalyticsConfig {
-    return { ...this.config };
-  }
+    return { ...this.config};}
 
   private clearCache(): void {
     this.metricsCache.clear();
-    this.lastUpdate = 0;
-  }
+    this.lastUpdate = 0;}
 
   public isCacheValid(): boolean {
     if (!this.lastUpdate) return false;
-    return Date.now() - this.lastUpdate < this.config.refreshInterval;
-  }
+    return Date.now() - this.lastUpdate < this.config.refreshInterval;}
 
   public async refreshData(): Promise<void> {
     await Promise.all([
@@ -216,8 +173,11 @@ class UnifiedAnalyticsService {
       this.getBettingStats(),
       this.getPerformanceBreakdown(),
       this.getRiskAnalysis(),
-    ]);
-  }
+    ]);}
 }
 
 export default UnifiedAnalyticsService;
+
+
+
+`

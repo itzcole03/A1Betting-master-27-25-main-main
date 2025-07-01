@@ -1,6 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+﻿import React from 'react'
+import ReactDOM from 'react-dom/client'
+import './index.css'
 
 // Simple App component;
 function App() {
@@ -16,7 +16,7 @@ function App() {
           </p>
           <div className='bg-gray-800 rounded-lg p-6 max-w-md mx-auto' key={778059}>
             <h2 className='text-xl font-semibold mb-4' key={626401}>
-              Status
+//               Status
             </h2>
             <div className='space-y-2' key={725977}>
               <div className='flex justify-between' key={588832}>
@@ -42,11 +42,14 @@ function App() {
         </div>
       </div>
     </div>
-  );
-}
+  )}
 
 root.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
 );
+
+
+
+

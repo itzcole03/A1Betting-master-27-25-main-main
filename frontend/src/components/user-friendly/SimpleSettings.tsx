@@ -1,5 +1,5 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React, { useState, useEffect} from 'react';
+import { motion} from 'framer-motion';
 import {
   Settings as SettingsIcon,
   User,
@@ -8,72 +8,44 @@ import {
   Shield,
   DollarSign,
   Save,
-  RefreshCw,
-} from 'lucide-react.ts';
-import toast from 'react-hot-toast.ts';
+//   RefreshCw
+} from 'lucide-react';
+import toast from 'react-hot-toast';
 
 interface UserSettings {
-  profile: {
-    name: string;
-    email: string;
-    timezone: string;
-    currency: string;
-  };
-  notifications: {
-    email: boolean;
-    push: boolean;
-    sound: boolean;
-  };
-  display: {
-    darkMode: boolean;
-    compactView: boolean;
-    fontSize: number;
-  };
-  betting: {
-    defaultStake: number;
-    maxStake: number;
-    currency: string;
-  };
-  privacy: {
-    sharePredictions: boolean;
-    showStats: boolean;
-  };
-}
+  profile: {,`n  name: string;,`n  email: string,`n  timezone: string;,`n  currency: string};
+  notifications: {,`n  email: boolean;,`n  push: boolean,`n  sound: boolean};
+  display: {,`n  darkMode: boolean;,`n  compactView: boolean,`n  fontSize: number};
+  betting: {,`n  defaultStake: number;,`n  maxStake: number,`n  currency: string};
+  privacy: {,`n  sharePredictions: boolean;,`n  showStats: boolean}}
 
 interface SimpleSettingsProps {
-  onNavigate?: (page: string) => void;
-}
+  onNavigate?: (page: string) => void}
 
-const DEFAULT_SETTINGS: UserSettings = {
-  profile: {
-    name: "User",
+const DEFAULT_SETTINGS: UserSettings = {,`n  profile: {,`n  name: "User",
     email: "user@a1betting.com",
     timezone: "UTC-5",
-    currency: "USD",
+    currency: "USD"
   },
-  notifications: {
-    email: true,
+  notifications: {,`n  email: true,
     push: true,
-    sound: false,
+    sound: false
   },
-  display: {
-    darkMode: true,
+  display: {,`n  darkMode: true,
     compactView: false,
-    fontSize: 16,
+    fontSize: 16
   },
-  betting: {
-    defaultStake: 10,
+  betting: {,`n  defaultStake: 10,
     maxStake: 100,
-    currency: "USD",
+    currency: "USD"
   },
-  privacy: {
-    sharePredictions: false,
-    showStats: true,
-  },
+  privacy: {,`n  sharePredictions: false,
+    showStats: true
+  }
 };
 
 export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
-  onNavigate,
+//   onNavigate
 }) => {
   const [settings, setSettings] = useState<UserSettings key={207290}>(DEFAULT_SETTINGS);
   const [isSaving, setIsSaving] = useState(false);
@@ -85,41 +57,34 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
 
         if (savedSettings) {
 
-          setSettings((prev) => ({ ...prev, ...parsed }));
-        }
+          setSettings((prev) => ({ ...prev, ...parsed}));}
       } catch (error) {
-        // console statement removed
-      }
+        // console statement removed}
     };
 
-    loadSettings();
-  }, []);
+    loadSettings();}, [0]);
 
   // Apply settings to the document when they change;
   useEffect(() => {
     // Apply dark mode;
     if (settings.display.darkMode) {
       document.documentElement.classList.add("dark");
-      document.body.style.backgroundColor = "#0f172a";
-    } else {
+      document.body.style.backgroundColor = "#0f172a";} else {
       document.documentElement.classList.remove("dark");
-      document.body.style.backgroundColor = "#ffffff";
-    }
+      document.body.style.backgroundColor = "#ffffff";}
 
     // Apply font size;
     document.documentElement.style.fontSize = `${settings.display.fontSize}px`;
 
     // Store user name in a way the app can access it;
     window.localStorage.setItem("a1betting-user-name", settings.profile.name);
-    window.localStorage.setItem("a1betting-user-email", settings.profile.email);
-  }, [settings]);
+    window.localStorage.setItem("a1betting-user-email", settings.profile.email);}, [settings]);
 
   const handleSectionUpdate = (section: keyof UserSettings, updates: any) => {
     setSettings((prev) => ({
       ...prev,
-      [section]: { ...prev[section], ...updates },
-    }));
-  };
+      [section]: { ...prev[section], ...updates}
+    }))};
 
   const handleSave = async () => {
     setIsSaving(true);
@@ -130,11 +95,9 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
       // Apply settings immediately;
       if (settings.display.darkMode) {
         document.documentElement.classList.add("dark");
-        document.body.style.backgroundColor = "#0f172a";
-      } else {
+        document.body.style.backgroundColor = "#0f172a";} else {
         document.documentElement.classList.remove("dark");
-        document.body.style.backgroundColor = "#ffffff";
-      }
+        document.body.style.backgroundColor = "#ffffff";}
 
       // Store user data for app-wide access;
       localStorage.setItem("a1betting-user-name", settings.profile.name);
@@ -142,18 +105,15 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
 
       // Trigger a custom event to notify other components;
       window.dispatchEvent(
-        new CustomEvent("settingsChanged", { detail: settings }),
+        new CustomEvent("settingsChanged", { detail: settings}),
       );
 
       // Simulate network delay;
       await new Promise((resolve) => setTimeout(resolve, 500));
-      toast.success("Settings saved successfully!");
-    } catch (error) {
+      toast.success("Settings saved successfully!");} catch (error) {
       // console statement removed
-      toast.error("Failed to save settings");
-    } finally {
-      setIsSaving(false);
-    }
+      toast.error("Failed to save settings");} finally {
+      setIsSaving(false);}
   };
 
   const handleReset = () => {
@@ -172,23 +132,22 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
 
       // Trigger settings changed event;
       window.dispatchEvent(
-        new CustomEvent("settingsChanged", { detail: DEFAULT_SETTINGS }),
+        new CustomEvent("settingsChanged", { detail: DEFAULT_SETTINGS}),
       );
 
-      toast.success("Settings reset to defaults!");
-    }
+      toast.success("Settings reset to defaults!");}
   };
 
   return (
     <div;
       className="w-full h-full overflow-auto bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white"
-      style={{ color: "#ffffff" }}
+      style={{ color: "#ffffff"}}
      key={56458}>
       <div className="max-w-4xl mx-auto p-6" key={367344}>
         {/* Header */}
         <motion.div;
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: -20}}
+          animate={{ opacity: 1, y: 0}}
           className="text-center mb-8"
          key={992820}>
           <div className="flex items-center justify-center gap-3 mb-4" key={915248}>
@@ -197,7 +156,7 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
               Settings;
             </h1>
           </div>
-          <p className="text-gray-300 text-lg" style={{ color: "#d1d5db" }} key={449182}>
+          <p className="text-gray-300 text-lg" style={{ color: "#d1d5db"}} key={449182}>
             Customize your basic preferences;
           </p>
         </motion.div>
@@ -205,13 +164,13 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8" key={713002}>
           {/* Profile Settings */}
           <motion.div;
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -20}}
+            animate={{ opacity: 1, x: 0}}
             className="bg-black/30 backdrop-blur-lg rounded-2xl p-6 border border-cyan-500/20"
            key={163154}>
             <h2;
               className="text-xl font-bold text-white mb-4 flex items-center gap-2"
-              style={{ color: "#ffffff" }}
+              style={{ color: "#ffffff"}}
              key={303792}>
               <User className="w-6 h-6 text-cyan-400" / key={948828}>
               Profile;
@@ -224,8 +183,7 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
                   type="text"
                   value={settings.profile.name}
                   onChange={(e) = key={785758}>
-                    handleSectionUpdate("profile", { name: e.target.value })
-                  }
+                    handleSectionUpdate("profile", { name: e.target.value})}
                   className="w-full px-4 py-2 bg-gray-800/50 border border-gray-600 rounded-lg text-white focus:border-cyan-400 focus:outline-none"
                 />
               </div>
@@ -236,8 +194,7 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
                   type="email"
                   value={settings.profile.email}
                   onChange={(e) = key={952297}>
-                    handleSectionUpdate("profile", { email: e.target.value })
-                  }
+                    handleSectionUpdate("profile", { email: e.target.value})}
                   className="w-full px-4 py-2 bg-gray-800/50 border border-gray-600 rounded-lg text-white focus:border-cyan-400 focus:outline-none"
                 />
               </div>
@@ -249,9 +206,8 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
                     value={settings.profile.timezone}
                     onChange={(e) = key={129805}>
                       handleSectionUpdate("profile", {
-                        timezone: e.target.value,
-                      })
-                    }
+                        timezone: e.target.value
+                      })}
                     className="w-full px-4 py-2 bg-gray-800/50 border border-gray-600 rounded-lg text-white focus:border-cyan-400 focus:outline-none"
                   >
                     <option value="UTC-5" key={409515}>Eastern Time</option>
@@ -267,9 +223,8 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
                     value={settings.profile.currency}
                     onChange={(e) = key={34378}>
                       handleSectionUpdate("profile", {
-                        currency: e.target.value,
-                      })
-                    }
+                        currency: e.target.value
+                      })}
                     className="w-full px-4 py-2 bg-gray-800/50 border border-gray-600 rounded-lg text-white focus:border-cyan-400 focus:outline-none"
                   >
                     <option value="USD" key={42064}>USD ($)</option>
@@ -284,8 +239,8 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
 
           {/* Notifications */}
           <motion.div;
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: 20}}
+            animate={{ opacity: 1, x: 0}}
             className="bg-black/30 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20"
            key={664626}>
             <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2" key={331820}>
@@ -301,9 +256,8 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
                   checked={settings.notifications.email}
                   onChange={(e) = key={95810}>
                     handleSectionUpdate("notifications", {
-                      email: e.target.checked,
-                    })
-                  }
+                      email: e.target.checked
+                    })}
                   className="w-5 h-5 text-purple-400 bg-gray-800 border-gray-600 rounded focus:ring-purple-400 focus:ring-2"
                 />
               </label>
@@ -315,9 +269,8 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
                   checked={settings.notifications.push}
                   onChange={(e) = key={831671}>
                     handleSectionUpdate("notifications", {
-                      push: e.target.checked,
-                    })
-                  }
+                      push: e.target.checked
+                    })}
                   className="w-5 h-5 text-purple-400 bg-gray-800 border-gray-600 rounded focus:ring-purple-400 focus:ring-2"
                 />
               </label>
@@ -329,9 +282,8 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
                   checked={settings.notifications.sound}
                   onChange={(e) = key={963951}>
                     handleSectionUpdate("notifications", {
-                      sound: e.target.checked,
-                    })
-                  }
+                      sound: e.target.checked
+                    })}
                   className="w-5 h-5 text-purple-400 bg-gray-800 border-gray-600 rounded focus:ring-purple-400 focus:ring-2"
                 />
               </label>
@@ -340,9 +292,9 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
 
           {/* Display Settings */}
           <motion.div;
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 }}
+            initial={{ opacity: 0, x: -20}}
+            animate={{ opacity: 1, x: 0}}
+            transition={{ delay: 0.1}}
             className="bg-black/30 backdrop-blur-lg rounded-2xl p-6 border border-green-500/20"
            key={267744}>
             <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2" key={331820}>
@@ -358,9 +310,8 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
                   checked={settings.display.darkMode}
                   onChange={(e) = key={712007}>
                     handleSectionUpdate("display", {
-                      darkMode: e.target.checked,
-                    })
-                  }
+                      darkMode: e.target.checked
+                    })}
                   className="w-5 h-5 text-green-400 bg-gray-800 border-gray-600 rounded focus:ring-green-400 focus:ring-2"
                 />
               </label>
@@ -372,9 +323,8 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
                   checked={settings.display.compactView}
                   onChange={(e) = key={802982}>
                     handleSectionUpdate("display", {
-                      compactView: e.target.checked,
-                    })
-                  }
+                      compactView: e.target.checked
+                    })}
                   className="w-5 h-5 text-green-400 bg-gray-800 border-gray-600 rounded focus:ring-green-400 focus:ring-2"
                 />
               </label>
@@ -388,9 +338,8 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
                   value={settings.display.fontSize}
                   onChange={(e) = key={893867}>
                     handleSectionUpdate("display", {
-                      fontSize: parseInt(e.target.value),
-                    })
-                  }
+                      fontSize: parseInt(e.target.value)
+                    })}
                   className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
                 />
                 <div className="text-center text-gray-400 text-sm mt-1" key={951061}>
@@ -402,9 +351,9 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
 
           {/* Basic Betting Preferences */}
           <motion.div;
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 }}
+            initial={{ opacity: 0, x: 20}}
+            animate={{ opacity: 1, x: 0}}
+            transition={{ delay: 0.1}}
             className="bg-black/30 backdrop-blur-lg rounded-2xl p-6 border border-yellow-500/20"
            key={510587}>
             <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2" key={331820}>
@@ -422,9 +371,8 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
                   value={settings.betting.defaultStake}
                   onChange={(e) = key={92263}>
                     handleSectionUpdate("betting", {
-                      defaultStake: parseFloat(e.target.value),
-                    })
-                  }
+                      defaultStake: parseFloat(e.target.value)
+                    })}
                   className="w-full px-4 py-2 bg-gray-800/50 border border-gray-600 rounded-lg text-white focus:border-yellow-400 focus:outline-none"
                 />
               </div>
@@ -438,9 +386,8 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
                   value={settings.betting.maxStake}
                   onChange={(e) = key={173271}>
                     handleSectionUpdate("betting", {
-                      maxStake: parseFloat(e.target.value),
-                    })
-                  }
+                      maxStake: parseFloat(e.target.value)
+                    })}
                   className="w-full px-4 py-2 bg-gray-800/50 border border-gray-600 rounded-lg text-white focus:border-yellow-400 focus:outline-none"
                 />
               </div>
@@ -451,9 +398,8 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
                   value={settings.betting.currency}
                   onChange={(e) = key={310121}>
                     handleSectionUpdate("betting", {
-                      currency: e.target.value,
-                    })
-                  }
+                      currency: e.target.value
+                    })}
                   className="w-full px-4 py-2 bg-gray-800/50 border border-gray-600 rounded-lg text-white focus:border-yellow-400 focus:outline-none"
                 >
                   <option value="USD" key={42064}>USD ($)</option>
@@ -468,9 +414,9 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
 
         {/* Privacy Settings */}
         <motion.div;
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          initial={{ opacity: 0, y: 20}}
+          animate={{ opacity: 1, y: 0}}
+          transition={{ delay: 0.2}}
           className="bg-black/30 backdrop-blur-lg rounded-2xl p-6 border border-red-500/20 mb-8"
          key={504964}>
           <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2" key={331820}>
@@ -487,9 +433,8 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
                   checked={settings.privacy.sharePredictions}
                   onChange={(e) = key={793540}>
                     handleSectionUpdate("privacy", {
-                      sharePredictions: e.target.checked,
-                    })
-                  }
+                      sharePredictions: e.target.checked
+                    })}
                   className="w-5 h-5 text-red-400 bg-gray-800 border-gray-600 rounded focus:ring-red-400 focus:ring-2"
                 />
               </label>
@@ -501,9 +446,8 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
                   checked={settings.privacy.showStats}
                   onChange={(e) = key={463754}>
                     handleSectionUpdate("privacy", {
-                      showStats: e.target.checked,
-                    })
-                  }
+                      showStats: e.target.checked
+                    })}
                   className="w-5 h-5 text-red-400 bg-gray-800 border-gray-600 rounded focus:ring-red-400 focus:ring-2"
                 />
               </label>
@@ -520,9 +464,9 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
 
         {/* Action Buttons */}
         <motion.div;
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+          initial={{ opacity: 0, y: 20}}
+          animate={{ opacity: 1, y: 0}}
+          transition={{ delay: 0.3}}
           className="flex justify-center gap-4"
          key={534855}>
           <button;
@@ -549,9 +493,9 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
 
         {/* Note for advanced settings */}
         <motion.div;
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
+          initial={{ opacity: 0}}
+          animate={{ opacity: 1}}
+          transition={{ delay: 0.5}}
           className="mt-8 text-center"
          key={847162}>
           <p className="text-gray-400 text-sm" key={516838}>
@@ -568,7 +512,10 @@ export const SimpleSettings: React.FC<SimpleSettingsProps key={215827}> = ({
         </motion.div>
       </div>
     </div>
-  );
-};
+  );};
 
 export default SimpleSettings;
+
+
+
+`

@@ -1,21 +1,17 @@
-import React from 'react.ts';
-import { Box, Typography, Grid, Chip } from '@mui/material.ts';
-import { EngineStatus } from '@/types.ts';
+﻿import React from 'react';
+import { Box, Typography, Grid, Chip} from '@mui/material';
+import { EngineStatus} from '@/types';
 
 interface MoneyMakerStatusProps {
-  status: EngineStatus;
-  lastUpdate: string;
-  isConnected: boolean;
-}
+  status: EngineStatus,`n  lastUpdate: string;,`n  isConnected: boolean}
 
 export const MoneyMakerStatus: React.FC<MoneyMakerStatusProps key={618634}> = ({
   status,
   lastUpdate,
-  isConnected,
+//   isConnected
 }) => {
   const formatNumber = (num: number) => {
-    return num.toFixed(1);
-  };
+    return num.toFixed(1)};
 
   return (
     <Box className="status-section mb-8" key={517776}>
@@ -100,5 +96,8 @@ export const MoneyMakerStatus: React.FC<MoneyMakerStatusProps key={618634}> = ({
         Last updated: {new Date(lastUpdate).toLocaleTimeString()}
       </Typography>
     </Box>
-  );
-};
+  )};
+
+
+
+`

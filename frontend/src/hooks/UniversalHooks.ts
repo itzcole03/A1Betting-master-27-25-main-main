@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react.ts';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query.ts';
+﻿import { useState, useEffect, useRef, useCallback, useMemo} from 'react';
+import { useQuery, useMutation, useQueryClient} from '@tanstack/react-query';
 import {
   UniversalServiceFactory,
   createQueryKeys,
-  defaultQueryConfig,
-} from '@/services/UniversalServiceLayer.ts';
-import { useTheme } from '@/providers/SafeThemeProvider.ts';
+//   defaultQueryConfig
+} from '@/services/UniversalServiceLayer';
+import { useTheme} from '@/providers/SafeThemeProvider';
 
 // ============================================================================
 // DATA HOOKS;
@@ -14,13 +14,11 @@ import { useTheme } from '@/providers/SafeThemeProvider.ts';
 /**
  * Universal hook for fetching predictions with caching and real-time updates;
  */
-export const usePredictions = (
-  options: { limit?: number; realtime?: boolean } = {},
-) => {
-  const { limit = 10, realtime = false } = options;
+export const usePredictions = (options: { limit?: number realtime?: boolean} = Record<string, any>) => {
+  const { limit = 10, realtime = false} = options;
 
   // Mock data to prevent fetch errors;
-  const mockPredictions = Array.from({ length: limit }, (_, i) => ({
+  const mockPredictions = Array.from({ length: limit}, (_, i) => ({
     id: `pred-${i + 1}`,
     game: `Game ${i + 1}`,
     prediction: Math.random() * 100,
@@ -28,23 +26,21 @@ export const usePredictions = (
     timestamp: new Date().toISOString(),
     potentialWin: 100 + Math.random() * 500,
     odds: 1.5 + Math.random() * 2,
-    status: ["pending", "won", "lost"][Math.floor(Math.random() * 3)] as any,
+    status: ['pending', 'won', 'lost'][Math.floor(Math.random() * 3)] as any
   }));
 
   const query = useQuery({
     queryKey: createQueryKeys.predictions.recent(limit),
-    queryFn: async () => ({ data: mockPredictions }), // Return mock data;
+    queryFn: async () => ({ data: mockPredictions}), // Return mock data;
     ...defaultQueryConfig,
-    refetchInterval: false, // Disable auto-refetch to prevent errors;
-  });
+    refetchInterval: false, // Disable auto-refetch to prevent errors});
 
   return {
     predictions: query.data?.data || mockPredictions,
     isLoading: false, // Set to false since we have mock data;
     error: null,
-    refetch: query.refetch,
-  };
-};
+    refetch: query.refetch
+  }};
 
 /**
  * Universal hook for fetching engine metrics;
@@ -57,78 +53,69 @@ export const useEngineMetrics = () => {
     winRate: 85.6,
     avgConfidence: 88.5,
     profitability: 147.2,
-    status: "active",
+    status: 'active'
   };
 
   const query = useQuery({
     queryKey: createQueryKeys.predictions.metrics(),
-    queryFn: async () => ({ data: mockMetrics }),
+    queryFn: async () => ({ data: mockMetrics}),
     ...defaultQueryConfig,
-    refetchInterval: false, // Disable auto-refetch to prevent errors;
-  });
+    refetchInterval: false, // Disable auto-refetch to prevent errors});
 
   return {
     metrics: query.data?.data,
     isLoading: query.isLoading,
     error: query.error,
-    refetch: query.refetch,
-  };
-};
+    refetch: query.refetch
+  }};
 
 /**
  * Universal hook for betting opportunities;
  */
-export const useBettingOpportunities = (
-  options: { limit?: number; sport?: string } = {},
-) => {
-  const { limit = 5, sport } = options;
+export const useBettingOpportunities = (options: { limit?: number sport?: string} = Record<string, any>) => {
+  const { limit = 5, sport} = options;
 
   // Mock betting opportunities to prevent fetch errors;
-  const mockOpportunities = Array.from({ length: limit }, (_, i) => ({
+  const mockOpportunities = Array.from({ length: limit}, (_, i) => ({
     id: `opp-${i + 1}`,
-    game: `${sport || "NBA"} Game ${i + 1}`,
-    type: ["Over/Under", "Spread", "Moneyline"][i % 3],
+    game: `${sport || 'NBA'} Game ${i + 1}`,
+    type: ['Over/Under', 'Spread', 'Moneyline'][i % 3],
     value: 2.1 + Math.random() * 1.5,
     confidence: 80 + Math.random() * 15,
     expectedReturn: 15 + Math.random() * 25,
-    league: sport || "NBA",
-    startTime: new Date(Date.now() + (i + 1) * 3600000).toISOString(),
+    league: sport || 'NBA',
+    startTime: new Date(Date.now() + (i + 1) * 3600000).toISOString()
   }));
 
   const query = useQuery({
     queryKey: createQueryKeys.betting.opportunities(sport, limit),
-    queryFn: async () => ({ data: mockOpportunities }),
+    queryFn: async () => ({ data: mockOpportunities}),
     ...defaultQueryConfig,
-    refetchInterval: false, // Disable auto-refetch to prevent errors;
-  });
+    refetchInterval: false, // Disable auto-refetch to prevent errors});
 
   return {
     opportunities: query.data?.data || mockOpportunities,
     isLoading: false,
     error: null,
-    refetch: query.refetch,
-  };
-};
+    refetch: query.refetch
+  }};
 
 /**
  * Universal hook for user profile management;
  */
 export const useUserProfile = () => {
-
-
   const query = useQuery({
     queryKey: createQueryKeys.user.profile(),
     queryFn: () => userService.getProfile(),
-    ...defaultQueryConfig,
+    ...defaultQueryConfig
   });
 
   const updateMutation = useMutation({
     mutationFn: (data: any) => userService.updateProfile(data),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: createQueryKeys.user.profile(),
-      });
-    },
+        queryKey: createQueryKeys.user.profile()
+      })}
   });
 
   return {
@@ -137,9 +124,8 @@ export const useUserProfile = () => {
     error: query.error,
     updateProfile: updateMutation.mutate,
     isUpdating: updateMutation.isPending,
-    refetch: query.refetch,
-  };
-};
+    refetch: query.refetch
+  }};
 
 // ============================================================================
 // UI HOOKS;
@@ -149,21 +135,15 @@ export const useUserProfile = () => {
  * Universal theme hook with all theme functionality;
  */
 export const useUniversalTheme = () => {
-
   return {
     ...themeContext,
     // Additional utility functions;
     getCSSVariable: (name: string) => {
-      if (typeof window === "undefined") return "";
-      return getComputedStyle(document.documentElement).getPropertyValue(
-        `--${name}`,
-      );
-    },
+      if (typeof window === 'undefined') return '';
+      return getComputedStyle(document.documentElement).getPropertyValue(`--${name}`);},
     applyTheme: (variant: string) => {
-      themeContext.setVariant(variant as any);
-    },
-  };
-};
+      themeContext.setVariant(variant as any)}
+  }};
 
 /**
  * Universal form hook with validation and submission;
@@ -172,42 +152,37 @@ export const useUniversalForm = <T extends Record<string, any>>(
   initialValues: T,
   options: {
     validate?: (values: T) => Record<string, string>;
-    onSubmit?: (values: T) => Promise<void> | void;
-  } = {},
+    onSubmit?: (values: T) => Promise<void> | void} = Record<string, any>
 ) => {
   const [values, setValues] = useState<T>(initialValues);
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [errors, setErrors] = useState<Record<string, string>>(Record<string, any>);
+  const [touched, setTouched] = useState<Record<string, boolean>>(Record<string, any>);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = useCallback(
     (name: keyof T, value: any) => {
-      setValues((prev) => ({ ...prev, [name]: value }));
+      setValues(prev => ({ ...prev, [name]: value}));
 
       // Clear error when user starts typing;
       if (errors[name as string]) {
-        setErrors((prev) => ({ ...prev, [name]: "" }));
-      }
+        setErrors(prev => ({ ...prev, [name]: ''}));}
     },
-    [errors],
+    [errors]
   );
 
   const handleBlur = useCallback(
     (name: keyof T) => {
-      setTouched((prev) => ({ ...prev, [name]: true }));
+      setTouched(prev => ({ ...prev, [name]: true}));
 
       // Validate on blur if validation function is provided;
       if (options.validate) {
-
         if (validationErrors[name as string]) {
-          setErrors((prev) => ({
+          setErrors(prev => ({
             ...prev,
-            [name]: validationErrors[name as string],
-          }));
-        }
-      }
-    },
-    [values, options.validate],
+            [name]: validationErrors[name as string]
+          }));}
+      }},
+    [values, options.validate]
   );
 
   const handleSubmit = useCallback(
@@ -220,40 +195,33 @@ export const useUniversalForm = <T extends Record<string, any>>(
       const allTouched = Object.keys(values).reduce(
         (acc, key) => {
           acc[key] = true;
-          return acc;
-        },
-        {} as Record<string, boolean>,
+          return acc;},
+        Record<string, any> as Record<string, boolean>
       );
       setTouched(allTouched);
 
       // Validate all fields;
       if (options.validate) {
-
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length > 0) {
           setIsSubmitting(false);
-          return;
-        }
+          return;}
       }
 
       try {
-        await options.onSubmit?.(values);
-      } catch (error) {
-        // console statement removed
-      } finally {
-        setIsSubmitting(false);
-      }
+        await options.onSubmit?.(values);} catch (error) {
+        // console statement removed} finally {
+        setIsSubmitting(false);}
     },
-    [values, options],
+    [values, options]
   );
 
   const reset = useCallback(() => {
     setValues(initialValues);
-    setErrors({});
-    setTouched({});
-    setIsSubmitting(false);
-  }, [initialValues]);
+    setErrors(Record<string, any>);
+    setTouched(Record<string, any>);
+    setIsSubmitting(false);}, [initialValues]);
 
   return {
     values,
@@ -264,9 +232,8 @@ export const useUniversalForm = <T extends Record<string, any>>(
     handleBlur,
     handleSubmit,
     reset,
-    isValid: Object.keys(errors).length === 0,
-  };
-};
+    isValid: Object.keys(errors).length === 0
+  }};
 
 /**
  * Universal modal hook;
@@ -274,15 +241,12 @@ export const useUniversalForm = <T extends Record<string, any>>(
 export const useModal = (defaultOpen = false) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
-
-
   return {
     isOpen,
     open,
     close,
-    toggle,
-  };
-};
+//     toggle
+  };};
 
 /**
  * Universal toast/notification hook;
@@ -290,57 +254,38 @@ export const useModal = (defaultOpen = false) => {
 export const useToast = () => {
   const [toasts, setToasts] = useState<
     Array<{
-      id: string;
-      message: string;
-      type: "success" | "error" | "warning" | "info";
-      duration?: number;
-    }>
-  >([]);
+      id: string,`n  message: string;,`n  type: 'success' | 'error' | 'warning' | 'info';
+      duration?: number}>
+  >([0]);
 
   const addToast = useCallback(
-    (
-      message: string,
-      type: "success" | "error" | "warning" | "info" = "info",
-      duration = 5000,
-    ) => {
-
-
-      setToasts((prev) => [...prev, toast]);
+    (message: string, type: 'success' | 'error' | 'warning' | 'info' = 'info', duration = 5000) => {
+      setToasts(prev => [...prev, toast]);
 
       if (duration > 0) {
         setTimeout(() => {
-          setToasts((prev) => prev.filter((t) => t.id !== id));
-        }, duration);
-      }
+          setToasts(prev => prev.filter(t => t.id !== id));}, duration);}
 
-      return id;
-    },
-    [],
+      return id;},
+    [0]
   );
 
   const removeToast = useCallback((id: string) => {
-    setToasts((prev) => prev.filter((t) => t.id !== id));
-  }, []);
+    setToasts(prev => prev.filter(t => t.id !== id))}, [0]);
 
   const clearAll = useCallback(() => {
-    setToasts([]);
-  }, []);
+    setToasts([0]);}, [0]);
 
   return {
     toasts,
     addToast,
     removeToast,
     clearAll,
-    success: (message: string, duration?: number) =>
-      addToast(message, "success", duration),
-    error: (message: string, duration?: number) =>
-      addToast(message, "error", duration),
-    warning: (message: string, duration?: number) =>
-      addToast(message, "warning", duration),
-    info: (message: string, duration?: number) =>
-      addToast(message, "info", duration),
-  };
-};
+    success: (message: string, duration?: number) => addToast(message, 'success', duration),
+    error: (message: string, duration?: number) => addToast(message, 'error', duration),
+    warning: (message: string, duration?: number) => addToast(message, 'warning', duration),
+    info: (message: string, duration?: number) => addToast(message, 'info', duration)
+  }};
 
 // ============================================================================
 // UTILITY HOOKS;
@@ -354,129 +299,104 @@ export const useDebounce = <T>(value: T, delay: number): T => {
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
+      setDebouncedValue(value);}, delay);
 
     return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
+      clearTimeout(handler);};}, [value, delay]);
 
-  return debouncedValue;
-};
+  return debouncedValue;};
 
 /**
  * Universal local storage hook;
  */
 export const useLocalStorage = <T>(key: string, initialValue: T) => {
   const [storedValue, setStoredValue] = useState<T>(() => {
-    if (typeof window === "undefined") return initialValue;
+    if (typeof window === 'undefined') return initialValue;
 
     try {
-
-      return item ? JSON.parse(item) : initialValue;
-    } catch (error) {
+      return item ? JSON.parse(item) : initialValue;} catch (error) {
       // console statement removed
-      return initialValue;
-    }
+      return initialValue;}
   });
 
   const setValue = useCallback(
     (value: T | ((val: T) => T)) => {
       try {
-        const valueToStore =
-          value instanceof Function ? value(storedValue) : value;
+        const valueToStore = value instanceof Function ? value(storedValue) : value;
         setStoredValue(valueToStore);
 
-        if (typeof window !== "undefined") {
-          window.localStorage.setItem(key, JSON.stringify(valueToStore));
-        }
+        if (typeof window !== 'undefined') {
+          window.localStorage.setItem(key, JSON.stringify(valueToStore));}
       } catch (error) {
-        // console statement removed
-      }
+        // console statement removed}
     },
-    [key, storedValue],
+    [key, storedValue]
   );
 
   const removeValue = useCallback(() => {
     try {
       setStoredValue(initialValue);
-      if (typeof window !== "undefined") {
-        window.localStorage.removeItem(key);
-      }
+      if (typeof window !== 'undefined') {
+        window.localStorage.removeItem(key);}
     } catch (error) {
-      // console statement removed
-    }
+      // console statement removed}
   }, [key, initialValue]);
 
-  return [storedValue, setValue, removeValue] as const;
-};
+  return [storedValue, setValue, removeValue] as const;};
 
 /**
  * Universal window size hook;
  */
 export const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState(() => {
-    if (typeof window === "undefined") return { width: 0, height: 0 };
+    if (typeof window === 'undefined') return { width: 0, height: 0};
     return {
       width: window.innerWidth,
-      height: window.innerHeight,
-    };
-  });
+      height: window.innerHeight
+    }});
 
   useEffect(() => {
     const handleResize = () => {
       setWindowSize({
         width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
+        height: window.innerHeight
+      })};
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);}, [0]);
 
-  return windowSize;
-};
+  return windowSize;};
 
 /**
  * Universal media query hook;
  */
 export const useMediaQuery = (query: string): boolean => {
   const [matches, setMatches] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return window.matchMedia(query).matches;
-  });
+    if (typeof window === 'undefined') return false;
+    return window.matchMedia(query).matches;});
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-
+    if (typeof window === 'undefined') return;
 
     mediaQuery.addListener(handleChange);
-    return () => mediaQuery.removeListener(handleChange);
-  }, [query]);
+    return () => mediaQuery.removeListener(handleChange);}, [query]);
 
-  return matches;
-};
+  return matches;};
 
 /**
  * Universal click outside hook;
  */
 export const useClickOutside = <T extends HTMLElement>(handler: () => void) => {
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
-        handler();
-      }
+        handler()}
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [handler]);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);}, [handler]);
 
-  return ref;
-};
+  return ref;};
 
 /**
  * Universal WebSocket hook;
@@ -488,64 +408,53 @@ export const useWebSocket = (
     onOpen?: () => void;
     onClose?: () => void;
     onError?: (error: Event) => void;
-    enabled?: boolean;
-  } = {},
+    enabled?: boolean} = Record<string, any>
 ) => {
-  const { onMessage, onOpen, onClose, onError, enabled = true } = options;
+  const { onMessage, onOpen, onClose, onError, enabled = true} = options;
   const [connectionStatus, setConnectionStatus] = useState<
-    "connecting" | "connected" | "disconnected"
-  >("disconnected");
+    'connecting' | 'connected' | 'disconnected'
+  >('disconnected');
   const [lastMessage, setLastMessage] = useState<any>(null);
 
   const sendMessage = useCallback((data: any) => {
     if (wsRef.current?.readyState === WebSocket.OPEN) {
-      wsRef.current.send(JSON.stringify(data));
-    }
-  }, []);
+      wsRef.current.send(JSON.stringify(data))}
+  }, [0]);
 
   useEffect(() => {
     if (!enabled) return;
 
-    setConnectionStatus("connecting");
+    setConnectionStatus('connecting');
 
     wsRef.current = ws;
 
     ws.onopen = () => {
-      setConnectionStatus("connected");
-      onOpen?.();
-    };
+      setConnectionStatus('connected');
+      onOpen?.();};
 
-    ws.onmessage = (event) => {
+    ws.onmessage = event => {
       try {
-
         setLastMessage(data);
-        onMessage?.(data);
-      } catch (error) {
-        // console statement removed
-      }
+        onMessage?.(data);} catch (error) {
+        // console statement removed}
     };
 
     ws.onclose = () => {
-      setConnectionStatus("disconnected");
-      onClose?.();
-    };
+      setConnectionStatus('disconnected');
+      onClose?.();};
 
-    ws.onerror = (error) => {
-      setConnectionStatus("disconnected");
-      onError?.(error);
-    };
+    ws.onerror = error => {
+      setConnectionStatus('disconnected');
+      onError?.(error);};
 
     return () => {
-      ws.close();
-    };
-  }, [url, enabled, onMessage, onOpen, onClose, onError]);
+      ws.close();};}, [url, enabled, onMessage, onOpen, onClose, onError]);
 
   return {
     connectionStatus,
     lastMessage,
-    sendMessage,
-  };
-};
+//     sendMessage
+  };};
 
 // ============================================================================
 // PERFORMANCE HOOKS;
@@ -558,7 +467,7 @@ export const useAnimation = (
   initialValue: number,
   targetValue: number,
   duration = 1000,
-  easing: (t: number) => number = (t) => t,
+  easing: (t: number) => number = t => t
 ) => {
   const [value, setValue] = useState(initialValue);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -568,26 +477,17 @@ export const useAnimation = (
 
     setIsAnimating(true);
 
-
-
     const animate = () => {
-
-
-
       setValue(startValue + difference * easedProgress);
 
       if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        setIsAnimating(false);
-      }
+        requestAnimationFrame(animate);} else {
+        setIsAnimating(false);}
     };
 
-    requestAnimationFrame(animate);
-  }, [targetValue, duration, easing]);
+    requestAnimationFrame(animate);}, [targetValue, duration, easing]);
 
-  return { value, isAnimating };
-};
+  return { value, isAnimating};};
 
 /**
  * Universal performance monitor hook;
@@ -596,7 +496,7 @@ export const usePerformanceMonitor = () => {
   const [metrics, setMetrics] = useState({
     renderTime: 0,
     memoryUsage: 0,
-    fps: 0,
+    fps: 0
   });
 
   useEffect(() => {
@@ -604,30 +504,23 @@ export const usePerformanceMonitor = () => {
     const lastTime = performance.now();
 
     const measurePerformance = () => {
-
       frameCount++;
 
       if (currentTime - lastTime >= 1000) {
-
-
         setMetrics({
           renderTime: currentTime - lastTime,
           memoryUsage: Math.round(memoryUsage / 1024 / 1024), // MB;
-          fps,
+//           fps
         });
 
         frameCount = 0;
-        lastTime = currentTime;
-      }
+        lastTime = currentTime;}
 
-      requestAnimationFrame(measurePerformance);
-    };
+      requestAnimationFrame(measurePerformance);};
 
-    requestAnimationFrame(measurePerformance);
-  }, []);
+    requestAnimationFrame(measurePerformance);}, [0]);
 
-  return metrics;
-};
+  return metrics;};
 
 // ============================================================================
 // EXPORTS;
@@ -656,7 +549,7 @@ export default {
 
   // Performance hooks;
   useAnimation,
-  usePerformanceMonitor,
+//   usePerformanceMonitor
 };
 
 // Individual exports for tree shaking;
@@ -676,5 +569,10 @@ export {
   useClickOutside,
   useWebSocket,
   useAnimation,
-  usePerformanceMonitor,
+//   usePerformanceMonitor
 };
+
+
+
+
+`

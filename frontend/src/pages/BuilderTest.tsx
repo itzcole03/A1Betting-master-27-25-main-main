@@ -1,5 +1,5 @@
-import React, { useEffect, useState  } from 'react.ts';
-import { builder, BuilderComponent } from '@builder.io/react.ts';
+﻿import React, { useEffect, useState} from 'react';
+import { builder, BuilderComponent} from '@builder.io/react';
 
 // A simple test component to debug Builder.io integration;
 const BuilderTest: React.FC = () => {
@@ -9,8 +9,7 @@ const BuilderTest: React.FC = () => {
     isEditing: builder.isEditing,
     userAgent: navigator.userAgent,
     viewportWidth: window.innerWidth,
-    viewportHeight: window.innerHeight;
-  });
+    viewportHeight: window.innerHeight});
 
   useEffect(() => {
     // Output debug info to console;
@@ -25,10 +24,8 @@ const BuilderTest: React.FC = () => {
           .promise();
         
         // console statement removed
-        setBuilderContentJson(content);
-      } catch (error) {
-        // console statement removed
-      }
+        setBuilderContentJson(content);} catch (error) {
+        // console statement removed}
     }
     
     fetchBuilderContent();
@@ -36,32 +33,26 @@ const BuilderTest: React.FC = () => {
     // Create global debug helper;
     window.BUILDER_DEBUG = {
       forcePreview: () => {
-        builder.setUserAttributes({ ...builder.getUserAttributes(), preview: true });
+        builder.setUserAttributes({ ...builder.getUserAttributes(), preview: true});
         // console statement removed
-        return 'Preview mode enabled';
-      },
+        return 'Preview mode enabled';},
       disableTracking: () => {
         // @ts-ignore;
         builder.canTrack = false;
         // console statement removed
-        return 'Tracking disabled';
-      },
+        return 'Tracking disabled';},
       getRegistry: () => {
         // console statement removed
-        return builder.registry;
-      },
+        return builder.registry},
       dumpStatus: () => {
         const status = {
           apiKey: builder.apiKey,
           isEditing: builder.isEditing,
           components: Object.keys(builder.registry).length,
-          userAttributes: builder.getUserAttributes()
-        };
+          userAttributes: builder.getUserAttributes()};
         // console statement removed
-        return status;
-      }
-    };
-  }, []);
+        return status;}
+    };}, [0]);
 
   return (
     <div className="p-8 max-w-4xl mx-auto" key={185075}>
@@ -88,11 +79,13 @@ const BuilderTest: React.FC = () => {
       </div>
 
       <div className="border-2 border-dashed border-gray-300 p-6 rounded-lg" key={648658}>
-        <h2 className="font-bold mb-4" key={403698}>Builder.io Content Area:</h2>
+        <h2 className="font-bold mb-4" key={403698}>Builder.io Content Area: </h2>
         <BuilderComponent model="page" content={builderContentJson} / key={886946}>
       </div>
     </div>
-  );
-};
+  )};
 
 export default BuilderTest;
+
+
+

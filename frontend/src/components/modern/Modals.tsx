@@ -1,8 +1,8 @@
-import React from 'react.ts';
+﻿import React from 'react';
 
-export const PerformanceModal: React.FC<{ open: boolean; onClose: () => void }> = ({
+export const PerformanceModal: React.FC<{ open: boolean; onClose: () => void}> = ({
   open,
-  onClose,
+//   onClose
 }) =>
   open ? (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-6 backdrop-blur-sm" key={984392}>
@@ -21,9 +21,9 @@ export const PerformanceModal: React.FC<{ open: boolean; onClose: () => void }> 
     </div>
   ) : null;
 
-export const LineupComparisonModal: React.FC<{ open: boolean; onClose: () => void }> = ({
+export const LineupComparisonModal: React.FC<{ open: boolean; onClose: () => void}> = ({
   open,
-  onClose,
+//   onClose
 }) =>
   open ? (
     <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-6 backdrop-blur-sm" key={266323}>
@@ -42,9 +42,9 @@ export const LineupComparisonModal: React.FC<{ open: boolean; onClose: () => voi
     </div>
   ) : null;
 
-export const EntryProgressModal: React.FC<{ open: boolean; onClose: () => void }> = ({
+export const EntryProgressModal: React.FC<{ open: boolean; onClose: () => void}> = ({
   open,
-  onClose,
+//   onClose
 }) =>
   open ? (
     <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-6 backdrop-blur-sm" key={266323}>
@@ -63,9 +63,9 @@ export const EntryProgressModal: React.FC<{ open: boolean; onClose: () => void }
     </div>
   ) : null;
 
-export const PropDetailModal: React.FC<{ open: boolean; onClose: () => void }> = ({
+export const PropDetailModal: React.FC<{ open: boolean; onClose: () => void}> = ({
   open,
-  onClose,
+//   onClose
 }) =>
   open ? (
     <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-6 backdrop-blur-sm" key={266323}>
@@ -83,7 +83,7 @@ export const PropDetailModal: React.FC<{ open: boolean; onClose: () => void }> =
     </div>
   ) : null;
 
-export const InfoModal: React.FC<{ open: boolean; onClose: () => void }> = ({ open, onClose }) =>
+export const InfoModal: React.FC<{ open: boolean; onClose: () => void}> = ({ open, onClose}) =>
   open ? (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-6 backdrop-blur-sm" key={984392}>
       <div className="modern-card max-w-md w-full p-8" key={110380}>
@@ -100,3 +100,7 @@ export const InfoModal: React.FC<{ open: boolean; onClose: () => void }> = ({ op
       </div>
     </div>
   ) : null;
+
+
+
+

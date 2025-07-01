@@ -1,11 +1,11 @@
-import * as React from 'react.ts';
-import * as SliderPrimitive from '@radix-ui/react-slider.ts';
-import { cn } from '@/lib/utils.ts';
+﻿import * as React from 'react';
+import * as SliderPrimitive from '@radix-ui/react-slider';
+import { cn} from '@/lib/utils';
 
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root key={135127}>,
   React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root key={135127}>
->(({ className, ...props }, ref) => (
+>(({ className, ...props}, ref) => (
   <SliderPrimitive.Root;
     ref={ref}
     className={cn('relative flex w-full touch-none select-none items-center', className)}
@@ -19,4 +19,7 @@ const Slider = React.forwardRef<
 ));
 Slider.displayName = SliderPrimitive.Root.displayName;
 
-export { Slider };
+export { Slider};
+
+
+

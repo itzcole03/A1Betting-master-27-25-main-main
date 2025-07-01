@@ -1012,7 +1012,7 @@ class UltraAdvancedEnsembleEngine:
         while True:
             try:
                 # TODO: implement dynamic rebalancing logic
-                logger.debug("Running periodic rebalancing")
+                
                 # e.g., update default_config.base_models or thresholds
                 await asyncio.sleep(interval)
             except Exception as e:  # pylint: disable=broad-exception-caught
@@ -1025,7 +1025,7 @@ class UltraAdvancedEnsembleEngine:
         while True:
             try:
                 # TODO: collect and push performance metrics
-                logger.debug("Running performance monitoring")
+                
                 # e.g., push to Prometheus or external monitoring
                 await asyncio.sleep(interval)
             except Exception as e:  # pylint: disable=broad-exception-caught
@@ -1037,7 +1037,7 @@ class UltraAdvancedEnsembleEngine:
         interval = config_manager.get("meta_learning_interval_hours", 24) * 3600
         while True:
             try:
-                logger.debug("Running meta-learning retraining")
+                
                 await self.meta_learner.train_meta_learner(list(self.prediction_cache))
                 await asyncio.sleep(interval)
             except Exception as e:  # pylint: disable=broad-exception-caught

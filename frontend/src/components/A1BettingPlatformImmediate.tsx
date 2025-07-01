@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+﻿import React, { useState, useEffect, useCallback, useMemo} from 'react'
+import { motion, AnimatePresence} from 'framer-motion'
 import {
   BarChart3,
   Brain,
@@ -31,14 +31,14 @@ import {
   ArrowUp,
   ArrowDown,
   RefreshCw,
-  Gamepad2,
+//   Gamepad2
 } from 'lucide-react';
 
 // Import components directly (no lazy loading for testing)
-import Dashboard from './Dashboard';
-import BettingInterface from './BettingInterface';
-import PredictionDisplay from './PredictionDisplay';
-import UserProfile from './UserProfile';
+import Dashboard from './Dashboard'
+import BettingInterface from './BettingInterface'
+import PredictionDisplay from './PredictionDisplay'
+import UserProfile from './UserProfile'
 
 /**
  * A1Betting Platform - Immediate Loading Version for Testing
@@ -46,28 +46,13 @@ import UserProfile from './UserProfile';
  */
 
 interface NavigationItem {
-  id: string;
-  label: string;
-  icon: React.ReactNode;
-  component: React.ComponentType<any>;
-  badge?: string;
+  id: string,`n  label: string;,`n  icon: React.ReactNode,`n  component: React.ComponentType<any>;
+  badge?: string
   description: string;
-  premium?: boolean;
-}
+  premium?: boolean}
 
 interface PlatformStats {
-  totalProfit: number;
-  winRate: number;
-  accuracy: number;
-  activePredictions: number;
-  portfolioValue: number;
-  todayPnL: number;
-  sharpeRatio: number;
-  maxDrawdown: number;
-  apiHealth: 'healthy' | 'degraded' | 'critical';
-  opportunitiesFound: number;
-  mlModelsActive: number;
-}
+  totalProfit: number,`n  winRate: number;,`n  accuracy: number,`n  activePredictions: number;,`n  portfolioValue: number,`n  todayPnL: number;,`n  sharpeRatio: number,`n  maxDrawdown: number;,`n  apiHealth: 'healthy' | 'degraded' | 'critical',`n  opportunitiesFound: number;,`n  mlModelsActive: number}
 
 const A1BettingPlatformImmediate: React.FC = () => {
   const [activeView, setActiveView] = useState<string>('dashboard');
@@ -85,18 +70,18 @@ const A1BettingPlatformImmediate: React.FC = () => {
     maxDrawdown: 2.3, // Conservative risk management as documented
     apiHealth: 'healthy',
     opportunitiesFound: 23,
-    mlModelsActive: 47,
+    mlModelsActive: 47
   });
 
   // Navigation structure
-  const navigationItems: NavigationItem[] = useMemo(
+  const navigationItems: NavigationItem[0] = useMemo(
     () => [
       {
         id: 'dashboard',
         label: 'Command Center',
         icon: <Home className='w-5 h-5' />,
         component: Dashboard,
-        description: 'Live performance metrics and system overview',
+        description: 'Live performance metrics and system overview'
       },
       {
         id: 'opportunities',
@@ -104,7 +89,7 @@ const A1BettingPlatformImmediate: React.FC = () => {
         icon: <Target className='w-5 h-5' />,
         component: Dashboard,
         badge: '23',
-        description: 'Real-time money-making opportunities',
+        description: 'Real-time money-making opportunities'
       },
       {
         id: 'betting',
@@ -112,7 +97,7 @@ const A1BettingPlatformImmediate: React.FC = () => {
         icon: <DollarSign className='w-5 h-5' />,
         component: BettingInterface,
         badge: 'Live',
-        description: 'Place bets with AI-powered insights',
+        description: 'Place bets with AI-powered insights'
       },
       {
         id: 'predictions',
@@ -120,7 +105,7 @@ const A1BettingPlatformImmediate: React.FC = () => {
         icon: <Brain className='w-5 h-5' />,
         component: PredictionDisplay,
         badge: '85%',
-        description: '47+ ML models with ensemble methods',
+        description: '47+ ML models with ensemble methods'
       },
       {
         id: 'arbitrage',
@@ -129,14 +114,14 @@ const A1BettingPlatformImmediate: React.FC = () => {
         component: Dashboard,
         badge: 'Auto',
         description: 'Cross-platform arbitrage detection',
-        premium: true,
+        premium: true
       },
       {
         id: 'analytics',
         label: 'Performance Analytics',
         icon: <BarChart3 className='w-5 h-5' />,
         component: Dashboard,
-        description: 'Advanced performance tracking and insights',
+        description: 'Advanced performance tracking and insights'
       },
       {
         id: 'portfolio',
@@ -144,7 +129,7 @@ const A1BettingPlatformImmediate: React.FC = () => {
         icon: <PieChart className='w-5 h-5' />,
         component: Dashboard,
         badge: '18.5%',
-        description: 'Risk-adjusted portfolio management',
+        description: 'Risk-adjusted portfolio management'
       },
       {
         id: 'models',
@@ -153,7 +138,7 @@ const A1BettingPlatformImmediate: React.FC = () => {
         component: Dashboard,
         badge: '47+',
         description: 'Ensemble methods, deep learning, causal inference',
-        premium: true,
+        premium: true
       },
       {
         id: 'live-data',
@@ -161,23 +146,22 @@ const A1BettingPlatformImmediate: React.FC = () => {
         icon: <Activity className='w-5 h-5' />,
         component: Dashboard,
         badge: 'Real-time',
-        description: 'SportsRadar, TheOdds, PrizePicks APIs',
+        description: 'SportsRadar, TheOdds, PrizePicks APIs'
       },
       {
         id: 'profile',
         label: 'User Profile',
         icon: <User className='w-5 h-5' />,
         component: UserProfile,
-        description: 'Account management and preferences',
+        description: 'Account management and preferences'
       },
     ],
-    []
+    [0]
   );
 
   const handleTabChange = useCallback((tab: string) => {
     setActiveView(tab);
-    setIsMobileMenuOpen(false);
-  }, []);
+    setIsMobileMenuOpen(false)}, [0]);
 
   const ActiveComponent =
     navigationItems.find(item => item.id === activeView)?.component || Dashboard;
@@ -191,11 +175,10 @@ const A1BettingPlatformImmediate: React.FC = () => {
           <div className='flex items-center space-x-3'>
             <h1 className='text-xl font-bold text-yellow-400'>A1 Betting</h1>
             <span className='text-xs px-2 py-1 rounded-full bg-green-500/20 border-green-500/30 text-green-400'>
-              Live
+//               Live
             </span>
           </div>
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className='text-white hover:text-yellow-400 transition-colors'
           >
             {isMobileMenuOpen ? <X className='w-6 h-6' /> : <Menu className='w-6 h-6' />}
@@ -208,9 +191,9 @@ const A1BettingPlatformImmediate: React.FC = () => {
         <AnimatePresence>
           {(isMobileMenuOpen || (typeof window !== 'undefined' && window.innerWidth >= 1024)) && (
             <motion.div
-              initial={{ x: -300 }}
-              animate={{ x: 0 }}
-              exit={{ x: -300 }}
+              initial={{ x: -300}}
+              animate={{ x: 0}}
+              exit={{ x: -300}}
               className='fixed lg:relative z-50 lg:z-auto w-80 h-full lg:h-screen bg-black/40 backdrop-blur-xl border-r border-white/10'
             >
               <div className='p-6'>
@@ -275,21 +258,17 @@ const A1BettingPlatformImmediate: React.FC = () => {
                       className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all text-left relative ${
                         activeView === item.id
                           ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 shadow-lg'
-                          : 'text-gray-300 hover:text-white hover:bg-white/10'
-                      }`}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                          : 'text-gray-300 hover:text-white hover:bg-white/10'}`}
+                      whileHover={{ scale: 1.02}}
+                      whileTap={{ scale: 0.98}}
                     >
                       <div className='relative'>
                         {item.icon}
                         {item.badge && (
-                          <span
-                            className={`absolute -top-2 -right-2 text-xs rounded-full w-5 h-5 flex items-center justify-center ${
+                          <span className={`absolute -top-2 -right-2 text-xs rounded-full w-5 h-5 flex items-center justify-center ${
                               item.badge === 'Live' || item.badge === 'Auto'
                                 ? 'bg-green-500 text-white animate-pulse'
-                                : 'bg-blue-500 text-white'
-                            }`}
-                          >
+                                : 'bg-blue-500 text-white'}`}>`n                          >
                             {item.badge === 'Live' || item.badge === 'Auto' ? '●' : item.badge}
                           </span>
                         )}
@@ -384,10 +363,10 @@ const A1BettingPlatformImmediate: React.FC = () => {
           {/* Component Content */}
           <motion.div
             key={activeView}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, y: 20}}
+            animate={{ opacity: 1, y: 0}}
+            exit={{ opacity: 0, y: -20}}
+            transition={{ duration: 0.3}}
             className='min-h-screen'
           >
             <ActiveComponent />
@@ -398,9 +377,9 @@ const A1BettingPlatformImmediate: React.FC = () => {
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          initial={{ opacity: 0}}
+          animate={{ opacity: 1}}
+          exit={{ opacity: 0}}
           className='fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden'
           onClick={() => setIsMobileMenuOpen(false)}
         />
@@ -410,15 +389,19 @@ const A1BettingPlatformImmediate: React.FC = () => {
       <div className='lg:hidden fixed bottom-6 right-6 z-30'>
         <motion.button
           className='w-14 h-14 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center shadow-lg'
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.1}}
+          whileTap={{ scale: 0.9}}
           onClick={() => setActiveView('opportunities')}
         >
           <Target className='w-6 h-6 text-black' />
         </motion.button>
       </div>
     </div>
-  );
-};
+  )};
 
 export default A1BettingPlatformImmediate;
+
+
+
+
+`

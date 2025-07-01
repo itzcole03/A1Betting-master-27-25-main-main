@@ -1,7 +1,8 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface LoadingStateProps {
-    message?: string;
-    size?: number;
-}
+  message?: string;
+  size?: number;}
 declare const _default: React.NamedExoticComponent<LoadingStateProps>;
 export default _default;
+
+

@@ -1,60 +1,22 @@
-import { useMemo } from 'react.ts';
-import { useBettingStore } from '@/stores/bettingStore.ts';
+﻿import { useMemo} from 'react';
+import { useBettingStore} from '@/stores/bettingStore';
 
 interface BettingStats {
-  totalBets: number;
-  totalStake: number;
-  totalWinnings: number;
-  winRate: number;
-  averageOdds: number;
-  profitLoss: number;
-  roi: number;
-  bestBet: {
-    selection: string;
-    odds: number;
-    stake: number;
-    winnings: number;
-  } | null;
-  worstBet: {
-    selection: string;
-    odds: number;
-    stake: number;
-    loss: number;
-  } | null;
+  totalBets: number,`n  totalStake: number;,`n  totalWinnings: number,`n  winRate: number;,`n  averageOdds: number,`n  profitLoss: number;,`n  roi: number,`n  bestBet: {,`n  selection: string,`n  odds: number;,`n  stake: number,`n  winnings: number} | null;
+  worstBet: {,`n  selection: string;,`n  odds: number,`n  stake: number;,`n  loss: number} | null;
   // New fields for historical analysis;
   performanceBySport: {
-    [sport: string]: {
-      totalBets: number;
-      winRate: number;
-      profitLoss: number;
-    };
-  };
+    [sport: string]: {,`n  totalBets: number;,`n  winRate: number,`n  profitLoss: number}};
   performanceByMarket: {
-    [market: string]: {
-      totalBets: number;
-      winRate: number;
-      profitLoss: number;
-    };
-  };
-  recentPerformance: {
-    date: string;
-    profitLoss: number;
-    bets: number;
-  }[];
-  riskMetrics: {
-    averageStake: number;
-    maxStake: number;
-    stakeToBalanceRatio: number;
-    volatility: number;
-  };
-}
+    [market: string]: {,`n  totalBets: number;,`n  winRate: number,`n  profitLoss: number}};
+  recentPerformance: {,`n  date: string;,`n  profitLoss: number,`n  bets: number}[0];
+  riskMetrics: {,`n  averageStake: number;,`n  maxStake: number,`n  stakeToBalanceRatio: number;,`n  volatility: number}}
 
 export const useBettingAnalytics = (): BettingStats => {
-  const { activeBets } = useBettingStore();
+  const { activeBets} = useBettingStore();
 
   return useMemo(() => {
-    const stats: BettingStats = {
-      totalBets: activeBets.length,
+    const stats: BettingStats = {,`n  totalBets: activeBets.length,
       totalStake: 0,
       totalWinnings: 0,
       winRate: 0,
@@ -63,31 +25,28 @@ export const useBettingAnalytics = (): BettingStats => {
       roi: 0,
       bestBet: null,
       worstBet: null,
-      performanceBySport: {},
-      performanceByMarket: {},
-      recentPerformance: [],
-      riskMetrics: {
-        averageStake: 0,
+      performanceBySport: Record<string, any>,
+      performanceByMarket: Record<string, any>,
+      recentPerformance: [0],
+      riskMetrics: {,`n  averageStake: 0,
         maxStake: 0,
         stakeToBalanceRatio: 0,
-        volatility: 0,
-      },
+        volatility: 0
+      }
     };
 
     if (activeBets.length === 0) {
-      return stats;
-    }
+      return stats;}
 
     // Calculate basic statistics;
     const totalOdds = 0;
     const wonBets = 0;
-    const stakes: number[] = [];
-    const dailyPerformance: { [date: string]: { profitLoss: number; bets: number } } = {};
+    const stakes: number[0] = [0];
+    const dailyPerformance: { [date: string]: { profitLoss: number; bets: number} } = Record<string, any>;
 
     activeBets.forEach(bet => {
       if (!bet.selection?.name || !bet.sportName || !bet.marketType) {
-        return; // Skip invalid bets;
-      }
+        return; // Skip invalid bets;}
 
       stats.totalStake += bet.stake;
       totalOdds += bet.odds;
@@ -97,7 +56,7 @@ export const useBettingAnalytics = (): BettingStats => {
       const sportStats = stats.performanceBySport[bet.sportName] || {
         totalBets: 0,
         winRate: 0,
-        profitLoss: 0,
+        profitLoss: 0
       };
       sportStats.totalBets++;
       stats.performanceBySport[bet.sportName] = sportStats;
@@ -106,13 +65,12 @@ export const useBettingAnalytics = (): BettingStats => {
       const marketStats = stats.performanceByMarket[bet.marketType] || {
         totalBets: 0,
         winRate: 0,
-        profitLoss: 0,
+        profitLoss: 0
       };
       marketStats.totalBets++;
       stats.performanceByMarket[bet.marketType] = marketStats;
 
       // Track daily performance;
-
 
       dailyStats.bets++;
       dailyPerformance[date] = dailyStats;
@@ -122,12 +80,10 @@ export const useBettingAnalytics = (): BettingStats => {
         stats.totalWinnings += bet.potentialWinnings;
         sportStats.profitLoss += bet.potentialWinnings - bet.stake;
         marketStats.profitLoss += bet.potentialWinnings - bet.stake;
-        dailyStats.profitLoss += bet.potentialWinnings - bet.stake;
-      } else if (bet.status === 'lost') {
+        dailyStats.profitLoss += bet.potentialWinnings - bet.stake;} else if (bet.status === 'lost') {
         sportStats.profitLoss -= bet.stake;
         marketStats.profitLoss -= bet.stake;
-        dailyStats.profitLoss -= bet.stake;
-      }
+        dailyStats.profitLoss -= bet.stake;}
 
       // Track best and worst bets;
       if (bet.status === 'won') {
@@ -136,20 +92,17 @@ export const useBettingAnalytics = (): BettingStats => {
             selection: bet.selection.name,
             odds: bet.odds,
             stake: bet.stake,
-            winnings: bet.potentialWinnings,
-          };
-        }
+            winnings: bet.potentialWinnings
+          }}
       } else if (bet.status === 'lost') {
         if (!stats.worstBet || bet.stake > stats.worstBet.stake) {
           stats.worstBet = {
             selection: bet.selection.name,
             odds: bet.odds,
             stake: bet.stake,
-            loss: bet.stake,
-          };
-        }
-      }
-    });
+            loss: bet.stake
+          }}
+      }});
 
     // Calculate derived statistics;
     stats.winRate = (wonBets / activeBets.length) * 100;
@@ -159,14 +112,10 @@ export const useBettingAnalytics = (): BettingStats => {
 
     // Calculate performance by sport and market;
     Object.keys(stats.performanceBySport).forEach(sport => {
-
-      sportStats.winRate = (sportStats.totalBets / activeBets.length) * 100;
-    });
+      sportStats.winRate = (sportStats.totalBets / activeBets.length) * 100;});
 
     Object.keys(stats.performanceByMarket).forEach(market => {
-
-      marketStats.winRate = (marketStats.totalBets / activeBets.length) * 100;
-    });
+      marketStats.winRate = (marketStats.totalBets / activeBets.length) * 100;});
 
     // Calculate risk metrics;
     stats.riskMetrics.averageStake = stats.totalStake / activeBets.length;
@@ -175,17 +124,18 @@ export const useBettingAnalytics = (): BettingStats => {
 
     // Calculate volatility (standard deviation of daily returns)
 
-
     const variance =
       dailyReturns.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / dailyReturns.length;
     stats.riskMetrics.volatility = Math.sqrt(variance);
 
     // Sort and limit recent performance to last 30 days;
     stats.recentPerformance = Object.entries(dailyPerformance)
-      .map(([date, data]) => ({ date, ...data }))
+      .map(([date, data]) => ({ date, ...data}))
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
       .slice(0, 30);
 
-    return stats;
-  }, [activeBets]);
-};
+    return stats;}, [activeBets]);};
+
+
+
+`

@@ -1,42 +1,37 @@
-import React from 'react.ts';
-import { cn } from '@/utils/classNames.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+﻿import React from 'react';
+import { cn} from '@/utils/classNames';
+import { motion, AnimatePresence} from 'framer-motion';
 
 export interface ProgressProps {
   value: number;
-  max?: number;
+  max?: number
   size?: 'sm' | 'md' | 'lg';
   variant?: 'default' | 'success' | 'warning' | 'danger';
-  showValue?: boolean;
+  showValue?: boolean
   valuePosition?: 'top' | 'right' | 'bottom';
-  label?: string;
-  className?: string;
-  animate?: boolean;
-}
+  label?: string
+  className?: string
+  animate?: boolean}
 
 const sizes = {
   sm: 'h-1',
   md: 'h-2',
-  lg: 'h-3',
+  lg: 'h-3'
 };
 
 const variants = {
-  default: {
-    base: 'bg-gray-200 dark:bg-gray-700',
-    bar: 'bg-primary-500',
+  default: {,`n  base: 'bg-gray-200 dark:bg-gray-700',
+    bar: 'bg-primary-500'
   },
-  success: {
-    base: 'bg-green-100 dark:bg-green-800/30',
-    bar: 'bg-green-500',
+  success: {,`n  base: 'bg-green-100 dark:bg-green-800/30',
+    bar: 'bg-green-500'
   },
-  warning: {
-    base: 'bg-yellow-100 dark:bg-yellow-800/30',
-    bar: 'bg-yellow-500',
+  warning: {,`n  base: 'bg-yellow-100 dark:bg-yellow-800/30',
+    bar: 'bg-yellow-500'
   },
-  danger: {
-    base: 'bg-red-100 dark:bg-red-800/30',
-    bar: 'bg-red-500',
-  },
+  danger: {,`n  base: 'bg-red-100 dark:bg-red-800/30',
+    bar: 'bg-red-500'
+  }
 };
 
 export const Progress: React.FC<ProgressProps key={41495}> = ({
@@ -48,7 +43,7 @@ export const Progress: React.FC<ProgressProps key={41495}> = ({
   valuePosition = 'right',
   label,
   className,
-  animate = true,
+  animate = true
 }) => {
 
   const renderValue = () => (
@@ -72,10 +67,10 @@ export const Progress: React.FC<ProgressProps key={41495}> = ({
           className={cn('w-full overflow-hidden rounded-full', variants[variant].base, sizes[size])}
          key={892920}>
           <motion.div;
-            animate={{ width: `${percentage}%` }}
+            animate={{ width: `${percentage}%`}}
             className={cn('h-full rounded-full', variants[variant].bar)}
-            initial={animate ? { width: 0 } : false}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
+            initial={animate ? { width: 0} : false}
+            transition={{ duration: 0.5, ease: 'easeOut'}}
           / key={788021}>
         </div>
         {showValue && valuePosition === 'right' && (
@@ -86,5 +81,10 @@ export const Progress: React.FC<ProgressProps key={41495}> = ({
         <div className="mt-1 flex justify-end" key={761205}>{renderValue()}</div>
       )}
     </div>
-  );
-};
+  )};
+
+
+
+
+
+`

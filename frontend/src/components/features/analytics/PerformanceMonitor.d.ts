@@ -1,6 +1,8 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface PerformanceMonitorProps {
-    children: React.ReactNode;
-}
+  children: React.ReactNode}
 export declare const PerformanceMonitor: React.FC<PerformanceMonitorProps>;
-export {};
+export Record<string, any>;
+
+
+

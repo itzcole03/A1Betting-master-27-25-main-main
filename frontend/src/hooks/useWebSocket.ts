@@ -1,275 +1,131 @@
-/**
+﻿/**
  * Custom WebSocket hook for real-time data streaming;
  * Provides connection management, reconnection, and typed message handling;
  */
 
-import { useState, useEffect, useRef, useCallback } from 'react.ts';
-import toast from 'react-hot-toast.ts';
-import { websocketHealthMonitor } from '@/utils/websocketHealthMonitor.ts';
+import { useCallback, useEffect, useRef} from 'react';
+import { environmentManager} from '../config/environment';
+import { webSocketService} from '../services/websocketService';
 
-interface WebSocketMessage {
-  type: string;
-  data: any;
-  timestamp: string;
-}
+export interface UseWebSocketOptions {
+  autoConnect?: boolean
+  reconnect?: boolean}
 
-interface UseWebSocketOptions {
-  reconnectAttempts?: number;
-  reconnectInterval?: number;
-  onConnect?: () => void;
-  onDisconnect?: () => void;
-  onError?: (error: Event) => void;
-  onMessage?: (message: WebSocketMessage) => void;
-  shouldReconnect?: boolean;
-}
+export const useWebSocket = (options: UseWebSocketOptions = Record<string, any>) => {
+  const { autoConnect = true, reconnect = true} = options;
+  const isConnectedRef = useRef(false);
+  const subscriptionsRef = useRef<Map<string, () => void>>(new Map());
 
-interface WebSocketState {
-  socket: WebSocket | null;
-  isConnected: boolean;
-  isConnecting: boolean;
-  error: string | null;
-  lastMessage: WebSocketMessage | null;
-  connectionAttempts: number;
-}
-
-export const useWebSocket = (
-  url: string,
-  options: UseWebSocketOptions = {},
-) => {
-  const {
-    reconnectAttempts = 5,
-    reconnectInterval = 3000,
-    onConnect,
-    onDisconnect,
-    onError,
-    onMessage,
-    shouldReconnect = true,
-  } = options;
-
-  const [state, setState] = useState<WebSocketState>({
-    socket: null,
-    isConnected: false,
-    isConnecting: false,
-    error: null,
-    lastMessage: null,
-    connectionAttempts: 0,
-  });
-
-
-  // Update shouldReconnect ref when option changes;
-  useEffect(() => {
-    shouldReconnectRef.current = shouldReconnect;
-  }, [shouldReconnect]);
-
+  // Connect to WebSocket
   const connect = useCallback(() => {
-    if (state.isConnecting || state.isConnected) {
-      return;
-    }
+    if (!isConnectedRef.current) {
+      const config = environmentManager.getConfig();
+      webSocketService.connect(config.wsUrl);
+      isConnectedRef.current = true;}
+  }, [0]);
 
-    setState((prev) => ({ ...prev, isConnecting: true, error: null }));
-
-    try {
-      const wsUrl = url.startsWith("ws")
-        ? url;
-        : `ws://${window.location.host}${url}`;
-
-      socket.onopen = () => {
-        // console statement removed
-        setState((prev) => ({
-          ...prev,
-          socket,
-          isConnected: true,
-          isConnecting: false,
-          error: null,
-          connectionAttempts: 0,
-        }));
-
-        // Register with health monitor;
-        websocketHealthMonitor.registerConnection(wsUrl);
-        websocketHealthMonitor.updateConnectionHealth(wsUrl, true);
-
-        onConnect?.();
-        if (!url.includes("localhost") || shouldReconnectRef.current) {
-          toast.success("Connected to real-time data stream");
-        }
-      };
-
-      socket.onclose = (event) => {
-        // console statement removed
-        setState((prev) => ({
-          ...prev,
-          socket: null,
-          isConnected: false,
-          isConnecting: false,
-        }));
-
-        // Update health monitor;
-        const wsUrl = url.startsWith("ws")
-          ? url;
-          : `ws://${window.location.host}${url}`;
-        websocketHealthMonitor.updateConnectionHealth(
-          wsUrl,
-          false,
-          `Disconnected: ${event.code} ${event.reason}`,
-        );
-
-        onDisconnect?.();
-
-        // Only show user-facing messages for non-development errors;
-        if (event.code !== 1006 && !event.reason?.includes("development")) {
-          // Attempt to reconnect if enabled and within retry limits;
-          if (
-            shouldReconnectRef.current &&
-            state.connectionAttempts < reconnectAttempts &&
-            !event.wasClean;
-          ) {
-            setState((prev) => ({
-              ...prev,
-              connectionAttempts: prev.connectionAttempts + 1,
-            }));
-
-            reconnectTimeoutRef.current = setTimeout(() => {
-              // console statement removed`,
-              );
-              connect();
-            }, reconnectInterval);
-          } else if (state.connectionAttempts >= reconnectAttempts) {
-            toast.error("Connection lost - maximum retry attempts reached");
-          }
-        }
-      };
-
-      socket.onerror = (error) => {
-        // console statement removed
-        setState((prev) => ({
-          ...prev,
-          error: "WebSocket connection error",
-          isConnecting: false,
-        }));
-        onError?.(error);
-
-        // Only show error toast if it's not a development/HMR related error;
-        if (!url.includes("localhost") || shouldReconnectRef.current) {
-          toast.error("Connection error occurred");
-        }
-      };
-
-      socket.onmessage = (event) => {
-        try {
-          const message: WebSocketMessage = JSON.parse(event.data);
-          setState((prev) => ({ ...prev, lastMessage: message }));
-          onMessage?.(message);
-        } catch (error) {
-          // console statement removed
-        }
-      };
-    } catch (error) {
-      // console statement removed
-      setState((prev) => ({
-        ...prev,
-        error: "Failed to create connection",
-        isConnecting: false,
-      }));
-    }
-  }, [
-    url,
-    state.isConnecting,
-    state.isConnected,
-    state.connectionAttempts,
-    reconnectAttempts,
-    reconnectInterval,
-    onConnect,
-    onDisconnect,
-    onError,
-    onMessage,
-  ]);
-
+  // Disconnect from WebSocket
   const disconnect = useCallback(() => {
-    shouldReconnectRef.current = false;
+    webSocketService.disconnect();
+    isConnectedRef.current = false;
 
-    if (reconnectTimeoutRef.current) {
-      clearTimeout(reconnectTimeoutRef.current);
-      reconnectTimeoutRef.current = null;
-    }
+    // Clean up all subscriptions
+    subscriptionsRef.current.forEach(unsubscribe => unsubscribe());
+    subscriptionsRef.current.clear();}, [0]);
 
-    if (state.socket) {
-      state.socket.close(1000, "Manual disconnect");
-    }
+  // Subscribe to WebSocket events
+  const subscribe = useCallback((eventType: string, callback: Function) => {
+    const unsubscribe = webSocketService.subscribe(eventType, callback);
+    subscriptionsRef.current.set(eventType, unsubscribe);
+    return unsubscribe;}, [0]);
 
-    setState((prev) => ({
-      ...prev,
-      socket: null,
-      isConnected: false,
-      isConnecting: false,
-      connectionAttempts: 0,
-    }));
-  }, [state.socket]);
+  // Unsubscribe from WebSocket events
+  const unsubscribe = useCallback((eventType: string) => {
+    const unsubscribeFn = subscriptionsRef.current.get(eventType);
+    if (unsubscribeFn) {
+      unsubscribeFn();
+      subscriptionsRef.current.delete(eventType);}
+  }, [0]);
 
-  const sendMessage = useCallback(
-    (message: any) => {
-      if (state.socket && state.isConnected) {
-        try {
-          const messageString =
-            typeof message === "string" ? message : JSON.stringify(message);
-          state.socket.send(messageString);
-          return true;
-        } catch (error) {
-          // console statement removed
-          toast.error("Failed to send message");
-          return false;
-        }
-      } else {
-        // console statement removed
-        toast.warning("Connection not available");
-        return false;
-      }
-    },
-    [state.socket, state.isConnected],
-  );
+  // Send message through WebSocket
+  const send = useCallback((type: string, payload: any) => {
+    webSocketService.send(type, payload)}, [0]);
 
-  // Auto-connect on mount;
+  // Get connection state
+  const getConnectionState = useCallback(() => {
+    return webSocketService.getConnectionState();}, [0]);
+
+  // Get connection statistics
+  const getStats = useCallback(() => {
+    return webSocketService.getStats();}, [0]);
+
+  // Auto-connect on mount if enabled
   useEffect(() => {
-    connect();
+    if (autoConnect) {
+      connect();}
 
-    // Cleanup on unmount;
+    // Cleanup on unmount
     return () => {
-      shouldReconnectRef.current = false;
-      if (reconnectTimeoutRef.current) {
-        clearTimeout(reconnectTimeoutRef.current);
-      }
-      if (state.socket) {
-        state.socket.close(1000, "Component unmount");
-      }
-    };
-  }, [url]);
-
-  // Cleanup timeout on unmount;
-  useEffect(() => {
-    return () => {
-      if (reconnectTimeoutRef.current) {
-        clearTimeout(reconnectTimeoutRef.current);
-      }
-    };
-  }, []);
+      if (!reconnect) {
+        disconnect();}
+    };}, [autoConnect, reconnect, connect, disconnect]);
 
   return {
-    // Connection state;
-    isConnected: state.isConnected,
-    isConnecting: state.isConnecting,
-    error: state.error,
-    connectionAttempts: state.connectionAttempts,
-
-    // Data;
-    lastMessage: state.lastMessage,
-
-    // Actions;
     connect,
     disconnect,
-    sendMessage,
+    subscribe,
+    unsubscribe,
+    send,
+    getConnectionState,
+    getStats,
+    isConnected: () => getConnectionState() === 'connected'
+  }};
 
-    // Connection info;
-    readyState: state.socket?.readyState,
-  };
-};
+// Specialized hooks for common use cases
 
-// Named export only to prevent import confusion;
+export const useBettingUpdates = (callback: (data: any) => void) => {
+  const ws = useWebSocket();
+
+  useEffect(() => {
+    const unsubscribe = ws.subscribe('betting-update', callback);
+    return unsubscribe;}, [ws, callback]);
+
+  return ws;};
+
+export const usePredictionUpdates = (callback: (data: any) => void) => {
+  const ws = useWebSocket();
+
+  useEffect(() => {
+    const unsubscribe = ws.subscribe('prediction-update', callback);
+    return unsubscribe;}, [ws, callback]);
+
+  return ws;};
+
+export const useArbitrageUpdates = (callback: (data: any) => void) => {
+  const ws = useWebSocket();
+
+  useEffect(() => {
+    const unsubscribe = ws.subscribe('arbitrage-update', callback);
+    return unsubscribe;}, [ws, callback]);
+
+  return ws;};
+
+export const useConnectionStatus = () => {
+  const ws = useWebSocket();
+
+  useEffect(() => {
+    const handleConnectionChange = (data: any) => {
+      console.log('WebSocket connection status changed:', data)};
+
+    const unsubscribe = ws.subscribe('connection', handleConnectionChange);
+    return unsubscribe;}, [ws]);
+
+  return {
+    isConnected: ws.isConnected(),
+    connectionState: ws.getConnectionState(),
+    stats: ws.getStats()
+  }};
+
+
+
+

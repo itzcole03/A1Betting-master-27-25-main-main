@@ -3,6 +3,7 @@
 ## Advanced ML Service (`mlService.ts`)
 
 This service provides unified orchestration for all advanced machine learning, prediction, risk, and analytics features. It exposes methods for:
+
 - Model training and management
 - Prediction and pattern detection
 - Risk assessment
@@ -14,6 +15,7 @@ This service provides unified orchestration for all advanced machine learning, p
 All backend ML logic (XGBoost, LightGBM, SHAP, LIME, etc.) is accessed via API endpoints. Only TensorFlow.js models (DNN, LSTM) are run in-browser.
 
 **Usage:**
+
 ```ts
 import { mlService } from './mlService';
 ```
@@ -33,6 +35,7 @@ node --experimental-vm-modules ./node_modules/.bin/jest --passWithNoTests
 - If you encounter ESM/CommonJS issues, see the Jest docs for ESM/TypeScript interop or use the provided config as a template.
 
 ## Integration Notes
+
 - All backend ML and analytics logic is accessed via API endpoints; only TensorFlow.js models run in-browser.
 - This service is exported via `index.ts` for easy import across the app.
 - Extend or adapt this service for new analytics, risk, or prediction features as needed.

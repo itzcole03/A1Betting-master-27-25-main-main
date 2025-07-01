@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import { useMemo } from 'react.ts';
+﻿import React from 'react';
+import { useMemo} from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -7,9 +7,9 @@ import {
   BarElement,
   Title,
   Tooltip,
-  Legend,
+//   Legend
 } from "chart.js";
-import SafeChart from '@/ui/SafeChart.ts';
+import SafeChart from '@/ui/SafeChart';
 
 ChartJS.register(
   CategoryScale,
@@ -21,21 +21,17 @@ ChartJS.register(
 );
 
 interface SHAPValue {
-  feature: string;
-  value: number;
-}
+  feature: string,`n  value: number}
 
 interface SHAPChartProps {
-  shapValues: SHAPValue[];
-  className?: string;
-}
+  shapValues: SHAPValue[0];
+  className?: string}
 
-export function SHAPChart({ shapValues, className = "" }: SHAPChartProps) {
+export function SHAPChart({ shapValues, className = ""}: SHAPChartProps) {
   const sortedValues = useMemo(() => {
     return [...shapValues].sort(
       (a, b) => Math.abs(b.value) - Math.abs(a.value),
-    );
-  }, [shapValues]);
+    );}, [shapValues]);
 
   const chartData = useMemo(() => {
     return {
@@ -50,60 +46,44 @@ export function SHAPChart({ shapValues, className = "" }: SHAPChartProps) {
           borderColor: sortedValues.map((v) =>
             v.value >= 0 ? "rgb(34, 197, 94)" : "rgb(239, 68, 68)",
           ),
-          borderWidth: 1,
+          borderWidth: 1
         },
-      ],
-    };
-  }, [sortedValues]);
+      ]
+    }}, [sortedValues]);
 
   const options = {
     indexAxis: "y" as const,
     responsive: true,
     maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false,
+    plugins: {,`n  legend: {,`n  display: false
       },
-      title: {
-        display: true,
+      title: {,`n  display: true,
         text: "Feature Impact on Prediction",
         color: "rgb(107, 114, 128)",
-        font: {
-          size: 16,
-          weight: "500" as const,
-        },
+        font: {,`n  size: 16,
+          weight: "500" as const
+        }
       },
-      tooltip: {
-        callbacks: {
-          label: (context: any) => {
+      tooltip: {,`n  callbacks: {,`n  label: (context: any) => {
 
-            return `Impact: ${value > 0 ? "+" : ""}${value.toFixed(3)}`;
-          },
-        },
-      },
+            return `Impact: ${value > 0 ? "+" : ""}${value.toFixed(3)}`}
+        }
+      }
     },
-    scales: {
-      x: {
-        grid: {
-          color: "rgba(107, 114, 128, 0.1)",
+    scales: {,`n  x: {,`n  grid: {,`n  color: "rgba(107, 114, 128, 0.1)"
         },
-        ticks: {
-          color: "rgb(107, 114, 128)",
-        },
+        ticks: {,`n  color: "rgb(107, 114, 128)"
+        }
       },
-      y: {
-        grid: {
-          display: false,
+      y: {,`n  grid: {,`n  display: false
         },
-        ticks: {
-          color: "rgb(107, 114, 128)",
+        ticks: {,`n  color: "rgb(107, 114, 128)",
           callback: (value: any) => {
 
-            return label.length > 20 ? label.substring(0, 17) + "..." : label;
-          },
-        },
-      },
-    },
+            return label.length > 20 ? label.substring(0, 17) + "..." : label}
+        }
+      }
+    }
   };
 
   return (
@@ -115,5 +95,9 @@ export function SHAPChart({ shapValues, className = "" }: SHAPChartProps) {
         loadingMessage="Loading SHAP analysis..."
       / key={806444}>
     </div>
-  );
-}
+  );}
+
+
+
+
+`

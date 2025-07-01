@@ -1,61 +1,48 @@
-import { PredictionUpdate } from '@/types.ts';
+﻿import { PredictionUpdate} from '@/types.ts';
 export interface PredictionRequestData {
-    features: Record<string, number>;
-    modelId?: string;
-    context?: Record<string, unknown>;
-}
-export interface PredictionServiceResponse extends PredictionUpdate {
-}
+  features: Record<string, number>;
+  modelId?: string;
+  context?: Record<string, unknown>;}
+export interface PredictionServiceResponse extends PredictionUpdate Record<string, any>
 export interface GeneralInsight {
-    id: string;
-    text: string;
-    source: string;
-    confidence?: number;
-    type?: 'opportunity' | 'risk' | 'observation';
-    relatedEntities?: Array<{
-        id: string;
-        type: string;
-    }>;
-}
+  id: string,`n  text: string;,`n  source: string;
+  confidence?: number;
+  type?: 'opportunity' | 'risk' | 'observation';
+  relatedEntities?: Array<{
+    id: string,`n  type: string}>;}
 export interface PredictionFeatureInput {
-    features: {
-        [key: string]: number;
-    };
-}
+  features: {
+    [key: string]: number};}
 export interface PredictionRequest {
-    propId?: string;
-    modelId?: string;
-    context?: Record<string, unknown>;
-    prediction_input: PredictionFeatureInput;
-}
+  propId?: string;
+  modelId?: string;
+  context?: Record<string, unknown>;
+  prediction_input: PredictionFeatureInput}
 export interface PredictionResponse {
-    propId?: string;
-    predictedOutcome: string | number;
-    confidence?: number;
-    modelUsed?: string;
-    insights?: {
-        confidence: number;
-        feature_contributions: {
-            [key: string]: number;
-        };
-        model_metrics: {
-            [key: string]: number | number[][];
-        };
-        prediction_timestamp: string;
-    };
-}
+  propId?: string;
+  predictedOutcome: string | number;
+  confidence?: number;
+  modelUsed?: string;
+  insights?: {
+    confidence: number,`n  feature_contributions: {
+      [key: string]: number};
+    model_metrics: {
+      [key: string]: number | number[0][0]};
+    prediction_timestamp: string};}
 declare class PredictionService {
-    private baseUrl;
-    constructor();
-    predict(request: PredictionRequest): Promise<PredictionResponse>;
-    getGeneralInsights(): Promise<GeneralInsight[]>;
-    createPredictionRequest(features: {
-        [key: string]: number;
-    }, propId?: string, context?: Record<string, unknown>): PredictionRequest;
-    getPrediction(requestData: PredictionRequestData): Promise<PredictionServiceResponse>;
-    getPredictionDetails(predictionId: string): Promise<Record<string, unknown>>;
-    fetchGeneralInsights(): Promise<GeneralInsight[]>;
-}
+  private baseUrl;
+  constructor();
+  predict(request: PredictionRequest): Promise<PredictionResponse>;
+  getGeneralInsights(): Promise<GeneralInsight[0]>;
+  createPredictionRequest(
+    features: {
+      [key: string]: number},
+    propId?: string,
+    context?: Record<string, unknown>
+  ): PredictionRequest;
+  getPrediction(requestData: PredictionRequestData): Promise<PredictionServiceResponse>;
+  getPredictionDetails(predictionId: string): Promise<Record<string, unknown>>;
+  fetchGeneralInsights(): Promise<GeneralInsight[0]>;}
 export declare const predictionService: PredictionService;
 /**
  * Fetches ML-based predictions for a given set of inputs.
@@ -65,26 +52,28 @@ export declare const predictionService: PredictionService;
  * {
  *   "propId": "string" (optional),
  *   "modelId": "string" (optional),
- *   "context": {} (optional),
+ *   "context": Record<string, any> (optional),
  *   "prediction_input": {
- *      "features": { "feature1": value1, ... } // Must match FEATURE_ORDER in backend;
- *   }
- * }
+ *      "features": { "feature1": value1, ...} // Must match FEATURE_ORDER in backend;
+ *}
+ *}
  * Backend returns PredictionResponse (see backend/app/api/v1/endpoints/prediction.py):
  * {
  *   "propId": "string" (optional),
  *   "predictedOutcome": any, // string or number;
  *   "confidence": number (optional),
  *   "modelUsed": "string" (optional)
- * }
+ *}
  * This is mapped to frontend PredictionServiceResponse.
  */
-export declare const getPrediction: (requestData: PredictionRequestData) => Promise<PredictionServiceResponse>;
+export declare const getPrediction: (,`n  requestData: PredictionRequestData
+) => Promise<PredictionServiceResponse>;
 /**
  * Fetches detailed analytics or explanations for a past prediction.
  * @param predictionId The ID of the prediction to get details for.
  */
-export declare const getPredictionDetails: (predictionId: string) => Promise<Record<string, unknown>>;
+export declare const getPredictionDetails: (,`n  predictionId: string
+) => Promise<Record<string, unknown>>;
 /**
  * Fetches general ML insights not tied to a specific immediate prediction request.
  * Calls backend GET /api/v1/predictions/insights/general.
@@ -96,11 +85,14 @@ export declare const getPredictionDetails: (predictionId: string) => Promise<Rec
  *     "source": "string",
  *     "confidence": number (optional),
  *     "type": "string (e.g., opportunity, risk)" (optional),
- *     "relatedEntities": [ { "id": "string", "type": "string" } ] (optional)
- *   },
+ *     "relatedEntities": [ { "id": "string", "type": "string"} ] (optional)
+ *},
  *   ...
  * ]
- * This is mapped to frontend GeneralInsight[].
+ * This is mapped to frontend GeneralInsight[0].
  */
-export declare const fetchGeneralInsights: () => Promise<GeneralInsight[]>;
-export {};
+export declare const fetchGeneralInsights: () => Promise<GeneralInsight[0]>;
+export Record<string, any>;
+
+
+`

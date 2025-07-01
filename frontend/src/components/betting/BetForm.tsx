@@ -1,4 +1,4 @@
-import React, { useState  } from 'react.ts';
+import React, { useState} from 'react';
 import {
   Box,
   Button,
@@ -13,58 +13,44 @@ import {
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
-  NumberDecrementStepper,
-} from '@chakra-ui/react.ts';
-import { useAuth } from '@/hooks/useAuth.ts';
-import { useMutation } from '@tanstack/react-query.ts';
-import axios from 'axios.ts';
+//   NumberDecrementStepper
+} from '@chakra-ui/react';
+import { useAuth} from '@/hooks/useAuth';
+import { useMutation} from '@tanstack/react-query';
+import axios from 'axios';
 
 interface BetFormProps {
-  eventId: string;
-  marketType: string;
-  selection: string;
-  odds: number;
-  metadata: {
-    sport: string;
-    league: string;
-    homeTeam: string;
-    awayTeam: string;
-    startTime: Date;
-  };
-}
+  eventId: string,`n  marketType: string;,`n  selection: string,`n  odds: number;,`n  metadata: {,`n  sport: string;,`n  league: string,`n  homeTeam: string;,`n  awayTeam: string,`n  startTime: Date}}
 
 export const BetForm: React.FC<BetFormProps key={295001}> = ({
   eventId,
   marketType,
   selection,
   odds,
-  metadata,
+//   metadata
 }) => {
   const [stake, setStake] = useState<number key={430559}>(0);
-  const { user } = useAuth();
+  const { user} = useAuth();
 
   const placeBetMutation = useMutation({
-    mutationFn: async (betData: any) => {
+    mutationFn: async (betData: unknown) => {
 
-      return response.data;
-    },
+      return response.data},
     onSuccess: () => {
       toast({
         title: 'Bet placed successfully',
         status: 'success',
         duration: 5000,
-        isClosable: true,
-      });
-    },
+        isClosable: true
+      })},
     onError: error => {
       toast({
         title: 'Error placing bet',
         description: error.message,
         status: 'error',
         duration: 5000,
-        isClosable: true,
-      });
-    },
+        isClosable: true
+      })}
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -75,10 +61,9 @@ export const BetForm: React.FC<BetFormProps key={295001}> = ({
         description: 'Please log in to place bets',
         status: 'warning',
         duration: 5000,
-        isClosable: true,
+        isClosable: true
       });
-      return;
-    }
+      return;}
 
     placeBetMutation.mutate({
       eventId,
@@ -86,9 +71,8 @@ export const BetForm: React.FC<BetFormProps key={295001}> = ({
       selection,
       odds,
       stake,
-      metadata,
-    });
-  };
+//       metadata
+    });};
 
   return (
     <Box as="form" borderRadius="lg" borderWidth={1} p={4} onSubmit={handleSubmit} key={680795}>
@@ -150,5 +134,10 @@ export const BetForm: React.FC<BetFormProps key={295001}> = ({
         </Button>
       </VStack>
     </Box>
-  );
-};
+  );};
+
+
+
+
+`
+

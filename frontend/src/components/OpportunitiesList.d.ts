@@ -1,35 +1,18 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface Opportunity {
-    id: string;
-    event: {
-        homeTeam: string;
-        awayTeam: string;
-        startTime: string;
-        sport: string;
-    };
-    market: string;
-    selection: string;
-    odds: number;
-    probability: number;
-    edge: number;
-    confidence: number;
-    volume: number;
-    sentiment?: {
-        score: number;
-        volume: number;
-    };
-    stats?: {
-        homeTeam: Record<string, unknown>;
-        awayTeam: Record<string, unknown>;
-    };
-    arbitrage?: {
-        roi: number;
-        bookmakers: string[];
-    };
-}
+  id: string,`n  event: {,`n  homeTeam: string,`n  awayTeam: string;,`n  startTime: string,`n  sport: string};
+  market: string,`n  selection: string;,`n  odds: number,`n  probability: number;,`n  edge: number,`n  confidence: number;,`n  volume: number;
+  sentiment?: {
+    score: number,`n  volume: number};
+  stats?: {
+    homeTeam: Record<string, unknown>;
+    awayTeam: Record<string, unknown>};
+  arbitrage?: {
+    roi: number,`n  bookmakers: string[0]};}
 interface OpportunitiesListProps {
-    opportunities: Opportunity[];
-    onPlaceBet: (opportunity: Opportunity) => void;
-}
+  opportunities: Opportunity[0],`n  onPlaceBet: (opportunity: Opportunity) => void}
 export declare const OpportunitiesList: React.FC<OpportunitiesListProps>;
-export {};
+export Record<string, any>;
+
+
+`

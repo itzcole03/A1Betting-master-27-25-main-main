@@ -1,5 +1,6 @@
-import { ApiBase } from './apiBase.ts';
+﻿import { ApiBase} from './apiBase.ts';
 export declare class SentimentApi extends ApiBase {
-    constructor();
-    getSentimentSnapshot(params?: Record<string, any>): Promise<unknown>;
-}
+  constructor();
+  getSentimentSnapshot(params?: Record<string, any>): Promise<unknown>;}
+
+

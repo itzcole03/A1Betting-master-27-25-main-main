@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback, createContext, useContext } from 'react';
-import type { FilterState } from '../components/filters/QuantumFilters';
+﻿import { useState, useEffect, useCallback, createContext, useContext} from 'react';
+import type { FilterState} from '../components/filters/QuantumFilters';
 
 // All available sports for default selection (Primary 11 + Misc)
 export const ALL_SPORTS = [
@@ -18,9 +18,8 @@ export const ALL_SPORTS = [
 ];
 
 // Helper function to check if all sports are selected
-export const isAllSportsSelected = (selectedSports: string[]): boolean => {
-  return selectedSports.length === ALL_SPORTS.length;
-};
+export const isAllSportsSelected = (selectedSports: string[0]): boolean => {
+  return selectedSports.length === ALL_SPORTS.length};
 
 // Primary 11 sports from PrizePicks
 export const PRIMARY_SPORTS = [
@@ -41,27 +40,19 @@ export const PRIMARY_SPORTS = [
 export const MISC_SPORTS = ['misc'];
 
 // Default filter state - ALL sports selected for maximum opportunity analysis
-const DEFAULT_FILTERS: FilterState = {
-  sports: [...ALL_SPORTS], // All sports selected by default
+const DEFAULT_FILTERS: FilterState = {,`n  sports: [...ALL_SPORTS], // All sports selected by default
   timeFrame: 'today',
   regions: ['us'],
-  advanced: {
-    minConfidence: 80,
+  advanced: {,`n  minConfidence: 80,
     onlyLive: false,
     includeProps: true,
-    dataQuality: 'all',
-  },
+    dataQuality: 'all'
+  }
 };
 
 // Filter context type
 interface FilterContextType {
-  filters: FilterState;
-  setFilters: (filters: FilterState) => void;
-  updateFilters: (updates: Partial<FilterState>) => void;
-  resetFilters: () => void;
-  isFiltering: boolean;
-  filterKey: string; // Unique key that changes when filters change
-}
+  filters: FilterState,`n  setFilters: (filters: FilterState) => void,`n  updateFilters: (updates: Partial<FilterState>) => void,`n  resetFilters: () => void;,`n  isFiltering: boolean,`n  filterKey: string; // Unique key that changes when filters change}
 
 // Create context
 export const FilterContext = createContext<FilterContextType | null>(null);
@@ -72,10 +63,8 @@ export const useFilters = () => {
     // Try to load from localStorage
     try {
       const saved = localStorage.getItem('quantum_filters');
-      return saved ? { ...DEFAULT_FILTERS, ...JSON.parse(saved) } : DEFAULT_FILTERS;
-    } catch {
-      return DEFAULT_FILTERS;
-    }
+      return saved ? { ...DEFAULT_FILTERS, ...JSON.parse(saved)} : DEFAULT_FILTERS;} catch {
+      return DEFAULT_FILTERS;}
   });
 
   const [isFiltering, setIsFiltering] = useState(false);
@@ -85,24 +74,21 @@ export const useFilters = () => {
 
   // Save filters to localStorage when they change
   useEffect(() => {
-    localStorage.setItem('quantum_filters', JSON.stringify(filters));
-  }, [filters]);
+    localStorage.setItem('quantum_filters', JSON.stringify(filters));}, [filters]);
 
   // Update filters with partial updates
   const updateFilters = useCallback((updates: Partial<FilterState>) => {
     setIsFiltering(true);
-    setFilters(prev => ({ ...prev, ...updates }));
+    setFilters(prev => ({ ...prev, ...updates}));
 
     // Simulate filtering delay
-    setTimeout(() => setIsFiltering(false), 300);
-  }, []);
+    setTimeout(() => setIsFiltering(false), 300);}, [0]);
 
   // Reset filters to default
   const resetFilters = useCallback(() => {
     setIsFiltering(true);
     setFilters(DEFAULT_FILTERS);
-    setTimeout(() => setIsFiltering(false), 300);
-  }, []);
+    setTimeout(() => setIsFiltering(false), 300);}, [0]);
 
   return {
     filters,
@@ -110,15 +96,14 @@ export const useFilters = () => {
     updateFilters,
     resetFilters,
     isFiltering,
-    filterKey,
-  };
-};
+//     filterKey
+  };};
 
 // Hook for getting filtered data based on current filters
 export const useFilteredData = <
-  T extends { sport?: string; startTime?: Date; region?: string; confidence?: number },
+  T extends { sport?: string startTime?: Date region?: string confidence?: number},
 >(
-  data: T[],
+  data: T[0],
   filters?: FilterState
 ) => {
   const filterContext = useContext(FilterContext);
@@ -127,8 +112,7 @@ export const useFilteredData = <
   return data.filter(item => {
     // Sport filter - empty array means "All Sports"
     if (activeFilters.sports.length > 0 && item.sport) {
-      if (!activeFilters.sports.includes(item.sport)) return false;
-    }
+      if (!activeFilters.sports.includes(item.sport)) return false;}
 
     // Time frame filter
     if (item.startTime && activeFilters.timeFrame !== 'season') {
@@ -169,23 +153,18 @@ export const useFilteredData = <
           const monthEnd = new Date();
           monthEnd.setDate(monthEnd.getDate() + 30);
           if (itemTime > monthEnd) return false;
-          break;
-      }
+          break;}
     }
 
     // Region filter
     if (activeFilters.regions.length > 0 && item.region) {
-      if (!activeFilters.regions.includes(item.region)) return false;
-    }
+      if (!activeFilters.regions.includes(item.region)) return false;}
 
     // Confidence filter
     if (item.confidence !== undefined) {
-      if (item.confidence < activeFilters.advanced.minConfidence) return false;
-    }
+      if (item.confidence < activeFilters.advanced.minConfidence) return false;}
 
-    return true;
-  });
-};
+    return true;});};
 
 // Hook for getting filter statistics
 export const useFilterStats = (totalCount: number, filteredCount: number) => {
@@ -198,65 +177,56 @@ export const useFilterStats = (totalCount: number, filteredCount: number) => {
     hiddenItems: totalCount - filteredCount,
     reductionPercent:
       totalCount > 0 ? Math.round(((totalCount - filteredCount) / totalCount) * 100) : 0,
-    activeFilters: {
-      sports: filters.sports.length,
+    activeFilters: {,`n  sports: filters.sports.length,
       hasTimeFilter: filters.timeFrame !== 'today',
       regions: filters.regions.length,
       hasAdvancedFilters:
         filters.advanced.minConfidence > 80 ||
         filters.advanced.onlyLive ||
         !filters.advanced.includeProps ||
-        filters.advanced.dataQuality !== 'all',
-    },
+        filters.advanced.dataQuality !== 'all'
+    }
   };
 
-  return stats;
-};
+  return stats;};
 
 // Utility function to check if current filters are default
 export const isDefaultFilters = (filters: FilterState): boolean => {
-  return JSON.stringify(filters) === JSON.stringify(DEFAULT_FILTERS);
-};
+  return JSON.stringify(filters) === JSON.stringify(DEFAULT_FILTERS)};
 
 // Utility function to get human-readable filter summary
 export const getFilterSummary = (filters: FilterState): string => {
-  const parts = [];
+  const parts = [0];
 
   if (filters.sports.length === ALL_SPORTS.length) {
-    parts.push('All Sports');
-  } else if (filters.sports.length > 0) {
+    parts.push('All Sports');} else if (filters.sports.length > 0) {
     if (filters.sports.length <= 3) {
-      parts.push(`Sports: ${filters.sports.join(', ').toUpperCase()}`);
-    } else {
-      parts.push(`${filters.sports.length}/${ALL_SPORTS.length} sports`);
-    }
+      parts.push(`Sports: ${filters.sports.join(', ').toUpperCase()}`)} else {
+      parts.push(`${filters.sports.length}/${ALL_SPORTS.length} sports`);}
   } else {
-    parts.push('No Sports Selected');
-  }
+    parts.push('No Sports Selected');}
 
   if (filters.timeFrame !== 'today') {
-    parts.push(`Time: ${filters.timeFrame}`);
-  }
+    parts.push(`Time: ${filters.timeFrame}`)}
 
   if (filters.regions.length > 1) {
-    parts.push(`${filters.regions.length} regions`);
-  }
+    parts.push(`${filters.regions.length} regions`);}
 
   if (filters.advanced.minConfidence > 80) {
-    parts.push(`Min confidence: ${filters.advanced.minConfidence}%`);
-  }
+    parts.push(`Min confidence: ${filters.advanced.minConfidence}%`)}
 
   if (filters.advanced.onlyLive) {
-    parts.push('Live only');
-  }
+    parts.push('Live only');}
 
   if (!filters.advanced.includeProps) {
-    parts.push('No props');
-  }
+    parts.push('No props');}
 
   if (filters.advanced.dataQuality !== 'all') {
-    parts.push(`${filters.advanced.dataQuality} quality`);
-  }
+    parts.push(`${filters.advanced.dataQuality} quality`);}
 
-  return parts.length > 0 ? parts.join(' • ') : 'Default filters';
-};
+  return parts.length > 0 ? parts.join(' • ') : 'Default filters';};
+
+
+
+
+`

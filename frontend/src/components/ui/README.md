@@ -3,6 +3,7 @@
 This directory contains shared UI elements and primitives used throughout the application.
 
 ## Files and Purpose
+
 - `button.tsx`: Reusable button component.
 - `card.tsx`: Card UI component.
 - `grid.tsx`: Grid layout component.

@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React from 'react';
+import { motion} from 'framer-motion';
 import {
   TrendingUp,
   TrendingDown,
@@ -12,12 +12,11 @@ import {
   Clock,
   Zap,
   BarChart3,
-  AlertTriangle,
-} from 'lucide-react.ts';
+//   AlertTriangle
+} from 'lucide-react';
 
 interface ActivityItem {
-  id: string;
-  type:
+  id: string,`n  type:
     | "bet_placed"
     | "bet_won"
     | "bet_lost"
@@ -25,40 +24,34 @@ interface ActivityItem {
     | "model_updated"
     | "opportunity_found"
     | "alert_triggered";
-  title: string;
-  description: string;
-  timestamp: Date;
+  title: string,`n  description: string;,`n  timestamp: Date;
   metadata?: {
-    amount?: number;
-    odds?: number;
-    confidence?: number;
-    game?: string;
-    profit?: number;
-    model?: string;
-  };
-  status?: "success" | "warning" | "error" | "info";
-}
+    amount?: number
+    odds?: number
+    confidence?: number
+    game?: string
+    profit?: number
+    model?: string};
+  status?: "success" | "warning" | "error" | "info";}
 
 interface ModernActivityFeedProps {
-  className?: string;
-  activities?: ActivityItem[];
-  maxItems?: number;
-  showTimeline?: boolean;
-}
+  className?: string
+  activities?: ActivityItem[0];
+  maxItems?: number
+  showTimeline?: boolean}
 
-const defaultActivities: ActivityItem[] = [
+const defaultActivities: ActivityItem[0] = [
   {
     id: "1",
     type: "opportunity_found",
     title: "High Value Opportunity Detected",
     description: "Lakers vs Warriors Over 235.5 - 89% confidence prediction",
     timestamp: new Date(Date.now() - 5 * 60 * 1000),
-    metadata: {
-      confidence: 89,
+    metadata: {,`n  confidence: 89,
       odds: 1.85,
-      game: "Lakers vs Warriors",
+      game: "Lakers vs Warriors"
     },
-    status: "info",
+    status: "info"
   },
   {
     id: "2",
@@ -66,13 +59,12 @@ const defaultActivities: ActivityItem[] = [
     title: "Bet Won",
     description: "Celtics -5.5 hit successfully",
     timestamp: new Date(Date.now() - 15 * 60 * 1000),
-    metadata: {
-      amount: 100,
+    metadata: {,`n  amount: 100,
       profit: 185,
       odds: 1.85,
-      game: "Celtics vs Heat",
+      game: "Celtics vs Heat"
     },
-    status: "success",
+    status: "success"
   },
   {
     id: "3",
@@ -80,11 +72,10 @@ const defaultActivities: ActivityItem[] = [
     title: "AI Prediction Generated",
     description: "NBA model generated 12 new predictions",
     timestamp: new Date(Date.now() - 25 * 60 * 1000),
-    metadata: {
-      confidence: 84,
-      model: "NBA Advanced Model v2.1",
+    metadata: {,`n  confidence: 84,
+      model: "NBA Advanced Model v2.1"
     },
-    status: "info",
+    status: "info"
   },
   {
     id: "4",
@@ -92,12 +83,11 @@ const defaultActivities: ActivityItem[] = [
     title: "Bet Placed",
     description: "Warriors +7.5 vs Lakers",
     timestamp: new Date(Date.now() - 35 * 60 * 1000),
-    metadata: {
-      amount: 50,
+    metadata: {,`n  amount: 50,
       odds: 1.9,
-      game: "Warriors vs Lakers",
+      game: "Warriors vs Lakers"
     },
-    status: "info",
+    status: "info"
   },
   {
     id: "5",
@@ -105,10 +95,9 @@ const defaultActivities: ActivityItem[] = [
     title: "Model Updated",
     description: "NFL model updated with week 15 injury reports",
     timestamp: new Date(Date.now() - 45 * 60 * 1000),
-    metadata: {
-      model: "NFL Predictive Model v3.2",
+    metadata: {,`n  model: "NFL Predictive Model v3.2"
     },
-    status: "info",
+    status: "info"
   },
   {
     id: "6",
@@ -116,7 +105,7 @@ const defaultActivities: ActivityItem[] = [
     title: "Bankroll Alert",
     description: "Daily betting limit reached 75%",
     timestamp: new Date(Date.now() - 60 * 60 * 1000),
-    status: "warning",
+    status: "warning"
   },
 ];
 
@@ -137,9 +126,7 @@ const getActivityIcon = (type: ActivityItem["type"], status?: string) => {
       return <Target className={`${iconClass} text-yellow-400`} / key={112138}>;
     case "alert_triggered":
       return <AlertTriangle className={`${iconClass} text-orange-400`} / key={8946}>;
-    default:
-      return <Activity className={`${iconClass} text-gray-400`} / key={552768}>;
-  }
+    default: return <Activity className={`${iconClass} text-gray-400`} / key={552768}>}
 };
 
 const getStatusColor = (status?: string) => {
@@ -150,9 +137,7 @@ const getStatusColor = (status?: string) => {
       return "border-yellow-400/30 bg-yellow-500/5";
     case "error":
       return "border-red-400/30 bg-red-500/5";
-    default:
-      return "border-gray-600/30 bg-gray-500/5";
-  }
+    default: return "border-gray-600/30 bg-gray-500/5"}
 };
 
 const formatTimestamp = (timestamp: Date) => {
@@ -163,14 +148,13 @@ const formatTimestamp = (timestamp: Date) => {
   if (minutes < 1) return "Just now";
   if (minutes < 60) return `${minutes}m ago`;
   if (hours < 24) return `${hours}h ago`;
-  return timestamp.toLocaleDateString();
-};
+  return timestamp.toLocaleDateString();};
 
 export const ModernActivityFeed: React.FC<ModernActivityFeedProps key={565169}> = ({
   className = "",
   activities = defaultActivities,
   maxItems = 10,
-  showTimeline = true,
+  showTimeline = true
 }) => {
 
   return (
@@ -191,9 +175,9 @@ export const ModernActivityFeed: React.FC<ModernActivityFeedProps key={565169}> 
         {displayActivities.map((activity, index) => (
           <motion.div;
             key={activity.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.05 }}
+            initial={{ opacity: 0, y: 20}}
+            animate={{ opacity: 1, y: 0}}
+            transition={{ delay: index * 0.05}}
             className={`
               relative p-4 rounded-xl border transition-all hover:bg-gray-800/30;
               ${getStatusColor(activity.status)}
@@ -281,7 +265,11 @@ export const ModernActivityFeed: React.FC<ModernActivityFeedProps key={565169}> 
         </div>
       )}
     </div>
-  );
-};
+  );};
 
 export default ModernActivityFeed;
+
+
+
+
+`

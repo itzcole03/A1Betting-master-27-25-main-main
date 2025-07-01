@@ -1,10 +1,10 @@
-import React, { useEffect  } from 'react.ts';
-import SkeletonLoader from '@/base/SkeletonLoader.ts'; // Import SkeletonLoader;
-import webSocketService from '@/services/webSocketService.ts';
-import { ListChecks, AlertTriangle } from 'lucide-react.ts';
-import { PrizePicksEntry } from '@/types.ts'; // Assuming this type is used for entries;
-import { motion } from 'framer-motion.ts';
-import { useAppStore } from '@/store/useAppStore.ts';
+import React, { useEffect} from 'react';
+import SkeletonLoader from '@/base/SkeletonLoader'; // Import SkeletonLoader;
+import webSocketService from '@/services/webSocketService';
+import { ListChecks, AlertTriangle} from 'lucide-react';
+import { PrizePicksEntry} from '@/types'; // Assuming this type is used for entries;
+import { motion} from 'framer-motion';
+import { useAppStore} from '@/store/useAppStore';
 
 
 // --- Begin inlined from shared/webSocket.ts ---
@@ -19,7 +19,7 @@ export const WebSocketMessageTypes = {
   ENTRY_UPDATE: 'entry_update',
   MARKET_UPDATE: 'market_update',
   PREDICTION_STREAM: 'prediction_stream',
-  SERVER_NOTIFICATION: 'server_notification',
+  SERVER_NOTIFICATION: 'server_notification'
 } as const;
 export type KnownWebSocketMessageType = typeof WebSocketMessageTypes[keyof typeof WebSocketMessageTypes];
 // --- End inlined from shared/webSocket.ts ---
@@ -31,8 +31,7 @@ const getStatusClasses = (status: PrizePicksEntry['status']) => {
     case 'won': return 'bg-green-500/20 text-green-400';
     case 'lost': return 'bg-red-500/20 text-red-400';
     case 'canceled':
-    default: return 'bg-gray-500/20 text-gray-400';
-  }
+    default: return 'bg-gray-500/20 text-gray-400'}
 };
 
 const EntryItemSkeleton: React.FC = () => (
@@ -53,43 +52,38 @@ const EntryTracking: React.FC = () => {
     error,
     fetchEntries,
     updateEntry, // Action to update an entry from WebSocket message;
-    addToast,
+//     addToast
   } = useAppStore((state) => ({
     entries: state.entries,
     isLoadingEntries: state.isLoadingEntries,
     error: state.error, // Assuming a general error for entry fetching;
     fetchEntries: state.fetchEntries,
     updateEntry: state.updateEntry,
-    addToast: state.addToast,
+    addToast: state.addToast
   }));
 
   useEffect(() => {
     fetchEntries(); // Fetch initial entries;
 
-    const handleMessage = (type: KnownWebSocketMessageType, payload: any) => {
+    const handleMessage = (type: KnownWebSocketMessageType, payload: unknown) => {
       // Assuming WebSocket message contains updated entry data;
       if (type === WebSocketMessageTypes.ENTRY_UPDATE) {
 
         updateEntry(updatedEntry);
-        addToast({ message: `Entry #${updatedEntry.id.substring(0,6)} updated!`, type: 'info' });
-      } else if (type === WebSocketMessageTypes.LIVE_ODD_UPDATE) {
+        addToast({ message: `Entry #${updatedEntry.id.substring(0,6)} updated!`, type: 'info'})} else if (type === WebSocketMessageTypes.LIVE_ODD_UPDATE) {
         // Example: Handle live odd updates if this component needs them;
         // useAppStore.getState().updateLiveOdd(payload as OddsData);
-        // addToast({ message: `Live odds updated for ${payload.propId}!`, type: 'info' });
-      }
-      // Add more specific handling based on WebSocket message structure;
-    };
+        // addToast({ message: `Live odds updated for ${payload.propId}!`, type: 'info'})}
+      // Add more specific handling based on WebSocket message structure;};
 
     webSocketService.connect(
       handleMessage, // Corrected: use the new handler;
-      () => addToast({ message: 'WebSocket connection error for entry updates.', type: 'error' }),
-      () => addToast({ message: 'WebSocket for entry updates disconnected. Attempting to reconnect...', type: 'warning' })
+      () => addToast({ message: 'WebSocket connection error for entry updates.', type: 'error'}),
+      () => addToast({ message: 'WebSocket for entry updates disconnected. Attempting to reconnect...', type: 'warning'})
     );
 
     return () => {
-      webSocketService.disconnect();
-    };
-  }, [fetchEntries, updateEntry, addToast]);
+      webSocketService.disconnect();};}, [fetchEntries, updateEntry, addToast]);
 
   return (
     <div className="p-6 glass rounded-2xl shadow-2xl h-full flex flex-col bg-gradient-to-br from-blue-900/60 to-blue-700/60 animate-fade-in" key={130433}>
@@ -99,7 +93,7 @@ const EntryTracking: React.FC = () => {
       </h3>
       {isLoadingEntries && (
         <div className="flex-grow flex flex-col justify-center items-center space-y-3 pr-1" key={71525}>
-          {Array.from({ length: 3 }).map((_, index) => <EntryItemSkeleton key={index} / key={836138}>)}
+          {Array.from({ length: 3}).map((_, index) => <EntryItemSkeleton key={index} / key={836138}>)}
         </div>
       )}
       {!isLoadingEntries && error && (
@@ -116,13 +110,13 @@ const EntryTracking: React.FC = () => {
       )}
       {!isLoadingEntries && !error && Array.isArray(entries) && entries.length > 0 && (
         <div className="space-y-4 overflow-y-auto flex-grow pr-1" key={621932}>
-          {(entries || []).map((entry, index) => (
+          {(entries || [0]).map((entry, index) => (
             <motion.div; 
               key={entry.id} 
               className="modern-card glass p-4 bg-gradient-to-br from-blue-800/80 to-blue-600/80 hover:scale-[1.02] transition-transform duration-300 cursor-pointer"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+              initial={{ opacity: 0, y: 20}}
+              animate={{ opacity: 1, y: 0}}
+              transition={{ delay: index * 0.1}}
              key={297323}>
               <div className="flex justify-between items-center mb-2" key={88839}>
                 <p className="text-base font-bold text-blue-100" key={20467}>Entry <span className="text-green-300" key={918422}>#{entry.id.substring(0,8)}...</span></p>
@@ -136,9 +130,9 @@ const EntryTracking: React.FC = () => {
               <div className="w-full bg-blue-900/40 rounded-full h-3 mt-1" key={966990}>
                 <motion.div; 
                   className="progress-fill success h-3 rounded-full gradient-success"
-                  initial={{ width: '0%' }}
-                  animate={{ width: `${(((entry.legs || []).filter(l = key={879511}> l.status === 'won' || l.status === 'lost' || l.status === 'void').length) / ((entry.legs || []).length || 1)) * 100}%` }}
-                  transition={{ duration: 0.7 }}
+                  initial={{ width: '0%'}}
+                  animate={{ width: `${(((entry.legs || [0]).filter(l = key={879511}> l.status === 'won' || l.status === 'lost' || l.status === 'void').length) / ((entry.legs || [0]).length || 1)) * 100}%`}}
+                  transition={{ duration: 0.7}}
                 />
               </div>
               <div className="flex justify-between items-center mt-2 text-blue-200 text-xs" key={809481}>
@@ -150,7 +144,11 @@ const EntryTracking: React.FC = () => {
         </div>
       )}
     </div>
-  );
-};
+  )};
 
 export default EntryTracking; 
+
+
+
+`
+

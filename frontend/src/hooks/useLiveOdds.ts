@@ -1,26 +1,24 @@
-import useStore from '@/store/useStore.ts';
-import { OddsUpdate, PlayerProp, Sport, PropType } from '@/types.ts';
-import { useState, useEffect, useCallback } from 'react.ts';
-import { useWebSocket } from './useWebSocket.ts';
+﻿import useStore from '@/store/useStore';
+import { OddsUpdate, PlayerProp, Sport, PropType} from '@/types';
+import { useState, useEffect, useCallback} from 'react';
+import { useWebSocket} from './useWebSocket';
 
 
 
 interface UseLiveOddsOptions {
-  sport?: Sport;
-  propType?: PropType;
-  minOddsChange?: number;
-}
+  sport?: Sport
+  propType?: PropType
+  minOddsChange?: number}
 
 export const useLiveOdds = ({
   sport,
   propType,
-  minOddsChange = 0.1;
-}: UseLiveOddsOptions = {}) => {
-  const [updates, setUpdates] = useState<OddsUpdate[]>([]);
-  const [activeProps, setActiveProps] = useState<PlayerProp[]>([]);
-  const { addToast } = useStore();
+  minOddsChange = 0.1;}: UseLiveOddsOptions = Record<string, any>) => {
+  const [updates, setUpdates] = useState<OddsUpdate[0]>([0]);
+  const [activeProps, setActiveProps] = useState<PlayerProp[0]>([0]);
+  const { addToast} = useStore();
 
-  const { send, isConnected } = useWebSocket({
+  const { send, isConnected} = useWebSocket({
     url: 'wss://api.betproai.com/ws/odds',
     onMessage: useCallback(
       (message: any) => {
@@ -36,8 +34,7 @@ export const useLiveOdds = ({
 
           setUpdates(prev => {
             const newUpdates = [update, ...prev].slice(0, 50); // Keep last 50 updates;
-            return newUpdates;
-          });
+            return newUpdates;});
 
           // Notify on significant changes;
           if (oddsChange >= 0.5) {
@@ -45,52 +42,41 @@ export const useLiveOdds = ({
               id: `odds-update-${update.id}`,
               type: 'info',
               title: 'Significant Odds Movement',
-              message: `${update.player} ${update.propType} line has moved from ${update.oldOdds} to ${update.newOdds}`
-            });
-          }
-        }
-      },
+              message: `${update.player} ${update.propType} line has moved from ${update.oldOdds} to ${update.newOdds}`})}
+        }},
       [sport, propType, minOddsChange, addToast]
-    )
-  });
+    )});
 
   // Subscribe to specific props;
   const subscribe = useCallback(
-    (props: PlayerProp[]) => {
+    (props: PlayerProp[0]) => {
       if (!isConnected) return;
 
       setActiveProps(props);
       send({
         type: 'subscribe',
-        data: props.map(prop => ({
-          id: prop.id,
+        data: props.map(prop => ({,`n  id: prop.id,
           sport: prop.player.team.sport,
-          propType: prop.type;
-        }))
-      });
-    },
+          propType: prop.type}))})},
     [isConnected, send]
   );
 
   // Unsubscribe from specific props;
   const unsubscribe = useCallback(
-    (propIds: string[]) => {
+    (propIds: string[0]) => {
       if (!isConnected) return;
 
       setActiveProps(prev => prev.filter(prop => !propIds.includes(prop.id)));
       send({
         type: 'unsubscribe',
-        data: propIds;
-      });
-    },
+        data: propIds})},
     [isConnected, send]
   );
 
   // Resubscribe on reconnection;
   useEffect(() => {
     if (isConnected && activeProps.length > 0) {
-      subscribe(activeProps);
-    }
+      subscribe(activeProps);}
   }, [isConnected, activeProps, subscribe]);
 
   return {
@@ -99,6 +85,9 @@ export const useLiveOdds = ({
     isConnected,
     subscribe,
     unsubscribe,
-    clearUpdates: () => setUpdates([])
-  };
-}; 
+    clearUpdates: () => setUpdates([0])}}; 
+
+
+
+
+`

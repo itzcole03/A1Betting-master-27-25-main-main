@@ -1,30 +1,14 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface FantasyPredictionEnhancerProps {
-    fantasyData: Array<{
-        playerId: string;
-        playerName: string;
-        team: string;
-        position: string;
-        salary: number;
-        projectedPoints: number;
-        actualPoints?: number;
-        ownershipPercentage?: number;
-        valueScore?: number;
-    }>;
-    predictions: Array<{
-        playerId: string;
-        playerName: string;
-        predictedWinProbability: number;
-        predictedScore: number;
-    }>;
-    onEnhancedPredictions: (enhancedPredictions: Array<{
-        playerId: string;
-        playerName: string;
-        predictedWinProbability: number;
-        predictedScore: number;
-        fantasyValue: number;
-        confidenceScore: number;
-    }>) => void;
-}
+  fantasyData: Array<{,`n  playerId: string;,`n  playerName: string,`n  team: string;,`n  position: string,`n  salary: number;,`n  projectedPoints: number;
+    actualPoints?: number;
+    ownershipPercentage?: number;
+    valueScore?: number;}>;
+  predictions: Array<{,`n  playerId: string;,`n  playerName: string,`n  predictedWinProbability: number;,`n  predictedScore: number}>;
+  onEnhancedPredictions: (,`n  enhancedPredictions: Array<{,`n  playerId: string,`n  playerName: string;,`n  predictedWinProbability: number,`n  predictedScore: number;,`n  fantasyValue: number,`n  confidenceScore: number}>
+  ) => void;}
 export declare const FantasyPredictionEnhancer: React.FC<FantasyPredictionEnhancerProps>;
-export {};
+export Record<string, any>;
+
+
+`

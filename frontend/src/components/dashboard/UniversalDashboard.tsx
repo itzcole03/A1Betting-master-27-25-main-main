@@ -1,6 +1,6 @@
-import React, { useState, useCallback, Suspense, useMemo  } from 'react.ts';
-import { AnimatePresence, motion } from 'framer-motion.ts';
-import { useQuery } from '@tanstack/react-query.ts';
+import React, { useState, useCallback, Suspense, useMemo} from 'react';
+import { AnimatePresence, motion} from 'framer-motion';
+import { useQuery} from '@tanstack/react-query';
 import {
   Menu,
   X,
@@ -11,14 +11,14 @@ import {
   BarChart3,
   Brain,
   Settings,
-  User,
-} from 'lucide-react.ts';
+//   User
+} from 'lucide-react';
 
 // Import unified components;
-import { MegaCard, MegaButton, MegaAlert } from '@/mega/MegaUI.ts';
-import { CyberText, CyberContainer } from '@/mega/CyberTheme.ts';
-import { predictionService } from '@/services/predictionService.ts';
-import useStore from '@/store/useStore.ts';
+import { MegaCard, MegaButton, MegaAlert} from '@/mega/MegaUI';
+import { CyberText, CyberContainer} from '@/mega/CyberTheme';
+import { predictionService} from '@/services/predictionService';
+import useStore from '@/store/useStore';
 
 // Lazy load heavy components;
 const PerformanceAnalyticsDashboard = React.lazy(
@@ -36,35 +36,21 @@ const UnifiedStrategyEngineDisplay = React.lazy(
 // ============================================================================
 
 interface DashboardTab {
-  key: string;
-  label: string;
-  icon: React.ReactNode;
-  component: React.ComponentType<any key={295429}>;
-  requiresAuth?: boolean;
-  isPremium?: boolean;
-}
+  key: string,`n  label: string;,`n  icon: React.ReactNode,`n  component: React.ComponentType<any key={295429}>;
+  requiresAuth?: boolean
+  isPremium?: boolean}
 
 interface MetricCardProps {
-  label: string;
-  value: string | number;
-  icon: React.ReactNode;
-  change?: string;
+  label: string,`n  value: string | number;,`n  icon: React.ReactNode;
+  change?: string
   trend?: "up" | "down" | "neutral";
-  loading?: boolean;
-}
+  loading?: boolean}
 
 interface UniversalDashboardProps {
   variant?: "standard" | "cyber" | "premium";
   user?: {
-    name: string;
-    tier: string;
-    balance: number;
-    totalProfit: number;
-    accuracy: number;
-    winRate: number;
-  };
-  defaultTab?: string;
-}
+    name: string,`n  tier: string;,`n  balance: number,`n  totalProfit: number;,`n  accuracy: number,`n  winRate: number};
+  defaultTab?: string}
 
 // ============================================================================
 // COMPONENTS;
@@ -76,7 +62,7 @@ const MetricCard: React.FC<MetricCardProps key={656645}> = ({
   icon,
   change,
   trend,
-  loading,
+//   loading
 }) => {
   const trendColor =
     trend === "up" ? "#06ffa5" : trend === "down" ? "#ff4757" : "#00d4ff";
@@ -90,21 +76,20 @@ const MetricCard: React.FC<MetricCardProps key={656645}> = ({
           <div className="h-3 bg-gray-600 rounded w-1/2" key={255573}></div>
         </div>
       </MegaCard>
-    );
-  }
+    );}
 
   return (
     <MegaCard;
       variant="glowing"
       padding="md"
-      onClick={() = key={55755}> {}}
+      onClick={() = key={55755}> Record<string, any>}
       className="transition-all duration-300 hover:scale-105 cursor-pointer"
     >
       <div className="flex items-center justify-between mb-4" key={810034}>
-        <div style={{ color: "#06ffa5" }} key={930972}>{icon}</div>
+        <div style={{ color: "#06ffa5"}} key={930972}>{icon}</div>
         {change && (
           <span;
-            style={{ color: trendColor, fontSize: "12px", fontWeight: "600" }}
+            style={{ color: trendColor, fontSize: "12px", fontWeight: "600"}}
            key={496811}>
             {change}
           </span>
@@ -115,13 +100,12 @@ const MetricCard: React.FC<MetricCardProps key={656645}> = ({
       </CyberText>
       <CyberText;
         variant="title"
-        style={{ fontSize: "24px", fontWeight: "700" }}
+        style={{ fontSize: "24px", fontWeight: "700"}}
        key={54611}>
         {value}
       </CyberText>
     </MegaCard>
-  );
-};
+  )};
 
 const DashboardSkeleton: React.FC = () => (
   <div className="space-y-6" key={501869}>
@@ -163,48 +147,46 @@ export const UniversalDashboard: React.FC<UniversalDashboardProps key={709008}> 
     balance: 0,
     totalProfit: 0,
     accuracy: 0,
-    winRate: 0,
+    winRate: 0
   },
-  defaultTab = "overview",
+  defaultTab = "overview"
 }) => {
   const [activeTab, setActiveTab] = useState(defaultTab);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { darkMode } = useStore();
+  const { darkMode} = useStore();
 
   // Mock data to prevent fetch errors;
-  const mockPredictions = Array.from({ length: 5 }, (_, i) => ({
+  const mockPredictions = Array.from({ length: 5}, (_, i) => ({
     id: `pred-${i + 1}`,
     game: `Game ${i + 1}`,
     prediction: Math.random() * 100,
     confidence: 75 + Math.random() * 20,
     timestamp: new Date().toISOString(),
-    status: ["pending", "won", "lost"][Math.floor(Math.random() * 3)],
+    status: ["pending", "won", "lost"][Math.floor(Math.random() * 3)]
   }));
 
   const mockMetrics = {
     accuracy: 89.3,
     totalPredictions: 156,
     winRate: 85.6,
-    avgConfidence: 88.5,
+    avgConfidence: 88.5
   };
 
   // Data fetching with React Query (using mock data)
-  const { data: predictions, isLoading: predictionsLoading } = useQuery({
+  const { data: predictions, isLoading: predictionsLoading} = useQuery({
     queryKey: ["dashboard-predictions"],
     queryFn: async () => mockPredictions,
     staleTime: 300000, // 5 minutes;
-    refetchInterval: false, // Disable auto-refetch;
-  });
+    refetchInterval: false, // Disable auto-refetch});
 
-  const { data: metrics, isLoading: metricsLoading } = useQuery({
+  const { data: metrics, isLoading: metricsLoading} = useQuery({
     queryKey: ["dashboard-metrics"],
     queryFn: async () => mockMetrics,
     staleTime: 300000, // 5 minutes;
-    refetchInterval: false, // Disable auto-refetch;
-  });
+    refetchInterval: false, // Disable auto-refetch});
 
   // Dashboard tabs configuration;
-  const dashboardTabs: DashboardTab[] = useMemo(
+  const dashboardTabs: DashboardTab[0] = useMemo(
     () => [
       {
         key: "overview",
@@ -216,33 +198,33 @@ export const UniversalDashboard: React.FC<UniversalDashboardProps key={709008}> 
             predictions={predictions}
             metrics={metrics}
           / key={365818}>
-        ),
+        )
       },
       {
         key: "analytics",
         label: "Analytics",
         icon: <Brain size={20} / key={20798}>,
         component: PerformanceAnalyticsDashboard,
-        isPremium: true,
+        isPremium: true
       },
       {
         key: "moneymaker",
         label: "Money Maker",
         icon: <TrendingUp size={20} / key={234437}>,
         component: UnifiedMoneyMaker,
-        isPremium: true,
+        isPremium: true
       },
       {
         key: "strategy",
         label: "Strategy Engine",
         icon: <Target size={20} / key={69317}>,
-        component: UnifiedStrategyEngineDisplay,
+        component: UnifiedStrategyEngineDisplay
       },
       {
         key: "profile",
         label: "Profile",
         icon: <User size={20} / key={289636}>,
-        component: () => <div key={241917}>Profile Component</div>,
+        component: () => <div key={241917}>Profile Component</div>
       },
     ],
     [user, predictions, metrics],
@@ -254,8 +236,7 @@ export const UniversalDashboard: React.FC<UniversalDashboardProps key={709008}> 
       <div className="min-h-screen p-6" key={802128}>
         <DashboardSkeleton / key={574084}>
       </div>
-    );
-  }
+    );}
 
   return (
     <div className="min-h-screen relative" key={374025}>
@@ -263,15 +244,15 @@ export const UniversalDashboard: React.FC<UniversalDashboardProps key={709008}> 
       <AnimatePresence key={359944}>
         {(sidebarOpen || window.innerWidth >= 1024) && (
           <motion.div;
-            initial={{ x: -280 }}
-            animate={{ x: 0 }}
-            exit={{ x: -280 }}
+            initial={{ x: -280}}
+            animate={{ x: 0}}
+            exit={{ x: -280}}
             className="fixed left-0 top-0 h-full w-72 z-40 lg:relative lg:w-64"
            key={515387}>
             <CyberContainer;
               variant="panel"
               className="h-full"
-              style={{ borderRadius: "0 16px 16px 0" }}
+              style={{ borderRadius: "0 16px 16px 0"}}
              key={382341}>
               <div className="p-6" key={935494}>
                 <CyberText variant="title" className="mb-6" key={737918}>
@@ -285,8 +266,7 @@ export const UniversalDashboard: React.FC<UniversalDashboardProps key={709008}> 
                       variant={activeTab === tab.key ? "primary" : "secondary"}
                       onClick={() = key={155703}> {
                         setActiveTab(tab.key);
-                        setSidebarOpen(false);
-                      }}
+                        setSidebarOpen(false);}}
                       icon={tab.icon}
                       fullWidth;
                       className="justify-start"
@@ -313,9 +293,9 @@ export const UniversalDashboard: React.FC<UniversalDashboardProps key={709008}> 
         <div className="p-6 lg:p-8" key={975183}>
           {/* Enhanced Header */}
           <motion.div;
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            initial={{ opacity: 0, y: -20}}
+            animate={{ opacity: 1, y: 0}}
+            transition={{ duration: 0.6, ease: "easeOut"}}
             className="mb-12"
            key={377795}>
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between" key={894353}>
@@ -326,10 +306,10 @@ export const UniversalDashboard: React.FC<UniversalDashboardProps key={709008}> 
                     style={{
                       background:
                         "linear-gradient(135deg, rgba(6, 255, 165, 0.2), rgba(0, 255, 136, 0.1))",
-                      boxShadow: "0 8px 32px rgba(6, 255, 165, 0.2)",
+                      boxShadow: "0 8px 32px rgba(6, 255, 165, 0.2)"
                     }}
                    key={321816}>
-                    <Brain size={28} style={{ color: "#06ffa5" }} / key={538760}>
+                    <Brain size={28} style={{ color: "#06ffa5"}} / key={538760}>
                   </div>
                   <div key={241917}>
                     <CyberText;
@@ -342,7 +322,7 @@ export const UniversalDashboard: React.FC<UniversalDashboardProps key={709008}> 
                         background: "linear-gradient(135deg, #ffffff, #94a3b8)",
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
-                        letterSpacing: "-0.02em",
+                        letterSpacing: "-0.02em"
                       }}
                      key={615076}>
                       {currentTab?.label || "Dashboard"}
@@ -355,7 +335,7 @@ export const UniversalDashboard: React.FC<UniversalDashboardProps key={709008}> 
                     fontSize: "18px",
                     color: "#94a3b8",
                     fontWeight: "500",
-                    lineHeight: "1.5",
+                    lineHeight: "1.5"
                   }}
                  key={803520}>
                   Welcome back, {user.name}. Your AI-powered betting;
@@ -369,12 +349,12 @@ export const UniversalDashboard: React.FC<UniversalDashboardProps key={709008}> 
                   style={{
                     background: "rgba(6, 255, 165, 0.1)",
                     border: "1px solid rgba(6, 255, 165, 0.3)",
-                    backdropFilter: "blur(20px)",
+                    backdropFilter: "blur(20px)"
                   }}
                  key={12062}>
                   <CyberText;
                     variant="caption"
-                    style={{ color: "#06ffa5", fontWeight: "600" }}
+                    style={{ color: "#06ffa5", fontWeight: "600"}}
                    key={361681}>
                     ⚡ System Online;
                   </CyberText>
@@ -387,10 +367,10 @@ export const UniversalDashboard: React.FC<UniversalDashboardProps key={709008}> 
           <AnimatePresence mode="wait" key={725119}>
             <motion.div;
               key={activeTab}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0, y: 20}}
+              animate={{ opacity: 1, y: 0}}
+              exit={{ opacity: 0, y: -20}}
+              transition={{ duration: 0.3}}
              key={178167}>
               <Suspense fallback={<DashboardSkeleton / key={465016}>}>
                 {currentTab?.component && <currentTab.component / key={383072}>}
@@ -403,28 +383,24 @@ export const UniversalDashboard: React.FC<UniversalDashboardProps key={709008}> 
       {/* Overlay for mobile */}
       {sidebarOpen && (
         <div;
-          className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 z-30 lg: hidden"
           onClick={() = key={910773}> setSidebarOpen(false)}
         />
       )}
     </div>
-  );
-};
+  )};
 
 // ============================================================================
 // OVERVIEW TAB COMPONENT;
 // ============================================================================
 
 interface OverviewTabProps {
-  user: any;
-  predictions: any;
-  metrics: any;
-}
+  user: unknown,`n  predictions: unknown;,`n  metrics: unknown}
 
 const OverviewTab: React.FC<OverviewTabProps key={814037}> = ({
   user,
   predictions,
-  metrics,
+//   metrics
 }) => {
   const metricCards = [
     {
@@ -432,28 +408,28 @@ const OverviewTab: React.FC<OverviewTabProps key={814037}> = ({
       value: `$${user.totalProfit.toLocaleString()}`,
       icon: <DollarSign size={24} / key={886904}>,
       change: "+$3.2K",
-      trend: "up" as const,
+      trend: "up" as const
     },
     {
       label: "Accuracy",
       value: `${user.accuracy}%`,
       icon: <Target size={24} / key={533216}>,
       change: "+2.3%",
-      trend: "up" as const,
+      trend: "up" as const
     },
     {
       label: "Win Rate",
       value: `${user.winRate}%`,
       icon: <TrendingUp size={24} / key={750513}>,
       change: "+1.2%",
-      trend: "up" as const,
+      trend: "up" as const
     },
     {
       label: "Active Bets",
       value: predictions?.length || 0,
       icon: <Activity size={24} / key={741653}>,
       change: "+5",
-      trend: "up" as const,
+      trend: "up" as const
     },
   ];
 
@@ -470,7 +446,7 @@ const OverviewTab: React.FC<OverviewTabProps key={814037}> = ({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6" key={813322}>
         <MegaCard title="Recent Predictions" variant="glass" padding="lg" key={686497}>
           <div className="space-y-4" key={160407}>
-            {predictions?.slice(0, 5).map((prediction: any, index: number) => (
+            {predictions?.slice(0, 5).map((prediction: unknown, index: number) => (
               <div;
                 key={index}
                 className="flex items-center justify-between p-3 rounded-lg bg-gray-800 bg-opacity-50"
@@ -484,7 +460,7 @@ const OverviewTab: React.FC<OverviewTabProps key={814037}> = ({
                   </CyberText>
                 </div>
                 <div className="text-right" key={144468}>
-                  <CyberText variant="body" style={{ color: "#06ffa5" }} key={314276}>
+                  <CyberText variant="body" style={{ color: "#06ffa5"}} key={314276}>
                     ${prediction.potentialWin || "0"}
                   </CyberText>
                 </div>
@@ -527,7 +503,7 @@ const OverviewTab: React.FC<OverviewTabProps key={814037}> = ({
             <div className="text-center" key={120206}>
               <CyberText;
                 variant="title"
-                style={{ fontSize: "32px", color: "#06ffa5" }}
+                style={{ fontSize: "32px", color: "#06ffa5"}}
                key={635190}>
                 {metrics.totalPredictions || 0}
               </CyberText>
@@ -538,7 +514,7 @@ const OverviewTab: React.FC<OverviewTabProps key={814037}> = ({
             <div className="text-center" key={120206}>
               <CyberText;
                 variant="title"
-                style={{ fontSize: "32px", color: "#00d4ff" }}
+                style={{ fontSize: "32px", color: "#00d4ff"}}
                key={560858}>
                 {metrics.accuracy || user.accuracy}%
               </CyberText>
@@ -549,7 +525,7 @@ const OverviewTab: React.FC<OverviewTabProps key={814037}> = ({
             <div className="text-center" key={120206}>
               <CyberText;
                 variant="title"
-                style={{ fontSize: "32px", color: "#06ffa5" }}
+                style={{ fontSize: "32px", color: "#06ffa5"}}
                key={635190}>
                 ${(metrics.totalProfit || user.totalProfit).toLocaleString()}
               </CyberText>
@@ -561,7 +537,12 @@ const OverviewTab: React.FC<OverviewTabProps key={814037}> = ({
         </MegaCard>
       )}
     </div>
-  );
-};
+  );};
 
 export default UniversalDashboard;
+
+
+
+
+`
+

@@ -1,22 +1,19 @@
-import React from 'react.ts';
-import { cn } from '@/utils/classNames.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+﻿import React from 'react'
+import { cn} from '@/utils/classNames'
+import { motion, AnimatePresence} from 'framer-motion'
 
 
 
 export interface AlertProps {
   type?: 'info' | 'success' | 'warning' | 'error';
-  title?: string;
+  title?: string
   message: string;
   onClose?: () => void;
-  className?: string;
-  closable?: boolean;
+  className?: string
+  closable?: boolean
   icon?: React.ReactNode;
   action?: {
-    label: string;
-    onClick: () => void;
-  };
-}
+    label: string,`n  onClick: () => void}}
 
 const icons = {
   info: (
@@ -38,30 +35,21 @@ const icons = {
     <svg className="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" key={588230}>
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" / key={306736}>
     </svg>
-  )
-};
+  )};
 
 const variants = {
-  info: {
-    container: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800',
+  info: {,`n  container: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800',
     title: 'text-blue-800 dark:text-blue-200',
-    message: 'text-blue-700 dark:text-blue-300'
-  },
-  success: {
-    container: 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800',
+    message: 'text-blue-700 dark:text-blue-300'},
+  success: {,`n  container: 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800',
     title: 'text-green-800 dark:text-green-200',
-    message: 'text-green-700 dark:text-green-300'
-  },
-  warning: {
-    container: 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800',
+    message: 'text-green-700 dark:text-green-300'},
+  warning: {,`n  container: 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800',
     title: 'text-yellow-800 dark:text-yellow-200',
-    message: 'text-yellow-700 dark:text-yellow-300'
-  },
-  error: {
-    container: 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800',
+    message: 'text-yellow-700 dark:text-yellow-300'},
+  error: {,`n  container: 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800',
     title: 'text-red-800 dark:text-red-200',
-    message: 'text-red-700 dark:text-red-300'
-  }
+    message: 'text-red-700 dark:text-red-300'}
 };
 
 export const Alert: React.FC<AlertProps key={895913}> = ({
@@ -72,19 +60,17 @@ export const Alert: React.FC<AlertProps key={895913}> = ({
   className,
   closable = true,
   icon,
-  action;
-}) => {
+  action}) => {
   return (
     <AnimatePresence key={359944}>
       <motion.div;
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -10 }}
+        initial={{ opacity: 0, y: -10}}
+        animate={{ opacity: 1, y: 0}}
+        exit={{ opacity: 0, y: -10}}
         className={cn(
           'rounded-lg border p-4',
           variants[type].container,
-          className;
-        )}
+          className)}
        key={234156}>
         <div className="flex" key={916621}>
           <div className="flex-shrink-0" key={11962}>
@@ -148,5 +134,10 @@ export const Alert: React.FC<AlertProps key={895913}> = ({
         </div>
       </motion.div>
     </AnimatePresence>
-  );
-}; 
+  )}; 
+
+
+
+
+
+`

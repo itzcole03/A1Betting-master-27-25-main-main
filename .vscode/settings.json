@@ -42,7 +42,7 @@
     "> 1%",
     "last 2 versions"
   ],
-  "liveSass.settings.watchOnLaunch": true,
+  "liveSass.settings.watchOnLaunch": false,
   "liveshare.autoShareServers": true,
   "liveshare.autoShareTerminals": true,
   "liveshare.shareExternalFiles": true,
@@ -52,7 +52,7 @@
   "liveshare.allowGuestDebugControl": true,
   "liveshare.allowGuestTaskControl": true,
   "liveshare.publishWorkspaceInfo": true,
-  "liveshare.autoStartShareSessionOnOpen": true,
+  "liveshare.autoStartShareSessionOnOpen": false,
   "typescript.preferences.includePackageJsonAutoImports": "on",
   "typescript.suggest.autoImports": true,
   "typescript.updateImportsOnFileMove.enabled": "always",
@@ -84,7 +84,7 @@
     "typescript": "typescriptreact"
   },
   "git.enableSmartCommit": true,
-  "git.autofetch": true,
+  "git.autofetch": false,
   "git.autofetchPeriod": 180,
   "terminal.integrated.defaultProfile.windows": "Command Prompt",
   "terminal.integrated.profiles.windows": {

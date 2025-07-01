@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+﻿import React, { useState, useEffect} from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
 import {
   TrendingUp,
   TrendingDown,
@@ -18,58 +18,37 @@ import {
   Activity,
   Filter,
   RefreshCw,
-  Download,
+//   Download
 } from 'lucide-react';
 import FluentLiveFilters from '../filters/FluentLiveFilters';
-import { useFluentFilters, useFilteredResults } from '../../hooks/useFluentFilters';
+import { useFluentFilters, useFilteredResults} from '../../hooks/useFluentFilters';
 
 interface MarketTrend {
-  sport: string;
-  metric: string;
-  value: number;
-  change: number;
-  trend: 'up' | 'down' | 'stable';
-  confidence: number;
-  volume: number;
-}
+  sport: string,`n  metric: string;,`n  value: number,`n  change: number;,`n  trend: 'up' | 'down' | 'stable',`n  confidence: number;,`n  volume: number}
 
 interface OpportunityAlert {
-  id: string;
-  type: 'arbitrage' | 'value' | 'steam' | 'reverse';
-  sport: string;
-  market: string;
-  opportunity: string;
-  edge: number;
-  timeLeft: number;
-  confidence: number;
-}
+  id: string,`n  type: 'arbitrage' | 'value' | 'steam' | 'reverse';,`n  sport: string,`n  market: string;,`n  opportunity: string,`n  edge: number;,`n  timeLeft: number,`n  confidence: number}
 
 interface SentimentData {
-  sport: string;
-  bullish: number;
-  bearish: number;
-  neutral: number;
-  socialVolume: number;
-  newsCount: number;
-}
+  sport: string,`n  bullish: number;,`n  bearish: number,`n  neutral: number;,`n  socialVolume: number,`n  newsCount: number}
 
 const MarketIntelligence: React.FC = () => {
-  const { filters, updateFilters } = useFluentFilters();
-  const { totalItems: totalMarkets, filteredItems: filteredMarkets } = useFilteredResults(
+  const { filters, updateFilters} = useFluentFilters();
+  const { totalItems: totalMarkets, filteredItems: filteredMarkets} = useFilteredResults(
     filters,
-    847
+//     847
   );
 
-  const [marketTrends, setMarketTrends] = useState<MarketTrend[]>([]);
-  const [opportunities, setOpportunities] = useState<OpportunityAlert[]>([]);
-  const [sentimentData, setSentimentData] = useState<SentimentData[]>([]);
+  const [marketTrends, setMarketTrends] = useState<MarketTrend[0]>([0]);
+  const [opportunities, setOpportunities] = useState<OpportunityAlert[0]>([0]);
+  const [sentimentData, setSentimentData] = useState<SentimentData[0]>([0]);
   const [selectedView, setSelectedView] = useState<
     'overview' | 'opportunities' | 'sentiment' | 'analysis'
   >('overview');
 
   // Mock data initialization
   useEffect(() => {
-    const mockTrends: MarketTrend[] = [
+    const mockTrends: MarketTrend[0] = [
       {
         sport: 'NBA',
         metric: 'Avg Total Points',
@@ -77,7 +56,7 @@ const MarketIntelligence: React.FC = () => {
         change: 2.3,
         trend: 'up',
         confidence: 94.2,
-        volume: 15847,
+        volume: 15847
       },
       {
         sport: 'NFL',
@@ -86,7 +65,7 @@ const MarketIntelligence: React.FC = () => {
         change: -5,
         trend: 'down',
         confidence: 87.9,
-        volume: 23145,
+        volume: 23145
       },
       {
         sport: 'MLB',
@@ -95,7 +74,7 @@ const MarketIntelligence: React.FC = () => {
         change: 1.8,
         trend: 'up',
         confidence: 91.6,
-        volume: 8932,
+        volume: 8932
       },
       {
         sport: 'NHL',
@@ -104,7 +83,7 @@ const MarketIntelligence: React.FC = () => {
         change: 0.0,
         trend: 'stable',
         confidence: 89.1,
-        volume: 5643,
+        volume: 5643
       },
       {
         sport: 'Soccer',
@@ -113,7 +92,7 @@ const MarketIntelligence: React.FC = () => {
         change: 0.15,
         trend: 'up',
         confidence: 92.4,
-        volume: 12378,
+        volume: 12378
       },
       {
         sport: 'Tennis',
@@ -122,11 +101,11 @@ const MarketIntelligence: React.FC = () => {
         change: -0.3,
         trend: 'down',
         confidence: 85.7,
-        volume: 3567,
+        volume: 3567
       },
     ];
 
-    const mockOpportunities: OpportunityAlert[] = [
+    const mockOpportunities: OpportunityAlert[0] = [
       {
         id: '1',
         type: 'arbitrage',
@@ -135,7 +114,7 @@ const MarketIntelligence: React.FC = () => {
         opportunity: '2.3% arbitrage',
         edge: 2.3,
         timeLeft: 45,
-        confidence: 96.8,
+        confidence: 96.8
       },
       {
         id: '2',
@@ -145,7 +124,7 @@ const MarketIntelligence: React.FC = () => {
         opportunity: 'Value bet +EV 12%',
         edge: 12.0,
         timeLeft: 120,
-        confidence: 89.2,
+        confidence: 89.2
       },
       {
         id: '3',
@@ -155,7 +134,7 @@ const MarketIntelligence: React.FC = () => {
         opportunity: 'Steam move detected',
         edge: 5.7,
         timeLeft: 30,
-        confidence: 94.1,
+        confidence: 94.1
       },
       {
         id: '4',
@@ -165,29 +144,28 @@ const MarketIntelligence: React.FC = () => {
         opportunity: 'Reverse line movement',
         edge: 3.9,
         timeLeft: 75,
-        confidence: 87.5,
+        confidence: 87.5
       },
     ];
 
-    const mockSentiment: SentimentData[] = [
-      { sport: 'NBA', bullish: 68, bearish: 24, neutral: 8, socialVolume: 45231, newsCount: 127 },
-      { sport: 'NFL', bullish: 72, bearish: 19, neutral: 9, socialVolume: 78945, newsCount: 203 },
-      { sport: 'MLB', bullish: 45, bearish: 38, neutral: 17, socialVolume: 23456, newsCount: 89 },
-      { sport: 'NHL', bullish: 52, bearish: 33, neutral: 15, socialVolume: 12789, newsCount: 56 },
+    const mockSentiment: SentimentData[0] = [
+      { sport: 'NBA', bullish: 68, bearish: 24, neutral: 8, socialVolume: 45231, newsCount: 127},
+      { sport: 'NFL', bullish: 72, bearish: 19, neutral: 9, socialVolume: 78945, newsCount: 203},
+      { sport: 'MLB', bullish: 45, bearish: 38, neutral: 17, socialVolume: 23456, newsCount: 89},
+      { sport: 'NHL', bullish: 52, bearish: 33, neutral: 15, socialVolume: 12789, newsCount: 56},
       {
         sport: 'Soccer',
         bullish: 61,
         bearish: 29,
         neutral: 10,
         socialVolume: 34567,
-        newsCount: 145,
+        newsCount: 145
       },
     ];
 
     setMarketTrends(mockTrends);
     setOpportunities(mockOpportunities);
-    setSentimentData(mockSentiment);
-  }, []);
+    setSentimentData(mockSentiment);}, [0]);
 
   const getTrendIcon = (trend: string) => {
     switch (trend) {
@@ -195,9 +173,7 @@ const MarketIntelligence: React.FC = () => {
         return <TrendingUp className='w-4 h-4 text-green-400' />;
       case 'down':
         return <TrendingDown className='w-4 h-4 text-red-400' />;
-      default:
-        return <BarChart3 className='w-4 h-4 text-gray-400' />;
-    }
+      default: return <BarChart3 className='w-4 h-4 text-gray-400' />}
   };
 
   const getOpportunityColor = (type: string) => {
@@ -210,17 +186,15 @@ const MarketIntelligence: React.FC = () => {
         return 'text-yellow-400 bg-yellow-500/20 border-yellow-500/40';
       case 'reverse':
         return 'text-purple-400 bg-purple-500/20 border-purple-500/40';
-      default:
-        return 'text-gray-400 bg-gray-500/20 border-gray-500/40';
-    }
+      default: return 'text-gray-400 bg-gray-500/20 border-gray-500/40'}
   };
 
   return (
     <motion.div
       className='space-y-8 animate-slide-in-up p-8'
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      initial={{ opacity: 0, y: 20}}
+      animate={{ opacity: 1, y: 0}}
+      transition={{ duration: 0.5}}
     >
       {/* Header */}
       <div className='text-center'>
@@ -235,21 +209,19 @@ const MarketIntelligence: React.FC = () => {
       </div>
 
       {/* Filters */}
-      <FluentLiveFilters
-        filters={filters}
+      <FluentLiveFilters filters={filters}
         onFiltersChange={updateFilters}
         totalGames={totalMarkets}
         filteredGames={filteredMarkets}
-        className='border border-pink-500/20 shadow-neon'
-      />
+        className='border border-pink-500/20 shadow-neon'>`n      />
 
       {/* Navigation Tabs */}
       <div className='flex justify-center space-x-4 mb-8'>
         {[
-          { id: 'overview', label: 'Market Overview', icon: BarChart3 },
-          { id: 'opportunities', label: 'Live Opportunities', icon: Target },
-          { id: 'sentiment', label: 'Market Sentiment', icon: Brain },
-          { id: 'analysis', label: 'Deep Analysis', icon: Eye },
+          { id: 'overview', label: 'Market Overview', icon: BarChart3},
+          { id: 'opportunities', label: 'Live Opportunities', icon: Target},
+          { id: 'sentiment', label: 'Market Sentiment', icon: Brain},
+          { id: 'analysis', label: 'Deep Analysis', icon: Eye},
         ].map(tab => {
           const Icon = tab.icon;
           return (
@@ -259,16 +231,14 @@ const MarketIntelligence: React.FC = () => {
               className={`flex items-center space-x-2 px-6 py-3 rounded-xl border transition-all ${
                 selectedView === tab.id
                   ? 'bg-pink-500/20 border-pink-500/40 text-pink-400'
-                  : 'bg-gray-800/40 border-gray-600/40 text-gray-300 hover:border-gray-500/60'
-              }`}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+                  : 'bg-gray-800/40 border-gray-600/40 text-gray-300 hover: border-gray-500/60'}`}
+              whileHover={{ scale: 1.02}}
+              whileTap={{ scale: 0.98}}
             >
               <Icon className='w-4 h-4' />
               <span className='font-mono text-sm'>{tab.label}</span>
             </motion.button>
-          );
-        })}
+          )})}
       </div>
 
       {/* Content */}
@@ -276,9 +246,9 @@ const MarketIntelligence: React.FC = () => {
         {selectedView === 'overview' && (
           <motion.div
             key='overview'
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: 20}}
+            animate={{ opacity: 1, y: 0}}
+            exit={{ opacity: 0, y: -20}}
             className='space-y-8'
           >
             {/* Market Trends Grid */}
@@ -287,7 +257,7 @@ const MarketIntelligence: React.FC = () => {
                 <motion.div
                   key={idx}
                   className='quantum-card p-6 rounded-2xl border border-pink-500/20 hover:shadow-neon transition-all'
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ scale: 1.02}}
                 >
                   <div className='flex items-center justify-between mb-4'>
                     <span className='text-pink-400 font-bold font-cyber'>{trend.sport}</span>
@@ -299,14 +269,11 @@ const MarketIntelligence: React.FC = () => {
                       <span className='text-2xl font-bold text-electric-400 font-cyber'>
                         {trend.value}
                       </span>
-                      <span
-                        className={`text-sm font-mono ${
-                          trend.change > 0
+                      <span className={`text-sm font-mono ${>`n                          trend.change > 0
                             ? 'text-green-400'
                             : trend.change < 0
                               ? 'text-red-400'
-                              : 'text-gray-400'
-                        }`}
+                              : 'text-gray-400'}`}
                       >
                         {trend.change > 0 ? '+' : ''}
                         {trend.change}
@@ -357,9 +324,9 @@ const MarketIntelligence: React.FC = () => {
         {selectedView === 'opportunities' && (
           <motion.div
             key='opportunities'
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: 20}}
+            animate={{ opacity: 1, y: 0}}
+            exit={{ opacity: 0, y: -20}}
             className='space-y-6'
           >
             <div className='flex items-center justify-between'>
@@ -375,15 +342,13 @@ const MarketIntelligence: React.FC = () => {
                 <motion.div
                   key={opp.id}
                   className={`quantum-card p-6 rounded-2xl border ${getOpportunityColor(opp.type)}`}
-                  whileHover={{ scale: 1.01 }}
+                  whileHover={{ scale: 1.01}}
                 >
                   <div className='flex items-center justify-between'>
                     <div className='flex-1'>
                       <div className='flex items-center space-x-3 mb-2'>
                         <span className='font-bold font-cyber text-white'>{opp.sport}</span>
-                        <span
-                          className={`px-2 py-1 rounded text-xs font-mono font-bold ${getOpportunityColor(opp.type)}`}
-                        >
+                        <span className={`px-2 py-1 rounded text-xs font-mono font-bold ${getOpportunityColor(opp.type)}`}>`n                        >
                           {opp.type.toUpperCase()}
                         </span>
                         <span className='text-gray-400 font-mono'>{opp.market}</span>
@@ -410,9 +375,9 @@ const MarketIntelligence: React.FC = () => {
         {selectedView === 'sentiment' && (
           <motion.div
             key='sentiment'
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: 20}}
+            animate={{ opacity: 1, y: 0}}
+            exit={{ opacity: 0, y: -20}}
             className='space-y-6'
           >
             <h3 className='text-2xl font-bold text-white font-cyber'>MARKET SENTIMENT ANALYSIS</h3>
@@ -435,10 +400,8 @@ const MarketIntelligence: React.FC = () => {
                         <span className='text-green-400 font-mono'>{sentiment.bullish}%</span>
                       </div>
                       <div className='w-full bg-gray-700 rounded-full h-2'>
-                        <div
-                          className='bg-green-400 h-2 rounded-full'
-                          style={{ width: `${sentiment.bullish}%` }}
-                        ></div>
+                        <div className='bg-green-400 h-2 rounded-full'
+                          style={{ width: `${sentiment.bullish}%`}}>`n                        ></div>
                       </div>
                     </div>
 
@@ -448,10 +411,8 @@ const MarketIntelligence: React.FC = () => {
                         <span className='text-red-400 font-mono'>{sentiment.bearish}%</span>
                       </div>
                       <div className='w-full bg-gray-700 rounded-full h-2'>
-                        <div
-                          className='bg-red-400 h-2 rounded-full'
-                          style={{ width: `${sentiment.bearish}%` }}
-                        ></div>
+                        <div className='bg-red-400 h-2 rounded-full'
+                          style={{ width: `${sentiment.bearish}%`}}>`n                        ></div>
                       </div>
                     </div>
 
@@ -461,10 +422,8 @@ const MarketIntelligence: React.FC = () => {
                         <span className='text-gray-400 font-mono'>{sentiment.neutral}%</span>
                       </div>
                       <div className='w-full bg-gray-700 rounded-full h-2'>
-                        <div
-                          className='bg-gray-400 h-2 rounded-full'
-                          style={{ width: `${sentiment.neutral}%` }}
-                        ></div>
+                        <div className='bg-gray-400 h-2 rounded-full'
+                          style={{ width: `${sentiment.neutral}%`}}>`n                        ></div>
                       </div>
                     </div>
 
@@ -482,9 +441,9 @@ const MarketIntelligence: React.FC = () => {
         {selectedView === 'analysis' && (
           <motion.div
             key='analysis'
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: 20}}
+            animate={{ opacity: 1, y: 0}}
+            exit={{ opacity: 0, y: -20}}
             className='space-y-6'
           >
             <h3 className='text-2xl font-bold text-white font-cyber'>DEEP MARKET ANALYSIS</h3>
@@ -534,11 +493,11 @@ const MarketIntelligence: React.FC = () => {
                 </h4>
                 <div className='space-y-4'>
                   {[
-                    { name: 'Market Pattern Recognition', status: 94.7, color: 'green' },
-                    { name: 'Sentiment Analysis Engine', status: 91.2, color: 'blue' },
-                    { name: 'Arbitrage Detection', status: 97.8, color: 'cyan' },
-                    { name: 'Value Bet Identification', status: 89.5, color: 'purple' },
-                    { name: 'Steam Move Detector', status: 92.1, color: 'yellow' },
+                    { name: 'Market Pattern Recognition', status: 94.7, color: 'green'},
+                    { name: 'Sentiment Analysis Engine', status: 91.2, color: 'blue'},
+                    { name: 'Arbitrage Detection', status: 97.8, color: 'cyan'},
+                    { name: 'Value Bet Identification', status: 89.5, color: 'purple'},
+                    { name: 'Steam Move Detector', status: 92.1, color: 'yellow'},
                   ].map((network, idx) => (
                     <div key={idx} className='space-y-2'>
                       <div className='flex justify-between'>
@@ -548,10 +507,8 @@ const MarketIntelligence: React.FC = () => {
                         </span>
                       </div>
                       <div className='w-full bg-gray-700 rounded-full h-2'>
-                        <div
-                          className={`bg-${network.color}-400 h-2 rounded-full transition-all duration-500`}
-                          style={{ width: `${network.status}%` }}
-                        ></div>
+                        <div className={`bg-${network.color}-400 h-2 rounded-full transition-all duration-500`}
+                          style={{ width: `${network.status}%`}}>`n                        ></div>
                       </div>
                     </div>
                   ))}
@@ -562,7 +519,10 @@ const MarketIntelligence: React.FC = () => {
         )}
       </AnimatePresence>
     </motion.div>
-  );
-};
+  )};
 
 export default MarketIntelligence;
+
+
+
+`

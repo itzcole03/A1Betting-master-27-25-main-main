@@ -1,60 +1,38 @@
-import { EventEmitter } from 'events.ts';
-import { UnifiedPredictionService } from './UnifiedPredictionService.ts';
-import { UnifiedConfig } from '@/unified/UnifiedConfig.ts';
-import { UnifiedLogger } from '@/unified/UnifiedLogger.ts';
-import { UnifiedCache } from '@/unified/UnifiedCache.ts';
-import { BettingContext, MarketContext, PredictionResult } from '@/types.ts';
-import { BaseService } from './BaseService.ts';
-import { UnifiedServiceRegistry } from './UnifiedServiceRegistry.ts';
-import { UnifiedErrorService } from './UnifiedErrorService.ts';
+﻿import { EventEmitter} from 'events';
+import { UnifiedPredictionService} from './UnifiedPredictionService';
+import { UnifiedConfig} from '@/unified/UnifiedConfig';
+import { UnifiedLogger} from '@/unified/UnifiedLogger';
+import { UnifiedCache} from '@/unified/UnifiedCache';
+import { BettingContext, MarketContext, PredictionResult} from '@/types';
+import { BaseService} from './BaseService';
+import { UnifiedServiceRegistry} from './UnifiedServiceRegistry';
+import { UnifiedErrorService} from './UnifiedErrorService';
 import {
   Bet,
   BettingState,
   BettingConfig,
   BettingStats,
   BettingOpportunity,
-  BettingValidation,
-} from '@/types/betting.ts';
-import { Event, Market, Selection, Odds } from '@/types/sports.ts';
-import { ModelOutput } from '@/types/prediction.ts';
+//   BettingValidation
+} from '@/types/betting';
+import { Event, Market, Selection, Odds} from '@/types/sports';
+import { ModelOutput} from '@/types/prediction';
 import {
   BettingPreview,
   BettingPreviewRequest,
   BettingValidationRequest,
-  BettingPlaceRequest,
-} from '@/types/betting.ts';
+//   BettingPlaceRequest
+} from '@/types/betting';
 
 export interface Bet {
-  id: string;
-  event: string;
-  amount: number;
-  odds: number;
-  timestamp: number;
-  status: 'active' | 'won' | 'lost' | 'cancelled';
-  type: 'single' | 'multiple' | 'system';
-  selections: BetSelection[];
-}
+  id: string,`n  event: string;,`n  amount: number,`n  odds: number;,`n  timestamp: number,`n  status: 'active' | 'won' | 'lost' | 'cancelled';,`n  type: 'single' | 'multiple' | 'system',`n  selections: BetSelection[0]}
 
 export interface BetSelection {
-  event: string;
-  market: string;
-  selection: string;
-  odds: number;
-  status: 'active' | 'won' | 'lost' | 'cancelled';
-}
+  event: string,`n  market: string;,`n  selection: string,`n  odds: number;,`n  status: 'active' | 'won' | 'lost' | 'cancelled'}
 
 export interface BettingOpportunity {
-  id: string;
-  event: string;
-  market: string;
-  selection: string;
-  odds: number;
-  prediction: {
-    confidence: number;
-    expectedValue: number;
-  };
-  timestamp: number;
-}
+  id: string,`n  event: string;,`n  market: string,`n  selection: string;,`n  odds: number,`n  prediction: {,`n  confidence: number,`n  expectedValue: number};
+  timestamp: number}
 
 export class UnifiedBettingService extends BaseService {
   private static instance: UnifiedBettingService;
@@ -64,12 +42,11 @@ export class UnifiedBettingService extends BaseService {
   private readonly cache: UnifiedCache;
   private errorService: UnifiedErrorService;
   private bets: Map<string, Bet>;
-  private state: BettingState = {
-    bets: [],
-    activeBets: [],
+  private state: BettingState = {,`n  bets: [0],
+    activeBets: [0],
     balance: 0,
     isLoading: false,
-    error: null,
+    error: null
   };
 
   private constructor(registry: UnifiedServiceRegistry) {
@@ -79,19 +56,16 @@ export class UnifiedBettingService extends BaseService {
     this.logger = UnifiedLogger.getInstance();
     this.cache = UnifiedCache.getInstance();
     this.errorService = registry.getService<UnifiedErrorService>('error');
-    this.bets = new Map();
-  }
+    this.bets = new Map();}
 
   public static getInstance(registry: UnifiedServiceRegistry): UnifiedBettingService {
     if (!UnifiedBettingService.instance) {
-      UnifiedBettingService.instance = new UnifiedBettingService(registry);
-    }
-    return UnifiedBettingService.instance;
-  }
+      UnifiedBettingService.instance = new UnifiedBettingService(registry)}
+    return UnifiedBettingService.instance}
 
   public async analyzeOpportunity(
     marketContext: MarketContext,
-    bettingContext: BettingContext;
+    bettingContext: BettingContext
   ): Promise<BettingOpportunity | null> {
     try {
       // Get prediction;
@@ -106,17 +80,15 @@ export class UnifiedBettingService extends BaseService {
 
       // Check if opportunity meets criteria;
       if (!this.meetsBettingCriteria(prediction, expectedValue, kellyFraction)) {
-        return null;
-      }
+        return null;}
 
-      const opportunity: BettingOpportunity = {
-        id: `${marketContext.eventId}-${marketContext.marketType}`,
+      const opportunity: BettingOpportunity = {,`n  id: `${marketContext.eventId}-${marketContext.marketType}`,
         event: marketContext.eventId,
         market: marketContext.marketType,
         selection: '',
         odds: marketContext.odds,
         prediction,
-        timestamp: Date.now(),
+        timestamp: Date.now()
       };
 
       // Cache the opportunity;
@@ -129,27 +101,24 @@ export class UnifiedBettingService extends BaseService {
       // Emit opportunity event;
       this.emit('opportunity:found', opportunity);
 
-      return opportunity;
-    } catch (error) {
+      return opportunity;} catch (error) {
       this.logger.error('Failed to analyze betting opportunity', {
         error,
         marketContext,
-        bettingContext,
+//         bettingContext
       });
-      throw error;
-    }
+      throw error;}
   }
 
   private calculateExpectedValue(probability: number, odds: number): number {
-    return probability * odds - 1;
-  }
+    return probability * odds - 1}
 
   // Removed duplicate calculateKellyFraction. Use async version below.
 
   private meetsBettingCriteria(
     prediction: PredictionResult,
     expectedValue: number,
-    kellyFraction: number;
+    kellyFraction: number
   ): boolean {
 
 
@@ -158,30 +127,25 @@ export class UnifiedBettingService extends BaseService {
       expectedValue > 0 &&
       kellyFraction > 0 &&
       kellyFraction <= maxRiskPerBet;
-    );
-  }
+    );}
 
-  public async getOpportunities(): Promise<BettingOpportunity[]> {
+  public async getOpportunities(): Promise<BettingOpportunity[0]> {
     try {
-      const opportunities: BettingOpportunity[] = [];
+      const opportunities: BettingOpportunity[0] = [0];
       for (const [key, value] of this.cache.entries()) {
-        if (key.startsWith('opportunity:')) {
-          opportunities.push(value as BettingOpportunity);
-        }
+        if (key.startsWith('opportunity: ')) {
+          opportunities.push(value as BettingOpportunity)}
       }
-      return opportunities;
-    } catch (error) {
-      this.logger.error('Failed to get betting opportunities', { error });
-      throw error;
-    }
+      return opportunities} catch (error) {
+      this.logger.error('Failed to get betting opportunities', { error});
+      throw error;}
   }
 
   // Removed duplicate placeBet. Only async placeBet(request: BettingPlaceRequest) remains.
 
   private isValidStake(stake: number, opportunity: BettingOpportunity): boolean {
 
-    return stake > 0 && stake <= maxStake;
-  }
+    return stake > 0 && stake <= maxStake}
 
   private calculateMaxStake(opportunity: BettingOpportunity): number {
 
@@ -192,69 +156,59 @@ export class UnifiedBettingService extends BaseService {
 
 
 
-    return Math.min(kellyStake, riskLimitStake, percentageStake);
-  }
+    return Math.min(kellyStake, riskLimitStake, percentageStake);}
 
-  async getBets(timeRange: 'day' | 'week' | 'month' | 'year' = 'week'): Promise<Bet[]> {
+  async getBets(timeRange: 'day' | 'week' | 'month' | 'year' = 'week'): Promise<Bet[0]> {
     try {
 
 
 
       return Array.from(this.bets.values())
         .filter(bet => bet.timestamp >= cutoff)
-        .sort((a, b) => b.timestamp - a.timestamp);
-    } catch (error) {
+        .sort((a, b) => b.timestamp - a.timestamp)} catch (error) {
       this.handleError(error, {
         code: 'BETTING_ERROR',
         source: 'UnifiedBettingService',
-        details: { method: 'getBets', timeRange },
+        details: { method: 'getBets', timeRange}
       });
-      throw error;
-    }
+      throw error;}
   }
 
-  async getRecentBets(limit: number = 10): Promise<Bet[]> {
+  async getRecentBets(limit: number = 10): Promise<Bet[0]> {
     try {
       return Array.from(this.bets.values())
         .sort((a, b) => b.timestamp - a.timestamp)
-        .slice(0, limit);
-    } catch (error) {
+        .slice(0, limit)} catch (error) {
       this.handleError(error, {
         code: 'BETTING_ERROR',
         source: 'UnifiedBettingService',
-        details: { method: 'getRecentBets', limit },
+        details: { method: 'getRecentBets', limit}
       });
-      throw error;
-    }
+      throw error;}
   }
 
   async updateBetStatus(betId: string, status: 'won' | 'lost' | 'cancelled'): Promise<Bet> {
     try {
 
       if (!bet) {
-        throw new Error(`Bet with ID ${betId} not found`);
-      }
+        throw new Error(`Bet with ID ${betId} not found`)}
 
       bet.status = status;
       bet.selections.forEach(selection => {
-        selection.status = status;
-      });
+        selection.status = status;});
 
       this.bets.set(betId, bet);
-      return bet;
-    } catch (error) {
+      return bet;} catch (error) {
       this.handleError(error, {
         code: 'BETTING_ERROR',
         source: 'UnifiedBettingService',
-        details: { method: 'updateBetStatus', betId, status },
+        details: { method: 'updateBetStatus', betId, status}
       });
-      throw error;
-    }
+      throw error;}
   }
 
   private generateId(): string {
-    return `bet_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-  }
+    return `bet_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;}
 
   private getTimeRangeInMs(timeRange: 'day' | 'week' | 'month' | 'year'): number {
 
@@ -267,54 +221,48 @@ export class UnifiedBettingService extends BaseService {
         return 30 * day;
       case 'year':
         return 365 * day;
-      default:
-        return day;
-    }
+      default: return day}
   }
 
-  async getBettingHistory(eventId: string, marketId: string, selectionId: string): Promise<Bet[]> {
+  async getBettingHistory(eventId: string, marketId: string, selectionId: string): Promise<Bet[0]> {
     try {
 
 
       if (cached) return cached;
 
       const response = await this.api.get('/betting/history', {
-        params: { eventId, marketId, selectionId },
+        params: { eventId, marketId, selectionId}
       });
       this.cache.set(cacheKey, response.data);
-      return response.data;
-    } catch (error) {
+      return response.data;} catch (error) {
       this.handleError(error, {
         code: 'BETTING_ERROR',
         source: 'UnifiedBettingService',
-        details: { method: 'getBettingHistory', eventId, marketId, selectionId },
+        details: { method: 'getBettingHistory', eventId, marketId, selectionId}
       });
-      throw error;
-    }
+      throw error;}
   }
 
-  async getActiveBets(): Promise<Bet[]> {
+  async getActiveBets(): Promise<Bet[0]> {
     try {
 
       if (cached) return cached;
 
       this.state.activeBets = response.data;
       this.cache.set('activeBets', response.data);
-      return response.data;
-    } catch (error) {
+      return response.data;} catch (error) {
       this.handleError(error, {
         code: 'BETTING_ERROR',
         source: 'UnifiedBettingService',
-        details: { method: 'getActiveBets' },
+        details: { method: 'getActiveBets'}
       });
-      throw error;
-    }
+      throw error;}
   }
 
   async getBettingStats(
     eventId: string,
     marketId: string,
-    selectionId: string;
+    selectionId: string
   ): Promise<BettingStats> {
     try {
 
@@ -322,18 +270,16 @@ export class UnifiedBettingService extends BaseService {
       if (cached) return cached;
 
       const response = await this.api.get('/betting/stats', {
-        params: { eventId, marketId, selectionId },
+        params: { eventId, marketId, selectionId}
       });
       this.cache.set(cacheKey, response.data);
-      return response.data;
-    } catch (error) {
+      return response.data;} catch (error) {
       this.handleError(error, {
         code: 'BETTING_ERROR',
         source: 'UnifiedBettingService',
-        details: { method: 'getBettingStats', eventId, marketId, selectionId },
+        details: { method: 'getBettingStats', eventId, marketId, selectionId}
       });
-      throw error;
-    }
+      throw error;}
   }
 
   async getBalance(): Promise<number> {
@@ -343,29 +289,25 @@ export class UnifiedBettingService extends BaseService {
 
       this.state.balance = response.data;
       this.cache.set('balance', response.data);
-      return response.data;
-    } catch (error) {
+      return response.data;} catch (error) {
       this.handleError(error, {
         code: 'BETTING_ERROR',
         source: 'UnifiedBettingService',
-        details: { method: 'getBalance' },
+        details: { method: 'getBalance'}
       });
-      throw error;
-    }
+      throw error;}
   }
 
   async updateOdds(odds: Odds): Promise<void> {
     try {
-      await this.api.post('/betting/odds', { odds });
-      this.cache.delete('activeBets'); // Invalidate active bets cache;
-    } catch (error) {
+      await this.api.post('/betting/odds', { odds});
+      this.cache.delete('activeBets'); // Invalidate active bets cache;} catch (error) {
       this.handleError(error, {
         code: 'BETTING_ERROR',
         source: 'UnifiedBettingService',
-        details: { method: 'updateOdds', odds },
+        details: { method: 'updateOdds', odds}
       });
-      throw error;
-    }
+      throw error;}
   }
 
   async calculateKellyFraction(odds: Odds, probability: number): Promise<number> {
@@ -376,28 +318,25 @@ export class UnifiedBettingService extends BaseService {
 
       const response = await this.api.post('/betting/kelly', {
         odds,
-        probability,
+//         probability
       });
       this.cache.set(cacheKey, response.data);
-      return response.data;
-    } catch (error) {
+      return response.data;} catch (error) {
       this.handleError(error, {
         code: 'BETTING_ERROR',
         source: 'UnifiedBettingService',
-        details: { method: 'calculateKellyFraction', odds, probability },
+        details: { method: 'calculateKellyFraction', odds, probability}
       });
-      throw error;
-    }
+      throw error;}
   }
 
   async getBettingOpportunities(
     event: Event,
     market: Market,
     selection: Selection,
-    modelOutput: ModelOutput;
+    modelOutput: ModelOutput
   ): Promise<{
-    opportunities: BettingOpportunity[];
-  }> {
+    opportunities: BettingOpportunity[0]}> {
     try {
 
 
@@ -407,24 +346,21 @@ export class UnifiedBettingService extends BaseService {
         event,
         market,
         selection,
-        modelOutput,
+//         modelOutput
       });
       this.cache.set(cacheKey, response.data);
-      return response.data;
-    } catch (error) {
+      return response.data;} catch (error) {
       this.handleError(error, {
         code: 'BETTING_ERROR',
         source: 'UnifiedBettingService',
-        details: {
-          method: 'getBettingOpportunities',
+        details: {,`n  method: 'getBettingOpportunities',
           event,
           market,
           selection,
-          modelOutput,
-        },
+//           modelOutput
+        }
       });
-      throw error;
-    }
+      throw error;}
   }
 
   // Removed duplicate validateBet. Only async validateBet(request: BettingValidationRequest) remains.
@@ -435,62 +371,55 @@ export class UnifiedBettingService extends BaseService {
       if (cached) return cached;
 
       this.cache.set('bettingConfig', response.data);
-      return response.data;
-    } catch (error) {
+      return response.data;} catch (error) {
       this.handleError(error, {
         code: 'BETTING_ERROR',
         source: 'UnifiedBettingService',
-        details: { method: 'getBettingConfig' },
+        details: { method: 'getBettingConfig'}
       });
-      throw error;
-    }
+      throw error;}
   }
 
   async updateBettingConfig(config: Partial<BettingConfig>): Promise<BettingConfig> {
     try {
 
       this.cache.delete('bettingConfig'); // Invalidate config cache;
-      return response.data;
-    } catch (error) {
+      return response.data;} catch (error) {
       this.handleError(error, {
         code: 'BETTING_ERROR',
         source: 'UnifiedBettingService',
-        details: { method: 'updateBettingConfig', config },
+        details: { method: 'updateBettingConfig', config}
       });
-      throw error;
-    }
+      throw error;}
   }
 
   async previewBet(request: BettingPreviewRequest): Promise<BettingPreview | null> {
     try {
 
-      return response.data;
-    } catch (error) {
+      return response.data} catch (error) {
       this.logger.error('Failed to preview bet', error);
-      return null;
-    }
+      return null;}
   }
 
   async validateBet(request: BettingValidationRequest): Promise<BettingValidation> {
     try {
 
-      return response.data;
-    } catch (error) {
+      return response.data} catch (error) {
       this.logger.error('Failed to validate bet', error);
       return {
         isValid: false,
-        errors: ['Failed to validate bet'],
-      };
-    }
+        errors: ['Failed to validate bet']
+      }}
   }
 
   async placeBet(request: BettingPlaceRequest): Promise<Bet | null> {
     try {
 
-      return response.data;
-    } catch (error) {
+      return response.data} catch (error) {
       this.logger.error('Failed to place bet', error);
-      return null;
-    }
-  }
-}
+      return null;}
+  }}
+
+
+
+`

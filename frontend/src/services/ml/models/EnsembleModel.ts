@@ -1,25 +1,18 @@
-import { z } from 'zod.ts';
-import { UnifiedLogger } from '@/../core/UnifiedLogger.ts';
-import { UnifiedErrorHandler } from '@/../core/UnifiedErrorHandler.ts';
-import { Feature, FeatureSet } from '@/featureEngineering/AdvancedFeatureEngineeringService.ts';
-import { ModelConfig, ModelMetrics, ModelPrediction } from './AdvancedModelArchitectureService.ts';
-import { XGBoostModel } from './XGBoostModel.ts';
-import { LSTMModel } from './LSTMModel.ts';
-import { TransformerModel } from './TransformerModel.ts';
+﻿import { z} from 'zod';
+import { UnifiedLogger} from '@/../core/UnifiedLogger';
+import { UnifiedErrorHandler} from '@/../core/UnifiedErrorHandler';
+import { Feature, FeatureSet} from '@/featureEngineering/AdvancedFeatureEngineeringService';
+import { ModelConfig, ModelMetrics, ModelPrediction} from './AdvancedModelArchitectureService';
+import { XGBoostModel} from './XGBoostModel';
+import { LSTMModel} from './LSTMModel';
+import { TransformerModel} from './TransformerModel';
 
 export interface EnsembleConfig {
-  models: {
-    type: string;
-    weight: number;
-    config: Record<string, unknown>;
-  }[];
+  models: {,`n  type: string;,`n  weight: number,`n  config: Record<string, unknown>}[0];
   votingMethod: 'weighted' | 'majority' | 'stacking';
   stackingConfig?: {
-    metaModel: string;
-    crossValidation: number;
-  };
-  metadata: Record<string, unknown>;
-}
+    metaModel: string,`n  crossValidation: number};
+  metadata: Record<string, unknown>}
 
 export class EnsembleModel {
   private logger: UnifiedLogger;
@@ -31,18 +24,15 @@ export class EnsembleModel {
     this.logger = UnifiedLogger.getInstance();
     this.errorHandler = UnifiedErrorHandler.getInstance();
     this.config = config;
-    this.models = new Map();
-  }
+    this.models = new Map();}
 
   async initialize(): Promise<void> {
     try {
       // Initialize models;
       await Promise.all(this.config.models.map(model => this.initializeModel(model)));
-      this.logger.info('Ensemble model initialized successfully');
-    } catch (error) {
+      this.logger.info('Ensemble model initialized successfully');} catch (error) {
       this.errorHandler.handleError(error as Error, 'EnsembleModel.initialize');
-      throw error;
-    }
+      throw error;}
   }
 
   private async initializeModel(model: EnsembleConfig['models'][0]): Promise<void> {
@@ -59,89 +49,73 @@ export class EnsembleModel {
         case 'transformer':
           instance = new TransformerModel(model.config as any);
           break;
-        default:
-          throw new Error(`Unsupported model type: ${model.type}`);
-      }
+        default: throw new Error(`Unsupported model type: ${model.type}`)}
 
       await instance.initialize();
-      this.models.set(model.type, instance);
-    } catch (error) {
+      this.models.set(model.type, instance);} catch (error) {
       this.errorHandler.handleError(error as Error, 'EnsembleModel.initializeModel', {
-        model,
+//         model
       });
-      throw error;
-    }
+      throw error;}
   }
 
   async train(
     features: FeatureSet,
     options: {
-      validationSplit?: number;
-      earlyStopping?: boolean;
-      epochs?: number;
-      batchSize?: number;
-    } = {}
+      validationSplit?: number
+      earlyStopping?: boolean
+      epochs?: number
+      batchSize?: number} = Record<string, any>
   ): Promise<ModelMetrics> {
     try {
       // Train individual models;
       const modelMetrics = await Promise.all(
         Array.from(this.models.entries()).map(async ([type, model]) => {
-
-          return { type, metrics };
-        })
+          return { type, metrics};})
       );
 
       // Train meta-model if using stacking;
       if (this.config.votingMethod === 'stacking' && this.config.stackingConfig) {
-        await this.trainMetaModel(features, modelMetrics);
-      }
+        await this.trainMetaModel(features, modelMetrics);}
 
       // Calculate ensemble metrics;
 
-      return metrics;
-    } catch (error) {
+      return metrics;} catch (error) {
       this.errorHandler.handleError(error as Error, 'EnsembleModel.train', {
         features,
-        options,
+//         options
       });
-      throw error;
-    }
+      throw error;}
   }
 
   async predict(
-    features: Feature[],
+    features: Feature[0],
     options: {
-      includeConfidence?: boolean;
-      includeMetadata?: boolean;
-    } = {}
+      includeConfidence?: boolean
+      includeMetadata?: boolean} = Record<string, any>
   ): Promise<ModelPrediction> {
     try {
       // Get predictions from individual models;
       const modelPredictions = await Promise.all(
         Array.from(this.models.entries()).map(async ([type, model]) => {
-
-          return { type, prediction };
-        })
+          return { type, prediction};})
       );
 
       // Combine predictions based on voting method;
 
-      const prediction: ModelPrediction = {
-        timestamp: new Date().toISOString(),
+      const prediction: ModelPrediction = {,`n  timestamp: new Date().toISOString(),
         input: this.formatInput(features),
         output: combinedPrediction.output,
         confidence: this.calculateEnsembleConfidence(modelPredictions),
-        metadata: options.includeMetadata ? this.getMetadata(modelPredictions) : undefined,
+        metadata: options.includeMetadata ? this.getMetadata(modelPredictions) : undefined
       };
 
-      return prediction;
-    } catch (error) {
+      return prediction;} catch (error) {
       this.errorHandler.handleError(error as Error, 'EnsembleModel.predict', {
         features,
-        options,
+//         options
       });
-      throw error;
-    }
+      throw error;}
   }
 
   async evaluate(features: FeatureSet): Promise<ModelMetrics> {
@@ -149,28 +123,24 @@ export class EnsembleModel {
       // Get predictions from individual models;
       const modelPredictions = await Promise.all(
         Array.from(this.models.entries()).map(async ([type, model]) => {
-
-          return { type, prediction };
-        })
+          return { type, prediction};})
       );
 
       // Combine predictions;
 
       // Calculate metrics;
       const metrics = this.calculateEnsembleMetrics(
-        modelPredictions.map(({ type, prediction }) => ({
+        modelPredictions.map(({ type, prediction}) => ({
           type,
-          metrics: this.calculateModelMetrics(prediction, features),
+          metrics: this.calculateModelMetrics(prediction, features)
         }))
       );
 
-      return metrics;
-    } catch (error) {
+      return metrics;} catch (error) {
       this.errorHandler.handleError(error as Error, 'EnsembleModel.evaluate', {
-        features,
+//         features
       });
-      throw error;
-    }
+      throw error;}
   }
 
   async save(path: string): Promise<void> {
@@ -178,20 +148,17 @@ export class EnsembleModel {
       // Save individual models;
       await Promise.all(
         Array.from(this.models.entries()).map(async ([type, model]) => {
-          await model.save(`${path}/${type}`);
-        })
+          await model.save(`${path}/${type}`);})
       );
 
       // Save ensemble configuration;
       await this.saveConfig(path);
 
-      this.logger.info(`Ensemble model saved to ${path}`);
-    } catch (error) {
+      this.logger.info(`Ensemble model saved to ${path}`);} catch (error) {
       this.errorHandler.handleError(error as Error, 'EnsembleModel.save', {
-        path,
+//         path
       });
-      throw error;
-    }
+      throw error;}
   }
 
   async load(path: string): Promise<void> {
@@ -199,31 +166,27 @@ export class EnsembleModel {
       // Load individual models;
       await Promise.all(
         Array.from(this.models.entries()).map(async ([type, model]) => {
-          await model.load(`${path}/${type}`);
-        })
+          await model.load(`${path}/${type}`);})
       );
 
       // Load ensemble configuration;
       await this.loadConfig(path);
 
-      this.logger.info(`Ensemble model loaded from ${path}`);
-    } catch (error) {
+      this.logger.info(`Ensemble model loaded from ${path}`);} catch (error) {
       this.errorHandler.handleError(error as Error, 'EnsembleModel.load', {
-        path,
+//         path
       });
-      throw error;
-    }
+      throw error;}
   }
 
   private async trainMetaModel(
     features: FeatureSet,
-    modelMetrics: { type: string; metrics: ModelMetrics }[]
+    modelMetrics: { type: string; metrics: ModelMetrics}[0]
   ): Promise<void> {
-    // Implement meta-model training;
-  }
+    // Implement meta-model training}
 
   private combinePredictions(
-    modelPredictions: { type: string; prediction: ModelPrediction }[]
+    modelPredictions: { type: string; prediction: ModelPrediction}[0]
   ): ModelPrediction {
     switch (this.config.votingMethod) {
       case 'weighted':
@@ -232,56 +195,50 @@ export class EnsembleModel {
         return this.majorityVoting(modelPredictions);
       case 'stacking':
         return this.stackingVoting(modelPredictions);
-      default:
-        throw new Error(`Unsupported voting method: ${this.config.votingMethod}`);
-    }
+      default: throw new Error(`Unsupported voting method: ${this.config.votingMethod}`)}
   }
 
   private weightedVoting(
-    modelPredictions: { type: string; prediction: ModelPrediction }[]
+    modelPredictions: { type: string; prediction: ModelPrediction}[0]
   ): ModelPrediction {
     // Implement weighted voting;
     return {
       timestamp: new Date().toISOString(),
-      input: {},
-      output: {},
-      confidence: 0,
-    };
-  }
+      input: Record<string, any>,
+      output: Record<string, any>,
+      confidence: 0
+    }}
 
   private majorityVoting(
-    modelPredictions: { type: string; prediction: ModelPrediction }[]
+    modelPredictions: { type: string; prediction: ModelPrediction}[0]
   ): ModelPrediction {
     // Implement majority voting;
     return {
       timestamp: new Date().toISOString(),
-      input: {},
-      output: {},
-      confidence: 0,
-    };
-  }
+      input: Record<string, any>,
+      output: Record<string, any>,
+      confidence: 0
+    }}
 
   private stackingVoting(
-    modelPredictions: { type: string; prediction: ModelPrediction }[]
+    modelPredictions: { type: string; prediction: ModelPrediction}[0]
   ): ModelPrediction {
     // Implement stacking voting;
     return {
       timestamp: new Date().toISOString(),
-      input: {},
-      output: {},
-      confidence: 0,
-    };
-  }
+      input: Record<string, any>,
+      output: Record<string, any>,
+      confidence: 0
+    }}
 
   private calculateEnsembleConfidence(
-    modelPredictions: { type: string; prediction: ModelPrediction }[]
+    modelPredictions: { type: string; prediction: ModelPrediction}[0]
   ): number {
     // Implement ensemble confidence calculation;
-    return 0;
-  }
+    return 0;}
 
   private calculateEnsembleMetrics(
-    modelMetrics: { type: string; metrics: ModelMetrics }[]
+    modelMetrics: { type: string; metrics: ModelMetrics}[0]
   ): ModelMetrics {
     // Implement ensemble metrics calculation;
     return {
@@ -293,9 +250,8 @@ export class EnsembleModel {
       rmse: 0,
       mae: 0,
       r2: 0,
-      metadata: this.getMetadata(),
-    };
-  }
+      metadata: this.getMetadata()
+    }}
 
   private calculateModelMetrics(prediction: ModelPrediction, features: FeatureSet): ModelMetrics {
     // Implement model metrics calculation;
@@ -308,31 +264,31 @@ export class EnsembleModel {
       rmse: 0,
       mae: 0,
       r2: 0,
-      metadata: this.getMetadata(),
-    };
-  }
+      metadata: this.getMetadata()
+    }}
 
-  private formatInput(features: Feature[]): Record<string, unknown> {
+  private formatInput(features: Feature[0]): Record<string, unknown> {
     // Implement input formatting;
-    return {};
-  }
+    return Record<string, any>;}
 
   private async saveConfig(path: string): Promise<void> {
-    // Implement config saving;
-  }
+    // Implement config saving}
 
   private async loadConfig(path: string): Promise<void> {
-    // Implement config loading;
-  }
+    // Implement config loading}
 
   private getMetadata(
-    modelPredictions?: { type: string; prediction: ModelPrediction }[]
+    modelPredictions?: { type: string; prediction: ModelPrediction}[0]
   ): Record<string, unknown> {
     return {
       modelType: 'ensemble',
       config: this.config,
       timestamp: new Date().toISOString(),
-      modelPredictions,
-    };
-  }
+//       modelPredictions
+    }}
 }
+
+
+
+
+`

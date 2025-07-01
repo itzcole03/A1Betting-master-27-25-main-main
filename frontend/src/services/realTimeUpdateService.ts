@@ -1,19 +1,18 @@
-import { SportsDataApi, OddsDataApi, SentimentApi } from './integrations.ts';
-import { EventEmitter } from 'events.ts';
-import { isFeatureEnabled } from "./configService.ts";
+﻿import { SportsDataApi, OddsDataApi, SentimentApi} from './integrations';
+import { EventEmitter} from 'events';
+import { isFeatureEnabled} from "`./configService";
 import {
   normalizePlayerProp,
   normalizeGameState,
-  normalizeSentiment,
+//   normalizeSentiment
 } from "./integrations/normalizeExternalData.js";
-import { logLiveData } from "./integrations/liveDataLogger.js";
+import { logLiveData} from "./integrations/liveDataLogger.js";
 
 // Status reporting for UI/monitoring;
 function reportRealTimeStatus(connected: boolean, quality: number) {
   if (typeof window !== "undefined") {
-    if (!window.appStatus) window.appStatus = {};
-    window.appStatus.realtime = { connected, quality, timestamp: Date.now() };
-  }
+    if (!window.appStatus) window.appStatus = Record<string, any>;
+    window.appStatus.realtime = { connected, quality, timestamp: Date.now()}}
 }
 
 // Simulated fallback data for degraded/disabled scenarios;
@@ -22,12 +21,12 @@ const simulatedGames = [
     id: "sim-game",
     status: "scheduled",
     teams: ["A", "B"],
-    startTime: new Date().toISOString(),
+    startTime: new Date().toISOString()
   },
 ];
 
 const simulatedSentiment = [
-  { id: "sim-sentiment", player: "Sim Player", sentiment: 0 },
+  { id: "sim-sentiment", player: "Sim Player", sentiment: 0},
 ];
 
 export class RealTimeUpdateService extends EventEmitter {
@@ -41,8 +40,7 @@ export class RealTimeUpdateService extends EventEmitter {
 
   constructor() {
     super();
-    this.initialize();
-  }
+    this.initialize();}
 
   private async initialize() {
     this.featureEnabled = await isFeatureEnabled("REALTIME_UPDATES");
@@ -54,10 +52,8 @@ export class RealTimeUpdateService extends EventEmitter {
       this.emit("games", simulatedGames);
       this.emit("odds", simulatedOdds);
       this.emit("sentiment", simulatedSentiment);
-      return;
-    }
-    this.initWebSocket();
-  }
+      return;}
+    this.initWebSocket();}
 
   private initWebSocket() {
     if (!this.featureEnabled) return;
@@ -78,18 +74,15 @@ export class RealTimeUpdateService extends EventEmitter {
         wsUrl,
       );
       this.startPollingFallback();
-      return;
-    }
+      return;}
 
     try {
       this.ws = new WebSocket(wsUrl);
       this.ws.onmessage = (event) => this.handleMessage(event.data);
       this.ws.onerror = () => this.startPollingFallback();
       this.ws.onclose = () => this.startPollingFallback();
-      reportRealTimeStatus(true, 1);
-    } catch {
-      this.startPollingFallback();
-    }
+      reportRealTimeStatus(true, 1);} catch {
+      this.startPollingFallback();}
   }
 
   private handleMessage(data: string) {
@@ -113,16 +106,12 @@ export class RealTimeUpdateService extends EventEmitter {
             ? parsed.payload.map(normalizeSentiment)
             : normalizeSentiment(parsed.payload);
           break;
-        default:
-          normalized = parsed.payload;
-      }
+        default: normalized = parsed.payload}
       this.emit(parsed.type, normalized);
-      logLiveData(`[WS] ${parsed.type} update received`);
-    } catch (e) {
+      logLiveData(`[WS] ${parsed.type} update received`);} catch (e) {
       // Log parse error;
       logLiveData(`[WS ERROR] Failed to parse message: ${e}`);
-      // console statement removed
-    }
+      // console statement removed}
   }
 
   private startPollingFallback() {
@@ -130,8 +119,7 @@ export class RealTimeUpdateService extends EventEmitter {
     if (this.pollingTimer) return;
     reportRealTimeStatus(false, 0.5);
     logLiveData("[FALLBACK] WebSocket failed, using polling fallback");
-    this.pollingTimer = setInterval(() => this.pollAll(), this.pollingInterval);
-  }
+    this.pollingTimer = setInterval(() => this.pollAll(), this.pollingInterval);}
 
   private async pollAll() {
     if (!this.featureEnabled) {
@@ -139,8 +127,7 @@ export class RealTimeUpdateService extends EventEmitter {
       this.emit("games", simulatedGames);
       this.emit("odds", simulatedOdds);
       this.emit("sentiment", simulatedSentiment);
-      return;
-    }
+      return;}
     // Poll all APIs for updates;
     try {
       const [games, odds, sentiment] = await Promise.all([
@@ -167,21 +154,22 @@ export class RealTimeUpdateService extends EventEmitter {
           : normalizeSentiment(sentiment),
       );
       reportRealTimeStatus(true, 1);
-      logLiveData("[POLL] Data polled from APIs");
-    } catch (e) {
+      logLiveData("[POLL] Data polled from APIs");} catch (e) {
       reportRealTimeStatus(false, 0.3);
       logLiveData(`[POLL ERROR] ${e}`);
       // console statement removed
       this.emit("games", simulatedGames);
       this.emit("odds", simulatedOdds);
-      this.emit("sentiment", simulatedSentiment);
-    }
+      this.emit("sentiment", simulatedSentiment);}
   }
 
   public stop() {
     if (this.pollingTimer) clearInterval(this.pollingTimer);
-    if (this.ws) this.ws.close();
-  }
+    if (this.ws) this.ws.close();}
 }
 
 export const realTimeUpdateService = new RealTimeUpdateService();
+
+
+
+`

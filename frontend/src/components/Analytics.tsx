@@ -1,45 +1,38 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { BarChart3, TrendingUp, Target, DollarSign, Activity, Brain } from 'lucide-react';
+﻿import React, { useState} from 'react'
+import { motion} from 'framer-motion'
+import { BarChart3, TrendingUp, Target, DollarSign, Activity, Brain} from 'lucide-react'
 
 interface AnalyticsData {
-  totalBets: number;
-  winRate: number;
-  profit: number;
-  roi: number;
-  avgOdds: number;
-  accuracy: number;
-}
+  totalBets: number,`n  winRate: number;,`n  profit: number,`n  roi: number;,`n  avgOdds: number,`n  accuracy: number}
 
 const Analytics: React.FC = () => {
   const [timeframe, setTimeframe] = useState('7d');
   const [activeTab, setActiveTab] = useState('overview');
 
   // Mock analytics data - would come from real services
-  const analyticsData: AnalyticsData = {
-    totalBets: 1247,
+  const analyticsData: AnalyticsData = {,`n  totalBets: 1247,
     winRate: 87.3,
     profit: 24750,
     roi: 34.2,
     avgOdds: 1.85,
-    accuracy: 94.2,
+    accuracy: 94.2
   };
 
   const chartData = [
-    { name: 'Mon', profit: 1200, bets: 45 },
-    { name: 'Tue', profit: 2100, bets: 52 },
-    { name: 'Wed', profit: 800, bets: 38 },
-    { name: 'Thu', profit: 3200, bets: 61 },
-    { name: 'Fri', profit: 1500, bets: 43 },
-    { name: 'Sat', profit: 2800, bets: 67 },
-    { name: 'Sun', profit: 1900, bets: 54 },
+    { name: 'Mon', profit: 1200, bets: 45},
+    { name: 'Tue', profit: 2100, bets: 52},
+    { name: 'Wed', profit: 800, bets: 38},
+    { name: 'Thu', profit: 3200, bets: 61},
+    { name: 'Fri', profit: 1500, bets: 43},
+    { name: 'Sat', profit: 2800, bets: 67},
+    { name: 'Sun', profit: 1900, bets: 54},
   ];
 
   const tabs = [
-    { id: 'overview', name: 'Overview', icon: BarChart3 },
-    { id: 'performance', name: 'Performance', icon: TrendingUp },
-    { id: 'models', name: 'AI Models', icon: Brain },
-    { id: 'risk', name: 'Risk Analysis', icon: Target },
+    { id: 'overview', name: 'Overview', icon: BarChart3},
+    { id: 'performance', name: 'Performance', icon: TrendingUp},
+    { id: 'models', name: 'AI Models', icon: Brain},
+    { id: 'risk', name: 'Risk Analysis', icon: Target},
   ];
 
   return (
@@ -60,14 +53,11 @@ const Analytics: React.FC = () => {
       <div className='quantum-card rounded-3xl p-6 mb-10'>
         <div className='flex flex-wrap gap-4'>
           {['24h', '7d', '30d', '90d', 'all'].map(period => (
-            <button
-              key={period}
-              onClick={() => setTimeframe(period)}
+            <button key={period}>`n              onClick={() => setTimeframe(period)}
               className={`px-6 py-3 rounded-2xl transition-all duration-300 font-bold font-cyber ${
                 timeframe === period
                   ? 'bg-electric-500/20 border-2 border-electric-500/40 text-electric-400 shadow-neon'
-                  : 'bg-gray-800/30 hover:bg-gray-800/50 text-gray-300 border-2 border-transparent hover:border-gray-600'
-              }`}
+                  : 'bg-gray-800/30 hover:bg-gray-800/50 text-gray-300 border-2 border-transparent hover:border-gray-600'}`}
             >
               {period.toUpperCase()}
             </button>
@@ -79,7 +69,7 @@ const Analytics: React.FC = () => {
       <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-10'>
         <motion.div
           className='quantum-card rounded-2xl p-6 text-center hover:shadow-neon'
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.02}}
         >
           <div className='text-3xl mb-3 text-green-400'>
             <DollarSign className='w-8 h-8 mx-auto' />
@@ -92,7 +82,7 @@ const Analytics: React.FC = () => {
 
         <motion.div
           className='quantum-card rounded-2xl p-6 text-center hover:shadow-neon'
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.02}}
         >
           <div className='text-3xl mb-3 text-blue-400'>
             <Target className='w-8 h-8 mx-auto' />
@@ -105,7 +95,7 @@ const Analytics: React.FC = () => {
 
         <motion.div
           className='quantum-card rounded-2xl p-6 text-center hover:shadow-neon'
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.02}}
         >
           <div className='text-3xl mb-3 text-purple-400'>
             <Brain className='w-8 h-8 mx-auto' />
@@ -118,7 +108,7 @@ const Analytics: React.FC = () => {
 
         <motion.div
           className='quantum-card rounded-2xl p-6 text-center hover:shadow-neon'
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.02}}
         >
           <div className='text-3xl mb-3 text-yellow-400'>
             <TrendingUp className='w-8 h-8 mx-auto' />
@@ -131,7 +121,7 @@ const Analytics: React.FC = () => {
 
         <motion.div
           className='quantum-card rounded-2xl p-6 text-center hover:shadow-neon'
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.02}}
         >
           <div className='text-3xl mb-3 text-cyan-400'>
             <Activity className='w-8 h-8 mx-auto' />
@@ -144,7 +134,7 @@ const Analytics: React.FC = () => {
 
         <motion.div
           className='quantum-card rounded-2xl p-6 text-center hover:shadow-neon'
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.02}}
         >
           <div className='text-3xl mb-3 text-electric-400'>
             <BarChart3 className='w-8 h-8 mx-auto' />
@@ -162,20 +152,16 @@ const Analytics: React.FC = () => {
           {tabs.map(tab => {
             const Icon = tab.icon;
             return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+              <button key={tab.id}>`n                onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center space-x-3 px-6 py-4 rounded-2xl transition-all duration-300 font-bold font-cyber ${
                   activeTab === tab.id
                     ? 'bg-electric-500/20 border-2 border-electric-500/40 text-electric-400 shadow-neon'
-                    : 'bg-gray-800/30 hover:bg-gray-800/50 text-gray-300 border-2 border-transparent hover:border-gray-600'
-                }`}
+                    : 'bg-gray-800/30 hover:bg-gray-800/50 text-gray-300 border-2 border-transparent hover:border-gray-600'}`}
               >
                 <Icon className='w-5 h-5' />
                 <span>{tab.name}</span>
               </button>
-            );
-          })}
+            )})}
         </div>
       </div>
 
@@ -193,10 +179,8 @@ const Analytics: React.FC = () => {
               <div className='h-64 flex items-end justify-between space-x-2'>
                 {chartData.map((day, index) => (
                   <div key={day.name} className='flex flex-col items-center flex-1'>
-                    <div
-                      className='w-full bg-gradient-to-t from-electric-400 to-neon-blue rounded-t-lg mb-2'
-                      style={{ height: `${(day.profit / 3200) * 100}%` }}
-                    />
+                    <div className='w-full bg-gradient-to-t from-electric-400 to-neon-blue rounded-t-lg mb-2'
+                      style={{ height: `${(day.profit / 3200) * 100}%`}}>`n                    />
                     <div className='text-sm text-gray-400 font-mono'>{day.name}</div>
                     <div className='text-xs text-electric-400 font-bold'>${day.profit}</div>
                   </div>
@@ -268,7 +252,10 @@ const Analytics: React.FC = () => {
         )}
       </div>
     </div>
-  );
-};
+  )};
 
 export default Analytics;
+
+
+
+`

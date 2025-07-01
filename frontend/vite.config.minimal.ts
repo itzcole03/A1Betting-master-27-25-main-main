@@ -1,32 +1,31 @@
-import path from 'path.ts';
-import { defineConfig } from 'vite.ts';
+import react from '@vitejs/plugin-react'
+import path from 'path'
+import { defineConfig } from 'vite'
 
+// Minimal config to bypass Console Ninja issues
 export default defineConfig({
-  root: '.',
-  build: {
-    rollupOptions: {
-      input: './index.minimal.html',
-      onwarn: () => {
-        // Suppress all warnings;
-      },
-    },
-    target: 'es2022',
-    minify: false,
-    sourcemap: false,
-    outDir: 'dist',
-    emptyOutDir: true,
+  plugins: [react()],
+  server: {
+    port: 8173,
+    host: '0.0.0.0',
+    strictPort: true,
+    hmr: false, // Disable HMR to avoid Console Ninja
   },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"),
+      '@': path.resolve(__dirname, 'src'),
     },
   },
+  build: {
+    sourcemap: false,
+    minify: false,
+  },
   esbuild: {
-    target: 'es2022',
-    logLevel: 'silent',
+    logLevel: 'error',
+    target: 'es2020',
   },
-  server: {
-    port: 5173,
-    host: true,
+  optimizeDeps: {
+    force: true,
+    include: ['react', 'react-dom'],
   },
-});
+}) 

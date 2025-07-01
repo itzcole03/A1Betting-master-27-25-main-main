@@ -1,7 +1,7 @@
-import { promises as fs } from 'fs.ts';
-import path from 'path.ts';
-import { UnifiedLogger } from '@/core/UnifiedLogger.ts';
-import { UnifiedServiceRegistry } from '@/unified/UnifiedServiceRegistry.ts';
+﻿import { promises as fs} from 'fs';
+import path from 'path';
+import { UnifiedLogger} from '@/core/UnifiedLogger';
+import { UnifiedServiceRegistry} from '@/unified/UnifiedServiceRegistry';
 
 export class UnifiedSettingsService {
   private static instance: UnifiedSettingsService;
@@ -13,29 +13,21 @@ export class UnifiedSettingsService {
     this.logger = UnifiedLogger.getInstance();
     this.settings = new Map();
     this.settingsFile = path.join(process.cwd(), 'config', 'settings.json');
-    this.loadSettings();
-  }
+    this.loadSettings();}
 
   public static getInstance(registry: UnifiedServiceRegistry): UnifiedSettingsService {
     if (!UnifiedSettingsService.instance) {
-      UnifiedSettingsService.instance = new UnifiedSettingsService(registry);
-    }
-    return UnifiedSettingsService.instance;
-  }
+      UnifiedSettingsService.instance = new UnifiedSettingsService(registry)}
+    return UnifiedSettingsService.instance}
 
   private async loadSettings(): Promise<void> {
     try {
-
-
       Object.entries(settings).forEach(([key, value]) => {
-        this.settings.set(key, value);
-      });
-      this.logger.info('Settings loaded successfully', 'settings');
-    } catch (error) {
+        this.settings.set(key, value);});
+      this.logger.info('Settings loaded successfully', 'settings');} catch (error) {
       this.logger.error('Failed to load settings', 'settings');
       // Initialize with default settings;
-      this.initializeDefaultSettings();
-    }
+      this.initializeDefaultSettings();}
   }
 
   private initializeDefaultSettings(): void {
@@ -53,33 +45,28 @@ export class UnifiedSettingsService {
       port: 5432,
       database: 'sports_betting',
       username: 'postgres',
-      password: '',
+      password: ''
     });
     this.settings.set('database.redis', {
       host: 'localhost',
       port: 6379,
-      password: '',
-    });
-  }
+      password: ''
+    })}
 
   public get<T>(key: string, defaultValue: T): T {
-
-    return value !== undefined ? (value as T) : defaultValue;
-  }
+    return value !== undefined ? (value as T) : defaultValue}
 
   public set<T>(key: string, value: T): void {
     this.settings.set(key, value);
-    this.saveSettings();
-  }
+    this.saveSettings();}
 
   private async saveSettings(): Promise<void> {
     try {
-
-      await fs.mkdir(path.dirname(this.settingsFile), { recursive: true });
+      await fs.mkdir(path.dirname(this.settingsFile), { recursive: true});
       await fs.writeFile(this.settingsFile, JSON.stringify(settings, null, 2));
-      this.logger.info('Settings saved successfully', 'settings');
-    } catch (error) {
-      this.logger.error('Failed to save settings', 'settings');
-    }
-  }
-}
+      this.logger.info('Settings saved successfully', 'settings');} catch (error) {
+      this.logger.error('Failed to save settings', 'settings');}
+  }}
+
+
+

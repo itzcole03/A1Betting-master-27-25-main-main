@@ -2,7 +2,7 @@
    CYBER THEME - EXACT PROTOTYPE MATCH
    =========================================== */
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
 
 /* Force body and html styling to match prototype */
 html,
@@ -10,24 +10,14 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background: linear-gradient(
-    135deg,
-    #0f172a 0%,
-    #7c3aed 50%,
-    #0f172a 100%
-  ) !important;
+  background: linear-gradient(135deg, #0f172a 0%, #7c3aed 50%, #0f172a 100%) !important;
   color: white !important;
-  font-family: "Inter", system-ui, sans-serif !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
 }
 
 #root {
   min-height: 100vh;
-  background: linear-gradient(
-    135deg,
-    #0f172a 0%,
-    #7c3aed 50%,
-    #0f172a 100%
-  ) !important;
+  background: linear-gradient(135deg, #0f172a 0%, #7c3aed 50%, #0f172a 100%) !important;
   color: white !important;
 }
 
@@ -130,14 +120,7 @@ body {
 
 /* Holographic Text Effect - Exact Prototype Match */
 .holographic {
-  background: linear-gradient(
-    45deg,
-    #ff006e,
-    #8338ec,
-    #3a86ff,
-    #06ffa5,
-    #ffbe0b
-  ) !important;
+  background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b) !important;
   background-size: 400% 400% !important;
   animation: gradient-shift 8s ease infinite !important;
   -webkit-background-clip: text !important;
@@ -176,18 +159,13 @@ button {
 }
 
 .cyber-btn::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.4),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
   transition: left 0.5s;
 }
 
@@ -242,10 +220,10 @@ button {
 }
 
 /* Input Styling */
-input[type="number"],
+input[type='number'],
 select,
-input[type="text"],
-input[type="email"],
+input[type='text'],
+input[type='email'],
 textarea {
   font-size: 16px !important;
   background: rgba(255, 255, 255, 0.05);
@@ -257,10 +235,10 @@ textarea {
   transition: all 0.3s ease;
 }
 
-input[type="number"]:focus,
+input[type='number']:focus,
 select:focus,
-input[type="text"]:focus,
-input[type="email"]:focus,
+input[type='text']:focus,
+input[type='email']:focus,
 textarea:focus {
   outline: none;
   border-color: #00ff88;
@@ -271,22 +249,10 @@ textarea:focus {
 .cyber-bg {
   background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
   background-image:
-    radial-gradient(
-      circle at 20% 50%,
-      rgba(0, 255, 136, 0.03) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 80% 20%,
-      rgba(124, 58, 237, 0.03) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 40% 80%,
-      rgba(0, 212, 255, 0.03) 0%,
-      transparent 50%
-    );
-  font-family: "Inter", system-ui, sans-serif;
+    radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(124, 58, 237, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(0, 212, 255, 0.03) 0%, transparent 50%);
+  font-family: 'Inter', system-ui, sans-serif;
   color: white;
 }
 
@@ -372,13 +338,13 @@ textarea:focus {
 
 /* Beautiful Typography */
 .cyber-title {
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 900;
   letter-spacing: -0.02em;
 }
 
 .cyber-mono {
-  font-family: "JetBrains Mono", monospace;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 /* Loading Animations */
@@ -391,25 +357,25 @@ textarea:focus {
 }
 
 /* Button Variant Styling for Better Visibility */
-.mega-button[style*="background"] {
+.mega-button[style*='background'] {
   border: 1px solid rgba(255, 255, 255, 0.15) !important;
 }
 
-.mega-button[style*="transparent"] {
+.mega-button[style*='transparent'] {
   background: rgba(255, 255, 255, 0.05) !important;
   border: 1px solid rgba(6, 255, 165, 0.8) !important;
   color: #ffffff !important;
 }
 
 /* Secondary button improvements */
-.mega-button:not([style*="gradient"]) {
+.mega-button:not([style*='gradient']) {
   background: rgba(255, 255, 255, 0.08) !important;
   border: 1px solid rgba(255, 255, 255, 0.15) !important;
   color: #ffffff !important;
 }
 
 /* Primary/active button improvements */
-.mega-button[style*="gradient"] {
+.mega-button[style*='gradient'] {
   color: #000 !important;
   font-weight: 600 !important;
 }

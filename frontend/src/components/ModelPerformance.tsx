@@ -1,32 +1,31 @@
-import React from 'react.ts';
-import { ModelMetrics } from '@/types/prediction.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React from 'react';
+import { ModelMetrics} from '@/types/prediction';
+import { motion} from 'framer-motion';
 
 export interface ModelPerformanceProps {
-  modelMetricsData: ModelMetrics; // Renamed prop;
-}
+  modelMetricsData: ModelMetrics; // Renamed prop}
 
-const ModelPerformance: React.FC<ModelPerformanceProps key={227733}> = ({ modelMetricsData }) => {
+const ModelPerformance: React.FC<ModelPerformanceProps key={227733}> = ({ modelMetricsData}) => {
   const displayMetrics = [
     {
       label: 'Win Rate',
       value: `${(modelMetricsData.winRate * 100).toFixed(1)}%`,
-      color: modelMetricsData.winRate >= 0.55 ? 'text-green-600' : 'text-red-600',
+      color: modelMetricsData.winRate >= 0.55 ? 'text-green-600' : 'text-red-600'
     },
     {
       label: 'Profit Factor (ROI)',
       value: `${(modelMetricsData.profitFactor * 100).toFixed(1)}%`,
-      color: modelMetricsData.profitFactor > 0 ? 'text-green-600' : 'text-red-600',
+      color: modelMetricsData.profitFactor > 0 ? 'text-green-600' : 'text-red-600'
     },
     {
       label: 'Total Predictions',
       value: modelMetricsData.totalPredictions.toString(),
-      color: 'text-blue-600',
+      color: 'text-blue-600'
     },
     {
       label: 'Avg. Confidence',
       value: `${(modelMetricsData.averageConfidence * 100).toFixed(1)}%`,
-      color: modelMetricsData.averageConfidence >= 0.7 ? 'text-green-600' : 'text-yellow-600',
+      color: modelMetricsData.averageConfidence >= 0.7 ? 'text-green-600' : 'text-yellow-600'
     },
   ];
 
@@ -37,10 +36,10 @@ const ModelPerformance: React.FC<ModelPerformanceProps key={227733}> = ({ modelM
         {displayMetrics.map((metric, index) => (
           <motion.div;
             key={metric.label}
-            animate={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0}}
             className="bg-white rounded-lg p-4 shadow-sm"
-            initial={{ opacity: 0, y: 20 }}
-            transition={{ delay: index * 0.1 }}
+            initial={{ opacity: 0, y: 20}}
+            transition={{ delay: index * 0.1}}
            key={906240}>
             <div className="text-sm text-gray-600 mb-1" key={513589}>{metric.label}</div>
             <div className={`text-xl font-bold ${metric.color}`} key={545700}>{metric.value}</div>
@@ -48,7 +47,11 @@ const ModelPerformance: React.FC<ModelPerformanceProps key={227733}> = ({ modelM
         ))}
       </div>
     </div>
-  );
-};
+  )};
 
 export default React.memo(ModelPerformance);
+
+
+
+
+`

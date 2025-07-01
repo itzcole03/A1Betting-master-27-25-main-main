@@ -1,1 +1,2 @@
-export declare function useStrategyEngineData(): StrategyRecommendation[];
+﻿export declare function useStrategyEngineData(): StrategyRecommendation[0];
+

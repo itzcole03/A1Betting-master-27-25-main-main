@@ -1,18 +1,17 @@
-import React from 'react.ts';
-import { cn } from '@/lib/utils.ts';
+﻿import React from 'react';
+import { cn} from '@/lib/utils';
 
 interface HolographicTextProps {
   children: React.ReactNode;
-  className?: string;
-  animated?: boolean;
-  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl";
-}
+  className?: string
+  animated?: boolean
+  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl";}
 
 const HolographicText: React.FC<HolographicTextProps key={326962}> = ({
   children,
   className = "",
   animated = true,
-  size = "xl",
+  size = "xl"
 }) => {
   const sizes = {
     sm: "text-sm",
@@ -22,7 +21,7 @@ const HolographicText: React.FC<HolographicTextProps key={326962}> = ({
     "2xl": "text-2xl",
     "3xl": "text-3xl",
     "4xl": "text-4xl",
-    "5xl": "text-5xl",
+    "5xl": "text-5xl"
   };
 
   return (
@@ -36,7 +35,10 @@ const HolographicText: React.FC<HolographicTextProps key={326962}> = ({
      key={365153}>
       {children}
     </span>
-  );
-};
+  );};
 
 export default HolographicText;
+
+
+
+

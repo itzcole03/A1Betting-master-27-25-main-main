@@ -1,38 +1,38 @@
-export type Sport =
-  | "NBA"
-  | "NFL"
-  | "MLB"
-  | "NHL"
-  | "WNBA"
-  | "SOCCER"
-  | "PGA"
-  | "TENNIS"
-  | "ESPORTS"
-  | "MMA";
+﻿export type Sport =
+  | 'NBA'
+  | 'NFL'
+  | 'MLB'
+  | 'NHL'
+  | 'WNBA'
+  | 'SOCCER'
+  | 'PGA'
+  | 'TENNIS'
+  | 'ESPORTS'
+  | 'MMA';
 export type PropType =
-  | "POINTS"
-  | "REBOUNDS"
-  | "ASSISTS"
-  | "THREES"
-  | "BLOCKS"
-  | "STEALS"
-  | "TOUCHDOWNS"
-  | "YARDS"
-  | "GOALS";
+  | 'POINTS'
+  | 'REBOUNDS'
+  | 'ASSISTS'
+  | 'THREES'
+  | 'BLOCKS'
+  | 'STEALS'
+  | 'TOUCHDOWNS'
+  | 'YARDS'
+  | 'GOALS';
 export declare enum AlertType {
-  ERROR = "error",
-  WARNING = "warning",
-  INFO = "info",
-  SUCCESS = "success",
-  MONITOR = "monitor",
-  SYSTEM = "system",
+  ERROR = 'error',
+  WARNING = 'warning',
+  INFO = 'info',
+  SUCCESS = 'success',
+  MONITOR = 'monitor',
+  SYSTEM = 'system'
 }
-export type AlertSeverity = "low" | "medium" | "high" | "critical";
-export type EntryStatus = "pending" | "active" | "completed" | "cancelled";
-export type LineupType = "single" | "parlay";
-export type MarketState = "active" | "suspended" | "closed";
-export type BetResult = "WIN" | "LOSS" | "PUSH" | "PENDING";
-export type BetType = "OVER" | "UNDER";
+export type AlertSeverity = 'low' | 'medium' | 'high' | 'critical';
+export type EntryStatus = 'pending' | 'active' | 'completed' | 'cancelled';
+export type LineupType = 'single' | 'parlay';
+export type MarketState = 'active' | 'suspended' | 'closed';
+export type BetResult = 'WIN' | 'LOSS' | 'PUSH' | 'PENDING';
+export type BetType = 'OVER' | 'UNDER';
 export interface AlertMetadata {
   sportId?: string;
   gameId?: string;
@@ -40,10 +40,9 @@ export interface AlertMetadata {
   teamId?: string;
   impactScore?: number;
   lineMovement?: {
-    from: number;
-    to: number;
-    book: string;
-  };
+    from: number,`n  to: number;,`n  book: string};
   errorName?: string;
-  stack?: string;
-}
+  stack?: string;}
+
+
+`

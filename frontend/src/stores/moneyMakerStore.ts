@@ -1,7 +1,7 @@
-import { create } from 'zustand.ts';
-import { devtools, persist } from 'zustand/middleware.ts';
-import { authService } from '@/services/authService.ts';
-import { predictionService } from '@/services/predictionService.ts';
+﻿import { create} from 'zustand';
+import { devtools, persist} from 'zustand/middleware';
+import { authService} from '@/services/authService';
+import { predictionService} from '@/services/predictionService';
 import {
   MoneyMakerState,
   MoneyMakerActions,
@@ -18,59 +18,48 @@ import {
   Explanation,
   RiskProfile,
   ModelMetrics,
-  RiskLevel,
-} from '@/types/money-maker.ts';
+//   RiskLevel
+} from '@/types/money-maker';
 
 // Define local interfaces for prediction service types;
 interface PredictionFilter {
-  modelId?: string;
-  minConfidence?: number;
-  maxConfidence?: number;
-  sport?: string;
+  modelId?: string
+  minConfidence?: number
+  maxConfidence?: number
+  sport?: string
   timeRange?: {
-    start: string;
-    end: string;
-  };
+    start: string,`n  end: string};
   riskLevel?: 'low' | 'medium' | 'high';
-  minExpectedValue?: number;
-}
+  minExpectedValue?: number}
 
 interface PredictionSort {
-  field: keyof MoneyMakerPrediction;
-  direction: 'asc' | 'desc';
-}
+  field: keyof MoneyMakerPrediction,`n  direction: 'asc' | 'desc'}
 
-const initialState: MoneyMakerStoreState = {
-  config: {
-    investmentAmount: 1000,
+const initialState: MoneyMakerStoreState = {,`n  config: {,`n  investmentAmount: 1000,
     riskProfile: 'moderate',
     timeHorizon: 30,
     confidenceThreshold: 0.7,
-    modelWeights: {
-      xgboost_v1: 0.6,
-      lightgbm_v2: 0.4,
+    modelWeights: {,`n  xgboost_v1: 0.6,
+      lightgbm_v2: 0.4
     },
     arbitrageThreshold: 0.05,
     maxExposure: 0.2,
     correlationLimit: 0.7,
-    strategy: {
-      type: 'balanced',
+    strategy: {,`n  type: 'balanced',
       maxLegs: 3,
       minOdds: 1.5,
       maxOdds: 5.0,
-      correlationThreshold: 0.3,
+      correlationThreshold: 0.3
     },
-    portfolio: {
-      maxSize: 10,
+    portfolio: {,`n  maxSize: 10,
       rebalanceThreshold: 0.1,
       stopLoss: 0.15,
-      takeProfit: 0.25,
-    },
+      takeProfit: 0.25
+    }
   },
-  predictions: [],
-  portfolios: [],
-  metrics: {
-    totalBets: 0,
+  predictions: [0],
+  portfolios: [0],
+  metrics: {,`n  totalBets: 0,
     winningBets: 0,
     totalProfit: 0,
     roi: 0,
@@ -80,16 +69,15 @@ const initialState: MoneyMakerStoreState = {
     sharpeRatio: 0,
     maxDrawdown: 0,
     winStreak: 0,
-    lossStreak: 0,
+    lossStreak: 0
   },
   isLoading: false,
   error: null,
   lastUpdate: new Date().toISOString(),
-  filters: {},
-  sort: {
-    field: 'confidence',
-    direction: 'desc',
-  },
+  filters: Record<string, any>,
+  sort: {,`n  field: 'confidence',
+    direction: 'desc'
+  }
 };
 
 // Retry configuration;
@@ -106,21 +94,21 @@ export const useMoneyMakerStore = create<MoneyMakerStoreState & MoneyMakerStoreA
           set(state => ({
             config: {
               ...state.config,
-              ...config,
+              ...config
             },
-            lastUpdate: new Date().toISOString(),
+            lastUpdate: new Date().toISOString()
           })),
 
         addPrediction: (prediction: MoneyMakerPrediction) =>
           set(state => ({
             predictions: [...state.predictions, prediction],
-            lastUpdate: new Date().toISOString(),
+            lastUpdate: new Date().toISOString()
           })),
 
         updatePrediction: (id: string, updates: Partial<MoneyMakerPrediction>) =>
           set(state => ({
-            predictions: state.predictions.map(p => (p.eventId === id ? { ...p, ...updates } : p)),
-            lastUpdate: new Date().toISOString(),
+            predictions: state.predictions.map(p => (p.eventId === id ? { ...p, ...updates} : p)),
+            lastUpdate: new Date().toISOString()
           })),
 
         updatePredictionUncertainty: (id: string, uncertainty: Uncertainty) =>
@@ -130,10 +118,10 @@ export const useMoneyMakerStore = create<MoneyMakerStoreState & MoneyMakerStoreA
                 ? {
                     ...p,
                     uncertainty,
-                    lastUpdate: new Date().toISOString(),
+                    lastUpdate: new Date().toISOString()
                   }
                 : p;
-            ),
+            )
           })),
 
         updatePredictionExplanation: (id: string, explanation: Explanation) =>
@@ -143,10 +131,10 @@ export const useMoneyMakerStore = create<MoneyMakerStoreState & MoneyMakerStoreA
                 ? {
                     ...p,
                     explanation,
-                    lastUpdate: new Date().toISOString(),
+                    lastUpdate: new Date().toISOString()
                   }
                 : p;
-            ),
+            )
           })),
 
         updatePredictionRiskProfile: (id: string, riskProfile: RiskProfile) =>
@@ -156,10 +144,10 @@ export const useMoneyMakerStore = create<MoneyMakerStoreState & MoneyMakerStoreA
                 ? {
                     ...p,
                     riskProfile,
-                    lastUpdate: new Date().toISOString(),
+                    lastUpdate: new Date().toISOString()
                   }
                 : p;
-            ),
+            )
           })),
 
         updatePredictionModelMetrics: (id: string, modelMetrics: ModelMetrics) =>
@@ -169,43 +157,43 @@ export const useMoneyMakerStore = create<MoneyMakerStoreState & MoneyMakerStoreA
                 ? {
                     ...p,
                     modelMetrics,
-                    lastUpdate: new Date().toISOString(),
+                    lastUpdate: new Date().toISOString()
                   }
                 : p;
-            ),
+            )
           })),
 
         addPortfolio: (portfolio: MoneyMakerPortfolio) =>
           set(state => ({
             portfolios: [...state.portfolios, portfolio],
-            lastUpdate: new Date().toISOString(),
+            lastUpdate: new Date().toISOString()
           })),
 
         updatePortfolio: (id: string, portfolio: Partial<MoneyMakerPortfolio>) =>
           set(state => ({
-            portfolios: state.portfolios.map(p => (p.id === id ? { ...p, ...portfolio } : p)),
-            lastUpdate: new Date().toISOString(),
+            portfolios: state.portfolios.map(p => (p.id === id ? { ...p, ...portfolio} : p)),
+            lastUpdate: new Date().toISOString()
           })),
 
         updateMetrics: (metrics: Partial<MoneyMakerMetrics>) =>
           set(state => ({
             metrics: {
               ...state.metrics,
-              ...metrics,
+              ...metrics
             },
-            lastUpdate: new Date().toISOString(),
+            lastUpdate: new Date().toISOString()
           })),
 
         setLoading: (loading: boolean) =>
           set(() => ({
             isLoading: loading,
-            lastUpdate: new Date().toISOString(),
+            lastUpdate: new Date().toISOString()
           })),
 
         setError: (error: string | null) =>
           set(() => ({
             error,
-            lastUpdate: new Date().toISOString(),
+            lastUpdate: new Date().toISOString()
           })),
 
         reset: () => set(initialState),
@@ -215,26 +203,26 @@ export const useMoneyMakerStore = create<MoneyMakerStoreState & MoneyMakerStoreA
           set(state => ({
             filters: {
               ...state.filters,
-              ...filter,
+              ...filter
             },
-            lastUpdate: new Date().toISOString(),
+            lastUpdate: new Date().toISOString()
           })),
 
         setSort: (sort: PredictionSort) =>
           set(state => ({
             sort,
-            lastUpdate: new Date().toISOString(),
+            lastUpdate: new Date().toISOString()
           })),
 
         clearFilters: () =>
           set(state => ({
             filters: initialState.filters,
-            lastUpdate: new Date().toISOString(),
+            lastUpdate: new Date().toISOString()
           })),
 
         // New actions for prediction service integration;
         fetchPredictions: async () => {
-          const { setLoading, setError } = get();
+          const { setLoading, setError} = get();
           setLoading(true);
           setError(null);
 
@@ -246,26 +234,22 @@ export const useMoneyMakerStore = create<MoneyMakerStoreState & MoneyMakerStoreA
 
               set(state => ({
                 predictions,
-                lastUpdate: new Date().toISOString(),
+                lastUpdate: new Date().toISOString()
               }));
               setLoading(false);
-              return;
-            } catch (error) {
+              return;} catch (error) {
               lastError = error instanceof Error ? error : new Error('Unknown error');
               retries++;
               if (retries < MAX_RETRIES) {
 
-                await sleep(delay);
-              }
-            }
-          }
+                await sleep(delay);}
+            }}
 
           setError(lastError?.message || 'Failed to fetch predictions');
-          setLoading(false);
-        },
+          setLoading(false);},
 
         fetchPredictionDetails: async (predictionId: string) => {
-          const { setLoading, setError, updatePrediction } = get();
+          const { setLoading, setError, updatePrediction} = get();
           setLoading(true);
           setError(null);
 
@@ -277,24 +261,20 @@ export const useMoneyMakerStore = create<MoneyMakerStoreState & MoneyMakerStoreA
 
               updatePrediction(predictionId, details);
               setLoading(false);
-              return details;
-            } catch (error) {
+              return details;} catch (error) {
               lastError = error instanceof Error ? error : new Error('Unknown error');
               retries++;
               if (retries < MAX_RETRIES) {
 
-                await sleep(delay);
-              }
-            }
-          }
+                await sleep(delay);}
+            }}
 
           setError(lastError?.message || 'Failed to fetch prediction details');
           setLoading(false);
-          return null;
-        },
+          return null;},
 
         fetchModelMetrics: async (modelId: string) => {
-          const { setLoading, setError } = get();
+          const { setLoading, setError} = get();
           setLoading(true);
           setError(null);
 
@@ -305,43 +285,43 @@ export const useMoneyMakerStore = create<MoneyMakerStoreState & MoneyMakerStoreA
             try {
 
               setLoading(false);
-              return metrics;
-            } catch (error) {
+              return metrics;} catch (error) {
               lastError = error instanceof Error ? error : new Error('Unknown error');
               retries++;
               if (retries < MAX_RETRIES) {
 
-                await sleep(delay);
-              }
-            }
-          }
+                await sleep(delay);}
+            }}
 
           setError(lastError?.message || 'Failed to fetch model metrics');
           setLoading(false);
-          return null;
-        },
+          return null;},
 
         updateFilters: (filters: Partial<MoneyMakerStoreState['filters']>) =>
           set(state => ({
-            filters: { ...state.filters, ...filters },
-            lastUpdate: new Date().toISOString(),
+            filters: { ...state.filters, ...filters},
+            lastUpdate: new Date().toISOString()
           })),
 
         updateSort: (sort: MoneyMakerStoreState['sort']) =>
           set(state => ({
             sort,
-            lastUpdate: new Date().toISOString(),
-          })),
+            lastUpdate: new Date().toISOString()
+          }))
       }),
       {
         name: 'money-maker-storage',
-        partialize: state => ({
-          config: state.config,
+        partialize: state => ({,`n  config: state.config,
           metrics: state.metrics,
           filters: state.filters,
-          sort: state.sort,
-        }),
+          sort: state.sort
+        })
       }
     )
   )
 );
+
+
+
+
+`

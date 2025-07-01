@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useCallback, useMemo  } from 'react.ts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.ts';
-import { Button } from '@/components/ui/button.ts';
-import { Badge } from '@/components/ui/badge.ts';
-import { Progress } from '@/components/ui/progress.ts';
-import { Alert, AlertDescription } from '@/components/ui/alert.ts';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs.ts';
+﻿import React, { useState, useEffect, useCallback, useMemo} from 'react';
+import { Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+import { Button} from '@/components/ui/button';
+import { Badge} from '@/components/ui/badge';
+import { Progress} from '@/components/ui/progress';
+import { Alert, AlertDescription} from '@/components/ui/alert';
+import { Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
 import {
   Activity,
   AlertTriangle,
@@ -22,9 +22,9 @@ import {
   Eye,
   Shield,
   Cpu,
-  Server,
-} from 'lucide-react.ts';
-import SafeChart from '@/ui/SafeChart.ts';
+//   Server
+} from 'lucide-react';
+import SafeChart from '@/ui/SafeChart';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -37,7 +37,7 @@ import {
   Tooltip,
   Legend,
   ArcElement,
-  Filler,
+//   Filler
 } from "chart.js";
 
 // Register Chart.js components;
@@ -56,55 +56,27 @@ ChartJS.register(
 );
 
 interface RealTimeAccuracyMetrics {
-  overall_accuracy: number;
-  directional_accuracy: number;
-  profit_correlation: number;
-  prediction_confidence: number;
-  model_agreement: number;
-  uncertainty_quality: number;
-  calibration_error: number;
-  feature_drift_score: number;
-  prediction_latency: number;
-  models_active: number;
-  predictions_count: number;
-  accuracy_trend: number;
-  performance_stability: number;
-  optimization_score: number;
-  timestamp: string;
-}
+  overall_accuracy: number,`n  directional_accuracy: number;,`n  profit_correlation: number,`n  prediction_confidence: number;,`n  model_agreement: number,`n  uncertainty_quality: number;,`n  calibration_error: number,`n  feature_drift_score: number;,`n  prediction_latency: number,`n  models_active: number;,`n  predictions_count: number,`n  accuracy_trend: number;,`n  performance_stability: number,`n  optimization_score: number;,`n  timestamp: string}
 
 interface AccuracyAlert {
-  alert_id: string;
-  metric_name: string;
-  current_value: number;
-  threshold_value: number;
-  severity:
+  alert_id: string,`n  metric_name: string;,`n  current_value: number,`n  threshold_value: number;,`n  severity:
     | "critical"
     | "warning"
     | "acceptable"
     | "good"
     | "excellent"
     | "exceptional";
-  message: string;
-  recommendations: string[];
-  timestamp: string;
-  resolved: boolean;
-}
+  message: string,`n  recommendations: string[0];,`n  timestamp: string,`n  resolved: boolean}
 
 interface AlertsResponse {
-  active_alerts: AccuracyAlert[];
-  total_count: number;
-  critical_count: number;
-  warning_count: number;
-  timestamp: string;
-}
+  active_alerts: AccuracyAlert[0],`n  total_count: number;,`n  critical_count: number,`n  warning_count: number;,`n  timestamp: string}
 
 export const RealTimeAccuracyDashboard: React.FC = () => {
   const [currentMetrics, setCurrentMetrics] =
     useState<RealTimeAccuracyMetrics | null key={872292}>(null);
   const [metricsHistory, setMetricsHistory] = useState<
-    RealTimeAccuracyMetrics[]
-  >([]);
+    RealTimeAccuracyMetrics[0]
+  >([0]);
   const [alerts, setAlerts] = useState<AlertsResponse | null key={45605}>(null);
   const [isLive, setIsLive] = useState(true);
   const [isOptimizing, setIsOptimizing] = useState(false);
@@ -123,15 +95,12 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
         setCurrentMetrics(data);
         setMetricsHistory((prev) => [...prev.slice(-100), data]); // Keep last 100 points;
         setLastUpdate(new Date());
-        setConnectionStatus("connected");
-      } else {
-        setConnectionStatus("disconnected");
-      }
+        setConnectionStatus("connected")} else {
+        setConnectionStatus("disconnected")}
     } catch (error) {
       // console statement removed
-      setConnectionStatus("disconnected");
-    }
-  }, []);
+      setConnectionStatus("disconnected")}
+  }, [0]);
 
   // Fetch active alerts;
   const fetchAlerts = useCallback(async () => {
@@ -139,12 +108,10 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
 
       if (response.ok) {
 
-        setAlerts(data);
-      }
+        setAlerts(data)}
     } catch (error) {
-      // console statement removed
-    }
-  }, []);
+      // console statement removed}
+  }, [0]);
 
   // Trigger accuracy optimization;
   const triggerOptimization = useCallback(
@@ -153,13 +120,13 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
       try {
         const response = await fetch("/api/v4/accuracy/optimize", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json"},
           body: JSON.stringify({
             strategy,
             target_accuracy: 0.95,
             ensemble_strategy: "multi_level_stacking",
-            weight_optimization: "bayesian_optimization",
-          }),
+            weight_optimization: "bayesian_optimization"
+          })
         });
 
         if (response.ok) {
@@ -168,14 +135,10 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
           // Refresh metrics after optimization;
           setTimeout(() => {
             fetchCurrentMetrics();
-            fetchAlerts();
-          }, 2000);
-        }
+            fetchAlerts()}, 2000)}
       } catch (error) {
-        // console statement removed
-      } finally {
-        setIsOptimizing(false);
-      }
+        // console statement removed} finally {
+        setIsOptimizing(false)}
     },
     [fetchCurrentMetrics, fetchAlerts],
   );
@@ -185,8 +148,7 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
     if (!isLive) return;
 
     const fetchData = async () => {
-      await Promise.all([fetchCurrentMetrics(), fetchAlerts()]);
-    };
+      await Promise.all([fetchCurrentMetrics(), fetchAlerts()])};
 
     // Initial fetch;
     fetchData();
@@ -194,8 +156,7 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
     // Set up real-time polling;
     const interval = setInterval(fetchData, 5000); // Update every 5 seconds;
 
-    return () => clearInterval(interval);
-  }, [isLive, fetchCurrentMetrics, fetchAlerts]);
+    return () => clearInterval(interval)}, [isLive, fetchCurrentMetrics, fetchAlerts]);
 
   // Get accuracy level styling;
   const getAccuracyLevel = (accuracy: number) => {
@@ -204,43 +165,42 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
         level: "EXCEPTIONAL",
         color: "text-purple-600",
         bg: "bg-purple-100",
-        border: "border-purple-500",
+        border: "border-purple-500"
       };
     if (accuracy >= 0.92)
       return {
         level: "EXCELLENT",
         color: "text-green-600",
         bg: "bg-green-100",
-        border: "border-green-500",
+        border: "border-green-500"
       };
     if (accuracy >= 0.85)
       return {
         level: "GOOD",
         color: "text-blue-600",
         bg: "bg-blue-100",
-        border: "border-blue-500",
+        border: "border-blue-500"
       };
     if (accuracy >= 0.75)
       return {
         level: "ACCEPTABLE",
         color: "text-yellow-600",
         bg: "bg-yellow-100",
-        border: "border-yellow-500",
+        border: "border-yellow-500"
       };
     if (accuracy >= 0.6)
       return {
         level: "WARNING",
         color: "text-orange-600",
         bg: "bg-orange-100",
-        border: "border-orange-500",
+        border: "border-orange-500"
       };
     return {
       level: "CRITICAL",
       color: "text-red-600",
       bg: "bg-red-100",
-      border: "border-red-500",
-    };
-  };
+      border: "border-red-500"
+    }};
 
   // Chart data for accuracy trends;
   const accuracyTrendData = useMemo(() => {
@@ -259,7 +219,7 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
           borderColor: "rgb(99, 102, 241)",
           backgroundColor: "rgba(99, 102, 241, 0.1)",
           tension: 0.1,
-          fill: true,
+          fill: true
         },
         {
           label: "Directional Accuracy",
@@ -267,7 +227,7 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
           borderColor: "rgb(34, 197, 94)",
           backgroundColor: "rgba(34, 197, 94, 0.1)",
           tension: 0.1,
-          fill: false,
+          fill: false
         },
         {
           label: "Model Agreement",
@@ -275,11 +235,10 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
           borderColor: "rgb(168, 85, 247)",
           backgroundColor: "rgba(168, 85, 247, 0.1)",
           tension: 0.1,
-          fill: false,
+          fill: false
         },
-      ],
-    };
-  }, [metricsHistory]);
+      ]
+    }}, [metricsHistory]);
 
   // Performance radar chart data;
   const performanceRadarData = useMemo(() => {
@@ -310,11 +269,10 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
           pointBackgroundColor: "rgba(99, 102, 241, 1)",
           pointBorderColor: "#fff",
           pointHoverBackgroundColor: "#fff",
-          pointHoverBorderColor: "rgba(99, 102, 241, 1)",
+          pointHoverBorderColor: "rgba(99, 102, 241, 1)"
         },
-      ],
-    };
-  }, [currentMetrics]);
+      ]
+    }}, [currentMetrics]);
 
   if (!currentMetrics) {
     return (
@@ -326,8 +284,7 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
           </p>
         </div>
       </div>
-    );
-  }
+    )}
 
   return (
     <div className="space-y-6 p-6" key={80798}>
@@ -345,8 +302,7 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
                     ? "bg-green-500"
                     : connectionStatus === "connecting"
                       ? "bg-yellow-500"
-                      : "bg-red-500"
-                }`}
+                      : "bg-red-500"}`}
               / key={459297}>
               <span className="text-sm text-gray-600 capitalize" key={435668}>
                 {connectionStatus}
@@ -532,31 +488,23 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
                     options={{
                       responsive: true,
                       maintainAspectRatio: false,
-                      plugins: {
-                        legend: {
-                          position: "top" as const,
+                      plugins: {,`n  legend: {,`n  position: "top" as const
                         },
-                        tooltip: {
-                          mode: "index",
-                          intersect: false,
-                        },
+                        tooltip: {,`n  mode: "index",
+                          intersect: false
+                        }
                       },
-                      scales: {
-                        y: {
-                          beginAtZero: true,
+                      scales: {,`n  y: {,`n  beginAtZero: true,
                           max: 100,
-                          ticks: {
-                            callback: function (value) {
-                              return value + "%";
-                            },
-                          },
-                        },
+                          ticks: {,`n  callback: function (value) {
+                              return value + "%"}
+                          }
+                        }
                       },
-                      interaction: {
-                        mode: "nearest",
+                      interaction: {,`n  mode: "nearest",
                         axis: "x",
-                        intersect: false,
-                      },
+                        intersect: false
+                      }
                     }}
                   / key={29887}>
                 </div>
@@ -582,22 +530,16 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
                     options={{
                       responsive: true,
                       maintainAspectRatio: false,
-                      plugins: {
-                        legend: {
-                          position: "top" as const,
-                        },
+                      plugins: {,`n  legend: {,`n  position: "top" as const
+                        }
                       },
-                      scales: {
-                        r: {
-                          beginAtZero: true,
+                      scales: {,`n  r: {,`n  beginAtZero: true,
                           max: 100,
-                          ticks: {
-                            callback: function (value) {
-                              return value + "%";
-                            },
-                          },
-                        },
-                      },
+                          ticks: {,`n  callback: function (value) {
+                              return value + "%"}
+                          }
+                        }
+                      }
                     }}
                   / key={352541}>
                 </div>
@@ -713,8 +655,7 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
                       ? "border-l-red-500 bg-red-50"
                       : alert.severity === "warning"
                         ? "border-l-yellow-500 bg-yellow-50"
-                        : "border-l-blue-500 bg-blue-50"
-                  }`}
+                        : "border-l-blue-500 bg-blue-50"}`}
                  key={657290}>
                   <CardContent className="p-4" key={706827}>
                     <div className="flex items-center justify-between mb-2" key={120997}>
@@ -723,8 +664,7 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
                           variant={
                             alert.severity === "critical"
                               ? "destructive"
-                              : "secondary"
-                          }
+                              : "secondary"}
                          key={989242}>
                           {alert.severity.toUpperCase()}
                         </Badge>
@@ -779,7 +719,11 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
         </TabsContent>
       </Tabs>
     </div>
-  );
-};
+  )};
 
 export default RealTimeAccuracyDashboard;
+
+
+
+
+`

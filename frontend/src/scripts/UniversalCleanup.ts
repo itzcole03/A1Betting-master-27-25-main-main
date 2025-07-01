@@ -1,4 +1,4 @@
-#!/usr/bin/env node;
+﻿#!/usr/bin/env node;
 
 /**
  * Universal Frontend Cleanup and Optimization Script;
@@ -11,97 +11,87 @@
  * 5. Optimizes file structure;
  */
 
-import fs from 'fs.ts';
-import path from 'path.ts';
+import fs from 'fs';
+import path from 'path';
 
 // ============================================================================
 // CONFIGURATION;
 // ============================================================================
 
 interface CleanupConfig {
-  baseDir: string;
-  dryRun: boolean;
-  preservePatterns: string[];
-  consolidationMap: Record<string, string>;
-  deprecatedPaths: string[];
-}
+  baseDir: string,`n  dryRun: boolean;,`n  preservePatterns: string[0],`n  consolidationMap: Record<string, string>;
+  deprecatedPaths: string[0]}
 
-const config: CleanupConfig = {
-  baseDir: path.join(__dirname, ".."),
-  dryRun: process.argv.includes("--dry-run"),
+const config: CleanupConfig = {,`n  baseDir: path.join(__dirname, '..'),
+  dryRun: process.argv.includes('--dry-run'),
   preservePatterns: [
-    "UniversalDashboard.tsx",
-    "UniversalButton.tsx",
-    "UniversalThemeProvider.tsx",
-    "UniversalServiceLayer.ts",
-    "UniversalHooks.ts",
-    "MegaUI.js",
-    "MegaLayout.js",
-    "CyberTheme.js",
+    'UniversalDashboard.tsx',
+    'UniversalButton.tsx',
+    'UniversalThemeProvider.tsx',
+    'UniversalServiceLayer.ts',
+    'UniversalHooks.ts',
+    'MegaUI.js',
+    'MegaLayout.js',
+    'CyberTheme.js',
   ],
   consolidationMap: {
     // Dashboard consolidation;
-    "components/dashboard/Dashboard.tsx":
-      "components/dashboard/UniversalDashboard.tsx",
-    "components/dashboard/CyberDashboard.tsx":
-      "components/dashboard/UniversalDashboard.tsx",
-    "components/dashboard/PremiumDashboard.tsx":
-      "components/dashboard/UniversalDashboard.tsx",
-    "components/features/dashboard/Dashboard.tsx":
-      "components/dashboard/UniversalDashboard.tsx",
+    'components/dashboard/Dashboard.tsx': 'components/dashboard/UniversalDashboard.tsx',
+    'components/dashboard/CyberDashboard.tsx': 'components/dashboard/UniversalDashboard.tsx',
+    'components/dashboard/PremiumDashboard.tsx': 'components/dashboard/UniversalDashboard.tsx',
+    'components/features/dashboard/Dashboard.tsx': 'components/dashboard/UniversalDashboard.tsx',
 
     // Button consolidation;
-    "components/common/buttons/Button.tsx": "components/ui/UniversalButton.tsx",
-    "components/common/buttons/BettingButton.tsx":
-      "components/ui/UniversalButton.tsx",
-    "components/base/Button.tsx": "components/ui/UniversalButton.tsx",
-    "components/ui/CyberButton.tsx": "components/ui/UniversalButton.tsx",
-    "components/Button.tsx": "components/ui/UniversalButton.tsx",
+    'components/common/buttons/Button.tsx': 'components/ui/UniversalButton.tsx',
+    'components/common/buttons/BettingButton.tsx': 'components/ui/UniversalButton.tsx',
+    'components/base/Button.tsx': 'components/ui/UniversalButton.tsx',
+    'components/ui/CyberButton.tsx': 'components/ui/UniversalButton.tsx',
+    'components/Button.tsx': 'components/ui/UniversalButton.tsx',
 
     // Theme consolidation;
-    "providers/ThemeProvider.tsx": "providers/UniversalThemeProvider.tsx",
-    "contexts/ThemeContext.tsx": "providers/UniversalThemeProvider.tsx",
-    "theme/ThemeProvider.tsx": "providers/UniversalThemeProvider.tsx",
+    'providers/ThemeProvider.tsx': 'providers/UniversalThemeProvider.tsx',
+    'contexts/ThemeContext.tsx': 'providers/UniversalThemeProvider.tsx',
+    'theme/ThemeProvider.tsx': 'providers/UniversalThemeProvider.tsx',
 
     // Service consolidation;
-    "services/predictionService.ts": "services/UniversalServiceLayer.ts",
-    "services/ApiService.ts": "services/UniversalServiceLayer.ts",
-    "services/unified/ApiService.ts": "services/UniversalServiceLayer.ts",
+    'services/predictionService.ts': 'services/UniversalServiceLayer.ts',
+    'services/ApiService.ts': 'services/UniversalServiceLayer.ts',
+    'services/unified/ApiService.ts': 'services/UniversalServiceLayer.ts',
 
     // Hook consolidation - map major hooks to universal system;
-    "hooks/usePredictions.ts": "hooks/UniversalHooks.ts",
-    "hooks/useAnalytics.ts": "hooks/UniversalHooks.ts",
-    "hooks/useBettingCore.ts": "hooks/UniversalHooks.ts",
-    "hooks/useTheme.ts": "hooks/UniversalHooks.ts",
-    "hooks/useForm.ts": "hooks/UniversalHooks.ts",
-    "hooks/useDebounce.ts": "hooks/UniversalHooks.ts",
-    "hooks/useLocalStorage.ts": "hooks/UniversalHooks.ts",
-    "hooks/useWindowSize.ts": "hooks/UniversalHooks.ts",
-    "hooks/useMediaQuery.ts": "hooks/UniversalHooks.ts",
-    "hooks/useWebSocket.ts": "hooks/UniversalHooks.ts",
+    'hooks/usePredictions.ts': 'hooks/UniversalHooks.ts',
+    'hooks/useAnalytics.ts': 'hooks/UniversalHooks.ts',
+    'hooks/useBettingCore.ts': 'hooks/UniversalHooks.ts',
+    'hooks/useTheme.ts': 'hooks/UniversalHooks.ts',
+    'hooks/useForm.ts': 'hooks/UniversalHooks.ts',
+    'hooks/useDebounce.ts': 'hooks/UniversalHooks.ts',
+    'hooks/useLocalStorage.ts': 'hooks/UniversalHooks.ts',
+    'hooks/useWindowSize.ts': 'hooks/UniversalHooks.ts',
+    'hooks/useMediaQuery.ts': 'hooks/UniversalHooks.ts',
+    'hooks/useWebSocket.ts': 'hooks/UniversalHooks.ts'
   },
   deprecatedPaths: [
-    "components/dashboard/Dashboard.tsx",
-    "components/dashboard/CyberDashboard.tsx",
-    "components/dashboard/PremiumDashboard.tsx",
-    "components/common/buttons",
-    "components/base/Button.tsx",
-    "providers/ThemeProvider.tsx",
-    "contexts/ThemeContext.tsx",
+    'components/dashboard/Dashboard.tsx',
+    'components/dashboard/CyberDashboard.tsx',
+    'components/dashboard/PremiumDashboard.tsx',
+    'components/common/buttons',
+    'components/base/Button.tsx',
+    'providers/ThemeProvider.tsx',
+    'contexts/ThemeContext.tsx',
     // Individual hooks that are now consolidated;
-    "hooks/usePredictions.ts",
-    "hooks/useAnalytics.ts",
-    "hooks/useBettingCore.ts",
-    "hooks/useTheme.ts",
-    "hooks/useForm.ts",
-    "hooks/useDebounce.ts",
-    "hooks/useLocalStorage.ts",
-    "hooks/useWindowSize.ts",
-    "hooks/useMediaQuery.ts",
-    "hooks/useWebSocket.ts",
-    "hooks/useClickOutside.ts",
-    "hooks/useAnimation.ts",
-  ],
+    'hooks/usePredictions.ts',
+    'hooks/useAnalytics.ts',
+    'hooks/useBettingCore.ts',
+    'hooks/useTheme.ts',
+    'hooks/useForm.ts',
+    'hooks/useDebounce.ts',
+    'hooks/useLocalStorage.ts',
+    'hooks/useWindowSize.ts',
+    'hooks/useMediaQuery.ts',
+    'hooks/useWebSocket.ts',
+    'hooks/useClickOutside.ts',
+    'hooks/useAnimation.ts',
+  ]
 };
 
 // ============================================================================
@@ -109,212 +99,170 @@ const config: CleanupConfig = {
 // ============================================================================
 
 class Logger {
-  static log(
-    message: string,
-    type: "info" | "success" | "warning" | "error" = "info",
-  ) {
+  static log(message: string, type: 'info' | 'success' | 'warning' | 'error' = 'info') {
     const colors = {
-      info: "\x1b[36m",
-      success: "\x1b[32m",
-      warning: "\x1b[33m",
-      error: "\x1b[31m",
+      info: '\x1b[36m',
+      success: '\x1b[32m',
+      warning: '\x1b[33m',
+      error: '\x1b[31m'
     };
 
-    // console statement removed}]${reset} ${message}`);
-  }
+    // console statement removed}]${reset} ${message}`);}
 }
 
 function fileExists(filePath: string): boolean {
   try {
-    return fs.existsSync(filePath);
-  } catch {
-    return false;
-  }
+    return fs.existsSync(filePath)} catch {
+    return false}
 }
 
 function readFile(filePath: string): string {
   try {
-    return fs.readFileSync(filePath, "utf-8");
-  } catch {
-    return "";
-  }
+    return fs.readFileSync(filePath, 'utf-8')} catch {
+    return '';}
 }
 
-function writeFile(
-  filePath: string,
-  content: string,
-  dryRun: boolean = false,
-): void {
+function writeFile(filePath: string, content: string, dryRun: boolean = false): void {
   if (dryRun) {
-    Logger.log(`Would write to: ${filePath}`, "info");
-    return;
-  }
+    Logger.log(`Would write to: ${filePath}`, 'info');
+    return;}
 
   try {
-
     if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    fs.writeFileSync(filePath, content, "utf-8");
-    Logger.log(`Updated: ${filePath}`, "success");
-  } catch (error) {
-    Logger.log(`Failed to write: ${filePath} - ${error}`, "error");
-  }
+      fs.mkdirSync(dir, { recursive: true})}
+    fs.writeFileSync(filePath, content, 'utf-8');
+    Logger.log(`Updated: ${filePath}`, 'success')} catch (error) {
+    Logger.log(`Failed to write: ${filePath} - ${error}`, 'error')}
 }
 
 function deleteFile(filePath: string, dryRun: boolean = false): void {
   if (dryRun) {
-    Logger.log(`Would delete: ${filePath}`, "warning");
-    return;
-  }
+    Logger.log(`Would delete: ${filePath}`, 'warning');
+    return;}
 
   try {
     if (fs.existsSync(filePath)) {
       if (fs.statSync(filePath).isDirectory()) {
-        fs.rmSync(filePath, { recursive: true, force: true });
-      } else {
-        fs.unlinkSync(filePath);
-      }
-      Logger.log(`Deleted: ${filePath}`, "warning");
-    }
+        fs.rmSync(filePath, { recursive: true, force: true})} else {
+        fs.unlinkSync(filePath);}
+      Logger.log(`Deleted: ${filePath}`, 'warning')}
   } catch (error) {
-    Logger.log(`Failed to delete: ${filePath} - ${error}`, "error");
-  }
+    Logger.log(`Failed to delete: ${filePath} - ${error}`, 'error')}
 }
 
 // ============================================================================
 // IMPORT REPLACEMENT FUNCTIONS;
 // ============================================================================
 
-function updateImports(
-  content: string,
-  consolidationMap: Record<string, string>,
-): string {
+function updateImports(content: string, consolidationMap: Record<string, string>): string {
   const updatedContent = content;
 
   // Update relative imports;
   Object.entries(consolidationMap).forEach(([oldPath, newPath]) => {
     const patterns = [
       // Import statements;
-      new RegExp(
-        `from\\s+['"]\\.\\.?/?${oldPath.replace(/\./g, "\\.")}['"]`,
-        "g",
-      ),
-      new RegExp(
-        `import\\s+.*?from\\s+['"]\\.\\.?/?${oldPath.replace(/\./g, "\\.")}['"]`,
-        "g",
-      ),
+      new RegExp(`from\\s+['"]\\.\\.?/?${oldPath.replace(/\./g, '\\.')}['"]`, 'g'),
+      new RegExp(`import\\s+.*?from\\s+['"]\\.\\.?/?${oldPath.replace(/\./g, '\\.')}['"]`, 'g'),
       // Dynamic imports;
-      new RegExp(
-        `import\\(['"]\\.\\.?/?${oldPath.replace(/\./g, "\\.")}['"]\\)`,
-        "g",
-      ),
+      new RegExp(`import\\(['"]\\.\\.?/?${oldPath.replace(/\./g, '\\.')}['"]\\)`, 'g'),
       // Require statements;
-      new RegExp(
-        `require\\(['"]\\.\\.?/?${oldPath.replace(/\./g, "\\.")}['"]\\)`,
-        "g",
-      ),
+      new RegExp(`require\\(['"]\\.\\.?/?${oldPath.replace(/\./g, '\\.')}['"]\\)`, 'g'),
     ];
 
-    patterns.forEach((pattern) => {
-      updatedContent = updatedContent.replace(pattern, (match) => {
-        return match.replace(oldPath, newPath);
-      });
-    });
-  });
+    patterns.forEach(pattern => {
+      updatedContent = updatedContent.replace(pattern, match => {
+        return match.replace(oldPath, newPath);});});});
 
   // Update specific component imports to use consolidated versions;
   const componentUpdates = [
     // Dashboard components;
     {
       from: /import.*Dashboard.*from.*dashboard.*Dashboard/g,
-      to: "import { UniversalDashboard } from '@/dashboard/UniversalDashboard.ts'",
+      to: "import { UniversalDashboard} from '@/dashboard/UniversalDashboard'"
     },
     {
       from: /import.*CyberDashboard.*from.*dashboard.*CyberDashboard/g,
-      to: "import { UniversalDashboard } from '@/dashboard/UniversalDashboard.ts'",
+      to: "import { UniversalDashboard} from '@/dashboard/UniversalDashboard'"
     },
 
     // Button components;
     {
       from: /import.*Button.*from.*buttons?.*Button/g,
-      to: "import { UniversalButton } from '@/ui/UniversalButton.ts'",
+      to: "import { UniversalButton} from '@/ui/UniversalButton'"
     },
     {
       from: /import.*BettingButton.*from.*buttons?.*BettingButton/g,
-      to: "import { BettingButton } from '@/ui/UniversalButton.ts'",
+      to: "import { BettingButton} from '@/ui/UniversalButton'"
     },
     {
       from: /import.*CyberButton.*from.*ui.*CyberButton/g,
-      to: "import { CyberButton } from '@/ui/UniversalButton.ts'",
+      to: "import { CyberButton} from '@/ui/UniversalButton'"
     },
 
     // Theme imports;
     {
       from: /import.*useTheme.*from.*theme/g,
-      to: "import { useUniversalTheme } from '@/providers/UniversalThemeProvider.ts'",
+      to: "import { useUniversalTheme} from '@/providers/UniversalThemeProvider'"
     },
     {
       from: /import.*ThemeProvider.*from.*theme/g,
-      to: "import { UniversalThemeProvider } from '@/providers/UniversalThemeProvider.ts'",
+      to: "import { UniversalThemeProvider} from '@/providers/UniversalThemeProvider'"
     },
 
     // Hook imports - consolidate to UniversalHooks;
     {
       from: /import.*usePredictions.*from.*hooks.*usePredictions/g,
-      to: "import { usePredictions } from '@/hooks/UniversalHooks.ts'",
+      to: "import { usePredictions} from '@/hooks/UniversalHooks'"
     },
     {
       from: /import.*useDebounce.*from.*hooks.*useDebounce/g,
-      to: "import { useDebounce } from '@/hooks/UniversalHooks.ts'",
+      to: "import { useDebounce} from '@/hooks/UniversalHooks'"
     },
     {
       from: /import.*useLocalStorage.*from.*hooks.*useLocalStorage/g,
-      to: "import { useLocalStorage } from '@/hooks/UniversalHooks.ts'",
+      to: "import { useLocalStorage} from '@/hooks/UniversalHooks'"
     },
     {
       from: /import.*useForm.*from.*hooks.*useForm/g,
-      to: "import { useUniversalForm } from '@/hooks/UniversalHooks.ts'",
+      to: "import { useUniversalForm} from '@/hooks/UniversalHooks'"
     },
 
     // Service imports;
     {
       from: /import.*predictionService.*from.*services.*predictionService/g,
-      to: "import { UniversalServiceFactory } from '@/services/UniversalServiceLayer.ts'",
+      to: "import { UniversalServiceFactory} from '@/services/UniversalServiceLayer'"
     },
   ];
 
-  componentUpdates.forEach(({ from, to }) => {
-    updatedContent = updatedContent.replace(from, to);
-  });
+  componentUpdates.forEach(({ from, to}) => {
+    updatedContent = updatedContent.replace(from, to);});
 
-  return updatedContent;
-}
+  return updatedContent;}
 
 // ============================================================================
 // INDEX FILE GENERATION;
 // ============================================================================
 
 function generateIndexFiles(dryRun: boolean = false): void {
-  Logger.log("Generating index files...", "info");
+  Logger.log('Generating index files...', 'info');
 
   const indexFiles = [
     {
-      path: "components/index.ts",
+      path: 'components/index.ts',
       content: `// Universal Component System Exports;
-export { UniversalDashboard } from './dashboard/UniversalDashboard.ts';
-export { UniversalButton, CyberButton, BettingButton, GlowButton, PremiumButton } from './ui/UniversalButton.ts';
-export { MegaButton, MegaCard, MegaModal, MegaInput, MegaAlert, MegaSkeleton } from './mega/MegaUI.ts';
-export { MegaSidebar, MegaHeader, MegaAppShell } from './mega/MegaLayout.ts';
-export { CyberText, CyberContainer, CyberButton, CYBER_COLORS, CYBER_GRADIENTS, CYBER_GLASS } from './mega/CyberTheme.ts';
+export { UniversalDashboard} from './dashboard/UniversalDashboard';
+export { UniversalButton, CyberButton, BettingButton, GlowButton, PremiumButton} from './ui/UniversalButton';
+export { MegaButton, MegaCard, MegaModal, MegaInput, MegaAlert, MegaSkeleton} from './mega/MegaUI';
+export { MegaSidebar, MegaHeader, MegaAppShell} from './mega/MegaLayout';
+export { CyberText, CyberContainer, CyberButton, CYBER_COLORS, CYBER_GRADIENTS, CYBER_GLASS} from './mega/CyberTheme';
 
 // Re-export commonly used components;
-export { default as UniversalDashboard } from './dashboard/UniversalDashboard.ts';
-export { default as UniversalButton } from './ui/UniversalButton.ts';
-`,
+export { default as UniversalDashboard} from './dashboard/UniversalDashboard';
+export { default as UniversalButton} from './ui/UniversalButton';
+`
     },
     {
-      path: "hooks/index.ts",
+      path: 'hooks/index.ts',
       content: `// Universal Hooks System Exports;
 export {
   // Data hooks;
@@ -339,15 +287,15 @@ export {
   
   // Performance hooks;
   useAnimation,
-  usePerformanceMonitor,
-} from './UniversalHooks.ts';
+//   usePerformanceMonitor
+} from './UniversalHooks';
 
 // Default export;
-export { default } from './UniversalHooks.ts';
-`,
+export { default} from './UniversalHooks';
+`
     },
     {
-      path: "services/index.ts",
+      path: 'services/index.ts',
       content: `// Universal Service Layer Exports;
 export {
   UniversalServiceFactory,
@@ -356,8 +304,8 @@ export {
   UniversalUserService,
   UniversalAnalyticsService,
   createQueryKeys,
-  defaultQueryConfig,
-} from './UniversalServiceLayer.ts';
+//   defaultQueryConfig
+} from './UniversalServiceLayer';
 
 export type {
   APIResponse,
@@ -365,15 +313,15 @@ export type {
   Prediction,
   EngineMetrics,
   BetOpportunity,
-  UserProfile,
-} from './UniversalServiceLayer.ts';
+//   UserProfile
+} from './UniversalServiceLayer';
 
 // Default export;
-export { default } from './UniversalServiceLayer.ts';
-`,
+export { default} from './UniversalServiceLayer';
+`
     },
     {
-      path: "providers/index.ts",
+      path: 'providers/index.ts',
       content: `// Universal Provider System Exports;
 export {
   UniversalThemeProvider,
@@ -381,26 +329,23 @@ export {
   useThemeColors,
   useThemeVariant,
   useDarkMode,
-  getThemeCSS,
-} from './UniversalThemeProvider.ts';
+//   getThemeCSS
+} from './UniversalThemeProvider';
 
 export type {
   ThemeVariant,
   ThemeColors,
-  ThemeConfig,
-} from './UniversalThemeProvider.ts';
+//   ThemeConfig
+} from './UniversalThemeProvider';
 
 // Default export;
-export { default } from './UniversalThemeProvider.ts';
-`,
+export { default} from './UniversalThemeProvider';
+`
     },
   ];
 
-  indexFiles.forEach(({ path: indexPath, content }) => {
-
-    writeFile(fullPath, content, dryRun);
-  });
-}
+  indexFiles.forEach(({ path: indexPath, content}) => {
+    writeFile(fullPath, content, dryRun)});}
 
 // ============================================================================
 // MIGRATION GUIDE GENERATION;
@@ -424,11 +369,11 @@ The frontend has been consolidated into a unified system with the following key 
 #### Dashboard Components;
 \`\`\`typescript;
 // Old;
-import Dashboard from './components/dashboard/Dashboard.ts';
-import CyberDashboard from './components/dashboard/CyberDashboard.ts';
+import Dashboard from './components/dashboard/Dashboard';
+import CyberDashboard from './components/dashboard/CyberDashboard';
 
 // New;
-import { UniversalDashboard } from './components/dashboard/UniversalDashboard.ts';
+import { UniversalDashboard} from './components/dashboard/UniversalDashboard';
 
 // Usage;
 <UniversalDashboard variant="cyber" />
@@ -438,12 +383,12 @@ import { UniversalDashboard } from './components/dashboard/UniversalDashboard.ts
 #### Button Components;
 \`\`\`typescript;
 // Old;
-import Button from './components/common/buttons/Button.ts';
-import BettingButton from './components/common/buttons/BettingButton.ts';
-import CyberButton from './components/ui/CyberButton.ts';
+import Button from './components/common/buttons/Button';
+import BettingButton from './components/common/buttons/BettingButton';
+import CyberButton from './components/ui/CyberButton';
 
 // New;
-import { UniversalButton, BettingButton, CyberButton } from './components/ui/UniversalButton.ts';
+import { UniversalButton, BettingButton, CyberButton} from './components/ui/UniversalButton';
 
 // Usage;
 <UniversalButton variant="primary" theme="cyber" />
@@ -454,11 +399,11 @@ import { UniversalButton, BettingButton, CyberButton } from './components/ui/Uni
 #### Theme System;
 \`\`\`typescript;
 // Old;
-import { ThemeProvider } from './providers/ThemeProvider.ts';
-import { useTheme } from './hooks/useTheme.ts';
+import { ThemeProvider} from './providers/ThemeProvider';
+import { useTheme} from './hooks/useTheme';
 
 // New;
-import { UniversalThemeProvider, useTheme } from './providers/UniversalThemeProvider.ts';
+import { UniversalThemeProvider, useTheme} from './providers/UniversalThemeProvider';
 
 // Usage;
 <UniversalThemeProvider defaultVariant="cyber">
@@ -469,22 +414,22 @@ import { UniversalThemeProvider, useTheme } from './providers/UniversalThemeProv
 #### Hooks;
 \`\`\`typescript;
 // Old;
-import { usePredictions } from './hooks/usePredictions.ts';
-import { useDebounce } from './hooks/useDebounce.ts';
-import { useForm } from './hooks/useForm.ts';
+import { usePredictions} from './hooks/usePredictions';
+import { useDebounce} from './hooks/useDebounce';
+import { useForm} from './hooks/useForm';
 
 // New;
-import { usePredictions, useDebounce, useUniversalForm } from './hooks/UniversalHooks.ts';
+import { usePredictions, useDebounce, useUniversalForm} from './hooks/UniversalHooks';
 \`\`\`
 
 #### Services;
 \`\`\`typescript;
 // Old;
-import { predictionService } from './services/predictionService.ts';
-import { ApiService } from './services/ApiService.ts';
+import { predictionService} from './services/predictionService';
+import { ApiService} from './services/ApiService';
 
 // New;
-import { UniversalServiceFactory } from './services/UniversalServiceLayer.ts';
+import { UniversalServiceFactory} from './services/UniversalServiceLayer';
 
 
 \`\`\`
@@ -492,7 +437,7 @@ import { UniversalServiceFactory } from './services/UniversalServiceLayer.ts';
 ### 🗂️ File Structure Changes;
 
 #### Removed Files;
-${config.deprecatedPaths.map((p) => `- ${p}`).join("\n")}
+${config.deprecatedPaths.map(p => `- ${p}`).join('\n')}
 
 #### New Universal Files;
 - \`components/dashboard/UniversalDashboard.tsx\`
@@ -525,134 +470,97 @@ ${config.deprecatedPaths.map((p) => `- ${p}`).join("\n")}
 For questions about the migration, check the component documentation or create an issue.
 `;
 
-  writeFile(guidePath, migrationGuide, dryRun);
-}
+  writeFile(guidePath, migrationGuide, dryRun);}
 
 // ============================================================================
 // MAIN CLEANUP FUNCTIONS;
 // ============================================================================
 
 function scanAndUpdateFiles(directory: string, dryRun: boolean = false): void {
-  Logger.log(`Scanning directory: ${directory}`, "info");
+  Logger.log(`Scanning directory: ${directory}`, 'info');
 
   try {
-
-    items.forEach((item) => {
-
-
+    items.forEach(item => {
       if (stat.isDirectory()) {
         // Skip node_modules and other ignored directories;
-        if (!["node_modules", ".git", "dist", "build"].includes(item)) {
-          scanAndUpdateFiles(itemPath, dryRun);
-        }
+        if (!['node_modules', '.git', 'dist', 'build'].includes(item)) {
+          scanAndUpdateFiles(itemPath, dryRun);}
       } else if (stat.isFile() && /\.(ts|tsx|js|jsx)$/.test(item)) {
         // Process TypeScript/JavaScript files;
 
         // Skip if this is a preserved file;
-        if (
-          config.preservePatterns.some((pattern) =>
-            relativePath.includes(pattern),
-          )
-        ) {
-          return;
-        }
+        if (config.preservePatterns.some(pattern => relativePath.includes(pattern))) {
+          return;}
 
         if (content) {
-          const updatedContent = updateImports(
-            content,
-            config.consolidationMap,
-          );
+          const updatedContent = updateImports(content, config.consolidationMap);
 
           if (updatedContent !== content) {
-            writeFile(itemPath, updatedContent, dryRun);
-          }
-        }
-      }
-    });
-  } catch (error) {
-    Logger.log(`Error scanning directory ${directory}: ${error}`, "error");
-  }
+            writeFile(itemPath, updatedContent, dryRun);}
+        }}
+    });} catch (error) {
+    Logger.log(`Error scanning directory ${directory}: ${error}`, 'error');}
 }
 
 function removeDeprecatedFiles(dryRun: boolean = false): void {
-  Logger.log("Removing deprecated files...", "warning");
+  Logger.log('Removing deprecated files...', 'warning');
 
-  config.deprecatedPaths.forEach((deprecatedPath) => {
-
+  config.deprecatedPaths.forEach(deprecatedPath => {
     // Check for multiple file extensions;
 
-    extensions.forEach((ext) => {
-
+    extensions.forEach(ext => {
       if (fileExists(pathWithExt)) {
-        deleteFile(pathWithExt, dryRun);
-      }
+        deleteFile(pathWithExt, dryRun);}
     });
 
     // Also check if it's a directory;
     if (fileExists(fullPath) && fs.statSync(fullPath).isDirectory()) {
-      deleteFile(fullPath, dryRun);
-    }
-  });
-}
+      deleteFile(fullPath, dryRun);}
+  });}
 
 // ============================================================================
 // MAIN EXECUTION;
 // ============================================================================
 
 function main(): void {
-  Logger.log("🚀 Starting Universal Frontend Cleanup and Optimization", "info");
-  Logger.log(`Base directory: ${config.baseDir}`, "info");
-  Logger.log(
-    `Dry run mode: ${config.dryRun}`,
-    config.dryRun ? "warning" : "info",
-  );
+  Logger.log('🚀 Starting Universal Frontend Cleanup and Optimization', 'info');
+  Logger.log(`Base directory: ${config.baseDir}`, 'info');
+  Logger.log(`Dry run mode: ${config.dryRun}`, config.dryRun ? 'warning' : 'info');
 
   try {
     // Step 1: Generate index files for better organization;
-    Logger.log("\n📁 Step 1: Generating index files", "info");
+    Logger.log('\n📁 Step 1: Generating index files', 'info');
     generateIndexFiles(config.dryRun);
 
     // Step 2: Scan and update all files to use consolidated imports;
-    Logger.log("\n🔄 Step 2: Updating import statements", "info");
+    Logger.log('\n🔄 Step 2: Updating import statements', 'info');
     scanAndUpdateFiles(config.baseDir, config.dryRun);
 
     // Step 3: Remove deprecated files;
-    Logger.log("\n🗑️  Step 3: Removing deprecated files", "info");
+    Logger.log('\n🗑️  Step 3: Removing deprecated files', 'info');
     removeDeprecatedFiles(config.dryRun);
 
     // Step 4: Generate migration guide;
-    Logger.log("\n📖 Step 4: Generating migration guide", "info");
+    Logger.log('\n📖 Step 4: Generating migration guide', 'info');
     generateMigrationGuide(config.dryRun);
 
-    Logger.log(
-      "\n✅ Cleanup and optimization completed successfully!",
-      "success",
-    );
+    Logger.log('\n✅ Cleanup and optimization completed successfully!', 'success');
 
     if (config.dryRun) {
-      Logger.log(
-        "\nℹ️  This was a dry run. To apply changes, run without --dry-run flag.",
-        "info",
-      );
-    } else {
-      Logger.log(
-        "\nℹ️  Please review the changes and test your application.",
-        "info",
-      );
-      Logger.log(
-        "📖 Check MIGRATION_GUIDE.md for detailed migration instructions.",
-        "info",
-      );
-    }
+      Logger.log('\nℹ️  This was a dry run. To apply changes, run without --dry-run flag.', 'info');} else {
+      Logger.log('\nℹ️  Please review the changes and test your application.', 'info');
+      Logger.log('📖 Check MIGRATION_GUIDE.md for detailed migration instructions.', 'info');}
   } catch (error) {
-    Logger.log(`\n❌ Cleanup failed: ${error}`, "error");
-    process.exit(1);
-  }
+    Logger.log(`\n❌ Cleanup failed: ${error}`, 'error');
+    process.exit(1);}
 }
 
 // Run the script;
 if (require.main === module) {
-  main();
-}
+  main();}
 
 export default main;
+
+
+
+`

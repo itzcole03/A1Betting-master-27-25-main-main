@@ -1,22 +1,22 @@
-// Import slice types and creators;
-import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
-import { AuthSlice, createAuthSlice, initialAuthState } from './slices/authSlice';
-import { BetSlipSlice, createBetSlipSlice, initialBetSlipState } from './slices/betSlipSlice';
+﻿// Import slice types and creators;
+import { create} from 'zustand';
+import { createJSONStorage, persist} from 'zustand/middleware';
+import { AuthSlice, createAuthSlice, initialAuthState} from './slices/authSlice';
+import { BetSlipSlice, createBetSlipSlice, initialBetSlipState} from './slices/betSlipSlice';
 import {
   DynamicDataSlice,
   createDynamicDataSlice,
-  initialDynamicDataState,
+//   initialDynamicDataState
 } from './slices/dynamicDataSlice';
 import {
   NotificationSlice,
   createNotificationSlice,
-  initialNotificationState,
+//   initialNotificationState
 } from './slices/notificationSlice';
 import {
   PrizePicksSlice,
   createPrizePicksSlice,
-  initialPrizePicksState,
+//   initialPrizePicksState
 } from './slices/prizePicksSlice';
 
 // Define the AppState as a combination of all slice states;
@@ -43,7 +43,7 @@ export const useAppStore = create<AppStore>()(
       ...createPrizePicksSlice(set as any, get as any, api as any),
       ...createBetSlipSlice(set as any, get as any, api as any),
       ...createNotificationSlice(set as any, get as any, api as any),
-      ...createDynamicDataSlice(set as any, get as any, api as any),
+      ...createDynamicDataSlice(set as any, get as any, api as any)
     }),
     {
       name: 'ai-sports-betting-storage', // name of the item in the storage (must be unique)
@@ -56,8 +56,7 @@ export const useAppStore = create<AppStore>()(
         webSocketClientId: state.webSocketClientId,
         themeSettings: (state as any).themeSettings, // Example if theme was part of this store;
         legs: state.legs, // Persist bet slip legs;
-        stake: state.stake, // Persist bet slip stake;
-      }),
+        stake: state.stake, // Persist bet slip stake})
     }
   )
 );
@@ -73,9 +72,8 @@ export const selectUserBettingSummary = (state: AppStore) => {
   return {
     userName: state.user?.username,
     totalEntries: state.entries.length,
-    currentBetSlipValue: state.potentialPayout,
-  };
-};
+    currentBetSlipValue: state.potentialPayout
+  }};
 
 // It's crucial to update components that use useAppStore to correctly select from the new structure if needed,
 // or use slice-specific hooks if you decide to export them separately (e.g., useAuthStore, useBetSlipStore).
@@ -96,6 +94,7 @@ export function getInitialState(): AppStore {
     ...initialBetSlipState,
     ...initialNotificationState,
     ...initialDynamicDataState,
-    // Add any default values for actions if needed (usually not required for Zustand)
-  } as AppStore;
-}
+    // Add any default values for actions if needed (usually not required for Zustand)} as AppStore;}
+
+
+`

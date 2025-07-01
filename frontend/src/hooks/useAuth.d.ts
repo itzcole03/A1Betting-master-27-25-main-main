@@ -1,14 +1,7 @@
-interface User {
-    id: string;
-    username: string;
-    email: string;
-}
-export declare const useAuth: () => {
-    login: (username: string, password: string) => Promise<void>;
-    logout: () => void;
-    user: User | null;
-    token: string | null;
-    loading: boolean;
-    error: string | null;
-};
-export {};
+﻿interface User {
+  id: string,`n  username: string;,`n  email: string}
+export declare const useAuth: () => {,`n  login: (username: string, password: string) => Promise<void>,`n  logout: () => void;,`n  user: User | null,`n  token: string | null;,`n  loading: boolean,`n  error: string | null};
+export Record<string, any>;
+
+
+`

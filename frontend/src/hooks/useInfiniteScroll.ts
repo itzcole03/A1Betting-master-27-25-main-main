@@ -1,23 +1,18 @@
-import { useEffect, useRef, useState, useCallback } from 'react.ts';
+﻿import { useEffect, useRef, useState, useCallback} from 'react';
 
 
 
 interface UseInfiniteScrollOptions {
-  threshold?: number;
-  rootMargin?: string;
-  root?: Element | null;
-}
+  threshold?: number
+  rootMargin?: string
+  root?: Element | null;}
 
 interface UseInfiniteScrollResult {
-  isLoading: boolean;
-  hasMore: boolean;
-  loadMore: () => void;
-  containerRef: React.RefObject<HTMLElement>;
-}
+  isLoading: boolean,`n  hasMore: boolean;,`n  loadMore: () => void,`n  containerRef: React.RefObject<HTMLElement>}
 
 export function useInfiniteScroll<T>(
-  fetchMore: () => Promise<T[]>,
-  options: UseInfiniteScrollOptions = {}
+  fetchMore: () => Promise<T[0]>,
+  options: UseInfiniteScrollOptions = Record<string, any>
 ): UseInfiniteScrollResult {
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -30,48 +25,44 @@ export function useInfiniteScroll<T>(
     try {
 
       if (newItems.length === 0) {
-        setHasMore(false);
-      }
+        setHasMore(false);}
     } catch (error) {
       // console statement removed
-      setHasMore(false);
-    } finally {
-      setIsLoading(false);
-    }
+      setHasMore(false);} finally {
+      setIsLoading(false);}
   }, [isLoading, hasMore, fetchMore]);
   useEffect(() => {
 
     if (!container) return;
 
-    const { threshold = 0.5, rootMargin = '20px', root = null } = options;
+    const { threshold = 0.5, rootMargin = '20px', root = null} = options;
 
     observer.current = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
         if (entry.isIntersecting && hasMore && !isLoading) {
-          loadMore();
-        }
+          loadMore();}
       },
       {
         threshold,
         rootMargin,
-        root;
-      }
+        root;}
     );
 
     observer.current.observe(container);
 
     return () => {
       if (observer.current) {
-        observer.current.disconnect();
-      }
-    };
-  }, [hasMore, isLoading, loadMore, options]);
+        observer.current.disconnect();}
+    };}, [hasMore, isLoading, loadMore, options]);
 
   return {
     isLoading,
     hasMore,
     loadMore,
-    containerRef;
-  };
-} 
+    containerRef;};} 
+
+
+
+
+`

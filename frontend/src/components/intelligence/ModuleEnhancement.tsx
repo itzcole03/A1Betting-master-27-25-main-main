@@ -1,53 +1,49 @@
-import React from 'react.ts';
-import { motion } from 'framer-motion.ts';
-import { Card, CardContent } from '@/components/ui/card.ts';
-import { Badge } from '@/components/ui/badge.ts';
+import React from 'react';
+import { motion} from 'framer-motion';
+import { Card, CardContent} from '@/components/ui/card';
+import { Badge} from '@/components/ui/badge';
 import {
   DollarSign,
   Target,
   Brain,
   ToggleRight,
-  ToggleLeft,
-} from 'lucide-react.ts';
+//   ToggleLeft
+} from 'lucide-react';
 
 // Money-making scores for modules;
 const MODULE_SCORES = {
-  "advanced-analytics": { money: 95, accuracy: 12, profit: 25000 },
-  "ultra-accuracy": { money: 92, accuracy: 18, profit: 22000 },
-  "ultra-ml": { money: 88, accuracy: 15, profit: 20000 },
-  "realtime-accuracy": { money: 85, accuracy: 10, profit: 18000 },
-  "strategy-engine": { money: 82, accuracy: 6, profit: 15000 },
-  "performance-analytics": { money: 78, accuracy: 5, profit: 10000 },
-  "ml-model-center": { money: 75, accuracy: 8, profit: 12000 },
-  "mega-analytics": { money: 90, accuracy: 20, profit: 30000 },
+  "advanced-analytics": { money: 95, accuracy: 12, profit: 25000},
+  "ultra-accuracy": { money: 92, accuracy: 18, profit: 22000},
+  "ultra-ml": { money: 88, accuracy: 15, profit: 20000},
+  "realtime-accuracy": { money: 85, accuracy: 10, profit: 18000},
+  "strategy-engine": { money: 82, accuracy: 6, profit: 15000},
+  "performance-analytics": { money: 78, accuracy: 5, profit: 10000},
+  "ml-model-center": { money: 75, accuracy: 8, profit: 12000},
+  "mega-analytics": { money: 90, accuracy: 20, profit: 30000}
 };
 
 interface EnhancedModuleCardProps {
-  module: any;
-  isActive: boolean;
-  onToggle: () => void;
-}
+  module: unknown,`n  isActive: boolean;,`n  onToggle: () => void}
 
 export const EnhancedModuleCard: React.FC<EnhancedModuleCardProps key={347939}> = ({
   module,
   isActive,
-  onToggle,
+//   onToggle
 }) => {
   const scores = MODULE_SCORES[module.id as keyof typeof MODULE_SCORES] || {
     money: 50,
     accuracy: 3,
-    profit: 5000,
+    profit: 5000
   };
 
   return (
     <motion.div;
-      whileHover={{ scale: 1.03, rotateY: 1 }}
-      whileTap={{ scale: 0.98 }}
+      whileHover={{ scale: 1.03, rotateY: 1}}
+      whileTap={{ scale: 0.98}}
       className={`relative p-5 rounded-xl border-2 cursor-pointer transition-all duration-300 backdrop-blur-sm ${
         isActive;
           ? "bg-gradient-to-br from-green-500/15 via-emerald-500/10 to-blue-500/15 border-green-400/50 shadow-lg shadow-green-500/20"
-          : "bg-slate-800/30 border-slate-600/30 hover:border-slate-500/50 hover:bg-slate-700/25"
-      }`}
+          : "bg-slate-800/30 border-slate-600/30 hover:border-slate-500/50 hover:bg-slate-700/25"}`}
       onClick={onToggle}
      key={110860}>
       {/* Money-Making Score Badge */}
@@ -94,9 +90,8 @@ export const EnhancedModuleCard: React.FC<EnhancedModuleCardProps key={347939}> 
                     ? "bg-gradient-to-r from-green-500 to-emerald-400"
                     : scores.money >= 70;
                       ? "bg-gradient-to-r from-yellow-500 to-orange-400"
-                      : "bg-gradient-to-r from-blue-500 to-cyan-400"
-                }`}
-                style={{ width: `${Math.min(scores.money, 100)}%` }}
+                      : "bg-gradient-to-r from-blue-500 to-cyan-400"}`}
+                style={{ width: `${Math.min(scores.money, 100)}%`}}
               />
             </div>
             <span className="text-xs font-medium text-green-400" key={995795}>
@@ -131,8 +126,7 @@ export const EnhancedModuleCard: React.FC<EnhancedModuleCardProps key={347939}> 
                 ? "border-orange-400/60 text-orange-300 bg-orange-500/10"
                 : module.priority === "medium"
                   ? "border-yellow-400/60 text-yellow-300 bg-yellow-500/10"
-                  : "border-green-400/60 text-green-300 bg-green-500/10"
-          }`}
+                  : "border-green-400/60 text-green-300 bg-green-500/10"}`}
          key={197030}>
           {module.priority}
         </Badge>
@@ -148,8 +142,7 @@ export const EnhancedModuleCard: React.FC<EnhancedModuleCardProps key={347939}> 
                   ? "bg-yellow-400"
                   : module.computationLevel === "heavy"
                     ? "bg-orange-400"
-                    : "bg-red-400"
-            }`}
+                    : "bg-red-400"}`}
            key={306833}></div>
         </div>
       </div>
@@ -159,29 +152,24 @@ export const EnhancedModuleCard: React.FC<EnhancedModuleCardProps key={347939}> 
         <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-green-500/5 to-blue-500/5 animate-pulse pointer-events-none" key={727335}></div>
       )}
     </motion.div>
-  );
-};
+  );};
 
 // Performance dashboard component;
-export const ModulePerformanceDashboard: React.FC<{
-  activeModules: Set<string key={278855}>;
-  moduleConfigs: any[];
-}> = ({ activeModules, moduleConfigs }) => {
+export const ModulePerformanceDashboard: React.FC<{,`n  activeModules: Set<string key={278855}>
+  moduleConfigs: unknown[0]}> = ({ activeModules, moduleConfigs}) => {
   const activeConfigs = moduleConfigs.filter((config) =>
     activeModules.has(config.id),
   );
 
   const totalProfitContribution = activeConfigs.reduce((sum, m) => {
 
-    return sum + (scores?.profit || 5000);
-  }, 0);
+    return sum + (scores?.profit || 5000);}, 0);
 
   const avgAccuracyBoost =
     activeConfigs.length > 0;
       ? activeConfigs.reduce((sum, m) => {
 
-          return sum + (scores?.accuracy || 3);
-        }, 0)
+          return sum + (scores?.accuracy || 3);}, 0)
       : 85;
 
   return (
@@ -201,7 +189,7 @@ export const ModulePerformanceDashboard: React.FC<{
             <DollarSign className="w-8 h-8 text-green-400" / key={235452}>
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-transparent animate-pulse" / key={356128}>
-        </CardContent>
+        </div>
       </Card>
 
       <Card className="bg-gradient-to-br from-blue-500/15 to-cyan-500/15 border-blue-500/30 relative overflow-hidden" key={362353}>
@@ -219,7 +207,7 @@ export const ModulePerformanceDashboard: React.FC<{
             <Target className="w-8 h-8 text-blue-400" / key={454838}>
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-transparent animate-pulse" / key={327911}>
-        </CardContent>
+        </div>
       </Card>
 
       <Card className="bg-gradient-to-br from-purple-500/15 to-pink-500/15 border-purple-500/30 relative overflow-hidden" key={149758}>
@@ -237,10 +225,15 @@ export const ModulePerformanceDashboard: React.FC<{
             <Brain className="w-8 h-8 text-purple-400" / key={715619}>
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-transparent animate-pulse" / key={809656}>
-        </CardContent>
+        </div>
       </Card>
     </div>
-  );
-};
+  )};
 
-export default { EnhancedModuleCard, ModulePerformanceDashboard };
+export default { EnhancedModuleCard, ModulePerformanceDashboard};
+
+
+
+
+`
+

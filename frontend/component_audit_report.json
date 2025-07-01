@@ -8,361 +8,242 @@
   "issues": [],
   "components": {
     "Accordion-MyPC.tsx": {
-      "components": [
-        "Accordion"
-      ],
+      "components": ["Accordion"],
       "issues": [],
       "status": "implemented"
     },
     "Accordion.tsx": {
-      "components": [
-        "Accordion"
-      ],
+      "components": ["Accordion"],
       "issues": [],
       "status": "implemented"
     },
     "admin\\AdminPanel.tsx": {
       "components": [],
-      "issues": [
-        "Missing React import",
-        "No exports found"
-      ],
+      "issues": ["Missing React import", "No exports found"],
       "status": "broken"
     },
     "admin\\DebugPanel.tsx": {
-      "components": [
-        "DebugPanel"
-      ],
+      "components": ["DebugPanel"],
       "issues": [],
       "status": "implemented"
     },
     "admin\\ErrorLogs.tsx": {
-      "components": [
-        "ErrorLogs"
-      ],
+      "components": ["ErrorLogs"],
       "issues": [],
       "status": "implemented"
     },
     "admin\\ModelSettings.tsx": {
-      "components": [
-        "ModelSettings"
-      ],
+      "components": ["ModelSettings"],
       "issues": [],
       "status": "implemented"
     },
     "advanced\\WhatIfSimulator.tsx": {
-      "components": [
-        "WhatIfSimulator",
-        "WhatIfSimulator"
-      ],
+      "components": ["WhatIfSimulator", "WhatIfSimulator"],
       "issues": [],
       "status": "implemented"
     },
     "Alert-MyPC.tsx": {
-      "components": [
-        "Alert"
-      ],
+      "components": ["Alert"],
       "issues": [],
       "status": "implemented"
     },
     "Alert.tsx": {
-      "components": [
-        "Alert"
-      ],
+      "components": ["Alert"],
       "issues": [],
       "status": "implemented"
     },
     "AllFeatures.test-MyPC.tsx": {
       "components": [],
-      "issues": [
-        "No exports found"
-      ],
+      "issues": ["No exports found"],
       "status": "broken"
     },
     "AllFeatures.test.tsx": {
       "components": [],
-      "issues": [
-        "No exports found"
-      ],
+      "issues": ["No exports found"],
       "status": "broken"
     },
     "analytics\\AdvancedAnalytics.tsx": {
-      "components": [
-        "StatusChip",
-        "AdvancedAnalytics"
-      ],
+      "components": ["StatusChip", "AdvancedAnalytics"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\AnalyticsDashboard.test.tsx": {
       "components": [],
-      "issues": [
-        "No exports found"
-      ],
+      "issues": ["No exports found"],
       "status": "broken"
     },
     "analytics\\ClusteringInsights.tsx": {
-      "components": [
-        "React",
-        "ClusteringInsights"
-      ],
+      "components": ["React", "ClusteringInsights"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\EnsembleInsights.tsx": {
-      "components": [
-        "React",
-        "EnsembleInsights"
-      ],
+      "components": ["React", "EnsembleInsights"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\EvolutionaryInsights.tsx": {
-      "components": [
-        "React",
-        "EvolutionaryInsights"
-      ],
+      "components": ["React", "EvolutionaryInsights"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\FeatureInsights.tsx": {
-      "components": [
-        "React",
-        "FeatureInsights"
-      ],
+      "components": ["React", "FeatureInsights"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\HyperMLInsights.tsx": {
-      "components": [
-        "React",
-        "HyperMLInsights"
-      ],
+      "components": ["React", "HyperMLInsights"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\MLInsights.tsx": {
-      "components": [
-        "React",
-        "MLInsights"
-      ],
+      "components": ["React", "MLInsights"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\ModelComparison.tsx": {
-      "components": [
-        "ModelComparison"
-      ],
+      "components": ["ModelComparison"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\ModelComparisonChart.tsx": {
-      "components": [
-        "ModelComparisonChart"
-      ],
+      "components": ["ModelComparisonChart"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\ModelPerformanceDashboard.tsx": {
-      "components": [
-        "ModelPerformanceDashboard"
-      ],
+      "components": ["ModelPerformanceDashboard"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\PerformanceAlerts.tsx": {
-      "components": [
-        "PerformanceAlerts"
-      ],
+      "components": ["PerformanceAlerts"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\PerformanceExport.tsx": {
-      "components": [
-        "PerformanceExport"
-      ],
+      "components": ["PerformanceExport"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\PredictionConfidenceGraph.tsx": {
-      "components": [
-        "PredictionConfidenceGraph"
-      ],
+      "components": ["PredictionConfidenceGraph"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\RealTimeMetrics.tsx": {
-      "components": [
-        "RealTimeMetrics"
-      ],
+      "components": ["RealTimeMetrics"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\RiskAssessmentMatrix.tsx": {
-      "components": [
-        "RiskAssessmentMatrix"
-      ],
+      "components": ["RiskAssessmentMatrix"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\RiskInsights.tsx": {
-      "components": [
-        "React",
-        "RiskInsights"
-      ],
+      "components": ["React", "RiskInsights"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\ShapExplanation.tsx": {
-      "components": [
-        "ShapExplanation"
-      ],
+      "components": ["ShapExplanation"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\TimeSeriesInsights.tsx": {
-      "components": [
-        "React",
-        "TimeSeriesInsights"
-      ],
+      "components": ["React", "TimeSeriesInsights"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\TrendAnalysisChart.tsx": {
-      "components": [
-        "TrendAnalysisChart"
-      ],
+      "components": ["TrendAnalysisChart"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\UltraMLInsights.tsx": {
-      "components": [
-        "React",
-        "UltraMLInsights"
-      ],
+      "components": ["React", "UltraMLInsights"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\UserStats.tsx": {
-      "components": [
-        "React",
-        "UserStats"
-      ],
+      "components": ["React", "UserStats"],
       "issues": [],
       "status": "implemented"
     },
     "analytics\\__tests__\\RiskAssessmentMatrix.test.tsx": {
       "components": [],
-      "issues": [
-        "No exports found"
-      ],
+      "issues": ["No exports found"],
       "status": "broken"
     },
     "analytics\\__tests__\\ShapExplanation.test.tsx": {
       "components": [],
-      "issues": [
-        "No exports found"
-      ],
+      "issues": ["No exports found"],
       "status": "broken"
     },
     "Analytics.tsx": {
-      "components": [
-        "React",
-        "Analytics"
-      ],
+      "components": ["React", "Analytics"],
       "issues": [],
       "status": "implemented"
     },
     "AnalyticsPage.tsx": {
-      "components": [
-        "React",
-        "AnalyticsPage"
-      ],
+      "components": ["React", "AnalyticsPage"],
       "issues": [],
       "status": "implemented"
     },
     "ApiHealthIndicator.jsx": {
-      "components": [
-        "ApiHealthIndicator"
-      ],
+      "components": ["ApiHealthIndicator"],
       "issues": [],
       "status": "implemented"
     },
     "AppInitializer.tsx": {
-      "components": [
-        "AppInitializer"
-      ],
+      "components": ["AppInitializer"],
       "issues": [],
       "status": "implemented"
     },
     "AppShell.tsx": {
-      "components": [
-        "React",
-        "AppShell"
-      ],
+      "components": ["React", "AppShell"],
       "issues": [],
       "status": "implemented"
     },
     "Arbitrage.tsx": {
-      "components": [
-        "React",
-        "Arbitrage"
-      ],
+      "components": ["React", "Arbitrage"],
       "issues": [],
       "status": "implemented"
     },
     "ArbitrageDetector.tsx": {
-      "components": [
-        "React",
-        "ArbitrageDetector"
-      ],
+      "components": ["React", "ArbitrageDetector"],
       "issues": [],
       "status": "implemented"
     },
     "ArbitrageOpportunities.tsx": {
-      "components": [
-        "React",
-        "ArbitrageOpportunities"
-      ],
+      "components": ["React", "ArbitrageOpportunities"],
       "issues": [],
       "status": "implemented"
     },
     "ArbitragePage.tsx": {
-      "components": [
-        "React",
-        "ArbitragePage"
-      ],
+      "components": ["React", "ArbitragePage"],
       "issues": [],
       "status": "implemented"
     },
     "auth\\LoginForm.tsx": {
-      "components": [
-        "React",
-        "LoginForm"
-      ],
+      "components": ["React", "LoginForm"],
       "issues": [],
       "status": "implemented"
     },
     "auth\\ProtectedRoute.tsx": {
-      "components": [
-        "React",
-        "ProtectedRoute"
-      ],
+      "components": ["React", "ProtectedRoute"],
       "issues": [],
       "status": "implemented"
     },
     "auth\\RegisterForm.tsx": {
-      "components": [
-        "React",
-        "RegisterForm"
-      ],
+      "components": ["React", "RegisterForm"],
       "issues": [],
       "status": "implemented"
     },
     "auth\\UnifiedAuth.tsx": {
-      "components": [
-        "UnifiedAuth"
-      ],
+      "components": ["UnifiedAuth"],
       "issues": [],
       "status": "implemented"
     },
@@ -372,142 +253,97 @@
       "status": "implemented"
     },
     "AuthProvider.tsx": {
-      "components": [
-        "AuthProvider"
-      ],
+      "components": ["AuthProvider"],
       "issues": [],
       "status": "implemented"
     },
     "Avatar.tsx": {
-      "components": [
-        "Avatar",
-        "AvatarGroup"
-      ],
+      "components": ["Avatar", "AvatarGroup"],
       "issues": [],
       "status": "implemented"
     },
     "Badge.tsx": {
-      "components": [
-        "Badge"
-      ],
+      "components": ["Badge"],
       "issues": [],
       "status": "implemented"
     },
     "BankrollManager.tsx": {
-      "components": [
-        "React",
-        "BankrollManager"
-      ],
+      "components": ["React", "BankrollManager"],
       "issues": [],
       "status": "implemented"
     },
     "BankrollPage.tsx": {
-      "components": [
-        "React",
-        "BankrollPage"
-      ],
+      "components": ["React", "BankrollPage"],
       "issues": [],
       "status": "implemented"
     },
     "base\\Accordion.tsx": {
-      "components": [
-        "Accordion"
-      ],
+      "components": ["Accordion"],
       "issues": [],
       "status": "implemented"
     },
     "base\\Alert.tsx": {
-      "components": [
-        "Alert"
-      ],
+      "components": ["Alert"],
       "issues": [],
       "status": "implemented"
     },
     "base\\Avatar.tsx": {
-      "components": [
-        "Avatar",
-        "AvatarGroup"
-      ],
+      "components": ["Avatar", "AvatarGroup"],
       "issues": [],
       "status": "implemented"
     },
     "base\\Badge.tsx": {
-      "components": [
-        "Badge"
-      ],
+      "components": ["Badge"],
       "issues": [],
       "status": "implemented"
     },
     "base\\Breadcrumb.tsx": {
-      "components": [
-        "Breadcrumb"
-      ],
+      "components": ["Breadcrumb"],
       "issues": [],
       "status": "implemented"
     },
     "base\\Button.tsx": {
-      "components": [
-        "Button"
-      ],
+      "components": ["Button"],
       "issues": [],
       "status": "implemented"
     },
     "base\\Card.tsx": {
-      "components": [
-        "Card"
-      ],
+      "components": ["Card"],
       "issues": [],
       "status": "implemented"
     },
     "base\\Dialog.tsx": {
-      "components": [
-        "Dialog"
-      ],
+      "components": ["Dialog"],
       "issues": [],
       "status": "implemented"
     },
     "base\\Dropdown.tsx": {
-      "components": [
-        "Dropdown"
-      ],
+      "components": ["Dropdown"],
       "issues": [],
       "status": "implemented"
     },
     "base\\Modal.tsx": {
-      "components": [
-        "Modal"
-      ],
+      "components": ["Modal"],
       "issues": [],
       "status": "implemented"
     },
     "base\\Progress.tsx": {
-      "components": [
-        "Progress"
-      ],
+      "components": ["Progress"],
       "issues": [],
       "status": "implemented"
     },
     "base\\Select.tsx": {
-      "components": [
-        "Select"
-      ],
+      "components": ["Select"],
       "issues": [],
       "status": "implemented"
     },
     "base\\Skeleton.tsx": {
-      "components": [
-        "Skeleton",
-        "SkeletonText",
-        "SkeletonCard"
-      ],
+      "components": ["Skeleton", "SkeletonText", "SkeletonCard"],
       "issues": [],
       "status": "implemented"
     },
     "base\\SkeletonLoader.tsx": {
-      "components": [
-        "React",
-        "SkeletonLoader"
-      ],
+      "components": ["React", "SkeletonLoader"],
       "issues": [],
       "status": "implemented"
     },
@@ -522,150 +358,102 @@
       "status": "stub"
     },
     "base\\Table.tsx": {
-      "components": [
-        "Table"
-      ],
+      "components": ["Table"],
       "issues": [],
       "status": "implemented"
     },
     "base\\Tabs.tsx": {
-      "components": [
-        "Tabs"
-      ],
+      "components": ["Tabs"],
       "issues": [],
       "status": "implemented"
     },
     "base\\Toast.tsx": {
-      "components": [
-        "Toast"
-      ],
+      "components": ["Toast"],
       "issues": [],
       "status": "implemented"
     },
     "base\\Toaster.tsx": {
-      "components": [
-        "React",
-        "Toast",
-        "Toaster"
-      ],
+      "components": ["React", "Toast", "Toaster"],
       "issues": [],
       "status": "implemented"
     },
     "base\\Tooltip.tsx": {
-      "components": [
-        "Tooltip"
-      ],
+      "components": ["Tooltip"],
       "issues": [],
       "status": "implemented"
     },
     "base\\UnifiedInput.tsx": {
-      "components": [
-        "UnifiedInput"
-      ],
+      "components": ["UnifiedInput"],
       "issues": [],
       "status": "implemented"
     },
     "BetBuilder.tsx": {
-      "components": [
-        "BetBuilder"
-      ],
+      "components": ["BetBuilder"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\BestBetSelector.tsx": {
-      "components": [
-        "React",
-        "BestBetSelector"
-      ],
+      "components": ["React", "BestBetSelector"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\BetForm.tsx": {
-      "components": [
-        "BetForm"
-      ],
+      "components": ["BetForm"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\BetHistory.tsx": {
-      "components": [
-        "BetHistory"
-      ],
+      "components": ["BetHistory"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\BetSlip.tsx": {
-      "components": [
-        "React",
-        "BetSlip"
-      ],
+      "components": ["React", "BetSlip"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\BettingAnalytics.tsx": {
-      "components": [
-        "BettingAnalytics",
-        "React"
-      ],
-      "issues": [
-        "Missing React import"
-      ],
+      "components": ["BettingAnalytics", "React"],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "betting\\BettingHistory.tsx": {
-      "components": [
-        "BettingHistory"
-      ],
+      "components": ["BettingHistory"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\BettingInterface.tsx": {
-      "components": [
-        "React",
-        "BettingInterface"
-      ],
+      "components": ["React", "BettingInterface"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\BettingModal.tsx": {
-      "components": [
-        "BettingModal"
-      ],
+      "components": ["BettingModal"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\BettingOpportunities.tsx": {
-      "components": [
-        "BettingOpportunities"
-      ],
+      "components": ["BettingOpportunities"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\BettingSettingsContainer.tsx": {
-      "components": [
-        "BettingSettingsContainer"
-      ],
+      "components": ["BettingSettingsContainer"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\BettingSettingsPanel.tsx": {
-      "components": [
-        "BettingSettingsPanel"
-      ],
+      "components": ["BettingSettingsPanel"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\BettingSettingsSummary.tsx": {
-      "components": [
-        "BettingSettingsSummary"
-      ],
+      "components": ["BettingSettingsSummary"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\BettingStats.tsx": {
-      "components": [
-        "BettingStats"
-      ],
+      "components": ["BettingStats"],
       "issues": [],
       "status": "implemented"
     },
@@ -680,54 +468,37 @@
       "status": "implemented"
     },
     "betting\\EventList.tsx": {
-      "components": [
-        "React",
-        "EventList"
-      ],
+      "components": ["React", "EventList"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\KellyCalculator.tsx": {
-      "components": [
-        "React",
-        "KellyCalculator"
-      ],
+      "components": ["React", "KellyCalculator"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\LiveOddsTicker.tsx": {
-      "components": [
-        "LiveOddsTicker"
-      ],
+      "components": ["LiveOddsTicker"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\ModelSelector.tsx": {
-      "components": [
-        "ModelSelector"
-      ],
+      "components": ["ModelSelector"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\OddsDisplay.tsx": {
-      "components": [
-        "React",
-        "OddsDisplay"
-      ],
+      "components": ["React", "OddsDisplay"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\PerformanceMetrics.tsx": {
-      "components": [
-        "PerformanceMetrics"
-      ],
+      "components": ["PerformanceMetrics"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\PrizePicksInterface.tsx": {
-      "components": [
-        "PrizePicksInterface"
-      ],
+      "components": ["PrizePicksInterface"],
       "issues": [],
       "status": "implemented"
     },
@@ -742,54 +513,37 @@
       "status": "stub"
     },
     "betting\\RiskProfileSelector.tsx": {
-      "components": [
-        "RiskProfileSelector"
-      ],
+      "components": ["RiskProfileSelector"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\SHAPVisualization.tsx": {
-      "components": [
-        "React",
-        "SHAPVisualization"
-      ],
+      "components": ["React", "SHAPVisualization"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\SportSelector.tsx": {
-      "components": [
-        "React",
-        "SportSelector"
-      ],
+      "components": ["React", "SportSelector"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\StakeSizingControl.tsx": {
-      "components": [
-        "StakeSizingControl"
-      ],
+      "components": ["StakeSizingControl"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\UltimateMoneyMaker.tsx": {
-      "components": [
-        "UltimateMoneyMaker",
-        "React"
-      ],
+      "components": ["UltimateMoneyMaker", "React"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\UnifiedBettingHistory.tsx": {
-      "components": [
-        "UnifiedBettingHistory"
-      ],
+      "components": ["UnifiedBettingHistory"],
       "issues": [],
       "status": "implemented"
     },
     "betting\\UnifiedBettingInterface.tsx": {
-      "components": [
-        "UnifiedBettingInterface"
-      ],
+      "components": ["UnifiedBettingInterface"],
       "issues": [],
       "status": "implemented"
     },
@@ -804,89 +558,62 @@
       "status": "stub"
     },
     "BettingOpportunities.tsx": {
-      "components": [
-        "BettingOpportunities"
-      ],
+      "components": ["BettingOpportunities"],
       "issues": [],
       "status": "implemented"
     },
     "BettingStats.tsx": {
-      "components": [
-        "React",
-        "BettingStats"
-      ],
+      "components": ["React", "BettingStats"],
       "issues": [],
       "status": "implemented"
     },
     "BookmakerAnalysis.tsx": {
-      "components": [
-        "BookmakerAnalysis",
-        "React"
-      ],
+      "components": ["BookmakerAnalysis", "React"],
       "issues": [],
       "status": "implemented"
     },
     "Breadcrumb.tsx": {
-      "components": [
-        "Breadcrumb"
-      ],
+      "components": ["Breadcrumb"],
       "issues": [],
       "status": "implemented"
     },
     "Button.tsx": {
-      "components": [
-        "Button"
-      ],
+      "components": ["Button"],
       "issues": [],
       "status": "implemented"
     },
     "Card.tsx": {
-      "components": [
-        "Card"
-      ],
+      "components": ["Card"],
       "issues": [],
       "status": "implemented"
     },
     "charts\\PerformanceChart.tsx": {
-      "components": [
-        "React",
-        "PerformanceChart"
-      ],
+      "components": ["React", "PerformanceChart"],
       "issues": [],
       "status": "implemented"
     },
     "common\\buttons\\BettingButton.tsx": {
-      "components": [
-        "BettingButton"
-      ],
+      "components": ["BettingButton"],
       "issues": [],
       "status": "implemented"
     },
     "common\\buttons\\BettingButtonGroup.tsx": {
-      "components": [
-        "BettingButtonGroup"
-      ],
+      "components": ["BettingButtonGroup"],
       "issues": [],
       "status": "implemented"
     },
     "common\\buttons\\Button.tsx": {
-      "components": [
-        "Button"
-      ],
+      "components": ["Button"],
       "issues": [],
       "status": "implemented"
     },
     "common\\buttons\\QuickBetButton.tsx": {
-      "components": [
-        "QuickBetButton"
-      ],
+      "components": ["QuickBetButton"],
       "issues": [],
       "status": "implemented"
     },
     "common\\ConfidenceIndicator.tsx": {
-      "components": [
-        "ConfidenceIndicator"
-      ],
+      "components": ["ConfidenceIndicator"],
       "issues": [],
       "status": "implemented"
     },
@@ -902,410 +629,272 @@
     },
     "common\\ErrorBoundary-MyPC.tsx": {
       "components": [],
-      "issues": [
-        "Missing React import"
-      ],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "common\\ErrorBoundary.tsx": {
       "components": [],
-      "issues": [
-        "Missing React import"
-      ],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "common\\ErrorMessage.tsx": {
-      "components": [
-        "ErrorMessage"
-      ],
+      "components": ["ErrorMessage"],
       "issues": [],
       "status": "implemented"
     },
     "common\\FilterBar-MyPC.tsx": {
-      "components": [
-        "FilterBar",
-        "FilterButton"
-      ],
+      "components": ["FilterBar", "FilterButton"],
       "issues": [],
       "status": "implemented"
     },
     "common\\FilterBar.tsx": {
-      "components": [
-        "FilterBar",
-        "FilterButton"
-      ],
+      "components": ["FilterBar", "FilterButton"],
       "issues": [],
       "status": "implemented"
     },
     "common\\layout\\Layout-MyPC.tsx": {
-      "components": [
-        "Layout"
-      ],
+      "components": ["Layout"],
       "issues": [],
       "status": "implemented"
     },
     "common\\layout\\Layout.tsx": {
-      "components": [
-        "Layout"
-      ],
+      "components": ["Layout"],
       "issues": [],
       "status": "implemented"
     },
     "common\\layout\\MainLayout-MyPC.tsx": {
-      "components": [
-        "React",
-        "MainLayout"
-      ],
+      "components": ["React", "MainLayout"],
       "issues": [],
       "status": "implemented"
     },
     "common\\layout\\MainLayout.tsx": {
-      "components": [
-        "MainLayout"
-      ],
+      "components": ["MainLayout"],
       "issues": [],
       "status": "implemented"
     },
     "common\\layout\\Navbar-MyPC.tsx": {
-      "components": [
-        "React",
-        "Navbar"
-      ],
+      "components": ["React", "Navbar"],
       "issues": [],
       "status": "implemented"
     },
     "common\\layout\\Navbar.tsx": {
-      "components": [
-        "Navbar"
-      ],
+      "components": ["Navbar"],
       "issues": [],
       "status": "implemented"
     },
     "common\\layout\\Sidebar-MyPC.tsx": {
-      "components": [
-        "React",
-        "Sidebar"
-      ],
+      "components": ["React", "Sidebar"],
       "issues": [],
       "status": "implemented"
     },
     "common\\layout\\Sidebar.tsx": {
-      "components": [
-        "Sidebar"
-      ],
+      "components": ["Sidebar"],
       "issues": [],
       "status": "implemented"
     },
     "common\\loading\\SkeletonLoader-MyPC.tsx": {
-      "components": [
-        "React",
-        "SkeletonLoader"
-      ],
+      "components": ["React", "SkeletonLoader"],
       "issues": [],
       "status": "implemented"
     },
     "common\\loading\\SkeletonLoader.tsx": {
-      "components": [
-        "SkeletonLoader"
-      ],
+      "components": ["SkeletonLoader"],
       "issues": [],
       "status": "implemented"
     },
     "common\\LoadingSkeleton.tsx": {
-      "components": [
-        "LoadingSkeleton"
-      ],
+      "components": ["LoadingSkeleton"],
       "issues": [],
       "status": "implemented"
     },
     "common\\modals\\Modals-MyPC.tsx": {
-      "components": [
-        "Modal"
-      ],
+      "components": ["Modal"],
       "issues": [],
       "status": "implemented"
     },
     "common\\modals\\Modals.tsx": {
-      "components": [
-        "Modal"
-      ],
+      "components": ["Modal"],
       "issues": [],
       "status": "implemented"
     },
     "common\\notifications\\Toaster-MyPC.tsx": {
-      "components": [
-        "React",
-        "Toast",
-        "Toaster"
-      ],
+      "components": ["React", "Toast", "Toaster"],
       "issues": [],
       "status": "implemented"
     },
     "common\\notifications\\Toaster.tsx": {
-      "components": [
-        "Toaster",
-        "Toast"
-      ],
+      "components": ["Toaster", "Toast"],
       "issues": [],
       "status": "implemented"
     },
     "common\\RiskLevelIndicator.tsx": {
-      "components": [
-        "RiskLevelIndicator"
-      ],
+      "components": ["RiskLevelIndicator"],
       "issues": [],
       "status": "implemented"
     },
     "common\\theme\\ThemeProvider-MyPC.tsx": {
-      "components": [
-        "ThemeProvider"
-      ],
-      "issues": [
-        "Missing React import"
-      ],
+      "components": ["ThemeProvider"],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "common\\theme\\ThemeProvider.tsx": {
-      "components": [
-        "ThemeProvider"
-      ],
-      "issues": [
-        "Missing React import"
-      ],
+      "components": ["ThemeProvider"],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "common\\ThemeToggle.tsx": {
-      "components": [
-        "React",
-        "ThemeToggle"
-      ],
+      "components": ["React", "ThemeToggle"],
       "issues": [],
       "status": "implemented"
     },
     "common\\ToastProvider.tsx": {
-      "components": [
-        "ToastProvider"
-      ],
+      "components": ["ToastProvider"],
       "issues": [],
       "status": "implemented"
     },
     "common\\ValidationStatus.tsx": {
-      "components": [
-        "ValidationStatus"
-      ],
+      "components": ["ValidationStatus"],
       "issues": [],
       "status": "implemented"
     },
     "ConfidenceIndicator.jsx": {
-      "components": [
-        "ConfidenceIndicator"
-      ],
+      "components": ["ConfidenceIndicator"],
       "issues": [],
       "status": "implemented"
     },
     "ConfidenceIndicator.tsx": {
-      "components": [
-        "ConfidenceIndicator"
-      ],
+      "components": ["ConfidenceIndicator"],
       "issues": [],
       "status": "implemented"
     },
     "ConnectionStatus.tsx": {
-      "components": [
-        "ConnectionStatus"
-      ],
+      "components": ["ConnectionStatus"],
       "issues": [],
       "status": "implemented"
     },
     "controls\\SmartControlsBar.test.tsx": {
       "components": [],
-      "issues": [
-        "No exports found"
-      ],
+      "issues": ["No exports found"],
       "status": "broken"
     },
     "controls\\SmartControlsBar.tsx": {
-      "components": [
-        "SmartControlsBar"
-      ],
+      "components": ["SmartControlsBar"],
       "issues": [],
       "status": "implemented"
     },
     "core\\AppInitializer-MyPC.tsx": {
-      "components": [
-        "AppInitializer"
-      ],
+      "components": ["AppInitializer"],
       "issues": [],
       "status": "implemented"
     },
     "core\\AppInitializer.tsx": {
-      "components": [
-        "AppInitializer"
-      ],
+      "components": ["AppInitializer"],
       "issues": [],
       "status": "implemented"
     },
     "core\\ErrorBoundary.tsx": {
-      "components": [
-        "ErrorBoundary"
-      ],
+      "components": ["ErrorBoundary"],
       "issues": [],
       "status": "implemented"
     },
     "core\\ErrorState.tsx": {
-      "components": [
-        "React",
-        "ErrorState"
-      ],
+      "components": ["React", "ErrorState"],
       "issues": [],
       "status": "implemented"
     },
     "core\\Layout\\Layout.tsx": {
-      "components": [
-        "React",
-        "Layout"
-      ],
+      "components": ["React", "Layout"],
       "issues": [],
       "status": "implemented"
     },
     "core\\Layout.tsx": {
-      "components": [
-        "Layout"
-      ],
+      "components": ["Layout"],
       "issues": [],
       "status": "implemented"
     },
     "core\\LoadingScreen.tsx": {
-      "components": [
-        "React",
-        "LoadingScreen"
-      ],
+      "components": ["React", "LoadingScreen"],
       "issues": [],
       "status": "implemented"
     },
     "core\\LoadingSpinner.tsx": {
-      "components": [
-        "React",
-        "LoadingSpinner"
-      ],
+      "components": ["React", "LoadingSpinner"],
       "issues": [],
       "status": "implemented"
     },
     "core\\LoadingState.tsx": {
-      "components": [
-        "React",
-        "LoadingState"
-      ],
+      "components": ["React", "LoadingState"],
       "issues": [],
       "status": "implemented"
     },
     "core\\Navbar\\Navbar.tsx": {
-      "components": [
-        "React",
-        "Navbar"
-      ],
+      "components": ["React", "Navbar"],
       "issues": [],
       "status": "implemented"
     },
     "core\\Navbar.tsx": {
-      "components": [
-        "Navbar"
-      ],
-      "issues": [
-        "Missing React import"
-      ],
+      "components": ["Navbar"],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "core\\Sidebar\\Sidebar.tsx": {
-      "components": [
-        "React",
-        "Sidebar"
-      ],
+      "components": ["React", "Sidebar"],
       "issues": [],
       "status": "implemented"
     },
     "core\\Sidebar.tsx": {
-      "components": [
-        "Sidebar"
-      ],
-      "issues": [
-        "Missing React import"
-      ],
+      "components": ["Sidebar"],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "core\\Skeleton.tsx": {
-      "components": [
-        "React",
-        "Skeleton"
-      ],
+      "components": ["React", "Skeleton"],
       "issues": [],
       "status": "implemented"
     },
     "core\\Toast.tsx": {
-      "components": [
-        "React",
-        "ToastItem",
-        "ToastContainer"
-      ],
+      "components": ["React", "ToastItem", "ToastContainer"],
       "issues": [],
       "status": "implemented"
     },
     "DarkModeToggle.jsx": {
-      "components": [
-        "DarkModeToggle"
-      ],
+      "components": ["DarkModeToggle"],
       "issues": [],
       "status": "implemented"
     },
     "dashboard\\Dashboard.tsx": {
-      "components": [
-        "React",
-        "Dashboard"
-      ],
+      "components": ["React", "Dashboard"],
       "issues": [],
       "status": "implemented"
     },
     "dashboard\\UnifiedDashboard.tsx": {
-      "components": [
-        "UnifiedDashboard"
-      ],
+      "components": ["UnifiedDashboard"],
       "issues": [],
       "status": "implemented"
     },
     "Dashboard.tsx": {
-      "components": [
-        "React",
-        "Dashboard"
-      ],
+      "components": ["React", "Dashboard"],
       "issues": [],
       "status": "implemented"
     },
     "Dialog.tsx": {
-      "components": [
-        "Dialog"
-      ],
+      "components": ["Dialog"],
       "issues": [],
       "status": "implemented"
     },
     "Dropdown.tsx": {
-      "components": [
-        "Dropdown"
-      ],
+      "components": ["Dropdown"],
       "issues": [],
       "status": "implemented"
     },
     "EntryCard.tsx": {
-      "components": [
-        "EntryCard"
-      ],
+      "components": ["EntryCard"],
       "issues": [],
       "status": "implemented"
     },
     "ErrorBoundary.tsx": {
       "components": [],
-      "issues": [
-        "No exports found"
-      ],
+      "issues": ["No exports found"],
       "status": "broken"
     },
     "ErrorFallback.tsx": {
@@ -1314,54 +903,37 @@
       "status": "implemented"
     },
     "ESPNHeadlinesTicker.tsx": {
-      "components": [
-        "ESPNHeadlinesTicker"
-      ],
+      "components": ["ESPNHeadlinesTicker"],
       "issues": [],
       "status": "implemented"
     },
     "events\\UnifiedEventDetails.tsx": {
-      "components": [
-        "UnifiedEventDetails"
-      ],
+      "components": ["UnifiedEventDetails"],
       "issues": [],
       "status": "implemented"
     },
     "featureCoverage.test.tsx": {
       "components": [],
-      "issues": [
-        "No exports found"
-      ],
+      "issues": ["No exports found"],
       "status": "broken"
     },
     "features\\analytics\\MLFactorViz.tsx": {
-      "components": [
-        "React",
-        "MLFactorViz"
-      ],
+      "components": ["React", "MLFactorViz"],
       "issues": [],
       "status": "implemented"
     },
     "features\\analytics\\MLInsights-MyPC.tsx": {
-      "components": [
-        "React",
-        "MLInsights"
-      ],
+      "components": ["React", "MLInsights"],
       "issues": [],
       "status": "implemented"
     },
     "features\\analytics\\MLInsights.tsx": {
-      "components": [
-        "MLInsights"
-      ],
+      "components": ["MLInsights"],
       "issues": [],
       "status": "implemented"
     },
     "features\\analytics\\ModelPerformance.tsx": {
-      "components": [
-        "React",
-        "ModelPerformance"
-      ],
+      "components": ["React", "ModelPerformance"],
       "issues": [],
       "status": "implemented"
     },
@@ -1376,447 +948,302 @@
       "status": "stub"
     },
     "features\\analytics\\PerformanceChart-MyPC.tsx": {
-      "components": [
-        "React",
-        "PerformanceChart"
-      ],
+      "components": ["React", "PerformanceChart"],
       "issues": [],
       "status": "implemented"
     },
     "features\\analytics\\PerformanceChart.tsx": {
-      "components": [
-        "PerformanceChart"
-      ],
+      "components": ["PerformanceChart"],
       "issues": [],
       "status": "implemented"
     },
     "features\\analytics\\PerformanceMetrics.tsx": {
-      "components": [
-        "PerformanceMetrics"
-      ],
+      "components": ["PerformanceMetrics"],
       "issues": [],
       "status": "implemented"
     },
     "features\\analytics\\PerformanceMonitor.tsx": {
-      "components": [
-        "PerformanceMonitor"
-      ],
+      "components": ["PerformanceMonitor"],
       "issues": [],
       "status": "implemented"
     },
     "features\\analytics\\ShapBreakdownModal.tsx": {
-      "components": [
-        "ShapBreakdownModal"
-      ],
+      "components": ["ShapBreakdownModal"],
       "issues": [],
       "status": "implemented"
     },
     "features\\analytics\\ShapValueDisplay.tsx": {
-      "components": [
-        "ShapValueDisplay"
-      ],
+      "components": ["ShapValueDisplay"],
       "issues": [],
       "status": "implemented"
     },
     "features\\analytics\\ShapVisualization.tsx": {
-      "components": [
-        "React",
-        "ShapVisualization"
-      ],
+      "components": ["React", "ShapVisualization"],
       "issues": [],
       "status": "implemented"
     },
     "features\\betting\\Arbitrage.tsx": {
-      "components": [
-        "React",
-        "Arbitrage"
-      ],
+      "components": ["React", "Arbitrage"],
       "issues": [],
       "status": "implemented"
     },
     "features\\betting\\ArbitrageDetector.tsx": {
-      "components": [
-        "React",
-        "ArbitrageDetector"
-      ],
+      "components": ["React", "ArbitrageDetector"],
       "issues": [],
       "status": "implemented"
     },
     "features\\betting\\ArbitrageOpportunities.tsx": {
-      "components": [
-        "React",
-        "ArbitrageOpportunities"
-      ],
+      "components": ["React", "ArbitrageOpportunities"],
       "issues": [],
       "status": "implemented"
     },
     "features\\betting\\BetBuilder.test.tsx": {
       "components": [],
-      "issues": [
-        "No exports found"
-      ],
+      "issues": ["No exports found"],
       "status": "broken"
     },
     "features\\betting\\BetBuilder.tsx": {
-      "components": [
-        "BetBuilder"
-      ],
+      "components": ["BetBuilder"],
       "issues": [],
       "status": "implemented"
     },
     "features\\betting\\BetSlipSidebar-MyPC.tsx": {
-      "components": [
-        "React",
-        "BetSlipSidebar"
-      ],
+      "components": ["React", "BetSlipSidebar"],
       "issues": [],
       "status": "implemented"
     },
     "features\\betting\\BetSlipSidebar.tsx": {
-      "components": [
-        "BetSlipSidebar"
-      ],
+      "components": ["BetSlipSidebar"],
       "issues": [],
       "status": "implemented"
     },
     "features\\betting\\BettingAnalytics-MyPC.tsx": {
-      "components": [
-        "BettingAnalytics"
-      ],
+      "components": ["BettingAnalytics"],
       "issues": [],
       "status": "implemented"
     },
     "features\\betting\\BettingAnalytics.tsx": {
-      "components": [
-        "BettingAnalytics"
-      ],
+      "components": ["BettingAnalytics"],
       "issues": [],
       "status": "implemented"
     },
     "features\\betting\\BettingHistory-MyPC.tsx": {
-      "components": [
-        "BettingHistory"
-      ],
+      "components": ["BettingHistory"],
       "issues": [],
       "status": "implemented"
     },
     "features\\betting\\BettingHistory.tsx": {
-      "components": [
-        "BettingHistory"
-      ],
+      "components": ["BettingHistory"],
       "issues": [],
       "status": "implemented"
     },
     "features\\betting\\BettingOpportunities.tsx": {
-      "components": [
-        "BettingOpportunities"
-      ],
+      "components": ["BettingOpportunities"],
       "issues": [],
       "status": "implemented"
     },
     "features\\betting\\BettingOpportunity-MyPC.tsx": {
-      "components": [
-        "BettingOpportunity"
-      ],
+      "components": ["BettingOpportunity"],
       "issues": [],
       "status": "implemented"
     },
     "features\\betting\\BettingOpportunity.tsx": {
-      "components": [
-        "BettingOpportunity"
-      ],
+      "components": ["BettingOpportunity"],
       "issues": [],
       "status": "implemented"
     },
     "features\\betting\\BettingRecommendations-MyPC.tsx": {
-      "components": [
-        "BettingRecommendations"
-      ],
+      "components": ["BettingRecommendations"],
       "issues": [],
       "status": "implemented"
     },
     "features\\betting\\BettingRecommendations.tsx": {
-      "components": [
-        "BettingRecommendations"
-      ],
+      "components": ["BettingRecommendations"],
       "issues": [],
       "status": "implemented"
     },
     "features\\betting\\BettingStats.tsx": {
-      "components": [
-        "React",
-        "BettingStats"
-      ],
+      "components": ["React", "BettingStats"],
       "issues": [],
       "status": "implemented"
     },
     "features\\betting\\PropCard-MyPC.tsx": {
-      "components": [
-        "React",
-        "PropCard"
-      ],
+      "components": ["React", "PropCard"],
       "issues": [],
       "status": "implemented"
     },
     "features\\betting\\PropCard.tsx": {
-      "components": [
-        "PropCard"
-      ],
+      "components": ["PropCard"],
       "issues": [],
       "status": "implemented"
     },
     "features\\betting\\PropCards-MyPC.tsx": {
-      "components": [
-        "React",
-        "PropCardSkeleton",
-        "PropCards"
-      ],
+      "components": ["React", "PropCardSkeleton", "PropCards"],
       "issues": [],
       "status": "implemented"
     },
     "features\\betting\\PropCards.tsx": {
-      "components": [
-        "PropCards",
-        "PropCardSkeleton"
-      ],
+      "components": ["PropCards", "PropCardSkeleton"],
       "issues": [],
       "status": "implemented"
     },
     "features\\dashboard\\Dashboard-MyPC.tsx": {
-      "components": [
-        "React",
-        "Dashboard"
-      ],
+      "components": ["React", "Dashboard"],
       "issues": [],
       "status": "implemented"
     },
     "features\\dashboard\\Dashboard.tsx": {
-      "components": [
-        "Dashboard"
-      ],
+      "components": ["Dashboard"],
       "issues": [],
       "status": "implemented"
     },
     "features\\news\\ESPNHeadlinesTicker-MyPC.tsx": {
-      "components": [
-        "React",
-        "ESPNHeadlinesTicker"
-      ],
+      "components": ["React", "ESPNHeadlinesTicker"],
       "issues": [],
       "status": "implemented"
     },
     "features\\news\\ESPNHeadlinesTicker.tsx": {
-      "components": [
-        "ESPNHeadlinesTicker"
-      ],
+      "components": ["ESPNHeadlinesTicker"],
       "issues": [],
       "status": "implemented"
     },
     "features\\predictions\\ConfidenceIndicator.tsx": {
-      "components": [
-        "ConfidenceIndicator"
-      ],
+      "components": ["ConfidenceIndicator"],
       "issues": [],
       "status": "implemented"
     },
     "features\\predictions\\PatternRecognition.tsx": {
-      "components": [
-        "React",
-        "PatternRecognition"
-      ],
+      "components": ["React", "PatternRecognition"],
       "issues": [],
       "status": "implemented"
     },
     "features\\predictions\\PredictionDisplay-MyPC.tsx": {
-      "components": [
-        "PredictionDisplay"
-      ],
+      "components": ["PredictionDisplay"],
       "issues": [],
       "status": "implemented"
     },
     "features\\predictions\\PredictionDisplay.tsx": {
-      "components": [
-        "PredictionDisplay"
-      ],
+      "components": ["PredictionDisplay"],
       "issues": [],
       "status": "implemented"
     },
     "features\\predictions\\PredictionEnhancement.tsx": {
-      "components": [
-        "React",
-        "PredictionEnhancement"
-      ],
+      "components": ["React", "PredictionEnhancement"],
       "issues": [],
       "status": "implemented"
     },
     "features\\predictions\\RealtimePredictionDisplay.tsx": {
-      "components": [
-        "RealtimePredictionDisplay"
-      ],
+      "components": ["RealtimePredictionDisplay"],
       "issues": [],
       "status": "implemented"
     },
     "features\\settings\\Settings-MyPC.tsx": {
-      "components": [
-        "Settings"
-      ],
+      "components": ["Settings"],
       "issues": [],
       "status": "implemented"
     },
     "features\\settings\\Settings.tsx": {
-      "components": [
-        "Settings"
-      ],
+      "components": ["Settings"],
       "issues": [],
       "status": "implemented"
     },
     "features\\tracking\\EntryTracking-MyPC.tsx": {
-      "components": [
-        "WebSocketMessageTypes",
-        "React",
-        "EntryItemSkeleton",
-        "EntryTracking"
-      ],
+      "components": ["WebSocketMessageTypes", "React", "EntryItemSkeleton", "EntryTracking"],
       "issues": [],
       "status": "implemented"
     },
     "features\\tracking\\EntryTracking.tsx": {
-      "components": [
-        "WebSocketMessageTypes",
-        "EntryTracking",
-        "EntryItemSkeleton"
-      ],
+      "components": ["WebSocketMessageTypes", "EntryTracking", "EntryItemSkeleton"],
       "issues": [],
       "status": "implemented"
     },
     "features\\user\\BankrollManager.tsx": {
-      "components": [
-        "React",
-        "BankrollManager"
-      ],
+      "components": ["React", "BankrollManager"],
       "issues": [],
       "status": "implemented"
     },
     "features\\user\\BankrollMetrics-MyPC.tsx": {
-      "components": [
-        "BankrollMetrics"
-      ],
+      "components": ["BankrollMetrics"],
       "issues": [],
       "status": "implemented"
     },
     "features\\user\\BankrollMetrics.tsx": {
-      "components": [
-        "BankrollMetrics"
-      ],
+      "components": ["BankrollMetrics"],
       "issues": [],
       "status": "implemented"
     },
     "features\\user\\BankrollStats-MyPC.tsx": {
-      "components": [
-        "BankrollStats"
-      ],
+      "components": ["BankrollStats"],
       "issues": [],
       "status": "implemented"
     },
     "features\\user\\BankrollStats.tsx": {
-      "components": [
-        "BankrollStats"
-      ],
+      "components": ["BankrollStats"],
       "issues": [],
       "status": "implemented"
     },
     "features\\user\\RiskProfileManager.tsx": {
-      "components": [
-        "RiskProfileManager"
-      ],
+      "components": ["RiskProfileManager"],
       "issues": [],
       "status": "implemented"
     },
     "features\\user\\RiskProfileSelector.tsx": {
-      "components": [
-        "RiskProfileSelector"
-      ],
+      "components": ["RiskProfileSelector"],
       "issues": [],
       "status": "implemented"
     },
     "features\\user\\UserConstraintsForm.tsx": {
-      "components": [
-        "UserConstraintsForm"
-      ],
+      "components": ["UserConstraintsForm"],
       "issues": [],
       "status": "implemented"
     },
     "features\\user\\UserProfile-MyPC.tsx": {
-      "components": [
-        "UserProfile"
-      ],
+      "components": ["UserProfile"],
       "issues": [],
       "status": "implemented"
     },
     "features\\user\\UserProfile.tsx": {
-      "components": [
-        "UserProfile"
-      ],
+      "components": ["UserProfile"],
       "issues": [],
       "status": "implemented"
     },
     "features\\user\\UserStats-MyPC.tsx": {
-      "components": [
-        "React",
-        "UserStats"
-      ],
+      "components": ["React", "UserStats"],
       "issues": [],
       "status": "implemented"
     },
     "features\\user\\UserStats.tsx": {
-      "components": [
-        "UserStats"
-      ],
+      "components": ["UserStats"],
       "issues": [],
       "status": "implemented"
     },
     "FeatureStatusPanel.tsx": {
-      "components": [
-        "FeatureStatusPanel",
-        "FeatureStatusPanel"
-      ],
+      "components": ["FeatureStatusPanel", "FeatureStatusPanel"],
       "issues": [],
       "status": "implemented"
     },
     "FilterBar.tsx": {
-      "components": [
-        "FilterBar",
-        "FilterButton"
-      ],
+      "components": ["FilterBar", "FilterButton"],
       "issues": [],
       "status": "implemented"
     },
     "FooterVersion.jsx": {
-      "components": [
-        "FooterVersion"
-      ],
+      "components": ["FooterVersion"],
       "issues": [],
       "status": "implemented"
     },
     "Header.tsx": {
-      "components": [
-        "Header"
-      ],
+      "components": ["Header"],
       "issues": [],
       "status": "implemented"
     },
     "index.tsx": {
       "components": [],
-      "issues": [
-        "No exports found"
-      ],
+      "issues": ["No exports found"],
       "status": "broken"
     },
     "insights\\MLInsights.tsx": {
-      "components": [
-        "React",
-        "MLInsights"
-      ],
+      "components": ["React", "MLInsights"],
       "issues": [],
       "status": "implemented"
     },
@@ -1826,10 +1253,7 @@
       "status": "implemented"
     },
     "layout\\AppShell.tsx": {
-      "components": [
-        "React",
-        "AppShell"
-      ],
+      "components": ["React", "AppShell"],
       "issues": [],
       "status": "implemented"
     },
@@ -1839,66 +1263,42 @@
       "status": "implemented"
     },
     "layout\\Layout.tsx": {
-      "components": [
-        "Layout"
-      ],
+      "components": ["Layout"],
       "issues": [],
       "status": "implemented"
     },
     "layout\\Navigation.tsx": {
-      "components": [
-        "React",
-        "Navigation"
-      ],
+      "components": ["React", "Navigation"],
       "issues": [],
       "status": "implemented"
     },
     "Layout.tsx": {
-      "components": [
-        "Layout"
-      ],
-      "issues": [
-        "No exports found"
-      ],
+      "components": ["Layout"],
+      "issues": ["No exports found"],
       "status": "broken"
     },
     "lineup\\PayoutPreview.tsx": {
-      "components": [
-        "PayoutPreview"
-      ],
-      "issues": [
-        "Missing React import"
-      ],
+      "components": ["PayoutPreview"],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "lineup\\SmartLineupBuilder.tsx": {
-      "components": [
-        "SmartLineupBuilder"
-      ],
-      "issues": [
-        "Missing React import"
-      ],
+      "components": ["SmartLineupBuilder"],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "LineupBuilder.jsx": {
-      "components": [
-        "LineupBuilder"
-      ],
+      "components": ["LineupBuilder"],
       "issues": [],
       "status": "implemented"
     },
     "LineupComparisonTable.tsx": {
-      "components": [
-        "LineupComparisonTable"
-      ],
+      "components": ["LineupComparisonTable"],
       "issues": [],
       "status": "implemented"
     },
     "LiveOddsTicker.tsx": {
-      "components": [
-        "React",
-        "LiveOddsTicker"
-      ],
+      "components": ["React", "LiveOddsTicker"],
       "issues": [],
       "status": "implemented"
     },
@@ -1908,26 +1308,17 @@
       "status": "implemented"
     },
     "LoadingSpinner.tsx": {
-      "components": [
-        "LoadingSpinner"
-      ],
-      "issues": [
-        "Missing React import"
-      ],
+      "components": ["LoadingSpinner"],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "LoginForm.tsx": {
-      "components": [
-        "React",
-        "LoginForm"
-      ],
+      "components": ["React", "LoginForm"],
       "issues": [],
       "status": "implemented"
     },
     "MarketAnalysisDashboard.tsx": {
-      "components": [
-        "MarketAnalysisDashboard"
-      ],
+      "components": ["MarketAnalysisDashboard"],
       "issues": [],
       "status": "implemented"
     },
@@ -1942,92 +1333,62 @@
       "status": "implemented"
     },
     "MLFactorViz.tsx": {
-      "components": [
-        "React",
-        "MLFactorViz"
-      ],
+      "components": ["React", "MLFactorViz"],
       "issues": [],
       "status": "implemented"
     },
     "MLPredictions.tsx": {
-      "components": [
-        "MLPredictions"
-      ],
+      "components": ["MLPredictions"],
       "issues": [],
       "status": "implemented"
     },
     "Modal.tsx": {
-      "components": [
-        "Modal"
-      ],
+      "components": ["Modal"],
       "issues": [],
       "status": "implemented"
     },
     "ModelPerformance.tsx": {
-      "components": [
-        "React",
-        "ModelPerformance"
-      ],
+      "components": ["React", "ModelPerformance"],
       "issues": [],
       "status": "implemented"
     },
     "modern\\AppShell.tsx": {
-      "components": [
-        "React",
-        "AppShell"
-      ],
+      "components": ["React", "AppShell"],
       "issues": [],
       "status": "implemented"
     },
     "modern\\BetSlipSidebar.tsx": {
-      "components": [
-        "React",
-        "BetSlipSidebar"
-      ],
+      "components": ["React", "BetSlipSidebar"],
       "issues": [],
       "status": "implemented"
     },
     "modern\\BettingAnalytics.tsx": {
-      "components": [
-        "BettingAnalytics"
-      ],
+      "components": ["BettingAnalytics"],
       "issues": [],
       "status": "implemented"
     },
     "modern\\Dashboard.tsx": {
-      "components": [
-        "React",
-        "Dashboard"
-      ],
+      "components": ["React", "Dashboard"],
       "issues": [],
       "status": "implemented"
     },
     "modern\\EntryTracking.tsx": {
-      "components": [
-        "EntryTracking"
-      ],
+      "components": ["EntryTracking"],
       "issues": [],
       "status": "implemented"
     },
     "modern\\ErrorBoundary.tsx": {
-      "components": [
-        "ErrorBoundary"
-      ],
+      "components": ["ErrorBoundary"],
       "issues": [],
       "status": "implemented"
     },
     "modern\\ESPNHeadlinesTicker.tsx": {
-      "components": [
-        "React",
-        "ESPNHeadlinesTicker"
-      ],
+      "components": ["React", "ESPNHeadlinesTicker"],
       "issues": [],
       "status": "implemented"
     },
     "modern\\Header.tsx": {
-      "components": [
-        "Header"
-      ],
+      "components": ["Header"],
       "issues": [],
       "status": "implemented"
     },
@@ -2043,154 +1404,103 @@
       "status": "implemented"
     },
     "modern\\MoneyMaker.tsx": {
-      "components": [
-        "React",
-        "MoneyMaker"
-      ],
+      "components": ["React", "MoneyMaker"],
       "issues": [],
       "status": "implemented"
     },
     "modern\\PropCard.tsx": {
-      "components": [
-        "React",
-        "PropCard"
-      ],
+      "components": ["React", "PropCard"],
       "issues": [],
       "status": "implemented"
     },
     "modern\\PropCards.tsx": {
-      "components": [
-        "React",
-        "PropCards"
-      ],
+      "components": ["React", "PropCards"],
       "issues": [],
       "status": "implemented"
     },
     "modern\\Settings.tsx": {
-      "components": [
-        "React",
-        "Settings"
-      ],
+      "components": ["React", "Settings"],
       "issues": [],
       "status": "implemented"
     },
     "modern\\Sidebar.tsx": {
-      "components": [
-        "React",
-        "Sidebar"
-      ],
+      "components": ["React", "Sidebar"],
       "issues": [],
       "status": "implemented"
     },
     "modern\\StateProvider.tsx": {
-      "components": [
-        "StateProvider"
-      ],
+      "components": ["StateProvider"],
       "issues": [],
       "status": "implemented"
     },
     "modern\\ThemeProvider.tsx": {
-      "components": [
-        "ThemeProvider"
-      ],
+      "components": ["ThemeProvider"],
       "issues": [],
       "status": "implemented"
     },
     "money-maker\\UnifiedMoneyMaker.tsx": {
-      "components": [
-        "UnifiedMoneyMaker"
-      ],
+      "components": ["UnifiedMoneyMaker"],
       "issues": [],
       "status": "implemented"
     },
     "MoneyMaker\\AdvancedMLDashboard.tsx": {
-      "components": [
-        "AdvancedMLDashboard"
-      ],
+      "components": ["AdvancedMLDashboard"],
       "issues": [],
       "status": "implemented"
     },
     "MoneyMaker\\AdvancedMLDashboardPanels.tsx": {
-      "components": [
-        "AdvancedMLDashboardPanels"
-      ],
+      "components": ["AdvancedMLDashboardPanels"],
       "issues": [],
       "status": "implemented"
     },
     "MoneyMaker\\MoneyMakerAdvanced.tsx": {
-      "components": [
-        "MoneyMakerAdvanced"
-      ],
+      "components": ["MoneyMakerAdvanced"],
       "issues": [],
       "status": "implemented"
     },
     "MoneyMaker\\MoneyMakerConfig.tsx": {
-      "components": [
-        "MoneyMakerConfig"
-      ],
+      "components": ["MoneyMakerConfig"],
       "issues": [],
       "status": "implemented"
     },
     "MoneyMaker\\MoneyMakerResults.tsx": {
-      "components": [
-        "MoneyMakerResults"
-      ],
+      "components": ["MoneyMakerResults"],
       "issues": [],
       "status": "implemented"
     },
     "MoneyMaker\\MoneyMakerStatus.tsx": {
-      "components": [
-        "MoneyMakerStatus"
-      ],
+      "components": ["MoneyMakerStatus"],
       "issues": [],
       "status": "implemented"
     },
     "MoneyMaker\\UltimateMoneyMaker.tsx": {
-      "components": [
-        "UltimateMoneyMaker"
-      ],
+      "components": ["UltimateMoneyMaker"],
       "issues": [],
       "status": "implemented"
     },
     "monitoring\\PerformanceAlert.tsx": {
-      "components": [
-        "React",
-        "PerformanceAlert"
-      ],
+      "components": ["React", "PerformanceAlert"],
       "issues": [],
       "status": "implemented"
     },
     "monitoring\\PerformanceAlertContainer.tsx": {
-      "components": [
-        "React",
-        "PerformanceAlertContainer"
-      ],
+      "components": ["React", "PerformanceAlertContainer"],
       "issues": [],
       "status": "implemented"
     },
     "monitoring\\PerformanceChart.tsx": {
-      "components": [
-        "React",
-        "PerformanceChart"
-      ],
+      "components": ["React", "PerformanceChart"],
       "issues": [],
       "status": "implemented"
     },
     "monitoring\\PerformanceDashboard.tsx": {
-      "components": [
-        "React",
-        "PerformanceDashboard"
-      ],
+      "components": ["React", "PerformanceDashboard"],
       "issues": [],
       "status": "implemented"
     },
     "Navbar\\Navbar.tsx": {
-      "components": [
-        "Navbar"
-      ],
-      "issues": [
-        "Missing React import"
-      ],
+      "components": ["Navbar"],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "Navbar.tsx": {
@@ -2199,61 +1509,43 @@
       "status": "implemented"
     },
     "navigation\\Navbar.tsx": {
-      "components": [
-        "Navbar"
-      ],
+      "components": ["Navbar"],
       "issues": [],
       "status": "implemented"
     },
     "navigation\\Sidebar.tsx": {
-      "components": [
-        "React",
-        "Sidebar"
-      ],
+      "components": ["React", "Sidebar"],
       "issues": [],
       "status": "implemented"
     },
     "navigation\\ThemeToggle.tsx": {
-      "components": [
-        "ThemeToggle"
-      ],
+      "components": ["ThemeToggle"],
       "issues": [],
       "status": "implemented"
     },
     "navigation\\UnifiedNavigation.tsx": {
-      "components": [
-        "UnifiedNavigation"
-      ],
+      "components": ["UnifiedNavigation"],
       "issues": [],
       "status": "implemented"
     },
     "NoResultsFallback.tsx": {
-      "components": [
-        "NoResultsFallback"
-      ],
+      "components": ["NoResultsFallback"],
       "issues": [],
       "status": "implemented"
     },
     "OpportunitiesList.tsx": {
-      "components": [
-        "OpportunitiesList"
-      ],
+      "components": ["OpportunitiesList"],
       "issues": [],
       "status": "implemented"
     },
     "PatternRecognition.tsx": {
-      "components": [
-        "React",
-        "PatternRecognition"
-      ],
+      "components": ["React", "PatternRecognition"],
       "issues": [],
       "status": "implemented"
     },
     "PayoutPreview.test.tsx": {
       "components": [],
-      "issues": [
-        "No exports found"
-      ],
+      "issues": ["No exports found"],
       "status": "broken"
     },
     "PayoutPreview.tsx": {
@@ -2268,244 +1560,168 @@
       "status": "implemented"
     },
     "PerformanceAnalytics.tsx": {
-      "components": [
-        "React",
-        "PerformanceAnalytics"
-      ],
+      "components": ["React", "PerformanceAnalytics"],
       "issues": [],
       "status": "implemented"
     },
     "PerformanceMetrics.tsx": {
-      "components": [
-        "PerformanceMetrics",
-        "React"
-      ],
+      "components": ["PerformanceMetrics", "React"],
       "issues": [],
       "status": "implemented"
     },
     "PerformanceMonitor.tsx": {
-      "components": [
-        "React",
-        "PerformanceMonitor"
-      ],
+      "components": ["React", "PerformanceMonitor"],
       "issues": [],
       "status": "implemented"
     },
     "prediction\\BetRecommendationCard.tsx": {
-      "components": [
-        "BetRecommendationCard"
-      ],
+      "components": ["BetRecommendationCard"],
       "issues": [],
       "status": "implemented"
     },
     "prediction\\BetRecommendationList.tsx": {
-      "components": [
-        "BetRecommendationList"
-      ],
+      "components": ["BetRecommendationList"],
       "issues": [],
       "status": "implemented"
     },
     "prediction\\MoneyMakerResults.tsx": {
-      "components": [
-        "MoneyMakerResults"
-      ],
+      "components": ["MoneyMakerResults"],
       "issues": [],
       "status": "implemented"
     },
     "prediction\\PayoutPreview.tsx": {
-      "components": [
-        "PayoutPreview"
-      ],
+      "components": ["PayoutPreview"],
       "issues": [],
       "status": "implemented"
     },
     "prediction\\PredictionDisplay.tsx": {
-      "components": [
-        "PredictionDisplay"
-      ],
+      "components": ["PredictionDisplay"],
       "issues": [],
       "status": "implemented"
     },
     "prediction\\PredictionExplanationModal.tsx": {
-      "components": [
-        "PredictionExplanationModal"
-      ],
+      "components": ["PredictionExplanationModal"],
       "issues": [],
       "status": "implemented"
     },
     "prediction\\PredictionForm.tsx": {
-      "components": [
-        "PredictionForm"
-      ],
+      "components": ["PredictionForm"],
       "issues": [],
       "status": "implemented"
     },
     "prediction\\ShapExplanation.tsx": {
-      "components": [
-        "ShapExplanation"
-      ],
+      "components": ["ShapExplanation"],
       "issues": [],
       "status": "implemented"
     },
     "prediction\\ShapValueBar.tsx": {
-      "components": [
-        "ShapValueBar"
-      ],
+      "components": ["ShapValueBar"],
       "issues": [],
       "status": "implemented"
     },
     "prediction\\UncertaintyIndicator.tsx": {
-      "components": [
-        "UncertaintyIndicator"
-      ],
+      "components": ["UncertaintyIndicator"],
       "issues": [],
       "status": "implemented"
     },
     "prediction\\UnifiedPredictionInterface.tsx": {
-      "components": [
-        "UnifiedPredictionInterface"
-      ],
+      "components": ["UnifiedPredictionInterface"],
       "issues": [],
       "status": "implemented"
     },
     "prediction\\__tests__\\BetRecommendationCard.test.tsx": {
       "components": [],
-      "issues": [
-        "No exports found"
-      ],
+      "issues": ["No exports found"],
       "status": "broken"
     },
     "prediction\\__tests__\\BetRecommendationList.test.tsx": {
       "components": [],
-      "issues": [
-        "No exports found"
-      ],
+      "issues": ["No exports found"],
       "status": "broken"
     },
     "prediction\\__tests__\\PredictionExplanationModal.test.tsx": {
       "components": [],
-      "issues": [
-        "No exports found"
-      ],
+      "issues": ["No exports found"],
       "status": "broken"
     },
     "prediction\\__tests__\\ShapExplanation.test.tsx": {
       "components": [],
-      "issues": [
-        "No exports found"
-      ],
+      "issues": ["No exports found"],
       "status": "broken"
     },
     "PredictionDisplay.tsx": {
-      "components": [
-        "PredictionDisplay"
-      ],
+      "components": ["PredictionDisplay"],
       "issues": [],
       "status": "implemented"
     },
     "PredictionEnhancement.tsx": {
-      "components": [
-        "React",
-        "PredictionEnhancement"
-      ],
+      "components": ["React", "PredictionEnhancement"],
       "issues": [],
       "status": "implemented"
     },
     "predictions\\BettingOpportunities.tsx": {
-      "components": [
-        "BettingOpportunities"
-      ],
+      "components": ["BettingOpportunities"],
       "issues": [],
       "status": "implemented"
     },
     "predictions\\ConfidenceIndicator.tsx": {
-      "components": [
-        "React",
-        "ConfidenceIndicator"
-      ],
+      "components": ["React", "ConfidenceIndicator"],
       "issues": [],
       "status": "implemented"
     },
     "predictions\\DailyFantasyIntegration.tsx": {
-      "components": [
-        "DailyFantasyIntegration"
-      ],
+      "components": ["DailyFantasyIntegration"],
       "issues": [],
       "status": "implemented"
     },
     "predictions\\FantasyPredictionEnhancer.tsx": {
-      "components": [
-        "FantasyPredictionEnhancer"
-      ],
+      "components": ["FantasyPredictionEnhancer"],
       "issues": [],
       "status": "implemented"
     },
     "predictions\\LivePredictions.tsx": {
-      "components": [
-        "LivePredictions"
-      ],
+      "components": ["LivePredictions"],
       "issues": [],
       "status": "implemented"
     },
     "predictions\\ModelPerformance.tsx": {
-      "components": [
-        "ModelPerformance"
-      ],
+      "components": ["ModelPerformance"],
       "issues": [],
       "status": "implemented"
     },
     "predictions\\PayoutPreviewPanel.tsx": {
-      "components": [
-        "React",
-        "PayoutPreviewPanel"
-      ],
+      "components": ["React", "PayoutPreviewPanel"],
       "issues": [],
       "status": "implemented"
     },
     "predictions\\PredictionGenerator.tsx": {
-      "components": [
-        "PredictionGenerator"
-      ],
+      "components": ["PredictionGenerator"],
       "issues": [],
       "status": "implemented"
     },
     "predictions\\RealtimePredictionDisplay.tsx": {
-      "components": [
-        "React",
-        "RealtimePredictionDisplay"
-      ],
+      "components": ["React", "RealtimePredictionDisplay"],
       "issues": [],
       "status": "implemented"
     },
     "predictions\\SHAPChart.tsx": {
-      "components": [
-        "SHAPChart"
-      ],
-      "issues": [
-        "Missing React import"
-      ],
+      "components": ["SHAPChart"],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "predictions\\ShapValueDisplay.tsx": {
-      "components": [
-        "React",
-        "ShapValueDisplay"
-      ],
+      "components": ["React", "ShapValueDisplay"],
       "issues": [],
       "status": "implemented"
     },
     "predictions\\__tests__\\DailyFantasyIntegration.test.tsx": {
       "components": [],
-      "issues": [
-        "No exports found"
-      ],
+      "issues": ["No exports found"],
       "status": "broken"
     },
     "predictions\\__tests__\\FantasyPredictionEnhancer.test.tsx": {
       "components": [],
-      "issues": [
-        "No exports found"
-      ],
+      "issues": ["No exports found"],
       "status": "broken"
     },
     "predictions\\__tests__\\PredictionGenerator.test.tsx": {
@@ -2519,54 +1735,37 @@
       "status": "stub"
     },
     "profile\\UnifiedProfile.tsx": {
-      "components": [
-        "UnifiedProfile"
-      ],
+      "components": ["UnifiedProfile"],
       "issues": [],
       "status": "implemented"
     },
     "Progress.tsx": {
-      "components": [
-        "Progress"
-      ],
+      "components": ["Progress"],
       "issues": [],
       "status": "implemented"
     },
     "ProgressBar.tsx": {
-      "components": [
-        "ProgressBar"
-      ],
+      "components": ["ProgressBar"],
       "issues": [],
       "status": "implemented"
     },
     "PropAnalysis.tsx": {
-      "components": [
-        "PropAnalysis",
-        "React"
-      ],
+      "components": ["PropAnalysis", "React"],
       "issues": [],
       "status": "implemented"
     },
     "PropCard.tsx": {
-      "components": [
-        "PropCard"
-      ],
+      "components": ["PropCard"],
       "issues": [],
       "status": "implemented"
     },
     "PropCards.tsx": {
-      "components": [
-        "PropCards",
-        "React"
-      ],
+      "components": ["PropCards", "React"],
       "issues": [],
       "status": "implemented"
     },
     "PropList.tsx": {
-      "components": [
-        "PropList",
-        "React"
-      ],
+      "components": ["PropList", "React"],
       "issues": [],
       "status": "implemented"
     },
@@ -2576,96 +1775,67 @@
       "status": "implemented"
     },
     "RealtimePredictionDisplay.tsx": {
-      "components": [
-        "RealtimePredictionDisplay"
-      ],
+      "components": ["RealtimePredictionDisplay"],
       "issues": [],
       "status": "implemented"
     },
     "RealTimeUpdates.tsx": {
-      "components": [
-        "RealTimeUpdates"
-      ],
+      "components": ["RealTimeUpdates"],
       "issues": [],
       "status": "implemented"
     },
     "RegisterForm.tsx": {
-      "components": [
-        "React",
-        "RegisterForm"
-      ],
+      "components": ["React", "RegisterForm"],
       "issues": [],
       "status": "implemented"
     },
     "risk\\RiskProfileManager.tsx": {
-      "components": [
-        "RiskProfileManager"
-      ],
+      "components": ["RiskProfileManager"],
       "issues": [],
       "status": "implemented"
     },
     "RiskManagerPage.tsx": {
-      "components": [
-        "RiskManagerPage"
-      ],
+      "components": ["RiskManagerPage"],
       "issues": [],
       "status": "implemented"
     },
     "RiskProfileManager.tsx": {
-      "components": [
-        "RiskProfileManager"
-      ],
+      "components": ["RiskProfileManager"],
       "issues": [],
       "status": "implemented"
     },
     "RiskProfileSelector.tsx": {
-      "components": [
-        "RiskProfileSelector"
-      ],
+      "components": ["RiskProfileSelector"],
       "issues": [],
       "status": "implemented"
     },
     "Select.tsx": {
-      "components": [
-        "Select"
-      ],
+      "components": ["Select"],
       "issues": [],
       "status": "implemented"
     },
     "settings\\UnifiedSettingsInterface.tsx": {
-      "components": [
-        "UnifiedSettingsInterface"
-      ],
+      "components": ["UnifiedSettingsInterface"],
       "issues": [],
       "status": "implemented"
     },
     "Settings.tsx": {
-      "components": [
-        "React",
-        "Settings"
-      ],
+      "components": ["React", "Settings"],
       "issues": [],
       "status": "implemented"
     },
     "ShapBreakdownModal.tsx": {
-      "components": [
-        "ShapBreakdownModal"
-      ],
+      "components": ["ShapBreakdownModal"],
       "issues": [],
       "status": "implemented"
     },
     "ShapValueDisplay.tsx": {
-      "components": [
-        "ShapValueDisplay"
-      ],
+      "components": ["ShapValueDisplay"],
       "issues": [],
       "status": "implemented"
     },
     "ShapVisualization.tsx": {
-      "components": [
-        "React",
-        "ShapVisualization"
-      ],
+      "components": ["React", "ShapVisualization"],
       "issues": [],
       "status": "implemented"
     },
@@ -2675,18 +1845,12 @@
       "status": "implemented"
     },
     "shared\\feedback\\FeedbackWidget.tsx": {
-      "components": [
-        "FeedbackWidget"
-      ],
+      "components": ["FeedbackWidget"],
       "issues": [],
       "status": "implemented"
     },
     "shared\\feedback\\Toast.tsx": {
-      "components": [
-        "React",
-        "ToastItem",
-        "ToastContainer"
-      ],
+      "components": ["React", "ToastItem", "ToastContainer"],
       "issues": [],
       "status": "implemented"
     },
@@ -2701,90 +1865,62 @@
       "status": "stub"
     },
     "shared\\feedback\\Toaster.tsx": {
-      "components": [
-        "Toaster"
-      ],
+      "components": ["Toaster"],
       "issues": [],
       "status": "implemented"
     },
     "shared\\layout\\Navigation-MyPC.tsx": {
       "components": [],
-      "issues": [
-        "Missing React import"
-      ],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "shared\\layout\\Navigation.tsx": {
       "components": [],
-      "issues": [
-        "Missing React import"
-      ],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "shared\\layout\\ProtectedRoute-MyPC.tsx": {
       "components": [],
-      "issues": [
-        "Missing React import"
-      ],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "shared\\layout\\ProtectedRoute.tsx": {
       "components": [],
-      "issues": [
-        "Missing React import"
-      ],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "shared\\SHAPVisualization.tsx": {
-      "components": [
-        "SHAPVisualization"
-      ],
+      "components": ["SHAPVisualization"],
       "issues": [],
       "status": "implemented"
     },
     "shared\\ui\\LoadingScreen.tsx": {
-      "components": [
-        "LoadingScreen"
-      ],
+      "components": ["LoadingScreen"],
       "issues": [],
       "status": "implemented"
     },
     "shared\\ui\\LoadingSpinner.tsx": {
-      "components": [
-        "LoadingSpinner"
-      ],
-      "issues": [
-        "Missing React import"
-      ],
+      "components": ["LoadingSpinner"],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "shared\\ui\\NoResultsFallback.tsx": {
-      "components": [
-        "NoResultsFallback"
-      ],
+      "components": ["NoResultsFallback"],
       "issues": [],
       "status": "implemented"
     },
     "shared\\ui\\ProgressBar.tsx": {
-      "components": [
-        "ProgressBar"
-      ],
+      "components": ["ProgressBar"],
       "issues": [],
       "status": "implemented"
     },
     "shared\\ui\\Skeleton.tsx": {
-      "components": [
-        "Skeleton",
-        "SkeletonText",
-        "SkeletonCard"
-      ],
+      "components": ["Skeleton", "SkeletonText", "SkeletonCard"],
       "issues": [],
       "status": "implemented"
     },
     "shared\\ui\\SkeletonLoader.tsx": {
-      "components": [
-        "SkeletonLoader"
-      ],
+      "components": ["SkeletonLoader"],
       "issues": [],
       "status": "implemented"
     },
@@ -2794,12 +1930,8 @@
       "status": "implemented"
     },
     "Sidebar\\Sidebar.tsx": {
-      "components": [
-        "Sidebar"
-      ],
-      "issues": [
-        "Missing React import"
-      ],
+      "components": ["Sidebar"],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "Sidebar.tsx": {
@@ -2808,47 +1940,32 @@
       "status": "implemented"
     },
     "Skeleton.tsx": {
-      "components": [
-        "React",
-        "SkeletonText",
-        "SkeletonCard",
-        "Skeleton"
-      ],
+      "components": ["React", "SkeletonText", "SkeletonCard", "Skeleton"],
       "issues": [],
       "status": "implemented"
     },
     "SmartAlerts.tsx": {
-      "components": [
-        "SmartAlerts"
-      ],
+      "components": ["SmartAlerts"],
       "issues": [],
       "status": "implemented"
     },
     "SmartControlsBar.jsx": {
-      "components": [
-        "SmartControlsBar"
-      ],
+      "components": ["SmartControlsBar"],
       "issues": [],
       "status": "implemented"
     },
     "strategy\\UnifiedMoneyMakerIntegration.tsx": {
-      "components": [
-        "UnifiedMoneyMakerIntegration"
-      ],
+      "components": ["UnifiedMoneyMakerIntegration"],
       "issues": [],
       "status": "implemented"
     },
     "strategy\\UnifiedStrategyConfig.tsx": {
-      "components": [
-        "UnifiedStrategyConfig"
-      ],
+      "components": ["UnifiedStrategyConfig"],
       "issues": [],
       "status": "implemented"
     },
     "StrategyAutomationToggle.tsx": {
-      "components": [
-        "StrategyAutomationToggle"
-      ],
+      "components": ["StrategyAutomationToggle"],
       "issues": [],
       "status": "implemented"
     },
@@ -2863,33 +1980,23 @@
       "status": "stub"
     },
     "Table.tsx": {
-      "components": [
-        "Table"
-      ],
+      "components": ["Table"],
       "issues": [],
       "status": "implemented"
     },
     "Tabs.tsx": {
-      "components": [
-        "Tabs"
-      ],
+      "components": ["Tabs"],
       "issues": [],
       "status": "implemented"
     },
     "ThemeProvider.tsx": {
-      "components": [
-        "ThemeProvider"
-      ],
+      "components": ["ThemeProvider"],
       "issues": [],
       "status": "implemented"
     },
     "ThemeToggle\\ThemeToggle.tsx": {
-      "components": [
-        "ThemeToggle"
-      ],
-      "issues": [
-        "Missing React import"
-      ],
+      "components": ["ThemeToggle"],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "ThemeToggle.tsx": {
@@ -2898,16 +2005,12 @@
       "status": "implemented"
     },
     "Toast.tsx": {
-      "components": [
-        "Toast"
-      ],
+      "components": ["Toast"],
       "issues": [],
       "status": "implemented"
     },
     "ToastContext.jsx": {
-      "components": [
-        "ToastProvider"
-      ],
+      "components": ["ToastProvider"],
       "issues": [],
       "status": "implemented"
     },
@@ -2922,23 +2025,17 @@
       "status": "stub"
     },
     "ToggleSidebar.jsx": {
-      "components": [
-        "ToggleSidebar"
-      ],
+      "components": ["ToggleSidebar"],
       "issues": [],
       "status": "implemented"
     },
     "Tooltip.tsx": {
-      "components": [
-        "Tooltip"
-      ],
+      "components": ["Tooltip"],
       "issues": [],
       "status": "implemented"
     },
     "TrendingProps.tsx": {
-      "components": [
-        "TrendingProps"
-      ],
+      "components": ["TrendingProps"],
       "issues": [],
       "status": "implemented"
     },
@@ -2953,238 +2050,162 @@
       "status": "implemented"
     },
     "ui\\BankrollTracker.tsx": {
-      "components": [
-        "BankrollTracker"
-      ],
+      "components": ["BankrollTracker"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\BetSimulationTool.tsx": {
-      "components": [
-        "BetSimulationTool"
-      ],
+      "components": ["BetSimulationTool"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\betting\\BettingFilters.tsx": {
-      "components": [
-        "BettingFilters"
-      ],
+      "components": ["BettingFilters"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\betting\\BettingOpportunityCard.tsx": {
-      "components": [
-        "BettingOpportunityCard"
-      ],
+      "components": ["BettingOpportunityCard"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\button.tsx": {
-      "components": [
-        "Button"
-      ],
+      "components": ["Button"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\card.tsx": {
       "components": [],
-      "issues": [
-        "Missing React import"
-      ],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "ui\\ConfidenceBandChart.tsx": {
-      "components": [
-        "ConfidenceBandChart"
-      ],
+      "components": ["ConfidenceBandChart"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\ConfidenceBands.tsx": {
-      "components": [
-        "ConfidenceBands"
-      ],
+      "components": ["ConfidenceBands"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\EnhancedPropCard.test.tsx": {
       "components": [],
-      "issues": [
-        "No exports found"
-      ],
+      "issues": ["No exports found"],
       "status": "broken"
     },
     "ui\\EnhancedPropCard.tsx": {
-      "components": [
-        "EnhancedPropCard",
-        "EnhancedPropCard"
-      ],
+      "components": ["EnhancedPropCard", "EnhancedPropCard"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\FeatureFlagIndicators.tsx": {
-      "components": [
-        "FeatureFlagIndicators"
-      ],
+      "components": ["FeatureFlagIndicators"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\GlassCard.tsx": {
-      "components": [
-        "GlassCard",
-        "GlassCard"
-      ],
+      "components": ["GlassCard", "GlassCard"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\GlowButton.tsx": {
-      "components": [
-        "GlowButton",
-        "GlowButton"
-      ],
+      "components": ["GlowButton", "GlowButton"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\grid.tsx": {
-      "components": [
-        "Grid"
-      ],
+      "components": ["Grid"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\HistoricalPerformanceDashboard.tsx": {
-      "components": [
-        "HistoricalPerformanceDashboard"
-      ],
+      "components": ["HistoricalPerformanceDashboard"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\label.tsx": {
       "components": [],
-      "issues": [
-        "Missing React import"
-      ],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "ui\\LoadingOverlay.tsx": {
-      "components": [
-        "LoadingOverlay",
-        "LoadingOverlay"
-      ],
+      "components": ["LoadingOverlay", "LoadingOverlay"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\ml-status-indicators.tsx": {
-      "components": [
-        "MLStatusIndicators",
-        "ModelConfidenceIndicator",
-        "ModelStatusBadge"
-      ],
+      "components": ["MLStatusIndicators", "ModelConfidenceIndicator", "ModelStatusBadge"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\NotificationCenter.tsx": {
-      "components": [
-        "NotificationCenter"
-      ],
+      "components": ["NotificationCenter"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\PredictionExplanationOverlay.tsx": {
-      "components": [
-        "PredictionExplanationOverlay"
-      ],
+      "components": ["PredictionExplanationOverlay"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\PredictionSummaryCard.test.tsx": {
       "components": [],
-      "issues": [
-        "No exports found"
-      ],
+      "issues": ["No exports found"],
       "status": "broken"
     },
     "ui\\PredictionSummaryCard.tsx": {
-      "components": [
-        "PredictionSummaryCard",
-        "PredictionSummaryCard",
-        "Tooltip"
-      ],
+      "components": ["PredictionSummaryCard", "PredictionSummaryCard", "Tooltip"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\real-time-metrics.tsx": {
-      "components": [
-        "RealTimeMetrics",
-        "MetricCard"
-      ],
+      "components": ["RealTimeMetrics", "MetricCard"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\RiskHeatMap.tsx": {
-      "components": [
-        "RiskHeatMap"
-      ],
+      "components": ["RiskHeatMap"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\select.tsx": {
       "components": [],
-      "issues": [
-        "Missing React import"
-      ],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "ui\\ServiceStatusIndicators.tsx": {
-      "components": [
-        "ServiceStatusIndicators"
-      ],
+      "components": ["ServiceStatusIndicators"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\Sidebar.tsx": {
-      "components": [
-        "React",
-        "Sidebar"
-      ],
+      "components": ["React", "Sidebar"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\slider.tsx": {
       "components": [],
-      "issues": [
-        "Missing React import"
-      ],
+      "issues": ["Missing React import"],
       "status": "broken"
     },
     "ui\\SmartControlsBar.tsx": {
-      "components": [
-        "SmartControlsBar",
-        "SmartControlsBar"
-      ],
+      "components": ["SmartControlsBar", "SmartControlsBar"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\SmartSidebar.tsx": {
-      "components": [
-        "SmartSidebar"
-      ],
+      "components": ["SmartSidebar"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\SourceHealthBar.tsx": {
-      "components": [
-        "SourceHealthBar"
-      ],
+      "components": ["SourceHealthBar"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\Tooltip.tsx": {
-      "components": [
-        "Tooltip",
-        "Tooltip"
-      ],
+      "components": ["Tooltip", "Tooltip"],
       "issues": [],
       "status": "implemented"
     },
@@ -3209,83 +2230,57 @@
       "status": "implemented"
     },
     "ui\\WinProbabilityMeter.tsx": {
-      "components": [
-        "WinProbabilityMeter"
-      ],
+      "components": ["WinProbabilityMeter"],
       "issues": [],
       "status": "implemented"
     },
     "ui\\__tests__\\BankrollTracker.test.tsx": {
       "components": [],
-      "issues": [
-        "Missing React import",
-        "No exports found"
-      ],
+      "issues": ["Missing React import", "No exports found"],
       "status": "broken"
     },
     "ui\\__tests__\\ConfidenceBandChart.test.tsx": {
       "components": [],
-      "issues": [
-        "Missing React import",
-        "No exports found"
-      ],
+      "issues": ["Missing React import", "No exports found"],
       "status": "broken"
     },
     "UltimateMoneyMakerEnhanced.tsx": {
-      "components": [
-        "UltimateMoneyMakerEnhanced",
-        "UltimateMoneyMakerEnhanced"
-      ],
+      "components": ["UltimateMoneyMakerEnhanced", "UltimateMoneyMakerEnhanced"],
       "issues": [],
       "status": "implemented"
     },
     "UnifiedBettingInterface.tsx": {
-      "components": [
-        "UnifiedBettingInterface"
-      ],
+      "components": ["UnifiedBettingInterface"],
       "issues": [],
       "status": "implemented"
     },
     "UnifiedInput.tsx": {
-      "components": [
-        "UnifiedInput"
-      ],
+      "components": ["UnifiedInput"],
       "issues": [],
       "status": "implemented"
     },
     "UserConstraintsForm.tsx": {
-      "components": [
-        "UserConstraintsForm"
-      ],
+      "components": ["UserConstraintsForm"],
       "issues": [],
       "status": "implemented"
     },
     "WebSocketAnalytics.tsx": {
-      "components": [
-        "WebSocketAnalytics"
-      ],
+      "components": ["WebSocketAnalytics"],
       "issues": [],
       "status": "implemented"
     },
     "WebSocketBatchingAnalytics.tsx": {
-      "components": [
-        "WebSocketBatchingAnalytics"
-      ],
+      "components": ["WebSocketBatchingAnalytics"],
       "issues": [],
       "status": "implemented"
     },
     "WebSocketLoadBalancerAnalytics.tsx": {
-      "components": [
-        "WebSocketLoadBalancerAnalytics"
-      ],
+      "components": ["WebSocketLoadBalancerAnalytics"],
       "issues": [],
       "status": "implemented"
     },
     "WebSocketSecurityDashboard.tsx": {
-      "components": [
-        "React",
-        "WebSocketSecurityDashboard"
-      ],
+      "components": ["React", "WebSocketSecurityDashboard"],
       "issues": [],
       "status": "implemented"
     },

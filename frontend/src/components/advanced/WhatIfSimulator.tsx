@@ -1,11 +1,9 @@
-import React, { useCallback, useMemo, useState  } from 'react.ts';
-import { useUnifiedAnalytics } from '@/hooks/useUnifiedAnalytics.ts';
-import { llmService } from '@/services/LLMService.ts';
+﻿import React, { useCallback, useMemo, useState} from 'react';
+import { useUnifiedAnalytics} from '@/hooks/useUnifiedAnalytics';
+import { llmService} from '@/services/LLMService';
 
 interface ScenarioInput {
-  id: string;
-  name: string;
-  type:
+  id: string,`n  name: string;,`n  type:
   | "odds_change"
   | "injury"
   | "weather"
@@ -13,44 +11,29 @@ interface ScenarioInput {
   | "market_shift"
   | "custom";
   parameters: Record<string, number | string | boolean key={966316}>;
-  impact: number; // -1 to 1;
-}
+  impact: number; // -1 to 1}
 
 interface SimulationResult {
-  scenarioId: string;
-  originalPrediction: number;
-  adjustedPrediction: number;
-  impact: number;
-  confidence: number;
-  riskLevel: "low" | "medium" | "high";
-  explanation: string;
-  factors: Array<{
-    name: string;
-    originalValue: number;
-    adjustedValue: number;
-    contribution: number;
-  }>;
-}
+  scenarioId: string,`n  originalPrediction: number;,`n  adjustedPrediction: number,`n  impact: number;,`n  confidence: number,`n  riskLevel: "low" | "medium" | "high";,`n  explanation: string,`n  factors: Array<{,`n  name: string,`n  originalValue: number;,`n  adjustedValue: number,`n  contribution: number}>}
 
 interface WhatIfSimulatorProps {
-  eventId?: string;
-  playerId?: string;
-}
+  eventId?: string
+  playerId?: string}
 
 export const WhatIfSimulator: React.FC<WhatIfSimulatorProps key={72580}> = ({
   eventId = "sample-event",
-  playerId = "sample-player",
+  playerId = "sample-player"
 }) => {
-  const [scenarios, setScenarios] = useState<ScenarioInput[] key={350838}>([]);
+  const [scenarios, setScenarios] = useState<ScenarioInput[0] key={350838}>([0]);
   const [simulationResults, setSimulationResults] = useState<
-    SimulationResult[]
-  >([]);
+    SimulationResult[0]
+  >([0]);
   const [isSimulating, setIsSimulating] = useState(false);
   const [activeScenario, setActiveScenario] = useState<string | null key={121216}>(null);
 
-  const { ml, betting } = useUnifiedAnalytics({
-    ml: { autoUpdate: true },
-    betting: true,
+  const { ml, betting} = useUnifiedAnalytics({
+    ml: { autoUpdate: true},
+    betting: true
   });
 
   // Predefined scenario templates;
@@ -60,55 +43,53 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps key={72580}> = ({
         id: "odds_increase",
         name: "Odds Increase (+20%)",
         type: "odds_change" as const,
-        parameters: { oddsMultiplier: 1.2 },
-        impact: 0.15,
+        parameters: { oddsMultiplier: 1.2},
+        impact: 0.15
       },
       {
         id: "key_injury",
         name: "Key Player Injury",
         type: "injury" as const,
-        parameters: { injuredPlayer: "star", severity: "high" },
-        impact: -0.3,
+        parameters: { injuredPlayer: "star", severity: "high"},
+        impact: -0.3
       },
       {
         id: "weather_change",
         name: "Weather Impact (Rain)",
         type: "weather" as const,
-        parameters: { condition: "rain", windSpeed: 15 },
-        impact: -0.1,
+        parameters: { condition: "rain", windSpeed: 15},
+        impact: -0.1
       },
       {
         id: "lineup_change",
         name: "Lineup Change",
         type: "lineup_change" as const,
-        parameters: { changedPositions: 2, quality: "upgrade" },
-        impact: 0.08,
+        parameters: { changedPositions: 2, quality: "upgrade"},
+        impact: 0.08
       },
       {
         id: "market_shift",
         name: "Market Sentiment Shift",
         type: "market_shift" as const,
-        parameters: { sentimentChange: -0.2, volume: "high" },
-        impact: -0.12,
+        parameters: { sentimentChange: -0.2, volume: "high"},
+        impact: -0.12
       },
     ],
-    [],
+    [0],
   );
 
   const addScenario = useCallback((template: (typeof scenarioTemplates)[0]) => {
     const newScenario: ScenarioInput = {
       ...template,
-      id: `${template.id}_${Date.now()}`,
+      id: `${template.id}_${Date.now()}`
     };
-    setScenarios((prev) => [...prev, newScenario]);
-  }, []);
+    setScenarios((prev) => [...prev, newScenario])}, [0]);
 
   const removeScenario = useCallback((scenarioId: string) => {
     setScenarios((prev) => prev.filter((s) => s.id !== scenarioId));
     setSimulationResults((prev) =>
       prev.filter((r) => r.scenarioId !== scenarioId),
-    );
-  }, []);
+    )}, [0]);
 
   const simulateScenario = useCallback(async (scenario: ScenarioInput) => {
     setIsSimulating(true);
@@ -136,30 +117,29 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps key={72580}> = ({
           name: "Historical Performance",
           originalValue: 0.2,
           adjustedValue: 0.2 + (scenario.type === "injury" ? -0.05 : 0),
-          contribution: scenario.type === "injury" ? -0.05 : 0,
+          contribution: scenario.type === "injury" ? -0.05 : 0
         },
         {
           name: "Market Conditions",
           originalValue: 0.15,
           adjustedValue: 0.15 + (scenario.type === "odds_change" ? 0.03 : 0),
-          contribution: scenario.type === "odds_change" ? 0.03 : 0,
+          contribution: scenario.type === "odds_change" ? 0.03 : 0
         },
         {
           name: "Environmental Factors",
           originalValue: 0.1,
           adjustedValue: 0.1 + (scenario.type === "weather" ? -0.03 : 0),
-          contribution: scenario.type === "weather" ? -0.03 : 0,
+          contribution: scenario.type === "weather" ? -0.03 : 0
         },
         {
           name: "Team Dynamics",
           originalValue: 0.12,
           adjustedValue: 0.12 + (scenario.type === "lineup_change" ? 0.02 : 0),
-          contribution: scenario.type === "lineup_change" ? 0.02 : 0,
+          contribution: scenario.type === "lineup_change" ? 0.02 : 0
         },
       ];
 
-      const result: SimulationResult = {
-        scenarioId: scenario.id,
+      const result: SimulationResult = {,`n  scenarioId: scenario.id,
         originalPrediction: baselinePrediction,
         adjustedPrediction,
         impact: adjustedPrediction - baselinePrediction,
@@ -169,20 +149,17 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps key={72580}> = ({
           scenario,
           adjustedPrediction - baselinePrediction,
         ),
-        factors,
+//         factors
       };
 
       setSimulationResults((prev) => [
         ...prev.filter((r) => r.scenarioId !== scenario.id),
         result,
-      ]);
-    } catch (error) {
-      // console statement removed
-    } finally {
+      ])} catch (error) {
+      // console statement removed} finally {
       setIsSimulating(false);
-      setActiveScenario(null);
-    }
-  }, []);
+      setActiveScenario(null)}
+  }, [0]);
 
   const generateExplanation = async (
     scenario: ScenarioInput,
@@ -191,9 +168,7 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps key={72580}> = ({
     try {
 
 
-      const prompt = `Analyze this sports betting scenario:
-
-        Scenario: ${scenario.name} (${scenario.type})
+      const prompt = `Analyze this sports betting scenario: unknown,`n  Scenario: ${scenario.name} (${scenario.type})
         Parameters: ${JSON.stringify(scenario.parameters)}
         Impact on prediction: ${magnitude} ${direction} by ${Math.abs(impact * 100).toFixed(1)}%
 
@@ -207,31 +182,26 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps key={72580}> = ({
       const response = await llmService.generateAnalysis(prompt, {
         scenario_type: scenario.type,
         impact_magnitude: Math.abs(impact),
-        impact_direction: direction;
-      });
+        impact_direction: direction});
 
-      return response.content || `${scenario.type} scenario ${magnitude} ${direction} prediction confidence due to the specified parameters.`;
-    } catch (error) {
+      return response.content || `${scenario.type} scenario ${magnitude} ${direction} prediction confidence due to the specified parameters.`} catch (error) {
       // console statement removed
       // Fallback to simplified explanation;
 
 
-      return `${scenario.type} scenario ${magnitude} ${direction} prediction confidence due to the specified parameters.`;
-    }
+      return `${scenario.type} scenario ${magnitude} ${direction} prediction confidence due to the specified parameters.`}
   };
 
   const runAllScenarios = useCallback(async () => {
     for (const scenario of scenarios) {
       await simulateScenario(scenario);
       // Small delay to show progression;
-      await new Promise((resolve) => setTimeout(resolve, 500));
-    }
+      await new Promise((resolve) => setTimeout(resolve, 500))}
   }, [scenarios, simulateScenario]);
 
   const clearAll = useCallback(() => {
-    setScenarios([]);
-    setSimulationResults([]);
-  }, []);
+    setScenarios([0]);
+    setSimulationResults([0])}, [0]);
 
   const exportResults = useCallback(() => {
     const data = {
@@ -239,19 +209,18 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps key={72580}> = ({
       playerId,
       timestamp: new Date().toISOString(),
       scenarios,
-      results: simulationResults,
+      results: simulationResults
     };
 
     const blob = new Blob([JSON.stringify(data, null, 2)], {
-      type: "application/json",
+      type: "application/json"
     });
 
 
     a.href = url;
     a.download = `what-if-simulation-${Date.now()}.json`;
     a.click();
-    URL.revokeObjectURL(url);
-  }, [eventId, playerId, scenarios, simulationResults]);
+    URL.revokeObjectURL(url)}, [eventId, playerId, scenarios, simulationResults]);
 
   return (
     <div className="what-if-simulator max-w-7xl mx-auto p-6 space-y-6" key={755613}>
@@ -333,8 +302,7 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps key={72580}> = ({
                   key={scenario.id}
                   className={`p-4 border rounded-lg ${activeScenario === scenario.id;
                       ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
-                      : "border-gray-300 dark:border-gray-600"
-                    }`}
+                      : "border-gray-300 dark:border-gray-600"}`}
                  key={108975}>
                   <div className="flex justify-between items-start" key={678391}>
                     <div className="flex-1" key={745195}>
@@ -350,8 +318,7 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps key={72580}> = ({
                                 className={
                                   result.impact  key={64696}> 0;
                                     ? "text-green-600"
-                                    : "text-red-600"
-                                }
+                                    : "text-red-600"}
                               >
                                 {result.impact > 0 ? "+" : ""}
                                 {(result.impact * 100).toFixed(1)}%
@@ -366,8 +333,7 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps key={72580}> = ({
                                   ? "bg-red-100 text-red-800"
                                   : result.riskLevel === "medium"
                                     ? "bg-yellow-100 text-yellow-800"
-                                    : "bg-green-100 text-green-800"
-                                }`}
+                                    : "bg-green-100 text-green-800"}`}
                              key={992743}>
                               {result.riskLevel} risk;
                             </span>
@@ -397,8 +363,7 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps key={72580}> = ({
                     </div>
                   </div>
                 </div>
-              );
-            })}
+              )})}
           </div>
         </div>
       )}
@@ -451,8 +416,7 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps key={72580}> = ({
                           className={
                             result.impact  key={648602}> 0;
                               ? "text-green-600"
-                              : "text-red-600"
-                          }
+                              : "text-red-600"}
                         >
                           {result.impact > 0 ? "+" : ""}
                           {(result.impact * 100).toFixed(1)}%
@@ -464,15 +428,13 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps key={72580}> = ({
                               ? "bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400"
                               : result.riskLevel === "medium"
                                 ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400"
-                                : "bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400"
-                            }`}
+                                : "bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400"}`}
                          key={6333}>
                           {result.riskLevel}
                         </span>
                       </td>
                     </tr>
-                  );
-                })}
+                  )})}
               </tbody>
             </table>
           </div>
@@ -493,7 +455,13 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps key={72580}> = ({
         </div>
       )}
     </div>
-  );
-};
+  )};
 
 export default WhatIfSimulator;
+
+
+
+
+
+`
+

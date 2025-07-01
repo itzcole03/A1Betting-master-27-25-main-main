@@ -1,23 +1,20 @@
-import React, { useEffect, useState  } from 'react.ts';
-import { Card, Badge, Icon, Spinner } from '@/ui/UnifiedUI.js';
-import { UnifiedServiceRegistry } from '@/services/unified/UnifiedServiceRegistry.js';
-import { UnifiedBettingService } from '@/services/unified/UnifiedBettingService.js';
-import { Bet } from '@/types/betting.js';
+﻿import React, { useEffect, useState} from 'react';
+import { Card, Badge, Icon, Spinner} from '@/ui/UnifiedUI.js';
+import { UnifiedServiceRegistry} from '@/services/unified/UnifiedServiceRegistry.js';
+import { UnifiedBettingService} from '@/services/unified/UnifiedBettingService.js';
+import { Bet} from '@/types/betting.js';
 
 interface BettingHistoryProps {
-  eventId: string;
-  marketId: string;
-  selectionId: string;
-  className?: string;
-}
+  eventId: string,`n  marketId: string;,`n  selectionId: string;
+  className?: string}
 
 export const BettingHistory: React.FC<BettingHistoryProps key={228963}> = ({
   eventId,
   marketId,
   selectionId,
-  className = '',
+  className = ''
 }) => {
-  const [bets, setBets] = useState<Bet[] key={848729}>([]);
+  const [bets, setBets] = useState<Bet[0] key={848729}>([0]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null key={121216}>(null);
 
@@ -30,18 +27,13 @@ export const BettingHistory: React.FC<BettingHistoryProps key={228963}> = ({
 
         if (!bettingService) {
           setError('Betting service unavailable');
-          setBets([]);
-          return;
-        }
+          setBets([0]);
+          return;}
 
-        setBets(history);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load betting history');
-      } finally {
-        setIsLoading(false);
-      }
-    }; loadBets();
-  }, [eventId, marketId, selectionId, bettingService]);
+        setBets(history);} catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load betting history');} finally {
+        setIsLoading(false);}
+    }; loadBets();}, [eventId, marketId, selectionId, bettingService]);
 
   const getOutcomeColor = (outcome: Bet['outcome']): string => {
     switch (outcome) {
@@ -49,9 +41,7 @@ export const BettingHistory: React.FC<BettingHistoryProps key={228963}> = ({
         return 'text-green-500';
       case 'lost':
         return 'text-red-500';
-      default:
-        return 'text-gray-500';
-    }
+      default: return 'text-gray-500'}
   };
 
   const getOutcomeIcon = (outcome: Bet['outcome']): string => {
@@ -60,9 +50,7 @@ export const BettingHistory: React.FC<BettingHistoryProps key={228963}> = ({
         return 'check-circle';
       case 'lost':
         return 'x-circle';
-      default:
-        return 'clock';
-    }
+      default: return 'clock'}
   };
 
   if (isLoading) {
@@ -72,8 +60,7 @@ export const BettingHistory: React.FC<BettingHistoryProps key={228963}> = ({
           <Spinner size="large" / key={932834}>
         </div>
       </Card>
-    );
-  }
+    );}
 
   if (error) {
     return (
@@ -83,8 +70,7 @@ export const BettingHistory: React.FC<BettingHistoryProps key={228963}> = ({
           <p key={161203}>{error}</p>
         </div>
       </Card>
-    );
-  }
+    );}
 
   if (bets.length === 0) {
     return (
@@ -94,8 +80,7 @@ export const BettingHistory: React.FC<BettingHistoryProps key={228963}> = ({
           <p key={161203}>No betting history available</p>
         </div>
       </Card>
-    );
-  }
+    );}
 
   return (
     <Card className={`p-6 ${className}`} key={971488}>
@@ -128,8 +113,7 @@ export const BettingHistory: React.FC<BettingHistoryProps key={228963}> = ({
                       ? 'success'
                       : bet.outcome === 'lost'
                         ? 'danger'
-                        : 'info'
-                  }
+                        : 'info'}
                  key={180060}>
                   {bet.outcome}
                 </Badge>
@@ -163,13 +147,16 @@ export const BettingHistory: React.FC<BettingHistoryProps key={228963}> = ({
                 .reduce((acc, bet) => {
                   if (bet.outcome === 'won') return acc + (bet.stake * bet.odds - bet.stake);
                   if (bet.outcome === 'lost') return acc - bet.stake;
-                  return acc;
-                }, 0)
+                  return acc;}, 0)
                 .toFixed(2)}
             </p>
           </div>
         </div>
       </div>
     </Card>
-  );
-};
+  );};
+
+
+
+
+`

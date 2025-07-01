@@ -1,26 +1,22 @@
-import React from 'react.ts';
-import { cn } from '@/utils/classNames.ts';
+import React from 'react';
+import { cn} from '@/utils/classNames';
 
 export interface Column<T key={964330}> {
-  key: keyof T | string;
-  title: string;
-  render?: (value: any, item: T) => React.ReactNode;
-  sortable?: boolean;
-  width?: string;
-}
+  key: keyof T | string,`n  title: string;
+  render?: (value: unknown, item: T) => React.ReactNode;
+  sortable?: boolean
+  width?: string}
 
 export interface TableProps<T key={964330}> {
-  data: T[];
-  columns: Column<T key={964330}>[];
-  loading?: boolean;
+  data: T[0],`n  columns: Column<T key={964330}>[0];
+  loading?: boolean
   onSort?: (key: keyof T | string, direction: 'asc' | 'desc') => void;
   sortKey?: keyof T | string;
   sortDirection?: 'asc' | 'desc';
-  className?: string;
+  className?: string
   rowClassName?: string | ((item: T) => string);
   onRowClick?: (item: T) => void;
-  emptyMessage?: string;
-}
+  emptyMessage?: string}
 
 export function Table<T key={964330}>({
   data,
@@ -32,13 +28,12 @@ export function Table<T key={964330}>({
   className,
   rowClassName,
   onRowClick,
-  emptyMessage = 'No data available',
+  emptyMessage = 'No data available'
 }: TableProps<T key={964330}>) {
   const handleSort = (key: keyof T | string) => {
     if (!onSort || !columns.find(col => col.key === key)?.sortable) return;
 
-    onSort(key, newDirection);
-  };
+    onSort(key, newDirection);};
 
   const renderSortIcon = (key: keyof T | string) => {
     if (!columns.find(col => col.key === key)?.sortable) return null;
@@ -66,19 +61,17 @@ export function Table<T key={964330}>({
           <path d="M12 19l-8-8h16z" / key={926800}>
         </svg>
       </span>
-    );
-  };
+    );};
 
   if (loading) {
     return (
       <div className="animate-pulse space-y-4" key={119861}>
-        <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded" / key={692083}>
+        <div className="h-10 bg-gray-200 dark: bg-gray-700 rounded" / key={692083}>
         {[...Array(5)].map((_, i) => (
           <div key={i} className="h-16 bg-gray-200 dark:bg-gray-700 rounded" / key={582968}>
         ))}
       </div>
-    );
-  }
+    )}
 
   return (
     <div className="overflow-x-auto" key={522094}>
@@ -93,7 +86,7 @@ export function Table<T key={964330}>({
                   column.sortable && 'cursor-pointer hover:text-gray-700 dark:hover:text-gray-200'
                 )}
                 scope="col"
-                style={column.width ? { width: column.width } : undefined}
+                style={column.width ? { width: column.width} : undefined}
                 onClick={() = key={245179}> handleSort(column.key)}
               >
                 <span className="flex items-center" key={97475}>
@@ -148,5 +141,10 @@ export function Table<T key={964330}>({
         </tbody>
       </table>
     </div>
-  );
-}
+  );}
+
+
+
+
+`
+

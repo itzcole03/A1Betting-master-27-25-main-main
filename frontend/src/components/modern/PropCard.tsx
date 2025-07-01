@@ -1,74 +1,67 @@
-import React from 'react.ts';
-import { PrizePicksProps, SocialSentimentData } from '@/types.ts';
+﻿import React from 'react';
+import { PrizePicksProps, SocialSentimentData} from '@/types';
 import {
   TrendingUp,
   TrendingDown,
   AlertCircle,
   ExternalLink,
   Info,
-  CheckCircle,
-} from 'lucide-react.ts';
-import { useAppStore } from '@/store/useAppStore.ts';
+//   CheckCircle
+} from 'lucide-react';
+import { useAppStore} from '@/store/useAppStore';
 
 interface PropCardProps {
   prop: PrizePicksProps;
   // Sentiment might be passed in or fetched based on prop.player_name or prop.id;
-  sentiment?: SocialSentimentData;
+  sentiment?: SocialSentimentData
   onViewDetails: (propId: string) => void;
-  className?: string;
-}
+  className?: string}
 
-const PropCard: React.FC<PropCardProps key={387456}> = ({ prop, sentiment, onViewDetails, className }) => {
-  const { addToast, legs, addLeg } = useAppStore();
+const PropCard: React.FC<PropCardProps key={387456}> = ({ prop, sentiment, onViewDetails, className}) => {
+  const { addToast, legs, addLeg} = useAppStore();
 
   const handleViewDetailsClick = () => {
-    onViewDetails(prop.id);
-  };
+    onViewDetails(prop.id);};
 
   const handleExternalLink = (e: React.MouseEvent, url: string) => {
     e.stopPropagation(); // Prevent card click if link is clicked;
     window.open(url, '_blank');
-    addToast({ message: `Opening news link: ${url.substring(0, 30)}...`, type: 'info' });
-  };
+    addToast({ message: `Opening news link: ${url.substring(0, 30)}...`, type: 'info'})};
 
   const getSentimentIcon = () => {
     if (!sentiment || sentiment.sentimentScore === undefined)
       return <AlertCircle className="w-4 h-4 text-gray-500" / key={369082}>;
     if (sentiment.sentimentScore > 0.2) return <TrendingUp className="w-4 h-4 text-green-500" / key={247600}>;
     if (sentiment.sentimentScore < -0.2) return <TrendingDown className="w-4 h-4 text-red-500" / key={886344}>;
-    return <AlertCircle className="w-4 h-4 text-yellow-500" / key={501628}>;
-  };
+    return <AlertCircle className="w-4 h-4 text-yellow-500" / key={501628}>;};
 
   const handleAddLeg = (pick: 'over' | 'under') => {
 
     if (odds === undefined) {
-      addToast({ message: `Odds for ${pick.toUpperCase()} not available.`, type: 'error' });
-      return;
-    }
+      addToast({ message: `Odds for ${pick.toUpperCase()} not available.`, type: 'error'});
+      return;}
     addLeg({
       propId: prop.id,
       pick,
       line: prop.line_score,
       statType: prop.stat_type,
       playerName: prop.player_name,
-      odds,
+//       odds
     });
     addToast({
       message: `${prop.player_name} ${pick.toUpperCase()} ${prop.line_score} added to slip!`,
-      type: 'success',
-    });
-  };
+      type: 'success'
+    })};
 
   return (
     <div;
       aria-label={`View details for ${prop.player_name}`}
-      className={`glass rounded-xl shadow-lg p-4 flex flex-col justify-between space-y-3 hover:shadow-primary/30 transition-shadow cursor-pointer transform hover:-translate-y-1 relative ${className || ''}`}
+      className={`glass rounded-xl shadow-lg p-4 flex flex-col justify-between space-y-3 hover: shadow-primary/30 transition-shadow cursor-pointer transform hover:-translate-y-1 relative ${className || ''}`}
       role="button"
       tabIndex={0}
       onClick={handleViewDetailsClick}
       onKeyDown={e = key={471609}> {
-        if (e.key === 'Enter') handleViewDetailsClick();
-      }}
+        if (e.key === 'Enter') handleViewDetailsClick()}}
     >
       {isSelected && (
         <div className="absolute top-3 right-3 text-green-400" title="Selected in bet slip" key={327303}>
@@ -113,8 +106,7 @@ const PropCard: React.FC<PropCardProps key={387456}> = ({ prop, sentiment, onVie
             handleExternalLink(
               e,
               `https://www.espn.com/search/results?q=${encodeURIComponent(prop.player_name)}`
-            )
-          }
+            )}
         >
           <ExternalLink size={12} / key={468102}>
           <span key={595076}>ESPN/News</span>
@@ -128,8 +120,7 @@ const PropCard: React.FC<PropCardProps key={387456}> = ({ prop, sentiment, onVie
           disabled={isSelected}
           onClick={e = key={883375}> {
             e.stopPropagation();
-            handleAddLeg('over');
-          }}
+            handleAddLeg('over');}}
         >
           Add OVER;
         </button>
@@ -139,8 +130,7 @@ const PropCard: React.FC<PropCardProps key={387456}> = ({ prop, sentiment, onVie
           disabled={isSelected}
           onClick={e = key={970089}> {
             e.stopPropagation();
-            handleAddLeg('under');
-          }}
+            handleAddLeg('under');}}
         >
           Add UNDER;
         </button>
@@ -152,7 +142,11 @@ const PropCard: React.FC<PropCardProps key={387456}> = ({ prop, sentiment, onVie
         View Details & Place Bet;
       </button>
     </div>
-  );
-};
+  );};
 
 export default React.memo(PropCard);
+
+
+
+
+`

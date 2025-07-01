@@ -1,29 +1,22 @@
-import apiService from './api.ts';
-import { Transaction, BankrollSettings, BankrollStats } from '@/types/bankroll.ts';
-import { notificationService } from './notification.ts';
-import { Injectable } from '@nestjs/common.ts';
-import { EventEmitter } from 'events.ts';
+﻿import apiService from './api';
+import { Transaction, BankrollSettings, BankrollStats} from '@/types/bankroll';
+import { notificationService} from './notification';
+import { Injectable} from '@nestjs/common';
+import { EventEmitter} from 'events';
 
 export interface BankrollTransaction {
-  id: string;
-  type: 'deposit' | 'withdrawal' | 'bet' | 'win' | 'loss';
-  amount: number;
-  timestamp: string;
-  description: string;
-  status: 'pending' | 'completed' | 'failed';
-  metadata?: any;
-}
+  id: string,`n  type: 'deposit' | 'withdrawal' | 'bet' | 'win' | 'loss';,`n  amount: number,`n  timestamp: string;,`n  description: string,`n  status: 'pending' | 'completed' | 'failed';
+  metadata?: any}
 
 @Injectable()
 export class BankrollService extends EventEmitter {
   private static instance: BankrollService;
   private currentBalance: number = 1000; // Starting balance;
-  private transactions: Transaction[] = [];
-  private settings: BankrollSettings = {
-    maxBetPercentage: 0.05,
+  private transactions: Transaction[0] = [0];
+  private settings: BankrollSettings = {,`n  maxBetPercentage: 0.05,
     stopLossPercentage: 0.1,
     takeProfitPercentage: 0.2,
-    kellyFraction: 0.5,
+    kellyFraction: 0.5
   };
 
   private constructor() {
@@ -31,31 +24,25 @@ export class BankrollService extends EventEmitter {
     // Initialize balance from localStorage if available;
 
     if (storedBalance) {
-      this.currentBalance = parseFloat(storedBalance);
-    }
+      this.currentBalance = parseFloat(storedBalance);}
   }
 
   public static getInstance(): BankrollService {
     if (!BankrollService.instance) {
-      BankrollService.instance = new BankrollService();
-    }
-    return BankrollService.instance;
-  }
+      BankrollService.instance = new BankrollService();}
+    return BankrollService.instance;}
 
   public async initialize(): Promise<void> {
-    // Initialize bankroll service;
-  }
+    // Initialize bankroll service;}
 
   public async getBalance(): Promise<number> {
     try {
 
       this.currentBalance = response.data.balance;
       localStorage.setItem('current_balance', this.currentBalance.toString());
-      return this.currentBalance;
-    } catch (error) {
+      return this.currentBalance;} catch (error) {
       // console statement removed
-      throw error;
-    }
+      throw error;}
   }
 
   public async deposit(amount: number): Promise<Transaction> {
@@ -63,65 +50,55 @@ export class BankrollService extends EventEmitter {
       const response = await apiService.createTransaction({
         type: 'deposit',
         amount,
-        status: 'pending',
+        status: 'pending'
       });
 
       if (response.data.status === 'completed') {
         this.currentBalance += amount;
-        localStorage.setItem('current_balance', this.currentBalance.toString());
-      }
+        localStorage.setItem('current_balance', this.currentBalance.toString());}
 
-      return response.data;
-    } catch (error) {
+      return response.data;} catch (error) {
       // console statement removed
-      throw error;
-    }
+      throw error;}
   }
 
   public async withdraw(amount: number): Promise<Transaction> {
     if (amount > this.currentBalance) {
-      throw new Error('Insufficient funds');
-    }
+      throw new Error('Insufficient funds')}
 
     try {
       const response = await apiService.createTransaction({
         type: 'withdrawal',
         amount,
-        status: 'pending',
+        status: 'pending'
       });
 
       if (response.data.status === 'completed') {
         this.currentBalance -= amount;
-        localStorage.setItem('current_balance', this.currentBalance.toString());
-      }
+        localStorage.setItem('current_balance', this.currentBalance.toString());}
 
-      return response.data;
-    } catch (error) {
+      return response.data;} catch (error) {
       // console statement removed
-      throw error;
-    }
+      throw error;}
   }
 
-  public async getTransactionHistory(): Promise<Transaction[]> {
+  public async getTransactionHistory(): Promise<Transaction[0]> {
     try {
 
-      return response.data;
-    } catch (error) {
+      return response.data;} catch (error) {
       // console statement removed
-      throw error;
-    }
+      throw error;}
   }
 
   public getCurrentBalance(): number {
-    return this.currentBalance;
-  }
+    return this.currentBalance;}
 
   public async updateBalance(amount: number, type: 'win' | 'loss' | 'bet'): Promise<void> {
     try {
       const response = await apiService.createTransaction({
         type,
         amount: Math.abs(amount),
-        status: 'completed',
+        status: 'completed'
       });
 
       if (response.data.status === 'completed') {
@@ -132,31 +109,24 @@ export class BankrollService extends EventEmitter {
           case 'loss':
           case 'bet':
             this.currentBalance -= amount;
-            break;
-        }
-        localStorage.setItem('current_balance', this.currentBalance.toString());
-      }
+            break;}
+        localStorage.setItem('current_balance', this.currentBalance.toString());}
     } catch (error) {
       // console statement removed
-      throw error;
-    }
+      throw error;}
   }
 
-  public getTransactions(): Transaction[] {
-    return this.transactions;
-  }
+  public getTransactions(): Transaction[0] {
+    return this.transactions;}
 
   public getSettings(): BankrollSettings {
-    return this.settings;
-  }
+    return this.settings;}
 
   public updateSettings(newSettings: Partial<BankrollSettings>): void {
-    this.settings = { ...this.settings, ...newSettings };
-  }
+    this.settings = { ...this.settings, ...newSettings}}
 
   public getStats(): BankrollStats {
-    const stats: BankrollStats = {
-      currentBalance: this.currentBalance,
+    const stats: BankrollStats = {,`n  currentBalance: this.currentBalance,
       startingBalance: this.getStartingBalance(),
       totalDeposits: this.getTotalDeposits(),
       totalWithdrawals: this.getTotalWithdrawals(),
@@ -171,84 +141,69 @@ export class BankrollService extends EventEmitter {
       largestLoss: this.getLargestLoss(),
       currentStreak: this.getCurrentStreak(),
       bestStreak: this.getBestStreak(),
-      worstStreak: this.getWorstStreak(),
+      worstStreak: this.getWorstStreak()
     };
 
-    return stats;
-  }
+    return stats;}
 
   private getStartingBalance(): number {
 
-    return firstDeposit ? firstDeposit.amount : 0;
-  }
+    return firstDeposit ? firstDeposit.amount : 0;}
 
   private getTotalDeposits(): number {
     return this.transactions;
       .filter(t => t.type === 'deposit')
-      .reduce((sum, t) => sum + t.amount, 0);
-  }
+      .reduce((sum, t) => sum + t.amount, 0);}
 
   private getTotalWithdrawals(): number {
     return Math.abs(
       this.transactions.filter(t => t.type === 'withdrawal').reduce((sum, t) => sum + t.amount, 0)
-    );
-  }
+    );}
 
   private getTotalBets(): number {
-    return this.transactions.filter(t => t.type === 'bet').length;
-  }
+    return this.transactions.filter(t => t.type === 'bet').length;}
 
   private getTotalWins(): number {
-    return this.transactions.filter(t => t.type === 'win').length;
-  }
+    return this.transactions.filter(t => t.type === 'win').length;}
 
   private getTotalLosses(): number {
-    return this.transactions.filter(t => t.type === 'loss').length;
-  }
+    return this.transactions.filter(t => t.type === 'loss').length;}
 
   private getNetProfit(): number {
-    return this.transactions.reduce((sum, t) => sum + t.amount, 0);
-  }
+    return this.transactions.reduce((sum, t) => sum + t.amount, 0);}
 
   private getROI(): number {
 
     if (totalBets === 0) return 0;
-    return (this.getNetProfit() / this.getTotalDeposits()) * 100;
-  }
+    return (this.getNetProfit() / this.getTotalDeposits()) * 100;}
 
   private getWinRate(): number {
 
     if (totalBets === 0) return 0;
-    return (this.getTotalWins() / totalBets) * 100;
-  }
+    return (this.getTotalWins() / totalBets) * 100;}
 
   private getAverageBetSize(): number {
 
     if (bets.length === 0) return 0;
-    return Math.abs(bets.reduce((sum, t) => sum + t.amount, 0)) / bets.length;
-  }
+    return Math.abs(bets.reduce((sum, t) => sum + t.amount, 0)) / bets.length;}
 
   private getLargestWin(): number {
 
     if (wins.length === 0) return 0;
-    return Math.max(...wins.map(t => t.amount));
-  }
+    return Math.max(...wins.map(t => t.amount));}
 
   private getLargestLoss(): number {
 
     if (losses.length === 0) return 0;
-    return Math.abs(Math.min(...losses.map(t => t.amount)));
-  }
+    return Math.abs(Math.min(...losses.map(t => t.amount)));}
 
   private getCurrentStreak(): number {
     const streak = 0;
     for (const i = this.transactions.length - 1; i >= 0; i--) {
 
       if (t.type === 'win') streak++;
-      else if (t.type === 'loss') break;
-    }
-    return streak;
-  }
+      else if (t.type === 'loss') break;}
+    return streak;}
 
   private getBestStreak(): number {
     const currentStreak = 0;
@@ -256,13 +211,10 @@ export class BankrollService extends EventEmitter {
     for (const t of this.transactions) {
       if (t.type === 'win') {
         currentStreak++;
-        bestStreak = Math.max(bestStreak, currentStreak);
-      } else if (t.type === 'loss') {
-        currentStreak = 0;
-      }
+        bestStreak = Math.max(bestStreak, currentStreak);} else if (t.type === 'loss') {
+        currentStreak = 0;}
     }
-    return bestStreak;
-  }
+    return bestStreak;}
 
   private getWorstStreak(): number {
     const currentStreak = 0;
@@ -270,36 +222,28 @@ export class BankrollService extends EventEmitter {
     for (const t of this.transactions) {
       if (t.type === 'loss') {
         currentStreak++;
-        worstStreak = Math.max(worstStreak, currentStreak);
-      } else if (t.type === 'win') {
-        currentStreak = 0;
-      }
+        worstStreak = Math.max(worstStreak, currentStreak);} else if (t.type === 'win') {
+        currentStreak = 0;}
     }
-    return worstStreak;
-  }
+    return worstStreak;}
 
   public getMaxBetAmount(): number {
-    return this.currentBalance * this.settings.maxBetPercentage;
-  }
+    return this.currentBalance * this.settings.maxBetPercentage;}
 
   private getDailyBetsCount(): number {
 
-    return this.transactions.filter(t => t.type === 'bet' && t.timestamp.startsWith(today)).length;
-  }
+    return this.transactions.filter(t => t.type === 'bet' && t.timestamp.startsWith(today)).length;}
 
   private getConcurrentBetsCount(): number {
-    return this.transactions.filter(t => t.type === 'bet' && t.status === 'completed').length;
-  }
+    return this.transactions.filter(t => t.type === 'bet' && t.status === 'completed').length;}
 
   public checkStopLoss(): boolean {
 
-    return this.currentBalance <= stopLossAmount;
-  }
+    return this.currentBalance <= stopLossAmount;}
 
   public checkTakeProfit(): boolean {
 
-    return this.currentBalance >= takeProfitAmount;
-  }
+    return this.currentBalance >= takeProfitAmount;}
 
   public getMetrics(): BankrollStats {
 
@@ -332,10 +276,14 @@ export class BankrollService extends EventEmitter {
       largestWin,
       largestLoss,
       netProfit,
-      roi,
-    };
-  }
+//       roi
+    }}
 }
 
 export const bankrollService = BankrollService.getInstance();
 export default bankrollService;
+
+
+
+
+`

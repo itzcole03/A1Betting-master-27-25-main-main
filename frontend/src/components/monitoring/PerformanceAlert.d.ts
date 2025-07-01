@@ -1,17 +1,12 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 export interface PerformanceAlert {
-    id: string;
-    metric: string;
-    value: number;
-    threshold: number;
-    severity: 'critical' | 'warning' | 'info';
-    timestamp: number;
-    message: string;
-}
+  id: string,`n  metric: string;,`n  value: number,`n  threshold: number;,`n  severity: 'critical' | 'warning' | 'info',`n  timestamp: number;,`n  message: string}
 interface PerformanceAlertProps {
-    alert: PerformanceAlert;
-    onDismiss?: (id: string) => void;
-    onAcknowledge?: (id: string) => void;
-}
+  alert: PerformanceAlert;
+  onDismiss?: (id: string) => void;
+  onAcknowledge?: (id: string) => void}
 declare const _default: React.NamedExoticComponent<PerformanceAlertProps>;
 export default _default;
+
+
+`

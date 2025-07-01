@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+﻿import React, { useState} from 'react';
+import { motion} from 'framer-motion';
 import {
   DollarSign,
   Target,
@@ -8,37 +8,17 @@ import {
   Brain,
   Zap,
   Calculator,
-  BarChart3,
+//   BarChart3
 } from 'lucide-react';
 
 interface OpportunityCandidate {
-  id: string;
-  sport: string;
-  game: string;
-  prediction: string;
-  confidence: number;
-  odds: string;
-  edge: number;
-  expectedValue: number;
-  recommendedStake: number;
-  timeLeft: string;
-  model: string;
-  bookmaker: string;
-  riskLevel: 'low' | 'medium' | 'high';
-  riskScore: number;
-}
+  id: string,`n  sport: string;,`n  game: string,`n  prediction: string;,`n  confidence: number,`n  odds: string;,`n  edge: number,`n  expectedValue: number;,`n  recommendedStake: number,`n  timeLeft: string;,`n  model: string,`n  bookmaker: string;,`n  riskLevel: 'low' | 'medium' | 'high',`n  riskScore: number}
 
 interface PortfolioMetrics {
-  totalValue: number;
-  totalStaked: number;
-  expectedReturn: number;
-  winRate: number;
-  activePositions: number;
-  riskScore: number;
-}
+  totalValue: number,`n  totalStaked: number;,`n  expectedReturn: number,`n  winRate: number;,`n  activePositions: number,`n  riskScore: number}
 
 export const CleanMoneyMaker: React.FC = () => {
-  const [opportunities, setOpportunities] = useState<OpportunityCandidate[]>([
+  const [opportunities, setOpportunities] = useState<OpportunityCandidate[0]>([
     {
       id: '1',
       sport: 'NBA',
@@ -53,7 +33,7 @@ export const CleanMoneyMaker: React.FC = () => {
       model: 'Neural Network v4.2',
       bookmaker: 'DraftKings',
       riskLevel: 'low',
-      riskScore: 3,
+      riskScore: 3
     },
     {
       id: '2',
@@ -69,7 +49,7 @@ export const CleanMoneyMaker: React.FC = () => {
       model: 'Quantum ML v3.8',
       bookmaker: 'FanDuel',
       riskLevel: 'low',
-      riskScore: 2,
+      riskScore: 2
     },
   ]);
 
@@ -79,7 +59,7 @@ export const CleanMoneyMaker: React.FC = () => {
     expectedReturn: 4347.63,
     winRate: 73.8,
     activePositions: 5,
-    riskScore: 3,
+    riskScore: 3
   });
 
   const [isScanning, setIsScanning] = useState(false);
@@ -93,18 +73,14 @@ export const CleanMoneyMaker: React.FC = () => {
         return 'bg-yellow-500/20 text-yellow-400';
       case 'high':
         return 'bg-red-500/20 text-red-400';
-      default:
-        return 'bg-gray-500/20 text-gray-400';
-    }
+      default: return 'bg-gray-500/20 text-gray-400'}
   };
 
   const runScan = () => {
     setIsScanning(true);
     setTimeout(() => {
       setIsScanning(false);
-      // Add new opportunities or update existing ones
-    }, 3000);
-  };
+      // Add new opportunities or update existing ones}, 3000);};
 
   return (
     <div className='space-y-8 animate-slide-in-up'>
@@ -136,9 +112,9 @@ export const CleanMoneyMaker: React.FC = () => {
       </div>
 
       {/* Portfolio Overview */}
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
+      <div className='grid grid-cols-1 md: grid-cols-2 lg:grid-cols-4 gap-6'>
         <motion.div
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.02}}
           className='p-6 rounded-2xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 border border-green-500/30 backdrop-blur-xl'
         >
           <div className='flex items-center justify-between mb-4'>
@@ -154,7 +130,7 @@ export const CleanMoneyMaker: React.FC = () => {
         </motion.div>
 
         <motion.div
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.02}}
           className='p-6 rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 backdrop-blur-xl'
         >
           <div className='flex items-center justify-between mb-4'>
@@ -168,7 +144,7 @@ export const CleanMoneyMaker: React.FC = () => {
         </motion.div>
 
         <motion.div
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.02}}
           className='p-6 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 backdrop-blur-xl'
         >
           <div className='flex items-center justify-between mb-4'>
@@ -182,7 +158,7 @@ export const CleanMoneyMaker: React.FC = () => {
         </motion.div>
 
         <motion.div
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.02}}
           className='p-6 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 backdrop-blur-xl'
         >
           <div className='flex items-center justify-between mb-4'>
@@ -215,11 +191,9 @@ export const CleanMoneyMaker: React.FC = () => {
               <div className='text-sm text-gray-400'>
                 Last scan: {lastScan.toLocaleTimeString()}
               </div>
-              <button
-                onClick={runScan}
+              <button onClick={runScan}
                 disabled={isScanning}
-                className='px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 text-white font-medium rounded-lg transition-all flex items-center space-x-2'
-              >
+                className='px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 text-white font-medium rounded-lg transition-all flex items-center space-x-2'>`n              >
                 {isScanning ? (
                   <>
                     <div className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin' />
@@ -239,9 +213,9 @@ export const CleanMoneyMaker: React.FC = () => {
             {opportunities.map((opportunity, index) => (
               <motion.div
                 key={opportunity.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
+                initial={{ opacity: 0, x: -20}}
+                animate={{ opacity: 1, x: 0}}
+                transition={{ delay: index * 0.1}}
                 className='p-6 rounded-2xl bg-gradient-to-br from-gray-900/50 to-gray-800/30 border border-gray-700/50 backdrop-blur-xl hover:border-gray-600/50 transition-all'
               >
                 <div className='flex items-start justify-between mb-4'>
@@ -250,9 +224,7 @@ export const CleanMoneyMaker: React.FC = () => {
                       <span className='px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-sm font-bold'>
                         {opportunity.sport}
                       </span>
-                      <span
-                        className={`px-2 py-1 rounded text-sm font-bold ${getRiskColor(opportunity.riskLevel)}`}
-                      >
+                      <span className={`px-2 py-1 rounded text-sm font-bold ${getRiskColor(opportunity.riskLevel)}`}>`n                      >
                         {opportunity.riskLevel} risk
                       </span>
                     </div>
@@ -302,7 +274,7 @@ export const CleanMoneyMaker: React.FC = () => {
                       Place Bet
                     </button>
                     <button className='px-4 py-2 border border-gray-600 hover:border-gray-500 text-gray-300 hover:text-white rounded-lg transition-all'>
-                      Analyze
+//                       Analyze
                     </button>
                   </div>
                 </div>
@@ -325,28 +297,22 @@ export const CleanMoneyMaker: React.FC = () => {
             <div className='space-y-4'>
               <div>
                 <label className='block text-sm text-gray-400 mb-2'>Win Probability (%)</label>
-                <input
-                  type='number'
+                <input type='number'
                   className='w-full p-3 rounded-lg bg-gray-800 border border-gray-600 text-white'
-                  placeholder='85'
-                />
+                  placeholder='85'>`n                />
               </div>
               <div>
                 <label className='block text-sm text-gray-400 mb-2'>Decimal Odds</label>
-                <input
-                  type='number'
+                <input type='number'
                   step='0.01'
                   className='w-full p-3 rounded-lg bg-gray-800 border border-gray-600 text-white'
-                  placeholder='1.85'
-                />
+                  placeholder='1.85'>`n                />
               </div>
               <div>
                 <label className='block text-sm text-gray-400 mb-2'>Bankroll ($)</label>
-                <input
-                  type='number'
+                <input type='number'
                   className='w-full p-3 rounded-lg bg-gray-800 border border-gray-600 text-white'
-                  placeholder='10000'
-                />
+                  placeholder='10000'>`n                />
               </div>
               <button className='w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium rounded-lg transition-all'>
                 Calculate Optimal Stake
@@ -385,7 +351,10 @@ export const CleanMoneyMaker: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )};
 
 export default CleanMoneyMaker;
+
+
+
+`

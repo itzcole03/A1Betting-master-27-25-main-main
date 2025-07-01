@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   LineChart,
   Line,
@@ -11,37 +11,15 @@ import {
   Legend,
   ResponsiveContainer,
   BarChart,
-  Bar,
-} from 'recharts.ts';
+//   Bar
+} from 'recharts';
 
 interface TimeSeriesInsightsProps {
-  forecast: number[];
-  confidence: {
-    lower: number[];
-    upper: number[];
-  };
-  metrics: {
-    mse: number;
-    mae: number;
-    mape: number;
-    r2: number;
-  };
-  seasonality: {
-    trend: number[];
-    seasonal: number[];
-    residual: number[];
-  };
-  changePoints: {
-    index: number;
-    value: number;
-    type: 'trend' | 'level' | 'volatility';
-  }[];
-  anomalies: {
-    index: number;
-    value: number;
-    score: number;
-  }[];
-}
+  forecast: number[0],`n  confidence: {,`n  lower: number[0],`n  upper: number[0]};
+  metrics: {,`n  mse: number;,`n  mae: number,`n  mape: number;,`n  r2: number};
+  seasonality: {,`n  trend: number[0];,`n  seasonal: number[0],`n  residual: number[0]};
+  changePoints: {,`n  index: number;,`n  value: number,`n  type: 'trend' | 'level' | 'volatility'}[0];
+  anomalies: {,`n  index: number;,`n  value: number,`n  score: number}[0]}
 
 const TimeSeriesInsights: React.FC<TimeSeriesInsightsProps key={884783}> = ({
   forecast,
@@ -49,27 +27,27 @@ const TimeSeriesInsights: React.FC<TimeSeriesInsightsProps key={884783}> = ({
   metrics,
   seasonality,
   changePoints,
-  anomalies,
+//   anomalies
 }) => {
   // Prepare data for visualization;
   const forecastData = forecast.map((value, index) => ({
     x: index,
     value,
     lower: confidence.lower[index],
-    upper: confidence.upper[index],
+    upper: confidence.upper[index]
   }));
 
   const seasonalityData = seasonality.trend.map((trend, index) => ({
     x: index,
     trend,
     seasonal: seasonality.seasonal[index],
-    residual: seasonality.residual[index],
+    residual: seasonality.residual[index]
   }));
 
   const anomalyData = anomalies.map(anomaly => ({
     x: anomaly.index,
     value: anomaly.value,
-    score: anomaly.score,
+    score: anomaly.score
   }));
 
   return (
@@ -241,7 +219,11 @@ const TimeSeriesInsights: React.FC<TimeSeriesInsightsProps key={884783}> = ({
         </div>
       </section>
     </div>
-  );
-};
+  )};
 
 export default React.memo(TimeSeriesInsights);
+
+
+
+
+`

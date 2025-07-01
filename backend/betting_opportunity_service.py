@@ -96,7 +96,7 @@ class BettingOpportunityService:
         """Hook for automated feedback/active learning. Flags uncertain, novel, or problematic data for review or retraining.
         Extend this for future LLM/AI/feedback integration and automated retraining.
         """
-        logger.debug("[ACTIVE LEARNING] Flagged event: {event} | Data: {data}")
+        
 
     """Advanced betting opportunity detection and analysis service"""
 
@@ -258,7 +258,7 @@ class BettingOpportunityService:
         try:
             self._log_training_data("market_data", [m.__dict__ for m in processed_data])
         except Exception as ex:  # pylint: disable=broad-exception-caught
-            logger.debug("Failed to log market data for training: {ex!s}")
+            
         if data_quality_issues > 0:
             logger.info(
                 f"[DATA QUALITY][trace_id={trace_id}] Issues detected in {data_quality_issues} market entries."
@@ -356,7 +356,7 @@ class BettingOpportunityService:
             try:
                 self._log_training_data("features", features)
             except Exception as ex:  # pylint: disable=broad-exception-caught
-                logger.debug("Failed to log features for drift monitoring: {ex!s}")
+                
             # Model versioning
             # Model version is not a float, so do not include in float-typed dict
             # If needed, store in a separate metadata dict or as a string elsewhere
@@ -402,17 +402,17 @@ class BettingOpportunityService:
         """Emit a Prometheus metric or log for observability. Automated for extensibility."""
         try:
             # Integrate with Prometheus or other monitoring system here
-            logger.debug("[METRIC] {metric_name}: {value}")
+            
         except Exception as ex:  # pylint: disable=broad-exception-caught
-            logger.debug("Failed to emit metric {metric_name}: {ex!s}")
+            
 
     def _audit_log(self, event: str, details: Any) -> None:
         """Emit an audit log for compliance, traceability, and feedback/active learning. Automated for extensibility."""
         try:
             # Integrate with audit logging system here
-            logger.debug("[AUDIT] {event}: {details}")
+            
         except Exception as ex:  # pylint: disable=broad-exception-caught
-            logger.debug("Failed to emit audit log {event}: {ex!s}")
+            
 
     async def _detect_arbitrage_opportunities(
         self, market_data: List[MarketData]
@@ -1053,7 +1053,7 @@ class SportsExpertAgent:
     def register_plugin(self, name: str, func: Callable[..., Any]) -> None:
         """Register a plugin/tool callable by name."""
         self.plugins[name] = func
-        logger.debug("Registered plugin: {name}")
+        
 
     def set_session_context(self, user_id: str, context: dict) -> None:
         """Set or update session/user context for personalized responses."""
@@ -1117,15 +1117,15 @@ def get_llm_engine() -> Any:
 
     def _emit_metric(self, metric_name: str, value: float) -> None:
         try:
-            logger.debug("[METRIC][SportsExpertAgent] {metric_name}: {value}")
+            
         except Exception as ex:  # pylint: disable=broad-exception-caught
-            logger.debug("Failed to emit metric {metric_name}: {ex!s}")
+            
 
     def _audit_log(self, event: str, details: Any) -> None:
         try:
-            logger.debug("[AUDIT][SportsExpertAgent] {event}: {details}")
+            
         except Exception as ex:  # pylint: disable=broad-exception-caught
-            logger.debug("Failed to emit audit log {event}: {ex!s}")
+            
 
     # ...existing code for async methods (discuss_lineup, analyze_prop_bet, answer_question, explain_recommendation, compliance_check, stream_conversation, retrain_agent, log_user_feedback)...
     # In each public method, add calls to self._emit_metric and self._audit_log, and wrap LLM outputs with self._compliance_filter.
@@ -1374,7 +1374,7 @@ def get_llm_engine() -> Any:
         try:
             self._persist_feedback(entry)
         except Exception as ex:  # pylint: disable=broad-exception-caught
-            logger.debug("Failed to persist feedback: {ex!s}")
+            
 
     def _persist_feedback(self, entry: Dict[str, Any]) -> None:
         """Persist feedback to disk for automated retraining and audit. This is called automatically."""
@@ -1396,7 +1396,7 @@ def get_llm_engine() -> Any:
                 context = await self._retrieve_context_for_prompt(kwargs)
                 prompt["retrieved_context"] = context
             except Exception as ex:  # pylint: disable=broad-exception-caught
-                logger.debug("Context retrieval failed: {ex!s}")
+                
         # Chain-of-thought
         prompt["chain_of_thought"] = True
         # Force rationale and citations

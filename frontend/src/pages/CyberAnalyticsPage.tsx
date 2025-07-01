@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import CyberDefaultPage from './CyberDefaultPage.ts';
+﻿import React from 'react';
+import CyberDefaultPage from './CyberDefaultPage';
 
 const CyberAnalyticsPage: React.FC = () => {
   return (
@@ -8,7 +8,9 @@ const CyberAnalyticsPage: React.FC = () => {
       description="Comprehensive data analysis with real-time insights and performance metrics"
       icon="fa-chart-line"
     / key={304350}>
-  );
-};
+  );};
 
 export default CyberAnalyticsPage;
+
+
+

@@ -1,12 +1,12 @@
-import React, { useState, useEffect  } from 'react.ts';
+﻿import React, { useState, useEffect} from 'react';
 import {
   CYBER_COLORS,
   CYBER_GRADIENTS,
   CyberContainer,
   CyberText,
-  CyberButton,
-} from './CyberTheme.ts';
-import { MegaCard, MegaButton, MegaAlert } from './MegaUI.ts';
+//   CyberButton
+} from './CyberTheme';
+import { MegaCard, MegaButton, MegaAlert} from './MegaUI';
 import {
   Target,
   TrendingUp,
@@ -24,44 +24,30 @@ import {
   CheckCircle,
   XCircle,
   Plus,
-  Minus,
-} from 'lucide-react.ts';
+//   Minus
+} from 'lucide-react';
 
 // Player prop interface;
 interface PlayerProp {
-  id: string;
-  playerName: string;
-  team: string;
-  opponent: string;
-  sport: string;
-  statType: string;
-  projectedValue: number;
-  overOdds: number;
-  underOdds: number;
-  gameTime: string;
-  isLive?: boolean;
+  id: string,`n  playerName: string;,`n  team: string,`n  opponent: string;,`n  sport: string,`n  statType: string;,`n  projectedValue: number,`n  overOdds: number;,`n  underOdds: number,`n  gameTime: string;
+  isLive?: boolean
   trend?: "up" | "down" | "stable";
-  confidence?: number;
-}
+  confidence?: number}
 
 // Lineup entry interface;
 interface LineupEntry {
-  propId: string;
-  choice: "over" | "under";
-  prop: PlayerProp;
-}
+  propId: string,`n  choice: "over" | "under";,`n  prop: PlayerProp}
 
 // MEGA PRIZEPICKS - Cyber-themed with original prop card styling preserved;
 const MegaPrizePicks: React.FC<{
-  className?: string;
-}> = ({ className = "" }) => {
+  className?: string}> = ({ className = ""}) => {
   const [selectedSport, setSelectedSport] = useState("All");
-  const [lineup, setLineup] = useState<LineupEntry[] key={887213}>([]);
+  const [lineup, setLineup] = useState<LineupEntry[0] key={887213}>([0]);
   const [entryAmount, setEntryAmount] = useState(25);
   const [loading, setLoading] = useState(false);
 
   // Mock player props data (in real app, this would come from API)
-  const [playerProps] = useState<PlayerProp[] key={605018}>([
+  const [playerProps] = useState<PlayerProp[0] key={605018}>([
     {
       id: "1",
       playerName: "LeBron James",
@@ -74,7 +60,7 @@ const MegaPrizePicks: React.FC<{
       underOdds: -110,
       gameTime: "8:00 PM ET",
       trend: "up",
-      confidence: 87.3,
+      confidence: 87.3
     },
     {
       id: "2",
@@ -88,7 +74,7 @@ const MegaPrizePicks: React.FC<{
       underOdds: -115,
       gameTime: "8:00 PM ET",
       trend: "up",
-      confidence: 92.1,
+      confidence: 92.1
     },
     {
       id: "3",
@@ -102,7 +88,7 @@ const MegaPrizePicks: React.FC<{
       underOdds: -110,
       gameTime: "Sunday 1:00 PM ET",
       trend: "stable",
-      confidence: 84.7,
+      confidence: 84.7
     },
     {
       id: "4",
@@ -116,7 +102,7 @@ const MegaPrizePicks: React.FC<{
       underOdds: -112,
       gameTime: "Sunday 1:00 PM ET",
       trend: "down",
-      confidence: 78.9,
+      confidence: 78.9
     },
     {
       id: "5",
@@ -130,7 +116,7 @@ const MegaPrizePicks: React.FC<{
       underOdds: -105,
       gameTime: "Tonight 7:10 PM ET",
       trend: "up",
-      confidence: 89.4,
+      confidence: 89.4
     },
     {
       id: "6",
@@ -144,7 +130,7 @@ const MegaPrizePicks: React.FC<{
       underOdds: -110,
       gameTime: "Tonight 7:10 PM ET",
       trend: "stable",
-      confidence: 81.2,
+      confidence: 81.2
     },
   ]);
 
@@ -168,10 +154,7 @@ const MegaPrizePicks: React.FC<{
       : playerProps.filter((prop) => prop.sport === selectedSport);
 
   // Original PrizePicks-style prop card (preserved styling)
-  const PropCard: React.FC<{
-    prop: PlayerProp;
-    onSelect: (propId: string, choice: "over" | "under") => void;
-  }> = ({ prop, onSelect }) => {
+  const PropCard: React.FC<{,`n  prop: PlayerProp;,`n  onSelect: (propId: string, choice: "over" | "under") => void}> = ({ prop, onSelect}) => {
 
     const selectedChoice = lineup.find(
       (entry) => entry.propId === prop.id,
@@ -181,17 +164,16 @@ const MegaPrizePicks: React.FC<{
     const getPlayerImageUrl = (playerName: string, sport: string) => {
 
       const sportColors = {
-        NBA: { bg: "1f2937", color: "ffffff" },
-        NFL: { bg: "059669", color: "ffffff" },
-        MLB: { bg: "7c2d12", color: "ffffff" },
-        NHL: { bg: "1e40af", color: "ffffff" },
+        NBA: { bg: "1f2937", color: "ffffff"},
+        NFL: { bg: "059669", color: "ffffff"},
+        MLB: { bg: "7c2d12", color: "ffffff"},
+        NHL: { bg: "1e40af", color: "ffffff"}
       };
       const colors = sportColors[sport as keyof typeof sportColors] || {
         bg: "6366f1",
-        color: "ffffff",
+        color: "ffffff"
       };
-      return `https://api.dicebear.com/7.x/initials/png?seed=${encodedName}&size=64&backgroundColor=${colors.bg}&color=${colors.color}&fontSize=24&fontWeight=600`;
-    };
+      return `https: //api.dicebear.com/7.x/initials/png?seed=${encodedName}&size=64&backgroundColor=${colors.bg}&color=${colors.color}&fontSize=24&fontWeight=600`};
 
     return (
       <div;
@@ -209,7 +191,7 @@ const MegaPrizePicks: React.FC<{
             ? `0 0 20px ${CYBER_COLORS.primary}40, 0 8px 32px rgba(0, 0, 0, 0.1)`
             : "0 8px 32px rgba(0, 0, 0, 0.1)",
           position: "relative",
-          overflow: "hidden",
+          overflow: "hidden"
         }}
        key={565796}>
         {/* Sport badge */}
@@ -224,7 +206,7 @@ const MegaPrizePicks: React.FC<{
             border: `1px solid ${CYBER_COLORS.accent}40`,
             fontSize: "10px",
             fontWeight: "600",
-            color: CYBER_COLORS.accent,
+            color: CYBER_COLORS.accent
           }}
          key={946962}>
           {prop.sport}
@@ -235,7 +217,7 @@ const MegaPrizePicks: React.FC<{
           style={{
             display: "flex",
             alignItems: "center",
-            marginBottom: "16px",
+            marginBottom: "16px"
           }}
          key={282324}>
           <img;
@@ -246,7 +228,7 @@ const MegaPrizePicks: React.FC<{
               height: "48px",
               borderRadius: "50%",
               marginRight: "12px",
-              border: `2px solid ${CYBER_COLORS.primary}40`,
+              border: `2px solid ${CYBER_COLORS.primary}40`
             }}
           / key={206247}>
           <div key={241917}>
@@ -255,7 +237,7 @@ const MegaPrizePicks: React.FC<{
                 fontSize: "16px",
                 fontWeight: "700",
                 color: CYBER_COLORS.text.primary,
-                marginBottom: "2px",
+                marginBottom: "2px"
               }}
              key={963073}>
               {prop.playerName}
@@ -266,7 +248,7 @@ const MegaPrizePicks: React.FC<{
                 color: CYBER_COLORS.text.muted,
                 display: "flex",
                 alignItems: "center",
-                gap: "8px",
+                gap: "8px"
               }}
              key={60762}>
               <span key={595076}>
@@ -279,13 +261,13 @@ const MegaPrizePicks: React.FC<{
         </div>
 
         {/* Stat type and value */}
-        <div style={{ textAlign: "center", marginBottom: "16px" }} key={544471}>
+        <div style={{ textAlign: "center", marginBottom: "16px"}} key={544471}>
           <div;
             style={{
               fontSize: "14px",
               color: CYBER_COLORS.text.secondary,
               marginBottom: "4px",
-              fontWeight: "500",
+              fontWeight: "500"
             }}
            key={68542}>
             {prop.statType}
@@ -295,7 +277,7 @@ const MegaPrizePicks: React.FC<{
               fontSize: "28px",
               fontWeight: "800",
               color: CYBER_COLORS.primary,
-              marginBottom: "4px",
+              marginBottom: "4px"
             }}
            key={74370}>
             {prop.projectedValue}
@@ -308,7 +290,7 @@ const MegaPrizePicks: React.FC<{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: "4px",
+                gap: "4px"
               }}
              key={771714}>
               <Target size={12} / key={395978}>
@@ -322,7 +304,7 @@ const MegaPrizePicks: React.FC<{
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
-            gap: "8px",
+            gap: "8px"
           }}
          key={264461}>
           <button;
@@ -349,7 +331,7 @@ const MegaPrizePicks: React.FC<{
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              gap: "4px",
+              gap: "4px"
             }}
           >
             <TrendingUp size={14} / key={262025}>
@@ -377,7 +359,7 @@ const MegaPrizePicks: React.FC<{
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              gap: "4px",
+              gap: "4px"
             }}
           >
             <TrendingDown size={14} / key={791880}>
@@ -401,7 +383,7 @@ const MegaPrizePicks: React.FC<{
                     : CYBER_COLORS.text.muted,
               display: "flex",
               alignItems: "center",
-              gap: "2px",
+              gap: "2px"
             }}
            key={301661}>
             {prop.trend === "up" && <TrendingUp size={10} / key={493366}>}
@@ -411,8 +393,7 @@ const MegaPrizePicks: React.FC<{
           </div>
         )}
       </div>
-    );
-  };
+    )};
 
   const handlePropSelect = (propId: string, choice: "over" | "under") => {
 
@@ -423,20 +404,16 @@ const MegaPrizePicks: React.FC<{
       if (existing) {
         if (existing.choice === choice) {
           // Remove if same choice selected;
-          return prev.filter((entry) => entry.propId !== propId);
-        } else {
+          return prev.filter((entry) => entry.propId !== propId);} else {
           // Update choice;
           return prev.map((entry) =>
-            entry.propId === propId ? { ...entry, choice } : entry,
-          );
-        }
+            entry.propId === propId ? { ...entry, choice} : entry,
+          );}
       } else {
         // Add new selection (max 6 picks)
         if (prev.length >= 6) return prev;
-        return [...prev, { propId, choice, prop }];
-      }
-    });
-  };
+        return [...prev, { propId, choice, prop}];}
+    });};
 
   const calculatePayout = () => {
     const multipliers = {
@@ -444,14 +421,13 @@ const MegaPrizePicks: React.FC<{
       3: 5,
       4: 10,
       5: 20,
-      6: 50,
+      6: 50
     };
 
     if (pickCount < 2) return 0;
     return (
       entryAmount * (multipliers[pickCount as keyof typeof multipliers] || 1)
-    );
-  };
+    );};
 
   return (
     <div;
@@ -459,26 +435,26 @@ const MegaPrizePicks: React.FC<{
       style={{
         minHeight: "100vh",
         background: CYBER_GRADIENTS.background,
-        padding: "24px",
+        padding: "24px"
       }}
      key={35454}>
       {/* Header */}
       <MegaCard;
         variant="panel"
-        style={{ marginBottom: "24px", padding: "20px" }}
+        style={{ marginBottom: "24px", padding: "20px"}}
        key={924020}>
         <div;
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            marginBottom: "16px",
+            marginBottom: "16px"
           }}
          key={580818}>
           <div key={241917}>
             <CyberText;
               variant="title"
-              style={{ fontSize: "28px", marginBottom: "4px" }}
+              style={{ fontSize: "28px", marginBottom: "4px"}}
              key={851908}>
               PrizePicks Pro;
             </CyberText>
@@ -486,7 +462,7 @@ const MegaPrizePicks: React.FC<{
               Professional player prop analysis with AI enhancement;
             </CyberText>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }} key={537788}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px"}} key={537788}>
             <Trophy size={16} color={CYBER_COLORS.primary} / key={224889}>
             <CyberText variant="caption" color="accent" key={194784}>
               Elite Predictions;
@@ -495,14 +471,14 @@ const MegaPrizePicks: React.FC<{
         </div>
 
         {/* Sport filter */}
-        <div style={{ display: "flex", gap: "8px" }} key={772482}>
+        <div style={{ display: "flex", gap: "8px"}} key={772482}>
           {sports.map((sport) => (
             <CyberButton;
               key={sport}
               variant={selectedSport === sport ? "primary" : "secondary"}
               active={selectedSport === sport}
               onClick={() = key={550915}> setSelectedSport(sport)}
-              style={{ marginBottom: 0, width: "auto", padding: "8px 16px" }}
+              style={{ marginBottom: 0, width: "auto", padding: "8px 16px"}}
             >
               {sport}
             </CyberButton>
@@ -511,7 +487,7 @@ const MegaPrizePicks: React.FC<{
       </MegaCard>
 
       <div;
-        style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "24px" }}
+        style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "24px"}}
        key={919775}>
         {/* Props Grid */}
         <div key={241917}>
@@ -519,7 +495,7 @@ const MegaPrizePicks: React.FC<{
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: "20px",
+              gap: "20px"
             }}
            key={861632}>
             {filteredProps.map((prop) => (
@@ -532,29 +508,29 @@ const MegaPrizePicks: React.FC<{
         <MegaCard;
           variant="glass"
           padding="lg"
-          style={{ height: "fit-content", position: "sticky", top: "24px" }}
+          style={{ height: "fit-content", position: "sticky", top: "24px"}}
          key={737823}>
           <CyberText;
             variant="title"
             style={{
               marginBottom: "16px",
               display: "flex",
-              alignItems: "center",
+              alignItems: "center"
             }}
            key={868947}>
             <Target;
               size={20}
-              style={{ marginRight: "8px", color: CYBER_COLORS.primary }}
+              style={{ marginRight: "8px", color: CYBER_COLORS.primary}}
             / key={498227}>
             Lineup Builder;
           </CyberText>
 
           {/* Entry amount */}
-          <div style={{ marginBottom: "16px" }} key={864356}>
-            <CyberText variant="body" style={{ marginBottom: "8px" }} key={116235}>
+          <div style={{ marginBottom: "16px"}} key={864356}>
+            <CyberText variant="body" style={{ marginBottom: "8px"}} key={116235}>
               Entry Amount;
             </CyberText>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }} key={537788}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px"}} key={537788}>
               {[5, 10, 25, 50, 100].map((amount) => (
                 <button;
                   key={amount}
@@ -576,7 +552,7 @@ const MegaPrizePicks: React.FC<{
                         : CYBER_COLORS.text.secondary,
                     fontSize: "12px",
                     fontWeight: "600",
-                    cursor: "pointer",
+                    cursor: "pointer"
                   }}
                 >
                   ${amount}
@@ -586,11 +562,11 @@ const MegaPrizePicks: React.FC<{
           </div>
 
           {/* Selected picks */}
-          <div style={{ marginBottom: "16px" }} key={864356}>
-            <CyberText variant="body" style={{ marginBottom: "8px" }} key={116235}>
+          <div style={{ marginBottom: "16px"}} key={864356}>
+            <CyberText variant="body" style={{ marginBottom: "8px"}} key={116235}>
               Selected Picks ({lineup.length}/6)
             </CyberText>
-            <div style={{ display: "grid", gap: "8px" }} key={290228}>
+            <div style={{ display: "grid", gap: "8px"}} key={290228}>
               {lineup.map((entry, index) => (
                 <div;
                   key={entry.propId}
@@ -599,24 +575,24 @@ const MegaPrizePicks: React.FC<{
                     borderRadius: "8px",
                     backgroundColor: "rgba(255, 255, 255, 0.05)",
                     border: "1px solid rgba(255, 255, 255, 0.1)",
-                    fontSize: "12px",
+                    fontSize: "12px"
                   }}
                  key={180323}>
                   <div;
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
-                      alignItems: "center",
+                      alignItems: "center"
                     }}
                    key={464374}>
                     <div key={241917}>
                       <CyberText;
                         variant="caption"
-                        style={{ fontWeight: "600" }}
+                        style={{ fontWeight: "600"}}
                        key={91556}>
                         {entry.prop.playerName}
                       </CyberText>
-                      <div style={{ color: CYBER_COLORS.text.muted }} key={622246}>
+                      <div style={{ color: CYBER_COLORS.text.muted}} key={622246}>
                         {entry.prop.statType} {entry.choice.toUpperCase()}{" "}
                         {entry.prop.projectedValue}
                       </div>
@@ -625,14 +601,13 @@ const MegaPrizePicks: React.FC<{
                       onClick={() = key={190260}>
                         setLineup((prev) =>
                           prev.filter((e) => e.propId !== entry.propId),
-                        )
-                      }
+                        )}
                       style={{
                         background: "none",
                         border: "none",
                         color: "#ff4757",
                         cursor: "pointer",
-                        padding: "4px",
+                        padding: "4px"
                       }}
                     >
                       <XCircle size={16} / key={297259}>
@@ -651,20 +626,20 @@ const MegaPrizePicks: React.FC<{
                 borderRadius: "8px",
                 backgroundColor: `${CYBER_COLORS.primary}20`,
                 border: `1px solid ${CYBER_COLORS.primary}40`,
-                marginBottom: "16px",
+                marginBottom: "16px"
               }}
              key={627908}>
               <div;
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
-                  alignItems: "center",
+                  alignItems: "center"
                 }}
                key={553766}>
                 <CyberText variant="body" key={794207}>Potential Payout:</CyberText>
                 <CyberText;
                   variant="title"
-                  style={{ color: CYBER_COLORS.primary, fontSize: "20px" }}
+                  style={{ color: CYBER_COLORS.primary, fontSize: "20px"}}
                  key={528046}>
                   ${calculatePayout().toLocaleString()}
                 </CyberText>
@@ -692,7 +667,7 @@ const MegaPrizePicks: React.FC<{
             <CyberText;
               variant="caption"
               color="muted"
-              style={{ textAlign: "center", marginTop: "8px" }}
+              style={{ textAlign: "center", marginTop: "8px"}}
              key={30870}>
               Minimum 2 picks required;
             </CyberText>
@@ -700,7 +675,11 @@ const MegaPrizePicks: React.FC<{
         </MegaCard>
       </div>
     </div>
-  );
-};
+  );};
 
 export default MegaPrizePicks;
+
+
+
+
+`

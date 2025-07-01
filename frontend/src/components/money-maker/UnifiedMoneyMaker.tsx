@@ -1,11 +1,11 @@
-import React, { useEffect, useCallback, useState  } from 'react.ts';
-import { useMoneyMakerStore } from '@/stores/moneyMakerStore.ts';
+﻿import React, { useEffect, useCallback, useState} from 'react';
+import { useMoneyMakerStore} from '@/stores/moneyMakerStore';
 import {
   MoneyMakerConfig,
   MoneyMakerPrediction,
   MoneyMakerPortfolio,
-  RiskLevel,
-} from '@/types/money-maker.ts';
+//   RiskLevel
+} from '@/types/money-maker';
 import {
   Card,
   Button,
@@ -18,8 +18,8 @@ import {
   Modal,
   Tabs,
   Tab,
-  Progress,
-} from '@/ui/UnifiedUI.ts';
+//   Progress
+} from '@/ui/UnifiedUI';
 
 export const UnifiedMoneyMaker: React.FC = () => {
 
@@ -32,7 +32,7 @@ export const UnifiedMoneyMaker: React.FC = () => {
     error,
     lastUpdate,
     filters,
-    sort,
+//     sort
   } = store;
 
   const [activeTab, setActiveTab] = useState<
@@ -51,42 +51,34 @@ export const UnifiedMoneyMaker: React.FC = () => {
         store.setLoading(true);
         // Load initial data from your backend;
         // This is where you would integrate with your actual services;
-        store.setLoading(false);
-      } catch (error) {
-        handleError("Failed to load initial data", error);
-      }
+        store.setLoading(false);} catch (error) {
+        handleError("Failed to load initial data", error);}
     };
 
-    loadData();
-  }, []);
+    loadData();}, [0]);
 
   // Fetch predictions on mount and when filters/sort change;
   useEffect(() => {
-    store.fetchPredictions();
-  }, [JSON.stringify(filters), JSON.stringify(sort)]);
+    store.fetchPredictions();}, [JSON.stringify(filters), JSON.stringify(sort)]);
 
   const handleError = useCallback((message: string, error: any) => {
     store.setError(message);
     setToastMessage(message);
     setToastType("error");
     setShowToast(true);
-    // console statement removed
-  }, []);
+    // console statement removed}, [0]);
 
   const handleTabChange = useCallback((value: string) => {
-    setActiveTab(value as typeof activeTab);
-  }, []);
+    setActiveTab(value as typeof activeTab)}, [0]);
 
   const handleConfigChange = useCallback(
     (key: keyof MoneyMakerConfig, value: string | number) => {
       try {
-        store.updateConfig({ [key]: value });
+        store.updateConfig({ [key]: value});
         setToastMessage("Configuration updated successfully");
         setToastType("success");
-        setShowToast(true);
-      } catch (error) {
-        handleError("Failed to update configuration", error);
-      }
+        setShowToast(true);} catch (error) {
+        handleError("Failed to update configuration", error);}
     },
     [store.updateConfig],
   );
@@ -97,8 +89,7 @@ export const UnifiedMoneyMaker: React.FC = () => {
         key === "timeHorizon" || key === "investmentAmount"
           ? Number(value)
           : value;
-      handleConfigChange(key, numValue);
-    },
+      handleConfigChange(key, numValue);},
     [handleConfigChange],
   );
 
@@ -107,36 +98,30 @@ export const UnifiedMoneyMaker: React.FC = () => {
       store.setLoading(true);
       // Generate portfolio based on current predictions and config;
       // This is where you would integrate with your portfolio generation logic;
-      store.setLoading(false);
-    } catch (error) {
-      handleError("Failed to generate portfolio", error);
-    }
+      store.setLoading(false);} catch (error) {
+      handleError("Failed to generate portfolio", error);}
   }, [config, predictions]);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "USD",
-    }).format(amount);
-  };
+      currency: "USD"
+    }).format(amount)};
 
   const formatPercentage = (value: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "percent",
       minimumFractionDigits: 1,
-      maximumFractionDigits: 1,
-    }).format(value / 100);
-  };
+      maximumFractionDigits: 1
+    }).format(value / 100)};
 
   const handleShowDetails = useCallback((prediction: MoneyMakerPrediction) => {
     // TODO: Implement details modal;
-    // console statement removed
-  }, []);
+    // console statement removed}, [0]);
 
   const handlePlaceBet = useCallback((prediction: MoneyMakerPrediction) => {
     // TODO: Implement bet placement;
-    // console statement removed
-  }, []);
+    // console statement removed}, [0]);
 
   const getBadgeVariant = (
     riskLevel: RiskLevel,
@@ -148,29 +133,24 @@ export const UnifiedMoneyMaker: React.FC = () => {
         return "warning";
       case "high":
         return "danger";
-      default:
-        return "warning";
-    }
+      default: return "warning"}
   };
 
   // Sorting/filtering handlers;
   const handleSortChange = (field: keyof MoneyMakerPrediction) => {
     store.updateSort({
       field,
-      direction: sort.direction === "asc" ? "desc" : "asc",
-    });
-  };
+      direction: sort.direction === "asc" ? "desc" : "asc"
+    })};
   const handleFilterChange = (key: keyof typeof filters, value: any) => {
-    store.updateFilters({ [key]: value });
-  };
+    store.updateFilters({ [key]: value})};
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen" key={591667}>
         <Spinner size="large" / key={932834}>
       </div>
-    );
-  }
+    );}
 
   return (
     <div className="container mx-auto px-4 py-8" key={53071}>
@@ -229,39 +209,36 @@ export const UnifiedMoneyMaker: React.FC = () => {
                 <Select;
                   className="w-32"
                   options={[
-                    { value: "", label: "All Risks" },
-                    { value: "low", label: "Low" },
-                    { value: "medium", label: "Medium" },
-                    { value: "high", label: "High" },
+                    { value: "", label: "All Risks"},
+                    { value: "low", label: "Low"},
+                    { value: "medium", label: "Medium"},
+                    { value: "high", label: "High"},
                   ]}
                   value={filters.riskLevel || ""}
                   onChange={(value) = key={162222}>
-                    handleFilterChange("riskLevel", value || undefined)
-                  }
+                    handleFilterChange("riskLevel", value || undefined)}
                 />
                 <Select;
                   className="w-32"
                   options={[
-                    { value: "", label: "All Models" },
+                    { value: "", label: "All Models"},
                     // Optionally map over available models;
                   ]}
                   value={filters.modelId || ""}
                   onChange={(value) = key={453682}>
-                    handleFilterChange("modelId", value || undefined)
-                  }
+                    handleFilterChange("modelId", value || undefined)}
                 />
                 <Select;
                   className="w-32"
                   options={[
-                    { value: "confidence", label: "Confidence" },
-                    { value: "expectedValue", label: "Expected Value" },
-                    { value: "odds", label: "Odds" },
-                    { value: "timestamp", label: "Timestamp" },
+                    { value: "confidence", label: "Confidence"},
+                    { value: "expectedValue", label: "Expected Value"},
+                    { value: "odds", label: "Odds"},
+                    { value: "timestamp", label: "Timestamp"},
                   ]}
                   value={sort.field}
                   onChange={(value) = key={955821}>
-                    handleSortChange(value as keyof MoneyMakerPrediction)
-                  }
+                    handleSortChange(value as keyof MoneyMakerPrediction)}
                 />
               </div>
             </div>
@@ -408,7 +385,10 @@ export const UnifiedMoneyMaker: React.FC = () => {
         )}
       </div>
     </div>
-  );
-};
+  );};
 
 export default UnifiedMoneyMaker;
+
+
+
+

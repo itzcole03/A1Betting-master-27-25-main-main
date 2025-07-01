@@ -1,8 +1,8 @@
-import { eventBus } from '@/core/EventBus.ts';
-import { UnifiedPredictionEngine } from '@/core/UnifiedPredictionEngine.ts';
-import { UnifiedStrategyEngine } from '@/core/UnifiedStrategyEngine.ts';
-import { unifiedDataEngine } from '@/core/UnifiedDataEngine.ts';
-import { unifiedLogger } from '@/core/UnifiedLogger.ts';
+﻿import { eventBus} from '@/core/EventBus';
+import { UnifiedPredictionEngine} from '@/core/UnifiedPredictionEngine';
+import { UnifiedStrategyEngine} from '@/core/UnifiedStrategyEngine';
+import { unifiedDataEngine} from '@/core/UnifiedDataEngine';
+import { unifiedLogger} from '@/core/UnifiedLogger';
 
 /**
  * Intelligence Orchestrator;
@@ -12,43 +12,13 @@ import { unifiedLogger } from '@/core/UnifiedLogger.ts';
  */
 
 export interface EnsemblePrediction {
-  id: string;
-  sport: string;
-  market: string;
-  prediction: string;
-  confidence: number;
-  expectedValue: number;
-  kellyFraction: number;
-  reasoning: string[];
-  contributingModels: string[];
-  timestamp: number;
-  metadata: {
-    diversityScore: number;
-    consensusLevel: number;
-    riskAssessment: string;
-    dataQuality: number;
-  };
-}
+  id: string,`n  sport: string;,`n  market: string,`n  prediction: string;,`n  confidence: number,`n  expectedValue: number;,`n  kellyFraction: number,`n  reasoning: string[0];,`n  contributingModels: string[0],`n  timestamp: number;,`n  metadata: {,`n  diversityScore: number;,`n  consensusLevel: number,`n  riskAssessment: string;,`n  dataQuality: number}}
 
 export interface OrchestrationMetrics {
-  systemHealth: number;
-  ensemblePerformance: number;
-  automationEfficiency: number;
-  predictionAccuracy: number;
-  resourceUtilization: number;
-  errorRate: number;
-}
+  systemHealth: number,`n  ensemblePerformance: number;,`n  automationEfficiency: number,`n  predictionAccuracy: number;,`n  resourceUtilization: number,`n  errorRate: number}
 
 export interface AutomationSettings {
-  enableAutoOptimization: boolean;
-  enableRealTimeEnsemble: boolean;
-  enableSmartRebalancing: boolean;
-  enablePredictiveScaling: boolean;
-  optimizationThreshold: number;
-  rebalanceFrequency: number; // in minutes;
-  maxConcurrentPredictions: number;
-  confidenceThreshold: number;
-}
+  enableAutoOptimization: boolean,`n  enableRealTimeEnsemble: boolean;,`n  enableSmartRebalancing: boolean,`n  enablePredictiveScaling: boolean;,`n  optimizationThreshold: number,`n  rebalanceFrequency: number; // in minutes;,`n  maxConcurrentPredictions: number,`n  confidenceThreshold: number}
 
 export class IntelligenceOrchestrator {
   private static instance: IntelligenceOrchestrator;
@@ -65,7 +35,7 @@ export class IntelligenceOrchestrator {
   // Ensemble state;
   private activeModels: Map<string, any> = new Map();
   private modelWeights: Map<string, number> = new Map();
-  private performanceHistory: Map<string, number[]> = new Map();
+  private performanceHistory: Map<string, number[0]> = new Map();
   private currentPredictions: Map<string, EnsemblePrediction> = new Map();
 
   private constructor() {
@@ -81,18 +51,15 @@ export class IntelligenceOrchestrator {
       optimizationThreshold: 0.85,
       rebalanceFrequency: 5, // 5 minutes;
       maxConcurrentPredictions: 50,
-      confidenceThreshold: 0.75,
+      confidenceThreshold: 0.75
     };
 
-    this.setupEventListeners();
-  }
+    this.setupEventListeners();}
 
   public static getInstance(): IntelligenceOrchestrator {
     if (!IntelligenceOrchestrator.instance) {
-      IntelligenceOrchestrator.instance = new IntelligenceOrchestrator();
-    }
-    return IntelligenceOrchestrator.instance;
-  }
+      IntelligenceOrchestrator.instance = new IntelligenceOrchestrator();}
+    return IntelligenceOrchestrator.instance;}
 
   public async initialize(): Promise<void> {
     if (this.isInitialized) return;
@@ -117,17 +84,15 @@ export class IntelligenceOrchestrator {
       this.isInitialized = true;
       unifiedLogger.info("Intelligence Orchestrator initialized successfully");
 
-      eventBus.emit("orchestrator:initialized", {
+      eventBus.emit("orchestrator: initialized", {
         timestamp: Date.now(),
-        modelsCount: this.activeModels.size,
-      });
-    } catch (error) {
+        modelsCount: this.activeModels.size
+      })} catch (error) {
       unifiedLogger.error(
         "Failed to initialize Intelligence Orchestrator",
         error,
       );
-      throw error;
-    }
+      throw error;}
   }
 
   private setupEventListeners(): void {
@@ -153,21 +118,20 @@ export class IntelligenceOrchestrator {
 
     // Listen for system events;
     eventBus.on(
-      "system:resource_threshold",
+      "system: resource_threshold",
       this.handleResourceThreshold.bind(this),
-    );
-  }
+    )}
 
   private async initializeEnsembleModels(): Promise<void> {
     // Initialize various ML models with their weights;
     const models = [
-      { name: "XGBoost-Ensemble", weight: 0.25, type: "gradient_boosting" },
-      { name: "Neural-Deep-V3", weight: 0.2, type: "deep_learning" },
-      { name: "Bayesian-Optimizer", weight: 0.15, type: "bayesian" },
-      { name: "Pattern-Recognition", weight: 0.15, type: "pattern_matching" },
-      { name: "Weather-Impact-Model", weight: 0.1, type: "environmental" },
-      { name: "Market-Sentiment", weight: 0.1, type: "sentiment_analysis" },
-      { name: "Historical-Patterns", weight: 0.05, type: "historical" },
+      { name: "XGBoost-Ensemble", weight: 0.25, type: "gradient_boosting"},
+      { name: "Neural-Deep-V3", weight: 0.2, type: "deep_learning"},
+      { name: "Bayesian-Optimizer", weight: 0.15, type: "bayesian"},
+      { name: "Pattern-Recognition", weight: 0.15, type: "pattern_matching"},
+      { name: "Weather-Impact-Model", weight: 0.1, type: "environmental"},
+      { name: "Market-Sentiment", weight: 0.1, type: "sentiment_analysis"},
+      { name: "Historical-Patterns", weight: 0.05, type: "historical"},
     ];
 
     for (const model of models) {
@@ -175,38 +139,30 @@ export class IntelligenceOrchestrator {
         ...model,
         status: "active",
         lastUpdated: Date.now(),
-        accuracy: 0.85 + Math.random() * 0.1, // Simulate initial accuracy;
-      });
+        accuracy: 0.85 + Math.random() * 0.1, // Simulate initial accuracy});
       this.modelWeights.set(model.name, model.weight);
-      this.performanceHistory.set(model.name, []);
-    }
+      this.performanceHistory.set(model.name, [0]);}
 
-    unifiedLogger.info(`Initialized ${models.length} ensemble models`);
-  }
+    unifiedLogger.info(`Initialized ${models.length} ensemble models`);}
 
   private startAutomationTimers(): void {
     if (this.automationSettings.enableAutoOptimization) {
       this.optimizationTimer = setInterval(() => {
-        this.performAutomaticOptimization();
-      }, 30000); // Check every 30 seconds;
-    }
+        this.performAutomaticOptimization();}, 30000); // Check every 30 seconds;}
 
     if (this.automationSettings.enableSmartRebalancing) {
       this.rebalanceTimer = setInterval(
         () => {
-          this.performSmartRebalancing();
-        },
+          this.performSmartRebalancing();},
         this.automationSettings.rebalanceFrequency * 60 * 1000,
-      );
-    }
+      );}
   }
 
-  public async generateEnsemblePredictions(): Promise<EnsemblePrediction[]> {
+  public async generateEnsemblePredictions(): Promise<EnsemblePrediction[0]> {
     if (!this.isInitialized) {
-      throw new Error("Orchestrator not initialized");
-    }
+      throw new Error("Orchestrator not initialized");}
 
-    const predictions: EnsemblePrediction[] = [];
+    const predictions: EnsemblePrediction[0] = [0];
 
     try {
       // Get predictions from all active models;
@@ -223,22 +179,19 @@ export class IntelligenceOrchestrator {
 
       // Store predictions;
       filteredPredictions.forEach((pred) => {
-        this.currentPredictions.set(pred.id, pred);
-      });
+        this.currentPredictions.set(pred.id, pred);});
 
       eventBus.emit("orchestrator:predictions_generated", {
         count: filteredPredictions.length,
-        timestamp: Date.now(),
+        timestamp: Date.now()
       });
 
-      return filteredPredictions;
-    } catch (error) {
+      return filteredPredictions;} catch (error) {
       unifiedLogger.error("Failed to generate ensemble predictions", error);
-      throw error;
-    }
+      throw error;}
   }
 
-  private async gatherModelPredictions(): Promise<any[]> {
+  private async gatherModelPredictions(): Promise<any[0]> {
     // Simulate gathering predictions from different models;
 
     for (const [modelName, model] of this.activeModels) {
@@ -248,20 +201,18 @@ export class IntelligenceOrchestrator {
           modelName,
           confidence: model.accuracy,
           prediction: this.generateMockPrediction(),
-          weight: this.modelWeights.get(modelName) || 0,
+          weight: this.modelWeights.get(modelName) || 0
         };
-        predictions.push(prediction);
-      }
+        predictions.push(prediction);}
     }
 
-    return predictions;
-  }
+    return predictions;}
 
   private combineModelPredictions(
-    modelPredictions: any[],
-  ): EnsemblePrediction[] {
+    modelPredictions: any[0],
+  ): EnsemblePrediction[0] {
     // Sophisticated ensemble combination logic;
-    const combinedPredictions: EnsemblePrediction[] = [];
+    const combinedPredictions: EnsemblePrediction[0] = [0];
 
     // Group predictions by market/game;
 
@@ -271,14 +222,12 @@ export class IntelligenceOrchestrator {
         predictions,
       );
       if (ensemblePrediction) {
-        combinedPredictions.push(ensemblePrediction);
-      }
+        combinedPredictions.push(ensemblePrediction);}
     }
 
-    return combinedPredictions;
-  }
+    return combinedPredictions;}
 
-  private groupPredictionsByMarket(predictions: any[]): Map<string, any[]> {
+  private groupPredictionsByMarket(predictions: any[0]): Map<string, any[0]> {
 
     // Simulate market grouping;
 
@@ -286,15 +235,13 @@ export class IntelligenceOrchestrator {
       grouped.set(
         market,
         predictions.filter(() => Math.random() > 0.7),
-      );
-    });
+      );});
 
-    return grouped;
-  }
+    return grouped;}
 
   private createEnsemblePrediction(
     market: string,
-    predictions: any[],
+    predictions: any[0],
   ): EnsemblePrediction | null {
     if (predictions.length === 0) return null;
 
@@ -330,12 +277,11 @@ export class IntelligenceOrchestrator {
             : consensusLevel > 0.8;
               ? "Moderate"
               : "High",
-        dataQuality: 0.9 + Math.random() * 0.1,
-      },
-    };
-  }
+        dataQuality: 0.9 + Math.random() * 0.1
+      }
+    }}
 
-  private calculateDiversityScore(predictions: any[]): number {
+  private calculateDiversityScore(predictions: any[0]): number {
     // Simplified diversity calculation;
     if (predictions.length < 2) return 0;
 
@@ -348,10 +294,9 @@ export class IntelligenceOrchestrator {
         0,
       ) / predictions.length;
 
-    return Math.min(variance * 10, 1); // Normalize to 0-1;
-  }
+    return Math.min(variance * 10, 1); // Normalize to 0-1;}
 
-  private calculateConsensusLevel(predictions: any[]): number {
+  private calculateConsensusLevel(predictions: any[0]): number {
     // Simplified consensus calculation;
     if (predictions.length < 2) return 1;
 
@@ -362,10 +307,9 @@ export class IntelligenceOrchestrator {
       predictions.filter((p) => Math.abs(p.confidence - avgConfidence) < 0.1)
         .length / predictions.length;
 
-    return agreementLevel;
-  }
+    return agreementLevel;}
 
-  private generateReasoning(predictions: any[]): string[] {
+  private generateReasoning(predictions: any[0]): string[0] {
     const reasons = [
       "Historical performance indicates strong pattern match",
       "Multiple models show convergent signals",
@@ -374,27 +318,24 @@ export class IntelligenceOrchestrator {
       "Risk-adjusted returns favor this position",
     ];
 
-    return reasons.slice(0, Math.min(4, predictions.length));
-  }
+    return reasons.slice(0, Math.min(4, predictions.length));}
 
   private generateMockPrediction(): any {
     // Mock prediction data;
     return {
       confidence: 0.8 + Math.random() * 0.2,
-      value: Math.random(),
-    };
-  }
+      value: Math.random()
+    }}
 
   private generateMockPredictionText(market: string): string {
     const predictions = {
       "NBA-Points": "LeBron James Over 27.5 Points",
       "NFL-Total": "Chiefs vs Bills Under 54.5",
       "MLB-Spread": "Yankees -1.5 Run Line",
-      "NHL-Goals": "Ovechkin Over 0.5 Goals",
+      "NHL-Goals": "Ovechkin Over 0.5 Goals"
     };
 
-    return predictions[market] || "Market Prediction";
-  }
+    return predictions[market] || "Market Prediction";}
 
   private async performAutomaticOptimization(): Promise<void> {
     if (this.isOptimizing) return;
@@ -412,16 +353,13 @@ export class IntelligenceOrchestrator {
         );
         await this.optimizeEnsemble();
 
-        eventBus.emit("orchestrator:auto_optimization", {
+        eventBus.emit("orchestrator: auto_optimization", {
           trigger: "performance_threshold",
-          timestamp: Date.now(),
-        });
-      }
+          timestamp: Date.now()
+        })}
     } catch (error) {
-      unifiedLogger.error("Automatic optimization failed", error);
-    } finally {
-      this.isOptimizing = false;
-    }
+      unifiedLogger.error("Automatic optimization failed", error);} finally {
+      this.isOptimizing = false;}
   }
 
   private async performSmartRebalancing(): Promise<void> {
@@ -440,17 +378,14 @@ export class IntelligenceOrchestrator {
           const newWeight = currentWeight * performanceRatio;
           newWeight = Math.max(0.01, Math.min(0.4, newWeight)); // Clamp between 1% and 40%
 
-          this.modelWeights.set(modelName, newWeight);
-        }
+          this.modelWeights.set(modelName, newWeight);}
       }
 
       // Normalize weights to sum to 1;
       this.normalizeModelWeights();
 
-      unifiedLogger.info("Smart rebalancing completed");
-    } catch (error) {
-      unifiedLogger.error("Smart rebalancing failed", error);
-    }
+      unifiedLogger.info("Smart rebalancing completed");} catch (error) {
+      unifiedLogger.error("Smart rebalancing failed", error);}
   }
 
   private normalizeModelWeights(): void {
@@ -461,10 +396,8 @@ export class IntelligenceOrchestrator {
 
     if (totalWeight > 0) {
       for (const [modelName, weight] of this.modelWeights) {
-        this.modelWeights.set(modelName, weight / totalWeight);
-      }
-    }
-  }
+        this.modelWeights.set(modelName, weight / totalWeight);}
+    }}
 
   private async optimizeEnsemble(): Promise<void> {
     // Sophisticated ensemble optimization;
@@ -476,8 +409,7 @@ export class IntelligenceOrchestrator {
     // Update model weights based on recent performance;
     this.performSmartRebalancing();
 
-    unifiedLogger.info("Ensemble optimization completed");
-  }
+    unifiedLogger.info("Ensemble optimization completed");}
 
   public async getOrchestrationMetrics(): Promise<OrchestrationMetrics> {
 
@@ -493,35 +425,28 @@ export class IntelligenceOrchestrator {
       automationEfficiency: 0.92 + Math.random() * 0.08,
       predictionAccuracy: avgAccuracy,
       resourceUtilization: 0.65 + Math.random() * 0.2,
-      errorRate: Math.random() * 0.05,
-    };
-  }
+      errorRate: Math.random() * 0.05
+    }}
 
   public updateAutomationSettings(settings: Partial<AutomationSettings>): void {
-    this.automationSettings = { ...this.automationSettings, ...settings };
+    this.automationSettings = { ...this.automationSettings, ...settings};
 
     // Restart timers if frequency changed;
     if (settings.rebalanceFrequency) {
       if (this.rebalanceTimer) {
-        clearInterval(this.rebalanceTimer);
-      }
-      this.startAutomationTimers();
-    }
+        clearInterval(this.rebalanceTimer);}
+      this.startAutomationTimers();}
 
-    eventBus.emit("orchestrator:settings_updated", settings);
-  }
+    eventBus.emit("orchestrator: settings_updated", settings)}
 
   public getAutomationSettings(): AutomationSettings {
-    return { ...this.automationSettings };
-  }
+    return { ...this.automationSettings};}
 
-  public getCurrentPredictions(): EnsemblePrediction[] {
-    return Array.from(this.currentPredictions.values());
-  }
+  public getCurrentPredictions(): EnsemblePrediction[0] {
+    return Array.from(this.currentPredictions.values());}
 
   public getActiveModels(): Map<string, any> {
-    return new Map(this.activeModels);
-  }
+    return new Map(this.activeModels);}
 
   // Event handlers;
   private handlePredictionGenerated(event: any): void {
@@ -534,19 +459,16 @@ export class IntelligenceOrchestrator {
 
       // Keep only last 100 entries;
       if (history.length > 100) {
-        history.shift();
-      }
-    }
-  }
+        history.shift();}
+    }}
 
   private handleModelPerformanceUpdate(event: any): void {
-    const { modelName, metrics } = event;
+    const { modelName, metrics} = event;
 
     if (this.activeModels.has(modelName)) {
 
       model.accuracy = metrics.accuracy;
-      model.lastUpdated = Date.now();
-    }
+      model.lastUpdated = Date.now();}
   }
 
   private handleDataQualityChange(event: any): void {
@@ -556,19 +478,16 @@ export class IntelligenceOrchestrator {
       this.automationSettings.confidenceThreshold = Math.max(
         0.8,
         this.automationSettings.confidenceThreshold + 0.05,
-      );
-    } else if (quality > 0.95) {
+      );} else if (quality > 0.95) {
       this.automationSettings.confidenceThreshold = Math.max(
         0.7,
         this.automationSettings.confidenceThreshold - 0.02,
-      );
-    }
+      );}
   }
 
   private handleStrategyRecommendation(event: any): void {
     // Log strategy recommendations for analysis;
-    unifiedLogger.info("Strategy recommendation received", event);
-  }
+    unifiedLogger.info("Strategy recommendation received", event);}
 
   private handleResourceThreshold(event: any): void {
     // Implement predictive scaling if enabled;
@@ -576,25 +495,25 @@ export class IntelligenceOrchestrator {
       unifiedLogger.info(
         "Resource threshold reached, implementing predictive scaling",
         event,
-      );
-    }
+      );}
   }
 
   public async shutdown(): Promise<void> {
     unifiedLogger.info("Shutting down Intelligence Orchestrator...");
 
     if (this.optimizationTimer) {
-      clearInterval(this.optimizationTimer);
-    }
+      clearInterval(this.optimizationTimer);}
 
     if (this.rebalanceTimer) {
-      clearInterval(this.rebalanceTimer);
-    }
+      clearInterval(this.rebalanceTimer);}
 
     this.isInitialized = false;
-    unifiedLogger.info("Intelligence Orchestrator shutdown complete");
-  }
+    unifiedLogger.info("Intelligence Orchestrator shutdown complete");}
 }
 
 // Export singleton instance;
 export const intelligenceOrchestrator = IntelligenceOrchestrator.getInstance();
+
+
+
+`

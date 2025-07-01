@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-  const [realTimeData, setRealTimeData] = useState({
+﻿import { motion} from "framer-  const [realTimeData, setRealTimeData] = useState({";
+import React, { useEffect, useState} from 'react';
 liveGames: 0,
   predictions: 0,
     accuracy: 0,
@@ -9,7 +9,7 @@ liveGames: 0,
             dataPoints: 0,
               processingSpeed: 0,
                 confidence: 0,
-                  activeBots: 0,
+                  activeBots: 0
   });
 
 // Fetch real-time data from backend
@@ -34,11 +34,9 @@ useEffect(() => {
         dataPoints: analyticsData.machine_learning_insights?.data_points_processed || 0,
         processingSpeed: healthData.api_metrics?.requests_per_minute || 0,
         confidence: Math.round((analyticsData.machine_learning_insights?.model_confidence || 0) * 100 * 100) / 100,
-        activeBots: healthData.models?.active_models || 0,
-      });
-    } catch (error) {
-      console.error('Failed to fetch real-time data:', error);
-    }
+        activeBots: healthData.models?.active_models || 0
+      })} catch (error) {
+      console.error('Failed to fetch real-time data:', error)}
   };
 
   fetchRealTimeData();
@@ -54,18 +52,15 @@ useEffect(() => {
     Atom,
     Users,
     Trophy,
-    BarChart3,
+//     BarChart3
 } from 'lucide-react';
 
 interface MetricCardProps {
-  label: string;
-  value: string;
-  icon: React.ElementType;
-  change?: string;
+  label: string,`n  value: string;,`n  icon: React.ElementType;
+  change?: string
   trend?: 'up' | 'down';
-  live?: boolean;
-  variant?: 'neural' | 'quantum' | 'profit' | 'default';
-}
+  live?: boolean
+  variant?: 'neural' | 'quantum' | 'profit' | 'default'}
 
 const MetricCard: React.FC<MetricCardProps> = ({
   label,
@@ -74,7 +69,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
   change,
   trend,
   live,
-  variant = 'default',
+  variant = 'default'
 }) => {
   const getVariantStyles = () => {
     switch (variant) {
@@ -85,15 +80,14 @@ const MetricCard: React.FC<MetricCardProps> = ({
       case 'profit':
         return 'bg-gradient-to-br from-green-500/20 via-emerald-500/15 to-green-600/20 border-green-500/40';
       default:
-        return 'bg-gradient-to-br from-slate-500/20 via-gray-500/15 to-slate-600/20 border-slate-500/40';
-    }
+        return 'bg-gradient-to-br from-slate-500/20 via-gray-500/15 to-slate-600/20 border-slate-500/40'}
   };
 
   return (
     <motion.div
       className={`quantum-card p-6 rounded-2xl relative overflow-hidden ${getVariantStyles()}`}
-      whileHover={{ scale: 1.02, rotateY: 2 }}
-      transition={{ duration: 0.3 }}
+      whileHover={{ scale: 1.02, rotateY: 2}}
+      transition={{ duration: 0.3}}
     >
       <div className='flex items-center justify-between mb-4'>
         <div className='p-3 rounded-xl bg-white/10'>
@@ -111,9 +105,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
         <div className='text-3xl font-bold text-white mb-1'>{value}</div>
         <div className='text-sm text-gray-400 mb-2'>{label}</div>
         {change && (
-          <div
-            className={`text-xs font-semibold ${trend === 'up' ? 'text-green-400' : 'text-red-400'}`}
-          >
+          <div className={`text-xs font-semibold ${trend === 'up' ? 'text-green-400' : 'text-red-400'}`}>`n          >
             {trend === 'up' ? '↗' : '↘'} {change}
           </div>
         )}
@@ -121,8 +113,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
 
       <div className='absolute inset-0 bg-gradient-to-r from-white/5 via-transparent to-white/5 animate-pulse opacity-50' />
     </motion.div>
-  );
-};
+  )};
 
 const QuantumDashboard: React.FC = () => {
   const [realTimeData, setRealTimeData] = useState({
@@ -135,7 +126,7 @@ const QuantumDashboard: React.FC = () => {
     dataPoints: 2847592,
     processingSpeed: 12,
     confidence: 91.5,
-    activeBots: 47,
+    activeBots: 47
   });
 
   // Simulate real-time updates
@@ -160,12 +151,10 @@ const QuantumDashboard: React.FC = () => {
           8,
           Math.min(20, prev.processingSpeed + Math.floor(Math.random() * 6 - 3))
         ),
-        confidence: Math.min(99, Math.max(85, prev.confidence + (Math.random() - 0.5) * 2)),
-      }));
-    }, 2000);
+        confidence: Math.min(99, Math.max(85, prev.confidence + (Math.random() - 0.5) * 2))
+      }))}, 2000);
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)}, [0]);
 
   return (
     <div className='space-y-8 animate-slide-in-up'>
@@ -187,41 +176,33 @@ const QuantumDashboard: React.FC = () => {
 
       {/* Real-Time Metrics Grid */}
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>
-        <MetricCard
-          label='Neural Activity'
-          value={`${realTimeData.neuralActivity.toFixed(1)}%`}
+        <MetricCard label='Neural Activity'
+          value={`${isNaN(Number(realTimeData?.neuralActivity)) ? "N/A" : Number(realTimeData?.neuralActivity).toFixed(1)}%`}
           icon={Brain}
           change='+2.1%'
           trend='up'
           live={true}
-          variant='neural'
-        />
-        <MetricCard
-          label='Quantum Coherence'
-          value={`${realTimeData.quantumCoherence.toFixed(2)}%`}
+          variant='neural'>`n        />
+        <MetricCard label='Quantum Coherence'
+          value={`${isNaN(Number(realTimeData?.quantumCoherence)) ? "N/A" : Number(realTimeData?.quantumCoherence).toFixed(2)}%`}
           icon={Atom}
           change='+0.03%'
           trend='up'
           live={true}
-          variant='quantum'
-        />
-        <MetricCard
-          label='Real-Time Accuracy'
-          value={`${realTimeData.accuracy.toFixed(1)}%`}
+          variant='quantum'>`n        />
+        <MetricCard label='Real-Time Accuracy'
+          value={`${isNaN(Number(realTimeData?.accuracy)) ? "N/A" : Number(realTimeData?.accuracy).toFixed(1)}%`}
           icon={Target}
           change='+0.4%'
           trend='up'
-          live={true}
-        />
-        <MetricCard
-          label='Live Profit Stream'
+          live={true}>`n        />
+        <MetricCard label='Live Profit Stream'
           value={`$${realTimeData.profit.toLocaleString()}`}
           icon={TrendingUp}
           change='+$2.7K'
           trend='up'
           live={true}
-          variant='profit'
-        />
+          variant='profit'>`n        />
       </div>
 
       {/* Status Bar */}
@@ -264,8 +245,8 @@ const QuantumDashboard: React.FC = () => {
       <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
         <motion.div
           className='quantum-card p-8 rounded-2xl text-center cursor-pointer bg-gradient-to-br from-green-500/20 via-emerald-500/15 to-green-600/20 border-green-500/40'
-          whileHover={{ scale: 1.05, rotateY: 5 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.05, rotateY: 5}}
+          whileTap={{ scale: 0.95}}
         >
           <div className='text-6xl mb-4'>💰</div>
           <h3 className='text-2xl font-black mb-3 text-green-400 font-cyber'>MONEY MAKER</h3>
@@ -279,8 +260,8 @@ const QuantumDashboard: React.FC = () => {
 
         <motion.div
           className='quantum-card p-8 rounded-2xl text-center cursor-pointer bg-gradient-to-br from-yellow-500/20 via-orange-500/15 to-yellow-600/20 border-yellow-500/40'
-          whileHover={{ scale: 1.05, rotateY: 5 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.05, rotateY: 5}}
+          whileTap={{ scale: 0.95}}
         >
           <div className='text-6xl mb-4'>🏆</div>
           <h3 className='text-2xl font-black mb-3 text-yellow-400 font-cyber'>PRIZEPICKS PRO</h3>
@@ -292,8 +273,8 @@ const QuantumDashboard: React.FC = () => {
 
         <motion.div
           className='quantum-card p-8 rounded-2xl text-center cursor-pointer bg-gradient-to-br from-purple-500/20 via-pink-500/15 to-purple-600/20 border-purple-500/40'
-          whileHover={{ scale: 1.05, rotateY: 5 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.05, rotateY: 5}}
+          whileTap={{ scale: 0.95}}
         >
           <div className='text-6xl mb-4'>🤖</div>
           <h3 className='text-2xl font-black mb-3 text-purple-400 font-cyber'>PROPGPT NEURAL</h3>
@@ -304,7 +285,11 @@ const QuantumDashboard: React.FC = () => {
         </motion.div>
       </div>
     </div>
-  );
-};
+  )};
 
 export default QuantumDashboard;
+
+
+
+
+`

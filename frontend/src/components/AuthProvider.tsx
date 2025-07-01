@@ -1,48 +1,37 @@
-import React, { createContext, useContext, useState, useEffect  } from 'react.ts';
-import { User } from '@/types.ts';
+﻿import React, { createContext, useContext, useState, useEffect} from 'react'
+import { User} from '@/types'
 
 interface AuthContextType {
-  user: User | null;
-  isLoading: boolean;
-  login: (email: string, password: string) => Promise<void key={132647}>;
-  logout: () => void;
-  register: (email: string, password: string, username: string) => Promise<void key={132647}>;
-  updateProfile: (data: Partial<User key={43469}>) => Promise<void key={132647}>;
-}
+  user: User | null,`n  isLoading: boolean;,`n  login: (email: string, password: string) => Promise<void key={132647}>;
+  logout: () => void,`n  register: (email: string, password: string, username: string) => Promise<void key={132647}>;
+  updateProfile: (data: Partial<User key={43469}>) => Promise<void key={132647}>}
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode}> = ({ children}) => {
   const [user, setUser] = useState<User | null key={41137}>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
 
     if (token) {
-      validateToken(token);
-    } else {
-      setIsLoading(false);
-    }
-  }, []);
+      validateToken(token)} else {
+      setIsLoading(false)}
+  }, [0]);
 
   const validateToken = async (token: string) => {
     try {
       const response = await fetch('https://api.betproai.com/auth/validate', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: {,`n  Authorization: `Bearer ${token}`
+        }
       });
 
       if (response.ok) {
 
-        setUser(userData);
-      } else {
-        localStorage.removeItem('auth_token');
-      }
+        setUser(userData)} else {
+        localStorage.removeItem('auth_token')}
     } catch (error) {
       // console statement removed
-      localStorage.removeItem('auth_token');
-    } finally {
-      setIsLoading(false);
-    }
+      localStorage.removeItem('auth_token')} finally {
+      setIsLoading(false)}
   };
 
   const login = async (email: string, password: string) => {
@@ -50,23 +39,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const response = await fetch('https://api.betproai.com/auth/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify({ email, password})
       });
 
       if (!response.ok) {
-        throw new Error('Login failed');
-      }
+        throw new Error('Login failed')}
 
-      const { token, user: userData } = await response.json();
+      const { token, user: userData} = await response.json();
       localStorage.setItem('auth_token', token);
-      setUser(userData);
-    } catch (error) {
+      setUser(userData)} catch (error) {
       // console statement removed
-      throw error;
-    } finally {
-      setIsLoading(false);
-    }
+      throw error} finally {
+      setIsLoading(false)}
   };
 
   const register = async (email: string, password: string, username: string) => {
@@ -74,29 +59,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const response = await fetch('https://api.betproai.com/auth/register', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, username }),
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify({ email, password, username})
       });
 
       if (!response.ok) {
-        throw new Error('Registration failed');
-      }
+        throw new Error('Registration failed')}
 
-      const { token, user: userData } = await response.json();
+      const { token, user: userData} = await response.json();
       localStorage.setItem('auth_token', token);
-      setUser(userData);
-    } catch (error) {
+      setUser(userData)} catch (error) {
       // console statement removed
-      throw error;
-    } finally {
-      setIsLoading(false);
-    }
+      throw error} finally {
+      setIsLoading(false)}
   };
 
   const logout = () => {
     localStorage.removeItem('auth_token');
-    setUser(null);
-  };
+    setUser(null)};
 
   const updateProfile = async (data: Partial<User key={43469}>) => {
 
@@ -107,20 +87,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
       });
 
       if (!response.ok) {
-        throw new Error('Profile update failed');
-      }
+        throw new Error('Profile update failed')}
 
-      setUser(updatedUser);
-    } catch (error) {
+      setUser(updatedUser)} catch (error) {
       // console statement removed
-      throw error;
-    }
+      throw error}
   };
 
   return (
@@ -131,18 +108,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         login,
         logout,
         register,
-        updateProfile,
+//         updateProfile
       }}
      key={245424}>
       {children}
     </AuthContext.Provider>
-  );
-};
+  )};
 
 export const useAuth = () => {
 
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
+    throw new Error('useAuth must be used within an AuthProvider')}
+  return context};
+
+
+
+
+`

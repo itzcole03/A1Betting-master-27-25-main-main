@@ -316,7 +316,7 @@ python automation/master_orchestrator.py --no-prompts
 
 Create `.env` files:
 
-**Backend `.env`:**
+**Backend `.env**:
 ```env
 DATABASE_URL=postgresql://user:password@localhost:5432/a1betting
 MONGODB_URL=mongodb://localhost:27017/a1betting
@@ -327,7 +327,7 @@ JWT_EXPIRE_MINUTES=60
 CORS_ORIGINS=http://localhost:3000,http://localhost:5173
 ```
 
-**Frontend `.env`:**
+**Frontend `.env**:
 ```env
 VITE_API_URL=http://localhost:8000
 VITE_WS_URL=ws://localhost:8000/ws
@@ -335,8 +335,8 @@ VITE_APP_NAME=A1Betting
 VITE_APP_VERSION=1.0.0
 
 # API Keys (already configured)
-VITE_THE_ODDS_API_KEY=8684be37505fc5ce63b0337d472af0ee
-VITE_SPORTRADAR_API_KEY=R10yQbjTO5fZF6BPkfxjOaftsyN9X4ImAJv95H7s
+VITE_THE_ODDS_API_KEY=your_odds_api_key_here
+VITE_SPORTRADAR_API_KEY=your_sportradar_api_key_here
 VITE_DAILYFANTASY_API_KEY=your_key_here
 ```
 
@@ -1167,8 +1167,8 @@ docker-compose down       # Stop all services
 - **Root Directory**: `frontend`
 - **Environment Variables**: Add these in the form:
   - `VITE_API_URL=http://localhost:8000`
-  - `VITE_THE_ODDS_API_KEY=8684be37505fc5ce63b0337d472af0ee`
-  - `VITE_SPORTRADAR_API_KEY=R10yQbjTO5fZF6BPkfxjOaftsyN9X4ImAJv95H7s`
+  - `VITE_THE_ODDS_API_KEY=your_odds_api_key_here`
+  - `VITE_SPORTRADAR_API_KEY=your_sportradar_api_key_here`
 
 ### 🎨 Design System Instructions for AI:
 

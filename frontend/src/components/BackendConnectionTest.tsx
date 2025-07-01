@@ -1,34 +1,31 @@
-/**
+﻿/**
  * Backend Connection Test Component;
  * Tests and displays the status of backend connectivity;
  */
 
-import React, { useState, useEffect  } from 'react.ts';
+import React, { useState, useEffect} from 'react'
 import {
   backendApi,
   HealthStatus,
-  BettingOpportunity,
-} from '@/services/backendApi.ts';
-import IntegrationStatus from './IntegrationStatus.ts';
-import DevelopmentGuide from './DevelopmentGuide.ts';
-import SimpleAdvancedIntegrationStatus from './SimpleAdvancedIntegrationStatus.ts';
-import OllamaStatus from './OllamaStatus.ts';
-import EnhancedFeaturesStatus from './EnhancedFeaturesStatus.ts';
+//   BettingOpportunity
+} from '@/services/backendApi';
+import IntegrationStatus from './IntegrationStatus'
+import DevelopmentGuide from './DevelopmentGuide'
+import SimpleAdvancedIntegrationStatus from './SimpleAdvancedIntegrationStatus'
+import OllamaStatus from './OllamaStatus'
+import EnhancedFeaturesStatus from './EnhancedFeaturesStatus'
 
 interface ConnectionStatus {
-  backend: "connected" | "disconnected" | "loading";
-  websocket: "connected" | "disconnected" | "loading";
-  lastUpdate: string;
-}
+  backend: "connected" | "disconnected" | "loading",`n  websocket: "connected" | "disconnected" | "loading";,`n  lastUpdate: string}
 
 export const BackendConnectionTest: React.FC = () => {
   const [status, setStatus] = useState<ConnectionStatus key={210048}>({
     backend: "loading",
     websocket: "loading",
-    lastUpdate: new Date().toISOString(),
+    lastUpdate: new Date().toISOString()
   });
   const [healthData, setHealthData] = useState<HealthStatus | null key={827110}>(null);
-  const [bettingOpps, setBettingOpps] = useState<BettingOpportunity[] key={543778}>([]);
+  const [bettingOpps, setBettingOpps] = useState<BettingOpportunity[0] key={543778}>([0]);
   const [error, setError] = useState<string | null key={121216}>(null);
 
   useEffect(() => {
@@ -37,13 +34,12 @@ export const BackendConnectionTest: React.FC = () => {
 
     // Test connection every 30 seconds;
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)}, [0]);
 
   const testBackendConnection = async () => {
     try {
       setError(null);
-      setStatus((prev) => ({ ...prev, backend: "loading" }));
+      setStatus((prev) => ({ ...prev, backend: "loading"}));
 
       // Test health endpoint;
 
@@ -51,7 +47,7 @@ export const BackendConnectionTest: React.FC = () => {
       setStatus((prev) => ({
         ...prev,
         backend: "connected",
-        lastUpdate: new Date().toISOString(),
+        lastUpdate: new Date().toISOString()
       }));
 
       // Test a data endpoint;
@@ -59,31 +55,25 @@ export const BackendConnectionTest: React.FC = () => {
         undefined,
         3,
       );
-      setBettingOpps(opportunities);
-    } catch (err: any) {
+      setBettingOpps(opportunities)} catch (err: any) {
       // console statement removed
       setError(err.message || "Failed to connect to backend");
       setStatus((prev) => ({
         ...prev,
         backend: "disconnected",
-        lastUpdate: new Date().toISOString(),
-      }));
-    }
+        lastUpdate: new Date().toISOString()
+      }))}
   };
 
   const setupWebSocketListeners = () => {
     backendApi.onWebSocketEvent("connection", () => {
-      setStatus((prev) => ({ ...prev, websocket: "connected" }));
-    });
+      setStatus((prev) => ({ ...prev, websocket: "connected"}))});
 
     backendApi.onWebSocketEvent("disconnection", () => {
-      setStatus((prev) => ({ ...prev, websocket: "disconnected" }));
-    });
+      setStatus((prev) => ({ ...prev, websocket: "disconnected"}))});
 
     backendApi.onWebSocketEvent("odds_update", (data) => {
-      // console statement removed
-    });
-  };
+      // console statement removed})};
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -94,8 +84,7 @@ export const BackendConnectionTest: React.FC = () => {
       case "loading":
         return "text-yellow-600";
       default:
-        return "text-gray-600";
-    }
+        return "text-gray-600"}
   };
 
   const getStatusIcon = (status: string) => {
@@ -107,8 +96,7 @@ export const BackendConnectionTest: React.FC = () => {
       case "loading":
         return "⏳";
       default:
-        return "❓";
-    }
+        return "❓"}
   };
 
   return (
@@ -235,8 +223,7 @@ export const BackendConnectionTest: React.FC = () => {
                         className={`px-2 py-1 rounded text-xs font-medium ${
                           opp.recommendation === "STRONG_BUY"
                             ? "bg-green-100 text-green-800"
-                            : "bg-blue-100 text-blue-800"
-                        }`}
+                            : "bg-blue-100 text-blue-800"}`}
                        key={116702}>
                         {opp.recommendation}
                       </div>
@@ -263,8 +250,7 @@ export const BackendConnectionTest: React.FC = () => {
 
           <button;
             onClick={() = key={919301}>
-              window.open("http://localhost:8000/health", "_blank")
-            }
+              window.open("http://localhost:8000/health", "_blank")}
             className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition-colors"
           >
             Open Backend Health;
@@ -272,7 +258,11 @@ export const BackendConnectionTest: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )};
 
 export default BackendConnectionTest;
+
+
+
+
+`

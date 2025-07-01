@@ -1,20 +1,19 @@
-import React, { useState, useEffect  } from 'react.ts';
-import GlassCard from '@/components/ui/GlassCard.ts';
-import EnhancedPropCard from '@/components/ui/EnhancedPropCard.ts';
-import GlowButton from '@/components/ui/GlowButton.ts';
-import Tooltip from '@/components/ui/Tooltip.ts';
-import { Container, Typography, Box, Grid, TextField, MenuItem } from '@mui/material.ts';
-import { notificationService } from '@/services/notification.ts';
-import { sportsAnalytics, Sport, PropPrediction } from '@/services/sportsAnalytics.ts';
+﻿import React, { useState, useEffect} from 'react';
+import GlassCard from '@/components/ui/GlassCard';
+import EnhancedPropCard from '@/components/ui/EnhancedPropCard';
+import GlowButton from '@/components/ui/GlowButton';
+import Tooltip from '@/components/ui/Tooltip';
+import { Container, Typography, Box, Grid, TextField, MenuItem} from '@mui/material';
+import { notificationService} from '@/services/notification';
+import { sportsAnalytics, Sport, PropPrediction} from '@/services/sportsAnalytics';
 
 // Sample data for demonstration;
 const samplePlayers = [
   {
-    player: {
-      name: 'LeBron James',
+    player: {,`n  name: 'LeBron James',
       team: 'LAL',
       position: 'F',
-      imageUrl: 'https://cdn.nba.com/headshots/nba/latest/1040x760/2544.png',
+      imageUrl: 'https://cdn.nba.com/headshots/nba/latest/1040x760/2544.png'
     },
     props: [
       {
@@ -25,7 +24,7 @@ const samplePlayers = [
         underMultiplier: 1.9,
         confidence: 85,
         fireCount: 156,
-        winRate: 72,
+        winRate: 72
       },
       {
         id: 'rebounds_1',
@@ -37,7 +36,7 @@ const samplePlayers = [
         modifierMultiplier: 2.5,
         confidence: 65,
         fireCount: 89,
-        winRate: 68,
+        winRate: 68
       },
       {
         id: 'assists_1',
@@ -49,16 +48,15 @@ const samplePlayers = [
         modifierMultiplier: 3.0,
         confidence: 45,
         fireCount: 42,
-        winRate: 55,
+        winRate: 55
       },
-    ],
+    ]
   },
   {
-    player: {
-      name: 'Stephen Curry',
+    player: {,`n  name: 'Stephen Curry',
       team: 'GSW',
       position: 'G',
-      imageUrl: 'https://cdn.nba.com/headshots/nba/latest/1040x760/201939.png',
+      imageUrl: 'https://cdn.nba.com/headshots/nba/latest/1040x760/201939.png'
     },
     props: [
       {
@@ -69,7 +67,7 @@ const samplePlayers = [
         underMultiplier: 1.85,
         confidence: 90,
         fireCount: 234,
-        winRate: 78,
+        winRate: 78
       },
       {
         id: 'threes_2',
@@ -81,7 +79,7 @@ const samplePlayers = [
         modifierMultiplier: 2.5,
         confidence: 75,
         fireCount: 167,
-        winRate: 82,
+        winRate: 82
       },
       {
         id: 'assists_2',
@@ -91,16 +89,15 @@ const samplePlayers = [
         underMultiplier: 1.85,
         confidence: 60,
         fireCount: 78,
-        winRate: 65,
+        winRate: 65
       },
-    ],
+    ]
   },
   {
-    player: {
-      name: 'Nikola Jokic',
+    player: {,`n  name: 'Nikola Jokic',
       team: 'DEN',
       position: 'C',
-      imageUrl: 'https://cdn.nba.com/headshots/nba/latest/1040x760/203999.png',
+      imageUrl: 'https://cdn.nba.com/headshots/nba/latest/1040x760/203999.png'
     },
     props: [
       {
@@ -111,7 +108,7 @@ const samplePlayers = [
         underMultiplier: 1.85,
         confidence: 80,
         fireCount: 145,
-        winRate: 75,
+        winRate: 75
       },
       {
         id: 'rebounds_3',
@@ -123,7 +120,7 @@ const samplePlayers = [
         modifierMultiplier: 3.0,
         confidence: 70,
         fireCount: 112,
-        winRate: 80,
+        winRate: 80
       },
       {
         id: 'assists_3',
@@ -133,9 +130,9 @@ const samplePlayers = [
         underMultiplier: 1.85,
         confidence: 55,
         fireCount: 67,
-        winRate: 62,
+        winRate: 62
       },
-    ],
+    ]
   },
 ];
 
@@ -151,17 +148,15 @@ const sampleTrendingProps = [
     modifier: 'goblin' as const,
     confidence: 90,
     fireCount: 234,
-    communityStats: {
-      likes: 156,
+    communityStats: {,`n  likes: 156,
       comments: 42,
-      shares: 23,
+      shares: 23
     },
-    topComment: {
-      user: 'PropMaster',
+    topComment: {,`n  user: 'PropMaster',
       avatar: 'https://i.pravatar.cc/150?img=1',
       text: 'Curry has hit this in 8 of his last 10 games. Easy money!',
-      likes: 45,
-    },
+      likes: 45
+    }
   },
   // Add more trending props...
 ];
@@ -176,20 +171,16 @@ export const PropsPage: React.FC = () => {
 
   useEffect(() => {
     if (selectedProp) {
-      loadPropPrediction(selectedProp);
-    }
+      loadPropPrediction(selectedProp);}
   }, [selectedProp, selectedSport]);
 
   const loadPropPrediction = async (propId: string) => {
     setIsLoading(true);
     try {
 
-      setPropPrediction(prediction);
-    } catch (error) {
-      notificationService.notify('error', 'Error loading prediction', 'Please try again later');
-    } finally {
-      setIsLoading(false);
-    }
+      setPropPrediction(prediction);} catch (error) {
+      notificationService.notify('error', 'Error loading prediction', 'Please try again later');} finally {
+      setIsLoading(false);}
   };
 
   const handlePropSelect = (
@@ -203,12 +194,10 @@ export const PropsPage: React.FC = () => {
       'success',
       'Prop Selected',
       `${playerName} - ${selection.toUpperCase()} ${propId}${modifier ? ` (${modifier})` : ''}`
-    );
-  };
+    );};
 
   const handleTrendingPropSelect = (propId: string) => {
-    setSelectedProp(propId);
-  };
+    setSelectedProp(propId)};
 
   const handleBetSelect = (
     amount: number,
@@ -219,8 +208,7 @@ export const PropsPage: React.FC = () => {
       'success',
       'Bet Placed',
       `$${amount} on ${type.toUpperCase()}${modifier ? ` (${modifier})` : ''}`
-    );
-  };
+    )};
 
   return (
     <div className="p-6 space-y-8 min-h-screen bg-gradient-to-br from-blue-900/80 to-blue-700/80 dark:from-gray-900 dark:to-gray-800 transition-colors" key={832183}>
@@ -240,10 +228,10 @@ export const PropsPage: React.FC = () => {
                 underOdds={prop.underMultiplier}
                 pickType={prop.modifier || 'normal'}
                 trendValue={prop.fireCount}
-                gameInfo={{ opponent: 'TBD', day: 'Fri', time: '7:30pm' }}
+                gameInfo={{ opponent: 'TBD', day: 'Fri', time: '7:30pm'}}
                 playerImageUrl={player.player.imageUrl}
-                onSelect={() = key={303050}> {}}
-                onViewDetails={() => {}}
+                onSelect={() = key={303050}> Record<string, any>}
+                onViewDetails={() => Record<string, any>}
               />
             ))
           )}
@@ -251,7 +239,10 @@ export const PropsPage: React.FC = () => {
       </GlassCard>
       {/* Advanced Widgets or analytics can be added here as needed */}
     </div>
-  );
-};
+  )};
 
 export default PropsPage;
+
+
+
+`

@@ -1,13 +1,11 @@
-import React, { ReactNode  } from 'react.ts';
+﻿import React, { ReactNode} from 'react.ts';
 interface LoggerContextType {
-    log: (message: string) => void;
-    error: (message: string) => void;
-    warn: (message: string) => void;
-    info: (message: string) => void;
-}
+  log: (message: string) => void,`n  error: (message: string) => void,`n  warn: (message: string) => void,`n  info: (message: string) => void}
 export declare const useLogger: () => LoggerContextType;
 interface LoggerProviderProps {
-    children: ReactNode;
-}
+  children: ReactNode}
 export declare const LoggerProvider: React.FC<LoggerProviderProps>;
-export {};
+export Record<string, any>;
+
+
+`

@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -10,29 +10,25 @@ import {
   Tabs,
   Tab,
   IconButton,
-  Tooltip,
-} from '@mui/material.ts';
-import CloseIcon from '@mui/icons-material/Close.ts';
-import InfoIcon from '@mui/icons-material/Info.ts';
-import { ShapExplanation } from './ShapExplanation.ts';
-import { PredictionWithExplanation } from '@/core/types/prediction.ts';
+//   Tooltip
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import InfoIcon from '@mui/icons-material/Info';
+import { ShapExplanation} from './ShapExplanation';
+import { PredictionWithExplanation} from '@/core/types/prediction';
 
 interface PredictionExplanationModalProps {
-  open: boolean;
-  onClose: () => void;
-  prediction: PredictionWithExplanation;
-}
+  open: boolean,`n  onClose: () => void;,`n  prediction: PredictionWithExplanation}
 
 export const PredictionExplanationModal: React.FC<PredictionExplanationModalProps key={54418}> = ({
   open,
   onClose,
-  prediction,
+//   prediction
 }) => {
   const [selectedModel, setSelectedModel] = React.useState(0);
 
   const handleModelChange = (event: React.SyntheticEvent, newValue: number) => {
-    setSelectedModel(newValue);
-  };
+    setSelectedModel(newValue)};
 
   return (
     <Dialog;
@@ -40,10 +36,9 @@ export const PredictionExplanationModal: React.FC<PredictionExplanationModalProp
       maxWidth="lg"
       open={open}
       PaperProps={{
-        sx: {
-          minHeight: '80vh',
-          maxHeight: '90vh',
-        },
+        sx: {,`n  minHeight: '80vh',
+          maxHeight: '90vh'
+        }
       }}
       onClose={onClose}
      key={645933}>
@@ -80,7 +75,7 @@ export const PredictionExplanationModal: React.FC<PredictionExplanationModalProp
 
         <Tabs;
           scrollButtons="auto"
-          sx={{ borderBottom: 1, borderColor: 'divider' }}
+          sx={{ borderBottom: 1, borderColor: 'divider'}}
           value={selectedModel}
           variant="scrollable"
           onChange={handleModelChange}
@@ -114,5 +109,8 @@ export const PredictionExplanationModal: React.FC<PredictionExplanationModalProp
         </Button>
       </DialogActions>
     </Dialog>
-  );
-};
+  );};
+
+
+
+`

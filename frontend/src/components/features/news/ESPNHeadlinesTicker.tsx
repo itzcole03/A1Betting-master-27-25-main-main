@@ -1,7 +1,7 @@
-import React, { useEffect  } from 'react.ts';
-import { Newspaper, Loader, AlertTriangle } from 'lucide-react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
-import { useAppStore } from '@/store/useAppStore.ts';
+﻿import React, { useEffect} from 'react';
+import { Newspaper, Loader, AlertTriangle} from 'lucide-react';
+import { motion, AnimatePresence} from 'framer-motion';
+import { useAppStore} from '@/store/useAppStore';
 
 
 const ESPNHeadlinesTicker: React.FC = () => {
@@ -9,28 +9,25 @@ const ESPNHeadlinesTicker: React.FC = () => {
     headlines,
     isLoadingHeadlines,
     error,
-    fetchHeadlines,
+//     fetchHeadlines
   } = useAppStore((state) => ({
     headlines: state.headlines,
     isLoadingHeadlines: state.isLoadingHeadlines,
     error: state.error, // Assuming a general error field for headline fetching;
-    fetchHeadlines: state.fetchHeadlines,
+    fetchHeadlines: state.fetchHeadlines
   }));
 
   const [currentHeadlineIndex, setCurrentHeadlineIndex] = React.useState(0);
 
   useEffect(() => {
-    fetchHeadlines();
-  }, [fetchHeadlines]);
+    fetchHeadlines();}, [fetchHeadlines]);
 
   useEffect(() => {
     if (!Array.isArray(headlines) || headlines.length === 0) return;
 
     const timer = setInterval(() => {
-      setCurrentHeadlineIndex((prevIndex) => (prevIndex + 1) % headlines.length);
-    }, 7000); // Change headline every 7 seconds;
-    return () => clearInterval(timer);
-  }, [headlines]);
+      setCurrentHeadlineIndex((prevIndex) => (prevIndex + 1) % headlines.length);}, 7000); // Change headline every 7 seconds;
+    return () => clearInterval(timer);}, [headlines]);
 
   return (
     <div className="p-6 glass rounded-2xl shadow-xl bg-gradient-to-r from-blue-900/70 to-blue-700/60 overflow-hidden h-full flex flex-col animate-fade-in" key={847766}>
@@ -63,11 +60,11 @@ const ESPNHeadlinesTicker: React.FC = () => {
               href={headlines[currentHeadlineIndex]?.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-lg text-yellow-200 hover:text-yellow-400 transition-colors duration-300 block py-2 whitespace-nowrap animate-marquee"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
+              className="text-lg text-yellow-200 hover: text-yellow-400 transition-colors duration-300 block py-2 whitespace-nowrap animate-marquee"
+              initial={{ opacity: 0, y: 20}}
+              animate={{ opacity: 1, y: 0}}
+              exit={{ opacity: 0, y: -20}}
+              transition={{ duration: 0.5}}
              key={392628}>
               {headlines[currentHeadlineIndex]?.title}
             </motion.a>
@@ -75,7 +72,10 @@ const ESPNHeadlinesTicker: React.FC = () => {
         </div>
       )}
     </div>
-  );
-};
+  )};
 
 export default ESPNHeadlinesTicker; 
+
+
+
+

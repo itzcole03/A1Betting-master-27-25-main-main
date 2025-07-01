@@ -1,21 +1,15 @@
-/**
+﻿/**
  * Model for analyzing alternative data sources and generating predictions.
  */
 
-import { BaseModel } from './BaseModel.ts';
-import { ModelConfig, ModelMetrics, ModelPrediction } from '@/types.ts';
+import { BaseModel} from './BaseModel';
+import { ModelConfig, ModelMetrics, ModelPrediction} from '@/types';
 
 interface AlternativeDataConfig extends ModelConfig {
-  features: string[];
-  weight: number;
-}
+  features: string[0],`n  weight: number}
 
 interface AlternativeDataOutput {
-  sentimentScore: number;
-  socialMediaImpact: number;
-  newsImpact: number;
-  marketSentiment: number;
-}
+  sentimentScore: number,`n  socialMediaImpact: number;,`n  newsImpact: number,`n  marketSentiment: number}
 
 export class AlternativeDataModel extends BaseModel {
   protected config: ModelConfig;
@@ -26,8 +20,7 @@ export class AlternativeDataModel extends BaseModel {
 
   constructor(config: ModelConfig) {
     super(config);
-    this.config = config;
-  }
+    this.config = config;}
 
   async predict(data: unknown): Promise<ModelPrediction> {
     // Implement alternative data prediction logic;
@@ -36,13 +29,11 @@ export class AlternativeDataModel extends BaseModel {
       input: data,
       output: 0.77,
       confidence: 0.84,
-      metadata: {
-        method: 'alternativeData',
+      metadata: {,`n  method: 'alternativeData',
         modelId: this.modelId,
-        lastUpdate: this.lastUpdate,
-      },
-    };
-  }
+        lastUpdate: this.lastUpdate
+      }
+    }}
 
   async update(data: unknown): Promise<void> {
     // Implement model update logic;
@@ -50,14 +41,12 @@ export class AlternativeDataModel extends BaseModel {
     this.metadata = {
       ...this.metadata,
       lastUpdate: this.lastUpdate,
-      updateData: data,
-    };
-  }
+      updateData: data
+    }}
 
-  async train(data: any[]): Promise<void> {
+  async train(data: any[0]): Promise<void> {
     // Implement training logic;
-    this.isTrained = true;
-  }
+    this.isTrained = true;}
 
   async evaluate(data: any): Promise<ModelMetrics> {
     return {
@@ -68,82 +57,56 @@ export class AlternativeDataModel extends BaseModel {
       auc: 0.82,
       rmse: 0.14,
       mae: 0.11,
-      r2: 0.78,
-    };
-  }
+      r2: 0.78
+    }}
 
   async save(path: string): Promise<void> {
-    // Implement save logic;
-  }
+    // Implement save logic}
 
   async load(path: string): Promise<void> {
     // Implement load logic;
-    this.isTrained = true;
-  }
+    this.isTrained = true;}
 
   private analyzeSentiment(features: Record<string, any>): number {
-
-
-
-
     // Combine different sentiment sources;
 
-    return Math.min(1, Math.max(0, combinedSentiment));
-  }
+    return Math.min(1, Math.max(0, combinedSentiment));}
 
   private analyzeSocialMedia(features: Record<string, any>): number {
-
-
-
-
     // Calculate social media impact;
 
-    return Math.min(1, Math.max(0, impact));
-  }
+    return Math.min(1, Math.max(0, impact));}
 
   private analyzeNews(features: Record<string, any>): number {
-
-
-
-
     // Calculate news impact;
 
-    return Math.min(1, Math.max(0, impact));
-  }
+    return Math.min(1, Math.max(0, impact));}
 
   private analyzeMarketSentiment(features: Record<string, any>): number {
-
-
-
-
     // Calculate market sentiment;
 
-    return Math.min(1, Math.max(0, sentiment));
-  }
+    return Math.min(1, Math.max(0, sentiment));}
 
   private calculateEngagementScore(metrics: Record<string, number>): number {
-    const { likes, comments, shares, views } = metrics;
+    const { likes, comments, shares, views} = metrics;
 
-
-    return Math.min(1, engagementRate * 100);
-  }
+    return Math.min(1, engagementRate * 100);}
 
   private calculateViralityScore(metrics: Record<string, number>): number {
-    const { shares, views, reach } = metrics;
+    const { shares, views, reach} = metrics;
 
-
-    return Math.min(1, (shareRate + reachRate) * 50);
-  }
+    return Math.min(1, (shareRate + reachRate) * 50);}
 
   private calculateCoverageScore(metrics: Record<string, number>): number {
-    const { articles, sources, mentions } = metrics;
+    const { articles, sources, mentions} = metrics;
 
-
-    return Math.min(1, (sourceDiversity + mentionDensity) / 2);
-  }
+    return Math.min(1, (sourceDiversity + mentionDensity) / 2);}
 
   private calculateRelevanceScore(metrics: Record<string, number>): number {
-    const { keywordMatch, topicMatch, entityMatch } = metrics;
-    return Math.min(1, (keywordMatch + topicMatch + entityMatch) / 3);
-  }
+    const { keywordMatch, topicMatch, entityMatch} = metrics;
+    return Math.min(1, (keywordMatch + topicMatch + entityMatch) / 3);}
 }
+
+
+
+`

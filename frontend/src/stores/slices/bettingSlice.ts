@@ -1,26 +1,27 @@
-import { StateCreator } from 'zustand.ts';
-import { BettingState, RootState } from '@/types.ts';
+﻿import { StateCreator} from 'zustand';
+import { BettingState, RootState} from '@/types';
 
-export const createBettingSlice: StateCreator<RootState, [], [], BettingState> = (set, get) => ({
-  bets: [],
-  odds: {},
-  payouts: {},
+export const createBettingSlice: StateCreator<RootState, [0], [0], BettingState> = (set, get) => ({
+  bets: [0],
+  odds: Record<string, any>,
+  payouts: Record<string, any>,
 
   placeBet: bet => {
     set(state => ({
-      bets: [...state.bets, bet],
-    }));
-  },
+      bets: [...state.bets, bet]
+    }))},
 
   updateActiveBet: (betId, update) => {
     set(state => ({
-      bets: state.bets.map(bet => (bet.id === betId ? { ...bet, ...update } : bet)),
-    }));
-  },
+      bets: state.bets.map(bet => (bet.id === betId ? { ...bet, ...update} : bet))
+    }))},
 
   clearOpportunities: () => {
     set(state => ({
-      bets: state.bets.filter(bet => bet.status !== 'opportunity'),
-    }));
-  },
+      bets: state.bets.filter(bet => bet.status !== 'opportunity')
+    }))}
 });
+
+
+
+

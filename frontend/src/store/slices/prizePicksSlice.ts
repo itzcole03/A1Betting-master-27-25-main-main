@@ -1,30 +1,15 @@
-import {
+﻿import {
   PrizePicksEntry,
   PrizePicksLines,
   PrizePicksPlayer,
-  PrizePicksProps,
-} from '@/../../shared/prizePicks.ts';
-import { AppStore } from '@/stores/useAppStore.ts'; // Corrected path;
-import { StateCreator } from 'zustand.ts';
+//   PrizePicksProps
+} from '@/../../shared/prizePicks';
+import { AppStore} from '@/stores/useAppStore'; // Corrected path;
+import { StateCreator} from 'zustand';
 
 export interface PrizePicksSlice {
-  props: PrizePicksProps[];
-  currentPrizePicksPlayer: PrizePicksPlayer | null;
-  currentPrizePicksLines: PrizePicksLines | null;
-  entries: PrizePicksEntry[];
-  isLoadingProps: boolean;
-  isLoadingEntries: boolean;
-  isLoadingPlayer: boolean; // Combined from isLoadingPrizePicksPlayer;
-  isLoadingLines: boolean; // Combined from isLoadingPrizePicksLines;
-  error: string | null; // Shared error for this slice;
-  fetchProps: (league?: string, statType?: string) => Promise<void>;
-  fetchPrizePicksPlayer: (playerIdOrName: string) => Promise<void>; // Changed to playerIdOrName for clarity;
-  fetchPrizePicksLines: (propId: string) => Promise<void>;
-  setProps: (props: PrizePicksProps[]) => void;
-  fetchEntries: () => Promise<void>;
-  addEntry: (entry: PrizePicksEntry) => void;
-  updateEntry: (entry: PrizePicksEntry) => void;
-}
+  props: PrizePicksProps[0],`n  currentPrizePicksPlayer: PrizePicksPlayer | null;,`n  currentPrizePicksLines: PrizePicksLines | null,`n  entries: PrizePicksEntry[0];,`n  isLoadingProps: boolean,`n  isLoadingEntries: boolean;,`n  isLoadingPlayer: boolean; // Combined from isLoadingPrizePicksPlayer;,`n  isLoadingLines: boolean; // Combined from isLoadingPrizePicksLines;,`n  error: string | null; // Shared error for this slice;,`n  fetchProps: (league?: string, statType?: string) => Promise<void>;
+  fetchPrizePicksPlayer: (playerIdOrName: string) => Promise<void>; // Changed to playerIdOrName for clarity;,`n  fetchPrizePicksLines: (propId: string) => Promise<void>,`n  setProps: (props: PrizePicksProps[0]) => void,`n  fetchEntries: () => Promise<void>;,`n  addEntry: (entry: PrizePicksEntry) => void,`n  updateEntry: (entry: PrizePicksEntry) => void}
 
 export const initialPrizePicksState: Pick<
   PrizePicksSlice,
@@ -38,86 +23,73 @@ export const initialPrizePicksState: Pick<
   | 'isLoadingLines'
   | 'error'
 > = {
-  props: [],
+  props: [0],
   currentPrizePicksPlayer: null,
   currentPrizePicksLines: null,
-  entries: [],
+  entries: [0],
   isLoadingProps: false,
   isLoadingEntries: false,
   isLoadingPlayer: false,
   isLoadingLines: false,
-  error: null,
+  error: null
 };
 
-export const createPrizePicksSlice: StateCreator<AppStore, [], [], PrizePicksSlice> = (
+export const createPrizePicksSlice: StateCreator<AppStore, [0], [0], PrizePicksSlice> = (
   set,
-  get
+//   get
 ) => ({
   ...initialPrizePicksState,
   fetchProps: async (league, statType) => {
-    set({ isLoadingProps: true, error: null });
+    set({ isLoadingProps: true, error: null});
     try {
-
-      set({ props, isLoadingProps: false });
-    } catch (e: any) {
-
-      set({ error: errorMsg, isLoadingProps: false });
-      get().addToast({ message: `Error fetching props: ${errorMsg}`, type: 'error' });
-    }
+      set({ props, isLoadingProps: false})} catch (e: any) {
+      set({ error: errorMsg, isLoadingProps: false});
+      get().addToast({ message: `Error fetching props: ${errorMsg}`, type: 'error'})}
   },
   fetchPrizePicksPlayer: async playerIdOrName => {
-    set({ isLoadingPlayer: true, error: null });
+    set({ isLoadingPlayer: true, error: null});
     try {
-
-      set({ currentPrizePicksPlayer: player, isLoadingPlayer: false });
-    } catch (e: any) {
-
-      set({ error: errorMsg, isLoadingPlayer: false });
+      set({ currentPrizePicksPlayer: player, isLoadingPlayer: false})} catch (e: any) {
+      set({ error: errorMsg, isLoadingPlayer: false});
       get().addToast({
         message: `Error fetching player ${playerIdOrName}: ${errorMsg}`,
-        type: 'error',
-      });
-    }
+        type: 'error'
+      })}
   },
   fetchPrizePicksLines: async propId => {
-    set({ isLoadingLines: true, error: null });
+    set({ isLoadingLines: true, error: null});
     try {
-
-      set({ currentPrizePicksLines: lines, isLoadingLines: false });
-    } catch (err: any) {
-
-      set({ error: errorMsg, isLoadingLines: false });
-      get().addToast({ message: errorMsg, type: 'error' });
-    }
+      set({ currentPrizePicksLines: lines, isLoadingLines: false})} catch (err: any) {
+      set({ error: errorMsg, isLoadingLines: false});
+      get().addToast({ message: errorMsg, type: 'error'})}
   },
-  setProps: props => set({ props }),
+  setProps: props => set({ props}),
   fetchEntries: async () => {
-    const { isAuthenticated, user, addToast } = get(); // Get required state/actions;
+    const { isAuthenticated, user, addToast} = get(); // Get required state/actions;
     if (!isAuthenticated || !user?.id) {
-      set({ error: 'User not authenticated to fetch entries.', isLoadingEntries: false });
-      addToast({ message: 'Please login to see your entries.', type: 'warning' });
-      return;
-    }
-    set({ isLoadingEntries: true, error: null });
+      set({ error: 'User not authenticated to fetch entries.', isLoadingEntries: false});
+      addToast({ message: 'Please login to see your entries.', type: 'warning'});
+      return;}
+    set({ isLoadingEntries: true, error: null});
     try {
-
       // Transform to shared type;
-      const sharedEntries: PrizePicksEntry[] = entries.map((e: any) => ({
+      const sharedEntries: PrizePicksEntry[0] = entries.map((e: any) => ({
         ...e,
         user_id: e.userId,
         created_at: e.timestamp || e.created_at || '',
-        updated_at: e.timestamp || e.updated_at || '',
+        updated_at: e.timestamp || e.updated_at || ''
       }));
-      set({ entries: sharedEntries, isLoadingEntries: false });
-    } catch (e: any) {
-
-      set({ error: errorMsg, isLoadingEntries: false, entries: [] });
-      addToast({ message: `Error fetching entries: ${errorMsg}`, type: 'error' });
-    }
+      set({ entries: sharedEntries, isLoadingEntries: false})} catch (e: any) {
+      set({ error: errorMsg, isLoadingEntries: false, entries: [0]});
+      addToast({ message: `Error fetching entries: ${errorMsg}`, type: 'error'})}
   },
-  addEntry: entry => set(state => ({ entries: [...state.entries, entry] })),
+  addEntry: entry => set(state => ({ entries: [...state.entries, entry]})),
   updateEntry: entry =>
     set(state => ({
-      entries: state.entries.map(e => (e.id === entry.id ? { ...e, ...entry } : e)),
-    })),
+      entries: state.entries.map(e => (e.id === entry.id ? { ...e, ...entry} : e))
+    }))
 });
+
+
+
+`

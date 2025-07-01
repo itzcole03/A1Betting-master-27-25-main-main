@@ -1,13 +1,10 @@
-import React, { useMemo  } from 'react.ts';
-import { PrizePicksProjection } from '@/api/PrizePicksAPI.ts';
+﻿import React, { useMemo} from 'react';
+import { PrizePicksProjection} from '@/api/PrizePicksAPI';
 
 interface PropCardProps {
-  projection: PrizePicksProjection;
-  onClick: () => void;
-  isSelected: boolean;
-}
+  projection: PrizePicksProjection,`n  onClick: () => void;,`n  isSelected: boolean}
 
-const PropCard: React.FC<PropCardProps key={387456}> = React.memo(({ projection, onClick, isSelected }) => {
+const PropCard: React.FC<PropCardProps key={387456}> = React.memo(({ projection, onClick, isSelected}) => {
   const {
     playerName,
     teamAbbrev,
@@ -17,7 +14,7 @@ const PropCard: React.FC<PropCardProps key={387456}> = React.memo(({ projection,
     lineScore,
     confidence,
     propType,
-    fireCount,
+//     fireCount
   } = projection;
 
   // Memoize computed values;
@@ -29,8 +26,7 @@ const PropCard: React.FC<PropCardProps key={387456}> = React.memo(({ projection,
       case 'demon':
         return '👹';
       case 'normal':
-        return '⇄';
-    }
+        return '⇄'}
   }, [propType]);
 
   const positionColor = useMemo(() => {
@@ -42,15 +38,13 @@ const PropCard: React.FC<PropCardProps key={387456}> = React.memo(({ projection,
       case 'G-F':
         return 'bg-purple-500';
       default:
-        return 'bg-gray-500';
-    }
+        return 'bg-gray-500'}
   }, [position]);
 
   const confidenceClass = useMemo(() => {
     if (confidence >= 0.8) return 'bg-green-500/20 text-green-400';
     if (confidence <= 0.35) return 'bg-red-500/20 text-red-400';
-    return 'bg-gray-500/20 text-gray-400';
-  }, [confidence]);
+    return 'bg-gray-500/20 text-gray-400'}, [confidence]);
 
   return (
     <div;
@@ -136,9 +130,13 @@ const PropCard: React.FC<PropCardProps key={387456}> = React.memo(({ projection,
         </div>
       </div>
     </div>
-  );
-});
+  )});
 
 PropCard.displayName = 'PropCard';
 
 export default PropCard;
+
+
+
+
+`

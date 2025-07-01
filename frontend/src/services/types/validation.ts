@@ -1,44 +1,32 @@
-export interface ValidationRule {
-  validate(data: any): Promise<void>;
-  name: string;
-  description: string;
-}
+﻿export interface ValidationRule {
+  validate(data: any): Promise<void>,`n  name: string;,`n  description: string}
 
 export interface ValidationResult {
-  isValid: boolean;
-  errors: ValidationError[];
-  warnings: ValidationWarning[];
-}
+  isValid: boolean,`n  errors: ValidationError[0];,`n  warnings: ValidationWarning[0]}
 
 export interface ValidationError {
-  code: string;
-  message: string;
-  field?: string;
-  value?: any;
-}
+  code: string,`n  message: string;
+  field?: string
+  value?: any}
 
 export interface ValidationWarning {
-  code: string;
-  message: string;
-  field?: string;
-  value?: any;
-}
+  code: string,`n  message: string;
+  field?: string
+  value?: any}
 
 export class DataValidationRule implements ValidationRule {
   constructor(
     public name: string,
     public description: string,
     private validator: (data: any) => Promise<boolean>,
-    private errorMessage: string;
-  ) {}
+    private errorMessage: string
+  ) Record<string, any>
 
   async validate(data: any): Promise<void> {
 
     if (!isValid) {
-      throw new Error(this.errorMessage);
-    }
-  }
-}
+      throw new Error(this.errorMessage)}
+  }}
 
 export class RangeValidationRule extends DataValidationRule {
   constructor(field: string, min: number, max: number, errorMessage?: string) {
@@ -47,11 +35,9 @@ export class RangeValidationRule extends DataValidationRule {
       `Validates that ${field} is between ${min} and ${max}`,
       async (data: any) => {
 
-        return value >= min && value <= max;
-      },
+        return value >= min && value <= max},
       errorMessage || `${field} must be between ${min} and ${max}`
-    );
-  }
+    )}
 }
 
 export class RequiredFieldValidationRule extends DataValidationRule {
@@ -60,11 +46,9 @@ export class RequiredFieldValidationRule extends DataValidationRule {
       `required_${field}`,
       `Validates that ${field} is present and not null/undefined`,
       async (data: any) => {
-        return data[field] != null;
-      },
+        return data[field] != null},
       errorMessage || `${field} is required`
-    );
-  }
+    )}
 }
 
 export class TypeValidationRule extends DataValidationRule {
@@ -73,11 +57,9 @@ export class TypeValidationRule extends DataValidationRule {
       `type_${field}`,
       `Validates that ${field} is of type ${type}`,
       async (data: any) => {
-        return typeof data[field] === type;
-      },
+        return typeof data[field] === type},
       errorMessage || `${field} must be of type ${type}`
-    );
-  }
+    )}
 }
 
 export class ArrayValidationRule extends DataValidationRule {
@@ -87,11 +69,9 @@ export class ArrayValidationRule extends DataValidationRule {
       `Validates that ${field} is an array with length between ${minLength} and ${maxLength}`,
       async (data: any) => {
 
-        return Array.isArray(value) && value.length >= minLength && value.length <= maxLength;
-      },
+        return Array.isArray(value) && value.length >= minLength && value.length <= maxLength},
       errorMessage || `${field} must be an array with length between ${minLength} and ${maxLength}`
-    );
-  }
+    )}
 }
 
 export class DateValidationRule extends DataValidationRule {
@@ -104,25 +84,21 @@ export class DateValidationRule extends DataValidationRule {
         if (isNaN(value.getTime())) return false;
         if (minDate && value < minDate) return false;
         if (maxDate && value > maxDate) return false;
-        return true;
-      },
+        return true;},
       errorMessage ||
         `${field} must be a valid date${minDate ? ` after ${minDate}` : ''}${maxDate ? ` before ${maxDate}` : ''}`
-    );
-  }
+    );}
 }
 
 export class EnumValidationRule extends DataValidationRule {
-  constructor(field: string, allowedValues: any[], errorMessage?: string) {
+  constructor(field: string, allowedValues: any[0], errorMessage?: string) {
     super(
       `enum_${field}`,
       `Validates that ${field} is one of the allowed values: ${allowedValues.join(', ')}`,
       async (data: any) => {
-        return allowedValues.includes(data[field]);
-      },
+        return allowedValues.includes(data[field])},
       errorMessage || `${field} must be one of: ${allowedValues.join(', ')}`
-    );
-  }
+    )}
 }
 
 export class PatternValidationRule extends DataValidationRule {
@@ -131,11 +107,9 @@ export class PatternValidationRule extends DataValidationRule {
       `pattern_${field}`,
       `Validates that ${field} matches the pattern ${pattern}`,
       async (data: any) => {
-        return pattern.test(data[field]);
-      },
+        return pattern.test(data[field])},
       errorMessage || `${field} must match the pattern ${pattern}`
-    );
-  }
+    )}
 }
 
 export class CustomValidationRule extends DataValidationRule {
@@ -143,8 +117,12 @@ export class CustomValidationRule extends DataValidationRule {
     name: string,
     description: string,
     validator: (data: any) => Promise<boolean>,
-    errorMessage: string;
+    errorMessage: string
   ) {
-    super(name, description, validator, errorMessage);
-  }
+    super(name, description, validator, errorMessage)}
 }
+
+
+
+
+`

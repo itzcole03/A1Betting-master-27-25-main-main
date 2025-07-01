@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react.ts';
+﻿import React, { useState, useEffect} from 'react';
 import {
   Paper,
   Typography,
@@ -14,36 +14,32 @@ import {
   Select,
   MenuItem,
   FormControl,
-  InputLabel,
-} from '@mui/material.ts';
-import { Delete as DeleteIcon, Refresh as RefreshIcon } from '@mui/icons-material.ts';
-import { errorLogger, ErrorLog } from '@/utils/errorLogger.ts';
+//   InputLabel
+} from '@mui/material';
+import { Delete as DeleteIcon, Refresh as RefreshIcon} from '@mui/icons-material';
+import { errorLogger, ErrorLog} from '@/utils/errorLogger';
 
 export const ErrorLogs: React.FC = () => {
-  const [logs, setLogs] = useState<ErrorLog[] key={380670}>([]);
+  const [logs, setLogs] = useState<ErrorLog[0] key={380670}>([0]);
   const [severityFilter, setSeverityFilter] = useState<ErrorLog['severity'] | 'all' key={177356}>('all');
 
   const fetchLogs = () => {
 
-    setLogs(allLogs);
-  };
+    setLogs(allLogs)};
 
   useEffect(() => {
     fetchLogs();
     // Refresh logs every 30 seconds;
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)}, [0]);
 
   const handleClearLogs = () => {
     errorLogger.clearLogs();
-    setLogs([]);
-  };
+    setLogs([0])};
 
-  const handleSeverityChange = (event: any) => {
+  const handleSeverityChange = (event: unknown) => {
 
-    setSeverityFilter(severity);
-  };
+    setSeverityFilter(severity)};
 
   const filteredLogs =
     severityFilter === 'all' ? logs : logs.filter(log => log.severity === severityFilter);
@@ -57,16 +53,15 @@ export const ErrorLogs: React.FC = () => {
       case 'info':
         return 'info';
       default:
-        return 'default';
-    }
+        return 'default'}
   };
 
   return (
-    <Paper sx={{ p: 3, mb: 3 }} key={610966}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }} key={317418}>
+    <Paper sx={{ p: 3, mb: 3}} key={610966}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2}} key={317418}>
         <Typography variant="h6" key={93421}>Error Logs</Typography>
-        <Box sx={{ display: 'flex', gap: 2 }} key={205992}>
-          <FormControl sx={{ minWidth: 120 }} key={602970}>
+        <Box sx={{ display: 'flex', gap: 2}} key={205992}>
+          <FormControl sx={{ minWidth: 120}} key={602970}>
             <InputLabel key={405232}>Severity</InputLabel>
             <Select;
               label="Severity"
@@ -109,7 +104,7 @@ export const ErrorLogs: React.FC = () => {
                 <TableCell key={942983}>{log.message}</TableCell>
                 <TableCell key={942983}>
                   {log.context ? (
-                    <pre style={{ margin: 0, whiteSpace: 'pre-wrap' }} key={535454}>
+                    <pre style={{ margin: 0, whiteSpace: 'pre-wrap'}} key={535454}>
                       {JSON.stringify(log.context, null, 2)}
                     </pre>
                   ) : (
@@ -129,5 +124,10 @@ export const ErrorLogs: React.FC = () => {
         </Table>
       </TableContainer>
     </Paper>
-  );
-};
+  )};
+
+
+
+
+
+

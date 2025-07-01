@@ -1,19 +1,16 @@
-import React from 'react.ts';
-import { RealtimeData } from '@/types/betting.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React from 'react';
+import { RealtimeData} from '@/types/betting';
+import { motion} from 'framer-motion';
 
 export interface ArbitrageDetectorProps {
-  data: RealtimeData | null;
-}
+  data: RealtimeData | null}
 
 interface BookOdds {
-  [bookmaker: string]: number;
-}
+  [bookmaker: string]: number}
 
-const ArbitrageDetector: React.FC<ArbitrageDetectorProps key={888026}> = ({ data }) => {
+const ArbitrageDetector: React.FC<ArbitrageDetectorProps key={888026}> = ({ data}) => {
   if (!data) {
-    return <div className="p-4 text-gray-500" key={72742}>Waiting for market data...</div>;
-  }
+    return <div className="p-4 text-gray-500" key={72742}>Waiting for market data...</div>}
 
   // Simple arbitrage detection logic (to be expanded)
   const opportunities = Object.entries(data.odds).filter(([_, value]) => {
@@ -21,11 +18,9 @@ const ArbitrageDetector: React.FC<ArbitrageDetectorProps key={888026}> = ({ data
 
       if (odds.length > 1) {
 
-        return validOdds.length > 1 && Math.max(...validOdds) - Math.min(...validOdds) > 0.15;
-      }
+        return validOdds.length > 1 && Math.max(...validOdds) - Math.min(...validOdds) > 0.15;}
     }
-    return false;
-  });
+    return false;});
 
   return (
     <div className="space-y-4" key={160407}>
@@ -34,10 +29,10 @@ const ArbitrageDetector: React.FC<ArbitrageDetectorProps key={888026}> = ({ data
         {opportunities.map(([key, value], index) => (
           <motion.div;
             key={key}
-            animate={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0}}
             className="bg-white rounded-lg p-4 shadow-sm"
-            initial={{ opacity: 0, y: 20 }}
-            transition={{ delay: index * 0.1 }}
+            initial={{ opacity: 0, y: 20}}
+            transition={{ delay: index * 0.1}}
            key={19640}>
             <div className="flex justify-between items-center" key={795957}>
               <span className="font-medium" key={514486}>{key}</span>
@@ -49,8 +44,7 @@ const ArbitrageDetector: React.FC<ArbitrageDetectorProps key={888026}> = ({ data
                       );
                       return odds.length > 1;
                         ? `${((Math.max(...odds) - Math.min(...odds)) * 100).toFixed(1)}% spread`
-                        : 'N/A';
-                    })()
+                        : 'N/A';})()
                   : 'N/A'}
               </span>
             </div>
@@ -71,7 +65,10 @@ const ArbitrageDetector: React.FC<ArbitrageDetectorProps key={888026}> = ({ data
         )}
       </div>
     </div>
-  );
-};
+  );};
 
 export default React.memo(ArbitrageDetector);
+
+
+
+`

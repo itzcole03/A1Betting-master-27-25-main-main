@@ -40,8 +40,11 @@ class ModelAccuracyValidator:
         """Load a trained model from file."""
         try:
             if model_path.endswith('.pkl') or model_path.endswith('.pickle'):
-                with open(model_path, 'rb') as f:
-                    return pickle.load(f)
+                logger.error(
+                    f"Refusing to load model '{model_path}' from a pickle file due to security risks. "
+                    f"Please re-save this model using a secure format like joblib."
+                )
+                return None
             elif model_path.endswith('.joblib'):
                 return joblib.load(model_path)
             else:

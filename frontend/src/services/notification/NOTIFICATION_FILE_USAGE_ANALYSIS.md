@@ -20,12 +20,14 @@ This directory contains advanced notification and alert services for the fronten
 ## File Breakdown
 
 ### notificationManager.ts
+
 - **Purpose:** Implements a notification manager for creating, storing, and managing notifications and user preferences.
 - **Usage:** Used to emit, retrieve, and mark notifications as read/unread, and to manage notification preferences. Exports a class for use in alerting and notification UIs.
 - **Notes:** Supports event-driven updates, quiet hours, and notification prioritization. Integrates with arbitrage and line shopping modules.
 - **Status:** Actively used; not a candidate for removal.
 
 ### README.md
+
 - **Purpose:** Directory-level note indicating this folder contains advanced notification and alert services ported from legacy code.
 - **Usage:** Informational only.
 - **Notes:** No functional code.
@@ -33,4 +35,4 @@ This directory contains advanced notification and alert services for the fronten
 
 ---
 
-*This documentation is auto-generated and should be updated as files are added, removed, or refactored in the notification directory.*
+_This documentation is auto-generated and should be updated as files are added, removed, or refactored in the notification directory._

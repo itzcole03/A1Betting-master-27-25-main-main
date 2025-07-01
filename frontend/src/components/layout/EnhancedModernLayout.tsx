@@ -1,27 +1,25 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
-import { Command, Bell, Search, Menu, X, Zap, Activity } from 'lucide-react.ts';
+﻿import React, { useState, useEffect} from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
+import { Command, Bell, Search, Menu, X, Zap, Activity} from 'lucide-react';
 
 // Import our new modern components;
-import ModernStatusBar from '@/ui/ModernStatusBar.ts';
-import ModernCommandPalette from '@/ui/ModernCommandPalette.ts';
-import ModernNotificationCenter from '@/ui/ModernNotificationCenter.ts';
-import ModernActivityFeed from '@/ui/ModernActivityFeed.ts';
+import ModernStatusBar from '@/ui/ModernStatusBar';
+import ModernCommandPalette from '@/ui/ModernCommandPalette';
+import ModernNotificationCenter from '@/ui/ModernNotificationCenter';
+import ModernActivityFeed from '@/ui/ModernActivityFeed';
 
 interface EnhancedModernLayoutProps {
-  children: React.ReactNode;
-  sidebar: React.ReactNode;
+  children: React.ReactNode,`n  sidebar: React.ReactNode;
   header?: React.ReactNode;
   onNavigate?: (page: string) => void;
-  className?: string;
-}
+  className?: string}
 
 export const EnhancedModernLayout: React.FC<EnhancedModernLayoutProps key={907354}> = ({
   children,
   sidebar,
   header,
   onNavigate,
-  className = "",
+  className = ""
 }) => {
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isNotificationCenterOpen, setIsNotificationCenterOpen] =
@@ -35,32 +33,27 @@ export const EnhancedModernLayout: React.FC<EnhancedModernLayoutProps key={90735
       // Command palette (Cmd/Ctrl + K)
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
-        setIsCommandPaletteOpen(true);
-      }
+        setIsCommandPaletteOpen(true);}
 
       // Notifications (Cmd/Ctrl + N)
       if ((e.metaKey || e.ctrlKey) && e.key === "n") {
         e.preventDefault();
-        setIsNotificationCenterOpen(true);
-      }
+        setIsNotificationCenterOpen(true);}
 
       // Activity feed (Cmd/Ctrl + A)
       if ((e.metaKey || e.ctrlKey) && e.key === "a") {
         e.preventDefault();
-        setIsActivityFeedOpen(true);
-      }
+        setIsActivityFeedOpen(true);}
 
       // Escape to close all overlays;
       if (e.key === "Escape") {
         setIsCommandPaletteOpen(false);
         setIsNotificationCenterOpen(false);
-        setIsActivityFeedOpen(false);
-      }
+        setIsActivityFeedOpen(false);}
     };
 
     document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
+    return () => document.removeEventListener("keydown", handleKeyDown);}, [0]);
 
   return (
     <div;
@@ -82,9 +75,9 @@ export const EnhancedModernLayout: React.FC<EnhancedModernLayoutProps key={90735
           initial={false}
           animate={{
             width: sidebarCollapsed ? 80 : 280,
-            opacity: 1,
+            opacity: 1
           }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+          transition={{ duration: 0.3, ease: "easeInOut"}}
           className="relative z-30 flex-shrink-0 border-r border-gray-800/50 backdrop-blur-xl bg-gray-900/50"
          key={881198}>
           {/* Sidebar toggle */}
@@ -138,7 +131,7 @@ export const EnhancedModernLayout: React.FC<EnhancedModernLayoutProps key={90735
                     className="text-gray-400 hover:text-white"
                   / key={844308}>
                   <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse" / key={64658}>
-                </button>
+                </div>
 
                 {/* Notifications */}
                 <button;
@@ -177,9 +170,9 @@ export const EnhancedModernLayout: React.FC<EnhancedModernLayoutProps key={90735
             <AnimatePresence key={359944}>
               {isActivityFeedOpen && (
                 <motion.div;
-                  initial={{ opacity: 0, x: 400 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 400 }}
+                  initial={{ opacity: 0, x: 400}}
+                  animate={{ opacity: 1, x: 0}}
+                  exit={{ opacity: 0, x: 400}}
                   className="absolute right-0 top-0 bottom-0 w-96 bg-gray-900/95 backdrop-blur-xl border-l border-gray-700/50 shadow-2xl z-20"
                  key={372873}>
                   <div className="h-full flex flex-col" key={438877}>
@@ -209,8 +202,7 @@ export const EnhancedModernLayout: React.FC<EnhancedModernLayoutProps key={90735
         onClose={() = key={334157}> setIsCommandPaletteOpen(false)}
         onNavigate={(page) => {
           onNavigate?.(page);
-          setIsCommandPaletteOpen(false);
-        }}
+          setIsCommandPaletteOpen(false);}}
       />
 
       <ModernNotificationCenter;
@@ -223,10 +215,10 @@ export const EnhancedModernLayout: React.FC<EnhancedModernLayoutProps key={90735
 
       {/* Quick access floating action button */}
       <motion.button;
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
+        initial={{ scale: 0}}
+        animate={{ scale: 1}}
+        whileHover={{ scale: 1.1}}
+        whileTap={{ scale: 0.9}}
         onClick={() = key={845760}> setIsCommandPaletteOpen(true)}
         className="fixed bottom-6 right-6 p-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full shadow-2xl z-30 transition-all"
         title="Quick Actions (⌘K)"
@@ -239,11 +231,16 @@ export const EnhancedModernLayout: React.FC<EnhancedModernLayoutProps key={90735
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl animate-pulse" / key={906663}>
         <div;
           className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "2s" }}
+          style={{ animationDelay: "2s"}}
         / key={211056}>
       </div>
     </div>
-  );
-};
+  )};
 
 export default EnhancedModernLayout;
+
+
+
+
+
+`

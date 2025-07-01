@@ -1,24 +1,22 @@
-import { BettingContext, BettingDecision } from '@/core/UnifiedBettingSystem.ts';
-import { UnifiedBettingSystem } from '@/core/UnifiedBettingSystem.ts';
-import { useState, useEffect, useCallback } from 'react.ts';
+﻿import { BettingContext, BettingDecision} from '@/core/UnifiedBettingSystem';
+import { UnifiedBettingSystem} from '@/core/UnifiedBettingSystem';
+import { useState, useEffect, useCallback} from 'react';
 
 
 
 interface UseUnifiedBettingOptions {
-  playerId?: string;
-  metric?: string;
-  autoRefresh?: boolean;
-  refreshInterval?: number;
-  onNewOpportunity?: (decision: BettingDecision) => void;
-}
+  playerId?: string
+  metric?: string
+  autoRefresh?: boolean
+  refreshInterval?: number
+  onNewOpportunity?: (decision: BettingDecision) => void}
 
 export function useUnifiedBetting({
   playerId,
   metric,
   autoRefresh = true,
   refreshInterval = 30000,
-  onNewOpportunity;
-}: UseUnifiedBettingOptions = {}) {
+  onNewOpportunity}: UseUnifiedBettingOptions = Record<string, any>) {
   const [decision, setDecision] = useState<BettingDecision | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -35,19 +33,15 @@ export function useUnifiedBetting({
         metric,
         timestamp: Date.now(),
         marketState: 'active',
-        correlationFactors: []
-      };
+        correlationFactors: [0]};
 
       setDecision(newDecision);
 
       if (onNewOpportunity && newDecision.confidence > 0.8) {
-        onNewOpportunity(newDecision);
-      }
+        onNewOpportunity(newDecision);}
     } catch (err) {
-      setError(err instanceof Error ? err : new Error('Analysis failed'));
-    } finally {
-      setIsAnalyzing(false);
-    }
+      setError(err instanceof Error ? err : new Error('Analysis failed'));} finally {
+      setIsAnalyzing(false);}
   }, [playerId, metric, bettingSystem, onNewOpportunity]);
 
   useEffect(() => {
@@ -55,14 +49,16 @@ export function useUnifiedBetting({
 
     if (autoRefresh && playerId && metric) {
 
-      return () => clearInterval(interval);
-    }
+      return () => clearInterval(interval);}
   }, [analyze, autoRefresh, playerId, metric, refreshInterval]);
 
   return {
     decision,
     isAnalyzing,
     error,
-    analyze;
-  };
-} 
+    analyze;};} 
+
+
+
+
+

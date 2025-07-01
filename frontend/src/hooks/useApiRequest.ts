@@ -1,32 +1,24 @@
-import { useState, useEffect, useCallback, useRef } from 'react.ts';
+﻿import { useState, useEffect, useCallback, useRef} from 'react';
 
 
 
 interface CacheItem<T> {
-  data: T;
-  timestamp: number;
-}
+  data: T,`n  timestamp: number}
 
 interface Cache {
-  [key: string]: CacheItem<any>;
-}
+  [key: string]: CacheItem<any>}
 
 interface UseApiRequestOptions {
-  cacheTime?: number;
-  retries?: number;
-  retryDelay?: number;
+  cacheTime?: number
+  retries?: number
+  retryDelay?: number
   onError?: (error: Error) => void;
-  enabled?: boolean;
-}
+  enabled?: boolean}
 
 interface UseApiRequestState<T> {
-  data: T | null;
-  error: Error | null;
-  isLoading: boolean;
-  isValidating: boolean;
-}
+  data: T | null,`n  error: Error | null;,`n  isLoading: boolean,`n  isValidating: boolean}
 
-const globalCache: Cache = {};
+const globalCache: Cache = Record<string, any>;
 
 export function useApiRequest<T>(
   url: string,
@@ -35,15 +27,13 @@ export function useApiRequest<T>(
     retries = 3,
     retryDelay = 1000,
     onError,
-    enabled = true;
-  }: UseApiRequestOptions = {}
+    enabled = true;}: UseApiRequestOptions = Record<string, any>
 ) {
   const [state, setState] = useState<UseApiRequestState<T>>({
     data: null,
     error: null,
     isLoading: true,
-    isValidating: false;
-  });
+    isValidating: false});
 
 
   const fetchData = useCallback(
@@ -55,22 +45,18 @@ export function useApiRequest<T>(
         const response = await fetch(url, {
           signal: abortControllerRef.current.signal,
           headers: {
-            'Content-Type': 'application/json'
-          }
+            'Content-Type': 'application/json'}
         });
 
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+          throw new Error(`HTTP error! status: ${response.status}`)}
 
         // Update cache;
         globalCache[url] = {
           data,
-          timestamp: Date.now()
-        };
+          timestamp: Date.now()};
 
-        return data;
-      } catch (error) {
+        return data;} catch (error) {
         if (error instanceof Error) {
           if (
             shouldRetry &&
@@ -79,44 +65,35 @@ export function useApiRequest<T>(
           ) {
             retryCountRef.current++;
             await new Promise(resolve => setTimeout(resolve, retryDelay));
-            return fetchData(true);
-          }
+            return fetchData(true);}
 
           onError?.(error);
-          throw error;
-        }
-        throw new Error('An unknown error occurred');
-      }
+          throw error;}
+        throw new Error('An unknown error occurred');}
     },
     [url, retries, retryDelay, onError]
   );
 
   const mutate = useCallback(async () => {
-    setState(prev => ({ ...prev, isValidating: true }));
+    setState(prev => ({ ...prev, isValidating: true}));
     try {
 
       setState({
         data,
         error: null,
         isLoading: false,
-        isValidating: false;
-      });
-    } catch (error) {
+        isValidating: false})} catch (error) {
       if (error instanceof Error) {
         setState(prev => ({
           ...prev,
           error,
-          isValidating: false;
-        }));
-      }
-    }
-  }, [fetchData]);
+          isValidating: false}))}
+    }}, [fetchData]);
 
   useEffect(() => {
     if (!enabled) {
-      setState(prev => ({ ...prev, isLoading: false }));
-      return;
-    }
+      setState(prev => ({ ...prev, isLoading: false}));
+      return;}
 
     const isCacheValid =
       cachedData && Date.now() - cachedData.timestamp < cacheTime;
@@ -126,12 +103,10 @@ export function useApiRequest<T>(
         data: cachedData.data,
         error: null,
         isLoading: false,
-        isValidating: false;
-      });
-      return;
-    }
+        isValidating: false});
+      return;}
 
-    setState(prev => ({ ...prev, isLoading: true }));
+    setState(prev => ({ ...prev, isLoading: true}));
     
     fetchData()
       .then(data => {
@@ -139,41 +114,32 @@ export function useApiRequest<T>(
           data,
           error: null,
           isLoading: false,
-          isValidating: false;
-        });
-      })
+          isValidating: false})})
       .catch(error => {
         if (error instanceof Error) {
           setState({
             data: null,
             error,
             isLoading: false,
-            isValidating: false;
-          });
-        }
+            isValidating: false})}
       });
 
     return () => {
-      abortControllerRef.current?.abort();
-    };
-  }, [url, cacheTime, enabled, fetchData]);
+      abortControllerRef.current?.abort();};}, [url, cacheTime, enabled, fetchData]);
 
   return {
     ...state,
-    mutate;
-  };
-}
+    mutate;};}
 
 // Example usage:
 /*
-function PlayerStats({ playerId }: { playerId: string }) {
-  const { data, error, isLoading, mutate } = useApiRequest<PlayerStats>(
+function PlayerStats({ playerId}: { playerId: string}) {
+  const { data, error, isLoading, mutate} = useApiRequest<PlayerStats>(
     `/api/players/${playerId}/stats`,
     {
       cacheTime: 60000, // 1 minute;
       retries: 2,
-      onError: (error) => // console statement removed
-    }
+      onError: (error) => // console statement removed}
   );
 
   if (isLoading) return <div>Loading...</div>;
@@ -186,6 +152,10 @@ function PlayerStats({ playerId }: { playerId: string }) {
       <button onClick={mutate}>Refresh Stats</button>
       {/* Display stats *//*}
     </div>
-  );
-}
+  );}
 */ 
+
+
+
+
+`

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+﻿import React, { useState, useEffect} from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
 import {
   Calendar,
   Clock,
@@ -10,64 +10,42 @@ import {
   RotateCcw,
   Zap,
   Globe,
-  TrendingUp,
+//   TrendingUp
 } from 'lucide-react';
 
 export interface SportOption {
-  id: string;
-  name: string;
-  icon: string;
-  color: string;
-  category: 'primary' | 'misc';
-}
+  id: string,`n  name: string;,`n  icon: string,`n  color: string;,`n  category: 'primary' | 'misc'}
 
 export interface TimeFrameOption {
-  id: string;
-  name: string;
-  description: string;
-  icon: string;
-  color: string;
-  value: number; // hours
-}
+  id: string,`n  name: string;,`n  description: string,`n  icon: string;,`n  color: string,`n  value: number; // hours}
 
 export interface FilterState {
-  sports: string[];
-  timeFrame: string;
-  regions: string[];
-  advanced: {
-    minConfidence: number;
-    onlyLive: boolean;
-    includeProps: boolean;
-    dataQuality: 'all' | 'high' | 'premium';
-  };
-}
+  sports: string[0],`n  timeFrame: string;,`n  regions: string[0],`n  advanced: {,`n  minConfidence: number,`n  onlyLive: boolean;,`n  includeProps: boolean,`n  dataQuality: 'all' | 'high' | 'premium'}}
 
 interface QuantumFiltersProps {
-  filters: FilterState;
-  onFiltersChange: (filters: FilterState) => void;
-  className?: string;
-  showAdvanced?: boolean;
-}
+  filters: FilterState,`n  onFiltersChange: (filters: FilterState) => void;
+  className?: string
+  showAdvanced?: boolean}
 
-const SPORTS_OPTIONS: SportOption[] = [
+const SPORTS_OPTIONS: SportOption[0] = [
   // Primary Eleven (PrizePicks Core Sports)
-  { id: 'nba', name: 'NBA', icon: '🏀', color: 'text-orange-400', category: 'primary' },
-  { id: 'wnba', name: 'WNBA', icon: '🏀', color: 'text-orange-300', category: 'primary' },
-  { id: 'mlb', name: 'MLB', icon: '���', color: 'text-blue-400', category: 'primary' },
-  { id: 'nfl', name: 'NFL', icon: '🏈', color: 'text-green-400', category: 'primary' },
-  { id: 'nhl', name: 'NHL', icon: '🏒', color: 'text-cyan-400', category: 'primary' },
-  { id: 'soccer', name: 'Soccer', icon: '⚽', color: 'text-white', category: 'primary' },
-  { id: 'pga', name: 'PGA', icon: '⛳', color: 'text-emerald-400', category: 'primary' },
-  { id: 'mma', name: 'MMA', icon: '🥊', color: 'text-red-400', category: 'primary' },
-  { id: 'boxing', name: 'Boxing', icon: '🥊', color: 'text-yellow-500', category: 'primary' },
-  { id: 'tennis', name: 'Tennis', icon: '🎾', color: 'text-green-400', category: 'primary' },
-  { id: 'esports', name: 'Esports', icon: '🎮', color: 'text-purple-500', category: 'primary' },
+  { id: 'nba', name: 'NBA', icon: '🏀', color: 'text-orange-400', category: 'primary'},
+  { id: 'wnba', name: 'WNBA', icon: '🏀', color: 'text-orange-300', category: 'primary'},
+  { id: 'mlb', name: 'MLB', icon: '���', color: 'text-blue-400', category: 'primary'},
+  { id: 'nfl', name: 'NFL', icon: '🏈', color: 'text-green-400', category: 'primary'},
+  { id: 'nhl', name: 'NHL', icon: '🏒', color: 'text-cyan-400', category: 'primary'},
+  { id: 'soccer', name: 'Soccer', icon: '⚽', color: 'text-white', category: 'primary'},
+  { id: 'pga', name: 'PGA', icon: '⛳', color: 'text-emerald-400', category: 'primary'},
+  { id: 'mma', name: 'MMA', icon: '🥊', color: 'text-red-400', category: 'primary'},
+  { id: 'boxing', name: 'Boxing', icon: '🥊', color: 'text-yellow-500', category: 'primary'},
+  { id: 'tennis', name: 'Tennis', icon: '🎾', color: 'text-green-400', category: 'primary'},
+  { id: 'esports', name: 'Esports', icon: '🎮', color: 'text-purple-500', category: 'primary'},
 
   // Misc Category (Everything Else from PrizePicks)
-  { id: 'misc', name: 'Misc.', icon: '🎯', color: 'text-gray-400', category: 'misc' },
+  { id: 'misc', name: 'Misc.', icon: '🎯', color: 'text-gray-400', category: 'misc'},
 ];
 
-const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
+const TIME_FRAME_OPTIONS: TimeFrameOption[0] = [
   // Live & Real-Time
   {
     id: 'live',
@@ -75,7 +53,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Currently active games',
     icon: '🔴',
     color: 'text-red-400',
-    value: 0,
+    value: 0
   },
   {
     id: 'pre-game',
@@ -83,7 +61,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Starting within 2 hours',
     icon: '⏰',
     color: 'text-orange-400',
-    value: 2,
+    value: 2
   },
   {
     id: 'in-game',
@@ -91,7 +69,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Games in progress',
     icon: '🎯',
     color: 'text-red-500',
-    value: 0.5,
+    value: 0.5
   },
 
   // Quarter/Period Specific (Basketball/Football)
@@ -101,7 +79,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'First quarter bets',
     icon: '1️⃣',
     color: 'text-blue-400',
-    value: 0.25,
+    value: 0.25
   },
   {
     id: '2nd-quarter',
@@ -109,7 +87,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Second quarter bets',
     icon: '2️⃣',
     color: 'text-blue-500',
-    value: 0.25,
+    value: 0.25
   },
   {
     id: '3rd-quarter',
@@ -117,7 +95,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Third quarter bets',
     icon: '3️⃣',
     color: 'text-blue-600',
-    value: 0.25,
+    value: 0.25
   },
   {
     id: '4th-quarter',
@@ -125,7 +103,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Fourth quarter bets',
     icon: '4️⃣',
     color: 'text-blue-700',
-    value: 0.25,
+    value: 0.25
   },
 
   // Half-Time Specific
@@ -135,7 +113,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'First half bets',
     icon: '🥅',
     color: 'text-green-400',
-    value: 0.5,
+    value: 0.5
   },
   {
     id: '2nd-half',
@@ -143,7 +121,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Second half bets',
     icon: '🎯',
     color: 'text-green-500',
-    value: 0.5,
+    value: 0.5
   },
   {
     id: 'halftime',
@@ -151,7 +129,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Halftime break bets',
     icon: '⏸️',
     color: 'text-yellow-400',
-    value: 0.02,
+    value: 0.02
   },
 
   // Hockey Periods
@@ -161,7 +139,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'First period (Hockey)',
     icon: '🏒',
     color: 'text-cyan-400',
-    value: 0.33,
+    value: 0.33
   },
   {
     id: '2nd-period',
@@ -169,7 +147,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Second period (Hockey)',
     icon: '🏒',
     color: 'text-cyan-500',
-    value: 0.33,
+    value: 0.33
   },
   {
     id: '3rd-period',
@@ -177,7 +155,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Third period (Hockey)',
     icon: '🏒',
     color: 'text-cyan-600',
-    value: 0.33,
+    value: 0.33
   },
   {
     id: 'overtime',
@@ -185,7 +163,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Overtime periods',
     icon: '⏱️',
     color: 'text-purple-400',
-    value: 0.08,
+    value: 0.08
   },
 
   // Baseball Innings
@@ -195,7 +173,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Innings 1-3',
     icon: '⚾',
     color: 'text-blue-300',
-    value: 0.33,
+    value: 0.33
   },
   {
     id: 'middle-innings',
@@ -203,7 +181,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Innings 4-6',
     icon: '⚾',
     color: 'text-blue-400',
-    value: 0.33,
+    value: 0.33
   },
   {
     id: 'late-innings',
@@ -211,7 +189,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Innings 7-9',
     icon: '⚾',
     color: 'text-blue-500',
-    value: 0.33,
+    value: 0.33
   },
   {
     id: 'extra-innings',
@@ -219,7 +197,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Beyond 9th inning',
     icon: '⚾',
     color: 'text-blue-600',
-    value: 0.2,
+    value: 0.2
   },
 
   // Soccer Specific
@@ -229,7 +207,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'First half (Soccer)',
     icon: '⚽',
     color: 'text-green-300',
-    value: 0.75,
+    value: 0.75
   },
   {
     id: 'second-45',
@@ -237,7 +215,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Second half (Soccer)',
     icon: '⚽',
     color: 'text-green-400',
-    value: 0.75,
+    value: 0.75
   },
   {
     id: 'stoppage-time',
@@ -245,7 +223,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Added time',
     icon: '⏱️',
     color: 'text-yellow-500',
-    value: 0.08,
+    value: 0.08
   },
 
   // Tennis Specific
@@ -255,7 +233,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'First set (Tennis)',
     icon: '🎾',
     color: 'text-yellow-300',
-    value: 0.5,
+    value: 0.5
   },
   {
     id: '2nd-set',
@@ -263,7 +241,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Second set (Tennis)',
     icon: '🎾',
     color: 'text-yellow-400',
-    value: 0.5,
+    value: 0.5
   },
   {
     id: '3rd-set',
@@ -271,7 +249,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Third set (Tennis)',
     icon: '🎾',
     color: 'text-yellow-500',
-    value: 0.5,
+    value: 0.5
   },
 
   // Standard Time Frames
@@ -281,7 +259,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Starting within 1 hour',
     icon: '⏰',
     color: 'text-orange-300',
-    value: 1,
+    value: 1
   },
   {
     id: 'today',
@@ -289,7 +267,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Rest of today',
     icon: '📅',
     color: 'text-electric-400',
-    value: 24,
+    value: 24
   },
   {
     id: 'tonight',
@@ -297,7 +275,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: '6 PM - Midnight',
     icon: '🌙',
     color: 'text-purple-300',
-    value: 6,
+    value: 6
   },
   {
     id: 'tomorrow',
@@ -305,7 +283,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Next day only',
     icon: '🌅',
     color: 'text-yellow-400',
-    value: 48,
+    value: 48
   },
   {
     id: 'week',
@@ -313,7 +291,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Next 7 days',
     icon: '📊',
     color: 'text-blue-400',
-    value: 168,
+    value: 168
   },
   {
     id: 'weekend',
@@ -321,7 +299,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Sat-Sun games',
     icon: '🎉',
     color: 'text-purple-400',
-    value: 72,
+    value: 72
   },
   {
     id: 'month',
@@ -329,7 +307,7 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'Next 30 days',
     icon: '📈',
     color: 'text-green-400',
-    value: 720,
+    value: 720
   },
   {
     id: 'season',
@@ -337,24 +315,24 @@ const TIME_FRAME_OPTIONS: TimeFrameOption[] = [
     description: 'All upcoming games',
     icon: '🏆',
     color: 'text-cyan-400',
-    value: 8760,
+    value: 8760
   },
 ];
 
 const REGION_OPTIONS = [
-  { id: 'us', name: 'United States', icon: '🇺🇸', color: 'text-blue-400' },
-  { id: 'eu', name: 'Europe', icon: '🇪🇺', color: 'text-yellow-400' },
-  { id: 'uk', name: 'United Kingdom', icon: '🇬🇧', color: 'text-red-400' },
-  { id: 'ca', name: 'Canada', icon: '🇨🇦', color: 'text-red-500' },
-  { id: 'au', name: 'Australia', icon: '🇦🇺', color: 'text-green-400' },
-  { id: 'asia', name: 'Asia', icon: '🌏', color: 'text-purple-400' },
+  { id: 'us', name: 'United States', icon: '🇺🇸', color: 'text-blue-400'},
+  { id: 'eu', name: 'Europe', icon: '🇪🇺', color: 'text-yellow-400'},
+  { id: 'uk', name: 'United Kingdom', icon: '🇬🇧', color: 'text-red-400'},
+  { id: 'ca', name: 'Canada', icon: '🇨🇦', color: 'text-red-500'},
+  { id: 'au', name: 'Australia', icon: '🇦🇺', color: 'text-green-400'},
+  { id: 'asia', name: 'Asia', icon: '🌏', color: 'text-purple-400'},
 ];
 
 const QuantumFilters: React.FC<QuantumFiltersProps> = ({
   filters,
   onFiltersChange,
   className = '',
-  showAdvanced = false,
+  showAdvanced = false
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState<'sports' | 'time' | 'regions' | 'advanced'>('sports');
@@ -362,48 +340,41 @@ const QuantumFilters: React.FC<QuantumFiltersProps> = ({
   // Group sports by category
   const sportsByCategory = SPORTS_OPTIONS.reduce(
     (acc, sport) => {
-      if (!acc[sport.category]) acc[sport.category] = [];
+      if (!acc[sport.category]) acc[sport.category] = [0];
       acc[sport.category].push(sport);
-      return acc;
-    },
-    {} as Record<string, SportOption[]>
+      return acc;},
+    Record<string, any> as Record<string, SportOption[0]>
   );
 
   const updateFilters = (updates: Partial<FilterState>) => {
-    onFiltersChange({ ...filters, ...updates });
-  };
+    onFiltersChange({ ...filters, ...updates})};
 
   const toggleSport = (sportId: string) => {
     const updatedSports = filters.sports.includes(sportId)
       ? filters.sports.filter(id => id !== sportId)
       : [...filters.sports, sportId];
-    updateFilters({ sports: updatedSports });
-  };
+    updateFilters({ sports: updatedSports})};
 
   const selectTimeFrame = (timeFrameId: string) => {
-    updateFilters({ timeFrame: timeFrameId });
-  };
+    updateFilters({ timeFrame: timeFrameId})};
 
   const toggleRegion = (regionId: string) => {
     const updatedRegions = filters.regions.includes(regionId)
       ? filters.regions.filter(id => id !== regionId)
       : [...filters.regions, regionId];
-    updateFilters({ regions: updatedRegions });
-  };
+    updateFilters({ regions: updatedRegions})};
 
   const resetFilters = () => {
     onFiltersChange({
       sports: ['nba', 'nfl', 'mlb', 'nhl'],
       timeFrame: 'today',
       regions: ['us'],
-      advanced: {
-        minConfidence: 80,
+      advanced: {,`n  minConfidence: 80,
         onlyLive: false,
         includeProps: true,
-        dataQuality: 'all',
-      },
-    });
-  };
+        dataQuality: 'all'
+      }
+    })};
 
   const getActiveFiltersCount = () => {
     let count = 0;
@@ -414,23 +385,21 @@ const QuantumFilters: React.FC<QuantumFiltersProps> = ({
     if (filters.advanced.onlyLive) count++;
     if (!filters.advanced.includeProps) count++;
     if (filters.advanced.dataQuality !== 'all') count++;
-    return count;
-  };
+    return count;};
 
-  const CategoryIcon = ({ category }: { category: string }) => {
+  const CategoryIcon = ({ category}: { category: string}) => {
     const icons = {
       primary: '⭐',
-      misc: '🎯',
+      misc: '🎯'
     };
-    return <span className='text-lg'>{icons[category as keyof typeof icons] || '📊'}</span>;
-  };
+    return <span className='text-lg'>{icons[category as keyof typeof icons] || '📊'}</span>;};
 
   return (
     <motion.div
       className={`quantum-card rounded-2xl overflow-hidden ${className}`}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      initial={{ opacity: 0, y: 10}}
+      animate={{ opacity: 1, y: 0}}
+      transition={{ duration: 0.3}}
     >
       {/* Filter Header */}
       <div className='p-4 border-b border-white/10'>
@@ -448,21 +417,16 @@ const QuantumFilters: React.FC<QuantumFiltersProps> = ({
           </div>
 
           <div className='flex items-center space-x-2'>
-            <button
-              onClick={resetFilters}
+            <button onClick={resetFilters}
               className='p-2 text-gray-400 hover:text-white transition-colors rounded-lg hover:bg-white/10'
-              title='Reset Filters'
-            >
+              title='Reset Filters'>`n            >
               <RotateCcw className='w-4 h-4' />
             </button>
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
+            <button onClick={() => setIsExpanded(!isExpanded)}
               className='flex items-center space-x-2 px-3 py-2 bg-electric-500/20 text-electric-400 rounded-lg hover:bg-electric-500/30 transition-all'
             >
               <span className='font-mono text-sm'>{isExpanded ? 'Collapse' : 'Expand'}</span>
-              <ChevronDown
-                className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
-              />
+              <ChevronDown className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`}>`n              />
             </button>
           </div>
         </div>
@@ -472,15 +436,12 @@ const QuantumFilters: React.FC<QuantumFiltersProps> = ({
           {filters.sports.slice(0, 3).map(sportId => {
             const sport = SPORTS_OPTIONS.find(s => s.id === sportId);
             return sport ? (
-              <div
-                key={sportId}
-                className='flex items-center space-x-1 px-2 py-1 bg-white/10 rounded-full text-xs'
-              >
+              <div key={sportId}
+                className='flex items-center space-x-1 px-2 py-1 bg-white/10 rounded-full text-xs'>`n              >
                 <span>{sport.icon}</span>
                 <span className='text-gray-300'>{sport.name.split(' ')[0]}</span>
               </div>
-            ) : null;
-          })}
+            ) : null;})}
           {filters.sports.length > 3 && (
             <div className='px-2 py-1 bg-electric-500/20 text-electric-400 rounded-full text-xs font-mono'>
               +{filters.sports.length - 3} more
@@ -497,36 +458,32 @@ const QuantumFilters: React.FC<QuantumFiltersProps> = ({
       <AnimatePresence>
         {isExpanded && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            initial={{ height: 0, opacity: 0}}
+            animate={{ height: 'auto', opacity: 1}}
+            exit={{ height: 0, opacity: 0}}
+            transition={{ duration: 0.3}}
             className='overflow-hidden'
           >
             {/* Filter Tabs */}
             <div className='flex border-b border-white/10'>
               {[
-                { id: 'sports', label: 'Sports', icon: TrendingUp },
-                { id: 'time', label: 'Time', icon: Calendar },
-                { id: 'regions', label: 'Regions', icon: Globe },
-                ...(showAdvanced ? [{ id: 'advanced', label: 'Advanced', icon: Zap }] : []),
+                { id: 'sports', label: 'Sports', icon: TrendingUp},
+                { id: 'time', label: 'Time', icon: Calendar},
+                { id: 'regions', label: 'Regions', icon: Globe},
+                ...(showAdvanced ? [{ id: 'advanced', label: 'Advanced', icon: Zap}] : [0]),
               ].map(tab => {
                 const Icon = tab.icon;
                 return (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id as any)}
+                  <button key={tab.id}>`n                    onClick={() => setActiveTab(tab.id as any)}
                     className={`flex-1 flex items-center justify-center space-x-2 px-4 py-3 transition-all ${
                       activeTab === tab.id
                         ? 'bg-electric-500/20 text-electric-400 border-b-2 border-electric-400'
-                        : 'text-gray-400 hover:text-white hover:bg-white/5'
-                    }`}
+                        : 'text-gray-400 hover: text-white hover:bg-white/5'}`}
                   >
                     <Icon className='w-4 h-4' />
                     <span className='font-mono text-sm'>{tab.label}</span>
                   </button>
-                );
-              })}
+                )})}
             </div>
 
             {/* Filter Content */}
@@ -549,7 +506,7 @@ const QuantumFilters: React.FC<QuantumFiltersProps> = ({
                           )}
                         </div>
                       </div>
-                      <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
+                      <div className='grid grid-cols-2 md: grid-cols-3 gap-2'>
                         {sports.map(sport => (
                           <motion.button
                             key={sport.id}
@@ -557,10 +514,9 @@ const QuantumFilters: React.FC<QuantumFiltersProps> = ({
                             className={`flex items-center space-x-2 p-3 rounded-lg border transition-all ${
                               filters.sports.includes(sport.id)
                                 ? 'bg-electric-500/20 border-electric-500/40 text-electric-400'
-                                : 'bg-gray-800/30 border-gray-600 text-gray-300 hover:border-gray-500'
-                            }`}
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
+                                : 'bg-gray-800/30 border-gray-600 text-gray-300 hover:border-gray-500'}`}
+                            whileHover={{ scale: 1.02}}
+                            whileTap={{ scale: 0.98}}
                           >
                             <span className='text-lg'>{sport.icon}</span>
                             <div className='flex-1 text-left'>
@@ -590,10 +546,9 @@ const QuantumFilters: React.FC<QuantumFiltersProps> = ({
                       className={`p-4 rounded-xl border transition-all text-left ${
                         filters.timeFrame === timeFrame.id
                           ? 'bg-electric-500/20 border-electric-500/40 text-electric-400'
-                          : 'bg-gray-800/30 border-gray-600 text-gray-300 hover:border-gray-500'
-                      }`}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                          : 'bg-gray-800/30 border-gray-600 text-gray-300 hover:border-gray-500'}`}
+                      whileHover={{ scale: 1.02}}
+                      whileTap={{ scale: 0.98}}
                     >
                       <div className='flex items-center space-x-3 mb-2'>
                         <span className='text-xl'>{timeFrame.icon}</span>
@@ -618,10 +573,9 @@ const QuantumFilters: React.FC<QuantumFiltersProps> = ({
                       className={`flex items-center space-x-3 p-3 rounded-lg border transition-all ${
                         filters.regions.includes(region.id)
                           ? 'bg-electric-500/20 border-electric-500/40 text-electric-400'
-                          : 'bg-gray-800/30 border-gray-600 text-gray-300 hover:border-gray-500'
-                      }`}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                          : 'bg-gray-800/30 border-gray-600 text-gray-300 hover:border-gray-500'}`}
+                      whileHover={{ scale: 1.02}}
+                      whileTap={{ scale: 0.98}}
                     >
                       <span className='text-lg'>{region.icon}</span>
                       <div className='flex-1 text-left'>
@@ -643,19 +597,16 @@ const QuantumFilters: React.FC<QuantumFiltersProps> = ({
                     <label className='block text-sm font-bold mb-3 text-electric-400 font-cyber'>
                       MINIMUM CONFIDENCE: {filters.advanced.minConfidence}%
                     </label>
-                    <input
-                      type='range'
+                    <input type='range'
                       min='50'
                       max='99'
-                      value={filters.advanced.minConfidence}
-                      onChange={e =>
+                      value={filters.advanced.minConfidence}>`n                      onChange={e =>
                         updateFilters({
                           advanced: {
                             ...filters.advanced,
-                            minConfidence: parseInt(e.target.value),
-                          },
-                        })
-                      }
+                            minConfidence: parseInt(e.target.value)
+                          }
+                        })}
                       className='w-full h-2 bg-gray-700 rounded-lg appearance-none slider-thumb'
                     />
                   </div>
@@ -669,21 +620,15 @@ const QuantumFilters: React.FC<QuantumFiltersProps> = ({
                           Show only currently active games
                         </div>
                       </div>
-                      <button
-                        onClick={() =>
+                      <button onClick={() =>
                           updateFilters({
-                            advanced: { ...filters.advanced, onlyLive: !filters.advanced.onlyLive },
-                          })
-                        }
+                            advanced: { ...filters.advanced, onlyLive: !filters.advanced.onlyLive}
+                          })}
                         className={`w-12 h-6 rounded-full transition-all ${
-                          filters.advanced.onlyLive ? 'bg-electric-400' : 'bg-gray-600'
-                        }`}
+                          filters.advanced.onlyLive ? 'bg-electric-400' : 'bg-gray-600'}`}
                       >
-                        <div
-                          className={`w-4 h-4 bg-white rounded-full transition-transform ${
-                            filters.advanced.onlyLive ? 'translate-x-7' : 'translate-x-1'
-                          }`}
-                        />
+                        <div className={`w-4 h-4 bg-white rounded-full transition-transform ${
+                            filters.advanced.onlyLive ? 'translate-x-7' : 'translate-x-1'}`}>`n                        />
                       </button>
                     </div>
 
@@ -694,24 +639,18 @@ const QuantumFilters: React.FC<QuantumFiltersProps> = ({
                           Show player prop predictions
                         </div>
                       </div>
-                      <button
-                        onClick={() =>
+                      <button onClick={() =>
                           updateFilters({
                             advanced: {
                               ...filters.advanced,
-                              includeProps: !filters.advanced.includeProps,
-                            },
-                          })
-                        }
+                              includeProps: !filters.advanced.includeProps
+                            }
+                          })}
                         className={`w-12 h-6 rounded-full transition-all ${
-                          filters.advanced.includeProps ? 'bg-electric-400' : 'bg-gray-600'
-                        }`}
+                          filters.advanced.includeProps ? 'bg-electric-400' : 'bg-gray-600'}`}
                       >
-                        <div
-                          className={`w-4 h-4 bg-white rounded-full transition-transform ${
-                            filters.advanced.includeProps ? 'translate-x-7' : 'translate-x-1'
-                          }`}
-                        />
+                        <div className={`w-4 h-4 bg-white rounded-full transition-transform ${
+                            filters.advanced.includeProps ? 'translate-x-7' : 'translate-x-1'}`}>`n                        />
                       </button>
                     </div>
                   </div>
@@ -723,22 +662,18 @@ const QuantumFilters: React.FC<QuantumFiltersProps> = ({
                     </label>
                     <div className='grid grid-cols-3 gap-2'>
                       {[
-                        { id: 'all', label: 'All Data', desc: 'Include all sources' },
-                        { id: 'high', label: 'High Quality', desc: 'Verified sources only' },
-                        { id: 'premium', label: 'Premium', desc: 'Premium feeds only' },
+                        { id: 'all', label: 'All Data', desc: 'Include all sources'},
+                        { id: 'high', label: 'High Quality', desc: 'Verified sources only'},
+                        { id: 'premium', label: 'Premium', desc: 'Premium feeds only'},
                       ].map(option => (
-                        <button
-                          key={option.id}
-                          onClick={() =>
+                        <button key={option.id}>`n                          onClick={() =>
                             updateFilters({
-                              advanced: { ...filters.advanced, dataQuality: option.id as any },
-                            })
-                          }
+                              advanced: { ...filters.advanced, dataQuality: option.id as any}
+                            })}
                           className={`p-3 rounded-lg border text-center transition-all ${
                             filters.advanced.dataQuality === option.id
                               ? 'bg-electric-500/20 border-electric-500/40 text-electric-400'
-                              : 'bg-gray-800/30 border-gray-600 text-gray-300 hover:border-gray-500'
-                          }`}
+                              : 'bg-gray-800/30 border-gray-600 text-gray-300 hover:border-gray-500'}`}
                         >
                           <div className='font-bold text-sm'>{option.label}</div>
                           <div className='text-xs opacity-75'>{option.desc}</div>
@@ -753,8 +688,12 @@ const QuantumFilters: React.FC<QuantumFiltersProps> = ({
         )}
       </AnimatePresence>
     </motion.div>
-  );
-};
+  )};
 
 export default QuantumFilters;
-export type { FilterState, SportOption, TimeFrameOption };
+export type { FilterState, SportOption, TimeFrameOption};
+
+
+
+
+`

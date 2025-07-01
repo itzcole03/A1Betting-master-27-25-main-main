@@ -1,16 +1,15 @@
-import React from 'react.ts';
-import { Button, ButtonProps } from './Button.ts';
-import { twMerge } from 'tailwind-merge.ts';
+﻿import React from 'react';
+import { Button, ButtonProps} from './Button';
+import { twMerge} from 'tailwind-merge';
 
 export interface BettingButtonProps extends Omit<ButtonProps, 'variant' key={224500}> {
   betType?: 'straight' | 'parlay' | 'teaser';
-  odds?: number;
-  stake?: number;
-  potentialReturn?: number;
-  isPlacing?: boolean;
-  isConfirmed?: boolean;
-  showDetails?: boolean;
-}
+  odds?: number
+  stake?: number
+  potentialReturn?: number
+  isPlacing?: boolean
+  isConfirmed?: boolean
+  showDetails?: boolean}
 
 export const BettingButton: React.FC<BettingButtonProps key={816953}> = ({
   betType = 'straight',
@@ -22,19 +21,16 @@ export const BettingButton: React.FC<BettingButtonProps key={816953}> = ({
   showDetails = false,
   className,
   children,
-  ...props;
-}) => {
+  ...props}) => {
   const getVariant = () => {
     if (isConfirmed) return 'success';
     if (isPlacing) return 'primary';
-    return 'primary';
-  };
+    return 'primary';};
 
   const getButtonText = () => {
     if (isPlacing) return 'Placing Bet...';
     if (isConfirmed) return 'Bet Confirmed';
-    return children || 'Place Bet';
-  };
+    return children || 'Place Bet';};
 
   const buttonStyles = twMerge(
     'relative overflow-hidden',
@@ -67,5 +63,8 @@ export const BettingButton: React.FC<BettingButtonProps key={816953}> = ({
         </div>
       )}
     </Button>
-  );
-};
+  )};
+
+
+
+

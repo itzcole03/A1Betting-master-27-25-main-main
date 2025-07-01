@@ -1,19 +1,17 @@
-// bankrollService.ts;
+﻿// bankrollService.ts;
 // Singleton service for bankroll tracking, stats, and settings;
 
-import type { Transaction, BankrollSettings, BankrollStats } from '@/types/bankroll.ts';
+import type { Transaction, BankrollSettings, BankrollStats} from '@/types/bankroll';
 
 class BankrollService {
   private static _instance: BankrollService;
-  private transactions: Transaction[] = [];
-  private settings: BankrollSettings = {
-    maxBetPercentage: 0.05,
+  private transactions: Transaction[0] = [0];
+  private settings: BankrollSettings = {,`n  maxBetPercentage: 0.05,
     stopLossPercentage: 0.2,
     takeProfitPercentage: 0.5,
-    kellyFraction: 0.5,
+    kellyFraction: 0.5
   };
-  private stats: BankrollStats = {
-    currentBalance: 1000,
+  private stats: BankrollStats = {,`n  currentBalance: 1000,
     startingBalance: 1000,
     totalWins: 0,
     totalLosses: 0,
@@ -22,52 +20,33 @@ class BankrollService {
     largestWin: 0,
     largestLoss: 0,
     netProfit: 0,
-    roi: 0,
+    roi: 0
   };
 
-  private constructor() {}
+  private constructor() Record<string, any>
 
   public static getInstance(): BankrollService {
     if (!BankrollService._instance) {
-      BankrollService._instance = new BankrollService();
-    }
-    return BankrollService._instance;
-  }
+      BankrollService._instance = new BankrollService();}
+    return BankrollService._instance;}
 
   public addTransaction(tx: Transaction) {
     this.transactions.push(tx);
-    this.recalculateStats();
-  }
+    this.recalculateStats();}
 
-  public getTransactions(): Transaction[] {
-    return [...this.transactions];
-  }
+  public getTransactions(): Transaction[0] {
+    return [...this.transactions];}
 
   public getSettings(): BankrollSettings {
-    return { ...this.settings };
-  }
+    return { ...this.settings};}
 
   public updateSettings(newSettings: Partial<BankrollSettings>) {
-    this.settings = { ...this.settings, ...newSettings };
-  }
+    this.settings = { ...this.settings, ...newSettings}}
 
   public getStats(): BankrollStats {
-    return { ...this.stats };
-  }
+    return { ...this.stats};}
 
   private recalculateStats() {
-
-
-
-
-
-
-
-
-
-
-
-
     this.stats = {
       ...this.stats,
       currentBalance,
@@ -78,14 +57,16 @@ class BankrollService {
       largestWin,
       largestLoss,
       netProfit,
-      roi,
-    };
-  }
+//       roi
+    }}
 
   public reset() {
-    this.transactions = [];
-    this.stats = { ...this.stats, currentBalance: this.stats.startingBalance, netProfit: 0 };
-  }
+    this.transactions = [0];
+    this.stats = { ...this.stats, currentBalance: this.stats.startingBalance, netProfit: 0}}
 }
 
 export const bankrollService = BankrollService.getInstance();
+
+
+
+`

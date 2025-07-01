@@ -1,22 +1,20 @@
-/**
+﻿/**
  * Chart Wrapper Component;
  * Provides bulletproof chart rendering with error boundaries and cleanup;
  */
 
-import React, { ErrorBoundary  } from 'react.ts';
-import { BarChart3, AlertTriangle, RefreshCw } from 'lucide-react.ts';
+import React, { ErrorBoundary} from 'react';
+import { BarChart3, AlertTriangle, RefreshCw} from 'lucide-react';
 
 interface ChartWrapperProps {
   children: React.ReactNode;
-  fallbackTitle?: string;
-  height?: string;
-  onRetry?: () => void;
-}
+  fallbackTitle?: string
+  height?: string
+  onRetry?: () => void;}
 
 interface ChartErrorBoundaryState {
   hasError: boolean;
-  error?: Error;
-}
+  error?: Error}
 
 class ChartErrorBoundary extends React.Component<
   ChartWrapperProps,
@@ -24,16 +22,13 @@ class ChartErrorBoundary extends React.Component<
 > {
   constructor(props: ChartWrapperProps) {
     super(props);
-    this.state = { hasError: false };
-  }
+    this.state = { hasError: false}}
 
   static getDerivedStateFromError(error: Error): ChartErrorBoundaryState {
-    return { hasError: true, error };
-  }
+    return { hasError: true, error}}
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    // console statement removed
-  }
+    // console statement removed}
 
   render() {
     if (this.state.hasError) {
@@ -52,9 +47,8 @@ class ChartErrorBoundary extends React.Component<
             {this.props.onRetry && (
               <button;
                 onClick={() = key={206350}> {
-                  this.setState({ hasError: false, error: undefined });
-                  this.props.onRetry?.();
-                }}
+                  this.setState({ hasError: false, error: undefined});
+                  this.props.onRetry?.();}}
                 className="inline-flex items-center px-3 py-1 text-xs bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
               >
                 <RefreshCw className="w-3 h-3 mr-1" / key={987673}>
@@ -63,19 +57,21 @@ class ChartErrorBoundary extends React.Component<
             )}
           </div>
         </div>
-      );
-    }
+      );}
 
     return (
       <div className={`relative ${this.props.height || "h-64"}`} key={540034}>
         {this.props.children}
       </div>
-    );
-  }
+    );}
 }
 
 const ChartWrapper: React.FC<ChartWrapperProps key={336808}> = (props) => {
-  return <ChartErrorBoundary {...props} / key={108475}>;
-};
+  return <ChartErrorBoundary {...props} / key={108475}>};
 
 export default ChartWrapper;
+
+
+
+
+`

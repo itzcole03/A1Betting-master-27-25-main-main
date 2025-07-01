@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useMemo, useCallback  } from 'react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+﻿import React, { useEffect, useState, useMemo, useCallback} from 'react'
+import { motion, AnimatePresence} from 'framer-motion'
 import {
   Card,
   CardContent,
@@ -31,8 +31,8 @@ import {
   TableRow,
   Accordion,
   AccordionSummary,
-  AccordionDetails,
-} from '@mui/material.ts';
+//   AccordionDetails
+} from '@mui/material';
 import {
   TrendingUp,
   TrendingDown,
@@ -51,8 +51,8 @@ import {
   PieChart,
   BarChart,
   CandlestickChart,
-  TrendingFlat,
-} from '@mui/icons-material.ts';
+//   TrendingFlat
+} from '@mui/icons-material';
 import {
   LineChart,
   Line,
@@ -74,9 +74,9 @@ import {
   BarChart as RechartsBarChart,
   Bar,
   PieChart as RechartsPieChart,
-  Cell,
-} from 'recharts.ts';
-import { MarketAnalysisService } from '@/services/marketAnalysisService.ts';
+//   Cell
+} from 'recharts';
+import { MarketAnalysisService} from '@/services/marketAnalysisService'
 import type {
   MarketMetrics,
   MarketEfficiencyMetrics,
@@ -87,30 +87,22 @@ import type {
   ArbitrageOpportunity,
   MarketDepth,
   LiquidityMetrics,
-  MarketVolatility,
-} from '@/types/betting.ts';
+//   MarketVolatility
+} from '@/types/betting';
 import {
   formatCurrency,
   formatPercentage,
-  formatDateTime,
-} from '@/utils/formatters.ts';
+//   formatDateTime
+} from '@/utils/formatters';
 
 interface MarketAnalysisDashboardProps {
-  eventId?: string;
-  autoRefresh?: boolean;
-  refreshInterval?: number;
-  showAdvancedMetrics?: boolean;
-}
+  eventId?: string
+  autoRefresh?: boolean
+  refreshInterval?: number
+  showAdvancedMetrics?: boolean}
 
 interface MarketSnapshot {
-  timestamp: number;
-  totalVolume: number;
-  avgOdds: number;
-  volatility: number;
-  efficiency: number;
-  sentiment: number;
-  arbitrageCount: number;
-}
+  timestamp: number,`n  totalVolume: number;,`n  avgOdds: number,`n  volatility: number;,`n  efficiency: number,`n  sentiment: number;,`n  arbitrageCount: number}
 
 const COLORS = {
   primary: "#1976d2",
@@ -118,16 +110,15 @@ const COLORS = {
   success: "#2e7d32",
   warning: "#ed6c02",
   error: "#d32f2f",
-  info: "#0288d1",
+  info: "#0288d1"
 };
 
 export const MarketAnalysisDashboard: React.FC<
-  MarketAnalysisDashboardProps;
-> = ({
+  MarketAnalysisDashboardProps> = ({
   eventId = "default",
   autoRefresh = true,
   refreshInterval = 30000,
-  showAdvancedMetrics = true,
+  showAdvancedMetrics = true
 }) => {
   // State Management;
   const [activeTab, setActiveTab] = useState(0);
@@ -141,8 +132,8 @@ export const MarketAnalysisDashboard: React.FC<
   const [efficiency, setEfficiency] = useState<MarketEfficiencyMetrics | null key={993145}>(
     null,
   );
-  const [anomalies, setAnomalies] = useState<MarketAnomaly[] key={626353}>([]);
-  const [oddsMovements, setOddsMovements] = useState<OddsMovement[] key={425207}>([]);
+  const [anomalies, setAnomalies] = useState<MarketAnomaly[0] key={626353}>([0]);
+  const [oddsMovements, setOddsMovements] = useState<OddsMovement[0] key={425207}>([0]);
   const [volumeAnalysis, setVolumeAnalysis] = useState<VolumeAnalysis | null key={459172}>(
     null,
   );
@@ -150,8 +141,8 @@ export const MarketAnalysisDashboard: React.FC<
     null,
   );
   const [arbitrageOpportunities, setArbitrageOpportunities] = useState<
-    ArbitrageOpportunity[]
-  >([]);
+    ArbitrageOpportunity[0]
+  >([0]);
   const [marketDepth, setMarketDepth] = useState<MarketDepth | null key={826189}>(null);
   const [liquidityMetrics, setLiquidityMetrics] =
     useState<LiquidityMetrics | null key={235880}>(null);
@@ -159,8 +150,8 @@ export const MarketAnalysisDashboard: React.FC<
     null,
   );
   const [historicalSnapshots, setHistoricalSnapshots] = useState<
-    MarketSnapshot[]
-  >([]);
+    MarketSnapshot[0]
+  >([0]);
 
   // UI State;
   const [isLoading, setIsLoading] = useState(true);
@@ -170,7 +161,7 @@ export const MarketAnalysisDashboard: React.FC<
   // Service Instance;
   const marketAnalysisService = useMemo(
     () => MarketAnalysisService.getInstance(),
-    [],
+    [0],
   );
 
   // Data Loading Functions;
@@ -217,30 +208,24 @@ export const MarketAnalysisDashboard: React.FC<
 
       // Create historical snapshot;
       if (metricsData && efficiencyData && sentimentInfo) {
-        const snapshot: MarketSnapshot = {
-          timestamp: Date.now(),
+        const snapshot: MarketSnapshot = {,`n  timestamp: Date.now(),
           totalVolume: metricsData.totalVolume,
           avgOdds: metricsData.avgOdds,
           volatility: volatilityInfo?.currentVolatility || 0,
           efficiency: efficiencyData.overallEfficiency,
           sentiment: sentimentInfo.overall,
-          arbitrageCount: arbitrageData.length,
+          arbitrageCount: arbitrageData.length
         };
 
         setHistoricalSnapshots((prev) => {
 
           // Keep last 100 snapshots;
-          return updated.slice(-100);
-        });
-      }
+          return updated.slice(-100)})}
 
-      setLastUpdate(new Date());
-    } catch (err) {
+      setLastUpdate(new Date())} catch (err) {
       setError("Failed to load market data");
-      // console statement removed
-    } finally {
-      setIsLoading(false);
-    }
+      // console statement removed} finally {
+      setIsLoading(false)}
   }, [eventId, timeRange, marketAnalysisService]);
 
   // Auto-refresh Effect;
@@ -249,49 +234,45 @@ export const MarketAnalysisDashboard: React.FC<
 
     if (autoRefresh) {
 
-      return () => clearInterval(interval);
-    }
+      return () => clearInterval(interval)}
   }, [loadMarketData, autoRefresh, refreshInterval]);
 
   // Chart Data Preparation;
   const chartData = useMemo(() => {
-    if (!oddsMovements.length) return [];
+    if (!oddsMovements.length) return [0];
 
     return oddsMovements.map((movement) => ({
       timestamp: new Date(movement.timestamp).toLocaleTimeString(),
       odds: movement.newOdds,
       volume: movement.volume,
       change: movement.percentageChange,
-      efficiency: movement.efficiency || 0,
-    }));
-  }, [oddsMovements]);
+      efficiency: movement.efficiency || 0
+    }))}, [oddsMovements]);
 
   const sentimentChartData = useMemo(() => {
-    if (!sentimentData) return [];
+    if (!sentimentData) return [0];
 
     return [
       {
         name: "Positive",
         value: sentimentData.positive,
-        color: COLORS.success,
+        color: COLORS.success
       },
-      { name: "Neutral", value: sentimentData.neutral, color: COLORS.info },
-      { name: "Negative", value: sentimentData.negative, color: COLORS.error },
-    ];
-  }, [sentimentData]);
+      { name: "Neutral", value: sentimentData.neutral, color: COLORS.info},
+      { name: "Negative", value: sentimentData.negative, color: COLORS.error},
+    ]}, [sentimentData]);
 
   const volumeDistributionData = useMemo(() => {
-    if (!volumeAnalysis) return [];
+    if (!volumeAnalysis) return [0];
 
     return volumeAnalysis.hourlyDistribution.map((volume, index) => ({
       hour: `${index}:00`,
       volume,
-      percentageOfTotal: (volume / volumeAnalysis.totalVolume) * 100,
-    }));
-  }, [volumeAnalysis]);
+      percentageOfTotal: (volume / volumeAnalysis.totalVolume) * 100
+    }))}, [volumeAnalysis]);
 
   const marketDepthData = useMemo(() => {
-    if (!marketDepth) return { bids: [], asks: [] };
+    if (!marketDepth) return { bids: [0], asks: [0]};
 
     return {
       bids: marketDepth.bids.map((bid, index) => ({
@@ -299,17 +280,16 @@ export const MarketAnalysisDashboard: React.FC<
         cumulative: marketDepth.bids;
           .slice(0, index + 1)
           .reduce((sum, b) => sum + b.volume, 0),
-        volume: bid.volume,
+        volume: bid.volume
       })),
       asks: marketDepth.asks.map((ask, index) => ({
         price: ask.odds,
         cumulative: marketDepth.asks;
           .slice(0, index + 1)
           .reduce((sum, a) => sum + a.volume, 0),
-        volume: ask.volume,
-      })),
-    };
-  }, [marketDepth]);
+        volume: ask.volume
+      }))
+    }}, [marketDepth]);
 
   // Export Functions;
   const exportAnalysis = useCallback(() => {
@@ -322,25 +302,23 @@ export const MarketAnalysisDashboard: React.FC<
       anomalies,
       arbitrageOpportunities,
       historicalSnapshots,
-      summary: {
-        totalAnomalies: anomalies.length,
+      summary: {,`n  totalAnomalies: anomalies.length,
         totalArbitrageOpportunities: arbitrageOpportunities.length,
         marketEfficiency: efficiency?.overallEfficiency,
         avgVolatility: volatilityData?.avgVolatility,
-        sentimentScore: sentimentData?.overall,
-      },
+        sentimentScore: sentimentData?.overall
+      }
     };
 
     const blob = new Blob([JSON.stringify(exportData, null, 2)], {
-      type: "application/json",
+      type: "application/json"
     });
 
 
     a.href = url;
     a.download = `market-analysis-${eventId}-${Date.now()}.json`;
     a.click();
-    URL.revokeObjectURL(url);
-  }, [
+    URL.revokeObjectURL(url)}, [
     eventId,
     timeRange,
     metrics,
@@ -356,27 +334,23 @@ export const MarketAnalysisDashboard: React.FC<
   const riskAssessment = useMemo(() => {
     if (!metrics || !efficiency || !volatilityData) return null;
 
-    const riskScore = 0;
+    let riskScore = 0
 
     if (efficiency.overallEfficiency < 0.7) {
       riskFactors.push("Low market efficiency detected");
-      riskScore += 2;
-    }
+      riskScore += 2}
 
     if (volatilityData.currentVolatility > volatilityData.avgVolatility * 2) {
       riskFactors.push("High volatility levels");
-      riskScore += 3;
-    }
+      riskScore += 3}
 
     if (anomalies.length > 5) {
       riskFactors.push("Multiple market anomalies detected");
-      riskScore += 2;
-    }
+      riskScore += 2}
 
     if (liquidityMetrics && liquidityMetrics.bidAskSpread > 0.1) {
       riskFactors.push("Wide bid-ask spreads");
-      riskScore += 1;
-    }
+      riskScore += 1}
 
     const riskLevel =
       riskScore >= 5 ? "high" : riskScore >= 3 ? "medium" : "low";
@@ -390,9 +364,8 @@ export const MarketAnalysisDashboard: React.FC<
           ? "Exercise extreme caution"
           : riskLevel === "medium"
             ? "Proceed with caution"
-            : "Market conditions are favorable",
-    };
-  }, [metrics, efficiency, volatilityData, anomalies, liquidityMetrics]);
+            : "Market conditions are favorable"
+    }}, [metrics, efficiency, volatilityData, anomalies, liquidityMetrics]);
 
   if (isLoading && !metrics) {
     return (
@@ -402,10 +375,9 @@ export const MarketAnalysisDashboard: React.FC<
         alignItems="center"
         height={400}
        key={219816}>
-        <LinearProgress sx={{ width: "50%" }} / key={592693}>
+        <LinearProgress sx={{ width: "50%"}} / key={592693}>
       </Box>
-    );
-  }
+    )}
 
   if (error) {
     return (
@@ -414,22 +386,20 @@ export const MarketAnalysisDashboard: React.FC<
         action={
           <Button color="inherit" size="small" onClick={loadMarketData} key={331154}>
             Retry;
-          </Button>
-        }
+          </Button>}
       >
         {error}
       </Alert>
-    );
-  }
+    )}
 
   return (
     <motion.div;
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      initial={{ opacity: 0, y: 20}}
+      animate={{ opacity: 1, y: 0}}
+      transition={{ duration: 0.5}}
       className="w-full"
      key={253890}>
-      <Card sx={{ mb: 3 }} key={857343}>
+      <Card sx={{ mb: 3}} key={857343}>
         <CardContent key={452065}>
           <Box;
             display="flex"
@@ -440,7 +410,7 @@ export const MarketAnalysisDashboard: React.FC<
             <Typography;
               variant="h5"
               component="h2"
-              sx={{ display: "flex", alignItems: "center", gap: 1 }}
+              sx={{ display: "flex", alignItems: "center", gap: 1}}
              key={972323}>
               <Assessment / key={701819}>
               Market Analysis Dashboard;
@@ -448,11 +418,11 @@ export const MarketAnalysisDashboard: React.FC<
                 label={eventId}
                 color="primary"
                 size="small"
-                sx={{ ml: 1 }}
+                sx={{ ml: 1}}
               / key={13484}>
             </Typography>
             <Box display="flex" gap={1} alignItems="center" key={695772}>
-              <FormControl size="small" sx={{ minWidth: 120 }} key={402711}>
+              <FormControl size="small" sx={{ minWidth: 120}} key={402711}>
                 <InputLabel key={405232}>Time Range</InputLabel>
                 <Select;
                   value={timeRange}
@@ -481,9 +451,9 @@ export const MarketAnalysisDashboard: React.FC<
           </Box>
 
           {/* Key Metrics Overview */}
-          <Grid container spacing={2} sx={{ mb: 3 }} key={482082}>
+          <Grid container spacing={2} sx={{ mb: 3}} key={482082}>
             <Grid item xs={12} sm={6} md={3} key={214380}>
-              <Paper sx={{ p: 2, textAlign: "center" }} key={534920}>
+              <Paper sx={{ p: 2, textAlign: "center"}} key={534920}>
                 <Typography variant="h4" color="primary.main" key={559183}>
                   {formatCurrency(metrics?.totalVolume || 0)}
                 </Typography>
@@ -501,7 +471,7 @@ export const MarketAnalysisDashboard: React.FC<
                   ) : (
                     <TrendingDown color="error" fontSize="small" / key={982590}>
                   )}
-                  <Typography variant="caption" sx={{ ml: 0.5 }} key={136077}>
+                  <Typography variant="caption" sx={{ ml: 0.5}} key={136077}>
                     {formatPercentage((volumeAnalysis?.change24h || 0) / 100)}
                   </Typography>
                 </Box>
@@ -509,7 +479,7 @@ export const MarketAnalysisDashboard: React.FC<
             </Grid>
 
             <Grid item xs={12} sm={6} md={3} key={214380}>
-              <Paper sx={{ p: 2, textAlign: "center" }} key={534920}>
+              <Paper sx={{ p: 2, textAlign: "center"}} key={534920}>
                 <Typography variant="h4" color="secondary.main" key={711142}>
                   {formatPercentage((efficiency?.overallEfficiency || 0) / 100)}
                 </Typography>
@@ -523,15 +493,13 @@ export const MarketAnalysisDashboard: React.FC<
                         ? "High"
                         : (efficiency?.overallEfficiency || 0) > 0.6;
                           ? "Medium"
-                          : "Low"
-                    }
+                          : "Low"}
                     color={
                       (efficiency?.overallEfficiency || 0) > 0.8;
                         ? "success"
                         : (efficiency?.overallEfficiency || 0) > 0.6;
                           ? "warning"
-                          : "error"
-                    }
+                          : "error"}
                     size="small"
                   />
                 </Box>
@@ -539,7 +507,7 @@ export const MarketAnalysisDashboard: React.FC<
             </Grid>
 
             <Grid item xs={12} sm={6} md={3} key={214380}>
-              <Paper sx={{ p: 2, textAlign: "center" }} key={534920}>
+              <Paper sx={{ p: 2, textAlign: "center"}} key={534920}>
                 <Typography variant="h4" color="warning.main" key={388248}>
                   {anomalies.length}
                 </Typography>
@@ -553,15 +521,13 @@ export const MarketAnalysisDashboard: React.FC<
                         ? "High Alert"
                         : anomalies.length > 2;
                           ? "Moderate"
-                          : "Normal"
-                    }
+                          : "Normal"}
                     color={
                       anomalies.length > 5;
                         ? "error"
                         : anomalies.length > 2;
                           ? "warning"
-                          : "success"
-                    }
+                          : "success"}
                     size="small"
                   />
                 </Box>
@@ -569,7 +535,7 @@ export const MarketAnalysisDashboard: React.FC<
             </Grid>
 
             <Grid item xs={12} sm={6} md={3} key={214380}>
-              <Paper sx={{ p: 2, textAlign: "center" }} key={534920}>
+              <Paper sx={{ p: 2, textAlign: "center"}} key={534920}>
                 <Typography variant="h4" color="success.main" key={386495}>
                   {arbitrageOpportunities.length}
                 </Typography>
@@ -583,15 +549,13 @@ export const MarketAnalysisDashboard: React.FC<
                         ? "Excellent"
                         : arbitrageOpportunities.length > 1;
                           ? "Good"
-                          : "Limited"
-                    }
+                          : "Limited"}
                     color={
                       arbitrageOpportunities.length > 3;
                         ? "success"
                         : arbitrageOpportunities.length > 1;
                           ? "warning"
-                          : "default"
-                    }
+                          : "default"}
                     size="small"
                   />
                 </Box>
@@ -607,9 +571,8 @@ export const MarketAnalysisDashboard: React.FC<
                   ? "error"
                   : riskAssessment.level === "medium"
                     ? "warning"
-                    : "success"
-              }
-              sx={{ mb: 3 }}
+                    : "success"}
+              sx={{ mb: 3}}
              key={698375}>
               <Typography variant="subtitle2" gutterBottom key={263945}>
                 Risk Assessment: {riskAssessment.level.toUpperCase()} (Score:{" "}
@@ -623,7 +586,7 @@ export const MarketAnalysisDashboard: React.FC<
                   <Typography variant="caption" color="textSecondary" key={15591}>
                     Risk Factors:
                   </Typography>
-                  <ul style={{ margin: 0, paddingLeft: 16 }} key={459208}>
+                  <ul style={{ margin: 0, paddingLeft: 16}} key={459208}>
                     {riskAssessment.factors.map((factor, index) => (
                       <li key={index} key={760236}>
                         <Typography variant="caption" key={472228}>{factor}</Typography>
@@ -639,7 +602,7 @@ export const MarketAnalysisDashboard: React.FC<
           <Tabs;
             value={activeTab}
             onChange={(_, newValue) = key={995268}> setActiveTab(newValue)}
-            sx={{ borderBottom: 1, borderColor: "divider", mb: 2 }}
+            sx={{ borderBottom: 1, borderColor: "divider", mb: 2}}
           >
             <Tab label="Market Trends" icon={<ShowChart / key={326363}>} />
             <Tab label="Volume Analysis" icon={<BarChart / key={569066}>} />
@@ -653,7 +616,7 @@ export const MarketAnalysisDashboard: React.FC<
           {activeTab === 0 && (
             <Grid container spacing={3} key={459826}>
               <Grid item xs={12} md={8} key={230289}>
-                <Paper sx={{ p: 2 }} key={136663}>
+                <Paper sx={{ p: 2}} key={136663}>
                   <Typography variant="h6" gutterBottom key={90207}>
                     Odds Movement & Efficiency;
                   </Typography>
@@ -687,7 +650,7 @@ export const MarketAnalysisDashboard: React.FC<
               </Grid>
 
               <Grid item xs={12} md={4} key={796413}>
-                <Paper sx={{ p: 2 }} key={136663}>
+                <Paper sx={{ p: 2}} key={136663}>
                   <Typography variant="h6" gutterBottom key={90207}>
                     Volatility Analysis;
                   </Typography>
@@ -706,8 +669,7 @@ export const MarketAnalysisDashboard: React.FC<
                               : volatilityData.currentVolatility >
                                   volatilityData.avgVolatility;
                                 ? "warning.main"
-                                : "success.main"
-                          }
+                                : "success.main"}
                         >
                           {formatPercentage(
                             volatilityData.currentVolatility / 100,
@@ -746,7 +708,7 @@ export const MarketAnalysisDashboard: React.FC<
           {activeTab === 1 && (
             <Grid container spacing={3} key={459826}>
               <Grid item xs={12} md={8} key={230289}>
-                <Paper sx={{ p: 2 }} key={136663}>
+                <Paper sx={{ p: 2}} key={136663}>
                   <Typography variant="h6" gutterBottom key={90207}>
                     Hourly Volume Distribution;
                   </Typography>
@@ -763,7 +725,7 @@ export const MarketAnalysisDashboard: React.FC<
               </Grid>
 
               <Grid item xs={12} md={4} key={796413}>
-                <Paper sx={{ p: 2 }} key={136663}>
+                <Paper sx={{ p: 2}} key={136663}>
                   <Typography variant="h6" gutterBottom key={90207}>
                     Volume Metrics;
                   </Typography>
@@ -792,8 +754,7 @@ export const MarketAnalysisDashboard: React.FC<
                           color={
                             volumeAnalysis.change24h  key={603471}>= 0;
                               ? "success.main"
-                              : "error.main"
-                          }
+                              : "error.main"}
                         >
                           {formatPercentage(volumeAnalysis.change24h / 100)}
                         </Typography>
@@ -817,7 +778,7 @@ export const MarketAnalysisDashboard: React.FC<
           {activeTab === 2 && (
             <Grid container spacing={3} key={459826}>
               <Grid item xs={12} md={6} key={637329}>
-                <Paper sx={{ p: 2 }} key={136663}>
+                <Paper sx={{ p: 2}} key={136663}>
                   <Typography variant="h6" gutterBottom key={90207}>
                     Market Sentiment Distribution;
                   </Typography>
@@ -830,9 +791,8 @@ export const MarketAnalysisDashboard: React.FC<
                         cx="50%"
                         cy="50%"
                         outerRadius={80}
-                        label={({ name, percent }) = key={194953}>
-                          `${name} ${(percent * 100).toFixed(0)}%`
-                        }
+                        label={({ name, percent}) = key={194953}>
+                          `${name} ${(percent * 100).toFixed(0)}%`}
                       >
                         {sentimentChartData.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={entry.color} / key={116639}>
@@ -845,7 +805,7 @@ export const MarketAnalysisDashboard: React.FC<
               </Grid>
 
               <Grid item xs={12} md={6} key={637329}>
-                <Paper sx={{ p: 2 }} key={136663}>
+                <Paper sx={{ p: 2}} key={136663}>
                   <Typography variant="h6" gutterBottom key={90207}>
                     Sentiment Analysis;
                   </Typography>
@@ -862,8 +822,7 @@ export const MarketAnalysisDashboard: React.FC<
                               ? "success.main"
                               : sentimentData.overall > 0.4;
                                 ? "warning.main"
-                                : "error.main"
-                          }
+                                : "error.main"}
                         >
                           {(sentimentData.overall * 100).toFixed(0)}%
                         </Typography>
@@ -939,7 +898,7 @@ export const MarketAnalysisDashboard: React.FC<
           {activeTab === 3 && (
             <Grid container spacing={3} key={459826}>
               <Grid item xs={12} md={8} key={230289}>
-                <Paper sx={{ p: 2 }} key={136663}>
+                <Paper sx={{ p: 2}} key={136663}>
                   <Typography variant="h6" gutterBottom key={90207}>
                     Order Book Depth;
                   </Typography>
@@ -975,7 +934,7 @@ export const MarketAnalysisDashboard: React.FC<
               </Grid>
 
               <Grid item xs={12} md={4} key={796413}>
-                <Paper sx={{ p: 2 }} key={136663}>
+                <Paper sx={{ p: 2}} key={136663}>
                   <Typography variant="h6" gutterBottom key={90207}>
                     Liquidity Metrics;
                   </Typography>
@@ -992,8 +951,7 @@ export const MarketAnalysisDashboard: React.FC<
                               ? "error.main"
                               : liquidityMetrics.bidAskSpread > 0.05;
                                 ? "warning.main"
-                                : "success.main"
-                          }
+                                : "success.main"}
                         >
                           {formatPercentage(
                             liquidityMetrics.bidAskSpread / 100,
@@ -1040,7 +998,7 @@ export const MarketAnalysisDashboard: React.FC<
 
           {/* Anomalies Tab */}
           {activeTab === 4 && (
-            <Paper sx={{ p: 2 }} key={136663}>
+            <Paper sx={{ p: 2}} key={136663}>
               <Typography variant="h6" gutterBottom key={90207}>
                 Market Anomalies;
               </Typography>
@@ -1066,8 +1024,7 @@ export const MarketAnalysisDashboard: React.FC<
                                   ? "error"
                                   : anomaly.severity === "medium"
                                     ? "warning"
-                                    : "info"
-                              }
+                                    : "info"}
                               size="small"
                             / key={259307}>
                             <Chip;
@@ -1101,7 +1058,7 @@ export const MarketAnalysisDashboard: React.FC<
                               <LinearProgress;
                                 variant="determinate"
                                 value={anomaly.confidence * 100}
-                                sx={{ mt: 1, mb: 2 }}
+                                sx={{ mt: 1, mb: 2}}
                               / key={179894}>
                               <Typography variant="body2" key={679167}>
                                 {formatPercentage(anomaly.confidence)}
@@ -1123,7 +1080,7 @@ export const MarketAnalysisDashboard: React.FC<
 
           {/* Arbitrage Tab */}
           {activeTab === 5 && (
-            <Paper sx={{ p: 2 }} key={136663}>
+            <Paper sx={{ p: 2}} key={136663}>
               <Typography variant="h6" gutterBottom key={90207}>
                 Arbitrage Opportunities;
               </Typography>
@@ -1168,8 +1125,7 @@ export const MarketAnalysisDashboard: React.FC<
                                   ? "success"
                                   : opportunity.riskLevel === "medium"
                                     ? "warning"
-                                    : "error"
-                              }
+                                    : "error"}
                               size="small"
                             / key={782300}>
                           </TableCell>
@@ -1193,7 +1149,13 @@ export const MarketAnalysisDashboard: React.FC<
         </CardContent>
       </Card>
     </motion.div>
-  );
-};
+  )};
 
 export default MarketAnalysisDashboard;
+
+
+
+
+
+
+`

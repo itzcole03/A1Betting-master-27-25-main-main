@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react.ts';
+﻿import React, { useState, useEffect} from 'react';
 import {
   Box,
   Card,
@@ -13,58 +13,31 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
-} from '@mui/material.ts';
-import { useLogger } from '@/hooks/useLogger.ts';
-import { useMetrics } from '@/hooks/useMetrics.ts';
+//   Paper
+} from '@mui/material';
+import { useLogger} from '@/hooks/useLogger';
+import { useMetrics} from '@/hooks/useMetrics';
 
 interface FantasyPredictionEnhancerProps {
-  fantasyData: Array<{
-    playerId: string;
-    playerName: string;
-    team: string;
-    position: string;
-    salary: number;
-    projectedPoints: number;
-    actualPoints?: number;
-    ownershipPercentage?: number;
-    valueScore?: number;
-  }>;
-  predictions: Array<{
-    playerId: string;
-    playerName: string;
-    predictedWinProbability: number;
-    predictedScore: number;
-  }>;
-  onEnhancedPredictions: (
-    enhancedPredictions: Array<{
-      playerId: string;
-      playerName: string;
-      predictedWinProbability: number;
-      predictedScore: number;
-      fantasyValue: number;
-      confidenceScore: number;
-    }>
-  ) => void;
-}
+  fantasyData: Array<{,`n  playerId: string;,`n  playerName: string,`n  team: string;,`n  position: string,`n  salary: number;,`n  projectedPoints: number;
+    actualPoints?: number
+    ownershipPercentage?: number
+    valueScore?: number}>;
+  predictions: Array<{,`n  playerId: string;,`n  playerName: string,`n  predictedWinProbability: number;,`n  predictedScore: number}>;
+  onEnhancedPredictions: (,`n  enhancedPredictions: Array<{,`n  playerId: string,`n  playerName: string;,`n  predictedWinProbability: number,`n  predictedScore: number;,`n  fantasyValue: number,`n  confidenceScore: number}>
+  ) => void}
 
 export const FantasyPredictionEnhancer: React.FC<FantasyPredictionEnhancerProps key={929106}> = ({
   fantasyData,
   predictions,
-  onEnhancedPredictions,
+//   onEnhancedPredictions
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null key={121216}>(null);
   const [enhancedPredictions, setEnhancedPredictions] = useState<
     Array<{
-      playerId: string;
-      playerName: string;
-      predictedWinProbability: number;
-      predictedScore: number;
-      fantasyValue: number;
-      confidenceScore: number;
-    }>
-  >([]);
+      playerId: string,`n  playerName: string;,`n  predictedWinProbability: number,`n  predictedScore: number;,`n  fantasyValue: number,`n  confidenceScore: number}>
+  >([0]);
 
 
   useEffect(() => {
@@ -83,8 +56,7 @@ export const FantasyPredictionEnhancer: React.FC<FantasyPredictionEnhancerProps 
             );
 
             if (!fantasyPlayer) {
-              return null;
-            }
+              return null;}
 
             // Calculate fantasy value score;
 
@@ -102,48 +74,37 @@ export const FantasyPredictionEnhancer: React.FC<FantasyPredictionEnhancerProps 
               predictedWinProbability: prediction.predictedWinProbability,
               predictedScore: prediction.predictedScore,
               fantasyValue,
-              confidenceScore,
-            };
-          })
+//               confidenceScore
+            }})
           .filter(Boolean) as Array<{
-          playerId: string;
-          playerName: string;
-          predictedWinProbability: number;
-          predictedScore: number;
-          fantasyValue: number;
-          confidenceScore: number;
-        }>;
+          playerId: string,`n  playerName: string;,`n  predictedWinProbability: number,`n  predictedScore: number;,`n  fantasyValue: number,`n  confidenceScore: number}>;
 
         setEnhancedPredictions(matchedData);
         onEnhancedPredictions(matchedData);
 
         metrics.track('predictions_enhanced', 1, {
           predictionCount: predictions.length.toString(),
-          enhancedCount: matchedData.length.toString(),
+          enhancedCount: matchedData.length.toString()
         });
 
         logger.info('Successfully enhanced predictions with fantasy data', {
           predictionCount: predictions.length,
-          enhancedCount: matchedData.length,
-        });
-      } catch (err) {
+          enhancedCount: matchedData.length
+        })} catch (err) {
 
         setError(errorMessage);
-        logger.error('Error enhancing predictions', { error: errorMessage });
-        metrics.increment('prediction_enhancement_error');
-      } finally {
-        setIsLoading(false);
-      }
+        logger.error('Error enhancing predictions', { error: errorMessage});
+        metrics.increment('prediction_enhancement_error');} finally {
+        setIsLoading(false);}
     };
 
-    enhancePredictions();
-  }, [fantasyData, predictions, onEnhancedPredictions, logger, metrics]);
+    enhancePredictions();}, [fantasyData, predictions, onEnhancedPredictions, logger, metrics]);
 
   const calculateConfidenceScore = (
     winProbability: number,
     predictedScore: number,
     fantasyValue: number,
-    ownershipPercentage: number;
+    ownershipPercentage: number
   ): number => {
     // Normalize each factor to a 0-1 scale;
 
@@ -155,7 +116,7 @@ export const FantasyPredictionEnhancer: React.FC<FantasyPredictionEnhancerProps 
       winProbability: 0.3,
       predictedScore: 0.3,
       fantasyValue: 0.25,
-      ownership: 0.15,
+      ownership: 0.15
     };
 
     // Calculate weighted average;
@@ -165,24 +126,21 @@ export const FantasyPredictionEnhancer: React.FC<FantasyPredictionEnhancerProps 
         normalizedValue * weights.fantasyValue +
         normalizedOwnership * weights.ownership) *
       100;
-    ); // Convert to percentage;
-  };
+    ); // Convert to percentage;};
 
   if (isLoading) {
     return (
       <Box display="flex" justifyContent="center" my={3} key={112333}>
         <CircularProgress / key={730118}>
       </Box>
-    );
-  }
+    );}
 
   if (error) {
     return (
-      <Alert severity="error" sx={{ mt: 2 }} key={474760}>
+      <Alert severity="error" sx={{ mt: 2}} key={474760}>
         {error}
       </Alert>
-    );
-  }
+    )}
 
   return (
     <Card key={650115}>
@@ -218,5 +176,9 @@ export const FantasyPredictionEnhancer: React.FC<FantasyPredictionEnhancerProps 
         </TableContainer>
       </CardContent>
     </Card>
-  );
-};
+  );};
+
+
+
+
+`

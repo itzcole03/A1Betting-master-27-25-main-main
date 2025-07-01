@@ -1,6 +1,7 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface PayoutPreviewProps {
-    payout: number;
-}
+  payout: number}
 declare const PayoutPreview: React.FC<PayoutPreviewProps>;
 export default PayoutPreview;
+
+

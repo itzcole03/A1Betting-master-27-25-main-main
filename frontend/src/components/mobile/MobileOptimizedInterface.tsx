@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo, useCallback  } from 'react.ts';
-import { motion, AnimatePresence, PanInfo } from 'framer-motion.ts';
+﻿import React, { useState, useEffect, useMemo, useCallback} from 'react';
+import { motion, AnimatePresence, PanInfo} from 'framer-motion';
 import {
   Box,
   Card,
@@ -39,8 +39,8 @@ import {
   Tabs,
   Tab,
   Divider,
-  Skeleton,
-} from '@mui/material.ts';
+//   Skeleton
+} from '@mui/material';
 import {
   Home,
   Analytics,
@@ -88,48 +88,36 @@ import {
   Security,
   Help,
   Feedback,
-  ExitToApp,
-} from '@mui/icons-material.ts';
+//   ExitToApp
+} from '@mui/icons-material';
 import {
   formatCurrency,
   formatPercentage,
-  formatDateTime,
-} from '@/utils/formatters.ts';
+//   formatDateTime
+} from '@/utils/formatters';
 
 interface MobileCard {
-  id: string;
-  type: "metric" | "chart" | "action" | "news" | "opportunity";
-  title: string;
-  subtitle?: string;
+  id: string,`n  type: "metric" | "chart" | "action" | "news" | "opportunity";,`n  title: string;
+  subtitle?: string
   value?: number | string;
-  change?: number;
+  change?: number
   trend?: "up" | "down" | "neutral";
   action?: () => void;
-  priority: "high" | "medium" | "low";
-  category: string;
-  data?: any;
-  timestamp?: Date;
-}
+  priority: "high" | "medium" | "low",`n  category: string;
+  data?: any
+  timestamp?: Date}
 
 interface SwipeableCardStackProps {
-  cards: MobileCard[];
-  onCardSwipe: (cardId: string, direction: "left" | "right") => void;
-  onCardTap: (card: MobileCard) => void;
-}
+  cards: MobileCard[0],`n  onCardSwipe: (cardId: string, direction: "left" | "right") => void,`n  onCardTap: (card: MobileCard) => void}
 
 interface QuickAction {
-  id: string;
-  label: string;
-  icon: React.ReactNode;
-  color: "primary" | "secondary" | "success" | "warning" | "error";
-  action: () => void;
-  badge?: number;
-}
+  id: string,`n  label: string;,`n  icon: React.ReactNode,`n  color: "primary" | "secondary" | "success" | "warning" | "error";,`n  action: () => void;
+  badge?: number}
 
 const SwipeableCardStack: React.FC<SwipeableCardStackProps key={825845}> = ({
   cards,
   onCardSwipe,
-  onCardTap,
+//   onCardTap
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
@@ -143,14 +131,11 @@ const SwipeableCardStack: React.FC<SwipeableCardStackProps key={825845}> = ({
 
 
         if (currentCard) {
-          onCardSwipe(currentCard.id, direction);
-        }
+          onCardSwipe(currentCard.id, direction)}
 
-        setCurrentIndex((prev) => Math.min(prev + 1, cards.length - 1));
-      }
+        setCurrentIndex((prev) => Math.min(prev + 1, cards.length - 1));}
 
-      setDragOffset(0);
-    },
+      setDragOffset(0);},
     [cards, currentIndex, onCardSwipe],
   );
 
@@ -166,8 +151,7 @@ const SwipeableCardStack: React.FC<SwipeableCardStackProps key={825845}> = ({
           No cards to display;
         </Typography>
       </Box>
-    );
-  }
+    );}
 
   return (
     <Box;
@@ -178,7 +162,7 @@ const SwipeableCardStack: React.FC<SwipeableCardStackProps key={825845}> = ({
         overflow: "hidden",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: "center"
       }}
      key={460709}>
       <AnimatePresence key={359944}>
@@ -186,31 +170,31 @@ const SwipeableCardStack: React.FC<SwipeableCardStackProps key={825845}> = ({
           <motion.div;
             key={`${card.id}-${currentIndex + index}`}
             drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
+            dragConstraints={{ left: 0, right: 0}}
             onDragEnd={(_, info) = key={177391}> index === 0 && handleDragEnd(info)}
             onTap={() => onCardTap(card)}
             initial={{
               scale: 1 - index * 0.05,
               y: index * 10,
               zIndex: 10 - index,
-              opacity: 1,
+              opacity: 1
             }}
             animate={{
               scale: 1 - index * 0.05,
               y: index * 10,
               zIndex: 10 - index,
               opacity: 1 - index * 0.3,
-              x: index === 0 ? dragOffset : 0,
+              x: index === 0 ? dragOffset : 0
             }}
             exit={{
               x: dragOffset > 0 ? 300 : -300,
               opacity: 0,
-              transition: { duration: 0.3 },
+              transition: { duration: 0.3}
             }}
             style={{
               position: "absolute",
               width: "90%",
-              cursor: "pointer",
+              cursor: "pointer"
             }}
           >
             <Card;
@@ -223,7 +207,7 @@ const SwipeableCardStack: React.FC<SwipeableCardStackProps key={825845}> = ({
                 color: index === 0 ? "white" : "inherit",
                 backdropFilter: "blur(10px)",
                 border:
-                  index === 0 ? "none" : "1px solid rgba(255,255,255,0.2)",
+                  index === 0 ? "none" : "1px solid rgba(255,255,255,0.2)"
               }}
              key={882721}>
               <CardContent;
@@ -231,7 +215,7 @@ const SwipeableCardStack: React.FC<SwipeableCardStackProps key={825845}> = ({
                   height: "100%",
                   display: "flex",
                   flexDirection: "column",
-                  justifyContent: "space-between",
+                  justifyContent: "space-between"
                 }}
                key={940767}>
                 <Box key={485947}>
@@ -249,7 +233,7 @@ const SwipeableCardStack: React.FC<SwipeableCardStackProps key={825845}> = ({
                           index === 0;
                             ? "rgba(255,255,255,0.2)"
                             : "primary.main",
-                        color: index === 0 ? "white" : "white",
+                        color: index === 0 ? "white" : "white"
                       }}
                     / key={92420}>
                     <Chip;
@@ -260,15 +244,14 @@ const SwipeableCardStack: React.FC<SwipeableCardStackProps key={825845}> = ({
                           ? "error"
                           : card.priority === "medium"
                             ? "warning"
-                            : "success"
-                      }
+                            : "success"}
                     / key={423283}>
                   </Box>
 
                   <Typography;
                     variant="h6"
                     gutterBottom;
-                    sx={{ fontWeight: "bold" }}
+                    sx={{ fontWeight: "bold"}}
                    key={418202}>
                     {card.title}
                   </Typography>
@@ -276,7 +259,7 @@ const SwipeableCardStack: React.FC<SwipeableCardStackProps key={825845}> = ({
                   {card.subtitle && (
                     <Typography;
                       variant="body2"
-                      sx={{ opacity: 0.8 }}
+                      sx={{ opacity: 0.8}}
                       gutterBottom;
                      key={755455}>
                       {card.subtitle}
@@ -289,7 +272,7 @@ const SwipeableCardStack: React.FC<SwipeableCardStackProps key={825845}> = ({
                     <Box key={485947}>
                       <Typography;
                         variant="h3"
-                        sx={{ fontWeight: "bold", mb: 1 }}
+                        sx={{ fontWeight: "bold", mb: 1}}
                        key={585007}>
                         {typeof card.value === "number"
                           ? formatCurrency(card.value)
@@ -301,7 +284,7 @@ const SwipeableCardStack: React.FC<SwipeableCardStackProps key={825845}> = ({
                             <TrendingUp / key={53470}>
                           ) : (
                             <TrendingUp;
-                              style={{ transform: "rotate(180deg)" }}
+                              style={{ transform: "rotate(180deg)"}}
                             / key={877453}>
                           )}
                           <Typography variant="body2" key={679167}>
@@ -331,7 +314,7 @@ const SwipeableCardStack: React.FC<SwipeableCardStackProps key={825845}> = ({
                   {card.timestamp && (
                     <Typography;
                       variant="caption"
-                      sx={{ opacity: 0.6, mt: 1, display: "block" }}
+                      sx={{ opacity: 0.6, mt: 1, display: "block"}}
                      key={469057}>
                       {formatDateTime(card.timestamp)}
                     </Typography>
@@ -351,7 +334,7 @@ const SwipeableCardStack: React.FC<SwipeableCardStackProps key={825845}> = ({
           left: "50%",
           transform: "translateX(-50%)",
           display: "flex",
-          gap: 1,
+          gap: 1
         }}
        key={283722}>
         {cards.map((_, index) => (
@@ -363,14 +346,13 @@ const SwipeableCardStack: React.FC<SwipeableCardStackProps key={825845}> = ({
               borderRadius: "50%",
               backgroundColor:
                 index === currentIndex ? "white" : "rgba(255,255,255,0.3)",
-              transition: "all 0.3s ease",
+              transition: "all 0.3s ease"
             }}
           / key={743898}>
         ))}
       </Box>
     </Box>
-  );
-};
+  )};
 
 export const MobileOptimizedInterface: React.FC = () => {
 
@@ -380,13 +362,13 @@ export const MobileOptimizedInterface: React.FC = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [quickActionsOpen, setQuickActionsOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<MobileCard | null key={21463}>(null);
-  const [notifications, setNotifications] = useState<any[] key={594112}>([]);
+  const [notifications, setNotifications] = useState<any[0] key={594112}>([0]);
   const [isLoading, setIsLoading] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
   // Mock Data;
-  const mobileCards: MobileCard[] = [
+  const mobileCards: MobileCard[0] = [
     {
       id: "profit-today",
       type: "metric",
@@ -396,7 +378,7 @@ export const MobileOptimizedInterface: React.FC = () => {
       trend: "up",
       priority: "high",
       category: "Performance",
-      timestamp: new Date(),
+      timestamp: new Date()
     },
     {
       id: "arbitrage-opp",
@@ -405,8 +387,8 @@ export const MobileOptimizedInterface: React.FC = () => {
       subtitle: "Arbitrage Opportunity",
       priority: "high",
       category: "Arbitrage",
-      data: { profit: 43.2, margin: 0.043 },
-      timestamp: new Date(Date.now() - 300000),
+      data: { profit: 43.2, margin: 0.043},
+      timestamp: new Date(Date.now() - 300000)
     },
     {
       id: "win-rate",
@@ -417,7 +399,7 @@ export const MobileOptimizedInterface: React.FC = () => {
       trend: "up",
       priority: "medium",
       category: "Analytics",
-      timestamp: new Date(Date.now() - 600000),
+      timestamp: new Date(Date.now() - 600000)
     },
     {
       id: "ml-prediction",
@@ -427,17 +409,17 @@ export const MobileOptimizedInterface: React.FC = () => {
       priority: "medium",
       category: "ML",
       action: () => // console statement removed,
-      timestamp: new Date(Date.now() - 900000),
+      timestamp: new Date(Date.now() - 900000)
     },
   ];
 
-  const quickActions: QuickAction[] = [
+  const quickActions: QuickAction[0] = [
     {
       id: "place-bet",
       label: "Place Bet",
       icon: <MonetizationOn / key={90951}>,
       color: "primary",
-      action: () => handleQuickAction("place-bet"),
+      action: () => handleQuickAction("place-bet")
     },
     {
       id: "check-arbitrage",
@@ -445,21 +427,21 @@ export const MobileOptimizedInterface: React.FC = () => {
       icon: <SwapVert / key={6623}>,
       color: "success",
       action: () => handleQuickAction("check-arbitrage"),
-      badge: 3,
+      badge: 3
     },
     {
       id: "ml-insights",
       label: "ML Insights",
       icon: <Psychology / key={12337}>,
       color: "secondary",
-      action: () => handleQuickAction("ml-insights"),
+      action: () => handleQuickAction("ml-insights")
     },
     {
       id: "portfolio",
       label: "Portfolio",
       icon: <AccountBalance / key={432276}>,
       color: "warning",
-      action: () => handleQuickAction("portfolio"),
+      action: () => handleQuickAction("portfolio")
     },
   ];
 
@@ -468,17 +450,15 @@ export const MobileOptimizedInterface: React.FC = () => {
     (cardId: string, direction: "left" | "right") => {
 
       setSnackbarMessage(`Card ${action}`);
-      setSnackbarOpen(true);
-    },
-    [],
+      setSnackbarOpen(true);},
+    [0],
   );
 
   const handleCardTap = useCallback((card: MobileCard) => {
     setSelectedCard(card);
     if (card.action) {
-      card.action();
-    }
-  }, []);
+      card.action();}
+  }, [0]);
 
   const handleQuickAction = useCallback((actionId: string) => {
     setIsLoading(true);
@@ -487,15 +467,12 @@ export const MobileOptimizedInterface: React.FC = () => {
 
     setTimeout(() => {
       setIsLoading(false);
-      setQuickActionsOpen(false);
-    }, 2000);
-  }, []);
+      setQuickActionsOpen(false);}, 2000);}, [0]);
 
   const handleTabChange = useCallback(
     (_: React.SyntheticEvent, newValue: number) => {
-      setActiveTab(newValue);
-    },
-    [],
+      setActiveTab(newValue)},
+    [0],
   );
 
   // Load notifications;
@@ -506,18 +483,17 @@ export const MobileOptimizedInterface: React.FC = () => {
         title: "New Arbitrage Opportunity",
         message: "Lakers vs Warriors - 4.3% profit margin",
         type: "opportunity",
-        timestamp: new Date(Date.now() - 300000),
+        timestamp: new Date(Date.now() - 300000)
       },
       {
         id: "notif-2",
         title: "ML Model Updated",
         message: "Ensemble model accuracy improved to 74.2%",
         type: "update",
-        timestamp: new Date(Date.now() - 900000),
+        timestamp: new Date(Date.now() - 900000)
       },
     ];
-    setNotifications(mockNotifications);
-  }, []);
+    setNotifications(mockNotifications);}, [0]);
 
   if (!isMobile) {
     return (
@@ -532,8 +508,7 @@ export const MobileOptimizedInterface: React.FC = () => {
           browser or use a mobile device.
         </Alert>
       </Box>
-    );
-  }
+    );}
 
   return (
     <Box;
@@ -542,30 +517,30 @@ export const MobileOptimizedInterface: React.FC = () => {
         display: "flex",
         flexDirection: "column",
         backgroundColor: "background.default",
-        overflow: "hidden",
+        overflow: "hidden"
       }}
      key={875060}>
       {/* Header */}
       <AppBar;
         position="static"
         elevation={0}
-        sx={{ backgroundColor: "background.paper" }}
+        sx={{ backgroundColor: "background.paper"}}
        key={79877}>
         <Toolbar key={629347}>
           <IconButton;
             edge="start"
             color="inherit"
             onClick={() = key={329416}> setDrawerOpen(true)}
-            sx={{ mr: 2 }}
+            sx={{ mr: 2}}
           >
             <Menu / key={662131}>
           </IconButton>
 
-          <Typography variant="h6" sx={{ flexGrow: 1, color: "text.primary" }} key={289394}>
+          <Typography variant="h6" sx={{ flexGrow: 1, color: "text.primary"}} key={289394}>
             A1Betting Mobile;
           </Typography>
 
-          <IconButton color="inherit" sx={{ color: "text.primary" }} key={688048}>
+          <IconButton color="inherit" sx={{ color: "text.primary"}} key={688048}>
             <Badge badgeContent={notifications.length} color="error" key={324599}>
               <Notifications / key={183601}>
             </Badge>
@@ -574,21 +549,21 @@ export const MobileOptimizedInterface: React.FC = () => {
       </AppBar>
 
       {/* Main Content */}
-      <Box sx={{ flex: 1, overflow: "hidden" }} key={640040}>
+      <Box sx={{ flex: 1, overflow: "hidden"}} key={640040}>
         <AnimatePresence mode="wait" key={725119}>
           {activeTab === 0 && (
             <motion.div;
               key="home"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.3 }}
-              style={{ height: "100%", overflow: "auto", padding: "16px" }}
+              initial={{ opacity: 0, x: 50}}
+              animate={{ opacity: 1, x: 0}}
+              exit={{ opacity: 0, x: -50}}
+              transition={{ duration: 0.3}}
+              style={{ height: "100%", overflow: "auto", padding: "16px"}}
              key={906262}>
               {/* Quick Stats */}
-              <Grid container spacing={2} sx={{ mb: 3 }} key={482082}>
+              <Grid container spacing={2} sx={{ mb: 3}} key={482082}>
                 <Grid item xs={6} key={823052}>
-                  <Card sx={{ textAlign: "center", p: 2 }} key={764292}>
+                  <Card sx={{ textAlign: "center", p: 2}} key={764292}>
                     <Typography;
                       variant="h4"
                       color="success.main"
@@ -602,7 +577,7 @@ export const MobileOptimizedInterface: React.FC = () => {
                   </Card>
                 </Grid>
                 <Grid item xs={6} key={823052}>
-                  <Card sx={{ textAlign: "center", p: 2 }} key={764292}>
+                  <Card sx={{ textAlign: "center", p: 2}} key={764292}>
                     <Typography;
                       variant="h4"
                       color="primary.main"
@@ -618,7 +593,7 @@ export const MobileOptimizedInterface: React.FC = () => {
               </Grid>
 
               {/* Swipeable Cards */}
-              <Box sx={{ mb: 3 }} key={864484}>
+              <Box sx={{ mb: 3}} key={864484}>
                 <Typography variant="h6" gutterBottom key={90207}>
                   Recent Updates;
                 </Typography>
@@ -641,8 +616,8 @@ export const MobileOptimizedInterface: React.FC = () => {
                         p: 2,
                         textAlign: "center",
                         cursor: "pointer",
-                        "&:hover": { transform: "scale(1.02)" },
-                        transition: "transform 0.2s ease",
+                        "&:hover": { transform: "scale(1.02)"},
+                        transition: "transform 0.2s ease"
                       }}
                       onClick={action.action}
                      key={267263}>
@@ -658,7 +633,7 @@ export const MobileOptimizedInterface: React.FC = () => {
                             justifyContent: "center",
                             mx: "auto",
                             mb: 1,
-                            color: "white",
+                            color: "white"
                           }}
                          key={454957}>
                           {action.icon}
@@ -677,11 +652,11 @@ export const MobileOptimizedInterface: React.FC = () => {
           {activeTab === 1 && (
             <motion.div;
               key="analytics"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.3 }}
-              style={{ height: "100%", overflow: "auto", padding: "16px" }}
+              initial={{ opacity: 0, x: 50}}
+              animate={{ opacity: 1, x: 0}}
+              exit={{ opacity: 0, x: -50}}
+              transition={{ duration: 0.3}}
+              style={{ height: "100%", overflow: "auto", padding: "16px"}}
              key={538990}>
               <Typography variant="h5" gutterBottom key={248584}>
                 Analytics;
@@ -689,7 +664,7 @@ export const MobileOptimizedInterface: React.FC = () => {
 
               {/* Mobile-optimized charts */}
               <Stack spacing={2} key={169333}>
-                <Card sx={{ p: 2 }} key={302291}>
+                <Card sx={{ p: 2}} key={302291}>
                   <Typography variant="h6" gutterBottom key={90207}>
                     Profit Trend (7 Days)
                   </Typography>
@@ -698,7 +673,7 @@ export const MobileOptimizedInterface: React.FC = () => {
                       height: 200,
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: "center",
+                      justifyContent: "center"
                     }}
                    key={281410}>
                     <Typography variant="body2" color="textSecondary" key={565471}>
@@ -707,7 +682,7 @@ export const MobileOptimizedInterface: React.FC = () => {
                   </Box>
                 </Card>
 
-                <Card sx={{ p: 2 }} key={302291}>
+                <Card sx={{ p: 2}} key={302291}>
                   <Typography variant="h6" gutterBottom key={90207}>
                     Performance by Sport;
                   </Typography>
@@ -724,7 +699,7 @@ export const MobileOptimizedInterface: React.FC = () => {
                           <LinearProgress;
                             variant="determinate"
                             value={Math.random() * 100}
-                            sx={{ width: 60 }}
+                            sx={{ width: 60}}
                           / key={563607}>
                           <Typography variant="caption" key={472228}>
                             {formatPercentage(Math.random())}
@@ -741,18 +716,18 @@ export const MobileOptimizedInterface: React.FC = () => {
           {activeTab === 2 && (
             <motion.div;
               key="portfolio"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.3 }}
-              style={{ height: "100%", overflow: "auto", padding: "16px" }}
+              initial={{ opacity: 0, x: 50}}
+              animate={{ opacity: 1, x: 0}}
+              exit={{ opacity: 0, x: -50}}
+              transition={{ duration: 0.3}}
+              style={{ height: "100%", overflow: "auto", padding: "16px"}}
              key={638696}>
               <Typography variant="h5" gutterBottom key={248584}>
                 Portfolio;
               </Typography>
 
               <Stack spacing={2} key={169333}>
-                <Card sx={{ p: 2 }} key={302291}>
+                <Card sx={{ p: 2}} key={302291}>
                   <Box;
                     display="flex"
                     justifyContent="space-between"
@@ -775,7 +750,7 @@ export const MobileOptimizedInterface: React.FC = () => {
                             p: 2,
                             border: 1,
                             borderColor: "divider",
-                            borderRadius: 1,
+                            borderRadius: 1
                           }}
                          key={63087}>
                           <Box key={485947}>
@@ -792,8 +767,7 @@ export const MobileOptimizedInterface: React.FC = () => {
                               color={
                                 Math.random()  key={883339}> 0.5;
                                   ? "success.main"
-                                  : "error.main"
-                              }
+                                  : "error.main"}
                               fontWeight="bold"
                             >
                               {formatCurrency((Math.random() - 0.5) * 100)}
@@ -815,7 +789,7 @@ export const MobileOptimizedInterface: React.FC = () => {
 
       {/* Bottom Navigation */}
       <Paper;
-        sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
+        sx={{ position: "fixed", bottom: 0, left: 0, right: 0}}
         elevation={3}
        key={396162}>
         <BottomNavigation value={activeTab} onChange={handleTabChange} key={566292}>
@@ -829,7 +803,7 @@ export const MobileOptimizedInterface: React.FC = () => {
       {/* Speed Dial for Quick Actions */}
       <SpeedDial;
         ariaLabel="Quick Actions"
-        sx={{ position: "fixed", bottom: 80, right: 16 }}
+        sx={{ position: "fixed", bottom: 80, right: 16}}
         icon={<SpeedDialIcon / key={774388}>}
         open={quickActionsOpen}
         onClose={() => setQuickActionsOpen(false)}
@@ -854,13 +828,13 @@ export const MobileOptimizedInterface: React.FC = () => {
         sx={{
           "& .MuiDrawer-paper": {
             width: "80%",
-            maxWidth: 320,
-          },
+            maxWidth: 320
+          }
         }}
       >
-        <Box sx={{ p: 2 }} key={153054}>
+        <Box sx={{ p: 2}} key={153054}>
           <Box display="flex" alignItems="center" gap={2} mb={3} key={808419}>
-            <Avatar sx={{ width: 56, height: 56 }} key={605379}>U</Avatar>
+            <Avatar sx={{ width: 56, height: 56}} key={605379}>U</Avatar>
             <Box key={485947}>
               <Typography variant="h6" key={93421}>John Doe</Typography>
               <Typography variant="body2" color="textSecondary" key={565471}>
@@ -874,35 +848,34 @@ export const MobileOptimizedInterface: React.FC = () => {
               {
                 icon: <Home / key={47076}>,
                 text: "Dashboard",
-                action: () => setActiveTab(0),
+                action: () => setActiveTab(0)
               },
               {
                 icon: <Analytics / key={168398}>,
                 text: "Analytics",
-                action: () => setActiveTab(1),
+                action: () => setActiveTab(1)
               },
               {
                 icon: <AccountBalance / key={432276}>,
                 text: "Portfolio",
-                action: () => setActiveTab(2),
+                action: () => setActiveTab(2)
               },
               {
                 icon: <Settings / key={834927}>,
                 text: "Settings",
-                action: () => setActiveTab(3),
+                action: () => setActiveTab(3)
               },
-              { icon: <Security / key={439035}>, text: "Security" },
-              { icon: <Help / key={860836}>, text: "Help & Support" },
-              { icon: <Feedback / key={142617}>, text: "Feedback" },
-              { icon: <ExitToApp / key={340730}>, text: "Logout" },
+              { icon: <Security / key={439035}>, text: "Security"},
+              { icon: <Help / key={860836}>, text: "Help & Support"},
+              { icon: <Feedback / key={142617}>, text: "Feedback"},
+              { icon: <ExitToApp / key={340730}>, text: "Logout"},
             ].map((item, index) => (
               <ListItem;
                 key={item.text}
                 onClick={() = key={960570}> {
                   item.action?.();
-                  setDrawerOpen(false);
-                }}
-                sx={{ cursor: "pointer" }}
+                  setDrawerOpen(false);}}
+                sx={{ cursor: "pointer"}}
               >
                 <ListItemIcon key={394934}>{item.icon}</ListItemIcon>
                 <ListItemText primary={item.text} / key={645184}>
@@ -918,7 +891,7 @@ export const MobileOptimizedInterface: React.FC = () => {
         open={!!selectedCard}
         onClose={() = key={805068}> setSelectedCard(null)}
       >
-        <AppBar sx={{ position: "relative" }} key={842098}>
+        <AppBar sx={{ position: "relative"}} key={842098}>
           <Toolbar key={629347}>
             <IconButton;
               edge="start"
@@ -927,7 +900,7 @@ export const MobileOptimizedInterface: React.FC = () => {
             >
               <Close / key={273094}>
             </IconButton>
-            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" key={397729}>
+            <Typography sx={{ ml: 2, flex: 1}} variant="h6" key={397729}>
               {selectedCard?.title}
             </Typography>
             <Button autoFocus color="inherit" key={216104}>
@@ -938,7 +911,7 @@ export const MobileOptimizedInterface: React.FC = () => {
 
         <DialogContent key={509164}>
           {selectedCard && (
-            <Box sx={{ p: 2 }} key={153054}>
+            <Box sx={{ p: 2}} key={153054}>
               <Typography variant="h5" gutterBottom key={248584}>
                 {selectedCard.title}
               </Typography>
@@ -947,7 +920,7 @@ export const MobileOptimizedInterface: React.FC = () => {
               </Typography>
 
               {selectedCard.type === "metric" && (
-                <Card sx={{ p: 3, textAlign: "center", mb: 2 }} key={231839}>
+                <Card sx={{ p: 3, textAlign: "center", mb: 2}} key={231839}>
                   <Typography;
                     variant="h2"
                     color="primary.main"
@@ -971,7 +944,7 @@ export const MobileOptimizedInterface: React.FC = () => {
                         <TrendingUp;
                           style={{
                             transform: "rotate(180deg)",
-                            color: theme.palette.error.main,
+                            color: theme.palette.error.main
                           }}
                         / key={886002}>
                       )}
@@ -980,8 +953,7 @@ export const MobileOptimizedInterface: React.FC = () => {
                         color={
                           selectedCard.trend === "up"
                             ? "success.main"
-                            : "error.main"
-                        }
+                            : "error.main"}
                        key={54351}>
                         {formatPercentage(Math.abs(selectedCard.change))}
                       </Typography>
@@ -990,7 +962,7 @@ export const MobileOptimizedInterface: React.FC = () => {
                 </Card>
               )}
 
-              <Button variant="contained" fullWidth size="large" sx={{ mt: 2 }} key={187501}>
+              <Button variant="contained" fullWidth size="large" sx={{ mt: 2}} key={187501}>
                 Take Action;
               </Button>
             </Box>
@@ -1002,9 +974,9 @@ export const MobileOptimizedInterface: React.FC = () => {
       <AnimatePresence key={359944}>
         {isLoading && (
           <motion.div;
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0}}
+            animate={{ opacity: 1}}
+            exit={{ opacity: 0}}
             style={{
               position: "fixed",
               top: 0,
@@ -1015,12 +987,12 @@ export const MobileOptimizedInterface: React.FC = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              zIndex: 9999,
+              zIndex: 9999
             }}
            key={851603}>
-            <Box textAlign="center" sx={{ color: "white" }} key={883171}>
+            <Box textAlign="center" sx={{ color: "white"}} key={883171}>
               <CircularProgress color="inherit" size={60} / key={506198}>
-              <Typography variant="h6" sx={{ mt: 2 }} key={254642}>
+              <Typography variant="h6" sx={{ mt: 2}} key={254642}>
                 Loading...
               </Typography>
             </Box>
@@ -1034,10 +1006,14 @@ export const MobileOptimizedInterface: React.FC = () => {
         autoHideDuration={3000}
         onClose={() = key={373767}> setSnackbarOpen(false)}
         message={snackbarMessage}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        anchorOrigin={{ vertical: "top", horizontal: "center"}}
       />
     </Box>
-  );
-};
+  )};
 
 export default MobileOptimizedInterface;
+
+
+
+
+`

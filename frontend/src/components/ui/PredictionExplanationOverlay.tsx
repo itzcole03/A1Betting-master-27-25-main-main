@@ -1,20 +1,16 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import GlassCard from './GlassCard';
 
 export interface PredictionExplanationData {
-  sentiment?: string;
-  news?: string;
-  playerProps?: string;
-  marketMovement?: string;
-}
+  sentiment?: string
+  news?: string
+  playerProps?: string
+  marketMovement?: string}
 
 export interface PredictionExplanationOverlayProps {
-  open: boolean;
-  onClose: () => void;
-  data: PredictionExplanationData;
-}
+  open: boolean,`n  onClose: () => void;,`n  data: PredictionExplanationData}
 
-const PredictionExplanationOverlay: React.FC<PredictionExplanationOverlayProps key = { 486023} > = ({ open, onClose, data }) => {
+const PredictionExplanationOverlay: React.FC<PredictionExplanationOverlayProps key = { 486023} > = ({ open, onClose, data}) => {
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in" key={558927}>
@@ -31,7 +27,7 @@ const PredictionExplanationOverlay: React.FC<PredictionExplanationOverlayProps k
         <ul className="space-y-3" key={693962}>
           {data.sentiment && (
             <li key={377233}>
-              <span className="font-semibold text-pink-400" key={375157}>Sentiment:</span> {data.sentiment}
+              <span className="font-semibold text-pink-400" key={375157}>Sentiment: </span> {data.sentiment}
             </li>
           )}
           {data.news && (
@@ -53,7 +49,11 @@ const PredictionExplanationOverlay: React.FC<PredictionExplanationOverlayProps k
       </GlassCard>
     </div>
     </div >
-  );
-};
+  )};
 
 export default PredictionExplanationOverlay;
+
+
+
+
+`

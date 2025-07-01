@@ -1,17 +1,14 @@
-import React from 'react.ts';
-import GlassCard from '@/components/ui/GlassCard.ts';
-import CyberButton from '@/components/ui/CyberButton.ts';
+﻿import React from 'react';
+import GlassCard from '@/components/ui/GlassCard';
+import CyberButton from '@/components/ui/CyberButton';
 
 interface DefaultPageProps {
-  title: string;
-  description: string;
-  icon: string;
-}
+  title: string,`n  description: string;,`n  icon: string}
 
 const CyberDefaultPage: React.FC<DefaultPageProps key={376854}> = ({
   title,
   description,
-  icon,
+//   icon
 }) => {
   return (
     <div className="space-y-8 animate-slide-in-up" key={741941}>
@@ -29,7 +26,10 @@ const CyberDefaultPage: React.FC<DefaultPageProps key={376854}> = ({
         <CyberButton label="Configure" variant="ghost" / key={621252}>
       </GlassCard>
     </div>
-  );
-};
+  )};
 
 export default CyberDefaultPage;
+
+
+
+`

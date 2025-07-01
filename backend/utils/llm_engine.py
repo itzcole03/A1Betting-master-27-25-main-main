@@ -35,9 +35,60 @@ class OllamaClient(BaseLLMClient):
         self.client = httpx.AsyncClient(timeout=timeout)
 
     async def list_models(self) -> List[str]:
+        # Use correct Ollama API endpoint
+        resp = await self.client.get(f"{self.base}/api/tags")
+        resp.raise_for_status()
+        models_data = resp.json()
+        return [m["name"] for m in models_data.get("models", [])]
+
+    async def embed(self, texts: List[str]) -> List[List[float]]:
+        embeddings = []
+        for text in texts:
+            # Use correct Ollama embeddings endpoint
+            resp = await self.client.post(
+                f"{self.base}/api/embeddings",
+                json={"model": self.select_model("embed"), "prompt": text},
+            )
+            resp.raise_for_status()
+            embeddings.append(resp.json()["embedding"])
+        return embeddings
+
+    async def generate(
+        self, prompt: str, max_tokens: int = 100, temperature: float = 0.7
+    ) -> str:
+        model = self.select_model("generation")
+        # Use correct Ollama generate endpoint
+        resp = await self.client.post(
+            f"{self.base}/api/generate",
+            json={
+                "model": model,
+                "prompt": prompt,
+                "stream": False,
+                "options": {
+                    "num_predict": max_tokens,
+                    "temperature": temperature,
+                }
+            },
+        )
+        resp.raise_for_status()
+        return resp.json()["response"]
+
+    def select_model(self, task: str) -> str:
+        # placeholder; actual selection delegated to LLMEngine override
+        # fallback to default configured model
+        return config.llm_default_model or ""
+
+
+class LMStudioClient(BaseLLMClient):
+    def __init__(self, url: str, timeout: int):
+        self.base = url.rstrip("/")
+        # HTTP client with configured timeout
+        self.client = httpx.AsyncClient(timeout=timeout)
+
+    async def list_models(self) -> List[str]:
         resp = await self.client.get(f"{self.base}/v1/models")
         resp.raise_for_status()
-        return [m["name"] for m in resp.json().get("models", [])]
+        return [m["id"] for m in resp.json().get("data", [])]
 
     async def embed(self, texts: List[str]) -> List[List[float]]:
         embeddings = []
@@ -53,11 +104,10 @@ class OllamaClient(BaseLLMClient):
     async def generate(
         self, prompt: str, max_tokens: int = 100, temperature: float = 0.7
     ) -> str:
-        model = self.select_model("generation")
         resp = await self.client.post(
             f"{self.base}/v1/completions",
             json={
-                "model": model,
+                "model": self.select_model("generation"),
                 "prompt": prompt,
                 "max_tokens": max_tokens,
                 "temperature": temperature,
@@ -65,43 +115,6 @@ class OllamaClient(BaseLLMClient):
         )
         resp.raise_for_status()
         return resp.json()["choices"][0]["text"]
-
-    def select_model(self, task: str) -> str:
-        # placeholder; actual selection delegated to LLMEngine override
-        # fallback to default configured model
-        return config.llm_default_model or ""
-
-
-class LMStudioClient(BaseLLMClient):
-    def __init__(self, url: str, timeout: int):
-        self.base = url.rstrip("/")
-        # HTTP client with configured timeout
-        self.client = httpx.AsyncClient(timeout=timeout)
-
-    async def list_models(self) -> List[str]:
-        resp = await self.client.get(f"{self.base}/models")
-        resp.raise_for_status()
-        return resp.json()
-
-    async def embed(self, texts: List[str]) -> List[List[float]]:
-        resp = await self.client.post(f"{self.base}/embed", json={"texts": texts})
-        resp.raise_for_status()
-        return resp.json().get("embeddings", [])
-
-    async def generate(
-        self, prompt: str, max_tokens: int = 100, temperature: float = 0.7
-    ) -> str:
-        resp = await self.client.post(
-            f"{self.base}/generate",
-            json={
-                "model": config.llm_default_model or "",
-                "prompt": prompt,
-                "max_tokens": max_tokens,
-                "temperature": temperature,
-            },
-        )
-        resp.raise_for_status()
-        return resp.json().get("text", "")
 
 
 class LLMEngine:
@@ -129,11 +142,15 @@ class LLMEngine:
         self.task_model_map: Dict[str, str] = {}
         # Start background model discovery
         # Ensure the asyncio.create_task is wrapped in a running event loop
-        loop = asyncio.get_event_loop()
-        if loop.is_running():
-            asyncio.create_task(self.refresh_models())
-        else:
-            loop.run_until_complete(self.refresh_models())
+        try:
+            loop = asyncio.get_event_loop()
+            if loop.is_running():
+                asyncio.create_task(self.refresh_models())
+            else:
+                loop.run_until_complete(self.refresh_models())
+        except RuntimeError:
+            # No event loop running, will refresh on first use
+            pass
 
     async def refresh_models(self):
         """Fetch available models and update task mappings."""
@@ -142,9 +159,9 @@ class LLMEngine:
             self.task_model_map["embed"] = self._choose_embedding_model()
             self.task_model_map["generation"] = self._choose_generation_model()
             self.last_model_refresh = time.time()
-            logger.info("LLM models discovered: {self.models}")
+            logger.info(f"LLM models discovered: {self.models}")
         except Exception as e:  # pylint: disable=broad-exception-caught
-            logger.error("LLM discovery failed: {e}")
+            logger.error(f"LLM discovery failed: {e}")
 
     def _choose_embedding_model(self) -> str:
         # prefer named embedding models

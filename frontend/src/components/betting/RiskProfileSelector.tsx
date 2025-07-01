@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   Box,
   FormControl,
@@ -7,23 +7,21 @@ import {
   FormControlLabel,
   Radio,
   Typography,
-  Paper,
-} from '@mui/material.ts';
-import type { BettingSettings } from '@/services/bettingService.ts';
+//   Paper
+} from '@mui/material';
+import type { BettingSettings} from '@/services/bettingService';
 
 type RiskProfile = BettingSettings['riskProfile'];
 
 interface RiskProfileSelectorProps {
-  currentProfile: RiskProfile;
-  onProfileChange: (profile: RiskProfile) => void;
-}
+  currentProfile: RiskProfile,`n  onProfileChange: (profile: RiskProfile) => void}
 
 export const RiskProfileSelector: React.FC<RiskProfileSelectorProps key={861929}> = ({
   currentProfile,
-  onProfileChange,
+//   onProfileChange
 }) => {
   return (
-    <Paper sx={{ p: 2 }} key={136663}>
+    <Paper sx={{ p: 2}} key={136663}>
       <FormControl component="fieldset" key={647434}>
         <FormLabel component="legend" key={225680}>
           <Typography variant="h6" key={93421}>Risk Profile</Typography>
@@ -40,8 +38,7 @@ export const RiskProfileSelector: React.FC<RiskProfileSelectorProps key={861929}
                 <Typography color="text.secondary" variant="body2" key={497604}>
                   Lower risk, higher confidence requirements;
                 </Typography>
-              </Box>
-            }
+              </Box>}
             value="conservative"
           />
           <FormControlLabel;
@@ -52,8 +49,7 @@ export const RiskProfileSelector: React.FC<RiskProfileSelectorProps key={861929}
                 <Typography color="text.secondary" variant="body2" key={497604}>
                   Balanced risk and reward;
                 </Typography>
-              </Box>
-            }
+              </Box>}
             value="moderate"
           />
           <FormControlLabel;
@@ -64,12 +60,14 @@ export const RiskProfileSelector: React.FC<RiskProfileSelectorProps key={861929}
                 <Typography color="text.secondary" variant="body2" key={497604}>
                   Higher risk tolerance, more opportunities;
                 </Typography>
-              </Box>
-            }
+              </Box>}
             value="aggressive"
           />
         </RadioGroup>
       </FormControl>
     </Paper>
-  );
-};
+  );};
+
+
+
+`

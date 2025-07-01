@@ -1,6 +1,6 @@
-import { UnifiedPredictionEngine, PredictionContext } from '@/core/UnifiedPredictionEngine.ts';
-import { BettingOpportunity, MarketUpdate, EventMap } from '@/types/core.ts';
-import { EventBus } from '@/core/EventBus.ts';
+﻿import { UnifiedPredictionEngine, PredictionContext} from '@/core/UnifiedPredictionEngine';
+import { BettingOpportunity, MarketUpdate, EventMap} from '@/types/core';
+import { EventBus} from '@/core/EventBus';
 
 describe('UnifiedPredictionEngine', () => {
   let predictionEngine: UnifiedPredictionEngine;
@@ -8,36 +8,33 @@ describe('UnifiedPredictionEngine', () => {
 
   beforeEach(() => {
     predictionEngine = UnifiedPredictionEngine.getInstance();
-    eventBus = EventBus.getInstance();
-  });
+    eventBus = EventBus.getInstance();});
 
   describe('generatePrediction', () => {
     it('should generate a valid betting opportunity', async () => {
-      const context: PredictionContext = {
-        playerId: 'player-1',
+      const context: PredictionContext = {,`n  playerId: 'player-1',
         metric: 'points',
         timestamp: Date.now(),
-        marketState: {
-          line: 20.5,
+        marketState: {,`n  line: 20.5,
           volume: 1000,
-          movement: 'up',
+          movement: 'up'
         },
         historicalData: [
           {
             id: 'data-1',
             timestamp: Date.now() - 86400000,
             value: 19.5,
-            data: {},
-            metadata: {},
+            data: Record<string, any>,
+            metadata: Record<string, any>
           },
           {
             id: 'data-2',
             timestamp: Date.now() - 172800000,
             value: 21.5,
-            data: {},
-            metadata: {},
+            data: Record<string, any>,
+            metadata: Record<string, any>
           },
-        ],
+        ]
       };
 
       expect(opportunity).toBeDefined();
@@ -51,34 +48,28 @@ describe('UnifiedPredictionEngine', () => {
       expect(opportunity.analysis).toBeDefined();
       expect(opportunity.analysis.historicalTrends).toBeInstanceOf(Array);
       expect(opportunity.analysis.marketSignals).toBeInstanceOf(Array);
-      expect(opportunity.analysis.riskFactors).toBeInstanceOf(Array);
-    });
+      expect(opportunity.analysis.riskFactors).toBeInstanceOf(Array);});
 
     it('should emit prediction:update event', async () => {
-
       eventBus.on('prediction:update', eventHandler);
 
-      const context: PredictionContext = {
-        playerId: 'player-1',
+      const context: PredictionContext = {,`n  playerId: 'player-1',
         metric: 'points',
         timestamp: Date.now(),
-        marketState: {
-          line: 20.5,
+        marketState: {,`n  line: 20.5,
           volume: 1000,
-          movement: 'up',
-        },
+          movement: 'up'
+        }
       };
 
       await predictionEngine.generatePrediction(context);
 
       expect(eventHandler).toHaveBeenCalled();
       const opportunity: BettingOpportunity = eventHandler.mock.calls[0][0];
-      expect(opportunity.propId).toBe(`${context.playerId}:${context.metric}`);
-    });
+      expect(opportunity.propId).toBe(`${context.playerId}:${context.metric}`);});
 
     it('should handle market updates', async () => {
-      const update: MarketUpdate = {
-        id: 'market-1',
+      const update: MarketUpdate = {,`n  id: 'market-1',
         type: 'odds_update',
         timestamp: Date.now(),
         books: {
@@ -89,9 +80,9 @@ describe('UnifiedPredictionEngine', () => {
             bookName: 'Test Book',
             odds: 1.95,
             maxStake: 1000,
-            timestamp: Date.now(),
-          },
-        },
+            timestamp: Date.now()
+          }
+        }
       };
 
       eventBus.on('prediction:update', eventHandler);
@@ -104,55 +95,44 @@ describe('UnifiedPredictionEngine', () => {
 
       expect(eventHandler).toHaveBeenCalled();
       const opportunity: BettingOpportunity = eventHandler.mock.calls[0][0];
-      expect(opportunity.propId).toBe('player-1:points');
-    });
-  });
+      expect(opportunity.propId).toBe('player-1: points')})});
 
   describe('error handling', () => {
     it('should handle invalid prediction context', async () => {
-      const context: PredictionContext = {
-        playerId: '',
+      const context: PredictionContext = {,`n  playerId: '',
         metric: '',
-        timestamp: Date.now(),
+        timestamp: Date.now()
       };
 
-      await expect(predictionEngine.generatePrediction(context)).rejects.toThrow();
-    });
+      await expect(predictionEngine.generatePrediction(context)).rejects.toThrow();});
 
     it('should handle missing historical data gracefully', async () => {
-      const context: PredictionContext = {
-        playerId: 'player-1',
+      const context: PredictionContext = {,`n  playerId: 'player-1',
         metric: 'points',
         timestamp: Date.now(),
-        marketState: {
-          line: 20.5,
+        marketState: {,`n  line: 20.5,
           volume: 1000,
-          movement: 'up',
-        },
+          movement: 'up'
+        }
       };
 
       expect(opportunity).toBeDefined();
-      expect(opportunity.confidence).toBeLessThan(0.8); // Lower confidence due to missing data;
-    });
-  });
+      expect(opportunity.confidence).toBeLessThan(0.8); // Lower confidence due to missing data;});});
 
   describe('performance monitoring', () => {
     it('should track prediction generation time', async () => {
-      const context: PredictionContext = {
-        playerId: 'player-1',
+      const context: PredictionContext = {,`n  playerId: 'player-1',
         metric: 'points',
         timestamp: Date.now(),
-        marketState: {
-          line: 20.5,
+        marketState: {,`n  line: 20.5,
           volume: 1000,
-          movement: 'up',
-        },
+          movement: 'up'
+        }
       };
 
       eventBus.on('error', (error: Error) => {
         if (error.message.includes('prediction_generation')) {
-          traceHandler(error);
-        }
+          traceHandler(error)}
       });
 
       await predictionEngine.generatePrediction(context);
@@ -160,7 +140,8 @@ describe('UnifiedPredictionEngine', () => {
       expect(traceHandler).toHaveBeenCalled();
 
       expect(error.message).toContain('prediction_generation');
-      expect(error.stack).toBeDefined();
-    });
-  });
-});
+      expect(error.stack).toBeDefined();});});});
+
+
+
+`

@@ -1,14 +1,13 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 export interface PredictionExplanationData {
-    sentiment?: string;
-    news?: string;
-    playerProps?: string;
-    marketMovement?: string;
-}
+  sentiment?: string;
+  news?: string;
+  playerProps?: string;
+  marketMovement?: string;}
 export interface PredictionExplanationOverlayProps {
-    open: boolean;
-    onClose: () => void;
-    data: PredictionExplanationData;
-}
+  open: boolean,`n  onClose: () => void;,`n  data: PredictionExplanationData}
 declare const PredictionExplanationOverlay: React.FC<PredictionExplanationOverlayProps>;
 export default PredictionExplanationOverlay;
+
+
+`

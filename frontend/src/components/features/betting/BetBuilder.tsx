@@ -1,18 +1,18 @@
-import React, { useState  } from 'react.ts';
-import { useStore } from '@/../stores/useStore.ts';
-import type { PlayerProp, Entry } from '@/../types/core.ts';
-import { getErrorMessage } from '@/../utils/errorUtils.ts';
-import { isTeamDiversified, validateEntry } from '@/../utils/businessRules.ts';
+import React, { useState} from 'react';
+import { useStore} from '@/../stores/useStore';
+import type { PlayerProp, Entry} from '@/../types/core';
+import { getErrorMessage} from '@/../utils/errorUtils';
+import { isTeamDiversified, validateEntry} from '@/../utils/businessRules';
 import {
   oddsToDecimal,
   calculatePotentialPayout,
-  calculateWinProbability,
-} from '@/../utils/odds.ts';
-import { SmartControlsBar } from '@/../components/controls/SmartControlsBar.ts';
-import GlassCard from '@/../components/ui/GlassCard.ts';
-import EnhancedPropCard from '@/../components/ui/EnhancedPropCard.ts';
-import PredictionExplanationOverlay from '@/../components/ui/PredictionExplanationOverlay.ts';
-import { PayoutPreview } from '@/../components/PayoutPreview.ts';
+//   calculateWinProbability
+} from '@/../utils/odds';
+import { SmartControlsBar} from '@/../components/controls/SmartControlsBar';
+import GlassCard from '@/../components/ui/GlassCard';
+import EnhancedPropCard from '@/../components/ui/EnhancedPropCard';
+import PredictionExplanationOverlay from '@/../components/ui/PredictionExplanationOverlay';
+import { PayoutPreview} from '@/../components/PayoutPreview';
 
 export const BetBuilder: React.FC = () => {
 
@@ -50,14 +50,11 @@ export const BetBuilder: React.FC = () => {
     setSuccess(null);
     if (selectedProps.length < 2) {
       setError("You must select at least 2 picks.");
-      return;
-    }
+      return;}
     if (!diversified) {
       setError("Too many props from the same team.");
-      return;
-    }
-    const entryObj: Entry = {
-      id: "",
+      return;}
+    const entryObj: Entry = {,`n  id: "",
       userId: "",
       status: "pending",
       type: "parlay",
@@ -65,41 +62,36 @@ export const BetBuilder: React.FC = () => {
       stake: entry,
       potentialPayout: payout,
       createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     };
 
     if (validationErrors.length) {
       setError(validationErrors.join(" "));
-      return;
-    }
+      return;}
     setLoading(true);
     try {
       const res = await fetch("/api/entries/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(entryObj),
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify(entryObj)
       });
       if (!res.ok) {
 
         setError(getErrorMessage(err));
         setLoading(false);
-        return;
-      }
+        return;}
       addEntry(entryObj);
       setSuccess("Entry submitted successfully!");
-      clearSelectedProps();
-    } catch (err) {
-      setError(getErrorMessage(err));
-    } finally {
-      setLoading(false);
-    }
+      clearSelectedProps();} catch (err) {
+      setError(getErrorMessage(err));} finally {
+      setLoading(false);}
   };
 
   // Add missing variable/type definitions for props, isLoadingProps, propsError, availableProps, handleSelect, handleViewDetails, riskMultiplier, projectedEV;
   // For demonstration, use placeholders or simple logic if not already defined;
 
 
-  const availableProps: PlayerProp[] = [];
+  const availableProps: PlayerProp[0] = [0];
 
 
 
@@ -120,7 +112,7 @@ export const BetBuilder: React.FC = () => {
             <div className="text-red-500" key={501560}>Failed to load props.</div>
           )}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" key={997137}>
-            {availableProps.map((prop: any) => (
+            {availableProps.map((prop: unknown) => (
               <EnhancedPropCard;
                 key={prop.id}
                 playerName={prop.player?.name || prop.playerName}
@@ -285,8 +277,12 @@ export const BetBuilder: React.FC = () => {
       <PredictionExplanationOverlay;
         open={overlayOpen}
         onClose={() = key={92207}> setOverlayOpen(false)}
-        data={{}}
+        data={Record<string, any>}
       />
     </div>
-  );
-};
+  );};
+
+
+
+`
+

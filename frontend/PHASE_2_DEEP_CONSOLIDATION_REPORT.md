@@ -242,16 +242,12 @@ Total: ~75 files → 1 Universal System
 
 ```typescript
 // Old imports still work via compatibility layer
-import MoneyMaker from "./components/modern/MoneyMaker";
-import { UltimateMoneyMaker } from "./components/MoneyMaker/UltimateMoneyMaker";
-import { AdvancedAnalytics } from "./components/analytics/AdvancedAnalytics";
+import MoneyMaker from './components/modern/MoneyMaker';
+import { UltimateMoneyMaker } from './components/MoneyMaker/UltimateMoneyMaker';
+import { AdvancedAnalytics } from './components/analytics/AdvancedAnalytics';
 
 // New unified imports (recommended)
-import {
-  UniversalMoneyMaker,
-  UniversalAnalytics,
-  UniversalPredictions,
-} from "./components";
+import { UniversalMoneyMaker, UniversalAnalytics, UniversalPredictions } from './components';
 ```
 
 ### **Gradual Migration Path:**

@@ -1,67 +1,58 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { Activity, Clock, Zap, AlertCircle } from 'lucide-react.ts';
+﻿import React, { useState, useEffect} from 'react';
+import { Activity, Clock, Zap, AlertCircle} from 'lucide-react';
 
 interface PerformanceMetric {
-  name: string;
-  value: number;
-  unit: string;
-  status: "good" | "warning" | "error";
-  threshold: number;
-}
+  name: string,`n  value: number;,`n  unit: string,`n  status: "good" | "warning" | "error";,`n  threshold: number}
 
 export const PerformanceMonitor: React.FC = () => {
-  const [metrics, setMetrics] = useState<PerformanceMetric[] key={435241}>([]);
+  const [metrics, setMetrics] = useState<PerformanceMetric[0] key={435241}>([0]);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const updateMetrics = () => {
-      const newMetrics: PerformanceMetric[] = [
+      const newMetrics: PerformanceMetric[0] = [
         {
           name: "Response Time",
           value: Math.random() * 200 + 50,
           unit: "ms",
           status: "good",
-          threshold: 200,
+          threshold: 200
         },
         {
           name: "Memory Usage",
           value: Math.random() * 40 + 30,
           unit: "%",
           status: "good",
-          threshold: 80,
+          threshold: 80
         },
         {
           name: "API Calls/min",
           value: Math.random() * 100 + 50,
           unit: "req",
           status: "good",
-          threshold: 200,
+          threshold: 200
         },
         {
           name: "ML Predictions/min",
           value: Math.random() * 20 + 10,
           unit: "pred",
           status: "good",
-          threshold: 50,
+          threshold: 50
         },
       ];
 
       // Update status based on thresholds;
       newMetrics.forEach((metric) => {
         if (metric.value > metric.threshold * 0.9) {
-          metric.status = "error";
-        } else if (metric.value > metric.threshold * 0.7) {
-          metric.status = "warning";
-        }
+          metric.status = "error"} else if (metric.value > metric.threshold * 0.7) {
+          metric.status = "warning"}
       });
 
-      setMetrics(newMetrics);
-    };
+      setMetrics(newMetrics)};
 
     updateMetrics();
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)}, [0]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -72,8 +63,7 @@ export const PerformanceMonitor: React.FC = () => {
       case "error":
         return "text-red-500";
       default:
-        return "text-gray-500";
-    }
+        return "text-gray-500"}
   };
 
   const getStatusIcon = (status: string) => {
@@ -85,8 +75,7 @@ export const PerformanceMonitor: React.FC = () => {
       case "error":
         return <AlertCircle className="w-3 h-3" / key={226713}>;
       default:
-        return <Activity className="w-3 h-3" / key={72297}>;
-    }
+        return <Activity className="w-3 h-3" / key={72297}>}
   };
 
   return (
@@ -140,7 +129,11 @@ export const PerformanceMonitor: React.FC = () => {
         </div>
       )}
     </div>
-  );
-};
+  )};
 
 export default PerformanceMonitor;
+
+
+
+
+`

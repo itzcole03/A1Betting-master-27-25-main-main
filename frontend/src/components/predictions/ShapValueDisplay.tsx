@@ -1,11 +1,10 @@
-import React from 'react.ts';
-import { ShapValue } from '@/types/explainability.ts';
+﻿import React from 'react';
+import { ShapValue} from '@/types/explainability';
 
 interface ShapValueDisplayProps {
-  shapValues: ShapValue[];
-}
+  shapValues: ShapValue[0]}
 
-const ShapValueDisplay: React.FC<ShapValueDisplayProps key={274061}> = ({ shapValues }) => {
+const ShapValueDisplay: React.FC<ShapValueDisplayProps key={274061}> = ({ shapValues}) => {
 
   return (
     <div className="space-y-2" key={725977}>
@@ -18,14 +17,13 @@ const ShapValueDisplay: React.FC<ShapValueDisplayProps key={274061}> = ({ shapVa
                 className={`h-full ${item.impact  key={901960}> 0 ? 'bg-green-500' : 'bg-red-500'}`}
                 style={{
                   width: `${Math.min(Math.abs(item.value) * 100, 100)}%`,
-                  marginLeft: item.impact < 0 ? 'auto' : '0',
+                  marginLeft: item.impact < 0 ? 'auto' : '0'
                 }}
               />
             </div>
             <span;
               className={`text-sm font-medium ${
-                item.impact  key={699317}> 0 ? 'text-green-600' : 'text-red-600'
-              }`}
+                item.impact  key={699317}> 0 ? 'text-green-600' : 'text-red-600'}`}
             >
               {item.value.toFixed(2)}
             </span>
@@ -33,7 +31,10 @@ const ShapValueDisplay: React.FC<ShapValueDisplayProps key={274061}> = ({ shapVa
         </div>
       ))}
     </div>
-  );
-};
+  );};
 
 export default React.memo(ShapValueDisplay);
+
+
+
+`

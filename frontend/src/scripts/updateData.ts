@@ -1,15 +1,16 @@
-import 'reflect-metadata';
-import { DataScrapingService } from '@/services/dataScrapingService.ts';
+﻿import 'reflect-metadata';
+import { DataScrapingService} from '@/services/dataScrapingService';
 
 async function main() {
   try {
-
     // Log some sample data;
-    if (data.length > 0) {
-    }
+    if (data.length > 0) Record<string, any>
   } catch (error) {
-    // console statement removed
-  }
+    // console statement removed}
 }
 
 main();
+
+
+
+

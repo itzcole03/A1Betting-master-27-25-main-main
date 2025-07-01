@@ -1,18 +1,9 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 export interface SmartControlsBarProps {
-    investment: number;
-    onInvestmentChange: (v: number) => void;
-    strategy: string;
-    onStrategyChange: (v: string) => void;
-    confidence: number;
-    onConfidenceChange: (v: number) => void;
-    model: string;
-    onModelChange: (v: string) => void;
-    dataQuality: number;
-    onDataQualityChange: (v: number) => void;
-    patternStrength: number;
-    onPatternStrengthChange: (v: number) => void;
-    className?: string;
-}
+  investment: number,`n  onInvestmentChange: (v: number) => void,`n  strategy: string;,`n  onStrategyChange: (v: string) => void,`n  confidence: number;,`n  onConfidenceChange: (v: number) => void,`n  model: string;,`n  onModelChange: (v: string) => void,`n  dataQuality: number;,`n  onDataQualityChange: (v: number) => void,`n  patternStrength: number;,`n  onPatternStrengthChange: (v: number) => void;
+  className?: string;}
 export declare const SmartControlsBar: React.FC<SmartControlsBarProps>;
 export default SmartControlsBar;
+
+
+`

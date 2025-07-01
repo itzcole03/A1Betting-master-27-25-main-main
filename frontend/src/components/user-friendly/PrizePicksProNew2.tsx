@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback  } from 'react.ts';
+﻿import React, { useState, useEffect, useMemo, useCallback} from 'react';
 import {
   TrophyIcon,
   ArrowTrendingUpIcon,
@@ -21,85 +21,35 @@ import {
   PlayIcon,
   StopIcon,
   PlusIcon,
-  MinusIcon,
-} from '@heroicons/react/24/outline.ts';
-import { productionApiService } from '@/services/api/ProductionApiService.ts';
-import { logger, logUserAction, logError } from '@/utils/logger.ts';
-import OfflineIndicator from '@/components/ui/OfflineIndicator.ts';
+//   MinusIcon
+} from '@heroicons/react/24/outline';
+import { productionApiService} from '@/services/api/ProductionApiService';
+import { logger, logUserAction, logError} from '@/utils/logger';
+import OfflineIndicator from '@/components/ui/OfflineIndicator';
 
 // ============================================================================
 // INTERFACES & TYPES;
 // ============================================================================
 
 interface PlayerProp {
-  id: string;
-  player: string;
-  team: string;
-  opponent: string;
-  stat: string;
-  line: number;
-  overOdds: number;
-  underOdds: number;
-  confidence: number;
-  pickType: "over" | "under" | null;
-  projection: number;
-  edge: number;
-  recent_form: number[];
-  season_stats: {
-    average: number;
-    games: number;
-    hit_rate: number;
-  };
-  matchup_data: {
-    defense_rank: number;
-    pace: number;
-    total: number;
-  };
+  id: string,`n  player: string;,`n  team: string,`n  opponent: string;,`n  stat: string,`n  line: number;,`n  overOdds: number,`n  underOdds: number;,`n  confidence: number,`n  pickType: "over" | "under" | null;,`n  projection: number,`n  edge: number;,`n  recent_form: number[0],`n  season_stats: {,`n  average: number,`n  games: number;,`n  hit_rate: number};
+  matchup_data: {,`n  defense_rank: number;,`n  pace: number,`n  total: number};
   weather?: {
-    condition: string;
-    temp: number;
-    wind: number;
-  };
-  injury_report?: string;
-  last_5_games: number[];
-  vs_opponent: number[];
-}
+    condition: string,`n  temp: number;,`n  wind: number};
+  injury_report?: string
+  last_5_games: number[0],`n  vs_opponent: number[0]}
 
 interface SelectedPick {
-  propId: string;
-  choice: "over" | "under";
-  player: string;
-  stat: string;
-  line: number;
-  confidence: number;
-  pickType: string;
-  projection: number;
-  edge: number;
-}
+  propId: string,`n  choice: "over" | "under";,`n  player: string,`n  stat: string;,`n  line: number,`n  confidence: number;,`n  pickType: string,`n  projection: number;,`n  edge: number}
 
 interface LineupEntry {
-  picks: SelectedPick[];
-  entryFee: number;
-  potentialPayout: number;
-  riskLevel: "low" | "medium" | "high";
-  strategy: string;
-}
+  picks: SelectedPick[0],`n  entryFee: number;,`n  potentialPayout: number,`n  riskLevel: "low" | "medium" | "high";,`n  strategy: string}
 
 interface PrizePicksStats {
-  totalLineups: number;
-  winRate: number;
-  profit: number;
-  avgConfidence: number;
-  bestStreak: number;
-  currentStreak: number;
-}
+  totalLineups: number,`n  winRate: number;,`n  profit: number,`n  avgConfidence: number;,`n  bestStreak: number,`n  currentStreak: number}
 
 interface HealthStatus {
-  api_status: string;
-  data_freshness: number;
-  active_props: number;
-  system_load: number;
-}
+  api_status: string,`n  data_freshness: number;,`n  active_props: number,`n  system_load: number}
 
 // ============================================================================
 // COMPONENT;
@@ -110,8 +60,8 @@ const PrizePicksPro: React.FC = () => {
   // STATE MANAGEMENT;
   // ============================================================================
   
-  const [playerProps, setPlayerProps] = useState<PlayerProp[] key={605018}>([]);
-  const [selectedPicks, setSelectedPicks] = useState<SelectedPick[] key={138695}>([]);
+  const [playerProps, setPlayerProps] = useState<PlayerProp[0] key={605018}>([0]);
+  const [selectedPicks, setSelectedPicks] = useState<SelectedPick[0] key={138695}>([0]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null key={121216}>(null);
   const [entryFee, setEntryFee] = useState<number key={430559}>(5);
@@ -128,13 +78,13 @@ const PrizePicksPro: React.FC = () => {
     profit: 0,
     avgConfidence: 0,
     bestStreak: 0,
-    currentStreak: 0,
+    currentStreak: 0
   });
   const [healthStatus, setHealthStatus] = useState<HealthStatus key={93086}>({
     api_status: "connected",
     data_freshness: 100,
     active_props: 0,
-    system_load: 0,
+    system_load: 0
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -145,13 +95,10 @@ const PrizePicksPro: React.FC = () => {
   const filteredProps = useMemo(() => {
     const filtered = playerProps.filter((prop) => {
       if (filterSport !== "all" && !prop.team.toLowerCase().includes(filterSport.toLowerCase())) {
-        return false;
-      }
+        return false;}
       if (prop.confidence < filterConfidence) {
-        return false;
-      }
-      return true;
-    });
+        return false;}
+      return true;});
 
     // Sort props;
     filtered.sort((a, b) => {
@@ -171,38 +118,31 @@ const PrizePicksPro: React.FC = () => {
           break;
         default:
           aValue = a.confidence;
-          bValue = b.confidence;
-      }
+          bValue = b.confidence;}
 
-      return sortOrder === "desc" ? bValue - aValue : aValue - bValue;
-    });
+      return sortOrder === "desc" ? bValue - aValue : aValue - bValue;});
 
-    return filtered;
-  }, [playerProps, filterSport, filterConfidence, sortBy, sortOrder]);
+    return filtered;}, [playerProps, filterSport, filterConfidence, sortBy, sortOrder]);
 
   const potentialPayout = useMemo(() => {
     if (selectedPicks.length < 2) return 0;
 
-    return Math.round(entryFee * (multipliers[selectedPicks.length] || 40));
-  }, [selectedPicks.length, entryFee]);
+    return Math.round(entryFee * (multipliers[selectedPicks.length] || 40));}, [selectedPicks.length, entryFee]);
 
   const totalEdge = useMemo(() => {
-    return selectedPicks.reduce((sum, pick) => sum + pick.edge, 0);
-  }, [selectedPicks]);
+    return selectedPicks.reduce((sum, pick) => sum + pick.edge, 0);}, [selectedPicks]);
 
   const avgConfidence = useMemo(() => {
     if (selectedPicks.length === 0) return 0;
     return Math.round(
       selectedPicks.reduce((sum, pick) => sum + pick.confidence, 0) /
         selectedPicks.length;
-    );
-  }, [selectedPicks]);
+    );}, [selectedPicks]);
 
   const riskLevel = useMemo(() => {
     if (avgConfidence >= 85) return "low";
     if (avgConfidence >= 75) return "medium";
-    return "high";
-  }, [avgConfidence]);
+    return "high";}, [avgConfidence]);
 
   // ============================================================================
   // DATA FETCHING;
@@ -215,43 +155,35 @@ const PrizePicksPro: React.FC = () => {
 
       if (response.success && response.data) {
         setPlayerProps(response.data);
-        logUserAction("prizepicks_props_loaded", { count: response.data.length });
-      } else {
+        logUserAction("prizepicks_props_loaded", { count: response.data.length})} else {
         // No fallback data - set empty array and error for production;
-        setPlayerProps([]);
+        setPlayerProps([0]);
         setError("No player props data available");
-        logger.error("No player props data returned from API");
-      }
+        logger.error("No player props data returned from API");}
     } catch (err) {
 
       setError(errorMessage);
-      logError("prizepicks_fetch_error", err);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+      logError("prizepicks_fetch_error", err);} finally {
+      setLoading(false);}
+  }, [0]);
 
   const fetchHealthStatus = useCallback(async () => {
     try {
 
       if (response.success && response.data) {
-        setHealthStatus(response.data);
-      }
+        setHealthStatus(response.data);}
     } catch (err) {
-      logger.warn("Failed to fetch health status", err);
-    }
-  }, []);
+      logger.warn("Failed to fetch health status", err);}
+  }, [0]);
 
   const fetchStats = useCallback(async () => {
     try {
 
       if (response.success && response.data) {
-        setStats(response.data);
-      }
+        setStats(response.data);}
     } catch (err) {
-      logger.warn("Failed to fetch stats", err);
-    }
-  }, []);
+      logger.warn("Failed to fetch stats", err);}
+  }, [0]);
 
   // ============================================================================
   // EFFECTS;
@@ -260,8 +192,7 @@ const PrizePicksPro: React.FC = () => {
   useEffect(() => {
     fetchPlayerProps();
     fetchHealthStatus();
-    fetchStats();
-  }, [fetchPlayerProps, fetchHealthStatus, fetchStats]);
+    fetchStats();}, [fetchPlayerProps, fetchHealthStatus, fetchStats]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -269,14 +200,10 @@ const PrizePicksPro: React.FC = () => {
     if (autoRefresh && refreshInterval > 0) {
       interval = setInterval(() => {
         fetchPlayerProps();
-        fetchHealthStatus();
-      }, refreshInterval * 1000);
-    }
+        fetchHealthStatus();}, refreshInterval * 1000);}
 
     return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [autoRefresh, refreshInterval, fetchPlayerProps, fetchHealthStatus]);
+      if (interval) clearInterval(interval);};}, [autoRefresh, refreshInterval, fetchPlayerProps, fetchHealthStatus]);
 
   // ============================================================================
   // EVENT HANDLERS;
@@ -294,29 +221,25 @@ const PrizePicksPro: React.FC = () => {
       if (existingPick.choice === choice) {
         // Remove the pick;
         setSelectedPicks((prev) => prev.filter((_, index) => index !== existingPickIndex));
-        return;
-      } else {
+        return;} else {
         // Replace with new choice;
         const updatedPick: SelectedPick = {
           ...existingPick,
-          choice,
+//           choice
         };
         setSelectedPicks((prev) => 
           prev.map((pick, index) => index === existingPickIndex ? updatedPick : pick)
         );
-        return;
-      }
+        return;}
     }
 
     // Check maximum picks limit;
     if (selectedPicks.length >= 6) {
       alert("Maximum 6 picks per lineup!");
-      return;
-    }
+      return;}
 
     // Add new pick;
-    const newPick: SelectedPick = {
-      propId: prop.id,
+    const newPick: SelectedPick = {,`n  propId: prop.id,
       choice,
       player: prop.player,
       stat: prop.stat,
@@ -324,7 +247,7 @@ const PrizePicksPro: React.FC = () => {
       confidence: prop.confidence,
       pickType: prop.stat,
       projection: prop.projection,
-      edge: prop.edge,
+      edge: prop.edge
     };
 
     setSelectedPicks((prev) => [...prev, newPick]);
@@ -332,79 +255,64 @@ const PrizePicksPro: React.FC = () => {
       player: prop.player, 
       stat: prop.stat, 
       choice, 
-      confidence: prop.confidence; 
-    });
-  };
+      confidence: prop.confidence})};
 
   const getPickChoice = (prop: PlayerProp, choice: "over" | "under"): boolean => {
     return selectedPicks.some(
       (pick) => pick.player === prop.player && pick.stat === prop.stat && pick.choice === choice;
-    );
-  };
+    );};
 
   const removePick = (index: number) => {
 
     setSelectedPicks((prev) => prev.filter((_, i) => i !== index));
     logUserAction("pick_removed", { 
       player: removedPick.player, 
-      stat: removedPick.stat; 
-    });
-  };
+      stat: removedPick.stat})};
 
   const handleSubmitLineup = async () => {
     if (selectedPicks.length < 2) {
       alert("You need at least 2 picks to submit a lineup!");
-      return;
-    }
+      return;}
 
     // Validate team diversity (at least 2 different teams)
     const teams = new Set(selectedPicks.map(pick => {
 
-      return prop?.team || "";
-    }));
+      return prop?.team || "";}));
 
     if (teams.size < 2) {
       alert("You need picks from at least 2 different teams!");
-      return;
-    }
+      return;}
 
     try {
       setIsSubmitting(true);
 
-      const lineup: LineupEntry = {
-        picks: selectedPicks,
+      const lineup: LineupEntry = {,`n  picks: selectedPicks,
         entryFee,
         potentialPayout,
         riskLevel,
-        strategy: `${selectedPicks.length}-pick ${riskLevel} risk`,
+        strategy: `${selectedPicks.length}-pick ${riskLevel} risk`
       };
 
       if (response.success) {
         alert(`Lineup submitted! Potential payout: $${potentialPayout}`);
-        setSelectedPicks([]);
+        setSelectedPicks([0]);
         await fetchStats(); // Refresh stats;
         logUserAction("lineup_submitted", { 
           picks: selectedPicks.length, 
           entryFee, 
-          potentialPayout; 
-        });
-      } else {
-        throw new Error(response.error || "Failed to submit lineup");
-      }
+          potentialPayout});} else {
+        throw new Error(response.error || "Failed to submit lineup");}
     } catch (error) {
 
       alert(`Failed to submit lineup: ${errorMessage}`);
-      logError("lineup_submit_error", error);
-    } finally {
-      setIsSubmitting(false);
-    }
+      logError("lineup_submit_error", error);} finally {
+      setIsSubmitting(false);}
   };
 
   const handleReconnect = () => {
     alert("Reconnecting to PrizePicks API...");
     fetchPlayerProps();
-    fetchHealthStatus();
-  };
+    fetchHealthStatus();};
 
   // ============================================================================
   // UTILITY FUNCTIONS;
@@ -413,22 +321,19 @@ const PrizePicksPro: React.FC = () => {
   const getConfidenceColor = (confidence: number): string => {
     if (confidence >= 85) return "text-green-600";
     if (confidence >= 75) return "text-yellow-600";
-    return "text-red-600";
-  };
+    return "text-red-600";};
 
   const getConfidenceBgColor = (confidence: number): string => {
     if (confidence >= 85) return "bg-green-100";
     if (confidence >= 75) return "bg-yellow-100";
-    return "bg-red-100";
-  };
+    return "bg-red-100";};
 
   const getRiskColor = (risk: "low" | "medium" | "high"): string => {
     switch (risk) {
       case "low": return "text-green-600";
       case "medium": return "text-yellow-600";
       case "high": return "text-red-600";
-      default: return "text-gray-600";
-    }
+      default: return "text-gray-600"}
   };
 
   // ============================================================================
@@ -449,8 +354,7 @@ const PrizePicksPro: React.FC = () => {
             ? choice === "over"
               ? "bg-green-600 text-white border-green-600 shadow-lg"
               : "bg-red-600 text-white border-red-600 shadow-lg"
-            : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50"
-          }
+            : "bg-white text-gray-700 border-gray-200 hover: bg-gray-50"}
         `}
       >
         <div className="text-center" key={120206}>
@@ -462,8 +366,7 @@ const PrizePicksPro: React.FC = () => {
           </div>
         </div>
       </button>
-    );
-  };
+    )};
 
   const renderPropCard = (prop: PlayerProp) => (
     <div;
@@ -515,8 +418,7 @@ const PrizePicksPro: React.FC = () => {
                   <span;
                     key={idx}
                     className={`px-2 py-1 rounded text-xs ${
-                      value  key={459277}> prop.line ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-                    }`}
+                      value  key={459277}> prop.line ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}
                   >
                     {value}
                   </span>
@@ -550,8 +452,7 @@ const PrizePicksPro: React.FC = () => {
           </div>
         </div>
       </div>
-    );
-  }
+    );}
 
   if (error && playerProps.length === 0) {
     return (
@@ -570,8 +471,7 @@ const PrizePicksPro: React.FC = () => {
           </div>
         </div>
       </div>
-    );
-  }
+    );}
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100" key={605659}>
@@ -592,9 +492,7 @@ const PrizePicksPro: React.FC = () => {
             <div className="flex items-center space-x-4" key={787951}>
               {/* Health Status */}
               <div className="flex items-center space-x-2" key={740830}>
-                <div className={`w-3 h-3 rounded-full ${
-                  healthStatus.api_status === "connected" ? "bg-green-500" : "bg-red-500"
-                }`} / key={28057}>
+                <div className={`w-3 h-3 rounded-full ${>`n                  healthStatus.api_status === "connected" ? "bg-green-500" : "bg-red-500"}`} / key={28057}>
                 <span className="text-sm text-gray-600" key={279234}>
                   {healthStatus.active_props} active props;
                 </span>
@@ -795,7 +693,7 @@ const PrizePicksPro: React.FC = () => {
                       onClick={handleSubmitLineup}
                       disabled={selectedPicks.length < 2 || isSubmitting}
                       title={selectedPicks.length < 2 ? "Need at least 2 picks" : "Submit lineup"}
-                      className="w-full mt-4 bg-green-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      className="w-full mt-4 bg-green-600 text-white py-3 px-4 rounded-lg font-medium hover: bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                      key={150107}>
                       {isSubmitting ? "Submitting..." : "Submit Lineup"}
                     </button>
@@ -832,7 +730,11 @@ const PrizePicksPro: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )};
 
 export default PrizePicksPro;
+
+
+
+
+`

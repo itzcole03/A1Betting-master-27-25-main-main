@@ -1,18 +1,17 @@
-// BankrollTracker.tsx;
+﻿// BankrollTracker.tsx;
 // Visualizes the user's current bankroll, profit/loss, and stats;
 
-import React from 'react.ts';
-import { useBankrollStore } from '@/store/slices/bankrollSlice.ts';
+import React from 'react';
+import { useBankrollStore} from '@/store/slices/bankrollSlice';
 
 export const BankrollTracker: React.FC = () => {
 
 
   React.useEffect(() => {
-    refreshStats();
-  }, [refreshStats]);
+    refreshStats()}, [refreshStats]);
 
   return (
-    <section className="w-full p-4 bg-white shadow rounded mb-4 flex flex-col md:flex-row md:items-center md:justify-between" key={431930}>
+    <section className="w-full p-4 bg-white shadow rounded mb-4 flex flex-col md: flex-row md:items-center md:justify-between" key={431930}>
       <div className="flex-1" key={745195}>
         <h2 className="text-lg font-bold mb-2" key={158024}>Bankroll Tracker</h2>
         <div className="flex flex-wrap gap-4 text-sm" key={475504}>
@@ -25,5 +24,7 @@ export const BankrollTracker: React.FC = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )};
+
+
+

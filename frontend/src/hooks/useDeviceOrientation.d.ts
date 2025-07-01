@@ -1,9 +1,7 @@
-interface DeviceOrientationState {
-    alpha: number | null;
-    beta: number | null;
-    gamma: number | null;
-    absolute: boolean | null;
-    error: Error | null;
-}
+﻿interface DeviceOrientationState {
+  alpha: number | null,`n  beta: number | null;,`n  gamma: number | null,`n  absolute: boolean | null;,`n  error: Error | null}
 export declare const useDeviceOrientation: () => DeviceOrientationState;
-export {};
+export Record<string, any>;
+
+
+`

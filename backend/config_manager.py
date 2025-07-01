@@ -45,7 +45,8 @@ class APIKeysConfig:
 
     sportradar_api_key: Optional[str] = None
     theodds_api_key: Optional[str] = None
-    prizepicks_api_key: Optional[str] = None
+    # PrizePicks API key is not required; public access only
+    # prizepicks_api_key: Optional[str] = None  # Deprecated, not used
     espn_api_key: Optional[str] = None
 
     @classmethod
@@ -53,7 +54,7 @@ class APIKeysConfig:
         return cls(
             sportradar_api_key=os.getenv("SPORTRADAR_API_KEY"),
             theodds_api_key=os.getenv("THE_ODDS_API_KEY"),
-            prizepicks_api_key=os.getenv("PRIZEPICKS_API_KEY"),
+            # prizepicks_api_key=os.getenv("PRIZEPICKS_API_KEY"),  # Deprecated, not used
             espn_api_key=os.getenv("ESPN_API_KEY"),
         )
 
@@ -312,7 +313,7 @@ class A1BettingConfig:
             "api_keys": {
                 "sportradar_configured": bool(self.api_keys.sportradar_api_key),
                 "theodds_configured": bool(self.api_keys.theodds_api_key),
-                "prizepicks_configured": bool(self.api_keys.prizepicks_api_key),
+                # "prizepicks_configured": bool(self.api_keys.prizepicks_api_key),  # Deprecated, not used
                 "espn_configured": bool(self.api_keys.espn_api_key),
             },
             "cache": {
@@ -364,9 +365,12 @@ def get_api_key(service: str) -> Optional[str]:
     api_keys = {
         "sportradar": config.api_keys.sportradar_api_key,
         "theodds": config.api_keys.theodds_api_key,
-        "prizepicks": config.api_keys.prizepicks_api_key,
+        # "prizepicks": config.api_keys.prizepicks_api_key,  # Deprecated, not used
         "espn": config.api_keys.espn_api_key,
     }
+    # PrizePicks API key is not required; always returns None
+    if service.lower() == "prizepicks":
+        return None
     return api_keys.get(service.lower())
 
 

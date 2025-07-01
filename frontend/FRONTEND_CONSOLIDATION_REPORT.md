@@ -50,9 +50,9 @@ The frontend codebase has been comprehensively analyzed and consolidated to elim
 **Usage**:
 
 ```tsx
-import { UniversalDashboard } from "./components/dashboard/UniversalDashboard";
+import { UniversalDashboard } from './components/dashboard/UniversalDashboard';
 
-<UniversalDashboard variant="cyber" user={userProfile} defaultTab="overview" />;
+<UniversalDashboard variant='cyber' user={userProfile} defaultTab='overview' />;
 ```
 
 ### 2. Universal Button System
@@ -109,12 +109,9 @@ import { UniversalButton, BettingButton, CyberButton } from './components/ui/Uni
 **Usage**:
 
 ```tsx
-import {
-  UniversalThemeProvider,
-  useTheme,
-} from "./providers/UniversalThemeProvider";
+import { UniversalThemeProvider, useTheme } from './providers/UniversalThemeProvider';
 
-<UniversalThemeProvider defaultVariant="cyber">
+<UniversalThemeProvider defaultVariant='cyber'>
   <App />
 </UniversalThemeProvider>;
 
@@ -144,7 +141,7 @@ const { theme, setVariant, isDark } = useTheme();
 **Usage**:
 
 ```tsx
-import { UniversalServiceFactory } from "./services/UniversalServiceLayer";
+import { UniversalServiceFactory } from './services/UniversalServiceLayer';
 
 const predictionService = UniversalServiceFactory.getPredictionService();
 const bettingService = UniversalServiceFactory.getBettingService();
@@ -184,7 +181,7 @@ import {
   useUniversalForm,
   useDebounce,
   useLocalStorage,
-} from "./hooks/UniversalHooks";
+} from './hooks/UniversalHooks';
 
 const { predictions, isLoading } = usePredictions({ realtime: true });
 const { values, handleChange, handleSubmit } = useUniversalForm(initialData);
@@ -262,36 +259,36 @@ frontend/src/
 
 ```typescript
 // ❌ Old
-import Dashboard from "./components/dashboard/Dashboard";
-import CyberDashboard from "./components/dashboard/CyberDashboard";
-import Button from "./components/common/buttons/Button";
+import Dashboard from './components/dashboard/Dashboard';
+import CyberDashboard from './components/dashboard/CyberDashboard';
+import Button from './components/common/buttons/Button';
 
 // ✅ New
-import { UniversalDashboard, UniversalButton } from "./components";
+import { UniversalDashboard, UniversalButton } from './components';
 ```
 
 #### Hooks
 
 ```typescript
 // ❌ Old
-import { usePredictions } from "./hooks/usePredictions";
-import { useTheme } from "./hooks/useTheme";
-import { useDebounce } from "./hooks/useDebounce";
+import { usePredictions } from './hooks/usePredictions';
+import { useTheme } from './hooks/useTheme';
+import { useDebounce } from './hooks/useDebounce';
 
 // ✅ New
-import { usePredictions, useUniversalTheme, useDebounce } from "./hooks";
+import { usePredictions, useUniversalTheme, useDebounce } from './hooks';
 ```
 
 #### Services
 
 ```typescript
 // ❌ Old
-import { predictionService } from "./services/predictionService";
+import { predictionService } from './services/predictionService';
 
 // ✅ New
-import { predictionService } from "./services";
+import { predictionService } from './services';
 // or
-import { UniversalServiceFactory } from "./services";
+import { UniversalServiceFactory } from './services';
 const predictionService = UniversalServiceFactory.getPredictionService();
 ```
 
@@ -299,10 +296,10 @@ const predictionService = UniversalServiceFactory.getPredictionService();
 
 ```typescript
 // ❌ Old
-import { ThemeProvider } from "./providers/ThemeProvider";
+import { ThemeProvider } from './providers/ThemeProvider';
 
 // ✅ New
-import { UniversalThemeProvider } from "./providers";
+import { UniversalThemeProvider } from './providers';
 ```
 
 ## 🔍 Quality Assurance

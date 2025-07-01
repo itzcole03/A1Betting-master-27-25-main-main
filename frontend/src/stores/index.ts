@@ -1,17 +1,17 @@
-import { create } from 'zustand.ts';
-import { devtools, persist } from 'zustand/middleware.ts';
-import { useAppStore, AppState, AppStore } from '@/store/useAppStore.ts';
-import { useBettingStore, BettingStore } from './bettingStore.ts';
-import { useMoneyMakerStore } from './moneyMakerStore.ts';
-import type { MoneyMakerStoreState, MoneyMakerStoreActions } from '@/types/money-maker.ts';
-import { useThemeStore, ThemeState } from './themeStore.ts';
-import { BettingSlice, createBettingSlice } from './slices/bettingSlice.ts';
-import { MLSlice, createMLSlice } from './slices/mlSlice.ts';
-import { UISlice, createUISlice } from './slices/uiSlice.ts';
-import { WebSocketSlice, createWebSocketSlice } from './slices/websocketSlice.ts';
+﻿import { create} from 'zustand';
+import { devtools, persist} from 'zustand/middleware';
+import { useAppStore, AppState, AppStore} from '@/store/useAppStore';
+import { useBettingStore, BettingStore} from './bettingStore';
+import { useMoneyMakerStore} from './moneyMakerStore';
+import type { MoneyMakerStoreState, MoneyMakerStoreActions} from '@/types/money-maker';
+import { useThemeStore, ThemeState} from './themeStore';
+import { BettingSlice, createBettingSlice} from './slices/bettingSlice';
+import { MLSlice, createMLSlice} from './slices/mlSlice';
+import { UISlice, createUISlice} from './slices/uiSlice';
+import { WebSocketSlice, createWebSocketSlice} from './slices/websocketSlice';
 
 // Re-export all stores;
-export { useAppStore, useBettingStore, useMoneyMakerStore, useThemeStore };
+export { useAppStore, useBettingStore, useMoneyMakerStore, useThemeStore};
 
 // Re-export types;
 export type {
@@ -20,7 +20,7 @@ export type {
   BettingStore,
   MoneyMakerStoreState,
   MoneyMakerStoreActions,
-  ThemeState,
+//   ThemeState
 };
 
 // Create a unified store that combines all stores;
@@ -39,7 +39,7 @@ export const useStore = create<RootState>()(
         ...useAppStore.getState(),
         ...useBettingStore.getState(),
         ...useMoneyMakerStore.getState(),
-        ...useThemeStore.getState(),
+        ...useThemeStore.getState()
       }),
       {
         name: 'sports-betting-storage',
@@ -53,8 +53,8 @@ export const useStore = create<RootState>()(
           config: state.config,
           activeBets: state.activeBets,
           totalStake: state.totalStake,
-          potentialProfit: state.potentialProfit,
-        }),
+          potentialProfit: state.potentialProfit
+        })
       }
     )
   )
@@ -78,7 +78,7 @@ export const selectors = {
 
   // Money Maker selectors;
   selectConfig: (state: RootState) => state.config,
-  selectOpportunities: (state: RootState) => state.opportunities,
+  selectOpportunities: (state: RootState) => state.opportunities
 };
 
 // Export actions;
@@ -106,7 +106,7 @@ export const actions = {
   setError: useMoneyMakerStore.getState().setError,
   reset: useMoneyMakerStore.getState().reset,
   loadInitialData: useMoneyMakerStore.getState().loadInitialData,
-  handlePlaceBet: useMoneyMakerStore.getState().handlePlaceBet,
+  handlePlaceBet: useMoneyMakerStore.getState().handlePlaceBet
 };
 
 // Export initial state for testing;
@@ -115,32 +115,31 @@ export function getInitialState(): RootState {
     ...useAppStore.getState(),
     ...useBettingStore.getState(),
     ...useMoneyMakerStore.getState(),
-    ...useThemeStore.getState(),
-  };
-}
+    ...useThemeStore.getState()
+  };}
 
 export type StoreState = BettingSlice & MLSlice & UISlice & WebSocketSlice;
 
-export const selectBettingState = (state: StoreState) => ({
-  bets: state.bets,
+export const selectBettingState = (state: StoreState) => ({,`n  bets: state.bets,
   odds: state.odds,
-  payouts: state.payouts,
+  payouts: state.payouts
 });
 
-export const selectMLState = (state: StoreState) => ({
-  predictions: state.predictions,
+export const selectMLState = (state: StoreState) => ({,`n  predictions: state.predictions,
   modelMetrics: state.modelMetrics,
-  driftAlerts: state.driftAlerts,
+  driftAlerts: state.driftAlerts
 });
 
-export const selectUIState = (state: StoreState) => ({
-  theme: state.theme,
+export const selectUIState = (state: StoreState) => ({,`n  theme: state.theme,
   userPreferences: state.userPreferences,
-  notifications: state.notifications,
+  notifications: state.notifications
 });
 
-export const selectWebSocketState = (state: StoreState) => ({
-  isConnected: state.isConnected,
+export const selectWebSocketState = (state: StoreState) => ({,`n  isConnected: state.isConnected,
   lastMessage: state.lastMessage,
-  connectionStatus: state.connectionStatus,
+  connectionStatus: state.connectionStatus
 });
+
+
+
+`

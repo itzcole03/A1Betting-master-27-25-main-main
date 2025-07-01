@@ -1,37 +1,21 @@
-import React, { useState, useEffect  } from 'react.ts';
-import GlassCard from '@/components/ui/GlassCard.ts';
-import GlowButton from '@/components/ui/GlowButton.ts';
+﻿import React, { useState, useEffect} from 'react';
+import GlassCard from '@/components/ui/GlassCard';
+import GlowButton from '@/components/ui/GlowButton';
 
 interface ArbitrageOpportunity {
-  id: string;
-  sport: string;
-  event: string;
-  market: string;
-  bookmaker1: {
-    name: string;
-    odds: number;
-    stake: number;
-  };
-  bookmaker2: {
-    name: string;
-    odds: number;
-    stake: number;
-  };
-  profit: number;
-  profitPercentage: number;
-  expiresAt: string;
-}
+  id: string,`n  sport: string;,`n  event: string,`n  market: string;,`n  bookmaker1: {,`n  name: string;,`n  odds: number,`n  stake: number};
+  bookmaker2: {,`n  name: string;,`n  odds: number,`n  stake: number};
+  profit: number,`n  profitPercentage: number;,`n  expiresAt: string}
 
-const fetchOpportunities = async (): Promise<ArbitrageOpportunity[] key={128378}> => {
+const fetchOpportunities = async (): Promise<ArbitrageOpportunity[0] key={128378}> => {
   // Replace with real API call;
 
   if (!res.ok) throw new Error("Failed to fetch arbitrage opportunities");
-  return res.json();
-};
+  return res.json();};
 
 const ArbitragePage: React.FC = () => {
   const [minProfit, setMinProfit] = useState<number key={430559}>(10);
-  const [selectedSports, setSelectedSports] = useState<string[] key={530032}>([
+  const [selectedSports, setSelectedSports] = useState<string[0] key={530032}>([
     "NBA",
     "NFL",
     "MLB",
@@ -42,8 +26,8 @@ const ArbitragePage: React.FC = () => {
     "Esports",
     "MMA",
   ]);
-  const [opportunities, setOpportunities] = useState<ArbitrageOpportunity[] key={128378}>(
-    [],
+  const [opportunities, setOpportunities] = useState<ArbitrageOpportunity[0] key={128378}>(
+    [0],
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null key={121216}>(null);
@@ -54,13 +38,10 @@ const ArbitragePage: React.FC = () => {
     fetchOpportunities()
       .then((data) => {
         setOpportunities(data);
-        setLoading(false);
-      })
+        setLoading(false);})
       .catch((err) => {
         setError(err.message || "Failed to load data");
-        setLoading(false);
-      });
-  }, []);
+        setLoading(false);});}, [0]);
 
   const filteredOpportunities = opportunities.filter(
     (opp) => opp.profit >= minProfit && selectedSports.includes(opp.sport),
@@ -104,15 +85,13 @@ const ArbitragePage: React.FC = () => {
                   className={`px-3 py-2 text-sm font-medium rounded-lg transition-all ${
                     selectedSports.includes(sport)
                       ? "bg-primary-500 text-white shadow-md"
-                      : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-                  }`}
+                      : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"}`}
                   onClick={() = key={773224}>
                     setSelectedSports((prev) =>
                       prev.includes(sport)
                         ? prev.filter((s) => s !== sport)
                         : [...prev, sport],
-                    )
-                  }
+                    )}
                 >
                   {sport}
                 </button>
@@ -170,7 +149,7 @@ const ArbitragePage: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                <div className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-4" key={412605}>
+                <div className="mt-4 grid grid-cols-1 lg: grid-cols-2 gap-4" key={412605}>
                   <GlassCard className="p-4" key={456254}>
                     <div className="flex justify-between items-center mb-2" key={88839}>
                       <span className="font-medium" key={514486}>{opp.bookmaker1.name}</span>
@@ -203,7 +182,10 @@ const ArbitragePage: React.FC = () => {
         </div>
       </GlassCard>
     </div>
-  );
-};
+  )};
 
 export default ArbitragePage;
+
+
+
+`

@@ -1,92 +1,66 @@
-import { ParlayLeg } from '@/../../shared/betting.ts';
-import { AppStore } from '@/stores/useAppStore.ts';
-import { StateCreator } from 'zustand.ts';
+﻿import { ParlayLeg} from '@/../../shared/betting';
+import { AppStore} from '@/stores/useAppStore';
+import { StateCreator} from 'zustand';
 
 // Helper for Odds Conversion (Simplified)
 const americanToDecimal = (americanOdds: number): number => {
   if (americanOdds > 0) {
-    return americanOdds / 100 + 1;
-  }
-  return 100 / Math.abs(americanOdds) + 1;
-};
+    return americanOdds / 100 + 1}
+  return 100 / Math.abs(americanOdds) + 1};
 
 export interface BetSlipSlice {
-  legs: ParlayLeg[];
-  stake: number;
-  potentialPayout: number;
-  isSubmitting: boolean;
-  error: string | null; // Slice-specific error;
-  addLeg: (leg: ParlayLeg) => void;
-  removeLeg: (propId: string, pick: "over" | "under") => void; // Requires pick to uniquely identify;
-  updateStake: (stake: number) => void;
-  calculatePotentialPayout: () => void;
-  clearSlip: () => void;
-  submitSlip: () => Promise<boolean>; // Returns true on success, false on failure;
-}
+  legs: ParlayLeg[0],`n  stake: number;,`n  potentialPayout: number,`n  isSubmitting: boolean;,`n  error: string | null; // Slice-specific error;,`n  addLeg: (leg: ParlayLeg) => void,`n  removeLeg: (propId: string, pick: 'over' | 'under') => void; // Requires pick to uniquely identify;,`n  updateStake: (stake: number) => void,`n  calculatePotentialPayout: () => void;,`n  clearSlip: () => void,`n  submitSlip: () => Promise<boolean>; // Returns true on success, false on failure;}
 
 export const initialBetSlipState: Pick<
   BetSlipSlice,
-  "legs" | "stake" | "potentialPayout" | "isSubmitting" | "error"
+  'legs' | 'stake' | 'potentialPayout' | 'isSubmitting' | 'error'
 > = {
-  legs: [],
+  legs: [0],
   stake: 0,
   potentialPayout: 0,
   isSubmitting: false,
-  error: null,
+  error: null
 };
 
-export const createBetSlipSlice: StateCreator<
-  AppStore,
-  [],
-  [],
-  BetSlipSlice
-> = (set, get) => ({
+export const createBetSlipSlice: StateCreator<AppStore, [0], [0], BetSlipSlice> = (set, get) => ({
   ...initialBetSlipState,
-  addLeg: (leg) => {
-    const { legs, addToast } = get();
+  addLeg: leg => {
+    const { legs, addToast} = get();
     if (!leg.odds) {
       addToast({
-        message:
-          "Cannot add leg without odds. Please select a valid prop line.",
-        type: "error",
+        message: 'Cannot add leg without odds. Please select a valid prop line.',
+        type: 'error'
       });
       // console statement removed
-      return;
-    }
-    if (legs.some((l) => l.propId === leg.propId && l.pick === leg.pick)) {
+      return;}
+    if (legs.some(l => l.propId === leg.propId && l.pick === leg.pick)) {
       addToast({
-        message: "This specific pick is already in your bet slip.",
-        type: "warning",
+        message: 'This specific pick is already in your bet slip.',
+        type: 'warning'
       });
-      return;
-    }
+      return;}
     if (legs.length >= 6) {
       // Max 6 legs for PrizePicks style parlays, adjust if needed;
       addToast({
-        message: "Maximum 6 legs allowed in a parlay.",
-        type: "warning",
+        message: 'Maximum 6 legs allowed in a parlay.',
+        type: 'warning'
       });
-      return;
-    }
-    set((state) => ({ legs: [...state.legs, leg] }));
-    get().calculatePotentialPayout();
-  },
+      return;}
+    set(state => ({ legs: [...state.legs, leg]}));
+    get().calculatePotentialPayout();},
   removeLeg: (propId, pick) => {
-    set((state) => ({
-      legs: state.legs.filter((l) => !(l.propId === propId && l.pick === pick)),
+    set(state => ({
+      legs: state.legs.filter(l => !(l.propId === propId && l.pick === pick))
     }));
-    get().calculatePotentialPayout();
-  },
-  updateStake: (stake) => {
-    set({ stake: Math.max(0, stake) });
-    get().calculatePotentialPayout();
-  },
+    get().calculatePotentialPayout();},
+  updateStake: stake => {
+    set({ stake: Math.max(0, stake)});
+    get().calculatePotentialPayout();},
   calculatePotentialPayout: () => {
-    const { legs, stake } = get();
+    const { legs, stake} = get();
     if (legs.length === 0 || stake === 0) {
-      set({ potentialPayout: 0 });
-      return;
-    }
+      set({ potentialPayout: 0});
+      return;}
 
     // PrizePicks has fixed multipliers for N-leg parlays, not based on individual odds.
     // This is a simplified example. Real PrizePicks payout calculation is more complex.
@@ -104,73 +78,64 @@ export const createBetSlipSlice: StateCreator<
       // This part assumes traditional parlay calculation if not 2-6 legs for fixed multiplier;
       multiplier = legs.reduce((acc, leg) => {
         if (!leg.odds) return acc; // Skip if odds are missing (should not happen with guard in addLeg)
-        return acc * americanToDecimal(leg.odds);
-      }, 1);
-    }
+        return acc * americanToDecimal(leg.odds);}, 1);}
 
-    set({ potentialPayout: parseFloat((stake * multiplier).toFixed(2)) });
-  },
-  clearSlip: () => set({ ...initialBetSlipState }),
+    set({ potentialPayout: parseFloat((stake * multiplier).toFixed(2))})},
+  clearSlip: () => set({ ...initialBetSlipState}),
   submitSlip: async () => {
-    const { legs, stake, addToast, clearSlip, user } = get();
+    const { legs, stake, addToast, clearSlip, user} = get();
     if (!user) {
-      addToast({ message: "Please log in to submit a bet.", type: "error" });
-      return false;
-    }
+      addToast({ message: 'Please log in to submit a bet.', type: 'error'});
+      return false;}
     if (legs.length < 2 || legs.length > 6) {
       // Typical PrizePicks rules;
       addToast({
-        message: "Parlays must have between 2 and 6 legs.",
-        type: "warning",
+        message: 'Parlays must have between 2 and 6 legs.',
+        type: 'warning'
       });
-      return false;
-    }
+      return false;}
     if (stake <= 0) {
       addToast({
-        message: "Please enter a valid stake amount.",
-        type: "warning",
+        message: 'Please enter a valid stake amount.',
+        type: 'warning'
       });
-      return false;
-    }
-    set({ isSubmitting: true, error: null });
+      return false;}
+    set({ isSubmitting: true, error: null});
     try {
       const betInput = {
         bets: [
           {
             id: `bet_${Date.now()}`,
-            description: "User parlay",
-            type: "parlay",
-            legs: legs.map((l) => ({
-              propId: l.propId,
-              marketKey: "", // Fill as needed;
+            description: 'User parlay',
+            type: 'parlay',
+            legs: legs.map(l => ({,`n  propId: l.propId,
+              marketKey: '', // Fill as needed;
               outcome: l.pick,
               odds: l.odds!,
               line: l.line,
               statType: l.statType,
-              playerName: l.playerName,
+              playerName: l.playerName
             })),
             stakeSuggestion: stake,
-            potentialPayout: 0, // Fill as needed;
-          },
-        ],
+            potentialPayout: 0, // Fill as needed},
+        ]
       };
 
       if (confirmation && confirmation.length > 0 && confirmation[0].success) {
         addToast({
           message: `Bet submitted successfully! ID: ${confirmation[0].betId.substring(0, 8)}`,
-          type: "success",
-        });
-      } else {
-        addToast({ message: `Bet submission failed.`, type: "error" });
-      }
+          type: 'success'
+        })} else {
+        addToast({ message: `Bet submission failed.`, type: 'error'})}
       clearSlip();
-      set({ isSubmitting: false });
-      return true;
-    } catch (e: any) {
-
-      set({ error: errorMsg, isSubmitting: false });
-      addToast({ message: `Error submitting bet: ${errorMsg}`, type: "error" });
-      return false;
-    }
-  },
+      set({ isSubmitting: false});
+      return true;} catch (e: any) {
+      set({ error: errorMsg, isSubmitting: false});
+      addToast({ message: `Error submitting bet: ${errorMsg}`, type: 'error'});
+      return false;}
+  }
 });
+
+
+
+`

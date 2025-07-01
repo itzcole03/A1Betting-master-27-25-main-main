@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import { usePredictionStore } from '@/stores/predictionStore.ts';
+﻿import React from 'react';
+import { usePredictionStore} from '@/stores/predictionStore';
 
 const PredictionConfidenceGraph: React.FC = () => {
 
@@ -12,6 +12,9 @@ const PredictionConfidenceGraph: React.FC = () => {
         ))}
       </svg>
     </div>
-  );
-};
+  )};
 export default PredictionConfidenceGraph;
+
+
+
+

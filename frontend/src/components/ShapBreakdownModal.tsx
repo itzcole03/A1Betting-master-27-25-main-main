@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -11,33 +11,28 @@ import {
   List,
   ListItem,
   ListItemText,
-  Tooltip,
-} from '@mui/material.ts';
-import { Info } from '@mui/icons-material.ts';
-import { ShapValue } from '@/types/explainability.ts';
+//   Tooltip
+} from '@mui/material';
+import { Info} from '@mui/icons-material';
+import { ShapValue} from '@/types/explainability';
 
 interface ShapBreakdownModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  feature: ShapValue;
-}
+  isOpen: boolean,`n  onClose: () => void;,`n  feature: ShapValue}
 
 export const ShapBreakdownModal: React.FC<ShapBreakdownModalProps key={673182}> = ({
   isOpen,
   onClose,
-  feature,
+//   feature
 }) => {
   const getImpactColor = (impact: number) => {
     if (impact > 0) return 'success.main';
     if (impact < 0) return 'error.main';
-    return 'text.secondary';
-  };
+    return 'text.secondary'};
 
   const getImpactLabel = (impact: number) => {
     if (impact > 0) return 'Positive Impact';
     if (impact < 0) return 'Negative Impact';
-    return 'Neutral Impact';
-  };
+    return 'Neutral Impact'};
 
   return (
     <Dialog;
@@ -45,15 +40,14 @@ export const ShapBreakdownModal: React.FC<ShapBreakdownModalProps key={673182}> 
       maxWidth="sm"
       open={isOpen}
       PaperProps={{
-        sx: {
-          borderRadius: 2,
-          boxShadow: 24,
-        },
+        sx: {,`n  borderRadius: 2,
+          boxShadow: 24
+        }
       }}
       onClose={onClose}
      key={589027}>
       <DialogTitle key={731539}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }} key={109447}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1}} key={109447}>
           <Typography variant="h6" key={93421}>Feature Impact Analysis</Typography>
           <Tooltip title="SHAP values show how each feature contributes to the prediction" key={221084}>
             <Info color="action" fontSize="small" / key={667402}>
@@ -62,7 +56,7 @@ export const ShapBreakdownModal: React.FC<ShapBreakdownModalProps key={673182}> 
       </DialogTitle>
 
       <DialogContent key={509164}>
-        <Box sx={{ mb: 3 }} key={864484}>
+        <Box sx={{ mb: 3}} key={864484}>
           <Typography gutterBottom variant="subtitle1" key={521154}>
             {feature.feature}
           </Typography>
@@ -73,16 +67,16 @@ export const ShapBreakdownModal: React.FC<ShapBreakdownModalProps key={673182}> 
           )}
         </Box>
 
-        <Divider sx={{ my: 2 }} / key={369348}>
+        <Divider sx={{ my: 2}} / key={369348}>
 
-        <Box sx={{ mb: 3 }} key={864484}>
+        <Box sx={{ mb: 3}} key={864484}>
           <Typography gutterBottom variant="subtitle2" key={750236}>
             Impact Analysis;
           </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }} key={387055}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2}} key={387055}>
             <Typography;
               color={getImpactColor(feature.impact)}
-              sx={{ fontWeight: 'bold' }}
+              sx={{ fontWeight: 'bold'}}
               variant="h4"
              key={958394}>
               {feature.impact > 0 ? '+' : ''}
@@ -96,7 +90,7 @@ export const ShapBreakdownModal: React.FC<ShapBreakdownModalProps key={673182}> 
 
         {feature.details && (
           <>
-            <Divider sx={{ my: 2 }} / key={369348}>
+            <Divider sx={{ my: 2}} / key={369348}>
             <Typography gutterBottom variant="subtitle2" key={750236}>
               Additional Details;
             </Typography>
@@ -107,7 +101,7 @@ export const ShapBreakdownModal: React.FC<ShapBreakdownModalProps key={673182}> 
         )}
 
         {feature.weight !== undefined && (
-          <Box sx={{ mt: 3 }} key={323613}>
+          <Box sx={{ mt: 3}} key={323613}>
             <Typography gutterBottom variant="subtitle2" key={750236}>
               Feature Weight;
             </Typography>
@@ -124,5 +118,9 @@ export const ShapBreakdownModal: React.FC<ShapBreakdownModalProps key={673182}> 
         </Button>
       </DialogActions>
     </Dialog>
-  );
-};
+  )};
+
+
+
+
+`

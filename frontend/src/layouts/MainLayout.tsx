@@ -1,11 +1,11 @@
-import Navbar from '@/components/Navbar.ts';
-import React from 'react.ts';
-import Sidebar from '@/components/Sidebar.ts';
-import { Outlet } from 'react-router-dom.ts';
+﻿import Navbar from '@/components/Navbar';
+import React from 'react';
+import Sidebar from '@/components/Sidebar';
+import { Outlet} from 'react-router-dom';
 
 export default function MainLayout() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900" key={154917}>
+    <div className="min-h-screen bg-gray-50 dark: bg-gray-900" key={154917}>
       <Navbar / key={593897}>
       <div className="flex" key={916621}>
         <Sidebar / key={403360}>
@@ -16,5 +16,7 @@ export default function MainLayout() {
         </main>
       </div>
     </div>
-  );
-}
+  )}
+
+
+

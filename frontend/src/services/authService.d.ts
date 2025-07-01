@@ -1,21 +1,16 @@
-import { User } from '@/types.ts';
+﻿import { User} from '@/types.ts';
 interface AuthServiceLoginResponse {
-    user: User;
-    token: string;
-}
+  user: User,`n  token: string}
 /**
  * Logs in a user.
  * Expected backend response (from /api/auth/login):
  * {
  *   "access_token": "string (jwt)",
  *   "token_type": "bearer",
- *   "user": { "id": "string", "username": "string", "email": "string", ... }
- * }
+ *   "user": { "id": "string", "username": "string", "email": "string", ...}
+ *}
  */
-export declare const login: (credentials: {
-    email: string;
-    password: string;
-}) => Promise<AuthServiceLoginResponse>;
+export declare const login: (credentials: {,`n  email: string;,`n  password: string}) => Promise<AuthServiceLoginResponse>;
 export declare const logout: () => Promise<void>;
 /**
  * Fetches the current authenticated user's details.
@@ -26,15 +21,12 @@ export declare const logout: () => Promise<void>;
  *   "username": "string",
  *   "email": "string",
  *   // ... other user fields as defined in the User type;
- * }
+ *}
  */
 export declare const fetchCurrentUser: () => Promise<User>;
-export declare const authService: {
-    login: (credentials: {
-        email: string;
-        password: string;
-    }) => Promise<AuthServiceLoginResponse>;
-    logout: () => Promise<void>;
-    fetchCurrentUser: () => Promise<User>;
-};
-export {};
+export declare const authService: {,`n  login: (credentials: { email: string; password: string}) => Promise<AuthServiceLoginResponse>;
+  logout: () => Promise<void>,`n  fetchCurrentUser: () => Promise<User>};
+export Record<string, any>;
+
+
+`

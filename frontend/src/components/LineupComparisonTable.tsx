@@ -1,32 +1,29 @@
-import React, { useState, useMemo  } from 'react.ts';
-import { FaSort, FaSortUp, FaSortDown, FaFilter } from 'react-icons/fa.ts';
-import { Lineup, LineupType } from '@/types.ts';
-import { fadeIn } from '@/hooks/useAnimation.ts';
-import { formatCurrency } from '@/utils/odds.ts';
-import { motion, Variants } from 'framer-motion.ts';
+﻿import React, { useState, useMemo} from 'react'
+import { FaSort, FaSortUp, FaSortDown, FaFilter} from 'react-icons/fa'
+import { Lineup, LineupType} from '@/types'
+import { fadeIn} from '@/hooks/useAnimation'
+import { formatCurrency} from '@/utils/odds'
+import { motion, Variants} from 'framer-motion'
 
 interface LineupComparisonTableProps {
-  lineups: Lineup[];
-  onSelect?: (lineup: Lineup) => void;
-}
+  lineups: Lineup[0];
+  onSelect?: (lineup: Lineup) => void}
 
 type SortField = 'name' | 'type' | 'winProbability' | 'projectedPayout';
 type SortDirection = 'asc' | 'desc';
 
-const tableVariants: Variants = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  exit: { opacity: 0 },
+const tableVariants: Variants = {,`n  initial: { opacity: 0},
+  animate: { opacity: 1},
+  exit: { opacity: 0}
 };
 
-const rowVariants: Variants = {
-  initial: { opacity: 0, x: -20 },
-  animate: { opacity: 1, x: 0 },
+const rowVariants: Variants = {,`n  initial: { opacity: 0, x: -20},
+  animate: { opacity: 1, x: 0}
 };
 
 export const LineupComparisonTable: React.FC<LineupComparisonTableProps key={447818}> = ({
   lineups,
-  onSelect,
+//   onSelect
 }) => {
   const [sortField, setSortField] = useState<SortField key={473879}>('name');
   const [sortDirection, setSortDirection] = useState<SortDirection key={206318}>('asc');
@@ -38,20 +35,15 @@ export const LineupComparisonTable: React.FC<LineupComparisonTableProps key={447
         return 'bg-blue-100 text-blue-800 dark:bg-blue-800/20 dark:text-blue-400';
       case LineupType.TEASER:
         return 'bg-amber-100 text-amber-800 dark:bg-amber-800/20 dark:text-amber-400';
-      case LineupType.PARLAY:
-        return 'bg-red-100 text-red-800 dark:bg-red-800/20 dark:text-red-400';
-      default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-800/20 dark:text-gray-400';
-    }
+      case LineupType.PARLAY: return 'bg-red-100 text-red-800 dark:bg-red-800/20 dark:text-red-400',`n  default:
+        return 'bg-gray-100 text-gray-800 dark:bg-gray-800/20 dark:text-gray-400'}
   };
 
   const handleSort = (field: SortField) => {
     if (field === sortField) {
-      setSortDirection(prev => (prev === 'asc' ? 'desc' : 'asc'));
-    } else {
+      setSortDirection(prev => (prev === 'asc' ? 'desc' : 'asc'))} else {
       setSortField(field);
-      setSortDirection('asc');
-    }
+      setSortDirection('asc')}
   };
 
   const getSortIcon = (field: SortField) => {
@@ -60,17 +52,14 @@ export const LineupComparisonTable: React.FC<LineupComparisonTableProps key={447
       <FaSortUp className="w-4 h-4 text-primary-500" / key={125427}>
     ) : (
       <FaSortDown className="w-4 h-4 text-primary-500" / key={625789}>
-    );
-  };
+    )};
 
   const filteredAndSortedLineups = useMemo(() => {
     const result = [...lineups];
     if (typeFilter !== 'all') {
-      result = result.filter(lineup => lineup.type === typeFilter);
-    }
+      result = result.filter(lineup => lineup.type === typeFilter)}
     result.sort((a, b) => a.name.localeCompare(b.name));
-    return result;
-  }, [lineups, typeFilter]);
+    return result}, [lineups, typeFilter]);
 
   return (
     <motion.div;
@@ -165,5 +154,9 @@ export const LineupComparisonTable: React.FC<LineupComparisonTableProps key={447
         </table>
       </div>
     </motion.div>
-  );
-};
+  )};
+
+
+
+
+`

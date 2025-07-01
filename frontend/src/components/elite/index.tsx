@@ -1,21 +1,21 @@
-import React from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React from 'react';
+import { motion} from 'framer-motion';
 import {
   Zap,
   DollarSign,
   Database,
   BarChart3,
   Link,
-  Gamepad2,
-} from 'lucide-react.ts';
+//   Gamepad2
+} from 'lucide-react';
 
 // Mega Sports Component;
 export const MegaSports: React.FC = () => {
   return (
     <div className="space-y-6" key={501869}>
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
         className="text-center"
        key={472940}>
         <div className="flex justify-center mb-4" key={367379}>
@@ -31,7 +31,7 @@ export const MegaSports: React.FC = () => {
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4" key={223180}>
+      <div className="grid grid-cols-1 md: grid-cols-3 gap-4" key={223180}>
         <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700/50" key={174646}>
           <h3 className="text-lg font-semibold text-white mb-2" key={945112}>Live Games</h3>
           <div className="text-3xl font-bold text-orange-400" key={738900}>247</div>
@@ -49,16 +49,15 @@ export const MegaSports: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )};
 
 // Elite Bankroll Component;
 export const EliteBankroll: React.FC = () => {
   return (
     <div className="space-y-6" key={501869}>
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
         className="text-center"
        key={472940}>
         <div className="flex justify-center mb-4" key={367379}>
@@ -91,16 +90,15 @@ export const EliteBankroll: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  );};
 
 // SQL Sports Component;
 export const SQLSports: React.FC = () => {
   return (
     <div className="space-y-6" key={501869}>
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
         className="text-center"
        key={472940}>
         <div className="flex justify-center mb-4" key={367379}>
@@ -125,16 +123,15 @@ export const SQLSports: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  );};
 
 // Model Analysis Component;
 export const ModelAnalysis: React.FC = () => {
   return (
     <div className="space-y-6" key={501869}>
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
         className="text-center"
        key={472940}>
         <div className="flex justify-center mb-4" key={367379}>
@@ -169,16 +166,15 @@ export const ModelAnalysis: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  );};
 
 // Market Connector Component;
 export const MarketConnector: React.FC = () => {
   return (
     <div className="space-y-6" key={501869}>
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
         className="text-center"
        key={472940}>
         <div className="flex justify-center mb-4" key={367379}>
@@ -213,16 +209,15 @@ export const MarketConnector: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  );};
 
 // Real Simulator Component;
 export const RealSimulator: React.FC = () => {
   return (
     <div className="space-y-6" key={501869}>
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
         className="text-center"
        key={472940}>
         <div className="flex justify-center mb-4" key={367379}>
@@ -265,5 +260,8 @@ export const RealSimulator: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  );};
+
+
+
+

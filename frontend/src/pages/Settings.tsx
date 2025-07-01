@@ -1,32 +1,28 @@
-import React, { useState  } from 'react.ts';
-import GlassCard from '@/components/ui/GlassCard.ts';
-import GlowButton from '@/components/ui/GlowButton.ts';
+﻿import React, { useState} from 'react';
+import GlassCard from '@/components/ui/GlassCard';
+import GlowButton from '@/components/ui/GlowButton';
 
 const Settings: React.FC = () => {
   const [settings, setSettings] = useState({
-    notifications: {
-      email: true,
+    notifications: {,`n  email: true,
       push: true,
-      sound: false,
+      sound: false
     },
-    display: {
-      darkMode: true,
-      compactView: false,
+    display: {,`n  darkMode: true,
+      compactView: false
     },
-    betting: {
-      defaultStake: 10,
+    betting: {,`n  defaultStake: 10,
       maxStake: 100,
-      currency: 'USD',
+      currency: 'USD'
     },
-    privacy: {
-      sharePredictions: false,
-      showStats: true,
-    },
+    privacy: {,`n  sharePredictions: false,
+      showStats: true
+    }
   });
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: '',
-    severity: 'success' as 'success' | 'error',
+    severity: 'success' as 'success' | 'error'
   });
 
   const handleNotificationChange = (setting: string) => {
@@ -34,47 +30,41 @@ const Settings: React.FC = () => {
       ...prev,
       notifications: {
         ...prev.notifications,
-        [setting]: !prev.notifications[setting as keyof typeof prev.notifications],
-      },
-    }));
-  };
+        [setting]: !prev.notifications[setting as keyof typeof prev.notifications]
+      }
+    }))};
   const handleDisplayChange = (setting: string) => {
     setSettings(prev => ({
       ...prev,
       display: {
         ...prev.display,
-        [setting]: !prev.display[setting as keyof typeof prev.display],
-      },
-    }));
-  };
+        [setting]: !prev.display[setting as keyof typeof prev.display]
+      }
+    }))};
   const handleBettingChange = (setting: string, value: string | number) => {
     setSettings(prev => ({
       ...prev,
       betting: {
         ...prev.betting,
-        [setting]: value,
-      },
-    }));
-  };
+        [setting]: value
+      }
+    }))};
   const handlePrivacyChange = (setting: string) => {
     setSettings(prev => ({
       ...prev,
       privacy: {
         ...prev.privacy,
-        [setting]: !prev.privacy[setting as keyof typeof prev.privacy],
-      },
-    }));
-  };
+        [setting]: !prev.privacy[setting as keyof typeof prev.privacy]
+      }
+    }))};
   const handleSave = () => {
     setSnackbar({
       open: true,
       message: 'Settings saved successfully',
-      severity: 'success',
-    });
-  };
+      severity: 'success'
+    })};
   const handleCloseSnackbar = () => {
-    setSnackbar(prev => ({ ...prev, open: false }));
-  };
+    setSnackbar(prev => ({ ...prev, open: false}))};
 
   return (
     <div className="p-6 min-h-screen bg-gradient-to-br from-purple-100 to-blue-50 dark:from-gray-900 dark:to-blue-950" key={617347}>
@@ -170,7 +160,10 @@ const Settings: React.FC = () => {
         )}
       </GlassCard>
     </div>
-  );
-};
+  );};
 
 export default Settings;
+
+
+
+`

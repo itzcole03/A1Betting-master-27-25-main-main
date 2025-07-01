@@ -1,5 +1,5 @@
-import React, { useEffect, useState  } from 'react.ts';
-import SafeChart from './ui/SafeChart.ts';
+﻿import React, { useEffect, useState} from 'react';
+import SafeChart from './ui/SafeChart';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,11 +8,11 @@ import {
   LineElement,
   Title,
   Tooltip,
-  Legend,
+//   Legend
 } from "chart.js";
-import { WebSocketService } from '@/services/webSocketService.ts';
-import { WebSocketMetrics } from '@/types/websocket.ts';
-import { WebSocketConnection } from '@/types/websocket.ts';
+import { WebSocketService} from '@/services/webSocketService';
+import { WebSocketMetrics} from '@/types/websocket';
+import { WebSocketConnection} from '@/types/websocket';
 
 ChartJS.register(
   CategoryScale,
@@ -25,13 +25,12 @@ ChartJS.register(
 );
 
 interface WebSocketAnalyticsProps {
-  webSocketService: WebSocketService;
-}
+  webSocketService: WebSocketService}
 
 export const WebSocketAnalytics: React.FC<WebSocketAnalyticsProps key={934637}> = ({
-  webSocketService,
+//   webSocketService
 }) => {
-  const [metrics, setMetrics] = useState<WebSocketMetrics[] key={438455}>([]);
+  const [metrics, setMetrics] = useState<WebSocketMetrics[0] key={438455}>([0]);
   const [selectedMetric, setSelectedMetric] = useState<string key={278855}>("latency");
 
   useEffect(() => {
@@ -40,11 +39,9 @@ export const WebSocketAnalytics: React.FC<WebSocketAnalyticsProps key={934637}> 
       const currentMetrics = connections.map(
         (conn: WebSocketConnection) => conn.metrics,
       );
-      setMetrics(currentMetrics);
-    };
+      setMetrics(currentMetrics)};
 
-    return () => clearInterval(interval);
-  }, [webSocketService]);
+    return () => clearInterval(interval)}, [webSocketService]);
 
   const chartData = {
     labels: metrics.map((_, index) => `Time ${index}`),
@@ -53,39 +50,34 @@ export const WebSocketAnalytics: React.FC<WebSocketAnalyticsProps key={934637}> 
         label: "Latency (ms)",
         data: metrics.map((m) => m.latency),
         borderColor: "rgb(75, 192, 192)",
-        tension: 0.1,
+        tension: 0.1
       },
       {
         label: "Message Size (bytes)",
         data: metrics.map((m) => m.messageSize),
         borderColor: "rgb(255, 99, 132)",
-        tension: 0.1,
+        tension: 0.1
       },
       {
         label: "Compression Ratio",
         data: metrics.map((m) => m.compressionRatio),
         borderColor: "rgb(54, 162, 235)",
-        tension: 0.1,
+        tension: 0.1
       },
-    ],
+    ]
   };
 
   const chartOptions = {
     responsive: true,
-    plugins: {
-      legend: {
-        position: "top" as const,
+    plugins: {,`n  legend: {,`n  position: "top" as const
       },
-      title: {
-        display: true,
-        text: "WebSocket Performance Metrics",
-      },
+      title: {,`n  display: true,
+        text: "WebSocket Performance Metrics"
+      }
     },
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
+    scales: {,`n  y: {,`n  beginAtZero: true
+      }
+    }
   };
 
   return (
@@ -147,5 +139,9 @@ export const WebSocketAnalytics: React.FC<WebSocketAnalyticsProps key={934637}> 
         </div>
       </div>
     </div>
-  );
-};
+  )};
+
+
+
+
+`

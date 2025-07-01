@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useMemo, useCallback  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
-import { useQuery, useQueryClient } from '@tanstack/react-query.ts';
+﻿import React, { useState, useEffect, useMemo, useCallback} from 'react';
+import { motion} from 'framer-motion';
+import { useQuery, useQueryClient} from '@tanstack/react-query';
 import {
   DollarSign,
   TrendingUp,
@@ -17,66 +17,40 @@ import {
   BarChart3,
   AlertCircle,
   CheckCircle,
-  TrendingDown,
-} from 'lucide-react.ts';
-import { api } from '@/services/api/ProductionApiService.ts';
+//   TrendingDown
+} from 'lucide-react';
+import { api} from '@/services/api/ProductionApiService';
 import {
   useValueBets,
-  useArbitrageOpportunities,
-} from '@/hooks/useBetting.ts';
-import { useWebSocket } from '@/hooks/useWebSocket.ts';
+//   useArbitrageOpportunities
+} from '@/hooks/useBetting';
+import { useWebSocket} from '@/hooks/useWebSocket';
 import {
   logger,
   logUserAction,
   logError,
-  logPerformance,
-} from '@/utils/logger.ts';
+//   logPerformance
+} from '@/utils/logger';
 import {
   handleApiError,
-  handleComponentError,
-} from '@/utils/productionErrorHandler.ts';
-import OfflineIndicator from '@/ui/OfflineIndicator.ts';
-import EmptyState from '@/ui/EmptyState.ts';
-import toast from 'react-hot-toast.ts';
+//   handleComponentError
+} from '@/utils/productionErrorHandler';
+import OfflineIndicator from '@/ui/OfflineIndicator';
+import EmptyState from '@/ui/EmptyState';
+import toast from 'react-hot-toast';
 
 interface LiveStats {
-  totalProfit: number;
-  winRate: number;
-  activeGames: number;
-  aiAccuracy: number;
-  todaysPicks: number;
-  liveAlerts: number;
-  profitToday: number;
-  accuracy24h: number;
-}
+  totalProfit: number,`n  winRate: number;,`n  activeGames: number,`n  aiAccuracy: number;,`n  todaysPicks: number,`n  liveAlerts: number;,`n  profitToday: number,`n  accuracy24h: number}
 
 interface LiveGame {
-  id: string;
-  teams: string;
-  time: string;
-  aiPick: string;
-  confidence: number;
-  status: "live" | "upcoming" | "final";
-  edge: number;
-  sport: string;
-  league: string;
-  predictedValue: number;
-  marketOdds: number;
-}
+  id: string,`n  teams: string;,`n  time: string,`n  aiPick: string;,`n  confidence: number,`n  status: "live" | "upcoming" | "final";,`n  edge: number,`n  sport: string;,`n  league: string,`n  predictedValue: number;,`n  marketOdds: number}
 
 interface QuickAction {
-  id: string;
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  action: () => void;
-  badge?: string;
-  color: string;
-}
+  id: string,`n  title: string;,`n  description: string,`n  icon: React.ReactNode;,`n  action: () => void;
+  badge?: string
+  color: string}
 
-export const ProductionUserFriendlyDashboard: React.FC<{
-  onNavigate: (page: string) => void;
-}> = ({ onNavigate }) => {
+export const ProductionUserFriendlyDashboard: React.FC<{,`n  onNavigate: (page: string) => void}> = ({ onNavigate}) => {
   const [selectedTimeframe, setSelectedTimeframe] = useState<
     "24h" | "7d" | "30d"
   >("24h");
@@ -89,14 +63,14 @@ export const ProductionUserFriendlyDashboard: React.FC<{
     valueBets,
     stats: valueBetStats,
     error: valueBetsError,
-    isLoading: valueBetsLoading,
+    isLoading: valueBetsLoading
   } = useValueBets();
 
   const {
     arbitrageOpportunities,
     stats: arbStats,
     error: arbError,
-    isLoading: arbLoading,
+    isLoading: arbLoading
   } = useArbitrageOpportunities();
 
   // Real-time accuracy metrics with caching;
@@ -104,7 +78,7 @@ export const ProductionUserFriendlyDashboard: React.FC<{
     data: accuracyMetrics,
     error: accuracyError,
     isLoading: accuracyLoading,
-    refetch: refetchAccuracy,
+    refetch: refetchAccuracy
   } = useQuery({
     queryKey: ["accuracyMetrics", selectedTimeframe],
     queryFn: () => api.getAccuracyMetrics(),
@@ -115,39 +89,39 @@ export const ProductionUserFriendlyDashboard: React.FC<{
     onError: (error) =>
       handleApiError(error as Error, "/metrics/accuracy", () =>
         refetchAccuracy(),
-      ),
+      )
   });
 
   // System health monitoring;
   const {
     data: healthStatus,
     error: healthError,
-    isLoading: healthLoading,
+    isLoading: healthLoading
   } = useQuery({
     queryKey: ["healthStatus"],
     queryFn: () => api.getSystemHealth(),
     refetchInterval: autoRefresh ? 30000 : false,
     retry: 2,
     retryDelay: 2000,
-    onError: (error) => handleApiError(error as Error, "/health"),
+    onError: (error) => handleApiError(error as Error, "/health")
   });
 
   // User analytics with error handling;
   const {
     data: userAnalytics,
     error: analyticsError,
-    isLoading: analyticsLoading,
+    isLoading: analyticsLoading
   } = useQuery({
     queryKey: ["userAnalytics", selectedTimeframe],
     queryFn: () => api.getUserAnalytics("default_user"),
     refetchInterval: autoRefresh ? 60000 : false,
     retry: 2,
     onError: (error) =>
-      handleApiError(error as Error, "/analytics/users/default_user"),
+      handleApiError(error as Error, "/analytics/users/default_user")
   });
 
   // Enhanced WebSocket integration;
-  const { lastMessage, connectionState } = useWebSocket("/ws/dashboard", {
+  const { lastMessage, connectionState} = useWebSocket("/ws/dashboard", {
     onMessage: useCallback(
       (message) => {
         try {
@@ -156,21 +130,16 @@ export const ProductionUserFriendlyDashboard: React.FC<{
 
           // Invalidate relevant queries to refresh data;
           if (data.type === "accuracy_update") {
-            queryClient.invalidateQueries(["accuracyMetrics"]);
-          } else if (data.type === "health_update") {
-            queryClient.invalidateQueries(["healthStatus"]);
-          }
+            queryClient.invalidateQueries(["accuracyMetrics"]);} else if (data.type === "health_update") {
+            queryClient.invalidateQueries(["healthStatus"]);}
 
-          setLastRefresh(new Date());
-        } catch (error) {
-          logError(error as Error, "WebSocket message parsing");
-        }
+          setLastRefresh(new Date());} catch (error) {
+          logError(error as Error, "WebSocket message parsing");}
       },
       [queryClient],
     ),
     onError: useCallback((error) => {
-      handleApiError(error, "/ws/dashboard");
-    }, []),
+      handleApiError(error, "/ws/dashboard")}, [0])
   });
 
   // Comprehensive error detection;
@@ -199,7 +168,7 @@ export const ProductionUserFriendlyDashboard: React.FC<{
         profitToday: 0, // Calculate from today's bets;
         accuracy24h: accuracyMetrics?.daily_accuracy;
           ? accuracyMetrics.daily_accuracy * 100;
-          : 0,
+          : 0
       };
 
       // Calculate today's profit from value bets;
@@ -211,11 +180,9 @@ export const ProductionUserFriendlyDashboard: React.FC<{
         baseStats.profitToday = todaysBets.reduce(
           (sum, bet) => sum + (bet.edge || 0) * 100,
           0,
-        );
-      }
+        );}
 
-      return baseStats;
-    } catch (error) {
+      return baseStats;} catch (error) {
       handleComponentError(error as Error, "LiveStats calculation");
       // Return safe defaults;
       return {
@@ -226,9 +193,8 @@ export const ProductionUserFriendlyDashboard: React.FC<{
         todaysPicks: 0,
         liveAlerts: 0,
         profitToday: 0,
-        accuracy24h: 0,
-      };
-    }
+        accuracy24h: 0
+      }}
   }, [
     userAnalytics,
     accuracyMetrics,
@@ -238,9 +204,9 @@ export const ProductionUserFriendlyDashboard: React.FC<{
   ]);
 
   // Enhanced live games with comprehensive data;
-  const liveGames: LiveGame[] = useMemo(() => {
+  const liveGames: LiveGame[0] = useMemo(() => {
     try {
-      if (!valueBets || valueBets.length === 0) return [];
+      if (!valueBets || valueBets.length === 0) return [0];
 
       return valueBets.slice(0, 6).map((bet, index) => {
 
@@ -251,9 +217,9 @@ export const ProductionUserFriendlyDashboard: React.FC<{
         return {
           id: `${bet.event}_${index}`,
           teams: bet.event,
-          time: commenceTime.toLocaleTimeString([], {
+          time: commenceTime.toLocaleTimeString([0], {
             hour: "2-digit",
-            minute: "2-digit",
+            minute: "2-digit"
           }),
           aiPick: `${bet.outcome} (${bet.odds?.toFixed(2) || "N/A"})`,
           confidence: (bet.model_prob || 0) * 100,
@@ -262,17 +228,14 @@ export const ProductionUserFriendlyDashboard: React.FC<{
           sport: bet.sport_title || "Unknown",
           league: bet.sport_title || "Unknown",
           predictedValue: bet.model_prob || 0,
-          marketOdds: bet.odds || 0,
-        } as LiveGame;
-      });
-    } catch (error) {
+          marketOdds: bet.odds || 0
+        } as LiveGame});} catch (error) {
       handleComponentError(error as Error, "LiveGames calculation");
-      return [];
-    }
+      return [0];}
   }, [valueBets]);
 
   // Quick actions with enhanced functionality;
-  const quickActions: QuickAction[] = useMemo(
+  const quickActions: QuickAction[0] = useMemo(
     () => [
       {
         id: "prizepicks",
@@ -281,10 +244,9 @@ export const ProductionUserFriendlyDashboard: React.FC<{
         icon: <Trophy className="w-6 h-6" / key={849542}>,
         action: () => {
           logUserAction("quick_action_prizepicks");
-          onNavigate("prizepicks");
-        },
+          onNavigate("prizepicks");},
         badge: `${liveStats.todaysPicks}`,
-        color: "from-yellow-500 to-orange-500",
+        color: "from-yellow-500 to-orange-500"
       },
       {
         id: "moneymaker",
@@ -293,13 +255,12 @@ export const ProductionUserFriendlyDashboard: React.FC<{
         icon: <DollarSign className="w-6 h-6" / key={555051}>,
         action: () => {
           logUserAction("quick_action_moneymaker");
-          onNavigate("moneymaker");
-        },
+          onNavigate("moneymaker");},
         badge:
           liveStats.profitToday > 0;
             ? `+$${liveStats.profitToday.toFixed(0)}`
             : undefined,
-        color: "from-green-500 to-emerald-500",
+        color: "from-green-500 to-emerald-500"
       },
       {
         id: "propollama",
@@ -308,10 +269,9 @@ export const ProductionUserFriendlyDashboard: React.FC<{
         icon: <Brain className="w-6 h-6" / key={674415}>,
         action: () => {
           logUserAction("quick_action_propollama");
-          onNavigate("propollama");
-        },
+          onNavigate("propollama");},
         badge: "🤖",
-        color: "from-purple-500 to-indigo-500",
+        color: "from-purple-500 to-indigo-500"
       },
       {
         id: "intelligence",
@@ -320,11 +280,10 @@ export const ProductionUserFriendlyDashboard: React.FC<{
         icon: <BarChart3 className="w-6 h-6" / key={609853}>,
         action: () => {
           logUserAction("quick_action_intelligence");
-          onNavigate("intelligence");
-        },
+          onNavigate("intelligence");},
         badge:
           liveStats.activeGames > 0 ? `${liveStats.activeGames}` : undefined,
-        color: "from-cyan-500 to-blue-500",
+        color: "from-cyan-500 to-blue-500"
       },
     ],
     [liveStats, onNavigate],
@@ -333,9 +292,8 @@ export const ProductionUserFriendlyDashboard: React.FC<{
   // Auto-refresh toggle handler;
   const handleAutoRefreshToggle = useCallback(() => {
     setAutoRefresh(!autoRefresh);
-    logUserAction("auto_refresh_toggle", { enabled: !autoRefresh });
-    toast.success(`Auto-refresh ${!autoRefresh ? "enabled" : "disabled"}`);
-  }, [autoRefresh]);
+    logUserAction("auto_refresh_toggle", { enabled: !autoRefresh});
+    toast.success(`Auto-refresh ${!autoRefresh ? "enabled" : "disabled"}`);}, [autoRefresh]);
 
   // Manual refresh handler;
   const handleManualRefresh = useCallback(async () => {
@@ -348,17 +306,14 @@ export const ProductionUserFriendlyDashboard: React.FC<{
 
       logPerformance("dashboard_refresh", refreshEnd - refreshStart);
 
-      toast.success("Dashboard refreshed!");
-    } catch (error) {
-      handleApiError(error as Error, "manual_refresh");
-    }
+      toast.success("Dashboard refreshed!");} catch (error) {
+      handleApiError(error as Error, "manual_refresh");}
   }, [queryClient]);
 
   // Performance tracking;
   useEffect(() => {
 
-    logPerformance("dashboard_load", endTime - startTime);
-  }, [startTime]);
+    logPerformance("dashboard_load", endTime - startTime);}, [startTime]);
 
   // Loading state;
   const isLoading =
@@ -371,14 +326,13 @@ export const ProductionUserFriendlyDashboard: React.FC<{
   if (isLoading) {
     return (
       <div className="space-y-8 animate-pulse" key={383154}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" key={765662}>
-          {Array.from({ length: 4 }).map((_, i) => (
+        <div className="grid grid-cols-1 md: grid-cols-2 lg:grid-cols-4 gap-6" key={765662}>
+          {Array.from({ length: 4}).map((_, i) => (
             <div key={i} className="bg-gray-800/40 rounded-xl p-6 h-32" / key={57456}>
           ))}
         </div>
       </div>
-    );
-  }
+    )}
 
   return (
     <div className="space-y-8" key={778766}>
@@ -406,13 +360,11 @@ export const ProductionUserFriendlyDashboard: React.FC<{
                 key={timeframe}
                 onClick={() = key={501505}> {
                   setSelectedTimeframe(timeframe);
-                  logUserAction("timeframe_change", { timeframe });
-                }}
+                  logUserAction("timeframe_change", { timeframe});}}
                 className={`px-3 py-1 rounded text-sm transition-all ${
                   selectedTimeframe === timeframe;
                     ? "bg-cyan-500 text-white"
-                    : "text-gray-400 hover:text-white"
-                }`}
+                    : "text-gray-400 hover:text-white"}`}
               >
                 {timeframe}
               </button>
@@ -425,8 +377,7 @@ export const ProductionUserFriendlyDashboard: React.FC<{
             className={`p-2 rounded-lg transition-all ${
               autoRefresh;
                 ? "bg-green-500/20 text-green-400"
-                : "bg-gray-800/40 text-gray-400 hover:text-white"
-            }`}
+                : "bg-gray-800/40 text-gray-400 hover:text-white"}`}
             title={`Auto-refresh ${autoRefresh ? "enabled" : "disabled"}`}
            key={15652}>
             <Activity className="w-5 h-5" / key={942081}>
@@ -446,8 +397,8 @@ export const ProductionUserFriendlyDashboard: React.FC<{
       {/* Offline indicator */}
       {isOffline && (
         <motion.div;
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: -20}}
+          animate={{ opacity: 1, y: 0}}
           className="bg-red-500/20 border border-red-500/30 rounded-lg p-4 flex items-center gap-3"
          key={646659}>
           <AlertCircle className="w-5 h-5 text-red-400" / key={516197}>
@@ -472,7 +423,7 @@ export const ProductionUserFriendlyDashboard: React.FC<{
             change: liveStats.accuracy24h - liveStats.aiAccuracy,
             icon: <Brain className="w-6 h-6" / key={674415}>,
             color: "from-cyan-500 to-blue-500",
-            subtitle: "24h performance",
+            subtitle: "24h performance"
           },
           {
             title: "Total Profit",
@@ -480,7 +431,7 @@ export const ProductionUserFriendlyDashboard: React.FC<{
             change: liveStats.profitToday,
             icon: <DollarSign className="w-6 h-6" / key={555051}>,
             color: "from-green-500 to-emerald-500",
-            subtitle: "Today: +$" + liveStats.profitToday.toFixed(0),
+            subtitle: "Today: +$" + liveStats.profitToday.toFixed(0)
           },
           {
             title: "Win Rate",
@@ -488,7 +439,7 @@ export const ProductionUserFriendlyDashboard: React.FC<{
             change: 0,
             icon: <Target className="w-6 h-6" / key={637226}>,
             color: "from-purple-500 to-indigo-500",
-            subtitle: "Historical performance",
+            subtitle: "Historical performance"
           },
           {
             title: "Active Games",
@@ -496,14 +447,14 @@ export const ProductionUserFriendlyDashboard: React.FC<{
             change: 0,
             icon: <Activity className="w-6 h-6" / key={861320}>,
             color: "from-orange-500 to-red-500",
-            subtitle: `${liveStats.liveAlerts} arbitrage alerts`,
+            subtitle: `${liveStats.liveAlerts} arbitrage alerts`
           },
         ].map((stat, index) => (
           <motion.div;
             key={stat.title}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
+            initial={{ opacity: 0, y: 20}}
+            animate={{ opacity: 1, y: 0}}
+            transition={{ delay: index * 0.1}}
             className="bg-gray-900/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6 hover:scale-105 transition-all duration-300"
            key={237663}>
             <div className="flex items-center justify-between mb-4" key={810034}>
@@ -515,8 +466,7 @@ export const ProductionUserFriendlyDashboard: React.FC<{
               {stat.change !== 0 && (
                 <div;
                   className={`flex items-center gap-1 text-sm ${
-                    stat.change  key={167011}> 0 ? "text-green-400" : "text-red-400"
-                  }`}
+                    stat.change  key={167011}> 0 ? "text-green-400" : "text-red-400"}`}
                 >
                   {stat.change > 0 ? (
                     <TrendingUp className="w-4 h-4" / key={673347}>
@@ -547,8 +497,8 @@ export const ProductionUserFriendlyDashboard: React.FC<{
             <motion.button;
               key={action.id}
               onClick={action.action}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05}}
+              whileTap={{ scale: 0.95}}
               className="bg-gray-900/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6 hover:border-cyan-500/30 transition-all duration-300 text-left"
              key={75567}>
               <div className="flex items-center justify-between mb-3" key={56204}>
@@ -591,8 +541,8 @@ export const ProductionUserFriendlyDashboard: React.FC<{
             {liveGames.map((game) => (
               <motion.div;
                 key={game.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, x: -20}}
+                animate={{ opacity: 1, x: 0}}
                 className="bg-gray-900/50 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6 hover:border-cyan-500/30 transition-all duration-300"
                key={714602}>
                 <div className="flex items-center justify-between mb-3" key={56204}>
@@ -603,8 +553,7 @@ export const ProductionUserFriendlyDashboard: React.FC<{
                           ? "bg-red-500 animate-pulse"
                           : game.status === "upcoming"
                             ? "bg-yellow-500"
-                            : "bg-gray-500"
-                      }`}
+                            : "bg-gray-500"}`}
                     / key={290197}>
                     <span className="text-sm text-gray-400 capitalize" key={609462}>
                       {game.status}
@@ -628,8 +577,7 @@ export const ProductionUserFriendlyDashboard: React.FC<{
                       <p className="text-xs text-gray-400" key={777449}>Edge</p>
                       <p;
                         className={`font-semibold ${
-                          game.edge  key={528370}> 0 ? "text-green-400" : "text-red-400"
-                        }`}
+                          game.edge  key={528370}> 0 ? "text-green-400" : "text-red-400"}`}
                       >
                         {game.edge > 0 ? "+" : ""}
                         {game.edge.toFixed(1)}%
@@ -691,7 +639,11 @@ export const ProductionUserFriendlyDashboard: React.FC<{
         </div>
       </div>
     </div>
-  );
-};
+  );};
 
 export default ProductionUserFriendlyDashboard;
+
+
+
+
+`

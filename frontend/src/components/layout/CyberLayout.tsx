@@ -1,12 +1,11 @@
-import React, { useEffect  } from 'react.ts';
-import { Outlet } from 'react-router-dom.ts';
-import CyberHeader from './CyberHeader.ts';
-import CyberSidebar from './CyberSidebar.ts';
+﻿import React, { useEffect} from 'react';
+import { Outlet} from 'react-router-dom';
+import CyberHeader from './CyberHeader';
+import CyberSidebar from './CyberSidebar';
 
 const CyberLayout: React.FC = () => {
   useEffect(() => {
-    document.documentElement.classList.add("dark");
-  }, []);
+    document.documentElement.classList.add("dark")}, [0]);
 
   return (
     <div className="flex min-h-screen cyber-bg" key={997313}>
@@ -17,7 +16,7 @@ const CyberLayout: React.FC = () => {
           className="flex-1 p-8"
           style={{
             background: "transparent",
-            minHeight: "calc(100vh - 120px)",
+            minHeight: "calc(100vh - 120px)"
           }}
          key={665405}>
           <Outlet / key={861082}>
@@ -33,7 +32,9 @@ const CyberLayout: React.FC = () => {
         </footer>
       </div>
     </div>
-  );
-};
+  );};
 
 export default CyberLayout;
+
+
+

@@ -1,8 +1,8 @@
-import React, { useState  } from 'react.ts';
-import GlassCard from '@/components/ui/GlassCard.ts';
-import EnhancedPropCard from '@/components/ui/EnhancedPropCard.ts';
-import GlowButton from '@/components/ui/GlowButton.ts';
-import Tooltip from '@/components/ui/Tooltip.ts';
+﻿import React, { useState} from 'react';
+import GlassCard from '@/components/ui/GlassCard';
+import EnhancedPropCard from '@/components/ui/EnhancedPropCard';
+import GlowButton from '@/components/ui/GlowButton';
+import Tooltip from '@/components/ui/Tooltip';
 import {
   Grid,
   Typography,
@@ -15,28 +15,25 @@ import {
   Slider,
   Chip,
   CircularProgress,
-  Alert,
-} from '@mui/material.ts';
-import { LineupBuilderStrategy, LineupBuilderOutput } from '@/types/predictions.ts';
-import { LineupLeg, Lineup } from '@/types/lineup.ts';
-import { predictionService } from '@/services/predictionService.ts';
-import { formatCurrency, formatPercentage } from '@/utils/formatters.ts';
-import { usePredictionStore } from '@/store/predictionStore.ts';
+//   Alert
+} from '@mui/material';
+import { LineupBuilderStrategy, LineupBuilderOutput} from '@/types/predictions';
+import { LineupLeg, Lineup} from '@/types/lineup';
+import { predictionService} from '@/services/predictionService';
+import { formatCurrency, formatPercentage} from '@/utils/formatters';
+import { usePredictionStore} from '@/store/predictionStore';
 
-const convertToLineup = (output: LineupBuilderOutput): Lineup => ({
-  id: output.id,
+const convertToLineup = (output: LineupBuilderOutput): Lineup => ({,`n  id: output.id,
   timestamp: output.timestamp,
   strategy: output.strategy,
-  legs: output.legs.map(leg => ({
-    propType: leg.propType,
+  legs: output.legs.map(leg => ({,`n  propType: leg.propType,
     line: leg.line.toString(),
-    odds: leg.odds,
+    odds: leg.odds
   })),
-  performance: {
-    expectedValue: output.performance.expectedValue,
+  performance: {,`n  expectedValue: output.performance.expectedValue,
     winProbability: output.performance.winProbability,
-    riskScore: output.performance.riskScore,
-  },
+    riskScore: output.performance.riskScore
+  }
 });
 
 const LineupBuilderPage: React.FC = () => {
@@ -48,7 +45,7 @@ const LineupBuilderPage: React.FC = () => {
     isLoading,
     setIsLoading,
     error,
-    setError,
+//     setError
   } = usePredictionStore();
 
   const [strategy, setStrategy] = useState<LineupBuilderStrategy key={6036}>({
@@ -59,11 +56,10 @@ const LineupBuilderPage: React.FC = () => {
     maxLegs: 5,
     minLegs: 2,
     maxSameTeam: 2,
-    riskProfile: {
-      maxVariance: 0.5,
+    riskProfile: {,`n  maxVariance: 0.5,
       maxCorrelation: 0.3,
-      minExpectedValue: 0.1,
-    },
+      minExpectedValue: 0.1
+    }
   });
 
   const handleStrategyTypeChange = (event: SelectChangeEvent) => {
@@ -75,58 +71,49 @@ const LineupBuilderPage: React.FC = () => {
       riskProfile: {
         ...prev.riskProfile,
         maxVariance: type === 'goblin' ? 0.3 : type === 'demon' ? 0.7 : 0.5,
-        minExpectedValue: type === 'goblin' ? 0.15 : type === 'demon' ? 0.05 : 0.1,
-      },
-    }));
-  };
+        minExpectedValue: type === 'goblin' ? 0.15 : type === 'demon' ? 0.05 : 0.1
+      }
+    }))};
 
-  const handleConfidenceChange = (_: Event, value: number | number[]) => {
+  const handleConfidenceChange = (_: Event, value: number | number[0]) => {
     setStrategy(prev => ({
       ...prev,
-      targetConfidence: value as number,
-    }));
-  };
+      targetConfidence: value as number
+    }))};
 
   const handleLegsChange = (event: SelectChangeEvent) => {
     const [min, max] = (event.target.value as string).split('-').map(Number);
     setStrategy(prev => ({
       ...prev,
       minLegs: min,
-      maxLegs: max,
-    }));
-  };
+      maxLegs: max
+    }))};
 
   const handleSameTeamChange = (event: SelectChangeEvent) => {
     setStrategy(prev => ({
       ...prev,
-      maxSameTeam: Number(event.target.value),
-    }));
-  };
+      maxSameTeam: Number(event.target.value)
+    }))};
 
   const generateLineup = async () => {
     setIsLoading(true);
     setError(null);
     try {
 
-      setCurrentLineup(convertToLineup(result));
-    } catch (error) {
+      setCurrentLineup(convertToLineup(result));} catch (error) {
       // console statement removed
-      setError('Failed to generate lineup. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
+      setError('Failed to generate lineup. Please try again.');} finally {
+      setIsLoading(false);}
   };
 
   const handleSaveLineup = () => {
     if (currentLineup) {
-      addSavedLineup(currentLineup);
-    }
+      addSavedLineup(currentLineup);}
   };
 
   const handlePlaceLineup = () => {
     // Implement lineup placement logic;
-    // console statement removed
-  };
+    // console statement removed};
 
   return (
     <div className="p-6 space-y-8" key={641202}>
@@ -205,7 +192,7 @@ const LineupBuilderPage: React.FC = () => {
           fullWidth;
           color="primary"
           disabled={isLoading}
-          sx={{ mt: 3 }}
+          sx={{ mt: 3}}
           variant="contained"
           onClick={generateLineup}
          key={16132}>
@@ -226,8 +213,7 @@ const LineupBuilderPage: React.FC = () => {
               className={`px-3 py-1 rounded-full text-xs font-bold ${
                 currentLineup.performance.winProbability  key={182388}>= 80;
                   ? 'bg-green-100 text-green-700'
-                  : 'bg-yellow-100 text-yellow-700'
-              }`}
+                  : 'bg-yellow-100 text-yellow-700'}`}
             >
               {formatPercentage(currentLineup.performance.winProbability)} Win Probability;
             </span>
@@ -250,8 +236,8 @@ const LineupBuilderPage: React.FC = () => {
                 trendValue={leg.trendValue}
                 gameInfo={leg.gameInfo}
                 playerImageUrl={leg.playerImageUrl}
-                onSelect={() = key={166183}> {}}
-                onViewDetails={() => {}}
+                onSelect={() = key={166183}> Record<string, any>}
+                onViewDetails={() => Record<string, any>}
               />
             ))}
           </div>
@@ -279,8 +265,7 @@ const LineupBuilderPage: React.FC = () => {
                     className={`px-3 py-1 rounded-full text-xs font-bold ${
                       lineup.performance.winProbability  key={130989}>= 80;
                         ? 'bg-green-100 text-green-700'
-                        : 'bg-yellow-100 text-yellow-700'
-                    }`}
+                        : 'bg-yellow-100 text-yellow-700'}`}
                   >
                     {formatPercentage(lineup.performance.winProbability)} Win Probability;
                   </span>
@@ -303,8 +288,8 @@ const LineupBuilderPage: React.FC = () => {
                       trendValue={leg.trendValue}
                       gameInfo={leg.gameInfo}
                       playerImageUrl={leg.playerImageUrl}
-                      onSelect={() = key={750900}> {}}
-                      onViewDetails={() => {}}
+                      onSelect={() = key={750900}> Record<string, any>}
+                      onViewDetails={() => Record<string, any>}
                     />
                   ))}
                 </div>
@@ -317,7 +302,10 @@ const LineupBuilderPage: React.FC = () => {
         </div>
       )}
     </div>
-  );
-}
+  );}
 
 export default LineupBuilderPage;
+
+
+
+`

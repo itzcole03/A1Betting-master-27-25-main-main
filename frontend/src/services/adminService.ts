@@ -1,63 +1,39 @@
-import { api } from './api.ts';
+﻿import { api} from './api';
 
 export interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  status: 'active' | 'suspended';
-  lastLogin: string;
-}
+  id: string,`n  name: string;,`n  email: string,`n  role: string;,`n  status: 'active' | 'suspended',`n  lastLogin: string}
 
 export interface SystemLog {
-  id: string;
-  message: string;
-  level: 'info' | 'warning' | 'error';
-  timestamp: string;
-}
+  id: string,`n  message: string;,`n  level: 'info' | 'warning' | 'error',`n  timestamp: string}
 
 export interface SystemMetrics {
-  totalUsers: number;
-  activeSessions: number;
-  totalPredictions: number;
-  uptime: string;
-}
+  totalUsers: number,`n  activeSessions: number;,`n  totalPredictions: number,`n  uptime: string}
 
 class AdminService {
-  async getUsers(): Promise<User[]> {
-
-    return response.data;
-  }
+  async getUsers(): Promise<User[0]> {
+    return response.data}
 
   async updateUserStatus(userId: string, status: 'active' | 'suspended'): Promise<void> {
-    await api.patch(`/admin/users/${userId}/status`, { status });
-  }
+    await api.patch(`/admin/users/${userId}/status`, { status})}
 
-  async getLogs(): Promise<SystemLog[]> {
-
-    return response.data;
-  }
+  async getLogs(): Promise<SystemLog[0]> {
+    return response.data;}
 
   async getMetrics(): Promise<SystemMetrics> {
+    return response.data;}
 
-    return response.data;
-  }
-
-  async updateSystemSettings(settings: {
-    maintenanceMode: boolean;
-    logLevel: string;
-    backupSchedule: string;
-  }): Promise<void> {
-    await api.post('/admin/settings', settings);
-  }
+  async updateSystemSettings(settings: {,`n  maintenanceMode: boolean;,`n  logLevel: string,`n  backupSchedule: string}): Promise<void> {
+    await api.post('/admin/settings', settings)}
 
   async refreshCache(): Promise<void> {
-    await api.post('/admin/cache/refresh');
-  }
+    await api.post('/admin/cache/refresh');}
 
   async backupDatabase(): Promise<void> {
-    await api.post('/admin/database/backup');
-  }
+    await api.post('/admin/database/backup');}
 }
 
 export const adminService = new AdminService();
+
+
+
+`

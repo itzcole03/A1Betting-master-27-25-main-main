@@ -11,13 +11,9 @@
       {{ error.message }}
     </div>
 
-    <div v-if="!isConnected" class="loading">
-      Connecting to live updates...
-    </div>
+    <div v-if="!isConnected" class="loading">Connecting to live updates...</div>
 
-    <div v-else-if="messages.length === 0" class="no-matches">
-      No live matches at the moment
-    </div>
+    <div v-else-if="messages.length === 0" class="no-matches">No live matches at the moment</div>
 
     <div v-else class="matches-grid">
       <div v-for="match in currentMatches" :key="match.id" class="match-card">
@@ -67,14 +63,14 @@ interface Match {
 }
 
 const { isConnected, messages, error } = useWebSocket('live_matches', {
-  onMessage: (message) => {
+  onMessage: message => {
     console.log('Received live match update:', message);
   },
 });
 
 const currentMatches = computed(() => {
   if (messages.value.length === 0) return [];
-  
+
   // Get the latest message
   const latestMessage = messages.value[messages.value.length - 1];
   return latestMessage.data as Match[];
@@ -207,4 +203,4 @@ const subscribeToMatch = (matchId: string) => {
 .subscribe-btn:hover {
   background-color: #2563eb;
 }
-</style> 
+</style>

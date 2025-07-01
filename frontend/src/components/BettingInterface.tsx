@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+﻿import React, { useState, useEffect} from 'react'
+import { motion} from 'framer-motion'
 import {
   DollarSign,
   Target,
@@ -8,60 +8,34 @@ import {
   Star,
   Filter,
   Search,
-  RefreshCw,
+//   RefreshCw
 } from 'lucide-react';
 
 interface Match {
-  id: number;
-  homeTeam: string;
-  awayTeam: string;
-  sport: string;
-  league: string;
-  startTime: string;
-  status: 'scheduled' | 'live' | 'finished';
-}
+  id: number,`n  homeTeam: string;,`n  awayTeam: string,`n  sport: string;,`n  league: string,`n  startTime: string;,`n  status: 'scheduled' | 'live' | 'finished'}
 
 interface Odds {
-  id: number;
-  matchId: number;
-  bookmaker: string;
-  marketType: string;
-  homeOdds: number;
-  awayOdds: number;
-  drawOdds?: number;
+  id: number,`n  matchId: number;,`n  bookmaker: string,`n  marketType: string;,`n  homeOdds: number,`n  awayOdds: number;
+  drawOdds?: number
   overUnder?: {
-    line: number;
-    overOdds: number;
-    underOdds: number;
-  };
-}
+    line: number,`n  overOdds: number;,`n  underOdds: number}}
 
 interface NewBet {
-  matchId: number;
-  betType: string;
-  selection: string;
-  stake: number;
-  odds: number;
-}
+  matchId: number,`n  betType: string;,`n  selection: string,`n  stake: number;,`n  odds: number}
 
 interface BetResult {
   success: boolean;
-  betId?: number;
-  message: string;
-}
+  betId?: number
+  message: string}
 
 interface BettingInterfaceProps {
-  availableMatches: Match[];
-  liveOdds: Odds[];
-  onPlaceBet: (bet: NewBet) => Promise<BetResult>;
-  userBalance: number;
-}
+  availableMatches: Match[0],`n  liveOdds: Odds[0];,`n  onPlaceBet: (bet: NewBet) => Promise<BetResult>,`n  userBalance: number}
 
 const BettingInterface: React.FC<BettingInterfaceProps> = ({
   availableMatches,
   liveOdds,
   onPlaceBet,
-  userBalance,
+//   userBalance
 }) => {
   const [selectedMatch, setSelectedMatch] = useState<Match | null>(null);
   const [selectedBetType, setSelectedBetType] = useState<string>('match_winner');
@@ -78,8 +52,7 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
       match.homeTeam.toLowerCase().includes(searchTerm.toLowerCase()) ||
       match.awayTeam.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesSport = selectedSport === 'all' || match.sport === selectedSport;
-    return matchesSearch && matchesSport;
-  });
+    return matchesSearch && matchesSport});
 
   const potentialWinnings = stakeAmount * selectedOdds;
   const profit = potentialWinnings - stakeAmount;
@@ -94,7 +67,7 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
         betType: selectedBetType,
         selection: selectedSelection,
         stake: stakeAmount,
-        odds: selectedOdds,
+        odds: selectedOdds
       });
 
       if (result.success) {
@@ -103,20 +76,15 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
         setSelectedSelection('');
         setSelectedOdds(0);
         setStakeAmount(0);
-        alert(`Bet placed successfully! Bet ID: ${result.betId}`);
-      } else {
-        alert(`Failed to place bet: ${result.message}`);
-      }
+        alert(`Bet placed successfully! Bet ID: ${result.betId}`)} else {
+        alert(`Failed to place bet: ${result.message}`)}
     } catch (error) {
-      alert('An error occurred while placing the bet');
-    } finally {
-      setIsPlacingBet(false);
-    }
+      alert('An error occurred while placing the bet')} finally {
+      setIsPlacingBet(false)}
   };
 
   const getMatchOdds = (matchId: number) => {
-    return liveOdds.filter(odds => odds.matchId === matchId);
-  };
+    return liveOdds.filter(odds => odds.matchId === matchId)};
 
   const sports = ['all', ...new Set(availableMatches.map(match => match.sport))];
 
@@ -126,8 +94,8 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
         {/* Header */}
         <motion.div
           className='mb-8'
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: -20}}
+          animate={{ opacity: 1, y: 0}}
         >
           <h1 className='text-4xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mb-2'>
             Betting Interface
@@ -148,10 +116,8 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
                   <label className='block text-gray-400 text-sm mb-2'>Search Teams</label>
                   <div className='relative'>
                     <Search className='absolute left-3 top-3 w-4 h-4 text-gray-400' />
-                    <input
-                      type='text'
-                      value={searchTerm}
-                      onChange={e => setSearchTerm(e.target.value)}
+                    <input type='text'
+                      value={searchTerm}>`n                      onChange={e => setSearchTerm(e.target.value)}
                       placeholder='Search teams...'
                       className='w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400'
                     />
@@ -159,9 +125,7 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
                 </div>
                 <div>
                   <label className='block text-gray-400 text-sm mb-2'>Sport</label>
-                  <select
-                    value={selectedSport}
-                    onChange={e => setSelectedSport(e.target.value)}
+                  <select value={selectedSport}>`n                    onChange={e => setSelectedSport(e.target.value)}
                     className='w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-yellow-400'
                   >
                     {sports.map(sport => (
@@ -189,12 +153,11 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
                     <motion.div
                       key={match.id}
                       className={`p-4 rounded-lg border transition-all cursor-pointer ${
-                        isSelected
+//                         isSelected
                           ? 'bg-yellow-500/20 border-yellow-500/50'
-                          : 'bg-white/5 border-white/20 hover:bg-white/10'
-                      }`}
+                          : 'bg-white/5 border-white/20 hover:bg-white/10'}`}
                       onClick={() => setSelectedMatch(match)}
-                      whileHover={{ scale: 1.02 }}
+                      whileHover={{ scale: 1.02}}
                     >
                       <div className='flex items-center justify-between mb-2'>
                         <div>
@@ -205,15 +168,12 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
                             {match.league} • {new Date(match.startTime).toLocaleString()}
                           </p>
                         </div>
-                        <span
-                          className={`px-2 py-1 rounded text-xs font-semibold ${
+                        <span className={`px-2 py-1 rounded text-xs font-semibold ${
                             match.status === 'live'
                               ? 'bg-red-500/20 text-red-400'
                               : match.status === 'scheduled'
                                 ? 'bg-green-500/20 text-green-400'
-                                : 'bg-gray-500/20 text-gray-400'
-                          }`}
-                        >
+                                : 'bg-gray-500/20 text-gray-400'}`}>`n                        >
                           {match.status}
                         </span>
                       </div>
@@ -237,8 +197,7 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
                         </div>
                       )}
                     </motion.div>
-                  );
-                })}
+                  )})}
               </div>
             </div>
           </div>
@@ -262,9 +221,7 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
 
                   <div>
                     <label className='block text-gray-400 text-sm mb-2'>Bet Type</label>
-                    <select
-                      value={selectedBetType}
-                      onChange={e => setSelectedBetType(e.target.value)}
+                    <select value={selectedBetType}>`n                      onChange={e => setSelectedBetType(e.target.value)}
                       className='w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-yellow-400'
                     >
                       <option value='match_winner' className='bg-slate-800'>
@@ -274,7 +231,7 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
                         Over/Under
                       </option>
                       <option value='handicap' className='bg-slate-800'>
-                        Handicap
+//                         Handicap
                       </option>
                     </select>
                   </div>
@@ -282,32 +239,26 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
                   <div>
                     <label className='block text-gray-400 text-sm mb-2'>Selection</label>
                     <div className='grid grid-cols-2 gap-2'>
-                      <button
-                        onClick={() => {
+                      <button onClick={() => {
                           setSelectedSelection('home');
-                          setSelectedOdds(getMatchOdds(selectedMatch.id)[0]?.homeOdds || 0);
-                        }}
+                          setSelectedOdds(getMatchOdds(selectedMatch.id)[0]?.homeOdds || 0)}}
                         className={`p-3 rounded-lg border transition-all ${
                           selectedSelection === 'home'
                             ? 'bg-yellow-500/20 border-yellow-500/50 text-yellow-400'
-                            : 'bg-white/5 border-white/20 text-gray-300 hover:bg-white/10'
-                        }`}
+                            : 'bg-white/5 border-white/20 text-gray-300 hover:bg-white/10'}`}
                       >
                         <p className='text-sm'>{selectedMatch.homeTeam}</p>
                         <p className='font-semibold'>
                           {getMatchOdds(selectedMatch.id)[0]?.homeOdds}
                         </p>
                       </button>
-                      <button
-                        onClick={() => {
+                      <button onClick={() => {
                           setSelectedSelection('away');
-                          setSelectedOdds(getMatchOdds(selectedMatch.id)[0]?.awayOdds || 0);
-                        }}
+                          setSelectedOdds(getMatchOdds(selectedMatch.id)[0]?.awayOdds || 0)}}
                         className={`p-3 rounded-lg border transition-all ${
                           selectedSelection === 'away'
                             ? 'bg-yellow-500/20 border-yellow-500/50 text-yellow-400'
-                            : 'bg-white/5 border-white/20 text-gray-300 hover:bg-white/10'
-                        }`}
+                            : 'bg-white/5 border-white/20 text-gray-300 hover:bg-white/10'}`}
                       >
                         <p className='text-sm'>{selectedMatch.awayTeam}</p>
                         <p className='font-semibold'>
@@ -319,18 +270,14 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
 
                   <div>
                     <label className='block text-gray-400 text-sm mb-2'>Stake Amount</label>
-                    <input
-                      type='number'
-                      value={stakeAmount}
-                      onChange={e => setStakeAmount(Number(e.target.value))}
+                    <input type='number'
+                      value={stakeAmount}>`n                      onChange={e => setStakeAmount(Number(e.target.value))}
                       placeholder='Enter stake amount...'
                       className='w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400'
                     />
                     <div className='flex gap-2 mt-2'>
                       {[10, 25, 50, 100].map(amount => (
-                        <button
-                          key={amount}
-                          onClick={() => setStakeAmount(amount)}
+                        <button key={amount}>`n                          onClick={() => setStakeAmount(amount)}
                           className='px-3 py-1 bg-white/10 border border-white/20 rounded text-sm text-gray-300 hover:bg-white/20 transition-all'
                         >
                           ${amount}
@@ -366,11 +313,10 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
                       !selectedSelection ||
                       stakeAmount <= 0 ||
                       stakeAmount > userBalance ||
-                      isPlacingBet
-                    }
+                      isPlacingBet}
                     className='w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-semibold py-3 px-6 rounded-lg hover:from-yellow-400 hover:to-yellow-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center'
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    whileHover={{ scale: 1.02}}
+                    whileTap={{ scale: 0.98}}
                   >
                     {isPlacingBet ? (
                       <>
@@ -396,12 +342,11 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
         </div>
       </div>
     </div>
-  );
-};
+  )};
 
 // Default component with mock data
 const BettingInterfaceWithMockData: React.FC = () => {
-  const mockMatches: Match[] = [
+  const mockMatches: Match[0] = [
     {
       id: 1,
       homeTeam: 'Lakers',
@@ -409,7 +354,7 @@ const BettingInterfaceWithMockData: React.FC = () => {
       sport: 'basketball',
       league: 'NBA',
       startTime: '2024-01-15T20:00:00Z',
-      status: 'scheduled',
+      status: 'scheduled'
     },
     {
       id: 2,
@@ -418,18 +363,18 @@ const BettingInterfaceWithMockData: React.FC = () => {
       sport: 'football',
       league: 'NFL',
       startTime: '2024-01-16T18:00:00Z',
-      status: 'scheduled',
+      status: 'scheduled'
     },
   ];
 
-  const mockOdds: Odds[] = [
+  const mockOdds: Odds[0] = [
     {
       id: 1,
       matchId: 1,
       bookmaker: 'DraftKings',
       marketType: 'match_winner',
       homeOdds: 1.85,
-      awayOdds: 1.95,
+      awayOdds: 1.95
     },
     {
       id: 2,
@@ -437,7 +382,7 @@ const BettingInterfaceWithMockData: React.FC = () => {
       bookmaker: 'DraftKings',
       marketType: 'match_winner',
       homeOdds: 2.1,
-      awayOdds: 1.75,
+      awayOdds: 1.75
     },
   ];
 
@@ -447,19 +392,20 @@ const BettingInterfaceWithMockData: React.FC = () => {
     return {
       success: true,
       betId: Math.floor(Math.random() * 1000),
-      message: 'Bet placed successfully',
-    };
-  };
+      message: 'Bet placed successfully'
+    }};
 
   return (
-    <BettingInterface
-      availableMatches={mockMatches}
+    <BettingInterface availableMatches={mockMatches}
       liveOdds={mockOdds}
       onPlaceBet={handlePlaceBet}
-      userBalance={2500}
-    />
-  );
-};
+      userBalance={2500}>`n    />
+  )};
 
 export default BettingInterfaceWithMockData;
-export { BettingInterface };
+export { BettingInterface}
+
+
+
+
+`

@@ -1,13 +1,12 @@
-import React from 'react.ts';
-import { render, screen, waitFor } from '@testing-library/react.ts';
-import axios from 'axios.ts';
-import RiskManagerPage from './RiskManagerPage.ts';
-import MockAdapter from 'axios-mock-adapter.ts';
+﻿import React from 'react';
+import { render, screen, waitFor} from '@testing-library/react';
+import axios from 'axios';
+import RiskManagerPage from './RiskManagerPage';
+import MockAdapter from 'axios-mock-adapter';
 
 describe('RiskManagerPage Integration', () => {
   afterEach(() => {
-    mock.reset();
-  });
+    mock.reset()});
 
   it('renders loading, then data from API', async () => {
     mock.onGet('/api/risk-profiles').reply(200, [
@@ -19,7 +18,7 @@ describe('RiskManagerPage Integration', () => {
         stopLoss: 50,
         takeProfit: 200,
         kellyFraction: 0.5,
-        isActive: true,
+        isActive: true
       },
     ]);
     mock.onGet('/api/active-bets').reply(200, [
@@ -30,7 +29,7 @@ describe('RiskManagerPage Integration', () => {
         odds: 2.0,
         potentialWin: 100,
         risk: 'low',
-        expiresAt: new Date().toISOString(),
+        expiresAt: new Date().toISOString()
       },
     ]);
 
@@ -38,16 +37,15 @@ describe('RiskManagerPage Integration', () => {
     expect(screen.getByText(/loading/i)).toBeInTheDocument();
     await waitFor(() => {
       expect(screen.getByText('Conservative')).toBeInTheDocument();
-      expect(screen.getByText('Match A')).toBeInTheDocument();
-    });
-  });
+      expect(screen.getByText('Match A')).toBeInTheDocument()})});
 
   it('shows error on API failure', async () => {
     mock.onGet('/api/risk-profiles').reply(500);
     mock.onGet('/api/active-bets').reply(500);
     render(<RiskManagerPage / key={790932}>);
     await waitFor(() => {
-      expect(screen.getByText(/failed to load data/i)).toBeInTheDocument();
-    });
-  });
-});
+      expect(screen.getByText(/failed to load data/i)).toBeInTheDocument()})})});
+
+
+
+

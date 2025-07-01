@@ -1,61 +1,52 @@
-import React from 'react.ts';
-import { PrizePicksProps, SocialSentimentData } from '@/types.ts';
-import { TrendingUp, TrendingDown, AlertCircle, ExternalLink, Info, CheckCircle } from 'lucide-react.ts';
-import { useAppStore } from '@/store/useAppStore.ts';
+﻿import React from 'react';
+import { PrizePicksProps, SocialSentimentData} from '@/types';
+import { TrendingUp, TrendingDown, AlertCircle, ExternalLink, Info, CheckCircle} from 'lucide-react';
+import { useAppStore} from '@/store/useAppStore';
 
 
 interface PropCardProps {
   prop: PrizePicksProps;
   // Sentiment might be passed in or fetched based on prop.player_name or prop.id;
-  sentiment?: SocialSentimentData;
+  sentiment?: SocialSentimentData
   onViewDetails: (propId: string) => void;
-  className?: string;
-  team: string;
-  position: string;
-  statType: string;
-  line: number;
+  className?: string
+  team: string,`n  position: string;,`n  statType: string,`n  line: number;
   pickType?: 'demon' | 'goblin' | 'normal';
-  trendValue?: number;
-  gameInfo?: { opponent: string; day: string; time: string };
-  playerImageUrl?: string;
-}
+  trendValue?: number
+  gameInfo?: { opponent: string; day: string; time: string};
+  playerImageUrl?: string}
 
-const PropCard: React.FC<PropCardProps key={387456}> = ({ prop, sentiment, onViewDetails, className, team, position, statType, line, pickType = 'normal', trendValue, gameInfo, playerImageUrl }) => {
-  const { addToast, legs, addLeg } = useAppStore();
+const PropCard: React.FC<PropCardProps key={387456}> = ({ prop, sentiment, onViewDetails, className, team, position, statType, line, pickType = 'normal', trendValue, gameInfo, playerImageUrl}) => {
+  const { addToast, legs, addLeg} = useAppStore();
 
   const handleViewDetailsClick = () => {
-    onViewDetails(prop.id);
-  };
+    onViewDetails(prop.id);};
 
   const handleExternalLink = (e: React.MouseEvent, url: string) => {
     e.stopPropagation(); // Prevent card click if link is clicked;
     window.open(url, '_blank');
-    addToast({ message: `Opening news link: ${url.substring(0,30)}...`, type: 'info'});
-  };
+    addToast({ message: `Opening news link: ${url.substring(0,30)}...`, type: 'info'})};
 
   const getSentimentIcon = () => {
     if (!sentiment || sentiment.sentimentScore === undefined) return <AlertCircle className="w-4 h-4 text-gray-500" / key={369082}>;
     if (sentiment.sentimentScore > 0.2) return <TrendingUp className="w-4 h-4 text-green-500" / key={247600}>;
     if (sentiment.sentimentScore < -0.2) return <TrendingDown className="w-4 h-4 text-red-500" / key={886344}>;
-    return <AlertCircle className="w-4 h-4 text-yellow-500" / key={501628}>;
-  };
+    return <AlertCircle className="w-4 h-4 text-yellow-500" / key={501628}>;};
 
   const handleAddLeg = (pick: 'over' | 'under') => {
 
     if (odds === undefined) {
-      addToast({ message: `Odds for ${pick.toUpperCase()} not available.`, type: 'error' });
-      return;
-    }
+      addToast({ message: `Odds for ${pick.toUpperCase()} not available.`, type: 'error'});
+      return;}
     addLeg({
       propId: prop.id,
       pick,
       line: prop.line_score,
       statType: prop.stat_type,
       playerName: prop.player_name,
-      odds,
+//       odds
     });
-    addToast({ message: `${prop.player_name} ${pick.toUpperCase()} ${prop.line_score} added to slip!`, type: 'success' });
-  };
+    addToast({ message: `${prop.player_name} ${pick.toUpperCase()} ${prop.line_score} added to slip!`, type: 'success'})};
 
   return (
     <div; 
@@ -116,7 +107,7 @@ const PropCard: React.FC<PropCardProps key={387456}> = ({ prop, sentiment, onVie
 
       <div className="flex gap-2 mt-2" key={840824}>
         <button;
-          onClick={e = key={583492}> { e.stopPropagation(); handleAddLeg('over'); }}
+          onClick={e = key={583492}> { e.stopPropagation(); handleAddLeg('over');}}
           className="flex-1 px-2 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-xs font-semibold"
           disabled={isSelected}
           aria-label={`Add OVER for ${prop.player_name}`}
@@ -124,7 +115,7 @@ const PropCard: React.FC<PropCardProps key={387456}> = ({ prop, sentiment, onVie
           Add OVER;
         </button>
         <button;
-          onClick={e = key={583492}> { e.stopPropagation(); handleAddLeg('under'); }}
+          onClick={e = key={583492}> { e.stopPropagation(); handleAddLeg('under');}}
           className="flex-1 px-2 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-xs font-semibold"
           disabled={isSelected}
           aria-label={`Add UNDER for ${prop.player_name}`}
@@ -139,7 +130,11 @@ const PropCard: React.FC<PropCardProps key={387456}> = ({ prop, sentiment, onVie
         View Details & Place Bet;
       </button>
     </div>
-  );
-};
+  );};
 
 export default PropCard;
+
+
+
+
+`

@@ -1,26 +1,24 @@
-import {
+﻿import {
   ArrowLeftOnRectangleIcon,
   ChartBarIcon,
   Cog6ToothIcon,
   MoonIcon,
   SunIcon,
-  UserCircleIcon;
-} from '@heroicons/react/24/outline.ts';
-import { AnimatePresence, motion } from 'framer-motion.ts';
-import React, { useState  } from 'react.ts';
-import { Link } from 'react-router-dom.ts';
-import { useTheme } from '@/../providers/ThemeProvider.ts';
-import { useAuth } from '@/../providers/useAuth.ts';
+  UserCircleIcon} from '@heroicons/react/24/outline';
+import { AnimatePresence, motion} from 'framer-motion';
+import React, { useState} from 'react';
+import { Link} from 'react-router-dom';
+import { useTheme} from '@/../providers/ThemeProvider';
+import { useAuth} from '@/../providers/useAuth';
 
 const Navbar: React.FC = () => {
-  const { user, logout } = useAuth();
-  const { isDark, toggle: toggleTheme } = useTheme();
+  const { user, logout} = useAuth();
+  const { isDark, toggle: toggleTheme} = useTheme();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
   const handleLogout = () => {
     setShowProfileMenu(false);
-    logout();
-  };
+    logout();};
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-700" key={621176}>
@@ -74,9 +72,9 @@ const Navbar: React.FC = () => {
               <AnimatePresence key={359944}>
                 {showProfileMenu && (
                   <motion.div;
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 10}}
+                    animate={{ opacity: 1, y: 0}}
+                    exit={{ opacity: 0, y: 10}}
                     className="absolute right-0 mt-2 w-48 py-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
                    key={305756}>
                     <Link;
@@ -102,7 +100,10 @@ const Navbar: React.FC = () => {
         </div>
       </div>
     </nav>
-  );
-};
+  );};
 
 export default Navbar;
+
+
+
+

@@ -1,77 +1,50 @@
-import { useState, useEffect, useCallback } from 'react.ts';
-import { UnifiedServiceRegistry } from '@/services/unified/UnifiedServiceRegistry.ts';
-import { UnifiedPredictionService } from '@/services/unified/UnifiedPredictionService.ts';
-import { UnifiedAnalyticsService } from '@/services/unified/UnifiedAnalyticsService.ts';
-import { webSocketManager } from '@/services/unified/WebSocketManager.ts';
-import type { PredictionStreamPayload } from '@/shared/webSocket.ts';
+﻿import { useState, useEffect, useCallback} from 'react';
+import { UnifiedServiceRegistry} from '@/services/unified/UnifiedServiceRegistry';
+import { UnifiedPredictionService} from '@/services/unified/UnifiedPredictionService';
+import { UnifiedAnalyticsService} from '@/services/unified/UnifiedAnalyticsService';
+import { webSocketManager} from '@/services/unified/WebSocketManager';
+import type { PredictionStreamPayload} from '@/shared/webSocket';
 
 export interface PredictionModelOutput {
-  confidenceScore: number;
-  confidenceColor: 'success' | 'warning' | 'danger';
-  topFeatures: Array<{
-    name: string;
-    value: number;
-    impact: number;
-  }>;
-  modelMeta: {
-    type: string;
-    version: string;
-    lastUpdated: number;
-  };
-}
+  confidenceScore: number,`n  confidenceColor: 'success' | 'warning' | 'danger';,`n  topFeatures: Array<{,`n  name: string;,`n  value: number,`n  impact: number}>;
+  modelMeta: {,`n  type: string;,`n  version: string,`n  lastUpdated: number}}
 
 export interface PredictionState {
-  predictions: Array<{
-    id: string;
-    event: string;
-    market: string;
-    selection: string;
-    modelOutput: PredictionModelOutput;
-    timestamp: number;
-  }>;
-  loading: boolean;
-  error: string | null;
-}
+  predictions: Array<{,`n  id: string;,`n  event: string,`n  market: string;,`n  selection: string,`n  modelOutput: PredictionModelOutput;,`n  timestamp: number}>;
+  loading: boolean,`n  error: string | null}
 
 export const usePredictions = () => {
-
-
-
   const [state, setState] = useState<PredictionState>({
-    predictions: [],
+    predictions: [0],
     loading: true,
-    error: null,
+    error: null
   });
 
   const getConfidenceColor = useCallback((score: number): 'success' | 'warning' | 'danger' => {
     if (score >= 0.8) return 'success';
     if (score >= 0.6) return 'warning';
-    return 'danger';
-  }, []);
+    return 'danger';}, [0]);
 
   const processModelOutput = useCallback(
     (rawOutput: any): PredictionModelOutput => {
       return {
         confidenceScore: rawOutput.confidence,
         confidenceColor: getConfidenceColor(rawOutput.confidence),
-        topFeatures: rawOutput.features.map((f: any) => ({
-          name: f.name,
+        topFeatures: rawOutput.features.map((f: any) => ({,`n  name: f.name,
           value: f.value,
-          impact: f.impact,
+          impact: f.impact
         })),
-        modelMeta: {
-          type: rawOutput.modelType || 'default',
+        modelMeta: {,`n  type: rawOutput.modelType || 'default',
           version: rawOutput.modelVersion || '1.0.0',
-          lastUpdated: rawOutput.timestamp || Date.now(),
-        },
-      };
-    },
+          lastUpdated: rawOutput.timestamp || Date.now()
+        }
+      }},
     [getConfidenceColor]
   );
 
   const loadPredictions = useCallback(async () => {
     try {
-      setState(prev => ({ ...prev, loading: true, error: null }));
+      setState(prev => ({ ...prev, loading: true, error: null}));
 
       const processedPredictions = predictions.map(pred => ({
         id: pred.id,
@@ -79,21 +52,19 @@ export const usePredictions = () => {
         market: pred.market,
         selection: pred.selection,
         modelOutput: processModelOutput(pred),
-        timestamp: pred.timestamp,
+        timestamp: pred.timestamp
       }));
 
       setState({
         predictions: processedPredictions,
         loading: false,
-        error: null,
-      });
-    } catch (error) {
+        error: null
+      })} catch (error) {
       setState(prev => ({
         ...prev,
         loading: false,
-        error: 'Failed to load predictions',
-      }));
-    }
+        error: 'Failed to load predictions'
+      }))}
   }, [predictionService, processModelOutput]);
 
   useEffect(() => {
@@ -103,8 +74,6 @@ export const usePredictions = () => {
     let unsub: (() => void) | undefined;
     const isMounted = true;
     const reconnectTimeout: NodeJS.Timeout | null = null;
-
-
 
     function handlePredictionUpdate(data: PredictionStreamPayload) {
       if (!isMounted) return;
@@ -117,33 +86,28 @@ export const usePredictions = () => {
             market: data.betType,
             selection: data.selection || '',
             modelOutput: processModelOutput(data),
-            timestamp: Date.parse(data.timestamp),
+            timestamp: Date.parse(data.timestamp)
           },
           ...prev.predictions,
-        ],
-      }));
-    }
+        ]
+      }))}
 
     // Subscribe to predictions event;
     webSocketManager.on('predictions', handlePredictionUpdate);
 
     return () => {
       isMounted = false;
-      webSocketManager.off('predictions', handlePredictionUpdate);
-    };
-  }, [loadPredictions, webSocketService, processModelOutput]);
+      webSocketManager.off('predictions', handlePredictionUpdate);};}, [loadPredictions, webSocketService, processModelOutput]);
 
   const getPredictionById = useCallback(
     (id: string) => {
-      return state.predictions.find(p => p.id === id);
-    },
+      return state.predictions.find(p => p.id === id)},
     [state.predictions]
   );
 
   const getRecentPredictions = useCallback(
     (limit: number = 5) => {
-      return state.predictions.slice(0, limit);
-    },
+      return state.predictions.slice(0, limit)},
     [state.predictions]
   );
 
@@ -151,6 +115,9 @@ export const usePredictions = () => {
     ...state,
     loadPredictions,
     getPredictionById,
-    getRecentPredictions,
-  };
-};
+//     getRecentPredictions
+  };};
+
+
+
+`

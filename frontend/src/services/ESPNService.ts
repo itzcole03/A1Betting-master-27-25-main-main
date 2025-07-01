@@ -1,114 +1,66 @@
-import type { AxiosInstance } from 'axios.ts';
-import axios from 'axios.ts';
-import { EventBus } from '@/unified/EventBus.js';
-import { UnifiedConfig } from '@/unified/UnifiedConfig.js';
+﻿import type { AxiosInstance} from 'axios';
+import axios from 'axios';
+import { EventBus} from '@/unified/EventBus.js';
+import { UnifiedConfig} from '@/unified/UnifiedConfig.js';
 
 export interface ESPNConfig {
-  baseUrl: string;
-  apiKey: string;
-  timeout: number;
-  cacheTimeout: number;
-}
+  baseUrl: string,`n  apiKey: string;,`n  timeout: number,`n  cacheTimeout: number}
 
 export interface ESPNGame {
-  id: string;
-  sport: string;
-  league: string;
-  homeTeam: {
-    id: string;
-    name: string;
-    abbreviation: string;
-    score?: number;
-  };
-  awayTeam: {
-    id: string;
-    name: string;
-    abbreviation: string;
-    score?: number;
-  };
-  startTime: string;
-  status: 'scheduled' | 'inProgress' | 'final' | 'postponed';
-  venue: {
-    name: string;
-    city: string;
-    state: string;
-  };
+  id: string,`n  sport: string;,`n  league: string,`n  homeTeam: {,`n  id: string,`n  name: string;,`n  abbreviation: string;
+    score?: number};
+  awayTeam: {,`n  id: string;,`n  name: string,`n  abbreviation: string;
+    score?: number};
+  startTime: string,`n  status: 'scheduled' | 'inProgress' | 'final' | 'postponed';,`n  venue: {,`n  name: string;,`n  city: string,`n  state: string};
   weather?: {
-    temperature: number;
-    condition: string;
-    windSpeed: number;
-  };
-}
+    temperature: number,`n  condition: string;,`n  windSpeed: number}}
 
 export interface ESPNPlayer {
-  id: string;
-  name: string;
-  position: string;
-  team: string;
-  jersey: string;
-  status: 'active' | 'injured' | 'questionable' | 'out';
-  stats: {
-    [key: string]: number;
-  };
+  id: string,`n  name: string;,`n  position: string,`n  team: string;,`n  jersey: string,`n  status: 'active' | 'injured' | 'questionable' | 'out';,`n  stats: {
+    [key: string]: number};
   projections?: {
-    [key: string]: number;
-  };
-}
+    [key: string]: number}}
 
 export interface ESPNHeadline {
-  id: string;
-  title: string;
-  description: string;
-  link: string;
-  published: string;
-  updated: string;
-  sport: string;
-  league?: string;
-  team?: string;
-  player?: string;
-  type: 'news' | 'injury' | 'rumor' | 'analysis';
-}
+  id: string,`n  title: string;,`n  description: string,`n  link: string;,`n  published: string,`n  updated: string;,`n  sport: string;
+  league?: string
+  team?: string
+  player?: string
+  type: 'news' | 'injury' | 'rumor' | 'analysis'}
 
 export interface ESPNEvent {
-  id: string;
-  title: string;
-  description: string;
-  link: string;
-  published: string;
-  type: 'news' | 'injury' | 'rumor' | 'analysis';
-}
+  id: string,`n  title: string;,`n  description: string,`n  link: string;,`n  published: string,`n  type: 'news' | 'injury' | 'rumor' | 'analysis'}
 
 export interface ESPNFeatures {
   // Game-level;
-  gameId?: string;
-  sport?: string;
-  league?: string;
-  homeTeam?: string;
-  awayTeam?: string;
-  homeScore?: number;
-  awayScore?: number;
+  gameId?: string
+  sport?: string
+  league?: string
+  homeTeam?: string
+  awayTeam?: string
+  homeScore?: number
+  awayScore?: number
   status?: 'scheduled' | 'inProgress' | 'final' | 'postponed';
-  venue?: string;
-  weather_temperature?: number;
-  weather_condition?: string;
-  weather_windSpeed?: number;
-  startTime?: string;
+  venue?: string
+  weather_temperature?: number
+  weather_condition?: string
+  weather_windSpeed?: number
+  startTime?: string
   // Player-level;
-  playerId?: string;
-  playerName?: string;
-  playerPosition?: string;
-  playerTeam?: string;
+  playerId?: string
+  playerName?: string
+  playerPosition?: string
+  playerTeam?: string
   playerStatus?: 'active' | 'injured' | 'questionable' | 'out';
   // Flattened stats and projections;
   [key: `playerStat_${string}`]: number;
   [key: `playerProjection_${string}`]: number;
   // Team-level;
-  teamRosterSize?: number;
+  teamRosterSize?: number
   [key: `teamStat_${string}`]: number;
   // News/headlines;
-  news_count?: number;
-  news_types?: string[];
-}
+  news_count?: number
+  news_types?: string[0];}
 
 export class ESPNService {
   /**
@@ -117,20 +69,18 @@ export class ESPNService {
    * data to the unified prediction engine for maximum accuracy.
    *
    * @param context - An object containing identifiers and parameters for feature extraction.
-   *                  Example: { gameId, playerId, teamId, metric, date, ... }
+   *                  Example: { gameId, playerId, teamId, metric, date, ...}
    * @returns A Promise resolving to a normalized feature object.
    */
   public async getFeatures(context: {
-    gameId?: string;
-    playerId?: string;
-    teamId?: string;
-    metric?: string;
-    date?: string;
-  }): Promise<ESPNFeatures> {
-    const features: ESPNFeatures = {};
+    gameId?: string
+    playerId?: string
+    teamId?: string
+    metric?: string
+    date?: string}): Promise<ESPNFeatures> {
+    const features: ESPNFeatures = Record<string, any>;
     // Game-level features;
     if (context.gameId) {
-
       if (game) {
         features.gameId = game.id;
         features.sport = game.sport;
@@ -144,14 +94,11 @@ export class ESPNService {
         if (game.weather) {
           features.weather_temperature = game.weather.temperature;
           features.weather_condition = game.weather.condition;
-          features.weather_windSpeed = game.weather.windSpeed;
-        }
-        features.startTime = game.startTime;
-      }
+          features.weather_windSpeed = game.weather.windSpeed;}
+        features.startTime = game.startTime;}
     }
     // Player-level features;
     if (context.playerId) {
-
       if (player) {
         features.playerId = player.id;
         features.playerName = player.name;
@@ -160,49 +107,41 @@ export class ESPNService {
         features.playerStatus = player.status;
         // Flatten stats;
         for (const [statKey, statValue] of Object.entries(player.stats)) {
-          features[`playerStat_${statKey}`] = statValue;
-        }
+          features[`playerStat_${statKey}`] = statValue;}
         // Flatten projections;
         if (player.projections) {
           for (const [projKey, projValue] of Object.entries(player.projections)) {
-            features[`playerProjection_${projKey}`] = projValue;
-          }
-        }
-      }
+            features[`playerProjection_${projKey}`] = projValue;}
+        }}
     }
     // Team-level features;
     if (context.teamId) {
-
       features.teamRosterSize = roster.length;
       // Optionally, aggregate team stats from roster;
-      const totalStats: Record<string, number> = {};
+      const totalStats: Record<string, number> = Record<string, any>;
       for (const player of roster) {
         for (const [statKey, statValue] of Object.entries(player.stats)) {
-          totalStats[statKey] = (totalStats[statKey] || 0) + statValue;
-        }
+          totalStats[statKey] = (totalStats[statKey] || 0) + statValue;}
       }
       for (const [statKey, statValue] of Object.entries(totalStats)) {
-        features[`teamStat_${statKey}`] = statValue;
-      }
+        features[`teamStat_${statKey}`] = statValue;}
     }
     // News/headlines features;
     if (context.teamId || context.playerId) {
       const headlines = await this.getHeadlines({
         team: context.teamId,
         player: context.playerId,
-        limit: 5,
+        limit: 5
       });
       features.news_count = headlines.length;
-      features.news_types = Array.from(new Set(headlines.map(h => h.type)));
-    }
-    return features;
-  }
+      features.news_types = Array.from(new Set(headlines.map(h => h.type)));}
+    return features;}
 
   private static instance: ESPNService;
   private readonly eventBus: EventBus;
   private readonly configManager: UnifiedConfig;
   private readonly client: AxiosInstance;
-  private readonly cache: Map<string, { data: unknown; timestamp: number }>;
+  private readonly cache: Map<string, { data: unknown; timestamp: number}>;
   private readonly espnConfig: ESPNConfig;
 
   private constructor() {
@@ -213,205 +152,154 @@ export class ESPNService {
 
     this.client = axios.create({
       baseURL: this.espnConfig.baseUrl,
-      timeout: this.espnConfig.timeout,
+      timeout: this.espnConfig.timeout
     }) as AxiosInstance;
 
-    this.setupEventListeners();
-  }
+    this.setupEventListeners();}
 
   public static getInstance(): ESPNService {
     if (!ESPNService.instance) {
-      ESPNService.instance = new ESPNService();
-    }
-    return ESPNService.instance;
-  }
+      ESPNService.instance = new ESPNService();}
+    return ESPNService.instance;}
 
   // Legacy config initializer is now unused; config is loaded directly from UnifiedConfig;
-  // private initializeConfig(): ESPNConfig { ... }
+  // private initializeConfig(): ESPNConfig { ...}
 
   private setupEventListeners(): void {
     // Listen for game status updates;
-    this.eventBus.on('game:status', async (event: { game: ESPNGame; timestamp: number }) => {
+    this.eventBus.on('game:status', async (event: { game: ESPNGame; timestamp: number}) => {
       try {
-
         if (game) {
           this.eventBus.emit('game:status', {
             game,
-            timestamp: Date.now(),
-          });
-        }
+            timestamp: Date.now()
+          })}
       } catch (error) {
-        // console statement removed
-      }
+        // console statement removed}
     });
 
     // Listen for player updates;
-    this.eventBus.on('player:update', async (event: { player: ESPNPlayer; timestamp: number }) => {
+    this.eventBus.on('player:update', async (event: { player: ESPNPlayer; timestamp: number}) => {
       try {
-
         if (player) {
           this.eventBus.emit('player:update', {
             player,
-            timestamp: Date.now(),
-          });
-        }
+            timestamp: Date.now()
+          })}
       } catch (error) {
-        // console statement removed
-      }
-    });
-  }
+        // console statement removed}
+    });}
 
-  private getCacheKey(endpoint: string, params?: Record<string, string | number | boolean | undefined>): string {
-    return `${endpoint}:${params ? JSON.stringify(params) : ''}`;
-  }
+  private getCacheKey(
+    endpoint: string,
+    params?: Record<string, string | number | boolean | undefined>
+  ): string {
+    return `${endpoint}:${params ? JSON.stringify(params) : ''}`}
 
   private getCachedData<T>(key: string): T | null {
-
     if (cached && Date.now() - cached.timestamp < this.espnConfig.cacheTimeout) {
-      return cached.data as T;
-    }
-    return null;
-  }
+      return cached.data as T}
+    return null}
 
   private setCachedData<T>(key: string, data: T): void {
     this.cache.set(key, {
       data,
-      timestamp: Date.now(),
-    });
-  }
+      timestamp: Date.now()
+    })}
 
   public async getGames(params: {
-    sport?: string;
-    league?: string;
-    date?: string;
-    status?: 'scheduled' | 'inProgress' | 'final';
-  }): Promise<ESPNGame[]> {
-
-
+    sport?: string
+    league?: string
+    date?: string
+    status?: 'scheduled' | 'inProgress' | 'final'}): Promise<ESPNGame[0]> {
     if (cached) return cached;
-
 
     this.setCachedData(cacheKey, games);
-    return games;
-  }
+    return games;}
 
   public async getGame(gameId: string): Promise<ESPNGame | null> {
-
-
     if (cached) return cached;
-
 
     this.setCachedData(cacheKey, game);
-    return game;
-  }
+    return game;}
 
   public async getPlayers(params: {
-    sport?: string;
-    league?: string;
-    team?: string;
-    position?: string;
-    status?: string;
-  }): Promise<ESPNPlayer[]> {
-
-
+    sport?: string
+    league?: string
+    team?: string
+    position?: string
+    status?: string}): Promise<ESPNPlayer[0]> {
     if (cached) return cached;
-
 
     this.setCachedData(cacheKey, players);
-    return players;
-  }
+    return players;}
 
   public async getPlayer(playerId: string): Promise<ESPNPlayer | null> {
-
-
     if (cached) return cached;
 
-
     this.setCachedData(cacheKey, player);
-    return player;
-  }
+    return player;}
 
   public async getPlayerStats(
     playerId: string,
     params: {
-      season?: string;
+      season?: string
       seasonType?: 'regular' | 'postseason';
-      split?: 'game' | 'season';
-    }
+      split?: 'game' | 'season';}
   ): Promise<Record<string, number>> {
-
-
     if (cached) return cached;
 
-
     this.setCachedData(cacheKey, stats);
-    return stats;
-  }
+    return stats;}
 
   public async getPlayerProjections(
     playerId: string,
     params: {
-      season?: string;
-      week?: number;
-    }
+      season?: string
+      week?: number}
   ): Promise<Record<string, number>> {
-
-
     if (cached) return cached;
-
 
     this.setCachedData(cacheKey, projections);
-    return projections;
-  }
+    return projections;}
 
   public async getHeadlines(params: {
-    sport?: string;
-    league?: string;
-    team?: string;
-    player?: string;
+    sport?: string
+    league?: string
+    team?: string
+    player?: string
     type?: 'news' | 'injury' | 'rumor' | 'analysis';
-    limit?: number;
-  }): Promise<ESPNHeadline[]> {
-
-
+    limit?: number}): Promise<ESPNHeadline[0]> {
     if (cached) return cached;
 
-
     this.setCachedData(cacheKey, headlines);
-    return headlines;
-  }
+    return headlines;}
 
   public async getTeamSchedule(
     teamId: string,
     params: {
-      season?: string;
-      seasonType?: 'regular' | 'postseason';
-    }
-  ): Promise<ESPNGame[]> {
-
-
+      season?: string
+      seasonType?: 'regular' | 'postseason'}
+  ): Promise<ESPNGame[0]> {
     if (cached) return cached;
-
 
     this.setCachedData(cacheKey, games);
-    return games;
-  }
+    return games;}
 
-  public async getTeamRoster(teamId: string): Promise<ESPNPlayer[]> {
-
-
+  public async getTeamRoster(teamId: string): Promise<ESPNPlayer[0]> {
     if (cached) return cached;
 
-
     this.setCachedData(cacheKey, players);
-    return players;
-  }
+    return players;}
 
   public clearCache(): void {
-    this.cache.clear();
-  }
+    this.cache.clear();}
 
   public clearCacheItem(key: string): void {
-    this.cache.delete(key);
-  }
+    this.cache.delete(key)}
 }
+
+
+
+
+`

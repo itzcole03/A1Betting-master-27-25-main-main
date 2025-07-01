@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   Box,
   Paper,
@@ -10,36 +10,32 @@ import {
   InputLabel,
   Button,
   Grid,
-  SelectChangeEvent,
-} from '@mui/material.ts';
-import { MoneyMakerConfig as ConfigType } from '@/types.ts';
+//   SelectChangeEvent
+} from '@mui/material';
+import { MoneyMakerConfig as ConfigType} from '@/types';
 
 interface Props {
-  onConfigChange: (config: ConfigType) => void;
-  onActivate: () => void;
-  onDeactivate: () => void;
-  isActive: boolean;
-}
+  onConfigChange: (config: ConfigType) => void,`n  onActivate: () => void;,`n  onDeactivate: () => void,`n  isActive: boolean}
 
 const sports = [
-  { value: 'nba', label: 'NBA' },
-  { value: 'nfl', label: 'NFL' },
-  { value: 'mlb', label: 'MLB' },
-  { value: 'nhl', label: 'NHL' },
+  { value: 'nba', label: 'NBA'},
+  { value: 'nfl', label: 'NFL'},
+  { value: 'mlb', label: 'MLB'},
+  { value: 'nhl', label: 'NHL'},
 ];
 
 const strategies = [
-  { value: 'maximum', label: 'Maximum Points' },
-  { value: 'balanced', label: 'Balanced' },
-  { value: 'contrarian', label: 'Contrarian' },
-  { value: 'value', label: 'Value' },
+  { value: 'maximum', label: 'Maximum Points'},
+  { value: 'balanced', label: 'Balanced'},
+  { value: 'contrarian', label: 'Contrarian'},
+  { value: 'value', label: 'Value'},
 ];
 
 export const MoneyMakerConfig: React.FC<Props key={757196}> = ({
   onConfigChange,
   onActivate,
   onDeactivate,
-  isActive,
+//   isActive
 }) => {
   const [config, setConfig] = React.useState<ConfigType key={89029}>({
     entry: 100,
@@ -47,23 +43,21 @@ export const MoneyMakerConfig: React.FC<Props key={757196}> = ({
     minWinRate: 84,
     strategy: 'maximum',
     maxLegs: 3,
-    sport: 'nba',
+    sport: 'nba'
   });
 
   const handleSelectChange = (field: keyof ConfigType) => (event: SelectChangeEvent) => {
 
     setConfig(newConfig);
-    onConfigChange(newConfig);
-  };
+    onConfigChange(newConfig);};
 
-  const handleSliderChange = (field: keyof ConfigType) => (_: Event, value: number | number[]) => {
+  const handleSliderChange = (field: keyof ConfigType) => (_: Event, value: number | number[0]) => {
 
     setConfig(newConfig);
-    onConfigChange(newConfig);
-  };
+    onConfigChange(newConfig);};
 
   return (
-    <Paper sx={{ p: 3 }} key={295479}>
+    <Paper sx={{ p: 3}} key={295479}>
       <Typography gutterBottom variant="h6" key={368112}>
         Configuration;
       </Typography>
@@ -148,7 +142,7 @@ export const MoneyMakerConfig: React.FC<Props key={757196}> = ({
         </Grid>
 
         <Grid item xs={12} key={689816}>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }} key={848296}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2}} key={848296}>
             <Button;
               color={isActive ? 'error' : 'primary'}
               size="large"
@@ -161,5 +155,8 @@ export const MoneyMakerConfig: React.FC<Props key={757196}> = ({
         </Grid>
       </Grid>
     </Paper>
-  );
-};
+  );};
+
+
+
+`

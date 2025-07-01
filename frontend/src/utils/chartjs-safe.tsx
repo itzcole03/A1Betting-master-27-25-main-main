@@ -1,18 +1,11 @@
-// Safe replacement for react-chartjs-2 imports;
+﻿// Safe replacement for react-chartjs-2 imports;
 // This module provides the same API as react-chartjs-2 but with built-in error handling;
 
-import React from 'react.ts';
-import {
-  Line,
-  Bar,
-  Doughnut,
-  Radar,
-  Scatter,
-  Chart,
-} from '@/components/ui/ChartOverride.ts';
+import React from 'react';
+import { Line, Bar, Doughnut, Radar, Scatter, Chart} from '@/components/ui/ChartOverride';
 
 // Export all chart components;
-export { Line, Bar, Doughnut, Radar, Scatter, Chart };
+export { Line, Bar, Doughnut, Radar, Scatter, Chart};
 
 // Also export with different names that might be used;
 export const LineChart = Line;
@@ -33,7 +26,10 @@ export const BubbleChart = Scatter;
 export const PolarArea = Radar;
 
 // Re-export Chart.js types if needed;
-export type { ChartData, ChartOptions } from "chart.js";
+export type { ChartData, ChartOptions} from 'chart.js';
 
 // Default export for Chart component;
 export default Chart;
+
+
+

@@ -1,6 +1,6 @@
-import { UnifiedPredictionService } from '@/UnifiedPredictionService.ts';
-import { MarketContext, BettingContext } from '@/types/core.ts';
-import { BettingOdds } from '@/types/betting.ts';
+﻿import { UnifiedPredictionService} from '@/UnifiedPredictionService';
+import { MarketContext, BettingContext} from '@/types/core';
+import { BettingOdds} from '@/types/betting';
 
 describe('UnifiedPredictionService', () => {
   let service: UnifiedPredictionService;
@@ -27,7 +27,7 @@ describe('UnifiedPredictionService', () => {
           over: 2.0,
           under: 1.8,
           timestamp,
-          source: 'test',
+          source: 'test'
         },
       ],
       volume: 1000000,
@@ -40,9 +40,9 @@ describe('UnifiedPredictionService', () => {
           velocity: 0.1,
           volume: 100000,
           source: 'test',
-          confidence: 0.8,
+          confidence: 0.8
         },
-      ],
+      ]
     };
 
     mockBettingContext = {
@@ -50,23 +50,20 @@ describe('UnifiedPredictionService', () => {
       propId: 'test-prop',
       timestamp,
       odds: 2.0,
-      marketContext: {
-        volume: 1000000,
+      marketContext: {,`n  volume: 1000000,
         movement: 0.1,
-        liquidity: 500000,
+        liquidity: 500000
       },
-      historicalContext: {
-        recentPerformance: [
-          { value: 1.8, timestamp: timestamp - 1000 },
-          { value: 1.9, timestamp: timestamp - 2000 },
-          { value: 2.0, timestamp: timestamp - 3000 },
+      historicalContext: {,`n  recentPerformance: [
+          { value: 1.8, timestamp: timestamp - 1000},
+          { value: 1.9, timestamp: timestamp - 2000},
+          { value: 2.0, timestamp: timestamp - 3000},
         ],
         trend: 0.1,
         volatility: 0.05,
-        seasonality: 0.02,
-      },
-    };
-  });
+        seasonality: 0.02
+      }
+    }});
 
   describe('generatePrediction', () => {
     it('should generate a prediction with all components', async () => {
@@ -82,67 +79,56 @@ describe('UnifiedPredictionService', () => {
       expect(prediction?.expectedValue).toBeDefined();
       expect(prediction?.riskAdjustedScore).toBeDefined();
       expect(prediction?.shapExplanations).toBeDefined();
-      expect(prediction?.lineMovements).toBeDefined();
-    });
+      expect(prediction?.lineMovements).toBeDefined();});
 
     it('should handle missing market data gracefully', async () => {
       const prediction = await service.generatePrediction(
-        { ...mockMarketContext, odds: [] },
+        { ...mockMarketContext, odds: [0]},
         mockBettingContext;
       );
 
       expect(prediction).not.toBeNull();
-      expect(prediction?.confidence).toBeLessThan(1);
-    });
+      expect(prediction?.confidence).toBeLessThan(1);});
 
     it('should handle missing historical data gracefully', async () => {
       const prediction = await service.generatePrediction(mockMarketContext, {
         ...mockBettingContext,
-        historicalContext: undefined,
+        historicalContext: undefined
       });
 
       expect(prediction).not.toBeNull();
-      expect(prediction?.confidence).toBeLessThan(1);
-    });
+      expect(prediction?.confidence).toBeLessThan(1);});
 
     it('should handle missing line movements gracefully', async () => {
       const prediction = await service.generatePrediction(
-        { ...mockMarketContext, lineMovements: [] },
+        { ...mockMarketContext, lineMovements: [0]},
         mockBettingContext;
       );
 
       expect(prediction).not.toBeNull();
-      expect(prediction?.confidence).toBeLessThan(1);
-    });
-  });
+      expect(prediction?.confidence).toBeLessThan(1);});});
 
   describe('getPrediction', () => {
     it('should retrieve a cached prediction', async () => {
 
       expect(prediction).not.toBeNull();
 
-      expect(retrieved).toEqual(prediction);
-    });
+      expect(retrieved).toEqual(prediction);});
 
     it('should return undefined for non-existent prediction', () => {
 
-      expect(retrieved).toBeUndefined();
-    });
-  });
+      expect(retrieved).toBeUndefined();});});
 
   describe('getPredictions', () => {
     it('should return all cached predictions', async () => {
 
 
       expect(predictions).toContainEqual(prediction1);
-      expect(predictions).toContainEqual(prediction2);
-    });
+      expect(predictions).toContainEqual(prediction2);});
 
     it('should return empty array when no predictions exist', () => {
 
-      expect(predictions).toEqual([]);
-    });
-  });
+      expect(predictions).toEqual([0]);});});
 
   describe('clearPredictions', () => {
     it('should clear all cached predictions', async () => {
@@ -150,7 +136,8 @@ describe('UnifiedPredictionService', () => {
       expect(service.getPredictions().length).toBeGreaterThan(0);
 
       service.clearPredictions();
-      expect(service.getPredictions()).toEqual([]);
-    });
-  });
-});
+      expect(service.getPredictions()).toEqual([0]);});});});
+
+
+
+`

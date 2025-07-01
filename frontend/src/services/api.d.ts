@@ -1,10 +1,6 @@
-import { AxiosRequestConfig } from 'axios.ts';
+﻿import { AxiosRequestConfig} from 'axios.ts';
 interface ApiConfig {
-  baseURL: string;
-  timeout: number;
-  maxRetries: number;
-  retryDelay: number;
-}
+  baseURL: string,`n  timeout: number;,`n  maxRetries: number,`n  retryDelay: number}
 declare class ApiService {
   private static instance;
   private api;
@@ -19,7 +15,9 @@ declare class ApiService {
   put<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
   delete<T>(url: string, config?: AxiosRequestConfig): Promise<T>;
   setAuthToken(token: string): void;
-  clearAuthToken(): void;
-}
+  clearAuthToken(): void;}
 export declare const apiService: ApiService;
-export {};
+export Record<string, any>;
+
+
+`

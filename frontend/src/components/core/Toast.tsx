@@ -1,36 +1,36 @@
-import React from 'react.ts';
-import { useStore } from '@/stores/useStore.ts';
-import { Toast, ToastType } from '@/types.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+﻿import React from 'react';
+import { useStore} from '@/stores/useStore';
+import { Toast, ToastType} from '@/types';
+import { motion, AnimatePresence} from 'framer-motion';
 import {
   CheckCircleIcon,
   ExclamationCircleIcon,
   InformationCircleIcon,
-  XMarkIcon,
-} from '@heroicons/react/24/outline.ts';
+//   XMarkIcon
+} from '@heroicons/react/24/outline';
 
 const toastVariants = {
-  initial: { opacity: 0, y: -20 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -20 },
+  initial: { opacity: 0, y: -20},
+  animate: { opacity: 1, y: 0},
+  exit: { opacity: 0, y: -20}
 };
 
 const toastIcons: Record<ToastType, JSX.Element key={240818}> = {
   success: <CheckCircleIcon className="h-6 w-6 text-green-500" / key={44150}>,
   error: <ExclamationCircleIcon className="h-6 w-6 text-red-500" / key={593370}>,
   info: <InformationCircleIcon className="h-6 w-6 text-blue-500" / key={100112}>,
-  warning: <ExclamationCircleIcon className="h-6 w-6 text-yellow-500" / key={26626}>,
+  warning: <ExclamationCircleIcon className="h-6 w-6 text-yellow-500" / key={26626}>
 };
 
 const toastColors: Record<ToastType, string key={880569}> = {
   success: 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800',
   error: 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800',
   info: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800',
-  warning: 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800',
+  warning: 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800'
 };
 
-const ToastItem: React.FC<{ toast: Toast }> = ({ toast }) => {
-  const { removeToast } = useStore();
+const ToastItem: React.FC<{ toast: Toast}> = ({ toast}) => {
+  const { removeToast} = useStore();
 
   return (
     <motion.div;
@@ -47,15 +47,14 @@ const ToastItem: React.FC<{ toast: Toast }> = ({ toast }) => {
       </div>
       <div className="ml-4 flex-shrink-0 flex" key={215682}>
         <button;
-          className="inline-flex text-gray-400 hover:text-gray-500 focus:outline-none"
+          className="inline-flex text-gray-400 hover: text-gray-500 focus:outline-none"
           onClick={() = key={634036}> removeToast(toast.id)}
         >
           <XMarkIcon className="h-5 w-5" / key={628914}>
         </button>
       </div>
     </motion.div>
-  );
-};
+  )};
 
 const ToastContainer: React.FC = () => {
 
@@ -67,7 +66,10 @@ const ToastContainer: React.FC = () => {
         ))}
       </AnimatePresence>
     </div>
-  );
-};
+  )};
 
 export default React.memo(ToastContainer);
+
+
+
+`

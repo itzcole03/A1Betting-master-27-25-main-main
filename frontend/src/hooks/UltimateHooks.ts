@@ -1,41 +1,33 @@
-/**
+﻿/**
  * 🚀 A1BETTING QUANTUM PLATFORM - ULTIMATE HOOKS CONSOLIDATION;
  *
  * Consolidates 180+ scattered hooks into 12 intelligent mega-hooks;
  * Preserves cyber theme integration and advanced functionality;
  */
 
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react.ts';
-import { BehaviorSubject, Subject, Observable } from 'rxjs.ts';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  filter,
-} from 'rxjs/operators.ts';
-import { QuantumServices } from '@/services/UltimateServices.ts';
+import { QuantumServices} from '@/services/UltimateServices';
+import { useCallback, useEffect, useMemo, useState} from 'react';
 
 // 🎯 1. ULTIMATE DATA HOOK - Consolidates 25+ data hooks;
 export const useQuantumData = (options?: {
-  autoRefresh?: boolean;
-  refreshInterval?: number;
-  sources?: string[];
-}) => {
-  const [data, setData] = useState<any[]>([]);
+  autoRefresh?: boolean
+  refreshInterval?: number
+  sources?: string[0];}) => {
+  const [data, setData] = useState<any[0]>([0]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [metrics, setMetrics] = useState({
     connectedSources: 0,
     dataQuality: 0,
     latency: 0,
-    isOnline: false,
+    isOnline: false
   });
 
   const {
     autoRefresh = true,
     refreshInterval = 30000,
-    sources = ["prizepicks", "espn"],
-  } = options || {};
+    sources = ["prizepicks", "espn"]
+  } = options || Record<string, any>;
 
   // Real-time data subscription;
   useEffect(() => {
@@ -43,24 +35,20 @@ export const useQuantumData = (options?: {
       next: (newData) => {
         setData(newData);
         setLoading(false);
-        setError(null);
-      },
+        setError(null);},
       error: (err) => {
         setError(err.message);
-        setLoading(false);
-      },
+        setLoading(false);}
     });
 
-    return () => subscription.unsubscribe();
-  }, []);
+    return () => subscription.unsubscribe();}, [0]);
 
   // System metrics subscription;
   useEffect(() => {
     const subscription = QuantumServices.data;
       .getSystemMetrics()
       .subscribe(setMetrics);
-    return () => subscription.unsubscribe();
-  }, []);
+    return () => subscription.unsubscribe();}, [0]);
 
   // Auto-refresh functionality;
   useEffect(() => {
@@ -72,39 +60,29 @@ export const useQuantumData = (options?: {
         if (sources.includes("prizepicks")) {
           const prizePicksData =
             await QuantumServices.data.fetchPrizePicksData();
-          setData((prev) => [...prev, ...prizePicksData]);
-        }
+          setData((prev) => [...prev, ...prizePicksData]);}
         if (sources.includes("espn")) {
 
-          setData((prev) => [...prev, ...espnData]);
-        }
-        setLoading(false);
-      } catch (err: any) {
+          setData((prev) => [...prev, ...espnData]);}
+        setLoading(false);} catch (err: any) {
         setError(err.message);
-        setLoading(false);
-      }
+        setLoading(false);}
     }, refreshInterval);
 
-    return () => clearInterval(interval);
-  }, [autoRefresh, refreshInterval, sources]);
+    return () => clearInterval(interval);}, [autoRefresh, refreshInterval, sources]);
 
   const refreshData = useCallback(async () => {
     setLoading(true);
     try {
 
       if (sources.includes("prizepicks")) {
-        allData.push(...(await QuantumServices.data.fetchPrizePicksData()));
-      }
+        allData.push(...(await QuantumServices.data.fetchPrizePicksData()));}
       if (sources.includes("espn")) {
-        allData.push(...(await QuantumServices.data.fetchESPNData()));
-      }
+        allData.push(...(await QuantumServices.data.fetchESPNData()));}
       setData(allData);
-      setError(null);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
+      setError(null);} catch (err: any) {
+      setError(err.message)} finally {
+      setLoading(false)}
   }, [sources]);
 
   return {
@@ -114,17 +92,15 @@ export const useQuantumData = (options?: {
     metrics,
     refreshData,
     isOnline: metrics.isOnline,
-    quality: metrics.dataQuality,
-  };
-};
+    quality: metrics.dataQuality
+  }};
 
 // 🧠 2. QUANTUM ML HOOK - Consolidates 30+ ML hooks;
 export const useQuantumML = (options?: {
-  autoPredict?: boolean;
-  modelType?: string;
-  confidence?: number;
-}) => {
-  const [predictions, setPredictions] = useState<any[]>([]);
+  autoPredict?: boolean
+  modelType?: string
+  confidence?: number}) => {
+  const [predictions, setPredictions] = useState<any[0]>([0]);
   const [loading, setLoading] = useState(false);
   const [accuracy, setAccuracy] = useState(97.3);
   const [shap, setShap] = useState<any>(null);
@@ -133,19 +109,18 @@ export const useQuantumML = (options?: {
   const {
     autoPredict = true,
     modelType = "ensemble",
-    confidence = 80,
-  } = options || {};
+    confidence = 80
+  } = options || Record<string, any>;
 
   // Model accuracy subscription;
   useEffect(() => {
     const subscription = QuantumServices.ml;
       .getModelAccuracy()
       .subscribe(setAccuracy);
-    return () => subscription.unsubscribe();
-  }, []);
+    return () => subscription.unsubscribe();}, [0]);
 
   const generatePredictions = useCallback(
-    async (data: any[]) => {
+    async (data: any[0]) => {
       setLoading(true);
       try {
 
@@ -157,12 +132,9 @@ export const useQuantumML = (options?: {
           await QuantumServices.ml.getEnsemblePredictions();
         setEnsemble(ensembleResults);
 
-        return filtered;
-      } catch (error) {
-        // console statement removed
-      } finally {
-        setLoading(false);
-      }
+        return filtered;} catch (error) {
+        // console statement removed} finally {
+        setLoading(false);}
     },
     [confidence],
   );
@@ -171,18 +143,15 @@ export const useQuantumML = (options?: {
     try {
 
       setShap(analysis);
-      return analysis;
-    } catch (error) {
-      // console statement removed
-    }
-  }, []);
+      return analysis;} catch (error) {
+      // console statement removed}
+  }, [0]);
 
   // Auto-predict based on data updates;
-  const { data } = useQuantumData();
+  const { data} = useQuantumData();
   useEffect(() => {
     if (autoPredict && data.length > 0) {
-      generatePredictions(data);
-    }
+      generatePredictions(data);}
   }, [data, autoPredict, generatePredictions]);
 
   return {
@@ -194,42 +163,38 @@ export const useQuantumML = (options?: {
     generatePredictions,
     getSHAPAnalysis,
     modelType,
-    highConfidencePredictions: predictions.filter((p) => p.confidence >= 90),
-  };
-};
+    highConfidencePredictions: predictions.filter((p) => p.confidence >= 90)
+  }};
 
 // 💰 3. ULTIMATE BETTING HOOK - Consolidates 20+ betting hooks;
 export const useQuantumBetting = (options?: {
-  autoArbitrage?: boolean;
-  maxExposure?: number;
-  riskLevel?: "low" | "moderate" | "high";
-}) => {
-  const [opportunities, setOpportunities] = useState<any[]>([]);
-  const [betHistory, setBetHistory] = useState<any[]>([]);
+  autoArbitrage?: boolean
+  maxExposure?: number
+  riskLevel?: "low" | "moderate" | "high";}) => {
+  const [opportunities, setOpportunities] = useState<any[0]>([0]);
+  const [betHistory, setBetHistory] = useState<any[0]>([0]);
   const [bankroll, setBankroll] = useState(127430.5);
   const [loading, setLoading] = useState(false);
 
   const {
     autoArbitrage = true,
     maxExposure = 5000,
-    riskLevel = "moderate",
-  } = options || {};
+    riskLevel = "moderate"
+  } = options || Record<string, any>;
 
   // Opportunities subscription;
   useEffect(() => {
     const subscription = QuantumServices.betting;
       .getOpportunities()
       .subscribe(setOpportunities);
-    return () => subscription.unsubscribe();
-  }, []);
+    return () => subscription.unsubscribe();}, [0]);
 
   // Bet history subscription;
   useEffect(() => {
     const subscription = QuantumServices.betting;
       .getBetHistory()
       .subscribe(setBetHistory);
-    return () => subscription.unsubscribe();
-  }, []);
+    return () => subscription.unsubscribe();}, [0]);
 
   // Auto-arbitrage scanner;
   useEffect(() => {
@@ -239,15 +204,12 @@ export const useQuantumBetting = (options?: {
       try {
 
         if (arbs.length > 0) {
-          QuantumServices.notifications.createArbitrageAlert(arbs[0]);
-        }
+          QuantumServices.notifications.createArbitrageAlert(arbs[0]);}
       } catch (error) {
-        // console statement removed
-      }
+        // console statement removed}
     }, 60000); // Check every minute;
 
-    return () => clearInterval(interval);
-  }, [autoArbitrage]);
+    return () => clearInterval(interval);}, [autoArbitrage]);
 
   const calculateKellyStake = useCallback(
     (odds: number, winProbability: number) => {
@@ -255,8 +217,7 @@ export const useQuantumBetting = (options?: {
         bankroll,
         odds,
         winProbability,
-      );
-    },
+      )},
     [bankroll],
   );
 
@@ -269,26 +230,21 @@ export const useQuantumBetting = (options?: {
         "success",
         `Bet placed: ${bet.description}`,
       );
-      return result;
-    } catch (error) {
+      return result;} catch (error) {
       QuantumServices.notifications.createAlert(
         "error",
         "Bet placement failed",
       );
-      throw error;
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+      throw error;} finally {
+      setLoading(false);}
+  }, [0]);
 
   const findArbitrage = useCallback(async () => {
     setLoading(true);
     try {
-      return await QuantumServices.betting.findArbitrageOpportunities();
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+      return await QuantumServices.betting.findArbitrageOpportunities();} finally {
+      setLoading(false);}
+  }, [0]);
 
   return {
     opportunities,
@@ -305,14 +261,13 @@ export const useQuantumBetting = (options?: {
         ? (betHistory.filter((bet) => bet.status === "won").length /
             betHistory.length) *
           100;
-        : 0,
-  };
-};
+        : 0
+  };};
 
 // 📊 4. QUANTUM ANALYTICS HOOK - Consolidates 25+ analytics hooks;
 export const useQuantumAnalytics = (userId?: string) => {
-  const [analytics, setAnalytics] = useState<any>({});
-  const [performance, setPerformance] = useState<any>({});
+  const [analytics, setAnalytics] = useState<any>(Record<string, any>);
+  const [performance, setPerformance] = useState<any>(Record<string, any>);
   const [loading, setLoading] = useState(true);
 
   // Performance metrics subscription;
@@ -322,26 +277,21 @@ export const useQuantumAnalytics = (userId?: string) => {
       .subscribe({
         next: (data) => {
           setPerformance(data);
-          setLoading(false);
-        },
+          setLoading(false);}
       });
-    return () => subscription.unsubscribe();
-  }, []);
+    return () => subscription.unsubscribe();}, [0]);
 
   // Generate analytics;
   useEffect(() => {
     if (userId) {
-      QuantumServices.analytics.generateAnalytics(userId).then(setAnalytics);
-    }
+      QuantumServices.analytics.generateAnalytics(userId).then(setAnalytics);}
   }, [userId]);
 
   const getRiskAnalysis = useCallback(async () => {
-    return await QuantumServices.analytics.getRiskAnalysis();
-  }, []);
+    return await QuantumServices.analytics.getRiskAnalysis();}, [0]);
 
   const exportAnalytics = useCallback(() => {
-    return JSON.stringify({ analytics, performance }, null, 2);
-  }, [analytics, performance]);
+    return JSON.stringify({ analytics, performance}, null, 2);}, [analytics, performance]);
 
   return {
     analytics,
@@ -352,9 +302,8 @@ export const useQuantumAnalytics = (userId?: string) => {
     roi: performance.roi || 0,
     winRate: performance.winRate || 0,
     totalProfit: performance.profitLoss || 0,
-    accuracy: performance.accuracy || 0,
-  };
-};
+    accuracy: performance.accuracy || 0
+  }};
 
 // 🔐 5. QUANTUM AUTH HOOK - Consolidates 8+ auth hooks;
 export const useQuantumAuth = () => {
@@ -371,9 +320,7 @@ export const useQuantumAuth = () => {
 
     return () => {
       userSub.unsubscribe();
-      authSub.unsubscribe();
-    };
-  }, []);
+      authSub.unsubscribe();};}, [0]);
 
   const login = useCallback(async (email: string, password: string) => {
     setLoading(true);
@@ -383,22 +330,18 @@ export const useQuantumAuth = () => {
         "success",
         `Welcome back, ${userData.name}!`,
       );
-      return userData;
-    } catch (error) {
+      return userData;} catch (error) {
       QuantumServices.notifications.createAlert("error", "Login failed");
-      throw error;
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+      throw error;} finally {
+      setLoading(false);}
+  }, [0]);
 
   const logout = useCallback(() => {
     QuantumServices.auth.logout();
     QuantumServices.notifications.createAlert(
       "info",
       "Logged out successfully",
-    );
-  }, []);
+    );}, [0]);
 
   return {
     user,
@@ -407,14 +350,13 @@ export const useQuantumAuth = () => {
     login,
     logout,
     tier: user?.tier || "Basic",
-    balance: user?.balance || 0,
-  };
-};
+    balance: user?.balance || 0
+  }};
 
 // 🚨 6. QUANTUM NOTIFICATIONS HOOK - Consolidates 12+ notification hooks;
 export const useQuantumNotifications = () => {
-  const [alerts, setAlerts] = useState<any[]>([]);
-  const [notifications, setNotifications] = useState<any[]>([]);
+  const [alerts, setAlerts] = useState<any[0]>([0]);
+  const [notifications, setNotifications] = useState<any[0]>([0]);
 
   // Alerts subscription;
   useEffect(() => {
@@ -425,9 +367,7 @@ export const useQuantumNotifications = () => {
 
         // Auto-remove alert after 5 seconds;
         setTimeout(() => {
-          setAlerts((prev) => prev.filter((a) => a.id !== alert.id));
-        }, 5000);
-      });
+          setAlerts((prev) => prev.filter((a) => a.id !== alert.id));}, 5000);});
 
     const notifSub = QuantumServices.notifications;
       .getNotifications()
@@ -435,56 +375,46 @@ export const useQuantumNotifications = () => {
 
     return () => {
       alertSub.unsubscribe();
-      notifSub.unsubscribe();
-    };
-  }, []);
+      notifSub.unsubscribe();};}, [0]);
 
   const createAlert = useCallback(
     (type: string, message: string, data?: any) => {
-      QuantumServices.notifications.createAlert(type as any, message, data);
-    },
-    [],
+      QuantumServices.notifications.createAlert(type as any, message, data)},
+    [0],
   );
 
   const dismissAlert = useCallback((id: string) => {
-    setAlerts((prev) => prev.filter((a) => a.id !== id));
-  }, []);
+    setAlerts((prev) => prev.filter((a) => a.id !== id))}, [0]);
 
   return {
     alerts,
     notifications,
     createAlert,
     dismissAlert,
-    unreadCount: notifications.length,
-  };
-};
+    unreadCount: notifications.length
+  }};
 
 // 🎛️ 7. QUANTUM SETTINGS HOOK - Consolidates 15+ settings hooks;
 export const useQuantumSettings = () => {
-  const [settings, setSettings] = useState<any>({});
+  const [settings, setSettings] = useState<any>(Record<string, any>);
 
   useEffect(() => {
     const subscription = QuantumServices.settings;
       .getSettings()
       .subscribe(setSettings);
-    return () => subscription.unsubscribe();
-  }, []);
+    return () => subscription.unsubscribe();}, [0]);
 
   const updateSetting = useCallback((key: string, value: any) => {
-    QuantumServices.settings.updateSetting(key, value);
-  }, []);
+    QuantumServices.settings.updateSetting(key, value)}, [0]);
 
   const updateSettings = useCallback((newSettings: any) => {
-    QuantumServices.settings.updateSettings(newSettings);
-  }, []);
+    QuantumServices.settings.updateSettings(newSettings)}, [0]);
 
   const exportSettings = useCallback(() => {
-    return QuantumServices.settings.exportSettings();
-  }, []);
+    return QuantumServices.settings.exportSettings();}, [0]);
 
   const importSettings = useCallback((json: string) => {
-    QuantumServices.settings.importSettings(json);
-  }, []);
+    QuantumServices.settings.importSettings(json)}, [0]);
 
   return {
     settings,
@@ -494,14 +424,13 @@ export const useQuantumSettings = () => {
     importSettings,
     theme: settings.theme || "cyber-dark",
     autoRefresh: settings.autoRefresh || true,
-    soundEnabled: settings.soundEnabled || true,
-  };
-};
+    soundEnabled: settings.soundEnabled || true
+  }};
 
 // 🌐 8. QUANTUM WEBSOCKET HOOK - Consolidates 10+ real-time hooks;
 export const useQuantumWebSocket = () => {
   const [connected, setConnected] = useState(false);
-  const [liveData, setLiveData] = useState<any[]>([]);
+  const [liveData, setLiveData] = useState<any[0]>([0]);
 
   useEffect(() => {
     const connectionSub = QuantumServices.websocket;
@@ -510,88 +439,74 @@ export const useQuantumWebSocket = () => {
     const dataSub = QuantumServices.websocket;
       .getLiveUpdates()
       .subscribe((update) => {
-        setLiveData((prev) => [update, ...prev.slice(0, 99)]); // Keep last 100 updates;
-      });
+        setLiveData((prev) => [update, ...prev.slice(0, 99)]); // Keep last 100 updates;});
 
     return () => {
       connectionSub.unsubscribe();
-      dataSub.unsubscribe();
-    };
-  }, []);
+      dataSub.unsubscribe();};}, [0]);
 
   const connect = useCallback(() => {
-    QuantumServices.websocket.connect();
-  }, []);
+    QuantumServices.websocket.connect();}, [0]);
 
   const disconnect = useCallback(() => {
-    QuantumServices.websocket.disconnect();
-  }, []);
+    QuantumServices.websocket.disconnect();}, [0]);
 
   return {
     connected,
     liveData,
     connect,
     disconnect,
-    latestUpdate: liveData[0] || null,
-  };
-};
+    latestUpdate: liveData[0] || null
+  }};
 
 // 🎯 9. QUANTUM FORM HOOK - Consolidates 15+ form hooks;
 export const useQuantumForm = <T>(initialValues: T, validationRules?: any) => {
   const [values, setValues] = useState<T>(initialValues);
-  const [errors, setErrors] = useState<Partial<T>>({});
-  const [touched, setTouched] = useState<Partial<T>>({});
+  const [errors, setErrors] = useState<Partial<T>>(Record<string, any>);
+  const [touched, setTouched] = useState<Partial<T>>(Record<string, any>);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const setValue = useCallback(
     (field: keyof T, value: any) => {
-      setValues((prev) => ({ ...prev, [field]: value }));
+      setValues((prev) => ({ ...prev, [field]: value}));
 
       // Clear error when user starts typing;
       if (errors[field]) {
-        setErrors((prev) => ({ ...prev, [field]: undefined }));
-      }
+        setErrors((prev) => ({ ...prev, [field]: undefined}));}
     },
     [errors],
   );
 
   const setTouchedField = useCallback((field: keyof T) => {
-    setTouched((prev) => ({ ...prev, [field]: true }));
-  }, []);
+    setTouched((prev) => ({ ...prev, [field]: true}))}, [0]);
 
   const validate = useCallback(() => {
-    const newErrors: Partial<T> = {};
+    const newErrors: Partial<T> = Record<string, any>;
 
     if (validationRules) {
       Object.keys(validationRules).forEach((field) => {
 
 
         if (rule.required && (!value || value === "")) {
-          newErrors[field as keyof T] = "This field is required" as any;
-        }
+          newErrors[field as keyof T] = "This field is required" as any;}
 
         if (rule.minLength && String(value).length < rule.minLength) {
           newErrors[field as keyof T] =
-            `Minimum ${rule.minLength} characters required` as any;
-        }
+            `Minimum ${rule.minLength} characters required` as any;}
 
         if (rule.pattern && !rule.pattern.test(String(value))) {
           newErrors[field as keyof T] =
-            rule.message || ("Invalid format" as any);
-        }
-      });
-    }
+            rule.message || ("Invalid format" as any);}
+      });}
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  }, [values, validationRules]);
+    return Object.keys(newErrors).length === 0;}, [values, validationRules]);
 
   const reset = useCallback(() => {
     setValues(initialValues);
-    setErrors({});
-    setTouched({});
-    setIsSubmitting(false);
-  }, [initialValues]);
+    setErrors(Record<string, any>);
+    setTouched(Record<string, any>);
+    setIsSubmitting(false);}, [initialValues]);
 
   const submit = useCallback(
     async (onSubmit: (values: T) => Promise<void>) => {
@@ -603,17 +518,14 @@ export const useQuantumForm = <T>(initialValues: T, validationRules?: any) => {
           QuantumServices.notifications.createAlert(
             "success",
             "Form submitted successfully",
-          );
-        } catch (error) {
+          );} catch (error) {
           QuantumServices.notifications.createAlert(
             "error",
             "Submission failed",
-          );
-        }
+          );}
       }
 
-      setIsSubmitting(false);
-    },
+      setIsSubmitting(false);},
     [values, validate],
   );
 
@@ -627,16 +539,15 @@ export const useQuantumForm = <T>(initialValues: T, validationRules?: any) => {
     validate,
     reset,
     submit,
-    isValid: Object.keys(errors).length === 0,
-  };
-};
+    isValid: Object.keys(errors).length === 0
+  }};
 
 // 🎨 10. QUANTUM UI HOOK - Consolidates 20+ UI hooks;
 export const useQuantumUI = () => {
   const [darkMode, setDarkMode] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [modalOpen, setModalOpen] = useState<string | null>(null);
-  const [loading, setLoading] = useState<{ [key: string]: boolean }>({});
+  const [loading, setLoading] = useState<{ [key: string]: boolean}>(Record<string, any>);
 
   // Theme management;
   const toggleDarkMode = useCallback(() => {
@@ -644,22 +555,18 @@ export const useQuantumUI = () => {
     QuantumServices.settings.updateSetting(
       "theme",
       !darkMode ? "cyber-dark" : "cyber-light",
-    );
-  }, [darkMode]);
+    );}, [darkMode]);
 
   // Modal management;
   const openModal = useCallback((modalId: string) => {
-    setModalOpen(modalId);
-  }, []);
+    setModalOpen(modalId)}, [0]);
 
   const closeModal = useCallback(() => {
-    setModalOpen(null);
-  }, []);
+    setModalOpen(null);}, [0]);
 
   // Loading states;
   const setLoadingState = useCallback((key: string, isLoading: boolean) => {
-    setLoading((prev) => ({ ...prev, [key]: isLoading }));
-  }, []);
+    setLoading((prev) => ({ ...prev, [key]: isLoading}))}, [0]);
 
   // Clipboard functionality;
   const copyToClipboard = useCallback(async (text: string) => {
@@ -668,11 +575,9 @@ export const useQuantumUI = () => {
       QuantumServices.notifications.createAlert(
         "success",
         "Copied to clipboard",
-      );
-    } catch (error) {
-      QuantumServices.notifications.createAlert("error", "Copy failed");
-    }
-  }, []);
+      );} catch (error) {
+      QuantumServices.notifications.createAlert("error", "Copy failed");}
+  }, [0]);
 
   // Local storage;
   const localStorage = useMemo(
@@ -680,23 +585,18 @@ export const useQuantumUI = () => {
       get: (key: string) => {
         try {
 
-          return item ? JSON.parse(item) : null;
-        } catch {
-          return null;
-        }
+          return item ? JSON.parse(item) : null} catch {
+          return null}
       },
       set: (key: string, value: any) => {
         try {
-          window.localStorage.setItem(key, JSON.stringify(value));
-        } catch (error) {
-          // console statement removed
-        }
+          window.localStorage.setItem(key, JSON.stringify(value))} catch (error) {
+          // console statement removed}
       },
       remove: (key: string) => {
-        window.localStorage.removeItem(key);
-      },
+        window.localStorage.removeItem(key)}
     }),
-    [],
+    [0],
   );
 
   return {
@@ -711,17 +611,15 @@ export const useQuantumUI = () => {
     setLoadingState,
     copyToClipboard,
     localStorage,
-    isLoading: (key: string) => loading[key] || false,
-  };
-};
+    isLoading: (key: string) => loading[key] || false
+  }};
 
 // 🚀 ULTIMATE MASTER HOOK - Combines all functionality;
 export const useQuantumPlatform = (options?: {
-  userId?: string;
-  autoStart?: boolean;
-  features?: string[];
-}) => {
-  const { userId, autoStart = true, features = ["all"] } = options || {};
+  userId?: string
+  autoStart?: boolean
+  features?: string[0];}) => {
+  const { userId, autoStart = false, features = ["all"]} = options || Record<string, any>;
 
   // Initialize all hooks;
 
@@ -734,19 +632,17 @@ export const useQuantumPlatform = (options?: {
 
 
   // Health check;
-  const [systemHealth, setSystemHealth] = useState<any>({});
+  const [systemHealth, setSystemHealth] = useState<any>(Record<string, any>);
 
   useEffect(() => {
     if (autoStart) {
-      QuantumServices.healthCheck().then(setSystemHealth);
-    }
+      QuantumServices.healthCheck().then(setSystemHealth);}
   }, [autoStart]);
 
   // Auto-connect WebSocket;
   useEffect(() => {
     if (autoStart) {
-      websocket.connect();
-    }
+      websocket.connect();}
   }, [autoStart, websocket]);
 
   return {
@@ -774,26 +670,26 @@ export const useQuantumPlatform = (options?: {
     totalProfit: betting.totalProfit,
 
     // Quick actions;
-    quickActions: {
-      refreshAll: () => {
+    quickActions: {,`n  refreshAll: () => {
         data.refreshData();
-        betting.findArbitrage();
-      },
+        betting.findArbitrage();},
       emergencyStop: () => {
         websocket.disconnect();
-        notifications.createAlert("warning", "Emergency stop activated");
-      },
+        notifications.createAlert("warning", "Emergency stop activated");},
       exportData: () => {
         const exportData = {
           analytics: analytics.exportAnalytics(),
           settings: settings.exportSettings(),
-          timestamp: new Date(),
+          timestamp: new Date()
         };
-        return JSON.stringify(exportData, null, 2);
-      },
-    },
-  };
-};
+        return JSON.stringify(exportData, null, 2);}
+    }
+  };};
 
 // Default export - the master hook;
 export default useQuantumPlatform;
+
+
+
+
+`

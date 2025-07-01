@@ -1,7 +1,7 @@
-import React, { forwardRef  } from 'react.ts';
-import { motion, HTMLMotionProps } from 'framer-motion.ts';
-import { twMerge } from 'tailwind-merge.ts';
-import { Loader2 } from 'lucide-react.ts';
+﻿import React, { forwardRef} from 'react';
+import { motion, HTMLMotionProps} from 'framer-motion';
+import { twMerge} from 'tailwind-merge';
+import { Loader2} from 'lucide-react';
 
 // ============================================================================
 // TYPES & INTERFACES;
@@ -23,40 +23,39 @@ export type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
 
 export type ButtonTheme = "standard" | "cyber" | "premium" | "minimal";
 
-export interface UniversalButtonProps;
+export interface UniversalButtonProps
   extends Omit<HTMLMotionProps<"button" key={45282}>, "size"> {
   // Appearance;
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-  theme?: ButtonTheme;
-  fullWidth?: boolean;
+  variant?: ButtonVariant
+  size?: ButtonSize
+  theme?: ButtonTheme
+  fullWidth?: boolean
 
   // State;
-  loading?: boolean;
-  disabled?: boolean;
-  active?: boolean;
+  loading?: boolean
+  disabled?: boolean
+  active?: boolean
 
   // Icons;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
 
   // Animation;
-  animate?: boolean;
-  pulse?: boolean;
-  glow?: boolean;
+  animate?: boolean
+  pulse?: boolean
+  glow?: boolean
 
   // Betting specific (for compatibility)
   betType?: "straight" | "parlay" | "teaser";
-  odds?: number;
-  stake?: number;
-  potentialReturn?: number;
-  isPlacing?: boolean;
-  isConfirmed?: boolean;
+  odds?: number
+  stake?: number
+  potentialReturn?: number
+  isPlacing?: boolean
+  isConfirmed?: boolean
 
   // Accessibility;
-  ariaLabel?: string;
-  tooltip?: string;
-}
+  ariaLabel?: string
+  tooltip?: string}
 
 // ============================================================================
 // STYLE CONFIGURATIONS;
@@ -67,8 +66,7 @@ const getVariantStyles = (
   theme: ButtonTheme,
 ): string => {
   const styles = {
-    standard: {
-      primary:
+    standard: {,`n  primary:
         "bg-blue-600 hover:bg-blue-700 text-white border border-blue-600 shadow-lg hover:shadow-xl",
       secondary:
         "bg-gray-600 hover:bg-gray-700 text-white border border-gray-600",
@@ -85,10 +83,9 @@ const getVariantStyles = (
         "bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white border border-cyan-500",
       betting:
         "bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white border border-green-500",
-      glow: "bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border border-purple-500",
+      glow: "bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border border-purple-500"
     },
-    cyber: {
-      primary:
+    cyber: {,`n  primary:
         "bg-gradient-to-r from-[#06ffa5] to-[#00ff88] hover:from-[#05e094] hover:to-[#00e077] text-black border border-[#06ffa5] shadow-[0_0_20px_rgba(6,255,165,0.4)] hover:shadow-[0_0_30px_rgba(6,255,165,0.6)]",
       secondary:
         "bg-white/5 hover:bg-white/10 text-white border border-white/20 backdrop-blur-sm",
@@ -106,10 +103,9 @@ const getVariantStyles = (
         "bg-gradient-to-r from-[#06ffa5] to-[#00d4ff] hover:from-[#05e094] hover:to-[#00bfef] text-black border border-[#06ffa5] shadow-[0_0_20px_rgba(6,255,165,0.4)]",
       betting:
         "bg-gradient-to-r from-[#06ffa5] to-[#00ff88] hover:from-[#05e094] hover:to-[#00e077] text-black border border-[#06ffa5] shadow-[0_0_15px_rgba(6,255,165,0.3)]",
-      glow: "bg-gradient-to-r from-[#7c3aed] to-[#06ffa5] hover:from-[#6d28d9] hover:to-[#05e094] text-white border border-[#7c3aed] shadow-[0_0_25px_rgba(124,58,237,0.5)]",
+      glow: "bg-gradient-to-r from-[#7c3aed] to-[#06ffa5] hover:from-[#6d28d9] hover:to-[#05e094] text-white border border-[#7c3aed] shadow-[0_0_25px_rgba(124,58,237,0.5)]"
     },
-    premium: {
-      primary:
+    premium: {,`n  primary:
         "bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-white border border-amber-500 shadow-xl",
       secondary:
         "bg-gradient-to-r from-gray-700 to-gray-800 hover:from-gray-800 hover:to-gray-900 text-white border border-gray-700",
@@ -127,10 +123,9 @@ const getVariantStyles = (
         "bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white border border-indigo-500",
       betting:
         "bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white border border-green-600",
-      glow: "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border border-purple-600",
+      glow: "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border border-purple-600"
     },
-    minimal: {
-      primary:
+    minimal: {,`n  primary:
         "bg-gray-900 hover:bg-gray-800 text-white border border-gray-900",
       secondary:
         "bg-gray-200 hover:bg-gray-300 text-gray-900 border border-gray-200",
@@ -146,12 +141,11 @@ const getVariantStyles = (
       cyber: "bg-blue-500 hover:bg-blue-600 text-white border border-blue-500",
       betting:
         "bg-green-500 hover:bg-green-600 text-white border border-green-500",
-      glow: "bg-purple-500 hover:bg-purple-600 text-white border border-purple-500",
-    },
+      glow: "bg-purple-500 hover:bg-purple-600 text-white border border-purple-500"
+    }
   };
 
-  return styles[theme][variant] || styles.standard[variant];
-};
+  return styles[theme][variant] || styles.standard[variant];};
 
 const getSizeStyles = (size: ButtonSize): string => {
   const sizes = {
@@ -159,10 +153,9 @@ const getSizeStyles = (size: ButtonSize): string => {
     sm: "px-3 py-1.5 text-sm h-8",
     md: "px-4 py-2 text-sm h-10",
     lg: "px-6 py-3 text-base h-12",
-    xl: "px-8 py-4 text-lg h-14",
+    xl: "px-8 py-4 text-lg h-14"
   };
-  return sizes[size];
-};
+  return sizes[size];};
 
 // ============================================================================
 // MAIN COMPONENT;
@@ -197,8 +190,7 @@ export const UniversalButton = forwardRef<
       tooltip,
       className,
       onClick,
-      ...props;
-    },
+      ...props;},
     ref,
   ) => {
     // Handle betting-specific states;
@@ -233,10 +225,8 @@ export const UniversalButton = forwardRef<
     const handleClick = (e: React.MouseEvent<HTMLButtonElement key={390513}>) => {
       if (effectiveLoading || disabled) {
         e.preventDefault();
-        return;
-      }
-      onClick?.(e);
-    };
+        return;}
+      onClick?.(e);};
 
     // Render betting details;
     const renderBettingDetails = () => {
@@ -255,23 +245,20 @@ export const UniversalButton = forwardRef<
             <span className="ml-2" key={654787}>Win: ${potentialReturn}</span>
           )}
         </div>
-      );
-    };
+      )};
 
     // Animation variants;
     const motionVariants = animate;
       ? {
-          hover: {
-            scale: 1.02,
+          hover: {,`n  scale: 1.02,
             y: -1,
-            transition: { duration: 0.2 },
+            transition: { duration: 0.2}
           },
-          tap: {
-            scale: 0.98,
-            transition: { duration: 0.1 },
-          },
+          tap: {,`n  scale: 0.98,
+            transition: { duration: 0.1}
+          }
         }
-      : {};
+      : Record<string, any>;
 
     return (
       <motion.button;
@@ -316,8 +303,7 @@ export const UniversalButton = forwardRef<
           <div className="absolute inset-0 -z-10 blur-xl opacity-30 bg-gradient-to-r from-current to-current" / key={206300}>
         )}
       </motion.button>
-    );
-  },
+    );},
 );
 
 UniversalButton.displayName = "UniversalButton";
@@ -347,4 +333,9 @@ export const PremiumButton: React.FC<UniversalButtonProps key={444460}> = (props
 // ============================================================================
 
 export default UniversalButton;
-export type { ButtonVariant, ButtonSize, ButtonTheme, UniversalButtonProps };
+export type { ButtonVariant, ButtonSize, ButtonTheme, UniversalButtonProps};
+
+
+
+
+`

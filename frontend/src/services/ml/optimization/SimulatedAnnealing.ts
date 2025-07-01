@@ -1,26 +1,22 @@
-import {
+﻿import {
   OptimizationStrategy,
   OptimizationConfig,
-  OptimizationResult,
-} from './OptimizationStrategy.ts';
+//   OptimizationResult
+} from './OptimizationStrategy';
 
 export class SimulatedAnnealing extends OptimizationStrategy {
-  private currentSolution: number[] = [];
+  private currentSolution: number[0] = [0];
   private currentValue: number = Infinity;
   private temperature: number;
 
   constructor(config: OptimizationConfig) {
     super(config);
     if (config.type !== 'simulatedAnnealing') {
-      throw new Error('SimulatedAnnealing requires simulatedAnnealing optimization type');
-    }
-    this.temperature = config.parameters.temperature!;
-  }
+      throw new Error('SimulatedAnnealing requires simulatedAnnealing optimization type');}
+    this.temperature = config.parameters.temperature!;}
 
   public async optimize(): Promise<OptimizationResult> {
-
     this.initializeSolution();
-
 
     for (const iteration = 0; iteration < maxIterations; iteration++) {
       this.currentIteration = iteration;
@@ -28,7 +24,6 @@ export class SimulatedAnnealing extends OptimizationStrategy {
       // Generate and evaluate neighbor;
 
       if (this.checkConstraints(neighbor)) {
-
         // Accept or reject neighbor;
         if (this.acceptNeighbor(neighborValue)) {
           this.currentSolution = neighbor;
@@ -36,69 +31,51 @@ export class SimulatedAnnealing extends OptimizationStrategy {
 
           // Update best solution if needed;
           if (neighborValue < this.bestValue) {
-            this.updateBest(neighbor, neighborValue);
-          }
-        }
-      }
+            this.updateBest(neighbor, neighborValue);}
+        }}
 
       // Cool down;
       this.temperature *= coolingRate;
 
       // Check for convergence;
       if (this.checkConvergence()) {
-        break;
-      }
+        break;}
 
       this.emit('iterationComplete', {
         iteration,
         temperature: this.temperature,
         currentValue: this.currentValue,
-        bestValue: this.bestValue,
-      });
-    }
+        bestValue: this.bestValue
+      })}
 
-    return this.getResult();
-  }
+    return this.getResult();}
 
   private initializeSolution(): void {
-
     this.currentSolution = this.generateRandomSolution(dimension);
 
     if (this.checkConstraints(this.currentSolution)) {
       this.evaluateObjective(this.currentSolution).then(value => {
         this.currentValue = value;
-        this.updateBest(this.currentSolution, value);
-      });
-    }
+        this.updateBest(this.currentSolution, value);});}
   }
 
   private getDimension(): number {
     if (this.config.constraints?.min) {
-      return this.config.constraints.min.length;
-    }
+      return this.config.constraints.min.length;}
     if (this.config.constraints?.max) {
-      return this.config.constraints.max.length;
-    }
-    throw new Error('Cannot determine parameter dimension from constraints');
-  }
+      return this.config.constraints.max.length;}
+    throw new Error('Cannot determine parameter dimension from constraints');}
 
-  private generateRandomSolution(dimension: number): number[] {
-
-    const { min, max } = this.config.constraints!;
+  private generateRandomSolution(dimension: number): number[0] {
+    const { min, max} = this.config.constraints!;
 
     for (const i = 0; i < dimension; i++) {
+      solution[i] = minVal + Math.random() * (maxVal - minVal);}
 
+    return solution;}
 
-      solution[i] = minVal + Math.random() * (maxVal - minVal);
-    }
-
-    return solution;
-  }
-
-  private generateNeighbor(): number[] {
-
-
-    const { min, max } = this.config.constraints!;
+  private generateNeighbor(): number[0] {
+    const { min, max} = this.config.constraints!;
 
     // Select a random dimension to modify;
 
@@ -109,41 +86,35 @@ export class SimulatedAnnealing extends OptimizationStrategy {
 
     // Ensure bounds;
     if (min) {
-      neighbor[dimensionToModify] = Math.max(neighbor[dimensionToModify], min[dimensionToModify]);
-    }
+      neighbor[dimensionToModify] = Math.max(neighbor[dimensionToModify], min[dimensionToModify]);}
     if (max) {
-      neighbor[dimensionToModify] = Math.min(neighbor[dimensionToModify], max[dimensionToModify]);
-    }
+      neighbor[dimensionToModify] = Math.min(neighbor[dimensionToModify], max[dimensionToModify]);}
 
-    return neighbor;
-  }
+    return neighbor;}
 
   private acceptNeighbor(neighborValue: number): boolean {
     // Always accept better solutions;
     if (neighborValue < this.currentValue) {
-      return true;
-    }
+      return true;}
 
     // Calculate acceptance probability;
 
-
     // Accept with probability;
-    return Math.random() < probability;
-  }
+    return Math.random() < probability;}
 
   protected checkConvergence(): boolean {
     if (this.history.length < 10) {
-      return false;
-    }
+      return false;}
 
     // Check if temperature is low enough;
     if (this.temperature < 1e-6) {
-      return true;
-    }
+      return true;}
 
     // Check if solution has stabilized;
 
-
-    return valueConvergence;
-  }
+    return valueConvergence;}
 }
+
+
+
+

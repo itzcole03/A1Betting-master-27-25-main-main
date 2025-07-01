@@ -1,21 +1,20 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { usePredictions } from '@/store/unified/UnifiedStoreManager.ts';
-import { mlEngine } from '@/services/ml/UnifiedMLEngine.ts';
+﻿import React, { useState, useEffect} from 'react';
+import { usePredictions} from '@/store/unified/UnifiedStoreManager';
+import { mlEngine} from '@/services/ml/UnifiedMLEngine';
 import type {
   PredictionInput,
-  EnsemblePrediction,
-} from '@/services/ml/UnifiedMLEngine.ts';
+//   EnsemblePrediction
+} from '@/services/ml/UnifiedMLEngine';
 
 interface MLPredictionsProps {
-  eventId?: string;
-  sport?: string;
-}
+  eventId?: string
+  sport?: string}
 
 export const MLPredictions: React.FC<MLPredictionsProps key={745992}> = ({
   eventId,
-  sport = "basketball_nba",
+  sport = "basketball_nba"
 }) => {
-  const { predictions, latestPredictions, updatePrediction } = usePredictions();
+  const { predictions, latestPredictions, updatePrediction} = usePredictions();
   const [isGenerating, setIsGenerating] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState(eventId || "");
 
@@ -24,20 +23,18 @@ export const MLPredictions: React.FC<MLPredictionsProps key={745992}> = ({
 
     setIsGenerating(true);
     try {
-      const input: PredictionInput = {
-        eventId: selectedEventId,
+      const input: PredictionInput = {,`n  eventId: selectedEventId,
         sport,
         homeTeam: "Team A",
         awayTeam: "Team B",
-        features: {
-          elo_difference: 50,
+        features: {,`n  elo_difference: 50,
           player_recent_form: 0.8,
           home_court_advantage: 2.5,
           rest_days: 1,
-          injury_impact: 0.1,
+          injury_impact: 0.1
         },
         market: "moneyline",
-        timestamp: Date.now(),
+        timestamp: Date.now()
       };
 
       updatePrediction(selectedEventId, {
@@ -46,25 +43,19 @@ export const MLPredictions: React.FC<MLPredictionsProps key={745992}> = ({
         predictedValue: prediction.finalPrediction,
         factors: prediction.factors,
         timestamp: Date.now(),
-        metadata: {
-          modelVersion: "ensemble_v1.0",
-          features: input.features,
-        },
-      });
-    } catch (error) {
-      // console statement removed
-    } finally {
-      setIsGenerating(false);
-    }
+        metadata: {,`n  modelVersion: "ensemble_v1.0",
+          features: input.features
+        }
+      })} catch (error) {
+      // console statement removed} finally {
+      setIsGenerating(false)}
   };
 
   const formatConfidence = (confidence: number) => {
-    return (confidence * 100).toFixed(1);
-  };
+    return (confidence * 100).toFixed(1)};
 
   const formatPrediction = (value: number) => {
-    return (value * 100).toFixed(1);
-  };
+    return (value * 100).toFixed(1)};
 
   return (
     <div className="space-y-6" key={501869}>
@@ -153,17 +144,15 @@ export const MLPredictions: React.FC<MLPredictionsProps key={745992}> = ({
                             className={`w-16 h-2 rounded-full ${
                               factor.direction === "positive"
                                 ? "bg-green-200"
-                                : "bg-red-200"
-                            }`}
+                                : "bg-red-200"}`}
                            key={332680}>
                             <div;
                               className={`h-full rounded-full ${
                                 factor.direction === "positive"
                                   ? "bg-green-500"
-                                  : "bg-red-500"
-                              }`}
+                                  : "bg-red-500"}`}
                               style={{
-                                width: `${Math.abs(factor.impact) * 100}%`,
+                                width: `${Math.abs(factor.impact) * 100}%`
                               }}
                             / key={17870}>
                           </div>
@@ -171,8 +160,7 @@ export const MLPredictions: React.FC<MLPredictionsProps key={745992}> = ({
                             className={`text-sm font-medium ${
                               factor.direction === "positive"
                                 ? "text-green-600"
-                                : "text-red-600"
-                            }`}
+                                : "text-red-600"}`}
                            key={635505}>
                             {factor.direction === "positive" ? "+" : "-"}
                             {(Math.abs(factor.impact) * 100).toFixed(1)}%
@@ -225,7 +213,12 @@ export const MLPredictions: React.FC<MLPredictionsProps key={745992}> = ({
         </div>
       </div>
     </div>
-  );
-};
+  )};
 
 export default MLPredictions;
+
+
+
+
+
+`

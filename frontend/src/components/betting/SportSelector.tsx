@@ -1,23 +1,21 @@
-import React from 'react.ts';
-import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material.ts';
-import { Sport } from '@/types/betting.ts';
-import { useBettingStore } from '@/stores/bettingStore.ts';
+﻿import React from 'react';
+import { Box, ToggleButton, ToggleButtonGroup} from '@mui/material';
+import { Sport} from '@/types/betting';
+import { useBettingStore} from '@/stores/bettingStore';
 
 interface SportSelectorProps {
-  sports: Sport[];
-}
+  sports: Sport[0]}
 
-const SportSelector: React.FC<SportSelectorProps key={395899}> = ({ sports }) => {
-  const { selectedSport, selectSport } = useBettingStore();
+const SportSelector: React.FC<SportSelectorProps key={395899}> = ({ sports}) => {
+  const { selectedSport, selectSport} = useBettingStore();
 
   const handleSportChange = (_: React.MouseEvent<HTMLElement key={9296}>, newSport: Sport | null) => {
     if (newSport !== null) {
-      selectSport(newSport);
-    }
+      selectSport(newSport)}
   };
 
   return (
-    <Box sx={{ width: '100%' }} key={100658}>
+    <Box sx={{ width: '100%'}} key={100658}>
       <ToggleButtonGroup;
         exclusive;
         aria-label="sport selection"
@@ -33,10 +31,10 @@ const SportSelector: React.FC<SportSelectorProps key={395899}> = ({ sports }) =>
               backgroundColor: 'primary.main',
               color: 'primary.contrastText',
               '&:hover': {
-                backgroundColor: 'primary.dark',
-              },
-            },
-          },
+                backgroundColor: 'primary.dark'
+              }
+            }
+          }
         }}
         value={selectedSport}
         onChange={handleSportChange}
@@ -52,17 +50,19 @@ const SportSelector: React.FC<SportSelectorProps key={395899}> = ({ sports }) =>
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: 1,
+                gap: 1
               }}
              key={954644}>
-              <img alt={sport.name} src={sport.icon} style={{ width: 24, height: 24 }} / key={262215}>
+              <img alt={sport.name} src={sport.icon} style={{ width: 24, height: 24}} / key={262215}>
               {sport.name}
             </Box>
           </ToggleButton>
         ))}
       </ToggleButtonGroup>
     </Box>
-  );
-};
+  )};
 
 export default React.memo(SportSelector);
+
+
+

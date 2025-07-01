@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import { useTheme } from '@/providers/UniversalThemeProvider.ts';
+﻿import React from 'react';
+import { useTheme} from '@/providers/UniversalThemeProvider';
 
 // Icons (using SVG for better control and consistency)
 const SunIcon = () => (
@@ -50,38 +50,33 @@ const CyberIcon = () => (
 
 interface ThemeToggleProps {
   variant?: "button" | "switch" | "icon";
-  showLabel?: boolean;
-  className?: string;
-  size?: "sm" | "md" | "lg";
-}
+  showLabel?: boolean
+  className?: string
+  size?: "sm" | "md" | "lg";}
 
 const ThemeToggle: React.FC<ThemeToggleProps key={20874}> = ({
   variant = "button",
   showLabel = true,
   className = "",
-  size = "md",
+  size = "md"
 }) => {
-  const { isDark, toggleDarkMode, variant: themeVariant, theme } = useTheme();
+  const { isDark, toggleDarkMode, variant: themeVariant, theme} = useTheme();
 
   const sizeClasses = {
     sm: "px-2 py-1 text-sm",
     md: "px-3 py-2 text-base",
-    lg: "px-4 py-3 text-lg",
+    lg: "px-4 py-3 text-lg"
   };
 
   const getIcon = () => {
     if (themeVariant.startsWith("cyber")) {
-      return isDark ? <SunIcon / key={30138}> : <MoonIcon / key={161791}>;
-    }
-    return isDark ? <SunIcon / key={30138}> : <MoonIcon / key={161791}>;
-  };
+      return isDark ? <SunIcon / key={30138}> : <MoonIcon / key={161791}>;}
+    return isDark ? <SunIcon / key={30138}> : <MoonIcon / key={161791}>;};
 
   const getLabel = () => {
     if (themeVariant.startsWith("cyber")) {
-      return isDark ? "Light Mode" : "Dark Mode";
-    }
-    return isDark ? "Light Mode" : "Dark Mode";
-  };
+      return isDark ? "Light Mode" : "Dark Mode";}
+    return isDark ? "Light Mode" : "Dark Mode";};
 
   const getButtonStyle = () => {
     const baseStyle = {
@@ -94,7 +89,7 @@ const ThemeToggle: React.FC<ThemeToggleProps key={20874}> = ({
       transition: "all 0.3s ease",
       fontFamily: "inherit",
       fontSize: "inherit",
-      fontWeight: "500",
+      fontWeight: "500"
     };
 
     if (themeVariant.startsWith("cyber")) {
@@ -108,22 +103,19 @@ const ThemeToggle: React.FC<ThemeToggleProps key={20874}> = ({
         color: isDark ? "#ffffff" : "#0f172a",
         boxShadow: isDark;
           ? "0 8px 32px rgba(0, 0, 0, 0.1)"
-          : "0 8px 32px rgba(15, 23, 42, 0.1)",
-      };
-    }
+          : "0 8px 32px rgba(15, 23, 42, 0.1)"
+      };}
 
     return {
       ...baseStyle,
       background: theme.colors.surface,
       border: `1px solid ${theme.colors.border}`,
       color: theme.colors.text.primary,
-      boxShadow: theme.effects.shadow,
-    };
-  };
+      boxShadow: theme.effects.shadow
+    }};
 
   const handleToggle = () => {
-    toggleDarkMode();
-  };
+    toggleDarkMode();};
 
   if (variant === "switch") {
     return (
@@ -132,7 +124,7 @@ const ThemeToggle: React.FC<ThemeToggleProps key={20874}> = ({
           type="checkbox"
           checked={!isDark}
           onChange={handleToggle}
-          style={{ display: "none" }}
+          style={{ display: "none"}}
         / key={274863}>
         <div;
           style={{
@@ -145,7 +137,7 @@ const ThemeToggle: React.FC<ThemeToggleProps key={20874}> = ({
               : "linear-gradient(135deg, #e2e8f0, #cbd5e1)",
             border: `2px solid ${isDark ? "rgba(255, 255, 255, 0.1)" : "rgba(15, 23, 42, 0.1)"}`,
             cursor: "pointer",
-            transition: "all 0.3s ease",
+            transition: "all 0.3s ease"
           }}
          key={432971}>
           <div;
@@ -162,7 +154,7 @@ const ThemeToggle: React.FC<ThemeToggleProps key={20874}> = ({
               alignItems: "center",
               justifyContent: "center",
               transition: "all 0.3s ease",
-              color: "#000",
+              color: "#000"
             }}
            key={360385}>
             {isDark ? <MoonIcon / key={161791}> : <SunIcon / key={30138}>}
@@ -174,15 +166,14 @@ const ThemeToggle: React.FC<ThemeToggleProps key={20874}> = ({
               marginLeft: "12px",
               color: theme.colors.text.secondary,
               fontSize: "14px",
-              fontWeight: "500",
+              fontWeight: "500"
             }}
            key={308065}>
             {getLabel()}
           </span>
         )}
       </label>
-    );
-  }
+    )}
 
   if (variant === "icon") {
     return (
@@ -196,14 +187,13 @@ const ThemeToggle: React.FC<ThemeToggleProps key={20874}> = ({
           padding: "0",
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "center"
         }}
         title={`Switch to ${isDark ? "Light" : "Dark"} Mode`}
        key={762361}>
         {getIcon()}
       </button>
-    );
-  }
+    )}
 
   return (
     <button;
@@ -214,17 +204,16 @@ const ThemeToggle: React.FC<ThemeToggleProps key={20874}> = ({
       {getIcon()}
       {showLabel && <span key={595076}>{getLabel()}</span>}
     </button>
-  );
-};
+  );};
 
 // Enhanced theme toggle with mode indicator;
 export const CyberThemeToggle: React.FC<ThemeToggleProps key={20874}> = (props) => {
-  const { variant: themeVariant, isDark } = useTheme();
+  const { variant: themeVariant, isDark} = useTheme();
 
   return (
     <div;
       className="cyber-theme-toggle-container"
-      style={{ position: "relative" }}
+      style={{ position: "relative"}}
      key={990507}>
       <ThemeToggle {...props} / key={303016}>
       {themeVariant.startsWith("cyber") && (
@@ -242,14 +231,18 @@ export const CyberThemeToggle: React.FC<ThemeToggleProps key={20874}> = (props) 
             alignItems: "center",
             justifyContent: "center",
             fontSize: "8px",
-            animation: "cyber-pulse 2s ease-in-out infinite",
+            animation: "cyber-pulse 2s ease-in-out infinite"
           }}
          key={279111}>
           <CyberIcon / key={68273}>
         </div>
       )}
     </div>
-  );
-};
+  )};
 
 export default ThemeToggle;
+
+
+
+
+`

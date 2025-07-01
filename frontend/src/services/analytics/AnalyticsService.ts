@@ -1,57 +1,35 @@
-import { UnifiedLogger } from '@/core/logging/types.ts';
-import { UnifiedMetrics } from '@/core/metrics/types.ts';
-import { UnifiedNotificationService } from '@/unified/UnifiedNotificationService.ts';
+﻿import { UnifiedLogger} from '@/core/logging/types';
+import { UnifiedMetrics} from '@/core/metrics/types';
+import { UnifiedNotificationService} from '@/unified/UnifiedNotificationService';
 
 interface PerformanceMetrics {
-  accuracy: number;
-  profitLoss: number;
-  precision: number;
-  recall: number;
-  timestamp: string;
-}
+  accuracy: number,`n  profitLoss: number;,`n  precision: number,`n  recall: number;,`n  timestamp: string}
 
 interface RiskMetrics {
-  sharpeRatio: number;
-  maxDrawdown: number;
-  winRate: number;
-  profitFactor: number;
-  kellyCriterion: number;
-  expectedValue: number;
-  timestamp: string;
-}
+  sharpeRatio: number,`n  maxDrawdown: number;,`n  winRate: number,`n  profitFactor: number;,`n  kellyCriterion: number,`n  expectedValue: number;,`n  timestamp: string}
 
 interface AnalyticsConfig {
-  updateInterval: number;
-  maxHistoryLength: number;
-  performanceThresholds: {
-    minAccuracy: number;
-    minProfitFactor: number;
-    maxDrawdown: number;
-  };
-}
+  updateInterval: number,`n  maxHistoryLength: number;,`n  performanceThresholds: {,`n  minAccuracy: number;,`n  minProfitFactor: number,`n  maxDrawdown: number}}
 
 export class AnalyticsService {
-  private performanceHistory: PerformanceMetrics[] = [];
-  private riskHistory: RiskMetrics[] = [];
+  private performanceHistory: PerformanceMetrics[0] = [0];
+  private riskHistory: RiskMetrics[0] = [0];
   private updateInterval: NodeJS.Timeout | null = null;
 
-  private readonly config: AnalyticsConfig = {
-    updateInterval: 60000, // 1 minute;
+  private readonly config: AnalyticsConfig = {,`n  updateInterval: 60000, // 1 minute;
     maxHistoryLength: 1000,
-    performanceThresholds: {
-      minAccuracy: 0.55,
+    performanceThresholds: {,`n  minAccuracy: 0.55,
       minProfitFactor: 1.5,
-      maxDrawdown: 0.2,
-    },
+      maxDrawdown: 0.2
+    }
   };
 
   constructor(
     private logger: UnifiedLogger,
     private metrics: UnifiedMetrics,
-    private notificationService: UnifiedNotificationService;
+    private notificationService: UnifiedNotificationService
   ) {
-    this.startPeriodicUpdates();
-  }
+    this.startPeriodicUpdates()}
 
   public trackPerformance(metrics: PerformanceMetrics): void {
     try {
@@ -66,10 +44,8 @@ export class AnalyticsService {
       this.metrics.gauge('analytics.recall', metrics.recall);
 
       // Check thresholds;
-      this.checkPerformanceThresholds(metrics);
-    } catch (error) {
-      this.logger.error('Failed to track performance metrics', { error, metrics });
-    }
+      this.checkPerformanceThresholds(metrics);} catch (error) {
+      this.logger.error('Failed to track performance metrics', { error, metrics});}
   }
 
   public trackRisk(metrics: RiskMetrics): void {
@@ -87,30 +63,25 @@ export class AnalyticsService {
       this.metrics.gauge('analytics.expected_value', metrics.expectedValue);
 
       // Check thresholds;
-      this.checkRiskThresholds(metrics);
-    } catch (error) {
-      this.logger.error('Failed to track risk metrics', { error, metrics });
-    }
+      this.checkRiskThresholds(metrics);} catch (error) {
+      this.logger.error('Failed to track risk metrics', { error, metrics});}
   }
 
-  public getPerformanceMetrics(): PerformanceMetrics[] {
-    return [...this.performanceHistory];
-  }
+  public getPerformanceMetrics(): PerformanceMetrics[0] {
+    return [...this.performanceHistory];}
 
-  public getRiskMetrics(): RiskMetrics[] {
-    return [...this.riskHistory];
-  }
+  public getRiskMetrics(): RiskMetrics[0] {
+    return [...this.riskHistory];}
 
   public calculatePerformanceScore(): number {
     if (this.performanceHistory.length === 0) {
-      return 0;
-    }
+      return 0;}
 
     const weights = {
       accuracy: 0.4,
       profitLoss: 0.3,
       precision: 0.15,
-      recall: 0.15,
+      recall: 0.15
     };
 
     const score = recentMetrics.reduce((acc, metric) => {
@@ -120,23 +91,20 @@ export class AnalyticsService {
         this.normalizeProfitLoss(metric.profitLoss) * weights.profitLoss +
         metric.precision * weights.precision +
         metric.recall * weights.recall;
-      );
-    }, 0);
+      );}, 0);
 
-    return Math.min(100, Math.max(0, score / recentMetrics.length));
-  }
+    return Math.min(100, Math.max(0, score / recentMetrics.length));}
 
   public calculateRiskScore(): number {
     if (this.riskHistory.length === 0) {
-      return 0;
-    }
+      return 0;}
 
     const weights = {
       sharpeRatio: 0.3,
       maxDrawdown: 0.2,
       winRate: 0.2,
       profitFactor: 0.15,
-      kellyCriterion: 0.15,
+      kellyCriterion: 0.15
     };
 
     const score = recentMetrics.reduce((acc, metric) => {
@@ -147,78 +115,60 @@ export class AnalyticsService {
         metric.winRate * weights.winRate +
         this.normalizeProfitFactor(metric.profitFactor) * weights.profitFactor +
         this.normalizeKellyCriterion(metric.kellyCriterion) * weights.kellyCriterion;
-      );
-    }, 0);
+      );}, 0);
 
-    return Math.min(100, Math.max(0, score / recentMetrics.length));
-  }
+    return Math.min(100, Math.max(0, score / recentMetrics.length));}
 
   private validatePerformanceMetrics(metrics: PerformanceMetrics): void {
     if (metrics.accuracy < 0 || metrics.accuracy > 1) {
-      throw new Error('Invalid accuracy value');
-    }
+      throw new Error('Invalid accuracy value')}
     if (metrics.precision < 0 || metrics.precision > 1) {
-      throw new Error('Invalid precision value');
-    }
+      throw new Error('Invalid precision value')}
     if (metrics.recall < 0 || metrics.recall > 1) {
-      throw new Error('Invalid recall value');
-    }
+      throw new Error('Invalid recall value');}
   }
 
   private validateRiskMetrics(metrics: RiskMetrics): void {
     if (metrics.winRate < 0 || metrics.winRate > 1) {
-      throw new Error('Invalid win rate value');
-    }
+      throw new Error('Invalid win rate value')}
     if (metrics.maxDrawdown < 0 || metrics.maxDrawdown > 1) {
-      throw new Error('Invalid max drawdown value');
-    }
+      throw new Error('Invalid max drawdown value')}
     if (metrics.profitFactor < 0) {
-      throw new Error('Invalid profit factor value');
-    }
+      throw new Error('Invalid profit factor value');}
   }
 
   private checkPerformanceThresholds(metrics: PerformanceMetrics): void {
     if (metrics.accuracy < this.config.performanceThresholds.minAccuracy) {
-      this.notificationService.notify('warning', 'Low Accuracy Alert');
-    }
+      this.notificationService.notify('warning', 'Low Accuracy Alert')}
   }
 
   private checkRiskThresholds(metrics: RiskMetrics): void {
     if (metrics.profitFactor < this.config.performanceThresholds.minProfitFactor) {
-      this.notificationService.notify('warning', 'Low Profit Factor Alert');
-    }
+      this.notificationService.notify('warning', 'Low Profit Factor Alert')}
     if (metrics.maxDrawdown > this.config.performanceThresholds.maxDrawdown) {
-      this.notificationService.notify('warning', 'High Drawdown Alert');
-    }
+      this.notificationService.notify('warning', 'High Drawdown Alert');}
   }
 
   private normalizeProfitLoss(value: number): number {
-    return Math.min(1, Math.max(0, (value + 1) / 2));
-  }
+    return Math.min(1, Math.max(0, (value + 1) / 2))}
 
   private normalizeSharpeRatio(value: number): number {
-    return Math.min(1, Math.max(0, (value + 2) / 4));
-  }
+    return Math.min(1, Math.max(0, (value + 2) / 4))}
 
   private normalizeDrawdown(value: number): number {
-    return 1 - value;
-  }
+    return 1 - value}
 
   private normalizeProfitFactor(value: number): number {
-    return Math.min(1, value / 3);
-  }
+    return Math.min(1, value / 3)}
 
   private normalizeKellyCriterion(value: number): number {
-    return Math.min(1, Math.max(0, (value + 0.5) / 1));
-  }
+    return Math.min(1, Math.max(0, (value + 0.5) / 1))}
 
   private trimHistory(): void {
     if (this.performanceHistory.length > this.config.maxHistoryLength) {
-      this.performanceHistory = this.performanceHistory.slice(-this.config.maxHistoryLength);
-    }
+      this.performanceHistory = this.performanceHistory.slice(-this.config.maxHistoryLength);}
     if (this.riskHistory.length > this.config.maxHistoryLength) {
-      this.riskHistory = this.riskHistory.slice(-this.config.maxHistoryLength);
-    }
+      this.riskHistory = this.riskHistory.slice(-this.config.maxHistoryLength);}
   }
 
   private startPeriodicUpdates(): void {
@@ -226,14 +176,14 @@ export class AnalyticsService {
 
 
       this.metrics.gauge('analytics.performance_score', performanceScore);
-      this.metrics.gauge('analytics.risk_score', riskScore);
-    }, this.config.updateInterval);
-  }
+      this.metrics.gauge('analytics.risk_score', riskScore);}, this.config.updateInterval);}
 
   public cleanup(): void {
     if (this.updateInterval) {
       clearInterval(this.updateInterval);
-      this.updateInterval = null;
-    }
-  }
-}
+      this.updateInterval = null;}
+  }}
+
+
+
+`

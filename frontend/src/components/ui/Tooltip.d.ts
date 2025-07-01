@@ -1,10 +1,11 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface TooltipProps {
-    content: React.ReactNode;
-    children: React.ReactElement;
-    delay?: number;
-    position?: 'top' | 'right' | 'bottom' | 'left';
-    className?: string;
-}
+  content: React.ReactNode,`n  children: React.ReactElement;
+  delay?: number;
+  position?: 'top' | 'right' | 'bottom' | 'left';
+  className?: string;}
 export declare const Tooltip: React.FC<TooltipProps>;
 export default Tooltip;
+
+
+`

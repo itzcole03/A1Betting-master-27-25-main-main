@@ -1,22 +1,21 @@
-import React, { useEffect  } from 'react.ts';
-import { useAppStore } from '@/store/useAppStore.ts';
-import EntryTracking from './EntryTracking.ts';
-import PropCards from './PropCards.ts';
-import { UniversalMoneyMaker, UniversalAnalytics } from '@/index.ts';
-import MLInsights from '@/insights/MLInsights.ts';
+﻿import React, { useEffect} from 'react';
+import { useAppStore} from '@/store/useAppStore';
+import EntryTracking from './EntryTracking';
+import PropCards from './PropCards';
+import { UniversalMoneyMaker, UniversalAnalytics} from '@/index';
+import MLInsights from '@/insights/MLInsights';
 
 const Dashboard: React.FC = () => {
   const {
     fetchProps,
     fetchEntries,
     fetchHeadlines,
-    // fetchSentiments, // Removed as it was example, can be added if specific dashboard sentiment is needed;
-  } = useAppStore((state) => ({
+    // fetchSentiments, // Removed as it was example, can be added if specific dashboard sentiment is needed} = useAppStore((state) => ({
     // Ensure to select from state for a smaller subscription scope;
     fetchProps: state.fetchProps,
     fetchEntries: state.fetchEntries,
     fetchHeadlines: state.fetchHeadlines,
-    // fetchSentiments: state.fetchSentiments,
+    // fetchSentiments: state.fetchSentiments
   }));
 
   useEffect(() => {
@@ -24,8 +23,7 @@ const Dashboard: React.FC = () => {
     fetchProps();
     fetchEntries();
     fetchHeadlines();
-    // fetchSentiments('general_market'); // Example for dashboard-specific sentiment if needed;
-  }, [fetchProps, fetchEntries, fetchHeadlines]);
+    // fetchSentiments('general_market'); // Example for dashboard-specific sentiment if needed;}, [fetchProps, fetchEntries, fetchHeadlines]);
 
   return (
     <div className="space-y-8" key={778766}>
@@ -115,7 +113,9 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  );};
 
 export default React.memo(Dashboard);
+
+
+

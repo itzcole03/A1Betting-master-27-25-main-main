@@ -1,110 +1,104 @@
-import { Player, Entry, Lineup, EntryStatus, LineupType, PropType } from '@/types.ts';
-import { http, HttpResponse } from 'msw.ts';
-import { setupWorker } from 'msw/browser.ts';
+﻿import { HttpResponse, http} from 'msw';
+import { setupWorker} from 'msw/browser';
 
-const mockPlayers: Player[] = [
-  {
-    id: '1',
-    name: 'LeBron James',
-    team: 'LAL',
-    position: 'SF',
-    opponent: 'GSW',
-    gameTime: '7:30 PM ET',
-    sport: 'NBA',
-    fireCount: '3',
-    winningProp: {
-      stat: 'POINTS',
-      line: 28,
-      type: 'POINTS',
-      percentage: 85,
-    },
-    whyThisBet: 'Averaging 32 PPG in last 5 games vs GSW',
-  },
-  {
-    id: '2',
-    name: 'Stephen Curry',
-    team: 'GSW',
-    position: 'PG',
-    opponent: 'LAL',
-    gameTime: '7:30 PM ET',
-    sport: 'NBA',
-    fireCount: '2',
-    winningProp: {
-      stat: 'THREES',
-      line: 5,
-      type: 'THREES',
-      percentage: 75,
-    },
-    whyThisBet: 'Hit 5+ threes in 8 of last 10 games',
-  },
-];
-
-const mockEntries: Entry[] = [
-  {
-    id: '1',
-    userId: 'user1',
-    status: EntryStatus.PENDING,
-    type: LineupType.PARLAY,
-    props: [],
-    stake: 100,
-    potentialWinnings: 260,
-    createdAt: '2024-03-15T00:00:00Z',
-    updatedAt: '2024-03-15T00:00:00Z',
-  },
-];
-
-const mockLineups: Lineup[] = [
-  {
-    id: '1',
-    userId: 'user1',
-    name: 'High Value Parlay',
-    type: LineupType.PARLAY,
-    props: [],
-    status: EntryStatus.PENDING,
-    createdAt: '2024-03-15T00:00:00Z',
-    updatedAt: '2024-03-15T00:00:00Z',
-  },
-];
-
+// Production API proxy handlers - direct backend integration
 const handlers = [
-  http.get('/api/props', () => {
-    return HttpResponse.json({
-      success: true,
-      data: {
-        props: [],
-      },
-    });
+  // Proxy to real backend API for props
+  http.get('/api/props', async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/props');
+      const data = await response.json();
+      return HttpResponse.json({
+        success: true,
+        data: {,`n  props: data.props || [0]
+        }
+      })} catch (error) {
+      console.error('Error proxying props API:', error);
+      return HttpResponse.json(
+        {
+          success: false,
+          error: 'Backend service unavailable',
+          data: { props: [0]}
+        },
+        { status: 503}
+      )}
   }),
 
-  http.get('/api/odds', () => {
-    return HttpResponse.json({
-      success: true,
-      data: {
-        odds: [],
-      },
-    });
+  // Proxy to real backend API for odds
+  http.get('/api/odds', async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/odds');
+      const data = await response.json();
+      return HttpResponse.json({
+        success: true,
+        data: {,`n  odds: data.odds || [0]
+        }
+      })} catch (error) {
+      console.error('Error proxying odds API:', error);
+      return HttpResponse.json(
+        {
+          success: false,
+          error: 'Backend service unavailable',
+          data: { odds: [0]}
+        },
+        { status: 503}
+      )}
   }),
 
-  http.get('/api/predictions', () => {
-    return HttpResponse.json({
-      success: true,
-      data: {
-        predictions: [],
-      },
-    });
+  // Proxy to real backend API for predictions
+  http.get('/api/predictions', async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/predictions');
+      const data = await response.json();
+      return HttpResponse.json({
+        success: true,
+        data: {,`n  predictions: data.predictions || [0]
+        }
+      })} catch (error) {
+      console.error('Error proxying predictions API:', error);
+      return HttpResponse.json(
+        {
+          success: false,
+          error: 'Backend service unavailable',
+          data: { predictions: [0]}
+        },
+        { status: 503}
+      )}
   }),
 
-  http.get('/api/players', () => {
-    return HttpResponse.json(mockPlayers);
+  // Proxy to real backend API for players
+  http.get('/api/players', async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/players');
+      const data = await response.json();
+      return HttpResponse.json(data.players || [0]);} catch (error) {
+      console.error('Error proxying players API:', error);
+      return HttpResponse.json([0], { status: 503})}
   }),
 
-  http.get('/api/entries', () => {
-    return HttpResponse.json(mockEntries);
+  // Proxy to real backend API for entries
+  http.get('/api/entries', async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/entries');
+      const data = await response.json();
+      return HttpResponse.json(data.entries || [0]);} catch (error) {
+      console.error('Error proxying entries API:', error);
+      return HttpResponse.json([0], { status: 503})}
   }),
 
-  http.get('/api/lineups', () => {
-    return HttpResponse.json(mockLineups);
+  // Proxy to real backend API for lineups
+  http.get('/api/lineups', async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/lineups');
+      const data = await response.json();
+      return HttpResponse.json(data.lineups || [0]);} catch (error) {
+      console.error('Error proxying lineups API:', error);
+      return HttpResponse.json([0], { status: 503})}
   }),
 ];
 
 export const worker = setupWorker(...handlers);
+
+
+
+`

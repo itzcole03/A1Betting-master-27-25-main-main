@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import ErrorBoundary from '../ErrorBoundary';
 import UniversalMoneyMaker from './UniversalMoneyMaker';
 
@@ -9,16 +9,14 @@ import UniversalMoneyMaker from './UniversalMoneyMaker';
 export interface ConsolidatedMoneyMakerProps {
   variant?: 'standard' | 'cyber' | 'premium' | 'advanced';
   features?: {
-    scanner?: boolean;
-    portfolio?: boolean;
-    analytics?: boolean;
-    riskManagement?: boolean;
-    kellyCalculator?: boolean;
-    arbitrage?: boolean;
-    automation?: boolean;
-  };
-  className?: string;
-}
+    scanner?: boolean
+    portfolio?: boolean
+    analytics?: boolean
+    riskManagement?: boolean
+    kellyCalculator?: boolean
+    arbitrage?: boolean
+    automation?: boolean};
+  className?: string}
 
 // ============================================================================
 // MAIN CONSOLIDATED MONEY MAKER COMPONENT;
@@ -63,9 +61,9 @@ export const ConsolidatedUniversalMoneyMaker: React.FC<ConsolidatedMoneyMakerPro
     riskManagement: true,
     kellyCalculator: true,
     arbitrage: true,
-    automation: true,
+    automation: true
   },
-  className = '',
+  className = ''
 }) => {
   // Return the clean money maker without nested navigation;
   // All features are now integrated into the main app navigation;
@@ -75,7 +73,9 @@ export const ConsolidatedUniversalMoneyMaker: React.FC<ConsolidatedMoneyMakerPro
         <UniversalMoneyMaker />
       </div>
     </ErrorBoundary>
-  );
-};
+  );};
 
 export default ConsolidatedUniversalMoneyMaker;
+
+
+

@@ -1,19 +1,15 @@
-import React, { useEffect, useState  } from 'react.ts';
-import { Box, Typography } from '@mui/material.ts';
-import { useQuery } from '@tanstack/react-query.ts';
+﻿import React, { useEffect, useState} from 'react'
+import { Box, Typography} from '@mui/material'
+import { useQuery} from '@tanstack/react-query'
 
 interface Headline {
-  id: string;
-  title: string;
-  source: string;
-  timestamp: string;
-}
+  id: string,`n  title: string;,`n  source: string,`n  timestamp: string}
 
 export const ESPNHeadlinesTicker: React.FC = () => {
   const [position, setPosition] = useState(0);
 
 
-  const { data: headlines = [] } = useQuery<Headline[] key={580837}>({
+  const { data: headlines = [0]} = useQuery<Headline[0] key={580837}>({
     queryKey: ['headlines'],
     queryFn: async () => {
       // TODO: Implement API call to fetch headlines;
@@ -22,22 +18,21 @@ export const ESPNHeadlinesTicker: React.FC = () => {
           id: '1',
           title: 'Breaking: Major trade in the NBA',
           source: 'ESPN',
-          timestamp: new Date().toISOString(),
+          timestamp: new Date().toISOString()
         },
         {
           id: '2',
           title: 'Injury update: Star player expected to return',
           source: 'ESPN',
-          timestamp: new Date().toISOString(),
+          timestamp: new Date().toISOString()
         },
         {
           id: '3',
           title: 'Game preview: Key matchup tonight',
           source: 'ESPN',
-          timestamp: new Date().toISOString(),
+          timestamp: new Date().toISOString()
         },
-      ];
-    },
+      ]}
   });
 
   useEffect(() => {
@@ -48,14 +43,10 @@ export const ESPNHeadlinesTicker: React.FC = () => {
       setPosition(prev => {
 
         if (newPosition <= -contentWidth) {
-          return containerWidth;
-        }
-        return newPosition;
-      });
-    };
+          return containerWidth}
+        return newPosition})};
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)}, [0]);
 
   return (
     <Box;
@@ -66,7 +57,7 @@ export const ESPNHeadlinesTicker: React.FC = () => {
         position: 'relative',
         height: 40,
         backgroundColor: 'rgba(0, 0, 0, 0.05)',
-        borderRadius: 1,
+        borderRadius: 1
       }}
      key={731582}>
       <Box;
@@ -77,7 +68,7 @@ export const ESPNHeadlinesTicker: React.FC = () => {
           transform: `translateX(${position}px)`,
           display: 'flex',
           alignItems: 'center',
-          height: '100%',
+          height: '100%'
         }}
        key={944969}>
         {headlines.map(headline => (
@@ -86,13 +77,13 @@ export const ESPNHeadlinesTicker: React.FC = () => {
             sx={{
               display: 'inline-flex',
               alignItems: 'center',
-              mr: 4,
+              mr: 4
             }}
            key={12011}>
             <Typography;
               sx={{
                 color: 'text.primary',
-                fontWeight: 'medium',
+                fontWeight: 'medium'
               }}
               variant="body2"
              key={860070}>
@@ -101,7 +92,7 @@ export const ESPNHeadlinesTicker: React.FC = () => {
             <Typography;
               sx={{
                 color: 'text.secondary',
-                ml: 1,
+                ml: 1
               }}
               variant="caption"
              key={15696}>
@@ -111,5 +102,9 @@ export const ESPNHeadlinesTicker: React.FC = () => {
         ))}
       </Box>
     </Box>
-  );
-};
+  )};
+
+
+
+
+`

@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useCallback, useMemo  } from 'react.ts';
-import { useRealtimeData } from '@/hooks/useRealtimeData.ts';
-import { useUnifiedAnalytics } from '@/hooks/useUnifiedAnalytics.ts';
-import { RealTimeMoneyMakingService } from '@/services/RealTimeMoneyMakingService.ts';
+﻿import React, { useState, useEffect, useCallback, useMemo} from 'react';
+import { useRealtimeData} from '@/hooks/useRealtimeData';
+import { useUnifiedAnalytics} from '@/hooks/useUnifiedAnalytics';
+import { RealTimeMoneyMakingService} from '@/services/RealTimeMoneyMakingService';
 
 interface StreamData {
-  timestamp: number;
-  type:
+  timestamp: number,`n  type:
     | "odds"
     | "injury"
     | "lineup"
@@ -13,85 +12,67 @@ interface StreamData {
     | "market"
     | "prediction"
     | "arbitrage";
-  source: string;
-  data: any;
-  impact: "high" | "medium" | "low";
-  processed: boolean;
-}
+  source: string,`n  data: any;,`n  impact: "high" | "medium" | "low",`n  processed: boolean}
 
 interface ConnectionMetrics {
-  latency: number;
-  messagesPerSecond: number;
-  connectionUptime: number;
-  totalMessages: number;
-  errors: number;
-}
+  latency: number,`n  messagesPerSecond: number;,`n  connectionUptime: number,`n  totalMessages: number;,`n  errors: number}
 
 interface FilterSettings {
   types: Set<string key={278855}>;
   sources: Set<string key={278855}>;
-  minImpact: "low" | "medium" | "high";
-  maxMessages: number;
-}
+  minImpact: "low" | "medium" | "high",`n  maxMessages: number}
 
 const RealTimeDataStream: React.FC = () => {
-  const [streamData, setStreamData] = useState<StreamData[] key={690543}>([]);
+  const [streamData, setStreamData] = useState<StreamData[0] key={690543}>([0]);
   const [isConnected, setIsConnected] = useState(false);
   const [metrics, setMetrics] = useState<ConnectionMetrics key={613332}>({
     latency: 0,
     messagesPerSecond: 0,
     connectionUptime: 0,
     totalMessages: 0,
-    errors: 0,
+    errors: 0
   });
   const [filters, setFilters] = useState<FilterSettings key={497771}>({
     types: new Set(["odds", "injury", "arbitrage", "prediction"]),
     sources: new Set(["prizepicks", "sportsradar", "internal"]),
     minImpact: "low",
-    maxMessages: 100,
+    maxMessages: 100
   });
   const [autoScroll, setAutoScroll] = useState(true);
   const [selectedItem, setSelectedItem] = useState<StreamData | null key={919302}>(null);
 
-  const { realtime } = useUnifiedAnalytics({ realtime: true });
+  const { realtime} = useUnifiedAnalytics({ realtime: true});
 
   // Real-time WebSocket connection;
-  const { data, isConnected: wsConnected } = useRealtimeData<any key={295429}>({
+  const { data, isConnected: wsConnected} = useRealtimeData<any key={295429}>({
     url: "ws://localhost:8080/realtime",
     onMessage: useCallback(
       (message: any) => {
-        const newData: StreamData = {
-          timestamp: Date.now(),
+        const newData: StreamData = {,`n  timestamp: Date.now(),
           type: message.type || "market",
           source: message.source || "unknown",
           data: message.data || message,
           impact: message.impact || "medium",
-          processed: false,
+          processed: false
         };
 
         setStreamData((prev) => {
 
-          return updated;
-        });
+          return updated;});
 
         setMetrics((prev) => ({
           ...prev,
           totalMessages: prev.totalMessages + 1,
-          messagesPerSecond: prev.messagesPerSecond + 0.1, // Approximate;
-        }));
-      },
+          messagesPerSecond: prev.messagesPerSecond + 0.1, // Approximate}));},
       [filters.maxMessages],
     ),
     onConnect: useCallback(() => {
       setIsConnected(true);
-      setMetrics((prev) => ({ ...prev, connectionUptime: Date.now() }));
-    }, []),
+      setMetrics((prev) => ({ ...prev, connectionUptime: Date.now()}))}, [0]),
     onDisconnect: useCallback(() => {
-      setIsConnected(false);
-    }, []),
+      setIsConnected(false)}, [0]),
     onError: useCallback(() => {
-      setMetrics((prev) => ({ ...prev, errors: prev.errors + 1 }));
-    }, []),
+      setMetrics((prev) => ({ ...prev, errors: prev.errors + 1}))}, [0])
   });
 
   // Simulated real-time data generator for development;
@@ -100,31 +81,26 @@ const RealTimeDataStream: React.FC = () => {
       const interval = setInterval(
         () => {
 
-          const newData: StreamData = {
-            timestamp: Date.now(),
+          const newData: StreamData = {,`n  timestamp: Date.now(),
             type: mockData.type,
             source: mockData.source,
             data: mockData.data,
             impact: mockData.impact,
-            processed: false,
+            processed: false
           };
 
           setStreamData((prev) => {
 
-            return updated;
-          });
+            return updated;});
 
           setMetrics((prev) => ({
             ...prev,
             totalMessages: prev.totalMessages + 1,
-            latency: Math.random() * 50 + 10, // Simulate latency 10-60ms;
-          }));
-        },
+            latency: Math.random() * 50 + 10, // Simulate latency 10-60ms}));},
         2000 + Math.random() * 3000,
       ); // Random interval 2-5 seconds;
 
-      return () => clearInterval(interval);
-    }
+      return () => clearInterval(interval);}
   }, [wsConnected, filters.maxMessages]);
 
   const generateMockStreamData = () => {
@@ -148,51 +124,43 @@ const RealTimeDataStream: React.FC = () => {
 
 
     const mockDataMap = {
-      odds: {
-        playerId: "player_123",
+      odds: {,`n  playerId: "player_123",
         propType: "points",
         oldOdds: -110,
         newOdds: -105,
         change: 5,
-        bookmaker: "DraftKings",
+        bookmaker: "DraftKings"
       },
-      injury: {
-        playerId: "player_456",
+      injury: {,`n  playerId: "player_456",
         playerName: "LeBron James",
         severity: "questionable",
         bodyPart: "ankle",
-        gameImpact: "probable",
+        gameImpact: "probable"
       },
-      arbitrage: {
-        opportunity: {
-          profit: 3.2,
+      arbitrage: {,`n  opportunity: {,`n  profit: 3.2,
           investment: 100,
           books: ["FanDuel", "BetMGM"],
-          odds: [+150, -140],
-        },
+          odds: [+150, -140]
+        }
       },
-      prediction: {
-        predictionId: "pred_789",
+      prediction: {,`n  predictionId: "pred_789",
         confidence: 0.78,
         value: 23.5,
-        change: 1.2,
+        change: 1.2
       },
-      market: {
-        sentiment: "bullish",
+      market: {,`n  sentiment: "bullish",
         volume: "high",
-        priceMovement: "+2.3%",
-      },
+        priceMovement: "+2.3%"
+      }
     };
 
     return {
       type,
       source,
       impact,
-      data: mockDataMap[type as keyof typeof mockDataMap] || {
-        raw: "Unknown data type",
-      },
-    };
-  };
+      data: mockDataMap[type as keyof typeof mockDataMap] || {,`n  raw: "Unknown data type"
+      }
+    }};
 
   // Filtered data based on current filters;
   const filteredData = useMemo(() => {
@@ -202,29 +170,22 @@ const RealTimeDataStream: React.FC = () => {
 
 
 
-      return itemLevel >= minLevel;
-    });
-  }, [streamData, filters]);
+      return itemLevel >= minLevel;});}, [streamData, filters]);
 
   const toggleFilter = useCallback(
     (category: "types" | "sources", value: string) => {
       setFilters((prev) => {
 
         if (newSet.has(value)) {
-          newSet.delete(value);
-        } else {
-          newSet.add(value);
-        }
-        return { ...prev, [category]: newSet };
-      });
-    },
-    [],
+          newSet.delete(value)} else {
+          newSet.add(value)}
+        return { ...prev, [category]: newSet};});},
+    [0],
   );
 
   const clearStream = useCallback(() => {
-    setStreamData([]);
-    setMetrics((prev) => ({ ...prev, totalMessages: 0, errors: 0 }));
-  }, []);
+    setStreamData([0]);
+    setMetrics((prev) => ({ ...prev, totalMessages: 0, errors: 0}))}, [0]);
 
   const exportStream = useCallback(() => {
     const exportData = {
@@ -233,25 +194,23 @@ const RealTimeDataStream: React.FC = () => {
       filters: {
         ...filters,
         types: Array.from(filters.types),
-        sources: Array.from(filters.sources),
+        sources: Array.from(filters.sources)
       },
-      data: filteredData,
+      data: filteredData
     };
 
     const blob = new Blob([JSON.stringify(exportData, null, 2)], {
-      type: "application/json",
+      type: "application/json"
     });
 
 
     a.href = url;
     a.download = `realtime-stream-${Date.now()}.json`;
     a.click();
-    URL.revokeObjectURL(url);
-  }, [metrics, filters, filteredData]);
+    URL.revokeObjectURL(url);}, [metrics, filters, filteredData]);
 
   const formatTimestamp = (timestamp: number) => {
-    return new Date(timestamp).toLocaleTimeString();
-  };
+    return new Date(timestamp).toLocaleTimeString()};
 
   const getImpactColor = (impact: string) => {
     switch (impact) {
@@ -260,10 +219,7 @@ const RealTimeDataStream: React.FC = () => {
       case "medium":
         return "text-yellow-600 bg-yellow-100 dark:bg-yellow-900/20 dark:text-yellow-400";
       case "low":
-        return "text-green-600 bg-green-100 dark:bg-green-900/20 dark:text-green-400";
-      default:
-        return "text-gray-600 bg-gray-100 dark:bg-gray-900/20 dark:text-gray-400";
-    }
+        return "text-green-600 bg-green-100 dark: bg-green-900/20 dark:text-green-400",`n  default: return "text-gray-600 bg-gray-100 dark:bg-gray-900/20 dark:text-gray-400"}
   };
 
   const getTypeIcon = (type: string) => {
@@ -274,10 +230,9 @@ const RealTimeDataStream: React.FC = () => {
       weather: "🌤️",
       market: "📈",
       prediction: "🔮",
-      arbitrage: "⚖️",
+      arbitrage: "⚖️"
     };
-    return icons[type as keyof typeof icons] || "📡";
-  };
+    return icons[type as keyof typeof icons] || "📡";};
 
   return (
     <div className="realtime-stream max-w-7xl mx-auto p-6 space-y-6" key={28974}>
@@ -304,8 +259,7 @@ const RealTimeDataStream: React.FC = () => {
               className={`px-3 py-1 text-sm rounded ${
                 autoScroll;
                   ? "bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400"
-                  : "bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400"
-              }`}
+                  : "bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400"}`}
             >
               Auto-scroll: {autoScroll ? "ON" : "OFF"}
             </button>
@@ -395,8 +349,7 @@ const RealTimeDataStream: React.FC = () => {
                   className={`px-3 py-1 text-sm rounded-full ${
                     filters.types.has(type)
                       ? "bg-blue-600 text-white"
-                      : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300"
-                  }`}
+                      : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300"}`}
                 >
                   {getTypeIcon(type)} {type}
                 </button>
@@ -423,8 +376,7 @@ const RealTimeDataStream: React.FC = () => {
                   className={`px-3 py-1 text-sm rounded-full ${
                     filters.sources.has(source)
                       ? "bg-green-600 text-white"
-                      : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300"
-                  }`}
+                      : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300"}`}
                 >
                   {source}
                 </button>
@@ -442,9 +394,8 @@ const RealTimeDataStream: React.FC = () => {
               onChange={(e) = key={22649}>
                 setFilters((prev) => ({
                   ...prev,
-                  minImpact: e.target.value as "low" | "medium" | "high",
-                }))
-              }
+                  minImpact: e.target.value as "low" | "medium" | "high"
+                }))}
               className="px-3 py-1 border border-gray-300 rounded-md dark:border-gray-600 dark:bg-gray-700 dark:text-white"
             >
               <option value="low" key={209001}>Low</option>
@@ -465,7 +416,7 @@ const RealTimeDataStream: React.FC = () => {
 
         <div;
           className="max-h-96 overflow-y-auto"
-          style={{ scrollBehavior: autoScroll ? "smooth" : "auto" }}
+          style={{ scrollBehavior: autoScroll ? "smooth" : "auto"}}
          key={454836}>
           {filteredData.length === 0 ? (
             <div className="p-12 text-center" key={135581}>
@@ -569,7 +520,7 @@ const RealTimeDataStream: React.FC = () => {
                   </span>
                 </div>
                 <div key={241917}>
-                  <span className="font-medium text-gray-700 dark:text-gray-300" key={448782}>
+                  <span className="font-medium text-gray-700 dark: text-gray-300" key={448782}>
                     Data:
                   </span>
                   <pre className="mt-2 p-3 bg-gray-100 dark:bg-gray-700 rounded text-sm overflow-x-auto" key={198703}>
@@ -582,7 +533,10 @@ const RealTimeDataStream: React.FC = () => {
         </div>
       )}
     </div>
-  );
-};
+  )};
 
 export default RealTimeDataStream;
+
+
+
+`

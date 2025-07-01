@@ -1,35 +1,31 @@
-import React, { useState  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
-import { Settings, Bell, Shield, Palette, Database, Key } from 'lucide-react.ts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card.ts';
-import { Badge } from '@/ui/badge.ts';
+﻿import React, { useState} from 'react';
+import { motion} from 'framer-motion';
+import { Settings, Bell, Shield, Palette, Database, Key} from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle} from '@/ui/card';
+import { Badge} from '@/ui/badge';
 
 export const UnifiedSettingsInterface: React.FC = () => {
   const [isImporting, setIsImporting] = useState(false);
   const [settings, setSettings] = useState({
-    notifications: {
-      betAlerts: true,
+    notifications: {,`n  betAlerts: true,
       priceChanges: true,
       dailyReports: false,
-      promotions: true,
+      promotions: true
     },
-    privacy: {
-      shareStats: false,
+    privacy: {,`n  shareStats: false,
       publicProfile: false,
-      dataCollection: true,
+      dataCollection: true
     },
-    trading: {
-      riskLevel: "medium",
+    trading: {,`n  riskLevel: "medium",
       maxBetAmount: 500,
       autoHedging: false,
-      followMLRecommendations: true,
+      followMLRecommendations: true
     },
-    display: {
-      theme: "dark",
+    display: {,`n  theme: "dark",
       currency: "USD",
       timezone: "America/New_York",
-      decimalOdds: true,
-    },
+      decimalOdds: true
+    }
   });
 
   const handleToggle = (section: keyof typeof settings, key: string) => {
@@ -37,10 +33,9 @@ export const UnifiedSettingsInterface: React.FC = () => {
       ...prev,
       [section]: {
         ...prev[section],
-        [key]: !prev[section][key],
-      },
-    }));
-  };
+        [key]: !prev[section][key]
+      }
+    }))};
 
   const handleSelect = (
     section: keyof typeof settings,
@@ -51,17 +46,16 @@ export const UnifiedSettingsInterface: React.FC = () => {
       ...prev,
       [section]: {
         ...prev[section],
-        [key]: value,
-      },
-    }));
-  };
+        [key]: value
+      }
+    }))};
 
   return (
     <div className="space-y-6" key={501869}>
       {/* Header */}
       <motion.div;
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: -20}}
+        animate={{ opacity: 1, y: 0}}
         className="text-center mb-8"
        key={951381}>
         <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent" key={11526}>
@@ -217,8 +211,7 @@ export const UnifiedSettingsInterface: React.FC = () => {
             <select;
               value={settings.trading.riskLevel}
               onChange={(e) = key={661820}>
-                handleSelect("trading", "riskLevel", e.target.value)
-              }
+                handleSelect("trading", "riskLevel", e.target.value)}
               className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800"
             >
               <option value="low" key={209001}>Low</option>
@@ -238,8 +231,7 @@ export const UnifiedSettingsInterface: React.FC = () => {
               type="number"
               value={settings.trading.maxBetAmount}
               onChange={(e) = key={769340}>
-                handleSelect("trading", "maxBetAmount", Number(e.target.value))
-              }
+                handleSelect("trading", "maxBetAmount", Number(e.target.value))}
               className="w-24 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800"
             />
           </div>
@@ -256,8 +248,7 @@ export const UnifiedSettingsInterface: React.FC = () => {
                 type="checkbox"
                 checked={settings.trading.followMLRecommendations}
                 onChange={() = key={559032}>
-                  handleToggle("trading", "followMLRecommendations")
-                }
+                  handleToggle("trading", "followMLRecommendations")}
                 className="sr-only peer"
               />
               <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600" key={734788}></div>
@@ -303,8 +294,7 @@ export const UnifiedSettingsInterface: React.FC = () => {
             <select;
               value={settings.display.currency}
               onChange={(e) = key={129145}>
-                handleSelect("display", "currency", e.target.value)
-              }
+                handleSelect("display", "currency", e.target.value)}
               className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800"
             >
               <option value="USD" key={42064}>USD ($)</option>
@@ -353,8 +343,7 @@ export const UnifiedSettingsInterface: React.FC = () => {
                 a.href = url;
                 a.download = "betting-settings.json";
                 a.click();
-                URL.revokeObjectURL(url);
-              }}
+                URL.revokeObjectURL(url);}}
               className="flex-1 px-4 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-200 shadow-lg"
             >
               Export Settings;
@@ -376,23 +365,18 @@ export const UnifiedSettingsInterface: React.FC = () => {
                         setSettings(importedSettings);
                         setTimeout(() => {
                           setIsImporting(false);
-                          alert("Settings imported successfully!");
-                        }, 500);
-                      } catch (error) {
+                          alert("Settings imported successfully!");}, 500);} catch (error) {
                         setIsImporting(false);
                         alert(
                           "Error importing settings. Please check the file format.",
-                        );
-                      }
+                        );}
                     };
-                    reader.readAsText(file);
-                  }
+                    reader.readAsText(file);}
                   // Reset the input value to allow selecting the same file again;
-                  e.target.value = "";
-                }}
+                  e.target.value = "";}}
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                 style={{
-                  zIndex: 10,
+                  zIndex: 10
                 }}
               />
               <div;
@@ -400,7 +384,7 @@ export const UnifiedSettingsInterface: React.FC = () => {
                 style={{
                   position: "relative",
                   zIndex: 1,
-                  opacity: isImporting ? 0.7 : 1,
+                  opacity: isImporting ? 0.7 : 1
                 }}
                key={182940}>
                 {isImporting ? "Importing..." : "Import Settings"}
@@ -413,19 +397,21 @@ export const UnifiedSettingsInterface: React.FC = () => {
       {/* Save Button */}
       <div;
         className="flex justify-center pt-6"
-        style={{ position: "relative", zIndex: 1 }}
+        style={{ position: "relative", zIndex: 1}}
        key={456489}>
         <button;
           onClick={() = key={403652}> {
             // Save settings logic here;
-            alert("Settings saved successfully!");
-          }}
+            alert("Settings saved successfully!");}}
           className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg"
-          style={{ position: "relative", zIndex: 2 }}
+          style={{ position: "relative", zIndex: 2}}
         >
           Save Settings;
         </button>
       </div>
     </div>
-  );
-};
+  );};
+
+
+
+`

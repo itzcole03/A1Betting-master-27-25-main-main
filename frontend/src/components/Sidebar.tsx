@@ -1,13 +1,13 @@
-import React from 'react.ts';
-import { Link, useLocation } from 'react-router-dom.ts';
-import { clsx } from 'clsx.ts';
-import { HomeIcon, ChartBarIcon, LightBulbIcon, Cog6ToothIcon } from '@heroicons/react/24/outline.ts';
+﻿import React from 'react';
+import { Link, useLocation} from 'react-router-dom';
+import { clsx} from 'clsx';
+import { HomeIcon, ChartBarIcon, LightBulbIcon, Cog6ToothIcon} from '@heroicons/react/24/outline';
 
 const navigation = [
-  { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
-  { name: 'Analytics', href: '/analytics', icon: ChartBarIcon },
-  { name: 'Predictions', href: '/predictions', icon: LightBulbIcon },
-  { name: 'Settings', href: '/settings', icon: Cog6ToothIcon },
+  { name: 'Dashboard', href: '/dashboard', icon: HomeIcon},
+  { name: 'Analytics', href: '/analytics', icon: ChartBarIcon},
+  { name: 'Predictions', href: '/predictions', icon: LightBulbIcon},
+  { name: 'Settings', href: '/settings', icon: Cog6ToothIcon},
 ];
 
 export default function Sidebar() {
@@ -52,5 +52,8 @@ export default function Sidebar() {
         </nav>
       </div>
     </div>
-  );
-}
+  )}
+
+
+
+

@@ -1,25 +1,14 @@
-import { useState, useEffect } from 'react.ts';
+﻿import { useState, useEffect} from 'react';
 
 interface GeolocationState {
-  loading: boolean;
-  accuracy: number | null;
-  altitude: number | null;
-  altitudeAccuracy: number | null;
-  heading: number | null;
-  latitude: number | null;
-  longitude: number | null;
-  speed: number | null;
-  timestamp: number | null;
-  error: GeolocationPositionError | null;
-}
+  loading: boolean,`n  accuracy: number | null;,`n  altitude: number | null,`n  altitudeAccuracy: number | null;,`n  heading: number | null,`n  latitude: number | null;,`n  longitude: number | null,`n  speed: number | null;,`n  timestamp: number | null,`n  error: GeolocationPositionError | null}
 
 interface GeolocationOptions {
-  enableHighAccuracy?: boolean;
-  timeout?: number;
-  maximumAge?: number;
-}
+  enableHighAccuracy?: boolean
+  timeout?: number
+  maximumAge?: number}
 
-export const useGeolocation = (options: GeolocationOptions = {}) => {
+export const useGeolocation = (options: GeolocationOptions = Record<string, any>) => {
   const [state, setState] = useState<GeolocationState>({
     loading: true,
     accuracy: null,
@@ -30,11 +19,11 @@ export const useGeolocation = (options: GeolocationOptions = {}) => {
     longitude: null,
     speed: null,
     timestamp: null,
-    error: null,
+    error: null
   });
 
   useEffect(() => {
-    const { enableHighAccuracy = true, timeout = 5000, maximumAge = 0 } = options;
+    const { enableHighAccuracy = true, timeout = 5000, maximumAge = 0} = options;
 
     const onSuccess = (position: GeolocationPosition) => {
       setState({
@@ -47,46 +36,39 @@ export const useGeolocation = (options: GeolocationOptions = {}) => {
         longitude: position.coords.longitude,
         speed: position.coords.speed,
         timestamp: position.timestamp,
-        error: null,
-      });
-    };
+        error: null
+      })};
 
     const onError = (error: GeolocationPositionError) => {
       setState(prev => ({
         ...prev,
         loading: false,
-        error,
-      }));
-    };
+//         error
+      }))};
 
     if (!navigator.geolocation) {
       setState(prev => ({
         ...prev,
         loading: false,
-        error: {
-          code: 2,
+        error: {,`n  code: 2,
           message: 'Geolocation is not supported by your browser',
           PERMISSION_DENIED: 1,
           POSITION_UNAVAILABLE: 2,
-          TIMEOUT: 3,
-        },
+          TIMEOUT: 3
+        }
       }));
-      return;
-    }
+      return;}
 
     const watchId = navigator.geolocation.watchPosition(onSuccess, onError, {
       enableHighAccuracy,
       timeout,
-      maximumAge,
+//       maximumAge
     });
 
     return () => {
-      navigator.geolocation.clearWatch(watchId);
-    };
-  }, [options]);
+      navigator.geolocation.clearWatch(watchId);};}, [options]);
 
-  return state;
-};
+  return state;};
 
 // Example usage:
 // const {
@@ -95,11 +77,11 @@ export const useGeolocation = (options: GeolocationOptions = {}) => {
 //   longitude,
 //   accuracy,
 //   error,
-// } = useGeolocation({
+//} = useGeolocation({
 //   enableHighAccuracy: true,
 //   timeout: 5000,
 //   maximumAge: 0,
-// });
+//});
 //
 // if (loading) return <div>Loading...</div>;
 // if (error) return <div>Error: {error.message}</div>;
@@ -111,3 +93,8 @@ export const useGeolocation = (options: GeolocationOptions = {}) => {
 //     <p>Accuracy: {accuracy} meters</p>
 //   </div>
 // );
+
+
+
+
+`

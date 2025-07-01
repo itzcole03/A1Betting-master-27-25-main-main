@@ -109,7 +109,10 @@ jest.mock('../core/UnifiedConfig', () => {
     featureFlags: {},
     experiments: [],
     apiEndpoints,
-    getApiEndpoint: (key: string) => typeof key === 'string' && (apiEndpoints as Record<string, string>)[key] !== undefined ? (apiEndpoints as Record<string, string>)[key] : `/api/${key}`,
+    getApiEndpoint: (key: string) =>
+      typeof key === 'string' && (apiEndpoints as Record<string, string>)[key] !== undefined
+        ? (apiEndpoints as Record<string, string>)[key]
+        : `/api/${key}`,
     isFeatureEnabled: () => false,
     getAllFeatureFlags: () => ({}),
     getExperiment: () => undefined,

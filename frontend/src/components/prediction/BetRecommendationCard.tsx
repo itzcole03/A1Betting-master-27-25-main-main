@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   Card,
   CardContent,
@@ -7,15 +7,14 @@ import {
   Chip,
   LinearProgress,
   Tooltip,
-  IconButton,
-} from '@mui/material.ts';
-import { TrendingUp, Warning, Info, AttachMoney, Timeline } from '@mui/icons-material.ts';
-import { BetRecommendation } from '@/core/types/prediction.ts';
+//   IconButton
+} from '@mui/material';
+import { TrendingUp, Warning, Info, AttachMoney, Timeline} from '@mui/icons-material';
+import { BetRecommendation} from '@/core/types/prediction';
 
 interface BetRecommendationCardProps {
   recommendation: BetRecommendation;
-  onViewDetails?: () => void;
-}
+  onViewDetails?: () => void;}
 
 const getRiskColor = (riskLevel: string) => {
   switch (riskLevel) {
@@ -25,26 +24,23 @@ const getRiskColor = (riskLevel: string) => {
       return 'warning';
     case 'high':
       return 'error';
-    default:
-      return 'default';
-  }
+    default: return 'default'}
 };
 
 const formatCurrency = (amount: number) => {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD',
-  }).format(amount);
-};
+    currency: 'USD'
+  }).format(amount)};
 
 export const BetRecommendationCard: React.FC<BetRecommendationCardProps key={476127}> = ({
   recommendation,
-  onViewDetails,
+//   onViewDetails
 }) => {
-  const { prediction, confidence, stake, riskLevel, expectedValue, metadata } = recommendation;
+  const { prediction, confidence, stake, riskLevel, expectedValue, metadata} = recommendation;
 
   return (
-    <Card sx={{ mb: 2 }} key={952973}>
+    <Card sx={{ mb: 2}} key={952973}>
       <CardContent key={452065}>
         <Box alignItems="center" display="flex" justifyContent="space-between" mb={2} key={881353}>
           <Typography component="div" variant="h6" key={277111}>
@@ -59,7 +55,7 @@ export const BetRecommendationCard: React.FC<BetRecommendationCardProps key={476
           </Typography>
           <Box alignItems="center" display="flex" key={636564}>
             <LinearProgress;
-              sx={{ flexGrow: 1, mr: 1 }}
+              sx={{ flexGrow: 1, mr: 1}}
               value={confidence * 100}
               variant="determinate"
             / key={117971}>
@@ -113,5 +109,8 @@ export const BetRecommendationCard: React.FC<BetRecommendationCardProps key={476
         </Box>
       </CardContent>
     </Card>
-  );
-};
+  );};
+
+
+
+`

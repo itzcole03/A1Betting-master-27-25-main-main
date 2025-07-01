@@ -1,15 +1,14 @@
-import React, { useState  } from 'react.ts';
-import { AnimatePresence } from 'framer-motion.ts';
-import PerformanceAlert, { PerformanceAlert as AlertType } from './PerformanceAlert.ts';
+﻿import React, { useState} from 'react';
+import { AnimatePresence} from 'framer-motion';
+import PerformanceAlert, { PerformanceAlert as AlertType} from './PerformanceAlert';
 
 interface PerformanceAlertContainerProps {
-  alerts: AlertType[];
+  alerts: AlertType[0];
   onDismiss?: (id: string) => void;
   onAcknowledge?: (id: string) => void;
-  maxAlerts?: number;
-  autoDismiss?: boolean;
-  autoDismissDelay?: number;
-}
+  maxAlerts?: number
+  autoDismiss?: boolean
+  autoDismissDelay?: number}
 
 const PerformanceAlertContainer: React.FC<PerformanceAlertContainerProps key={4413}> = ({
   alerts,
@@ -17,32 +16,26 @@ const PerformanceAlertContainer: React.FC<PerformanceAlertContainerProps key={44
   onAcknowledge,
   maxAlerts = 5,
   autoDismiss = true,
-  autoDismissDelay = 5000,
+  autoDismissDelay = 5000
 }) => {
   const [dismissedAlerts, setDismissedAlerts] = useState<Set<string key={798680}>>(new Set());
 
   const handleDismiss = (id: string) => {
     setDismissedAlerts(prev => new Set([...prev, id]));
-    onDismiss?.(id);
-  };
+    onDismiss?.(id);};
 
   const handleAcknowledge = (id: string) => {
-    onAcknowledge?.(id);
-  };
+    onAcknowledge?.(id)};
 
   React.useEffect(() => {
     if (!autoDismiss) return;
 
     const timers = visibleAlerts.map(alert => {
       return setTimeout(() => {
-        handleDismiss(alert.id);
-      }, autoDismissDelay);
-    });
+        handleDismiss(alert.id);}, autoDismissDelay);});
 
     return () => {
-      timers.forEach(timer => clearTimeout(timer));
-    };
-  }, [visibleAlerts, autoDismiss, autoDismissDelay]);
+      timers.forEach(timer => clearTimeout(timer));};}, [visibleAlerts, autoDismiss, autoDismissDelay]);
 
   return (
     <div className="fixed top-4 right-4 z-50 space-y-4 w-96" key={662438}>
@@ -57,7 +50,10 @@ const PerformanceAlertContainer: React.FC<PerformanceAlertContainerProps key={44
         ))}
       </AnimatePresence>
     </div>
-  );
-};
+  );};
 
 export default React.memo(PerformanceAlertContainer);
+
+
+
+

@@ -1,8 +1,8 @@
-import React, { useState, useMemo, useCallback  } from 'react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.ts';
-import { Badge } from '@/components/ui/badge.ts';
-import { Button } from '@/components/ui/button.ts';
+﻿import React, { useState, useMemo, useCallback} from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
+import { Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+import { Badge} from '@/components/ui/badge';
+import { Button} from '@/components/ui/button';
 import {
   Grid,
   List,
@@ -25,9 +25,9 @@ import {
   Crown,
   Gem,
   ArrowUp,
-  ArrowDown,
-} from 'lucide-react.ts';
-import { toast } from 'react-hot-toast.ts';
+//   ArrowDown
+} from 'lucide-react';
+import { toast} from 'react-hot-toast';
 
 // Enhanced module scoring system for money-making potential;
 const MODULE_SCORES = {
@@ -37,7 +37,7 @@ const MODULE_SCORES = {
     profit: 25000,
     roi: 245,
     reliability: 98,
-    description: "Core analytics driving 95% of profitable opportunities",
+    description: "Core analytics driving 95% of profitable opportunities"
   },
   "ultra-accuracy": {
     money: 92,
@@ -45,7 +45,7 @@ const MODULE_SCORES = {
     profit: 22000,
     roi: 220,
     reliability: 96,
-    description: "Ultra-precise predictions with highest accuracy boost",
+    description: "Ultra-precise predictions with highest accuracy boost"
   },
   "ultra-ml": {
     money: 88,
@@ -53,7 +53,7 @@ const MODULE_SCORES = {
     profit: 20000,
     roi: 200,
     reliability: 94,
-    description: "Advanced ML models for superior prediction power",
+    description: "Advanced ML models for superior prediction power"
   },
   "realtime-accuracy": {
     money: 85,
@@ -61,7 +61,7 @@ const MODULE_SCORES = {
     profit: 18000,
     roi: 180,
     reliability: 92,
-    description: "Real-time analysis for instant profit opportunities",
+    description: "Real-time analysis for instant profit opportunities"
   },
   "strategy-engine": {
     money: 82,
@@ -69,7 +69,7 @@ const MODULE_SCORES = {
     profit: 15000,
     roi: 150,
     reliability: 90,
-    description: "Strategic betting optimization for consistent wins",
+    description: "Strategic betting optimization for consistent wins"
   },
   "performance-analytics": {
     money: 78,
@@ -77,7 +77,7 @@ const MODULE_SCORES = {
     profit: 10000,
     roi: 100,
     reliability: 88,
-    description: "Performance tracking for continuous improvement",
+    description: "Performance tracking for continuous improvement"
   },
   "ml-model-center": {
     money: 75,
@@ -85,7 +85,7 @@ const MODULE_SCORES = {
     profit: 12000,
     roi: 120,
     reliability: 86,
-    description: "Centralized ML management for optimal results",
+    description: "Centralized ML management for optimal results"
   },
   "mega-analytics": {
     money: 90,
@@ -93,7 +93,7 @@ const MODULE_SCORES = {
     profit: 30000,
     roi: 300,
     reliability: 95,
-    description: "Mega-powered analytics for maximum profit generation",
+    description: "Mega-powered analytics for maximum profit generation"
   },
   "ensemble-insights": {
     money: 68,
@@ -101,7 +101,7 @@ const MODULE_SCORES = {
     profit: 8000,
     roi: 80,
     reliability: 84,
-    description: "Ensemble learning for robust predictions",
+    description: "Ensemble learning for robust predictions"
   },
   "cyber-analytics": {
     money: 70,
@@ -109,41 +109,26 @@ const MODULE_SCORES = {
     profit: 9000,
     roi: 90,
     reliability: 82,
-    description: "Cyber-enhanced analytics for edge detection",
-  },
+    description: "Cyber-enhanced analytics for edge detection"
+  }
 };
 
 interface ModuleConfig {
-  id: string;
-  name: string;
-  icon: React.ReactNode;
-  category: string;
-  priority: "critical" | "high" | "medium" | "low";
-  dependencies: string[];
-  computationLevel: "light" | "medium" | "heavy" | "extreme";
-  isActive: boolean;
-}
+  id: string,`n  name: string;,`n  icon: React.ReactNode,`n  category: string;,`n  priority: "critical" | "high" | "medium" | "low",`n  dependencies: string[0];,`n  computationLevel: "light" | "medium" | "heavy" | "extreme",`n  isActive: boolean}
 
 interface EnhancedModuleManagementProps {
-  modules: ModuleConfig[];
-  activeModules: Set<string key={278855}>;
+  modules: ModuleConfig[0],`n  activeModules: Set<string key={278855}>;
   onToggleModule: (moduleId: string) => void;
-  onBatchActivate?: (moduleIds: string[]) => void;
-}
+  onBatchActivate?: (moduleIds: string[0]) => void}
 
-const EnhancedModuleCard: React.FC<{
-  module: ModuleConfig;
-  isActive: boolean;
-  onToggle: () => void;
-  rank: number;
-}> = ({ module, isActive, onToggle, rank }) => {
+const EnhancedModuleCard: React.FC<{,`n  module: ModuleConfig;,`n  isActive: boolean,`n  onToggle: () => void;,`n  rank: number}> = ({ module, isActive, onToggle, rank}) => {
   const scores = MODULE_SCORES[module.id as keyof typeof MODULE_SCORES] || {
     money: 50,
     accuracy: 3,
     profit: 5000,
     roi: 50,
     reliability: 75,
-    description: "Standard module functionality",
+    description: "Standard module functionality"
   };
 
   const getPriorityColor = (priority: string) => {
@@ -154,36 +139,32 @@ const EnhancedModuleCard: React.FC<{
         return "from-orange-500 to-yellow-500";
       case "medium":
         return "from-blue-500 to-cyan-500";
-      default:
-        return "from-green-500 to-emerald-500";
-    }
+      default: return "from-green-500 to-emerald-500"}
   };
 
   const getMoneyScoreColor = (score: number) => {
     if (score >= 90) return "from-yellow-400 to-orange-500";
     if (score >= 80) return "from-green-500 to-emerald-400";
     if (score >= 70) return "from-blue-500 to-cyan-400";
-    return "from-gray-500 to-slate-400";
-  };
+    return "from-gray-500 to-slate-400";};
 
   return (
     <motion.div;
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: rank * 0.1 }}
+      initial={{ opacity: 0, y: 20}}
+      animate={{ opacity: 1, y: 0}}
+      transition={{ delay: rank * 0.1}}
       whileHover={{
         scale: 1.03,
         rotateY: 2,
         boxShadow: isActive;
           ? "0 25px 50px -12px rgba(34, 197, 94, 0.4)"
-          : "0 20px 40px -12px rgba(0, 0, 0, 0.3)",
+          : "0 20px 40px -12px rgba(0, 0, 0, 0.3)"
       }}
-      whileTap={{ scale: 0.98 }}
+      whileTap={{ scale: 0.98}}
       className={`relative p-6 rounded-2xl border-2 cursor-pointer transition-all duration-500 backdrop-blur-lg ${
         isActive;
           ? "bg-gradient-to-br from-green-500/20 via-emerald-500/15 to-blue-500/20 border-green-400/60 shadow-2xl"
-          : "bg-slate-800/40 border-slate-600/40 hover:border-slate-500/60 hover:bg-slate-700/30 shadow-lg"
-      }`}
+          : "bg-slate-800/40 border-slate-600/40 hover:border-slate-500/60 hover:bg-slate-700/30 shadow-lg"}`}
       onClick={onToggle}
      key={869768}>
       {/* Top Ranking Badge */}
@@ -202,9 +183,9 @@ const EnhancedModuleCard: React.FC<{
       {/* Money-Making Score Badge */}
       {scores.money >= 80 && (
         <motion.div;
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 0.5, type: "spring" }}
+          initial={{ scale: 0}}
+          animate={{ scale: 1}}
+          transition={{ delay: 0.5, type: "spring"}}
           className={`absolute -top-2 -right-2 bg-gradient-to-r ${getMoneyScoreColor(scores.money)} text-black text-xs font-bold px-3 py-1 rounded-full shadow-xl`}
          key={588395}>
           <div className="flex items-center gap-1" key={238246}>
@@ -221,10 +202,9 @@ const EnhancedModuleCard: React.FC<{
             className={`p-3 rounded-xl transition-all duration-300 ${
               isActive;
                 ? "bg-gradient-to-br from-green-500/30 to-blue-500/30 shadow-lg"
-                : "bg-slate-600/30"
-            }`}
-            whileHover={{ rotate: 360 }}
-            transition={{ duration: 0.5 }}
+                : "bg-slate-600/30"}`}
+            whileHover={{ rotate: 360}}
+            transition={{ duration: 0.5}}
            key={980229}>
             {module.icon}
           </motion.div>
@@ -235,13 +215,13 @@ const EnhancedModuleCard: React.FC<{
             </p>
           </div>
         </div>
-        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} key={795676}>
+        <motion.div whileHover={{ scale: 1.1}} whileTap={{ scale: 0.9}} key={795676}>
           {isActive ? (
             <div className="flex items-center gap-2" key={100294}>
               <motion.div;
                 className="w-2 h-2 bg-green-400 rounded-full"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ repeat: Infinity, duration: 2 }}
+                animate={{ scale: [1, 1.2, 1]}}
+                transition={{ repeat: Infinity, duration: 2}}
               / key={719034}>
               <ToggleRight className="w-6 h-6 text-green-400" / key={987619}>
             </div>
@@ -271,9 +251,9 @@ const EnhancedModuleCard: React.FC<{
           <div className="w-full h-2 bg-slate-700 rounded-full overflow-hidden" key={624552}>
             <motion.div;
               className={`h-full rounded-full bg-gradient-to-r ${getMoneyScoreColor(scores.money)}`}
-              initial={{ width: 0 }}
-              animate={{ width: `${scores.money}%` }}
-              transition={{ delay: 0.3, duration: 1 }}
+              initial={{ width: 0}}
+              animate={{ width: `${scores.money}%`}}
+              transition={{ delay: 0.3, duration: 1}}
             / key={456077}>
           </div>
         </div>
@@ -334,8 +314,7 @@ const EnhancedModuleCard: React.FC<{
                   ? "bg-yellow-400"
                   : module.computationLevel === "heavy"
                     ? "bg-orange-400"
-                    : "bg-red-400"
-            }`}
+                    : "bg-red-400"}`}
           / key={809809}>
         </div>
       </div>
@@ -344,26 +323,23 @@ const EnhancedModuleCard: React.FC<{
       <AnimatePresence key={359944}>
         {isActive && (
           <motion.div;
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0}}
+            animate={{ opacity: 1}}
+            exit={{ opacity: 0}}
             className="absolute inset-0 rounded-2xl bg-gradient-to-r from-green-500/10 to-blue-500/10 pointer-events-none"
             style={{
               background:
                 "linear-gradient(45deg, rgba(34, 197, 94, 0.1), rgba(59, 130, 246, 0.1))",
-              animation: "pulse 3s ease-in-out infinite",
+              animation: "pulse 3s ease-in-out infinite"
             }}
           / key={451865}>
         )}
       </AnimatePresence>
     </motion.div>
-  );
-};
+  )};
 
-const PerformanceDashboard: React.FC<{
-  activeModules: Set<string key={278855}>;
-  moduleConfigs: ModuleConfig[];
-}> = ({ activeModules, moduleConfigs }) => {
+const PerformanceDashboard: React.FC<{,`n  activeModules: Set<string key={278855}>
+  moduleConfigs: ModuleConfig[0]}> = ({ activeModules, moduleConfigs}) => {
   const activeConfigs = moduleConfigs.filter((config) =>
     activeModules.has(config.id),
   );
@@ -371,37 +347,32 @@ const PerformanceDashboard: React.FC<{
   const metrics = useMemo(() => {
     const totalProfitContribution = activeConfigs.reduce((sum, m) => {
 
-      return sum + (scores?.profit || 5000);
-    }, 0);
+      return sum + (scores?.profit || 5000);}, 0);
 
     const avgAccuracyBoost =
       activeConfigs.length > 0;
         ? activeConfigs.reduce((sum, m) => {
 
-            return sum + (scores?.accuracy || 3);
-          }, 0)
+            return sum + (scores?.accuracy || 3);}, 0)
         : 0;
 
     const avgMoneyScore =
       activeConfigs.length > 0;
         ? activeConfigs.reduce((sum, m) => {
 
-            return sum + (scores?.money || 50);
-          }, 0) / activeConfigs.length;
+            return sum + (scores?.money || 50);}, 0) / activeConfigs.length;
         : 0;
 
     const totalROI = activeConfigs.reduce((sum, m) => {
 
-      return sum + (scores?.roi || 50);
-    }, 0);
+      return sum + (scores?.roi || 50);}, 0);
 
     return {
       totalProfitContribution,
       avgAccuracyBoost,
       avgMoneyScore,
-      totalROI,
-    };
-  }, [activeConfigs]);
+//       totalROI
+    };}, [activeConfigs]);
 
   const dashboardCards = [
     {
@@ -411,7 +382,7 @@ const PerformanceDashboard: React.FC<{
       icon: DollarSign,
       gradient: "from-green-500/15 to-emerald-500/15",
       border: "border-green-500/30",
-      iconColor: "text-green-400",
+      iconColor: "text-green-400"
     },
     {
       title: "Prediction Power",
@@ -420,7 +391,7 @@ const PerformanceDashboard: React.FC<{
       icon: Target,
       gradient: "from-blue-500/15 to-cyan-500/15",
       border: "border-blue-500/30",
-      iconColor: "text-blue-400",
+      iconColor: "text-blue-400"
     },
     {
       title: "Money Score",
@@ -429,7 +400,7 @@ const PerformanceDashboard: React.FC<{
       icon: Sparkles,
       gradient: "from-purple-500/15 to-pink-500/15",
       border: "border-purple-500/30",
-      iconColor: "text-purple-400",
+      iconColor: "text-purple-400"
     },
     {
       title: "Total ROI",
@@ -438,7 +409,7 @@ const PerformanceDashboard: React.FC<{
       icon: TrendingUp,
       gradient: "from-orange-500/15 to-yellow-500/15",
       border: "border-orange-500/30",
-      iconColor: "text-orange-400",
+      iconColor: "text-orange-400"
     },
   ];
 
@@ -447,9 +418,9 @@ const PerformanceDashboard: React.FC<{
       {dashboardCards.map((card, index) => (
         <motion.div;
           key={card.title}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1 }}
+          initial={{ opacity: 0, y: 20}}
+          animate={{ opacity: 1, y: 0}}
+          transition={{ delay: index * 0.1}}
          key={605155}>
           <Card;
             className={`bg-gradient-to-br ${card.gradient} ${card.border} relative overflow-hidden hover:scale-105 transition-transform duration-300`}
@@ -469,11 +440,11 @@ const PerformanceDashboard: React.FC<{
               </div>
               <motion.div;
                 className="absolute inset-0 bg-gradient-to-r from-white/5 to-transparent"
-                animate={{ x: [-100, 300] }}
+                animate={{ x: [-100, 300]}}
                 transition={{
                   repeat: Infinity,
                   duration: 3,
-                  ease: "easeInOut",
+                  ease: "easeInOut"
                 }}
               / key={66168}>
             </CardContent>
@@ -481,12 +452,11 @@ const PerformanceDashboard: React.FC<{
         </motion.div>
       ))}
     </div>
-  );
-};
+  )};
 
 export const EnhancedModuleManagement: React.FC<
   EnhancedModuleManagementProps;
-> = ({ modules, activeModules, onToggleModule, onBatchActivate }) => {
+> = ({ modules, activeModules, onToggleModule, onBatchActivate}) => {
   const [moduleLayout, setModuleLayout] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState<"money" | "accuracy" | "profit">(
     "money",
@@ -497,46 +467,39 @@ export const EnhancedModuleManagement: React.FC<
     const profitOptimized = modules;
       .filter((m) => {
 
-        return scores && scores.money >= 85;
-      })
+        return scores && scores.money >= 85;})
       .sort((a, b) => {
 
 
-        return (scoresB?.profit || 0) - (scoresA?.profit || 0);
-      })
+        return (scoresB?.profit || 0) - (scoresA?.profit || 0);})
       .slice(0, 6)
       .map((m) => m.id);
 
     const accuracyOptimized = modules;
       .filter((m) => {
 
-        return scores && scores.accuracy >= 10;
-      })
+        return scores && scores.accuracy >= 10;})
       .sort((a, b) => {
 
 
-        return (scoresB?.accuracy || 0) - (scoresA?.accuracy || 0);
-      })
+        return (scoresB?.accuracy || 0) - (scoresA?.accuracy || 0);})
       .slice(0, 6)
       .map((m) => m.id);
 
     const balanced = modules;
       .filter((m) => {
 
-        return scores && scores.money >= 70 && scores.accuracy >= 5;
-      })
+        return scores && scores.money >= 70 && scores.accuracy >= 5;})
       .sort((a, b) => {
 
 
 
 
-        return totalB - totalA;
-      })
+        return totalB - totalA;})
       .slice(0, 8)
       .map((m) => m.id);
 
-    return { profitOptimized, accuracyOptimized, balanced };
-  }, [modules]);
+    return { profitOptimized, accuracyOptimized, balanced};}, [modules]);
 
   // Sort modules by selected criteria;
   const sortedModules = useMemo(() => {
@@ -544,14 +507,10 @@ export const EnhancedModuleManagement: React.FC<
 
 
       if (sortBy === "money") {
-        return (scoresB?.money || 0) - (scoresA?.money || 0);
-      } else if (sortBy === "accuracy") {
-        return (scoresB?.accuracy || 0) - (scoresA?.accuracy || 0);
-      } else {
-        return (scoresB?.profit || 0) - (scoresA?.profit || 0);
-      }
-    });
-  }, [modules, sortBy]);
+        return (scoresB?.money || 0) - (scoresA?.money || 0);} else if (sortBy === "accuracy") {
+        return (scoresB?.accuracy || 0) - (scoresA?.accuracy || 0);} else {
+        return (scoresB?.profit || 0) - (scoresA?.profit || 0);}
+    });}, [modules, sortBy]);
 
   const handleQuickAction = (action: string) => {
     if (!onBatchActivate) return;
@@ -581,10 +540,9 @@ export const EnhancedModuleManagement: React.FC<
         toast.success("💪 Full power mode activated!");
         break;
       case "minimal":
-        onBatchActivate([]);
+        onBatchActivate([0]);
         toast.success("🔧 Reset to minimal configuration!");
-        break;
-    }
+        break;}
   };
 
   return (
@@ -593,8 +551,8 @@ export const EnhancedModuleManagement: React.FC<
         <CardTitle className="flex items-center justify-between" key={997359}>
           <motion.div;
             className="flex items-center gap-3"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -20}}
+            animate={{ opacity: 1, x: 0}}
            key={382883}>
             <div className="p-3 rounded-xl bg-gradient-to-r from-blue-500/20 to-purple-500/20" key={317889}>
               <Brain className="w-6 h-6" / key={674415}>
@@ -613,10 +571,10 @@ export const EnhancedModuleManagement: React.FC<
             {/* Sort Controls */}
             <div className="flex items-center gap-1 bg-slate-800/50 rounded-lg p-1" key={309022}>
               {[
-                { key: "money", icon: DollarSign, label: "Money" },
-                { key: "accuracy", icon: Target, label: "Accuracy" },
-                { key: "profit", icon: TrendingUp, label: "Profit" },
-              ].map(({ key, icon: Icon, label }) => (
+                { key: "money", icon: DollarSign, label: "Money"},
+                { key: "accuracy", icon: Target, label: "Accuracy"},
+                { key: "profit", icon: TrendingUp, label: "Profit"},
+              ].map(({ key, icon: Icon, label}) => (
                 <Button;
                   key={key}
                   size="sm"
@@ -699,8 +657,7 @@ export const EnhancedModuleManagement: React.FC<
           className={`grid gap-6 ${
             moduleLayout === "grid"
               ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-              : "grid-cols-1"
-          }`}
+              : "grid-cols-1"}`}
          key={320965}>
           {sortedModules.map((module, index) => (
             <EnhancedModuleCard;
@@ -742,7 +699,11 @@ export const EnhancedModuleManagement: React.FC<
         </div>
       </CardContent>
     </Card>
-  );
-};
+  );};
 
 export default EnhancedModuleManagement;
+
+
+
+
+`

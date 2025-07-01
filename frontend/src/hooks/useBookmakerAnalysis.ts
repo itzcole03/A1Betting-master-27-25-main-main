@@ -1,96 +1,78 @@
-import { useState, useEffect } from 'react.ts';
-import { bookmakerAnalysisService } from '@/services/analytics/BookmakerAnalysisService.ts';
+﻿import { useState, useEffect} from 'react';
+import { bookmakerAnalysisService} from '@/services/analytics/BookmakerAnalysisService';
 
 export interface BookmakerAnalysisState {
-  isLoading: boolean;
-  error: string | null;
-  analysis: {
-    suspiciousLevel: number;
-    warning?: string;
-    adjustedProbability: number;
-    riskScore: number;
-  } | null;
-}
+  isLoading: boolean,`n  error: string | null;,`n  analysis: {,`n  suspiciousLevel: number;
+    warning?: string
+    adjustedProbability: number,`n  riskScore: number} | null}
 
 export interface PropData {
-  playerId: string;
-  propType: string;
-  projectedValue: number;
-  tag: 'demon' | 'goblin' | 'normal';
-  currentOdds: number;
-  historicalAverage: number;
-}
+  playerId: string,`n  propType: string;,`n  projectedValue: number,`n  tag: 'demon' | 'goblin' | 'normal';,`n  currentOdds: number,`n  historicalAverage: number}
 
 export const useBookmakerAnalysis = (propData: PropData | null) => {
   const [state, setState] = useState<BookmakerAnalysisState>({
     isLoading: false,
     error: null,
-    analysis: null,
+    analysis: null
   });
 
   useEffect(() => {
     if (!propData) {
-      setState((prev: BookmakerAnalysisState) => ({ ...prev, analysis: null }));
-      return;
-    }
+      setState((prev: BookmakerAnalysisState) => ({ ...prev, analysis: null}));
+      return;}
 
     const fetchAnalysis = async () => {
-      setState((prev: BookmakerAnalysisState) => ({ ...prev, isLoading: true, error: null }));
+      setState((prev: BookmakerAnalysisState) => ({ ...prev, isLoading: true, error: null}));
 
       try {
-
         setState({
           isLoading: false,
           error: null,
-          analysis: {
-            suspiciousLevel: analysis.bookmakerIntent.suspiciousLevel,
+          analysis: {,`n  suspiciousLevel: analysis.bookmakerIntent.suspiciousLevel,
             warning: analysis.warnings.join(' '),
             adjustedProbability: analysis.adjustedProbability,
-            riskScore: analysis.riskScore,
-          },
-        });
-      } catch (error) {
+            riskScore: analysis.riskScore
+          }
+        })} catch (error) {
         setState({
           isLoading: false,
           error: error instanceof Error ? error.message : 'Failed to analyze prop',
-          analysis: null,
-        });
-      }
+          analysis: null
+        })}
     };
 
-    fetchAnalysis();
-  }, [propData]);
+    fetchAnalysis();}, [propData]);
 
   const refreshAnalysis = async () => {
     if (!propData) return;
 
-    setState((prev: BookmakerAnalysisState) => ({ ...prev, isLoading: true, error: null }));
+    setState((prev: BookmakerAnalysisState) => ({ ...prev, isLoading: true, error: null}));
 
     try {
-
       setState({
         isLoading: false,
         error: null,
-        analysis: {
-          suspiciousLevel: analysis.bookmakerIntent.suspiciousLevel,
+        analysis: {,`n  suspiciousLevel: analysis.bookmakerIntent.suspiciousLevel,
           warning: analysis.warnings.join(' '),
           adjustedProbability: analysis.adjustedProbability,
-          riskScore: analysis.riskScore,
-        },
-      });
-    } catch (error) {
+          riskScore: analysis.riskScore
+        }
+      })} catch (error) {
       setState({
         isLoading: false,
         error: error instanceof Error ? error.message : 'Failed to analyze prop',
-        analysis: null,
-      });
-    }
+        analysis: null
+      })}
   };
 
   return {
     ...state,
-    refreshAnalysis,
-  };
-};
+//     refreshAnalysis
+  };};
 
 export default useBookmakerAnalysis;
+
+
+
+
+`

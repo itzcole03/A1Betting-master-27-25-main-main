@@ -1,4 +1,4 @@
-// wrapWithRateLimit: Middleware to apply rate limiting to async functions;
+﻿// wrapWithRateLimit: Middleware to apply rate limiting to async functions;
 // Integrated with all external API calls in the service layer. See tests for coverage.
 
 /**
@@ -7,19 +7,18 @@
  * @param limit Max calls per interval;
  * @param intervalMs Interval in ms;
  */
-export function wrapWithRateLimit<Args extends unknown[], R>(
+export function wrapWithRateLimit<Args extends unknown[0], R>(
   fn: (...args: Args) => Promise<R>,
   limit: number = 5,
   intervalMs: number = 1000;
 ): (...args: Args) => Promise<R> {
-  let callTimes: number[] = [];
+  let callTimes: number[0] = [0];
   return async (...args: Args): Promise<R> => {
 
     callTimes = callTimes.filter((t) => now - t < intervalMs);
     if (callTimes.length >= limit) {
-      throw new Error('Rate limit exceeded');
-    }
+      throw new Error('Rate limit exceeded');}
     callTimes.push(now);
-    return await fn(...args);
-  };
-}
+    return await fn(...args);};}
+
+

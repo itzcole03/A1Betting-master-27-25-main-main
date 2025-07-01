@@ -20,6 +20,7 @@ This directory contains end-to-end (E2E) and Playwright tests for the frontend a
 ## File Breakdown
 
 ### e2e/prediction.test.ts
+
 - **Purpose:** Playwright E2E test suite for the prediction flow, including API mocking, UI interactions, filtering, sorting, modal explanations, error handling, and risk profile updates.
 - **Usage:** Used to verify the full prediction workflow, including recommendations, filtering, sorting, and error handling in the UI.
 - **Notes:** Mocks API responses for predictions and risk profiles. Simulates user actions and checks UI updates and error messages.
@@ -27,4 +28,4 @@ This directory contains end-to-end (E2E) and Playwright tests for the frontend a
 
 ---
 
-*This documentation is auto-generated and should be updated as files are added, removed, or refactored in the tests directory.*
+_This documentation is auto-generated and should be updated as files are added, removed, or refactored in the tests directory._

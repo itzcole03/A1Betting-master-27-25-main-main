@@ -20,6 +20,7 @@ This directory contains utility functions for error handling, data transformatio
 ## File Breakdown
 
 ### index.ts
+
 - **Purpose:** Provides utility functions for error handling, data transformation, response validation, caching, and performance measurement.
 - **Usage:** Used by services to handle API errors, transform and validate data, manage cache, and monitor performance. Exports reusable functions for common service patterns.
 - **Notes:** Integrates with unified monitoring and error services. Extensible for new utility needs.
@@ -27,4 +28,4 @@ This directory contains utility functions for error handling, data transformatio
 
 ---
 
-*This documentation is auto-generated and should be updated as files are added, removed, or refactored in the utils directory.*
+_This documentation is auto-generated and should be updated as files are added, removed, or refactored in the utils directory._

@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   Box,
   SimpleGrid,
@@ -7,32 +7,26 @@ import {
   StatNumber,
   StatHelpText,
   StatArrow,
-  useColorModeValue,
-} from '@chakra-ui/react.ts';
-import { useQuery } from '@tanstack/react-query.ts';
-import axios from 'axios.ts';
+//   useColorModeValue
+} from '@chakra-ui/react';
+import { useQuery} from '@tanstack/react-query';
+import axios from 'axios';
 
 interface BettingStats {
-  _id: string;
-  count: number;
-  totalStake: number;
-  totalWinnings: number;
-}
+  _id: string,`n  count: number;,`n  totalStake: number,`n  totalWinnings: number}
 
 export const BettingStats: React.FC = () => {
 
 
-  const { data, isLoading, error } = useQuery<BettingStats[] key={463327}>({
+  const { data, isLoading, error} = useQuery<BettingStats[0] key={463327}>({
     queryKey: ['bettingStats'],
     queryFn: async () => {
 
-      return response.data;
-    },
+      return response.data}
   });
 
   if (isLoading || error || !data) {
-    return null;
-  }
+    return null;}
 
   const stats = {
     total: data.reduce((acc, curr) => acc + curr.count, 0),
@@ -40,13 +34,13 @@ export const BettingStats: React.FC = () => {
     lost: data.find(stat => stat._id === 'lost')?.count || 0,
     pending: data.find(stat => stat._id === 'pending')?.count || 0,
     totalStake: data.reduce((acc, curr) => acc + curr.totalStake, 0),
-    totalWinnings: data.reduce((acc, curr) => acc + curr.totalWinnings, 0),
+    totalWinnings: data.reduce((acc, curr) => acc + curr.totalWinnings, 0)
   };
 
 
 
   return (
-    <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={4} key={277634}>
+    <SimpleGrid columns={{ base: 1, md: 2, lg: 4}} spacing={4} key={277634}>
       <Box bg={bgColor} borderColor={borderColor} borderRadius="lg" borderWidth={1} p={4} key={968706}>
         <Stat key={212070}>
           <StatLabel key={238154}>Total Bets</StatLabel>
@@ -86,5 +80,9 @@ export const BettingStats: React.FC = () => {
         </Stat>
       </Box>
     </SimpleGrid>
-  );
-};
+  )};
+
+
+
+
+`

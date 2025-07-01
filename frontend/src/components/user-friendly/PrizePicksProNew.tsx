@@ -1,121 +1,60 @@
-import React, { useState, useEffect, useMemo, useCallback  } from 'react.ts';
+﻿import OfflineIndicator from '@/components/ui/OfflineIndicator';
+import { api} from '@/services/api/ProductionApiService';
+import { logUserAction, logger} from '@/utils/logger';
 import {
-  Trophy,
-  TrendingUp,
-  Target,
-  Star,
-  CheckCircle,
-  DollarSign,
-  Activity,
-  Brain,
-  Zap,
-  Award,
-  HelpCircle,
-  X,
-  Users,
-  RefreshCw,
-  BarChart3,
-  LineChart,
-  Info,
-  Clock,
-  Flame,
-  Shield,
-  TrendingDown,
-} from 'lucide-react.ts';
-import { productionApiService, api } from '@/services/api/ProductionApiService.ts';
-import { logger, logUserAction, logError } from '@/utils/logger.ts';
-import OfflineIndicator from '@/components/ui/OfflineIndicator.ts';
+    BarChart3,
+    Brain,
+    HelpCircle,
+    RefreshCw,
+    Target,
+    Trophy,
+    Users,
+    X,
+    Zap} from 'lucide-react';
+import React, { useCallback, useEffect, useMemo, useState} from 'react';
+import { prizePicksProjectionsService} from '../../services/enhanced/PrizePicksProjectionsService';
+import { DataUnavailableMessage} from '../common/DataUnavailableMessage';
 
 // ============================================================================
 // INTERFACES & TYPES;
 // ============================================================================
 
 interface PlayerProp {
-  id: string;
-  player: string;
-  team: string;
-  position: string;
-  stat: string;
-  line: number;
-  overOdds: number;
-  underOdds: number;
-  gameTime: string;
-  opponent: string;
-  sport: string;
-  confidence: number;
-  projection: number;
-  edge: number;
-  pickType: "normal" | "demon" | "goblin";
-  reasoning: string;
-  lastGameStats: number[];
-  seasonAvg: number;
-  recentForm: "hot" | "cold" | "neutral";
-  injuryStatus: "healthy" | "questionable" | "probable";
-  weatherImpact?: number;
-  homeAwayFactor: number;
-}
+  id: string,`n  player: string;,`n  team: string,`n  position: string;,`n  stat: string,`n  line: number;,`n  overOdds: number,`n  underOdds: number;,`n  gameTime: string,`n  opponent: string;,`n  sport: string,`n  confidence: number;,`n  projection: number,`n  edge: number;,`n  pickType: "normal" | "demon" | "goblin",`n  reasoning: string;,`n  lastGameStats: number[0],`n  seasonAvg: number;,`n  recentForm: "hot" | "cold" | "neutral",`n  injuryStatus: "healthy" | "questionable" | "probable";
+  weatherImpact?: number
+  homeAwayFactor: number,`n  over: number;,`n  under: number,`n  neural: string;,`n  trend: string,`n  game: string;,`n  expectedValue: number,`n  llmReasoning: string;,`n  analysis: string}
 
 interface SelectedPick {
-  propId: string;
-  choice: "over" | "under";
-  player: string;
-  stat: string;
-  line: number;
-  confidence: number;
-  pickType: "normal" | "demon" | "goblin";
-  projection: number;
-  edge: number;
-}
+  propId: string,`n  choice: "over" | "under";,`n  player: string,`n  stat: string;,`n  line: number,`n  confidence: number;,`n  pickType: "normal" | "demon" | "goblin",`n  projection: number;,`n  edge: number}
 
 interface LineupEntry {
-  id: string;
-  picks: SelectedPick[];
-  entryFee: number;
-  potentialPayout: number;
-  multiplier: number;
-  expectedValue: number;
-  winProbability: number;
-  status: "draft" | "submitted" | "live" | "completed";
-}
+  id: string,`n  picks: SelectedPick[0];,`n  entryFee: number,`n  potentialPayout: number;,`n  multiplier: number,`n  expectedValue: number;,`n  winProbability: number,`n  status: "draft" | "submitted" | "live" | "completed"}
 
 interface PrizePicksConfig {
-  sport: "all" | "nba" | "nfl" | "mlb" | "soccer";
-  maxPicks: number;
-  minConfidence: number;
-  entrySize: number;
-  strategy: "conservative" | "balanced" | "aggressive";
-  focusOnDemonsGoblins: boolean;
-}
+  sport: "all" | "nba" | "nfl" | "mlb" | "soccer",`n  maxPicks: number;,`n  minConfidence: number,`n  entrySize: number;,`n  strategy: "conservative" | "balanced" | "aggressive",`n  focusOnDemonsGoblins: boolean}
 
 // ============================================================================
 // UTILITY FUNCTIONS;
 // ============================================================================
 
 const calculateMultiplier = (pickCount: number): number => {
-
-  return multipliers[Math.min(pickCount, 6)] || 40;
-};
+  return multipliers[Math.min(pickCount, 6)] || 40};
 
 const formatOdds = (odds: number): string => {
-  return odds > 0 ? `+${odds}` : `${odds}`;
-};
+  return odds > 0 ? `+${odds}` : `${odds}`};
 
 const getPickTypeColor = (pickType: "normal" | "demon" | "goblin"): string => {
   switch (pickType) {
     case "demon":
       return "text-red-500 bg-red-100 dark:bg-red-900/20";
     case "goblin":
-      return "text-green-500 bg-green-100 dark:bg-green-900/20";
-    default:
-      return "text-blue-500 bg-blue-100 dark:bg-blue-900/20";
-  }
+      return "text-green-500 bg-green-100 dark: bg-green-900/20",`n  default: return "text-blue-500 bg-blue-100 dark:bg-blue-900/20"}
 };
 
 const getConfidenceColor = (confidence: number): string => {
   if (confidence >= 80) return "text-green-600 bg-green-100 dark:bg-green-900/20";
   if (confidence >= 60) return "text-yellow-600 bg-yellow-100 dark:bg-yellow-900/20";
-  return "text-red-600 bg-red-100 dark:bg-red-900/20";
-};
+  return "text-red-600 bg-red-100 dark: bg-red-900/20"};
 
 // ============================================================================
 // MAIN COMPONENT;
@@ -123,26 +62,30 @@ const getConfidenceColor = (confidence: number): string => {
 
 const PrizePicksPro: React.FC = () => {
   // State management;
-  const [selectedPicks, setSelectedPicks] = useState<SelectedPick[] key={138695}>([]);
-  const [lineup, setLineup] = useState<LineupEntry[] key={887213}>([]);
+  const [selectedPicks, setSelectedPicks] = useState<SelectedPick[0]>([0]);
+  const [lineup, setLineup] = useState<LineupEntry[0]>([0]);
   const [showRecommendations, setShowRecommendations] = useState(false);
   const [activeTab, setActiveTab] = useState<"picks" | "lineup" | "history">("picks");
-  const [config, setConfig] = useState<PrizePicksConfig key={219579}>({
+  const [config, setConfig] = useState<PrizePicksConfig>({
     sport: "all",
     maxPicks: 6,
     minConfidence: 70,
     entrySize: 25,
     strategy: "balanced",
-    focusOnDemonsGoblins: true,
+    focusOnDemonsGoblins: true
   });
   const [autoSelect, setAutoSelect] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"confidence" | "edge" | "player">("confidence");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null key={121216}>(null);
-  const [props, setProps] = useState<PlayerProp[] key={605018}>([]);
-  const [recommendations, setRecommendations] = useState<any[] key={594112}>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [props, setProps] = useState<PlayerProp[0]>([0]);
+  const [recommendations, setRecommendations] = useState<any[0]>([0]);
+  const [loading, setLoading] = useState(true);
+  const [realProjections, setRealProjections] = useState<PlayerProp[0]>([0]);
+  const [serviceStats, setServiceStats] = useState<any>(null);
+  const [lastUpdate, setLastUpdate] = useState<string>("");
 
   // Data fetching functions;
   const fetchProps = useCallback(async () => {
@@ -152,24 +95,20 @@ const PrizePicksPro: React.FC = () => {
     try {
       const response = await api.getPrizePicksProps({
         sport: config.sport,
-        minConfidence: config.minConfidence,
+        minConfidence: config.minConfidence
       });
       
       if (response.success && response.data) {
         setProps(response.data);
-        logger.info("Successfully fetched PrizePicks props", { count: response.data.length });
-      } else {
-        throw new Error(response.error || "Failed to fetch props");
-      }
+        logger.info("Successfully fetched PrizePicks props", { count: response.data.length})} else {
+        throw new Error(response.error || "Failed to fetch props");}
     } catch (err) {
       logger.error("Failed to fetch PrizePicks props", err);
       // Production error handling - no fallback data;
-      setProps([]);
+      setProps([0]);
       setError("Failed to load props. Please check your connection and try again.");
-      logger.error("API Error fetching props:", err);
-    } finally {
-      setIsLoading(false);
-    }
+      logger.error("API Error fetching props: ", err)} finally {
+      setIsLoading(false);}
   }, [config.sport, config.minConfidence]);
 
   const fetchRecommendations = useCallback(async () => {
@@ -177,28 +116,24 @@ const PrizePicksPro: React.FC = () => {
       const response = await api.getPrizePicksRecommendations({
         sport: config.sport,
         strategy: config.strategy,
-        minConfidence: config.minConfidence,
+        minConfidence: config.minConfidence
       });
       
       if (response.success && response.data) {
-        setRecommendations(response.data);
-      } else {
-        throw new Error(response.error || "Failed to fetch recommendations");
-      }
+        setRecommendations(response.data);} else {
+        throw new Error(response.error || "Failed to fetch recommendations");}
     } catch (err) {
       logger.error("Failed to fetch recommendations", err);
       // Production error handling - no fallback data;
       setError("Failed to load AI recommendations. Please check your connection and try again.");
-      setRecommendations([]);
-    }
+      setRecommendations([0]);}
   }, [config]);
 
   const handleAutoSelectPicks = useCallback(() => {
-    const topPicks = recommendations;
+    const topPicks = recommendations
       .filter((rec: any) => rec.confidence >= config.minConfidence)
       .slice(0, config.maxPicks)
-      .map((rec: any) => ({
-        propId: rec.id || `${rec.player}_${rec.stat}`,
+      .map((rec: any) => ({,`n  propId: rec.id || `${rec.player}_${rec.stat}`,
         choice: rec.recommendedPick as "over" | "under",
         player: rec.player,
         stat: rec.stat,
@@ -206,58 +141,141 @@ const PrizePicksPro: React.FC = () => {
         confidence: rec.confidence,
         pickType: rec.pickType || "normal",
         projection: rec.projection,
-        edge: rec.edge,
+        edge: rec.edge
       }));
 
     setSelectedPicks(topPicks);
-    logUserAction("auto_select_picks", { count: topPicks.length });
-    alert(`Auto-selected ${topPicks.length} top picks`);
-  }, [recommendations, config.minConfidence, config.maxPicks]);
+    logUserAction("auto_select_picks", { count: topPicks.length});
+    alert(`Auto-selected ${topPicks.length} top picks`);}, [recommendations, config.minConfidence, config.maxPicks]);
+
+  useEffect(() => {
+    const fetchRealProjections = async () => {
+      try {
+        setLoading(true);
+        
+        // Get comprehensive projections from backend service
+        const response = await fetch('http://localhost:8000/api/prizepicks/comprehensive-projections');
+        const backendData = await response.json();
+        
+        // Also get frontend service data for comparison
+        const frontendData = await prizePicksProjectionsService.getHighValueProjections(0.6);
+        
+        // Combine and format the data
+        const combinedProjections: PlayerProp[0] = [
+          ...backendData.projections?.map((proj: any) => ({,`n  id: proj.id,
+            player: proj.player_name,
+            team: proj.team,
+            stat: proj.stat_type,
+            line: proj.line_score,
+            over: 1.9, // Standard PrizePicks odds
+            under: 1.9,
+            confidence: (proj.confidence * 100) || 85,
+            neural: `${proj.league}-Enhanced`,
+            trend: proj.value_score > 0.7 ? 'up' : 'down',
+            game: `${proj.team} Analysis`,
+            expectedValue: proj.value_score || 0,
+            llmReasoning: `Confidence: ${(proj.confidence * 100).toFixed(1)}%, Value Score: ${proj.value_score?.toFixed(3)}`,
+            analysis: `League: ${proj.league}, Status: ${proj.status}`
+          })) || [0],
+          ...frontendData.map((proj: any) => ({,`n  id: `fe_${proj.player_id}`,
+            player: proj.player_name,
+            team: proj.team,
+            stat: proj.stat_type,
+            line: proj.line,
+            over: 1.9,
+            under: 1.9,
+            confidence: (proj.projection_confidence * 100) || 75,
+            neural: `${proj.sport}-Live`,
+            trend: proj.value_score > 0.6 ? 'up' : 'down',
+            game: `${proj.league} Live`,
+            expectedValue: proj.value_score || 0,
+            llmReasoning: `Live projection confidence: ${(proj.projection_confidence * 100).toFixed(1)}%`,
+            analysis: `Sport: ${proj.sport}, Status: ${proj.status}`
+          }))
+        ];
+        
+        // Remove duplicates and sort by confidence
+        const uniqueProjections = combinedProjections
+          .filter((proj, index, self) => 
+            index === self.findIndex(p => p.player === proj.player && p.stat === proj.stat)
+          )
+          .sort((a, b) => b.confidence - a.confidence)
+          .slice(0, 12); // Top 12 projections
+        
+        setRealProjections(uniqueProjections);
+        setServiceStats(backendData.service_stats);
+        setLastUpdate(new Date().toLocaleTimeString());} catch (error) {
+        console.error('Error fetching comprehensive projections:', error);
+        // Fallback to frontend service only
+        try {
+          const fallbackData = await prizePicksProjectionsService.getProjections();
+          const fallbackProjections = fallbackData.projections
+            .slice(0, 8)
+            .map((proj: any) => ({,`n  id: proj.player_id,
+              player: proj.player_name,
+              team: proj.team,
+              stat: proj.stat_type,
+              line: proj.line,
+              over: 1.9,
+              under: 1.9,
+              confidence: (proj.projection_confidence * 100) || 70,
+              neural: `${proj.sport}-Fallback`,
+              trend: 'neutral',
+              game: `${proj.league} Projection`,
+              expectedValue: proj.value_score || 0,
+              llmReasoning: 'Fallback projection service',
+              analysis: `Fallback mode - ${proj.sport}`
+            }));
+          
+          setRealProjections(fallbackProjections);} catch (fallbackError) {
+          console.error('Fallback service also failed:', fallbackError);
+          setRealProjections([0]);}
+      } finally {
+        setLoading(false);}
+    };
+
+    fetchRealProjections();
+    
+    // Refresh every 5 minutes
+    const interval = setInterval(fetchRealProjections, 300000);
+    return () => clearInterval(interval);}, [0]);
 
   // Effects;
   useEffect(() => {
     logUserAction("prizepicks_pro_opened", { 
       config,
-      selectedPicksCount: selectedPicks.length; 
-    });
-    fetchProps();
-  }, [fetchProps, config, selectedPicks.length]);
+      selectedPicksCount: selectedPicks.length});
+    fetchProps();}, [fetchProps, config, selectedPicks.length]);
 
   useEffect(() => {
     if (showRecommendations) {
-      fetchRecommendations();
-    }
+      fetchRecommendations();}
   }, [showRecommendations, fetchRecommendations]);
 
   useEffect(() => {
     if (autoSelect && recommendations.length > 0) {
-      handleAutoSelectPicks();
-    }
+      handleAutoSelectPicks();}
   }, [recommendations, autoSelect, handleAutoSelectPicks]);
 
   // Event handlers;
   const handlePickToggle = (prop: PlayerProp, choice: "over" | "under") => {
-
     const existingIndex = selectedPicks.findIndex(
-      (pick) => pick.propId === propId;
+      (pick) => pick.propId === prop.id;
     );
 
     if (existingIndex >= 0) {
       // Remove if same choice, update if different choice;
       if (selectedPicks[existingIndex].choice === choice) {
         setSelectedPicks((prev) => prev.filter((_, i) => i !== existingIndex));
-        logUserAction("pick_removed", { propId, choice });
-      } else {
+        logUserAction("pick_removed", { propId: prop.id, choice})} else {
         setSelectedPicks((prev) =>
           prev.map((pick, i) =>
-            i === existingIndex ? { ...pick, choice } : pick;
+            i === existingIndex ? { ...pick, choice} : pick;
           )
         );
-        logUserAction("pick_updated", { propId, choice });
-      }
+        logUserAction("pick_updated", { propId: prop.id, choice})}
     } else if (selectedPicks.length < config.maxPicks) {
-      const newPick: SelectedPick = {
-        propId,
+      const newPick: SelectedPick = {,`n  propId: prop.id,
         choice,
         player: prop.player,
         stat: prop.stat,
@@ -265,60 +283,45 @@ const PrizePicksPro: React.FC = () => {
         confidence: prop.confidence,
         pickType: prop.pickType,
         projection: prop.projection,
-        edge: prop.edge,
+        edge: prop.edge
       };
       setSelectedPicks((prev) => [...prev, newPick]);
-      logUserAction("pick_added", { propId, choice });
-    } else {
-      alert(`Maximum ${config.maxPicks} picks allowed`);
-    }
+      logUserAction("pick_added", { propId: prop.id, choice})} else {
+      alert(`Maximum ${config.maxPicks} picks allowed`);}
   };
 
   const calculatePickEV = (
     prop: PlayerProp,
     choice: "over" | "under"
   ): number => {
-
-
-
     if (choice === "under") {
-      return (1 - trueProbability) / impliedProb - 1;
-    }
-    return trueProbability / impliedProb - 1;
-  };
+      return (1 - trueProbability) / impliedProb - 1}
+    return trueProbability / impliedProb - 1};
 
   const handleCreateLineup = () => {
     if (selectedPicks.length < 2) {
       alert("Need at least 2 picks for a lineup");
-      return;
-    }
+      return;}
 
-
-
-
-
-    const newLineup: LineupEntry = {
-      id: `lineup_${Date.now()}`,
+    const newLineup: LineupEntry = {,`n  id: `lineup_${Date.now()}`,
       picks: [...selectedPicks],
       entryFee,
       potentialPayout,
       multiplier,
       expectedValue,
       winProbability: avgConfidence,
-      status: "draft",
+      status: "draft"
     };
 
     setLineup((prev) => [...prev, newLineup]);
-    setSelectedPicks([]);
+    setSelectedPicks([0]);
     setActiveTab("lineup");
     
     logUserAction("lineup_created", { 
       pickCount: selectedPicks.length,
       entryFee,
-      potentialPayout; 
-    });
-    alert("Lineup created successfully!");
-  };
+      potentialPayout});
+    alert("Lineup created successfully!");};
 
   // Filtered and sorted props;
   const filteredProps = useMemo(() => {
@@ -328,10 +331,7 @@ const PrizePicksPro: React.FC = () => {
         prop.stat.toLowerCase().includes(searchQuery.toLowerCase()) ||
         prop.team.toLowerCase().includes(searchQuery.toLowerCase());
 
-
-
-      return matchesSearch && matchesSport && matchesConfidence && matchesPickType;
-    });
+      return matchesSearch && matchesSport && matchesConfidence && matchesPickType;});
 
     // Sort props;
     filtered.sort((a, b) => {
@@ -342,13 +342,21 @@ const PrizePicksPro: React.FC = () => {
           return b.edge - a.edge;
         case "player":
           return a.player.localeCompare(b.player);
-        default:
-          return 0;
-      }
+        default: return 0}
     });
 
-    return filtered;
-  }, [props, searchQuery, config, sortBy]);
+    return filtered;}, [props, searchQuery, config, sortBy]);
+
+  // Render error state when no data is available
+  if (error && props.length === 0) {
+    return (
+      <DataUnavailableMessage title="PrizePicks Data Unavailable"
+        message="We are unable to load live PrizePicks data at the moment. This may be due to temporary service issues or network connectivity."
+        errorType="api"
+        onRetry={fetchProps}
+        showRetryButton={true}
+        severity="warning">`n      />
+    );}
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900" key={244620}>
@@ -387,8 +395,7 @@ const PrizePicksPro: React.FC = () => {
                 className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
                   showRecommendations;
                     ? "bg-purple-500 text-white shadow-lg"
-                    : "bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600"
-                }`}
+                    : "bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600"}`}
                 title="Toggle AI recommendations"
               >
                 <Brain className="h-5 w-5" / key={85672}>
@@ -399,8 +406,7 @@ const PrizePicksPro: React.FC = () => {
                 className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
                   autoSelect;
                     ? "bg-green-500 text-white shadow-lg"
-                    : "bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600"
-                }`}
+                    : "bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600"}`}
                 title="Toggle auto-select mode"
               >
                 <Zap className="h-5 w-5" / key={751961}>
@@ -435,9 +441,9 @@ const PrizePicksPro: React.FC = () => {
         <div className="mb-8" key={286587}>
           <div className="flex space-x-1 bg-white/60 dark:bg-slate-800/60 p-1 rounded-lg backdrop-blur-sm" key={367202}>
             {[
-              { id: "picks", label: "Player Props", icon: Target },
-              { id: "lineup", label: "My Lineups", icon: Users },
-              { id: "history", label: "History", icon: BarChart3 },
+              { id: "picks", label: "Player Props", icon: Target},
+              { id: "lineup", label: "My Lineups", icon: Users},
+              { id: "history", label: "History", icon: BarChart3},
             ].map((tab) => (
               <button;
                 key={tab.id}
@@ -445,8 +451,7 @@ const PrizePicksPro: React.FC = () => {
                 className={`flex items-center space-x-2 px-6 py-3 rounded-md font-medium transition-all duration-200 ${
                   activeTab === tab.id;
                     ? "bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-md"
-                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-white/60 dark:hover:bg-slate-700/60"
-                }`}
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-white/60 dark:hover:bg-slate-700/60"}`}
               >
                 <tab.icon className="h-5 w-5" / key={175787}>
                 <span key={595076}>{tab.label}</span>
@@ -472,7 +477,7 @@ const PrizePicksPro: React.FC = () => {
                   
                   <select;
                     value={config.sport}
-                    onChange={(e) = key={782472}> setConfig(prev => ({ ...prev, sport: e.target.value as any }))}
+                    onChange={(e) = key={782472}> setConfig(prev => ({ ...prev, sport: e.target.value as any}))}
                     className="px-4 py-2 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     title="Select sport filter"
                   >
@@ -500,7 +505,7 @@ const PrizePicksPro: React.FC = () => {
                     <input;
                       type="checkbox"
                       checked={config.focusOnDemonsGoblins}
-                      onChange={(e) = key={941332}> setConfig(prev => ({ ...prev, focusOnDemonsGoblins: e.target.checked }))}
+                      onChange={(e) = key={941332}> setConfig(prev => ({ ...prev, focusOnDemonsGoblins: e.target.checked}))}
                       className="rounded border-slate-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500"
                     />
                     <span className="text-sm text-slate-600 dark:text-slate-400" key={76909}>Demons & Goblins Only</span>
@@ -512,7 +517,7 @@ const PrizePicksPro: React.FC = () => {
             {/* Player Props Grid */}
             {isLoading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" key={881323}>
-                {Array.from({ length: 6 }).map((_, i) => (
+                {Array.from({ length: 6}).map((_, i) => (
                   <div key={i} className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl p-6 border border-slate-200 dark:border-slate-700 animate-pulse" key={731633}>
                     <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded mb-4" key={259304}></div>
                     <div className="h-8 bg-slate-200 dark:bg-slate-700 rounded mb-2" key={692156}></div>
@@ -527,15 +532,13 @@ const PrizePicksPro: React.FC = () => {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" key={881323}>
                 {filteredProps.map((prop) => {
-
                   return (
                     <div;
                       key={prop.id}
                       className={`bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl p-6 border transition-all duration-200 hover:shadow-lg ${
                         selectedPick;
                           ? "border-blue-300 dark:border-blue-600 shadow-md"
-                          : "border-slate-200 dark:border-slate-700"
-                      }`}
+                          : "border-slate-200 dark:border-slate-700"}`}
                      key={162317}>
                       {/* Header */}
                       <div className="flex items-start justify-between mb-4" key={886571}>
@@ -572,8 +575,7 @@ const PrizePicksPro: React.FC = () => {
                           className={`px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
                             selectedPick?.choice === "over"
                               ? "bg-green-500 text-white shadow-md"
-                              : "bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-900/40"
-                          }`}
+                              : "bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-900/40"}`}
                         >
                           <div className="text-center" key={120206}>
                             <div className="font-bold" key={378160}>Over</div>
@@ -586,8 +588,7 @@ const PrizePicksPro: React.FC = () => {
                           className={`px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
                             selectedPick?.choice === "under"
                               ? "bg-red-500 text-white shadow-md"
-                              : "bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-900/40"
-                          }`}
+                              : "bg-red-100 dark: bg-red-900/20 text-red-800 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-900/40"}`}
                         >
                           <div className="text-center" key={120206}>
                             <div className="font-bold" key={378160}>Under</div>
@@ -605,16 +606,13 @@ const PrizePicksPro: React.FC = () => {
                         <div className="flex justify-between" key={588832}>
                           <span key={595076}>Form:</span>
                           <span className={`font-medium ${
-                            prop.recentForm === "hot" ? "text-red-500" : 
-                            prop.recentForm === "cold" ? "text-blue-500" : "text-slate-500"
-                          }`} key={105760}>
+                            prop.recentForm === "hot" ? "text-red-500" : >`n                            prop.recentForm === "cold" ? "text-blue-500" : "text-slate-500"}`} key={105760}>
                             {prop.recentForm.toUpperCase()}
                           </span>
                         </div>
                       </div>
                     </div>
-                  );
-                })}
+                  )})}
               </div>
             )}
 
@@ -624,7 +622,7 @@ const PrizePicksPro: React.FC = () => {
                 <div className="flex items-center justify-between mb-4" key={810034}>
                   <h3 className="font-bold text-slate-900 dark:text-slate-100" key={873812}>Selected Picks</h3>
                   <button;
-                    onClick={() = key={263171}> setSelectedPicks([])}
+                    onClick={() = key={263171}> setSelectedPicks([0])}
                     className="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
                     title="Clear all picks"
                   >
@@ -705,9 +703,7 @@ const PrizePicksPro: React.FC = () => {
                       <span className={`px-3 py-1 text-sm font-medium rounded-full ${
                         entry.status === "draft" ? "bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-300" :
                         entry.status === "submitted" ? "bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-300" :
-                        entry.status === "live" ? "bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300" :
-                        "bg-slate-100 dark:bg-slate-900/20 text-slate-800 dark:text-slate-300"
-                      }`} key={245263}>
+                        entry.status === "live" ? "bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300" :>`n                        "bg-slate-100 dark:bg-slate-900/20 text-slate-800 dark:text-slate-300"}`} key={245263}>
                         {entry.status.toUpperCase()}
                       </span>
                     </div>
@@ -779,7 +775,11 @@ const PrizePicksPro: React.FC = () => {
         )}
       </div>
     </div>
-  );
-};
+  );};
 
 export default PrizePicksPro;
+
+
+
+
+`

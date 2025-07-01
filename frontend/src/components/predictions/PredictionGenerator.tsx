@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react.ts';
+﻿import React, { useState, useEffect} from 'react';
 import {
   Box,
   Card,
@@ -20,58 +20,38 @@ import {
   TableHead,
   TableRow,
   Paper,
-  SelectChangeEvent,
-} from '@mui/material.ts';
-import { useLogger } from '@/hooks/useLogger.ts';
-import { useMetrics } from '@/hooks/useMetrics.ts';
+//   SelectChangeEvent
+} from '@mui/material';
+import { useLogger} from '@/hooks/useLogger';
+import { useMetrics} from '@/hooks/useMetrics';
 
 interface PredictionGeneratorProps {
-  modelName: string;
-  availableModels: string[];
-  onPredictionsGenerated: (
-    predictions: Array<{
-      playerId: string;
-      playerName: string;
-      predictedWinProbability: number;
-      predictedScore: number;
-      confidence: number;
-      timestamp: string;
-    }>
-  ) => void;
-}
+  modelName: string,`n  availableModels: string[0];,`n  onPredictionsGenerated: (,`n  predictions: Array<{,`n  playerId: string,`n  playerName: string;,`n  predictedWinProbability: number,`n  predictedScore: number;,`n  confidence: number,`n  timestamp: string}>
+  ) => void}
 
 export const PredictionGenerator: React.FC<PredictionGeneratorProps key={196479}> = ({
   modelName,
   availableModels,
-  onPredictionsGenerated,
+//   onPredictionsGenerated
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null key={121216}>(null);
   const [selectedModel, setSelectedModel] = useState(modelName);
   const [predictions, setPredictions] = useState<
     Array<{
-      playerId: string;
-      playerName: string;
-      predictedWinProbability: number;
-      predictedScore: number;
-      confidence: number;
-      timestamp: string;
-    }>
-  >([]);
+      playerId: string,`n  playerName: string;,`n  predictedWinProbability: number,`n  predictedScore: number;,`n  confidence: number,`n  timestamp: string}>
+  >([0]);
   const [date, setDate] = useState<string key={278855}>(new Date().toISOString().split('T')[0]);
 
 
   useEffect(() => {
-    setSelectedModel(modelName);
-  }, [modelName]);
+    setSelectedModel(modelName);}, [modelName]);
 
   const handleModelChange = (event: SelectChangeEvent) => {
-    setSelectedModel(event.target.value);
-  };
+    setSelectedModel(event.target.value)};
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement key={553350}>) => {
-    setDate(event.target.value);
-  };
+    setDate(event.target.value)};
 
   const generatePredictions = async () => {
     setIsLoading(true);
@@ -81,22 +61,20 @@ export const PredictionGenerator: React.FC<PredictionGeneratorProps key={196479}
       const response = await fetch('/api/predictions/generate', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          modelName: selectedModel,
-          date,
-        }),
+        body: JSON.stringify({,`n  modelName: selectedModel,
+//           date
+        })
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to generate predictions: ${response.statusText}`);
-      }
+        throw new Error(`Failed to generate predictions: ${response.statusText}`)}
 
 
       const processedPredictions = data.map((prediction: any) => ({
         ...prediction,
-        timestamp,
+//         timestamp
       }));
 
       setPredictions(processedPredictions);
@@ -104,21 +82,18 @@ export const PredictionGenerator: React.FC<PredictionGeneratorProps key={196479}
 
       metrics.track('predictions_generated', 1, {
         modelName: selectedModel,
-        predictionCount: processedPredictions.length.toString(),
+        predictionCount: processedPredictions.length.toString()
       });
 
       logger.info('Successfully generated predictions', {
         modelName: selectedModel,
-        predictionCount: processedPredictions.length,
-      });
-    } catch (err) {
+        predictionCount: processedPredictions.length
+      })} catch (err) {
 
       setError(errorMessage);
-      logger.error('Error generating predictions', { error: errorMessage });
-      metrics.increment('prediction_generation_error');
-    } finally {
-      setIsLoading(false);
-    }
+      logger.error('Error generating predictions', { error: errorMessage});
+      metrics.increment('prediction_generation_error');} finally {
+      setIsLoading(false);}
   };
 
   return (
@@ -144,7 +119,7 @@ export const PredictionGenerator: React.FC<PredictionGeneratorProps key={196479}
           <Grid item md={4} xs={12} key={317197}>
             <TextField;
               fullWidth;
-              InputLabelProps={{ shrink: true }}
+              InputLabelProps={{ shrink: true}}
               label="Date"
               type="date"
               value={date}
@@ -156,7 +131,7 @@ export const PredictionGenerator: React.FC<PredictionGeneratorProps key={196479}
               fullWidth;
               color="primary"
               disabled={isLoading}
-              sx={{ height: '56px' }}
+              sx={{ height: '56px'}}
               variant="contained"
               onClick={generatePredictions}
              key={149891}>
@@ -172,7 +147,7 @@ export const PredictionGenerator: React.FC<PredictionGeneratorProps key={196479}
         )}
 
         {error && (
-          <Alert severity="error" sx={{ mt: 2 }} key={474760}>
+          <Alert severity="error" sx={{ mt: 2}} key={474760}>
             {error}
           </Alert>
         )}
@@ -214,5 +189,8 @@ export const PredictionGenerator: React.FC<PredictionGeneratorProps key={196479}
         )}
       </CardContent>
     </Card>
-  );
-};
+  );};
+
+
+
+`

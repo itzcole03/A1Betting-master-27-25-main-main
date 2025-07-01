@@ -3,6 +3,7 @@
 This directory contains all UI components related to betting features and workflows.
 
 ## Files and Purpose
+
 - `BestBetSelector.tsx`: UI for selecting the best bet based on analytics.
 - `BetForm.tsx`: Form for placing a bet.
 - `BetHistory.tsx`: Displays user's betting history.

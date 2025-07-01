@@ -1,8 +1,8 @@
-import React from 'react.ts';
-import { useState } from 'react.ts';
-import { Link as RouterLink } from 'react-router-dom.ts';
-import { Box, Button, TextField, Link, Typography, Alert } from '@mui/material.ts';
-import { ApiService } from '@/services/api.ts';
+﻿import React from 'react';
+import { useState} from 'react';
+import { Link as RouterLink} from 'react-router-dom';
+import { Box, Button, TextField, Link, Typography, Alert} from '@mui/material';
+import { ApiService} from '@/services/api';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -20,33 +20,30 @@ export default function ForgotPasswordPage() {
       // Placeholder for forgot password functionality;
       // console statement removed
       // await ApiService.forgotPassword(email); // TODO: Implement when backend ready;
-      setSuccess(true);
-    } catch (err) {
-      setError("Failed to send reset email. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
+      setSuccess(true);} catch (err) {
+      setError("Failed to send reset email. Please try again.");} finally {
+      setIsLoading(false);}
   };
 
   return (
-    <Box component="form" sx={{ width: "100%" }} onSubmit={handleSubmit} key={966550}>
-      <Typography sx={{ mb: 2 }} variant="h6" key={641443}>
+    <Box component="form" sx={{ width: "100%"}} onSubmit={handleSubmit} key={966550}>
+      <Typography sx={{ mb: 2}} variant="h6" key={641443}>
         Reset your password;
       </Typography>
 
-      <Typography sx={{ mb: 3 }} variant="body2" key={913841}>
+      <Typography sx={{ mb: 3}} variant="body2" key={913841}>
         Enter your email address and we'll send you a link to reset your;
         password.
       </Typography>
 
       {error && (
-        <Alert severity="error" sx={{ mb: 2 }} key={957932}>
+        <Alert severity="error" sx={{ mb: 2}} key={957932}>
           {error}
         </Alert>
       )}
 
       {success && (
-        <Alert severity="success" sx={{ mb: 2 }} key={382437}>
+        <Alert severity="success" sx={{ mb: 2}} key={382437}>
           Password reset email sent. Please check your inbox.
         </Alert>
       )}
@@ -67,18 +64,20 @@ export default function ForgotPasswordPage() {
       <Button;
         fullWidth;
         disabled={isLoading}
-        sx={{ mt: 3, mb: 2 }}
+        sx={{ mt: 3, mb: 2}}
         type="submit"
         variant="contained"
        key={11735}>
         {isLoading ? "Sending..." : "Send Reset Link"}
       </Button>
 
-      <Box sx={{ textAlign: "center" }} key={243046}>
+      <Box sx={{ textAlign: "center"}} key={243046}>
         <Link component={RouterLink} to="/login" variant="body2" key={750720}>
           Back to Sign In;
         </Link>
       </Box>
     </Box>
-  );
-}
+  );}
+
+
+

@@ -455,8 +455,8 @@ signal.signal(signal.SIGTERM, graceful_shutdown_handler)
 signal.signal(signal.SIGINT, graceful_shutdown_handler)
 
 # Reference to FastAPI app (for startup event)
-
 app: FastAPI = None  # Will be set by main app
+agent: Optional[Any] = None # Will be set by main app
 
 
 # --- Notification Hook (Email) ---

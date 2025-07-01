@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useCallback, useMemo  } from 'react.ts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.ts';
-import { Button } from '@/components/ui/button.ts';
-import { Badge } from '@/components/ui/badge.ts';
-import { Progress } from '@/components/ui/progress.ts';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs.ts';
+﻿import React, { useState, useEffect, useCallback, useMemo} from 'react';
+import { Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+import { Button} from '@/components/ui/button';
+import { Badge} from '@/components/ui/badge';
+import { Progress} from '@/components/ui/progress';
+import { Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
 import {
   Target,
   TrendingUp,
@@ -15,9 +15,9 @@ import {
   Zap,
   Brain,
   Eye,
-  Settings,
-} from 'lucide-react.ts';
-import SafeChart from '@/ui/SafeChart.ts';
+//   Settings
+} from 'lucide-react';
+import SafeChart from '@/ui/SafeChart';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -29,7 +29,7 @@ import {
   Title,
   Tooltip,
   Legend,
-  Filler,
+//   Filler
 } from "chart.js";
 
 // Register Chart.js components;
@@ -47,46 +47,23 @@ ChartJS.register(
 );
 
 interface PredictionWithConfidence {
-  prediction_id: string;
-  final_prediction: number;
-  confidence_score: number;
-  uncertainty_bounds: [number, number];
-  model_agreement: number;
-  quantum_fidelity: number;
-  prediction_interval: [number, number];
+  prediction_id: string,`n  final_prediction: number;,`n  confidence_score: number,`n  uncertainty_bounds: [number, number];
+  model_agreement: number,`n  quantum_fidelity: number;,`n  prediction_interval: [number, number];
   individual_predictions: Record<string, number key={817366}>;
   model_weights: Record<string, number key={817366}>;
   feature_importance: Record<string, number key={817366}>;
   shap_values: Record<string, number key={817366}>;
-  processing_time: number;
-  timestamp: string;
-  context: {
-    sport: string;
-    event_type: string;
-    market_type: string;
-  };
-}
+  processing_time: number,`n  timestamp: string;,`n  context: {,`n  sport: string;,`n  event_type: string,`n  market_type: string}}
 
 interface ConfidenceMetrics {
-  overall_confidence: number;
-  directional_confidence: number;
-  magnitude_confidence: number;
-  model_consensus: number;
-  uncertainty_quality: number;
-  calibration_score: number;
-  prediction_sharpness: number;
-  coverage_probability: number;
-}
+  overall_confidence: number,`n  directional_confidence: number;,`n  magnitude_confidence: number,`n  model_consensus: number;,`n  uncertainty_quality: number,`n  calibration_score: number;,`n  prediction_sharpness: number,`n  coverage_probability: number}
 
 interface ConfidenceDistribution {
-  confidence_bins: number[];
-  frequency: number[];
-  accuracy_by_bin: number[];
-}
+  confidence_bins: number[0],`n  frequency: number[0];,`n  accuracy_by_bin: number[0]}
 
 export const AdvancedConfidenceVisualizer: React.FC = () => {
-  const [predictions, setPredictions] = useState<PredictionWithConfidence[] key={23669}>(
-    [],
+  const [predictions, setPredictions] = useState<PredictionWithConfidence[0] key={23669}>(
+    [0],
   );
   const [confidenceMetrics, setConfidenceMetrics] =
     useState<ConfidenceMetrics | null key={664625}>(null);
@@ -110,30 +87,24 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
 
       if (predictionsRes.ok) {
 
-        setPredictions(predictionsData);
-      }
+        setPredictions(predictionsData);}
 
       if (metricsRes.ok) {
 
-        setConfidenceMetrics(metricsData);
-      }
+        setConfidenceMetrics(metricsData);}
 
       if (distributionRes.ok) {
 
-        setConfidenceDistribution(distributionData);
-      }
+        setConfidenceDistribution(distributionData);}
     } catch (error) {
-      // console statement removed
-    } finally {
-      setIsLoading(false);
-    }
+      // console statement removed} finally {
+      setIsLoading(false);}
   }, [timeRange]);
 
   useEffect(() => {
     fetchPredictionData();
     const interval = setInterval(fetchPredictionData, 30000); // Update every 30 seconds;
-    return () => clearInterval(interval);
-  }, [fetchPredictionData]);
+    return () => clearInterval(interval);}, [fetchPredictionData]);
 
   // Get confidence level styling;
   const getConfidenceLevel = (confidence: number) => {
@@ -142,48 +113,46 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
         level: "EXCEPTIONAL",
         color: "text-purple-600",
         bg: "bg-purple-100",
-        border: "border-purple-200",
+        border: "border-purple-200"
       };
     if (confidence >= 0.9)
       return {
         level: "EXCELLENT",
         color: "text-green-600",
         bg: "bg-green-100",
-        border: "border-green-200",
+        border: "border-green-200"
       };
     if (confidence >= 0.8)
       return {
         level: "HIGH",
         color: "text-blue-600",
         bg: "bg-blue-100",
-        border: "border-blue-200",
+        border: "border-blue-200"
       };
     if (confidence >= 0.7)
       return {
         level: "GOOD",
         color: "text-yellow-600",
         bg: "bg-yellow-100",
-        border: "border-yellow-200",
+        border: "border-yellow-200"
       };
     if (confidence >= 0.6)
       return {
         level: "MODERATE",
         color: "text-orange-600",
         bg: "bg-orange-100",
-        border: "border-orange-200",
+        border: "border-orange-200"
       };
     return {
       level: "LOW",
       color: "text-red-600",
       bg: "bg-red-100",
-      border: "border-red-200",
-    };
-  };
+      border: "border-red-200"
+    }};
 
   // High confidence predictions;
   const highConfidencePredictions = useMemo(() => {
-    return predictions.filter((p) => p.confidence_score >= confidenceThreshold);
-  }, [predictions, confidenceThreshold]);
+    return predictions.filter((p) => p.confidence_score >= confidenceThreshold);}, [predictions, confidenceThreshold]);
 
   // Confidence trend chart data;
   const confidenceTrendData = useMemo(() => {
@@ -205,7 +174,7 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
           borderColor: "rgb(99, 102, 241)",
           backgroundColor: "rgba(99, 102, 241, 0.1)",
           tension: 0.1,
-          fill: true,
+          fill: true
         },
         {
           label: "Model Agreement",
@@ -213,7 +182,7 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
           borderColor: "rgb(34, 197, 94)",
           backgroundColor: "rgba(34, 197, 94, 0.1)",
           tension: 0.1,
-          fill: false,
+          fill: false
         },
         {
           label: "Quantum Fidelity",
@@ -221,11 +190,10 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
           borderColor: "rgb(168, 85, 247)",
           backgroundColor: "rgba(168, 85, 247, 0.1)",
           tension: 0.1,
-          fill: false,
+          fill: false
         },
-      ],
-    };
-  }, [predictions]);
+      ]
+    }}, [predictions]);
 
   // Confidence distribution chart;
   const confidenceDistributionData = useMemo(() => {
@@ -240,7 +208,7 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
           label: "Frequency",
           data: confidenceDistribution.frequency,
           backgroundColor: "rgba(99, 102, 241, 0.6)",
-          yAxisID: "y",
+          yAxisID: "y"
         },
         {
           label: "Accuracy",
@@ -248,11 +216,10 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
           type: "line" as const,
           borderColor: "rgb(34, 197, 94)",
           backgroundColor: "rgba(34, 197, 94, 0.1)",
-          yAxisID: "y1",
+          yAxisID: "y1"
         },
-      ],
-    };
-  }, [confidenceDistribution]);
+      ]
+    }}, [confidenceDistribution]);
 
   // Uncertainty visualization data;
   const uncertaintyScatterData = useMemo(() => {
@@ -266,10 +233,10 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
             .filter((p) => p.confidence_score >= 0.8)
             .map((p) => ({
               x: p.confidence_score * 100,
-              y: (p.uncertainty_bounds[1] - p.uncertainty_bounds[0]) * 100,
+              y: (p.uncertainty_bounds[1] - p.uncertainty_bounds[0]) * 100
             })),
           backgroundColor: "rgba(34, 197, 94, 0.7)",
-          pointRadius: 6,
+          pointRadius: 6
         },
         {
           label: "Medium Confidence",
@@ -279,10 +246,10 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
             )
             .map((p) => ({
               x: p.confidence_score * 100,
-              y: (p.uncertainty_bounds[1] - p.uncertainty_bounds[0]) * 100,
+              y: (p.uncertainty_bounds[1] - p.uncertainty_bounds[0]) * 100
             })),
           backgroundColor: "rgba(251, 191, 36, 0.7)",
-          pointRadius: 6,
+          pointRadius: 6
         },
         {
           label: "Low Confidence",
@@ -290,14 +257,13 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
             .filter((p) => p.confidence_score < 0.6)
             .map((p) => ({
               x: p.confidence_score * 100,
-              y: (p.uncertainty_bounds[1] - p.uncertainty_bounds[0]) * 100,
+              y: (p.uncertainty_bounds[1] - p.uncertainty_bounds[0]) * 100
             })),
           backgroundColor: "rgba(239, 68, 68, 0.7)",
-          pointRadius: 6,
+          pointRadius: 6
         },
-      ],
-    };
-  }, [predictions]);
+      ]
+    }}, [predictions]);
 
   // Model contribution radar chart;
   const modelContributionData = useMemo(() => {
@@ -315,11 +281,10 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
           pointBackgroundColor: "rgba(99, 102, 241, 1)",
           pointBorderColor: "#fff",
           pointHoverBackgroundColor: "#fff",
-          pointHoverBorderColor: "rgba(99, 102, 241, 1)",
+          pointHoverBorderColor: "rgba(99, 102, 241, 1)"
         },
-      ],
-    };
-  }, [selectedPrediction]);
+      ]
+    }}, [selectedPrediction]);
 
   if (isLoading) {
     return (
@@ -329,8 +294,7 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
           <p className="text-gray-500" key={992645}>Loading confidence analysis...</p>
         </div>
       </div>
-    );
-  }
+    );}
 
   return (
     <div className="space-y-6 p-6" key={80798}>
@@ -465,31 +429,23 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
                     options={{
                       responsive: true,
                       maintainAspectRatio: false,
-                      plugins: {
-                        legend: {
-                          position: "top" as const,
+                      plugins: {,`n  legend: {,`n  position: "top" as const
                         },
-                        tooltip: {
-                          mode: "index",
-                          intersect: false,
-                        },
+                        tooltip: {,`n  mode: "index",
+                          intersect: false
+                        }
                       },
-                      scales: {
-                        y: {
-                          beginAtZero: true,
+                      scales: {,`n  y: {,`n  beginAtZero: true,
                           max: 100,
-                          ticks: {
-                            callback: function (value) {
-                              return value + "%";
-                            },
-                          },
-                        },
+                          ticks: {,`n  callback: function (value) {
+                              return value + "%"}
+                          }
+                        }
                       },
-                      interaction: {
-                        mode: "nearest",
+                      interaction: {,`n  mode: "nearest",
                         axis: "x",
-                        intersect: false,
-                      },
+                        intersect: false
+                      }
                     }}
                   / key={307501}>
                 </div>
@@ -515,39 +471,29 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
                     options={{
                       responsive: true,
                       maintainAspectRatio: false,
-                      plugins: {
-                        legend: {
-                          position: "top" as const,
-                        },
+                      plugins: {,`n  legend: {,`n  position: "top" as const
+                        }
                       },
-                      scales: {
-                        y: {
-                          type: "linear",
+                      scales: {,`n  y: {,`n  type: "linear",
                           display: true,
                           position: "left",
-                          title: {
-                            display: true,
-                            text: "Frequency",
-                          },
+                          title: {,`n  display: true,
+                            text: "Frequency"
+                          }
                         },
-                        y1: {
-                          type: "linear",
+                        y1: {,`n  type: "linear",
                           display: true,
                           position: "right",
-                          title: {
-                            display: true,
-                            text: "Accuracy (%)",
+                          title: {,`n  display: true,
+                            text: "Accuracy (%)"
                           },
-                          grid: {
-                            drawOnChartArea: false,
+                          grid: {,`n  drawOnChartArea: false
                           },
-                          ticks: {
-                            callback: function (value) {
-                              return value + "%";
-                            },
-                          },
-                        },
-                      },
+                          ticks: {,`n  callback: function (value) {
+                              return value + "%"}
+                          }
+                        }
+                      }
                     }}
                   / key={570431}>
                 </div>
@@ -573,35 +519,25 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
                     options={{
                       responsive: true,
                       maintainAspectRatio: false,
-                      plugins: {
-                        legend: {
-                          position: "top" as const,
+                      plugins: {,`n  legend: {,`n  position: "top" as const
                         },
-                        tooltip: {
-                          callbacks: {
-                            label: function (context) {
-                              return `Confidence: ${context.parsed.x.toFixed(1)}%, Uncertainty: ${context.parsed.y.toFixed(1)}%`;
-                            },
-                          },
-                        },
+                        tooltip: {,`n  callbacks: {,`n  label: function (context) {
+                              return `Confidence: ${context.parsed.x.toFixed(1)}%, Uncertainty: ${context.parsed.y.toFixed(1)}%`}
+                          }
+                        }
                       },
-                      scales: {
-                        x: {
-                          title: {
-                            display: true,
-                            text: "Confidence Score (%)",
+                      scales: {,`n  x: {,`n  title: {,`n  display: true,
+                            text: "Confidence Score (%)"
                           },
                           min: 0,
-                          max: 100,
+                          max: 100
                         },
-                        y: {
-                          title: {
-                            display: true,
-                            text: "Uncertainty Range (%)",
+                        y: {,`n  title: {,`n  display: true,
+                            text: "Uncertainty Range (%)"
                           },
-                          min: 0,
-                        },
-                      },
+                          min: 0
+                        }
+                      }
                     }}
                   / key={775629}>
                 </div>
@@ -622,8 +558,7 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
                 <select;
                   value={confidenceThreshold}
                   onChange={(e) = key={225214}>
-                    setConfidenceThreshold(Number(e.target.value))
-                  }
+                    setConfidenceThreshold(Number(e.target.value))}
                   className="px-3 py-1 border rounded"
                 >
                   <option value={0.95} key={478431}>95%</option>
@@ -709,8 +644,7 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
                       </div>
                     </CardContent>
                   </Card>
-                );
-              })}
+                );})}
             </div>
           </div>
         </TabsContent>
@@ -735,22 +669,16 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
                         options={{
                           responsive: true,
                           maintainAspectRatio: false,
-                          plugins: {
-                            legend: {
-                              position: "top" as const,
-                            },
+                          plugins: {,`n  legend: {,`n  position: "top" as const
+                            }
                           },
-                          scales: {
-                            r: {
-                              beginAtZero: true,
+                          scales: {,`n  r: {,`n  beginAtZero: true,
                               max: 100,
-                              ticks: {
-                                callback: function (value) {
-                                  return value + "%";
-                                },
-                              },
-                            },
-                          },
+                              ticks: {,`n  callback: function (value) {
+                                  return value + "%"}
+                              }
+                            }
+                          }
                         }}
                       / key={605541}>
                     </div>
@@ -849,7 +777,10 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
         </TabsContent>
       </Tabs>
     </div>
-  );
-};
+  );};
 
 export default AdvancedConfidenceVisualizer;
+
+
+
+`

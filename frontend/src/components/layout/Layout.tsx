@@ -1,12 +1,11 @@
-import React, { ReactNode, useState  } from 'react.ts';
-import { EliteSportsHeader } from './EliteSportsHeader.ts';
-import { AdvancedSidebar } from './AdvancedSidebar.ts';
+﻿import React, { ReactNode, useState} from 'react';
+import { EliteSportsHeader} from './EliteSportsHeader';
+import { AdvancedSidebar} from './AdvancedSidebar';
 
 interface LayoutProps {
-  children: ReactNode;
-}
+  children: ReactNode}
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children}: LayoutProps) => {
   // TODO: Replace with real data/context hooks;
   const [currentSection, setCurrentSection] = useState('dashboard');
   const [isSidebarOpen] = useState(true); // Sidebar always open for desktop;
@@ -41,14 +40,16 @@ const Layout = ({ children }: LayoutProps) => {
           loading={loading}
         / key={785749}>
         {/* Main content */}
-        <main className="flex-1 p-6 md:p-10 max-w-7xl w-full mx-auto" key={877563}>
+        <main className="flex-1 p-6 md: p-10 max-w-7xl w-full mx-auto" key={877563}>
           <div className="rounded-3xl bg-white/80 dark:bg-gray-900/80 shadow-xl p-6 md:p-10 min-h-[70vh]" key={711016}>
             {children}
           </div>
         </main>
       </div>
     </div>
-  );
-};
+  )};
 
 export default Layout;
+
+
+

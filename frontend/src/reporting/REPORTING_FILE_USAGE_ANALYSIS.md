@@ -20,6 +20,7 @@ This directory contains Python modules for report generation and formatting. The
 ## File Breakdown
 
 ### report_generator.py
+
 - **Purpose:** Implements the ReportGenerator class for generating reports from analysis results and metrics, supporting HTML, JSON, and CSV formats, and creating visualizations.
 - **Usage:** Used to format and output analysis results, generate visualizations, and save reports to disk. Integrates with Jinja2 for HTML templating and Matplotlib for plotting.
 - **Notes:** Supports configurable output directory and format. Handles errors and logs issues during report generation. Designed for extensibility and integration with analysis and monitoring modules.
@@ -27,4 +28,4 @@ This directory contains Python modules for report generation and formatting. The
 
 ---
 
-*This documentation is auto-generated and should be updated as files are added, removed, or refactored in the reporting directory.*
+_This documentation is auto-generated and should be updated as files are added, removed, or refactored in the reporting directory._

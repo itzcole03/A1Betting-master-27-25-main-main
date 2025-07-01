@@ -1,40 +1,18 @@
-import { Analyzer } from '@/core/Analyzer.ts';
-import { DailyFantasyData } from '@/adapters/DailyFantasyAdapter.ts';
-import { EventBus } from '@/core/EventBus.ts';
-import { PerformanceMonitor } from '@/core/PerformanceMonitor.ts';
+﻿import { Analyzer} from '@/core/Analyzer';
+import { DailyFantasyData} from '@/adapters/DailyFantasyAdapter';
+import { EventBus} from '@/core/EventBus';
+import { PerformanceMonitor} from '@/core/PerformanceMonitor';
 
 
 
 export interface ProjectionAnalysis {
-  player: string;
-  predictions: {
-    points: PredictionMetrics;
-    rebounds: PredictionMetrics;
-    assists: PredictionMetrics;
-    steals: PredictionMetrics;
-    blocks: PredictionMetrics;
-    threes: PredictionMetrics;
-    minutes: PredictionMetrics;
-  };
-  confidence: number;
-  metadata: {
-    team: string;
-    position: string;
-    opponent: string;
-    isHome: boolean;
-  };
-}
+  player: string,`n  predictions: {,`n  points: PredictionMetrics,`n  rebounds: PredictionMetrics;,`n  assists: PredictionMetrics,`n  steals: PredictionMetrics;,`n  blocks: PredictionMetrics,`n  threes: PredictionMetrics;,`n  minutes: PredictionMetrics};
+  confidence: number,`n  metadata: {,`n  team: string,`n  position: string;,`n  opponent: string,`n  isHome: boolean}}
 
 interface PredictionMetrics {
-  predicted: number;
-  confidence: number;
-  range: {
-    min: number;
-    max: number;
-  };
-}
+  predicted: number,`n  confidence: number;,`n  range: {,`n  min: number;,`n  max: number}}
 
-export class ProjectionAnalyzer implements Analyzer<DailyFantasyData, ProjectionAnalysis[]> {
+export class ProjectionAnalyzer implements Analyzer<DailyFantasyData, ProjectionAnalysis[0]> {
   public readonly id = 'projection-analyzer';
   public readonly type = 'sports-projections';
   public readonly name = 'Projection Analyzer';
@@ -47,43 +25,35 @@ export class ProjectionAnalyzer implements Analyzer<DailyFantasyData, Projection
   constructor(confidenceThreshold: number = 0.7) {
     this.eventBus = EventBus.getInstance();
     this.performanceMonitor = PerformanceMonitor.getInstance();
-    this.confidenceThreshold = confidenceThreshold;
-  }
+    this.confidenceThreshold = confidenceThreshold;}
 
-  public async analyze(data: DailyFantasyData): Promise<ProjectionAnalysis[]> {
+  public async analyze(data: DailyFantasyData): Promise<ProjectionAnalysis[0]> {
     const traceId = this.performanceMonitor.startTrace('projection-analysis', {
       analyzer: this.id,
-      projectionCount: data.projections.length;
-    });
+      projectionCount: data.projections.length});
 
     try {
-      const analyses: ProjectionAnalysis[] = [];
+      const analyses: ProjectionAnalysis[0] = [0];
 
       for (const projection of data.projections) {
         const spanId = this.performanceMonitor.startSpan(traceId, 'player-analysis', {
           player: projection.name,
-          team: projection.team;
-        });
+          team: projection.team});
 
         try {
 
           if (analysis.confidence >= this.confidenceThreshold) {
-            analyses.push(analysis);
-          }
+            analyses.push(analysis);}
 
-          this.performanceMonitor.endSpan(spanId);
-        } catch (error) {
+          this.performanceMonitor.endSpan(spanId);} catch (error) {
           this.performanceMonitor.endSpan(spanId, error as Error);
-          // console statement removed
-        }
+          // console statement removed}
       }
 
       this.performanceMonitor.endTrace(traceId);
-      return analyses;
-    } catch (error) {
+      return analyses;} catch (error) {
       this.performanceMonitor.endTrace(traceId, error as Error);
-      throw error;
-    }
+      throw error;}
   }
 
   public async confidence(data: DailyFantasyData): Promise<number> {
@@ -93,84 +63,67 @@ export class ProjectionAnalyzer implements Analyzer<DailyFantasyData, Projection
       this.isValidProjection(p)
     );
 
-    return validProjections.length / data.projections.length;
-  }
+    return validProjections.length / data.projections.length;}
 
   private analyzePlayerProjection(projection: DailyFantasyData['projections'][0]): ProjectionAnalysis {
 
-    const analysis: ProjectionAnalysis = {
-      player: projection.name,
-      predictions: {
-        points: this.calculateMetrics(projection.pts, baseConfidence, 'points'),
+    const analysis: ProjectionAnalysis = {,`n  player: projection.name,
+      predictions: {,`n  points: this.calculateMetrics(projection.pts, baseConfidence, 'points'),
         rebounds: this.calculateMetrics(projection.reb, baseConfidence, 'rebounds'),
         assists: this.calculateMetrics(projection.ast, baseConfidence, 'assists'),
         steals: this.calculateMetrics(projection.stl, baseConfidence, 'steals'),
         blocks: this.calculateMetrics(projection.blk, baseConfidence, 'blocks'),
         threes: this.calculateMetrics(projection.three_pt, baseConfidence, 'threes'),
-        minutes: this.calculateMetrics(projection.min, baseConfidence, 'minutes')
-      },
+        minutes: this.calculateMetrics(projection.min, baseConfidence, 'minutes')},
       confidence: baseConfidence,
-      metadata: {
-        team: projection.team,
+      metadata: {,`n  team: projection.team,
         position: projection.position,
         opponent: projection.opp_team,
-        isHome: projection.is_home;
-      }
+        isHome: projection.is_home}
     };
 
     // Publish detailed analysis event;
     this.eventBus.publish({
       type: 'projection:analyzed',
-      payload: {
-        player: projection.name,
+      payload: {,`n  player: projection.name,
         confidence: baseConfidence,
         predictions: Object.entries(analysis.predictions).map(([stat, metrics]) => ({
           stat,
           predicted: metrics.predicted,
-          confidence: metrics.confidence;
-        }))
-      }
+          confidence: metrics.confidence}))}
     });
 
-    return analysis;
-  }
+    return analysis;}
 
   private calculateBaseConfidence(projection: DailyFantasyData['projections'][0]): number {
     const confidence = 1.0;
 
     // Reduce confidence for missing or invalid data;
     if (!this.isValidProjection(projection)) {
-      confidence *= 0.5;
-    }
+      confidence *= 0.5;}
 
     // Reduce confidence for extreme minute projections;
     if (projection.min < 10 || projection.min > 48) {
-      confidence *= 0.7;
-    }
+      confidence *= 0.7;}
 
     // Reduce confidence for unrealistic stat projections;
     if (projection.pts > 60 || projection.reb > 30 || projection.ast > 20) {
-      confidence *= 0.8;
-    }
+      confidence *= 0.8;}
 
-    return confidence;
-  }
+    return confidence;}
 
   private calculateMetrics(
     value: number,
     baseConfidence: number,
-    statType: string;
+    statType: string
   ): PredictionMetrics {
 
     return {
       predicted: value,
       confidence: baseConfidence * this.getStatTypeConfidence(statType),
-      range: {
-        min: Math.max(0, value - variance),
-        max: value + variance;
-      }
-    };
-  }
+      range: {,`n  min: Math.max(0, value - variance),
+        max: value + variance}
+    }}
 
   private calculateVariance(value: number, statType: string): number {
     // Different stats have different natural variances;
@@ -181,11 +134,9 @@ export class ProjectionAnalyzer implements Analyzer<DailyFantasyData, Projection
       steals: 0.4,
       blocks: 0.4,
       threes: 0.35,
-      minutes: 0.15;
-    };
+      minutes: 0.15};
 
-    return value * (varianceFactors[statType] || 0.25);
-  }
+    return value * (varianceFactors[statType] || 0.25);}
 
   private getStatTypeConfidence(statType: string): number {
     // Some stats are more predictable than others;
@@ -196,11 +147,9 @@ export class ProjectionAnalyzer implements Analyzer<DailyFantasyData, Projection
       steals: 0.7,
       blocks: 0.7,
       threes: 0.75,
-      minutes: 0.95;
-    };
+      minutes: 0.95};
 
-    return confidenceFactors[statType] || 0.8;
-  }
+    return confidenceFactors[statType] || 0.8;}
 
   private isValidProjection(projection: DailyFantasyData['projections'][0]): boolean {
     return (
@@ -209,14 +158,15 @@ export class ProjectionAnalyzer implements Analyzer<DailyFantasyData, Projection
       typeof projection.ast === 'number' &&
       typeof projection.min === 'number' &&
       projection.min > 0;
-    );
-  }
+    );}
 
   public validate(data: DailyFantasyData): boolean {
-    return Array.isArray(data.projections);
-  }
+    return Array.isArray(data.projections)}
 
   public getMetrics() {
-    return { accuracy: 1, latency: 0, errorRate: 0 };
-  }
+    return { accuracy: 1, latency: 0, errorRate: 0}}
 } 
+
+
+
+`

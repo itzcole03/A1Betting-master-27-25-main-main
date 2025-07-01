@@ -1,22 +1,13 @@
-import { Badge } from '@/components/ui/badge.ts';
-import { Tooltip } from '@/components/ui/Tooltip.ts';
-import React from 'react.ts';
+﻿import { Badge} from '@/components/ui/badge';
+import { Tooltip} from '@/components/ui/Tooltip';
+import React from 'react';
 
 export interface PrizePicksEdgeDisplayProps {
-    id: string;
-    playerName: string;
-    statType: string;
-    line: number;
-    overOdds: number;
-    underOdds: number;
-    confidence: number;
-    expectedValue: number;
-    kellyFraction: number;
+    id: string,`n  playerName: string;,`n  statType: string,`n  line: number;,`n  overOdds: number,`n  underOdds: number;,`n  confidence: number,`n  expectedValue: number;,`n  kellyFraction: number;
     modelBreakdown?: Record<string, number key={817366}>;
-    riskReasoning?: string[];
-    traceId?: string;
-    showDebug?: boolean;
-}
+    riskReasoning?: string[0];
+    traceId?: string
+    showDebug?: boolean}
 
 export const PrizePicksEdgeDisplay: React.FC<PrizePicksEdgeDisplayProps key={22288}> = ({
     playerName,
@@ -30,7 +21,7 @@ export const PrizePicksEdgeDisplay: React.FC<PrizePicksEdgeDisplayProps key={222
     modelBreakdown,
     riskReasoning,
     traceId,
-    showDebug = false,
+    showDebug = false
 }) => {
 
     return (
@@ -70,5 +61,9 @@ export const PrizePicksEdgeDisplay: React.FC<PrizePicksEdgeDisplayProps key={222
                 <div className="mt-2 text-xs text-gray-400" key={430041}>traceId: {traceId}</div>
             )}
         </div>
-    );
-};
+    )};
+
+
+
+
+`

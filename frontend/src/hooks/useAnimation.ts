@@ -1,29 +1,25 @@
-import { AnimationControls, useAnimation } from 'framer-motion.ts';
-import { useCallback, useState, useEffect } from 'react.ts';
+﻿import { AnimationControls, useAnimation} from 'framer-motion';
+import { useCallback, useState, useEffect} from 'react';
 
 
 
 interface UseAnimationOptions {
-  duration?: number;
-  delay?: number;
-  ease?: string;
-}
+  duration?: number
+  delay?: number
+  ease?: string}
 
 interface AnimationState {
-  isAnimating: boolean;
-  controls: AnimationControls;
-}
+  isAnimating: boolean,`n  controls: AnimationControls}
 
 export const useCustomAnimation = ({
   duration = 0.3,
   delay = 0,
-  ease = 'easeInOut'
-}: UseAnimationOptions = {}) => {
+  ease = 'easeInOut'}: UseAnimationOptions = Record<string, any>) => {
 
   const [isAnimating, setIsAnimating] = useState(false);
 
   const animate = useCallback(
-    async (variants: { [key: string]: any }, options?: { [key: string]: any }) => {
+    async (variants: { [key: string]: any}, options?: { [key: string]: any}) => {
       setIsAnimating(true);
       await controls.start({
         ...variants,
@@ -31,72 +27,65 @@ export const useCustomAnimation = ({
           duration,
           delay,
           ease,
-          ...options?.transition;
-        }
+          ...options?.transition}
       });
-      setIsAnimating(false);
-    },
+      setIsAnimating(false);},
     [controls, duration, delay, ease]
   );
 
   const fadeIn = useCallback(
-    (options?: { [key: string]: any }) =>
+    (options?: { [key: string]: any}) =>
       animate(
         {
           opacity: 1,
           y: 0,
-          scale: 1;
-        },
+          scale: 1},
         options;
       ),
     [animate]
   );
 
   const fadeOut = useCallback(
-    (options?: { [key: string]: any }) =>
+    (options?: { [key: string]: any}) =>
       animate(
         {
           opacity: 0,
           y: 20,
-          scale: 0.95;
-        },
+          scale: 0.95},
         options;
       ),
     [animate]
   );
 
   const slideIn = useCallback(
-    (direction: 'left' | 'right' | 'top' | 'bottom', options?: { [key: string]: any }) => {
+    (direction: 'left' | 'right' | 'top' | 'bottom', options?: { [key: string]: any}) => {
       const variants = {
-        left: { x: 0, opacity: 1 },
-        right: { x: 0, opacity: 1 },
-        top: { y: 0, opacity: 1 },
-        bottom: { y: 0, opacity: 1 }
+        left: { x: 0, opacity: 1},
+        right: { x: 0, opacity: 1},
+        top: { y: 0, opacity: 1},
+        bottom: { y: 0, opacity: 1}
       };
 
       const initial = {
-        left: { x: -100, opacity: 0 },
-        right: { x: 100, opacity: 0 },
-        top: { y: -100, opacity: 0 },
-        bottom: { y: 100, opacity: 0 }
+        left: { x: -100, opacity: 0},
+        right: { x: 100, opacity: 0},
+        top: { y: -100, opacity: 0},
+        bottom: { y: 100, opacity: 0}
       };
 
       controls.set(initial[direction]);
-      return animate(variants[direction], options);
-    },
+      return animate(variants[direction], options);},
     [controls, animate]
   );
 
   const pulse = useCallback(
-    (options?: { [key: string]: any }) =>
+    (options?: { [key: string]: any}) =>
       animate(
         {
           scale: [1, 1.05, 1],
-          transition: {
-            duration: 0.4,
+          transition: {,`n  duration: 0.4,
             times: [0, 0.5, 1],
-            ...options?.transition;
-          }
+            ...options?.transition}
         },
         options;
       ),
@@ -104,15 +93,13 @@ export const useCustomAnimation = ({
   );
 
   const shake = useCallback(
-    (options?: { [key: string]: any }) =>
+    (options?: { [key: string]: any}) =>
       animate(
         {
           x: [0, -10, 10, -5, 5, 0],
-          transition: {
-            duration: 0.5,
+          transition: {,`n  duration: 0.5,
             times: [0, 0.2, 0.4, 0.6, 0.8, 1],
-            ...options?.transition;
-          }
+            ...options?.transition}
         },
         options;
       ),
@@ -120,15 +107,13 @@ export const useCustomAnimation = ({
   );
 
   const bounce = useCallback(
-    (options?: { [key: string]: any }) =>
+    (options?: { [key: string]: any}) =>
       animate(
         {
           y: [0, -20, 0],
-          transition: {
-            duration: 0.6,
+          transition: {,`n  duration: 0.6,
             times: [0, 0.5, 1],
-            ...options?.transition;
-          }
+            ...options?.transition}
         },
         options;
       ),
@@ -144,36 +129,34 @@ export const useCustomAnimation = ({
     pulse,
     shake,
     bounce,
-    animate;
-  };
-};
+    animate;};};
 
 export const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: 20 },
-  transition: { duration: 0.3 }
+  initial: { opacity: 0, y: 20},
+  animate: { opacity: 1, y: 0},
+  exit: { opacity: 0, y: 20},
+  transition: { duration: 0.3}
 };
 
 export const fadeIn = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  exit: { opacity: 0 },
-  transition: { duration: 0.3 }
+  initial: { opacity: 0},
+  animate: { opacity: 1},
+  exit: { opacity: 0},
+  transition: { duration: 0.3}
 };
 
 export const slideIn = {
-  initial: { x: -20, opacity: 0 },
-  animate: { x: 0, opacity: 1 },
-  exit: { x: 20, opacity: 0 },
-  transition: { duration: 0.3 }
+  initial: { x: -20, opacity: 0},
+  animate: { x: 0, opacity: 1},
+  exit: { x: 20, opacity: 0},
+  transition: { duration: 0.3}
 };
 
 export const scaleIn = {
-  initial: { scale: 0.9, opacity: 0 },
-  animate: { scale: 1, opacity: 1 },
-  exit: { scale: 0.9, opacity: 0 },
-  transition: { duration: 0.3 }
+  initial: { scale: 0.9, opacity: 0},
+  animate: { scale: 1, opacity: 1},
+  exit: { scale: 0.9, opacity: 0},
+  transition: { duration: 0.3}
 };
 
 export const useOddsAnimation = (value: number): AnimationControls => {
@@ -181,34 +164,30 @@ export const useOddsAnimation = (value: number): AnimationControls => {
   useEffect(() => {
     controls.start({
       scale: 1.1,
-      transition: { duration: 0.15 }
+      transition: { duration: 0.15}
     }).then(() => {
       controls.start({
         scale: 1,
-        transition: { duration: 0.15 }
-      });
-    });
-  }, [value, controls]);
+        transition: { duration: 0.15}
+      })});}, [value, controls]);
 
-  return controls;
-};
+  return controls;};
 
 export const bounceIn = {
-  initial: { scale: 0 },
-  animate: { scale: 1 },
-  transition: {
-    type: 'spring',
+  initial: { scale: 0},
+  animate: { scale: 1},
+  transition: {,`n  type: 'spring',
     stiffness: 300,
-    damping: 20;
-  }
+    damping: 20}
 };
 
 export const staggerChildren = {
-  initial: { opacity: 0 },
-  animate: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1;
-    }
-  }
-}; 
+  initial: { opacity: 0},
+  animate: {,`n  opacity: 1,
+    transition: {,`n  staggerChildren: 0.1}
+  }}; 
+
+
+
+
+`

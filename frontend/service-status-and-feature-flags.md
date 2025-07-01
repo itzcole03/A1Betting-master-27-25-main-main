@@ -17,7 +17,7 @@ window.appStatus = {
   news: { connected: true, quality: 1, timestamp: 1728595600000 },
   realtime: { connected: false, quality: 0, timestamp: 1728595600000 },
   // ...
-}
+};
 ```
 
 ## Usage in the Dashboard
@@ -49,9 +49,7 @@ This will display a grid of service statuses, updating every 2 seconds.
 ```tsx
 import { isFeatureEnabled } from '../../services/configService.js';
 
-const features = [
-  'INJURIES', 'NEWS', 'WEATHER', 'REALTIME', 'ESPN', 'ODDS', 'ANALYTICS'
-];
+const features = ['INJURIES', 'NEWS', 'WEATHER', 'REALTIME', 'ESPN', 'ODDS', 'ANALYTICS'];
 
 export const FeatureFlagIndicators = () => {
   const [flags, setFlags] = React.useState<{ [key: string]: boolean }>({});
@@ -68,10 +66,10 @@ export const FeatureFlagIndicators = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+    <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mb-8'>
       {features.map(key => (
-        <div key={key} className="p-4 border rounded-lg bg-white dark:bg-gray-900">
-          <div className="font-semibold">{key}</div>
+        <div key={key} className='p-4 border rounded-lg bg-white dark:bg-gray-900'>
+          <div className='font-semibold'>{key}</div>
           <span className={flags[key] ? 'text-green-600' : 'text-red-600'}>
             {flags[key] ? 'Enabled' : 'Disabled'}
           </span>

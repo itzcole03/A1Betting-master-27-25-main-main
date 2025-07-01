@@ -1,4 +1,4 @@
-import { ErrorCategory, ErrorSeverity, ErrorContext } from './UnifiedError.ts';
+﻿import { ErrorCategory, ErrorSeverity, ErrorContext} from './UnifiedError';
 
 export class SystemError extends Error {
   public readonly context: ErrorContext;
@@ -12,7 +12,10 @@ export class SystemError extends Error {
       category: ErrorCategory.SYSTEM,
       severity: ErrorSeverity.CRITICAL,
       timestamp: Date.now(),
-      details,
-    };
-  }
+//       details
+    }}
 }
+
+
+
+

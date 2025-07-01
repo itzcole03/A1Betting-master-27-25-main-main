@@ -1,80 +1,59 @@
-/**
+﻿/**
  * Unified Prediction Engine - Integrated Version;
  * 
  * This is the consolidated prediction engine that integrates all existing models;
  * and connects properly to the backend services for Items 1 & 2 of the integration checklist.
  */
 
-import { EventBus } from '@/core/EventBus.ts';
-import { PerformanceMonitor } from './PerformanceMonitor.ts';
-import { UnifiedConfigManager } from './UnifiedConfigManager.ts';
-import { unifiedMonitor } from './UnifiedMonitor.ts';
+import { EventBus} from '@/core/EventBus';
+import { PerformanceMonitor} from './PerformanceMonitor';
+import { UnifiedConfigManager} from './UnifiedConfigManager';
+import { unifiedMonitor} from './UnifiedMonitor';
 import {
   TimestampedData,
   BettingOpportunity,
   MarketUpdate,
-  PredictionState,
-} from '@/types/core.ts';
+  PredictionState
+} from '@/types/core';
 
 // Backend Integration;
 
 export interface PredictionRequest {
   features: Record<string, number>;
-  playerId?: string;
-  metric?: string;
-  context?: Record<string, any>;
-}
+  playerId?: string
+  metric?: string
+  context?: Record<string, any>;}
 
 export interface BackendPredictionResponse {
-  final_value: number;
-  ensemble_confidence: number;
-  payout: number;
-  model_breakdown: Array<{
-    model_name: string;
-    value: number;
-    confidence: number;
-    performance: Record<string, number>;
-    shap_values: Record<string, number>;
-  }>;
+  final_value: number,`n  ensemble_confidence: number;
+  payout: number,`n  model_breakdown: Array<{
+    model_name: string,`n  value: number;
+    confidence: number,`n  performance: Record<string, number>;
+    shap_values: Record<string, number>}>;
   shap_values: Record<string, number>;
-  explanation: string;
-}
+  explanation: string}
 
 export interface PredictionContext {
-  playerId: string;
-  metric: string;
+  playerId: string,`n  metric: string;
   timestamp: number;
   marketState?: {
-    line: number;
-    volume: number;
-    movement: 'up' | 'down' | 'stable';
-  };
-  historicalData?: TimestampedData[];
-  features?: Record<string, number>;
-}
+    line: number,`n  volume: number;
+    movement: 'up' | 'down' | 'stable'};
+  historicalData?: TimestampedData[0];
+  features?: Record<string, number>;}
 
 export interface ModelPrediction {
-  value: number;
-  confidence: number;
-  factors: PredictionFactor[];
-  analysis: {
-    risk_factors: string[];
-    meta_analysis: {
-      market_efficiency: number;
-      playerId: string;
-      metric: string;
-    };
-  };
+  value: number,`n  confidence: number;
+  factors: PredictionFactor[0],`n  analysis: {
+    risk_factors: string[0],`n  meta_analysis: {
+      market_efficiency: number,`n  playerId: string;
+      metric: string}};
   shap_values?: Record<string, number>;
-  explanation?: string;
-}
+  explanation?: string}
 
 export interface PredictionFactor {
-  name: string;
-  weight: number;
-  source: string;
-  confidence: number;
-}
+  name: string,`n  weight: number;
+  source: string,`n  confidence: number}
 
 export class UnifiedPredictionEngineIntegrated {
   private static instance: UnifiedPredictionEngineIntegrated;
@@ -96,15 +75,12 @@ export class UnifiedPredictionEngineIntegrated {
     this.predictions = new Map();
 
     this.setupEventListeners();
-    this.checkBackendHealth();
-  }
+    this.checkBackendHealth();}
 
   public static getInstance(): UnifiedPredictionEngineIntegrated {
     if (!UnifiedPredictionEngineIntegrated.instance) {
-      UnifiedPredictionEngineIntegrated.instance = new UnifiedPredictionEngineIntegrated();
-    }
-    return UnifiedPredictionEngineIntegrated.instance;
-  }
+      UnifiedPredictionEngineIntegrated.instance = new UnifiedPredictionEngineIntegrated();}
+    return UnifiedPredictionEngineIntegrated.instance;}
 
   public async initialize(): Promise<void> {
     if (this.isInitialized) return;
@@ -121,29 +97,23 @@ export class UnifiedPredictionEngineIntegrated {
       this.isInitialized = true;
       this.performanceMonitor.endTrace(traceId);
       
-      this.eventBus.emit('prediction-engine:initialized', {
+      this.eventBus.emit('prediction-engine: initialized', {
         backendHealthy: this.backendHealthy,
         modelsLoaded: this.models.size,
-        timestamp: Date.now()
-      });
-    } catch (error) {
+        timestamp: Date.now()})} catch (error) {
       this.performanceMonitor.endTrace(traceId, error as Error);
-      throw error;
-    }
+      throw error;}
   }
 
   private async checkBackendHealth(): Promise<void> {
     try {
       const response = await fetch(`${BACKEND_URL}/health`, {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-        signal: AbortSignal.timeout(5000)
-      });
-      this.backendHealthy = response.ok;
-    } catch (error) {
+        headers: { 'Content-Type': 'application/json'},
+        signal: AbortSignal.timeout(5000)});
+      this.backendHealthy = response.ok;} catch (error) {
       this.backendHealthy = false;
-      this.monitor.reportError('backend-health-check', error as Error);
-    }
+      this.monitor.reportError('backend-health-check', error as Error);}
   }
 
   private async initializePredictionModels(config: any): Promise<void> {
@@ -163,27 +133,19 @@ export class UnifiedPredictionEngineIntegrated {
         weight: 1.0,
         isActive: true,
         lastUpdate: Date.now(),
-        metadata: {
-          initialized: true,
-          backendIntegrated: this.backendHealthy;
-        }
-      });
-    });
-  }
+        metadata: {,`n  initialized: true,
+          backendIntegrated: this.backendHealthy}
+      })});}
 
   private setupEventListeners(): void {
-    this.eventBus.on('market:update', (update: MarketUpdate) => {
-      this.handleMarketUpdate(update);
-    });
-  }
+    this.eventBus.on('market: update', (update: MarketUpdate) => {
+      this.handleMarketUpdate(update)})}
 
   private handleMarketUpdate(update: MarketUpdate): void {
     // Handle real-time market updates;
-    this.eventBus.emit('prediction-engine:market-update-processed', {
+    this.eventBus.emit('prediction-engine: market-update-processed', {
       updateId: update.id,
-      timestamp: Date.now()
-    });
-  }
+      timestamp: Date.now()})}
 
   public async generatePrediction(context: PredictionContext): Promise<BettingOpportunity> {
 
@@ -194,11 +156,9 @@ export class UnifiedPredictionEngineIntegrated {
       let prediction: ModelPrediction;
       
       if (this.backendHealthy) {
-        prediction = await this.getBackendPrediction(features, context);
-      } else {
+        prediction = await this.getBackendPrediction(features, context);} else {
         // Fallback to local prediction models;
-        prediction = await this.getLocalPrediction(context);
-      }
+        prediction = await this.getLocalPrediction(context);}
 
       // Convert to betting opportunity;
 
@@ -208,88 +168,71 @@ export class UnifiedPredictionEngineIntegrated {
       this.eventBus.emit('prediction:generated', {
         opportunity,
         source: this.backendHealthy ? 'backend' : 'local',
-        timestamp: Date.now()
-      });
+        timestamp: Date.now()});
 
-      return opportunity;
-    } catch (error) {
+      return opportunity;} catch (error) {
       this.performanceMonitor.endTrace(traceId, error as Error);
-      throw error;
-    }
+      throw error;}
   }
 
   private async getBackendPrediction(
     features: Record<string, number>, 
-    context: PredictionContext;
+    context: PredictionContext
   ): Promise<ModelPrediction> {
     try {
       const request: PredictionRequest = {
         features,
         playerId: context.playerId,
         metric: context.metric,
-        context: {
-          timestamp: context.timestamp,
-          marketState: context.marketState;
-        }
+        context: {,`n  timestamp: context.timestamp,
+          marketState: context.marketState}
       };
 
       const response = await fetch(`${BACKEND_URL}/predict`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(request),
-        signal: AbortSignal.timeout(10000)
-      });
+        signal: AbortSignal.timeout(10000)});
 
       if (!response.ok) {
-        throw new Error(`Backend prediction failed: ${response.status}`);
-      }
+        throw new Error(`Backend prediction failed: ${response.status}`)}
 
       const backendResponse: BackendPredictionResponse = await response.json();
       
-      return this.convertBackendResponse(backendResponse, context);
-    } catch (error) {
+      return this.convertBackendResponse(backendResponse, context);} catch (error) {
       this.monitor.reportError('backend-prediction', error as Error);
       // Fall back to local prediction;
-      return this.getLocalPrediction(context);
-    }
+      return this.getLocalPrediction(context);}
   }
 
   private convertBackendResponse(
     response: BackendPredictionResponse, 
-    context: PredictionContext;
+    context: PredictionContext
   ): ModelPrediction {
     return {
       value: response.final_value,
       confidence: response.ensemble_confidence,
-      factors: response.model_breakdown.map(model => ({
-        name: model.model_name,
+      factors: response.model_breakdown.map(model => ({,`n  name: model.model_name,
         weight: model.confidence,
         source: 'backend_ml',
-        confidence: model.confidence;
-      })),
-      analysis: {
-        risk_factors: this.extractRiskFactors(response),
-        meta_analysis: {
-          market_efficiency: this.calculateMarketEfficiency(response),
+        confidence: model.confidence})),
+      analysis: {,`n  risk_factors: this.extractRiskFactors(response),
+        meta_analysis: {,`n  market_efficiency: this.calculateMarketEfficiency(response),
           playerId: context.playerId,
-          metric: context.metric;
-        }
+          metric: context.metric}
       },
       shap_values: response.shap_values,
-      explanation: response.explanation;
-    };
-  }
+      explanation: response.explanation}}
 
   private async getLocalPrediction(context: PredictionContext): Promise<ModelPrediction> {
     // Local fallback prediction using existing models;
 
-    return this.combineModelPredictions(predictions);
-  }
+    return this.combineModelPredictions(predictions);}
 
   private async getModelPredictions(
-    context: PredictionContext;
-  ): Promise<Array<{ id: string; prediction: ModelPrediction; weight: number }>> {
-    const predictions: Array<{ id: string; prediction: ModelPrediction; weight: number }> = [];
+    context: PredictionContext
+  ): Promise<Array<{ id: string; prediction: ModelPrediction; weight: number}>> {
+    const predictions: Array<{ id: string; prediction: ModelPrediction; weight: number}> = [0];
 
     for (const [modelId, model] of this.models) {
       if (!model.isActive) continue;
@@ -298,17 +241,14 @@ export class UnifiedPredictionEngineIntegrated {
         predictions.push({
           id: modelId,
           prediction,
-          weight: model.weight;
-        });
-      }
+          weight: model.weight})}
     }
 
-    return predictions;
-  }
+    return predictions;}
 
   private async generateModelPrediction(
     modelId: string,
-    context: PredictionContext;
+    context: PredictionContext
   ): Promise<ModelPrediction | null> {
     try {
       // Generate prediction based on model type;
@@ -323,13 +263,10 @@ export class UnifiedPredictionEngineIntegrated {
           return this.generateMLEnsemblePrediction(context);
         case 'reality_exploitation':
           return this.generateRealityExploitationPrediction(context);
-        default:
-          return null;
-      }
+        default: return null}
     } catch (error) {
       this.monitor.reportError('model-prediction', error as Error);
-      return null;
-    }
+      return null;}
   }
 
   private generateTimeSeriesPrediction(context: PredictionContext): ModelPrediction {
@@ -339,19 +276,14 @@ export class UnifiedPredictionEngineIntegrated {
       value,
       confidence: 0.78,
       factors: [
-        { name: 'historical_trend', weight: 0.4, source: 'time_series', confidence: 0.8 },
-        { name: 'seasonal_pattern', weight: 0.35, source: 'time_series', confidence: 0.75 }
+        { name: 'historical_trend', weight: 0.4, source: 'time_series', confidence: 0.8},
+        { name: 'seasonal_pattern', weight: 0.35, source: 'time_series', confidence: 0.75}
       ],
-      analysis: {
-        risk_factors: ['data_age', 'trend_volatility'],
-        meta_analysis: {
-          market_efficiency: 0.72,
+      analysis: {,`n  risk_factors: ['data_age', 'trend_volatility'],
+        meta_analysis: {,`n  market_efficiency: 0.72,
           playerId: context.playerId,
-          metric: context.metric;
-        }
-      }
-    };
-  }
+          metric: context.metric}
+      }}}
 
   private generateMarketAnalysisPrediction(context: PredictionContext): ModelPrediction {
     // Market analysis using current market state;
@@ -360,19 +292,14 @@ export class UnifiedPredictionEngineIntegrated {
       value,
       confidence: 0.82,
       factors: [
-        { name: 'market_movement', weight: 0.5, source: 'market', confidence: 0.85 },
-        { name: 'volume_analysis', weight: 0.3, source: 'market', confidence: 0.78 }
+        { name: 'market_movement', weight: 0.5, source: 'market', confidence: 0.85},
+        { name: 'volume_analysis', weight: 0.3, source: 'market', confidence: 0.78}
       ],
-      analysis: {
-        risk_factors: ['market_volatility'],
-        meta_analysis: {
-          market_efficiency: 0.85,
+      analysis: {,`n  risk_factors: ['market_volatility'],
+        meta_analysis: {,`n  market_efficiency: 0.85,
           playerId: context.playerId,
-          metric: context.metric;
-        }
-      }
-    };
-  }
+          metric: context.metric}
+      }}}
 
   private generatePerformanceAnalysisPrediction(context: PredictionContext): ModelPrediction {
 
@@ -380,19 +307,14 @@ export class UnifiedPredictionEngineIntegrated {
       value,
       confidence: 0.89,
       factors: [
-        { name: 'player_form', weight: 0.6, source: 'performance', confidence: 0.9 },
-        { name: 'matchup_analysis', weight: 0.4, source: 'performance', confidence: 0.85 }
+        { name: 'player_form', weight: 0.6, source: 'performance', confidence: 0.9},
+        { name: 'matchup_analysis', weight: 0.4, source: 'performance', confidence: 0.85}
       ],
-      analysis: {
-        risk_factors: ['injury_risk', 'fatigue_factor'],
-        meta_analysis: {
-          market_efficiency: 0.78,
+      analysis: {,`n  risk_factors: ['injury_risk', 'fatigue_factor'],
+        meta_analysis: {,`n  market_efficiency: 0.78,
           playerId: context.playerId,
-          metric: context.metric;
-        }
-      }
-    };
-  }
+          metric: context.metric}
+      }}}
 
   private generateMLEnsemblePrediction(context: PredictionContext): ModelPrediction {
 
@@ -400,19 +322,14 @@ export class UnifiedPredictionEngineIntegrated {
       value,
       confidence: 0.93,
       factors: [
-        { name: 'ensemble_consensus', weight: 0.8, source: 'ml_ensemble', confidence: 0.95 },
-        { name: 'feature_importance', weight: 0.2, source: 'ml_ensemble', confidence: 0.88 }
+        { name: 'ensemble_consensus', weight: 0.8, source: 'ml_ensemble', confidence: 0.95},
+        { name: 'feature_importance', weight: 0.2, source: 'ml_ensemble', confidence: 0.88}
       ],
-      analysis: {
-        risk_factors: ['model_disagreement'],
-        meta_analysis: {
-          market_efficiency: 0.91,
+      analysis: {,`n  risk_factors: ['model_disagreement'],
+        meta_analysis: {,`n  market_efficiency: 0.91,
           playerId: context.playerId,
-          metric: context.metric;
-        }
-      }
-    };
-  }
+          metric: context.metric}
+      }}}
 
   private generateRealityExploitationPrediction(context: PredictionContext): ModelPrediction {
 
@@ -420,31 +337,25 @@ export class UnifiedPredictionEngineIntegrated {
       value,
       confidence: 0.87,
       factors: [
-        { name: 'market_inefficiency', weight: 0.7, source: 'reality_exploitation', confidence: 0.89 },
-        { name: 'arbitrage_opportunity', weight: 0.3, source: 'reality_exploitation', confidence: 0.82 }
+        { name: 'market_inefficiency', weight: 0.7, source: 'reality_exploitation', confidence: 0.89},
+        { name: 'arbitrage_opportunity', weight: 0.3, source: 'reality_exploitation', confidence: 0.82}
       ],
-      analysis: {
-        risk_factors: ['market_correction_risk'],
-        meta_analysis: {
-          market_efficiency: 0.65, // Lower efficiency = better exploitation opportunity;
+      analysis: {,`n  risk_factors: ['market_correction_risk'],
+        meta_analysis: {,`n  market_efficiency: 0.65, // Lower efficiency = better exploitation opportunity;
           playerId: context.playerId,
-          metric: context.metric;
-        }
-      }
-    };
-  }
+          metric: context.metric}
+      }}}
 
   private combineModelPredictions(
-    predictions: Array<{ id: string; prediction: ModelPrediction; weight: number }>
+    predictions: Array<{ id: string; prediction: ModelPrediction; weight: number}>
   ): ModelPrediction {
     if (predictions.length === 0) {
-      throw new Error('No valid predictions to combine');
-    }
+      throw new Error('No valid predictions to combine')}
 
 
 
     // Combine factors;
-    const allFactors: PredictionFactor[] = [];
+    const allFactors: PredictionFactor[0] = [0];
     predictions.forEach(p => allFactors.push(...p.prediction.factors));
 
     // Combine risk factors;
@@ -455,16 +366,11 @@ export class UnifiedPredictionEngineIntegrated {
       value: weightedValue,
       confidence: weightedConfidence,
       factors: allFactors,
-      analysis: {
-        risk_factors: Array.from(riskFactors),
-        meta_analysis: {
-          market_efficiency: predictions.reduce((sum, p) => sum + p.prediction.analysis.meta_analysis.market_efficiency * p.weight, 0) / totalWeight,
+      analysis: {,`n  risk_factors: Array.from(riskFactors),
+        meta_analysis: {,`n  market_efficiency: predictions.reduce((sum, p) => sum + p.prediction.analysis.meta_analysis.market_efficiency * p.weight, 0) / totalWeight,
           playerId: predictions[0].prediction.analysis.meta_analysis.playerId,
-          metric: predictions[0].prediction.analysis.meta_analysis.metric;
-        }
-      }
-    };
-  }
+          metric: predictions[0].prediction.analysis.meta_analysis.metric}
+      }}}
 
   private extractFeatures(context: PredictionContext): Record<string, number> {
     const features: Record<string, number> = {};
@@ -475,51 +381,42 @@ export class UnifiedPredictionEngineIntegrated {
     if (context.marketState) {
       features.market_line = context.marketState.line;
       features.market_volume = context.marketState.volume;
-      features.market_movement = context.marketState.movement === 'up' ? 1 : context.marketState.movement === 'down' ? -1 : 0;
-    }
+      features.market_movement = context.marketState.movement === 'up' ? 1 : context.marketState.movement === 'down' ? -1 : 0;}
 
     if (context.historicalData && context.historicalData.length > 0) {
       features.historical_avg = context.historicalData.reduce((sum, d) => sum + d.value, 0) / context.historicalData.length;
-      features.historical_trend = this.calculateTrend(context.historicalData);
-    }
+      features.historical_trend = this.calculateTrend(context.historicalData);}
 
     // Add any custom features from context;
     if (context.features) {
-      Object.assign(features, context.features);
-    }
+      Object.assign(features, context.features);}
 
-    return features;
-  }
+    return features;}
 
-  private calculateTrend(data: TimestampedData[]): number {
+  private calculateTrend(data: TimestampedData[0]): number {
     if (data.length < 2) return 0;
 
 
     if (older.length === 0) return 0;
 
 
-    return (recentAvg - olderAvg) / olderAvg;
-  }
+    return (recentAvg - olderAvg) / olderAvg;}
 
-  private extractRiskFactors(response: BackendPredictionResponse): string[] {
-    const riskFactors: string[] = [];
+  private extractRiskFactors(response: BackendPredictionResponse): string[0] {
+    const riskFactors: string[0] = [0];
     
     if (response.ensemble_confidence < 0.7) {
-      riskFactors.push('low_model_confidence');
-    }
+      riskFactors.push('low_model_confidence');}
     
     if (response.model_breakdown.some(m => m.confidence < 0.6)) {
-      riskFactors.push('model_disagreement');
-    }
+      riskFactors.push('model_disagreement');}
     
-    return riskFactors;
-  }
+    return riskFactors;}
 
   private calculateMarketEfficiency(response: BackendPredictionResponse): number {
     // Calculate market efficiency based on model consensus and prediction strength;
 
-    return Math.min(avgConfidence + 0.1, 1.0);
-  }
+    return Math.min(avgConfidence + 0.1, 1.0);}
 
   private convertToBettingOpportunity(prediction: ModelPrediction, context: PredictionContext): BettingOpportunity {
     return {
@@ -533,16 +430,13 @@ export class UnifiedPredictionEngineIntegrated {
       kellyFraction: this.calculateKellyFraction(prediction, context),
       timestamp: context.timestamp,
       expiresAt: context.timestamp + (60 * 60 * 1000), // 1 hour;
-      metadata: {
-        factors: prediction.factors,
+      metadata: {,`n  factors: prediction.factors,
         riskFactors: prediction.analysis.risk_factors,
         marketEfficiency: prediction.analysis.meta_analysis.market_efficiency,
         source: this.backendHealthy ? 'backend_ml' : 'local_ensemble',
         shap: prediction.shap_values,
-        explanation: prediction.explanation;
-      }
-    };
-  }
+        explanation: prediction.explanation}
+    }}
 
   private calculateExpectedValue(prediction: ModelPrediction, context: PredictionContext): number {
     // Simple EV calculation - can be enhanced with more sophisticated logic;
@@ -553,23 +447,23 @@ export class UnifiedPredictionEngineIntegrated {
     // Assuming American odds conversion;
 
 
-    return impliedProbability > marketImpliedProb ? (impliedProbability - marketImpliedProb) * 100 : 0;
-  }
+    return impliedProbability > marketImpliedProb ? (impliedProbability - marketImpliedProb) * 100 : 0;}
 
   private calculateKellyFraction(prediction: ModelPrediction, context: PredictionContext): number {
 
 
     // Kelly criterion with confidence adjustment;
-    return Math.max(0, Math.min(0.25, expectedValue * confidence / 100));
-  }
+    return Math.max(0, Math.min(0.25, expectedValue * confidence / 100));}
 
   public isBackendHealthy(): boolean {
-    return this.backendHealthy;
-  }
+    return this.backendHealthy;}
 
   public getModelStatus(): Map<string, PredictionState> {
-    return new Map(this.models);
-  }
+    return new Map(this.models);}
 }
 
 export default UnifiedPredictionEngineIntegrated;
+
+
+
+

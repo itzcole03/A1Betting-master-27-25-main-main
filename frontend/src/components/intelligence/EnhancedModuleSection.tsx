@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+﻿import React from 'react';
+import { motion} from 'framer-motion';
 import {
   DollarSign,
   Target,
@@ -9,32 +9,17 @@ import {
   CheckCircle,
   Zap,
   Power,
-  Minimize,
+//   Minimize
 } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent} from '@/components/ui/card';
+import { Button} from '@/components/ui/button';
+import { Badge} from '@/components/ui/badge';
 
 interface ModuleConfig {
-  id: string;
-  name: string;
-  category: string;
-  priority: 'critical' | 'high' | 'medium' | 'low';
-  icon: React.ReactNode;
-  computationLevel: 'light' | 'medium' | 'heavy' | 'extreme';
-}
+  id: string,`n  name: string;,`n  category: string,`n  priority: 'critical' | 'high' | 'medium' | 'low';,`n  icon: React.ReactNode,`n  computationLevel: 'light' | 'medium' | 'heavy' | 'extreme'}
 
 interface EnhancedModuleSectionProps {
-  moduleConfigs: ModuleConfig[];
-  activeModules: Set<string>;
-  setActiveModules: (modules: Set<string>) => void;
-  getModuleProfitScore: (id: string) => number;
-  getModuleAccuracyBoost: (id: string) => number;
-  getModuleMoneyScore: (id: string) => number;
-  getActiveModuleConfigs: () => ModuleConfig[];
-  toggleModule: (id: string) => void;
-  toast: { success: (message: string) => void };
-}
+  moduleConfigs: ModuleConfig[0],`n  activeModules: Set<string>;,`n  setActiveModules: (modules: Set<string>) => void,`n  getModuleProfitScore: (id: string) => number,`n  getModuleAccuracyBoost: (id: string) => number,`n  getModuleMoneyScore: (id: string) => number,`n  getActiveModuleConfigs: () => ModuleConfig[0];,`n  toggleModule: (id: string) => void,`n  toast: { success: (message: string) => void}}
 
 const EnhancedModuleSection: React.FC<EnhancedModuleSectionProps> = ({
   moduleConfigs,
@@ -45,7 +30,7 @@ const EnhancedModuleSection: React.FC<EnhancedModuleSectionProps> = ({
   getModuleMoneyScore,
   getActiveModuleConfigs,
   toggleModule,
-  toast,
+//   toast
 }) => {
   const allModules = moduleConfigs.map(m => m.id);
 
@@ -86,7 +71,7 @@ const EnhancedModuleSection: React.FC<EnhancedModuleSectionProps> = ({
                   {(
                     getActiveModuleConfigs().reduce(
                       (sum, m) => sum + getModuleAccuracyBoost(m.id),
-                      0
+//                       0
                     ) || 85
                   ).toFixed(1)}
                   %
@@ -133,28 +118,27 @@ const EnhancedModuleSection: React.FC<EnhancedModuleSectionProps> = ({
             return (
               <motion.div
                 key={module.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
+                initial={{ opacity: 0, y: 20}}
+                animate={{ opacity: 1, y: 0}}
+                transition={{ delay: index * 0.1, duration: 0.5}}
                 whileHover={{
                   scale: 1.03,
                   rotateY: 2,
-                  transition: { duration: 0.3, ease: 'easeOut' },
+                  transition: { duration: 0.3, ease: 'easeOut'}
                 }}
-                whileTap={{ scale: 0.98 }}
+                whileTap={{ scale: 0.98}}
                 className={`relative p-6 rounded-2xl border-2 cursor-pointer transition-all duration-500 backdrop-blur-xl overflow-hidden ${
-                  isActive
+//                   isActive
                     ? 'bg-gradient-to-br from-green-500/20 via-emerald-500/15 to-blue-500/20 border-green-400/60 shadow-2xl shadow-green-500/25'
-                    : 'bg-gradient-to-br from-slate-800/60 via-slate-700/40 to-slate-800/60 border-slate-600/40 hover:border-slate-500/60 hover:shadow-xl hover:shadow-black/20'
-                }`}
+                    : 'bg-gradient-to-br from-slate-800/60 via-slate-700/40 to-slate-800/60 border-slate-600/40 hover:border-slate-500/60 hover:shadow-xl hover:shadow-black/20'}`}
                 onClick={() => toggleModule(module.id)}
               >
                 {/* Enhanced Money-Making Score Badge */}
                 {moneyScore >= 80 && (
                   <motion.div
-                    initial={{ scale: 0, rotate: -180 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    transition={{ delay: 0.5, type: 'spring', bounce: 0.5 }}
+                    initial={{ scale: 0, rotate: -180}}
+                    animate={{ scale: 1, rotate: 0}}
+                    transition={{ delay: 0.5, type: 'spring', bounce: 0.5}}
                     className='absolute -top-3 -right-3 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-black text-xs font-bold px-3 py-1.5 rounded-xl shadow-2xl shadow-yellow-500/50 border-2 border-white/20'
                   >
                     <div className='flex items-center gap-1'>💰 {moneyScore}%</div>
@@ -171,12 +155,11 @@ const EnhancedModuleSection: React.FC<EnhancedModuleSectionProps> = ({
                   <div className='flex items-center gap-3'>
                     <motion.div
                       className={`p-3 rounded-xl transition-all duration-300 ${
-                        isActive
+//                         isActive
                           ? 'bg-gradient-to-br from-green-500/30 to-blue-500/30 shadow-lg shadow-green-500/25'
-                          : 'bg-slate-600/30 hover:bg-slate-500/40'
-                      }`}
-                      whileHover={{ rotate: 5, scale: 1.1 }}
-                      transition={{ duration: 0.2 }}
+                          : 'bg-slate-600/30 hover:bg-slate-500/40'}`}
+                      whileHover={{ rotate: 5, scale: 1.1}}
+                      transition={{ duration: 0.2}}
                     >
                       {module.icon}
                     </motion.div>
@@ -189,13 +172,13 @@ const EnhancedModuleSection: React.FC<EnhancedModuleSectionProps> = ({
                       </p>
                     </div>
                   </div>
-                  <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }}>
+                  <motion.div whileHover={{ scale: 1.2}} whileTap={{ scale: 0.9}}>
                     {isActive ? (
                       <div className='flex items-center gap-2'>
                         <motion.div
                           className='w-2.5 h-2.5 bg-green-400 rounded-full'
-                          animate={{ scale: [1, 1.3, 1] }}
-                          transition={{ repeat: Infinity, duration: 2 }}
+                          animate={{ scale: [1, 1.3, 1]}}
+                          transition={{ repeat: Infinity, duration: 2}}
                         />
                         <ToggleRight className='w-6 h-6 text-green-400 filter drop-shadow-lg' />
                       </div>
@@ -219,11 +202,10 @@ const EnhancedModuleSection: React.FC<EnhancedModuleSectionProps> = ({
                             ? 'bg-gradient-to-r from-green-400 via-emerald-500 to-green-600'
                             : moneyScore >= 75
                               ? 'bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600'
-                              : 'bg-gradient-to-r from-blue-400 via-cyan-500 to-blue-600'
-                        }`}
-                        initial={{ width: 0 }}
-                        animate={{ width: `${Math.min(moneyScore, 100)}%` }}
-                        transition={{ delay: 0.5, duration: 1, ease: 'easeOut' }}
+                              : 'bg-gradient-to-r from-blue-400 via-cyan-500 to-blue-600'}`}
+                        initial={{ width: 0}}
+                        animate={{ width: `${Math.min(moneyScore, 100)}%`}}
+                        transition={{ delay: 0.5, duration: 1, ease: 'easeOut'}}
                       >
                         <div className='absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse' />
                       </motion.div>
@@ -252,8 +234,7 @@ const EnhancedModuleSection: React.FC<EnhancedModuleSectionProps> = ({
                 {/* Enhanced Footer */}
                 <div className='flex items-center justify-between relative z-10'>
                   <div className='flex items-center gap-2'>
-                    <Badge
-                      variant='outline'
+                    <Badge variant='outline'
                       className={`text-xs font-semibold border-2 ${
                         module.priority === 'critical'
                           ? 'border-red-400/60 text-red-300 bg-red-500/20 shadow-red-500/25'
@@ -261,9 +242,7 @@ const EnhancedModuleSection: React.FC<EnhancedModuleSectionProps> = ({
                             ? 'border-orange-400/60 text-orange-300 bg-orange-500/20 shadow-orange-500/25'
                             : module.priority === 'medium'
                               ? 'border-yellow-400/60 text-yellow-300 bg-yellow-500/20 shadow-yellow-500/25'
-                              : 'border-green-400/60 text-green-300 bg-green-500/20 shadow-green-500/25'
-                      } shadow-lg`}
-                    >
+                              : 'border-green-400/60 text-green-300 bg-green-500/20 shadow-green-500/25'} shadow-lg`}>`n                    >
                       {module.priority}
                     </Badge>
                     {moneyScore >= 90 && (
@@ -274,17 +253,14 @@ const EnhancedModuleSection: React.FC<EnhancedModuleSectionProps> = ({
                     <span className='text-xs text-slate-500 capitalize font-medium'>
                       {module.computationLevel}
                     </span>
-                    <div
-                      className={`w-2 h-2 rounded-full shadow-lg ${
+                    <div className={`w-2 h-2 rounded-full shadow-lg ${
                         module.computationLevel === 'light'
                           ? 'bg-green-400 shadow-green-400/50'
                           : module.computationLevel === 'medium'
                             ? 'bg-yellow-400 shadow-yellow-400/50'
                             : module.computationLevel === 'heavy'
                               ? 'bg-orange-400 shadow-orange-400/50'
-                              : 'bg-red-400 shadow-red-400/50'
-                      }`}
-                    />
+                              : 'bg-red-400 shadow-red-400/50'}`}>`n                    />
                   </div>
                 </div>
 
@@ -294,69 +270,60 @@ const EnhancedModuleSection: React.FC<EnhancedModuleSectionProps> = ({
                     className='absolute inset-0 rounded-2xl bg-gradient-to-r from-green-500/10 to-blue-500/10 pointer-events-none'
                     animate={{
                       opacity: [0.5, 0.8, 0.5],
-                      scale: [1, 1.02, 1],
+                      scale: [1, 1.02, 1]
                     }}
                     transition={{
                       repeat: Infinity,
                       duration: 3,
-                      ease: 'easeInOut',
+                      ease: 'easeInOut'
                     }}
                   />
                 )}
               </motion.div>
-            );
-          })}
+            )})}
       </div>
 
       {/* Enhanced Quick Actions */}
       <div className='mt-10 grid grid-cols-1 md:grid-cols-4 gap-4'>
-        <Button
-          onClick={() => {
+        <Button onClick={() => {
             const profitModules = moduleConfigs
               .filter(m => getModuleMoneyScore(m.id) >= 85)
               .map(m => m.id);
             setActiveModules(new Set(profitModules));
-            toast.success('🚀 Activated profit-optimized modules!');
-          }}
+            toast.success('🚀 Activated profit-optimized modules!');}}
           className='h-14 bg-gradient-to-r from-green-600 via-emerald-600 to-green-700 hover:from-green-700 hover:via-emerald-700 hover:to-green-800 text-white font-bold shadow-2xl hover:shadow-green-500/50 transition-all duration-300 transform hover:scale-105 border-0 rounded-xl'
         >
           <DollarSign className='w-5 h-5 mr-2' />
           Max Profit Setup
           <div className='ml-2 bg-white/20 px-2 py-1 rounded-full text-xs font-semibold'>Top 6</div>
         </Button>
-        <Button
-          onClick={() => {
+        <Button onClick={() => {
             const criticalModules = moduleConfigs
               .filter(m => m.priority === 'critical')
               .map(m => m.id);
             setActiveModules(new Set(criticalModules));
-            toast.success('⚡ Activated critical modules');
-          }}
+            toast.success('⚡ Activated critical modules');}}
           className='h-14 bg-gradient-to-r from-red-600 via-orange-600 to-red-700 hover:from-red-700 hover:via-orange-700 hover:to-red-800 text-white font-bold shadow-2xl hover:shadow-red-500/50 transition-all duration-300 transform hover:scale-105 border-0 rounded-xl'
         >
           <Zap className='w-5 h-5 mr-2' />
           Critical Only
           <div className='ml-2 bg-white/20 px-2 py-1 rounded-full text-xs font-semibold'>
-            Essential
+//             Essential
           </div>
         </Button>
-        <Button
-          onClick={() => {
+        <Button onClick={() => {
             setActiveModules(new Set(allModules));
-            toast.success('💪 Full power activated');
-          }}
+            toast.success('💪 Full power activated');}}
           className='h-14 bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 text-white font-bold shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105 border-0 rounded-xl'
         >
           <Power className='w-5 h-5 mr-2' />
           Full Power
           <div className='ml-2 bg-white/20 px-2 py-1 rounded-full text-xs font-semibold'>All</div>
         </Button>
-        <Button
-          onClick={() => {
-            setActiveModules(new Set([]));
-            toast.success('🔧 Reset to minimal');
-          }}
-          className='h-14 bg-gradient-to-r from-slate-600 via-gray-600 to-slate-700 hover:from-slate-700 hover:via-gray-700 hover:to-slate-800 text-white font-bold shadow-2xl hover:shadow-slate-500/50 transition-all duration-300 transform hover:scale-105 border-0 rounded-xl'
+        <Button onClick={() => {
+            setActiveModules(new Set([0]));
+            toast.success('🔧 Reset to minimal');}}
+          className='h-14 bg-gradient-to-r from-slate-600 via-gray-600 to-slate-700 hover: from-slate-700 hover:via-gray-700 hover:to-slate-800 text-white font-bold shadow-2xl hover:shadow-slate-500/50 transition-all duration-300 transform hover:scale-105 border-0 rounded-xl'
         >
           <Minimize className='w-5 h-5 mr-2' />
           Reset All
@@ -364,7 +331,10 @@ const EnhancedModuleSection: React.FC<EnhancedModuleSectionProps> = ({
         </Button>
       </div>
     </CardContent>
-  );
-};
+  )};
 
 export default EnhancedModuleSection;
+
+
+
+`

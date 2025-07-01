@@ -1,7 +1,9 @@
-import React from 'react.ts';
-import { WebSocketService } from '@/services/webSocketService.ts';
+﻿import React from 'react.ts';
+import { WebSocketService} from '@/services/webSocketService.ts';
 interface WebSocketAnalyticsProps {
-    webSocketService: WebSocketService;
-}
+  webSocketService: WebSocketService}
 export declare const WebSocketAnalytics: React.FC<WebSocketAnalyticsProps>;
-export {};
+export Record<string, any>;
+
+
+

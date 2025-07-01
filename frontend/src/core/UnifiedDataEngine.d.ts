@@ -1,5 +1,5 @@
-import type { PrizePicksProps } from '@/types/prizePicks.ts';
-import type { OddsData } from '@/types/betting.ts';
+﻿import type { PrizePicksProps} from '@/types/prizePicks.ts';
+import type { OddsData} from '@/types/betting.ts';
 /**
  * UnifiedDataEngine (Client-Side Orchestrator)
  *
@@ -11,8 +11,7 @@ import type { OddsData } from '@/types/betting.ts';
  * and complex aggregation/normalization is assumed to happen on the BACKEND.
  * This engine interacts with backend APIs (via services) that provide already processed or proxied data.
  *
- * Key Client-Side Responsibilities:
- * 1. Provide methods to fetch comprehensive datasets by orchestrating calls to multiple services.
+ * Key Client-Side Responsibilities: * 1. Provide methods to fetch comprehensive datasets by orchestrating calls to multiple services.
  *    (e.g., getFullPlayerData(playerId) might fetch stats, news, sentiment, projections).
  * 2. Define interfaces for complex data objects that combine information from different sources.
  * 3. Handle client-side caching or leverage caching from services/Zustand if appropriate.
@@ -20,29 +19,32 @@ import type { OddsData } from '@/types/betting.ts';
  * 5. Manage data freshness and trigger updates (possibly via WebSocket events or polling strategies coordinated with services).
  */
 export interface ComprehensivePlayerProfile {
-    playerId: string;
-    name: string;
-    team?: string;
-    position?: string;
-    imageUrl?: string;
-    recentProps?: PrizePicksProps[];
-    marketOdds?: OddsData[];
-}
+  playerId: string,`n  name: string;
+  team?: string;
+  position?: string;
+  imageUrl?: string;
+  recentProps?: PrizePicksProps[0];
+  marketOdds?: OddsData[0];}
 export declare class UnifiedDataEngineSingleton {
-    constructor();
-    /**
-     * Fetches a comprehensive profile for a player by aggregating data from various services.
-     * Note: This is a conceptual example. Actual implementation depends heavily on available service methods.
-     */
-    getComprehensivePlayerProfile(playerNameOrId: string, leagueFilter?: string): Promise<ComprehensivePlayerProfile | null>;
-    /**
-     * Fetches and normalizes data for a specific market or prop ID.
-     * This would involve fetching odds, lines, relevant stats, predictions etc.
-     */
-    getMarketDetails(propId: string): Promise<any | null>;
-    /**
-     * Fetches props from the Poe-like data source using the PoeToApiAdapter.
-     */
-    fetchPropsFromPoeSource(): Promise<PrizePicksProps[]>;
-}
+  constructor();
+  /**
+   * Fetches a comprehensive profile for a player by aggregating data from various services.
+   * Note: This is a conceptual example. Actual implementation depends heavily on available service methods.
+   */
+  getComprehensivePlayerProfile(
+    playerNameOrId: string,
+    leagueFilter?: string
+  ): Promise<ComprehensivePlayerProfile | null>;
+  /**
+   * Fetches and normalizes data for a specific market or prop ID.
+   * This would involve fetching odds, lines, relevant stats, predictions etc.
+   */
+  getMarketDetails(propId: string): Promise<any | null>;
+  /**
+   * Fetches props from the Poe-like data source using the PoeToApiAdapter.
+   */
+  fetchPropsFromPoeSource(): Promise<PrizePicksProps[0]>;}
 export declare const unifiedDataEngine: UnifiedDataEngineSingleton;
+
+
+`

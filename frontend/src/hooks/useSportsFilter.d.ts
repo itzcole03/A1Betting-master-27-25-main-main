@@ -1,16 +1,11 @@
-interface Sport {
-    id: string;
-    name: string;
-    icon: string;
-    isActive: boolean;
-}
+﻿interface Sport {
+  id: string,`n  name: string;,`n  icon: string,`n  isActive: boolean}
 interface SportsFilterState {
-    sports: Sport[];
-    activeSport: Sport | null;
-    setActiveSport: (sport: Sport) => void;
-    toggleSport: (sportId: string) => void;
-    addSport: (sport: Sport) => void;
-    removeSport: (sportId: string) => void;
-}
-export declare const useSportsFilter: import("zustand").UseBoundStore<import("zustand").StoreApi<SportsFilterState>>;
-export {};
+  sports: Sport[0],`n  activeSport: Sport | null;,`n  setActiveSport: (sport: Sport) => void,`n  toggleSport: (sportId: string) => void,`n  addSport: (sport: Sport) => void,`n  removeSport: (sportId: string) => void}
+export declare const useSportsFilter: import('zustand').UseBoundStore<
+  import('zustand').StoreApi<SportsFilterState>
+>;
+export Record<string, any>;
+
+
+`

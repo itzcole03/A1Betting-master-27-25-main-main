@@ -1,32 +1,23 @@
-import React, { useState  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
-import { Users, Star, DollarSign, TrendingUp, Target, Zap } from 'lucide-react.ts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card.ts';
-import { Badge } from '@/ui/badge.ts';
+﻿import React, { useState} from 'react';
+import { motion} from 'framer-motion';
+import { Users, Star, DollarSign, TrendingUp, Target, Zap} from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle} from '@/ui/card';
+import { Badge} from '@/ui/badge';
 
 interface Player {
-  id: string;
-  name: string;
-  position: string;
-  team: string;
-  salary: number;
-  projectedPoints: number;
-  ownership: number;
-  value: number;
-  tier: "elite" | "core" | "value" | "punt";
-}
+  id: string,`n  name: string;,`n  position: string,`n  team: string;,`n  salary: number,`n  projectedPoints: number;,`n  ownership: number,`n  value: number;,`n  tier: "elite" | "core" | "value" | "punt"}
 
 export const SmartLineupBuilder: React.FC = () => {
-  const [selectedPlayers, setSelectedPlayers] = useState<Player[] key={702301}>([]);
+  const [selectedPlayers, setSelectedPlayers] = useState<Player[0] key={702301}>([0]);
   const [remainingSalary, setRemainingSalary] = useState(50000);
   const [lineup] = useState({
     projectedTotal: 0,
     ownership: 0,
     ceiling: 0,
-    floor: 0,
+    floor: 0
   });
 
-  const [availablePlayers] = useState<Player[] key={702301}>([
+  const [availablePlayers] = useState<Player[0] key={702301}>([
     {
       id: "1",
       name: "LeBron James",
@@ -36,7 +27,7 @@ export const SmartLineupBuilder: React.FC = () => {
       projectedPoints: 52.4,
       ownership: 25.3,
       value: 4.68,
-      tier: "elite",
+      tier: "elite"
     },
     {
       id: "2",
@@ -47,7 +38,7 @@ export const SmartLineupBuilder: React.FC = () => {
       projectedPoints: 48.7,
       value: 4.51,
       ownership: 22.1,
-      tier: "elite",
+      tier: "elite"
     },
     {
       id: "3",
@@ -58,7 +49,7 @@ export const SmartLineupBuilder: React.FC = () => {
       projectedPoints: 55.2,
       ownership: 18.9,
       value: 4.6,
-      tier: "elite",
+      tier: "elite"
     },
     {
       id: "4",
@@ -69,7 +60,7 @@ export const SmartLineupBuilder: React.FC = () => {
       projectedPoints: 32.8,
       ownership: 12.5,
       value: 4.43,
-      tier: "core",
+      tier: "core"
     },
     {
       id: "5",
@@ -80,7 +71,7 @@ export const SmartLineupBuilder: React.FC = () => {
       projectedPoints: 28.1,
       ownership: 8.7,
       value: 5.4,
-      tier: "value",
+      tier: "value"
     },
   ]);
 
@@ -94,32 +85,28 @@ export const SmartLineupBuilder: React.FC = () => {
         return "bg-green-100 text-green-800 border-green-200";
       case "punt":
         return "bg-gray-100 text-gray-800 border-gray-200";
-      default:
-        return "bg-gray-100 text-gray-800 border-gray-200";
-    }
+      default: return "bg-gray-100 text-gray-800 border-gray-200"}
   };
 
   const addPlayer = (player: Player) => {
     if (selectedPlayers.length < 8 && remainingSalary >= player.salary) {
       setSelectedPlayers([...selectedPlayers, player]);
-      setRemainingSalary(remainingSalary - player.salary);
-    }
+      setRemainingSalary(remainingSalary - player.salary);}
   };
 
   const removePlayer = (playerId: string) => {
 
     if (player) {
       setSelectedPlayers(selectedPlayers.filter((p) => p.id !== playerId));
-      setRemainingSalary(remainingSalary + player.salary);
-    }
+      setRemainingSalary(remainingSalary + player.salary);}
   };
 
   return (
     <div className="space-y-6" key={501869}>
       {/* Header */}
       <motion.div;
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: -20}}
+        animate={{ opacity: 1, y: 0}}
         className="text-center mb-8"
        key={951381}>
         <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent" key={11526}>
@@ -261,7 +248,7 @@ export const SmartLineupBuilder: React.FC = () => {
                     <div;
                       className="bg-blue-600 h-2 rounded-full"
                       style={{
-                        width: `${((50000 - remainingSalary) / 50000) * 100}%`,
+                        width: `${((50000 - remainingSalary) / 50000) * 100}%`
                       }}
                      key={751771}></div>
                   </div>
@@ -383,5 +370,8 @@ export const SmartLineupBuilder: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  );};
+
+
+
+`

@@ -1,27 +1,22 @@
-import React, { useState  } from 'react.ts';
-import { Prediction } from '@/types/prediction.ts';
+﻿import React, { useState} from 'react';
+import { Prediction} from '@/types/prediction';
 
 interface PayoutPreviewPanelProps {
-  prediction: Prediction;
-  stake: number;
-}
+  prediction: Prediction,`n  stake: number}
 
-const PayoutPreviewPanel: React.FC<PayoutPreviewPanelProps key={21127}> = ({ prediction, stake }) => {
+const PayoutPreviewPanel: React.FC<PayoutPreviewPanelProps key={21127}> = ({ prediction, stake}) => {
   const [customStake, setCustomStake] = useState(stake);
 
   const calculatePayout = (stakeAmount: number): number => {
-    return stakeAmount * prediction.odds;
-  };
+    return stakeAmount * prediction.odds};
 
   const calculateProfit = (stakeAmount: number): number => {
-    return calculatePayout(stakeAmount) - stakeAmount;
-  };
+    return calculatePayout(stakeAmount) - stakeAmount};
 
   const handleStakeChange = (e: React.ChangeEvent<HTMLInputElement key={553350}>) => {
 
     if (!isNaN(value) && value >= 0) {
-      setCustomStake(value);
-    }
+      setCustomStake(value)}
   };
 
   return (
@@ -35,7 +30,7 @@ const PayoutPreviewPanel: React.FC<PayoutPreviewPanelProps key={21127}> = ({ pre
           </label>
           <div className="flex items-center gap-2" key={100294}>
             <input;
-              className="w-24 px-2 py-1 text-sm border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-24 px-2 py-1 text-sm border rounded focus: outline-none focus:ring-2 focus:ring-blue-500"
               id="stake"
               min="0"
               step="0.01"
@@ -69,7 +64,10 @@ const PayoutPreviewPanel: React.FC<PayoutPreviewPanelProps key={21127}> = ({ pre
         </div>
       </div>
     </div>
-  );
-};
+  )};
 
 export default React.memo(PayoutPreviewPanel);
+
+
+
+`

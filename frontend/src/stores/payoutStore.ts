@@ -1,51 +1,37 @@
-import { create } from 'zustand.ts';
-import { devtools } from 'zustand/middleware.ts';
-import { useStore } from './useStore.ts';
-import { useRiskProfileStore } from './riskProfileStore.ts';
+﻿import { create} from 'zustand';
+import { devtools} from 'zustand/middleware';
+import { useStore} from './useStore';
+import { useRiskProfileStore} from './riskProfileStore';
 
 interface PayoutData {
-  potential_payout: number;
-  kelly_stake: number;
-  risk_adjusted_stake: number;
-  expected_value: number;
-}
+  potential_payout: number,`n  kelly_stake: number;,`n  risk_adjusted_stake: number,`n  expected_value: number}
 
 interface BetSelection {
-  eventId: string;
-  odds: number;
-  probability: number;
-  stake?: number;
-}
+  eventId: string,`n  odds: number;,`n  probability: number;
+  stake?: number}
 
 interface PayoutState {
   payoutPreviews: Record<string, PayoutData>;
-  updatePayoutPreview: (eventId: string, data: PayoutData) => void;
-  getPayoutPreview: (eventId: string) => PayoutData | undefined;
-  calculateKellyStake: (odds: number, probability: number, bankroll: number) => number;
-  computeAndUpdatePayoutPreview: (
-    selection: BetSelection,
+  updatePayoutPreview: (eventId: string, data: PayoutData) => void,`n  getPayoutPreview: (eventId: string) => PayoutData | undefined,`n  calculateKellyStake: (odds: number, probability: number, bankroll: number) => number,`n  computeAndUpdatePayoutPreview: (,`n  selection: BetSelection,
     bankroll: number,
-    riskProfile: any;
-  ) => void;
-}
+    riskProfile: any
+  ) => void}
 
 export const usePayoutStore = create<PayoutState>()(
   devtools(
     (set, get) => ({
-      payoutPreviews: {},
+      payoutPreviews: Record<string, any>,
 
       updatePayoutPreview: (eventId: string, data: PayoutData) => {
         set(state => ({
           payoutPreviews: {
             ...state.payoutPreviews,
-            [eventId]: data,
-          },
-        }));
-      },
+            [eventId]: data
+          }
+        }))},
 
       getPayoutPreview: (eventId: string) => {
-        return get().payoutPreviews[eventId];
-      },
+        return get().payoutPreviews[eventId]},
 
       calculateKellyStake: (odds: number, probability: number, bankroll: number) => {
         // Kelly Criterion formula: f* = (bp - q) / b;
@@ -56,15 +42,13 @@ export const usePayoutStore = create<PayoutState>()(
         // Apply fractional Kelly (half Kelly) for more conservative staking;
 
         // Calculate stake based on bankroll;
-        return Math.max(0, fractionalKelly * bankroll);
-      },
+        return Math.max(0, fractionalKelly * bankroll);},
 
-      computeAndUpdatePayoutPreview: (
-        selection: BetSelection,
+      computeAndUpdatePayoutPreview: (,`n  selection: BetSelection,
         bankroll: number,
-        riskProfile: any;
+        riskProfile: any
       ) => {
-        const { eventId, odds, probability } = selection;
+        const { eventId, odds, probability} = selection;
         // Kelly stake;
 
         // Risk-adjusted stake (apply max stake % from risk profile)
@@ -80,10 +64,14 @@ export const usePayoutStore = create<PayoutState>()(
           potential_payout,
           kelly_stake,
           risk_adjusted_stake,
-          expected_value,
-        });
-      },
+//           expected_value
+        });}
     }),
-    { name: 'payout-store' }
+    { name: 'payout-store'}
   )
 );
+
+
+
+
+`

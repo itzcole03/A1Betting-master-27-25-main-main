@@ -1,9 +1,9 @@
-import React, { createContext,
+﻿import React, { createContext,
   useContext,
   useEffect,
   useState,
-  ReactNode,
- } from 'react.ts';
+//   ReactNode
+ } from 'react';
 
 // ============================================================================
 // TYPES & INTERFACES;
@@ -17,51 +17,18 @@ export type ThemeVariant =
   | "minimal";
 
 export interface ThemeColors {
-  primary: string;
-  secondary: string;
-  accent: string;
-  background: string;
-  surface: string;
-  text: {
-    primary: string;
-    secondary: string;
-    muted: string;
-  };
-  border: string;
-  success: string;
-  warning: string;
-  error: string;
-}
+  primary: string,`n  secondary: string;,`n  accent: string,`n  background: string;,`n  surface: string,`n  text: {,`n  primary: string,`n  secondary: string;,`n  muted: string};
+  border: string,`n  success: string;,`n  warning: string,`n  error: string}
 
 export interface ThemeConfig {
-  variant: ThemeVariant;
-  colors: ThemeColors;
-  gradients: {
-    primary: string;
-    secondary: string;
-    background: string;
-  };
-  effects: {
-    glass: string;
-    blur: string;
-    shadow: string;
-    glow: string;
-  };
-  animations: {
-    duration: string;
-    easing: string;
-  };
-}
+  variant: ThemeVariant,`n  colors: ThemeColors;,`n  gradients: {,`n  primary: string;,`n  secondary: string,`n  background: string};
+  effects: {,`n  glass: string;,`n  blur: string,`n  shadow: string;,`n  glow: string};
+  animations: {,`n  duration: string;,`n  easing: string}}
 
 interface ThemeContextType {
-  theme: ThemeConfig;
-  variant: ThemeVariant;
-  setVariant: (variant: ThemeVariant) => void;
-  isDark: boolean;
-  toggleDarkMode: () => void;
+  theme: ThemeConfig,`n  variant: ThemeVariant;,`n  setVariant: (variant: ThemeVariant) => void,`n  isDark: boolean;,`n  toggleDarkMode: () => void;
   customColors?: Partial<ThemeColors key={582538}>;
-  setCustomColors: (colors: Partial<ThemeColors key={582538}>) => void;
-}
+  setCustomColors: (colors: Partial<ThemeColors key={582538}>) => void}
 
 // ============================================================================
 // THEME DEFINITIONS;
@@ -72,7 +39,7 @@ const createThemeConfig = (
   customColors?: Partial<ThemeColors key={582538}>,
 ): ThemeConfig => {
   // Validate variant first;
-  const validVariants: ThemeVariant[] = [
+  const validVariants: ThemeVariant[0] = [
     "cyber-light",
     "cyber-dark",
     "standard",
@@ -81,8 +48,7 @@ const createThemeConfig = (
   ];
   if (!variant || !validVariants.includes(variant)) {
     // console statement removed
-    variant = "cyber-light";
-  }
+    variant = "cyber-light";}
 
   const themes: Record<ThemeVariant, ThemeColors key={339686}> = {
     // CYBER LIGHT MODE - Original cyber style but adapted for light background;
@@ -93,15 +59,14 @@ const createThemeConfig = (
       background:
         "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 50%, #e2e8f0 75%, #f8fafc 100%)",
       surface: "rgba(255, 255, 255, 0.8)",
-      text: {
-        primary: "#0f172a",
+      text: {,`n  primary: "#0f172a",
         secondary: "#334155",
-        muted: "#64748b",
+        muted: "#64748b"
       },
       border: "rgba(15, 23, 42, 0.1)",
       success: "#06ffa5",
       warning: "#fbbf24",
-      error: "#ff4757",
+      error: "#ff4757"
     },
     // CYBER DARK MODE - Enhanced dark version with cyber aesthetics;
     "cyber-dark": {
@@ -111,68 +76,61 @@ const createThemeConfig = (
       background:
         "linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f172a 100%)",
       surface: "rgba(255, 255, 255, 0.05)",
-      text: {
-        primary: "#ffffff",
+      text: {,`n  primary: "#ffffff",
         secondary: "#e2e8f0",
-        muted: "#94a3b8",
+        muted: "#94a3b8"
       },
       border: "rgba(255, 255, 255, 0.1)",
       success: "#06ffa5",
       warning: "#fbbf24",
-      error: "#ff4757",
+      error: "#ff4757"
     },
-    standard: {
-      primary: "#3b82f6",
+    standard: {,`n  primary: "#3b82f6",
       secondary: "#6b7280",
       accent: "#10b981",
       background: "#ffffff",
       surface: "#f9fafb",
-      text: {
-        primary: "#111827",
+      text: {,`n  primary: "#111827",
         secondary: "#6b7280",
-        muted: "#9ca3af",
+        muted: "#9ca3af"
       },
       border: "#e5e7eb",
       success: "#10b981",
       warning: "#f59e0b",
-      error: "#ef4444",
+      error: "#ef4444"
     },
-    premium: {
-      primary: "#f59e0b",
+    premium: {,`n  primary: "#f59e0b",
       secondary: "#d97706",
       accent: "#92400e",
       background: "#0f0f0f",
       surface: "#1a1a1a",
-      text: {
-        primary: "#ffffff",
+      text: {,`n  primary: "#ffffff",
         secondary: "#d1d5db",
-        muted: "#9ca3af",
+        muted: "#9ca3af"
       },
       border: "#374151",
       success: "#10b981",
       warning: "#f59e0b",
-      error: "#ef4444",
+      error: "#ef4444"
     },
-    minimal: {
-      primary: "#000000",
+    minimal: {,`n  primary: "#000000",
       secondary: "#666666",
       accent: "#333333",
       background: "#ffffff",
       surface: "#fafafa",
-      text: {
-        primary: "#000000",
+      text: {,`n  primary: "#000000",
         secondary: "#666666",
-        muted: "#999999",
+        muted: "#999999"
       },
       border: "#e0e0e0",
       success: "#4caf50",
       warning: "#ff9800",
-      error: "#f44336",
-    },
+      error: "#f44336"
+    }
   };
 
   const mergedColors = customColors;
-    ? { ...baseColors, ...customColors }
+    ? { ...baseColors, ...customColors}
     : baseColors;
 
   // Ensure mergedColors is valid and has required properties;
@@ -187,50 +145,43 @@ const createThemeConfig = (
       background:
         "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 50%, #e2e8f0 75%, #f8fafc 100%)",
       surface: "rgba(255, 255, 255, 0.8)",
-      text: { primary: "#0f172a", secondary: "#334155", muted: "#64748b" },
+      text: { primary: "#0f172a", secondary: "#334155", muted: "#64748b"},
       border: "rgba(15, 23, 42, 0.1)",
       success: "#06ffa5",
       warning: "#fbbf24",
-      error: "#ff4757",
+      error: "#ff4757"
     };
 
     return {
       variant,
       colors: safeColors,
-      gradients: {
-        primary: "linear-gradient(135deg, #06ffa5, #00ff88)",
+      gradients: {,`n  primary: "linear-gradient(135deg, #06ffa5, #00ff88)",
         secondary: "linear-gradient(135deg, #00d4ff, #7c3aed)",
-        background: safeColors.background,
+        background: safeColors.background
       },
-      effects: {
-        glass:
+      effects: {,`n  glass:
           "backdrop-filter: blur(20px) saturate(180%); background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(15, 23, 42, 0.1);",
         blur: "backdrop-filter: blur(8px);",
-        shadow:
-          "0 8px 32px rgba(15, 23, 42, 0.1), 0 0 20px rgba(6, 255, 165, 0.1)",
-        glow: "0 0 20px rgba(6, 255, 165, 0.6), 0 0 40px rgba(6, 255, 165, 0.4)",
+        shadow: "0 8px 32px rgba(15, 23, 42, 0.1), 0 0 20px rgba(6, 255, 165, 0.1)",
+        glow: "0 0 20px rgba(6, 255, 165, 0.6), 0 0 40px rgba(6, 255, 165, 0.4)"
       },
-      animations: {
-        duration: "300ms",
-        easing: "cubic-bezier(0.4, 0, 0.2, 1)",
-      },
-    };
-  }
+      animations: {,`n  duration: "300ms",
+        easing: "cubic-bezier(0.4, 0, 0.2, 1)"
+      }
+    }}
 
   return {
     variant,
     colors: mergedColors,
-    gradients: {
-      primary: variant.startsWith("cyber")
+    gradients: {,`n  primary: variant.startsWith("cyber")
         ? "linear-gradient(135deg, #06ffa5, #00ff88)"
         : `linear-gradient(135deg, ${mergedColors.primary || "#3b82f6"}, ${mergedColors.secondary || "#6b7280"})`,
       secondary: variant.startsWith("cyber")
         ? "linear-gradient(135deg, #00d4ff, #7c3aed)"
         : `linear-gradient(135deg, ${mergedColors.secondary || "#6b7280"}, ${mergedColors.accent || "#10b981"})`,
-      background: mergedColors.background || "#ffffff",
+      background: mergedColors.background || "#ffffff"
     },
-    effects: {
-      glass:
+    effects: {,`n  glass:
         variant === "cyber-light"
           ? "backdrop-filter: blur(20px) saturate(180%); background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(15, 23, 42, 0.1);"
           : variant === "cyber-dark"
@@ -244,14 +195,12 @@ const createThemeConfig = (
         : "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
       glow: variant.startsWith("cyber")
         ? "0 0 20px rgba(6, 255, 165, 0.6), 0 0 40px rgba(6, 255, 165, 0.4)"
-        : `0 0 20px ${mergedColors.primary}60`,
+        : `0 0 20px ${mergedColors.primary}60`
     },
-    animations: {
-      duration: "300ms",
-      easing: "cubic-bezier(0.4, 0, 0.2, 1)",
-    },
-  };
-};
+    animations: {,`n  duration: "300ms",
+      easing: "cubic-bezier(0.4, 0, 0.2, 1)"
+    }
+  }};
 
 // ============================================================================
 // CONTEXT;
@@ -263,49 +212,41 @@ const createThemeConfig = (
 
 interface UniversalThemeProviderProps {
   children: ReactNode;
-  defaultVariant?: ThemeVariant;
-  enablePersistence?: boolean;
-}
+  defaultVariant?: ThemeVariant
+  enablePersistence?: boolean}
 
 export const UniversalThemeProvider: React.FC<UniversalThemeProviderProps key={101004}> = ({
   children,
   defaultVariant = "cyber-light",
-  enablePersistence = true,
+  enablePersistence = true
 }) => {
   const [variant, setVariantState] = useState<ThemeVariant key={921417}>(() => {
     if (enablePersistence && typeof window !== "undefined") {
 
-      return (saved as ThemeVariant) || defaultVariant;
-    }
-    return defaultVariant;
-  });
+      return (saved as ThemeVariant) || defaultVariant}
+    return defaultVariant;});
 
-  const [customColors, setCustomColors] = useState<Partial<ThemeColors key={974310}>>({});
+  const [customColors, setCustomColors] = useState<Partial<ThemeColors key={974310}>>(Record<string, any>);
 
 
   // Debug logging;
   if (!theme || !theme.colors) {
-    // console statement removed
-  }
+    // console statement removed}
 
   const setVariant = (newVariant: ThemeVariant) => {
     setVariantState(newVariant);
     if (enablePersistence && typeof window !== "undefined") {
-      localStorage.setItem("theme-variant", newVariant);
-    }
+      localStorage.setItem("theme-variant", newVariant);}
   };
 
   const toggleDarkMode = () => {
     // Toggle between cyber-light and cyber-dark;
     if (variant === "cyber-light") {
-      setVariant("cyber-dark");
-    } else if (variant === "cyber-dark") {
-      setVariant("cyber-light");
-    } else {
+      setVariant("cyber-dark");} else if (variant === "cyber-dark") {
+      setVariant("cyber-light");} else {
       // For other themes, use sensible defaults;
 
-      setVariant(newVariant);
-    }
+      setVariant(newVariant);}
   };
 
   // Apply theme to document;
@@ -351,11 +292,9 @@ export const UniversalThemeProvider: React.FC<UniversalThemeProviderProps key={1
     // Set dark/light mode classes;
     if (isDark) {
       root.classList.add("dark");
-      body.classList.add("dark");
-    } else {
+      body.classList.add("dark");} else {
       root.classList.add("light");
-      body.classList.add("light");
-    }
+      body.classList.add("light");}
 
     // Apply background and text color;
     body.style.background = theme.colors.background;
@@ -368,8 +307,7 @@ export const UniversalThemeProvider: React.FC<UniversalThemeProviderProps key={1
     if (rootElement) {
       rootElement.style.background = theme.colors.background;
       rootElement.style.color = theme.colors.text.primary;
-      rootElement.style.minHeight = "100vh";
-    }
+      rootElement.style.minHeight = "100vh";}
   }, [theme, variant, isDark]);
 
   return (
@@ -381,13 +319,12 @@ export const UniversalThemeProvider: React.FC<UniversalThemeProviderProps key={1
         isDark,
         toggleDarkMode,
         customColors,
-        setCustomColors,
+//         setCustomColors
       }}
      key={352473}>
       {children}
     </ThemeContext.Provider>
-  );
-};
+  );};
 
 // ============================================================================
 // HOOKS;
@@ -396,8 +333,7 @@ export const UniversalThemeProvider: React.FC<UniversalThemeProviderProps key={1
 export const useTheme = (): ThemeContextType => {
 
   if (context === undefined) {
-    throw new Error("useTheme must be used within a UniversalThemeProvider");
-  }
+    throw new Error("useTheme must be used within a UniversalThemeProvider");}
 
   // Additional safety: ensure theme object is complete;
   if (!context.theme || !context.theme.colors) {
@@ -405,27 +341,22 @@ export const useTheme = (): ThemeContextType => {
 
     return {
       ...context,
-      theme: fallbackTheme,
-    };
-  }
+      theme: fallbackTheme
+    }}
 
-  return context;
-};
+  return context;};
 
 export const useThemeColors = () => {
-  const { theme } = useTheme();
-  return theme.colors;
-};
+  const { theme} = useTheme();
+  return theme.colors;};
 
 export const useThemeVariant = () => {
-  const { variant, setVariant } = useTheme();
-  return [variant, setVariant] as const;
-};
+  const { variant, setVariant} = useTheme();
+  return [variant, setVariant] as const;};
 
 export const useDarkMode = () => {
-  const { isDark, toggleDarkMode } = useTheme();
-  return [isDark, toggleDarkMode] as const;
-};
+  const { isDark, toggleDarkMode} = useTheme();
+  return [isDark, toggleDarkMode] as const;};
 
 // ============================================================================
 // UTILITY FUNCTIONS;
@@ -452,14 +383,17 @@ export const getThemeCSS = (variant: ThemeVariant) => {
       --gradient-background: ${config.gradients.background};
       --effect-glass: ${config.effects.glass};
       --effect-shadow: ${config.effects.shadow};
-      --effect-glow: ${config.effects.glow};
-    }
-  `;
-};
+      --effect-glow: ${config.effects.glow}}
+  `;};
 
 // ============================================================================
 // EXPORTS;
 // ============================================================================
 
 export default UniversalThemeProvider;
-export type { ThemeVariant, ThemeColors, ThemeConfig };
+export type { ThemeVariant, ThemeColors, ThemeConfig};
+
+
+
+
+`

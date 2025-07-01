@@ -1,89 +1,72 @@
-
-import axios from 'axios.ts';
-import { toast } from 'react-toastify.ts';
-import { WebSocketManager } from './WebSocketManager.ts';
+﻿
+import axios from 'axios';
+import { toast} from 'react-toastify';
+import { WebSocketManager} from './WebSocketManager';
 import {
   RiskProfileType,
   BettingMetrics,
   BettingHistoryEntry,
   BettingOpportunity,
-  BetRecommendation,
-} from '@/types/betting.ts';
+//   BetRecommendation
+} from '@/types/betting';
 
 interface BettingConfig {
-  minConfidence: number;
-  maxStakePercentage: number;
-  riskProfile: RiskProfileType;
-  autoRefresh: boolean;
-  refreshInterval: number;
-}
+  minConfidence: number,`n  maxStakePercentage: number;,`n  riskProfile: RiskProfileType,`n  autoRefresh: boolean;,`n  refreshInterval: number}
 
 class UnifiedBettingService {
   private static instance: UnifiedBettingService | null = null;
   private readonly wsService: WebSocketManager;
-  private config: BettingConfig = {
-    minConfidence: 0.7,
+  private config: BettingConfig = {,`n  minConfidence: 0.7,
     maxStakePercentage: 0.1,
     riskProfile: RiskProfileType.MODERATE,
     autoRefresh: true,
-    refreshInterval: 30000,
+    refreshInterval: 30000
   };
   private readonly apiUrl: string;
 
   protected constructor() {
     this.apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
     this.wsService = WebSocketManager.getInstance();
-    this.initializeWebSocketHandlers();
-  }
+    this.initializeWebSocketHandlers();}
 
   public static getInstance(): UnifiedBettingService {
     if (!UnifiedBettingService.instance) {
-      UnifiedBettingService.instance = new UnifiedBettingService();
-    }
-    return UnifiedBettingService.instance;
-  }
+      UnifiedBettingService.instance = new UnifiedBettingService();}
+    return UnifiedBettingService.instance;}
 
   private initializeWebSocketHandlers(): void {
     this.wsService.on('odds_update', this.handleOddsUpdate.bind(this));
     this.wsService.on('betting_opportunities', this.handleBettingOpportunities.bind(this));
-    this.wsService.on('bet_result', this.handleBetResult.bind(this));
-  }
+    this.wsService.on('bet_result', this.handleBetResult.bind(this));}
 
-  private handleOddsUpdate(data: { odds: number }): void {
-    this.emit('odds_update', data);
-  }
+  private handleOddsUpdate(data: { odds: number}): void {
+    this.emit('odds_update', data)}
 
   private handleBettingOpportunities(
-    data: { opportunities: BettingOpportunity[] }
+    data: { opportunities: BettingOpportunity[0]}
   ): void {
 
-    this.emit('betting_opportunities', { opportunities });
-  }
+    this.emit('betting_opportunities', { opportunities})}
 
-  private handleBetResult(data: { result: BettingMetrics }): void {
+  private handleBetResult(data: { result: BettingMetrics}): void {
     this.updateBettingMetrics(data.result);
-    this.emit('bet_result', data.result);
-  }
+    this.emit('bet_result', data.result);}
 
   private validateBettingOpportunities(
-    opportunities: BettingOpportunity[]
-  ): BettingOpportunity[] {
+    opportunities: BettingOpportunity[0]
+  ): BettingOpportunity[0] {
     return opportunities.filter((opportunity) => {
 
-      return confidence >= this.config.minConfidence;
-    });
-  }
+      return confidence >= this.config.minConfidence})}
 
   private calculateOpportunityConfidence(
-    opportunity: BettingOpportunity;
+    opportunity: BettingOpportunity
   ): number {
     // Use only fields that exist on BettingOpportunity;
-    return opportunity.confidence;
-  }
+    return opportunity.confidence;}
 
   private updateBettingMetrics(result: BettingMetrics): void {
-    this.emit('metrics_update', this.calculateMetrics(result));
-  }
+    this.emit('metrics_update', this.calculateMetrics(result))}
 
   private calculateMetrics(result: BettingMetrics): BettingMetrics {
     return {
@@ -91,54 +74,45 @@ class UnifiedBettingService {
       totalBets: (result.totalBets ?? 0) + 1,
       winRate: this.calculateWinRate(result),
       averageOdds: this.calculateAverageOdds(result),
-      roi: this.calculateROI(result),
-    };
-  }
+      roi: this.calculateROI(result)
+    }}
 
   private calculateWinRate(result: BettingMetrics): number {
 
 
-    return total === 0 ? 0 : wins / total;
-  }
+    return total === 0 ? 0 : wins / total}
 
   private calculateAverageOdds(result: BettingMetrics): number {
-    return result.averageOdds ?? 0;
-  }
+    return result.averageOdds ?? 0}
 
   private calculateROI(result: BettingMetrics): number {
 
 
-    return totalStaked === 0 ? 0 : (profit / totalStaked) * 100;
-  }
+    return totalStaked === 0 ? 0 : (profit / totalStaked) * 100}
 
-  public async getBettingOpportunities(): Promise<BettingOpportunity[]> {
+  public async getBettingOpportunities(): Promise<BettingOpportunity[0]> {
     try {
-      const { data } = await axios.get(`${this.apiUrl}/api/betting/opportunities`) as { data: BettingOpportunity[] };
-      return this.validateBettingOpportunities(data);
-    } catch (error: unknown) {
+      const { data} = await axios.get(`${this.apiUrl}/api/betting/opportunities`) as { data: BettingOpportunity[0]};
+      return this.validateBettingOpportunities(data);} catch (error: unknown) {
       // console statement removed
       toast.error('Failed to fetch betting opportunities');
-      return [];
-    }
+      return [0];}
   }
 
   public async placeBet(bet: BetRecommendation): Promise<boolean> {
     try {
       await axios.post(`${this.apiUrl}/api/betting/place`, bet);
       this.emit('bet_placed', bet);
-      return true;
-    } catch (error: unknown) {
+      return true;} catch (error: unknown) {
       // console statement removed
       toast.error('Failed to place bet');
-      return false;
-    }
+      return false;}
   }
 
   public async getBettingMetrics(): Promise<BettingMetrics> {
     try {
-      const { data } = await axios.get(`${this.apiUrl}/api/betting/metrics`) as { data: BettingMetrics };
-      return data;
-    } catch (error: unknown) {
+      const { data} = await axios.get(`${this.apiUrl}/api/betting/metrics`) as { data: BettingMetrics};
+      return data;} catch (error: unknown) {
       // console statement removed
       return {
         totalBets: 0,
@@ -151,54 +125,47 @@ class UnifiedBettingService {
         averageOdds: 0,
         averageStake: 0,
         riskScore: 0,
-        timestamp: new Date().toISOString(),
-      };
-    }
+        timestamp: new Date().toISOString()
+      }}
   }
 
-  public async getBetHistory(): Promise<BettingHistoryEntry[]> {
+  public async getBetHistory(): Promise<BettingHistoryEntry[0]> {
     try {
-      const { data } = await axios.get(`${this.apiUrl}/api/betting/history`) as { data: BettingHistoryEntry[] };
-      return data;
-    } catch (error: unknown) {
+      const { data} = await axios.get(`${this.apiUrl}/api/betting/history`) as { data: BettingHistoryEntry[0]};
+      return data;} catch (error: unknown) {
       // console statement removed
-      return [];
-    }
+      return [0]}
   }
 
   public setConfig(newConfig: Partial<BettingConfig>): void {
-    this.config = { ...this.config, ...newConfig };
-    this.emit('config_updated', this.config);
-  }
+    this.config = { ...this.config, ...newConfig};
+    this.emit('config_updated', this.config);}
 
   public getConfig(): BettingConfig {
-    return { ...this.config };
-  }
+    return { ...this.config};}
 
   private emit(_type: string, _data: unknown): void {
-    // No-op: implement as needed for your architecture.
-  }
+    // No-op: implement as needed for your architecture.}
 
   public async get<T>(url: string): Promise<T> {
     try {
 
-      return ((response as unknown) as { data: T }).data;
-    } catch (error: unknown) {
+      return ((response as unknown) as { data: T}).data} catch (error: unknown) {
       // console statement removed
       toast.error(`Failed to fetch data from ${url}`);
-      throw error;
-    }
+      throw error;}
   }
 
   public async post<T>(url: string, data: unknown): Promise<T> {
     try {
 
-      return ((response as unknown) as { data: T }).data;
-    } catch (error: unknown) {
+      return ((response as unknown) as { data: T}).data} catch (error: unknown) {
       toast.error(`Failed to post data to ${url}`);
-      throw error;
-    }
-  }
-}
+      throw error;}
+  }}
 
 export default UnifiedBettingService;
+
+
+
+`

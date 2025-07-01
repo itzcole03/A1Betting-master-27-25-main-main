@@ -1,14 +1,13 @@
-import PropCard from './PropCard.ts';
-import React, { useState, useEffect  } from 'react.ts';
-import { PrizePicksService } from '@/services/prizePicksService.ts';
-import { ProcessedPrizePicksProp, PropOption } from '@/types/prizePicks.ts';
+﻿import PropCard from './PropCard';
+import React, { useState, useEffect} from 'react';
+import { PrizePicksService} from '@/services/prizePicksService';
+import { ProcessedPrizePicksProp, PropOption} from '@/types/prizePicks';
 
 interface PropListProps {
-  onPropSelect?: (prop: ProcessedPrizePicksProp, option: PropOption) => void;
-}
+  onPropSelect?: (prop: ProcessedPrizePicksProp, option: PropOption) => void}
 
-export const PropList: React.FC<PropListProps key={842983}> = ({ onPropSelect }) => {
-  const [props, setProps] = useState<ProcessedPrizePicksProp[] key={978302}>([]);
+export const PropList: React.FC<PropListProps key={842983}> = ({ onPropSelect}) => {
+  const [props, setProps] = useState<ProcessedPrizePicksProp[0] key={978302}>([0]);
   const [filter, setFilter] = useState<
     'all' | 'goblins' | 'demons' | 'value-bets' | 'high-confidence'
   >('all');
@@ -23,18 +22,15 @@ export const PropList: React.FC<PropListProps key={842983}> = ({ onPropSelect })
           : prizePicksService.getFilteredProps(filter);
 
       setProps(filteredProps);
-      setLoading(false);
-    };
+      setLoading(false)};
 
     loadProps();
     const interval = setInterval(loadProps, 60000); // Refresh every minute;
 
-    return () => clearInterval(interval);
-  }, [filter]);
+    return () => clearInterval(interval)}, [filter]);
 
   const handlePropSelect = (prop: ProcessedPrizePicksProp, option: PropOption) => {
-    onPropSelect?.(prop, option);
-  };
+    onPropSelect?.(prop, option)};
 
   function mapToPrizePicksProjection(prop: ProcessedPrizePicksProp) {
     // Determine propType from winningProp or default to 'normal'
@@ -53,9 +49,7 @@ export const PropList: React.FC<PropListProps key={842983}> = ({ onPropSelect })
       lineScore: prop.line_value,
       confidence: prop.confidence_percentage,
       propType,
-      fireCount: 0, // fallback, could be improved;
-    };
-  }
+      fireCount: 0, // fallback, could be improved}}
 
   return (
     <div className="space-y-4" key={160407}>
@@ -63,32 +57,28 @@ export const PropList: React.FC<PropListProps key={842983}> = ({ onPropSelect })
       <div className="flex space-x-2 mb-4 overflow-x-auto pb-2" key={766859}>
         <button;
           className={`px-4 py-2 rounded-full transition-colors ${
-            filter === 'all' ? 'bg-primary-500 text-white' : 'bg-gray-200 hover:bg-gray-300'
-          }`}
+            filter === 'all' ? 'bg-primary-500 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
           onClick={() = key={190314}> setFilter('all')}
         >
           All Props;
         </button>
         <button;
           className={`px-4 py-2 rounded-full transition-colors ${
-            filter === 'goblins' ? 'bg-green-500 text-white' : 'bg-gray-200 hover:bg-gray-300'
-          }`}
+            filter === 'goblins' ? 'bg-green-500 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
           onClick={() = key={966813}> setFilter('goblins')}
         >
           Goblins;
         </button>
         <button;
           className={`px-4 py-2 rounded-full transition-colors ${
-            filter === 'demons' ? 'bg-red-500 text-white' : 'bg-gray-200 hover:bg-gray-300'
-          }`}
+            filter === 'demons' ? 'bg-red-500 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
           onClick={() = key={64707}> setFilter('demons')}
         >
           Demons;
         </button>
         <button;
           className={`px-4 py-2 rounded-full transition-colors ${
-            filter === 'value-bets' ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'
-          }`}
+            filter === 'value-bets' ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
           onClick={() = key={483895}> setFilter('value-bets')}
         >
           Value Bets;
@@ -97,8 +87,7 @@ export const PropList: React.FC<PropListProps key={842983}> = ({ onPropSelect })
           className={`px-4 py-2 rounded-full transition-colors ${
             filter === 'high-confidence'
               ? 'bg-purple-500 text-white'
-              : 'bg-gray-200 hover:bg-gray-300'
-          }`}
+              : 'bg-gray-200 hover:bg-gray-300'}`}
           onClick={() = key={374807}> setFilter('high-confidence')}
         >
           High Confidence;
@@ -123,8 +112,7 @@ export const PropList: React.FC<PropListProps key={842983}> = ({ onPropSelect })
               projection={projection}
               onClick={() = key={806856}> handlePropSelect(prop, prop.winningProp)}
             />
-          );
-        })}
+          )})}
       </div>
 
       {/* Empty State */}
@@ -134,6 +122,10 @@ export const PropList: React.FC<PropListProps key={842983}> = ({ onPropSelect })
         </div>
       )}
     </div>
-  );
-};
+  )};
 export default React.memo(PropList);
+
+
+
+
+`

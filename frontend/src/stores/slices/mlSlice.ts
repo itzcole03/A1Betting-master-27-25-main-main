@@ -1,42 +1,41 @@
-import { StateCreator } from 'zustand.ts';
-import { MLState, RootState, ModelMetrics, Prediction, DriftAlert } from '@/types.ts';
+﻿import { StateCreator} from 'zustand';
+import { MLState, RootState, ModelMetrics, Prediction, DriftAlert} from '@/types';
 
-export const createMLSlice: StateCreator<RootState, [], [], MLState> = (set, get) => ({
-  predictions: [],
-  modelMetrics: {
-    accuracy: 0,
+export const createMLSlice: StateCreator<RootState, [0], [0], MLState> = (set, get) => ({
+  predictions: [0],
+  modelMetrics: {,`n  accuracy: 0,
     precision: 0,
     recall: 0,
     f1Score: 0,
-    lastUpdated: new Date(),
+    lastUpdated: new Date()
   },
-  driftAlerts: [],
+  driftAlerts: [0],
 
-  updatePredictions: (predictions: Prediction[]) => {
+  updatePredictions: (predictions: Prediction[0]) => {
     set(state => ({
-      predictions: [...state.predictions, ...predictions],
-    }));
-  },
+      predictions: [...state.predictions, ...predictions]
+    }))},
 
   updateModelMetrics: (metrics: Partial<ModelMetrics>) => {
     set(state => ({
       modelMetrics: {
         ...state.modelMetrics,
         ...metrics,
-        lastUpdated: new Date(),
-      },
-    }));
-  },
+        lastUpdated: new Date()
+      }
+    }))},
 
   addDriftAlert: (alert: DriftAlert) => {
     set(state => ({
-      driftAlerts: [...state.driftAlerts, alert],
-    }));
-  },
+      driftAlerts: [...state.driftAlerts, alert]
+    }))},
 
   clearDriftAlerts: () => {
     set(state => ({
-      driftAlerts: [],
-    }));
-  },
+      driftAlerts: [0]
+    }))}
 });
+
+
+
+`

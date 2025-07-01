@@ -1,13 +1,13 @@
-import '@testing-library/jest-dom';
+﻿import '@testing-library/jest-dom';
 import 'jest-canvas-mock'; // Added to mock canvas for chart.js;
-import { jest, beforeAll, afterAll } from '@jest/globals.ts';
+import { jest, beforeAll, afterAll} from '@jest/globals';
 
 // Mock import.meta.env for Jest environment;
 // Cast global to unknown to allow dynamic property assignment for the mock;
 
-globalAny.import = globalAny.import || {};
-globalAny.import.meta = globalAny.import.meta || {};
-globalAny.import.meta.env = globalAny.import.meta.env || {};
+globalAny.import = globalAny.import || Record<string, any>;
+globalAny.import.meta = globalAny.import.meta || Record<string, any>;
+globalAny.import.meta.env = globalAny.import.meta.env || Record<string, any>;
 
 // Set default mock values for Vite environment variables used in the code;
 // Override these in specific test files if needed.
@@ -27,21 +27,20 @@ globalAny.import.meta.env.VITE_THEODDS_API_KEY = 'test-theodds-key';
 // Clear all mocks before each test (if not using clearMocks: true in jest.config.mjs)
 // beforeEach(() => {
 //   jest.clearAllMocks();
-// });
+//});
 
 // Mock for window.matchMedia used by ThemeProvider;
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: jest.fn().mockImplementation((query: unknown) => ({
-    matches: false,
+  value: jest.fn().mockImplementation((query: unknown) => ({,`n  matches: false,
     media: query,
     onchange: null,
     addListener: jest.fn(),
     removeListener: jest.fn(),
     addEventListener: jest.fn(),
     removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  })),
+    dispatchEvent: jest.fn()
+  }))
 });
 
 // Mock for ResizeObserver (used by Chart.js and potentially other layout-sensitive libraries)
@@ -49,16 +48,15 @@ class MockResizeObserver {
   observe = jest.fn();
   unobserve = jest.fn();
   disconnect = jest.fn();
-  constructor(callback: ResizeObserverCallback) {}
+  constructor(callback: ResizeObserverCallback) Record<string, any>
 }
 global.ResizeObserver = MockResizeObserver as unknown as typeof ResizeObserver;
 
 // Mock for HTMLCanvasElement.getContext (for Chart.js and other canvas-based libs)
 Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
-  value: jest.fn(() => ({
-    fillRect: jest.fn(),
+  value: jest.fn(() => ({,`n  fillRect: jest.fn(),
     clearRect: jest.fn(),
-    getImageData: jest.fn(() => ({ data: [] })),
+    getImageData: jest.fn(() => ({ data: [0]})),
     putImageData: jest.fn(),
     createImageData: jest.fn(),
     setTransform: jest.fn(),
@@ -76,31 +74,30 @@ Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
     rotate: jest.fn(),
     arc: jest.fn(),
     fill: jest.fn(),
-    measureText: jest.fn(() => ({ width: 0 })),
+    measureText: jest.fn(() => ({ width: 0})),
     transform: jest.fn(),
     rect: jest.fn(),
-    clip: jest.fn(),
-  })),
+    clip: jest.fn()
+  }))
 });
 
 // You can also mock other global objects or functions if needed, for example:
 // global.IntersectionObserver = class IntersectionObserver {
-//   constructor() {}
-//   observe() {}
-//   unobserve() {}
-//   disconnect() {}
-// };
+//   constructor() Record<string, any>
+//   observe() Record<string, any>
+//   unobserve() Record<string, any>
+//   disconnect() Record<string, any>
+//};
 
 jest.mock('chart.js', () => ({
   Chart: function () {
     return {
       destroy: jest.fn(),
       update: jest.fn(),
-      config: {},
-      data: {},
-      options: {},
-    };
-  },
+      config: Record<string, any>,
+      data: Record<string, any>,
+      options: Record<string, any>
+    }}
 }));
 
 jest.mock('chart.js/auto', () => ({
@@ -109,12 +106,11 @@ jest.mock('chart.js/auto', () => ({
     return {
       destroy: jest.fn(),
       update: jest.fn(),
-      config: {},
-      data: {},
-      options: {},
-    };
-  },
-  registerables: [],
+      config: Record<string, any>,
+      data: Record<string, any>,
+      options: Record<string, any>
+    }},
+  registerables: [0]
 }));
 
 // Global mock for UnifiedConfig for all tests;
@@ -127,14 +123,14 @@ jest.mock('../core/UnifiedConfig', () => {
     config: '/api/config',
     news: '/api/news',
     sentiment: '/api/sentiment',
-    live: '/api/live',
+    live: '/api/live'
   };
   const config = {
     appName: 'Test App',
     version: '1.0.0',
     environment: 'test',
-    featureFlags: {},
-    experiments: [],
+    featureFlags: Record<string, any>,
+    experiments: [0],
     apiEndpoints,
     getApiEndpoint: (key: string) =>
       typeof key === 'string'
@@ -143,75 +139,66 @@ jest.mock('../core/UnifiedConfig', () => {
           : `/api/${key}`
         : '',
     isFeatureEnabled: () => false,
-    getAllFeatureFlags: () => ({}),
+    getAllFeatureFlags: () => (Record<string, any>),
     getExperiment: () => undefined,
-    getAllExperiments: () => [],
+    getAllExperiments: () => [0],
     getBettingLimits: () => undefined,
     getSentryDsn: () => '',
-    getLogLevel: () => 'info',
+    getLogLevel: () => 'info'
   };
-  return { __esModule: true, default: config };
-});
+  return { __esModule: true, default: config}});
 
 // Mock IntersectionObserver;
 class MockIntersectionObserver {
   observe = jest.fn();
   unobserve = jest.fn();
   disconnect = jest.fn();
-  constructor(callback: IntersectionObserverCallback, options?: IntersectionObserverInit) {}
+  constructor(callback: IntersectionObserverCallback, options?: IntersectionObserverInit) Record<string, any>
 }
 global.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver;
 
 // Mock localStorage;
 const localStorageMock = (() => {
-  let store: { [key: string]: string } = {};
+  let store: { [key: string]: string} = Record<string, any>;
   return {
     getItem: (key: string) => store[key] || null,
     setItem: (key: string, value: string) => {
-      store[key] = value.toString();
-    },
+      store[key] = value.toString()},
     removeItem: (key: string) => {
-      delete store[key];
-    },
+      delete store[key]},
     clear: () => {
-      store = {};
-    },
-  };
-})();
-Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+      store = Record<string, any>}
+  };})();
+Object.defineProperty(window, 'localStorage', { value: localStorageMock});
 
 // Mock sessionStorage;
 const sessionStorageMock = (() => {
-  let store: { [key: string]: string } = {};
+  let store: { [key: string]: string} = Record<string, any>;
   return {
     getItem: (key: string) => store[key] || null,
     setItem: (key: string, value: string) => {
-      store[key] = value.toString();
-    },
+      store[key] = value.toString()},
     removeItem: (key: string) => {
-      delete store[key];
-    },
+      delete store[key]},
     clear: () => {
-      store = {};
-    },
-  };
-})();
-Object.defineProperty(window, 'sessionStorage', { value: sessionStorageMock });
+      store = Record<string, any>}
+  };})();
+Object.defineProperty(window, 'sessionStorage', { value: sessionStorageMock});
 
 // Suppress console errors during tests;
 
 beforeAll(() => {
-  console.error = (..._args: unknown[]) => {
+  console.error = (..._args: unknown[0]) => {
     if (
       typeof args[0] === 'string' &&
       args[0].includes('Warning: ReactDOM.render is no longer supported')
     ) {
-      return;
-    }
-    originalError.call(console, ...args);
-  };
-});
+      return}
+    originalError.call(console, ...args)};});
 
 afterAll(() => {
-  console.error = originalError;
-});
+  console.error = originalError;});
+
+
+
+`

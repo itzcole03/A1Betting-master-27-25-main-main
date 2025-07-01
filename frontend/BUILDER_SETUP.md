@@ -21,7 +21,7 @@ Update the API key in these files:
 
 In your Builder.io dashboard, create the following models:
 
-1. **Page Model**: 
+1. **Page Model**:
    - Name: `page`
    - Type: Page
    - URL Pattern: `/*`
@@ -29,8 +29,7 @@ In your Builder.io dashboard, create the following models:
 2. **Section Models**:
    - Name: `header`
    - Type: Section
-   
-   - Name: `footer` 
+   - Name: `footer`
    - Type: Section
 
 ### 4. Preview URL Configuration
@@ -43,6 +42,7 @@ In your Builder.io dashboard, create the following models:
 The following custom components are registered with Builder.io:
 
 #### BettingCard Component
+
 - **Purpose**: Display betting match information
 - **Inputs**:
   - `title`: Match title
@@ -55,24 +55,21 @@ The following custom components are registered with Builder.io:
 ### 6. Usage Examples
 
 #### Render a Builder Page
+
 ```tsx
 import { BuilderPage } from './components/builder';
 
 // In your component
-<BuilderPage 
-  model="page" 
-  url="/betting" 
-/>
+<BuilderPage model='page' url='/betting' />;
 ```
 
 #### Render a Builder Section
+
 ```tsx
 import { BuilderPage } from './components/builder';
 
 // In your component
-<BuilderPage 
-  model="header" 
-/>
+<BuilderPage model='header' />;
 ```
 
 ### 7. Development Workflow
@@ -101,6 +98,7 @@ VITE_BUILDER_API_KEY=your_builder_api_key_here
 ```
 
 Then update `src/config/builder.ts`:
+
 ```tsx
 builder.init(import.meta.env.VITE_BUILDER_API_KEY || 'YOUR_BUILDER_PUBLIC_API_KEY');
 ```

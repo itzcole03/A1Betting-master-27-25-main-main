@@ -1,13 +1,12 @@
-import React from 'react.ts';
-import { usePredictionStore } from '@/stores/predictionStore.ts';
+﻿import React from 'react';
+import { usePredictionStore} from '@/stores/predictionStore';
 
 const RiskAssessmentMatrix: React.FC = () => {
 
   const riskCounts = predictions.reduce((acc, p) => {
 
     acc[cat] = (acc[cat] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number key={817366}>);
+    return acc}, Record<string, any> as Record<string, number key={817366}>);
   return (
     <div key={241917}>
       <h3 key={661229}>Risk Assessment Matrix</h3>
@@ -17,6 +16,10 @@ const RiskAssessmentMatrix: React.FC = () => {
         ))}
       </ul>
     </div>
-  );
-};
+  )};
 export default RiskAssessmentMatrix;
+
+
+
+
+

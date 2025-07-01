@@ -1,28 +1,26 @@
-import React from 'react.ts';
-import { useRiskProfile } from '@/hooks/useRiskProfile.ts';
-import { RiskLevel } from '@/types/money-maker.ts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.ts';
+﻿import React from 'react';
+import { useRiskProfile} from '@/hooks/useRiskProfile';
+import { RiskLevel} from '@/types/money-maker';
+import { Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select.ts';
-import { Slider } from '@/components/ui/slider.ts';
-import { Label } from '@/components/ui/label.ts';
-import { Switch } from '@/components/ui/switch.ts';
+//   SelectValue
+} from '@/components/ui/select';
+import { Slider} from '@/components/ui/slider';
+import { Label} from '@/components/ui/label';
+import { Switch} from '@/components/ui/switch';
 
 export function RiskProfileManager() {
-  const { riskProfile, updateRiskProfile, setRiskLevel } = useRiskProfile();
+  const { riskProfile, updateRiskProfile, setRiskLevel} = useRiskProfile();
 
   const handleRiskLevelChange = (value: string) => {
-    setRiskLevel(value as RiskLevel);
-  };
+    setRiskLevel(value as RiskLevel)};
 
-  const handleSliderChange = (key: keyof typeof riskProfile, value: number[]) => {
-    updateRiskProfile({ [key]: value[0] });
-  };
+  const handleSliderChange = (key: keyof typeof riskProfile, value: number[0]) => {
+    updateRiskProfile({ [key]: value[0]})};
 
   return (
     <Card className="w-full max-w-2xl mx-auto" key={613295}>
@@ -128,10 +126,9 @@ export function RiskProfileManager() {
                 updateRiskProfile({
                   diversificationRules: {
                     ...riskProfile.diversificationRules,
-                    maxBetsPerSport: value[0],
-                  },
-                })
-              }
+                    maxBetsPerSport: value[0]
+                  }
+                })}
             />
             <div className="text-sm text-muted-foreground" key={384606}>
               {riskProfile.diversificationRules.maxBetsPerSport} bets;
@@ -149,10 +146,9 @@ export function RiskProfileManager() {
                 updateRiskProfile({
                   diversificationRules: {
                     ...riskProfile.diversificationRules,
-                    maxBetsPerMarket: value[0],
-                  },
-                })
-              }
+                    maxBetsPerMarket: value[0]
+                  }
+                })}
             />
             <div className="text-sm text-muted-foreground" key={384606}>
               {riskProfile.diversificationRules.maxBetsPerMarket} bets;
@@ -170,10 +166,9 @@ export function RiskProfileManager() {
                 updateRiskProfile({
                   diversificationRules: {
                     ...riskProfile.diversificationRules,
-                    maxExposurePerEvent: value[0],
-                  },
-                })
-              }
+                    maxExposurePerEvent: value[0]
+                  }
+                })}
             />
             <div className="text-sm text-muted-foreground" key={384606}>
               {riskProfile.diversificationRules.maxExposurePerEvent}% of bankroll;
@@ -182,5 +177,9 @@ export function RiskProfileManager() {
         </div>
       </CardContent>
     </Card>
-  );
-}
+  )}
+
+
+
+
+

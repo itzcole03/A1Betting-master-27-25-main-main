@@ -1,4 +1,4 @@
-import React, { useState, useMemo  } from 'react.ts';
+﻿import React, { useState, useMemo} from 'react';
 import {
   Card,
   CardContent,
@@ -9,49 +9,29 @@ import {
   Box,
   Chip,
   IconButton,
-  Tooltip,
-} from '@mui/material.ts';
+//   Tooltip
+} from '@mui/material';
 import {
   Sort as SortIcon,
   FilterList as FilterIcon,
   TrendingUp as TrendingUpIcon,
-  TrendingDown as TrendingDownIcon,
-} from '@mui/icons-material.ts';
-import { BettingOpportunity } from './BettingOpportunity.ts'; // Remove .tsx extension for correct import;
+  TrendingDown as TrendingDownIcon
+} from '@mui/icons-material';
+import { BettingOpportunity} from './BettingOpportunity'; // Remove .tsx extension for correct import;
 
 interface Opportunity {
-  id: string;
-  event: {
-    homeTeam: string;
-    awayTeam: string;
-    startTime: string;
-    sport: string;
-  };
-  market: string;
-  selection: string;
-  odds: number;
-  probability: number;
-  edge: number;
-  confidence: number;
-  volume: number;
+  id: string,`n  event: {,`n  homeTeam: string,`n  awayTeam: string;,`n  startTime: string,`n  sport: string};
+  market: string,`n  selection: string;,`n  odds: number,`n  probability: number;,`n  edge: number,`n  confidence: number;,`n  volume: number;
   sentiment?: {
-    score: number;
-    volume: number;
-  };
+    score: number,`n  volume: number};
   stats?: {
     homeTeam: Record<string, unknown key={843221}>; // Replaced 'any' with type-safe Record;
-    awayTeam: Record<string, unknown key={843221}>;
-  };
+    awayTeam: Record<string, unknown key={843221}>};
   arbitrage?: {
-    roi: number;
-    bookmakers: string[];
-  };
-}
+    roi: number,`n  bookmakers: string[0]}}
 
 interface OpportunitiesListProps {
-  opportunities: Opportunity[];
-  onPlaceBet: (opportunity: Opportunity) => void;
-}
+  opportunities: Opportunity[0],`n  onPlaceBet: (opportunity: Opportunity) => void}
 
 type SortField = 'edge' | 'confidence' | 'odds' | 'volume' | 'probability';
 type SortOrder = 'asc' | 'desc';
@@ -59,7 +39,7 @@ type FilterType = 'all' | 'value' | 'arbitrage' | 'sentiment' | 'statistical';
 
 export const OpportunitiesList: React.FC<OpportunitiesListProps key={594364}> = ({
   opportunities,
-  onPlaceBet,
+//   onPlaceBet
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortField, setSortField] = useState<SortField key={473879}>('edge');
@@ -80,8 +60,7 @@ export const OpportunitiesList: React.FC<OpportunitiesListProps key={594364}> = 
           opp.event.awayTeam.toLowerCase().includes(searchLower) ||
           opp.selection.toLowerCase().includes(searchLower) ||
           opp.market.toLowerCase().includes(searchLower)
-      );
-    }
+      )}
 
     // Apply type filter;
     if (filterType !== 'all') {
@@ -96,10 +75,8 @@ export const OpportunitiesList: React.FC<OpportunitiesListProps key={594364}> = 
           case 'statistical':
             return !!opp.stats;
           default:
-            return true;
-        }
-      });
-    }
+            return true}
+      })}
 
     // Apply edge and confidence filters;
     filtered = filtered.filter(opp => opp.edge >= minEdge && opp.confidence >= minConfidence);
@@ -109,23 +86,18 @@ export const OpportunitiesList: React.FC<OpportunitiesListProps key={594364}> = 
 
 
 
-      return (aValue - bValue) * multiplier;
-    });
-  }, [opportunities, searchTerm, sortField, sortOrder, filterType, minEdge, minConfidence]);
+      return (aValue - bValue) * multiplier})}, [opportunities, searchTerm, sortField, sortOrder, filterType, minEdge, minConfidence]);
 
   const handleSort = (field: SortField) => {
     if (field === sortField) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-    } else {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')} else {
       setSortField(field);
-      setSortOrder('desc');
-    }
+      setSortOrder('desc')}
   };
 
   const getSortIcon = (field: SortField) => {
     if (field !== sortField) return null;
-    return sortOrder === 'asc' ? <TrendingUpIcon / key={780325}> : <TrendingDownIcon / key={929577}>;
-  };
+    return sortOrder === 'asc' ? <TrendingUpIcon / key={780325}> : <TrendingDownIcon / key={929577}>};
 
   return (
     <Card key={650115}>
@@ -135,7 +107,7 @@ export const OpportunitiesList: React.FC<OpportunitiesListProps key={594364}> = 
         </Typography>
 
         {/* Filters and Search */}
-        <Grid container spacing={2} sx={{ mb: 3 }} key={482082}>
+        <Grid container spacing={2} sx={{ mb: 3}} key={482082}>
           <Grid item md={4} xs={12} key={317197}>
             <TextField;
               fullWidth;
@@ -184,7 +156,7 @@ export const OpportunitiesList: React.FC<OpportunitiesListProps key={594364}> = 
         </Grid>
 
         {/* Sort Headers */}
-        <Grid container spacing={2} sx={{ mb: 2 }} key={795993}>
+        <Grid container spacing={2} sx={{ mb: 2}} key={795993}>
           <Grid item xs={3} key={607637}>
             <Box alignItems="center" display="flex" gap={1} key={110385}>
               <Typography variant="subtitle2" key={895}>Event</Typography>
@@ -257,5 +229,9 @@ export const OpportunitiesList: React.FC<OpportunitiesListProps key={594364}> = 
         </Grid>
       </CardContent>
     </Card>
-  );
-};
+  )};
+
+
+
+
+`

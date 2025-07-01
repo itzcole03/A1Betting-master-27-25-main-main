@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react.ts';
+﻿import React, { useState, useEffect} from 'react';
 import {
   TrendingUp,
   TrendingDown,
@@ -14,50 +14,30 @@ import {
   RefreshCw,
   Play,
   Pause,
-  Settings,
-} from 'lucide-react.ts';
+//   Settings
+} from 'lucide-react';
 import {
   useBetting,
   useUser,
-  useUI,
-} from '@/store/unified/UnifiedStoreManager.ts';
-import { dataPipeline } from '@/services/data/UnifiedDataPipeline.ts';
+//   useUI
+} from '@/store/unified/UnifiedStoreManager';
+import { dataPipeline} from '@/services/data/UnifiedDataPipeline';
 import type {
   OddsData,
-  GameData,
-} from '@/services/data/UnifiedDataPipeline.ts';
+//   GameData
+} from '@/services/data/UnifiedDataPipeline';
 
 interface BettingMarket {
-  id: string;
-  name: string;
-  sport: string;
-  event: string;
-  type: "moneyline" | "spread" | "total" | "props";
-  odds: OddsData[];
-  volume: number;
-  lastUpdate: Date;
-  trend: "up" | "down" | "stable";
-  valueScore: number;
-}
+  id: string,`n  name: string;,`n  sport: string,`n  event: string;,`n  type: "moneyline" | "spread" | "total" | "props",`n  odds: OddsData[0];,`n  volume: number,`n  lastUpdate: Date;,`n  trend: "up" | "down" | "stable",`n  valueScore: number}
 
 interface LiveGame {
-  id: string;
-  sport: string;
-  homeTeam: string;
-  awayTeam: string;
-  status: "scheduled" | "live" | "finished";
-  startTime: Date;
-  markets: BettingMarket[];
+  id: string,`n  sport: string;,`n  homeTeam: string,`n  awayTeam: string;,`n  status: "scheduled" | "live" | "finished",`n  startTime: Date;,`n  markets: BettingMarket[0];
   liveScore?: {
-    home: number;
-    away: number;
-    period: string;
-    timeRemaining?: string;
-  };
-}
+    home: number,`n  away: number;,`n  period: string;
+    timeRemaining?: string};}
 
 const UnifiedBettingInterface: React.FC = () => {
-  const [liveGames, setLiveGames] = useState<LiveGame[] key={878370}>([]);
+  const [liveGames, setLiveGames] = useState<LiveGame[0] key={878370}>([0]);
   const [selectedSport, setSelectedSport] = useState<string key={278855}>("all");
   const [selectedMarket, setSelectedMarket] = useState<string key={278855}>("all");
   const [searchTerm, setSearchTerm] = useState("");
@@ -66,15 +46,15 @@ const UnifiedBettingInterface: React.FC = () => {
   const [selectedBet, setSelectedBet] = useState<BettingMarket | null key={258372}>(null);
   const [stakeAmount, setStakeAmount] = useState<number key={430559}>(0);
 
-  const { bankroll, addBet, opportunities } = useBetting();
-  const { preferences } = useUser();
-  const { addToast } = useUI();
+  const { bankroll, addBet, opportunities} = useBetting();
+  const { preferences} = useUser();
+  const { addToast} = useUI();
 
   useEffect(() => {
     const loadLiveGames = async () => {
       try {
         // Mock live games data - in real app, this would come from data pipeline;
-        const mockGames: LiveGame[] = [
+        const mockGames: LiveGame[0] = [
           {
             id: "game-1",
             sport: "NBA",
@@ -82,11 +62,10 @@ const UnifiedBettingInterface: React.FC = () => {
             awayTeam: "Golden State Warriors",
             status: "live",
             startTime: new Date(),
-            liveScore: {
-              home: 78,
+            liveScore: {,`n  home: 78,
               away: 82,
               period: "3rd Quarter",
-              timeRemaining: "8:45",
+              timeRemaining: "8:45"
             },
             markets: [
               {
@@ -101,16 +80,16 @@ const UnifiedBettingInterface: React.FC = () => {
                     bookmaker: "DraftKings",
                     market: "moneyline",
                     outcomes: [
-                      { name: "Lakers", odds: 2.1 },
-                      { name: "Warriors", odds: 1.8 },
+                      { name: "Lakers", odds: 2.1},
+                      { name: "Warriors", odds: 1.8},
                     ],
-                    timestamp: Date.now(),
+                    timestamp: Date.now()
                   },
                 ],
                 volume: 85000,
                 lastUpdate: new Date(),
                 trend: "up",
-                valueScore: 8.5,
+                valueScore: 8.5
               },
               {
                 id: "market-2",
@@ -124,18 +103,18 @@ const UnifiedBettingInterface: React.FC = () => {
                     bookmaker: "FanDuel",
                     market: "totals",
                     outcomes: [
-                      { name: "Over 225.5", odds: 1.9 },
-                      { name: "Under 225.5", odds: 1.9 },
+                      { name: "Over 225.5", odds: 1.9},
+                      { name: "Under 225.5", odds: 1.9},
                     ],
-                    timestamp: Date.now(),
+                    timestamp: Date.now()
                   },
                 ],
                 volume: 92000,
                 lastUpdate: new Date(),
                 trend: "down",
-                valueScore: 7.2,
+                valueScore: 7.2
               },
-            ],
+            ]
           },
           {
             id: "game-2",
@@ -157,37 +136,34 @@ const UnifiedBettingInterface: React.FC = () => {
                     bookmaker: "BetMGM",
                     market: "spreads",
                     outcomes: [
-                      { name: "Celtics -4.5", odds: 1.91 },
-                      { name: "Heat +4.5", odds: 1.91 },
+                      { name: "Celtics -4.5", odds: 1.91},
+                      { name: "Heat +4.5", odds: 1.91},
                     ],
-                    timestamp: Date.now(),
+                    timestamp: Date.now()
                   },
                 ],
                 volume: 67000,
                 lastUpdate: new Date(),
                 trend: "stable",
-                valueScore: 9.1,
+                valueScore: 9.1
               },
-            ],
+            ]
           },
         ];
 
-        setLiveGames(mockGames);
-      } catch (error) {
+        setLiveGames(mockGames);} catch (error) {
         addToast({
           type: "error",
           title: "Loading Failed",
-          message: "Failed to load live betting markets",
-        });
-      }
+          message: "Failed to load live betting markets"
+        })}
     };
 
     loadLiveGames();
 
     if (isLiveMode) {
       const interval = setInterval(loadLiveGames, 5000); // Update every 5 seconds in live mode;
-      return () => clearInterval(interval);
-    }
+      return () => clearInterval(interval);}
   }, [isLiveMode, addToast]);
 
   const filteredMarkets = liveGames;
@@ -202,8 +178,7 @@ const UnifiedBettingInterface: React.FC = () => {
         market.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         market.event.toLowerCase().includes(searchTerm.toLowerCase());
 
-      return matchesSport && matchesMarket && matchesSearch;
-    })
+      return matchesSport && matchesMarket && matchesSearch;})
     .sort((a, b) => {
       switch (sortBy) {
         case "value":
@@ -215,9 +190,7 @@ const UnifiedBettingInterface: React.FC = () => {
             (a.odds[0]?.outcomes[0]?.odds || 0) -
             (b.odds[0]?.outcomes[0]?.odds || 0)
           );
-        default:
-          return 0;
-      }
+        default: return 0}
     });
 
   const placeBet = (
@@ -230,36 +203,33 @@ const UnifiedBettingInterface: React.FC = () => {
       addToast({
         type: "error",
         title: "Insufficient Funds",
-        message: "Bet amount exceeds available bankroll",
+        message: "Bet amount exceeds available bankroll"
       });
-      return;
-    }
+      return;}
 
     if (amount < 1) {
       addToast({
         type: "error",
         title: "Invalid Amount",
-        message: "Bet amount must be at least $1",
+        message: "Bet amount must be at least $1"
       });
-      return;
-    }
+      return;}
 
     addBet({
       eventId: market.id,
       amount,
       odds,
-      status: "active",
+      status: "active"
     });
 
     addToast({
       type: "success",
       title: "Bet Placed",
-      message: `${outcome} - $${amount} at ${odds}`,
+      message: `${outcome} - $${amount} at ${odds}`
     });
 
     setSelectedBet(null);
-    setStakeAmount(0);
-  };
+    setStakeAmount(0);};
 
   const getTrendIcon = (trend: string) => {
     switch (trend) {
@@ -267,18 +237,15 @@ const UnifiedBettingInterface: React.FC = () => {
         return <TrendingUp className="w-4 h-4 text-green-500" / key={247600}>;
       case "down":
         return <TrendingDown className="w-4 h-4 text-red-500" / key={886344}>;
-      default:
-        return <BarChart3 className="w-4 h-4 text-gray-500" / key={462754}>;
-    }
+      default: return <BarChart3 className="w-4 h-4 text-gray-500" / key={462754}>}
   };
 
   const getValueColor = (score: number) => {
     if (score >= 8) return "text-green-600 bg-green-100";
     if (score >= 6) return "text-yellow-600 bg-yellow-100";
-    return "text-red-600 bg-red-100";
-  };
+    return "text-red-600 bg-red-100";};
 
-  const MarketCard: React.FC<{ market: BettingMarket }> = ({ market }) => {
+  const MarketCard: React.FC<{ market: BettingMarket}> = ({ market}) => {
 
     return (
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 hover:shadow-md transition-shadow" key={219208}>
@@ -338,9 +305,8 @@ const UnifiedBettingInterface: React.FC = () => {
               key={index}
               onClick={() = key={204155}> {
                 setSelectedBet(market);
-                setStakeAmount(preferences.bankrollPercentage * bankroll);
-              }}
-              className="w-full flex items-center justify-between p-2 border border-gray-200 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                setStakeAmount(preferences.bankrollPercentage * bankroll);}}
+              className="w-full flex items-center justify-between p-2 border border-gray-200 dark: border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
             >
               <span className="font-medium text-gray-900 dark:text-white text-sm" key={712013}>
                 {outcome.name}
@@ -364,8 +330,7 @@ const UnifiedBettingInterface: React.FC = () => {
           </div>
         </div>
       </div>
-    );
-  };
+    )};
 
   return (
     <div className="space-y-6" key={501869}>
@@ -395,8 +360,7 @@ const UnifiedBettingInterface: React.FC = () => {
             className={`flex items-center space-x-2 px-3 py-2 rounded-lg font-medium transition-colors ${
               isLiveMode;
                 ? "bg-green-100 text-green-700 hover:bg-green-200"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
           >
             {isLiveMode ? (
               <Play className="w-4 h-4" / key={139624}>
@@ -595,8 +559,7 @@ const UnifiedBettingInterface: React.FC = () => {
                 type="number"
                 value={stakeAmount}
                 onChange={(e) = key={302264}>
-                  setStakeAmount(parseFloat(e.target.value) || 0)
-                }
+                  setStakeAmount(parseFloat(e.target.value) || 0)}
                 min="1"
                 max={bankroll}
                 step="0.01"
@@ -612,8 +575,7 @@ const UnifiedBettingInterface: React.FC = () => {
               <button;
                 onClick={() = key={206350}> {
                   setSelectedBet(null);
-                  setStakeAmount(0);
-                }}
+                  setStakeAmount(0);}}
                 className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
               >
                 Cancel;
@@ -627,8 +589,7 @@ const UnifiedBettingInterface: React.FC = () => {
                       outcome.name,
                       outcome.odds,
                       stakeAmount,
-                    );
-                  }
+                    );}
                 }}
                 disabled={stakeAmount <= 0 || stakeAmount > bankroll}
                 className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -640,7 +601,12 @@ const UnifiedBettingInterface: React.FC = () => {
         </div>
       )}
     </div>
-  );
-};
+  );};
 
 export default UnifiedBettingInterface;
+
+
+
+
+
+`

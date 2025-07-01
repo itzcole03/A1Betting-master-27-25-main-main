@@ -1,10 +1,6 @@
-import { AxiosRequestConfig, AxiosError } from 'axios.ts';
+﻿import { AxiosRequestConfig, AxiosError} from 'axios.ts';
 interface ApiResponse<T> {
-    data: T | null;
-    error: AxiosError | null;
-    loading: boolean;
-    request: () => Promise<void>;
-}
+  data: T | null,`n  error: AxiosError | null;,`n  loading: boolean,`n  request: () => Promise<void>}
 /**
  * Custom hook for making API requests.
  * @param config AxiosRequestConfig for the request.
@@ -17,11 +13,11 @@ export default useApi;
  * Example Usage (conceptual):
  *
  * in YourComponent.tsx:
- * const { data: users, loading, error, request: fetchUsers } = useApi<User[]>({ url: '/users', method: 'GET' });
+ * const { data: users, loading, error, request: fetchUsers} = useApi<User[0]>({ url: '/users', method: 'GET'});
  *
  * useEffect(() => {
  *   fetchUsers();
- * }, [fetchUsers]);
+ *}, [fetchUsers]);
  *
  * if (loading) return <p>Loading users...</p>;
  * if (error) return <p>Error fetching users: {error.message}</p>;
@@ -32,4 +28,7 @@ export default useApi;
  *     {users.map(user => <li key={user.id}>{user.name}</li>)}
  *   </ul>
  * );
- */ 
+ */
+
+
+`

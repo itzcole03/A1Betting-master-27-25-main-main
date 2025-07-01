@@ -1,4 +1,5 @@
-export declare function useInitializeApp(): {
-    isInitialized: boolean;
-    error: Error | null;
-};
+﻿export declare function useInitializeApp(): {
+  isInitialized: boolean,`n  error: Error | null};
+
+
+`

@@ -1,4 +1,4 @@
-import React, { useState  } from 'react.ts';
+﻿import React, { useState} from 'react';
 import {
   BarChart,
   Bar,
@@ -11,8 +11,8 @@ import {
   Scatter,
   LineChart,
   Line,
-  Cell,
-} from 'recharts.ts';
+//   Cell
+} from 'recharts';
 import type {
   BarProps,
   XAxisProps,
@@ -20,8 +20,8 @@ import type {
   TooltipProps,
   LegendProps,
   ScatterProps,
-  LineProps,
-} from 'recharts.ts';
+//   LineProps
+} from 'recharts';
 import {
   Box,
   Paper,
@@ -33,29 +33,26 @@ import {
   Tooltip as MuiTooltip,
   IconButton,
   Chip,
-  Stack,
-} from '@mui/material.ts';
-import InfoIcon from '@mui/icons-material/Info.ts';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp.ts';
-import TrendingDownIcon from '@mui/icons-material/TrendingDown.ts';
+//   Stack
+} from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import {
   ShapExplanation as ShapExplanationType,
-  ModelExplanation,
-} from '@/core/types/prediction.ts';
+//   ModelExplanation
+} from '@/core/types/prediction';
 
 interface ShapExplanationProps {
   explanation: ModelExplanation;
-  className?: string;
-}
+  className?: string}
 
 interface TabPanelProps {
   children?: React.ReactNode;
-  index: number;
-  value: number;
-}
+  index: number,`n  value: number}
 
 const TabPanel = (props: TabPanelProps) => {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, ...other} = props;
   return (
     <div;
       aria-labelledby={`shap-tab-${index}`}
@@ -64,35 +61,34 @@ const TabPanel = (props: TabPanelProps) => {
       role="tabpanel"
       {...other}
      key={211249}>
-      {value === index && <Box sx={{ p: 3 }} key={486541}>{children}</Box>}
+      {value === index && <Box sx={{ p: 3}} key={486541}>{children}</Box>}
     </div>
-  );
-};
+  )};
 
 export const ShapExplanation: React.FC<ShapExplanationProps key={139117}> = ({
   explanation,
-  className = '',
+  className = ''
 }) => {
   const [tabValue, setTabValue] = useState(0);
-  const { shapExplanation, modelName, confidence } = explanation;
+  const { shapExplanation, modelName, confidence} = explanation;
 
   // Prepare data for different visualizations;
-  const barChartData = (shapExplanation?.shapValues ?? []).map(value => ({
+  const barChartData = (shapExplanation?.shapValues ?? [0]).map(value => ({
     feature: value.feature,
     impact: value.impact,
     direction: value.direction,
     value: value.value,
-    confidence: value.confidence || 0.8,
+    confidence: value.confidence || 0.8
   }));
 
-  const scatterData = (shapExplanation?.shapValues ?? []).map(value => ({
+  const scatterData = (shapExplanation?.shapValues ?? [0]).map(value => ({
     feature: value.feature,
     impact: value.impact,
     value: value.value,
-    confidence: value.confidence || 0.8,
+    confidence: value.confidence || 0.8
   }));
 
-  const waterfallData = (shapExplanation?.shapValues ?? []).reduce(
+  const waterfallData = (shapExplanation?.shapValues ?? [0]).reduce(
     (acc, value, index) => {
 
       return [
@@ -102,16 +98,14 @@ export const ShapExplanation: React.FC<ShapExplanationProps key={139117}> = ({
           start: prevValue,
           end: prevValue + value.impact,
           impact: value.impact,
-          confidence: value.confidence || 0.8,
+          confidence: value.confidence || 0.8
         },
-      ];
-    },
-    [] as Array<{ feature: string; start: number; end: number; impact: number; confidence: number }>
+      ]},
+    [0] as Array<{ feature: string; start: number; end: number; impact: number; confidence: number}>
   );
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    setTabValue(newValue);
-  };
+    setTabValue(newValue)};
 
   // Calculate feature impact statistics;
 
@@ -169,15 +163,14 @@ export const ShapExplanation: React.FC<ShapExplanationProps key={139117}> = ({
           <ResponsiveContainer height="100%" width="100%" key={191291}>
             <BarChart data={barChartData} layout="vertical" key={610633}>
               <XAxis type="number" / key={123561}>
-              <YAxis dataKey="feature" tick={{ fontSize: 12 }} type="category" width={150} / key={195347}>
+              <YAxis dataKey="feature" tick={{ fontSize: 12}} type="category" width={150} / key={195347}>
               <Tooltip;
                 formatter={(value: number, name: string, props: any) = key={95345}> {
 
                   return [
                     `${item.impact.toFixed(4)} (${item.impact > 0 ? 'Positive' : 'Negative'} Impact)`,
                     'Impact',
-                  ];
-                }}
+                  ]}}
                 labelFormatter={(label: string) => `Feature: ${label}`}
               />
               <Legend / key={913243}>
@@ -185,7 +178,7 @@ export const ShapExplanation: React.FC<ShapExplanationProps key={139117}> = ({
                 dataKey="impact"
                 fill="#8884d8"
                 isAnimationActive={false}
-                label={{ position: 'right' }}
+                label={{ position: 'right'}}
                key={537095}>
                 {barChartData.map((entry, index) => (
                   <Cell;
@@ -212,8 +205,7 @@ export const ShapExplanation: React.FC<ShapExplanationProps key={139117}> = ({
                   return [
                     `${item.impact.toFixed(4)} (${item.impact > 0 ? 'Positive' : 'Negative'} Impact)`,
                     'Impact',
-                  ];
-                }}
+                  ]}}
                 labelFormatter={(label: string) => `Feature: ${label}`}
               />
               <Legend / key={913243}>
@@ -243,14 +235,13 @@ export const ShapExplanation: React.FC<ShapExplanationProps key={139117}> = ({
                   return [
                     `${item.impact.toFixed(4)} (${item.impact > 0 ? 'Positive' : 'Negative'} Impact)`,
                     'Impact',
-                  ];
-                }}
+                  ]}}
                 labelFormatter={(label: string) => `Feature: ${label}`}
               />
               <Legend / key={913243}>
               <Line;
                 dataKey="end"
-                dot={{ fill: '#8884d8' }}
+                dot={{ fill: '#8884d8'}}
                 isAnimationActive={false}
                 stroke="#8884d8"
                 type="monotone"
@@ -260,5 +251,9 @@ export const ShapExplanation: React.FC<ShapExplanationProps key={139117}> = ({
         </Box>
       </TabPanel>
     </Paper>
-  );
-};
+  )};
+
+
+
+
+`

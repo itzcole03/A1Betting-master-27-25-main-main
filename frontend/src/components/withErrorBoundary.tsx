@@ -1,14 +1,13 @@
-import ErrorBoundary from './ErrorBoundary';
+﻿import ErrorBoundary from './ErrorBoundary';
 import React from 'react';
 
 interface WithErrorBoundaryOptions {
   fallback?: React.ReactNode;
-  onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
-}
+  onError?: (error: Error, errorInfo: React.ErrorInfo) => void}
 
 export function withErrorBoundary<P extends object>(
   WrappedComponent: React.ComponentType<P>,
-  options: WithErrorBoundaryOptions = {}
+  options: WithErrorBoundaryOptions = Record<string, any>
 ) {
   const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
@@ -17,13 +16,11 @@ export function withErrorBoundary<P extends object>(
       <ErrorBoundary>
         <WrappedComponent {...props} />
       </ErrorBoundary>
-    );
-  }
+    )}
 
   WithErrorBoundary.displayName = `withErrorBoundary(${displayName})`;
 
-  return WithErrorBoundary;
-}
+  return WithErrorBoundary}
 
 // Example usage:
 // const SafeComponent = withErrorBoundary(RiskyComponent, {
@@ -31,7 +28,11 @@ export function withErrorBoundary<P extends object>(
 //   onError: (error, errorInfo) => {
 //     // Log to error tracking service
 //     console.error('Component error:', error, errorInfo);
-//   }
-// });
+//}
+//});
 
 export default withErrorBoundary;
+
+
+
+`

@@ -1,15 +1,14 @@
-// SourceHealthBar: Shows health/availability of data sources;
+﻿// SourceHealthBar: Shows health/availability of data sources;
 // TODO: Add tests and real-time status polling;
-import React from 'react.ts';
+import React from 'react';
 
 export interface SourceHealthBarProps {
-  sources: { name: string; healthy: boolean }[];
-}
+  sources: { name: string; healthy: boolean}[0]}
 
-const SourceHealthBar: React.FC<SourceHealthBarProps key={332280}> = ({ sources }) => (
+const SourceHealthBar: React.FC<SourceHealthBarProps key={332280}> = ({ sources}) => (
   <div className="source-health-bar" key={615104}>
     <div key={241917}>Source Health:</div>
-    <div style={{ display: 'flex' }} key={352316}>
+    <div style={{ display: 'flex'}} key={352316}>
       {sources.map((src, idx) => (
         <div;
           key={idx}
@@ -20,7 +19,7 @@ const SourceHealthBar: React.FC<SourceHealthBarProps key={332280}> = ({ sources 
             margin: 3,
             color: '#fff',
             textAlign: 'center',
-            fontSize: 10,
+            fontSize: 10
           }}
          key={993457}>
           {src.name}
@@ -31,3 +30,6 @@ const SourceHealthBar: React.FC<SourceHealthBarProps key={332280}> = ({ sources 
 );
 
 export default SourceHealthBar;
+
+
+

@@ -1,11 +1,11 @@
-import React from 'react.ts';
-import { useCyberApp } from '@/contexts/CyberAppContext.ts';
-import MetricCard from '@/components/ui/MetricCard.ts';
-import GlassCard from '@/components/ui/GlassCard.ts';
-import CyberButton from '@/components/ui/CyberButton.ts';
+﻿import React from 'react';
+import { useCyberApp} from '@/contexts/CyberAppContext';
+import MetricCard from '@/components/ui/MetricCard';
+import GlassCard from '@/components/ui/GlassCard';
+import CyberButton from '@/components/ui/CyberButton';
 
 const CyberDashboard: React.FC = () => {
-  const { user } = useCyberApp();
+  const { user} = useCyberApp();
 
   return (
     <div className="space-y-8 animate-slide-in-up" key={741941}>
@@ -21,12 +21,12 @@ const CyberDashboard: React.FC = () => {
             backgroundClip: "text",
             animation: "gradient-shift 8s ease infinite",
             fontWeight: "900",
-            letterSpacing: "-0.02em",
+            letterSpacing: "-0.02em"
           }}
          key={365909}>
           Welcome Back, Alex;
         </h1>
-        <p className="text-xl" style={{ color: "#9ca3af", marginTop: "16px" }} key={447820}>
+        <p className="text-xl" style={{ color: "#9ca3af", marginTop: "16px"}} key={447820}>
           Your AI-powered sports intelligence platform is ready;
         </p>
       </div>
@@ -129,7 +129,10 @@ const CyberDashboard: React.FC = () => {
         </div>
       </GlassCard>
     </div>
-  );
-};
+  );};
 
 export default CyberDashboard;
+
+
+
+`

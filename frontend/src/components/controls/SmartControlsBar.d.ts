@@ -1,5 +1,9 @@
-interface SmartControlsBarProps {
-    className?: string;
-}
-export declare function SmartControlsBar({ className }: SmartControlsBarProps): import("react/jsx-runtime").JSX.Element;
-export {};
+﻿interface SmartControlsBarProps {
+  className?: string;}
+export declare function SmartControlsBar({
+  className
+}: SmartControlsBarProps): import('react/jsx-runtime').JSX.Element;
+export Record<string, any>;
+
+
+

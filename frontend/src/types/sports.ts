@@ -1,78 +1,37 @@
-export interface Event {
-  id: string;
-  name: string;
-  sport: string;
-  league: string;
-  startTime: string;
-  status: 'upcoming' | 'live' | 'finished' | 'cancelled';
-  homeTeam: Team;
-  awayTeam: Team;
-  venue: Venue;
-  metadata: {
-    weather?: Weather;
-    attendance?: number;
-    broadcasters?: string[];
-    officials?: Official[];
-  };
-}
+﻿export interface Event {
+  id: string,`n  name: string;,`n  sport: string,`n  league: string;,`n  startTime: string,`n  status: 'upcoming' | 'live' | 'finished' | 'cancelled';,`n  homeTeam: Team,`n  awayTeam: Team;,`n  venue: Venue,`n  metadata: {
+    weather?: Weather
+    attendance?: number
+    broadcasters?: string[0];
+    officials?: Official[0];};}
 
 export interface Team {
-  id: string;
-  name: string;
-  abbreviation: string;
-  logo?: string;
-  stats?: TeamStats;
-}
+  id: string,`n  name: string;,`n  abbreviation: string;
+  logo?: string
+  stats?: TeamStats}
 
 export interface TeamStats {
-  wins: number;
-  losses: number;
-  draws: number;
-  pointsFor: number;
-  pointsAgainst: number;
-  streak: number;
-  lastFive: Array<'W' | 'L' | 'D'>;
-}
+  wins: number,`n  losses: number;,`n  draws: number,`n  pointsFor: number;,`n  pointsAgainst: number,`n  streak: number;,`n  lastFive: Array<'W' | 'L' | 'D'>}
 
 export interface Venue {
-  id: string;
-  name: string;
-  city: string;
-  country: string;
-  capacity?: number;
-  surface?: string;
+  id: string,`n  name: string;,`n  city: string,`n  country: string;
+  capacity?: number
+  surface?: string
   coordinates?: {
-    latitude: number;
-    longitude: number;
-  };
-}
+    latitude: number,`n  longitude: number}}
 
 export interface Weather {
-  temperature: number;
-  condition: string;
-  windSpeed: number;
-  humidity: number;
-  precipitation: number;
-}
+  temperature: number,`n  condition: string;,`n  windSpeed: number,`n  humidity: number;,`n  precipitation: number}
 
 export interface Official {
-  id: string;
-  name: string;
-  role: string;
-}
+  id: string,`n  name: string;,`n  role: string}
 
 export interface Market {
-  id: string;
-  name: string;
-  type: MarketType;
-  status: 'open' | 'closed' | 'suspended';
-  selections: Selection[];
+  id: string,`n  name: string;,`n  type: MarketType,`n  status: 'open' | 'closed' | 'suspended';,`n  selections: Selection[0];
   metadata?: {
-    total?: number;
-    handicap?: number;
-    period?: string;
-  };
-}
+    total?: number
+    handicap?: number
+    period?: string};}
 
 export type MarketType =
   | 'match_winner'
@@ -86,72 +45,32 @@ export type MarketType =
   | 'draw_no_bet';
 
 export interface Selection {
-  id: string;
-  name: string;
-  odds: Odds;
-  status: 'active' | 'suspended' | 'settled';
+  id: string,`n  name: string;,`n  odds: Odds,`n  status: 'active' | 'suspended' | 'settled';
   result?: 'won' | 'lost' | 'void';
   metadata?: {
-    score?: number;
-    handicap?: number;
-    total?: number;
-  };
-}
+    score?: number
+    handicap?: number
+    total?: number};}
 
 export interface Odds {
-  value: number;
-  type: 'decimal' | 'fractional' | 'american';
-  timestamp: string;
-  provider: string;
+  value: number,`n  type: 'decimal' | 'fractional' | 'american';,`n  timestamp: string,`n  provider: string;
   movement?: {
-    previous: number;
-    change: number;
-    direction: 'up' | 'down' | 'unchanged';
-  };
-}
+    previous: number,`n  change: number;,`n  direction: 'up' | 'down' | 'unchanged'}}
 
 export interface LiveData {
-  eventId: string;
-  timestamp: string;
-  score: {
-    home: number;
-    away: number;
-  };
-  stats: {
-    possession: {
-      home: number;
-      away: number;
-    };
-    shots: {
-      home: number;
-      away: number;
-    };
-    shotsOnTarget: {
-      home: number;
-      away: number;
-    };
-    corners: {
-      home: number;
-      away: number;
-    };
-    fouls: {
-      home: number;
-      away: number;
-    };
-    yellowCards: {
-      home: number;
-      away: number;
-    };
-    redCards: {
-      home: number;
-      away: number;
-    };
-  };
-  events: Array<{
-    type: string;
-    time: number;
-    team: 'home' | 'away';
-    player?: string;
-    description: string;
-  }>;
-}
+  eventId: string,`n  timestamp: string;,`n  score: {,`n  home: number;,`n  away: number};
+  stats: {,`n  possession: {,`n  home: number,`n  away: number};
+    shots: {,`n  home: number;,`n  away: number};
+    shotsOnTarget: {,`n  home: number;,`n  away: number};
+    corners: {,`n  home: number;,`n  away: number};
+    fouls: {,`n  home: number;,`n  away: number};
+    yellowCards: {,`n  home: number;,`n  away: number};
+    redCards: {,`n  home: number;,`n  away: number}};
+  events: Array<{,`n  type: string;,`n  time: number,`n  team: 'home' | 'away';
+    player?: string
+    description: string}>}
+
+
+
+
+`

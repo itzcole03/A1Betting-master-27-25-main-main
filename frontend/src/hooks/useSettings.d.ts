@@ -1,10 +1,7 @@
-interface Settings {
-    darkMode: boolean;
-    useMocks: boolean;
-    logLevel: 'debug' | 'info' | 'warning' | 'error';
-}
-export declare const useSettings: () => {
-    settings: Settings;
-    updateSettings: (newSettings: Partial<Settings>) => void;
-};
-export {};
+﻿interface Settings {
+  darkMode: boolean,`n  useMocks: boolean;,`n  logLevel: 'debug' | 'info' | 'warning' | 'error'}
+export declare const useSettings: () => {,`n  settings: Settings;,`n  updateSettings: (newSettings: Partial<Settings>) => void};
+export Record<string, any>;
+
+
+`

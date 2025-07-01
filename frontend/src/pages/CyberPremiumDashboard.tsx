@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import MetricCard from '@/components/ui/MetricCard.ts';
+﻿import React from 'react';
+import MetricCard from '@/components/ui/MetricCard';
 
 const CyberPremiumDashboard: React.FC = () => {
   return (
@@ -38,7 +38,9 @@ const CyberPremiumDashboard: React.FC = () => {
         / key={857249}>
       </div>
     </div>
-  );
-};
+  );};
 
 export default CyberPremiumDashboard;
+
+
+

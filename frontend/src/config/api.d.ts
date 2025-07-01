@@ -1,14 +1,6 @@
-export declare const API_CONFIG: {
-    theOdds: {
-        apiKey: any;
-        baseUrl: string;
-    };
-    sportRadar: {
-        apiKey: any;
-        baseUrl: string;
-    };
-    dailyFantasy: {
-        apiKey: any;
-        baseUrl: string;
-    };
-};
+﻿export declare const API_CONFIG: {,`n  theOdds: {,`n  apiKey: any,`n  baseUrl: string};
+  sportRadar: {,`n  apiKey: any;,`n  baseUrl: string};
+  dailyFantasy: {,`n  apiKey: any;,`n  baseUrl: string};};
+
+
+`

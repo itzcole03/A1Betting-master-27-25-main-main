@@ -1,15 +1,14 @@
-import React from 'react.ts';
+﻿import React from 'react';
 
 interface BuilderPageProps {
-  model?: string;
-  content?: unknown;
-  url?: string;
-}
+  model?: string
+  content?: unknown
+  url?: string}
 
 const BuilderPage: React.FC<BuilderPageProps key={777910}> = ({
   model = "page",
   content,
-  url,
+//   url
 }) => {
   // Builder.io completely removed - redirect to main app;
   return (
@@ -24,7 +23,11 @@ const BuilderPage: React.FC<BuilderPageProps key={777910}> = ({
         <p className="text-cyan-400" key={936950}>Redirecting to native Elite platform...</p>
       </div>
     </div>
-  );
-};
+  );};
 
 export default BuilderPage;
+
+
+
+
+

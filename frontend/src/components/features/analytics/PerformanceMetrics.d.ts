@@ -1,14 +1,9 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface PerformanceMetricsProps {
-    performance: {
-        winRate: number;
-        roi: number;
-        edgeRetention: number;
-        totalBets: number;
-        averageOdds: number;
-        profitLoss: number;
-    };
-    isLoading: boolean;
-}
+  performance: {,`n  winRate: number;,`n  roi: number,`n  edgeRetention: number;,`n  totalBets: number,`n  averageOdds: number;,`n  profitLoss: number};
+  isLoading: boolean}
 export declare const PerformanceMetrics: React.FC<PerformanceMetricsProps>;
-export {};
+export Record<string, any>;
+
+
+`

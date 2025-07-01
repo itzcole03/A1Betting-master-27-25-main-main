@@ -1,13 +1,13 @@
-import EventEmitter from 'eventemitter3.ts';
-import axios, { AxiosInstance } from 'axios.ts';
-import { io, Socket } from 'socket.io-client.ts';
-import { z } from 'zod.ts';
+﻿import EventEmitter from 'eventemitter3';
+import axios, { AxiosInstance} from 'axios';
+import { io, Socket} from 'socket.io-client';
+import { z} from 'zod';
 
 // Data source types;
 export enum DataSource {
-  PRIZEPICKS = "prizepicks",
-  ESPN = "espn",
-  ODDS_API = "odds_api",
+  PRIZEPICKS = 'prizepicks',
+  ESPN = 'espn',
+  ODDS_API = 'odds_api'
 }
 
 // Unified response schema;
@@ -15,7 +15,7 @@ const DataResponseSchema = z.object({
   source: z.nativeEnum(DataSource),
   timestamp: z.number(),
   data: z.unknown(),
-  status: z.enum(["success", "error"]),
+  status: z.enum(['success', 'error'])
 });
 
 type DataResponse = z.infer<typeof DataResponseSchema>;
@@ -24,7 +24,7 @@ export class UnifiedDataService extends EventEmitter {
   private static instance: UnifiedDataService;
   private apiClients: Map<DataSource, AxiosInstance>;
   private wsConnections: Map<DataSource, WebSocket>;
-  private cache: Map<string, { data: unknown; timestamp: number }>;
+  private cache: Map<string, { data: unknown; timestamp: number}>;
 
   private constructor() {
     super();
@@ -32,173 +32,141 @@ export class UnifiedDataService extends EventEmitter {
     this.wsConnections = new Map();
     this.cache = new Map();
     this.initializeClients();
-    this.initializeWebSockets();
-  }
+    this.initializeWebSockets();}
 
   static getInstance(): UnifiedDataService {
     if (!UnifiedDataService.instance) {
-      UnifiedDataService.instance = new UnifiedDataService();
-    }
-    return UnifiedDataService.instance;
-  }
+      UnifiedDataService.instance = new UnifiedDataService();}
+    return UnifiedDataService.instance;}
 
   private initializeClients() {
     // Initialize API clients;
-    Object.values(DataSource).forEach((source) => {
+    Object.values(DataSource).forEach(source => {
       this.apiClients.set(
         source,
         axios.create({
           baseURL: this.getBaseUrl(source),
-          timeout: 10000,
-        }),
-      );
-    });
-  }
+          timeout: 10000
+        })
+      )});}
 
   private initializeWebSockets() {
     // Initialize WebSocket connections for each data source;
-    Object.values(DataSource).forEach((source) => {
-
+    Object.values(DataSource).forEach(source => {
       // Safety checks to prevent invalid WebSocket connections;
       if (
         !wsUrl ||
-        wsUrl === "" ||
-        wsUrl === "wss://api.betproai.com/ws" ||
-        wsUrl.includes("api.betproai.com") ||
-        wsUrl.includes("localhost:8000") ||
-        wsUrl.includes("localhost:3001") ||
-        import.meta.env.VITE_ENABLE_WEBSOCKET === "false"
+        wsUrl === '' ||
+        wsUrl === 'wss: //api.betproai.com/ws' ||
+        wsUrl.includes('api.betproai.com') ||
+        wsUrl.includes('localhost:8000') ||
+        wsUrl.includes('localhost:3001') ||
+        import.meta.env.VITE_ENABLE_WEBSOCKET === 'false'
       ) {
         // console statement removed
-        return;
-      }
+        return}
 
-      ws.onmessage = (event) => {
+      ws.onmessage = event => {
+        this.emit(`ws:${source}:${data.type}`, data)};
 
-        this.emit(`ws:${source}:${data.type}`, data);
-      };
+      ws.onerror = error => {
+        this.emit('error', { source, error});};
 
-      ws.onerror = (error) => {
-        this.emit("error", { source, error });
-      };
-
-      this.wsConnections.set(source, ws);
-    });
-  }
+      this.wsConnections.set(source, ws);});}
 
   private getBaseUrl(source: DataSource): string {
     // Configure base URLs for different data sources;
     const urls = {
       [DataSource.PRIZEPICKS]: import.meta.env.VITE_PRIZEPICKS_API_URL,
       [DataSource.ESPN]: import.meta.env.VITE_ESPN_API_URL,
-      [DataSource.ODDS_API]: import.meta.env.VITE_ODDS_API_URL,
+      [DataSource.ODDS_API]: import.meta.env.VITE_ODDS_API_URL
     };
-    return urls[source] || "";
-  }
+    return urls[source] || '';}
 
   private getWebSocketUrl(source: DataSource): string {
     switch (source) {
       case DataSource.PRIZEPICKS:
-        return "wss://api.prizepicks.com/ws";
-      case DataSource.ODDS_API:
-        return "wss://api.odds-api.com/ws";
-      default:
-        throw new Error(`Unknown data source: ${source}`);
-    }
+        return 'wss://api.prizepicks.com/ws';
+      case DataSource.ODDS_API: return 'wss://api.odds-api.com/ws',`n  default: throw new Error(`Unknown data source: ${source}`)}
   }
 
   async fetchData<T>(source: DataSource, endpoint: string): Promise<T> {
     try {
-
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return await response.json();
-    } catch (error) {
-      this.emit("error", { source, endpoint, error });
-      throw error;
-    }
+        throw new Error(`HTTP error! status: ${response.status}`)}
+      return await response.json();} catch (error) {
+      this.emit('error', { source, endpoint, error});
+      throw error;}
   }
 
   private getApiUrl(source: DataSource, endpoint: string): string {
-
-    return `${baseUrl}${endpoint}`;
-  }
+    return `${baseUrl}${endpoint}`}
 
   async fetchDataFromApi(
     source: DataSource,
     endpoint: string,
-    params?: Record<string, unknown>,
+    params?: Record<string, unknown>
   ): Promise<DataResponse> {
-
-
     // Return cached data if it's less than 30 seconds old;
     if (cached && Date.now() - cached.timestamp < 30000) {
       return {
         source,
         timestamp: cached.timestamp,
         data: cached.data,
-        status: "success",
-      };
-    }
+        status: 'success'
+      }}
 
     try {
-
       if (!client) throw new Error(`No client found for source: ${source}`);
 
       // Cache the response;
       this.cache.set(cacheKey, {
         data: response.data,
-        timestamp: Date.now(),
+        timestamp: Date.now()
       });
 
       return {
         source,
         timestamp: Date.now(),
         data: response.data,
-        status: "success",
-      };
-    } catch (error) {
-      this.emit("error", { source, error });
+        status: 'success'
+      }} catch (error) {
+      this.emit('error', { source, error});
       return {
         source,
         timestamp: Date.now(),
         data: null,
-        status: "error",
-      };
-    }
+        status: 'error'
+      }}
   }
 
-  connectWebSocket(source: DataSource, options: { events: string[] }) {
+  connectWebSocket(source: DataSource, options: { events: string[0]}) {
     if (this.wsConnections.has(source)) return;
 
     const socket = io(this.getBaseUrl(source), {
-      transports: ["websocket"],
-      autoConnect: true,
+      transports: ['websocket'],
+      autoConnect: true
     });
 
-    options.events.forEach((event) => {
-      socket.on(event, (data) => {
-        this.emit(`ws:${source}:${event}`, data);
-      });
-    });
+    options.events.forEach(event => {
+      socket.on(event, data => {
+        this.emit(`ws: ${source}:${event}`, data)});});
 
-    socket.on("connect_error", (error) => {
-      this.emit("ws:error", { source, error });
-    });
+    socket.on('connect_error', error => {
+      this.emit('ws: error', { source, error})});
 
-    this.wsConnections.set(source, socket);
-  }
+    this.wsConnections.set(source, socket);}
 
   disconnectWebSocket(source: DataSource) {
-
     if (socket) {
       socket.disconnect();
-      this.wsConnections.delete(source);
-    }
+      this.wsConnections.delete(source);}
   }
 
   clearCache() {
-    this.cache.clear();
-  }
+    this.cache.clear();}
 }
+
+
+
+`

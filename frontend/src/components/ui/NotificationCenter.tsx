@@ -1,15 +1,15 @@
-import React, { useEffect, useState  } from 'react.ts';
-import { Button, Card, Badge, Icon } from './UnifiedUI.js';
+﻿import React, { useEffect, useState} from 'react';
+import { Button, Card, Badge, Icon} from './UnifiedUI.js';
 import {
   UnifiedNotificationService,
-  Notification,
+//   Notification
 } from '@/services/unified/UnifiedNotificationService.js';
-import { UnifiedStateService } from '@/services/unified/UnifiedStateService.js';
-import { UnifiedServiceRegistry } from '@/services/unified/UnifiedServiceRegistry.js';
-import { UnifiedWebSocketService } from '@/services/unified/UnifiedWebSocketService.js';
+import { UnifiedStateService} from '@/services/unified/UnifiedStateService.js';
+import { UnifiedServiceRegistry} from '@/services/unified/UnifiedServiceRegistry.js';
+import { UnifiedWebSocketService} from '@/services/unified/UnifiedWebSocketService.js';
 
 export const NotificationCenter: React.FC = () => {
-  const [notifications, setNotifications] = useState<Notification[] key={226405}>([]);
+  const [notifications, setNotifications] = useState<Notification[0] key={226405}>([0]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -21,8 +21,7 @@ export const NotificationCenter: React.FC = () => {
     const updateNotifications = () => {
 
       setNotifications(state.notifications);
-      setUnreadCount(notificationService.getUnreadCount());
-    };
+      setUnreadCount(notificationService.getUnreadCount());};
 
     // Initial update;
     updateNotifications();
@@ -32,22 +31,17 @@ export const NotificationCenter: React.FC = () => {
 
     // Subscribe to real-time updates;
     const unsubscribe = webSocketService.subscribe('notifications', (_data: unknown) => {
-      updateNotifications();
-    });
+      updateNotifications()});
 
     return () => {
       unsubscribe();
-      webSocketService.disconnect();
-    };
-  }, [notificationService, stateService, webSocketService]);
+      webSocketService.disconnect();};}, [notificationService, stateService, webSocketService]);
 
   const handleMarkAsRead = (id: string) => {
-    notificationService.markAsRead(id);
-  };
+    notificationService.markAsRead(id)};
 
   const handleClearAll = () => {
-    notificationService.clearAll();
-  };
+    notificationService.clearAll();};
 
   const getNotificationIcon = (type: Notification['type']) => {
     switch (type) {
@@ -57,9 +51,7 @@ export const NotificationCenter: React.FC = () => {
         return 'x-circle';
       case 'warning':
         return 'alert-triangle';
-      default:
-        return 'info';
-    }
+      default: return 'info'}
   };
 
   const getNotificationVariant = (
@@ -72,9 +64,7 @@ export const NotificationCenter: React.FC = () => {
         return 'danger';
       case 'warning':
         return 'warning';
-      default:
-        return 'primary';
-    }
+      default: return 'primary'}
   };
 
   return (
@@ -114,8 +104,7 @@ export const NotificationCenter: React.FC = () => {
                    key={853746}>
                     <div className="flex items-start space-x-3" key={717969}>
                       <Icon;
-                        className={`w-5 h-5 ${notification.read ? 'text-gray-400' : 'text-blue-500'
-                          }`}
+                        className={`w-5 h-5 ${notification.read ? 'text-gray-400' : 'text-blue-500'}`}
                         name={getNotificationIcon(notification.type)}
                       / key={534101}>
                       <div className="flex-1" key={745195}>
@@ -145,5 +134,8 @@ export const NotificationCenter: React.FC = () => {
         </Card>
       )}
     </div>
-  );
-};
+  );};
+
+
+
+`

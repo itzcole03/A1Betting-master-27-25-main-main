@@ -1,10 +1,10 @@
-import { UnifiedServiceRegistry } from './services/unified/UnifiedServiceRegistry.ts';
-import { UnifiedLogger } from './unified/UnifiedLogger.ts';
-import { UnifiedErrorService } from './services/unified/UnifiedErrorService.ts';
-import { UnifiedWebSocketService } from './services/unified/UnifiedWebSocketService.ts';
-import { UnifiedStateService } from './services/unified/UnifiedStateService.ts';
-import { UnifiedSettingsService } from './services/unified/UnifiedSettingsService.ts';
-import { UnifiedNotificationService } from './services/unified/UnifiedNotificationService.ts';
+﻿import { UnifiedServiceRegistry} from './services/unified/UnifiedServiceRegistry';
+import { UnifiedLogger} from './unified/UnifiedLogger';
+import { UnifiedErrorService} from './services/unified/UnifiedErrorService';
+import { UnifiedWebSocketService} from './services/unified/UnifiedWebSocketService';
+import { UnifiedStateService} from './services/unified/UnifiedStateService';
+import { UnifiedSettingsService} from './services/unified/UnifiedSettingsService';
+import { UnifiedNotificationService} from './services/unified/UnifiedNotificationService';
 
 export class Application {
   private static instance: Application;
@@ -24,15 +24,12 @@ export class Application {
     this.stateService = this.serviceRegistry.getService<UnifiedStateService>('state');
     this.settingsService = this.serviceRegistry.getService<UnifiedSettingsService>('settings');
     this.notificationService =
-      this.serviceRegistry.getService<UnifiedNotificationService>('notification');
-  }
+      this.serviceRegistry.getService<UnifiedNotificationService>('notification');}
 
   public static getInstance(): Application {
     if (!Application.instance) {
-      Application.instance = new Application();
-    }
-    return Application.instance;
-  }
+      Application.instance = new Application();}
+    return Application.instance;}
 
   public async initialize(): Promise<void> {
     try {
@@ -50,11 +47,9 @@ export class Application {
       // Load user preferences;
       await this.loadUserPreferences();
 
-      this.logger.info('Application initialized successfully');
-    } catch (error) {
-      this.logger.error('Failed to initialize application', { error });
-      throw error;
-    }
+      this.logger.info('Application initialized successfully');} catch (error) {
+      this.logger.error('Failed to initialize application', { error});
+      throw error;}
   }
 
   private setupErrorHandling(): void {
@@ -63,18 +58,15 @@ export class Application {
       this.errorService.handleError(error || message, {
         code: 'GLOBAL_ERROR',
         source: source || 'unknown',
-        details: { lineno, colno },
-      });
-    };
+        details: { lineno, colno}
+      })};
 
     // Unhandled promise rejection handler;
     window.onunhandledrejection = event => {
       this.errorService.handleError(event.reason, {
         code: 'UNHANDLED_REJECTION',
-        source: 'promise',
-      });
-    };
-  }
+        source: 'promise'
+      })};}
 
   private setupWebSocket(): void {
     this.websocketService.connect();
@@ -86,27 +78,22 @@ export class Application {
         'success',
         'Connection Established',
         'Real-time updates are now active'
-      );
-    });
+      );});
 
     this.websocketService.on('connection:closed', () => {
       this.logger.warn('WebSocket connection closed');
-      this.notificationService.notify('warning', 'Connection Lost', 'Attempting to reconnect...');
-    });
+      this.notificationService.notify('warning', 'Connection Lost', 'Attempting to reconnect...');});
 
     this.websocketService.on('connection:error', error => {
-      this.logger.error('WebSocket error', { error });
+      this.logger.error('WebSocket error', { error});
       this.notificationService.notify(
         'error',
         'Connection Error',
         'Failed to establish real-time connection'
-      );
-    });
-  }
+      );});}
 
   private async loadUserPreferences(): Promise<void> {
     try {
-
       this.stateService.setStateValue('preferences', settings);
 
       // Apply theme;
@@ -115,11 +102,9 @@ export class Application {
       // Apply language;
       document.documentElement.setAttribute('lang', settings.language);
 
-      this.logger.info('User preferences loaded successfully');
-    } catch (error) {
-      this.logger.error('Failed to load user preferences', { error });
-      throw error;
-    }
+      this.logger.info('User preferences loaded successfully');} catch (error) {
+      this.logger.error('Failed to load user preferences', { error});
+      throw error;}
   }
 
   public async shutdown(): Promise<void> {
@@ -129,16 +114,15 @@ export class Application {
       // Shutdown service registry;
       await this.serviceRegistry.shutdown();
 
-      this.logger.info('Application shut down successfully');
-    } catch (error) {
-      this.logger.error('Failed to shut down application', { error });
-      throw error;
-    }
-  }
-}
+      this.logger.info('Application shut down successfully');} catch (error) {
+      this.logger.error('Failed to shut down application', { error});
+      throw error;}
+  }}
 
 // Initialize application;
 
 app.initialize().catch(error => {
-  // console statement removed
-});
+  // console statement removed});
+
+
+

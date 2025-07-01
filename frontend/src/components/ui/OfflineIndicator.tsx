@@ -1,25 +1,24 @@
-import React from 'react.ts';
-import { motion } from 'framer-motion.ts';
-import { WifiOff, AlertCircle, RefreshCw } from 'lucide-react.ts';
+﻿import React from 'react';
+import { motion} from 'framer-motion';
+import { WifiOff, AlertCircle, RefreshCw} from 'lucide-react';
 
 interface OfflineIndicatorProps {
   show: boolean;
-  service?: string;
-  onRetry?: () => void;
-}
+  service?: string
+  onRetry?: () => void;}
 
 export const OfflineIndicator: React.FC<OfflineIndicatorProps key={883780}> = ({
   show,
   service = "Betting services",
-  onRetry,
+//   onRetry
 }) => {
   if (!show) return null;
 
   return (
     <motion.div;
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
+      initial={{ opacity: 0, y: -20}}
+      animate={{ opacity: 1, y: 0}}
+      exit={{ opacity: 0, y: -20}}
       className="fixed top-20 right-4 z-50 bg-red-500/90 backdrop-blur-sm text-white px-4 py-3 rounded-lg shadow-lg border border-red-400/50 flex items-center gap-3"
      key={597220}>
       <div className="flex items-center gap-2" key={100294}>
@@ -34,8 +33,8 @@ export const OfflineIndicator: React.FC<OfflineIndicatorProps key={883780}> = ({
       </div>
       {onRetry && (
         <motion.button;
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.05}}
+          whileTap={{ scale: 0.95}}
           onClick={onRetry}
           className="px-3 py-1 bg-white/20 hover:bg-white/30 rounded text-xs font-medium transition-colors flex items-center gap-1"
          key={88130}>
@@ -44,7 +43,11 @@ export const OfflineIndicator: React.FC<OfflineIndicatorProps key={883780}> = ({
         </motion.button>
       )}
     </motion.div>
-  );
-};
+  );};
 
 export default OfflineIndicator;
+
+
+
+
+

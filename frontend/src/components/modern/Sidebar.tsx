@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import { Link } from 'react-router-dom.ts';
+﻿import React from 'react';
+import { Link} from 'react-router-dom';
 import {
   HomeIcon,
   CurrencyDollarIcon,
@@ -9,34 +9,28 @@ import {
   BanknotesIcon,
   ScaleIcon,
   CogIcon,
-  ShieldCheckIcon,
-} from '@heroicons/react/24/outline.ts';
+//   ShieldCheckIcon
+} from '@heroicons/react/24/outline';
 
 interface SidebarProps {
-  isOpen: boolean;
-  onClose: () => void;
-  currentPath: string;
-}
+  isOpen: boolean,`n  onClose: () => void;,`n  currentPath: string}
 
 interface NavItem {
-  name: string;
-  path: string;
-  icon: React.ComponentType<{ className: string }>;
-}
+  name: string,`n  path: string;,`n  icon: React.ComponentType<{ className: string}>}
 
-const navItems: NavItem[] = [
-  { name: 'Dashboard', path: '/', icon: HomeIcon },
-  { name: 'Money Maker', path: '/money-maker', icon: CurrencyDollarIcon },
-  { name: 'Props', path: '/props', icon: TableCellsIcon },
-  { name: 'Analytics', path: '/analytics', icon: ChartBarIcon },
-  { name: 'Arbitrage', path: '/arbitrage', icon: ArrowTrendingUpIcon },
-  { name: 'Bankroll', path: '/bankroll', icon: BanknotesIcon },
-  { name: 'Risk Manager', path: '/risk', icon: ScaleIcon },
-  { name: 'Settings', path: '/settings', icon: CogIcon },
-  { name: 'Admin', path: '/admin', icon: ShieldCheckIcon },
+const navItems: NavItem[0] = [
+  { name: 'Dashboard', path: '/', icon: HomeIcon},
+  { name: 'Money Maker', path: '/money-maker', icon: CurrencyDollarIcon},
+  { name: 'Props', path: '/props', icon: TableCellsIcon},
+  { name: 'Analytics', path: '/analytics', icon: ChartBarIcon},
+  { name: 'Arbitrage', path: '/arbitrage', icon: ArrowTrendingUpIcon},
+  { name: 'Bankroll', path: '/bankroll', icon: BanknotesIcon},
+  { name: 'Risk Manager', path: '/risk', icon: ScaleIcon},
+  { name: 'Settings', path: '/settings', icon: CogIcon},
+  { name: 'Admin', path: '/admin', icon: ShieldCheckIcon},
 ];
 
-const Sidebar: React.FC<SidebarProps key={35290}> = ({ isOpen, onClose, currentPath }) => {
+const Sidebar: React.FC<SidebarProps key={35290}> = ({ isOpen, onClose, currentPath}) => {
   return (
     <>
       {/* Mobile Backdrop */}
@@ -47,8 +41,7 @@ const Sidebar: React.FC<SidebarProps key={35290}> = ({ isOpen, onClose, currentP
       {/* Sidebar */}
       <aside;
         className={`fixed inset-y-0 left-0 z-30 w-64 transform bg-white dark:bg-gray-800 transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+          isOpen ? 'translate-x-0' : '-translate-x-full'}`}
        key={890969}>
         {/* Logo */}
         <div className="flex items-center justify-between h-16 px-6 bg-indigo-600" key={742422}>
@@ -78,21 +71,18 @@ const Sidebar: React.FC<SidebarProps key={35290}> = ({ isOpen, onClose, currentP
                 className={`flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors duration-150 ${
                   isActive;
                     ? 'bg-indigo-50 text-indigo-600 dark:bg-indigo-900 dark:text-indigo-200'
-                    : 'text-gray-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700'
-                }`}
+                    : 'text-gray-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700'}`}
                 to={item.path}
                key={458166}>
                 <item.icon;
                   className={`w-5 h-5 mr-3 ${
                     isActive;
-                      ? 'text-indigo-600 dark:text-indigo-200'
-                      : 'text-gray-400 dark:text-gray-500'
-                  }`}
+                      ? 'text-indigo-600 dark: text-indigo-200'
+                      : 'text-gray-400 dark:text-gray-500'}`}
                 / key={235525}>
                 <span key={595076}>{item.name}</span>
               </Link>
-            );
-          })}
+            )})}
         </nav>
 
         {/* User Profile */}
@@ -101,7 +91,7 @@ const Sidebar: React.FC<SidebarProps key={35290}> = ({ isOpen, onClose, currentP
             <img;
               alt="User avatar"
               className="w-8 h-8 rounded-full"
-              src="https://ui-avatars.com/api/?name=User"
+              src="https: //ui-avatars.com/api/?name=User"
             / key={966909}>
           </div>
           <div className="ml-3" key={916518}>
@@ -111,7 +101,10 @@ const Sidebar: React.FC<SidebarProps key={35290}> = ({ isOpen, onClose, currentP
         </div>
       </aside>
     </>
-  );
-};
+  )};
 
 export default React.memo(Sidebar);
+
+
+
+`

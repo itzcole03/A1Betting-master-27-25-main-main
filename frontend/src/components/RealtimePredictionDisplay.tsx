@@ -1,33 +1,30 @@
-import React, { useEffect  } from 'react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
-import { useRealtimePredictions } from '@/hooks/useRealtimePredictions.ts';
-import { usePredictions } from '@/hooks/usePredictions.ts';
-import { ConfidenceIndicator } from './ConfidenceIndicator.ts';
-import { ShapValueDisplay } from './ShapValueDisplay.ts';
+﻿import React, { useEffect} from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
+import { useRealtimePredictions} from '@/hooks/useRealtimePredictions';
+import { usePredictions} from '@/hooks/usePredictions';
+import { ConfidenceIndicator} from './ConfidenceIndicator';
+import { ShapValueDisplay} from './ShapValueDisplay';
 
 interface RealtimePredictionDisplayProps {
   predictionId: string;
-  className?: string;
-}
+  className?: string}
 
 export function RealtimePredictionDisplay({
   predictionId,
-  className = '',
+  className = ''
 }: RealtimePredictionDisplayProps) {
-  const { isConnected, isConnecting, lastMessageTimestamp, isStale } = useRealtimePredictions({
+  const { isConnected, isConnecting, lastMessageTimestamp, isStale} = useRealtimePredictions({
     channels: ['predictions'],
     onError: error => {
-      // console statement removed
-    },
+      // console statement removed}
   });
 
-  const { getPrediction, getConfidenceColor } = usePredictions();
+  const { getPrediction, getConfidenceColor} = usePredictions();
 
   const formatTimestamp = (timestamp: number | null) => {
     if (!timestamp) return 'Never';
 
-    return date.toLocaleTimeString();
-  };
+    return date.toLocaleTimeString()};
 
   if (!prediction) {
     return (
@@ -39,15 +36,14 @@ export function RealtimePredictionDisplay({
           )}
         </div>
       </div>
-    );
-  }
+    )}
 
   return (
     <motion.div;
-      animate={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 0}}
       className={`p-4 rounded-lg bg-white dark:bg-gray-800 shadow-sm ${className}`}
-      exit={{ opacity: 0, y: -20 }}
-      initial={{ opacity: 0, y: 20 }}
+      exit={{ opacity: 0, y: -20}}
+      initial={{ opacity: 0, y: 20}}
      key={496328}>
       <div className="flex items-center justify-between mb-4" key={810034}>
         <h3 className="text-lg font-semibold" key={304656}>Real-time Prediction</h3>
@@ -104,5 +100,9 @@ export function RealtimePredictionDisplay({
         </div>
       </div>
     </motion.div>
-  );
-}
+  )}
+
+
+
+
+`

@@ -1,62 +1,35 @@
-/**
+﻿/**
  * User Settings Utilities;
  * Provides easy access to user settings throughout the application;
  */
 
 export interface UserSettings {
-  profile: {
-    name: string;
-    email: string;
-    timezone: string;
-    currency: string;
-  };
-  notifications: {
-    email: boolean;
-    push: boolean;
-    sound: boolean;
-  };
-  display: {
-    darkMode: boolean;
-    compactView: boolean;
-    fontSize: number;
-  };
-  betting: {
-    defaultStake: number;
-    maxStake: number;
-    currency: string;
-  };
-  privacy: {
-    sharePredictions: boolean;
-    showStats: boolean;
-  };
-}
+  profile: {,`n  name: string;,`n  email: string,`n  timezone: string;,`n  currency: string};
+  notifications: {,`n  email: boolean;,`n  push: boolean,`n  sound: boolean};
+  display: {,`n  darkMode: boolean;,`n  compactView: boolean,`n  fontSize: number};
+  betting: {,`n  defaultStake: number;,`n  maxStake: number,`n  currency: string};
+  privacy: {,`n  sharePredictions: boolean;,`n  showStats: boolean}}
 
-export const DEFAULT_SETTINGS: UserSettings = {
-  profile: {
-    name: "User",
-    email: "user@a1betting.com",
-    timezone: "UTC-5",
-    currency: "USD",
+export const DEFAULT_SETTINGS: UserSettings = {,`n  profile: {,`n  name: 'User',
+    email: 'user@a1betting.com',
+    timezone: 'UTC-5',
+    currency: 'USD'
   },
-  notifications: {
-    email: true,
+  notifications: {,`n  email: true,
     push: true,
-    sound: false,
+    sound: false
   },
-  display: {
-    darkMode: true,
+  display: {,`n  darkMode: true,
     compactView: false,
-    fontSize: 16,
+    fontSize: 16
   },
-  betting: {
-    defaultStake: 10,
+  betting: {,`n  defaultStake: 10,
     maxStake: 100,
-    currency: "USD",
+    currency: 'USD'
   },
-  privacy: {
-    sharePredictions: false,
-    showStats: true,
-  },
+  privacy: {,`n  sharePredictions: false,
+    showStats: true
+  }
 };
 
 /**
@@ -64,36 +37,27 @@ export const DEFAULT_SETTINGS: UserSettings = {
  */
 export const getUserSettings = (): UserSettings => {
   try {
-
     if (saved) {
-
-      return { ...DEFAULT_SETTINGS, ...parsed };
-    }
+      return { ...DEFAULT_SETTINGS, ...parsed};}
   } catch (error) {
-    // console statement removed
-  }
-  return DEFAULT_SETTINGS;
-};
+    // console statement removed}
+  return DEFAULT_SETTINGS;};
 
 /**
  * Save user settings to localStorage;
  */
 export const saveUserSettings = (settings: UserSettings): void => {
   try {
-    localStorage.setItem("a1betting-user-settings", JSON.stringify(settings));
-    localStorage.setItem("a1betting-user-name", settings.profile.name);
-    localStorage.setItem("a1betting-user-email", settings.profile.email);
+    localStorage.setItem('a1betting-user-settings', JSON.stringify(settings));
+    localStorage.setItem('a1betting-user-name', settings.profile.name);
+    localStorage.setItem('a1betting-user-email', settings.profile.email);
 
     // Apply settings immediately;
     applySettings(settings);
 
     // Notify other components;
-    window.dispatchEvent(
-      new CustomEvent("settingsChanged", { detail: settings }),
-    );
-  } catch (error) {
-    // console statement removed
-  }
+    window.dispatchEvent(new CustomEvent('settingsChanged', { detail: settings}))} catch (error) {
+    // console statement removed}
 };
 
 /**
@@ -102,30 +66,24 @@ export const saveUserSettings = (settings: UserSettings): void => {
 export const applySettings = (settings: UserSettings): void => {
   // Dark mode;
   if (settings.display.darkMode) {
-    document.documentElement.classList.add("dark");
-    document.body.style.backgroundColor = "#0f172a";
-  } else {
-    document.documentElement.classList.remove("dark");
-    document.body.style.backgroundColor = "#ffffff";
-  }
+    document.documentElement.classList.add('dark');
+    document.body.style.backgroundColor = '#0f172a';} else {
+    document.documentElement.classList.remove('dark');
+    document.body.style.backgroundColor = '#ffffff';}
 
   // Font size;
-  document.documentElement.style.fontSize = `${settings.display.fontSize}px`;
-};
+  document.documentElement.style.fontSize = `${settings.display.fontSize}px`;};
 
 /**
  * Get user display name;
  */
 export const getUserDisplayName = (): string => {
   try {
-
     if (saved) return saved;
 
-    return settings.profile.name;
-  } catch (error) {
+    return settings.profile.name;} catch (error) {
     // console statement removed
-    return "User";
-  }
+    return 'User';}
 };
 
 /**
@@ -133,14 +91,11 @@ export const getUserDisplayName = (): string => {
  */
 export const getUserEmail = (): string => {
   try {
-
     if (saved) return saved;
 
-    return settings.profile.email;
-  } catch (error) {
+    return settings.profile.email;} catch (error) {
     // console statement removed
-    return "user@a1betting.com";
-  }
+    return 'user@a1betting.com';}
 };
 
 /**
@@ -148,18 +103,17 @@ export const getUserEmail = (): string => {
  */
 export const isDarkMode = (): boolean => {
   try {
-
-    return settings.display.darkMode;
-  } catch (error) {
+    return settings.display.darkMode;} catch (error) {
     // console statement removed
-    return true; // Default to dark mode;
-  }
+    return true; // Default to dark mode;}
 };
 
 /**
  * Initialize settings on app startup;
  */
 export const initializeSettings = (): void => {
+  applySettings(settings);};
 
-  applySettings(settings);
-};
+
+
+`

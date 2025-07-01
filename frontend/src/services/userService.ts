@@ -1,5 +1,5 @@
-import { PrizePicksEntry } from '../types/prizePicks';
-import { User, UserPreferences } from '../types/user';
+﻿import { PrizePicksEntry} from '../types/prizePicks';
+import { User, UserPreferences} from '../types/user';
 import ApiService from './api/ApiService';
 
 /**
@@ -10,16 +10,12 @@ export class UserService {
   /**
    * Fetch all PrizePicks entries for a user.
    */
-  async fetchUserEntries(userId: string): Promise<PrizePicksEntry[]> {
+  async fetchUserEntries(userId: string): Promise<PrizePicksEntry[0]> {
     try {
-      const entries = await ApiService.get<PrizePicksEntry[]>(
-        `/api/v1/users/${userId}/entries`
-      );
-      return entries;
-    } catch (error) {
+      const entries = await ApiService.get<PrizePicksEntry[0]>(`/api/v1/users/${userId}/entries`);
+      return entries;} catch (error) {
       console.error(`Failed to fetch user entries for user ${userId}:`, error);
-      throw error;
-    }
+      throw error;}
   }
 
   /**
@@ -28,34 +24,26 @@ export class UserService {
   async fetchUserProfile(userId: string): Promise<User> {
     try {
       const user = await ApiService.get<User>(`/api/v1/users/${userId}`);
-      return user;
-    } catch (error) {
+      return user;} catch (error) {
       console.error(`Failed to fetch user profile for user ${userId}:`, error);
-      throw error;
-    }
+      throw error;}
   }
 
   /**
    * Update user preferences for a given userId.
    */
-  async updateUserPreferences(
-    userId: string,
-    preferences: UserPreferences
-  ): Promise<User> {
+  async updateUserPreferences(userId: string, preferences: UserPreferences): Promise<User> {
     try {
       const updatedUser = await ApiService.put<User>(
         `/api/v1/users/${userId}/preferences`,
-        preferences
+//         preferences
       );
-      return updatedUser;
-    } catch (error) {
-      console.error(
-        `Failed to update user preferences for user ${userId}:`,
-        error
-      );
-      throw error;
-    }
-  }
-}
+      return updatedUser;} catch (error) {
+      console.error(`Failed to update user preferences for user ${userId}:`, error);
+      throw error;}
+  }}
 
 export const userService = new UserService();
+
+
+`

@@ -1,18 +1,17 @@
-import '@testing-library/jest-dom/vitest';
-import { cleanup } from '@testing-library/react.ts';
-import { afterEach, vi } from 'vitest.ts';
+﻿import '@testing-library/jest-dom/vitest';
+import { cleanup} from '@testing-library/react';
+import { afterEach, vi} from 'vitest';
 
 // Runs a cleanup after each test case;
 afterEach(() => {
-  cleanup();
-});
+  cleanup();});
 
 // Mock IntersectionObserver;
 
 mockIntersectionObserver.mockReturnValue({
   observe: () => null,
   unobserve: () => null,
-  disconnect: () => null,
+  disconnect: () => null
 });
 window.IntersectionObserver = mockIntersectionObserver;
 
@@ -21,23 +20,22 @@ window.IntersectionObserver = mockIntersectionObserver;
 mockResizeObserver.mockReturnValue({
   observe: () => null,
   unobserve: () => null,
-  disconnect: () => null,
+  disconnect: () => null
 });
 window.ResizeObserver = mockResizeObserver;
 
 // Mock matchMedia;
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: vi.fn().mockImplementation(query => ({
-    matches: false,
+  value: vi.fn().mockImplementation(query => ({,`n  matches: false,
     media: query,
     onchange: null,
     addListener: vi.fn(),
     removeListener: vi.fn(),
     addEventListener: vi.fn(),
     removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
-  })),
+    dispatchEvent: vi.fn()
+  }))
 });
 
 // Mock localStorage;
@@ -45,48 +43,35 @@ const localStorageMock = {
   getItem: vi.fn(),
   setItem: vi.fn(),
   removeItem: vi.fn(),
-  clear: vi.fn(),
+  clear: vi.fn()
 };
 Object.defineProperty(window, 'localStorage', {
-  value: localStorageMock,
+  value: localStorageMock
 });
 
 // Mock WebSocket;
 class MockWebSocket implements WebSocket {
-  binaryType: BinaryType = 'blob';
-  bufferedAmount: number = 0;
-  extensions: string = '';
-  protocol: string = '';
-  readyState: number = WebSocket.CONNECTING;
-  url: string = '';
+  binaryType: BinaryType = 'blob',`n  bufferedAmount: number = 0;,`n  extensions: string = '',`n  protocol: string = '';,`n  readyState: number = WebSocket.CONNECTING,`n  url: string = '';
   CONNECTING = WebSocket.CONNECTING;
   OPEN = WebSocket.OPEN;
   CLOSING = WebSocket.CLOSING;
   CLOSED = WebSocket.CLOSED;
 
-  onclose: ((this: WebSocket, ev: CloseEvent) => any) | null = null;
-  onerror: ((this: WebSocket, ev: Event) => any) | null = null;
-  onmessage: ((this: WebSocket, ev: MessageEvent<any>) => any) | null = null;
-  onopen: ((this: WebSocket, ev: Event) => any) | null = null;
+  onclose: ((this: WebSocket, ev: CloseEvent) => any) | null = null,`n  onerror: ((this: WebSocket, ev: Event) => any) | null = null,`n  onmessage: ((this: WebSocket, ev: MessageEvent<any>) => any) | null = null,`n  onopen: ((this: WebSocket, ev: Event) => any) | null = null;
 
   constructor() {
     setTimeout(() => {
       this.readyState = WebSocket.OPEN;
-      this.onopen?.(new Event('open'));
-    }, 0);
-  }
+      this.onopen?.(new Event('open'));}, 0);}
 
   close(code?: number | undefined, reason?: string | undefined): void {
     this.readyState = WebSocket.CLOSED;
-    this.onclose?.(new CloseEvent('close', { code, reason }));
-  }
+    this.onclose?.(new CloseEvent('close', { code, reason}));}
 
   send(data: string | ArrayBufferLike | Blob | ArrayBufferView): void {
     if (this.readyState !== WebSocket.OPEN) {
-      throw new Error('WebSocket is not open');
-    }
-    // Mock sending data;
-  }
+      throw new Error('WebSocket is not open')}
+    // Mock sending data}
 
   addEventListener<K extends keyof WebSocketEventMap>(
     type: K,
@@ -98,8 +83,7 @@ class MockWebSocket implements WebSocket {
     listener: EventListenerOrEventListenerObject,
     options?: boolean | AddEventListenerOptions | undefined;
   ): void {
-    // Implementation not needed for our tests;
-  }
+    // Implementation not needed for our tests;}
 
   removeEventListener<K extends keyof WebSocketEventMap>(
     type: K,
@@ -111,12 +95,10 @@ class MockWebSocket implements WebSocket {
     listener: EventListenerOrEventListenerObject,
     options?: boolean | EventListenerOptions | undefined;
   ): void {
-    // Implementation not needed for our tests;
-  }
+    // Implementation not needed for our tests;}
 
   dispatchEvent(event: Event): boolean {
-    return true;
-  }
+    return true}
 }
 
 // Replace the global WebSocket with our mock;
@@ -124,11 +106,14 @@ class MockWebSocket implements WebSocket {
 
 // Mock Notification API;
 Object.defineProperty(window, 'Notification', {
-  value: vi.fn().mockImplementation(() => ({
-    permission: 'granted',
-    requestPermission: vi.fn().mockResolvedValue('granted'),
-  })),
+  value: vi.fn().mockImplementation(() => ({,`n  permission: 'granted',
+    requestPermission: vi.fn().mockResolvedValue('granted')
+  }))
 });
 
 // Set timezone for consistent date handling in tests;
 process.env.TZ = 'UTC';
+
+
+
+`

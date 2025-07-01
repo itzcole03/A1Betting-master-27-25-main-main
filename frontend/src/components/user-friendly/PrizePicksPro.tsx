@@ -1,69 +1,37 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import {
-  Brain,
-  CheckCircle,
-  TrendingDown,
-  TrendingUp,
-  X,
-  Zap
-} from 'lucide-react';
-import React, { useState } from 'react';
+﻿import { AnimatePresence, motion} from 'framer-motion';
+import { Brain, CheckCircle, TrendingDown, TrendingUp, X, Zap} from 'lucide-react';
+import React, { useState} from 'react';
 import toast from 'react-hot-toast';
-import { useQuantumPredictions } from '../../hooks/useQuantumPredictions';
+import { useQuantumPredictions} from '../../hooks/useQuantumPredictions';
 
 interface PlayerProp {
-  id: number | string;
-  player: string;
-  team: string;
-  stat: string;
-  line: number;
-  over: number;
-  under: number;
-  confidence: number;
-  neural: string;
-  trend: 'up' | 'down';
-  game: string;
-  expectedValue?: number;
-  llmReasoning?: string;
-  analysis?: string;
-}
+  id: number | string,`n  player: string;,`n  team: string,`n  stat: string;,`n  line: number,`n  over: number;,`n  under: number,`n  confidence: number;,`n  neural: string,`n  trend: 'up' | 'down';,`n  game: string;
+  expectedValue?: number
+  llmReasoning?: string
+  analysis?: string}
 
 interface SelectedProp {
-  propId: number | string;
-  choice: 'over' | 'under';
-}
+  propId: number | string,`n  choice: 'over' | 'under'}
 
 interface SavedLineup {
-  id: string;
-  name: string;
-  picks: Array<{
-    player: string;
-    stat: string;
-    line: number;
-    choice: 'over' | 'under';
-    confidence: number;
-  }>;
-  entryAmount: number;
-  projectedPayout: number;
-  savedAt: Date;
-}
+  id: string,`n  name: string;,`n  picks: Array<{,`n  player: string;,`n  stat: string,`n  line: number;,`n  choice: 'over' | 'under',`n  confidence: number}>;
+  entryAmount: number,`n  projectedPayout: number;,`n  savedAt: Date}
 
 const PrizePicksPro: React.FC = () => {
   const [selectedProps, setSelectedProps] = useState<Map<string, SelectedProp>>(new Map());
   const [entryAmount] = useState(25);
-  const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  const [validationErrors, setValidationErrors] = useState<string[0]>([0]);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [lineupName, setLineupName] = useState('');
-  const [, setSavedLineups] = useState<SavedLineup[]>([]);
+  const [, setSavedLineups] = useState<SavedLineup[0]>([0]);
   const [showSuccess, setShowSuccess] = useState(false);
-  
-  // Use quantum predictions as the main data source
-  const {
-    predictions: quantumPredictions,
-  } = useQuantumPredictions({ minConfidence: 80 });
+
+  // Use quantum predictions as the main data source - memoize options to prevent infinite re-renders
+  const quantumOptions = React.useMemo(() => ({ minConfidence: 80}), [0]);
+  const { predictions: quantumPredictions} = useQuantumPredictions(quantumOptions);
 
   // Fetch real PrizePicks props from enhanced backend
-  const [realProps, setRealProps] = React.useState<PlayerProp[]>([]);
+  const [realProps, setRealProps] = React.useState<PlayerProp[0]>([0]);
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
@@ -73,49 +41,30 @@ const PrizePicksPro: React.FC = () => {
         const result = await response.json();
 
         if (result && Array.isArray(result) && result.length > 0) {
-          // Use the enhanced analyzed props from backend
-          const formattedProps: PlayerProp[] = result.map((prop: any, index: number) => ({
-            id: prop.id || index,
-            player: prop.description || `Player ${index + 1}`,
-            team: prop.stat_type || 'Unknown',
-            stat: prop.stat_type || 'points',
-            line: prop.line_score || prop.line || 0,
-            over: 1.85 + (prop.confidence - 70) * 0.003, // Dynamic odds based on confidence
-            under: 2.15 - (prop.confidence - 70) * 0.003,
-            confidence: prop.confidence || 75,
-            neural: `Enhanced-ML-${prop.model_consensus || 'medium'}`,
-            trend: prop.edge > 0 ? 'up' : 'down',
-            game: `${prop.stat_type} Analysis`,
-            expectedValue: prop.edge || 0,
-            llmReasoning: `Confidence: ${prop.confidence}%, Edge: ${prop.edge?.toFixed(3) || 'N/A'}`,
-            analysis: `Projection: ${prop.projection}, Line: ${prop.line_score}`,
-          }));
+          // CORRECT MAPPING: Map backend fields to frontend interface
+          const formattedProps: PlayerProp[0] = result.map((prop: any, index: number) => ({,`n  id: prop.id || index,
+            player: prop.player_name || `Player ${index + 1}`, // CORRECT: backend sends player_name,`n  team: prop.league || 'Unknown', // CORRECT: backend sends league,`n  stat: prop.stat_type || 'Points', // CORRECT: backend sends stat_type,`n  line: prop.line || 0, // CORRECT: backend sends line,`n  over: prop.over_odds ? 100 / Math.abs(prop.over_odds) + 1 : 1.9, // Convert American odds to decimal
+            under: prop.under_odds ? 100 / Math.abs(prop.under_odds) + 1 : 1.9, // Convert American odds to decimal
+            confidence: prop.confidence || 75, // CORRECT: backend sends confidence,`n  neural: `Enhanced-ML-${prop.sport || 'production'}`, // CORRECT: backend sends sport,`n  trend: prop.recommendation === 'OVER' ? 'up' : 'down', // CORRECT: backend sends recommendation,`n  game: `${prop.opponent || 'vs Opponent'}`, // CORRECT: backend sends opponent,`n  expectedValue: prop.expected_value || 0, // CORRECT: backend sends expected_value,`n  llmReasoning: `Confidence: ${prop.confidence}%, Recommendation: ${prop.recommendation}, Kelly: ${prop.kelly_fraction?.toFixed(3) || 'N/A'}`, // CORRECT: backend sends these fields,`n  analysis: `Line: ${prop.line}, Sport: ${prop.sport}, Venue: ${prop.venue}`, // CORRECT: backend sends these fields}));
 
-          setRealProps(formattedProps);
-          console.log(`✅ PrizePicks Analysis: Top ${formattedProps.length} props loaded`);
-          console.log(`📊 Backend Integration: Live data successfully fetched`);
-        } else {
+          setRealProps(formattedProps);} else {
           // Show that system is working but waiting for live data
-          console.log('⚡ PrizePicks Backend: Waiting for live PrizePicks projections to analyze');
-          setRealProps([]);
-        }
+
+          setRealProps([0]);}
       } catch (error) {
         console.error('❌ PropOllama API Error:', error);
-        setRealProps([]);
-      } finally {
-        setLoading(false);
-      }
+        setRealProps([0]);} finally {
+        setLoading(false);}
     };
 
     fetchEnhancedProps();
 
     // Refresh every 30 seconds for live updates
     const interval = setInterval(fetchEnhancedProps, 30000);
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval);}, [0]);
 
   // Generate props from quantum predictions
-  const quantumProps: PlayerProp[] = quantumPredictions
+  const quantumProps: PlayerProp[0] = quantumPredictions
     .filter(pred => pred.player && pred.odds) // Only predictions with player and odds
     .map((pred, index) => {
       const predictionParts = pred.prediction.match(/(Over|Under)\s+([\d.]+)\s+(.+)/);
@@ -137,58 +86,47 @@ const PrizePicksPro: React.FC = () => {
         confidence: pred.confidence,
         neural: pred.neuralNetwork,
         trend: pred.metadata.momentum > 0.6 ? 'up' : 'down',
-        game: pred.game,
-      };
-    });
+        game: pred.game
+      }});
 
   // Combine quantum predictions with real PrizePicks data
   const allProps = [...quantumProps, ...realProps].slice(0, 12);
 
   const validatePicks = (newProps: Map<string, SelectedProp>) => {
-    const errors: string[] = [];
+    const errors: string[0] = [0];
     const picks = Array.from(newProps.values());
 
     if (picks.length < 2) {
-      errors.push('Minimum 2 picks required');
-    }
+      errors.push('Minimum 2 picks required');}
     if (picks.length > 6) {
-      errors.push('Maximum 6 picks allowed');
-    }
+      errors.push('Maximum 6 picks allowed');}
 
     if (entryAmount < 5) {
-      errors.push('Minimum entry amount is $5');
-    }
+      errors.push('Minimum entry amount is $5');}
     if (entryAmount > 1000) {
-      errors.push('Maximum entry amount is $1000');
-    }
+      errors.push('Maximum entry amount is $1000');}
 
     setValidationErrors(errors);
-    return errors.length === 0;
-  };
+    return errors.length === 0;};
 
   const selectProp = (propId: number | string, choice: 'over' | 'under') => {
     const key = `${propId}_${choice}`;
-    let newProps = new Map(selectedProps);
+    const newProps = new Map(selectedProps);
 
     if (selectedProps.has(key)) {
-      newProps.delete(key);
-    } else if (selectedProps.size < 6) {
+      newProps.delete(key);} else if (selectedProps.size < 6) {
       const existingKey = `${propId}_${choice === 'over' ? 'under' : 'over'}`;
       if (newProps.has(existingKey)) {
-        newProps.delete(existingKey);
-      }
-      newProps.set(key, { propId, choice });
-    }
+        newProps.delete(existingKey);}
+      newProps.set(key, { propId, choice});}
 
     setSelectedProps(newProps);
-    validatePicks(newProps);
-  };
+    validatePicks(newProps);};
 
   const calculatePayout = () => {
     const count = selectedProps.size;
-    const multipliers: Record<number, number> = { 2: 3, 3: 5, 4: 10, 5: 20, 6: 50 };
-    return count >= 2 ? entryAmount * (multipliers[count] || 0) * 1.5 : 0;
-  };
+    const multipliers: Record<number, number> = { 2: 3, 3: 5, 4: 10, 5: 20, 6: 50};
+    return count >= 2 ? entryAmount * (multipliers[count] || 0) * 1.5 : 0;};
 
   const getPickRequirements = () => {
     const count = selectedProps.size;
@@ -197,16 +135,14 @@ const PrizePicksPro: React.FC = () => {
       3: 'Flex Play (3 picks)',
       4: 'Power Play (4 picks)',
       5: 'Flex Play (5 picks)',
-      6: 'Power Play (6 picks)',
+      6: 'Power Play (6 picks)'
     };
-    return requirements[count] || `Select ${Math.max(0, 2 - count)} more`;
-  };
+    return requirements[count] || `Select ${Math.max(0, 2 - count)} more`;};
 
   const saveLineup = () => {
     if (!lineupName.trim()) {
       alert('Please enter a lineup name');
-      return;
-    }
+      return;}
 
     const picks = Array.from(selectedProps.values()).map(pick => {
       const prop = allProps.find(p => p.id === pick.propId)!;
@@ -215,21 +151,19 @@ const PrizePicksPro: React.FC = () => {
         stat: prop.stat,
         line: prop.line,
         choice: pick.choice,
-        confidence: prop.confidence,
-      };
-    });
+        confidence: prop.confidence
+      }});
 
-    const lineup: SavedLineup = {
-      id: `lineup_${Date.now()}`,
+    const lineup: SavedLineup = {,`n  id: `lineup_${Date.now()}`,
       name: lineupName,
       picks,
       entryAmount,
       projectedPayout: calculatePayout(),
-      savedAt: new Date(),
+      savedAt: new Date()
     };
 
     setSavedLineups(prev => [...prev, lineup]);
-    
+
     // TODO: Fix lineup tracker interface compatibility
     // lineupTracker.saveLineup(lineup);
 
@@ -238,31 +172,30 @@ const PrizePicksPro: React.FC = () => {
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 3000);
 
-    toast.success(`Lineup "${lineupName}" saved successfully!`);
-  };
+    toast.success(`Lineup "${lineupName}" saved successfully!`);};
 
   return (
     <motion.div
       className='min-h-screen bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900 p-6'
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
+      initial={{ opacity: 0}}
+      animate={{ opacity: 1}}
+      transition={{ duration: 0.8}}
     >
       {/* Header */}
       <div className='mb-8'>
         <motion.h1
           className='text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-electric-400 to-purple-500 mb-4'
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2 }}
+          initial={{ y: -20, opacity: 0}}
+          animate={{ y: 0, opacity: 1}}
+          transition={{ delay: 0.2}}
         >
           PrizePicks Pro
         </motion.h1>
         <motion.p
           className='text-xl text-gray-400'
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.3 }}
+          initial={{ y: -20, opacity: 0}}
+          animate={{ y: 0, opacity: 1}}
+          transition={{ delay: 0.3}}
         >
           AI-Enhanced Props Analysis • PropOllama Powered
         </motion.p>
@@ -308,9 +241,9 @@ const PrizePicksPro: React.FC = () => {
             return (
               <motion.div
                 key={prop.id}
-                className='quantum-card rounded-2xl p-6 border border-gray-700/50 hover:border-electric-500/30 transition-all'
-                whileHover={{ scale: 1.02 }}
-                layout
+                className='quantum-card rounded-2xl p-6 border border-gray-700/50 hover: border-electric-500/30 transition-all'
+                whileHover={{ scale: 1.02}}
+//                 layout
               >
                 <div className='flex justify-between items-start mb-4'>
                   <div>
@@ -338,12 +271,11 @@ const PrizePicksPro: React.FC = () => {
                   <motion.button
                     onClick={() => selectProp(prop.id, 'over')}
                     className={`p-4 rounded-xl font-bold transition-all ${
-                      isOverSelected
+//                       isOverSelected
                         ? 'bg-green-500/30 border-2 border-green-500 text-green-300'
-                        : 'bg-gray-800/50 border-2 border-gray-600 text-gray-300 hover:border-green-500/50'
-                    }`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                        : 'bg-gray-800/50 border-2 border-gray-600 text-gray-300 hover:border-green-500/50'}`}
+                    whileHover={{ scale: 1.05}}
+                    whileTap={{ scale: 0.95}}
                   >
                     <div className='text-lg'>OVER</div>
                     <div className='text-sm font-mono'>{prop.over.toFixed(2)}</div>
@@ -352,12 +284,11 @@ const PrizePicksPro: React.FC = () => {
                   <motion.button
                     onClick={() => selectProp(prop.id, 'under')}
                     className={`p-4 rounded-xl font-bold transition-all ${
-                      isUnderSelected
+//                       isUnderSelected
                         ? 'bg-red-500/30 border-2 border-red-500 text-red-300'
-                        : 'bg-gray-800/50 border-2 border-gray-600 text-gray-300 hover:border-red-500/50'
-                    }`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                        : 'bg-gray-800/50 border-2 border-gray-600 text-gray-300 hover:border-red-500/50'}`}
+                    whileHover={{ scale: 1.05}}
+                    whileTap={{ scale: 0.95}}
                   >
                     <div className='text-lg'>UNDER</div>
                     <div className='text-sm font-mono'>{prop.under.toFixed(2)}</div>
@@ -397,8 +328,7 @@ const PrizePicksPro: React.FC = () => {
                   )}
                 </div>
               </motion.div>
-            );
-          })
+            )})
         )}
       </div>
 
@@ -406,9 +336,9 @@ const PrizePicksPro: React.FC = () => {
       {selectedProps.size > 0 && (
         <motion.div
           className='fixed bottom-6 right-6 bg-gray-900/95 backdrop-blur-sm rounded-2xl p-6 border border-electric-500/30 max-w-sm'
-          initial={{ x: 400, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          exit={{ x: 400, opacity: 0 }}
+          initial={{ x: 400, opacity: 0}}
+          animate={{ x: 0, opacity: 1}}
+          exit={{ x: 400, opacity: 0}}
         >
           <div className='flex items-center justify-between mb-4'>
             <h3 className='text-lg font-bold text-white'>Entry Summary</h3>
@@ -441,19 +371,19 @@ const PrizePicksPro: React.FC = () => {
             <motion.button
               onClick={() => setSelectedProps(new Map())}
               className='flex-1 py-2 px-4 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors'
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05}}
+              whileTap={{ scale: 0.95}}
             >
-              Clear
+//               Clear
             </motion.button>
             <motion.button
               onClick={() => setShowSaveModal(true)}
               disabled={!validatePicks(selectedProps)}
               className='flex-1 py-2 px-4 bg-electric-500 text-black rounded-lg hover:bg-electric-400 disabled:bg-gray-600 disabled:text-gray-400 transition-colors'
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05}}
+              whileTap={{ scale: 0.95}}
             >
-              Save
+//               Save
             </motion.button>
           </div>
         </motion.div>
@@ -463,48 +393,42 @@ const PrizePicksPro: React.FC = () => {
       <AnimatePresence>
         {showSaveModal && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0}}
+            animate={{ opacity: 1}}
+            exit={{ opacity: 0}}
             className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
+              initial={{ scale: 0.9, opacity: 0}}
+              animate={{ scale: 1, opacity: 1}}
+              exit={{ scale: 0.9, opacity: 0}}
               className='bg-gray-900 rounded-2xl p-6 border border-gray-700 max-w-md w-full mx-4'
             >
               <div className='flex items-center justify-between mb-4'>
                 <h3 className='text-xl font-bold text-white'>Save Lineup</h3>
-                <button
-                  onClick={() => setShowSaveModal(false)}
+                <button onClick={() => setShowSaveModal(false)}
                   className='text-gray-400 hover:text-white'
                 >
                   <X className='w-5 h-5' />
                 </button>
               </div>
 
-              <input
-                type='text'
-                value={lineupName}
-                onChange={e => setLineupName(e.target.value)}
+              <input type='text'
+                value={lineupName}>`n                onChange={e => setLineupName(e.target.value)}
                 placeholder='Enter lineup name...'
                 className='w-full p-3 bg-gray-800 text-white rounded-lg border border-gray-600 focus:border-electric-500 outline-none mb-4'
-                autoFocus
+//                 autoFocus
               />
 
               <div className='flex space-x-3'>
-                <button
-                  onClick={() => setShowSaveModal(false)}
+                <button onClick={() => setShowSaveModal(false)}
                   className='flex-1 py-2 px-4 bg-gray-700 text-white rounded-lg hover:bg-gray-600'
                 >
-                  Cancel
+//                   Cancel
                 </button>
-                <button
-                  onClick={saveLineup}
-                  className='flex-1 py-2 px-4 bg-electric-500 text-black rounded-lg hover:bg-electric-400'
-                >
-                  Save
+                <button onClick={saveLineup}
+                  className='flex-1 py-2 px-4 bg-electric-500 text-black rounded-lg hover:bg-electric-400'>`n                >
+//                   Save
                 </button>
               </div>
             </motion.div>
@@ -513,9 +437,9 @@ const PrizePicksPro: React.FC = () => {
 
         {showSuccess && (
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 50}}
+            animate={{ opacity: 1, y: 0}}
+            exit={{ opacity: 0, y: 50}}
             className='fixed bottom-6 left-6 bg-green-500/20 border border-green-500 rounded-lg p-4 backdrop-blur-sm'
           >
             <div className='flex items-center space-x-2 text-green-400'>
@@ -526,7 +450,11 @@ const PrizePicksPro: React.FC = () => {
         )}
       </AnimatePresence>
     </motion.div>
-  );
-};
+  )};
 
 export default PrizePicksPro;
+
+
+
+
+`

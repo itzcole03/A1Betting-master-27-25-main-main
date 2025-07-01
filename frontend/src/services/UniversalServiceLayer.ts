@@ -1,85 +1,50 @@
-import { QueryClient } from '@tanstack/react-query.ts';
+﻿import { QueryClient} from '@tanstack/react-query';
 
 // ============================================================================
 // TYPES & INTERFACES;
 // ============================================================================
 
 export interface APIResponse<T = any> {
-  data: T;
-  success: boolean;
-  message?: string;
-  error?: string;
+  data: T,`n  success: boolean;
+  message?: string
+  error?: string
   timestamp: string;
   meta?: {
-    page?: number;
-    limit?: number;
-    total?: number;
-  };
-}
+    page?: number
+    limit?: number
+    total?: number};}
 
 export interface ServiceConfig {
-  baseURL?: string;
-  timeout?: number;
-  retries?: number;
-  retryDelay?: number;
-  enableCaching?: boolean;
-  enableMocking?: boolean;
-  apiKey?: string;
-  headers?: Record<string, string>;
-}
+  baseURL?: string
+  timeout?: number
+  retries?: number
+  retryDelay?: number
+  enableCaching?: boolean
+  enableMocking?: boolean
+  apiKey?: string
+  headers?: Record<string, string>;}
 
 export interface CacheConfig {
-  key: string;
-  ttl: number; // Time to live in seconds;
-  staleTime?: number;
-  refetchInterval?: number;
-}
+  key: string,`n  ttl: number; // Time to live in seconds;
+  staleTime?: number
+  refetchInterval?: number}
 
 // Prediction related types;
 export interface Prediction {
-  id: string;
-  game: string;
-  prediction: number;
-  confidence: number;
-  timestamp: string;
-  potentialWin?: number;
-  odds?: number;
-  status: "pending" | "won" | "lost" | "void";
-}
+  id: string,`n  game: string;,`n  prediction: number,`n  confidence: number;,`n  timestamp: string;
+  potentialWin?: number
+  odds?: number
+  status: "pending" | "won" | "lost" | "void"}
 
 export interface EngineMetrics {
-  totalPredictions: number;
-  accuracy: number;
-  totalProfit: number;
-  winRate: number;
-  dataQuality: number;
-}
+  totalPredictions: number,`n  accuracy: number;,`n  totalProfit: number,`n  winRate: number;,`n  dataQuality: number}
 
 // Betting related types;
 export interface BetOpportunity {
-  id: string;
-  sport: string;
-  game: string;
-  type: string;
-  odds: number;
-  confidence: number;
-  expectedValue: number;
-  stake: number;
-  potentialReturn: number;
-  book: string;
-}
+  id: string,`n  sport: string;,`n  game: string,`n  type: string;,`n  odds: number,`n  confidence: number;,`n  expectedValue: number,`n  stake: number;,`n  potentialReturn: number,`n  book: string}
 
 export interface UserProfile {
-  id: string;
-  name: string;
-  email: string;
-  tier: string;
-  balance: number;
-  totalProfit: number;
-  accuracy: number;
-  winRate: number;
-  preferences: Record<string, any>;
-}
+  id: string,`n  name: string;,`n  email: string,`n  tier: string;,`n  balance: number,`n  totalProfit: number;,`n  accuracy: number,`n  winRate: number;,`n  preferences: Record<string, any>}
 
 // ============================================================================
 // BASE SERVICE CLASS;
@@ -87,9 +52,9 @@ export interface UserProfile {
 
 export class BaseService {
   protected config: ServiceConfig;
-  protected queryClient?: QueryClient;
+  protected queryClient?: QueryClient
 
-  constructor(config: ServiceConfig = {}) {
+  constructor(config: ServiceConfig = Record<string, any>) {
     this.config = {
       baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:3001",
       timeout: 10000,
@@ -97,13 +62,12 @@ export class BaseService {
       retryDelay: 1000,
       enableCaching: true,
       enableMocking: import.meta.env.DEV,
-      ...config,
-    };
-  }
+      ...config
+    }}
 
   protected async request<T>(
     endpoint: string,
-    options: RequestInit = {},
+    options: RequestInit = Record<string, any>,
   ): Promise<APIResponse<T>> {
 
 
@@ -117,30 +81,26 @@ export class BaseService {
           "Content-Type": "application/json",
           Authorization: this.getAuthHeader(),
           ...this.config.headers,
-          ...options.headers,
-        },
+          ...options.headers
+        }
       });
 
       clearTimeout(timeoutId);
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+        throw new Error(`HTTP error! status: ${response.status}`)}
 
       return {
         data,
         success: true,
-        timestamp: new Date().toISOString(),
-      };
-    } catch (error) {
+        timestamp: new Date().toISOString()
+      }} catch (error) {
       clearTimeout(timeoutId);
 
       if (error.name === "AbortError") {
-        throw new Error("Request timeout");
-      }
+        throw new Error("Request timeout");}
 
-      throw error;
-    }
+      throw error;}
   }
 
   protected async retryRequest<T>(
@@ -151,28 +111,22 @@ export class BaseService {
 
     for (const i = 0; i <= maxRetries; i++) {
       try {
-        return await requestFn();
-      } catch (error) {
+        return await requestFn();} catch (error) {
         lastError = error as Error;
 
         if (i < maxRetries) {
-          await this.delay(this.config.retryDelay || 1000);
-        }
-      }
-    }
+          await this.delay(this.config.retryDelay || 1000);}
+      }}
 
-    throw lastError;
-  }
+    throw lastError;}
 
   protected delay(ms: number): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
+    return new Promise((resolve) => setTimeout(resolve, ms))}
 
   protected getAuthHeader(): string {
     if (typeof window === "undefined") return "";
 
-    return token ? `Bearer ${token}` : "";
-  }
+    return token ? `Bearer ${token}` : "";}
 
   protected getCacheKey(key: string, params?: Record<string, any>): string {
     if (!params) return key;
@@ -182,8 +136,7 @@ export class BaseService {
       .map((k) => `${k}:${params[k]}`)
       .join("|");
 
-    return `${key}:${paramString}`;
-  }
+    return `${key}:${paramString}`;}
 }
 
 // ============================================================================
@@ -191,25 +144,21 @@ export class BaseService {
 // ============================================================================
 
 export class UniversalPredictionService extends BaseService {
-  async getRecentPredictions(limit = 10): Promise<APIResponse<Prediction[]>> {
+  async getRecentPredictions(limit = 10): Promise<APIResponse<Prediction[0]>> {
     if (this.config.enableMocking) {
-      return this.getMockPredictions(limit);
-    }
+      return this.getMockPredictions(limit);}
 
     return this.retryRequest(() =>
-      this.request<Prediction[]>(`/predictions/recent?limit=${limit}`),
-    );
-  }
+      this.request<Prediction[0]>(`/predictions/recent?limit=${limit}`),
+    );}
 
   async getEngineMetrics(): Promise<APIResponse<EngineMetrics>> {
     if (this.config.enableMocking) {
-      return this.getMockMetrics();
-    }
+      return this.getMockMetrics();}
 
     return this.retryRequest(() =>
       this.request<EngineMetrics>("/predictions/metrics"),
-    );
-  }
+    );}
 
   async createPrediction(
     data: Partial<Prediction>,
@@ -217,10 +166,9 @@ export class UniversalPredictionService extends BaseService {
     return this.retryRequest(() =>
       this.request<Prediction>("/predictions", {
         method: "POST",
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
       }),
-    );
-  }
+    )}
 
   async updatePrediction(
     id: string,
@@ -229,18 +177,17 @@ export class UniversalPredictionService extends BaseService {
     return this.retryRequest(() =>
       this.request<Prediction>(`/predictions/${id}`, {
         method: "PUT",
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
       }),
-    );
-  }
+    )}
 
   private async getMockPredictions(
     limit: number,
-  ): Promise<APIResponse<Prediction[]>> {
+  ): Promise<APIResponse<Prediction[0]>> {
     await this.delay(500); // Simulate network delay;
 
-    const mockPredictions: Prediction[] = Array.from(
-      { length: limit },
+    const mockPredictions: Prediction[0] = Array.from(
+      { length: limit},
       (_, i) => ({
         id: `pred_${i + 1}`,
         game: `Game ${i + 1}`,
@@ -254,32 +201,29 @@ export class UniversalPredictionService extends BaseService {
             : -(Math.floor(Math.random() * 200) + 100),
         status: ["pending", "won", "lost"][
           Math.floor(Math.random() * 3)
-        ] as any,
+        ] as any
       }),
     );
 
     return {
       data: mockPredictions,
       success: true,
-      timestamp: new Date().toISOString(),
-    };
-  }
+      timestamp: new Date().toISOString()
+    }}
 
   private async getMockMetrics(): Promise<APIResponse<EngineMetrics>> {
     await this.delay(300);
 
     return {
-      data: {
-        totalPredictions: 1247,
+      data: {,`n  totalPredictions: 1247,
         accuracy: 89.3,
         totalProfit: 47230,
         winRate: 85.6,
-        dataQuality: 94.2,
+        dataQuality: 94.2
       },
       success: true,
-      timestamp: new Date().toISOString(),
-    };
-  }
+      timestamp: new Date().toISOString()
+    }}
 }
 
 // ============================================================================
@@ -287,38 +231,34 @@ export class UniversalPredictionService extends BaseService {
 // ============================================================================
 
 export class UniversalBettingService extends BaseService {
-  async getOpportunities(): Promise<APIResponse<BetOpportunity[]>> {
+  async getOpportunities(): Promise<APIResponse<BetOpportunity[0]>> {
     if (this.config.enableMocking) {
-      return this.getMockOpportunities();
-    }
+      return this.getMockOpportunities();}
 
     return this.retryRequest(() =>
-      this.request<BetOpportunity[]>("/betting/opportunities"),
-    );
-  }
+      this.request<BetOpportunity[0]>("/betting/opportunities"),
+    );}
 
   async placeBet(
     opportunity: Partial<BetOpportunity>,
-  ): Promise<APIResponse<{ betId: string }>> {
+  ): Promise<APIResponse<{ betId: string}>> {
     return this.retryRequest(() =>
-      this.request<{ betId: string }>("/betting/place", {
+      this.request<{ betId: string}>("/betting/place", {
         method: "POST",
-        body: JSON.stringify(opportunity),
+        body: JSON.stringify(opportunity)
       }),
-    );
-  }
+    )}
 
-  async getBetHistory(userId: string): Promise<APIResponse<BetOpportunity[]>> {
+  async getBetHistory(userId: string): Promise<APIResponse<BetOpportunity[0]>> {
     return this.retryRequest(() =>
-      this.request<BetOpportunity[]>(`/betting/history/${userId}`),
-    );
-  }
+      this.request<BetOpportunity[0]>(`/betting/history/${userId}`),
+    )}
 
-  private async getMockOpportunities(): Promise<APIResponse<BetOpportunity[]>> {
+  private async getMockOpportunities(): Promise<APIResponse<BetOpportunity[0]>> {
     await this.delay(400);
 
-    const mockOpportunities: BetOpportunity[] = Array.from(
-      { length: 5 },
+    const mockOpportunities: BetOpportunity[0] = Array.from(
+      { length: 5},
       (_, i) => ({
         id: `opp_${i + 1}`,
         sport: ["NFL", "NBA", "MLB", "NHL"][Math.floor(Math.random() * 4)],
@@ -334,16 +274,15 @@ export class UniversalBettingService extends BaseService {
         potentialReturn: 150 + Math.random() * 300,
         book: ["DraftKings", "FanDuel", "BetMGM"][
           Math.floor(Math.random() * 3)
-        ],
+        ]
       }),
     );
 
     return {
       data: mockOpportunities,
       success: true,
-      timestamp: new Date().toISOString(),
-    };
-  }
+      timestamp: new Date().toISOString()
+    }}
 }
 
 // ============================================================================
@@ -353,11 +292,9 @@ export class UniversalBettingService extends BaseService {
 export class UniversalUserService extends BaseService {
   async getProfile(): Promise<APIResponse<UserProfile>> {
     if (this.config.enableMocking) {
-      return this.getMockProfile();
-    }
+      return this.getMockProfile();}
 
-    return this.retryRequest(() => this.request<UserProfile>("/user/profile"));
-  }
+    return this.retryRequest(() => this.request<UserProfile>("/user/profile"));}
 
   async updateProfile(
     data: Partial<UserProfile>,
@@ -365,28 +302,25 @@ export class UniversalUserService extends BaseService {
     return this.retryRequest(() =>
       this.request<UserProfile>("/user/profile", {
         method: "PUT",
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
       }),
-    );
-  }
+    )}
 
   async updatePreferences(
     preferences: Record<string, any>,
-  ): Promise<APIResponse<{ success: boolean }>> {
+  ): Promise<APIResponse<{ success: boolean}>> {
     return this.retryRequest(() =>
-      this.request<{ success: boolean }>("/user/preferences", {
+      this.request<{ success: boolean}>("/user/preferences", {
         method: "PUT",
-        body: JSON.stringify({ preferences }),
+        body: JSON.stringify({ preferences})
       }),
-    );
-  }
+    )}
 
   private async getMockProfile(): Promise<APIResponse<UserProfile>> {
     await this.delay(300);
 
     return {
-      data: {
-        id: "user_1",
+      data: {,`n  id: "user_1",
         name: "Alex Chen",
         email: "alex@example.com",
         tier: "Pro",
@@ -394,16 +328,14 @@ export class UniversalUserService extends BaseService {
         totalProfit: 47230,
         accuracy: 89.3,
         winRate: 85.6,
-        preferences: {
-          notifications: true,
+        preferences: {,`n  notifications: true,
           autobet: false,
-          riskLevel: "medium",
-        },
+          riskLevel: "medium"
+        }
       },
       success: true,
-      timestamp: new Date().toISOString(),
-    };
-  }
+      timestamp: new Date().toISOString()
+    }}
 }
 
 // ============================================================================
@@ -414,16 +346,13 @@ export class UniversalAnalyticsService extends BaseService {
   async getPerformanceMetrics(timeRange = "7d"): Promise<APIResponse<any>> {
     return this.retryRequest(() =>
       this.request<any>(`/analytics/performance?range=${timeRange}`),
-    );
-  }
+    );}
 
   async getMLInsights(): Promise<APIResponse<any>> {
-    return this.retryRequest(() => this.request<any>("/analytics/ml-insights"));
-  }
+    return this.retryRequest(() => this.request<any>("/analytics/ml-insights"));}
 
   async getMarketAnalysis(): Promise<APIResponse<any>> {
-    return this.retryRequest(() => this.request<any>("/analytics/market"));
-  }
+    return this.retryRequest(() => this.request<any>("/analytics/market"));}
 }
 
 // ============================================================================
@@ -432,49 +361,39 @@ export class UniversalAnalyticsService extends BaseService {
 
 export class UniversalServiceFactory {
   private static instances: Map<string, BaseService> = new Map();
-  private static config: ServiceConfig = {};
+  private static config: ServiceConfig = Record<string, any>;
 
   static configure(config: ServiceConfig) {
-    this.config = { ...this.config, ...config };
-  }
+    this.config = { ...this.config, ...config}}
 
   static getPredictionService(): UniversalPredictionService {
     if (!this.instances.has("prediction")) {
       this.instances.set(
         "prediction",
         new UniversalPredictionService(this.config),
-      );
-    }
-    return this.instances.get("prediction") as UniversalPredictionService;
-  }
+      );}
+    return this.instances.get("prediction") as UniversalPredictionService;}
 
   static getBettingService(): UniversalBettingService {
     if (!this.instances.has("betting")) {
-      this.instances.set("betting", new UniversalBettingService(this.config));
-    }
-    return this.instances.get("betting") as UniversalBettingService;
-  }
+      this.instances.set("betting", new UniversalBettingService(this.config));}
+    return this.instances.get("betting") as UniversalBettingService;}
 
   static getUserService(): UniversalUserService {
     if (!this.instances.has("user")) {
-      this.instances.set("user", new UniversalUserService(this.config));
-    }
-    return this.instances.get("user") as UniversalUserService;
-  }
+      this.instances.set("user", new UniversalUserService(this.config));}
+    return this.instances.get("user") as UniversalUserService;}
 
   static getAnalyticsService(): UniversalAnalyticsService {
     if (!this.instances.has("analytics")) {
       this.instances.set(
         "analytics",
         new UniversalAnalyticsService(this.config),
-      );
-    }
-    return this.instances.get("analytics") as UniversalAnalyticsService;
-  }
+      );}
+    return this.instances.get("analytics") as UniversalAnalyticsService;}
 
   static clearInstances() {
-    this.instances.clear();
-  }
+    this.instances.clear();}
 }
 
 // ============================================================================
@@ -482,27 +401,23 @@ export class UniversalServiceFactory {
 // ============================================================================
 
 export const createQueryKeys = {
-  predictions: {
-    all: ["predictions"] as const,
+  predictions: {,`n  all: ["predictions"] as const,
     recent: (limit?: number) => ["predictions", "recent", limit] as const,
-    metrics: () => ["predictions", "metrics"] as const,
+    metrics: () => ["predictions", "metrics"] as const
   },
-  betting: {
-    all: ["betting"] as const,
+  betting: {,`n  all: ["betting"] as const,
     opportunities: () => ["betting", "opportunities"] as const,
-    history: (userId: string) => ["betting", "history", userId] as const,
+    history: (userId: string) => ["betting", "history", userId] as const
   },
-  user: {
-    all: ["user"] as const,
-    profile: () => ["user", "profile"] as const,
+  user: {,`n  all: ["user"] as const,
+    profile: () => ["user", "profile"] as const
   },
-  analytics: {
-    all: ["analytics"] as const,
+  analytics: {,`n  all: ["analytics"] as const,
     performance: (range: string) =>
       ["analytics", "performance", range] as const,
     insights: () => ["analytics", "ml-insights"] as const,
-    market: () => ["analytics", "market"] as const,
-  },
+    market: () => ["analytics", "market"] as const
+  }
 };
 
 // Default query configurations;
@@ -510,7 +425,7 @@ export const defaultQueryConfig = {
   staleTime: 30000, // 30 seconds;
   cacheTime: 300000, // 5 minutes;
   refetchOnWindowFocus: false,
-  retry: 2,
+  retry: 2
 };
 
 // ============================================================================
@@ -524,7 +439,7 @@ export {
   UniversalPredictionService,
   UniversalBettingService,
   UniversalUserService,
-  UniversalAnalyticsService,
+//   UniversalAnalyticsService
 };
 
 // Export types;
@@ -535,5 +450,10 @@ export type {
   Prediction,
   EngineMetrics,
   BetOpportunity,
-  UserProfile,
+//   UserProfile
 };
+
+
+
+
+`

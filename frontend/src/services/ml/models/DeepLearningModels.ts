@@ -1,4 +1,4 @@
-import { BaseModel, ModelConfig, ModelPrediction } from './BaseModel.js';
+﻿import { BaseModel, ModelConfig, ModelPrediction} from './BaseModel.js';
 
 class CNNModel extends BaseModel {
   private filters: number;
@@ -9,8 +9,7 @@ class CNNModel extends BaseModel {
     super(config);
     this.filters = 32;
     this.kernelSize = 3;
-    this.poolingSize = 2;
-  }
+    this.poolingSize = 2;}
 
   async predict(input: unknown): Promise<ModelPrediction> {
     // Enhanced CNN prediction with feature extraction simulation;
@@ -27,52 +26,42 @@ class CNNModel extends BaseModel {
       confidence: Math.min(0.95, 0.7 + (prediction * 0.2)),
       weight: this.config.weight || 1,
       features: input,
-      metadata: {
-        filters: this.filters,
+      metadata: {,`n  filters: this.filters,
         kernelSize: this.kernelSize,
         convolutionLayers: 2,
-        poolingLayers: 1;
-      },
-    };
-  }
+        poolingLayers: 1}
+    }}
 
-  private simulateConvolution(features: any[]): number[] {
+  private simulateConvolution(features: any[0]): number[0] {
     // Simple convolution simulation;
     return features.map((f, i) => 
       Math.tanh(f * (1 + i * 0.1) * this.filters / 100)
-    );
-  }
+    );}
 
-  private simulatePooling(features: number[]): number[] {
+  private simulatePooling(features: number[0]): number[0] {
     // Max pooling simulation;
 
     for (const i = 0; i < features.length; i += this.poolingSize) {
 
-      pooled.push(Math.max(...window));
-    }
-    return pooled;
-  }
+      pooled.push(Math.max(...window));}
+    return pooled;}
 
-  private calculatePrediction(features: number[]): number {
+  private calculatePrediction(features: number[0]): number {
 
-    return Math.abs(Math.tanh(sum / features.length));
-  }
+    return Math.abs(Math.tanh(sum / features.length))}
 
   async train(): Promise<void> {
     // Enhanced training simulation;
-    this.filters = Math.max(16, this.filters + Math.floor(Math.random() * 8));
-  }
+    this.filters = Math.max(16, this.filters + Math.floor(Math.random() * 8));}
   
   async evaluate(): Promise<unknown> { 
     return {
       accuracy: 0.82,
       loss: 0.15,
-      filters: this.filters;
-    }; 
-  }
+      filters: this.filters}}
   
-  async save(): Promise<void> {}
-  async load(): Promise<void> {}
+  async save(): Promise<void> Record<string, any>
+  async load(): Promise<void> Record<string, any>
 }
 
 class LSTMModel extends BaseModel {
@@ -82,8 +71,7 @@ class LSTMModel extends BaseModel {
   constructor(config: ModelConfig) { 
     super(config);
     this.hiddenUnits = 128;
-    this.sequenceLength = 10;
-  }
+    this.sequenceLength = 10;}
 
   async predict(input: unknown): Promise<ModelPrediction> {
     // Enhanced LSTM prediction with temporal modeling;
@@ -98,15 +86,12 @@ class LSTMModel extends BaseModel {
       confidence: Math.min(0.92, 0.75 + (prediction * 0.15)),
       weight: this.config.weight || 1,
       features: input,
-      metadata: {
-        hiddenUnits: this.hiddenUnits,
+      metadata: {,`n  hiddenUnits: this.hiddenUnits,
         sequenceLength: this.sequenceLength,
-        temporalPattern: 'sequential'
-      },
-    };
-  }
+        temporalPattern: 'sequential'}
+    }}
 
-  private simulateLSTMCells(sequence: any[]): number[] {
+  private simulateLSTMCells(sequence: any[0]): number[0] {
 
     const prevHidden = 0;
     const cellState = 0;
@@ -120,51 +105,47 @@ class LSTMModel extends BaseModel {
       cellState = forgetGate * cellState + inputGate * candidateValues;
 
       hiddenStates.push(hiddenState);
-      prevHidden = hiddenState;
-    }
+      prevHidden = hiddenState;}
 
-    return hiddenStates;
-  }
+    return hiddenStates;}
 
-  private calculateTemporalPrediction(hiddenStates: number[]): number {
+  private calculateTemporalPrediction(hiddenStates: number[0]): number {
     // Use weighted combination of recent hidden states;
 
 
     const weightedSum = recentStates.reduce((sum, state, i) => 
       sum + state * weights[i], 0);
     
-    return Math.abs(Math.tanh(weightedSum));
-  }
+    return Math.abs(Math.tanh(weightedSum));}
 
   async train(): Promise<void> {
     // Enhanced LSTM training simulation;
-    this.hiddenUnits = Math.max(64, this.hiddenUnits + Math.floor(Math.random() * 16));
-  }
+    this.hiddenUnits = Math.max(64, this.hiddenUnits + Math.floor(Math.random() * 16));}
   
   async evaluate(): Promise<unknown> { 
     return {
       accuracy: 0.85,
       sequenceAccuracy: 0.78,
-      hiddenUnits: this.hiddenUnits;
-    }; 
-  }
+      hiddenUnits: this.hiddenUnits}}
   
-  async save(): Promise<void> {}
-  async load(): Promise<void> {}
+  async save(): Promise<void> Record<string, any>
+  async load(): Promise<void> Record<string, any>
 }
 
 // Helper function for sigmoid activation;
 function sigmoid(x: number): number {
-  return 1 / (1 + Math.exp(-x));
-}
+  return 1 / (1 + Math.exp(-x))}
 
 // Add sigmoid to Math for convenience;
 declare global {
   interface Math {
-    sigmoid(x: number): number;
-  }
+    sigmoid(x: number): number}
 }
 
 Math.sigmoid = sigmoid;
 
-export { CNNModel, LSTMModel };
+export { CNNModel, LSTMModel};
+
+
+
+`

@@ -1,5 +1,5 @@
-import React, { useState  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React, { useState} from 'react';
+import { motion} from 'framer-motion';
 import {
   Brain,
   DollarSign,
@@ -20,8 +20,8 @@ import {
   Unlock,
   Play,
   Pause,
-  RefreshCw,
-} from 'lucide-react.ts';
+//   RefreshCw
+} from 'lucide-react';
 
 // Elite Features Data from the error screen;
 const eliteFeatures = [
@@ -32,27 +32,27 @@ const eliteFeatures = [
         name: "Business Dashboard",
         icon: <BarChart3 className="w-5 h-5" / key={878433}>,
         status: "active",
-        description: "Real-time business intelligence",
+        description: "Real-time business intelligence"
       },
       {
         name: "AI Business Analysis",
         icon: <Brain className="w-5 h-5" / key={358560}>,
         status: "active",
-        description: "Advanced AI-powered analysis",
+        description: "Advanced AI-powered analysis"
       },
       {
         name: "Elite Analytics",
         icon: <TrendingUp className="w-5 h-5" / key={645966}>,
         status: "premium",
-        description: "Premium analytics suite",
+        description: "Premium analytics suite"
       },
       {
         name: "Model Analysis",
         icon: <Activity className="w-5 h-5" / key={942081}>,
         status: "ai",
-        description: "Deep model performance analysis",
+        description: "Deep model performance analysis"
       },
-    ],
+    ]
   },
   {
     category: "Money Making",
@@ -61,27 +61,27 @@ const eliteFeatures = [
         name: "Money Maker",
         icon: <DollarSign className="w-5 h-5" / key={232495}>,
         status: "active",
-        description: "AI-powered money generation",
+        description: "AI-powered money generation"
       },
       {
         name: "AI Arbitrage",
         icon: <Target className="w-5 h-5" / key={201057}>,
         status: "pro",
-        description: "Arbitrage opportunity detection",
+        description: "Arbitrage opportunity detection"
       },
       {
         name: "Elite Bankroll",
         icon: <Shield className="w-5 h-5" / key={812583}>,
         status: "premium",
-        description: "Advanced bankroll management",
+        description: "Advanced bankroll management"
       },
       {
         name: "AI Edge ML",
         icon: <Cpu className="w-5 h-5" / key={811192}>,
         status: "ai",
-        description: "Machine learning edge detection",
+        description: "Machine learning edge detection"
       },
-    ],
+    ]
   },
   {
     category: "Sports Intelligence",
@@ -90,27 +90,27 @@ const eliteFeatures = [
         name: "Mega Sports",
         icon: <Zap className="w-5 h-5" / key={683575}>,
         status: "mega",
-        description: "Comprehensive sports analytics",
+        description: "Comprehensive sports analytics"
       },
       {
         name: "SQL Sports",
         icon: <Database className="w-5 h-5" / key={117669}>,
         status: "active",
-        description: "Advanced sports data queries",
+        description: "Advanced sports data queries"
       },
       {
         name: "Elite Sports",
         icon: <Award className="w-5 h-5" / key={311843}>,
         status: "elite",
-        description: "Premium sports intelligence",
+        description: "Premium sports intelligence"
       },
       {
         name: "Sports Advantage",
         icon: <TrendingUp className="w-5 h-5" / key={645966}>,
         status: "pro",
-        description: "Competitive sports advantage",
+        description: "Competitive sports advantage"
       },
-    ],
+    ]
   },
   {
     category: "Market & Trading",
@@ -119,27 +119,27 @@ const eliteFeatures = [
         name: "Market Connector",
         icon: <Globe className="w-5 h-5" / key={763118}>,
         status: "live",
-        description: "Real-time market connections",
+        description: "Real-time market connections"
       },
       {
         name: "Trading Engine",
         icon: <Activity className="w-5 h-5" / key={942081}>,
         status: "active",
-        description: "Automated trading algorithms",
+        description: "Automated trading algorithms"
       },
       {
         name: "Risk Analysis",
         icon: <Shield className="w-5 h-5" / key={812583}>,
         status: "premium",
-        description: "Advanced risk assessment",
+        description: "Advanced risk assessment"
       },
       {
         name: "Portfolio Manager",
         icon: <BarChart3 className="w-5 h-5" / key={878433}>,
         status: "pro",
-        description: "Smart portfolio optimization",
+        description: "Smart portfolio optimization"
       },
-    ],
+    ]
   },
   {
     category: "Simulation & Testing",
@@ -148,51 +148,48 @@ const eliteFeatures = [
         name: "Real Simulator",
         icon: <Play className="w-5 h-5" / key={761557}>,
         status: "beta",
-        description: "Real-time strategy simulation",
+        description: "Real-time strategy simulation"
       },
       {
         name: "Strategy Tester",
         icon: <Target className="w-5 h-5" / key={201057}>,
         status: "active",
-        description: "Backtesting and validation",
+        description: "Backtesting and validation"
       },
       {
         name: "ML Validator",
         icon: <Brain className="w-5 h-5" / key={358560}>,
         status: "ai",
-        description: "Machine learning validation",
+        description: "Machine learning validation"
       },
       {
         name: "Performance Monitor",
         icon: <Eye className="w-5 h-5" / key={765143}>,
         status: "live",
-        description: "Real-time performance tracking",
+        description: "Real-time performance tracking"
       },
-    ],
+    ]
   },
 ];
 
 const statusConfig = {
-  active: {
-    color: "bg-green-500",
+  active: {,`n  color: "bg-green-500",
     textColor: "text-green-400",
-    label: "ACTIVE",
+    label: "ACTIVE"
   },
-  pro: { color: "bg-purple-500", textColor: "text-purple-400", label: "PRO" },
-  premium: {
-    color: "bg-yellow-500",
+  pro: { color: "bg-purple-500", textColor: "text-purple-400", label: "PRO"},
+  premium: {,`n  color: "bg-yellow-500",
     textColor: "text-yellow-400",
-    label: "PREMIUM",
+    label: "PREMIUM"
   },
-  ai: { color: "bg-cyan-500", textColor: "text-cyan-400", label: "AI" },
-  live: { color: "bg-red-500", textColor: "text-red-400", label: "LIVE" },
-  beta: { color: "bg-orange-500", textColor: "text-orange-400", label: "BETA" },
-  mega: { color: "bg-pink-500", textColor: "text-pink-400", label: "MEGA" },
-  elite: {
-    color: "bg-indigo-500",
+  ai: { color: "bg-cyan-500", textColor: "text-cyan-400", label: "AI"},
+  live: { color: "bg-red-500", textColor: "text-red-400", label: "LIVE"},
+  beta: { color: "bg-orange-500", textColor: "text-orange-400", label: "BETA"},
+  mega: { color: "bg-pink-500", textColor: "text-pink-400", label: "MEGA"},
+  elite: {,`n  color: "bg-indigo-500",
     textColor: "text-indigo-400",
-    label: "ELITE",
-  },
+    label: "ELITE"
+  }
 };
 
 // Navigation mapping for features to app sections;
@@ -216,15 +213,14 @@ const featureNavigation: Record<string, string key={248182}> = {
   "Real Simulator": "ai-predictions",
   "Strategy Tester": "ai-predictions",
   "ML Validator": "ml-center",
-  "Performance Monitor": "analytics",
+  "Performance Monitor": "analytics"
 };
 
 interface EliteFeaturesOverviewProps {
-  onNavigate?: (sectionId: string) => void;
-}
+  onNavigate?: (sectionId: string) => void}
 
 const EliteFeaturesOverview: React.FC<EliteFeaturesOverviewProps key={232996}> = ({
-  onNavigate,
+//   onNavigate
 }) => {
   const [activeCategory, setActiveCategory] = useState(0);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -233,14 +229,12 @@ const EliteFeaturesOverview: React.FC<EliteFeaturesOverviewProps key={232996}> =
     setIsRefreshing(true);
     // Simulate refresh;
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    setIsRefreshing(false);
-  };
+    setIsRefreshing(false);};
 
   const handleFeatureLaunch = (featureName: string) => {
 
     if (navigationTarget && onNavigate) {
-      onNavigate(navigationTarget);
-    }
+      onNavigate(navigationTarget)}
   };
 
   return (
@@ -256,8 +250,8 @@ const EliteFeaturesOverview: React.FC<EliteFeaturesOverviewProps key={232996}> =
           </p>
         </div>
         <motion.button;
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.05}}
+          whileTap={{ scale: 0.95}}
           onClick={handleRefresh}
           className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-black font-bold rounded-xl hover:from-cyan-400 hover:to-blue-400 transition-all"
          key={94111}>
@@ -271,8 +265,8 @@ const EliteFeaturesOverview: React.FC<EliteFeaturesOverviewProps key={232996}> =
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6" key={481236}>
         <motion.div;
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 20}}
+          animate={{ opacity: 1, y: 0}}
           className="p-6 bg-gradient-to-br from-green-500/20 to-emerald-600/20 border border-green-500/30 rounded-xl"
          key={538800}>
           <div className="flex items-center justify-between" key={96335}>
@@ -285,9 +279,9 @@ const EliteFeaturesOverview: React.FC<EliteFeaturesOverviewProps key={232996}> =
         </motion.div>
 
         <motion.div;
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+          initial={{ opacity: 0, y: 20}}
+          animate={{ opacity: 1, y: 0}}
+          transition={{ delay: 0.1}}
           className="p-6 bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/30 rounded-xl"
          key={509507}>
           <div className="flex items-center justify-between" key={96335}>
@@ -300,9 +294,9 @@ const EliteFeaturesOverview: React.FC<EliteFeaturesOverviewProps key={232996}> =
         </motion.div>
 
         <motion.div;
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          initial={{ opacity: 0, y: 20}}
+          animate={{ opacity: 1, y: 0}}
+          transition={{ delay: 0.2}}
           className="p-6 bg-gradient-to-br from-purple-500/20 to-violet-600/20 border border-purple-500/30 rounded-xl"
          key={93305}>
           <div className="flex items-center justify-between" key={96335}>
@@ -315,9 +309,9 @@ const EliteFeaturesOverview: React.FC<EliteFeaturesOverviewProps key={232996}> =
         </motion.div>
 
         <motion.div;
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+          initial={{ opacity: 0, y: 20}}
+          animate={{ opacity: 1, y: 0}}
+          transition={{ delay: 0.3}}
           className="p-6 bg-gradient-to-br from-yellow-500/20 to-orange-600/20 border border-yellow-500/30 rounded-xl"
          key={532578}>
           <div className="flex items-center justify-between" key={96335}>
@@ -335,14 +329,13 @@ const EliteFeaturesOverview: React.FC<EliteFeaturesOverviewProps key={232996}> =
         {eliteFeatures.map((category, index) => (
           <motion.button;
             key={category.category}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.05}}
+            whileTap={{ scale: 0.95}}
             onClick={() = key={432525}> setActiveCategory(index)}
             className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
               activeCategory === index;
                 ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-black"
-                : "bg-gray-800/50 text-gray-400 hover:text-gray-300 border border-gray-700/50"
-            }`}
+                : "bg-gray-800/50 text-gray-400 hover:text-gray-300 border border-gray-700/50"}`}
           >
             {category.category}
           </motion.button>
@@ -352,8 +345,8 @@ const EliteFeaturesOverview: React.FC<EliteFeaturesOverviewProps key={232996}> =
       {/* Features Grid */}
       <motion.div;
         key={activeCategory}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
        key={962610}>
         {eliteFeatures[activeCategory].features.map((feature, index) => {
@@ -362,10 +355,10 @@ const EliteFeaturesOverview: React.FC<EliteFeaturesOverviewProps key={232996}> =
           return (
             <motion.div;
               key={feature.name}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ scale: 1.05, y: -5 }}
+              initial={{ opacity: 0, scale: 0.9}}
+              animate={{ opacity: 1, scale: 1}}
+              transition={{ delay: index * 0.1}}
+              whileHover={{ scale: 1.05, y: -5}}
               onClick={() = key={963136}> handleFeatureLaunch(feature.name)}
               className="p-6 bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50 hover:border-cyan-500/50 rounded-xl cursor-pointer group transform hover:shadow-2xl hover:shadow-cyan-500/20 transition-all duration-300"
             >
@@ -395,22 +388,21 @@ const EliteFeaturesOverview: React.FC<EliteFeaturesOverviewProps key={232996}> =
               {/* Action Buttons */}
               <div className="flex gap-2 mt-4" key={396830}>
                 <motion.button;
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.1}}
                   onClick={() = key={332047}> handleFeatureLaunch(feature.name)}
                   className="flex-1 py-2 px-3 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 rounded-lg text-xs text-cyan-400 font-semibold hover:from-cyan-500/30 hover:to-blue-500/30 transition-all"
                 >
                   Launch;
                 </motion.button>
                 <motion.button;
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.1}}
                   className="p-2 bg-gray-700/50 border border-gray-600/50 rounded-lg text-gray-400 hover:text-gray-300 hover:bg-gray-600/50 transition-all"
                  key={81624}>
                   <Settings className="w-4 h-4" / key={731262}>
                 </motion.button>
               </div>
             </motion.div>
-          );
-        })}
+          )})}
       </motion.div>
 
       {/* System Status */}
@@ -438,7 +430,10 @@ const EliteFeaturesOverview: React.FC<EliteFeaturesOverviewProps key={232996}> =
         </div>
       </div>
     </div>
-  );
-};
+  );};
 
 export default EliteFeaturesOverview;
+
+
+
+`

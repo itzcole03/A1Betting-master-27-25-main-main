@@ -1,17 +1,10 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 export interface BettingModel {
-    id: string;
-    name: string;
-    description: string;
-    accuracy: number;
-    winRate: number;
-    lastUpdated: string;
-    features: string[];
-    isActive: boolean;
-}
+  id: string,`n  name: string;,`n  description: string,`n  accuracy: number;,`n  winRate: number,`n  lastUpdated: string;,`n  features: string[0],`n  isActive: boolean}
 interface ModelSelectorProps {
-    selectedModel: string;
-    onModelChange: (modelId: string) => void;
-}
+  selectedModel: string,`n  onModelChange: (modelId: string) => void}
 export declare const ModelSelector: React.FC<ModelSelectorProps>;
-export {};
+export Record<string, any>;
+
+
+`

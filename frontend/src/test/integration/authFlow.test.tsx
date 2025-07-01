@@ -1,30 +1,26 @@
-// betaTest4/src/test/integration/authFlow.test.tsx;
-import React from 'react.ts';
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react.ts';
+﻿// betaTest4/src/test/integration/authFlow.test.tsx;
+import React from 'react';
+import { render, screen, fireEvent, waitFor, act} from '@testing-library/react';
 import '@testing-library/jest-dom'; // Correct import for jest-dom matchers;
-import App from '@/App.ts'; // Assuming App.tsx is the main app component with routes;
-import { useAppStore } from '@/store/useAppStore.ts';
+import App from '@/App'; // Assuming App.tsx is the main app component with routes;
+import { useAppStore} from '@/store/useAppStore';
 
 jest.mock('../../services/authService', () => ({
-  authService: {
-    login: jest.fn().mockImplementation(credentials => {
+  authService: {,`n  login: jest.fn().mockImplementation(credentials => {
       if (credentials.email === 'wrong@example.com') {
-        return Promise.reject(new Error('Invalid credentials'));
-      }
+        return Promise.reject(new Error('Invalid credentials'))}
       return Promise.resolve({
-        user: { id: 'u1', email: credentials.email, username: 'testuser' },
-        token: 'mock-token',
-      });
-    }),
+        user: { id: 'u1', email: credentials.email, username: 'testuser'},
+        token: 'mock-token'
+      })}),
     logout: jest.fn().mockResolvedValue(undefined),
-    fetchCurrentUser: jest.fn().mockResolvedValue(null),
-  },
+    fetchCurrentUser: jest.fn().mockResolvedValue(null)
+  }
 }));
 
 // Mock any other services that might be called on initial load, e.g., from Dashboard;
 jest.mock('../../services/prizePicksService', () => ({
-  prizePicksService: {
-    fetchPrizePicksProps: jest.fn().mockResolvedValue([
+  prizePicksService: {,`n  fetchPrizePicksProps: jest.fn().mockResolvedValue([
       {
         id: 'prop1',
         league: 'NBA',
@@ -39,22 +35,19 @@ jest.mock('../../services/prizePicksService', () => ({
         overOdds: 110,
         underOdds: 110,
         playerId: 'player1',
-        player: {
-          id: 'player1',
+        player: {,`n  id: 'player1',
           name: 'LeBron James',
           team: 'LAL',
           position: 'SF',
-          image_url: '',
-        },
+          image_url: ''
+        }
       },
     ]),
-    // Add other mocked methods as needed by components loaded after auth;
-  },
+    // Add other mocked methods as needed by components loaded after auth}
 }));
 
 jest.mock('../../services/userService', () => ({
-  userService: {
-    fetchUserEntries: jest.fn().mockResolvedValue([
+  userService: {,`n  fetchUserEntries: jest.fn().mockResolvedValue([
       {
         id: 'entry1',
         user_id: 'testUser',
@@ -66,22 +59,21 @@ jest.mock('../../services/userService', () => ({
             stat_type: 'points',
             line_score: 28.5,
             description: 'LeBron James points',
-            playerId: 'player1',
+            playerId: 'player1'
           },
         ],
         stake: 10,
         payout: 18,
         status: 'won',
         created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
       },
-    ]),
-  },
+    ])
+  }
 }));
 
 jest.mock('../../services/newsService', () => ({
-  newsService: {
-    fetchHeadlines: jest.fn().mockResolvedValue([
+  newsService: {,`n  fetchHeadlines: jest.fn().mockResolvedValue([
       {
         id: 'headline1',
         title: 'LeBron James scores 40 in win',
@@ -90,10 +82,10 @@ jest.mock('../../services/newsService', () => ({
         publishedAt: new Date().toISOString(),
         source: 'ESPN',
         imageUrl: '',
-        category: 'NBA',
+        category: 'NBA'
       },
-    ]),
-  },
+    ])
+  }
 }));
 
 // Explicitly mock webSocketService to ensure it uses the manual mock;
@@ -109,60 +101,58 @@ jest.mock('../../core/UnifiedConfig', () => {
     config: '/api/config',
     news: '/api/news',
     sentiment: '/api/sentiment',
-    live: '/api/live',
+    live: '/api/live'
   };
   const config = {
     appName: 'Test App',
     version: '1.0.0',
-    features: {},
+    features: Record<string, any>,
     apiBaseUrl: 'http://localhost:8000',
     sentryDsn: '',
     websocketUrl: 'ws://localhost:8080',
-    getApiEndpoint: (key: string) => (apiEndpoints as Record<string, string key={248182}>)[key] || '',
+    getApiEndpoint: (key: string) => (apiEndpoints as Record<string, string key={248182}>)[key] || ''
   };
   return {
     ...jest.requireActual('../../core/UnifiedConfig'),
     initializeUnifiedConfig: jest.fn(() => Promise.resolve(config)),
     fetchAppConfig: jest.fn(() => Promise.resolve(config)),
     getInitializedUnifiedConfig: jest.fn(() => config),
-    globalUnifiedConfig: config,
-  };
-});
+    globalUnifiedConfig: config
+  }});
 
 jest.mock('framer-motion', () => {
 
   // Provide motion.div, motion.span, etc. as valid components;
   const motion = new Proxy(
-    {},
+    Record<string, any>,
     {
       get: () =>
-        React.forwardRef((props: any, ref: any) => React.createElement('div', { ...props, ref })),
+        React.forwardRef((props: any, ref: any) => React.createElement('div', { ...props, ref}))
     }
   );
   return {
     __esModule: true,
     motion,
     AnimatePresence: React.forwardRef((props: any, ref: any) =>
-      React.createElement('div', { ...props, ref })
+      React.createElement('div', { ...props, ref})
     ),
     AnimateSharedLayout: React.forwardRef((props: any, ref: any) =>
-      React.createElement('div', { ...props, ref })
+      React.createElement('div', { ...props, ref})
     ),
     LayoutGroup: React.forwardRef((props: any, ref: any) =>
-      React.createElement('div', { ...props, ref })
+      React.createElement('div', { ...props, ref})
     ),
     LazyMotion: React.forwardRef((props: any, ref: any) =>
-      React.createElement('div', { ...props, ref })
+      React.createElement('div', { ...props, ref})
     ),
     m: new Proxy(
-      {},
+      Record<string, any>,
       {
         get: () =>
-          React.forwardRef((props: any, ref: any) => React.createElement('div', { ...props, ref })),
+          React.forwardRef((props: any, ref: any) => React.createElement('div', { ...props, ref}))
       }
-    ),
-  };
-});
+    )
+  }});
 
 describe('Authentication Flow Integration Test', () => {
   beforeEach(() => {
@@ -183,22 +173,21 @@ describe('Authentication Flow Integration Test', () => {
                 stat_type: 'points',
                 line_score: 28.5,
                 description: 'LeBron James points',
-                playerId: 'player1',
+                playerId: 'player1'
               },
             ],
             stake: 10,
             payout: 18,
             status: 'won',
             created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
           },
-        ],
+        ]
       },
       true;
     );
     // Ensure no auth token is present in localStorage;
-    localStorage.removeItem('authToken');
-  });
+    localStorage.removeItem('authToken');});
 
   it('should allow a user to log in and redirect to dashboard', async () => {
     render(<App / key={103343}>);
@@ -206,9 +195,9 @@ describe('Authentication Flow Integration Test', () => {
     // Wait for the login form to appear;
 
 
-    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
-    fireEvent.click(screen.getByRole('button', { name: /sign in/i }));
+    fireEvent.change(emailInput, { target: { value: 'test@example.com'} });
+    fireEvent.change(passwordInput, { target: { value: 'password123'} });
+    fireEvent.click(screen.getByRole('button', { name: /sign in/i}));
 
     // Wait for login process and redirection;
     // Check if redirected to dashboard (e.g., by looking for a dashboard-specific element)
@@ -216,21 +205,19 @@ describe('Authentication Flow Integration Test', () => {
     // For example, if DashboardPage has <h1 class="text-3xl" key={647597}>Platform Overview</h1>
     await waitFor(
       () => {
-        expect(screen.queryByText(/Platform Overview/i)).toBeInTheDocument();
-      },
-      { timeout: 3000 }
+        expect(screen.queryByText(/Platform Overview/i)).toBeInTheDocument();},
+      { timeout: 3000}
     ); // Increased timeout for potential async operations;
 
     // Verify store state after successful login;
-    const { isAuthenticated, user, token } = useAppStore.getState();
+    const { isAuthenticated, user, token} = useAppStore.getState();
     expect(isAuthenticated).toBe(true);
-    expect(user).toEqual({ id: 'u1', email: 'test@example.com', username: 'testuser' });
-    expect(token).toBe('mock-token');
-  });
+    expect(user).toEqual({ id: 'u1', email: 'test@example.com', username: 'testuser'});
+    expect(token).toBe('mock-token');});
 
   it('should display an error message on failed login', async () => {
     jest.setTimeout(7000);
-    const { authService } = require('../../services/authService');
+    const { authService} = require('../../services/authService');
     authService.login.mockRejectedValueOnce(new Error('Invalid credentials'));
 
     render(<App / key={103343}>);
@@ -238,12 +225,11 @@ describe('Authentication Flow Integration Test', () => {
     // Wait for the login form to appear;
 
 
-    fireEvent.change(emailInput, { target: { value: 'wrong@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'wrongpassword' } });
+    fireEvent.change(emailInput, { target: { value: 'wrong@example.com'} });
+    fireEvent.change(passwordInput, { target: { value: 'wrongpassword'} });
     // Use act to ensure async error is caught;
     await act(async () => {
-      fireEvent.click(screen.getByRole('button', { name: /sign in/i }));
-    });
+      fireEvent.click(screen.getByRole('button', { name: /sign in/i}))});
 
     // Wait for error message to appear in the UI or store;
     await waitFor(
@@ -251,24 +237,23 @@ describe('Authentication Flow Integration Test', () => {
 
 
         if (alerts.length > 0) {
-          expect(alerts.length).toBeGreaterThan(0);
-        } else if (
+          expect(alerts.length).toBeGreaterThan(0);} else if (
           typeof storeError === 'string' &&
           /invalid|error|failed|incorrect|unauthorized|wrong/i.test(storeError)
         ) {
-          expect(storeError).toMatch(/invalid|error|failed|incorrect|unauthorized|wrong/i);
-        } else {
-          throw new Error('No error alert or store error found');
-        }
+          expect(storeError).toMatch(/invalid|error|failed|incorrect|unauthorized|wrong/i);} else {
+          throw new Error('No error alert or store error found');}
       },
-      { timeout: 5000 }
+      { timeout: 5000}
     );
 
     // Verify store state after failed login;
-    const { isAuthenticated, user, token, error } = useAppStore.getState();
+    const { isAuthenticated, user, token, error} = useAppStore.getState();
     expect(isAuthenticated).toBe(false);
     expect(user).toBeNull();
     expect(token).toBeNull();
-    expect(error).toMatch(/invalid|error|failed|incorrect|unauthorized|wrong/i); // Accept any error containing these words;
-  }, 7000);
-});
+    expect(error).toMatch(/invalid|error|failed|incorrect|unauthorized|wrong/i); // Accept any error containing these words;}, 7000);});
+
+
+
+`

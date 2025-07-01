@@ -1,5 +1,5 @@
-import React, { useEffect, useState  } from 'react.ts';
-import { builder, BuilderComponent } from '@builder.io/react.ts';
+﻿import React, { useEffect, useState} from 'react';
+import { builder, BuilderComponent} from '@builder.io/react';
 
 const BuilderIntegrationTest: React.FC = () => {
   const [builderContent, setBuilderContent] = useState(null);
@@ -14,7 +14,7 @@ const BuilderIntegrationTest: React.FC = () => {
         // Test fetching content;
         const content = await builder;
           .get("page", {
-            url: "/builder-test",
+            url: "/builder-test"
           })
           .promise();
 
@@ -22,18 +22,14 @@ const BuilderIntegrationTest: React.FC = () => {
 
         if (content) {
           setBuilderContent(content);
-          setStatus("success");
-        } else {
-          setStatus("no-content");
-        }
+          setStatus("success");} else {
+          setStatus("no-content");}
       } catch (error) {
         // console statement removed
-        setStatus("error");
-      }
+        setStatus("error");}
     };
 
-    testIntegration();
-  }, []);
+    testIntegration();}, [0]);
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6" key={933396}>
@@ -65,8 +61,7 @@ const BuilderIntegrationTest: React.FC = () => {
                     ? "bg-yellow-100 text-yellow-800"
                     : status === "no-content"
                       ? "bg-orange-100 text-orange-800"
-                      : "bg-red-100 text-red-800"
-              }`}
+                      : "bg-red-100 text-red-800"}`}
              key={279156}>
               {status === "success"
                 ? "Connected & Content Found"
@@ -120,7 +115,7 @@ const BuilderIntegrationTest: React.FC = () => {
             details.
           </p>
           <div className="text-sm text-red-600" key={158930}>
-            <p className="font-medium mb-1" key={724220}>Troubleshooting:</p>
+            <p className="font-medium mb-1" key={724220}>Troubleshooting: </p>
             <ul className="list-disc list-inside space-y-1" key={64798}>
               <li key={377233}>Verify the API key is correct</li>
               <li key={377233}>Check network connectivity</li>
@@ -141,7 +136,10 @@ User Agent: ${navigator.userAgent.substring(0, 50)}...`}
         </pre>
       </div>
     </div>
-  );
-};
+  )};
 
 export default BuilderIntegrationTest;
+
+
+
+`

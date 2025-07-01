@@ -1,20 +1,13 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
     Database,
     TrendingUp,
     Wifi,
-    WifiOff;
-} from 'lucide-react.ts';
-import { SPORTS_CONFIG } from '@/constants/sports.ts';
+    WifiOff} from 'lucide-react';
+import { SPORTS_CONFIG} from '@/constants/sports';
 
 interface HeroSectionProps {
-    connectedSources: number;
-    totalSources: number;
-    gamesCount: number;
-    playersCount: number;
-    dataQuality: number;
-    dataReliability: number;
-}
+    connectedSources: number,`n  totalSources: number;,`n  gamesCount: number,`n  playersCount: number;,`n  dataQuality: number,`n  dataReliability: number}
 
 export function HeroSection({
     connectedSources,
@@ -22,7 +15,7 @@ export function HeroSection({
     gamesCount,
     playersCount,
     dataQuality,
-    dataReliability,
+//     dataReliability
 }: HeroSectionProps) {
     const connectionPercentage =
         totalSources > 0 ? (connectedSources / totalSources) * 100 : 0;
@@ -192,5 +185,9 @@ export function HeroSection({
                 </div>
             </div>
         </div>
-    );
-}
+    );}
+
+
+
+
+`

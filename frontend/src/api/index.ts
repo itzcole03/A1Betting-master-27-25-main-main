@@ -1,14 +1,11 @@
-import axios from 'axios';
+﻿import axios from 'axios'
+import { API_CONFIG} from '../config/api'
 
-// Get the API URL from environment variables, default to backend URL
-const API_BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
-
+// Use unified API configuration
 const api = axios.create({
-  baseURL: `${API_BASE_URL}/api`,  // Match the backend API router prefix
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  timeout: 30000, // 30 second timeout
+  baseURL: API_CONFIG.baseURL,
+  headers: API_CONFIG.headers,
+  timeout: API_CONFIG.timeout
 });
 
 // Request interceptor for auth tokens
@@ -16,12 +13,9 @@ api.interceptors.request.use(config => {
   const token = localStorage.getItem('auth_token');
   if (token) {
     if (!config.headers) {
-      config.headers = {};
-    }
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+      config.headers = Record<string, any>}
+    config.headers.Authorization = `Bearer ${token}`}
+  return config});
 
 // Response interceptor for error handling
 api.interceptors.response.use(
@@ -31,10 +25,12 @@ api.interceptors.response.use(
       // Handle unauthorized access
       localStorage.removeItem('auth_token');
       localStorage.removeItem('refresh_token');
-      window.location.href = '/login';
-    }
-    return Promise.reject(error);
-  }
+      window.location.href = '/login'}
+    return Promise.reject(error)}
 );
 
 export default api;
+
+
+
+`

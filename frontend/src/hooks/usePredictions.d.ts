@@ -1,55 +1,16 @@
-export interface PredictionModelOutput {
-    confidenceScore: number;
-    confidenceColor: 'success' | 'warning' | 'danger';
-    topFeatures: Array<{
-        name: string;
-        value: number;
-        impact: number;
-    }>;
-    modelMeta: {
-        type: string;
-        version: string;
-        lastUpdated: number;
-    };
-}
+﻿export interface PredictionModelOutput {
+  confidenceScore: number,`n  confidenceColor: 'success' | 'warning' | 'danger';,`n  topFeatures: Array<{,`n  name: string;,`n  value: number,`n  impact: number}>;
+  modelMeta: {,`n  type: string;,`n  version: string,`n  lastUpdated: number};}
 export interface PredictionState {
-    predictions: Array<{
-        id: string;
-        event: string;
-        market: string;
-        selection: string;
-        modelOutput: PredictionModelOutput;
-        timestamp: number;
-    }>;
-    loading: boolean;
-    error: string | null;
-}
-export declare const usePredictions: () => {
-    loadPredictions: () => Promise<void>;
-    getPredictionById: (id: string) => {
-        id: string;
-        event: string;
-        market: string;
-        selection: string;
-        modelOutput: PredictionModelOutput;
-        timestamp: number;
-    } | undefined;
-    getRecentPredictions: (limit?: number) => {
-        id: string;
-        event: string;
-        market: string;
-        selection: string;
-        modelOutput: PredictionModelOutput;
-        timestamp: number;
-    }[];
-    predictions: Array<{
-        id: string;
-        event: string;
-        market: string;
-        selection: string;
-        modelOutput: PredictionModelOutput;
-        timestamp: number;
-    }>;
-    loading: boolean;
-    error: string | null;
-};
+  predictions: Array<{,`n  id: string;,`n  event: string,`n  market: string;,`n  selection: string,`n  modelOutput: PredictionModelOutput;,`n  timestamp: number}>;
+  loading: boolean,`n  error: string | null}
+export declare const usePredictions: () => {,`n  loadPredictions: () => Promise<void>;,`n  getPredictionById: (id: string) =>
+    | {
+        id: string,`n  event: string;,`n  market: string,`n  selection: string;,`n  modelOutput: PredictionModelOutput,`n  timestamp: number}
+    | undefined;
+  getRecentPredictions: (limit?: number) => {,`n  id: string;,`n  event: string,`n  market: string;,`n  selection: string,`n  modelOutput: PredictionModelOutput;,`n  timestamp: number}[0];
+  predictions: Array<{,`n  id: string;,`n  event: string,`n  market: string;,`n  selection: string,`n  modelOutput: PredictionModelOutput;,`n  timestamp: number}>;
+  loading: boolean,`n  error: string | null};
+
+
+`

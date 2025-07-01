@@ -1,4 +1,4 @@
-export class DataGenerator {
+﻿export class DataGenerator {
   static generateConfidence(context: any): number {
 
     const adjustment = 0;
@@ -9,8 +9,7 @@ export class DataGenerator {
         context.recentForm;
           .slice(-5)
           .reduce((sum: number, val: number) => sum + val, 0) / 5;
-      adjustment += (avgForm - 0.5) * 20; // ±10 points based on form;
-    }
+      adjustment += (avgForm - 0.5) * 20; // ±10 points based on form;}
 
     if (context.choice === "over" && context.statType) {
       // Slightly favor over for offensive stats;
@@ -19,22 +18,19 @@ export class DataGenerator {
           context.statType,
         )
       ) {
-        adjustment += 2;
-      }
+        adjustment += 2;}
     }
 
     if (context.choice === "under" && context.statType) {
       // Slightly favor under for defensive stats;
       if (["Turnovers", "Fouls", "Strikeouts"].includes(context.statType)) {
-        adjustment += 2;
-      }
+        adjustment += 2;}
     }
 
     // Add some randomness;
     adjustment += (Math.random() - 0.5) * 15;
 
-    return Math.max(55, Math.min(95, baseConfidence + adjustment));
-  }
+    return Math.max(55, Math.min(95, baseConfidence + adjustment));}
 
   static generateExpectedValue(context: any): number {
 
@@ -46,19 +42,16 @@ export class DataGenerator {
         context.recentForm;
           .slice(-3)
           .reduce((sum: number, val: number) => sum + val, 0) / 3;
-      adjustment += (avgForm - 0.5) * 8; // ±4 EV based on recent form;
-    }
+      adjustment += (avgForm - 0.5) * 8; // ±4 EV based on recent form;}
 
     if (context.confidence) {
       // Higher confidence = higher potential EV;
-      adjustment += (context.confidence - 75) * 0.1;
-    }
+      adjustment += (context.confidence - 75) * 0.1;}
 
     // Add randomness;
     adjustment += (Math.random() - 0.5) * 10;
 
-    return baseEV + adjustment;
-  }
+    return baseEV + adjustment;}
 
   static generateStatLine(
     sport: string,
@@ -66,51 +59,46 @@ export class DataGenerator {
     playerName?: string,
   ): number {
     const baseLines = {
-      NBA: {
-        Points: { min: 12, max: 35, avg: 20 },
-        Rebounds: { min: 3, max: 15, avg: 7 },
-        Assists: { min: 2, max: 12, avg: 5 },
-        "3-Pointers Made": { min: 1, max: 6, avg: 2.5 },
-        Steals: { min: 0.5, max: 3, avg: 1.2 },
-        Blocks: { min: 0.5, max: 3, avg: 1.0 },
+      NBA: {,`n  Points: { min: 12, max: 35, avg: 20},
+        Rebounds: { min: 3, max: 15, avg: 7},
+        Assists: { min: 2, max: 12, avg: 5},
+        "3-Pointers Made": { min: 1, max: 6, avg: 2.5},
+        Steals: { min: 0.5, max: 3, avg: 1.2},
+        Blocks: { min: 0.5, max: 3, avg: 1.0}
       },
       NFL: {
-        "Passing Yards": { min: 180, max: 350, avg: 240 },
-        "Rushing Yards": { min: 40, max: 150, avg: 75 },
-        Receptions: { min: 3, max: 12, avg: 6 },
-        "Receiving Yards": { min: 40, max: 120, avg: 70 },
-        Touchdowns: { min: 0.5, max: 3, avg: 1.2 },
+        "Passing Yards": { min: 180, max: 350, avg: 240},
+        "Rushing Yards": { min: 40, max: 150, avg: 75},
+        Receptions: { min: 3, max: 12, avg: 6},
+        "Receiving Yards": { min: 40, max: 120, avg: 70},
+        Touchdowns: { min: 0.5, max: 3, avg: 1.2}
       },
-      MLB: {
-        Hits: { min: 0.5, max: 3, avg: 1.2 },
-        RBIs: { min: 0.5, max: 4, avg: 1.5 },
-        Runs: { min: 0.5, max: 3, avg: 1.0 },
-        "Home Runs": { min: 0.5, max: 2, avg: 0.8 },
-        Strikeouts: { min: 0.5, max: 12, avg: 6 },
+      MLB: {,`n  Hits: { min: 0.5, max: 3, avg: 1.2},
+        RBIs: { min: 0.5, max: 4, avg: 1.5},
+        Runs: { min: 0.5, max: 3, avg: 1.0},
+        "Home Runs": { min: 0.5, max: 2, avg: 0.8},
+        Strikeouts: { min: 0.5, max: 12, avg: 6}
       },
-      NHL: {
-        Goals: { min: 0.5, max: 2, avg: 0.8 },
-        Assists: { min: 0.5, max: 3, avg: 1.2 },
-        Shots: { min: 2, max: 8, avg: 4 },
-        Points: { min: 0.5, max: 4, avg: 2 },
-      },
+      NHL: {,`n  Goals: { min: 0.5, max: 2, avg: 0.8},
+        Assists: { min: 0.5, max: 3, avg: 1.2},
+        Shots: { min: 2, max: 8, avg: 4},
+        Points: { min: 0.5, max: 4, avg: 2}
+      }
     };
 
     if (!sportLines || !sportLines[statType]) {
-      return 10 + Math.random() * 10; // Fallback;
-    }
+      return 10 + Math.random() * 10; // Fallback;}
 
-    const { min, max, avg } = sportLines[statType];
+    const { min, max, avg} = sportLines[statType];
 
     // Generate line around average with some variation;
 
 
     // Ensure within bounds;
-    return Math.max(min, Math.min(max, line));
-  }
+    return Math.max(min, Math.min(max, line));}
 
-  static generateRecentForm(games: number = 10): number[] {
-    const form: number[] = [];
+  static generateRecentForm(games: number = 10): number[0] {
+    const form: number[0] = [0];
     const trend = (Math.random() - 0.5) * 0.4; // Overall trend;
     const currentLevel = 0.5;
 
@@ -121,11 +109,9 @@ export class DataGenerator {
         0.1,
         Math.min(0.9, currentLevel + trend * 0.1 + noise),
       );
-      form.push(currentLevel);
-    }
+      form.push(currentLevel);}
 
-    return form;
-  }
+    return form;}
 
   static generateGameData(sport: string): any {
 
@@ -134,8 +120,7 @@ export class DataGenerator {
 
     // Ensure different teams;
     while (awayTeam === homeTeam) {
-      awayTeam = teams[Math.floor(Math.random() * teams.length)];
-    }
+      awayTeam = teams[Math.floor(Math.random() * teams.length)];}
 
     return {
       id: `${sport.toLowerCase()}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
@@ -149,29 +134,26 @@ export class DataGenerator {
       venue: `${homeTeam} Stadium`,
       spread: (Math.random() - 0.5) * 14, // ±7 point spread;
       total: this.generateGameTotal(sport),
-      moneyline: {
-        home: -110 + Math.random() * 60,
-        away: -110 + Math.random() * 60,
-      },
-    };
-  }
+      moneyline: {,`n  home: -110 + Math.random() * 60,
+        away: -110 + Math.random() * 60
+      }
+    }}
 
   static generateGameTotal(sport: string): number {
     const totals = {
-      NBA: { min: 210, max: 240, avg: 225 },
-      NFL: { min: 42, max: 58, avg: 47 },
-      MLB: { min: 7, max: 12, avg: 9 },
-      NHL: { min: 5.5, max: 7.5, avg: 6.5 },
+      NBA: { min: 210, max: 240, avg: 225},
+      NFL: { min: 42, max: 58, avg: 47},
+      MLB: { min: 7, max: 12, avg: 9},
+      NHL: { min: 5.5, max: 7.5, avg: 6.5}
     };
 
     if (!sportTotal) return 100;
 
-    const { min, max, avg } = sportTotal;
+    const { min, max, avg} = sportTotal;
 
-    return avg + (Math.random() - 0.5) * variation;
-  }
+    return avg + (Math.random() - 0.5) * variation;}
 
-  static getTeamsForSport(sport: string): string[] {
+  static getTeamsForSport(sport: string): string[0] {
     const teams = {
       NBA: [
         "LAL",
@@ -228,11 +210,10 @@ export class DataGenerator {
         "NJ",
         "DAL",
         "SEA",
-      ],
+      ]
     };
 
-    return teams[sport] || ["TEAM1", "TEAM2", "TEAM3", "TEAM4"];
-  }
+    return teams[sport] || ["TEAM1", "TEAM2", "TEAM3", "TEAM4"];}
 
   static generatePlayerData(sport: string, name?: string): any {
 
@@ -250,12 +231,11 @@ export class DataGenerator {
       injuryStatus: Math.random() > 0.9 ? "Questionable" : "Healthy",
       age: 21 + Math.floor(Math.random() * 15),
       experience: Math.floor(Math.random() * 15),
-      salary: this.generateSalary(sport),
-    };
-  }
+      salary: this.generateSalary(sport)
+    }}
 
   static generatePlayerStats(sport: string): any {
-    const stats: any = {};
+    const stats: any = Record<string, any>;
 
     switch (sport) {
       case "NBA":
@@ -292,11 +272,9 @@ export class DataGenerator {
         stats.shots = 2 + Math.random() * 4;
         stats.points = stats.goals + stats.assists;
         stats.plusMinus = (Math.random() - 0.5) * 20;
-        break;
-    }
+        break;}
 
-    return stats;
-  }
+    return stats;}
 
   static generatePlayerName(): string {
     const firstNames = [
@@ -346,30 +324,30 @@ export class DataGenerator {
     ];
 
 
-    return `${firstName} ${lastName}`;
-  }
+    return `${firstName} ${lastName}`;}
 
-  static getPositionsForSport(sport: string): string[] {
+  static getPositionsForSport(sport: string): string[0] {
     const positions = {
       NBA: ["PG", "SG", "SF", "PF", "C"],
       NFL: ["QB", "RB", "WR", "TE", "K", "DEF"],
       MLB: ["C", "1B", "2B", "3B", "SS", "OF", "P"],
-      NHL: ["C", "LW", "RW", "D", "G"],
+      NHL: ["C", "LW", "RW", "D", "G"]
     };
 
-    return positions[sport] || ["P"];
-  }
+    return positions[sport] || ["P"];}
 
   static generateSalary(sport: string): number {
     const salaryRanges = {
-      NBA: { min: 500000, max: 50000000 },
-      NFL: { min: 400000, max: 45000000 },
-      MLB: { min: 600000, max: 43000000 },
-      NHL: { min: 700000, max: 12500000 },
+      NBA: { min: 500000, max: 50000000},
+      NFL: { min: 400000, max: 45000000},
+      MLB: { min: 600000, max: 43000000},
+      NHL: { min: 700000, max: 12500000}
     };
 
 
 
-    return Math.exp(logMin + Math.random() * (logMax - logMin));
-  }
+    return Math.exp(logMin + Math.random() * (logMax - logMin));}
 }
+
+
+`

@@ -1,12 +1,12 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   Line as OriginalLine,
   Bar as OriginalBar,
   Doughnut as OriginalDoughnut,
   Radar as OriginalRadar,
-  Scatter as OriginalScatter,
-} from 'react-chartjs-2.ts';
-import { Activity, BarChart3, PieChart, Zap } from 'lucide-react.ts';
+  Scatter as OriginalScatter
+} from 'react-chartjs-2';
+import { Activity, BarChart3, PieChart, Zap} from 'lucide-react';
 
 // Create fallback components that mirror Chart.js API but use SafeChart internally;
 const createSafeChartComponent = (
@@ -15,7 +15,7 @@ const createSafeChartComponent = (
   return React.forwardRef<any, any key={110171}>((props, ref) => {
     try {
       // Extract data and options from props;
-      const { data, options, ...restProps } = props;
+      const { data, options, ...restProps} = props;
 
       // Enhanced validation;
       const isValidData = React.useMemo(() => {
@@ -31,8 +31,7 @@ const createSafeChartComponent = (
             dataset &&
             typeof dataset === "object" &&
             (Array.isArray(dataset.data) || typeof dataset.data === "object"),
-        );
-      }, [data]);
+        )}, [data]);
 
       // If no data or data is invalid, show loading state;
       if (!isValidData) {
@@ -51,7 +50,7 @@ const createSafeChartComponent = (
           ),
           scatter: (
             <Activity className="w-8 h-8 mx-auto mb-2 animate-pulse text-cyan-400" / key={758252}>
-          ),
+          )
         };
 
         return (
@@ -66,34 +65,29 @@ const createSafeChartComponent = (
               </p>
             </div>
           </div>
-        );
-      }
+        );}
 
       // Default safe options;
       const safeOptions = React.useMemo(
         () => ({
           responsive: true,
           maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: "top" as const,
-              labels: { color: "#e5e7eb" },
-            },
+          plugins: {,`n  legend: {,`n  position: "top" as const,
+              labels: { color: "#e5e7eb"}
+            }
           },
           scales:
             chartType !== "doughnut"
               ? {
-                  x: {
-                    ticks: { color: "#9ca3af" },
-                    grid: { color: "rgba(156, 163, 175, 0.2)" },
+                  x: {,`n  ticks: { color: "#9ca3af"},
+                    grid: { color: "rgba(156, 163, 175, 0.2)"}
                   },
-                  y: {
-                    ticks: { color: "#9ca3af" },
-                    grid: { color: "rgba(156, 163, 175, 0.2)" },
-                  },
+                  y: {,`n  ticks: { color: "#9ca3af"},
+                    grid: { color: "rgba(156, 163, 175, 0.2)"}
+                  }
                 }
               : undefined,
-          ...options,
+          ...options
         }),
         [options, chartType],
       );
@@ -111,9 +105,7 @@ const createSafeChartComponent = (
             return OriginalRadar;
           case "scatter":
             return OriginalScatter;
-          default:
-            return null;
-        }
+          default: return null}
       })();
 
       if (!ChartComponent) {
@@ -127,8 +119,7 @@ const createSafeChartComponent = (
               </p>
             </div>
           </div>
-        );
-      }
+        );}
 
       return (
         <ChartComponent;
@@ -137,8 +128,7 @@ const createSafeChartComponent = (
           {...restProps}
           ref={ref}
         / key={7031}>
-      );
-    } catch (error) {
+      );} catch (error) {
       // console statement removed
       return (
         <div className="flex items-center justify-center h-full text-red-400 p-8 min-h-[200px]" key={533059}>
@@ -150,10 +140,8 @@ const createSafeChartComponent = (
             </p>
           </div>
         </div>
-      );
-    }
-  });
-};
+      );}
+  });};
 
 // Create safe versions of all Chart.js components;
 export const Line = createSafeChartComponent("line");
@@ -165,7 +153,7 @@ export const Scatter = createSafeChartComponent("scatter");
 // Also create a generic Chart component;
 export const Chart = React.forwardRef<any, any key={110171}>((props, ref) => {
   try {
-    const { type, data, options, ...restProps } = props;
+    const { type, data, options, ...restProps} = props;
 
     // Validate type parameter;
     if (!type || typeof type !== "string") {
@@ -179,8 +167,7 @@ export const Chart = React.forwardRef<any, any key={110171}>((props, ref) => {
             </p>
           </div>
         </div>
-      );
-    }
+      );}
 
     // Enhanced data validation;
     const isValidData = React.useMemo(() => {
@@ -195,8 +182,7 @@ export const Chart = React.forwardRef<any, any key={110171}>((props, ref) => {
           dataset &&
           typeof dataset === "object" &&
           (Array.isArray(dataset.data) || typeof dataset.data === "object"),
-      );
-    }, [data]);
+      )}, [data]);
 
     if (!isValidData) {
       return (
@@ -207,34 +193,29 @@ export const Chart = React.forwardRef<any, any key={110171}>((props, ref) => {
             <p className="text-xs text-gray-500 mt-1" key={68770}>Preparing {type} chart</p>
           </div>
         </div>
-      );
-    }
+      );}
 
     // Default safe options;
     const safeOptions = React.useMemo(
       () => ({
         responsive: true,
         maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: "top" as const,
-            labels: { color: "#e5e7eb" },
-          },
+        plugins: {,`n  legend: {,`n  position: "top" as const,
+            labels: { color: "#e5e7eb"}
+          }
         },
         scales:
           type !== "doughnut" && type !== "pie"
             ? {
-                x: {
-                  ticks: { color: "#9ca3af" },
-                  grid: { color: "rgba(156, 163, 175, 0.2)" },
+                x: {,`n  ticks: { color: "#9ca3af"},
+                  grid: { color: "rgba(156, 163, 175, 0.2)"}
                 },
-                y: {
-                  ticks: { color: "#9ca3af" },
-                  grid: { color: "rgba(156, 163, 175, 0.2)" },
-                },
+                y: {,`n  ticks: { color: "#9ca3af"},
+                  grid: { color: "rgba(156, 163, 175, 0.2)"}
+                }
               }
             : undefined,
-        ...options,
+        ...options
       }),
       [options, type],
     );
@@ -254,9 +235,7 @@ export const Chart = React.forwardRef<any, any key={110171}>((props, ref) => {
         case "scatter":
         case "bubble":
           return OriginalScatter;
-        default:
-          return null;
-      }
+        default: return null}
     })();
 
     if (!ChartComponent) {
@@ -270,8 +249,7 @@ export const Chart = React.forwardRef<any, any key={110171}>((props, ref) => {
             </p>
           </div>
         </div>
-      );
-    }
+      );}
 
     return (
       <ChartComponent;
@@ -280,8 +258,7 @@ export const Chart = React.forwardRef<any, any key={110171}>((props, ref) => {
         {...restProps}
         ref={ref}
       / key={951736}>
-    );
-  } catch (error) {
+    );} catch (error) {
     // console statement removed
     return (
       <div className="flex items-center justify-center h-full text-red-400 p-8 min-h-[200px]" key={533059}>
@@ -291,8 +268,7 @@ export const Chart = React.forwardRef<any, any key={110171}>((props, ref) => {
           <p className="text-xs text-gray-500 mt-1" key={68770}>Unable to render chart</p>
         </div>
       </div>
-    );
-  }
+    );}
 });
 
 // Set display names for debugging;
@@ -302,3 +278,7 @@ Doughnut.displayName = "SafeDoughnut";
 Radar.displayName = "SafeRadar";
 Scatter.displayName = "SafeScatter";
 Chart.displayName = "SafeChart";
+
+
+
+`

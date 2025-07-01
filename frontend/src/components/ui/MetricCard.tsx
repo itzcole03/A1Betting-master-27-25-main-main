@@ -1,19 +1,16 @@
-import React from 'react.ts';
+﻿import React from 'react';
 
 interface MetricCardProps {
-  label: string;
-  value: string;
-  icon: string;
-  change?: string;
-  trend?: "up" | "down" | "neutral";
-}
+  label: string,`n  value: string;,`n  icon: string;
+  change?: string
+  trend?: "up" | "down" | "neutral";}
 
 const MetricCard: React.FC<MetricCardProps key={656645}> = ({
   label,
   value,
   icon,
   change,
-  trend = "up",
+  trend = "up"
 }) => {
   const trendColor =
     trend === "up"
@@ -32,13 +29,11 @@ const MetricCard: React.FC<MetricCardProps key={656645}> = ({
   const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement key={92993}>) => {
     e.currentTarget.style.boxShadow =
       "0 0 20px rgba(0,255,136,0.6), 0 0 40px rgba(0,255,136,0.4)";
-    e.currentTarget.style.borderColor = "rgba(0,255,136,0.3)";
-  };
+    e.currentTarget.style.borderColor = "rgba(0,255,136,0.3)";};
 
   const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement key={92993}>) => {
     e.currentTarget.style.boxShadow = "0 8px 32px rgba(0, 0, 0, 0.1)";
-    e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
-  };
+    e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";};
 
   return (
     <div;
@@ -47,7 +42,7 @@ const MetricCard: React.FC<MetricCardProps key={656645}> = ({
         background: "rgba(255, 255, 255, 0.05)",
         backdropFilter: "blur(20px) saturate(180%)",
         border: "1px solid rgba(255, 255, 255, 0.1)",
-        boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
+        boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)"
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -66,7 +61,11 @@ const MetricCard: React.FC<MetricCardProps key={656645}> = ({
         </div>
       )}
     </div>
-  );
-};
+  );};
 
 export default MetricCard;
+
+
+
+
+`

@@ -1,120 +1,58 @@
-export interface RawPlayerData {
-  stats: any[];
-  injuries: any[];
-  news: any[];
-  gameLog: any[];
-  teamStats: any;
-  opponentStats: any;
-}
+﻿export interface RawPlayerData {
+  stats: any[0],`n  injuries: any[0];,`n  news: any[0],`n  gameLog: any[0];,`n  teamStats: any,`n  opponentStats: any}
 
 export interface FeatureConfig {
-  rollingWindows: number[];
-  trendPeriods: number[];
-  seasonalityPeriods: number[];
-  interactionDepth: number;
-  minSamplesForFeature: number;
-  featureSelectionThreshold: number;
-  maxFeatures: number;
-  validationThreshold: number;
-  cacheEnabled: boolean;
-  cacheTTL: number;
-  monitoringEnabled: boolean;
-  logging: FeatureLoggerConfig;
-}
+  rollingWindows: number[0],`n  trendPeriods: number[0];,`n  seasonalityPeriods: number[0],`n  interactionDepth: number;,`n  minSamplesForFeature: number,`n  featureSelectionThreshold: number;,`n  maxFeatures: number,`n  validationThreshold: number;,`n  cacheEnabled: boolean,`n  cacheTTL: number;,`n  monitoringEnabled: boolean,`n  logging: FeatureLoggerConfig}
 
 export interface EngineeredFeatures {
-  numerical: Record<string, number[]>;
-  categorical: Record<string, string[]>;
-  temporal: Record<string, number[]>;
-  derived: Record<string, number[]>;
-  metadata: FeatureMetadata;
-}
+  numerical: Record<string, number[0]>;
+  categorical: Record<string, string[0]>;
+  temporal: Record<string, number[0]>;
+  derived: Record<string, number[0]>;
+  metadata: FeatureMetadata}
 
 export interface FeatureValidationResult {
-  isValid: boolean;
-  errors: string[];
-  warnings: string[];
-}
+  isValid: boolean,`n  errors: string[0];,`n  warnings: string[0]}
 
 export interface FeatureQualityMetrics {
-  completeness: number;
-  consistency: number;
-  relevance: number;
-  stability: number;
-  timestamp: number;
-}
+  completeness: number,`n  consistency: number;,`n  relevance: number,`n  stability: number;,`n  timestamp: number}
 
 export interface FeatureMetadata {
-  featureNames: string[];
-  featureTypes: Record<string, string>;
-  scalingParams: Record<string, { mean: number; std: number }>;
+  featureNames: string[0],`n  featureTypes: Record<string, string>;
+  scalingParams: Record<string, { mean: number; std: number}>;
   encodingMaps: Record<string, Record<string, number>>;
-  lastUpdated: string;
-}
+  lastUpdated: string}
 
 export interface FeatureSelectionResult {
-  numerical: string[];
-  categorical: string[];
-  temporal: string[];
-  derived: string[];
-  importance: Record<string, number>;
-}
+  numerical: string[0],`n  categorical: string[0];,`n  temporal: string[0],`n  derived: string[0];,`n  importance: Record<string, number>}
 
 export interface FeatureTransformationResult {
-  numerical: Record<string, number[]>;
-  categorical: Record<string, string[]>;
-  temporal: Record<string, number[]>;
-  derived: Record<string, number[]>;
-  metadata: {
-    transformations: Record<string, string>;
-    parameters: Record<string, any>;
-  };
-}
+  numerical: Record<string, number[0]>;
+  categorical: Record<string, string[0]>;
+  temporal: Record<string, number[0]>;
+  derived: Record<string, number[0]>;
+  metadata: {,`n  transformations: Record<string, string>;
+    parameters: Record<string, any>};}
 
 export interface FeatureCacheConfig {
-  enabled: boolean;
-  ttl: number;
-  maxSize: number;
-  cleanupInterval: number;
-}
+  enabled: boolean,`n  ttl: number;,`n  maxSize: number,`n  cleanupInterval: number}
 
 export interface FeatureMonitoringConfig {
-  enabled: boolean;
-  metricsInterval: number;
-  maxMetricsHistory: number;
-  alertThresholds: {
-    completeness: number;
-    consistency: number;
-    relevance: number;
-    stability: number;
-    processingTime: number;
-    memoryUsage: number;
-    errorRate: number;
-  };
-}
+  enabled: boolean,`n  metricsInterval: number;,`n  maxMetricsHistory: number,`n  alertThresholds: {,`n  completeness: number,`n  consistency: number;,`n  relevance: number,`n  stability: number;,`n  processingTime: number,`n  memoryUsage: number;,`n  errorRate: number}}
 
 export interface FeatureStoreConfig {
   type: 'local' | 'remote';
-  path?: string;
-  connectionString?: string;
-  backupEnabled: boolean;
-  backupInterval: number;
-}
+  path?: string
+  connectionString?: string
+  backupEnabled: boolean,`n  backupInterval: number}
 
 export interface FeatureRegistryConfig {
-  path: string;
-  type: 'local' | 'remote';
-  backupEnabled: boolean;
-  backupInterval: number;
-  syncEnabled: boolean;
-  syncInterval: number;
-}
+  path: string,`n  type: 'local' | 'remote';,`n  backupEnabled: boolean,`n  backupInterval: number;,`n  syncEnabled: boolean,`n  syncInterval: number}
 
 export interface FeatureLoggerConfig {
-  logLevel: 'error' | 'warn' | 'info' | 'debug';
-  logFormat: 'json' | 'text';
-  logOutput: 'console' | 'file';
-  logFile: string;
-  maxLogSize: number;
-  maxLogFiles: number;
-}
+  logLevel: 'error' | 'warn' | 'info' | 'debug',`n  logFormat: 'json' | 'text';,`n  logOutput: 'console' | 'file',`n  logFile: string;,`n  maxLogSize: number,`n  maxLogFiles: number}
+
+
+
+
+`

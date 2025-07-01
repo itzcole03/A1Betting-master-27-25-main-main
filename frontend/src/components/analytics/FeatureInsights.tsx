@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   LineChart,
   Line,
@@ -16,50 +16,18 @@ import {
   Radar,
   PolarGrid,
   PolarAngleAxis,
-  PolarRadiusAxis,
-} from 'recharts.ts';
-import ShapVisualization from '@/ShapVisualization.ts';
-import { useShapData } from '@/hooks/useShapData.ts';
+//   PolarRadiusAxis
+} from 'recharts';
+import ShapVisualization from '@/ShapVisualization';
+import { useShapData} from '@/hooks/useShapData';
 
 interface FeatureInsightsProps {
-  features: {
-    name: string;
-    importance: number;
-    correlation: number;
-    entropy: number;
-    uniqueness: number;
-    missing: number;
-    stats: {
-      mean: number;
-      std: number;
-      min: number;
-      max: number;
-      q25: number;
-      q50: number;
-      q75: number;
-    };
-  }[];
-  interactions: {
-    feature1: string;
-    feature2: string;
-    strength: number;
-    type: 'linear' | 'nonlinear' | 'categorical';
-  }[];
-  embeddings: {
-    feature: string;
-    vector: number[];
-  }[];
-  signals: {
-    source: string;
-    features: {
-      name: string;
-      value: number;
-      impact: number;
-    }[];
-  }[];
-  eventId?: string; // Optional, for SHAP;
-  modelType?: string;
-}
+  features: {,`n  name: string;,`n  importance: number,`n  correlation: number;,`n  entropy: number,`n  uniqueness: number;,`n  missing: number,`n  stats: {,`n  mean: number,`n  std: number;,`n  min: number,`n  max: number;,`n  q25: number,`n  q50: number;,`n  q75: number}}[0];
+  interactions: {,`n  feature1: string;,`n  feature2: string,`n  strength: number;,`n  type: 'linear' | 'nonlinear' | 'categorical'}[0];
+  embeddings: {,`n  feature: string;,`n  vector: number[0]}[0];
+  signals: {,`n  source: string;,`n  features: {,`n  name: string;,`n  value: number,`n  impact: number}[0]}[0];
+  eventId?: string // Optional, for SHAP;
+  modelType?: string}
 
 const FeatureInsights: React.FC<FeatureInsightsProps key={189662}> = ({
   features,
@@ -67,7 +35,7 @@ const FeatureInsights: React.FC<FeatureInsightsProps key={189662}> = ({
   embeddings,
   signals,
   eventId,
-  modelType,
+//   modelType
 }) => {
   // Sort features by importance;
 
@@ -78,26 +46,26 @@ const FeatureInsights: React.FC<FeatureInsightsProps key={189662}> = ({
     correlation: Math.abs(feature.correlation),
     entropy: feature.entropy,
     uniqueness: feature.uniqueness,
-    missing: feature.missing,
+    missing: feature.missing
   }));
 
   const featureStats = sortedFeatures.map(feature => ({
     name: feature.name,
-    ...feature.stats,
+    ...feature.stats
   }));
 
   const interactionData = interactions.map(interaction => ({
     name: `${interaction.feature1} × ${interaction.feature2}`,
     strength: interaction.strength,
-    type: interaction.type,
+    type: interaction.type
   }));
 
   // SHAP integration;
   const {
     features: shapFeatures,
     loading: shapLoading,
-    error: shapError,
-  } = eventId ? useShapData({ eventId, modelType }) : { features: [], loading: false, error: null };
+    error: shapError
+  } = eventId ? useShapData({ eventId, modelType}) : { features: [0], loading: false, error: null};
 
   return (
     <div className="space-y-8" key={778766}>
@@ -114,7 +82,7 @@ const FeatureInsights: React.FC<FeatureInsightsProps key={189662}> = ({
               features={shapFeatures.map(f = key={635287}> ({
                 name: f.feature,
                 value: f.value,
-                impact: f.impact,
+                impact: f.impact
               }))}
               maxFeatures={10}
               title="SHAP Feature Impact"
@@ -279,8 +247,7 @@ const FeatureInsights: React.FC<FeatureInsightsProps key={189662}> = ({
                         ? 'bg-blue-500'
                         : interaction.type === 'nonlinear'
                           ? 'bg-purple-500'
-                          : 'bg-green-500'
-                    }`}
+                          : 'bg-green-500'}`}
                    key={240564}>
                     {interaction.type}
                   </span>
@@ -314,7 +281,12 @@ const FeatureInsights: React.FC<FeatureInsightsProps key={189662}> = ({
         </div>
       </section>
     </div>
-  );
-};
+  )};
 
 export default React.memo(FeatureInsights);
+
+
+
+
+
+`

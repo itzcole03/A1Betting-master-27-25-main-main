@@ -1,6 +1,8 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface PayoutPreviewProps {
-    eventId: string;
-}
+  eventId: string}
 export declare const PayoutPreview: React.FC<PayoutPreviewProps>;
-export {};
+export Record<string, any>;
+
+
+

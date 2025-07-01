@@ -1,32 +1,27 @@
-import React, { useState  } from 'react.ts';
-import Box from '@mui/material/Box.ts';
-import Card from '@mui/material/Card.ts';
-import CardContent from '@mui/material/CardContent.ts';
-import Typography from '@mui/material/Typography.ts';
-import Grid from '@mui/material/Grid.ts';
-import IconButton from '@mui/material/IconButton.ts';
-import Collapse from '@mui/material/Collapse.ts';
-import Chip from '@mui/material/Chip.ts';
-import LinearProgress from '@mui/material/LinearProgress.ts';
-import Tooltip from '@mui/material/Tooltip.ts';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore.ts';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess.ts';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp.ts';
-import TrendingDownIcon from '@mui/icons-material/TrendingDown.ts';
-import { FeatureImportance } from '@/types/prediction.ts';
+﻿import React, { useState} from 'react';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import Chip from '@mui/material/Chip';
+import LinearProgress from '@mui/material/LinearProgress';
+import Tooltip from '@mui/material/Tooltip';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import TrendingDownIcon from '@mui/icons-material/TrendingDown';
+import { FeatureImportance} from '@/types/prediction';
 
 interface FeatureImpact {
-  feature: string;
-  value: number;
-  impact: number;
-  direction: 'positive' | 'negative';
-}
+  feature: string,`n  value: number;,`n  impact: number,`n  direction: 'positive' | 'negative'}
 
 interface SHAPVisualizationProps {
-  explanations: FeatureImpact[];
-}
+  explanations: FeatureImpact[0]}
 
-const SHAPVisualization = ({ explanations }: SHAPVisualizationProps) => {
+const SHAPVisualization = ({ explanations}: SHAPVisualizationProps) => {
   return (
     <Box display="flex" flexWrap="wrap" gap={1} key={33124}>
       {explanations.map((feat, idx) => (
@@ -40,7 +35,10 @@ const SHAPVisualization = ({ explanations }: SHAPVisualizationProps) => {
         </Tooltip>
       ))}
     </Box>
-  );
-};
+  );};
 
 export default SHAPVisualization;
+
+
+
+`

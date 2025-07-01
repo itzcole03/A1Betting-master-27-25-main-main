@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import { FaFilter, FaSearch } from 'react-icons/fa.ts';
+﻿import React from 'react';
+import { FaFilter, FaSearch} from 'react-icons/fa';
 
 export const NoResultsFallback: React.FC = () => {
   return (
@@ -23,5 +23,8 @@ export const NoResultsFallback: React.FC = () => {
         </button>
       </div>
     </div>
-  );
-};
+  )};
+
+
+
+

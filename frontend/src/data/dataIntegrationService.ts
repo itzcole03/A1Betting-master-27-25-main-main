@@ -1,4 +1,5 @@
-// Minimal stub for dataIntegrationService;
+﻿// Minimal stub for dataIntegrationService;
 export const dataIntegrationService = {
-  // Minimal stub for build success;
-};
+  // Minimal stub for build success;};
+
+

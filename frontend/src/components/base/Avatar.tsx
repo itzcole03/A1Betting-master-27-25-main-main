@@ -1,30 +1,29 @@
-import React from 'react.ts';
-import { cn } from '@/utils/classNames.ts';
+﻿import React from 'react';
+import { cn} from '@/utils/classNames';
 
 export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement key={92993}> {
-  src?: string;
-  alt?: string;
+  src?: string
+  alt?: string
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   status?: 'online' | 'offline' | 'away' | 'busy';
   shape?: 'circle' | 'square';
-  fallback?: string;
-  bordered?: boolean;
-  className?: string;
-}
+  fallback?: string
+  bordered?: boolean
+  className?: string}
 
 const sizes = {
   xs: 'h-6 w-6 text-xs',
   sm: 'h-8 w-8 text-sm',
   md: 'h-10 w-10 text-base',
   lg: 'h-12 w-12 text-lg',
-  xl: 'h-14 w-14 text-xl',
+  xl: 'h-14 w-14 text-xl'
 };
 
 const statusColors = {
   online: 'bg-green-500',
   offline: 'bg-gray-500',
   away: 'bg-yellow-500',
-  busy: 'bg-red-500',
+  busy: 'bg-red-500'
 };
 
 export const Avatar: React.FC<AvatarProps key={305433}> = ({
@@ -36,13 +35,11 @@ export const Avatar: React.FC<AvatarProps key={305433}> = ({
   fallback,
   bordered = false,
   className,
-  ...props;
-}) => {
+  ...props}) => {
   const [imageError, setImageError] = React.useState(false);
 
   const handleImageError = () => {
-    setImageError(true);
-  };
+    setImageError(true);};
 
   const getFallbackInitials = () => {
     if (!fallback) return '';
@@ -51,8 +48,7 @@ export const Avatar: React.FC<AvatarProps key={305433}> = ({
       .map(word => word[0])
       .join('')
       .toUpperCase()
-      .slice(0, 2);
-  };
+      .slice(0, 2);};
 
   return (
     <div className="relative inline-block" key={46364}>
@@ -82,21 +78,18 @@ export const Avatar: React.FC<AvatarProps key={305433}> = ({
       {status && (
         <span;
           className={cn(
-            'absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-white dark:ring-gray-800',
+            'absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-white dark: ring-gray-800',
             statusColors[status]
           )}
         / key={164887}>
       )}
     </div>
-  );
-};
+  )};
 
-export const AvatarGroup: React.FC<{
-  avatars: AvatarProps[];
-  max?: number;
+export const AvatarGroup: React.FC<{,`n  avatars: AvatarProps[0];
+  max?: number
   size?: AvatarProps['size'];
-  className?: string;
-}> = ({ avatars, max = 4, size = 'md', className }) => {
+  className?: string}> = ({ avatars, max = 4, size = 'md', className}) => {
 
 
   return (
@@ -112,7 +105,7 @@ export const AvatarGroup: React.FC<{
       {remainingCount > 0 && (
         <div;
           className={cn(
-            'relative flex items-center justify-center bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-300 font-medium ring-2 ring-white dark:ring-gray-800 rounded-full',
+            'relative flex items-center justify-center bg-gray-300 dark: bg-gray-600 text-gray-600 dark:text-gray-300 font-medium ring-2 ring-white dark:ring-gray-800 rounded-full',
             sizes[size]
           )}
          key={429657}>
@@ -120,5 +113,9 @@ export const AvatarGroup: React.FC<{
         </div>
       )}
     </div>
-  );
-};
+  )};
+
+
+
+
+`

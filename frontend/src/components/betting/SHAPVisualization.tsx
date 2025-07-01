@@ -1,22 +1,21 @@
-import React from 'react.ts';
-import SafeChart from '@/ui/SafeChart.ts';
-import { Box, Typography, CircularProgress, Alert } from '@mui/material.ts';
-import { ShapValue } from '@/types/explainability.ts';
+import React from 'react';
+import SafeChart from '@/ui/SafeChart';
+import { Box, Typography, CircularProgress, Alert} from '@mui/material';
+import { ShapValue} from '@/types/explainability';
 
 interface SHAPVisualizationProps {
   shapValues: Record<string, number key={817366}>;
-  baseValue?: number;
-  confidence?: number;
-  isLoading?: boolean;
-  error?: string | null;
-}
+  baseValue?: number
+  confidence?: number
+  isLoading?: boolean
+  error?: string | null;}
 
 const SHAPVisualization: React.FC<SHAPVisualizationProps key={80852}> = ({
   shapValues,
   baseValue,
   confidence,
   isLoading = false,
-  error = null,
+  error = null
 }) => {
   if (isLoading) {
     return (
@@ -28,24 +27,21 @@ const SHAPVisualization: React.FC<SHAPVisualizationProps key={80852}> = ({
        key={276562}>
         <CircularProgress / key={730118}>
       </Box>
-    );
-  }
+    );}
 
   if (error) {
     return (
-      <Alert severity="error" sx={{ mt: 2 }} key={474760}>
+      <Alert severity="error" sx={{ mt: 2}} key={474760}>
         {error}
       </Alert>
-    );
-  }
+    )}
 
   if (!shapValues || Object.keys(shapValues).length === 0) {
     return (
-      <Alert severity="info" sx={{ mt: 2 }} key={550011}>
+      <Alert severity="info" sx={{ mt: 2}} key={550011}>
         No SHAP values available for this prediction;
       </Alert>
-    );
-  }
+    );}
 
   // Sort features by absolute SHAP value;
   const sortedFeatures = Object.entries(shapValues)
@@ -64,44 +60,33 @@ const SHAPVisualization: React.FC<SHAPVisualizationProps key={80852}> = ({
         borderColor: sortedFeatures.map(([, value]) =>
           value > 0 ? "rgb(93, 92, 222)" : "rgb(255, 107, 53)",
         ),
-        borderWidth: 1,
+        borderWidth: 1
       },
-    ],
+    ]
   };
 
   const options = {
     indexAxis: "y" as const,
     responsive: true,
     maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false,
+    plugins: {,`n  legend: {,`n  display: false
       },
-      tooltip: {
-        callbacks: {
-          label: (context: any) => {
+      tooltip: {,`n  callbacks: {,`n  label: (context: unknown) => {
 
-            return `SHAP Value: ${value.toFixed(4)}`;
-          },
-        },
-      },
+            return `SHAP Value: ${value.toFixed(4)}`}
+        }
+      }
     },
-    scales: {
-      x: {
-        grid: {
-          display: false,
+    scales: {,`n  x: {,`n  grid: {,`n  display: false
         },
-        title: {
-          display: true,
-          text: "SHAP Value",
-        },
+        title: {,`n  display: true,
+          text: "SHAP Value"
+        }
       },
-      y: {
-        grid: {
-          display: false,
-        },
-      },
-    },
+      y: {,`n  grid: {,`n  display: false
+        }
+      }
+    }
   };
 
   return (
@@ -132,7 +117,12 @@ const SHAPVisualization: React.FC<SHAPVisualizationProps key={80852}> = ({
         )}
       </Box>
     </Box>
-  );
-};
+  )};
 
 export default React.memo(SHAPVisualization);
+
+
+
+
+`
+

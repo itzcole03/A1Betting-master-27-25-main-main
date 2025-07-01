@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo, useCallback  } from 'react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+﻿import React, { useState, useEffect, useMemo, useCallback} from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
 import {
   Card,
   CardContent,
@@ -21,8 +21,8 @@ import {
   Paper,
   Stack,
   Switch,
-  FormControlLabel,
-} from '@mui/material.ts';
+//   FormControlLabel
+} from '@mui/material';
 import {
   PlayArrow,
   Stop,
@@ -35,55 +35,24 @@ import {
   Info,
   Download,
   Settings,
-  Timeline,
-} from '@mui/icons-material.ts';
-import { useSimulationStore } from '@/store/slices/simulationSlice.ts';
-import { confidenceService } from '@/services/analytics/confidenceService.ts';
-import { MLSimulationService } from '@/services/MLSimulationService.ts';
-import { formatCurrency, formatPercentage } from '@/utils/formatters.ts';
+//   Timeline
+} from '@mui/icons-material';
+import { useSimulationStore} from '@/store/slices/simulationSlice';
+import { confidenceService} from '@/services/analytics/confidenceService';
+import { MLSimulationService} from '@/services/MLSimulationService';
+import { formatCurrency, formatPercentage} from '@/utils/formatters';
 
 interface SimulationScenario {
-  id: string;
-  name: string;
-  stake: number;
-  odds: number;
-  eventId: string;
-  player: string;
-  market: string;
-  iterations: number;
-  expectedValue?: number;
-  riskLevel?: "low" | "medium" | "high";
-}
+  id: string,`n  name: string;,`n  stake: number,`n  odds: number;,`n  eventId: string,`n  player: string;,`n  market: string,`n  iterations: number;
+  expectedValue?: number
+  riskLevel?: "low" | "medium" | "high";}
 
 interface SimulationResult {
-  scenario: SimulationScenario;
-  winProbability: number;
-  expectedPayout: number;
-  expectedLoss: number;
-  expectedValue: number;
-  kellyFraction: number;
-  roi: number;
-  riskAssessment: {
-    level: "low" | "medium" | "high";
-    factors: string[];
-    recommendation: string;
-  };
-  breakdown: {
-    wins: number;
-    losses: number;
-    totalPayout: number;
-    totalLoss: number;
-    variance: number;
-    sharpeRatio: number;
-  };
-  confidence: {
-    lower: number;
-    upper: number;
-    interval: number;
-  };
-}
+  scenario: SimulationScenario,`n  winProbability: number;,`n  expectedPayout: number,`n  expectedLoss: number;,`n  expectedValue: number,`n  kellyFraction: number;,`n  roi: number,`n  riskAssessment: {,`n  level: "low" | "medium" | "high",`n  factors: string[0];,`n  recommendation: string};
+  breakdown: {,`n  wins: number;,`n  losses: number,`n  totalPayout: number;,`n  totalLoss: number,`n  variance: number;,`n  sharpeRatio: number};
+  confidence: {,`n  lower: number;,`n  upper: number,`n  interval: number}}
 
-const predefinedScenarios: SimulationScenario[] = [
+const predefinedScenarios: SimulationScenario[0] = [
   {
     id: "conservative",
     name: "Conservative Play",
@@ -93,7 +62,7 @@ const predefinedScenarios: SimulationScenario[] = [
     player: "LeBron James",
     market: "points",
     iterations: 1000,
-    riskLevel: "low",
+    riskLevel: "low"
   },
   {
     id: "moderate",
@@ -104,7 +73,7 @@ const predefinedScenarios: SimulationScenario[] = [
     player: "Stephen Curry",
     market: "threePointers",
     iterations: 1000,
-    riskLevel: "medium",
+    riskLevel: "medium"
   },
   {
     id: "aggressive",
@@ -115,7 +84,7 @@ const predefinedScenarios: SimulationScenario[] = [
     player: "Nikola Jokic",
     market: "rebounds",
     iterations: 1000,
-    riskLevel: "high",
+    riskLevel: "high"
   },
 ];
 
@@ -127,8 +96,8 @@ export const BetSimulationTool: React.FC = () => {
   const [scenario, setScenario] = useState<SimulationScenario key={943730}>(
     predefinedScenarios[0],
   );
-  const [scenarios, setScenarios] = useState<SimulationScenario[] key={326727}>([]);
-  const [results, setResults] = useState<SimulationResult[] key={60050}>([]);
+  const [scenarios, setScenarios] = useState<SimulationScenario[0] key={326727}>([0]);
+  const [results, setResults] = useState<SimulationResult[0] key={60050}>([0]);
   const [isSimulating, setIsSimulating] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [realTimeMode, setRealTimeMode] = useState(false);
@@ -140,8 +109,7 @@ export const BetSimulationTool: React.FC = () => {
 
   // Computed Values;
   const currentResult = useMemo(() => {
-    return results.find((r) => r.scenario.id === scenario.id);
-  }, [results, scenario.id]);
+    return results.find((r) => r.scenario.id === scenario.id);}, [results, scenario.id]);
 
   // Simulation Logic;
   const runSingleSimulation = useCallback(
@@ -157,7 +125,7 @@ export const BetSimulationTool: React.FC = () => {
         odds: simScenario.odds,
         confidenceBand: prediction.confidenceBand,
         winProbability: prediction.winProbability,
-        iterations: simScenario.iterations,
+        iterations: simScenario.iterations
       };
 
       setInput(simInput);
@@ -166,7 +134,7 @@ export const BetSimulationTool: React.FC = () => {
       const wins = 0;
       const totalPayout = 0;
       const totalLoss = 0;
-      const outcomes: number[] = [];
+      const outcomes: number[0] = [0];
 
       for (const i = 0; i < simScenario.iterations; i++) {
 
@@ -174,11 +142,9 @@ export const BetSimulationTool: React.FC = () => {
           wins++;
 
           totalPayout += payout;
-          outcomes.push(payout);
-        } else {
+          outcomes.push(payout);} else {
           totalLoss += simScenario.stake;
-          outcomes.push(-simScenario.stake);
-        }
+          outcomes.push(-simScenario.stake);}
       }
 
 
@@ -211,23 +177,21 @@ export const BetSimulationTool: React.FC = () => {
       const confidenceInterval =
         1.96 * (standardDev / Math.sqrt(simScenario.iterations));
 
-      const result: SimulationResult = {
-        scenario: simScenario,
+      const result: SimulationResult = {,`n  scenario: simScenario,
         winProbability: prediction.winProbability,
         expectedPayout,
         expectedLoss,
         expectedValue,
         kellyFraction: Math.max(0, kellyFraction),
         roi,
-        riskAssessment: {
-          level: riskLevel,
+        riskAssessment: {,`n  level: riskLevel,
           factors: riskFactors,
           recommendation:
             kellyFraction > 0;
               ? kellyFraction > 0.25;
                 ? "Reduce stake size"
                 : "Proceed with caution"
-              : "Avoid this bet",
+              : "Avoid this bet"
         },
         breakdown: {
           wins,
@@ -235,18 +199,16 @@ export const BetSimulationTool: React.FC = () => {
           totalPayout,
           totalLoss,
           variance,
-          sharpeRatio,
+//           sharpeRatio
         },
-        confidence: {
-          lower: mean - confidenceInterval,
+        confidence: {,`n  lower: mean - confidenceInterval,
           upper: mean + confidenceInterval,
-          interval: 95,
-        },
+          interval: 95
+        }
       };
 
       setStoreResult(result);
-      return result;
-    },
+      return result;},
     [setInput, setStoreResult],
   );
 
@@ -257,13 +219,9 @@ export const BetSimulationTool: React.FC = () => {
 
       setResults((prev) => {
 
-        return [...filtered, result];
-      });
-    } catch (error) {
-      // console statement removed
-    } finally {
-      setIsSimulating(false);
-    }
+        return [...filtered, result];});} catch (error) {
+      // console statement removed} finally {
+      setIsSimulating(false);}
   };
 
   const handleBatchSimulation = async () => {
@@ -271,57 +229,49 @@ export const BetSimulationTool: React.FC = () => {
 
     setIsSimulating(true);
     try {
-      const batchResults: SimulationResult[] = [];
+      const batchResults: SimulationResult[0] = [0];
       for (const scenario of scenarios) {
 
-        batchResults.push(result);
-      }
-      setResults(batchResults);
-    } catch (error) {
-      // console statement removed
-    } finally {
-      setIsSimulating(false);
-    }
+        batchResults.push(result);}
+      setResults(batchResults);} catch (error) {
+      // console statement removed} finally {
+      setIsSimulating(false);}
   };
 
   const addScenario = () => {
     const newScenario: SimulationScenario = {
       ...scenario,
       id: `custom_${Date.now()}`,
-      name: `Scenario ${scenarios.length + 1}`,
+      name: `Scenario ${scenarios.length + 1}`
     };
-    setScenarios((prev) => [...prev, newScenario]);
-  };
+    setScenarios((prev) => [...prev, newScenario]);};
 
   const removeScenario = (id: string) => {
     setScenarios((prev) => prev.filter((s) => s.id !== id));
-    setResults((prev) => prev.filter((r) => r.scenario.id !== id));
-  };
+    setResults((prev) => prev.filter((r) => r.scenario.id !== id));};
 
   const exportResults = () => {
     const exportData = {
       timestamp: new Date().toISOString(),
       scenarios: scenarios.length || 1,
-      results: results.map((r) => ({
-        scenario: r.scenario.name,
+      results: results.map((r) => ({,`n  scenario: r.scenario.name,
         expectedValue: r.expectedValue,
         roi: r.roi,
         winProbability: r.winProbability,
         riskLevel: r.riskAssessment.level,
-        recommendation: r.riskAssessment.recommendation,
-      })),
+        recommendation: r.riskAssessment.recommendation
+      }))
     };
 
     const blob = new Blob([JSON.stringify(exportData, null, 2)], {
-      type: "application/json",
+      type: "application/json"
     });
 
 
     a.href = url;
     a.download = `bet-simulation-${Date.now()}.json`;
     a.click();
-    URL.revokeObjectURL(url);
-  };
+    URL.revokeObjectURL(url);};
 
   // Real-time updates;
   useEffect(() => {
@@ -329,21 +279,19 @@ export const BetSimulationTool: React.FC = () => {
 
     const interval = setInterval(async () => {
       if (!isSimulating && scenario) {
-        await handleSingleSimulation();
-      }
+        await handleSingleSimulation();}
     }, 30000); // Update every 30 seconds;
 
-    return () => clearInterval(interval);
-  }, [realTimeMode, isSimulating, scenario, handleSingleSimulation]);
+    return () => clearInterval(interval);}, [realTimeMode, isSimulating, scenario, handleSingleSimulation]);
 
   return (
     <motion.div;
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      initial={{ opacity: 0, y: 20}}
+      animate={{ opacity: 1, y: 0}}
+      transition={{ duration: 0.5}}
       className="w-full"
      key={253890}>
-      <Card sx={{ mb: 3 }} key={857343}>
+      <Card sx={{ mb: 3}} key={857343}>
         <CardContent key={452065}>
           <Box;
             display="flex"
@@ -354,7 +302,7 @@ export const BetSimulationTool: React.FC = () => {
             <Typography;
               variant="h5"
               component="h2"
-              sx={{ display: "flex", alignItems: "center", gap: 1 }}
+              sx={{ display: "flex", alignItems: "center", gap: 1}}
              key={972323}>
               <Assessment / key={701819}>
               Advanced Bet Simulation Tool;
@@ -365,8 +313,7 @@ export const BetSimulationTool: React.FC = () => {
                   <Switch;
                     checked={realTimeMode}
                     onChange={(e) = key={757752}> setRealTimeMode(e.target.checked)}
-                  />
-                }
+                  />}
                 label="Real-time"
               />
               <IconButton;
@@ -382,14 +329,14 @@ export const BetSimulationTool: React.FC = () => {
           </Box>
 
           {/* Tab Navigation */}
-          <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 2 }} key={395613}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 2}} key={395613}>
             <Stack direction="row" spacing={2} key={926315}>
               {["single", "batch", "comparison"].map((tab) => (
                 <Button;
                   key={tab}
                   variant={activeTab === tab ? "contained" : "outlined"}
                   onClick={() = key={310452}> setActiveTab(tab as any)}
-                  sx={{ textTransform: "capitalize" }}
+                  sx={{ textTransform: "capitalize"}}
                 >
                   {tab} Simulation;
                 </Button>
@@ -401,7 +348,7 @@ export const BetSimulationTool: React.FC = () => {
           {activeTab === "single" && (
             <Grid container spacing={3} key={459826}>
               <Grid item xs={12} md={6} key={637329}>
-                <Paper sx={{ p: 2 }} key={136663}>
+                <Paper sx={{ p: 2}} key={136663}>
                   <Typography variant="h6" gutterBottom key={90207}>
                     Simulation Parameters;
                   </Typography>
@@ -416,10 +363,9 @@ export const BetSimulationTool: React.FC = () => {
                         onChange={(e) = key={830063}>
                           setScenario((prev) => ({
                             ...prev,
-                            stake: Number(e.target.value),
-                          }))
-                        }
-                        inputProps={{ min: 1 }}
+                            stake: Number(e.target.value)
+                          }))}
+                        inputProps={{ min: 1}}
                       />
                     </Grid>
                     <Grid item xs={6} key={823052}>
@@ -431,10 +377,9 @@ export const BetSimulationTool: React.FC = () => {
                         onChange={(e) = key={254255}>
                           setScenario((prev) => ({
                             ...prev,
-                            odds: Number(e.target.value),
-                          }))
-                        }
-                        inputProps={{ min: 1.01, step: 0.01 }}
+                            odds: Number(e.target.value)
+                          }))}
+                        inputProps={{ min: 1.01, step: 0.01}}
                       />
                     </Grid>
                     <Grid item xs={12} key={689816}>
@@ -445,9 +390,8 @@ export const BetSimulationTool: React.FC = () => {
                         onChange={(e) = key={380184}>
                           setScenario((prev) => ({
                             ...prev,
-                            eventId: e.target.value,
-                          }))
-                        }
+                            eventId: e.target.value
+                          }))}
                       />
                     </Grid>
                     <Grid item xs={6} key={823052}>
@@ -458,9 +402,8 @@ export const BetSimulationTool: React.FC = () => {
                         onChange={(e) = key={334233}>
                           setScenario((prev) => ({
                             ...prev,
-                            player: e.target.value,
-                          }))
-                        }
+                            player: e.target.value
+                          }))}
                       />
                     </Grid>
                     <Grid item xs={6} key={823052}>
@@ -471,9 +414,8 @@ export const BetSimulationTool: React.FC = () => {
                           onChange={(e) = key={993786}>
                             setScenario((prev) => ({
                               ...prev,
-                              market: e.target.value,
-                            }))
-                          }
+                              market: e.target.value
+                            }))}
                         >
                           <MenuItem value="points" key={179845}>Points</MenuItem>
                           <MenuItem value="rebounds" key={402571}>Rebounds</MenuItem>
@@ -496,10 +438,9 @@ export const BetSimulationTool: React.FC = () => {
                           onChange={(e) = key={402027}>
                             setScenario((prev) => ({
                               ...prev,
-                              iterations: Number(e.target.value),
-                            }))
-                          }
-                          inputProps={{ min: 100, max: 100000, step: 100 }}
+                              iterations: Number(e.target.value)
+                            }))}
+                          inputProps={{ min: 100, max: 100000, step: 100}}
                         />
                       </Grid>
                     )}
@@ -512,11 +453,10 @@ export const BetSimulationTool: React.FC = () => {
                       disabled={isSimulating}
                       startIcon={
                         isSimulating ? (
-                          <LinearProgress sx={{ width: 20 }} / key={953060}>
+                          <LinearProgress sx={{ width: 20}} / key={953060}>
                         ) : (
                           <PlayArrow / key={629440}>
-                        )
-                      }
+                        )}
                       fullWidth;
                       size="large"
                     >
@@ -529,11 +469,11 @@ export const BetSimulationTool: React.FC = () => {
               <Grid item xs={12} md={6} key={637329}>
                 {currentResult && (
                   <motion.div;
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3 }}
+                    initial={{ opacity: 0, scale: 0.9}}
+                    animate={{ opacity: 1, scale: 1}}
+                    transition={{ duration: 0.3}}
                    key={406736}>
-                    <Paper sx={{ p: 2 }} key={136663}>
+                    <Paper sx={{ p: 2}} key={136663}>
                       <Typography variant="h6" gutterBottom key={90207}>
                         Simulation Results;
                       </Typography>
@@ -548,8 +488,7 @@ export const BetSimulationTool: React.FC = () => {
                             color={
                               currentResult.expectedValue  key={149147}>= 0;
                                 ? "success.main"
-                                : "error.main"
-                            }
+                                : "error.main"}
                           >
                             {formatCurrency(currentResult.expectedValue)}
                           </Typography>
@@ -582,8 +521,7 @@ export const BetSimulationTool: React.FC = () => {
                                 color={
                                   currentResult.roi  key={247246}>= 0;
                                     ? "success.main"
-                                    : "error.main"
-                                }
+                                    : "error.main"}
                               >
                                 {formatPercentage(currentResult.roi / 100)}
                               </Typography>
@@ -605,8 +543,7 @@ export const BetSimulationTool: React.FC = () => {
                                 : currentResult.riskAssessment.level ===
                                     "medium"
                                   ? "warning"
-                                  : "error"
-                            }
+                                  : "error"}
                             icon={
                               currentResult.riskAssessment.level === "low" ? (
                                 <TrendingUp / key={547059}>
@@ -615,10 +552,9 @@ export const BetSimulationTool: React.FC = () => {
                                 <Warning / key={730258}>
                               ) : (
                                 <TrendingDown / key={199645}>
-                              )
-                            }
+                              )}
                           />
-                          <Typography variant="body2" sx={{ mt: 1 }} key={111636}>
+                          <Typography variant="body2" sx={{ mt: 1}} key={111636}>
                             {currentResult.riskAssessment.recommendation}
                           </Typography>
                         </Box>
@@ -628,7 +564,7 @@ export const BetSimulationTool: React.FC = () => {
                             <Typography variant="subtitle2" key={895}>
                               Risk Factors:
                             </Typography>
-                            <ul style={{ margin: 0, paddingLeft: 16 }} key={459208}>
+                            <ul style={{ margin: 0, paddingLeft: 16}} key={459208}>
                               {currentResult.riskAssessment.factors.map(
                                 (factor, index) => (
                                   <li key={index} key={760236}>{factor}</li>
@@ -716,7 +652,7 @@ export const BetSimulationTool: React.FC = () => {
                   <Button;
                     onClick={addScenario}
                     variant="outlined"
-                    sx={{ mr: 1 }}
+                    sx={{ mr: 1}}
                    key={100010}>
                     Add Scenario;
                   </Button>
@@ -726,11 +662,10 @@ export const BetSimulationTool: React.FC = () => {
                     disabled={scenarios.length === 0 || isSimulating}
                     startIcon={
                       isSimulating ? (
-                        <LinearProgress sx={{ width: 20 }} / key={609872}>
+                        <LinearProgress sx={{ width: 20}} / key={609872}>
                       ) : (
                         <PlayArrow / key={629440}>
-                      )
-                    }
+                      )}
                   >
                     Run Batch;
                   </Button>
@@ -740,7 +675,7 @@ export const BetSimulationTool: React.FC = () => {
               <Grid container spacing={2} key={272161}>
                 {scenarios.map((scenario, index) => (
                   <Grid item xs={12} md={6} key={scenario.id} key={452511}>
-                    <Paper sx={{ p: 2 }} key={136663}>
+                    <Paper sx={{ p: 2}} key={136663}>
                       <Box;
                         display="flex"
                         justifyContent="space-between"
@@ -771,8 +706,7 @@ export const BetSimulationTool: React.FC = () => {
                                 (r) => r.scenario.id === scenario.id,
                               )!.expectedValue >= 0;
                                 ? "success"
-                                : "error"
-                            }
+                                : "error"}
                           />
                         </Box>
                       )}
@@ -800,7 +734,7 @@ export const BetSimulationTool: React.FC = () => {
                 <Grid container spacing={2} key={272161}>
                   {results.map((result) => (
                     <Grid item xs={12} md={4} key={result.scenario.id} key={553366}>
-                      <Paper sx={{ p: 2 }} key={136663}>
+                      <Paper sx={{ p: 2}} key={136663}>
                         <Typography variant="subtitle1" gutterBottom key={9738}>
                           {result.scenario.name}
                         </Typography>
@@ -814,8 +748,7 @@ export const BetSimulationTool: React.FC = () => {
                               color={
                                 result.expectedValue  key={319995}>= 0;
                                   ? "success.main"
-                                  : "error.main"
-                              }
+                                  : "error.main"}
                             >
                               {formatCurrency(result.expectedValue)}
                             </Typography>
@@ -838,8 +771,7 @@ export const BetSimulationTool: React.FC = () => {
                                   ? "success"
                                   : result.riskAssessment.level === "medium"
                                     ? "warning"
-                                    : "error"
-                              }
+                                    : "error"}
                             / key={285748}>
                           </Box>
                         </Stack>
@@ -858,5 +790,9 @@ export const BetSimulationTool: React.FC = () => {
         </CardContent>
       </Card>
     </motion.div>
-  );
-};
+  );};
+
+
+
+
+`

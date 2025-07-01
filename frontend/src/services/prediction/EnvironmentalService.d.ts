@@ -1,22 +1,15 @@
-interface EnvironmentalData {
-    weatherImpact: number;
-    venueAdvantage: number;
-    surfaceCondition: number;
-    timeOfDay: number;
-    seasonality: number;
-}
+﻿interface EnvironmentalData {
+  weatherImpact: number,`n  venueAdvantage: number;,`n  surfaceCondition: number,`n  timeOfDay: number;,`n  seasonality: number}
 interface EnvironmentalAnalysisRequest {
-    eventId: string;
-    sport: string;
-    venue: string;
-    timestamp: string;
-}
+  eventId: string,`n  sport: string;,`n  venue: string,`n  timestamp: string}
 export declare class EnvironmentalService {
-    analyzeEnvironmentalFactors(request: EnvironmentalAnalysisRequest): Promise<EnvironmentalData>;
-    private calculateWeatherImpact;
-    private calculateVenueAdvantage;
-    private calculateSurfaceCondition;
-    private calculateTimeOfDayImpact;
-    private calculateSeasonalityImpact;
-}
-export {};
+  analyzeEnvironmentalFactors(request: EnvironmentalAnalysisRequest): Promise<EnvironmentalData>;
+  private calculateWeatherImpact;
+  private calculateVenueAdvantage;
+  private calculateSurfaceCondition;
+  private calculateTimeOfDayImpact;
+  private calculateSeasonalityImpact;}
+export Record<string, any>;
+
+
+`

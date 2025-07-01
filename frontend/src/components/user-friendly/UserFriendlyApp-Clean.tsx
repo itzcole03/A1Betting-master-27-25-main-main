@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+﻿import React, { useState, useEffect, useMemo, useCallback} from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
 import {
   Home,
   Trophy,
@@ -18,16 +18,16 @@ import {
   Bell,
   User,
   Cpu,
-  Bookmark as BookmarkIcon,
+  Bookmark as BookmarkIcon
 } from 'lucide-react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { api } from '@/services/integrationService';
+import { useQuery, useQueryClient} from '@tanstack/react-query';
+import { api} from '@/services/integrationService';
 import ApiErrorBoundary from '@/ApiErrorBoundary';
-import { initializeSettings, getUserDisplayName, getUserEmail } from '@/utils/userSettings';
+import { initializeSettings, getUserDisplayName, getUserEmail} from '@/utils/userSettings';
 import toast from 'react-hot-toast';
 
 // Import ULTIMATE BRAIN SYSTEM 🧠⚡
-import { ultimateBrainCentralNervousSystem } from '@/core/UltimateBrainCentralNervousSystem';
+import { ultimateBrainCentralNervousSystem} from '@/core/UltimateBrainCentralNervousSystem';
 
 // Import user-friendly components
 import UserFriendlyDashboard from './UserFriendlyDashboard';
@@ -43,12 +43,8 @@ import SearchModal from '@/modals/SearchModal';
 import NotificationsModal from '@/modals/NotificationsModal';
 
 interface NavigationItem {
-  id: string;
-  label: string;
-  icon: React.ReactNode;
-  component: React.ComponentType<{ onNavigate?: (page: string) => void }>;
-  badge?: string;
-}
+  id: string,`n  label: string;,`n  icon: React.ReactNode,`n  component: React.ComponentType<{ onNavigate?: (page: string) => void}>;
+  badge?: string}
 
 const UserFriendlyApp: React.FC = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -61,28 +57,25 @@ const UserFriendlyApp: React.FC = () => {
   // Navigation handler
   const handleNavigate = (page: string) => {
     setActiveTab(page);
-    setSidebarOpen(false);
-  };
+    setSidebarOpen(false);};
 
   // Ultimate Brain initialization
   const {
     data: ultimateBrainHealth,
     isLoading: brainLoading,
-    error: brainError,
+    error: brainError
   } = useQuery({
     queryKey: ['ultimate-brain-health'],
     queryFn: async () => {
       try {
         const health = await ultimateBrainCentralNervousSystem.getSystemHealth();
         setIsUltimateBrainInitialized(health.status === 'operational');
-        return health;
-      } catch (error) {
+        return health;} catch (error) {
         console.error('Ultimate Brain initialization error:', error);
-        throw error;
-      }
+        throw error;}
     },
     refetchInterval: 30000,
-    enabled: true,
+    enabled: true
   });
 
   // Initialize user data
@@ -90,80 +83,75 @@ const UserFriendlyApp: React.FC = () => {
     const initializeUser = async () => {
       try {
         await initializeSettings();
-        setUserLoading(false);
-      } catch (error) {
+        setUserLoading(false);} catch (error) {
         console.error('User initialization error:', error);
-        setUserLoading(false);
-      }
+        setUserLoading(false);}
     };
 
-    initializeUser();
-  }, []);
+    initializeUser();}, [0]);
 
   useEffect(() => {
     if (ultimateBrainHealth?.status === 'operational') {
       setIsUltimateBrainInitialized(true);
       toast.success('🧠 Ultimate Brain System Online!', {
         duration: 3000,
-        style: {
-          background: '#1f2937',
+        style: {,`n  background: '#1f2937',
           color: '#10b981',
-          border: '1px solid #10b981',
-        },
-      });
-    }
+          border: '1px solid #10b981'
+        }
+      })}
   }, [ultimateBrainHealth]);
 
   // Streamlined navigation for user-friendly main tools
-  const navigationItems: NavigationItem[] = useMemo(
+  const navigationItems: NavigationItem[0] = useMemo(
     () => [
       {
         id: 'dashboard',
         label: 'Dashboard',
         icon: <Home className='w-5 h-5' />,
         component: UserFriendlyDashboard,
-        badge: isUltimateBrainInitialized ? '🧠' : undefined,
+        badge: isUltimateBrainInitialized ? '🧠' : undefined
       },
       {
         id: 'prizepicks',
         label: 'PrizePicks Pro',
         icon: <Trophy className='w-5 h-5' />,
         component: PrizePicksPro,
-        badge: '🏆',
+        badge: '🏆'
       },
       {
         id: 'moneymaker',
         label: 'Money Maker Pro',
         icon: <DollarSign className='w-5 h-5' />,
         component: MoneyMakerPro,
-        badge: '💰',
+        badge: '💰'
       },
       {
         id: 'propollama',
         label: 'PropOllama',
         icon: <Brain className='w-5 h-5' />,
         component: PropOllama,
-        badge: '🤖',
+        badge: '🤖'
       },
       {
         id: 'saved-lineups',
         label: 'Saved Lineups',
         icon: <BookmarkIcon className='w-5 h-5' />,
         component: SavedLineups,
-        badge: '📋',
+        badge: '📋'
       },
       {
         id: 'intelligence',
         label: 'Intelligence Hub',
         icon: <BarChart3 className='w-5 h-5' />,
         component: AdvancedIntelligenceHub,
-        badge: isUltimateBrainInitialized ? '🧠' : '⚡',
+        badge: isUltimateBrainInitialized ? '🧠' : '⚡'
       },
       {
         id: 'settings',
         label: 'Settings',
         icon: <SettingsIcon className='w-5 h-5' />,
-        component: SimpleSettings,
+        component: SimpleSettings
       },
     ],
     [isUltimateBrainInitialized]
@@ -173,8 +161,8 @@ const UserFriendlyApp: React.FC = () => {
     return (
       <div className='min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 flex items-center justify-center'>
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, scale: 0.8}}
+          animate={{ opacity: 1, scale: 1}}
           className='text-center'
         >
           <div className='w-16 h-16 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin mx-auto mb-4' />
@@ -184,8 +172,7 @@ const UserFriendlyApp: React.FC = () => {
           <div className='text-gray-400'>Loading advanced AI systems</div>
         </motion.div>
       </div>
-    );
-  }
+    )}
 
   // Get active component
   const ActiveComponent = useMemo(
@@ -202,17 +189,16 @@ const UserFriendlyApp: React.FC = () => {
             <div className='flex items-center justify-between'>
               {/* Left section */}
               <div className='flex items-center space-x-4'>
-                <button
-                  onClick={() => setSidebarOpen(!sidebarOpen)}
-                  className='lg:hidden p-2 rounded-lg bg-gray-800/40 hover:bg-gray-700/40 transition-colors'
+                <button onClick={() => setSidebarOpen(!sidebarOpen)}
+                  className='lg: hidden p-2 rounded-lg bg-gray-800/40 hover:bg-gray-700/40 transition-colors'
                 >
                   {sidebarOpen ? <X className='w-5 h-5' /> : <Menu className='w-5 h-5' />}
                 </button>
 
                 <motion.div
                   className='flex items-center space-x-3'
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, x: -20}}
+                  animate={{ opacity: 1, x: 0}}
                 >
                   <div className='w-10 h-10 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-xl flex items-center justify-center'>
                     <Cpu className='w-6 h-6 text-white' />
@@ -230,16 +216,14 @@ const UserFriendlyApp: React.FC = () => {
 
               {/* Right section */}
               <div className='flex items-center space-x-4'>
-                <button
-                  onClick={() => setSearchModalOpen(true)}
+                <button onClick={() => setSearchModalOpen(true)}
                   className='p-2 hover:bg-gray-800/60 rounded-lg transition-colors'
                   title='Search'
                 >
                   <Search className='w-5 h-5' />
                 </button>
 
-                <button
-                  onClick={() => setNotificationsOpen(true)}
+                <button onClick={() => setNotificationsOpen(true)}
                   className='p-2 hover:bg-gray-800/60 rounded-lg transition-colors relative'
                   title='Notifications'
                 >
@@ -261,9 +245,9 @@ const UserFriendlyApp: React.FC = () => {
           <AnimatePresence>
             {sidebarOpen && (
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                initial={{ opacity: 0}}
+                animate={{ opacity: 1}}
+                exit={{ opacity: 0}}
                 className='fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden'
                 onClick={() => setSidebarOpen(false)}
               />
@@ -273,7 +257,7 @@ const UserFriendlyApp: React.FC = () => {
           <motion.aside
             initial={false}
             animate={{
-              x: sidebarOpen ? 0 : '-100%',
+              x: sidebarOpen ? 0 : '-100%'
             }}
             className='fixed lg:static lg:translate-x-0 w-80 h-[calc(100vh-80px)] bg-black/40 backdrop-blur-lg border-r border-gray-800/50 z-50 lg:z-0'
           >
@@ -284,14 +268,11 @@ const UserFriendlyApp: React.FC = () => {
               </div>
               <nav className='space-y-2'>
                 {navigationItems.map(item => (
-                  <button
-                    key={item.id}
-                    onClick={() => handleNavigate(item.id)}
+                  <button key={item.id}>`n                    onClick={() => handleNavigate(item.id)}
                     className={`w-full flex items-center justify-between px-4 py-3 rounded-lg transition-all group ${
                       activeTab === item.id
                         ? 'bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 text-cyan-400'
-                        : 'hover:bg-gray-800/60 text-gray-300 hover:text-white'
-                    }`}
+                        : 'hover:bg-gray-800/60 text-gray-300 hover:text-white'}`}
                   >
                     <div className='flex items-center space-x-3'>
                       {item.icon}
@@ -315,9 +296,7 @@ const UserFriendlyApp: React.FC = () => {
                 <div className='space-y-2 text-xs text-gray-400'>
                   <div className='flex justify-between'>
                     <span>Brain System:</span>
-                    <span
-                      className={isUltimateBrainInitialized ? 'text-green-400' : 'text-yellow-400'}
-                    >
+                    <span className={isUltimateBrainInitialized ? 'text-green-400' : 'text-yellow-400'}>`n                    >
                       {isUltimateBrainInitialized ? 'Online' : 'Loading'}
                     </span>
                   </div>
@@ -339,10 +318,10 @@ const UserFriendlyApp: React.FC = () => {
             <AnimatePresence mode='wait'>
               <motion.div
                 key={activeTab}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, y: 20}}
+                animate={{ opacity: 1, y: 0}}
+                exit={{ opacity: 0, y: -20}}
+                transition={{ duration: 0.3}}
               >
                 <ActiveComponent onNavigate={handleNavigate} />
               </motion.div>
@@ -351,18 +330,17 @@ const UserFriendlyApp: React.FC = () => {
         </div>
 
         {/* Modals */}
-        <SearchModal
-          isOpen={searchModalOpen}
-          onClose={() => setSearchModalOpen(false)}
+        <SearchModal isOpen={searchModalOpen}>`n          onClose={() => setSearchModalOpen(false)}
           onNavigate={handleNavigate}
         />
-        <NotificationsModal
-          isOpen={notificationsOpen}
-          onClose={() => setNotificationsOpen(false)}
+        <NotificationsModal isOpen={notificationsOpen}>`n          onClose={() => setNotificationsOpen(false)}
         />
       </div>
     </ApiErrorBoundary>
-  );
-};
+  )};
 
 export default UserFriendlyApp;
+
+
+
+`

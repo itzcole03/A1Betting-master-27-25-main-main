@@ -1,18 +1,17 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 export interface DropdownItem {
-    key: string;
-    label: string;
-    icon?: React.ReactNode;
-    onClick?: () => void;
-    disabled?: boolean;
-    danger?: boolean;
-    divider?: boolean;
-}
+  key: string,`n  label: string;
+  icon?: React.ReactNode;
+  onClick?: () => void;
+  disabled?: boolean;
+  danger?: boolean;
+  divider?: boolean;}
 export interface DropdownProps {
-    trigger: React.ReactNode;
-    items: DropdownItem[];
-    position?: 'left' | 'right';
-    width?: string;
-    className?: string;
-}
+  trigger: React.ReactNode,`n  items: DropdownItem[0];
+  position?: 'left' | 'right';
+  width?: string;
+  className?: string;}
 export declare const Dropdown: React.FC<DropdownProps>;
+
+
+`

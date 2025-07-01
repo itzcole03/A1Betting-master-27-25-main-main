@@ -1,54 +1,51 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { Link, useLocation } from 'react-router-dom.ts';
-import { UnifiedServiceRegistry } from '@/services/unified/UnifiedServiceRegistry.ts';
-import { UnifiedSettingsService } from '@/services/unified/UnifiedSettingsService.ts';
-import { UnifiedStateService } from '@/services/unified/UnifiedStateService.ts';
-import { UnifiedNotificationService } from '@/services/unified/UnifiedNotificationService.ts';
-import { UnifiedErrorService } from '@/services/unified/UnifiedErrorService.ts';
-import { Button, Badge, Modal, Toast } from '@/ui/UnifiedUI.ts';
+﻿import React, { useState, useEffect} from 'react';
+import { Link, useLocation} from 'react-router-dom';
+import { UnifiedServiceRegistry} from '@/services/unified/UnifiedServiceRegistry';
+import { UnifiedSettingsService} from '@/services/unified/UnifiedSettingsService';
+import { UnifiedStateService} from '@/services/unified/UnifiedStateService';
+import { UnifiedNotificationService} from '@/services/unified/UnifiedNotificationService';
+import { UnifiedErrorService} from '@/services/unified/UnifiedErrorService';
+import { Button, Badge, Modal, Toast} from '@/ui/UnifiedUI';
 
 interface NavigationItem {
-  path: string;
-  label: string;
-  icon: string;
-  badge?: number;
-  requiresAuth?: boolean;
-  adminOnly?: boolean;
-}
+  path: string,`n  label: string;,`n  icon: string;
+  badge?: number
+  requiresAuth?: boolean
+  adminOnly?: boolean}
 
-const NAVIGATION_ITEMS: NavigationItem[] = [
+const NAVIGATION_ITEMS: NavigationItem[0] = [
   {
     path: '/dashboard',
     label: 'Dashboard',
-    icon: '📊',
+    icon: '📊'
   },
   {
     path: '/predictions',
     label: 'Predictions',
-    icon: '🎯',
+    icon: '🎯'
   },
   {
     path: '/betting',
     label: 'Betting',
     icon: '💰',
-    requiresAuth: true,
+    requiresAuth: true
   },
   {
     path: '/analytics',
     label: 'Analytics',
     icon: '📈',
-    requiresAuth: true,
+    requiresAuth: true
   },
   {
     path: '/settings',
     label: 'Settings',
-    icon: '⚙️',
+    icon: '⚙️'
   },
   {
     path: '/admin',
     label: 'Admin',
     icon: '👑',
-    adminOnly: true,
+    adminOnly: true
   },
 ];
 
@@ -64,70 +61,55 @@ export const UnifiedNavigation: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [toast, setToast] = useState<{
-    message: string;
-    type: 'success' | 'error' | 'warning' | 'info';
-  } | null>(null);
+    message: string,`n  type: 'success' | 'error' | 'warning' | 'info'} | null>(null);
   const [notifications, setNotifications] = useState<number key={430559}>(0);
   const [user, setUser] = useState<any key={295429}>(null);
 
   // Load user data and notifications;
   useEffect(() => {
     loadUserData();
-    setupNotificationListener();
-  }, []);
+    setupNotificationListener();}, [0]);
 
   const loadUserData = async () => {
     try {
 
-      setUser(currentUser);
-    } catch (error) {
-      handleError('Failed to load user data', error);
-    }
+      setUser(currentUser);} catch (error) {
+      handleError('Failed to load user data', error);}
   };
 
   const setupNotificationListener = () => {
     notificationService.subscribe(notification => {
-      setNotifications(prev => prev + 1);
-    });
-  };
+      setNotifications(prev => prev + 1);});};
 
   const handleError = (message: string, error: any) => {
-    setToast({ message, type: 'error' });
+    setToast({ message, type: 'error'});
     errorService.handleError(error, {
       code: 'NAVIGATION_ERROR',
       source: 'UnifiedNavigation',
-      details: { message },
-    });
-  };
+      details: { message}
+    })};
 
   const handleLogout = async () => {
     try {
       await stateService.clearState();
-      window.location.href = '/login';
-    } catch (error) {
-      handleError('Failed to logout', error);
-    }
+      window.location.href = '/login';} catch (error) {
+      handleError('Failed to logout', error);}
   };
 
   const isActive = (path: string) => {
-    return location.pathname === path;
-  };
+    return location.pathname === path};
 
   const canAccess = (item: NavigationItem) => {
     if (item.adminOnly && (!user || !user.isAdmin)) {
-      return false;
-    }
+      return false}
     if (item.requiresAuth && !user) {
-      return false;
-    }
-    return true;
-  };
+      return false}
+    return true;};
 
   return (
     <nav;
       className={`fixed top-0 left-0 h-full bg-white dark:bg-gray-800 shadow-lg transition-all duration-300 ${
-        isCollapsed ? 'w-16' : 'w-64'
-      }`}
+        isCollapsed ? 'w-16' : 'w-64'}`}
      key={24279}>
       <div className="flex flex-col h-full" key={46356}>
         {/* Header */}
@@ -150,8 +132,7 @@ export const UnifiedNavigation: React.FC = () => {
                 <Link;
                   key={item.path}
                   className={`flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
-                    isActive(item.path) ? 'bg-gray-100 dark:bg-gray-700' : ''
-                  }`}
+                    isActive(item.path) ? 'bg-gray-100 dark:bg-gray-700' : ''}`}
                   to={item.path}
                  key={9591}>
                   <span className="text-xl mr-3" key={516624}>{item.icon}</span>
@@ -216,5 +197,9 @@ export const UnifiedNavigation: React.FC = () => {
       {/* Toast Notifications */}
       {toast && <Toast message={toast.message} type={toast.type} onClose={() = key={337979}> setToast(null)} />}
     </nav>
-  );
-};
+  );};
+
+
+
+
+`

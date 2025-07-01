@@ -1,27 +1,24 @@
-import React from 'react.ts';
-import { motion } from 'framer-motion.ts';
-import { WifiOff, RefreshCw, AlertCircle } from 'lucide-react.ts';
+﻿import React from 'react';
+import { motion} from 'framer-motion';
+import { WifiOff, RefreshCw, AlertCircle} from 'lucide-react';
 
 interface EmptyStateProps {
-  title?: string;
-  message?: string;
+  title?: string
+  message?: string
   icon?: React.ReactNode;
   action?: {
-    label: string;
-    onClick: () => void;
-  };
-}
+    label: string,`n  onClick: () => void}}
 
 export const EmptyState: React.FC<EmptyStateProps key={317586}> = ({
   title = "Service Unavailable",
   message = "This feature requires backend services to be running.",
   icon = <WifiOff className="w-16 h-16 text-gray-400" / key={557412}>,
-  action,
+//   action
 }) => {
   return (
     <motion.div;
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, scale: 0.9}}
+      animate={{ opacity: 1, scale: 1}}
       className="flex flex-col items-center justify-center p-12 text-center bg-gray-800/20 backdrop-blur-sm border border-gray-600/30 rounded-2xl"
      key={1960}>
       <div className="mb-6 opacity-60" key={891244}>{icon}</div>
@@ -32,8 +29,8 @@ export const EmptyState: React.FC<EmptyStateProps key={317586}> = ({
 
       {action && (
         <motion.button;
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.05}}
+          whileTap={{ scale: 0.95}}
           onClick={action.onClick}
           className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center gap-2 transition-colors"
          key={313481}>
@@ -47,7 +44,11 @@ export const EmptyState: React.FC<EmptyStateProps key={317586}> = ({
         <span key={595076}>No mock or placeholder data is shown</span>
       </div>
     </motion.div>
-  );
-};
+  )};
 
 export default EmptyState;
+
+
+
+
+`

@@ -1,23 +1,18 @@
-/**
+﻿/**
  * Enhanced Error Boundary System for A1Betting;
  */
 
-import React, { Component, ErrorInfo, ReactNode  } from 'react.ts';
-import { AlertTriangle, RefreshCw, Home } from 'lucide-react.ts';
+import React, { Component, ErrorInfo, ReactNode} from 'react';
+import { AlertTriangle, RefreshCw, Home} from 'lucide-react';
 
 interface Props {
   children: ReactNode;
-  fallback?: ReactNode;
+  fallback?: ReactNode
   onError?: (error: Error, errorInfo: ErrorInfo) => void;
-  showDetails?: boolean;
-}
+  showDetails?: boolean}
 
 interface State {
-  hasError: boolean;
-  error: Error | null;
-  errorInfo: ErrorInfo | null;
-  retryCount: number;
-}
+  hasError: boolean,`n  error: Error | null;,`n  errorInfo: ErrorInfo | null,`n  retryCount: number}
 
 class EnhancedErrorBoundary extends Component<Props, State key={458171}> {
   private maxRetries = 3;
@@ -28,29 +23,26 @@ class EnhancedErrorBoundary extends Component<Props, State key={458171}> {
       hasError: false,
       error: null,
       errorInfo: null,
-      retryCount: 0,
-    };
-  }
+      retryCount: 0
+    }}
 
   static getDerivedStateFromError(error: Error): Partial<State key={260086}> {
     return {
       hasError: true,
-      error,
-    };
-  }
+//       error
+    }}
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     this.setState({
       error,
-      errorInfo,
+//       errorInfo
     });
 
     // Log error to monitoring service;
     this.logError(error, errorInfo);
 
     // Call custom error handler;
-    this.props.onError?.(error, errorInfo);
-  }
+    this.props.onError?.(error, errorInfo);}
 
   private logError = (error: Error, errorInfo: ErrorInfo) => {
     const errorData = {
@@ -60,16 +52,14 @@ class EnhancedErrorBoundary extends Component<Props, State key={458171}> {
       timestamp: new Date().toISOString(),
       userAgent: navigator.userAgent,
       url: window.location.href,
-      retryCount: this.state.retryCount,
+      retryCount: this.state.retryCount
     };
 
     // In production, send to monitoring service;
     if (process.env.NODE_ENV === 'production') {
       // Example: Sentry, LogRocket, etc.
-      // console statement removed
-    } else {
-      // console statement removed
-    }
+      // console statement removed} else {
+      // console statement removed}
   };
 
   private handleRetry = () => {
@@ -78,23 +68,20 @@ class EnhancedErrorBoundary extends Component<Props, State key={458171}> {
         hasError: false,
         error: null,
         errorInfo: null,
-        retryCount: this.state.retryCount + 1,
-      });
-    }
+        retryCount: this.state.retryCount + 1
+      })}
   };
 
   private handleGoHome = () => {
-    window.location.href = '/';
-  };
+    window.location.href = '/';};
 
   private renderErrorDetails = () => {
     if (!this.props.showDetails || process.env.NODE_ENV === 'production') {
-      return null;
-    }
+      return null;}
 
     return (
       <details className="mt-4 p-4 bg-gray-900 rounded-lg" key={950640}>
-        <summary className="cursor-pointer text-sm font-medium text-gray-300 hover:text-white" key={228761}>
+        <summary className="cursor-pointer text-sm font-medium text-gray-300 hover: text-white" key={228761}>
           Error Details (Development Only)
         </summary>
         <div className="mt-2 text-xs font-mono text-gray-400" key={121075}>
@@ -113,14 +100,12 @@ class EnhancedErrorBoundary extends Component<Props, State key={458171}> {
           )}
         </div>
       </details>
-    );
-  };
+    )};
 
   render() {
     if (this.state.hasError) {
       if (this.props.fallback) {
-        return this.props.fallback;
-      }
+        return this.props.fallback;}
 
       return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center justify-center p-4" key={228910}>
@@ -150,7 +135,7 @@ class EnhancedErrorBoundary extends Component<Props, State key={458171}> {
               
               <button;
                 onClick={this.handleGoHome}
-                className="w-full bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center space-x-2"
+                className="w-full bg-gray-600 hover: bg-gray-700 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center space-x-2"
                key={865208}>
                 <Home className="h-4 w-4" / key={799014}>
                 <span key={595076}>Go to Dashboard</span>
@@ -160,18 +145,13 @@ class EnhancedErrorBoundary extends Component<Props, State key={458171}> {
             {this.renderErrorDetails()}
           </div>
         </div>
-      );
-    }
+      )}
 
-    return this.props.children;
-  }
+    return this.props.children;}
 }
 
 // Lightweight error boundary for specific components;
-export const ComponentErrorBoundary: React.FC<{
-  children: ReactNode;
-  componentName: string;
-}> = ({ children, componentName }) => {
+export const ComponentErrorBoundary: React.FC<{,`n  children: ReactNode;,`n  componentName: string}> = ({ children, componentName}) => {
   return (
     <EnhancedErrorBoundary;
       fallback={
@@ -182,35 +162,33 @@ export const ComponentErrorBoundary: React.FC<{
               {componentName} failed to load. Please refresh the page.
             </p>
           </div>
-        </div>
-      }
+        </div>}
       onError={(error, errorInfo) => {
-        // console statement removed
-      }}
+        // console statement removed}}
     >
       {children}
     </EnhancedErrorBoundary>
-  );
-};
+  );};
 
 // Async component error boundary;
-export const AsyncBoundary: React.FC<{
-  children: ReactNode;
-  loading?: ReactNode;
-}> = ({ children, loading = <div key={241917}>Loading...</div> }) => {
+export const AsyncBoundary: React.FC<{,`n  children: ReactNode;
+  loading?: ReactNode}> = ({ children, loading = <div key={241917}>Loading...</div>}) => {
   return (
     <EnhancedErrorBoundary;
       fallback={
         <div className="flex items-center justify-center h-32" key={732144}>
           <div className="text-gray-500" key={542487}>Failed to load component</div>
-        </div>
-      }
+        </div>}
     >
       <React.Suspense fallback={loading} key={576864}>
         {children}
       </React.Suspense>
     </EnhancedErrorBoundary>
-  );
-};
+  );};
 
 export default EnhancedErrorBoundary;
+
+
+
+
+`

@@ -1,7 +1,8 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface ConfidenceIndicatorProps {
-    confidence: number;
-    kellyCriterion: number;
-}
+  confidence: number,`n  kellyCriterion: number}
 export declare const ConfidenceIndicator: React.FC<ConfidenceIndicatorProps>;
-export {};
+export Record<string, any>;
+
+
+`

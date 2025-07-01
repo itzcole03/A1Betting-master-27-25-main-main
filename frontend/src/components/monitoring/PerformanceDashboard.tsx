@@ -1,5 +1,5 @@
-import React, { useEffect, useState  } from 'react.ts';
-import SafeChart from '@/ui/SafeChart.ts';
+﻿import React, { useEffect, useState} from 'react';
+import SafeChart from '@/ui/SafeChart';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,10 +8,10 @@ import {
   LineElement,
   Title,
   Tooltip,
-  Legend,
+//   Legend
 } from "chart.js";
-import { performanceService } from '@/services/performanceService.ts';
-import { toast } from 'react-toastify.ts';
+import { performanceService} from '@/services/performanceService';
+import { toast} from 'react-toastify';
 
 // Register ChartJS components;
 ChartJS.register(
@@ -25,22 +25,14 @@ ChartJS.register(
 );
 
 interface PerformanceMetric {
-  name: string;
-  value: number;
-  timestamp: number;
-}
+  name: string,`n  value: number;,`n  timestamp: number}
 
 interface PerformanceAlert {
-  metric_name: string;
-  threshold: number;
-  current_value: number;
-  timestamp: string;
-  severity: "warning" | "critical";
-}
+  metric_name: string,`n  threshold: number;,`n  current_value: number,`n  timestamp: string;,`n  severity: "warning" | "critical"}
 
 const PerformanceDashboard: React.FC = () => {
-  const [metrics, setMetrics] = useState<PerformanceMetric[] key={435241}>([]);
-  const [alerts, setAlerts] = useState<PerformanceAlert[] key={676733}>([]);
+  const [metrics, setMetrics] = useState<PerformanceMetric[0] key={435241}>([0]);
+  const [alerts, setAlerts] = useState<PerformanceAlert[0] key={676733}>([0]);
   const [selectedMetric, setSelectedMetric] = useState<string key={278855}>("response_time");
   const [timeRange, setTimeRange] = useState<string key={278855}>("1h");
 
@@ -62,19 +54,15 @@ const PerformanceDashboard: React.FC = () => {
           .forEach((alert: PerformanceAlert) => {
             toast.error(
               `Critical alert: ${alert.metric_name} exceeded threshold (${alert.current_value} > ${alert.threshold})`,
-            );
-          });
-      } catch (error) {
+            )});} catch (error) {
         // console statement removed
-        toast.error("Failed to fetch performance data");
-      }
+        toast.error("Failed to fetch performance data");}
     };
 
     fetchData();
     const interval = setInterval(fetchData, 60000); // Refresh every minute;
 
-    return () => clearInterval(interval);
-  }, [selectedMetric, timeRange]);
+    return () => clearInterval(interval);}, [selectedMetric, timeRange]);
 
   const chartData = {
     labels: metrics.map((m) => new Date(m.timestamp).toLocaleTimeString()),
@@ -83,27 +71,22 @@ const PerformanceDashboard: React.FC = () => {
         label: selectedMetric,
         data: metrics.map((m) => m.value),
         borderColor: "rgb(75, 192, 192)",
-        tension: 0.1,
+        tension: 0.1
       },
-    ],
+    ]
   };
 
   const chartOptions = {
     responsive: true,
-    plugins: {
-      legend: {
-        position: "top" as const,
+    plugins: {,`n  legend: {,`n  position: "top" as const
       },
-      title: {
-        display: true,
-        text: `${selectedMetric} over time`,
-      },
+      title: {,`n  display: true,
+        text: `${selectedMetric} over time`
+      }
     },
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
+    scales: {,`n  y: {,`n  beginAtZero: true
+      }
+    }
   };
 
   return (
@@ -159,8 +142,7 @@ const PerformanceDashboard: React.FC = () => {
                   className={`p-4 rounded ${
                     alert.severity === "critical"
                       ? "bg-red-100 border-red-500"
-                      : "bg-yellow-100 border-yellow-500"
-                  } border`}
+                      : "bg-yellow-100 border-yellow-500"} border`}
                  key={176225}>
                   <div className="flex justify-between items-center" key={795957}>
                     <div key={241917}>
@@ -174,8 +156,7 @@ const PerformanceDashboard: React.FC = () => {
                       className={`px-2 py-1 rounded text-sm ${
                         alert.severity === "critical"
                           ? "bg-red-500 text-white"
-                          : "bg-yellow-500 text-white"
-                      }`}
+                          : "bg-yellow-500 text-white"}`}
                      key={88486}>
                       {alert.severity}
                     </span>
@@ -190,7 +171,10 @@ const PerformanceDashboard: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  );};
 
 export default React.memo(PerformanceDashboard);
+
+
+
+`

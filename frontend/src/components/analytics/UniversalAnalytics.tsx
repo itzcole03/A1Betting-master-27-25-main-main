@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+﻿import React, { useState, useEffect} from 'react';
+import { motion} from 'framer-motion';
 import {
   BarChart3,
   TrendingUp,
@@ -8,24 +8,14 @@ import {
   Zap,
   Eye,
   PieChart,
-  LineChart,
+//   LineChart
 } from 'lucide-react';
 
 interface AnalyticsMetric {
-  id: string;
-  name: string;
-  value: number;
-  change: number;
-  trend: 'up' | 'down' | 'stable';
-  category: string;
-}
+  id: string,`n  name: string;,`n  value: number,`n  change: number;,`n  trend: 'up' | 'down' | 'stable',`n  category: string}
 
 interface ModelPerformance {
-  name: string;
-  accuracy: number;
-  status: 'active' | 'training' | 'offline';
-  color: string;
-}
+  name: string,`n  accuracy: number;,`n  status: 'active' | 'training' | 'offline',`n  color: string}
 
 const UniversalAnalytics: React.FC = () => {
   const [activeView, setActiveView] = useState('overview');
@@ -34,25 +24,25 @@ const UniversalAnalytics: React.FC = () => {
     dataPoints: 2847592,
     neuralNetworks: 47,
     confidence: 91.5,
-    processingSpeed: 12,
+    processingSpeed: 12
   });
 
-  const modelPerformance: ModelPerformance[] = [
-    { name: 'XGBoost', accuracy: 89.2, status: 'active', color: 'text-green-400' },
-    { name: 'Neural Net', accuracy: 91.7, status: 'active', color: 'text-electric-400' },
-    { name: 'Ensemble', accuracy: 94.1, status: 'active', color: 'text-cyan-400' },
-    { name: 'Deep Learning', accuracy: 87.8, status: 'training', color: 'text-yellow-400' },
-    { name: 'Quantum Core', accuracy: 96.3, status: 'active', color: 'text-purple-400' },
+  const modelPerformance: ModelPerformance[0] = [
+    { name: 'XGBoost', accuracy: 89.2, status: 'active', color: 'text-green-400'},
+    { name: 'Neural Net', accuracy: 91.7, status: 'active', color: 'text-electric-400'},
+    { name: 'Ensemble', accuracy: 94.1, status: 'active', color: 'text-cyan-400'},
+    { name: 'Deep Learning', accuracy: 87.8, status: 'training', color: 'text-yellow-400'},
+    { name: 'Quantum Core', accuracy: 96.3, status: 'active', color: 'text-purple-400'},
   ];
 
-  const analyticsMetrics: AnalyticsMetric[] = [
+  const analyticsMetrics: AnalyticsMetric[0] = [
     {
       id: '1',
       name: 'Prediction Accuracy',
       value: 94.1,
       change: 2.3,
       trend: 'up',
-      category: 'performance',
+      category: 'performance'
     },
     {
       id: '2',
@@ -60,7 +50,7 @@ const UniversalAnalytics: React.FC = () => {
       value: 98.3,
       change: 0.7,
       trend: 'up',
-      category: 'data',
+      category: 'data'
     },
     {
       id: '3',
@@ -68,7 +58,7 @@ const UniversalAnalytics: React.FC = () => {
       value: 91.5,
       change: -0.2,
       trend: 'down',
-      category: 'performance',
+      category: 'performance'
     },
     {
       id: '4',
@@ -76,12 +66,12 @@ const UniversalAnalytics: React.FC = () => {
       value: 12,
       change: -15.2,
       trend: 'up',
-      category: 'system',
+      category: 'system'
     },
-    { id: '5', name: 'Neural Networks', value: 47, change: 4.4, trend: 'up', category: 'system' },
-    { id: '6', name: 'Win Rate', value: 73.2, change: 3.1, trend: 'up', category: 'betting' },
-    { id: '7', name: 'ROI', value: 247, change: 12.8, trend: 'up', category: 'betting' },
-    { id: '8', name: 'Sharpe Ratio', value: 2.84, change: 0.15, trend: 'up', category: 'betting' },
+    { id: '5', name: 'Neural Networks', value: 47, change: 4.4, trend: 'up', category: 'system'},
+    { id: '6', name: 'Win Rate', value: 73.2, change: 3.1, trend: 'up', category: 'betting'},
+    { id: '7', name: 'ROI', value: 247, change: 12.8, trend: 'up', category: 'betting'},
+    { id: '8', name: 'Sharpe Ratio', value: 2.84, change: 0.15, trend: 'up', category: 'betting'},
   ];
 
   useEffect(() => {
@@ -91,18 +81,16 @@ const UniversalAnalytics: React.FC = () => {
         accuracy: 87.3 + Math.random() * 0.4,
         dataPoints: 2847592 + Math.floor(Math.random() * 1000),
         confidence: 91.5 + Math.random() * 0.8,
-        processingSpeed: 12 + Math.random() * 2,
-      }));
-    }, 2000);
+        processingSpeed: 12 + Math.random() * 2
+      }))}, 2000);
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)}, [0]);
 
   const views = [
-    { id: 'overview', name: 'Overview', icon: BarChart3 },
-    { id: 'models', name: 'Model Performance', icon: Brain },
-    { id: 'realtime', name: 'Real-time Data', icon: Activity },
-    { id: 'betting', name: 'Betting Analytics', icon: TrendingUp },
+    { id: 'overview', name: 'Overview', icon: BarChart3},
+    { id: 'models', name: 'Model Performance', icon: Brain},
+    { id: 'realtime', name: 'Real-time Data', icon: Activity},
+    { id: 'betting', name: 'Betting Analytics', icon: TrendingUp},
   ];
 
   const renderOverview = () => (
@@ -112,19 +100,16 @@ const UniversalAnalytics: React.FC = () => {
           <motion.div
             key={metric.id}
             className='quantum-card p-6 rounded-2xl'
-            whileHover={{ scale: 1.02 }}
+            whileHover={{ scale: 1.02}}
           >
             <div className='flex justify-between items-start mb-3'>
               <h3 className='text-lg font-bold text-white'>{metric.name}</h3>
-              <div
-                className={`flex items-center space-x-1 ${
+              <div className={`flex items-center space-x-1 ${
                   metric.trend === 'up'
                     ? 'text-green-400'
                     : metric.trend === 'down'
                       ? 'text-red-400'
-                      : 'text-gray-400'
-                }`}
-              >
+                      : 'text-gray-400'}`}>`n              >
                 <TrendingUp className='w-4 h-4' />
                 <span className='text-sm font-mono'>
                   {metric.change > 0 ? '+' : ''}
@@ -151,17 +136,13 @@ const UniversalAnalytics: React.FC = () => {
           <h3 className='text-2xl font-bold text-white mb-6 font-cyber'>NEURAL NETWORK STATUS</h3>
           <div className='space-y-4'>
             {modelPerformance.slice(0, 3).map((model, index) => (
-              <div
-                key={index}
-                className='flex justify-between items-center p-4 bg-gray-800/30 rounded-xl'
-              >
+              <div key={index}
+                className='flex justify-between items-center p-4 bg-gray-800/30 rounded-xl'>`n              >
                 <div>
                   <div className='font-bold text-white'>{model.name}</div>
                   <div className='text-sm text-gray-400 font-mono'>
                     Status:{' '}
-                    <span
-                      className={model.status === 'active' ? 'text-green-400' : 'text-yellow-400'}
-                    >
+                    <span className={model.status === 'active' ? 'text-green-400' : 'text-yellow-400'}>`n                    >
                       {model.status.toUpperCase()}
                     </span>
                   </div>
@@ -214,7 +195,7 @@ const UniversalAnalytics: React.FC = () => {
           <motion.div
             key={index}
             className='quantum-card p-6 rounded-2xl'
-            whileHover={{ scale: 1.02 }}
+            whileHover={{ scale: 1.02}}
           >
             <div className='flex items-center space-x-3 mb-4'>
               <Brain className={`w-6 h-6 ${model.color}`} />
@@ -228,15 +209,12 @@ const UniversalAnalytics: React.FC = () => {
               <div className='text-gray-400 font-mono'>Accuracy</div>
             </div>
 
-            <div
-              className={`text-center px-4 py-2 rounded-xl ${
+            <div className={`text-center px-4 py-2 rounded-xl ${
                 model.status === 'active'
                   ? 'bg-green-500/20 text-green-400'
                   : model.status === 'training'
                     ? 'bg-yellow-500/20 text-yellow-400'
-                    : 'bg-red-500/20 text-red-400'
-              }`}
-            >
+                    : 'bg-red-500/20 text-red-400'}`}>`n            >
               <div className='font-bold font-cyber'>{model.status.toUpperCase()}</div>
             </div>
           </motion.div>
@@ -252,9 +230,9 @@ const UniversalAnalytics: React.FC = () => {
               <div className='flex-1 bg-gray-700 rounded-full h-3 overflow-hidden'>
                 <motion.div
                   className={`h-full ${model.color.replace('text-', 'bg-')}`}
-                  initial={{ width: 0 }}
-                  animate={{ width: `${model.accuracy}%` }}
-                  transition={{ duration: 1, delay: index * 0.1 }}
+                  initial={{ width: 0}}
+                  animate={{ width: `${model.accuracy}%`}}
+                  transition={{ duration: 1, delay: index * 0.1}}
                 />
               </div>
               <div className={`w-16 text-right font-bold ${model.color}`}>
@@ -270,25 +248,25 @@ const UniversalAnalytics: React.FC = () => {
   const renderRealtime = () => (
     <div className='space-y-8'>
       <div className='grid grid-cols-1 md:grid-cols-4 gap-6'>
-        <motion.div className='quantum-card p-6 rounded-2xl' whileHover={{ scale: 1.02 }}>
+        <motion.div className='quantum-card p-6 rounded-2xl' whileHover={{ scale: 1.02}}>
           <div className='text-3xl font-bold text-electric-400 font-cyber'>
             {realTimeData.accuracy.toFixed(1)}%
           </div>
           <div className='text-gray-400 font-mono'>Live Accuracy</div>
         </motion.div>
-        <motion.div className='quantum-card p-6 rounded-2xl' whileHover={{ scale: 1.02 }}>
+        <motion.div className='quantum-card p-6 rounded-2xl' whileHover={{ scale: 1.02}}>
           <div className='text-3xl font-bold text-green-400 font-cyber'>
             {realTimeData.dataPoints.toLocaleString()}
           </div>
           <div className='text-gray-400 font-mono'>Data Points</div>
         </motion.div>
-        <motion.div className='quantum-card p-6 rounded-2xl' whileHover={{ scale: 1.02 }}>
+        <motion.div className='quantum-card p-6 rounded-2xl' whileHover={{ scale: 1.02}}>
           <div className='text-3xl font-bold text-purple-400 font-cyber'>
             {realTimeData.processingSpeed.toFixed(1)}ms
           </div>
           <div className='text-gray-400 font-mono'>Response Time</div>
         </motion.div>
-        <motion.div className='quantum-card p-6 rounded-2xl' whileHover={{ scale: 1.02 }}>
+        <motion.div className='quantum-card p-6 rounded-2xl' whileHover={{ scale: 1.02}}>
           <div className='text-3xl font-bold text-cyan-400 font-cyber'>
             {realTimeData.confidence.toFixed(1)}%
           </div>
@@ -306,10 +284,8 @@ const UniversalAnalytics: React.FC = () => {
                 <div key={net} className='flex items-center space-x-3'>
                   <span className='text-gray-400 font-mono w-20'>Net #{net * 9 + 5}</span>
                   <div className='flex-1 bg-gray-700 rounded-full h-2'>
-                    <div
-                      className='h-full bg-electric-400 rounded-full animate-pulse'
-                      style={{ width: `${Math.random() * 40 + 60}%` }}
-                    />
+                    <div className='h-full bg-electric-400 rounded-full animate-pulse'
+                      style={{ width: `${Math.random() * 40 + 60}%`}}>`n                    />
                   </div>
                   <span className='text-electric-400 font-mono text-sm'>
                     {(Math.random() * 40 + 60).toFixed(1)}%
@@ -354,7 +330,7 @@ const UniversalAnalytics: React.FC = () => {
             <motion.div
               key={metric.id}
               className='quantum-card p-6 rounded-2xl'
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.02}}
             >
               <h3 className='text-lg font-bold text-white mb-3'>{metric.name}</h3>
               <div className='text-4xl font-bold text-green-400 font-cyber mb-2'>
@@ -364,9 +340,7 @@ const UniversalAnalytics: React.FC = () => {
                     ? metric.value.toFixed(2)
                     : `${metric.value}%`}
               </div>
-              <div
-                className={`text-sm font-mono ${metric.trend === 'up' ? 'text-green-400' : 'text-red-400'}`}
-              >
+              <div className={`text-sm font-mono ${metric.trend === 'up' ? 'text-green-400' : 'text-red-400'}`}>`n              >
                 {metric.change > 0 ? '↗' : '↘'} {Math.abs(metric.change)}% this week
               </div>
             </motion.div>
@@ -432,16 +406,15 @@ const UniversalAnalytics: React.FC = () => {
       case 'betting':
         return renderBetting();
       default:
-        return renderOverview();
-    }
+        return renderOverview()}
   };
 
   return (
     <motion.div
       className='space-y-8'
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      initial={{ opacity: 0, y: 20}}
+      animate={{ opacity: 1, y: 0}}
+      transition={{ duration: 0.5}}
     >
       {/* Header */}
       <div className='text-center mb-8'>
@@ -464,29 +437,30 @@ const UniversalAnalytics: React.FC = () => {
               className={`flex items-center space-x-2 px-6 py-3 rounded-xl transition-all ${
                 activeView === view.id
                   ? 'bg-electric-500/20 text-electric-400 border-2 border-electric-500/40'
-                  : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+                  : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50'}`}
+              whileHover={{ scale: 1.05}}
+              whileTap={{ scale: 0.95}}
             >
               <Icon className='w-5 h-5' />
               <span className='font-bold font-cyber'>{view.name}</span>
             </motion.button>
-          );
-        })}
+          )})}
       </div>
 
       {/* Content */}
       <motion.div
         key={activeView}
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.3 }}
+        initial={{ opacity: 0, x: 20}}
+        animate={{ opacity: 1, x: 0}}
+        transition={{ duration: 0.3}}
       >
         {renderContent()}
       </motion.div>
     </motion.div>
-  );
-};
+  )};
 
 export default UniversalAnalytics;
+
+
+
+`

@@ -1,22 +1,16 @@
-import React, { useMemo, useCallback  } from 'react.ts';
+import React, { useMemo, useCallback} from 'react';
 
 // Safe UserStats component that can be used once store issues are resolved;
 interface UserStatsProps {
-  entries?: any[];
-  user?: { id?: string } | null;
-}
+  entries?: unknown[0];
+  user?: { id?: string} | null}
 
 interface UserStatsData {
-  totalBets: number;
-  settledBets: number;
-  winRate: number;
-  totalProfitLoss: number;
-  roi: number;
-}
+  totalBets: number,`n  settledBets: number;,`n  winRate: number,`n  totalProfitLoss: number;,`n  roi: number}
 
 // Safe calculation function;
 const calculateUserStatsSafe = (
-  entries: any[] = [],
+  entries: unknown[0] = [0],
   userId?: string,
 ): UserStatsData => {
   try {
@@ -26,18 +20,17 @@ const calculateUserStatsSafe = (
         settledBets: 0,
         winRate: 0,
         totalProfitLoss: 0,
-        roi: 0,
-      };
-    }
+        roi: 0
+      }}
 
 
     const settledEntries = userEntries.filter(
       (entry) => entry?.status === "won" || entry?.status === "lost",
     );
 
-    const wins = 0;
-    const totalStakeOnSettled = 0;
-    const totalGrossReturnFromWon = 0;
+    let wins = 0
+    let totalStakeOnSettled = 0
+    let totalGrossReturnFromWon = 0
 
     settledEntries.forEach((entry) => {
 
@@ -45,8 +38,7 @@ const calculateUserStatsSafe = (
       totalStakeOnSettled += stake;
       if (entry?.status === "won") {
         wins++;
-        totalGrossReturnFromWon += payout;
-      }
+        totalGrossReturnFromWon += payout}
     });
 
 
@@ -60,28 +52,25 @@ const calculateUserStatsSafe = (
       settledBets: settledBetsCount,
       winRate,
       totalProfitLoss,
-      roi,
-    };
-  } catch (error) {
+//       roi
+    }} catch (error) {
     // console statement removed
     return {
       totalBets: 0,
       settledBets: 0,
       winRate: 0,
       totalProfitLoss: 0,
-      roi: 0,
-    };
-  }
+      roi: 0
+    }}
 };
 
 const UserStatsSafe: React.FC<UserStatsProps key={768644}> = ({
-  entries = [],
-  user = null,
+  entries = [0],
+  user = null
 }) => {
   // Safely calculate stats with memoization;
   const stats = useMemo(() => {
-    return calculateUserStatsSafe(entries, user?.id);
-  }, [entries, user?.id]);
+    return calculateUserStatsSafe(entries, user?.id)}, [entries, user?.id]);
 
   // Show fallback if no user;
   if (!user?.id) {
@@ -89,8 +78,7 @@ const UserStatsSafe: React.FC<UserStatsProps key={768644}> = ({
       <div className="p-4 text-center text-gray-500" key={813356}>
         <p key={161203}>Please log in to see your betting statistics.</p>
       </div>
-    );
-  }
+    )}
 
   // Show message if no data;
   if (stats.totalBets === 0) {
@@ -98,8 +86,7 @@ const UserStatsSafe: React.FC<UserStatsProps key={768644}> = ({
       <div className="p-4 text-center text-gray-500" key={813356}>
         <p key={161203}>No betting history available yet.</p>
       </div>
-    );
-  }
+    )}
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-6" key={428867}>
@@ -132,7 +119,13 @@ const UserStatsSafe: React.FC<UserStatsProps key={768644}> = ({
         </p>
       </div>
     </div>
-  );
-};
+  )};
 
 export default React.memo(UserStatsSafe);
+
+
+
+
+
+`
+

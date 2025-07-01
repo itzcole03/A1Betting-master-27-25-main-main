@@ -1,15 +1,13 @@
-import React, { useState  } from 'react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
-import { Search, X, TrendingUp, User, Calendar } from 'lucide-react.ts';
+﻿import React, { useState} from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
+import { Search, X, TrendingUp, User, Calendar} from 'lucide-react';
 
 interface SearchModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+  isOpen: boolean,`n  onClose: () => void}
 
 export const SearchModal: React.FC<SearchModalProps key={904539}> = ({
   isOpen,
-  onClose,
+//   onClose
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([
@@ -17,19 +15,19 @@ export const SearchModal: React.FC<SearchModalProps key={904539}> = ({
       type: "game",
       title: "Lakers vs Warriors",
       subtitle: "NBA • Tonight 8:00 PM",
-      icon: <Calendar className="w-4 h-4" / key={921199}>,
+      icon: <Calendar className="w-4 h-4" / key={921199}>
     },
     {
       type: "player",
       title: "LeBron James",
       subtitle: "Lakers • 27.5 Points O/U",
-      icon: <User className="w-4 h-4" / key={490416}>,
+      icon: <User className="w-4 h-4" / key={490416}>
     },
     {
       type: "prediction",
       title: "High Value Bets",
       subtitle: "5 opportunities found",
-      icon: <TrendingUp className="w-4 h-4" / key={673347}>,
+      icon: <TrendingUp className="w-4 h-4" / key={673347}>
     },
   ]);
 
@@ -44,16 +42,16 @@ export const SearchModal: React.FC<SearchModalProps key={904539}> = ({
   return (
     <AnimatePresence key={359944}>
       <motion.div;
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
+        initial={{ opacity: 0}}
+        animate={{ opacity: 1}}
+        exit={{ opacity: 0}}
         className="fixed inset-0 z-50 flex items-start justify-center bg-black/60 backdrop-blur-sm p-4 pt-20"
         onClick={onClose}
        key={294767}>
         <motion.div;
-          initial={{ scale: 0.9, opacity: 0, y: -20 }}
-          animate={{ scale: 1, opacity: 1, y: 0 }}
-          exit={{ scale: 0.9, opacity: 0, y: -20 }}
+          initial={{ scale: 0.9, opacity: 0, y: -20}}
+          animate={{ scale: 1, opacity: 1, y: 0}}
+          exit={{ scale: 0.9, opacity: 0, y: -20}}
           className="w-full max-w-2xl bg-slate-900 rounded-xl border border-slate-700 overflow-hidden shadow-2xl"
           onClick={(e) = key={618060}> e.stopPropagation()}
         >
@@ -83,15 +81,14 @@ export const SearchModal: React.FC<SearchModalProps key={904539}> = ({
                 {filteredResults.map((result, index) => (
                   <motion.div;
                     key={index}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
+                    initial={{ opacity: 0, y: 10}}
+                    animate={{ opacity: 1, y: 0}}
+                    transition={{ delay: index * 0.05}}
                     className="flex items-center gap-3 p-3 hover:bg-slate-800 rounded-lg cursor-pointer transition-colors"
                     onClick={() = key={993949}> {
                       // Handle result click;
                       // console statement removed
-                      onClose();
-                    }}
+                      onClose();}}
                   >
                     <div className="flex items-center justify-center w-8 h-8 bg-blue-500/20 rounded-lg text-blue-400" key={183030}>
                       {result.icon}
@@ -122,5 +119,8 @@ export const SearchModal: React.FC<SearchModalProps key={904539}> = ({
         </motion.div>
       </motion.div>
     </AnimatePresence>
-  );
-};
+  );};
+
+
+
+`

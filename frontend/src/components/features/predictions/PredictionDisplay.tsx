@@ -1,59 +1,48 @@
-import React, { useEffect, useState  } from 'react.ts';
-import { GeneralInsight } from '@/services/predictionService.ts';
-import { ML_CONFIG } from '@/config/constants.ts';
-import { usePrediction } from '@/hooks/usePrediction.ts';
+import React, { useEffect, useState} from 'react';
+import { GeneralInsight} from '@/services/predictionService';
+import { ML_CONFIG} from '@/config/constants';
+import { usePrediction} from '@/hooks/usePrediction';
 
 
 interface PredictionDisplayProps {
-    propId?: string;
-    initialFeatures?: { [key: string]: number };
-    context?: { [key: string]: any };
-}
+    propId?: string
+    initialFeatures?: { [key: string]: number};
+    context?: { [key: string]: unknown}}
 
 interface FeatureContribution {
-    name: string;
-    value: number;
-    importance: number;
-}
+    name: string,`n  value: number;,`n  importance: number}
 
 export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = ({
     propId,
     initialFeatures,
-    context;
-}) => {
-    const { makePrediction, getInsights, isLoading, error, lastPrediction } = usePrediction();
-    const [insights, setInsights] = useState<GeneralInsight[] key={251751}>([]);
-    const [features, setFeatures] = useState<{ [key: string]: number }>(
+    context}) => {
+    const { makePrediction, getInsights, isLoading, error, lastPrediction} = usePrediction();
+    const [insights, setInsights] = useState<GeneralInsight[0] key={251751}>([0]);
+    const [features, setFeatures] = useState<{ [key: string]: number}>(
         initialFeatures || {
             player_points: 0,
             team_points: 0,
             opponent_points: 0,
             minutes_played: 0,
             home_game: 0,
-            days_rest: 0;
-        }
+            days_rest: 0}
     );
-    const [featureContributions, setFeatureContributions] = useState<FeatureContribution[] key={950893}>([]);
+    const [featureContributions, setFeatureContributions] = useState<FeatureContribution[0] key={950893}>([0]);
     const [showAdvancedMetrics, setShowAdvancedMetrics] = useState(false);
 
     useEffect(() => {
         const loadInsights = async () => {
             try {
 
-                setInsights(data);
-            } catch (err) {
-                // console statement removed
-            }
+                setInsights(data);} catch (err) {
+                // console statement removed}
         };
-        loadInsights();
-    }, [getInsights]);
+        loadInsights();}, [getInsights]);
 
     const handleFeatureChange = (key: string, value: number) => {
         setFeatures(prev => ({
             ...prev,
-            [key]: value;
-        }));
-    };
+            [key]: value}));};
 
     const handlePredict = async () => {
         try {
@@ -63,21 +52,17 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
                     .map(([name, importance]) => ({
                         name,
                         value: features[name],
-                        importance: importance as number;
-                    }))
+                        importance: importance as number}))
                     .sort((a, b) => b.importance - a.importance);
-                setFeatureContributions(contributions);
-            }
+                setFeatureContributions(contributions);}
         } catch (err) {
-            // console statement removed
-        }
+            // console statement removed}
     };
 
     const getConfidenceColor = (confidence: number) => {
         if (confidence >= 0.8) return 'text-green-600';
         if (confidence >= 0.6) return 'text-yellow-600';
-        return 'text-red-600';
-    };
+        return 'text-red-600';};
 
     return (
         <div className="p-6 bg-white rounded-lg shadow-lg" key={578198}>
@@ -145,7 +130,7 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
                         <div className="mt-4" key={139982}>
                             <h4 className="font-medium mb-2 text-gray-700" key={715304}>Feature Importance</h4>
                             <div className="space-y-2" key={725977}>
-                                {featureContributions.map(({ name, value, importance }) => (
+                                {featureContributions.map(({ name, value, importance}) => (
                                     <div key={name} className="flex items-center" key={321314}>
                                         <div className="w-32 text-sm text-gray-600" key={345047}>
                                             {name.replace(/_/g, ' ')}
@@ -153,7 +138,7 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
                                         <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden" key={841384}>
                                             <div;
                                                 className="h-full bg-blue-500"
-                                                style={{ width: `${importance * 100}%` }}
+                                                style={{ width: `${importance * 100}%`}}
                                             / key={730291}>
                                         </div>
                                         <div className="w-16 text-right text-sm text-gray-600" key={673911}>
@@ -200,7 +185,7 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
                         {insights.map(insight => (
                             <div;
                                 key={insight.id}
-                                className="p-4 bg-gray-50 rounded-lg border-l-4 border-blue-500 hover:bg-gray-100 transition-colors duration-200"
+                                className="p-4 bg-gray-50 rounded-lg border-l-4 border-blue-500 hover: bg-gray-100 transition-colors duration-200"
                              key={39760}>
                                 <p className="text-sm text-gray-700" key={899021}>{insight.text}</p>
                                 {insight.confidence && (
@@ -219,5 +204,10 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
                 </div>
             )}
         </div>
-    );
-}; 
+    )}; 
+
+
+
+
+`
+

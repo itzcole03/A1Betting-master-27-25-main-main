@@ -1,18 +1,17 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 export interface TabItem {
-    key: string;
-    label: string;
-    content: React.ReactNode;
-    icon?: React.ReactNode;
-    disabled?: boolean;
-    badge?: string | number;
-}
+  key: string,`n  label: string;,`n  content: React.ReactNode;
+  icon?: React.ReactNode;
+  disabled?: boolean;
+  badge?: string | number;}
 export interface TabsProps {
-    items: TabItem[];
-    defaultIndex?: number;
-    onChange?: (index: number) => void;
-    variant?: 'default' | 'pills' | 'underline';
-    fullWidth?: boolean;
-    className?: string;
-}
+  items: TabItem[0];
+  defaultIndex?: number;
+  onChange?: (index: number) => void;
+  variant?: 'default' | 'pills' | 'underline';
+  fullWidth?: boolean;
+  className?: string;}
 export declare const Tabs: React.FC<TabsProps>;
+
+
+`

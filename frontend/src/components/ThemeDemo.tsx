@@ -1,8 +1,8 @@
-import React from 'react.ts';
-import { useTheme } from '@/providers/UniversalThemeProvider.ts';
+﻿import React from 'react';
+import { useTheme} from '@/providers/UniversalThemeProvider';
 
 const ThemeDemo: React.FC = () => {
-  const { theme, variant, isDark, toggleDarkMode } = useTheme();
+  const { theme, variant, isDark, toggleDarkMode} = useTheme();
 
   return (
     <div;
@@ -11,19 +11,19 @@ const ThemeDemo: React.FC = () => {
         minHeight: "100vh",
         background: theme.colors.background,
         color: theme.colors.text.primary,
-        fontFamily: "Inter, sans-serif",
+        fontFamily: "Inter, sans-serif"
       }}
      key={307617}>
-      <div style={{ maxWidth: "800px", margin: "0 auto" }} key={344409}>
+      <div style={{ maxWidth: "800px", margin: "0 auto"}} key={344409}>
         <div;
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            marginBottom: "32px",
+            marginBottom: "32px"
           }}
          key={450823}>
-          <h1 style={{ margin: "0", color: theme.colors.text.primary }} key={744376}>
+          <h1 style={{ margin: "0", color: theme.colors.text.primary}} key={744376}>
             🎨 Cyber Theme System Demo;
           </h1>
           <button;
@@ -38,7 +38,7 @@ const ThemeDemo: React.FC = () => {
               cursor: "pointer",
               display: "flex",
               alignItems: "center",
-              gap: "8px",
+              gap: "8px"
             }}
            key={93827}>
             {isDark ? "☀️" : "🌙"} {isDark ? "Light Mode" : "Dark Mode"}
@@ -49,29 +49,29 @@ const ThemeDemo: React.FC = () => {
           style={{
             display: "grid",
             gap: "24px",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))"
           }}
          key={729805}>
           {/* Theme Info Card */}
           <div;
             className="glass-card"
-            style={{ padding: "24px", borderRadius: "12px" }}
+            style={{ padding: "24px", borderRadius: "12px"}}
            key={596460}>
             <h3;
-              style={{ margin: "0 0 16px 0", color: theme.colors.text.primary }}
+              style={{ margin: "0 0 16px 0", color: theme.colors.text.primary}}
              key={289760}>
               Current Theme;
             </h3>
             <div;
-              style={{ display: "flex", flexDirection: "column", gap: "8px" }}
+              style={{ display: "flex", flexDirection: "column", gap: "8px"}}
              key={611771}>
-              <div style={{ color: theme.colors.text.secondary }} key={604279}>
+              <div style={{ color: theme.colors.text.secondary}} key={604279}>
                 <strong key={829099}>Variant:</strong> {variant}
               </div>
-              <div style={{ color: theme.colors.text.secondary }} key={604279}>
+              <div style={{ color: theme.colors.text.secondary}} key={604279}>
                 <strong key={829099}>Mode:</strong> {isDark ? "Dark" : "Light"}
               </div>
-              <div style={{ color: theme.colors.text.secondary }} key={604279}>
+              <div style={{ color: theme.colors.text.secondary}} key={604279}>
                 <strong key={829099}>Primary Color:</strong>
                 <span;
                   style={{
@@ -81,7 +81,7 @@ const ThemeDemo: React.FC = () => {
                     backgroundColor: theme.colors.primary,
                     marginLeft: "8px",
                     borderRadius: "4px",
-                    verticalAlign: "middle",
+                    verticalAlign: "middle"
                   }}
                 / key={919341}>
               </div>
@@ -91,10 +91,10 @@ const ThemeDemo: React.FC = () => {
           {/* Color Palette Card */}
           <div;
             className="glass-card"
-            style={{ padding: "24px", borderRadius: "12px" }}
+            style={{ padding: "24px", borderRadius: "12px"}}
            key={596460}>
             <h3;
-              style={{ margin: "0 0 16px 0", color: theme.colors.text.primary }}
+              style={{ margin: "0 0 16px 0", color: theme.colors.text.primary}}
              key={289760}>
               Color Palette;
             </h3>
@@ -102,7 +102,7 @@ const ThemeDemo: React.FC = () => {
               style={{
                 display: "grid",
                 gap: "12px",
-                gridTemplateColumns: "repeat(2, 1fr)",
+                gridTemplateColumns: "repeat(2, 1fr)"
               }}
              key={602626}>
               {Object.entries(theme.colors).map(([key, value]) => {
@@ -113,7 +113,7 @@ const ThemeDemo: React.FC = () => {
                       style={{
                         display: "flex",
                         alignItems: "center",
-                        gap: "8px",
+                        gap: "8px"
                       }}
                      key={968050}>
                       <div;
@@ -122,37 +122,35 @@ const ThemeDemo: React.FC = () => {
                           height: "16px",
                           backgroundColor: value,
                           borderRadius: "4px",
-                          border: "1px solid rgba(255,255,255,0.2)",
+                          border: "1px solid rgba(255,255,255,0.2)"
                         }}
                       / key={294277}>
                       <span;
                         style={{
                           fontSize: "12px",
-                          color: theme.colors.text.muted,
+                          color: theme.colors.text.muted
                         }}
                        key={324804}>
                         {key}
                       </span>
                     </div>
-                  );
-                }
-                return null;
-              })}
+                  )}
+                return null})}
             </div>
           </div>
 
           {/* Interactive Elements Card */}
           <div;
             className="glass-card"
-            style={{ padding: "24px", borderRadius: "12px" }}
+            style={{ padding: "24px", borderRadius: "12px"}}
            key={596460}>
             <h3;
-              style={{ margin: "0 0 16px 0", color: theme.colors.text.primary }}
+              style={{ margin: "0 0 16px 0", color: theme.colors.text.primary}}
              key={289760}>
               Interactive Elements;
             </h3>
             <div;
-              style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+              style={{ display: "flex", flexDirection: "column", gap: "12px"}}
              key={141350}>
               <button;
                 className="cyber-btn"
@@ -163,7 +161,7 @@ const ThemeDemo: React.FC = () => {
                   borderRadius: "8px",
                   color: isDark ? "#000" : "#000",
                   fontWeight: "600",
-                  cursor: "pointer",
+                  cursor: "pointer"
                 }}
                key={523914}>
                 Primary Button;
@@ -177,7 +175,7 @@ const ThemeDemo: React.FC = () => {
                   borderRadius: "8px",
                   color: theme.colors.text.primary,
                   fontWeight: "500",
-                  cursor: "pointer",
+                  cursor: "pointer"
                 }}
                key={652822}>
                 Secondary Button;
@@ -192,7 +190,7 @@ const ThemeDemo: React.FC = () => {
                   padding: "12px 16px",
                   borderRadius: "8px",
                   color: theme.colors.text.primary,
-                  fontSize: "14px",
+                  fontSize: "14px"
                 }}
               / key={509022}>
             </div>
@@ -201,21 +199,21 @@ const ThemeDemo: React.FC = () => {
           {/* Typography Card */}
           <div;
             className="glass-card"
-            style={{ padding: "24px", borderRadius: "12px" }}
+            style={{ padding: "24px", borderRadius: "12px"}}
            key={596460}>
             <h3;
-              style={{ margin: "0 0 16px 0", color: theme.colors.text.primary }}
+              style={{ margin: "0 0 16px 0", color: theme.colors.text.primary}}
              key={289760}>
               Typography;
             </h3>
             <div;
-              style={{ display: "flex", flexDirection: "column", gap: "8px" }}
+              style={{ display: "flex", flexDirection: "column", gap: "8px"}}
              key={611771}>
               <h1;
                 style={{
                   margin: "0",
                   color: theme.colors.text.primary,
-                  fontSize: "24px",
+                  fontSize: "24px"
                 }}
                key={835599}>
                 Heading 1;
@@ -224,26 +222,26 @@ const ThemeDemo: React.FC = () => {
                 style={{
                   margin: "0",
                   color: theme.colors.text.primary,
-                  fontSize: "20px",
+                  fontSize: "20px"
                 }}
                key={216154}>
                 Heading 2;
               </h2>
-              <p style={{ margin: "0", color: theme.colors.text.secondary }} key={273199}>
+              <p style={{ margin: "0", color: theme.colors.text.secondary}} key={273199}>
                 Body text with secondary color;
               </p>
               <p;
                 style={{
                   margin: "0",
                   color: theme.colors.text.muted,
-                  fontSize: "14px",
+                  fontSize: "14px"
                 }}
                key={648651}>
                 Muted text for captions and hints;
               </p>
               <div;
                 className="holographic"
-                style={{ fontSize: "18px", fontWeight: "900" }}
+                style={{ fontSize: "18px", fontWeight: "900"}}
                key={397333}>
                 Holographic Text Effect;
               </div>
@@ -253,37 +251,37 @@ const ThemeDemo: React.FC = () => {
           {/* Status Indicators Card */}
           <div;
             className="glass-card"
-            style={{ padding: "24px", borderRadius: "12px" }}
+            style={{ padding: "24px", borderRadius: "12px"}}
            key={596460}>
             <h3;
-              style={{ margin: "0 0 16px 0", color: theme.colors.text.primary }}
+              style={{ margin: "0 0 16px 0", color: theme.colors.text.primary}}
              key={289760}>
               Status Indicators;
             </h3>
             <div;
-              style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+              style={{ display: "flex", flexDirection: "column", gap: "12px"}}
              key={141350}>
               <div;
-                style={{ display: "flex", alignItems: "center", gap: "8px" }}
+                style={{ display: "flex", alignItems: "center", gap: "8px"}}
                key={929522}>
                 <div className="status-dot status-active" key={882605}></div>
-                <span style={{ color: theme.colors.text.secondary }} key={145298}>
+                <span style={{ color: theme.colors.text.secondary}} key={145298}>
                   Active Status;
                 </span>
               </div>
               <div;
-                style={{ display: "flex", alignItems: "center", gap: "8px" }}
+                style={{ display: "flex", alignItems: "center", gap: "8px"}}
                key={929522}>
                 <div className="status-dot status-warning" key={70201}></div>
-                <span style={{ color: theme.colors.text.secondary }} key={145298}>
+                <span style={{ color: theme.colors.text.secondary}} key={145298}>
                   Warning Status;
                 </span>
               </div>
               <div;
-                style={{ display: "flex", alignItems: "center", gap: "8px" }}
+                style={{ display: "flex", alignItems: "center", gap: "8px"}}
                key={929522}>
                 <div className="status-dot status-error" key={70183}></div>
-                <span style={{ color: theme.colors.text.secondary }} key={145298}>
+                <span style={{ color: theme.colors.text.secondary}} key={145298}>
                   Error Status;
                 </span>
               </div>
@@ -293,15 +291,15 @@ const ThemeDemo: React.FC = () => {
           {/* Effects Demo Card */}
           <div;
             className="glass-card animate-float"
-            style={{ padding: "24px", borderRadius: "12px" }}
+            style={{ padding: "24px", borderRadius: "12px"}}
            key={86134}>
             <h3;
-              style={{ margin: "0 0 16px 0", color: theme.colors.text.primary }}
+              style={{ margin: "0 0 16px 0", color: theme.colors.text.primary}}
              key={289760}>
               Effects & Animations;
             </h3>
             <div;
-              style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+              style={{ display: "flex", flexDirection: "column", gap: "12px"}}
              key={141350}>
               <div;
                 className="shadow-neon"
@@ -310,7 +308,7 @@ const ThemeDemo: React.FC = () => {
                   borderRadius: "8px",
                   background: theme.colors.surface,
                   textAlign: "center",
-                  color: theme.colors.text.primary,
+                  color: theme.colors.text.primary
                 }}
                key={441489}>
                 Neon Shadow Effect;
@@ -323,28 +321,32 @@ const ThemeDemo: React.FC = () => {
                   background: theme.gradients.primary,
                   textAlign: "center",
                   color: "#000",
-                  fontWeight: "600",
+                  fontWeight: "600"
                 }}
                key={683176}>
                 Cyber Pulse Animation;
               </div>
               <div;
                 className="cyber-loading"
-                style={{ height: "4px", borderRadius: "2px" }}
+                style={{ height: "4px", borderRadius: "2px"}}
                key={643341}></div>
             </div>
           </div>
         </div>
 
-        <div style={{ marginTop: "32px", textAlign: "center" }} key={818544}>
-          <p style={{ color: theme.colors.text.muted, fontSize: "14px" }} key={148500}>
+        <div style={{ marginTop: "32px", textAlign: "center"}} key={818544}>
+          <p style={{ color: theme.colors.text.muted, fontSize: "14px"}} key={148500}>
             Toggle between cyber light and dark modes to see the theme in;
             action! 🌟
           </p>
         </div>
       </div>
     </div>
-  );
-};
+  )};
 
 export default ThemeDemo;
+
+
+
+
+`

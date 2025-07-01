@@ -1,4 +1,4 @@
-/**
+﻿/**
  * UnifiedState;
  *
  * Manages critical, low-level, cross-cutting global application state that may not fit;
@@ -14,16 +14,17 @@
  * - Singleton service readiness flags;
  */
 interface CriticalStateStore {
-    [key: string]: any;
-}
+  [key: string]: any}
 declare class UnifiedStateSingleton {
-    private state;
-    constructor();
-    set<T>(key: string, value: T): void;
-    get<T>(key: string, defaultValue?: T): T | undefined;
-    remove(key: string): void;
-    getAll(): Readonly<CriticalStateStore>;
-    clearAll(): void;
-}
+  private state;
+  constructor();
+  set<T>(key: string, value: T): void;
+  get<T>(key: string, defaultValue?: T): T | undefined;
+  remove(key: string): void;
+  getAll(): Readonly<CriticalStateStore>;
+  clearAll(): void;}
 export declare const unifiedState: UnifiedStateSingleton;
-export {};
+export Record<string, any>;
+
+
+`

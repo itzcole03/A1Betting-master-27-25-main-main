@@ -1,29 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { DollarSign, TrendingUp, Target, Brain, Activity, Zap } from 'lucide-react';
+﻿import React, { useState, useEffect} from 'react';
+import { motion} from 'framer-motion';
+import { DollarSign, TrendingUp, Target, Brain, Activity, Zap} from 'lucide-react';
 
 interface MoneyMakerOpportunity {
-  id: string;
-  description: string;
-  expectedProfit: number;
-  confidence: number;
-  riskLevel: 'low' | 'medium' | 'high';
-  timeframe: string;
-}
+  id: string,`n  description: string;,`n  expectedProfit: number,`n  confidence: number;,`n  riskLevel: 'low' | 'medium' | 'high',`n  timeframe: string}
 
 interface UltimateMoneyMakerProps {
-  className?: string;
-}
+  className?: string}
 
-export const UltimateMoneyMaker: React.FC<UltimateMoneyMakerProps> = ({ className = '' }) => {
-  const [opportunities, setOpportunities] = useState<MoneyMakerOpportunity[]>([
+export const UltimateMoneyMaker: React.FC<UltimateMoneyMakerProps> = ({ className = ''}) => {
+  const [opportunities, setOpportunities] = useState<MoneyMakerOpportunity[0]>([
     {
       id: '1',
       description: 'NFL Over/Under Arbitrage',
       expectedProfit: 1250.75,
       confidence: 94.2,
       riskLevel: 'low',
-      timeframe: '2h 34m',
+      timeframe: '2h 34m'
     },
     {
       id: '2',
@@ -31,7 +24,7 @@ export const UltimateMoneyMaker: React.FC<UltimateMoneyMakerProps> = ({ classNam
       expectedProfit: 850.25,
       confidence: 87.8,
       riskLevel: 'medium',
-      timeframe: '4h 12m',
+      timeframe: '4h 12m'
     },
     {
       id: '3',
@@ -39,7 +32,7 @@ export const UltimateMoneyMaker: React.FC<UltimateMoneyMakerProps> = ({ classNam
       expectedProfit: 650.5,
       confidence: 82.3,
       riskLevel: 'low',
-      timeframe: '6h 45m',
+      timeframe: '6h 45m'
     },
   ]);
 
@@ -51,17 +44,14 @@ export const UltimateMoneyMaker: React.FC<UltimateMoneyMakerProps> = ({ classNam
     setTimeout(() => {
       setIsScanning(false);
       // Add new opportunity
-      const newOpp: MoneyMakerOpportunity = {
-        id: Date.now().toString(),
+      const newOpp: MoneyMakerOpportunity = {,`n  id: Date.now().toString(),
         description: 'Live Tennis Arbitrage',
         expectedProfit: Math.random() * 1000 + 200,
         confidence: Math.random() * 20 + 80,
         riskLevel: 'low',
-        timeframe: '1h 15m',
+        timeframe: '1h 15m'
       };
-      setOpportunities(prev => [newOpp, ...prev]);
-    }, 3000);
-  };
+      setOpportunities(prev => [newOpp, ...prev]);}, 3000);};
 
   const getRiskColor = (risk: string) => {
     switch (risk) {
@@ -71,9 +61,7 @@ export const UltimateMoneyMaker: React.FC<UltimateMoneyMakerProps> = ({ classNam
         return 'text-yellow-400';
       case 'high':
         return 'text-red-400';
-      default:
-        return 'text-gray-400';
-    }
+      default: return 'text-gray-400'}
   };
 
   return (
@@ -87,10 +75,10 @@ export const UltimateMoneyMaker: React.FC<UltimateMoneyMakerProps> = ({ classNam
       </div>
 
       {/* Profit Summary */}
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
+      <div className='grid grid-cols-1 md: grid-cols-3 gap-8'>
         <motion.div
           className='quantum-card p-8 rounded-2xl bg-gradient-to-br from-green-500/20 via-emerald-500/15 to-green-600/20 border-green-500/40'
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.02}}
         >
           <div className='flex items-center justify-between mb-4'>
             <DollarSign className='w-12 h-12 text-green-400' />
@@ -105,7 +93,7 @@ export const UltimateMoneyMaker: React.FC<UltimateMoneyMakerProps> = ({ classNam
 
         <motion.div
           className='quantum-card p-8 rounded-2xl bg-gradient-to-br from-blue-500/20 via-cyan-500/15 to-blue-600/20 border-blue-500/40'
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.02}}
         >
           <div className='flex items-center justify-between mb-4'>
             <Target className='w-12 h-12 text-blue-400' />
@@ -118,7 +106,7 @@ export const UltimateMoneyMaker: React.FC<UltimateMoneyMakerProps> = ({ classNam
 
         <motion.div
           className='quantum-card p-8 rounded-2xl bg-gradient-to-br from-purple-500/20 via-pink-500/15 to-purple-600/20 border-purple-500/40'
-          whileHover={{ scale: 1.02 }}
+          whileHover={{ scale: 1.02}}
         >
           <div className='flex items-center justify-between mb-4'>
             <Brain className='w-12 h-12 text-purple-400' />
@@ -133,15 +121,14 @@ export const UltimateMoneyMaker: React.FC<UltimateMoneyMakerProps> = ({ classNam
       {/* Quantum Scan Button */}
       <div className='text-center'>
         <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.05}}
+          whileTap={{ scale: 0.95}}
           onClick={startQuantumScan}
           disabled={isScanning}
           className={`px-12 py-6 rounded-2xl font-bold text-xl font-cyber transition-all duration-300 ${
-            isScanning
+//             isScanning
               ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
-              : 'bg-gradient-to-r from-electric-400 to-neon-blue text-black hover:shadow-neon'
-          }`}
+              : 'bg-gradient-to-r from-electric-400 to-neon-blue text-black hover:shadow-neon'}`}
         >
           {isScanning ? (
             <div className='flex items-center space-x-3'>
@@ -164,9 +151,9 @@ export const UltimateMoneyMaker: React.FC<UltimateMoneyMakerProps> = ({ classNam
         {opportunities.map((opp, index) => (
           <motion.div
             key={opp.id}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.1 }}
+            initial={{ opacity: 0, x: -20}}
+            animate={{ opacity: 1, x: 0}}
+            transition={{ delay: index * 0.1}}
             className='quantum-card p-6 rounded-2xl hover:shadow-neon transition-all duration-300'
           >
             <div className='flex items-center justify-between'>
@@ -199,18 +186,22 @@ export const UltimateMoneyMaker: React.FC<UltimateMoneyMakerProps> = ({ classNam
               </div>
 
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.05}}
+                whileTap={{ scale: 0.95}}
                 className='ml-6 px-6 py-3 bg-electric-500 text-black font-bold rounded-xl hover:bg-electric-400 transition-colors'
               >
-                EXECUTE
+//                 EXECUTE
               </motion.button>
             </div>
           </motion.div>
         ))}
       </div>
     </div>
-  );
-};
+  )};
 
 export default UltimateMoneyMaker;
+
+
+
+
+`

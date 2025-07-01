@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import { Link as RouterLink, useLocation } from 'react-router-dom.ts';
+﻿import React from 'react';
+import { Link as RouterLink, useLocation} from 'react-router-dom';
 import {
   AppBar,
   Box,
@@ -13,34 +13,32 @@ import {
   Toolbar,
   Typography,
   useTheme,
-  useMediaQuery,
-} from '@mui/material.ts';
+//   useMediaQuery
+} from '@mui/material';
 import {
   Menu as MenuIcon,
   Dashboard as DashboardIcon,
   AdminPanelSettings as AdminIcon,
   ShowChart as ChartIcon,
-  AttachMoney as MoneyIcon,
-} from '@mui/icons-material.ts';
+  AttachMoney as MoneyIcon
+} from '@mui/icons-material';
 
 interface LayoutProps {
-  children: React.ReactNode;
-}
+  children: React.ReactNode}
 
-export const Layout: React.FC<LayoutProps key={414246}> = ({ children }) => {
+export const Layout: React.FC<LayoutProps key={414246}> = ({ children}) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
 
 
   const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+    setMobileOpen(!mobileOpen);};
 
   const menuItems = [
-    { text: 'Dashboard', icon: <DashboardIcon / key={467532}>, path: '/' },
-    { text: 'Money Maker', icon: <MoneyIcon / key={869998}>, path: '/money-maker' },
-    { text: 'Predictions', icon: <ChartIcon / key={528058}>, path: '/predictions' },
-    { text: 'Admin', icon: <AdminIcon / key={551143}>, path: '/admin' },
+    { text: 'Dashboard', icon: <DashboardIcon / key={467532}>, path: '/'},
+    { text: 'Money Maker', icon: <MoneyIcon / key={869998}>, path: '/money-maker'},
+    { text: 'Predictions', icon: <ChartIcon / key={528058}>, path: '/predictions'},
+    { text: 'Admin', icon: <AdminIcon / key={551143}>, path: '/admin'},
   ];
 
   const drawer = (
@@ -69,12 +67,12 @@ export const Layout: React.FC<LayoutProps key={414246}> = ({ children }) => {
   );
 
   return (
-    <Box sx={{ display: 'flex' }} key={680838}>
+    <Box sx={{ display: 'flex'}} key={680838}>
       <AppBar;
         position="fixed"
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
+          width: { sm: `calc(100% - ${drawerWidth}px)`},
+          ml: { sm: `${drawerWidth}px`}
         }}
        key={518675}>
         <Toolbar key={629347}>
@@ -82,7 +80,7 @@ export const Layout: React.FC<LayoutProps key={414246}> = ({ children }) => {
             aria-label="open drawer"
             color="inherit"
             edge="start"
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2, display: { sm: 'none'} }}
             onClick={handleDrawerToggle}
            key={666667}>
             <MenuIcon / key={955480}>
@@ -92,17 +90,16 @@ export const Layout: React.FC<LayoutProps key={414246}> = ({ children }) => {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }} key={386724}>
+      <Box component="nav" sx={{ width: { sm: drawerWidth}, flexShrink: { sm: 0} }} key={386724}>
         <Drawer;
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
+            keepMounted: true, // Better open performance on mobile.}}
           open={mobileOpen}
           sx={{
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
-              width: drawerWidth,
-            },
+              width: drawerWidth
+            }
           }}
           variant={isMobile ? 'temporary' : 'permanent'}
           onClose={handleDrawerToggle}
@@ -115,12 +112,15 @@ export const Layout: React.FC<LayoutProps key={414246}> = ({ children }) => {
         sx={{
           flexGrow: 1,
           p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          mt: '64px',
+          width: { sm: `calc(100% - ${drawerWidth}px)`},
+          mt: '64px'
         }}
        key={846832}>
         {children}
       </Box>
     </Box>
-  );
-};
+  )};
+
+
+
+`

@@ -1,9 +1,9 @@
-import React from 'react.ts';
-import { ShapValue } from '@/types/explainability.ts';
+﻿import React from 'react.ts';
+import { ShapValue} from '@/types/explainability.ts';
 interface ShapBreakdownModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    feature: ShapValue;
-}
+  isOpen: boolean,`n  onClose: () => void;,`n  feature: ShapValue}
 export declare const ShapBreakdownModal: React.FC<ShapBreakdownModalProps>;
-export {};
+export Record<string, any>;
+
+
+`

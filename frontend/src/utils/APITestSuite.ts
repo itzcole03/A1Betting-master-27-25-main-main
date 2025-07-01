@@ -1,11 +1,11 @@
-/**
+﻿/**
  * API Integration Test & Setup Script;
  * Tests your actual API keys and validates all integrations;
  */
 
-import LiveAPIIntegrationService from '@/services/LiveAPIIntegrationService.ts';
-import EnhancedDataSourcesService from '@/services/EnhancedDataSourcesService.ts';
-import APIConfigurationService from '@/services/APIConfigurationService.ts';
+import LiveAPIIntegrationService from '@/services/LiveAPIIntegrationService';
+import EnhancedDataSourcesService from '@/services/EnhancedDataSourcesService';
+import APIConfigurationService from '@/services/APIConfigurationService';
 
 export class APITestSuite {
   private liveAPI: LiveAPIIntegrationService;
@@ -15,18 +15,13 @@ export class APITestSuite {
   constructor() {
     this.liveAPI = LiveAPIIntegrationService.getInstance();
     this.dataSources = EnhancedDataSourcesService.getInstance();
-    this.apiConfig = APIConfigurationService.getInstance();
-  }
+    this.apiConfig = APIConfigurationService.getInstance();}
 
   /**
    * Run comprehensive test of all API integrations;
    */
   public async runFullAPITest(): Promise<{
-    success: boolean;
-    summary: string;
-    details: any;
-    recommendations: string[];
-  }> {
+    success: boolean,`n  summary: string;,`n  details: any,`n  recommendations: string[0]}> {
     // console statement removed
     // console statement removed
     // console statement removed
@@ -34,23 +29,21 @@ export class APITestSuite {
     // console statement removed
     // console statement removed
 
-    const results: any = {};
-    const errors: string[] = [];
-    const recommendations: string[] = [];
+    const results: any = Record<string, any>;
+    const errors: string[0] = [0];
+    const recommendations: string[0] = [0];
 
     // Test 1: Configuration Validation;
     // console statement removed
     results.configuration = this.dataSources.validateDataSources();
     if (!results.configuration.valid) {
-      errors.push('Configuration validation failed');
-    }
+      errors.push('Configuration validation failed');}
 
     // Test 2: Live API Connections;
     // console statement removed
     results.connections = await this.liveAPI.testAllConnections();
     if (!results.connections.success) {
-      errors.push('Some API connections failed');
-    }
+      errors.push('Some API connections failed');}
 
     // Test 3: API Health Check;
     // console statement removed
@@ -64,11 +57,9 @@ export class APITestSuite {
     // console statement removed
     try {
 
-      results.sampleData = sampleData;
-    } catch (error) {
-      results.sampleData = { success: false, error: error.message };
-      errors.push('Sample data retrieval failed');
-    }
+      results.sampleData = sampleData;} catch (error) {
+      results.sampleData = { success: false, error: error.message};
+      errors.push('Sample data retrieval failed');}
 
     // Generate recommendations;
     recommendations.push(...this.generateRecommendations(results));
@@ -82,15 +73,13 @@ export class APITestSuite {
       success,
       summary,
       details: results,
-      recommendations;
-    };
-  }
+      recommendations};}
 
   /**
    * Test sample data retrieval from all sources;
    */
   private async testSampleDataRetrieval(): Promise<any> {
-    const results: any = {};
+    const results: any = Record<string, any>;
 
     // Test TheOdds API;
     try {
@@ -100,11 +89,8 @@ export class APITestSuite {
         success: odds.success,
         dataPoints: odds.data ? (Array.isArray(odds.data) ? odds.data.length : 1) : 0,
         source: odds.source,
-        cached: odds.cached;
-      };
-    } catch (error) {
-      results.theodds = { success: false, error: error.message };
-    }
+        cached: odds.cached}} catch (error) {
+      results.theodds = { success: false, error: error.message}}
 
     // Test SportsRadar API;
     try {
@@ -114,11 +100,8 @@ export class APITestSuite {
         success: stats.success,
         dataPoints: stats.data ? (Array.isArray(stats.data) ? stats.data.length : 1) : 0,
         source: stats.source,
-        cached: stats.cached;
-      };
-    } catch (error) {
-      results.sportradar = { success: false, error: error.message };
-    }
+        cached: stats.cached}} catch (error) {
+      results.sportradar = { success: false, error: error.message}}
 
     // Test PrizePicks API;
     try {
@@ -128,11 +111,8 @@ export class APITestSuite {
         success: props.success,
         dataPoints: props.data?.data ? props.data.data.length : 0,
         source: props.source,
-        cached: props.cached;
-      };
-    } catch (error) {
-      results.prizepicks = { success: false, error: error.message };
-    }
+        cached: props.cached}} catch (error) {
+      results.prizepicks = { success: false, error: error.message}}
 
     // Test ESPN API;
     try {
@@ -142,49 +122,37 @@ export class APITestSuite {
         success: scores.success,
         dataPoints: scores.data?.events ? scores.data.events.length : 0,
         source: scores.source,
-        cached: scores.cached;
-      };
-    } catch (error) {
-      results.espn = { success: false, error: error.message };
-    }
+        cached: scores.cached}} catch (error) {
+      results.espn = { success: false, error: error.message}}
 
-    return results;
-  }
+    return results;}
 
   /**
    * Generate recommendations based on test results;
    */
-  private generateRecommendations(results: any): string[] {
-    const recommendations: string[] = [];
+  private generateRecommendations(results: any): string[0] {
+    const recommendations: string[0] = [0];
 
     // API-specific recommendations;
     if (results.connections?.results?.theodds) {
-      recommendations.push('✅ TheOdds API is operational - excellent for live odds data');
-    } else {
-      recommendations.push('❌ TheOdds API issues detected - check API key and quota');
-    }
+      recommendations.push('✅ TheOdds API is operational - excellent for live odds data');} else {
+      recommendations.push('❌ TheOdds API issues detected - check API key and quota');}
 
     if (results.connections?.results?.sportradar) {
-      recommendations.push('✅ SportsRadar API is operational - excellent for detailed stats');
-    } else {
-      recommendations.push('❌ SportsRadar API issues detected - check API key and quota');
-    }
+      recommendations.push('✅ SportsRadar API is operational - excellent for detailed stats');} else {
+      recommendations.push('❌ SportsRadar API issues detected - check API key and quota');}
 
     if (results.connections?.results?.prizepicks) {
-      recommendations.push('✅ PrizePicks API is operational - great for player props');
-    } else {
-      recommendations.push('❌ PrizePicks API issues detected - check endpoint availability');
-    }
+      recommendations.push('✅ PrizePicks API is operational - great for player props');} else {
+      recommendations.push('❌ PrizePicks API issues detected - check endpoint availability');}
 
     // Rate limit recommendations;
 
     if (theoddsRemaining < 100) {
-      recommendations.push('⚠️ TheOdds API quota running low - implement aggressive caching');
-    }
+      recommendations.push('⚠️ TheOdds API quota running low - implement aggressive caching');}
 
     if (sportsradarRemaining < 200) {
-      recommendations.push('⚠️ SportsRadar API quota running low - optimize request frequency');
-    }
+      recommendations.push('⚠️ SportsRadar API quota running low - optimize request frequency');}
 
     // General recommendations;
     recommendations.push('💡 Implement data caching to optimize API usage');
@@ -192,11 +160,9 @@ export class APITestSuite {
     recommendations.push('💡 Consider implementing fallback data sources');
     
     if (results.connections?.success) {
-      recommendations.push('🎉 All APIs operational - ready for production use!');
-    }
+      recommendations.push('🎉 All APIs operational - ready for production use!');}
 
-    return recommendations;
-  }
+    return recommendations;}
 
   /**
    * Generate test summary;
@@ -207,10 +173,8 @@ export class APITestSuite {
     const summary = `\n🔍 API INTEGRATION TEST RESULTS\n\n`;
     
     if (success) {
-      summary += `✅ SUCCESS: All ${totalTests} API integrations are operational!\n`;
-    } else {
-      summary += `⚠️ PARTIAL SUCCESS: ${connectionCount}/${totalTests} API integrations operational\n`;
-    }
+      summary += `✅ SUCCESS: All ${totalTests} API integrations are operational!\n`} else {
+      summary += `⚠️ PARTIAL SUCCESS: ${connectionCount}/${totalTests} API integrations operational\n`}
 
     summary += `\n📊 TEST BREAKDOWN:\n`;
     summary += `• Configuration: ${results.configuration?.valid ? '✅' : '❌'}\n`;
@@ -218,9 +182,8 @@ export class APITestSuite {
     summary += `• Data Retrieval: ${results.sampleData?.success !== false ? '✅' : '❌'}\n`;
 
     summary += `\n🔑 API STATUS:\n`;
-    Object.entries(results.connections?.results || {}).forEach(([service, status]) => {
-      summary += `• ${service}: ${status ? '✅ Operational' : '❌ Issues'}\n`;
-    });
+    Object.entries(results.connections?.results || Record<string, any>).forEach(([service, status]) => {
+      summary += `• ${service}: ${status ? '✅ Operational' : '❌ Issues'}\n`;});
 
     summary += `\n💡 READY FOR:\n`;
     summary += `• Live odds tracking from TheOdds API\n`;
@@ -230,44 +193,40 @@ export class APITestSuite {
     summary += `• Real-time arbitrage detection\n`;
     summary += `• Advanced money-making opportunities\n`;
 
-    return summary;
-  }
+    return summary;}
 
   /**
    * Quick health check for dashboard;
    */
   public async quickHealthCheck(): Promise<{
-    status: 'healthy' | 'degraded' | 'critical';
-    services: { [key: string]: boolean };
-    message: string;
-  }> {
+    status: 'healthy' | 'degraded' | 'critical',`n  services: { [key: string]: boolean};
+    message: string}> {
 
-    const services: { [key: string]: boolean } = {};
-    const healthyCount = 0;
+    const services: { [key: string]: boolean} = Record<string, any>;
+    let healthyCount = 0;
     
     Object.entries(health).forEach(([service, info]) => {
 
       services[service] = isHealthy;
-      if (isHealthy) healthyCount++;
-    });
+      if (isHealthy) healthyCount++;});
 
     let status: 'healthy' | 'degraded' | 'critical';
     let message: string;
 
     if (healthyCount === totalServices) {
       status = 'healthy';
-      message = 'All APIs operational';
-    } else if (healthyCount >= totalServices * 0.75) {
+      message = 'All APIs operational';} else if (healthyCount >= totalServices * 0.75) {
       status = 'degraded';
-      message = `${healthyCount}/${totalServices} APIs operational`;
-    } else {
+      message = `${healthyCount}/${totalServices} APIs operational`;} else {
       status = 'critical';
-      message = `Only ${healthyCount}/${totalServices} APIs operational`;
-    }
+      message = `Only ${healthyCount}/${totalServices} APIs operational`;}
 
-    return { status, services, message };
-  }
+    return { status, services, message};}
 }
 
 // Export for use in components;
 export default APITestSuite;
+
+
+
+`

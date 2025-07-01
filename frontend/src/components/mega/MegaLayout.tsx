@@ -1,8 +1,8 @@
-import React, { useState, useEffect, ReactNode  } from 'react';
-import { createPortal } from 'react-dom';
+﻿import React, { useState, useEffect, ReactNode} from 'react';
+import { createPortal} from 'react-dom';
 // Removed unused CyberTheme imports;
-import { useTheme } from '@/components/common/theme/ThemeProvider';
-import { MegaButton } from './MegaUI';
+import { useTheme} from '@/components/common/theme/ThemeProvider';
+import { MegaButton} from './MegaUI';
 // Removed problematic import;
 import {
   Brain,
@@ -27,25 +27,23 @@ import {
   Sun,
   Moon,
   ChevronDown,
-  UserCircle,
-} from 'lucide-react.ts';
+//   UserCircle
+} from 'lucide-react';
 
 // MEGA LAYOUT SYSTEM - Consolidates 23 layout components;
 
 // ============================================================================
 // USER AVATAR DROPDOWN COMPONENT;
 // ============================================================================
-const UserAvatarDropdown: React.FC<{
-  user: { name: string; avatar?: string };
-  isDark?: boolean;
-  onNavigate?: (pageId: string) => void;
-}> = ({ user, isDark, onNavigate }) => {
+const UserAvatarDropdown: React.FC<{,`n  user: { name: string; avatar?: string};
+  isDark?: boolean
+  onNavigate?: (pageId: string) => void}> = ({ user, isDark, onNavigate}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownRef, setDropdownRef] = useState<HTMLDivElement | null key={825020}>(null);
   const [buttonRef, setButtonRef] = useState<HTMLButtonElement | null key={824026}>(null);
   const [dropdownPosition, setDropdownPosition] = useState({
     top: 0,
-    right: 0,
+    right: 0
   });
 
   // Calculate dropdown position based on button position;
@@ -54,9 +52,8 @@ const UserAvatarDropdown: React.FC<{
 
       setDropdownPosition({
         top: rect.bottom + 8,
-        right: window.innerWidth - rect.right,
-      });
-    }
+        right: window.innerWidth - rect.right
+      })}
   }, [isOpen, buttonRef]);
 
   // Close dropdown when clicking outside;
@@ -68,25 +65,20 @@ const UserAvatarDropdown: React.FC<{
         buttonRef &&
         !buttonRef.contains(event.target as Node)
       ) {
-        setIsOpen(false);
-      }
+        setIsOpen(false)}
     };
 
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
       return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }
+        document.removeEventListener("mousedown", handleClickOutside);};}
   }, [dropdownRef, buttonRef, isOpen]);
 
   const handleAccountProfile = () => {
     // Navigate to profile page using app navigation;
     if (onNavigate) {
-      onNavigate("profile");
-    }
-    setIsOpen(false);
-  };
+      onNavigate("profile");}
+    setIsOpen(false);};
 
   const handleSignOut = () => {
     // Handle sign out;
@@ -95,13 +87,11 @@ const UserAvatarDropdown: React.FC<{
       localStorage.removeItem("authToken");
       sessionStorage.clear();
       // Redirect to login or home page;
-      window.location.href = "/login";
-    }
-    setIsOpen(false);
-  };
+      window.location.href = "/login";}
+    setIsOpen(false);};
 
   return (
-    <div style={{ position: "relative" }} key={981141}>
+    <div style={{ position: "relative"}} key={981141}>
       <button;
         ref={setButtonRef}
         onClick={() = key={829724}> setIsOpen(!isOpen)}
@@ -116,14 +106,14 @@ const UserAvatarDropdown: React.FC<{
           cursor: "pointer",
           border: "none",
           transition: "all 0.2s ease",
-          transform: isOpen ? "scale(1.05)" : "scale(1)",
+          transform: isOpen ? "scale(1.05)" : "scale(1)"
         }}
       >
         {user.avatar ? (
           <img;
             src={user.avatar}
             alt={user.name}
-            style={{ width: "100%", height: "100%", borderRadius: "50%" }}
+            style={{ width: "100%", height: "100%", borderRadius: "50%"}}
           / key={749505}>
         ) : (
           <User size={16} color={isDark ? "#000" : "#fff"} / key={903286}>
@@ -149,7 +139,7 @@ const UserAvatarDropdown: React.FC<{
               zIndex: 2147483647,
               padding: "12px",
               transform: "translateY(0)",
-              opacity: 1,
+              opacity: 1
             }}
            key={610485}>
             {/* User Info Header */}
@@ -157,7 +147,7 @@ const UserAvatarDropdown: React.FC<{
               style={{
                 padding: "12px 16px",
                 borderBottom: "1px solid rgba(6, 255, 165, 0.2)",
-                marginBottom: "8px",
+                marginBottom: "8px"
               }}
              key={871788}>
               <div;
@@ -165,7 +155,7 @@ const UserAvatarDropdown: React.FC<{
                   fontSize: "14px",
                   fontWeight: "600",
                   color: "#ffffff",
-                  marginBottom: "2px",
+                  marginBottom: "2px"
                 }}
                key={643721}>
                 {user.name}
@@ -173,7 +163,7 @@ const UserAvatarDropdown: React.FC<{
               <div;
                 style={{
                   fontSize: "12px",
-                  color: "#94a3b8",
+                  color: "#94a3b8"
                 }}
                key={159805}>
                 Pro User;
@@ -196,20 +186,18 @@ const UserAvatarDropdown: React.FC<{
                 color: "#ffffff",
                 transition: "all 0.2s ease",
                 textAlign: "left",
-                fontWeight: "500",
+                fontWeight: "500"
               }}
               onMouseEnter={(e) = key={106857}> {
                 e.currentTarget.style.background = "rgba(6, 255, 165, 0.15)";
-                e.currentTarget.style.transform = "translateX(4px)";
-              }}
+                e.currentTarget.style.transform = "translateX(4px)";}}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.transform = "translateX(0)";
-              }}
+                e.currentTarget.style.transform = "translateX(0)";}}
             >
               <UserCircle;
                 size={16}
-                style={{ marginRight: "12px", color: "#06ffa5" }}
+                style={{ marginRight: "12px", color: "#06ffa5"}}
               / key={474531}>
               Account & Profile;
             </button>
@@ -229,20 +217,18 @@ const UserAvatarDropdown: React.FC<{
                 color: "#ff6b6b",
                 transition: "all 0.2s ease",
                 textAlign: "left",
-                fontWeight: "500",
+                fontWeight: "500"
               }}
               onMouseEnter={(e) = key={672901}> {
                 e.currentTarget.style.background = "rgba(255, 107, 107, 0.15)";
-                e.currentTarget.style.transform = "translateX(4px)";
-              }}
+                e.currentTarget.style.transform = "translateX(4px)";}}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.transform = "translateX(0)";
-              }}
+                e.currentTarget.style.transform = "translateX(0)";}}
             >
               <LogOut;
                 size={16}
-                style={{ marginRight: "12px", color: "#ff6b6b" }}
+                style={{ marginRight: "12px", color: "#ff6b6b"}}
               / key={842545}>
               Sign Out;
             </button>
@@ -250,44 +236,27 @@ const UserAvatarDropdown: React.FC<{
           document.body,
         )}
     </div>
-  );
-};
+  );};
 
 // ============================================================================
 // MEGA SIDEBAR (Consolidates CyberSidebar, AdvancedSidebar, Sidebar variants)
 // ============================================================================
-export const MegaSidebar: React.FC<{
-  isOpen: boolean;
-  onToggle: () => void;
-  navigationItems: Array<{
-    id: string;
-    label: string;
-    icon: React.ComponentType<any key={295429}>;
-    href?: string;
+export const MegaSidebar: React.FC<{,`n  isOpen: boolean;,`n  onToggle: () => void,`n  navigationItems: Array<{,`n  id: string,`n  label: string;,`n  icon: React.ComponentType<any key={295429}>;
+    href?: string
     badge?: string | number;
     submenu?: Array<{
-      id: string;
-      label: string;
-      icon?: React.ComponentType<any key={295429}>;
-    }>;
-  }>;
-  currentPage: string;
-  onNavigate: (pageId: string) => void;
+      id: string,`n  label: string;
+      icon?: React.ComponentType<any key={295429}>;}>;}>;
+  currentPage: string,`n  onNavigate: (pageId: string) => void;
   user?: {
-    name: string;
-    email: string;
-    avatar?: string;
-    tier?: string;
-    balance?: number;
-  };
+    name: string,`n  email: string;
+    avatar?: string
+    tier?: string
+    balance?: number};
   systemStatus?: {
-    connectedSources: number;
-    dataQuality: number;
-    isOnline: boolean;
-  };
+    connectedSources: number,`n  dataQuality: number;,`n  isOnline: boolean};
   variant?: "default" | "compact" | "floating";
-  className?: string;
-}> = ({
+  className?: string}> = ({
   isOpen,
   onToggle,
   navigationItems,
@@ -296,9 +265,9 @@ export const MegaSidebar: React.FC<{
   user,
   systemStatus,
   variant = "default",
-  className = "",
+  className = ""
 }) => {
-  const { theme } = useTheme();
+  const { theme} = useTheme();
   const [expandedSubmenus, setExpandedSubmenus] = useState<Set<string key={798680}>>(
     new Set(),
   );
@@ -306,20 +275,16 @@ export const MegaSidebar: React.FC<{
   const toggleSubmenu = (itemId: string) => {
 
     if (newExpanded.has(itemId)) {
-      newExpanded.delete(itemId);
-    } else {
-      newExpanded.add(itemId);
-    }
-    setExpandedSubmenus(newExpanded);
-  };
+      newExpanded.delete(itemId)} else {
+      newExpanded.add(itemId)}
+    setExpandedSubmenus(newExpanded);};
 
   const getStatusIcon = () => {
     if (!systemStatus?.isOnline)
-      return { icon: WifiOff, color: "#ff4757", text: "Offline" };
+      return { icon: WifiOff, color: "#ff4757", text: "Offline"};
     if (systemStatus.connectedSources < 5)
-      return { icon: Wifi, color: "#00d4ff", text: "Limited" };
-    return { icon: Wifi, color: "#06ffa5", text: "Connected" };
-  };
+      return { icon: Wifi, color: "#00d4ff", text: "Limited"};
+    return { icon: Wifi, color: "#06ffa5", text: "Connected"}};
 
 
 
@@ -344,20 +309,20 @@ export const MegaSidebar: React.FC<{
             : "none",
         borderRadius: variant === "floating" ? "0 16px 16px 0" : "0",
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "column"
       }}
      key={767993}>
       {/* Header */}
-      <div style={{ padding: isCompact ? "16px 12px" : "24px 20px" }} key={802861}>
+      <div style={{ padding: isCompact ? "16px 12px" : "24px 20px"}} key={802861}>
         <div;
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: isCompact ? "center" : "space-between",
-            marginBottom: isCompact ? "0" : "24px",
+            marginBottom: isCompact ? "0" : "24px"
           }}
          key={598820}>
-          <div style={{ display: "flex", alignItems: "center" }} key={597803}>
+          <div style={{ display: "flex", alignItems: "center"}} key={597803}>
             <button;
               onClick={() = key={619354}> onNavigate("dashboard")}
               style={{
@@ -373,19 +338,17 @@ export const MegaSidebar: React.FC<{
                 border: "none",
                 cursor: "pointer",
                 transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                boxShadow: "0 4px 16px rgba(6, 255, 165, 0.2)",
+                boxShadow: "0 4px 16px rgba(6, 255, 165, 0.2)"
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform =
                   "scale(1.08) translateY(-1px)";
                 e.currentTarget.style.boxShadow =
-                  "0 8px 32px rgba(6, 255, 165, 0.4)";
-              }}
+                  "0 8px 32px rgba(6, 255, 165, 0.4)";}}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = "scale(1) translateY(0)";
                 e.currentTarget.style.boxShadow =
-                  "0 4px 16px rgba(6, 255, 165, 0.2)";
-              }}
+                  "0 4px 16px rgba(6, 255, 165, 0.2)";}}
               title="Return to Dashboard"
             >
               <Brain size={24} color="#000" / key={298472}>
@@ -398,7 +361,7 @@ export const MegaSidebar: React.FC<{
                     fontWeight: "700",
                     color: "#ffffff",
                     lineHeight: "1.2",
-                    letterSpacing: "-0.01em",
+                    letterSpacing: "-0.01em"
                   }}
                  key={698265}>
                   A1Betting;
@@ -408,7 +371,7 @@ export const MegaSidebar: React.FC<{
                     fontSize: "12px",
                     color: "#94a3b8",
                     lineHeight: "1.2",
-                    fontWeight: "500",
+                    fontWeight: "500"
                   }}
                  key={676621}>
                   Quantum Platform;
@@ -434,16 +397,14 @@ export const MegaSidebar: React.FC<{
                 justifyContent: "center",
                 transition: "all 0.2s ease",
                 width: "36px",
-                height: "36px",
+                height: "36px"
               }}
               onMouseEnter={(e) = key={294116}> {
                 e.currentTarget.style.background = "rgba(6, 255, 165, 0.15)";
-                e.currentTarget.style.borderColor = "rgba(6, 255, 165, 0.4)";
-              }}
+                e.currentTarget.style.borderColor = "rgba(6, 255, 165, 0.4)";}}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "rgba(6, 255, 165, 0.08)";
-                e.currentTarget.style.borderColor = "rgba(6, 255, 165, 0.2)";
-              }}
+                e.currentTarget.style.borderColor = "rgba(6, 255, 165, 0.2)";}}
             >
               <X size={16} / key={185282}>
             </button>
@@ -460,14 +421,14 @@ export const MegaSidebar: React.FC<{
               background: "rgba(255, 255, 255, 0.05)",
               backdropFilter: "blur(20px) saturate(180%)",
               border: "1px solid rgba(255, 255, 255, 0.1)",
-              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
+              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)"
             }}
            key={792293}>
             <div;
               style={{
                 display: "flex",
                 alignItems: "center",
-                marginBottom: "8px",
+                marginBottom: "8px"
               }}
              key={284775}>
               <div;
@@ -480,7 +441,7 @@ export const MegaSidebar: React.FC<{
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  marginRight: "8px",
+                  marginRight: "8px"
                 }}
                key={793039}>
                 <User size={16} color="#000" / key={363008}>
@@ -491,7 +452,7 @@ export const MegaSidebar: React.FC<{
                     fontSize: "14px",
                     fontWeight: "500",
                     color: "#ffffff",
-                    lineHeight: "1.2",
+                    lineHeight: "1.2"
                   }}
                  key={871394}>
                   {user.name}
@@ -500,7 +461,7 @@ export const MegaSidebar: React.FC<{
                   style={{
                     fontSize: "12px",
                     color: "#94a3b8",
-                    lineHeight: "1.2",
+                    lineHeight: "1.2"
                   }}
                  key={321215}>
                   {user.tier || "Pro User"}
@@ -512,7 +473,7 @@ export const MegaSidebar: React.FC<{
                 style={{
                   fontSize: "12px",
                   color: "#06ffa5",
-                  lineHeight: "1.2",
+                  lineHeight: "1.2"
                 }}
                key={299580}>
                 Balance: ${user.balance.toLocaleString()}
@@ -531,24 +492,24 @@ export const MegaSidebar: React.FC<{
               background: "rgba(255, 255, 255, 0.05)",
               backdropFilter: "blur(20px) saturate(180%)",
               border: "1px solid rgba(255, 255, 255, 0.1)",
-              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
+              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)"
             }}
            key={564747}>
             <div;
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "space-between",
+                justifyContent: "space-between"
               }}
              key={149193}>
-              <div style={{ display: "flex", alignItems: "center" }} key={597803}>
+              <div style={{ display: "flex", alignItems: "center"}} key={597803}>
                 <StatusIcon size={16} color={status.color} / key={65302}>
                 <div;
                   style={{
                     fontSize: "12px",
                     marginLeft: "8px",
                     color: status.color,
-                    lineHeight: "1.2",
+                    lineHeight: "1.2"
                   }}
                  key={641404}>
                   {status.text}
@@ -558,7 +519,7 @@ export const MegaSidebar: React.FC<{
                 style={{
                   fontSize: "12px",
                   color: "#94a3b8",
-                  lineHeight: "1.2",
+                  lineHeight: "1.2"
                 }}
                key={811156}>
                 {systemStatus.dataQuality}%
@@ -569,7 +530,7 @@ export const MegaSidebar: React.FC<{
 
         {/* Toggle Button for Compact */}
         {isCompact && (
-          <div style={{ textAlign: "center", marginTop: "16px" }} key={125296}>
+          <div style={{ textAlign: "center", marginTop: "16px"}} key={125296}>
             <button;
               onClick={onToggle}
               style={{
@@ -583,7 +544,7 @@ export const MegaSidebar: React.FC<{
                 cursor: "pointer",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center",
+                justifyContent: "center"
               }}
              key={933749}>
               <Menu size={16} / key={733938}>
@@ -593,8 +554,8 @@ export const MegaSidebar: React.FC<{
       </div>
 
       {/* Navigation */}
-      <nav style={{ flex: 1, padding: "0 16px", overflowY: "auto" }} key={679418}>
-        <div style={{ marginBottom: "8px" }} key={867857}>
+      <nav style={{ flex: 1, padding: "0 16px", overflowY: "auto"}} key={679418}>
+        <div style={{ marginBottom: "8px"}} key={867857}>
           {navigationItems;
             .filter(
               (item) =>
@@ -610,14 +571,12 @@ export const MegaSidebar: React.FC<{
 
 
               return (
-                <div key={item.id} style={{ marginBottom: "6px" }} key={667103}>
+                <div key={item.id} style={{ marginBottom: "6px"}} key={667103}>
                   <button;
                     onClick={() = key={263171}> {
                       if (hasSubmenu && !isCompact) {
-                        toggleSubmenu(item.id);
-                      } else {
-                        onNavigate(item.id);
-                      }
+                        toggleSubmenu(item.id);} else {
+                        onNavigate(item.id);}
                     }}
                     style={{
                       display: "flex",
@@ -642,7 +601,7 @@ export const MegaSidebar: React.FC<{
                       overflow: "hidden",
                       boxShadow: isActive;
                         ? "0 8px 32px rgba(6, 255, 165, 0.25), 0 2px 8px rgba(0, 0, 0, 0.1)"
-                        : "0 2px 8px rgba(0, 0, 0, 0.05)",
+                        : "0 2px 8px rgba(0, 0, 0, 0.05)"
                     }}
                     onMouseEnter={(e) => {
                       if (!isActive) {
@@ -650,8 +609,7 @@ export const MegaSidebar: React.FC<{
                           "rgba(255, 255, 255, 0.08)";
                         e.currentTarget.style.transform = "translateY(-1px)";
                         e.currentTarget.style.boxShadow =
-                          "0 4px 16px rgba(0, 0, 0, 0.1)";
-                      }
+                          "0 4px 16px rgba(0, 0, 0, 0.1)";}
                     }}
                     onMouseLeave={(e) => {
                       if (!isActive) {
@@ -659,8 +617,7 @@ export const MegaSidebar: React.FC<{
                           "rgba(255, 255, 255, 0.03)";
                         e.currentTarget.style.transform = "translateY(0)";
                         e.currentTarget.style.boxShadow =
-                          "0 2px 8px rgba(0, 0, 0, 0.05)";
-                      }
+                          "0 2px 8px rgba(0, 0, 0, 0.05)";}
                     }}
                   >
                     <span;
@@ -669,7 +626,7 @@ export const MegaSidebar: React.FC<{
                         color: isActive ? "#000" : "#ffffff",
                         display: "flex",
                         alignItems: "center",
-                        minWidth: "18px",
+                        minWidth: "18px"
                       }}
                      key={512696}>
                       {item.icon}
@@ -680,14 +637,14 @@ export const MegaSidebar: React.FC<{
                           display: "flex",
                           alignItems: "center",
                           flex: 1,
-                          marginLeft: "14px",
+                          marginLeft: "14px"
                         }}
                        key={179214}>
                         <span;
                           style={{
                             flex: 1,
                             textAlign: "left",
-                            letterSpacing: "-0.01em",
+                            letterSpacing: "-0.01em"
                           }}
                          key={170935}>
                           {item.label}
@@ -703,7 +660,7 @@ export const MegaSidebar: React.FC<{
                               padding: "4px 8px",
                               fontSize: "11px",
                               fontWeight: "700",
-                              marginLeft: "8px",
+                              marginLeft: "8px"
                             }}
                            key={330366}>
                             {item.badge}
@@ -718,7 +675,7 @@ export const MegaSidebar: React.FC<{
                                 ? "rotate(90deg)"
                                 : "rotate(0deg)",
                               transition: "transform 0.3s ease",
-                              color: isActive ? "#000" : "#94a3b8",
+                              color: isActive ? "#000" : "#94a3b8"
                             }}
                           / key={764792}>
                         )}
@@ -728,7 +685,7 @@ export const MegaSidebar: React.FC<{
 
                   {/* Submenu */}
                   {hasSubmenu && isExpanded && !isCompact && (
-                    <div style={{ marginLeft: "16px", marginTop: "4px" }} key={317240}>
+                    <div style={{ marginLeft: "16px", marginTop: "4px"}} key={317240}>
                       {item.submenu!.map((subItem) => {
 
                         return (
@@ -738,26 +695,23 @@ export const MegaSidebar: React.FC<{
                             onClick={() = key={33260}> onNavigate(subItem.id)}
                             icon={
                               SubIcon ? (
-                                <span style={{ fontSize: "14px" }} key={777475}>
+                                <span style={{ fontSize: "14px"}} key={777475}>
                                   {SubIcon}
                                 </span>
-                              ) : undefined;
-                            }
+                              ) : undefined}
                             style={{
                               marginBottom: "2px",
                               fontSize: "12px",
-                              padding: "8px 12px",
+                              padding: "8px 12px"
                             }}
                           >
                             {subItem.label}
                           </MegaButton>
-                        );
-                      })}
+                        )})}
                     </div>
                   )}
                 </div>
-              );
-            })}
+              );})}
         </div>
       </nav>
 
@@ -767,14 +721,14 @@ export const MegaSidebar: React.FC<{
             style={{
               fontWeight: "400",
               marginBottom: "6px",
-              pointerEvents: "auto",
+              pointerEvents: "auto"
             }}
           / key={79732}>
           <div;
             style={{
               fontWeight: "400",
               marginBottom: "6px",
-              pointerEvents: "auto",
+              pointerEvents: "auto"
             }}
           / key={79732}>
         </div>
@@ -782,13 +736,13 @@ export const MegaSidebar: React.FC<{
 
       {/* Settings and Profile buttons outside navigation */}
       {!isCompact && (
-        <div style={{ padding: "8px 16px 20px 16px" }} key={949991}>
+        <div style={{ padding: "8px 16px 20px 16px"}} key={949991}>
           <div;
             style={{
               height: "1px",
               background:
                 "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)",
-              marginBottom: "16px",
+              marginBottom: "16px"
             }}
           / key={464967}>
           <button;
@@ -808,18 +762,16 @@ export const MegaSidebar: React.FC<{
               background: "rgba(255, 255, 255, 0.03)",
               color: "#e2e8f0",
               backdropFilter: "blur(20px) saturate(1.8)",
-              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)"
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)";
               e.currentTarget.style.transform = "translateY(-1px)";
-              e.currentTarget.style.boxShadow = "0 4px 16px rgba(0, 0, 0, 0.1)";
-            }}
+              e.currentTarget.style.boxShadow = "0 4px 16px rgba(0, 0, 0, 0.1)";}}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = "rgba(255, 255, 255, 0.03)";
               e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.05)";
-            }}
+              e.currentTarget.style.boxShadow = "0 2px 8px rgba(0, 0, 0, 0.05)";}}
           >
             <span;
               style={{
@@ -827,7 +779,7 @@ export const MegaSidebar: React.FC<{
                 color: "#ffffff",
                 display: "flex",
                 alignItems: "center",
-                minWidth: "18px",
+                minWidth: "18px"
               }}
              key={621502}>
               ��
@@ -835,7 +787,7 @@ export const MegaSidebar: React.FC<{
             <span;
               style={{
                 marginLeft: "14px",
-                letterSpacing: "-0.01em",
+                letterSpacing: "-0.01em"
               }}
              key={449208}>
               Profile;
@@ -859,18 +811,16 @@ export const MegaSidebar: React.FC<{
               color: "#000",
               backdropFilter: "blur(20px) saturate(1.8)",
               boxShadow:
-                "0 8px 32px rgba(6, 255, 165, 0.25), 0 2px 8px rgba(0, 0, 0, 0.1)",
+                "0 8px 32px rgba(6, 255, 165, 0.25), 0 2px 8px rgba(0, 0, 0, 0.1)"
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-1px)";
               e.currentTarget.style.boxShadow =
-                "0 12px 48px rgba(6, 255, 165, 0.35), 0 4px 16px rgba(0, 0, 0, 0.15)";
-            }}
+                "0 12px 48px rgba(6, 255, 165, 0.35), 0 4px 16px rgba(0, 0, 0, 0.15)";}}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "translateY(0)";
               e.currentTarget.style.boxShadow =
-                "0 8px 32px rgba(6, 255, 165, 0.25), 0 2px 8px rgba(0, 0, 0, 0.1)";
-            }}
+                "0 8px 32px rgba(6, 255, 165, 0.25), 0 2px 8px rgba(0, 0, 0, 0.1)";}}
           >
             <span;
               style={{
@@ -878,7 +828,7 @@ export const MegaSidebar: React.FC<{
                 color: "#000",
                 display: "flex",
                 alignItems: "center",
-                minWidth: "18px",
+                minWidth: "18px"
               }}
              key={237846}>
               ⚙️
@@ -886,7 +836,7 @@ export const MegaSidebar: React.FC<{
             <span;
               style={{
                 marginLeft: "14px",
-                letterSpacing: "-0.01em",
+                letterSpacing: "-0.01em"
               }}
              key={449208}>
               Settings;
@@ -895,28 +845,25 @@ export const MegaSidebar: React.FC<{
         </div>
       )}
     </div>
-  );
-};
+  );};
 
 // ============================================================================
 // MEGA HEADER (Consolidates CyberHeader, EliteSportsHeader, Navbar variants)
 // ============================================================================
 export const MegaHeader: React.FC<{
-  title?: string;
-  subtitle?: string;
-  leftActions?: ReactNode;
-  rightActions?: ReactNode;
-  showSearch?: boolean;
+  title?: string
+  subtitle?: string
+  leftActions?: ReactNode
+  rightActions?: ReactNode
+  showSearch?: boolean
   onSearch?: (query: string) => void;
-  notifications?: number;
+  notifications?: number
   onNotificationsClick?: () => void;
   user?: {
     name: string;
-    avatar?: string;
-  };
+    avatar?: string};
   onNavigate?: (pageId: string) => void;
-  className?: string;
-}> = ({
+  className?: string}> = ({
   title,
   subtitle,
   leftActions,
@@ -927,7 +874,7 @@ export const MegaHeader: React.FC<{
   onNotificationsClick,
   user,
   onNavigate,
-  className = "",
+  className = ""
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -937,32 +884,26 @@ export const MegaHeader: React.FC<{
 
     theme = themeContext.theme;
     isDark = themeContext.isDark;
-    toggleDarkMode = themeContext.toggleDarkMode;
-  } catch (error) {
+    toggleDarkMode = themeContext.toggleDarkMode;} catch (error) {
     // console statement removed
     theme = null;
     isDark = false;
-    toggleDarkMode = () => // console statement removed
-  }
+    toggleDarkMode = () => // console statement removed}
 
   // Comprehensive fallback theme;
   const defaultTheme = {
-    colors: {
-      surface: "rgba(255, 255, 255, 0.8)",
+    colors: {,`n  surface: "rgba(255, 255, 255, 0.8)",
       border: "rgba(15, 23, 42, 0.1)",
-      text: {
-        primary: "#0f172a",
+      text: {,`n  primary: "#0f172a",
         secondary: "#334155",
-        muted: "#64748b",
+        muted: "#64748b"
       },
-      primary: "#06ffa5",
+      primary: "#06ffa5"
     },
-    effects: {
-      shadow: "0 8px 32px rgba(15, 23, 42, 0.1)",
+    effects: {,`n  shadow: "0 8px 32px rgba(15, 23, 42, 0.1)"
     },
-    gradients: {
-      primary: "linear-gradient(135deg, #06ffa5, #00ff88)",
-    },
+    gradients: {,`n  primary: "linear-gradient(135deg, #06ffa5, #00ff88)"
+    }
   };
 
   // Ensure we always have a complete theme object;
@@ -983,15 +924,15 @@ export const MegaHeader: React.FC<{
         boxShadow:
           "0 8px 32px rgba(0, 0, 0, 0.3), 0 0px 20px rgba(6, 255, 165, 0.2)",
         position: "relative",
-        zIndex: 1000,
+        zIndex: 1000
       }}
      key={229706}>
       {/* Left Section */}
-      <div style={{ display: "flex", alignItems: "center", flex: 1 }} key={505100}>
+      <div style={{ display: "flex", alignItems: "center", flex: 1}} key={505100}>
         {leftActions}
 
         {(title || subtitle) && (
-          <div style={{ marginLeft: leftActions ? "20px" : "0" }} key={556131}>
+          <div style={{ marginLeft: leftActions ? "20px" : "0"}} key={556131}>
             {title && (
               <div;
                 style={{
@@ -1000,7 +941,7 @@ export const MegaHeader: React.FC<{
                   color: "#ffffff",
                   fontWeight: "700",
                   lineHeight: "1.2",
-                  letterSpacing: "-0.02em",
+                  letterSpacing: "-0.02em"
                 }}
                key={414014}>
                 {title}
@@ -1013,7 +954,7 @@ export const MegaHeader: React.FC<{
                   color: "#94a3b8",
                   lineHeight: "1.3",
                   fontWeight: "500",
-                  letterSpacing: "-0.01em",
+                  letterSpacing: "-0.01em"
                 }}
                key={610787}>
                 {subtitle}
@@ -1025,8 +966,8 @@ export const MegaHeader: React.FC<{
 
       {/* Center Section - Search */}
       {showSearch && (
-        <div style={{ flex: 1, maxWidth: "480px", margin: "0 32px" }} key={149711}>
-          <div style={{ position: "relative" }} key={981141}>
+        <div style={{ flex: 1, maxWidth: "480px", margin: "0 32px"}} key={149711}>
+          <div style={{ position: "relative"}} key={981141}>
             <Search;
               size={18}
               style={{
@@ -1035,7 +976,7 @@ export const MegaHeader: React.FC<{
                 top: "50%",
                 transform: "translateY(-50%)",
                 color: "#94a3b8",
-                zIndex: 1,
+                zIndex: 1
               }}
             / key={677798}>
             <input;
@@ -1044,8 +985,7 @@ export const MegaHeader: React.FC<{
               value={searchQuery}
               onChange={(e) = key={24897}> {
                 setSearchQuery(e.target.value);
-                onSearch?.(e.target.value);
-              }}
+                onSearch?.(e.target.value);}}
               style={{
                 width: "100%",
                 padding: "14px 20px 14px 48px",
@@ -1058,26 +998,24 @@ export const MegaHeader: React.FC<{
                 fontWeight: "500",
                 outline: "none",
                 transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.1)",
+                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.1)"
               }}
               onFocus={(e) => {
                 e.target.style.borderColor = "rgba(6, 255, 165, 0.3)";
                 e.target.style.backgroundColor = "rgba(255, 255, 255, 0.08)";
                 e.target.style.boxShadow =
-                  "0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(6, 255, 165, 0.2)";
-              }}
+                  "0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(6, 255, 165, 0.2)";}}
               onBlur={(e) => {
                 e.target.style.borderColor = "rgba(255, 255, 255, 0.1)";
                 e.target.style.backgroundColor = "rgba(255, 255, 255, 0.05)";
-                e.target.style.boxShadow = "0 4px 16px rgba(0, 0, 0, 0.1)";
-              }}
+                e.target.style.boxShadow = "0 4px 16px rgba(0, 0, 0, 0.1)";}}
             />
           </div>
         </div>
       )}
 
       {/* Right Section */}
-      <div style={{ display: "flex", alignItems: "center", gap: "16px" }} key={401855}>
+      <div style={{ display: "flex", alignItems: "center", gap: "16px"}} key={401855}>
         {/* Theme Toggle */}
         <button;
           onClick={toggleDarkMode}
@@ -1095,18 +1033,16 @@ export const MegaHeader: React.FC<{
             width: "44px",
             height: "44px",
             transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-            backdropFilter: "blur(20px) saturate(180%)",
+            backdropFilter: "blur(20px) saturate(180%)"
           }}
           onMouseEnter={(e) = key={575330}> {
             e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)";
             e.currentTarget.style.transform = "translateY(-1px)";
-            e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.15)";
-          }}
+            e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.15)";}}
           onMouseLeave={(e) => {
             e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
             e.currentTarget.style.transform = "translateY(0)";
-            e.currentTarget.style.boxShadow = "none";
-          }}
+            e.currentTarget.style.boxShadow = "none";}}
           title={`Switch to ${isDark ? "Light" : "Dark"} Mode`}
         >
           {isDark ? <Sun size={18} / key={233552}> : <Moon size={18} / key={418721}>}
@@ -1114,7 +1050,7 @@ export const MegaHeader: React.FC<{
 
         {/* Notifications */}
         {onNotificationsClick && (
-          <div style={{ position: "relative" }} key={981141}>
+          <div style={{ position: "relative"}} key={981141}>
             <button;
               onClick={onNotificationsClick}
               style={{
@@ -1131,19 +1067,17 @@ export const MegaHeader: React.FC<{
                 width: "44px",
                 height: "44px",
                 transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                backdropFilter: "blur(20px) saturate(180%)",
+                backdropFilter: "blur(20px) saturate(180%)"
               }}
               onMouseEnter={(e) = key={703956}> {
                 e.currentTarget.style.background = "rgba(6, 255, 165, 0.15)";
                 e.currentTarget.style.transform = "translateY(-1px)";
                 e.currentTarget.style.boxShadow =
-                  "0 8px 24px rgba(6, 255, 165, 0.2)";
-              }}
+                  "0 8px 24px rgba(6, 255, 165, 0.2)";}}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "rgba(6, 255, 165, 0.08)";
                 e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "none";
-              }}
+                e.currentTarget.style.boxShadow = "none";}}
             >
               <Bell size={18} / key={281710}>
             </button>
@@ -1164,7 +1098,7 @@ export const MegaHeader: React.FC<{
                   alignItems: "center",
                   justifyContent: "center",
                   border: "2px solid rgba(15, 23, 42, 0.95)",
-                  boxShadow: "0 2px 8px rgba(6, 255, 165, 0.4)",
+                  boxShadow: "0 2px 8px rgba(6, 255, 165, 0.4)"
                 }}
                key={678144}>
                 {notifications > 9 ? "9+" : notifications}
@@ -1190,68 +1124,59 @@ export const MegaHeader: React.FC<{
           style={{
             fontSize: "12px",
             color: safeTheme.colors?.text?.muted || "#64748b",
-            lineHeight: "1.2",
+            lineHeight: "1.2"
           }}
          key={463311}>
-          {new Date().toLocaleTimeString([], {
+          {new Date().toLocaleTimeString([0], {
             hour: "2-digit",
-            minute: "2-digit",
+            minute: "2-digit"
           })}
         </div>
       </div>
     </header>
-  );
-};
+  )};
 
 // ============================================================================
 // MEGA APP SHELL (Complete layout wrapper)
 // ============================================================================
-export const MegaAppShell: React.FC<{
-  children: ReactNode;
-  sidebar?: ReactNode;
-  header?: ReactNode;
-  footer?: ReactNode;
-  sidebarOpen?: boolean;
-  className?: string;
-}> = ({
+export const MegaAppShell: React.FC<{,`n  children: ReactNode;
+  sidebar?: ReactNode
+  header?: ReactNode
+  footer?: ReactNode
+  sidebarOpen?: boolean
+  className?: string}> = ({
   children,
   sidebar,
   header,
   footer,
   sidebarOpen = true,
-  className = "",
+  className = ""
 }) => {
   // Use try-catch to handle any theme access errors;
   let safeTheme;
   try {
-    const { theme } = useTheme();
-    safeTheme = theme;
-  } catch (error) {
+    const { theme} = useTheme();
+    safeTheme = theme;} catch (error) {
     // console statement removed
-    safeTheme = null;
-  }
+    safeTheme = null;}
 
   // Comprehensive fallback theme with all required properties;
   const defaultTheme = {
-    colors: {
-      background:
+    colors: {,`n  background:
         "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 50%, #e2e8f0 75%, #f8fafc 100%)",
-      text: {
-        primary: "#0f172a",
+      text: {,`n  primary: "#0f172a",
         secondary: "#334155",
-        muted: "#64748b",
+        muted: "#64748b"
       },
       primary: "#06ffa5",
       secondary: "#00ff88",
       surface: "rgba(255, 255, 255, 0.8)",
-      border: "rgba(15, 23, 42, 0.1)",
+      border: "rgba(15, 23, 42, 0.1)"
     },
-    gradients: {
-      primary: "linear-gradient(135deg, #06ffa5, #00ff88)",
+    gradients: {,`n  primary: "linear-gradient(135deg, #06ffa5, #00ff88)"
     },
-    effects: {
-      shadow: "0 8px 32px rgba(15, 23, 42, 0.1)",
-    },
+    effects: {,`n  shadow: "0 8px 32px rgba(15, 23, 42, 0.1)"
+    }
   };
 
   // Ensure we always have a complete theme object;
@@ -1265,7 +1190,7 @@ export const MegaAppShell: React.FC<{
         background:
           finalTheme.colors?.background || defaultTheme.colors.background,
         color:
-          finalTheme.colors?.text?.primary || defaultTheme.colors.text.primary,
+          finalTheme.colors?.text?.primary || defaultTheme.colors.text.primary
       }}
      key={142575}>
       {/* Sidebar */}
@@ -1277,7 +1202,7 @@ export const MegaAppShell: React.FC<{
           flex: 1,
           display: "flex",
           flexDirection: "column",
-          overflow: "hidden",
+          overflow: "hidden"
         }}
        key={204913}>
         {/* Header */}
@@ -1291,14 +1216,14 @@ export const MegaAppShell: React.FC<{
             position: "relative",
             background:
               "linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.95) 50%, rgba(15, 23, 42, 0.98) 100%)",
-            padding: "24px 32px 32px 32px",
+            padding: "24px 32px 32px 32px"
           }}
          key={761459}>
           <div;
             style={{
               maxWidth: "1400px",
               margin: "0 auto",
-              width: "100%",
+              width: "100%"
             }}
            key={479339}>
             {children}
@@ -1309,11 +1234,15 @@ export const MegaAppShell: React.FC<{
         {footer}
       </div>
     </div>
-  );
-};
+  )};
 
 export default {
   MegaSidebar,
   MegaHeader,
-  MegaAppShell,
+//   MegaAppShell
 };
+
+
+
+
+`

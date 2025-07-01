@@ -1,32 +1,21 @@
-import { ModelOutput, RiskProfile, BetRecommendation } from '@/types/prediction.ts';
-import { UnifiedLogger } from '@/logging/types.ts';
-import { UnifiedMetrics } from '@/metrics/types.ts';
-import { RiskProfile, BettingOpportunity } from '@/types/betting.ts';
-import { PredictionEngine } from '@/FinalPredictionEngine/FinalPredictionEngine.ts';
-import { EventBus } from '@/unified/EventBus.ts';
-import { ErrorHandler } from '@/unified/ErrorHandler.ts';
-import { PerformanceMonitor } from '@/unified/PerformanceMonitor.ts';
+﻿import { ModelOutput, RiskProfile, BetRecommendation} from '@/types/prediction';
+import { UnifiedLogger} from '@/logging/types';
+import { UnifiedMetrics} from '@/metrics/types';
+import { RiskProfile, BettingOpportunity} from '@/types/betting';
+import { PredictionEngine} from '@/FinalPredictionEngine/FinalPredictionEngine';
+import { EventBus} from '@/unified/EventBus';
+import { ErrorHandler} from '@/unified/ErrorHandler';
+import { PerformanceMonitor} from '@/unified/PerformanceMonitor';
 
 interface ModelPerformance {
-  wins: number;
-  losses: number;
-  roi: number;
-  lastUpdated: Date;
-}
+  wins: number,`n  losses: number;,`n  roi: number,`n  lastUpdated: Date}
 
 interface BestBetSelectorConfig {
-  minConfidence: number;
-  maxStake: number;
-  minOdds: number;
-  maxOdds: number;
-  maxConcurrentBets: number;
-  maxDailyLoss: number;
-}
+  minConfidence: number,`n  maxStake: number;,`n  minOdds: number,`n  maxOdds: number;,`n  maxConcurrentBets: number,`n  maxDailyLoss: number}
 
 interface ValidationResult {
   isValid: boolean;
-  reason?: string;
-}
+  reason?: string}
 
 export class BestBetSelector {
   private modelPerformance: Map<string, ModelPerformance>;
@@ -43,40 +32,36 @@ export class BestBetSelector {
     predictionEngine: PredictionEngine,
     eventBus: EventBus,
     errorHandler: ErrorHandler,
-    performanceMonitor: PerformanceMonitor;
+    performanceMonitor: PerformanceMonitor
   ) {
     this.modelPerformance = new Map();
     this.config = config;
     this.predictionEngine = predictionEngine;
     this.eventBus = eventBus;
     this.errorHandler = errorHandler;
-    this.performanceMonitor = performanceMonitor;
-  }
+    this.performanceMonitor = performanceMonitor;}
 
   public async selectBestBets(
-    opportunities: BettingOpportunity[],
-    riskProfile: RiskProfile;
-  ): Promise<BettingOpportunity[]> {
+    opportunities: BettingOpportunity[0],
+    riskProfile: RiskProfile
+  ): Promise<BettingOpportunity[0]> {
 
     try {
       // Filter and validate opportunities;
       const validOpportunities = opportunities.filter(opportunity => {
 
         if (!validation.isValid) {
-          this.eventBus.emit('betting:validation_failed', {
+          this.eventBus.emit('betting: validation_failed', {
             opportunity,
-            reason: validation.reason,
-          });
-        }
-        return validation.isValid;
-      });
+            reason: validation.reason
+          })}
+        return validation.isValid;});
 
       // Sort by expected value;
       const sortedOpportunities = validOpportunities.sort((a, b) => {
 
 
-        return evB - evA;
-      });
+        return evB - evA;});
 
       // Limit to max concurrent bets;
 
@@ -84,16 +69,14 @@ export class BestBetSelector {
 
       this.performanceMonitor.recordOperation('selectBestBets', endTime - startTime);
 
-      return selectedBets;
-    } catch (error) {
+      return selectedBets;} catch (error) {
       this.errorHandler.handleError(error, 'BestBetSelector', 'selectBestBets');
-      return [];
-    }
+      return [0];}
   }
 
   private validateRiskProfile(
     opportunity: BettingOpportunity,
-    riskProfile: RiskProfile;
+    riskProfile: RiskProfile
   ): ValidationResult {
 
     try {
@@ -101,58 +84,51 @@ export class BestBetSelector {
       if (opportunity.confidence < riskProfile.min_confidence_threshold) {
         return {
           isValid: false,
-          reason: `Confidence (${opportunity.confidence.toFixed(2)}) below threshold (${riskProfile.min_confidence_threshold})`,
-        };
-      }
+          reason: `Confidence (${opportunity.confidence.toFixed(2)}) below threshold (${riskProfile.min_confidence_threshold})`
+        }}
 
       // Check stake percentage;
 
       if (opportunity.stake > maxStake) {
         return {
           isValid: false,
-          reason: `Stake (${opportunity.stake}) exceeds maximum (${maxStake})`,
-        };
-      }
+          reason: `Stake (${opportunity.stake}) exceeds maximum (${maxStake})`
+        }}
 
       // Check volatility tolerance;
       if (opportunity.volatility > riskProfile.volatility_tolerance) {
         return {
           isValid: false,
-          reason: `Volatility (${opportunity.volatility.toFixed(2)}) exceeds tolerance (${riskProfile.volatility_tolerance})`,
-        };
-      }
+          reason: `Volatility (${opportunity.volatility.toFixed(2)}) exceeds tolerance (${riskProfile.volatility_tolerance})`
+        }}
 
       // Check risk score;
       if (opportunity.riskScore > riskProfile.max_risk_score) {
         return {
           isValid: false,
-          reason: `Risk score (${opportunity.riskScore.toFixed(2)}) exceeds maximum (${riskProfile.max_risk_score})`,
-        };
-      }
+          reason: `Risk score (${opportunity.riskScore.toFixed(2)}) exceeds maximum (${riskProfile.max_risk_score})`
+        }}
 
       // Check preferred sports;
       if (!riskProfile.preferred_sports.includes(opportunity.sport)) {
         return {
           isValid: false,
-          reason: `Sport (${opportunity.sport}) not in preferred sports`,
-        };
-      }
+          reason: `Sport (${opportunity.sport}) not in preferred sports`
+        }}
 
       // Check preferred markets;
       if (!riskProfile.preferred_markets.includes(opportunity.market)) {
         return {
           isValid: false,
-          reason: `Market (${opportunity.market}) not in preferred markets`,
-        };
-      }
+          reason: `Market (${opportunity.market}) not in preferred markets`
+        }}
 
       // Check excluded events;
       if (riskProfile.excluded_events?.includes(opportunity.eventId)) {
         return {
           isValid: false,
-          reason: `Event (${opportunity.eventId}) is in excluded events`,
-        };
-      }
+          reason: `Event (${opportunity.eventId}) is in excluded events`
+        }}
 
       // Check Kelly Criterion;
       const kellyStake = this.calculateKellyStake(
@@ -163,66 +139,61 @@ export class BestBetSelector {
       if (opportunity.stake > kellyStake) {
         return {
           isValid: false,
-          reason: `Stake (${opportunity.stake}) exceeds Kelly Criterion (${kellyStake.toFixed(2)})`,
-        };
-      }
+          reason: `Stake (${opportunity.stake}) exceeds Kelly Criterion (${kellyStake.toFixed(2)})`
+        }}
 
       // Record performance;
       this.performanceMonitor.recordOperation('validateRiskProfile', performance.now() - startTime);
 
-      return { isValid: true };
-    } catch (error) {
+      return { isValid: true}} catch (error) {
       this.errorHandler.handleError(error, 'BestBetSelector', 'validateRiskProfile');
       return {
         isValid: false,
-        reason: 'Error validating risk profile',
-      };
-    }
+        reason: 'Error validating risk profile'
+      }}
   }
 
   private calculateKellyStake(probability: number, odds: number, kellyFraction: number): number {
 
 
 
-    return Math.max(0, kelly * kellyFraction);
-  }
+    return Math.max(0, kelly * kellyFraction)}
 
   private calculateExpectedValue(opportunity: BettingOpportunity): number {
-    const { odds, confidence, stake } = opportunity;
+    const { odds, confidence, stake} = opportunity;
 
 
-    return confidence * winAmount - (1 - confidence) * loseAmount;
-  }
+    return confidence * winAmount - (1 - confidence) * loseAmount;}
 
   public updateModelPerformance(
     modelName: string,
-    result: { won: boolean; stake: number; payout: number }
+    result: { won: boolean; stake: number; payout: number}
   ): void {
     const current = this.modelPerformance.get(modelName) || {
       wins: 0,
       losses: 0,
       roi: 0,
-      lastUpdated: new Date(),
+      lastUpdated: new Date()
     };
 
     if (result.won) {
-      current.wins++;
-    } else {
-      current.losses++;
-    }
+      current.wins++;} else {
+      current.losses++;}
 
 
     current.roi = totalStaked > 0 ? profit / totalStaked : 0;
     current.lastUpdated = new Date();
 
-    this.modelPerformance.set(modelName, current);
-  }
+    this.modelPerformance.set(modelName, current);}
 
   public getModelPerformance(): Map<string, ModelPerformance> {
-    return new Map(this.modelPerformance);
-  }
+    return new Map(this.modelPerformance);}
 
   public updateConfig(newConfig: Partial<BestBetSelectorConfig>): void {
-    this.config = { ...this.config, ...newConfig };
-  }
+    this.config = { ...this.config, ...newConfig}}
 }
+
+
+
+
+`

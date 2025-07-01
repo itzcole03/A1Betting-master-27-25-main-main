@@ -1,10 +1,10 @@
-/**
+﻿/**
  * Ollama Status Component;
  * Shows the status of local Ollama installation and available models;
  */
 
-import React, { useState, useEffect  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+import React, { useState, useEffect} from 'react';
+import { motion} from 'framer-motion';
 import {
   Brain,
   CheckCircle,
@@ -15,35 +15,29 @@ import {
   Server,
   Cpu,
   AlertTriangle,
-  Info,
-} from 'lucide-react.ts';
-import { ollamaLLMService } from '@/services/ollamaLLMService.ts';
+//   Info
+} from 'lucide-react';
+import { ollamaLLMService} from '@/services/ollamaLLMService';
 
 interface OllamaStatusData {
-  connected: boolean;
-  endpoint: string;
-  models: Array<{
-    name: string;
-    size?: number;
-    modified_at?: string;
-  }>;
+  connected: boolean,`n  endpoint: string;,`n  models: Array<{,`n  name: string;
+    size?: number
+    modified_at?: string}>;
   currentModel: string;
-  responseTime?: number;
-}
+  responseTime?: number}
 
 export const OllamaStatus: React.FC = () => {
   const [status, setStatus] = useState<OllamaStatusData key={285975}>({
     connected: false,
     endpoint: "http://localhost:11434",
-    models: [],
-    currentModel: "none",
+    models: [0],
+    currentModel: "none"
   });
   const [isLoading, setIsLoading] = useState(true);
   const [testResponse, setTestResponse] = useState<string key={278855}>("");
 
   useEffect(() => {
-    checkOllamaStatus();
-  }, []);
+    checkOllamaStatus()}, [0]);
 
   const checkOllamaStatus = async () => {
     setIsLoading(true);
@@ -56,41 +50,35 @@ export const OllamaStatus: React.FC = () => {
         connected: connectionStatus.connected,
         endpoint: connectionStatus.endpoint,
         models: availableModels,
-        currentModel: currentModel,
+        currentModel: currentModel
       });
 
       // Test Ollama with a simple query if connected;
       if (connectionStatus.connected) {
-        await testOllamaResponse();
-      }
+        await testOllamaResponse()}
     } catch (error) {
       // console statement removed
-      setStatus((prev) => ({ ...prev, connected: false }));
-    }
+      setStatus((prev) => ({ ...prev, connected: false}))}
 
-    setIsLoading(false);
-  };
+    setIsLoading(false)};
 
   const testOllamaResponse = async () => {
     try {
 
       const testResult = await ollamaLLMService.generateResponse({
         message: "Give me a very brief test response (max 20 words)",
-        analysisType: "general",
+        analysisType: "general"
       });
 
-      setStatus((prev) => ({ ...prev, responseTime }));
-      setTestResponse(testResult.content.substring(0, 100) + "...");
-    } catch (error) {
-      setTestResponse("Test failed: " + error);
-    }
+      setStatus((prev) => ({ ...prev, responseTime}));
+      setTestResponse(testResult.content.substring(0, 100) + "...")} catch (error) {
+      setTestResponse("Test failed: " + error)}
   };
 
   const formatFileSize = (bytes: number): string => {
     if (!bytes) return "Unknown size";
 
-    return `${gb.toFixed(1)} GB`;
-  };
+    return `${gb.toFixed(1)} GB`};
 
   if (isLoading) {
     return (
@@ -100,8 +88,7 @@ export const OllamaStatus: React.FC = () => {
           <span className="text-white" key={453983}>Checking Ollama Status...</span>
         </div>
       </div>
-    );
-  }
+    )}
 
   return (
     <div className="p-6 bg-gray-900 rounded-lg shadow-2xl" key={572421}>
@@ -120,8 +107,7 @@ export const OllamaStatus: React.FC = () => {
         className={`p-4 rounded-lg border mb-6 ${
           status.connected;
             ? "bg-green-500/10 border-green-500/30"
-            : "bg-red-500/10 border-red-500/30"
-        }`}
+            : "bg-red-500/10 border-red-500/30"}`}
        key={992727}>
         <div className="flex items-center justify-between mb-3" key={56204}>
           <h3 className="font-semibold text-white flex items-center" key={131387}>
@@ -173,14 +159,13 @@ export const OllamaStatus: React.FC = () => {
             {status.models.map((model, index) => (
               <motion.div;
                 key={model.name}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
+                initial={{ opacity: 0, x: -20}}
+                animate={{ opacity: 1, x: 0}}
+                transition={{ delay: index * 0.1}}
                 className={`p-3 rounded border ${
                   model.name === status.currentModel;
                     ? "bg-purple-500/20 border-purple-500/50"
-                    : "bg-gray-800/50 border-gray-700"
-                }`}
+                    : "bg-gray-800/50 border-gray-700"}`}
                key={976649}>
                 <div className="flex items-center justify-between" key={96335}>
                   <div key={241917}>
@@ -319,7 +304,12 @@ export const OllamaStatus: React.FC = () => {
         </p>
       </div>
     </div>
-  );
-};
+  )};
 
 export default OllamaStatus;
+
+
+
+
+
+`

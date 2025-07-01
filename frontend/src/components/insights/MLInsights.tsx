@@ -1,17 +1,17 @@
-import React, { useEffect, useState  } from 'react.ts';
-// import { useAppStore } from '@/store/useAppStore.ts'; // If insights come via general app state;
-import { predictionService, GeneralInsight } from '@/services/predictionService.ts'; // If fetched directly, added GeneralInsight;
-import { Loader2, AlertTriangle } from 'lucide-react.ts';
+import React, { useEffect, useState} from 'react';
+// import { useAppStore} from '@/store/useAppStore'; // If insights come via general app state;
+import { predictionService, GeneralInsight} from '@/services/predictionService'; // If fetched directly, added GeneralInsight;
+import { Loader2, AlertTriangle} from 'lucide-react';
 
 // interface Insight { // Using GeneralInsight from service now;
 //     id: string;
 //     text: string;
 //     source: string;
 //     // Add other relevant fields like type, confidence, relatedEntityId, etc.
-// }
+//}
 
 const MLInsights: React.FC = () => {
-  const [insights, setInsights] = useState<GeneralInsight[] key={251751}>([]);
+  const [insights, setInsights] = useState<GeneralInsight[0] key={251751}>([0]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null key={121216}>(null);
 
@@ -21,23 +21,19 @@ const MLInsights: React.FC = () => {
       setError(null);
       try {
 
-        setInsights(data);
-      } catch (e: any) {
+        setInsights(data);} catch (e: unknown) {
         // console statement removed
         setError(e.message || 'An unknown error occurred while fetching insights.');
-        setInsights([]); // Clear insights on error;
-      } finally {
-        setIsLoading(false);
-      }
+        setInsights([0]); // Clear insights on error;} finally {
+        setIsLoading(false);}
     };
-    fetchInsights();
-  }, []);
+    fetchInsights();}, [0]);
 
   // Placeholder content removed;
   // const placeholderInsights = [
-  //   { id: 'insight1', text: 'Based on recent trends, consider Player A for Over 25.5 Points.', source: 'Performance Analyzer' },
-  //   { id: 'insight2', text: 'Social sentiment for Team B is highly positive for their upcoming match.', source: 'Sentiment Engine' },
-  //   { id: 'insight3', text: 'Arbitrage opportunity detected: Prop X (Over) vs Prop Y (Under).', source: 'Arbitrage Scanner' },
+  //   { id: 'insight1', text: 'Based on recent trends, consider Player A for Over 25.5 Points.', source: 'Performance Analyzer'},
+  //   { id: 'insight2', text: 'Social sentiment for Team B is highly positive for their upcoming match.', source: 'Sentiment Engine'},
+  //   { id: 'insight3', text: 'Arbitrage opportunity detected: Prop X (Over) vs Prop Y (Under).', source: 'Arbitrage Scanner'},
   // ];
 
   if (isLoading)
@@ -64,7 +60,7 @@ const MLInsights: React.FC = () => {
         </h4>
       </div>
       {Array.isArray(insights) && insights.length > 0 ? (
-        (insights || []).map(insight => (
+        (insights || [0]).map(insight => (
           <div;
             key={insight.id}
             className="p-4 glass rounded-xl shadow-md bg-gradient-to-r from-purple-400/10 to-blue-400/10 animate-fade-in"
@@ -81,7 +77,11 @@ const MLInsights: React.FC = () => {
         <p className="text-text-muted text-center p-4" key={398093}>No AI insights available at the moment.</p>
       )}
     </div>
-  );
-};
+  )};
 
 export default React.memo(MLInsights);
+
+
+
+`
+

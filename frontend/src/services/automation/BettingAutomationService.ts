@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common.ts';
-import { UserPersonalizationService } from '@/analytics/userPersonalizationService.ts';
-import { PredictionOptimizationService } from '@/analytics/predictionOptimizationService.ts';
-import { RiskManagementService } from '@/riskManagement.ts';
-import { BankrollService } from '@/bankroll.ts';
-import { NotificationService } from '@/notification.ts';
-import { UnifiedBettingCore } from '@/unified/UnifiedBettingCore.ts';
-import { EventEmitter } from 'events.ts';
+﻿import { Injectable} from '@nestjs/common';
+import { UserPersonalizationService} from '@/analytics/userPersonalizationService';
+import { PredictionOptimizationService} from '@/analytics/predictionOptimizationService';
+import { RiskManagementService} from '@/riskManagement';
+import { BankrollService} from '@/bankroll';
+import { NotificationService} from '@/notification';
+import { UnifiedBettingCore} from '@/unified/UnifiedBettingCore';
+import { EventEmitter} from 'events';
 
 @Injectable()
 export class BettingAutomationService extends EventEmitter {
@@ -20,10 +20,9 @@ export class BettingAutomationService extends EventEmitter {
     private readonly riskManagementService: RiskManagementService,
     private readonly bankrollService: BankrollService,
     private readonly notificationService: NotificationService,
-    private readonly unifiedBettingCore: UnifiedBettingCore;
+    private readonly unifiedBettingCore: UnifiedBettingCore
   ) {
-    super();
-  }
+    super()}
 
   public static getInstance(): BettingAutomationService {
     if (!BettingAutomationService.instance) {
@@ -34,15 +33,12 @@ export class BettingAutomationService extends EventEmitter {
         BankrollService.getInstance(),
         NotificationService.getInstance(),
         UnifiedBettingCore.getInstance()
-      );
-    }
-    return BettingAutomationService.instance;
-  }
+      )}
+    return BettingAutomationService.instance;}
 
   public async start(): Promise<void> {
     if (this.isRunning) {
-      return;
-    }
+      return;}
 
     try {
       this.isRunning = true;
@@ -57,32 +53,26 @@ export class BettingAutomationService extends EventEmitter {
       // Set up event listeners;
       this.setupEventListeners();
 
-      this.emit('started');
-    } catch (error) {
+      this.emit('started');} catch (error) {
       this.isRunning = false;
-      this.notificationService.notify('error', 'Failed to start betting automation', { error });
-      throw error;
-    }
+      this.notificationService.notify('error', 'Failed to start betting automation', { error});
+      throw error;}
   }
 
   public async stop(): Promise<void> {
     if (!this.isRunning) {
-      return;
-    }
+      return;}
 
     try {
       this.isRunning = false;
       if (this.updateTimer) {
         clearInterval(this.updateTimer);
-        this.updateTimer = null;
-      }
+        this.updateTimer = null;}
 
       this.notificationService.notify('info', 'Betting automation stopped');
-      this.emit('stopped');
-    } catch (error) {
-      this.notificationService.notify('error', 'Error stopping betting automation', { error });
-      throw error;
-    }
+      this.emit('stopped');} catch (error) {
+      this.notificationService.notify('error', 'Error stopping betting automation', { error});
+      throw error;}
   }
 
   private async initializeServices(): Promise<void> {
@@ -94,22 +84,17 @@ export class BettingAutomationService extends EventEmitter {
         this.riskManagementService.initialize(),
         this.bankrollService.initialize(),
         this.unifiedBettingCore.initialize(),
-      ]);
-    } catch (error) {
-      this.notificationService.notify('error', 'Failed to initialize services', { error });
-      throw error;
-    }
+      ]);} catch (error) {
+      this.notificationService.notify('error', 'Failed to initialize services', { error});
+      throw error;}
   }
 
   private startUpdateLoop(): void {
     this.updateTimer = setInterval(async () => {
       try {
-        await this.performUpdate();
-      } catch (error) {
-        this.notificationService.notify('error', 'Error in update loop', { error });
-      }
-    }, this.updateInterval);
-  }
+        await this.performUpdate();} catch (error) {
+        this.notificationService.notify('error', 'Error in update loop', { error});}
+    }, this.updateInterval);}
 
   private async performUpdate(): Promise<void> {
     try {
@@ -117,7 +102,7 @@ export class BettingAutomationService extends EventEmitter {
       const predictions = await this.predictionOptimizationService.getOptimizedPrediction({
         timestamp: Date.now(),
         marketData: await this.getMarketData(),
-        userProfiles: await this.getUserProfiles(),
+        userProfiles: await this.getUserProfiles()
       });
 
       // Process each prediction;
@@ -133,70 +118,58 @@ export class BettingAutomationService extends EventEmitter {
         const riskAssessment = await this.riskManagementService.assessRisk({
           prediction: personalizedPrediction,
           bankroll: this.bankrollService.getCurrentBalance(),
-          activeBets: await this.getActiveBets(),
+          activeBets: await this.getActiveBets()
         });
 
         // Make betting decision;
         if (this.shouldPlaceBet(riskAssessment)) {
-          await this.placeBet(personalizedPrediction, riskAssessment);
-        }
+          await this.placeBet(personalizedPrediction, riskAssessment);}
       }
 
       // Update bankroll metrics;
       await this.updateBankrollMetrics();
 
       // Check for stop loss/take profit;
-      this.checkBankrollLimits();
-    } catch (error) {
-      this.notificationService.notify('error', 'Error in update cycle', { error });
-    }
+      this.checkBankrollLimits();} catch (error) {
+      this.notificationService.notify('error', 'Error in update cycle', { error});}
   }
 
   private setupEventListeners(): void {
     // Listen for bankroll events;
     this.bankrollService.on('stopLoss', () => {
       this.notificationService.notify('warning', 'Stop loss reached');
-      this.stop();
-    });
+      this.stop();});
 
     this.bankrollService.on('takeProfit', () => {
       this.notificationService.notify('success', 'Take profit reached');
-      this.stop();
-    });
+      this.stop();});
 
     // Listen for risk events;
     this.riskManagementService.on('highRisk', data => {
-      this.notificationService.notify('warning', 'High risk detected', data);
-    });
+      this.notificationService.notify('warning', 'High risk detected', data);});
 
     // Listen for prediction events;
     this.predictionOptimizationService.on('modelUpdate', data => {
-      this.notificationService.notify('info', 'Prediction models updated', data);
-    });
-  }
+      this.notificationService.notify('info', 'Prediction models updated', data);});}
 
   private async getMarketData(): Promise<any> {
     // Implement market data fetching;
-    return {};
-  }
+    return Record<string, any>;}
 
-  private async getUserProfiles(): Promise<any[]> {
+  private async getUserProfiles(): Promise<any[0]> {
     // Implement user profile fetching;
-    return [];
-  }
+    return [0];}
 
-  private async getActiveBets(): Promise<any[]> {
+  private async getActiveBets(): Promise<any[0]> {
     // Implement active bets fetching;
-    return [];
-  }
+    return [0];}
 
   private shouldPlaceBet(riskAssessment: any): boolean {
     return (
       riskAssessment.riskLevel === 'low' &&
       riskAssessment.expectedValue > 0 &&
       riskAssessment.confidence > 0.7;
-    );
-  }
+    );}
 
   private async placeBet(prediction: any, riskAssessment: any): Promise<void> {
     try {
@@ -204,36 +177,33 @@ export class BettingAutomationService extends EventEmitter {
       await this.unifiedBettingCore.placeBet({
         prediction,
         stake,
-        riskAssessment,
+//         riskAssessment
       });
 
       this.notificationService.notify('success', 'Bet placed successfully', {
         prediction,
         stake,
-        riskAssessment,
-      });
-    } catch (error) {
-      this.notificationService.notify('error', 'Failed to place bet', { error });
-    }
+//         riskAssessment
+      });} catch (error) {
+      this.notificationService.notify('error', 'Failed to place bet', { error});}
   }
 
   private calculateStake(riskAssessment: any): number {
 
 
-    return Math.min(maxStake, recommendedStake);
-  }
+    return Math.min(maxStake, recommendedStake)}
 
   private async updateBankrollMetrics(): Promise<void> {
 
-    this.emit('metricsUpdated', metrics);
-  }
+    this.emit('metricsUpdated', metrics);}
 
   private checkBankrollLimits(): void {
     if (this.bankrollService.checkStopLoss()) {
-      this.stop();
-    }
+      this.stop();}
     if (this.bankrollService.checkTakeProfit()) {
-      this.stop();
-    }
-  }
-}
+      this.stop();}
+  }}
+
+
+
+

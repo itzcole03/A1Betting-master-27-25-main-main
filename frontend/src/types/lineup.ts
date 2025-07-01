@@ -1,44 +1,18 @@
-import { MoneyMakerLeg } from './predictions.ts';
-import { LineupBuilderStrategy } from './predictions.ts';
-import { LineupBuilderOutput } from './predictions.ts';
+﻿import { MoneyMakerLeg} from './predictions';
+import { LineupBuilderStrategy} from './predictions';
+import { LineupBuilderOutput} from './predictions';
 
 export interface LineupLeg {
-  propType: string;
-  line: string;
-  odds: number;
-}
+  propType: string,`n  line: string;,`n  odds: number}
 
 export interface LineupPerformance {
-  expectedValue: number;
-  winProbability: number;
-  riskScore: number;
-}
+  expectedValue: number,`n  winProbability: number;,`n  riskScore: number}
 
 export interface Lineup {
-  id: string;
-  strategy: {
-    name: string;
-    description: string;
-  };
-  legs: {
-    eventId: string;
-    market: string;
-    selection: string;
-    odds: number;
-    prediction: {
-      probability: number;
-      confidence: number;
-      edge: number;
-    };
-  }[];
-  metrics: {
-    confidence: number;
-    expectedValue: number;
-    risk: number;
-    correlation: number;
-  };
-  createdAt: string;
-}
+  id: string,`n  strategy: {,`n  name: string,`n  description: string};
+  legs: {,`n  eventId: string;,`n  market: string,`n  selection: string;,`n  odds: number,`n  prediction: {,`n  probability: number,`n  confidence: number;,`n  edge: number}}[0];
+  metrics: {,`n  confidence: number;,`n  expectedValue: number,`n  risk: number;,`n  correlation: number};
+  createdAt: string}
 
 export function isLineupLeg(value: any): value is LineupLeg {
   return (
@@ -47,8 +21,7 @@ export function isLineupLeg(value: any): value is LineupLeg {
     typeof value.propType === 'string' &&
     typeof value.line === 'string' &&
     typeof value.odds === 'number'
-  );
-}
+  )}
 
 export function isLineupPerformance(value: any): value is LineupPerformance {
   return (
@@ -57,8 +30,7 @@ export function isLineupPerformance(value: any): value is LineupPerformance {
     typeof value.expectedValue === 'number' &&
     typeof value.winProbability === 'number' &&
     typeof value.riskScore === 'number'
-  );
-}
+  )}
 
 export function isLineup(obj: any): obj is Lineup {
   return (
@@ -87,33 +59,31 @@ export function isLineup(obj: any): obj is Lineup {
     typeof obj.metrics.risk === 'number' &&
     typeof obj.metrics.correlation === 'number' &&
     typeof obj.createdAt === 'string'
-  );
-}
+  )}
 
 export function convertToLineup(output: LineupBuilderOutput): Lineup {
   return {
     id: output.id,
-    strategy: {
-      name: output.strategy.name,
-      description: output.strategy.description,
+    strategy: {,`n  name: output.strategy.name,
+      description: output.strategy.description
     },
-    legs: output.legs.map(leg => ({
-      eventId: leg.eventId,
+    legs: output.legs.map(leg => ({,`n  eventId: leg.eventId,
       market: leg.market,
       selection: leg.selection,
       odds: leg.odds,
-      prediction: {
-        probability: leg.prediction.prediction.probability,
+      prediction: {,`n  probability: leg.prediction.prediction.probability,
         confidence: leg.prediction.prediction.confidence,
-        edge: leg.prediction.prediction.edge,
-      },
+        edge: leg.prediction.prediction.edge
+      }
     })),
-    metrics: {
-      confidence: output.metrics.confidence,
+    metrics: {,`n  confidence: output.metrics.confidence,
       expectedValue: output.metrics.expectedValue,
       risk: output.metrics.risk,
-      correlation: output.metrics.correlation,
+      correlation: output.metrics.correlation
     },
-    createdAt: output.createdAt,
-  };
-}
+    createdAt: output.createdAt
+  }}
+
+
+
+`

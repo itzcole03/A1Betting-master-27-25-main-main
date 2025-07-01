@@ -1,13 +1,13 @@
-import React from 'react.ts';
-import { EntryStatus } from '@/types.ts';
+﻿import React from 'react.ts';
+import { EntryStatus} from '@/types.ts';
 interface ProgressBarProps {
-    current: number;
-    target: number;
-    status: EntryStatus;
-    showPercentage?: boolean;
-    className?: string;
-    showGlow?: boolean;
-    animated?: boolean;
-}
+  current: number,`n  target: number;,`n  status: EntryStatus;
+  showPercentage?: boolean;
+  className?: string;
+  showGlow?: boolean;
+  animated?: boolean;}
 export declare const ProgressBar: React.FC<ProgressBarProps>;
-export {};
+export Record<string, any>;
+
+
+`

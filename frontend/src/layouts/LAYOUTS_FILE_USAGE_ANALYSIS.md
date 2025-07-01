@@ -20,12 +20,14 @@ This directory contains layout components for the frontend application. Layouts 
 ## File Breakdown
 
 ### MainLayout.tsx
+
 - **Purpose:** Provides the primary structure for authenticated or main application pages, including navigation and sidebar.
 - **Usage:** Wraps main content with a Navbar at the top, a Sidebar on the side, and a main content area that renders nested routes via `<Outlet />` from react-router-dom.
 - **Notes:** Uses Tailwind CSS for styling. Centralizes header, sidebar, and main content logic. Ensures a consistent layout for all main app pages.
 - **Status:** Actively used; not a candidate for removal.
 
 ### AuthLayout.tsx
+
 - **Purpose:** Defines a focused, centered layout for authentication-related pages (e.g., login, signup, password reset).
 - **Usage:** Displays a logo and heading, and renders nested routes (such as authentication forms) via `<Outlet />` from react-router-dom.
 - **Notes:** Uses Tailwind CSS for styling. Ensures a clean, distraction-free experience for authentication flows. Includes branding (logo and app name) at the top.
@@ -33,4 +35,4 @@ This directory contains layout components for the frontend application. Layouts 
 
 ---
 
-*This documentation is auto-generated and should be updated as files are added, removed, or refactored in the layouts directory.*
+_This documentation is auto-generated and should be updated as files are added, removed, or refactored in the layouts directory._

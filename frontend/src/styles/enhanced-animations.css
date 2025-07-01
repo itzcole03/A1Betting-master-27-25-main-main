@@ -82,10 +82,10 @@ button:focus,
 
 /* Refined typography */
 .refined-text {
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-feature-settings:
-    "kern" 1,
-    "liga" 1;
+    'kern' 1,
+    'liga' 1;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

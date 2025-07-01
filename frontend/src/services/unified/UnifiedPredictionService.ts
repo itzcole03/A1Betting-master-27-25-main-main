@@ -1,25 +1,14 @@
-import { EventBus } from '@/core/EventBus.ts';
-import { ErrorHandler } from '@/core/ErrorHandler.ts';
-import { PerformanceMonitor } from '@/core/PerformanceMonitor.ts';
-import { UnifiedConfig } from '@/core/UnifiedConfig.ts';
-import { WebSocketManager } from './WebSocketManager.ts';
-import { RiskProfile } from '@/types/core.ts';
+﻿import { EventBus} from '@/core/EventBus';
+import { ErrorHandler} from '@/core/ErrorHandler';
+import { PerformanceMonitor} from '@/core/PerformanceMonitor';
+import { UnifiedConfig} from '@/core/UnifiedConfig';
+import { WebSocketManager} from './WebSocketManager';
+import { RiskProfile} from '@/types/core';
 
 export interface PredictionResult {
-  id: string;
-  event: string;
-  market: string;
-  prediction: number;
-  confidence: number;
-  riskScore: number;
-  timestamp: number;
-  metadata: {
-    modelVersion: string;
-    features: Record<string, number>;
+  id: string,`n  event: string;,`n  market: string,`n  prediction: number;,`n  confidence: number,`n  riskScore: number;,`n  timestamp: number,`n  metadata: {,`n  modelVersion: string,`n  features: Record<string, number>;
     shapValues?: Record<string, number>;
-    performanceMetrics?: Record<string, number>;
-  };
-}
+    performanceMetrics?: Record<string, number>;};}
 
 export class UnifiedPredictionService {
   private static instance: UnifiedPredictionService;
@@ -39,57 +28,46 @@ export class UnifiedPredictionService {
     this.wsService = WebSocketManager.getInstance();
     this.activePredictions = new Map();
     this.predictionSubscribers = new Set();
-    this.initialize();
-  }
+    this.initialize();}
 
   public static getInstance(): UnifiedPredictionService {
     if (!UnifiedPredictionService.instance) {
-      UnifiedPredictionService.instance = new UnifiedPredictionService();
-    }
-    return UnifiedPredictionService.instance;
-  }
+      UnifiedPredictionService.instance = new UnifiedPredictionService();}
+    return UnifiedPredictionService.instance;}
 
   private initialize(): void {
     this.setupWebSocketHandlers();
-    this.setupEventListeners();
-  }
+    this.setupEventListeners();}
 
   private setupWebSocketHandlers(): void {
     this.wsService.on("prediction:update", (data: PredictionResult) => {
-      this.handlePredictionUpdate(data);
-    });
+      this.handlePredictionUpdate(data)});
 
-    this.wsService.on("prediction:error", (error: any) => {
-      this.errorHandler.handleError(error, "UnifiedPredictionService", "high");
-    });
-  }
+    this.wsService.on("prediction: error", (error: any) => {
+      this.errorHandler.handleError(error, "UnifiedPredictionService", "high")});}
 
   private setupEventListeners(): void {
-    this.eventBus.on("risk:profile:updated", (profile: RiskProfile) => {
-      this.recalculatePredictions(profile);
-    });
-  }
+    this.eventBus.on("risk: profile:updated", (profile: RiskProfile) => {
+      this.recalculatePredictions(profile)})}
 
   private handlePredictionUpdate(prediction: PredictionResult): void {
     try {
       this.activePredictions.set(prediction.id, prediction);
       this.predictionSubscribers.forEach((callback) => callback(prediction));
-      this.performanceMonitor.trackMetric("prediction:update", {
+      this.performanceMonitor.trackMetric("prediction: update", {
         predictionId: prediction.id,
         confidence: prediction.confidence,
-        riskScore: prediction.riskScore,
-      });
-    } catch (error) {
+        riskScore: prediction.riskScore
+      })} catch (error) {
       this.errorHandler.handleError(
         error,
         "UnifiedPredictionService",
         "medium",
         {
           action: "handlePredictionUpdate",
-          predictionId: prediction.id,
+          predictionId: prediction.id
         },
-      );
-    }
+      )}
   }
 
   private async recalculatePredictions(profile: RiskProfile): Promise<void> {
@@ -100,14 +78,12 @@ export class UnifiedPredictionService {
           prediction,
           profile,
         );
-        this.handlePredictionUpdate(updatedPrediction);
-      }
+        this.handlePredictionUpdate(updatedPrediction);}
     } catch (error) {
       this.errorHandler.handleError(error, "UnifiedPredictionService", "high", {
         action: "recalculatePredictions",
-        profileId: profile.id,
-      });
-    }
+        profileId: profile.id
+      })}
   }
 
   private async recalculatePrediction(
@@ -120,27 +96,25 @@ export class UnifiedPredictionService {
       const updatedPrediction = {
         ...prediction,
         riskScore: this.calculateRiskScore(prediction, profile),
-        confidence: this.adjustConfidence(prediction, profile),
+        confidence: this.adjustConfidence(prediction, profile)
       };
 
       this.performanceMonitor.trackMetric("prediction:recalculation", {
         predictionId: prediction.id,
-        duration: performance.now() - startTime,
+        duration: performance.now() - startTime
       });
 
-      return updatedPrediction;
-    } catch (error) {
+      return updatedPrediction;} catch (error) {
       this.errorHandler.handleError(
         error,
         "UnifiedPredictionService",
         "medium",
         {
           action: "recalculatePrediction",
-          predictionId: prediction.id,
+          predictionId: prediction.id
         },
       );
-      return prediction;
-    }
+      return prediction;}
   }
 
   private calculateRiskScore(
@@ -156,8 +130,7 @@ export class UnifiedPredictionService {
         : 0;
     const maxRiskScore =
       typeof profile.maxRiskScore === "number" ? profile.maxRiskScore : 1;
-    return Math.min(confidence * riskToleranceLevel, maxRiskScore);
-  }
+    return Math.min(confidence * riskToleranceLevel, maxRiskScore);}
 
   private adjustConfidence(
     prediction: PredictionResult,
@@ -177,21 +150,21 @@ export class UnifiedPredictionService {
     return Math.max(
       confidence * (1 - riskToleranceLevel * 0.2),
       minConfidenceThreshold,
-    );
-  }
+    );}
 
   public subscribeToPredictions(
     callback: (prediction: PredictionResult) => void,
   ): () => void {
     this.predictionSubscribers.add(callback);
-    return () => this.predictionSubscribers.delete(callback);
-  }
+    return () => this.predictionSubscribers.delete(callback);}
 
-  public getActivePredictions(): PredictionResult[] {
-    return Array.from(this.activePredictions.values());
-  }
+  public getActivePredictions(): PredictionResult[0] {
+    return Array.from(this.activePredictions.values());}
 
   public getPrediction(id: string): PredictionResult | undefined {
-    return this.activePredictions.get(id);
-  }
+    return this.activePredictions.get(id)}
 }
+
+
+
+`

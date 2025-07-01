@@ -1,10 +1,9 @@
-import React from 'react.ts';
+﻿import React from 'react';
 
 interface SettingsTestProps {
-  onNavigate?: (page: string) => void;
-}
+  onNavigate?: (page: string) => void}
 
-export const SettingsTest: React.FC<SettingsTestProps key={317606}> = ({ onNavigate }) => {
+export const SettingsTest: React.FC<SettingsTestProps key={317606}> = ({ onNavigate}) => {
   // console statement removed
 
   return (
@@ -57,7 +56,9 @@ export const SettingsTest: React.FC<SettingsTestProps key={317606}> = ({ onNavig
         </div>
       </div>
     </div>
-  );
-};
+  );};
 
 export default SettingsTest;
+
+
+

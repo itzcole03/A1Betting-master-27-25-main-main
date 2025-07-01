@@ -1,28 +1,21 @@
-import React from 'react.ts';
-import { Calendar, Clock, MapPin } from 'lucide-react.ts';
-import { format } from 'date-fns.ts';
-import { useState, useEffect } from 'react.ts';
+﻿import React from 'react';
+import { Calendar, Clock, MapPin} from 'lucide-react';
+import { format} from 'date-fns';
+import { useState, useEffect} from 'react';
 
 interface ProcessedGame {
-  id: string;
-  sport: string;
-  homeTeam: string;
-  awayTeam: string;
-  gameTime: Date;
-  status: string;
-  venue?: string;
-  homeScore?: number;
-  awayScore?: number;
-}
+  id: string,`n  sport: string;,`n  homeTeam: string,`n  awayTeam: string;,`n  gameTime: Date,`n  status: string;
+  venue?: string
+  homeScore?: number
+  awayScore?: number}
 
 interface LiveGamesDisplayProps {
-  games?: ProcessedGame[];
-}
+  games?: ProcessedGame[0];}
 
 export function LiveGamesDisplay({
-  games: propGames,
-}: LiveGamesDisplayProps = {}) {
-  const [games, setGames] = useState<ProcessedGame[] key={50470}>([]);
+  games: propGames
+}: LiveGamesDisplayProps = Record<string, any>) {
+  const [games, setGames] = useState<ProcessedGame[0] key={50470}>([0]);
 
   // Mock data for when no games are provided;
   useEffect(() => {
@@ -35,7 +28,7 @@ export function LiveGamesDisplay({
           awayTeam: "Warriors",
           gameTime: new Date(Date.now() + 2 * 60 * 60 * 1000), // 2 hours from now;
           status: "Scheduled",
-          venue: "Crypto.com Arena",
+          venue: "Crypto.com Arena"
         },
         {
           id: "2",
@@ -44,7 +37,7 @@ export function LiveGamesDisplay({
           awayTeam: "Heat",
           gameTime: new Date(Date.now() + 4 * 60 * 60 * 1000), // 4 hours from now;
           status: "Scheduled",
-          venue: "TD Garden",
+          venue: "TD Garden"
         },
         {
           id: "3",
@@ -55,23 +48,20 @@ export function LiveGamesDisplay({
           status: "Live",
           venue: "Arrowhead Stadium",
           homeScore: 14,
-          awayScore: 10,
+          awayScore: 10
         },
-      ]);
-    } else {
-      setGames(propGames);
-    }
+      ])} else {
+      setGames(propGames);}
   }, [propGames]);
   const getSportIcon = (sport: string) => {
-    const icons: { [key: string]: string } = {
+    const icons: { [key: string]: string} = {
       NBA: "🏀",
       NFL: "🏈",
       MLB: "⚾",
       NHL: "🏒",
-      Soccer: "⚽",
+      Soccer: "⚽"
     };
-    return icons[sport] || "🏆";
-  };
+    return icons[sport] || "🏆";};
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
@@ -83,10 +73,7 @@ export function LiveGamesDisplay({
         return "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300";
       case "final":
       case "completed":
-        return "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300";
-      default:
-        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300";
-    }
+        return "bg-gray-100 text-gray-800 dark: bg-gray-900/30 dark:text-gray-300",`n  default: return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300"}
   };
 
   if (games.length === 0) {
@@ -100,8 +87,7 @@ export function LiveGamesDisplay({
           </p>
         </div>
       </div>
-    );
-  }
+    );}
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg" key={65136}>
@@ -137,7 +123,7 @@ export function LiveGamesDisplay({
               </span>
             </div>
 
-            <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-400" key={933709}>
+            <div className="flex items-center space-x-4 text-sm text-gray-600 dark: text-gray-400" key={933709}>
               <div className="flex items-center space-x-1" key={468268}>
                 <Clock className="w-4 h-4" / key={414649}>
                 <span key={595076}>{format(new Date(game.gameTime), "MMM d, h:mm a")}</span>
@@ -153,5 +139,9 @@ export function LiveGamesDisplay({
         ))}
       </div>
     </div>
-  );
-}
+  )}
+
+
+
+
+`

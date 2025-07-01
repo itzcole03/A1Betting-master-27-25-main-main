@@ -1,3 +1,4 @@
-export declare const useStorage: () => {
-    clearAllCaches: () => Promise<boolean>;
-};
+﻿export declare const useStorage: () => {,`n  clearAllCaches: () => Promise<boolean>};
+
+
+`

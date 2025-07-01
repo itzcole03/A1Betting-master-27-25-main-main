@@ -144,7 +144,7 @@
 }
 
 @keyframes fadeIn {
-  from { 
+  from {
     opacity: 0;
     transform: translateY(20px);
   }
@@ -166,7 +166,8 @@
 }
 
 @keyframes pulseSoft {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -197,4 +198,4 @@
 
 .animate-odds-flash {
   animation: oddsFlash 0.5s ease-in-out;
-} 
+}

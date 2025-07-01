@@ -1,6 +1,8 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface Props {
-    strategyName: string;
-}
+  strategyName: string}
 export declare const StrategyAutomationToggle: React.FC<Props>;
-export {};
+export Record<string, any>;
+
+
+

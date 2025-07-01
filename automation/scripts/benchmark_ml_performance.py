@@ -43,13 +43,15 @@ class MLPerformanceBenchmarker:
         """Safely load a model with error handling."""
         try:
             import joblib
-            import pickle
             
             if model_path.endswith('.joblib'):
                 return joblib.load(model_path)
             elif model_path.endswith(('.pkl', '.pickle')):
-                with open(model_path, 'rb') as f:
-                    return pickle.load(f)
+                logger.error(
+                    f"Refusing to load model '{model_path}' from a pickle file due to security risks. "
+                    f"Please re-save this model using a secure format like joblib."
+                )
+                return None
             else:
                 logger.error(f"Unsupported model format: {model_path}")
                 return None

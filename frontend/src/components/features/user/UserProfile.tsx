@@ -1,4 +1,4 @@
-import React, { useState  } from 'react.ts';
+﻿import React, { useState} from 'react';
 import {
   Box,
   Card,
@@ -13,62 +13,42 @@ import {
   Chip,
   Alert,
   Snackbar,
-  CircularProgress,
-} from '@mui/material.ts';
-import { styled } from '@mui/material/styles.ts';
+//   CircularProgress
+} from '@mui/material';
+import { styled} from '@mui/material/styles';
 import {
   Edit as EditIcon,
   Save as SaveIcon,
   Cancel as CancelIcon,
-  PhotoCamera as PhotoCameraIcon,
-} from '@mui/icons-material.ts';
+  PhotoCamera as PhotoCameraIcon
+} from '@mui/icons-material';
 
-const ProfileCard = styled(Card)(({ theme }) => ({
+const ProfileCard = styled(Card)(({ theme}) => ({
   background: 'rgba(255, 255, 255, 0.9)',
   backdropFilter: 'blur(10px)',
   border: '1px solid rgba(255, 255, 255, 0.2)',
   transition: 'all 0.3s ease',
   '&:hover': {
     transform: 'translateY(-2px)',
-    boxShadow: theme.shadows[4],
-  },
+    boxShadow: theme.shadows[4]
+  }
 }));
 
-const StyledAvatar = styled(Avatar)(({ theme }) => ({
+const StyledAvatar = styled(Avatar)(({ theme}) => ({
   width: 120,
   height: 120,
   border: `4px solid ${theme.palette.primary.main}`,
   cursor: 'pointer',
   '&:hover': {
-    opacity: 0.8,
-  },
+    opacity: 0.8
+  }
 }));
 
 interface UserProfile {
-  id: string;
-  username: string;
-  email: string;
-  fullName: string;
-  avatar: string;
-  bio: string;
-  location: string;
-  joinDate: string;
-  stats: {
-    totalBets: number;
-    winningBets: number;
-    totalWagered: number;
-    netProfit: number;
-    winRate: number;
-  };
-  preferences: {
-    favoriteSports: string[];
-    favoriteTeams: string[];
-    bettingStyle: string;
-  };
-}
+  id: string,`n  username: string;,`n  email: string,`n  fullName: string;,`n  avatar: string,`n  bio: string;,`n  location: string,`n  joinDate: string;,`n  stats: {,`n  totalBets: number;,`n  winningBets: number,`n  totalWagered: number;,`n  netProfit: number,`n  winRate: number};
+  preferences: {,`n  favoriteSports: string[0];,`n  favoriteTeams: string[0],`n  bettingStyle: string}}
 
-const DEFAULT_PROFILE: UserProfile = {
-  id: '1',
+const DEFAULT_PROFILE: UserProfile = {,`n  id: '1',
   username: 'betpro_user',
   email: 'user@example.com',
   fullName: 'John Doe',
@@ -76,18 +56,16 @@ const DEFAULT_PROFILE: UserProfile = {
   bio: 'Sports betting enthusiast and data analyst',
   location: 'New York, USA',
   joinDate: '2024-01-01',
-  stats: {
-    totalBets: 150,
+  stats: {,`n  totalBets: 150,
     winningBets: 85,
     totalWagered: 5000,
     netProfit: 1250,
-    winRate: 56.7,
+    winRate: 56.7
   },
-  preferences: {
-    favoriteSports: ['NBA', 'NFL', 'MLB'],
+  preferences: {,`n  favoriteSports: ['NBA', 'NFL', 'MLB'],
     favoriteTeams: ['Lakers', '49ers', 'Yankees'],
-    bettingStyle: 'Value Betting',
-  },
+    bettingStyle: 'Value Betting'
+  }
 };
 
 export const UserProfile: React.FC = () => {
@@ -98,17 +76,15 @@ export const UserProfile: React.FC = () => {
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: '',
-    severity: 'success' as 'success' | 'error',
+    severity: 'success' as 'success' | 'error'
   });
 
   const handleEdit = () => {
     setEditedProfile(profile);
-    setIsEditing(true);
-  };
+    setIsEditing(true);};
 
   const handleCancel = () => {
-    setIsEditing(false);
-  };
+    setIsEditing(false);};
 
   const handleSave = async () => {
     setIsLoading(true);
@@ -120,25 +96,21 @@ export const UserProfile: React.FC = () => {
       setSnackbar({
         open: true,
         message: 'Profile updated successfully',
-        severity: 'success',
-      });
-    } catch (error) {
+        severity: 'success'
+      })} catch (error) {
       setSnackbar({
         open: true,
         message: 'Failed to update profile',
-        severity: 'error',
-      });
-    } finally {
-      setIsLoading(false);
-    }
+        severity: 'error'
+      })} finally {
+      setIsLoading(false);}
   };
 
   const handleInputChange = (field: keyof UserProfile, value: string) => {
     setEditedProfile(prev => ({
       ...prev,
-      [field]: value,
-    }));
-  };
+      [field]: value
+    }))};
 
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement key={553350}>) => {
 
@@ -147,11 +119,9 @@ export const UserProfile: React.FC = () => {
       reader.onloadend = () => {
         setEditedProfile(prev => ({
           ...prev,
-          avatar: reader.result as string,
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
+          avatar: reader.result as string
+        }))};
+      reader.readAsDataURL(file);}
   };
 
   return (
@@ -159,7 +129,7 @@ export const UserProfile: React.FC = () => {
       <CardContent key={452065}>
         <Grid container spacing={3} key={459826}>
           {/* Profile Header */}
-          <Grid item xs={12} md={4} sx={{ textAlign: 'center' }} key={644273}>
+          <Grid item xs={12} md={4} sx={{ textAlign: 'center'}} key={644273}>
             <Box position="relative" display="inline-block" key={260291}>
               <StyledAvatar;
                 src={isEditing ? editedProfile.avatar : profile.avatar}
@@ -175,8 +145,8 @@ export const UserProfile: React.FC = () => {
                     backgroundColor: 'primary.main',
                     color: 'white',
                     '&:hover': {
-                      backgroundColor: 'primary.dark',
-                    },
+                      backgroundColor: 'primary.dark'
+                    }
                   }}
                  key={122450}>
                   <input;
@@ -189,7 +159,7 @@ export const UserProfile: React.FC = () => {
                 </IconButton>
               )}
             </Box>
-            <Typography variant="h5" sx={{ mt: 2 }} key={501535}>
+            <Typography variant="h5" sx={{ mt: 2}} key={501535}>
               {isEditing ? (
                 <TextField;
                   fullWidth;
@@ -221,7 +191,7 @@ export const UserProfile: React.FC = () => {
                   <Button;
                     startIcon={<CancelIcon / key={181624}>}
                     onClick={handleCancel}
-                    sx={{ mr: 1 }}
+                    sx={{ mr: 1}}
                   >
                     Cancel;
                   </Button>
@@ -294,8 +264,8 @@ export const UserProfile: React.FC = () => {
               </Grid>
 
               <Grid item xs={12} key={689816}>
-                <Divider sx={{ my: 2 }} / key={369348}>
-              </Grid>
+                <divider sx={{ my: 2}} / key={369348}>
+              </div>
 
               {/* Stats Section */}
               <Grid item xs={12} key={689816}>
@@ -334,8 +304,8 @@ export const UserProfile: React.FC = () => {
               </Grid>
 
               <Grid item xs={12} key={689816}>
-                <Divider sx={{ my: 2 }} / key={369348}>
-              </Grid>
+                <divider sx={{ my: 2}} / key={369348}>
+              </div>
 
               {/* Preferences Section */}
               <Grid item xs={12} key={689816}>
@@ -347,12 +317,12 @@ export const UserProfile: React.FC = () => {
                     <Typography variant="subtitle2" color="textSecondary" key={270974}>
                       Favorite Sports;
                     </Typography>
-                    <Box sx={{ mt: 1 }} key={75957}>
+                    <Box sx={{ mt: 1}} key={75957}>
                       {profile.preferences.favoriteSports.map((sport) => (
                         <Chip;
                           key={sport}
                           label={sport}
-                          sx={{ mr: 1, mb: 1 }}
+                          sx={{ mr: 1, mb: 1}}
                         / key={382498}>
                       ))}
                     </Box>
@@ -361,12 +331,12 @@ export const UserProfile: React.FC = () => {
                     <Typography variant="subtitle2" color="textSecondary" key={270974}>
                       Favorite Teams;
                     </Typography>
-                    <Box sx={{ mt: 1 }} key={75957}>
+                    <Box sx={{ mt: 1}} key={75957}>
                       {profile.preferences.favoriteTeams.map((team) => (
                         <Chip;
                           key={team}
                           label={team}
-                          sx={{ mr: 1, mb: 1 }}
+                          sx={{ mr: 1, mb: 1}}
                         / key={836207}>
                       ))}
                     </Box>
@@ -386,17 +356,21 @@ export const UserProfile: React.FC = () => {
         <Snackbar;
           open={snackbar.open}
           autoHideDuration={6000}
-          onClose={() = key={837606}> setSnackbar(prev => ({ ...prev, open: false }))}
+          onClose={() = key={837606}> setSnackbar(prev => ({ ...prev, open: false}))}
         >
           <Alert;
-            onClose={() = key={59214}> setSnackbar(prev => ({ ...prev, open: false }))}
+            onClose={() = key={59214}> setSnackbar(prev => ({ ...prev, open: false}))}
             severity={snackbar.severity}
-            sx={{ width: '100%' }}
+            sx={{ width: '100%'}}
           >
             {snackbar.message}
           </Alert>
         </Snackbar>
       </CardContent>
     </ProfileCard>
-  );
-}; 
+  )}; 
+
+
+
+
+`

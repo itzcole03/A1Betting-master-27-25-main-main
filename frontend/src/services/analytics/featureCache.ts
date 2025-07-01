@@ -1,11 +1,8 @@
-import { FeatureConfig, EngineeredFeatures, FeatureCacheConfig } from '@/types.ts';
-import { FeatureLogger } from './featureLogging.ts';
+﻿import { FeatureConfig, EngineeredFeatures, FeatureCacheConfig} from '@/types';
+import { FeatureLogger} from './featureLogging';
 
 interface CacheEntry {
-  features: EngineeredFeatures;
-  timestamp: number;
-  version: string;
-}
+  features: EngineeredFeatures,`n  timestamp: number;,`n  version: string}
 
 export class FeatureCache {
   private readonly config: FeatureCacheConfig;
@@ -18,60 +15,49 @@ export class FeatureCache {
     this.logger = new FeatureLogger();
     this.cache = new Map();
     this.cleanupInterval = null;
-    this.initializeCache();
-  }
+    this.initializeCache();}
 
   private initializeCache(): void {
     if (this.config.enabled) {
       this.startCleanupInterval();
-      this.logger.info('Initialized feature cache');
-    }
+      this.logger.info('Initialized feature cache');}
   }
 
   private startCleanupInterval(): void {
     if (this.cleanupInterval) {
-      clearInterval(this.cleanupInterval);
-    }
+      clearInterval(this.cleanupInterval);}
 
     this.cleanupInterval = setInterval(() => {
-      this.cleanup();
-    }, this.config.cleanupInterval);
-  }
+      this.cleanup();}, this.config.cleanupInterval);}
 
   public async get(version: string): Promise<EngineeredFeatures | null> {
     try {
       if (!this.config.enabled) {
-        return null;
-      }
+        return null}
 
       if (!entry) {
-        return null;
-      }
+        return null}
 
       // Check if entry is expired;
       if (this.isExpired(entry)) {
         this.cache.delete(version);
-        return null;
-      }
+        return null;}
 
       this.logger.debug(`Cache hit for version ${version}`);
-      return entry.features;
-    } catch (error) {
+      return entry.features;} catch (error) {
       this.logger.error('Failed to get features from cache', error);
-      return null;
-    }
+      return null;}
   }
 
   public async set(version: string, features: EngineeredFeatures): Promise<void> {
     try {
       if (!this.config.enabled) {
-        return;
-      }
+        return}
 
       const entry: CacheEntry = {
         features,
         timestamp: Date.now(),
-        version,
+//         version
       };
 
       this.cache.set(version, entry);
@@ -79,29 +65,23 @@ export class FeatureCache {
 
       // Check if cache size exceeds limit;
       if (this.cache.size > this.config.maxSize) {
-        this.cleanup();
-      }
+        this.cleanup();}
     } catch (error) {
-      this.logger.error('Failed to cache features', error);
-    }
+      this.logger.error('Failed to cache features', error);}
   }
 
   public async delete(version: string): Promise<void> {
     try {
       this.cache.delete(version);
-      this.logger.debug(`Removed version ${version} from cache`);
-    } catch (error) {
-      this.logger.error('Failed to delete features from cache', error);
-    }
+      this.logger.debug(`Removed version ${version} from cache`);} catch (error) {
+      this.logger.error('Failed to delete features from cache', error);}
   }
 
   public async clear(): Promise<void> {
     try {
       this.cache.clear();
-      this.logger.info('Cleared feature cache');
-    } catch (error) {
-      this.logger.error('Failed to clear feature cache', error);
-    }
+      this.logger.info('Cleared feature cache');} catch (error) {
+      this.logger.error('Failed to clear feature cache', error);}
   }
 
   private cleanup(): void {
@@ -113,8 +93,7 @@ export class FeatureCache {
       for (const [version, entry] of this.cache.entries()) {
         if (this.isExpired(entry)) {
           this.cache.delete(version);
-          deletedCount++;
-        }
+          deletedCount++;}
       }
 
       // If still over size limit, delete oldest entries;
@@ -125,68 +104,55 @@ export class FeatureCache {
 
         for (const [version] of entriesToDelete) {
           this.cache.delete(version);
-          deletedCount++;
-        }
+          deletedCount++;}
       }
 
       if (deletedCount > 0) {
-        this.logger.info(`Cleaned up ${deletedCount} entries from cache`);
-      }
+        this.logger.info(`Cleaned up ${deletedCount} entries from cache`);}
     } catch (error) {
-      this.logger.error('Failed to cleanup cache', error);
-    }
+      this.logger.error('Failed to cleanup cache', error);}
   }
 
   private isExpired(entry: CacheEntry): boolean {
 
-    return age > this.config.ttl;
-  }
+    return age > this.config.ttl}
 
   public getStats(): {
-    size: number;
-    maxSize: number;
-    hitCount: number;
-    missCount: number;
-  } {
+    size: number,`n  maxSize: number;,`n  hitCount: number,`n  missCount: number} {
     return {
       size: this.cache.size,
       maxSize: this.config.maxSize,
-      hitCount: 0, // TODO: Implement hit/miss counting;
-      missCount: 0,
-    };
-  }
+      hitCount: 0, // TODO: Implement hit/miss counting,`n  missCount: 0
+    }}
 
   public isEnabled(): boolean {
-    return this.config.enabled;
-  }
+    return this.config.enabled;}
 
   public setEnabled(enabled: boolean): void {
     this.config.enabled = enabled;
     if (enabled) {
-      this.startCleanupInterval();
-    } else if (this.cleanupInterval) {
+      this.startCleanupInterval();} else if (this.cleanupInterval) {
       clearInterval(this.cleanupInterval);
-      this.cleanupInterval = null;
-    }
+      this.cleanupInterval = null;}
   }
 
   public getMaxSize(): number {
-    return this.config.maxSize;
-  }
+    return this.config.maxSize;}
 
   public setMaxSize(maxSize: number): void {
     this.config.maxSize = maxSize;
     if (this.cache.size > maxSize) {
-      this.cleanup();
-    }
+      this.cleanup();}
   }
 
   public getTTL(): number {
-    return this.config.ttl;
-  }
+    return this.config.ttl;}
 
   public setTTL(ttl: number): void {
     this.config.ttl = ttl;
-    this.cleanup(); // Clean up expired entries with new TTL;
-  }
+    this.cleanup(); // Clean up expired entries with new TTL;}
 }
+
+
+
+`

@@ -1,54 +1,42 @@
-export type ErrorContext = 'SYSTEM' | 'VALIDATION' | 'NETWORK' | 'AUTH' | 'BUSINESS';
-export type ErrorCode = 'INTERNAL_ERROR' | 'INVALID_INPUT' | 'REQUEST_FAILED' | 'UNAUTHORIZED' | 'UNKNOWN_ERROR';
+﻿export type ErrorContext = 'SYSTEM' | 'VALIDATION' | 'NETWORK' | 'AUTH' | 'BUSINESS';
+export type ErrorCode =
+  | 'INTERNAL_ERROR'
+  | 'INVALID_INPUT'
+  | 'REQUEST_FAILED'
+  | 'UNAUTHORIZED'
+  | 'UNKNOWN_ERROR';
 export declare enum ErrorCategory {
-    SYSTEM = "SYSTEM",
-    VALIDATION = "VALIDATION",
-    NETWORK = "NETWORK",
-    AUTH = "AUTH",
-    BUSINESS = "BUSINESS",
-    DATABASE = "DATABASE",
-    CONFIGURATION = "CONFIGURATION"
+  SYSTEM = 'SYSTEM',
+  VALIDATION = 'VALIDATION',
+  NETWORK = 'NETWORK',
+  AUTH = 'AUTH',
+  BUSINESS = 'BUSINESS',
+  DATABASE = 'DATABASE',
+  CONFIGURATION = 'CONFIGURATION'
 }
 export declare enum ErrorSeverity {
-    LOW = "LOW",
-    MEDIUM = "MEDIUM",
-    HIGH = "HIGH",
-    CRITICAL = "CRITICAL"
+  LOW = 'LOW',
+  MEDIUM = 'MEDIUM',
+  HIGH = 'HIGH',
+  CRITICAL = 'CRITICAL'
 }
 export interface ErrorContext {
-    code: string;
-    message: string;
-    category: ErrorCategory;
-    severity: ErrorSeverity;
-    timestamp: number;
-    details?: Record<string, any>;
-    stack?: string;
-    userContext?: any;
-    recoveryStrategy?: string;
-    metrics?: {
-        responseTime?: number;
-        retryCount?: number;
-        failureRate?: number;
-    };
-}
+  code: string,`n  message: string;,`n  category: ErrorCategory,`n  severity: ErrorSeverity;,`n  timestamp: number;
+  details?: Record<string, any>;
+  stack?: string;
+  userContext?: any;
+  recoveryStrategy?: string;
+  metrics?: {
+    responseTime?: number;
+    retryCount?: number;
+    failureRate?: number;};}
 export interface BettingSystemError extends Error {
-    code: string;
-    component: string;
-    severity: ErrorSeverity;
-    context: Record<string, any>;
-    timestamp: number;
-    retryable: boolean;
-}
+  code: string,`n  component: string;,`n  severity: ErrorSeverity,`n  context: Record<string, any>;
+  timestamp: number,`n  retryable: boolean}
 export interface ErrorMetrics {
-    count: number;
-    lastOccurrence: number;
-    meanTimeBetweenErrors: number;
-    recoveryRate: number;
-    meanTimeToRecovery: number;
-}
+  count: number,`n  lastOccurrence: number;,`n  meanTimeBetweenErrors: number,`n  recoveryRate: number;,`n  meanTimeToRecovery: number}
 export interface ErrorRecoveryStrategy {
-    maxRetries: number;
-    backoffFactor: number;
-    timeout: number;
-    recoveryActions: Array<(error: BettingSystemError) => Promise<void>>;
-}
+  maxRetries: number,`n  backoffFactor: number;,`n  timeout: number,`n  recoveryActions: Array<(error: BettingSystemError) => Promise<void>>}
+
+
+`

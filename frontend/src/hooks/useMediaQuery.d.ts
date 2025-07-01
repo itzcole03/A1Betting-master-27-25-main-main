@@ -1,12 +1,7 @@
-type MediaQuery = {
-    isMobile: boolean;
-    isTablet: boolean;
-    isDesktop: boolean;
-    isLargeDesktop: boolean;
-    isPortrait: boolean;
-    isLandscape: boolean;
-    isDarkMode: boolean;
-    isReducedMotion: boolean;
-};
+﻿type MediaQuery = {
+  isMobile: boolean,`n  isTablet: boolean;,`n  isDesktop: boolean,`n  isLargeDesktop: boolean;,`n  isPortrait: boolean,`n  isLandscape: boolean;,`n  isDarkMode: boolean,`n  isReducedMotion: boolean};
 export declare const useMediaQuery: () => MediaQuery;
-export {};
+export Record<string, any>;
+
+
+`

@@ -1,22 +1,20 @@
-import React from 'react.ts';
-import { render, screen, waitFor } from '@testing-library/react.ts';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query.ts';
-import Dashboard from '@/Dashboard.ts';
-import { getActiveBets, getTotalWinnings, getWinRate } from '@services/bettingService.ts';
+﻿import React from 'react';
+import { render, screen, waitFor} from '@testing-library/react';
+import { QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import Dashboard from '@/Dashboard';
+import { getActiveBets, getTotalWinnings, getWinRate} from '@services/bettingService';
 
 // Mock the betting service;
 jest.mock('@services/bettingService', () => ({
   getActiveBets: jest.fn(),
   getTotalWinnings: jest.fn(),
-  getWinRate: jest.fn(),
+  getWinRate: jest.fn()
 }));
 
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-    },
-  },
+  defaultOptions: {,`n  queries: {,`n  retry: false
+    }
+  }
 });
 
 const renderDashboard = () => {
@@ -24,18 +22,15 @@ const renderDashboard = () => {
     <QueryClientProvider client={queryClient} key={826303}>
       <Dashboard / key={547136}>
     </QueryClientProvider>
-  );
-};
+  );};
 
 describe('Dashboard', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
-  });
+    jest.clearAllMocks();});
 
   it('renders loading state initially', () => {
     renderDashboard();
-    expect(screen.getByText('Loading dashboard data...')).toBeInTheDocument();
-  });
+    expect(screen.getByText('Loading dashboard data...')).toBeInTheDocument();});
 
   it('renders error state when API calls fail', async () => {
     (getActiveBets as jest.Mock).mockRejectedValue(new Error('API Error'));
@@ -45,9 +40,7 @@ describe('Dashboard', () => {
     renderDashboard();
 
     await waitFor(() => {
-      expect(screen.getByText('Failed to load dashboard data')).toBeInTheDocument();
-    });
-  });
+      expect(screen.getByText('Failed to load dashboard data')).toBeInTheDocument();});});
 
   it('renders dashboard data when API calls succeed', async () => {
     (getActiveBets as jest.Mock).mockResolvedValue(5);
@@ -59,7 +52,8 @@ describe('Dashboard', () => {
     await waitFor(() => {
       expect(screen.getByText('5')).toBeInTheDocument();
       expect(screen.getByText('$1,000')).toBeInTheDocument();
-      expect(screen.getByText('75%')).toBeInTheDocument();
-    });
-  });
-});
+      expect(screen.getByText('75%')).toBeInTheDocument();});});});
+
+
+
+`

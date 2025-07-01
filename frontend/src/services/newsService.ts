@@ -1,6 +1,6 @@
-import { ESPNHeadline } from '@/types.js';
-import { EventBus } from '@/unified/EventBus.js';
-import axios, { AxiosInstance } from 'axios';
+﻿import { ESPNHeadline} from '@/types.js';
+import { EventBus} from '@/unified/EventBus.js';
+import axios, { AxiosInstance} from 'axios';
 
 /**
  * Strict, production-ready NewsService for Ultimate Sports Betting App.
@@ -8,12 +8,7 @@ import axios, { AxiosInstance } from 'axios';
  */
 
 class NewsService {
-  private readonly config: {
-    apiBaseUrl: string;
-    backendPrefix: string;
-    timeout: number;
-    enableFeatureFlag: boolean;
-  };
+  private readonly config: {,`n  apiBaseUrl: string;,`n  backendPrefix: string,`n  timeout: number;,`n  enableFeatureFlag: boolean};
   private readonly client: AxiosInstance;
   private readonly eventBus: EventBus;
 
@@ -29,10 +24,9 @@ class NewsService {
     this.config = config;
     this.client = axios.create({
       baseURL: this.config.apiBaseUrl,
-      timeout: this.config.timeout,
+      timeout: this.config.timeout
     });
-    this.eventBus = EventBus.getInstance();
-  }
+    this.eventBus = EventBus.getInstance();}
 
   /**
    * Fetch strictly typed news headlines from backend API only.
@@ -41,62 +35,68 @@ class NewsService {
    * @param limit - Max number of headlines (default: 10)
    * @returns Array of ESPNHeadline objects;
    */
-  async fetchHeadlines(source: string = 'espn', limit: number = 10): Promise<ESPNHeadline[]> {
+  async fetchHeadlines(source: string = 'espn', limit: number = 10): Promise<ESPNHeadline[0]> {
     if (!this.config.enableFeatureFlag) {
-      throw new Error('News feature is disabled by config.');
-    }
-
-
-
+      throw new Error('News feature is disabled by config.')}
 
     this.eventBus.emit('news:update', {
       headlines,
-      timestamp: Date.now(),
+      timestamp: Date.now()
     });
-    return headlines;
-  }
+    return headlines;}
 
-  async getBreakingNews(): Promise<ESPNHeadline[]> {
+  async getBreakingNews(): Promise<ESPNHeadline[0]> {
     try {
       reportStatus('backend', true, 0.8);
-      // Try backend first;
-    } catch {
-      reportStatus('backend', false, 0.6);
-    }
+      // Try backend first;} catch {
+      reportStatus('backend', false, 0.6);}
     // 2. Try public ESPN endpoint;
     try {
-
-
       if (response.ok) {
-
         if (Array.isArray(data.articles)) {
           reportStatus('public', true, 0.7);
           return data.articles.map((item: unknown, i: number): ESPNHeadline => {
-
             return {
               id: typeof article.id === 'string' ? article.id : `public-${i}`,
-              title: typeof article.title === 'string' ? article.title : (typeof article.headline === 'string' ? article.headline : 'Untitled'),
+              title:
+                typeof article.title === 'string'
+                  ? article.title
+                  : typeof article.headline === 'string'
+                    ? article.headline
+                    : 'Untitled',
               summary: typeof article.description === 'string' ? article.description : '',
-              link: typeof article.links === 'object' && article.links && typeof (article.links as { web?: { href?: string } }).web?.href === 'string' ? (article.links as { web?: { href?: string } }).web!.href! : '',
-              publishedAt: typeof article.published === 'string' ? article.published : new Date().toISOString(),
+              link:
+                typeof article.links === 'object' &&
+                article.links &&
+                typeof (article.links as { web?: { href?: string} }).web?.href === 'string'
+                  ? (article.links as { web?: { href?: string} }).web!.href!
+                  : '',
+              publishedAt:
+                typeof article.published === 'string'
+                  ? article.published
+                  : new Date().toISOString(),
               source: typeof article.source === 'string' ? article.source : 'ESPN',
-              imageUrl: Array.isArray(article.images) && article.images[0] && typeof article.images[0].url === 'string' ? article.images[0].url : '',
-              category: typeof article.category === 'string' ? article.category : 'General',
-            };
-          });
-        }
+              imageUrl:
+                Array.isArray(article.images) &&
+                article.images[0] &&
+                typeof article.images[0].url === 'string'
+                  ? article.images[0].url
+                  : '',
+              category: typeof article.category === 'string' ? article.category : 'General'
+            }});}
       }
+      reportStatus('public', false, 0.4);} catch (e: unknown) {
       reportStatus('public', false, 0.4);
-    } catch (e: unknown) {
-      reportStatus('public', false, 0.4);
-      // console statement removed
-    }
+      // console statement removed}
 
     // Fallback: Simulated headlines;
     reportStatus('simulated', true, 0.1);
-    return simulatedHeadlines;
-  }
+    return simulatedHeadlines;}
 }
 
 // TODO: Add comprehensive unit and integration tests for all fallback and error-handling logic.
 export const newsService = new NewsService();
+
+
+
+`

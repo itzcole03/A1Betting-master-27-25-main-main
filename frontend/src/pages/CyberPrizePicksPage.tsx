@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import PrizePicksPage from './PrizePicksPage.ts';
+﻿import React from 'react';
+import PrizePicksPage from './PrizePicksPage';
 
 const CyberPrizePicksPage: React.FC = () => {
   return (
@@ -20,7 +20,9 @@ const CyberPrizePicksPage: React.FC = () => {
         <PrizePicksPage / key={890676}>
       </div>
     </div>
-  );
-};
+  );};
 
 export default CyberPrizePicksPage;
+
+
+

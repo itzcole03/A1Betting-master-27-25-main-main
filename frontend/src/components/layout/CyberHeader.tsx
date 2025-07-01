@@ -1,18 +1,16 @@
-import React from 'react.ts';
-import { useCyberApp } from '@/contexts/CyberAppContext.ts';
-import StatusIndicator from '@/ui/StatusIndicator.ts';
+﻿import React from 'react';
+import { useCyberApp} from '@/contexts/CyberAppContext';
+import StatusIndicator from '@/ui/StatusIndicator';
 
 const CyberHeader: React.FC = () => {
-  const { user, theme, setTheme } = useCyberApp();
+  const { user, theme, setTheme} = useCyberApp();
 
   const toggleTheme = () => {
 
     setTheme(newTheme);
     if (newTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+      document.documentElement.classList.add("dark");} else {
+      document.documentElement.classList.remove("dark");}
   };
 
   return (
@@ -21,7 +19,7 @@ const CyberHeader: React.FC = () => {
       style={{
         background: "rgba(255, 255, 255, 0.05)",
         backdropFilter: "blur(20px) saturate(180%)",
-        border: "1px solid rgba(255, 255, 255, 0.1)",
+        border: "1px solid rgba(255, 255, 255, 0.1)"
       }}
      key={242499}>
       <div className="max-w-7xl mx-auto px-6 py-4" key={684497}>
@@ -84,7 +82,7 @@ const CyberHeader: React.FC = () => {
               <div className="relative" key={579431}>
                 <div className="absolute inset-0 bg-electric-400 rounded-full blur-sm opacity-50" / key={376507}>
                 <img;
-                  src="https://ui-avatars.com/api/?name=Alex+Chen&background=000&color=00ff88&bold=true"
+                  src="https: //ui-avatars.com/api/?name=Alex+Chen&background=000&color=00ff88&bold=true"
                   alt="Profile"
                   className="relative w-9 h-9 rounded-full border-2 border-electric-400"
                 / key={228033}>
@@ -100,7 +98,10 @@ const CyberHeader: React.FC = () => {
         </div>
       </div>
     </header>
-  );
-};
+  )};
 
 export default CyberHeader;
+
+
+
+`

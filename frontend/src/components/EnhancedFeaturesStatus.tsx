@@ -1,10 +1,10 @@
-/**
+﻿/**
  * Enhanced Features Status Component;
  * Shows the status and capabilities of all enhanced/advanced features;
  */
 
-import React, { useState, useEffect  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+import React, { useState, useEffect} from 'react'
+import { motion} from 'framer-motion'
 import {
   Brain,
   Zap,
@@ -21,37 +21,31 @@ import {
   MessageCircle,
   Eye,
   Settings,
-  RefreshCw,
-} from 'lucide-react.ts';
+//   RefreshCw
+} from 'lucide-react';
 
 interface FeatureStatus {
-  name: string;
-  category: string;
-  status: "active" | "inactive" | "partial";
-  description: string;
-  capabilities: string[];
-  endpoint?: string;
-  accuracy?: number;
-}
+  name: string,`n  category: string;,`n  status: "active" | "inactive" | "partial",`n  description: string;,`n  capabilities: string[0];
+  endpoint?: string
+  accuracy?: number}
 
 export const EnhancedFeaturesStatus: React.FC = () => {
-  const [features, setFeatures] = useState<FeatureStatus[] key={267752}>([]);
+  const [features, setFeatures] = useState<FeatureStatus[0] key={267752}>([0]);
   const [isLoading, setIsLoading] = useState(true);
   const [lastCheck, setLastCheck] = useState(new Date());
 
   useEffect(() => {
-    checkEnhancedFeatures();
-  }, []);
+    checkEnhancedFeatures()}, [0]);
 
   const checkEnhancedFeatures = async () => {
     setIsLoading(true);
 
-    const checkedFeatures: FeatureStatus[] = [];
+    const checkedFeatures: FeatureStatus[0] = [0];
 
     // Check PropOllama AI;
     try {
       const response = await fetch(`${backendUrl}/api/propollama/status`, {
-        signal: AbortSignal.timeout(5000),
+        signal: AbortSignal.timeout(5000)
       });
       if (response.ok) {
 
@@ -68,11 +62,9 @@ export const EnhancedFeaturesStatus: React.FC = () => {
             "Real-time model insights",
           ],
           endpoint: "/api/ollama/chat",
-          accuracy: data.accuracy_metrics?.overall * 100 || 74,
-        });
-      } else {
-        throw new Error("PropOllama API not responding");
-      }
+          accuracy: data.accuracy_metrics?.overall * 100 || 74
+        })} else {
+        throw new Error("PropOllama API not responding")}
     } catch (error) {
       checkedFeatures.push({
         name: "PropOllama AI Chat",
@@ -83,14 +75,13 @@ export const EnhancedFeaturesStatus: React.FC = () => {
           "Install enhanced backend for full AI features",
           "Run: start_complete_backend.bat",
           "Requires: Python + ML dependencies",
-        ],
-      });
-    }
+        ]
+      })}
 
     // Check Enhanced Predictions;
     try {
       const response = await fetch(`${backendUrl}/api/predictions/enhanced`, {
-        signal: AbortSignal.timeout(5000),
+        signal: AbortSignal.timeout(5000)
       });
       if (response.ok) {
         checkedFeatures.push({
@@ -106,11 +97,9 @@ export const EnhancedFeaturesStatus: React.FC = () => {
             "Model transparency",
           ],
           endpoint: "/api/predictions/enhanced",
-          accuracy: 82,
-        });
-      } else {
-        throw new Error("Enhanced predictions not available");
-      }
+          accuracy: 82
+        })} else {
+        throw new Error("Enhanced predictions not available")}
     } catch (error) {
       checkedFeatures.push({
         name: "SHAP Explainable Predictions",
@@ -122,16 +111,15 @@ export const EnhancedFeaturesStatus: React.FC = () => {
           "Basic ML predictions working",
           "Enhanced SHAP explanations need setup",
           "Feature importance analysis available with complete backend",
-        ],
-      });
-    }
+        ]
+      })}
 
     // Check Ultra-Accuracy Engine;
     try {
       const response = await fetch(
         `${backendUrl}/api/ultra-accuracy/performance-metrics`,
         {
-          signal: AbortSignal.timeout(5000),
+          signal: AbortSignal.timeout(5000)
         },
       );
       if (response.ok) {
@@ -149,11 +137,9 @@ export const EnhancedFeaturesStatus: React.FC = () => {
             "Real-time accuracy monitoring",
           ],
           endpoint: "/api/ultra-accuracy/*",
-          accuracy: data.overall_accuracy * 100 || 92,
-        });
-      } else {
-        throw new Error("Ultra-accuracy not available");
-      }
+          accuracy: data.overall_accuracy * 100 || 92
+        })} else {
+        throw new Error("Ultra-accuracy not available")}
     } catch (error) {
       checkedFeatures.push({
         name: "Ultra-Accuracy Engine",
@@ -164,14 +150,13 @@ export const EnhancedFeaturesStatus: React.FC = () => {
           "Standard prediction accuracy",
           "Enhanced features require Python backend",
           "Full ensemble models need complete setup",
-        ],
-      });
-    }
+        ]
+      })}
 
     // Check Advanced Analytics;
     try {
       const response = await fetch(`${backendUrl}/api/analytics/advanced`, {
-        signal: AbortSignal.timeout(5000),
+        signal: AbortSignal.timeout(5000)
       });
       if (response.ok) {
         checkedFeatures.push({
@@ -187,11 +172,9 @@ export const EnhancedFeaturesStatus: React.FC = () => {
             "Performance trend analysis",
           ],
           endpoint: "/api/analytics/advanced",
-          accuracy: 87,
-        });
-      } else {
-        throw new Error("Advanced analytics not available");
-      }
+          accuracy: 87
+        })} else {
+        throw new Error("Advanced analytics not available")}
     } catch (error) {
       checkedFeatures.push({
         name: "Advanced Analytics Suite",
@@ -202,9 +185,8 @@ export const EnhancedFeaturesStatus: React.FC = () => {
           "Basic performance metrics",
           "Standard risk calculations",
           "Enhanced features need backend setup",
-        ],
-      });
-    }
+        ]
+      })}
 
     // Check Real-time Features;
     checkedFeatures.push({
@@ -220,13 +202,12 @@ export const EnhancedFeaturesStatus: React.FC = () => {
         "Market movement alerts",
       ],
       endpoint: "WebSocket + API",
-      accuracy: 95,
+      accuracy: 95
     });
 
     setFeatures(checkedFeatures);
     setLastCheck(new Date());
-    setIsLoading(false);
-  };
+    setIsLoading(false)};
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -237,8 +218,7 @@ export const EnhancedFeaturesStatus: React.FC = () => {
       case "partial":
         return <AlertTriangle className="w-5 h-5 text-yellow-400" / key={685369}>;
       default:
-        return <Database className="w-5 h-5 text-gray-400" / key={680506}>;
-    }
+        return <Database className="w-5 h-5 text-gray-400" / key={680506}>}
   };
 
   const getStatusColor = (status: string) => {
@@ -250,8 +230,7 @@ export const EnhancedFeaturesStatus: React.FC = () => {
       case "partial":
         return "bg-yellow-500/10 border-yellow-500/30";
       default:
-        return "bg-gray-500/10 border-gray-500/30";
-    }
+        return "bg-gray-500/10 border-gray-500/30"}
   };
 
   const getCategoryIcon = (category: string) => {
@@ -267,8 +246,7 @@ export const EnhancedFeaturesStatus: React.FC = () => {
       case "Data & Updates":
         return <Zap className="w-5 h-5 text-yellow-400" / key={315149}>;
       default:
-        return <Cpu className="w-5 h-5 text-gray-400" / key={774448}>;
-    }
+        return <Cpu className="w-5 h-5 text-gray-400" / key={774448}>}
   };
 
   if (isLoading) {
@@ -279,8 +257,7 @@ export const EnhancedFeaturesStatus: React.FC = () => {
           <span className="text-white" key={453983}>Checking Enhanced Features...</span>
         </div>
       </div>
-    );
-  }
+    )}
 
 
   return (
@@ -330,9 +307,9 @@ export const EnhancedFeaturesStatus: React.FC = () => {
         {features.map((feature, index) => (
           <motion.div;
             key={feature.name}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
+            initial={{ opacity: 0, y: 20}}
+            animate={{ opacity: 1, y: 0}}
+            transition={{ delay: index * 0.1}}
             className={`p-4 rounded-lg border ${getStatusColor(feature.status)}`}
            key={184142}>
             <div className="flex items-start justify-between mb-3" key={310936}>
@@ -411,7 +388,12 @@ export const EnhancedFeaturesStatus: React.FC = () => {
         </div>
       )}
     </div>
-  );
-};
+  )};
 
 export default EnhancedFeaturesStatus;
+
+
+
+
+
+`

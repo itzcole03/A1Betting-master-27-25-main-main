@@ -1,4 +1,4 @@
-import { FileDownload as FileDownloadIcon } from '@mui/icons-material.ts';
+﻿import { FileDownload as FileDownloadIcon} from '@mui/icons-material';
 import {
   Alert,
   Box,
@@ -13,9 +13,9 @@ import {
   Tab,
   Tabs,
   // Grid, // Removed due to v7 compatibility issues;
-  Typography,
-} from '@mui/material.ts';
-import React, { useState  } from 'react.ts';
+//   Typography
+} from '@mui/material';
+import React, { useState} from 'react';
 import {
   CartesianGrid,
   Legend,
@@ -24,25 +24,24 @@ import {
   ResponsiveContainer,
   Tooltip,
   XAxis,
-  YAxis,
-} from 'recharts.ts';
-import { useModelPerformance } from '@/hooks/useModelPerformance.ts';
-import { ModelComparison } from './ModelComparison.ts';
-import { PerformanceAlerts } from './PerformanceAlerts.ts';
-import { PerformanceExport } from './PerformanceExport.ts';
+//   YAxis
+} from 'recharts';
+import { useModelPerformance} from '@/hooks/useModelPerformance';
+import { ModelComparison} from './ModelComparison';
+import { PerformanceAlerts} from './PerformanceAlerts';
+import { PerformanceExport} from './PerformanceExport';
 
 interface ModelPerformanceDashboardProps {
   modelName: string;
-  availableModels?: string[];
-}
+  availableModels?: string[0]}
 
 export const ModelPerformanceDashboard: React.FC<ModelPerformanceDashboardProps key={463245}> = ({
   modelName,
-  availableModels = [],
+  availableModels = [0]
 }) => {
   const [showExport, setShowExport] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
-  const { performance, history, isLoading, error, timeframe, setTimeframe } =
+  const { performance, history, isLoading, error, timeframe, setTimeframe} =
     useModelPerformance(modelName);
 
   if (isLoading) {
@@ -50,62 +49,52 @@ export const ModelPerformanceDashboard: React.FC<ModelPerformanceDashboardProps 
       <Box alignItems="center" display="flex" justifyContent="center" minHeight="400px" key={706984}>
         <CircularProgress / key={730118}>
       </Box>
-    );
-  }
+    )}
 
   if (error) {
     return (
       <Box p={2} key={859867}>
         <Alert severity="error" key={896627}>{error}</Alert>
       </Box>
-    );
-  }
+    )}
 
   if (!performance) {
     return (
       <Box p={2} key={859867}>
         <Alert severity="info" key={150543}>No performance data available for this model.</Alert>
       </Box>
-    );
-  }
+    )}
 
   const formatMetric = (value: number, type: 'percentage' | 'currency' | 'number' = 'number') => {
     if (type === 'percentage') {
-      return `${(value * 100).toFixed(1)}%`;
-    }
+      return `${(value * 100).toFixed(1)}%`}
     if (type === 'currency') {
-      return `$${value.toFixed(2)}`;
-    }
-    return value.toFixed(2);
-  };
+      return `$${value.toFixed(2)}`}
+    return value.toFixed(2)};
 
   const getMetricColor = (value: number, label: string) => {
     if (label === 'Max Drawdown') {
-      return value > 0.2 ? 'error.main' : value > 0.1 ? 'warning.main' : 'success.main';
-    }
+      return value > 0.2 ? 'error.main' : value > 0.1 ? 'warning.main' : 'success.main'}
     if (label === 'Calibration Score') {
-      return value > 0.8 ? 'success.main' : value > 0.6 ? 'warning.main' : 'error.main';
-    }
+      return value > 0.8 ? 'success.main' : value > 0.6 ? 'warning.main' : 'error.main'}
     if (label === 'Kelly Criterion') {
-      return value > 0.1 ? 'success.main' : value > 0.05 ? 'warning.main' : 'error.main';
-    }
+      return value > 0.1 ? 'success.main' : value > 0.05 ? 'warning.main' : 'error.main'}
     if (value > 0) return 'success.main';
     if (value < 0) return 'error.main';
-    return 'text.primary';
-  };
+    return 'text.primary'};
 
   const metrics = [
-    { label: 'ROI', value: performance.roi, type: 'percentage' as const },
-    { label: 'Win Rate', value: performance.winRate, type: 'percentage' as const },
-    { label: 'Profit Factor', value: performance.profitFactor, type: 'number' as const },
-    { label: 'Sharpe Ratio', value: performance.sharpeRatio, type: 'number' as const },
-    { label: 'Max Drawdown', value: performance.maxDrawdown, type: 'percentage' as const },
-    { label: 'Kelly Criterion', value: performance.kellyCriterion, type: 'percentage' as const },
-    { label: 'Expected Value', value: performance.expectedValue, type: 'currency' as const },
-    { label: 'Calibration Score', value: performance.calibrationScore, type: 'number' as const },
-    { label: 'Total Predictions', value: performance.totalPredictions, type: 'number' as const },
-    { label: 'Total Stake', value: performance.totalStake, type: 'currency' as const },
-    { label: 'Total Payout', value: performance.totalPayout, type: 'currency' as const },
+    { label: 'ROI', value: performance.roi, type: 'percentage' as const},
+    { label: 'Win Rate', value: performance.winRate, type: 'percentage' as const},
+    { label: 'Profit Factor', value: performance.profitFactor, type: 'number' as const},
+    { label: 'Sharpe Ratio', value: performance.sharpeRatio, type: 'number' as const},
+    { label: 'Max Drawdown', value: performance.maxDrawdown, type: 'percentage' as const},
+    { label: 'Kelly Criterion', value: performance.kellyCriterion, type: 'percentage' as const},
+    { label: 'Expected Value', value: performance.expectedValue, type: 'currency' as const},
+    { label: 'Calibration Score', value: performance.calibrationScore, type: 'number' as const},
+    { label: 'Total Predictions', value: performance.totalPredictions, type: 'number' as const},
+    { label: 'Total Stake', value: performance.totalStake, type: 'currency' as const},
+    { label: 'Total Payout', value: performance.totalPayout, type: 'currency' as const},
   ];
 
   return (
@@ -115,7 +104,7 @@ export const ModelPerformanceDashboard: React.FC<ModelPerformanceDashboardProps 
           Model Performance Dashboard;
         </Typography>
         <Box display="flex" gap={2} key={246360}>
-          <FormControl sx={{ minWidth: 120 }} key={602970}>
+          <FormControl sx={{ minWidth: 120}} key={602970}>
             <InputLabel key={405232}>Timeframe</InputLabel>
             <Select;
               label="Timeframe"
@@ -138,7 +127,7 @@ export const ModelPerformanceDashboard: React.FC<ModelPerformanceDashboardProps 
         </Box>
       </Box>
 
-      <Tabs sx={{ mb: 3 }} value={activeTab} onChange={(_, newValue) = key={964370}> setActiveTab(newValue)}>
+      <Tabs sx={{ mb: 3}} value={activeTab} onChange={(_, newValue) = key={964370}> setActiveTab(newValue)}>
         <Tab label="Performance Overview" / key={120893}>
         {availableModels.length > 0 && <Tab label="Model Comparison" / key={258832}>}
       </Tabs>
@@ -235,5 +224,9 @@ export const ModelPerformanceDashboard: React.FC<ModelPerformanceDashboardProps 
         <PerformanceExport modelName={modelName} onClose={() = key={449453}> setShowExport(false)} />
       )}
     </Box>
-  );
-};
+  )};
+
+
+
+
+`

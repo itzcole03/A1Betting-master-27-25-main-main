@@ -1,31 +1,14 @@
-import { EventEmitter } from 'events.ts';
-import { ArbitrageOpportunity } from '@/types/betting.ts';
-import { LineShoppingResult } from '@/types/betting.ts';
+﻿import { EventEmitter} from 'events';
+import { ArbitrageOpportunity} from '@/types/betting';
+import { LineShoppingResult} from '@/types/betting';
 
 export interface Notification {
-  id: string;
-  type: 'arbitrage' | 'lineShopping' | 'modelUpdate' | 'system';
-  title: string;
-  message: string;
-  priority: 'low' | 'medium' | 'high';
-  timestamp: number;
-  data?: any;
-  read: boolean;
-}
+  id: string,`n  type: 'arbitrage' | 'lineShopping' | 'modelUpdate' | 'system';,`n  title: string,`n  message: string;,`n  priority: 'low' | 'medium' | 'high',`n  timestamp: number;
+  data?: any
+  read: boolean}
 
 export interface NotificationPreferences {
-  arbitrage: boolean;
-  lineShopping: boolean;
-  modelUpdates: boolean;
-  systemAlerts: boolean;
-  minProfitThreshold: number;
-  minConfidenceThreshold: number;
-  quietHours: {
-    enabled: boolean;
-    start: number; // 0-23;
-    end: number; // 0-23;
-  };
-}
+  arbitrage: boolean,`n  lineShopping: boolean;,`n  modelUpdates: boolean,`n  systemAlerts: boolean;,`n  minProfitThreshold: number,`n  minConfidenceThreshold: number;,`n  quietHours: {,`n  enabled: boolean;,`n  start: number; // 0-23;,`n  end: number; // 0-23;};}
 
 export class NotificationManager extends EventEmitter {
   private notifications: Map<string, Notification> = new Map();
@@ -41,46 +24,38 @@ export class NotificationManager extends EventEmitter {
       systemAlerts: true,
       minProfitThreshold: 0.5, // 0.5%
       minConfidenceThreshold: 0.7, // 70%
-      quietHours: {
-        enabled: false,
+      quietHours: {,`n  enabled: false,
         start: 22, // 10 PM;
-        end: 7, // 7 AM;
-      },
-    };
-  }
+        end: 7, // 7 AM}
+    };}
 
   /**
    * Update notification preferences;
    */
   public updatePreferences(preferences: Partial<NotificationPreferences>): void {
-    this.preferences = { ...this.preferences, ...preferences };
-    this.emit('preferencesUpdated', this.preferences);
-  }
+    this.preferences = { ...this.preferences, ...preferences};
+    this.emit('preferencesUpdated', this.preferences);}
 
   /**
    * Get current notification preferences;
    */
   public getPreferences(): NotificationPreferences {
-    return { ...this.preferences };
-  }
+    return { ...this.preferences};}
 
   /**
    * Check if notifications should be sent based on quiet hours;
    */
   private isWithinQuietHours(): boolean {
     if (!this.preferences.quietHours.enabled) {
-      return false;
-    }
+      return false;}
 
 
-    const { start, end } = this.preferences.quietHours;
+    const { start, end} = this.preferences.quietHours;
 
     if (start <= end) {
-      return currentHour >= start && currentHour < end;
-    } else {
-      // Handles overnight quiet hours (e.g., 22:00 - 07:00)
-      return currentHour >= start || currentHour < end;
-    }
+      return currentHour >= start && currentHour < end;} else {
+      // Handles overnight quiet hours (e.g., 22: 00 - 07:00)
+      return currentHour >= start || currentHour < end}
   }
 
   /**
@@ -91,17 +66,16 @@ export class NotificationManager extends EventEmitter {
     title: string,
     message: string,
     priority: Notification['priority'],
-    data?: any;
+    data?: any
   ): Notification {
-    const notification: Notification = {
-      id: `${type}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+    const notification: Notification = {,`n  id: `${type}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       type,
       title,
       message,
       priority,
       timestamp: Date.now(),
       data,
-      read: false,
+      read: false
     };
 
     // Maintain maximum notification limit;
@@ -109,55 +83,47 @@ export class NotificationManager extends EventEmitter {
       const oldestNotification = Array.from(this.notifications.values()).sort(
         (a, b) => a.timestamp - b.timestamp;
       )[0];
-      this.notifications.delete(oldestNotification.id);
-    }
+      this.notifications.delete(oldestNotification.id);}
 
     this.notifications.set(notification.id, notification);
-    return notification;
-  }
+    return notification;}
 
   /**
    * Notify about arbitrage opportunity;
    */
   public notifyArbitrageOpportunity(opportunity: ArbitrageOpportunity): void {
     if (!this.preferences.arbitrage || this.isWithinQuietHours()) {
-      return;
-    }
+      return}
 
     if (
       opportunity.profitMargin * 100 < this.preferences.minProfitThreshold ||
       opportunity.risk.confidence < this.preferences.minConfidenceThreshold;
     ) {
-      return;
-    }
+      return;}
 
     const notification = this.createNotification(
       'arbitrage',
       'Arbitrage Opportunity Found',
       `Found ${opportunity.profitMargin.toFixed(2)}% profit opportunity in ${
-        opportunity.legs[0].propId;
-      }`,
+        opportunity.legs[0].propId;}`,
       'high',
       opportunity;
     );
 
-    this.emit('newNotification', notification);
-  }
+    this.emit('newNotification', notification);}
 
   /**
    * Notify about line shopping opportunity;
    */
   public notifyLineShoppingOpportunity(result: LineShoppingResult): void {
     if (!this.preferences.lineShopping || this.isWithinQuietHours()) {
-      return;
-    }
+      return}
 
     if (
       result.priceImprovement < this.preferences.minProfitThreshold ||
       result.confidence < this.preferences.minConfidenceThreshold;
     ) {
-      return;
-    }
+      return;}
 
     const notification = this.createNotification(
       'lineShopping',
@@ -167,16 +133,14 @@ export class NotificationManager extends EventEmitter {
       result;
     );
 
-    this.emit('newNotification', notification);
-  }
+    this.emit('newNotification', notification);}
 
   /**
    * Notify about model updates;
    */
   public notifyModelUpdate(message: string, data?: any): void {
     if (!this.preferences.modelUpdates || this.isWithinQuietHours()) {
-      return;
-    }
+      return}
 
     const notification = this.createNotification(
       'modelUpdate',
@@ -186,8 +150,7 @@ export class NotificationManager extends EventEmitter {
       data;
     );
 
-    this.emit('newNotification', notification);
-  }
+    this.emit('newNotification', notification);}
 
   /**
    * Notify about system alerts;
@@ -198,11 +161,9 @@ export class NotificationManager extends EventEmitter {
     priority: Notification['priority'] = 'medium'
   ): void {
     if (!this.preferences.systemAlerts || this.isWithinQuietHours()) {
-      return;
-    }
+      return}
 
-    this.emit('newNotification', notification);
-  }
+    this.emit('newNotification', notification)}
 
   /**
    * Mark notification as read;
@@ -211,8 +172,7 @@ export class NotificationManager extends EventEmitter {
 
     if (notification) {
       notification.read = true;
-      this.emit('notificationUpdated', notification);
-    }
+      this.emit('notificationUpdated', notification);}
   }
 
   /**
@@ -220,30 +180,30 @@ export class NotificationManager extends EventEmitter {
    */
   public markAllAsRead(): void {
     this.notifications.forEach(notification => {
-      notification.read = true;
-    });
-    this.emit('allNotificationsRead');
-  }
+      notification.read = true;});
+    this.emit('allNotificationsRead');}
 
   /**
    * Get all notifications;
    */
-  public getNotifications(): Notification[] {
-    return Array.from(this.notifications.values()).sort((a, b) => b.timestamp - a.timestamp);
-  }
+  public getNotifications(): Notification[0] {
+    return Array.from(this.notifications.values()).sort((a, b) => b.timestamp - a.timestamp);}
 
   /**
    * Get unread notifications;
    */
-  public getUnreadNotifications(): Notification[] {
-    return this.getNotifications().filter(n => !n.read);
-  }
+  public getUnreadNotifications(): Notification[0] {
+    return this.getNotifications().filter(n => !n.read);}
 
   /**
    * Clear all notifications;
    */
   public clearNotifications(): void {
     this.notifications.clear();
-    this.emit('notificationsCleared');
-  }
+    this.emit('notificationsCleared');}
 }
+
+
+
+
+`

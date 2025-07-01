@@ -1,5 +1,5 @@
-import { authService } from '@/services/auth.ts';
-import { useStore } from '@/store.ts';
+﻿import { authService} from '@/services/auth';
+import { useStore} from '@/store';
 import {
   AccountBalance as AccountBalanceIcon,
   Analytics as AnalyticsIcon,
@@ -8,8 +8,8 @@ import {
   Logout as LogoutIcon,
   Menu as MenuIcon,
   Settings as SettingsIcon,
-  SportsSoccer as SportsSoccerIcon,
-} from '@mui/icons-material.ts';
+  SportsSoccer as SportsSoccerIcon
+} from '@mui/icons-material';
 import {
   AppBar,
   Avatar,
@@ -27,18 +27,18 @@ import {
   Toolbar,
   Typography,
   useMediaQuery,
-  useTheme,
-} from '@mui/material.ts';
-import React, { useState  } from 'react.ts';
-import { useLocation, useNavigate } from 'react-router-dom.ts';
+//   useTheme
+} from '@mui/material';
+import React, { useState} from 'react';
+import { useLocation, useNavigate} from 'react-router-dom';
 
 const menuItems = [
-  { text: 'Dashboard', icon: <DashboardIcon / key={467532}>, path: '/' },
-  { text: 'Analytics', icon: <AnalyticsIcon / key={368242}>, path: '/analytics' },
-  { text: 'Arbitrage', icon: <CasinoIcon / key={718195}>, path: '/arbitrage' },
-  { text: 'Bets', icon: <SportsSoccerIcon / key={465439}>, path: '/bets' },
-  { text: 'Bankroll', icon: <AccountBalanceIcon / key={291782}>, path: '/bankroll' },
-  { text: 'Settings', icon: <SettingsIcon / key={722197}>, path: '/settings' },
+  { text: 'Dashboard', icon: <DashboardIcon / key={467532}>, path: '/'},
+  { text: 'Analytics', icon: <AnalyticsIcon / key={368242}>, path: '/analytics'},
+  { text: 'Arbitrage', icon: <CasinoIcon / key={718195}>, path: '/arbitrage'},
+  { text: 'Bets', icon: <SportsSoccerIcon / key={465439}>, path: '/bets'},
+  { text: 'Bankroll', icon: <AccountBalanceIcon / key={291782}>, path: '/bankroll'},
+  { text: 'Settings', icon: <SettingsIcon / key={722197}>, path: '/settings'},
 ];
 
 export default function Navigation() {
@@ -48,28 +48,23 @@ export default function Navigation() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement key={178068}>(null);
 
 
-  const { user, setUser } = useStore();
+  const { user, setUser} = useStore();
 
   const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+    setMobileOpen(!mobileOpen);};
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement key={9296}>) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)};
 
   const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null);};
 
   const handleLogout = async () => {
     try {
       await authService.logout();
       setUser(null);
-      navigate('/login');
-    } catch (error) {
-      // console statement removed
-    }
+      navigate('/login');} catch (error) {
+      // console statement removed}
   };
 
   const drawer = (
@@ -87,8 +82,7 @@ export default function Navigation() {
               onClick={() = key={25033}> {
                 navigate(item.path);
                 if (isMobile) {
-                  setMobileOpen(false);
-                }
+                  setMobileOpen(false);}
               }}
             >
               <ListItemIcon key={394934}>{item.icon}</ListItemIcon>
@@ -101,12 +95,12 @@ export default function Navigation() {
   );
 
   return (
-    <Box sx={{ display: 'flex' }} key={680838}>
+    <Box sx={{ display: 'flex'}} key={680838}>
       <AppBar;
         position="fixed"
         sx={{
-          width: { md: `calc(100% - ${drawerWidth}px)` },
-          ml: { md: `${drawerWidth}px` },
+          width: { md: `calc(100% - ${drawerWidth}px)`},
+          ml: { md: `${drawerWidth}px`}
         }}
        key={513165}>
         <Toolbar key={629347}>
@@ -115,22 +109,22 @@ export default function Navigation() {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { md: 'none' } }}
+            sx={{ mr: 2, display: { md: 'none'} }}
            key={350417}>
             <MenuIcon / key={955480}>
           </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }} key={525067}>
+          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1}} key={525067}>
             {menuItems.find((item) => item.path === location.pathname)?.text ||
               'Dashboard'}
           </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center' }} key={397715}>
+          <Box sx={{ display: 'flex', alignItems: 'center'}} key={397715}>
             <Button;
               onClick={handleMenuOpen}
               sx={{
                 color: 'inherit',
                 textTransform: 'none',
                 display: 'flex',
-                alignItems: 'center',
+                alignItems: 'center'
               }}
              key={889281}>
               <Avatar;
@@ -138,7 +132,7 @@ export default function Navigation() {
                   width: 32,
                   height: 32,
                   mr: 1,
-                  bgcolor: 'primary.main',
+                  bgcolor: 'primary.main'
                 }}
                key={468453}>
                 {user?.username.charAt(0).toUpperCase()}
@@ -169,21 +163,20 @@ export default function Navigation() {
       </AppBar>
       <Box;
         component="nav"
-        sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
+        sx={{ width: { md: drawerWidth}, flexShrink: { md: 0} }}
        key={49825}>
         <Drawer;
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
+            keepMounted: true, // Better open performance on mobile.}}
           sx={{
-            display: { xs: 'block', md: 'none' },
+            display: { xs: 'block', md: 'none'},
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
-              width: drawerWidth,
-            },
+              width: drawerWidth
+            }
           }}
          key={432097}>
           {drawer}
@@ -191,11 +184,11 @@ export default function Navigation() {
         <Drawer;
           variant="permanent"
           sx={{
-            display: { xs: 'none', md: 'block' },
+            display: { xs: 'none', md: 'block'},
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
-              width: drawerWidth,
-            },
+              width: drawerWidth
+            }
           }}
           open;
          key={660058}>
@@ -207,12 +200,15 @@ export default function Navigation() {
         sx={{
           flexGrow: 1,
           p: 3,
-          width: { md: `calc(100% - ${drawerWidth}px)` },
-          mt: '64px',
+          width: { md: `calc(100% - ${drawerWidth}px)`},
+          mt: '64px'
         }}
        key={732519}>
         {/* Main content will be rendered here */}
       </Box>
     </Box>
-  );
-}
+  )}
+
+
+
+`

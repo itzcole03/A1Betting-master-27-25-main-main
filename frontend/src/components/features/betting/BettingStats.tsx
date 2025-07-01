@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   Box,
   Card,
@@ -6,26 +6,23 @@ import {
   Typography,
   LinearProgress,
   Tooltip,
-  IconButton,
-} from '@mui/material.ts';
-import { formatCurrency, formatPercentage, formatTimeAgo } from '@/utils/formatters.ts';
-import type { BettingStats as BettingStatsType, ModelPerformance } from '@/types/betting.ts';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp.ts';
-import TrendingDownIcon from '@mui/icons-material/TrendingDown.ts';
-import InfoIcon from '@mui/icons-material/Info.ts';
+//   IconButton
+} from '@mui/material';
+import { formatCurrency, formatPercentage, formatTimeAgo} from '@/utils/formatters';
+import type { BettingStats as BettingStatsType, ModelPerformance} from '@/types/betting';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import TrendingDownIcon from '@mui/icons-material/TrendingDown';
+import InfoIcon from '@mui/icons-material/Info';
 
 interface BettingStatsProps {
-  stats: BettingStatsType;
-  modelPerformance: ModelPerformance[];
-}
+  stats: BettingStatsType,`n  modelPerformance: ModelPerformance[0]}
 
-const BettingStats: React.FC<BettingStatsProps key={322176}> = ({ stats, modelPerformance }) => {
+const BettingStats: React.FC<BettingStatsProps key={322176}> = ({ stats, modelPerformance}) => {
   const getTrendIcon = (value: number) => {
-    return value >= 0 ? <TrendingUpIcon color="success" / key={63688}> : <TrendingDownIcon color="error" / key={588136}>;
-  };
+    return value >= 0 ? <TrendingUpIcon color="success" / key={63688}> : <TrendingDownIcon color="error" / key={588136}>};
 
   return (
-    <Box sx={{ p: 3 }} key={486541}>
+    <Box sx={{ p: 3}} key={486541}>
       <Typography gutterBottom variant="h5" key={760269}>
         Performance Overview;
         <Tooltip title="Statistics for the selected time period" key={597718}>
@@ -38,11 +35,10 @@ const BettingStats: React.FC<BettingStatsProps key={322176}> = ({ stats, modelPe
       <Box;
         sx={{
           display: 'grid',
-          gridTemplateColumns: {
-            xs: '1fr',
-            md: 'repeat(2, 1fr)',
+          gridTemplateColumns: {,`n  xs: '1fr',
+            md: 'repeat(2, 1fr)'
           },
-          gap: 3,
+          gap: 3
         }}
        key={854733}>
         {/* Overall Stats */}
@@ -55,7 +51,7 @@ const BettingStats: React.FC<BettingStatsProps key={322176}> = ({ stats, modelPe
               sx={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(2, 1fr)',
-                gap: 2,
+                gap: 2
               }}
              key={477739}>
               <Box key={485947}>
@@ -68,7 +64,7 @@ const BettingStats: React.FC<BettingStatsProps key={322176}> = ({ stats, modelPe
                 <Typography color="text.secondary" variant="body2" key={497604}>
                   Win Rate;
                 </Typography>
-                <Box sx={{ display: 'flex', alignItems: 'center' }} key={397715}>
+                <Box sx={{ display: 'flex', alignItems: 'center'}} key={397715}>
                   <Typography variant="h6" key={93421}>{formatPercentage(stats.win_rate)}</Typography>
                   {getTrendIcon(stats.win_rate - 0.5)}
                 </Box>
@@ -77,7 +73,7 @@ const BettingStats: React.FC<BettingStatsProps key={322176}> = ({ stats, modelPe
                 <Typography color="text.secondary" variant="body2" key={497604}>
                   Total Profit;
                 </Typography>
-                <Box sx={{ display: 'flex', alignItems: 'center' }} key={397715}>
+                <Box sx={{ display: 'flex', alignItems: 'center'}} key={397715}>
                   <Typography variant="h6" key={93421}>{formatCurrency(stats.total_profit)}</Typography>
                   {getTrendIcon(stats.total_profit)}
                 </Box>
@@ -86,7 +82,7 @@ const BettingStats: React.FC<BettingStatsProps key={322176}> = ({ stats, modelPe
                 <Typography color="text.secondary" variant="body2" key={497604}>
                   ROI;
                 </Typography>
-                <Box sx={{ display: 'flex', alignItems: 'center' }} key={397715}>
+                <Box sx={{ display: 'flex', alignItems: 'center'}} key={397715}>
                   <Typography variant="h6" key={93421}>{formatPercentage(stats.roi)}</Typography>
                   {getTrendIcon(stats.roi)}
                 </Box>
@@ -102,8 +98,8 @@ const BettingStats: React.FC<BettingStatsProps key={322176}> = ({ stats, modelPe
               Model Performance;
             </Typography>
             {modelPerformance.map(model => (
-              <Box key={model.model_name} sx={{ mb: 2 }} key={241710}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }} key={386900}>
+              <Box key={model.model_name} sx={{ mb: 2}} key={241710}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1}} key={386900}>
                   <Typography variant="body2" key={679167}>{model.model_name}</Typography>
                   <Typography;
                     color={model.roi  key={745934}>= 0 ? 'success.main' : 'error.main'}
@@ -114,11 +110,11 @@ const BettingStats: React.FC<BettingStatsProps key={322176}> = ({ stats, modelPe
                 </Box>
                 <LinearProgress;
                   color={model.roi  key={718271}>= 0 ? 'success' : 'error'}
-                  sx={{ height: 8, borderRadius: 4 }}
+                  sx={{ height: 8, borderRadius: 4}}
                   value={Math.abs(model.roi) * 100}
                   variant="determinate"
                 />
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 0.5 }} key={44929}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 0.5}} key={44929}>
                   <Typography color="text.secondary" variant="caption" key={290635}>
                     {model.wins}W / {model.losses}L;
                   </Typography>
@@ -132,16 +128,15 @@ const BettingStats: React.FC<BettingStatsProps key={322176}> = ({ stats, modelPe
         </Card>
 
         {/* Best/Worst Models */}
-        <Card sx={{ gridColumn: { xs: '1', md: '1 / -1' } }} key={785338}>
+        <Card sx={{ gridColumn: { xs: '1', md: '1 / -1'} }} key={785338}>
           <CardContent key={452065}>
             <Box;
               sx={{
                 display: 'grid',
-                gridTemplateColumns: {
-                  xs: '1fr',
-                  md: 'repeat(2, 1fr)',
+                gridTemplateColumns: {,`n  xs: '1fr',
+                  md: 'repeat(2, 1fr)'
                 },
-                gap: 2,
+                gap: 2
               }}
              key={905991}>
               <Box key={485947}>
@@ -165,7 +160,10 @@ const BettingStats: React.FC<BettingStatsProps key={322176}> = ({ stats, modelPe
         </Card>
       </Box>
     </Box>
-  );
-};
+  );};
 
 export default React.memo(BettingStats);
+
+
+
+`

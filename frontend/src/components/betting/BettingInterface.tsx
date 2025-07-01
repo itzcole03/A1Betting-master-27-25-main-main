@@ -1,23 +1,21 @@
-import React, { useEffect, useState  } from 'react.ts';
-import { Box, Grid, Paper, Typography, Tab, Tabs } from '@mui/material.ts';
-import { useSports, useEvents, useOdds, usePlaceBet } from '@/services/bettingService.ts';
-import { useBettingStore } from '@/stores/bettingStore.ts';
-import SportSelector from './SportSelector.ts';
-import EventList from './EventList.ts';
-import BetSlip from './BetSlip.ts';
-import OddsDisplay from './OddsDisplay.ts';
-import { ErrorBoundary } from 'react-error-boundary.ts';
-import { toast } from 'react-toastify.ts';
-import { BettingAnalytics } from './BettingAnalytics.ts';
+﻿import React, { useEffect, useState} from 'react';
+import { Box, Grid, Paper, Typography, Tab, Tabs} from '@mui/material';
+import { useSports, useEvents, useOdds, usePlaceBet} from '@/services/bettingService';
+import { useBettingStore} from '@/stores/bettingStore';
+import SportSelector from './SportSelector';
+import EventList from './EventList';
+import BetSlip from './BetSlip';
+import OddsDisplay from './OddsDisplay';
+import { ErrorBoundary} from 'react-error-boundary';
+import { toast} from 'react-toastify';
+import { BettingAnalytics} from './BettingAnalytics';
 
 interface TabPanelProps {
   children?: React.ReactNode;
-  index: number;
-  value: number;
-}
+  index: number,`n  value: number}
 
 function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, ...other} = props;
 
   return (
     <div;
@@ -27,47 +25,42 @@ function TabPanel(props: TabPanelProps) {
       role="tabpanel"
       {...other}
      key={179553}>
-      {value === index && <Box sx={{ p: 3 }} key={486541}>{children}</Box>}
+      {value === index && <Box sx={{ p: 3}} key={486541}>{children}</Box>}
     </div>
-  );
-}
+  )}
 
 const BettingInterface: React.FC = () => {
-  const { selectedSport, selectedEvent, updateOdds, setSelectedSport, setSelectedEvent } =
+  const { selectedSport, selectedEvent, updateOdds, setSelectedSport, setSelectedEvent} =
     useBettingStore();
-  const { data: sports, isLoading: sportsLoading } = useSports();
-  const { data: events, isLoading: eventsLoading } = useEvents(selectedSport?.id ?? '');
-  const { data: odds } = useOdds(selectedEvent?.id ?? '');
+  const { data: sports, isLoading: sportsLoading} = useSports();
+  const { data: events, isLoading: eventsLoading} = useEvents(selectedSport?.id ?? '');
+  const { data: odds} = useOdds(selectedEvent?.id ?? '');
 
   const [selectedTab, setSelectedTab] = useState(0);
 
   // Update odds in store when they change;
   useEffect(() => {
     if (odds && selectedEvent) {
-      updateOdds(selectedEvent.id, odds);
-    }
+      updateOdds(selectedEvent.id, odds);}
   }, [odds, selectedEvent, updateOdds]);
 
   const handleError = (error: Error) => {
-    toast.error(`An error occurred: ${error.message}`);
-  };
+    toast.error(`An error occurred: ${error.message}`)};
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    setSelectedTab(newValue);
-  };
+    setSelectedTab(newValue)};
 
   if (sportsLoading) {
     return (
       <Box alignItems="center" display="flex" justifyContent="center" minHeight="100vh" key={106811}>
         <Typography key={705030}>Loading sports data...</Typography>
       </Box>
-    );
-  }
+    );}
 
   return (
     <ErrorBoundary fallback={<div key={901280}>Something went wrong</div>} onError={handleError}>
-      <Box sx={{ flexGrow: 1, height: '100vh', display: 'flex', flexDirection: 'column' }} key={467303}>
-        <Paper sx={{ width: '100%', mb: 2 }} key={834937}>
+      <Box sx={{ flexGrow: 1, height: '100vh', display: 'flex', flexDirection: 'column'}} key={467303}>
+        <Paper sx={{ width: '100%', mb: 2}} key={834937}>
           <Tabs;
             indicatorColor="primary"
             textColor="primary"
@@ -104,7 +97,11 @@ const BettingInterface: React.FC = () => {
         </TabPanel>
       </Box>
     </ErrorBoundary>
-  );
-};
+  );};
 
 export default React.memo(BettingInterface);
+
+
+
+
+`

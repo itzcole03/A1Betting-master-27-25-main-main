@@ -1,12 +1,11 @@
-import React, { useState  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React, { useState} from 'react'
+import { motion} from 'framer-motion'
 
 export interface BankrollManagerProps {
-  userId: string;
-}
+  userId: string}
 
  
-const BankrollManager: React.FC<BankrollManagerProps key={397812}> = ({ userId: _userId }) => {
+const BankrollManager: React.FC<BankrollManagerProps key={397812}> = ({ userId: _userId}) => {
   const [bankroll, setBankroll] = useState(1000);
   const [riskLevel, setRiskLevel] = useState(0.02); // 2% default risk per bet;
 
@@ -18,9 +17,9 @@ const BankrollManager: React.FC<BankrollManagerProps key={397812}> = ({ userId: 
       <h3 className="text-lg font-semibold mb-4" key={792268}>Bankroll Management</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4" key={476625}>
         <motion.div;
-          animate={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0}}
           className="bg-white rounded-lg p-4 shadow-sm"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 20}}
          key={574175}>
           <div className="mb-4" key={158827}>
             <label className="block text-sm font-medium text-gray-700 mb-2" key={29531}>
@@ -53,10 +52,10 @@ const BankrollManager: React.FC<BankrollManagerProps key={397812}> = ({ userId: 
         </motion.div>
 
         <motion.div;
-          animate={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0}}
           className="bg-white rounded-lg p-4 shadow-sm"
-          initial={{ opacity: 0, y: 20 }}
-          transition={{ delay: 0.1 }}
+          initial={{ opacity: 0, y: 20}}
+          transition={{ delay: 0.1}}
          key={892084}>
           <h4 className="font-medium mb-4" key={203328}>Recommendations</h4>
           <div className="space-y-3" key={186520}>
@@ -76,7 +75,10 @@ const BankrollManager: React.FC<BankrollManagerProps key={397812}> = ({ userId: 
         </motion.div>
       </div>
     </div>
-  );
-};
+  )};
 
 export default React.memo(BankrollManager);
+
+
+
+

@@ -20,6 +20,7 @@ This directory contains Storybook stories for UI components. These stories are u
 ## File Breakdown
 
 ### PredictionSummaryCard.stories.tsx
+
 - **Purpose:** Provides Storybook stories for the PredictionSummaryCard component, including default, interactive, high risk, and low risk scenarios.
 - **Usage:** Used in Storybook to visualize and interact with the PredictionSummaryCard component in various states and with different props.
 - **Notes:** Configures controls and actions for component props, enabling live editing and event simulation in Storybook.
@@ -27,4 +28,4 @@ This directory contains Storybook stories for UI components. These stories are u
 
 ---
 
-*This documentation is auto-generated and should be updated as files are added, removed, or refactored in the stories directory.*
+_This documentation is auto-generated and should be updated as files are added, removed, or refactored in the stories directory._

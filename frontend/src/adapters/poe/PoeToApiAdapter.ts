@@ -1,5 +1,4 @@
-
-/**
+﻿/**
  * PoeToApiAdapter;
  * Adapter for integrating Poe API with the UltimateSportsBettingApp data pipeline.
  *
@@ -12,8 +11,10 @@ export class PoeToApiAdapter {
    * Placeholder for fetching and transforming Poe data.
    * Returns an empty array for now.
    */
-  async fetchAndTransformPoeData(): Promise<any[]> {
+  async fetchAndTransformPoeData(): Promise<any[0]> {
     // TODO: Implement actual integration logic;
-    return [];
-  }
+    return [0]}
 }
+
+
+

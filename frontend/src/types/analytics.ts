@@ -1,62 +1,24 @@
-export interface PerformanceMetrics {
-  accuracy: number;
-  profitLoss: number;
-  precision: number;
-  recall: number;
-  timestamp: string;
-}
+﻿export interface PerformanceMetrics {
+  accuracy: number,`n  profitLoss: number;,`n  precision: number,`n  recall: number;,`n  timestamp: string}
 
 export interface TrendDelta {
-  accuracyDelta: number;
-  precisionDelta: number;
-  recallDelta: number;
-  profitLossDelta: number;
-  period: string;
-  timestamp: string;
-}
+  accuracyDelta: number,`n  precisionDelta: number;,`n  recallDelta: number,`n  profitLossDelta: number;,`n  period: string,`n  timestamp: string}
 
 export interface RiskFactor {
-  name: string;
-  severity: 'low' | 'medium' | 'high';
-  impact: number;
-  description: string;
-}
+  name: string,`n  severity: 'low' | 'medium' | 'high';,`n  impact: number,`n  description: string}
 
 export interface RiskProfile {
-  riskLevel: 'LOW' | 'MEDIUM' | 'HIGH';
-  recommendation: string;
-  factors: string[];
-  timestamp: string;
-  severity: number;
-}
+  riskLevel: 'LOW' | 'MEDIUM' | 'HIGH',`n  recommendation: string;,`n  factors: string[0],`n  timestamp: string;,`n  severity: number}
 
 export interface ExplainabilityMap {
-  featureName: string;
-  importance: number;
-  impact: number;
-  direction: 'positive' | 'negative';
-  description: string;
-}
+  featureName: string,`n  importance: number;,`n  impact: number,`n  direction: 'positive' | 'negative';,`n  description: string}
 
 export interface ModelMetadata {
-  modelId: string;
-  version: string;
-  trainingDate: string;
-  features: string[];
-  performance: {
-    accuracy: number;
-    precision: number;
-    recall: number;
-    f1Score: number;
-  };
-}
+  modelId: string,`n  version: string;,`n  trainingDate: string,`n  features: string[0];,`n  performance: {,`n  accuracy: number;,`n  precision: number,`n  recall: number;,`n  f1Score: number}}
 
 export interface AnalyticsState {
-  metrics: PerformanceMetrics | null;
-  trendDelta: TrendDelta | null;
-  riskProfile: RiskProfile | null;
-  explainabilityMap: ExplainabilityMap[] | null;
-  modelMetadata: ModelMetadata | null;
-  isLoading: boolean;
-  error: string | null;
-}
+  metrics: PerformanceMetrics | null,`n  trendDelta: TrendDelta | null;,`n  riskProfile: RiskProfile | null,`n  explainabilityMap: ExplainabilityMap[0] | null;,`n  modelMetadata: ModelMetadata | null,`n  isLoading: boolean;,`n  error: string | null}
+
+
+
+`

@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import { BarChart3, TrendingUp, DollarSign, PieChart, Wallet, Target } from 'lucide-react.ts';
+﻿import React from 'react';
+import { BarChart3, TrendingUp, DollarSign, PieChart, Wallet, Target} from 'lucide-react';
 
 const PortfolioCommander: React.FC = () => {
   return (
@@ -13,7 +13,7 @@ const PortfolioCommander: React.FC = () => {
         </p>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6" key={158598}>
+      <div className="grid grid-cols-1 md: grid-cols-3 gap-4 mb-6" key={158598}>
         <div className="bg-gray-800/40 backdrop-blur border border-gray-700/50 rounded-xl p-4" key={959384}>
           <div className="flex items-center gap-2 mb-2" key={988706}>
             <Walconst className = "w-5 h-5 text-green-400" / key={397460}>
@@ -93,7 +93,9 @@ const PortfolioCommander: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )};
 
 export default PortfolioCommander;
+
+
+

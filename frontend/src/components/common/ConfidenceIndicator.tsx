@@ -1,16 +1,14 @@
-import React from 'react.ts';
-import Tooltip from '@mui/material/Tooltip.ts';
+﻿import React from 'react';
+import Tooltip from '@mui/material/Tooltip';
 
 interface ConfidenceIndicatorProps {
   value: number;
-  size?: 'small' | 'medium' | 'large';
-}
+  size?: 'small' | 'medium' | 'large';}
 
 const getConfidenceColor = (value: number): string => {
   if (value >= 0.8) return 'bg-green-500';
   if (value >= 0.6) return 'bg-yellow-500';
-  return 'bg-red-500';
-};
+  return 'bg-red-500';};
 
 const getSizeClasses = (size: 'small' | 'medium' | 'large'): string => {
   switch (size) {
@@ -18,14 +16,12 @@ const getSizeClasses = (size: 'small' | 'medium' | 'large'): string => {
       return 'w-2 h-2';
     case 'large':
       return 'w-4 h-4';
-    default:
-      return 'w-3 h-3';
-  }
+    default: return 'w-3 h-3'}
 };
 
 export const ConfidenceIndicator: React.FC<ConfidenceIndicatorProps key={853618}> = ({
   value,
-  size = 'medium',
+  size = 'medium'
 }) => {
 
 
@@ -36,6 +32,10 @@ export const ConfidenceIndicator: React.FC<ConfidenceIndicatorProps key={853618}
         className={`${sizeClasses} ${color} rounded-full transition-colors duration-300`}
         role="status"
       / key={881968}>
-    </Tooltip>
-  );
-};
+    </div>
+  )};
+
+
+
+
+`

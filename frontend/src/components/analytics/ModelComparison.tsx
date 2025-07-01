@@ -1,4 +1,4 @@
-import React, { useState  } from 'react.ts';
+﻿import React, { useState} from 'react';
 import {
   Box,
   Card,
@@ -17,8 +17,8 @@ import {
   TableRow,
   Paper,
   ToggleButton,
-  ToggleButtonGroup,
-} from '@mui/material.ts';
+//   ToggleButtonGroup
+} from '@mui/material';
 import {
   RadarChart,
   PolarGrid,
@@ -32,13 +32,12 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
-} from 'recharts.ts';
-import { useModelPerformance } from '@/hooks/useModelPerformance.ts';
+//   Tooltip
+} from 'recharts';
+import { useModelPerformance} from '@/hooks/useModelPerformance';
 
 interface ModelComparisonProps {
-  modelNames: string[];
-}
+  modelNames: string[0]}
 
 type MetricType =
   | 'roi'
@@ -50,25 +49,21 @@ type MetricType =
   | 'expectedValue'
   | 'calibrationScore';
 
-export const ModelComparison: React.FC<ModelComparisonProps key={846325}> = ({ modelNames }) => {
+export const ModelComparison: React.FC<ModelComparisonProps key={846325}> = ({ modelNames}) => {
   const [selectedMetric, setSelectedMetric] = useState<MetricType key={55702}>('roi');
   const [timeframe, setTimeframe] = useState<'day' | 'week' | 'month' | 'all'>('week');
   const [viewMode, setViewMode] = useState<'table' | 'radar' | 'bar'>('table');
 
   const modelPerformances = modelNames.map(modelName => {
-    const { performance, isLoading, error } = useModelPerformance(modelName, timeframe);
-    return { modelName, performance, isLoading, error };
-  });
+    const { performance, isLoading, error} = useModelPerformance(modelName, timeframe);
+    return { modelName, performance, isLoading, error}});
 
   const formatMetric = (value: number, type: 'percentage' | 'currency' | 'number' = 'number') => {
     if (type === 'percentage') {
-      return `${(value * 100).toFixed(1)}%`;
-    }
+      return `${(value * 100).toFixed(1)}%`}
     if (type === 'currency') {
-      return `$${value.toFixed(2)}`;
-    }
-    return value.toFixed(2);
-  };
+      return `$${value.toFixed(2)}`}
+    return value.toFixed(2)};
 
   const getMetricType = (metric: MetricType): 'percentage' | 'currency' | 'number' => {
     switch (metric) {
@@ -80,38 +75,33 @@ export const ModelComparison: React.FC<ModelComparisonProps key={846325}> = ({ m
       case 'expectedValue':
         return 'currency';
       default:
-        return 'number';
-    }
+        return 'number'}
   };
 
   const getMetricColor = (value: number, metric: MetricType) => {
     if (metric === 'maxDrawdown') {
-      return value > 0.2 ? 'error.main' : value > 0.1 ? 'warning.main' : 'success.main';
-    }
+      return value > 0.2 ? 'error.main' : value > 0.1 ? 'warning.main' : 'success.main'}
     if (metric === 'calibrationScore') {
-      return value > 0.8 ? 'success.main' : value > 0.6 ? 'warning.main' : 'error.main';
-    }
+      return value > 0.8 ? 'success.main' : value > 0.6 ? 'warning.main' : 'error.main'}
     if (metric === 'kellyCriterion') {
-      return value > 0.1 ? 'success.main' : value > 0.05 ? 'warning.main' : 'error.main';
-    }
+      return value > 0.1 ? 'success.main' : value > 0.05 ? 'warning.main' : 'error.main'}
     if (value > 0) return 'success.main';
     if (value < 0) return 'error.main';
-    return 'text.primary';
-  };
+    return 'text.primary'};
 
-  const metrics: { value: MetricType; label: string }[] = [
-    { value: 'roi', label: 'ROI' },
-    { value: 'winRate', label: 'Win Rate' },
-    { value: 'profitFactor', label: 'Profit Factor' },
-    { value: 'sharpeRatio', label: 'Sharpe Ratio' },
-    { value: 'maxDrawdown', label: 'Max Drawdown' },
-    { value: 'kellyCriterion', label: 'Kelly Criterion' },
-    { value: 'expectedValue', label: 'Expected Value' },
-    { value: 'calibrationScore', label: 'Calibration Score' },
+  const metrics: { value: MetricType; label: string}[0] = [
+    { value: 'roi', label: 'ROI'},
+    { value: 'winRate', label: 'Win Rate'},
+    { value: 'profitFactor', label: 'Profit Factor'},
+    { value: 'sharpeRatio', label: 'Sharpe Ratio'},
+    { value: 'maxDrawdown', label: 'Max Drawdown'},
+    { value: 'kellyCriterion', label: 'Kelly Criterion'},
+    { value: 'expectedValue', label: 'Expected Value'},
+    { value: 'calibrationScore', label: 'Calibration Score'},
   ];
 
   const radarData = modelPerformances;
-    .map(({ modelName, performance }) => {
+    .map(({ modelName, performance}) => {
       if (!performance) return null;
       return {
         model: modelName,
@@ -119,20 +109,18 @@ export const ModelComparison: React.FC<ModelComparisonProps key={846325}> = ({ m
         'Win Rate': performance.winRate * 100,
         'Profit Factor': performance.profitFactor,
         'Sharpe Ratio': performance.sharpeRatio,
-        Calibration: performance.calibrationScore * 100,
-      };
-    })
+        Calibration: performance.calibrationScore * 100
+      }})
     .filter((data): data is NonNullable<typeof data key={581776}> => data !== null);
 
   const barData = modelPerformances;
-    .map(({ modelName, performance }) => {
+    .map(({ modelName, performance}) => {
       if (!performance) return null;
       return {
         model: modelName,
         value: performance[selectedMetric],
-        formattedValue: formatMetric(performance[selectedMetric], getMetricType(selectedMetric)),
-      };
-    })
+        formattedValue: formatMetric(performance[selectedMetric], getMetricType(selectedMetric))
+      }})
     .filter(Boolean);
 
   return (
@@ -151,7 +139,7 @@ export const ModelComparison: React.FC<ModelComparisonProps key={846325}> = ({ m
               <ToggleButton value="radar" key={217052}>Radar</ToggleButton>
               <ToggleButton value="bar" key={178232}>Bar</ToggleButton>
             </ToggleButtonGroup>
-            <FormControl sx={{ minWidth: 120 }} key={602970}>
+            <FormControl sx={{ minWidth: 120}} key={602970}>
               <InputLabel key={405232}>Metric</InputLabel>
               <Select;
                 label="Metric"
@@ -165,7 +153,7 @@ export const ModelComparison: React.FC<ModelComparisonProps key={846325}> = ({ m
                 ))}
               </Select>
             </FormControl>
-            <FormControl sx={{ minWidth: 120 }} key={602970}>
+            <FormControl sx={{ minWidth: 120}} key={602970}>
               <InputLabel key={405232}>Timeframe</InputLabel>
               <Select;
                 label="Timeframe"
@@ -192,7 +180,7 @@ export const ModelComparison: React.FC<ModelComparisonProps key={846325}> = ({ m
                       key={metric.value}
                       sx={{
                         backgroundColor:
-                          selectedMetric === metric.value ? 'action.selected' : 'inherit',
+                          selectedMetric === metric.value ? 'action.selected' : 'inherit'
                       }}
                      key={203747}>
                       {metric.label}
@@ -201,7 +189,7 @@ export const ModelComparison: React.FC<ModelComparisonProps key={846325}> = ({ m
                 </TableRow>
               </TableHead>
               <TableBody key={923191}>
-                {modelPerformances.map(({ modelName, performance, isLoading, error }) => (
+                {modelPerformances.map(({ modelName, performance, isLoading, error}) => (
                   <TableRow key={modelName} key={835384}>
                     <TableCell key={942983}>{modelName}</TableCell>
                     {metrics.map(metric => (
@@ -210,7 +198,7 @@ export const ModelComparison: React.FC<ModelComparisonProps key={846325}> = ({ m
                         sx={{
                           color: performance;
                             ? getMetricColor(performance[metric.value], metric.value)
-                            : 'inherit',
+                            : 'inherit'
                         }}
                        key={247823}>
                         {isLoading;
@@ -257,8 +245,7 @@ export const ModelComparison: React.FC<ModelComparisonProps key={846325}> = ({ m
                 <Tooltip;
                   formatter={(value: number) = key={321216}> formatMetric(value, getMetricType(selectedMetric))}
                   labelFormatter={label =>
-                    `${label} - ${metrics.find(m => m.value === selectedMetric)?.label}`
-                  }
+                    `${label} - ${metrics.find(m => m.value === selectedMetric)?.label}`}
                 />
                 <Bar;
                   dataKey="value"
@@ -271,5 +258,9 @@ export const ModelComparison: React.FC<ModelComparisonProps key={846325}> = ({ m
         )}
       </CardContent>
     </Card>
-  );
-};
+  )};
+
+
+
+
+`

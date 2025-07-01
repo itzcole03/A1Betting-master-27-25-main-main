@@ -1,24 +1,22 @@
-import React, { memo  } from 'react.ts';
-import { BettingOpportunityCardProps } from '@/types/betting.ts';
-import { ModelConfidenceIndicator } from '@/ml-status-indicators.ts';
-import { PredictionConfidenceChart } from '@/advanced-charts.ts';
+﻿import React, { memo} from 'react';
+import { BettingOpportunityCardProps} from '@/types/betting';
+import { ModelConfidenceIndicator} from '@/ml-status-indicators';
+import { PredictionConfidenceChart} from '@/advanced-charts';
 
 export const BettingOpportunityCard = memo<BettingOpportunityCardProps key={242744}>(
-  ({ opportunity, onPlaceBet, isActive = false }) => {
+  ({ opportunity, onPlaceBet, isActive = false}) => {
     const [betAmount, setBetAmount] = React.useState<number key={430559}>(0);
 
     const handlePlaceBet = () => {
       if (betAmount > 0) {
         onPlaceBet(betAmount);
-        setBetAmount(0);
-      }
+        setBetAmount(0);}
     };
 
     return (
       <div;
         className={`glass-premium p-4 rounded-xl transition-all ${
-          isActive ? 'ring-2 ring-primary-500' : ''
-        }`}
+          isActive ? 'ring-2 ring-primary-500' : ''}`}
        key={910025}>
         <div className="flex justify-between items-start mb-4" key={413486}>
           <div key={241917}>
@@ -39,8 +37,7 @@ export const BettingOpportunityCard = memo<BettingOpportunityCardProps key={2427
             <p className="text-sm text-gray-500" key={212051}>Expected Value</p>
             <p;
               className={`text-lg font-semibold ${
-                opportunity.expectedValue  key={706839}>= 0 ? 'text-success-500' : 'text-error-500'
-              }`}
+                opportunity.expectedValue  key={706839}>= 0 ? 'text-success-500' : 'text-error-500'}`}
             >
               {opportunity.expectedValue.toFixed(2)}
             </p>
@@ -57,7 +54,7 @@ export const BettingOpportunityCard = memo<BettingOpportunityCardProps key={2427
               <PredictionConfidenceChart;
                 data={Object.entries(opportunity.modelBreakdown).map(([model, value]) = key={845226}> ({
                   model,
-                  value,
+//                   value
                 }))}
                 height={40}
               />
@@ -84,8 +81,11 @@ export const BettingOpportunityCard = memo<BettingOpportunityCardProps key={2427
           </button>
         </div>
       </div>
-    );
-  }
+    );}
 );
 
 BettingOpportunityCard.displayName = 'BettingOpportunityCard';
+
+
+
+`

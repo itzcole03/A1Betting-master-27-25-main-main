@@ -53,16 +53,13 @@ const engine = new FinalPredictionEngineImpl(
   {
     logger: unifiedLogger,
     metrics: unifiedMetrics,
-    config: unifiedConfig
+    config: unifiedConfig,
   },
   initialConfig
 );
 
 // Generate a prediction
-const prediction = await engine.generatePrediction(
-  modelOutputs,
-  riskProfile
-);
+const prediction = await engine.generatePrediction(modelOutputs, riskProfile);
 
 // Update model weights
 await engine.updateModelWeights(newWeights);
@@ -99,23 +96,23 @@ const defaultConfig: FinalPredictionEngineConfig = {
     { type: 'historical', weight: 0.4 },
     { type: 'market', weight: 0.3 },
     { type: 'sentiment', weight: 0.2 },
-    { type: 'correlation', weight: 0.1 }
+    { type: 'correlation', weight: 0.1 },
   ],
   riskProfiles: {
     safe: {
       type: 'safe',
       multiplier: 1.2,
-      maxStake: 100
+      maxStake: 100,
     },
     aggressive: {
       type: 'aggressive',
       multiplier: 2.0,
-      maxStake: 500
-    }
+      maxStake: 500,
+    },
   },
   sureOddsThreshold: 0.8,
   featureThreshold: 0.1,
-  maxFeatures: 5
+  maxFeatures: 5,
 };
 ```
 
@@ -170,11 +167,13 @@ The engine integrates with:
 ### Setup
 
 1. Install dependencies:
+
    ```bash
    npm install
    ```
 
 2. Run tests:
+
    ```bash
    npm test
    ```
@@ -194,6 +193,7 @@ The module includes comprehensive tests:
 - Error handling scenarios
 
 Run tests with:
+
 ```bash
 npm test
 ```
@@ -225,4 +225,4 @@ class FinalPredictionError extends UnifiedError {
 
 ## License
 
-MIT License 
+MIT License

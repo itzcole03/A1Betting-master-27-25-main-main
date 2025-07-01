@@ -1,43 +1,21 @@
-import { getLogger } from '@/core/logging/logger.ts';
-import { getMetrics } from '@/core/metrics/metrics.ts';
+﻿import { getLogger} from '@/core/logging/logger';
+import { getMetrics} from '@/core/metrics/metrics';
 
 
 interface PredictionInput {
-  playerId: string;
-  playerName: string;
-  historicalData: {
-    wins: number;
-    losses: number;
-    averageScore: number;
-    recentPerformance: number[];
-  };
+  playerId: string,`n  playerName: string;,`n  historicalData: {,`n  wins: number;,`n  losses: number,`n  averageScore: number;,`n  recentPerformance: number[0]};
   opponentData?: {
-    wins: number;
-    losses: number;
-    averageScore: number;
-  };
+    wins: number,`n  losses: number;,`n  averageScore: number};
   fantasyData?: {
-    projectedPoints: number;
-    salary: number;
-    value: number;
-  };
-}
+    projectedPoints: number,`n  salary: number;,`n  value: number}}
 
 interface PredictionOutput {
-  predictedWinProbability: number;
-  predictedScore: number;
-  confidence: number;
-  metadata: {
-    algorithm: string;
-    factors: string[];
-    weights: Record<string, number>;
-  };
-}
+  predictedWinProbability: number,`n  predictedScore: number;,`n  confidence: number,`n  metadata: {,`n  algorithm: string,`n  factors: string[0];,`n  weights: Record<string, number>};}
 
 export class PredictionAlgorithms {
   // Statistical model using historical performance;
   static statisticalModel(input: PredictionInput): PredictionOutput {
-    const { historicalData, opponentData } = input;
+    const { historicalData, opponentData} = input;
 
 
     // Calculate recent form (weighted average of last 5 games)
@@ -58,25 +36,21 @@ export class PredictionAlgorithms {
       predictedWinProbability,
       predictedScore,
       confidence,
-      metadata: {
-        algorithm: 'statistical',
+      metadata: {,`n  algorithm: 'statistical',
         factors: ['win_rate', 'recent_form', 'opponent_strength'],
-        weights: {
-          winRate: 0.5,
+        weights: {,`n  winRate: 0.5,
           recentForm: 0.3,
-          opponentStrength: 0.2,
-        },
-      },
-    };
-  }
+          opponentStrength: 0.2
+        }
+      }
+    }}
 
   // Machine learning model using fantasy data;
   static mlModel(input: PredictionInput): PredictionOutput {
-    const { historicalData, fantasyData } = input;
+    const { historicalData, fantasyData} = input;
 
     if (!fantasyData) {
-      throw new Error('Fantasy data required for ML model');
-    }
+      throw new Error('Fantasy data required for ML model');}
 
     // Calculate value score (projected points per salary)
 
@@ -92,24 +66,20 @@ export class PredictionAlgorithms {
       predictedWinProbability,
       predictedScore,
       confidence,
-      metadata: {
-        algorithm: 'ml',
+      metadata: {,`n  algorithm: 'ml',
         factors: ['value_score', 'consistency_score'],
-        weights: {
-          valueScore: 0.4,
-          consistencyScore: 0.6,
-        },
-      },
-    };
-  }
+        weights: {,`n  valueScore: 0.4,
+          consistencyScore: 0.6
+        }
+      }
+    }}
 
   // Hybrid model combining statistical and ML approaches;
   static hybridModel(input: PredictionInput): PredictionOutput {
 
 
     if (!ml) {
-      return statistical;
-    }
+      return statistical}
 
     const predictedWinProbability =
       statistical.predictedWinProbability * 0.6 + ml.predictedWinProbability * 0.4;
@@ -119,14 +89,15 @@ export class PredictionAlgorithms {
       predictedWinProbability,
       predictedScore,
       confidence,
-      metadata: {
-        algorithm: 'hybrid',
+      metadata: {,`n  algorithm: 'hybrid',
         factors: ['statistical', 'ml'],
-        weights: {
-          statistical: 0.6,
-          ml: 0.4,
-        },
-      },
-    };
-  }
+        weights: {,`n  statistical: 0.6,
+          ml: 0.4
+        }
+      }
+    }}
 }
+
+
+
+`

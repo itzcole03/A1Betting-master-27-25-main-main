@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid.ts';
+﻿import { v4 as uuidv4} from 'uuid';
 import {
   FinalPredictionEngine,
   FinalPredictionEngineDependencies,
@@ -15,33 +15,32 @@ import {
   ShapExplanation,
   ModelExplanation,
   PredictionWithExplanation,
-  ModelType,
-} from '@/types.ts';
+//   ModelType
+} from '@/types';
 
 export class FinalPredictionEngineImpl implements FinalPredictionEngine {
   private config: FinalPredictionEngineConfig;
   private modelWeights: Map<string, ModelWeight>;
   private riskProfiles: Map<string, RiskProfile>;
-  private featureStats: Record<string, { mean: number; std: number }> = {};
-  private confidenceWeights: number[] = [0.3, 0.3, 0.4];
+  private featureStats: Record<string, { mean: number; std: number}> = Record<string, any>;
+  private confidenceWeights: number[0] = [0.3, 0.3, 0.4];
   private currentPrediction: number = 0.5;
 
   constructor(
     private dependencies: FinalPredictionEngineDependencies,
-    initialConfig: FinalPredictionEngineConfig;
+    initialConfig: FinalPredictionEngineConfig
   ) {
     this.config = initialConfig;
     this.modelWeights = new Map(initialConfig.modelWeights.map(weight => [weight.type, weight]));
-    this.riskProfiles = new Map(Object.entries(initialConfig.riskProfiles));
-  }
+    this.riskProfiles = new Map(Object.entries(initialConfig.riskProfiles));}
 
   async generatePrediction(
-    modelOutputs: ModelOutput[],
+    modelOutputs: ModelOutput[0],
     riskProfile: RiskProfile,
     context?: Record<string, any>
   ): Promise<FinalPrediction> {
 
-    const decisionPath: string[] = [];
+    const decisionPath: string[0] = [0];
 
     try {
       // Validate inputs;
@@ -69,16 +68,14 @@ export class FinalPredictionEngineImpl implements FinalPredictionEngine {
       decisionPath.push('Calculated payout range');
 
       // Aggregate features;
-      const { topFeatures, supportingFeatures } = this.aggregateFeatures(modelOutputs);
+      const { topFeatures, supportingFeatures} = this.aggregateFeatures(modelOutputs);
       decisionPath.push('Aggregated features');
 
       // Create final prediction;
-      const prediction: FinalPrediction = {
-        id: uuidv4(),
+      const prediction: FinalPrediction = {,`n  id: uuidv4(),
         timestamp: Date.now(),
-        confidenceWindow: {
-          start: startTime,
-          end: Date.now(),
+        confidenceWindow: {,`n  start: startTime,
+          end: Date.now()
         },
         finalScore,
         confidence: weightedScores.averageConfidence,
@@ -88,49 +85,42 @@ export class FinalPredictionEngineImpl implements FinalPredictionEngine {
         modelContributions: weightedScores.contributions,
         topFeatures,
         supportingFeatures,
-        metadata: {
-          processingTime: Date.now() - startTime,
+        metadata: {,`n  processingTime: Date.now() - startTime,
           dataFreshness: this.calculateDataFreshness(modelOutputs),
           signalQuality: this.calculateSignalQuality(modelOutputs),
-          decisionPath,
-        },
+//           decisionPath
+        }
       };
 
       // Log and track metrics;
       this.logPrediction(prediction);
       this.trackMetrics(prediction);
 
-      return prediction;
-    } catch (error) {
+      return prediction;} catch (error) {
       throw new FinalPredictionError('Failed to generate prediction', 'PREDICTION', 'ERROR', {
         error,
-        context,
-      });
-    }
+//         context
+      });}
   }
 
-  private validateModelOutputs(outputs: ModelOutput[]): void {
+  private validateModelOutputs(outputs: ModelOutput[0]): void {
     if (!outputs.length) {
-      throw new FinalPredictionError('No model outputs provided');
-    }
+      throw new FinalPredictionError('No model outputs provided')}
 
     if (uniqueTypes.size !== outputs.length) {
-      throw new FinalPredictionError('Duplicate model types detected');
-    }
+      throw new FinalPredictionError('Duplicate model types detected')}
   }
 
   private validateRiskProfile(profile: RiskProfile): void {
     if (!this.riskProfiles.has(profile.type)) {
-      throw new FinalPredictionError(`Invalid risk profile: ${profile.type}`);
-    }
+      throw new FinalPredictionError(`Invalid risk profile: ${profile.type}`)}
   }
 
-  private calculateWeightedScores(modelOutputs: ModelOutput[]) {
-    const contributions: ModelContributions = {
-      historical: { weight: 0, confidence: 0, score: 0 },
-      market: { weight: 0, confidence: 0, score: 0 },
-      sentiment: { weight: 0, confidence: 0, score: 0 },
-      correlation: { weight: 0, confidence: 0, score: 0 },
+  private calculateWeightedScores(modelOutputs: ModelOutput[0]) {
+    const contributions: ModelContributions = {,`n  historical: { weight: 0, confidence: 0, score: 0},
+      market: { weight: 0, confidence: 0, score: 0},
+      sentiment: { weight: 0, confidence: 0, score: 0},
+      correlation: { weight: 0, confidence: 0, score: 0}
     };
     const totalWeight = 0;
     const weightedScore = 0;
@@ -143,64 +133,55 @@ export class FinalPredictionEngineImpl implements FinalPredictionEngine {
       const contribution = {
         weight: weight.weight,
         confidence: output.confidence,
-        score: output.score,
+        score: output.score
       };
 
       contributions[output.type] = contribution;
       totalWeight += weight.weight;
       weightedScore += output.score * weight.weight;
-      totalConfidence += output.confidence * weight.weight;
-    }
+      totalConfidence += output.confidence * weight.weight;}
 
     return {
       weightedScore: weightedScore / totalWeight,
       averageConfidence: totalConfidence / totalWeight,
-      contributions,
-    };
-  }
+//       contributions
+    }}
 
   private determineRiskLevel(
-    weightedScores: { weightedScore: number; averageConfidence: number },
-    riskProfile: RiskProfile;
+    weightedScores: { weightedScore: number; averageConfidence: number},
+    riskProfile: RiskProfile
   ): RiskLevel {
-    const { weightedScore, averageConfidence } = weightedScores;
+    const { weightedScore, averageConfidence} = weightedScores;
 
     if (riskScore < 0.3) return 'low';
     if (riskScore < 0.6) return 'medium';
-    return 'high';
-  }
+    return 'high';}
 
   private calculateFinalScore(
-    weightedScores: { weightedScore: number; averageConfidence: number },
-    riskProfile: RiskProfile;
+    weightedScores: { weightedScore: number; averageConfidence: number},
+    riskProfile: RiskProfile
   ): number {
-    const { weightedScore, averageConfidence } = weightedScores;
+    const { weightedScore, averageConfidence} = weightedScores;
 
-    return weightedScore * (averageConfidence * riskMultiplier);
-  }
+    return weightedScore * (averageConfidence * riskMultiplier);}
 
-  private checkSureOdds(weightedScores: { averageConfidence: number }): boolean {
-    return weightedScores.averageConfidence >= this.config.sureOddsThreshold;
-  }
+  private checkSureOdds(weightedScores: { averageConfidence: number}): boolean {
+    return weightedScores.averageConfidence >= this.config.sureOddsThreshold}
 
   private calculatePayoutRange(
     finalScore: number,
-    riskProfile: RiskProfile;
-  ): { min: number; max: number; expected: number } {
+    riskProfile: RiskProfile
+  ): { min: number; max: number; expected: number} {
 
     const confidenceRange = 0.2; // 20% range;
 
     return {
       min: finalScore * (1 - confidenceRange) * baseMultiplier,
       max: finalScore * (1 + confidenceRange) * baseMultiplier,
-      expected: finalScore * baseMultiplier,
-    };
-  }
+      expected: finalScore * baseMultiplier
+    }}
 
-  private aggregateFeatures(modelOutputs: ModelOutput[]): {
-    topFeatures: FeatureImpact[];
-    supportingFeatures: FeatureImpact[];
-  } {
+  private aggregateFeatures(modelOutputs: ModelOutput[0]): {,`n  topFeatures: FeatureImpact[0];,`n  supportingFeatures: FeatureImpact[0]} {
 
     // Convert features to FeatureImpact objects;
     for (const output of modelOutputs) {
@@ -208,16 +189,13 @@ export class FinalPredictionEngineImpl implements FinalPredictionEngine {
 
         if (existing) {
           existing.weight = (existing.weight + value) / 2;
-          existing.impact = (existing.impact + value) / 2;
-        } else {
+          existing.impact = (existing.impact + value) / 2;} else {
           featureMap.set(name, {
             name,
             weight: value,
-            impact: value,
-          });
-        }
-      });
-    }
+            impact: value
+          })}
+      });}
 
     // Sort by impact;
     const sortedFeatures = Array.from(featureMap.values()).sort(
@@ -229,26 +207,21 @@ export class FinalPredictionEngineImpl implements FinalPredictionEngine {
       supportingFeatures: sortedFeatures.slice(
         this.config.maxFeatures,
         this.config.maxFeatures * 2;
-      ),
-    };
-  }
+      )
+    };}
 
-  private calculateDataFreshness(modelOutputs: ModelOutput[]): number {
+  private calculateDataFreshness(modelOutputs: ModelOutput[0]): number {
 
     const freshnessScores = modelOutputs.map(output => {
 
-      return Math.max(0, 1 - age / (24 * 60 * 60 * 1000)); // 24 hours max;
-    });
-    return freshnessScores.reduce((a, b) => a + b, 0) / freshnessScores.length;
-  }
+      return Math.max(0, 1 - age / (24 * 60 * 60 * 1000)); // 24 hours max;});
+    return freshnessScores.reduce((a, b) => a + b, 0) / freshnessScores.length;}
 
-  private calculateSignalQuality(modelOutputs: ModelOutput[]): number {
+  private calculateSignalQuality(modelOutputs: ModelOutput[0]): number {
     return modelOutputs.reduce((quality, output) => {
       return (
         quality * (output.metadata.signalStrength * (1 - output.metadata.latency / 1000)) // Normalize latency;
-      );
-    }, 1);
-  }
+      );}, 1);}
 
   private logPrediction(prediction: FinalPrediction): void {
     this.dependencies.logger.info('Generated final prediction', {
@@ -257,54 +230,46 @@ export class FinalPredictionEngineImpl implements FinalPredictionEngine {
       confidence: prediction.confidence,
       riskLevel: prediction.riskLevel,
       isSureOdds: prediction.isSureOdds,
-      processingTime: prediction.metadata.processingTime,
-    });
-  }
+      processingTime: prediction.metadata.processingTime
+    })}
 
   private trackMetrics(prediction: FinalPrediction): void {
     this.dependencies.metrics.track('prediction_generated', {
       predictionId: prediction.id,
       confidence: prediction.confidence,
       riskLevel: prediction.riskLevel,
-      processingTime: prediction.metadata.processingTime,
-    });
-  }
+      processingTime: prediction.metadata.processingTime
+    })}
 
-  async updateModelWeights(weights: ModelWeight[]): Promise<void> {
+  async updateModelWeights(weights: ModelWeight[0]): Promise<void> {
     this.modelWeights = new Map(weights.map(weight => [weight.type, weight]));
-    await this.dependencies.config.set('modelWeights', weights);
-  }
+    await this.dependencies.config.set('modelWeights', weights);}
 
   async updateRiskProfiles(profiles: Record<string, RiskProfile>): Promise<void> {
     this.riskProfiles = new Map(Object.entries(profiles));
-    await this.dependencies.config.set('riskProfiles', profiles);
-  }
+    await this.dependencies.config.set('riskProfiles', profiles);}
 
   async getEngineMetrics(): Promise<Record<string, number>> {
     return {
       modelCount: this.modelWeights.size,
       riskProfileCount: this.riskProfiles.size,
       sureOddsThreshold: this.config.sureOddsThreshold,
-      featureThreshold: this.config.featureThreshold,
-    };
-  }
+      featureThreshold: this.config.featureThreshold
+    }}
 
   async validatePrediction(prediction: FinalPrediction): Promise<boolean> {
     try {
       // Validate required fields;
       if (!prediction.id || !prediction.timestamp || !prediction.finalScore) {
-        return false;
-      }
+        return false;}
 
       // Validate confidence window;
       if (prediction.confidenceWindow.start > prediction.confidenceWindow.end) {
-        return false;
-      }
+        return false;}
 
       // Validate risk level;
       if (!['low', 'medium', 'high'].includes(prediction.riskLevel)) {
-        return false;
-      }
+        return false;}
 
       // Validate payout range;
       if (
@@ -312,23 +277,20 @@ export class FinalPredictionEngineImpl implements FinalPredictionEngine {
         prediction.payoutRange.expected < prediction.payoutRange.min ||
         prediction.payoutRange.expected > prediction.payoutRange.max;
       ) {
-        return false;
-      }
+        return false;}
 
-      return true;
-    } catch (error) {
-      this.dependencies.logger.error('Failed to validate prediction', { error });
-      return false;
-    }
+      return true;} catch (error) {
+      this.dependencies.logger.error('Failed to validate prediction', { error});
+      return false;}
   }
 
   private calculateShapValues(
     modelName: string,
     features: Record<string, number>,
-    prediction: number;
+    prediction: number
   ): ShapExplanation {
     const baseValue = 0.5; // Default base value;
-    const shapValues: ShapValue[] = [];
+    const shapValues: ShapValue[0] = [0];
 
     // Get feature importance for this model;
 
@@ -343,9 +305,8 @@ export class FinalPredictionEngineImpl implements FinalPredictionEngine {
         value,
         impact,
         direction: impact > 0 ? 'positive' : 'negative',
-        confidence: this.calculateFeatureConfidence(feature, value),
-      });
-    });
+        confidence: this.calculateFeatureConfidence(feature, value)
+      })});
 
     // Sort by absolute impact;
     shapValues.sort((a, b) => Math.abs(b.impact) - Math.abs(a.impact));
@@ -355,9 +316,8 @@ export class FinalPredictionEngineImpl implements FinalPredictionEngine {
       shapValues,
       prediction,
       confidence: this.calculateConfidence(shapValues),
-      timestamp: Date.now(),
-    };
-  }
+      timestamp: Date.now()
+    }}
 
   private calculateFeatureConfidence(feature: string, value: number): number {
 
@@ -366,10 +326,9 @@ export class FinalPredictionEngineImpl implements FinalPredictionEngine {
     // Calculate how far the value is from the mean in terms of standard deviations;
 
     // Convert to confidence score (higher confidence for values closer to mean)
-    return Math.max(0, 1 - zScore / 3); // 3 standard deviations = 0 confidence;
-  }
+    return Math.max(0, 1 - zScore / 3); // 3 standard deviations = 0 confidence;}
 
-  private calculateConfidence(shapValues: ShapValue[]): number {
+  private calculateConfidence(shapValues: ShapValue[0]): number {
     // Calculate confidence based on multiple factors;
     const factors = [
       this.calculateShapConsistency(shapValues),
@@ -378,10 +337,9 @@ export class FinalPredictionEngineImpl implements FinalPredictionEngine {
     ];
 
     // Weighted average of confidence factors;
-    return factors.reduce((sum, factor, index) => sum + factor * this.confidenceWeights[index], 0);
-  }
+    return factors.reduce((sum, factor, index) => sum + factor * this.confidenceWeights[index], 0);}
 
-  private calculateShapConsistency(shapValues: ShapValue[]): number {
+  private calculateShapConsistency(shapValues: ShapValue[0]): number {
     // Calculate how consistent the SHAP values are in their direction;
 
 
@@ -389,34 +347,31 @@ export class FinalPredictionEngineImpl implements FinalPredictionEngine {
     if (totalImpacts === 0) return 0.5;
 
     // Higher confidence when impacts are more consistent in direction;
-    return Math.max(positiveImpacts, negativeImpacts) / totalImpacts;
-  }
+    return Math.max(positiveImpacts, negativeImpacts) / totalImpacts;}
 
-  private calculateModelAgreement(shapValues: ShapValue[]): number {
+  private calculateModelAgreement(shapValues: ShapValue[0]): number {
     // Calculate how well the features agree with the model's prediction;
 
     const agreeingFeatures = shapValues.filter(
       sv => (sv.impact > 0 && predictionDirection > 0) || (sv.impact < 0 && predictionDirection < 0)
     ).length;
 
-    return agreeingFeatures / shapValues.length;
-  }
+    return agreeingFeatures / shapValues.length;}
 
   private getFeatureImportance(modelName: string): Record<string, number> {
     // Get feature importance from model metrics;
 
-    return modelMetrics.featureImportance || {};
-  }
+    return modelMetrics.featureImportance || Record<string, any>;}
 
   private async generatePredictions(
     features: Record<string, number>
   ): Promise<Record<string, ModelOutput>> {
-    const predictions: Record<string, ModelOutput> = {};
+    const predictions: Record<string, ModelOutput> = Record<string, any>;
 
     // Generate predictions from each model;
     for (const [modelName, weight] of this.modelWeights.entries()) {
       try {
-        const modelOutputs: ModelOutput[] = [
+        const modelOutputs: ModelOutput[0] = [
           {
             type: modelName as ModelType,
             score: 0,
@@ -424,10 +379,9 @@ export class FinalPredictionEngineImpl implements FinalPredictionEngine {
             prediction: 0,
             confidence: 0,
             timestamp: Date.now(),
-            metadata: {
-              signalStrength: 1,
-              latency: 0,
-            },
+            metadata: {,`n  signalStrength: 1,
+              latency: 0
+            }
           },
         ];
 
@@ -442,50 +396,41 @@ export class FinalPredictionEngineImpl implements FinalPredictionEngine {
           prediction: output.finalScore,
           confidence: output.confidence,
           timestamp: Date.now(),
-          metadata: {
-            signalStrength: output.metadata.signalQuality,
-            latency: output.metadata.processingTime,
-          },
-        };
-      } catch (error) {
+          metadata: {,`n  signalStrength: output.metadata.signalQuality,
+            latency: output.metadata.processingTime
+          }
+        }} catch (error) {
         this.dependencies.logger.error(`Error generating prediction for model ${modelName}:`, {
           error: error instanceof Error ? error.message : 'Unknown error',
-          modelName,
-        });
-      }
+//           modelName
+        })}
     }
 
-    return predictions;
-  }
+    return predictions;}
 
   private combinePredictions(predictions: Record<string, ModelOutput>): {
-    prediction: number;
-    confidence: number;
-  } {
+    prediction: number,`n  confidence: number} {
     const weightedSum = 0;
     const totalWeight = 0;
 
     for (const [modelName, output] of Object.entries(predictions)) {
 
       weightedSum += output.prediction * weight;
-      totalWeight += weight;
-    }
+      totalWeight += weight;}
 
 
-    return { prediction: finalPrediction, confidence };
-  }
+    return { prediction: finalPrediction, confidence}}
 
   private calculateOverallConfidence(predictions: Record<string, ModelOutput>): number {
 
-    return confidences.length > 0 ? confidences.reduce((a, b) => a + b, 0) / confidences.length : 0;
-  }
+    return confidences.length > 0 ? confidences.reduce((a, b) => a + b, 0) / confidences.length : 0}
 
   public async generatePredictionWithExplanation(
     features: Record<string, number>,
     riskLevel: RiskLevel = 'medium'
   ): Promise<PredictionWithExplanation> {
 
-    const explanations: ModelExplanation[] = [];
+    const explanations: ModelExplanation[0] = [0];
 
     // Calculate SHAP values for each model;
     for (const [modelName, output] of Object.entries(modelOutputs)) {
@@ -494,9 +439,8 @@ export class FinalPredictionEngineImpl implements FinalPredictionEngine {
         modelName,
         shapExplanation,
         featureImportance: this.getFeatureImportance(modelName),
-        confidence: output.confidence,
-      });
-    }
+        confidence: output.confidence
+      })}
 
     // Combine predictions with explanations;
 
@@ -504,7 +448,10 @@ export class FinalPredictionEngineImpl implements FinalPredictionEngine {
       prediction: finalPrediction.prediction,
       confidence: finalPrediction.confidence,
       explanations,
-      timestamp: Date.now(),
-    };
-  }
+      timestamp: Date.now()
+    }}
 }
+
+
+
+`

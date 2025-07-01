@@ -1,21 +1,16 @@
-// Type definition;
+﻿// Type definition;
 interface Player {
-  id: string;
-  name: string;
-  position: string;
-  team: string;
-  salary: number;
-  confidence: number;
-  projectedPoints?: number;
-}
+  id: string,`n  name: string;,`n  position: string,`n  team: string;,`n  salary: number,`n  confidence: number;
+  projectedPoints?: number;}
 interface PayoutPreviewProps {
-  selectedPlayers: Player[];
-  entryFee: number;
-  className?: string;
-}
+  selectedPlayers: Player[0],`n  entryFee: number;
+  className?: string;}
 export declare function PayoutPreview({
   selectedPlayers,
   entryFee,
-  className,
-}: PayoutPreviewProps): import("react/jsx-runtime").JSX.Element;
-export {};
+  className
+}: PayoutPreviewProps): import('react/jsx-runtime').JSX.Element;
+export Record<string, any>;
+
+
+`

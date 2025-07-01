@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react.ts';
+﻿import React, { useState, useEffect} from 'react';
 import {
   Box,
   Card,
@@ -18,48 +18,37 @@ import {
   FormControl,
   InputLabel,
   Select,
-  MenuItem,
-} from '@mui/material.ts';
+//   MenuItem
+} from '@mui/material';
 import {
   TrendingUp as TrendingUpIcon,
   TrendingDown as TrendingDownIcon,
   Star as StarIcon,
   StarBorder as StarBorderIcon,
   Info as InfoIcon,
-  AttachMoney as MoneyIcon,
-} from '@mui/icons-material.ts';
-import { styled } from '@mui/material/styles.ts';
-import { sportsAnalytics } from '@/services/sportsAnalytics.ts';
-import { riskManagement } from '@/services/riskManagement.ts';
-import { Sport } from '@/services/sportsAnalytics.ts';
+  AttachMoney as MoneyIcon
+} from '@mui/icons-material';
+import { styled} from '@mui/material/styles';
+import { sportsAnalytics} from '@/services/sportsAnalytics';
+import { riskManagement} from '@/services/riskManagement';
+import { Sport} from '@/services/sportsAnalytics';
 
-const RecommendationsCard = styled(Card)(({ theme }) => ({
+const RecommendationsCard = styled(Card)(({ theme}) => ({
   background: 'rgba(255, 255, 255, 0.9)',
   backdropFilter: 'blur(10px)',
   border: '1px solid rgba(255, 255, 255, 0.2)',
   transition: 'all 0.3s ease',
   '&:hover': {
     transform: 'translateY(-2px)',
-    boxShadow: theme.shadows[4],
-  },
+    boxShadow: theme.shadows[4]
+  }
 }));
 
 interface Recommendation {
-  id: string;
-  sport: Sport;
-  event: string;
-  betType: string;
-  odds: number;
-  confidence: number;
-  edge: number;
-  analysis: string;
-  risk: 'low' | 'medium' | 'high';
-  timestamp: number;
-  favorite: boolean;
-}
+  id: string,`n  sport: Sport;,`n  event: string,`n  betType: string;,`n  odds: number,`n  confidence: number;,`n  edge: number,`n  analysis: string;,`n  risk: 'low' | 'medium' | 'high',`n  timestamp: number;,`n  favorite: boolean}
 
-export const BettingRecommendations: React.FC<{ sport: Sport }> = ({ sport }) => {
-  const [recommendations, setRecommendations] = useState<Recommendation[] key={269974}>([]);
+export const BettingRecommendations: React.FC<{ sport: Sport}> = ({ sport}) => {
+  const [recommendations, setRecommendations] = useState<Recommendation[0] key={269974}>([0]);
   const [selectedRecommendation, setSelectedRecommendation] = useState<Recommendation | null key={445609}>(null);
   const [betDialogOpen, setBetDialogOpen] = useState(false);
   const [betAmount, setBetAmount] = useState('');
@@ -68,23 +57,18 @@ export const BettingRecommendations: React.FC<{ sport: Sport }> = ({ sport }) =>
   useEffect(() => {
     const loadRecommendations = async () => {
 
-      setRecommendations(sportRecommendations);
-    };
+      setRecommendations(sportRecommendations);};
 
     loadRecommendations();
     const unsubscribe = sportsAnalytics.subscribe('recommendations', (data) => {
-      setRecommendations(prev => [data, ...prev].slice(0, 10));
-    });
+      setRecommendations(prev => [data, ...prev].slice(0, 10));});
 
     return () => {
-      unsubscribe();
-    };
-  }, [sport]);
+      unsubscribe();};}, [sport]);
 
   const handleBetClick = (recommendation: Recommendation) => {
     setSelectedRecommendation(recommendation);
-    setBetDialogOpen(true);
-  };
+    setBetDialogOpen(true);};
 
   const handlePlaceBet = () => {
     if (selectedRecommendation && betAmount) {
@@ -93,22 +77,20 @@ export const BettingRecommendations: React.FC<{ sport: Sport }> = ({ sport }) =>
         recommendationId: selectedRecommendation.id,
         amount,
         type: betType,
-        odds: selectedRecommendation.odds,
+        odds: selectedRecommendation.odds
       });
       setBetDialogOpen(false);
-      setBetAmount('');
-    }
+      setBetAmount('');}
   };
 
   const toggleFavorite = (recommendationId: string) => {
     setRecommendations(prev =>
       prev.map(rec =>
         rec.id === recommendationId;
-          ? { ...rec, favorite: !rec.favorite }
+          ? { ...rec, favorite: !rec.favorite}
           : rec;
       )
-    );
-  };
+    );};
 
   const getRiskColor = (risk: string) => {
     switch (risk) {
@@ -118,16 +100,13 @@ export const BettingRecommendations: React.FC<{ sport: Sport }> = ({ sport }) =>
         return 'warning';
       case 'high':
         return 'error';
-      default:
-        return 'default';
-    }
+      default: return 'default'}
   };
 
   const getConfidenceColor = (confidence: number) => {
     if (confidence >= 80) return 'success';
     if (confidence >= 60) return 'warning';
-    return 'error';
-  };
+    return 'error';};
 
   return (
     <>
@@ -146,7 +125,7 @@ export const BettingRecommendations: React.FC<{ sport: Sport }> = ({ sport }) =>
                     border: '1px solid',
                     borderColor: 'divider',
                     borderRadius: 1,
-                    position: 'relative',
+                    position: 'relative'
                   }}
                  key={353740}>
                   <Box display="flex" justifyContent="space-between" alignItems="flex-start" key={211010}>
@@ -199,8 +178,8 @@ export const BettingRecommendations: React.FC<{ sport: Sport }> = ({ sport }) =>
                         mt: 1,
                         bgcolor: 'grey.200',
                         '& .MuiLinearProgress-bar': {
-                          bgcolor: getConfidenceColor(recommendation.confidence),
-                        },
+                          bgcolor: getConfidenceColor(recommendation.confidence)
+                        }
                       }}
                     / key={147219}>
                   </Box>
@@ -232,7 +211,7 @@ export const BettingRecommendations: React.FC<{ sport: Sport }> = ({ sport }) =>
         <DialogTitle key={731539}>Place Bet</DialogTitle>
         <DialogContent key={509164}>
           {selectedRecommendation && (
-            <Box sx={{ pt: 2 }} key={848896}>
+            <Box sx={{ pt: 2}} key={848896}>
               <Typography variant="subtitle1" gutterBottom key={9738}>
                 {selectedRecommendation.event}
               </Typography>
@@ -240,7 +219,7 @@ export const BettingRecommendations: React.FC<{ sport: Sport }> = ({ sport }) =>
                 {selectedRecommendation.betType} @ {selectedRecommendation.odds}x;
               </Typography>
 
-              <FormControl fullWidth sx={{ mt: 2 }} key={502139}>
+              <FormControl fullWidth sx={{ mt: 2}} key={502139}>
                 <InputLabel key={405232}>Bet Type</InputLabel>
                 <Select;
                   value={betType}
@@ -259,9 +238,9 @@ export const BettingRecommendations: React.FC<{ sport: Sport }> = ({ sport }) =>
                 type="number"
                 value={betAmount}
                 onChange={(e) = key={151913}> setBetAmount(e.target.value)}
-                sx={{ mt: 2 }}
+                sx={{ mt: 2}}
                 InputProps={{
-                  startAdornment: <MoneyIcon color="action" / key={631425}>,
+                  startAdornment: <MoneyIcon color="action" / key={631425}>
                 }}
               />
 
@@ -286,5 +265,8 @@ export const BettingRecommendations: React.FC<{ sport: Sport }> = ({ sport }) =>
         </DialogActions>
       </Dialog>
     </>
-  );
-}; 
+  );}; 
+
+
+
+`

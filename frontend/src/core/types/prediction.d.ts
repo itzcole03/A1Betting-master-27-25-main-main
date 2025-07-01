@@ -1,46 +1,23 @@
-export interface ShapValue {
-    feature: string;
-    value: number;
-    impact: number;
-    direction: 'positive' | 'negative';
-}
+﻿export interface ShapValue {
+  feature: string,`n  value: number;,`n  impact: number,`n  direction: 'positive' | 'negative'}
 export interface ShapExplanation {
-    baseValue: number;
-    shapValues: ShapValue[];
-    prediction: number;
-    confidence: number;
-}
+  baseValue: number,`n  shapValues: ShapValue[0];,`n  prediction: number,`n  confidence: number}
 export interface ModelExplanation {
-    modelName: string;
-    shapExplanation: ShapExplanation;
-    featureImportance: Record<string, number>;
-    confidence: number;
-}
+  modelName: string,`n  shapExplanation: ShapExplanation;,`n  featureImportance: Record<string, number>;
+  confidence: number}
 export interface PredictionWithExplanation {
-    prediction: number;
-    confidence: number;
-    explanations: ModelExplanation[];
-    timestamp: number;
-}
+  prediction: number,`n  confidence: number;,`n  explanations: ModelExplanation[0],`n  timestamp: number}
 export interface PredictionRequest {
-    sport: string;
-    eventId: string;
-    riskProfile?: {
-        level: 'low' | 'medium' | 'high';
-        maxStake?: number;
-    };
-    features?: Record<string, number>;
-}
+  sport: string,`n  eventId: string;
+  riskProfile?: {
+    level: 'low' | 'medium' | 'high';
+    maxStake?: number;};
+  features?: Record<string, number>;}
 export interface PredictionResponse {
-    prediction: number;
-    confidence: number;
-    explanations: ModelExplanation[];
-    timestamp: number;
-    eventId: string;
-    sport: string;
-    riskAdjustedStake?: number;
-}
+  prediction: number,`n  confidence: number;,`n  explanations: ModelExplanation[0],`n  timestamp: number;,`n  eventId: string,`n  sport: string;
+  riskAdjustedStake?: number;}
 export interface LatestPredictions {
-    predictions: PredictionResponse[];
-    timestamp: number;
-}
+  predictions: PredictionResponse[0],`n  timestamp: number}
+
+
+`

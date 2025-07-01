@@ -2,10 +2,10 @@ import React, { useState,
   useEffect,
   useCallback,
   useMemo,
-  useRef,
- } from 'react.ts';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+//   useRef
+ } from 'react';
+import { useQuery, useMutation, useQueryClient} from '@tanstack/react-query';
+import { motion, AnimatePresence} from 'framer-motion';
 import {
   Brain,
   Activity,
@@ -32,71 +32,40 @@ import {
   Sparkles,
   Clock,
   Send,
-  Layers,
-} from 'lucide-react.ts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.ts';
-import { Button } from '@/components/ui/button.ts';
-import { Badge } from '@/components/ui/badge.ts';
-import { Progress } from '@/components/ui/progress.ts';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs.ts';
-import { api } from '@/services/api.ts';
-import OfflineIndicator from '@/ui/OfflineIndicator.ts';
-import toast from 'react-hot-toast.ts';
+//   Layers
+} from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+import { Button} from '@/components/ui/button';
+import { Badge} from '@/components/ui/badge';
+import { Progress} from '@/components/ui/progress';
+import { Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
+import { api} from '@/services/api';
+import OfflineIndicator from '@/ui/OfflineIndicator';
+import toast from 'react-hot-toast';
 
 // Import brain monitoring modules;
 import {
   intelligenceOrchestrator,
   type EnsemblePrediction,
-  type AutomationSettings,
-} from '@/services/IntelligenceOrchestrator.ts';
-import { PropOllama } from '@/user-friendly/PropOllama.ts';
+  type AutomationSettings
+} from '@/services/IntelligenceOrchestrator';
+import { PropOllama} from '@/user-friendly/PropOllama';
 
 // ============================================================================
 // BRAIN MONITORING INTERFACES;
 // ============================================================================
 
 interface BrainMetrics {
-  overallHealth: number;
-  ensembleAccuracy: number;
-  predictionLatency: number;
-  activeModels: number;
-  dataQuality: number;
-  systemLoad: number;
-  automationLevel: number;
-  confidenceScore: number;
-  brainCoherence: number;
-  neuralSyncLevel: number;
-  predictionOptimization: number;
-  userInterfaceReadiness: number;
-}
+  overallHealth: number,`n  ensembleAccuracy: number;,`n  predictionLatency: number,`n  activeModels: number;,`n  dataQuality: number,`n  systemLoad: number;,`n  automationLevel: number,`n  confidenceScore: number;,`n  brainCoherence: number,`n  neuralSyncLevel: number;,`n  predictionOptimization: number,`n  userInterfaceReadiness: number}
 
 interface BrainMonitoringState {
-  isMonitoring: boolean;
-  lastOptimization: number;
-  predictionsDelivered: number;
-  userInterfaceConnected: boolean;
-  brainEfficiency: number;
-  automatedDeliveryActive: boolean;
-  lastDeliveryTime: number;
-  optimizationCount: number;
-}
+  isMonitoring: boolean,`n  lastOptimization: number;,`n  predictionsDelivered: number,`n  userInterfaceConnected: boolean;,`n  brainEfficiency: number,`n  automatedDeliveryActive: boolean;,`n  lastDeliveryTime: number,`n  optimizationCount: number}
 
 interface AutomatedBrainConfig {
-  enableContinuousOptimization: boolean;
-  enableAutoPredictionDelivery: boolean;
-  optimizationInterval: number; // milliseconds;
-  deliveryThreshold: number; // confidence threshold;
-  userInterfaceEndpoint: string;
-  brainHealthThreshold: number;
-  autoHealingEnabled: boolean;
-}
+  enableContinuousOptimization: boolean,`n  enableAutoPredictionDelivery: boolean;,`n  optimizationInterval: number; // milliseconds;,`n  deliveryThreshold: number; // confidence threshold;,`n  userInterfaceEndpoint: string,`n  brainHealthThreshold: number;,`n  autoHealingEnabled: boolean}
 
 interface OptimizedPrediction extends EnsemblePrediction {
-  optimizationScore: number;
-  deliveryReady: boolean;
-  userInterfaceFormatted: any;
-  brainConfidence: number;
-}
+  optimizationScore: number,`n  deliveryReady: boolean;,`n  userInterfaceFormatted: unknown,`n  brainConfidence: number}
 
 // ============================================================================
 // BRAIN MONITORING HUB COMPONENT;
@@ -113,7 +82,7 @@ export const BrainMonitoringHub: React.FC = () => {
     brainEfficiency: 96.5,
     automatedDeliveryActive: true,
     lastDeliveryTime: Date.now(),
-    optimizationCount: 0,
+    optimizationCount: 0
   });
 
   const [brainConfig, setBrainConfig] = useState<AutomatedBrainConfig key={364001}>({
@@ -123,18 +92,18 @@ export const BrainMonitoringHub: React.FC = () => {
     deliveryThreshold: 0.85, // 85% confidence;
     userInterfaceEndpoint: "/api/predictions/deliver",
     brainHealthThreshold: 0.9,
-    autoHealingEnabled: true,
+    autoHealingEnabled: true
   });
 
   const [optimizedPredictions, setOptimizedPredictions] = useState<
-    OptimizedPrediction[]
-  >([]);
+    OptimizedPrediction[0]
+  >([0]);
   const [showPropOllama, setShowPropOllama] = useState(false);
 
 
 
   // ========== BRAIN METRICS MONITORING ==========
-  const { data: brainMetrics, isLoading: metricsLoading } = useQuery({
+  const { data: brainMetrics, isLoading: metricsLoading} = useQuery({
     queryKey: ["brainMetrics"],
     queryFn: async () => {
       const [health, accuracy, models, system] = await Promise.allSettled([
@@ -165,18 +134,16 @@ export const BrainMonitoringHub: React.FC = () => {
           health.status === "fulfilled"
             ? health.value?.dataQuality * 100 || 97.2;
             : 97.2,
-        systemLoad:
-          system.status === "fulfilled" ? system.value?.cpu_usage || 58 : 58,
+        systemLoad: system.status === "fulfilled" ? system.value?.cpu_usage || 58 : 58,
         automationLevel: 99.2,
         confidenceScore: 97.8,
         brainCoherence: 98.1,
         neuralSyncLevel: 96.7,
         predictionOptimization: 94.3,
-        userInterfaceReadiness: brainState.userInterfaceConnected ? 100 : 0,
-      } as BrainMetrics;
-    },
+        userInterfaceReadiness: brainState.userInterfaceConnected ? 100 : 0
+      } as BrainMetrics},
     refetchInterval: 5000,
-    retry: 2,
+    retry: 2
   });
 
   // ========== AUTOMATED BRAIN ORCHESTRATION ==========
@@ -188,38 +155,31 @@ export const BrainMonitoringHub: React.FC = () => {
 
         // Start continuous brain optimization;
         if (brainConfig.enableContinuousOptimization) {
-          startBrainOptimization();
-        }
+          startBrainOptimization();}
 
         // Start automated prediction delivery;
         if (brainConfig.enableAutoPredictionDelivery) {
-          startAutomatedDelivery();
-        }
+          startAutomatedDelivery();}
       } catch (error) {
         // console statement removed
         toast.error(
           "⚠️ Brain monitoring system error - engaging fallback mode",
-        );
-      }
+        );}
     };
 
     initializeBrain();
 
     return () => {
       if (brainOptimizationRef.current) {
-        clearInterval(brainOptimizationRef.current);
-      }
+        clearInterval(brainOptimizationRef.current);}
       if (deliverySystemRef.current) {
-        clearInterval(deliverySystemRef.current);
-      }
-    };
-  }, []);
+        clearInterval(deliverySystemRef.current);}
+    };}, [0]);
 
   // ========== BRAIN OPTIMIZATION SYSTEM ==========
   const startBrainOptimization = useCallback(() => {
     if (brainOptimizationRef.current) {
-      clearInterval(brainOptimizationRef.current);
-    }
+      clearInterval(brainOptimizationRef.current);}
 
     brainOptimizationRef.current = setInterval(async () => {
       try {
@@ -234,7 +194,7 @@ export const BrainMonitoringHub: React.FC = () => {
           deliveryReady:
             prediction.confidence >= brainConfig.deliveryThreshold * 100,
           userInterfaceFormatted: formatForUserInterface(prediction),
-          brainConfidence: enhanceBrainConfidence(prediction),
+          brainConfidence: enhanceBrainConfidence(prediction)
         }));
 
         // Filter for delivery-ready predictions;
@@ -246,27 +206,22 @@ export const BrainMonitoringHub: React.FC = () => {
           ...prev,
           lastOptimization: Date.now(),
           optimizationCount: prev.optimizationCount + 1,
-          brainEfficiency: calculateBrainEfficiency(optimized),
+          brainEfficiency: calculateBrainEfficiency(optimized)
         }));
 
         // Auto-healing check;
         if (brainConfig.autoHealingEnabled && brainMetrics) {
-          performAutoHealing(brainMetrics);
-        }
+          performAutoHealing(brainMetrics);}
 
+        // console statement removed} catch (error) {
         // console statement removed
-      } catch (error) {
-        // console statement removed
-        toast.error("🧠 Brain optimization error - retrying...");
-      }
-    }, brainConfig.optimizationInterval);
-  }, [brainConfig, brainMetrics]);
+        toast.error("🧠 Brain optimization error - retrying...");}
+    }, brainConfig.optimizationInterval);}, [brainConfig, brainMetrics]);
 
   // ========== AUTOMATED PREDICTION DELIVERY ==========
   const startAutomatedDelivery = useCallback(() => {
     if (deliverySystemRef.current) {
-      clearInterval(deliverySystemRef.current);
-    }
+      clearInterval(deliverySystemRef.current);}
 
     deliverySystemRef.current = setInterval(async () => {
       try {
@@ -282,17 +237,14 @@ export const BrainMonitoringHub: React.FC = () => {
             ...prev,
             predictionsDelivered:
               prev.predictionsDelivered + deliveryReadyPredictions.length,
-            lastDeliveryTime: Date.now(),
+            lastDeliveryTime: Date.now()
           }));
 
-          // console statement removed
-        }
+          // console statement removed}
       } catch (error) {
         // console statement removed
-        setBrainState((prev) => ({ ...prev, userInterfaceConnected: false }));
-      }
-    }, 10000); // Check every 10 seconds;
-  }, [optimizedPredictions, brainConfig]);
+        setBrainState((prev) => ({ ...prev, userInterfaceConnected: false}))}
+    }, 10000); // Check every 10 seconds;}, [optimizedPredictions, brainConfig]);
 
   // ========== BRAIN OPTIMIZATION ALGORITHMS ==========
   const calculateOptimizationScore = (
@@ -307,8 +259,7 @@ export const BrainMonitoringHub: React.FC = () => {
     return Math.min(
       100,
       confidenceWeight + diversityWeight + consensusWeight + modelCountWeight,
-    );
-  };
+    );};
 
   const enhanceBrainConfidence = (prediction: EnsemblePrediction): number => {
     // Apply brain-specific confidence enhancement;
@@ -323,8 +274,7 @@ export const BrainMonitoringHub: React.FC = () => {
     return Math.min(
       100,
       baseConfidence + diversityBonus + consensusBonus + modelCountBonus,
-    );
-  };
+    );};
 
   const formatForUserInterface = (prediction: EnsemblePrediction) => {
     return {
@@ -341,12 +291,11 @@ export const BrainMonitoringHub: React.FC = () => {
             : "Consider",
       reasoning: prediction.reasoning.slice(0, 3), // Top 3 reasons;
       timestamp: prediction.timestamp,
-      brainOptimized: true,
-    };
-  };
+      brainOptimized: true
+    }};
 
   const calculateBrainEfficiency = (
-    predictions: OptimizedPrediction[],
+    predictions: OptimizedPrediction[0],
   ): number => {
     if (predictions.length === 0) return 95;
 
@@ -356,55 +305,46 @@ export const BrainMonitoringHub: React.FC = () => {
     const deliveryReadyRatio =
       predictions.filter((p) => p.deliveryReady).length / predictions.length;
 
-    return avgOptimizationScore * 0.7 + deliveryReadyRatio * 100 * 0.3;
-  };
+    return avgOptimizationScore * 0.7 + deliveryReadyRatio * 100 * 0.3;};
 
   const performAutoHealing = (metrics: BrainMetrics) => {
 
     if (metrics.overallHealth < brainConfig.brainHealthThreshold * 100) {
-      issues.push("Low brain health detected");
-    }
+      issues.push("Low brain health detected")}
     if (metrics.predictionLatency > 200) {
-      issues.push("High prediction latency");
-    }
+      issues.push("High prediction latency")}
     if (metrics.dataQuality < 90) {
-      issues.push("Data quality degradation");
-    }
+      issues.push("Data quality degradation");}
 
     if (issues.length > 0) {
       // console statement removed
       toast.warning(`🔧 Brain auto-healing: ${issues.length} issues detected`);
 
       // Trigger system optimization;
-      queryClient.invalidateQueries();
-    }
+      queryClient.invalidateQueries();}
   };
 
   const deliverPredictionsToUserInterface = async (
-    predictions: OptimizedPrediction[],
+    predictions: OptimizedPrediction[0],
   ) => {
     try {
       // Send optimized predictions to the simple user interface;
       const response = await fetch(brainConfig.userInterfaceEndpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          predictions: predictions.map((p) => p.userInterfaceFormatted),
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify({,`n  predictions: predictions.map((p) => p.userInterfaceFormatted),
           timestamp: Date.now(),
           brainOptimized: true,
-          deliveryId: `brain-${Date.now()}`,
-        }),
+          deliveryId: `brain-${Date.now()}`
+        })
       });
 
       if (response.ok) {
-        setBrainState((prev) => ({ ...prev, userInterfaceConnected: true }));
-      } else {
-        throw new Error("Delivery failed");
-      }
+        setBrainState((prev) => ({ ...prev, userInterfaceConnected: true}))} else {
+        throw new Error("Delivery failed");}
     } catch (error) {
       // console statement removed
-      setBrainState((prev) => ({ ...prev, userInterfaceConnected: false }));
-    }
+      setBrainState((prev) => ({ ...prev, userInterfaceConnected: false}))}
   };
 
   // ========== BRAIN MONITORING VIEW ==========
@@ -424,7 +364,7 @@ export const BrainMonitoringHub: React.FC = () => {
               <Brain className="w-8 h-8 text-green-400" / key={965546}>
             </div>
             <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-transparent animate-pulse" / key={481559}>
-          </CardContent>
+          </div>
         </Card>
 
         <Card className="bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border-blue-500/30 relative overflow-hidden" key={208593}>
@@ -439,7 +379,7 @@ export const BrainMonitoringHub: React.FC = () => {
               <Cpu className="w-8 h-8 text-blue-400" / key={378311}>
             </div>
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-transparent animate-pulse" / key={865430}>
-          </CardContent>
+          </div>
         </Card>
 
         <Card className="bg-gradient-to-br from-purple-500/20 to-violet-500/20 border-purple-500/30 relative overflow-hidden" key={346664}>
@@ -454,15 +394,14 @@ export const BrainMonitoringHub: React.FC = () => {
               <Send className="w-8 h-8 text-purple-400" / key={907587}>
             </div>
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-transparent animate-pulse" / key={145727}>
-          </CardContent>
+          </div>
         </Card>
 
         <Card;
           className={`relative overflow-hidden transition-all duration-1000 ${
             brainState.userInterfaceConnected;
               ? "bg-gradient-to-br from-green-500/20 to-emerald-500/20 border-green-500/30"
-              : "bg-gradient-to-br from-red-500/20 to-orange-500/20 border-red-500/30"
-          }`}
+              : "bg-gradient-to-br from-red-500/20 to-orange-500/20 border-red-500/30"}`}
          key={972719}>
           <CardContent className="p-4" key={706827}>
             <div className="flex items-center justify-between" key={96335}>
@@ -482,10 +421,9 @@ export const BrainMonitoringHub: React.FC = () => {
               className={`absolute inset-0 bg-gradient-to-r ${
                 brainState.userInterfaceConnected;
                   ? "from-green-500/10"
-                  : "from-red-500/10"
-              } to-transparent animate-pulse`}
+                  : "from-red-500/10"} to-transparent animate-pulse`}
             / key={674043}>
-          </CardContent>
+          </div>
         </Card>
       </div>
 
@@ -563,8 +501,7 @@ export const BrainMonitoringHub: React.FC = () => {
                     variant={
                       brainState.automatedDeliveryActive;
                         ? "default"
-                        : "secondary"
-                    }
+                        : "secondary"}
                    key={793846}>
                     {brainState.automatedDeliveryActive ? "Active" : "Inactive"}
                   </Badge>
@@ -600,19 +537,17 @@ export const BrainMonitoringHub: React.FC = () => {
                       setBrainState((prev) => ({
                         ...prev,
                         isMonitoring: false,
-                        automatedDeliveryActive: false,
+                        automatedDeliveryActive: false
                       }));
-                      toast.success("🧠 Brain monitoring paused");
-                    } else {
+                      toast.success("🧠 Brain monitoring paused");} else {
                       startBrainOptimization();
                       startAutomatedDelivery();
                       setBrainState((prev) => ({
                         ...prev,
                         isMonitoring: true,
-                        automatedDeliveryActive: true,
+                        automatedDeliveryActive: true
                       }));
-                      toast.success("🧠 Brain monitoring resumed");
-                    }
+                      toast.success("🧠 Brain monitoring resumed");}
                   }}
                   className={`w-full ${brainState.isMonitoring ? "bg-red-600 hover:bg-red-700" : "bg-green-600 hover:bg-green-700"}`}
                 >
@@ -633,8 +568,7 @@ export const BrainMonitoringHub: React.FC = () => {
                   variant="outline"
                   onClick={() = key={388638}> {
                     queryClient.invalidateQueries();
-                    toast.success("🔄 Brain systems refreshed");
-                  }}
+                    toast.success("🔄 Brain systems refreshed");}}
                   className="w-full"
                 >
                   <RefreshCw className="w-4 h-4 mr-2" / key={480811}>
@@ -665,9 +599,9 @@ export const BrainMonitoringHub: React.FC = () => {
               .map((prediction, index) => (
                 <motion.div;
                   key={prediction.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  initial={{ opacity: 0, y: 20}}
+                  animate={{ opacity: 1, y: 0}}
+                  transition={{ delay: index * 0.1}}
                   className="p-4 bg-gradient-to-r from-green-500/10 to-blue-500/10 rounded-lg border border-green-500/30"
                  key={636784}>
                   <div className="flex items-start justify-between mb-3" key={310936}>
@@ -814,16 +748,14 @@ export const BrainMonitoringHub: React.FC = () => {
                       variant={
                         brainConfig.enableContinuousOptimization;
                           ? "default"
-                          : "outline"
-                      }
+                          : "outline"}
                       size="sm"
                       onClick={() = key={284983}>
                         setBrainConfig((prev) => ({
                           ...prev,
                           enableContinuousOptimization:
-                            !prev.enableContinuousOptimization,
-                        }))
-                      }
+                            !prev.enableContinuousOptimization
+                        }))}
                     >
                       {brainConfig.enableContinuousOptimization;
                         ? "Enabled"
@@ -842,15 +774,13 @@ export const BrainMonitoringHub: React.FC = () => {
                     </div>
                     <Button;
                       variant={
-                        brainConfig.autoHealingEnabled ? "default" : "outline"
-                      }
+                        brainConfig.autoHealingEnabled ? "default" : "outline"}
                       size="sm"
                       onClick={() = key={453800}>
                         setBrainConfig((prev) => ({
                           ...prev,
-                          autoHealingEnabled: !prev.autoHealingEnabled,
-                        }))
-                      }
+                          autoHealingEnabled: !prev.autoHealingEnabled
+                        }))}
                     >
                       {brainConfig.autoHealingEnabled ? "Enabled" : "Disabled"}
                     </Button>
@@ -896,16 +826,14 @@ export const BrainMonitoringHub: React.FC = () => {
                       variant={
                         brainConfig.enableAutoPredictionDelivery;
                           ? "default"
-                          : "outline"
-                      }
+                          : "outline"}
                       size="sm"
                       onClick={() = key={381867}>
                         setBrainConfig((prev) => ({
                           ...prev,
                           enableAutoPredictionDelivery:
-                            !prev.enableAutoPredictionDelivery,
-                        }))
-                      }
+                            !prev.enableAutoPredictionDelivery
+                        }))}
                     >
                       {brainConfig.enableAutoPredictionDelivery;
                         ? "Enabled"
@@ -929,7 +857,7 @@ export const BrainMonitoringHub: React.FC = () => {
 
                   <div className="p-4 bg-slate-700/30 rounded-lg" key={139199}>
                     <h4 className="font-medium text-white mb-2" key={553079}>
-                      User Interface Endpoint;
+                      User interface Endpoint
                     </h4>
                     <p className="text-sm text-slate-400 mb-3" key={3150}>
                       Where optimized predictions are sent;
@@ -949,16 +877,16 @@ export const BrainMonitoringHub: React.FC = () => {
       <AnimatePresence key={359944}>
         {showPropOllama && (
           <motion.div;
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0}}
+            animate={{ opacity: 1}}
+            exit={{ opacity: 0}}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
             onClick={() = key={742373}> setShowPropOllama(false)}
           >
             <motion.div;
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
+              initial={{ scale: 0.9, opacity: 0}}
+              animate={{ scale: 1, opacity: 1}}
+              exit={{ scale: 0.9, opacity: 0}}
               className="w-full max-w-4xl max-h-[80vh] bg-slate-900 rounded-xl border border-slate-700 overflow-hidden"
               onClick={(e) = key={848434}> e.stopPropagation()}
             >
@@ -982,7 +910,13 @@ export const BrainMonitoringHub: React.FC = () => {
         )}
       </AnimatePresence>
     </div>
-  );
-};
+  );};
 
 export default BrainMonitoringHub;
+
+
+
+
+
+`
+

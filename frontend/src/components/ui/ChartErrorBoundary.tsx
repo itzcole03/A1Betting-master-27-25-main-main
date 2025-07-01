@@ -1,15 +1,12 @@
-import React from 'react.ts';
-import { BarChart3 } from 'lucide-react.ts';
+﻿import React from 'react';
+import { BarChart3} from 'lucide-react';
 
 interface ChartErrorBoundaryState {
-  hasError: boolean;
-  errorMessage: string;
-}
+  hasError: boolean,`n  errorMessage: string}
 
 interface ChartErrorBoundaryProps {
   children: React.ReactNode;
-  fallback?: React.ReactNode;
-}
+  fallback?: React.ReactNode;}
 
 export class ChartErrorBoundary extends React.Component<
   ChartErrorBoundaryProps,
@@ -17,8 +14,7 @@ export class ChartErrorBoundary extends React.Component<
 > {
   constructor(props: ChartErrorBoundaryProps) {
     super(props);
-    this.state = { hasError: false, errorMessage: "" };
-  }
+    this.state = { hasError: false, errorMessage: ""}}
 
   static getDerivedStateFromError(error: Error): ChartErrorBoundaryState {
     // Check if this is a Chart.js related error;
@@ -32,29 +28,24 @@ export class ChartErrorBoundary extends React.Component<
     if (isChartError) {
       return {
         hasError: true,
-        errorMessage: error.message,
-      };
-    }
+        errorMessage: error.message
+      }}
 
     // If it's not a chart error, don't catch it;
-    return { hasError: false, errorMessage: "" };
-  }
+    return { hasError: false, errorMessage: ""}}
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // Only log Chart.js related errors;
     if (this.state.hasError) {
-      // console statement removed
-    } else {
+      // console statement removed} else {
       // Re-throw non-chart errors;
-      throw error;
-    }
+      throw error;}
   }
 
   render() {
     if (this.state.hasError) {
       if (this.props.fallback) {
-        return this.props.fallback;
-      }
+        return this.props.fallback;}
 
       return (
         <div className="flex items-center justify-center h-64 text-gray-400 bg-gray-800/30 rounded-lg border border-gray-700/50" key={41384}>
@@ -71,11 +62,9 @@ export class ChartErrorBoundary extends React.Component<
             </p>
           </div>
         </div>
-      );
-    }
+      );}
 
-    return this.props.children;
-  }
+    return this.props.children;}
 }
 
 // Higher-order component to wrap any chart component;
@@ -90,5 +79,8 @@ export const withChartErrorBoundary = <P extends object key={938344}>(
 
   WrappedComponent.displayName = `withChartErrorBoundary(${Component.displayName || Component.name})`;
 
-  return WrappedComponent;
-};
+  return WrappedComponent;};
+
+
+
+`

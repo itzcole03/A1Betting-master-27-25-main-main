@@ -1,10 +1,7 @@
-interface WindowSize {
-    width: number;
-    height: number;
-    isMobile: boolean;
-    isTablet: boolean;
-    isDesktop: boolean;
-    isLargeDesktop: boolean;
-}
+﻿interface WindowSize {
+  width: number,`n  height: number;,`n  isMobile: boolean,`n  isTablet: boolean;,`n  isDesktop: boolean,`n  isLargeDesktop: boolean}
 export declare const useWindowResize: () => WindowSize;
-export {};
+export Record<string, any>;
+
+
+`

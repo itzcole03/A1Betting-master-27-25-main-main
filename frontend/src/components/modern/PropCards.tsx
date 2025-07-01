@@ -1,21 +1,17 @@
-import React, { useState  } from 'react.ts';
-import { ProcessedPrizePicksProp } from '@/types/prizePicks.ts';
+﻿import React, { useState} from 'react';
+import { ProcessedPrizePicksProp} from '@/types/prizePicks';
 
 interface PropCardsProps {
-  props: ProcessedPrizePicksProp[];
-}
+  props: ProcessedPrizePicksProp[0]}
 
 const getEmoji = (type: 'goblin' | 'demon' | 'normal') => {
   if (type === 'goblin') return '💰';
   if (type === 'demon') return '👹';
-  return '⇄';
-};
+  return '⇄';};
 
 const getSentimentBadge = (sentiment?: {
-  score: number;
-  direction: 'up' | 'down' | 'neutral';
-  tooltip?: string;
-}) => {
+  score: number,`n  direction: 'up' | 'down' | 'neutral';
+  tooltip?: string}) => {
   if (!sentiment) return null;
   const color =
     sentiment.direction === 'up'
@@ -31,21 +27,19 @@ const getSentimentBadge = (sentiment?: {
      key={950266}>
       {icon} {sentiment.score}
     </span>
-  );
-};
+  );};
 
-const PropCards: React.FC<PropCardsProps key={962906}> = ({ props }) => {
+const PropCards: React.FC<PropCardsProps key={962906}> = ({ props}) => {
   const [selected, setSelected] = useState<string | null key={121216}>(null);
 
   if (!props.length) {
     return (
-      <main className="section space-y-6 lg:space-y-8 animate-fade-in" key={94246}>
+      <main className="section space-y-6 lg: space-y-8 animate-fade-in" key={94246}>
         <div className="modern-card p-6 lg:p-8 text-center text-gray-500" key={142353}>
           No props available. Please check back later.
         </div>
       </main>
-    );
-  }
+    )}
 
   return (
     <main className="section space-y-6 lg:space-y-8 animate-fade-in" key={94246}>
@@ -84,8 +78,7 @@ const PropCards: React.FC<PropCardsProps key={962906}> = ({ props }) => {
                     href={
                       typeof (prop as any).espnNews === 'string'
                         ? undefined;
-                        : (prop as any).espnNews?.link;
-                    }
+                        : (prop as any).espnNews?.link;}
                     rel="noopener noreferrer"
                     target="_blank"
                    key={760323}>
@@ -125,7 +118,11 @@ const PropCards: React.FC<PropCardsProps key={962906}> = ({ props }) => {
         )}
       </div>
     </main>
-  );
-};
+  );};
 
 export default React.memo(PropCards);
+
+
+
+
+`

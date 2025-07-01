@@ -4,24 +4,14 @@ body {
   margin: 0 !important;
   padding: 0 !important;
   min-height: 100vh !important;
-  background: linear-gradient(
-    135deg,
-    #0f172a 0%,
-    #7c3aed 50%,
-    #0f172a 100%
-  ) !important;
+  background: linear-gradient(135deg, #0f172a 0%, #7c3aed 50%, #0f172a 100%) !important;
   color: white !important;
-  font-family: "Inter", system-ui, sans-serif !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
 }
 
 #root {
   min-height: 100vh !important;
-  background: linear-gradient(
-    135deg,
-    #0f172a 0%,
-    #7c3aed 50%,
-    #0f172a 100%
-  ) !important;
+  background: linear-gradient(135deg, #0f172a 0%, #7c3aed 50%, #0f172a 100%) !important;
   color: white !important;
 }
 
@@ -44,12 +34,7 @@ h6 {
 }
 
 .bg-gradient-to-br {
-  background: linear-gradient(
-    135deg,
-    #0f172a 0%,
-    #7c3aed 50%,
-    #0f172a 100%
-  ) !important;
+  background: linear-gradient(135deg, #0f172a 0%, #7c3aed 50%, #0f172a 100%) !important;
 }
 
 .from-slate-900 {
@@ -69,5 +54,5 @@ h6 {
 }
 
 .font-sans {
-  font-family: "Inter", system-ui, sans-serif !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
 }

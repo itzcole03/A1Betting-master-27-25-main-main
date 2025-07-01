@@ -1,78 +1,35 @@
-/**
+﻿/**
  * Enhanced DailyFantasy Service - Production Ready;
  * Integrates with real DFS providers and aggregates data from multiple sources;
  * Now includes PrizePicks free projections API;
  */
 
-import { prizePicksProjectionsService } from './PrizePicksProjectionsService.ts';
+import { prizePicksProjectionsService} from './PrizePicksProjectionsService';
 
 // DraftKings unofficial endpoints;
 interface DraftKingsContest {
-  id: string;
-  name: string;
-  sport_id: string;
-  entry_fee: number;
-  total_payouts: number;
-  max_entries: number;
-  starts_at: string;
-  salary_cap: number;
-  draft_group_id: string;
-}
+  id: string,`n  name: string;,`n  sport_id: string,`n  entry_fee: number;,`n  total_payouts: number,`n  max_entries: number;,`n  starts_at: string,`n  salary_cap: number;,`n  draft_group_id: string}
 
 interface DraftKingsPlayer {
-  id: string;
-  name: string;
-  position: string;
-  team_abbreviation: string;
-  salary: number;
-  projected_fantasy_points: number;
-  average_fantasy_points: number;
-  injury_status?: string;
+  id: string,`n  name: string;,`n  position: string,`n  team_abbreviation: string;,`n  salary: number,`n  projected_fantasy_points: number;,`n  average_fantasy_points: number;
+  injury_status?: string
   game_info?: {
-    game_date: string;
-    opponent: string;
-    home_away: string;
-  };
-}
+    game_date: string,`n  opponent: string;,`n  home_away: string}}
 
 // SportsDataIO integration;
 interface SportsDataIOProjection {
-  PlayerID: number;
-  Name: string;
-  Position: string;
-  Team: string;
-  FantasyPoints: number;
-  FantasyPointsDraftKings: number;
-  FantasyPointsFanDuel: number;
-  Salary: number;
-  SalaryDraftKings: number;
-  SalaryFanDuel: number;
-  OpponentRank: number;
-  IsInjured: boolean;
-  InjuryStatus: string;
-}
+  PlayerID: number,`n  Name: string;,`n  Position: string,`n  Team: string;,`n  FantasyPoints: number,`n  FantasyPointsDraftKings: number;,`n  FantasyPointsFanDuel: number,`n  Salary: number;,`n  SalaryDraftKings: number,`n  SalaryFanDuel: number;,`n  OpponentRank: number,`n  IsInjured: boolean;,`n  InjuryStatus: string}
 
 // FairPlay API integration;
 interface FairPlayLineup {
-  players: Array<{
-    id: string;
-    name: string;
-    position: string;
-    salary: number;
-    projectedPoints: number;
-  }>;
-  totalSalary: number;
-  projectedPoints: number;
-  optimization_score: number;
+  players: Array<{,`n  id: string;,`n  name: string,`n  position: string;,`n  salary: number,`n  projectedPoints: number}>;
+  totalSalary: number,`n  projectedPoints: number;,`n  optimization_score: number;
   stack_info?: {
-    primary_stack: string;
-    correlation_bonus: number;
-  };
-}
+    primary_stack: string,`n  correlation_bonus: number}}
 
 export class EnhancedDailyFantasyService {
   private readonly baseUrl: string;
-  private readonly cache: Map<string, { data: any; timestamp: number }>;
+  private readonly cache: Map<string, { data: any; timestamp: number}>;
   private readonly cacheTTL: number = 300000; // 5 minutes;
 
   // API Keys - to be set from environment;
@@ -95,11 +52,9 @@ export class EnhancedDailyFantasyService {
     // Production validation;
     // console statement removed
     if (this.sportsDataIOKey) {
-      // console statement removed
-    }
+      // console statement removed}
     if (this.fairPlayKey) {
-      // console statement removed
-    }
+      // console statement removed}
   }
 
   private async enforceRateLimit(): Promise<void> {
@@ -108,14 +63,12 @@ export class EnhancedDailyFantasyService {
     if (timeSinceLastRequest < this.rateLimitMs) {
       await new Promise((resolve) =>
         setTimeout(resolve, this.rateLimitMs - timeSinceLastRequest),
-      );
-    }
-    this.lastRequestTime = Date.now();
-  }
+      );}
+    this.lastRequestTime = Date.now();}
 
   private async makeRequest<T>(
     endpoint: string,
-    options: RequestInit = {},
+    options: RequestInit = Record<string, any>,
     useCache: boolean = true,
   ): Promise<T> {
 
@@ -123,8 +76,7 @@ export class EnhancedDailyFantasyService {
     if (useCache) {
 
       if (cached && Date.now() - cached.timestamp < this.cacheTTL) {
-        return cached.data;
-      }
+        return cached.data;}
     }
 
     await this.enforceRateLimit();
@@ -137,28 +89,24 @@ export class EnhancedDailyFantasyService {
       const response = await fetch(url, {
         headers: {
           "Content-Type": "application/json",
-          "User-Agent": "A1Betting-Platform/1.0",
+          "User-Agent": "A1Betting-Platform/1.0"
         },
-        ...options,
+        ...options
       });
 
       if (!response.ok) {
-        throw new Error(`API error: ${response.status} ${response.statusText}`);
-      }
+        throw new Error(`API error: ${response.status} ${response.statusText}`)}
 
       // Cache the response;
       if (useCache) {
         this.cache.set(cacheKey, {
           data,
-          timestamp: Date.now(),
-        });
-      }
+          timestamp: Date.now()
+        })}
 
-      return data;
-    } catch (error) {
+      return data;} catch (error) {
       // console statement removed
-      throw error;
-    }
+      throw error;}
   }
 
   /**
@@ -166,14 +114,13 @@ export class EnhancedDailyFantasyService {
    */
   async getDraftKingsContests(
     sport: string = "NBA",
-  ): Promise<DraftKingsContest[]> {
+  ): Promise<DraftKingsContest[0]> {
     try {
       // Try backend endpoint first;
-      const backendData = await this.makeRequest<DraftKingsContest[]>(
+      const backendData = await this.makeRequest<DraftKingsContest[0]>(
         `/api/dailyfantasy/contests/${sport.toLowerCase()}`,
       );
-      return backendData;
-    } catch (error) {
+      return backendData;} catch (error) {
       // console statement removed
       // Return realistic mock data;
       return [
@@ -186,7 +133,7 @@ export class EnhancedDailyFantasyService {
           max_entries: 150000,
           starts_at: new Date(Date.now() + 3600000).toISOString(),
           salary_cap: 50000,
-          draft_group_id: "dg_123456",
+          draft_group_id: "dg_123456"
         },
         {
           id: "contest_2",
@@ -197,10 +144,9 @@ export class EnhancedDailyFantasyService {
           max_entries: 25000,
           starts_at: new Date(Date.now() + 1800000).toISOString(),
           salary_cap: 50000,
-          draft_group_id: "dg_123457",
+          draft_group_id: "dg_123457"
         },
-      ];
-    }
+      ]}
   }
 
   /**
@@ -208,13 +154,12 @@ export class EnhancedDailyFantasyService {
    */
   async getDraftKingsPlayers(
     draftGroupId: string,
-  ): Promise<DraftKingsPlayer[]> {
+  ): Promise<DraftKingsPlayer[0]> {
     try {
-      const backendData = await this.makeRequest<DraftKingsPlayer[]>(
+      const backendData = await this.makeRequest<DraftKingsPlayer[0]>(
         `/api/dailyfantasy/contests/${draftGroupId}/players`,
       );
-      return backendData;
-    } catch (error) {
+      return backendData;} catch (error) {
       // console statement removed
       // Return realistic mock players;
       return [
@@ -227,11 +172,10 @@ export class EnhancedDailyFantasyService {
           projected_fantasy_points: 58.2,
           average_fantasy_points: 56.8,
           injury_status: "GTD",
-          game_info: {
-            game_date: new Date().toISOString(),
+          game_info: {,`n  game_date: new Date().toISOString(),
             opponent: "GSW",
-            home_away: "HOME",
-          },
+            home_away: "HOME"
+          }
         },
         {
           id: "player_2",
@@ -241,14 +185,12 @@ export class EnhancedDailyFantasyService {
           salary: 10800,
           projected_fantasy_points: 54.7,
           average_fantasy_points: 52.3,
-          game_info: {
-            game_date: new Date().toISOString(),
+          game_info: {,`n  game_date: new Date().toISOString(),
             opponent: "LAL",
-            home_away: "AWAY",
-          },
+            home_away: "AWAY"
+          }
         },
-      ];
-    }
+      ]}
   }
 
   /**
@@ -257,30 +199,27 @@ export class EnhancedDailyFantasyService {
   async getSportsDataIOProjections(
     sport: string,
     date: string,
-  ): Promise<SportsDataIOProjection[]> {
+  ): Promise<SportsDataIOProjection[0]> {
     if (!this.sportsDataIOKey) {
       // console statement removed
-      return [];
-    }
+      return [0]}
 
     try {
       const sportMap: Record<string, string> = {
         NBA: "nba",
         NFL: "nfl",
         MLB: "mlb",
-        NHL: "nhl",
+        NHL: "nhl"
       };
 
 
-      return await this.makeRequest<SportsDataIOProjection[]>(endpoint, {
+      return await this.makeRequest<SportsDataIOProjection[0]>(endpoint, {
         headers: {
-          "Ocp-Apim-Subscription-Key": this.sportsDataIOKey,
-        },
-      });
-    } catch (error) {
+          "Ocp-Apim-Subscription-Key": this.sportsDataIOKey
+        }
+      })} catch (error) {
       // console statement removed
-      return [];
-    }
+      return [0];}
   }
 
   /**
@@ -294,8 +233,7 @@ export class EnhancedDailyFantasyService {
   ): Promise<FairPlayLineup | null> {
     if (!this.fairPlayKey) {
       // console statement removed
-      return null;
-    }
+      return null}
 
     try {
       const endpoint =
@@ -303,23 +241,19 @@ export class EnhancedDailyFantasyService {
 
       return await this.makeRequest<FairPlayLineup>(endpoint, {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${this.fairPlayKey}`,
-          "Content-Type": "application/json",
+        headers: {,`n  Authorization: `Bearer ${this.fairPlayKey}`,
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          sport: sport.toLowerCase(),
+        body: JSON.stringify({,`n  sport: sport.toLowerCase(),
           site,
           strategy,
           salary_cap,
-          settings: {
-            include_stacks: strategy === "gpp",
+          settings: {,`n  include_stacks: strategy === "gpp",
             max_exposure: strategy === "cash" ? 0.3 : 0.15,
-            min_salary_pct: 0.98,
-          },
-        }),
-      });
-    } catch (error) {
+            min_salary_pct: 0.98
+          }
+        })
+      })} catch (error) {
       // console statement removed
 
       // Return mock optimal lineup;
@@ -330,25 +264,23 @@ export class EnhancedDailyFantasyService {
             name: "LeBron James",
             position: "SF",
             salary: 11500,
-            projectedPoints: 58.2,
+            projectedPoints: 58.2
           },
           {
             id: "player_2",
             name: "Stephen Curry",
             position: "PG",
             salary: 10800,
-            projectedPoints: 54.7,
+            projectedPoints: 54.7
           },
         ],
         totalSalary: 49800,
         projectedPoints: 298.5,
         optimization_score: 0.95,
-        stack_info: {
-          primary_stack: "LAL",
-          correlation_bonus: 2.3,
-        },
-      };
-    }
+        stack_info: {,`n  primary_stack: "LAL",
+          correlation_bonus: 2.3
+        }
+      }}
   }
 
   /**
@@ -365,31 +297,29 @@ export class EnhancedDailyFantasyService {
         ]);
 
       // Get players for the first contest if available;
-      let players: DraftKingsPlayer[] = [];
+      let players: DraftKingsPlayer[0] = [0];
       if (contests.status === "fulfilled" && contests.value.length > 0) {
         const playerResult = await this.getDraftKingsPlayers(
           contests.value[0].draft_group_id,
         );
-        players = playerResult;
-      }
+        players = playerResult;}
 
       // Get optimal lineup;
 
       return {
-        contests: contests.status === "fulfilled" ? contests.value : [],
+        contests: contests.status === "fulfilled" ? contests.value : [0],
         players,
         projections:
           sportsDataProjections.status === "fulfilled"
             ? sportsDataProjections.value;
-            : [],
+            : [0],
         prizePicksProjections:
           prizePicksProjections.status === "fulfilled"
             ? prizePicksProjections.value;
-            : [],
+            : [0],
         optimalLineup,
         lastUpdated: new Date().toISOString(),
-        sources: {
-          contests: contests.status === "fulfilled" ? "DraftKings" : "Mock",
+        sources: {,`n  contests: contests.status === "fulfilled" ? "DraftKings" : "Mock",
           projections:
             sportsDataProjections.status === "fulfilled"
               ? "SportsDataIO"
@@ -398,13 +328,11 @@ export class EnhancedDailyFantasyService {
             prizePicksProjections.status === "fulfilled"
               ? "PrizePicks (Free)"
               : "Unavailable",
-          optimization: optimalLineup ? "FairPlay" : "Mock",
-        },
-      };
-    } catch (error) {
+          optimization: optimalLineup ? "FairPlay" : "Mock"
+        }
+      }} catch (error) {
       // console statement removed
-      throw error;
-    }
+      throw error;}
   }
 
   /**
@@ -412,11 +340,7 @@ export class EnhancedDailyFantasyService {
    */
   async getPlayerOwnership(contestId: string): Promise<
     Array<{
-      playerId: string;
-      name: string;
-      ownership: number;
-      projected_ownership: number;
-    }>
+      playerId: string,`n  name: string;,`n  ownership: number,`n  projected_ownership: number}>
   > {
     // This would integrate with services that track ownership;
     // For now, return estimated ownership based on salary/projection ratio;
@@ -430,35 +354,29 @@ export class EnhancedDailyFantasyService {
           (player.projected_fantasy_points / player.salary) * 100000 +
             Math.random() * 10,
           35,
-        ),
-      }));
-    } catch (error) {
+        )
+      }))} catch (error) {
       // console statement removed
-      return [];
-    }
+      return [0];}
   }
 
   /**
    * Health check for all DFS services;
    */
   async healthCheck(): Promise<{
-    overall: string;
-    services: Record<string, { status: string; message?: string }>;
-  }> {
+    overall: string,`n  services: Record<string, { status: string; message?: string}>;}> {
     const results = {
-      backend: { status: "unknown", message: "" },
-      sportsDataIO: { status: "unknown", message: "" },
-      fairPlay: { status: "unknown", message: "" },
-      prizePicks: { status: "unknown", message: "" },
+      backend: { status: "unknown", message: ""},
+      sportsDataIO: { status: "unknown", message: ""},
+      fairPlay: { status: "unknown", message: ""},
+      prizePicks: { status: "unknown", message: ""}
     };
 
     // Test backend;
     try {
       await this.getDraftKingsContests("NBA");
-      results.backend = { status: "healthy", message: "Backend responsive" };
-    } catch (error) {
-      results.backend = { status: "degraded", message: "Backend unavailable" };
-    }
+      results.backend = { status: "healthy", message: "Backend responsive"}} catch (error) {
+      results.backend = { status: "degraded", message: "Backend unavailable"}}
 
     // Test SportsDataIO;
     if (this.sportsDataIOKey) {
@@ -467,69 +385,62 @@ export class EnhancedDailyFantasyService {
           "NBA",
           new Date().toISOString().split("T")[0],
         );
-        results.sportsDataIO = { status: "healthy", message: "API responsive" };
-      } catch (error) {
-        results.sportsDataIO = { status: "degraded", message: "API error" };
-      }
+        results.sportsDataIO = { status: "healthy", message: "API responsive"}} catch (error) {
+        results.sportsDataIO = { status: "degraded", message: "API error"}}
     } else {
       results.sportsDataIO = {
         status: "offline",
-        message: "API key not configured",
-      };
-    }
+        message: "API key not configured"
+      }}
 
     // Test FairPlay;
     if (this.fairPlayKey) {
       try {
         await this.getOptimalLineup("NBA");
-        results.fairPlay = { status: "healthy", message: "API responsive" };
-      } catch (error) {
-        results.fairPlay = { status: "degraded", message: "API error" };
-      }
+        results.fairPlay = { status: "healthy", message: "API responsive"}} catch (error) {
+        results.fairPlay = { status: "degraded", message: "API error"}}
     } else {
       results.fairPlay = {
         status: "offline",
-        message: "API key not configured",
-      };
-    }
+        message: "API key not configured"
+      }}
 
     // Test PrizePicks (free API)
     try {
 
       results.prizePicks = {
         status: prizePicksHealth.status === "healthy" ? "healthy" : "degraded",
-        message: `${prizePicksHealth.projections_available} projections available`,
-      };
-    } catch (error) {
-      results.prizePicks = { status: "degraded", message: "Free API error" };
-    }
+        message: `${prizePicksHealth.projections_available} projections available`
+      }} catch (error) {
+      results.prizePicks = { status: "degraded", message: "Free API error"}}
 
     const healthyCount = Object.values(results).filter(
       (r) => r.status === "healthy",
     ).length;
 
-    return { overall, services: results };
-  }
+    return { overall, services: results}}
 
   /**
    * Clear all caches;
    */
   clearCache(): void {
-    this.cache.clear();
-  }
+    this.cache.clear();}
 
   /**
    * Get cache statistics;
    */
-  getCacheStats(): { size: number; totalRequests: number; hitRate: number } {
+  getCacheStats(): { size: number; totalRequests: number; hitRate: number} {
     return {
       size: this.cache.size,
       totalRequests: this.cache.size, // Simplified;
-      hitRate: 0.75, // Estimated;
-    };
-  }
+      hitRate: 0.75, // Estimated};}
 }
 
 // Export singleton instance;
 export const enhancedDailyFantasyService = new EnhancedDailyFantasyService();
 export default enhancedDailyFantasyService;
+
+
+
+
+`

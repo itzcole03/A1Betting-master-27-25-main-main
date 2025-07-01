@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useCallback, useMemo  } from 'react.ts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.ts';
-import { Button } from '@/components/ui/button.ts';
-import { Badge } from '@/components/ui/badge.ts';
-import { Progress } from '@/components/ui/progress.ts';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs.ts';
-import { Input } from '@/components/ui/input.ts';
-import { Label } from '@/components/ui/label.ts';
-import { Textarea } from '@/components/ui/textarea.ts';
+﻿import React, { useState, useEffect, useCallback, useMemo} from 'react';
+import { Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+import { Button} from '@/components/ui/button';
+import { Badge} from '@/components/ui/badge';
+import { Progress} from '@/components/ui/progress';
+import { Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
+import { Input} from '@/components/ui/input';
+import { Label} from '@/components/ui/label';
+import { Textarea} from '@/components/ui/textarea';
 import {
   Atom,
   Zap,
@@ -28,9 +28,9 @@ import {
   GitBranch,
   Microscope,
   Gauge,
-  Workflow,
-} from 'lucide-react.ts';
-import SafeChart from '@/ui/SafeChart.ts';
+//   Workflow
+} from 'lucide-react';
+import SafeChart from '@/ui/SafeChart';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -43,7 +43,7 @@ import {
   Tooltip,
   Legend,
   ArcElement,
-  Filler,
+//   Filler
 } from "chart.js";
 
 // Register Chart.js components;
@@ -62,72 +62,34 @@ ChartJS.register(
 );
 
 interface RevolutionaryPredictionRequest {
-  event_id: string;
-  sport: string;
-  features: Record<string, number key={817366}>;
-  strategy: string;
-  enable_neuromorphic: boolean;
-  enable_physics_informed: boolean;
-  enable_causal_inference: boolean;
-  enable_geometric_manifold: boolean;
-  enable_mamba_ssm: boolean;
-  enable_topological: boolean;
-  enable_graph_transformer: boolean;
-  context: Record<string, any key={989582}>;
-}
+  event_id: string,`n  sport: string;,`n  features: Record<string, number key={817366}>;
+  strategy: string,`n  enable_neuromorphic: boolean;,`n  enable_physics_informed: boolean,`n  enable_causal_inference: boolean;,`n  enable_geometric_manifold: boolean,`n  enable_mamba_ssm: boolean;,`n  enable_topological: boolean,`n  enable_graph_transformer: boolean;,`n  context: Record<string, any key={989582}>}
 
 interface RevolutionaryPredictionResult {
-  event_id: string;
-  strategy_used: string;
-  base_prediction: number;
-  neuromorphic_enhancement: number;
-  physics_informed_correction: number;
-  causal_adjustment: number;
-  geometric_manifold_projection: number;
-  mamba_temporal_refinement: number;
-  topological_smoothing: number;
-  graph_attention_boost: number;
-  final_prediction: number;
-  manifold_distance: number;
-  causal_strength: number;
-  topological_persistence: number;
-  neuromorphic_spike_rate: number;
-  physics_constraint_violation: number;
-  temporal_coherence: number;
-  graph_centrality: number;
-  uncertainty_bounds: [number, number];
+  event_id: string,`n  strategy_used: string;,`n  base_prediction: number,`n  neuromorphic_enhancement: number;,`n  physics_informed_correction: number,`n  causal_adjustment: number;,`n  geometric_manifold_projection: number,`n  mamba_temporal_refinement: number;,`n  topological_smoothing: number,`n  graph_attention_boost: number;,`n  final_prediction: number,`n  manifold_distance: number;,`n  causal_strength: number,`n  topological_persistence: number;,`n  neuromorphic_spike_rate: number,`n  physics_constraint_violation: number;,`n  temporal_coherence: number,`n  graph_centrality: number;,`n  uncertainty_bounds: [number, number];
   confidence_distribution: Record<string, number key={817366}>;
   strategy_contributions: Record<string, number key={817366}>;
   computational_complexity: Record<string, any key={989582}>;
-  emergence_patterns: string[];
-  theoretical_bounds: Record<string, number key={817366}>;
-  processing_time: number;
-  breakthrough_methods_used: string[];
-  accuracy_improvements: Record<string, number key={817366}>;
-  novel_discoveries: string[];
-}
+  emergence_patterns: string[0],`n  theoretical_bounds: Record<string, number key={817366}>;
+  processing_time: number,`n  breakthrough_methods_used: string[0];,`n  accuracy_improvements: Record<string, number key={817366}>;
+  novel_discoveries: string[0]}
 
 interface BreakthroughSummary {
   breakthrough_technologies: Record<
     string,
     {
-      description: string;
-      research_basis: string;
-      accuracy_improvement: string;
-      key_innovations: string[];
-    }
+      description: string,`n  research_basis: string;,`n  accuracy_improvement: string,`n  key_innovations: string[0]}
   >;
   overall_system_performance: Record<string, any key={989582}>;
   research_integration: Record<string, any key={989582}>;
-  future_roadmap: Record<string, string key={248182}>;
-}
+  future_roadmap: Record<string, string key={248182}>}
 
 export const RevolutionaryAccuracyInterface: React.FC = () => {
   const [predictionRequest, setPredictionRequest] =
     useState<RevolutionaryPredictionRequest key={779628}>({
       event_id: "",
       sport: "basketball",
-      features: {},
+      features: Record<string, any>,
       strategy: "hybrid_fusion",
       enable_neuromorphic: true,
       enable_physics_informed: true,
@@ -136,7 +98,7 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
       enable_mamba_ssm: true,
       enable_topological: true,
       enable_graph_transformer: true,
-      context: {},
+      context: Record<string, any>
     });
 
   const [predictionResult, setPredictionResult] =
@@ -150,8 +112,7 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
 
   // Fetch breakthrough summary on component mount;
   useEffect(() => {
-    fetchBreakthroughSummary();
-  }, []);
+    fetchBreakthroughSummary();}, [0]);
 
   const fetchBreakthroughSummary = useCallback(async () => {
     try {
@@ -160,19 +121,16 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
       );
       if (response.ok) {
 
-        setBreakthroughSummary(data);
-      }
+        setBreakthroughSummary(data);}
     } catch (error) {
-      // console statement removed
-    }
-  }, []);
+      // console statement removed}
+  }, [0]);
 
   // Generate revolutionary prediction;
   const generateRevolutionaryPrediction = useCallback(async () => {
     if (!predictionRequest.event_id) {
       alert("Please provide an event ID");
-      return;
-    }
+      return;}
 
     setIsProcessing(true);
     setProcessingStage("Initializing revolutionary ML systems...");
@@ -193,22 +151,19 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
 
       for (const i = 0; i < stages.length; i++) {
         setProcessingStage(stages[i]);
-        await new Promise((resolve) => setTimeout(resolve, 800));
-      }
+        await new Promise((resolve) => setTimeout(resolve, 800));}
 
       const response = await fetch("/api/revolutionary/predict/revolutionary", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(predictionRequest),
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify(predictionRequest)
       });
 
       if (response.ok) {
 
-        setPredictionResult(result);
-      } else {
+        setPredictionResult(result);} else {
         // Fallback with simulated revolutionary data;
-        const simulatedResult: RevolutionaryPredictionResult = {
-          event_id: predictionRequest.event_id,
+        const simulatedResult: RevolutionaryPredictionResult = {,`n  event_id: predictionRequest.event_id,
           strategy_used: predictionRequest.strategy,
           base_prediction: Math.random() * 100 + 50,
           neuromorphic_enhancement: (Math.random() - 0.5) * 10,
@@ -227,20 +182,18 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
           temporal_coherence: Math.random() * 0.2 + 0.8,
           graph_centrality: Math.random() * 0.6 + 0.4,
           uncertainty_bounds: [45, 85],
-          confidence_distribution: { high: 0.7, medium: 0.2, low: 0.1 },
-          strategy_contributions: {
-            neuromorphic: 0.15,
+          confidence_distribution: { high: 0.7, medium: 0.2, low: 0.1},
+          strategy_contributions: {,`n  neuromorphic: 0.15,
             physics_informed: 0.12,
             causal: 0.18,
             manifold: 0.1,
             mamba: 0.2,
             topological: 0.08,
-            graph_transformer: 0.17,
+            graph_transformer: 0.17
           },
-          computational_complexity: {
-            total_theoretical_complexity: "O(n^3)",
+          computational_complexity: {,`n  total_theoretical_complexity: "O(n^3)",
             parallel_efficiency: "85%",
-            memory_optimization: "40% reduction",
+            memory_optimization: "40% reduction"
           },
           emergence_patterns: [
             "Non-linear dynamics detected",
@@ -248,7 +201,7 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
             "Causal relationships discovered",
             "Manifold structure revealed",
           ],
-          theoretical_bounds: { min: 0, max: 100 },
+          theoretical_bounds: { min: 0, max: 100},
           processing_time: Math.random() * 3 + 2,
           breakthrough_methods_used: [
             "Neuromorphic Spiking Neural Networks (2024)",
@@ -257,28 +210,24 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
             "Mamba State Space Models (2024 Breakthrough)",
             "Topological Deep Learning with Persistence Analysis",
           ],
-          accuracy_improvements: {
-            neuromorphic: 15.3,
+          accuracy_improvements: {,`n  neuromorphic: 15.3,
             physics_informed: 12.7,
             causal: 18.2,
             mamba: 23.5,
-            topological: 8.9,
+            topological: 8.9
           },
           novel_discoveries: [
             "Strong causal relationships identified - high confidence in feature causality",
             "Persistent topological features found - robust structural patterns",
             "High neuromorphic spike synchrony detected - indicates strong temporal patterns",
             "Data lies on low-dimensional manifold - efficient geometric representation",
-          ],
+          ]
         };
-        setPredictionResult(simulatedResult);
-      }
+        setPredictionResult(simulatedResult);}
     } catch (error) {
-      // console statement removed
-    } finally {
+      // console statement removed} finally {
       setIsProcessing(false);
-      setProcessingStage("");
-    }
+      setProcessingStage("");}
   }, [predictionRequest]);
 
   // Add sample features;
@@ -317,14 +266,13 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
       // Psychological factors;
       momentum_score: Math.random() * 20 - 10,
       pressure_index: Math.random() * 100,
-      confidence_rating: Math.random() * 10 + 5,
+      confidence_rating: Math.random() * 10 + 5
     };
 
     setPredictionRequest((prev) => ({
       ...prev,
-      features: advancedFeatures,
-    }));
-  }, []);
+      features: advancedFeatures
+    }))}, [0]);
 
   // Revolutionary enhancement breakdown chart;
   const enhancementBreakdownData = useMemo(() => {
@@ -370,11 +318,10 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
             "rgba(59, 130, 246, 1)",
             "rgba(16, 185, 129, 1)",
           ],
-          borderWidth: 2,
+          borderWidth: 2
         },
-      ],
-    };
-  }, [predictionResult]);
+      ]
+    }}, [predictionResult]);
 
   // Advanced metrics radar chart;
   const advancedMetricsData = useMemo(() => {
@@ -407,11 +354,10 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
           pointBackgroundColor: "rgba(147, 51, 234, 1)",
           pointBorderColor: "#fff",
           pointHoverBackgroundColor: "#fff",
-          pointHoverBorderColor: "rgba(147, 51, 234, 1)",
+          pointHoverBorderColor: "rgba(147, 51, 234, 1)"
         },
-      ],
-    };
-  }, [predictionResult]);
+      ]
+    }}, [predictionResult]);
 
   // Accuracy improvements comparison;
   const accuracyImprovementsData = useMemo(() => {
@@ -425,11 +371,10 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
           data: Object.values(improvements),
           backgroundColor: "rgba(34, 197, 94, 0.8)",
           borderColor: "rgba(34, 197, 94, 1)",
-          borderWidth: 2,
+          borderWidth: 2
         },
-      ],
-    };
-  }, [predictionResult]);
+      ]
+    }}, [predictionResult]);
 
   return (
     <div className="space-y-6 p-6" key={80798}>
@@ -484,8 +429,7 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                 <Progress;
                   value={
                     ((stages.indexOf(processingStage) + 1) / stages.length) *
-                    100;
-                  }
+                    100;}
                   className="mt-2"
                 / key={692720}>
               </div>
@@ -528,9 +472,8 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                     onChange={(e) = key={273884}>
                       setPredictionRequest((prev) => ({
                         ...prev,
-                        event_id: e.target.value,
-                      }))
-                    }
+                        event_id: e.target.value
+                      }))}
                     placeholder="Enter event identifier"
                   />
                 </div>
@@ -543,9 +486,8 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                     onChange={(e) = key={569775}>
                       setPredictionRequest((prev) => ({
                         ...prev,
-                        sport: e.target.value,
-                      }))
-                    }
+                        sport: e.target.value
+                      }))}
                     className="w-full px-3 py-2 border rounded-md"
                   >
                     <option value="basketball" key={32898}>Basketball</option>
@@ -564,9 +506,8 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                     onChange={(e) = key={253415}>
                       setPredictionRequest((prev) => ({
                         ...prev,
-                        strategy: e.target.value,
-                      }))
-                    }
+                        strategy: e.target.value
+                      }))}
                     className="w-full px-3 py-2 border rounded-md"
                   >
                     <option value="hybrid_fusion" key={466056}>
@@ -594,39 +535,39 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                     {
                       key: "enable_neuromorphic",
                       label: "Neuromorphic Spiking Networks",
-                      icon: Brain,
+                      icon: Brain
                     },
                     {
                       key: "enable_physics_informed",
                       label: "Physics-Informed Constraints",
-                      icon: Atom,
+                      icon: Atom
                     },
                     {
                       key: "enable_causal_inference",
                       label: "Causal Inference (Do-Calculus)",
-                      icon: GitBranch,
+                      icon: GitBranch
                     },
                     {
                       key: "enable_geometric_manifold",
                       label: "Geometric Manifold Learning",
-                      icon: Layers,
+                      icon: Layers
                     },
                     {
                       key: "enable_mamba_ssm",
                       label: "Mamba State Space Models",
-                      icon: Activity,
+                      icon: Activity
                     },
                     {
                       key: "enable_topological",
                       label: "Topological Deep Learning",
-                      icon: Network,
+                      icon: Network
                     },
                     {
                       key: "enable_graph_transformer",
                       label: "Graph Transformer Attention",
-                      icon: Radar,
+                      icon: Radar
                     },
-                  ].map(({ key, label, icon: Icon }) => (
+                  ].map(({ key, label, icon: Icon}) => (
                     <div key={key} className="flex items-center space-x-3" key={973574}>
                       <input;
                         type="checkbox"
@@ -634,14 +575,12 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                         checked={
                           predictionRequest[
                             key as keyof RevolutionaryPredictionRequest;
-                          ] as boolean;
-                        }
+                          ] as boolean;}
                         onChange={(e) = key={117113}>
                           setPredictionRequest((prev) => ({
                             ...prev,
-                            [key]: e.target.checked,
-                          }))
-                        }
+                            [key]: e.target.checked
+                          }))}
                         className="rounded"
                       />
                       <Icon className="w-4 h-4 text-purple-600" / key={834290}>
@@ -702,10 +641,9 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                               ...prev,
                               features: {
                                 ...prev.features,
-                                [key]: parseFloat(e.target.value) || 0,
-                              },
-                            }))
-                          }
+                                [key]: parseFloat(e.target.value) || 0
+                              }
+                            }))}
                           className="text-xs"
                         />
                       </div>
@@ -800,20 +738,15 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                           options={{
                             responsive: true,
                             maintainAspectRatio: false,
-                            plugins: {
-                              legend: {
-                                display: false,
-                              },
+                            plugins: {,`n  legend: {,`n  display: false
+                              }
                             },
-                            scales: {
-                              y: {
-                                beginAtZero: true,
-                                title: {
-                                  display: true,
-                                  text: "Enhancement Magnitude",
-                                },
-                              },
-                            },
+                            scales: {,`n  y: {,`n  beginAtZero: true,
+                                title: {,`n  display: true,
+                                  text: "Enhancement Magnitude"
+                                }
+                              }
+                            }
                           }}
                         / key={143948}>
                       </div>
@@ -836,22 +769,16 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                           options={{
                             responsive: true,
                             maintainAspectRatio: false,
-                            plugins: {
-                              legend: {
-                                display: false,
-                              },
+                            plugins: {,`n  legend: {,`n  display: false
+                              }
                             },
-                            scales: {
-                              r: {
-                                beginAtZero: true,
+                            scales: {,`n  r: {,`n  beginAtZero: true,
                                 max: 100,
-                                ticks: {
-                                  callback: function (value) {
-                                    return value + "%";
-                                  },
-                                },
-                              },
-                            },
+                                ticks: {,`n  callback: function (value) {
+                                    return value + "%"}
+                                }
+                              }
+                            }
                           }}
                         / key={54317}>
                       </div>
@@ -948,20 +875,15 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                       options={{
                         responsive: true,
                         maintainAspectRatio: false,
-                        plugins: {
-                          legend: {
-                            display: false,
-                          },
+                        plugins: {,`n  legend: {,`n  display: false
+                          }
                         },
-                        scales: {
-                          y: {
-                            beginAtZero: true,
-                            title: {
-                              display: true,
-                              text: "Accuracy Improvement (%)",
-                            },
-                          },
-                        },
+                        scales: {,`n  y: {,`n  beginAtZero: true,
+                            title: {,`n  display: true,
+                              text: "Accuracy Improvement (%)"
+                            }
+                          }
+                        }
                       }}
                     / key={703948}>
                   </div>
@@ -1050,8 +972,7 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                       <p className="text-lg font-bold text-gray-900" key={241254}>
                         {
                           predictionResult.computational_complexity;
-                            .total_theoretical_complexity;
-                        }
+                            .total_theoretical_complexity;}
                       </p>
                     </div>
                     <div key={241917}>
@@ -1061,8 +982,7 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                       <p className="text-lg font-bold text-gray-900" key={241254}>
                         {
                           predictionResult.computational_complexity;
-                            .memory_optimization;
-                        }
+                            .memory_optimization;}
                       </p>
                     </div>
                   </div>
@@ -1102,8 +1022,7 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                       <p className="text-xl font-bold text-green-900" key={693646}>
                         {
                           breakthroughSummary.overall_system_performance;
-                            .theoretical_maximum_improvement;
-                        }
+                            .theoretical_maximum_improvement;}
                       </p>
                     </div>
                     <div key={241917}>
@@ -1113,8 +1032,7 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                       <p className="text-xl font-bold text-green-900" key={693646}>
                         {
                           breakthroughSummary.overall_system_performance;
-                            .practical_achieved_improvement;
-                        }
+                            .practical_achieved_improvement;}
                       </p>
                     </div>
                     <div key={241917}>
@@ -1124,8 +1042,7 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                       <p className="text-xl font-bold text-green-900" key={693646}>
                         {
                           breakthroughSummary.overall_system_performance;
-                            .computational_efficiency;
-                        }
+                            .computational_efficiency;}
                       </p>
                     </div>
                     <div key={241917}>
@@ -1135,8 +1052,7 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                       <p className="text-xl font-bold text-green-900" key={693646}>
                         {
                           breakthroughSummary.overall_system_performance;
-                            .memory_efficiency;
-                        }
+                            .memory_efficiency;}
                       </p>
                     </div>
                   </div>
@@ -1220,8 +1136,7 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                       <p className="text-3xl font-bold text-purple-600" key={386166}>
                         {
                           breakthroughSummary.research_integration;
-                            .total_papers_implemented;
-                        }
+                            .total_papers_implemented;}
                       </p>
                       <p className="text-sm text-gray-600" key={656535}>
                         Papers Implemented;
@@ -1231,8 +1146,7 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                       <p className="text-3xl font-bold text-blue-600" key={753260}>
                         {
                           breakthroughSummary.research_integration;
-                            .cutting_edge_methods;
-                        }
+                            .cutting_edge_methods;}
                       </p>
                       <p className="text-sm text-gray-600" key={656535}>
                         Cutting-Edge Methods;
@@ -1242,8 +1156,7 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                       <p className="text-3xl font-bold text-green-600" key={93484}>
                         {
                           breakthroughSummary.research_integration;
-                            .novel_combinations;
-                        }
+                            .novel_combinations;}
                       </p>
                       <p className="text-sm text-gray-600" key={656535}>
                         Novel Combinations;
@@ -1253,8 +1166,7 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                       <p className="text-3xl font-bold text-orange-600" key={31181}>
                         {
                           breakthroughSummary.research_integration;
-                            .breakthrough_conferences.length;
-                        }
+                            .breakthrough_conferences.length;}
                       </p>
                       <p className="text-sm text-gray-600" key={656535}>Top Conferences</p>
                     </div>
@@ -1323,8 +1235,7 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
         </TabsContent>
       </Tabs>
     </div>
-  );
-};
+  );};
 
 export default RevolutionaryAccuracyInterface;
 
@@ -1340,3 +1251,7 @@ const stages = [
   "Fusing revolutionary predictions...",
   "Finalizing breakthrough analysis...",
 ];
+
+
+
+`

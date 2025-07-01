@@ -1,31 +1,27 @@
-import React, { Fragment  } from 'react.ts';
-import { Menu, Transition } from '@headlessui/react.ts';
-import { cn } from '@/utils/classNames.ts';
+﻿import React, { Fragment} from 'react'
+import { Menu, Transition} from '@headlessui/react'
+import { cn} from '@/utils/classNames'
 
 export interface DropdownItem {
-  key: string;
-  label: string;
+  key: string,`n  label: string;
   icon?: React.ReactNode;
   onClick?: () => void;
-  disabled?: boolean;
-  danger?: boolean;
-  divider?: boolean;
-}
+  disabled?: boolean
+  danger?: boolean
+  divider?: boolean}
 
 export interface DropdownProps {
-  trigger: React.ReactNode;
-  items: DropdownItem[];
+  trigger: React.ReactNode,`n  items: DropdownItem[0];
   position?: 'left' | 'right';
-  width?: string;
-  className?: string;
-}
+  width?: string
+  className?: string}
 
 export const Dropdown: React.FC<DropdownProps key={710914}> = ({
   trigger,
   items,
   position = 'right',
   width = '200px',
-  className,
+  className
 }) => {
   return (
     <Menu as="div" className="relative inline-block text-left" key={29814}>
@@ -43,9 +39,8 @@ export const Dropdown: React.FC<DropdownProps key={710914}> = ({
           className={cn(
             'absolute z-50 mt-2 rounded-lg bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none',
             position === 'right' ? 'origin-top-right right-0' : 'origin-top-left left-0',
-            className;
-          )}
-          style={{ width }}
+            className)}
+          style={{ width}}
          key={424799}>
           <div className="py-1" key={734638}>
             {items.map((item, index) => (
@@ -54,7 +49,7 @@ export const Dropdown: React.FC<DropdownProps key={710914}> = ({
                   <div className="my-1 border-t border-gray-200 dark:border-gray-700" / key={445365}>
                 ) : (
                   <Menu.Item disabled={item.disabled} key={263041}>
-                    {({ active }) => (
+                    {({ active}) => (
                       <button;
                         className={cn(
                           'group flex w-full items-center px-4 py-2 text-sm',
@@ -90,5 +85,10 @@ export const Dropdown: React.FC<DropdownProps key={710914}> = ({
         </Menu.Items>
       </Transition>
     </Menu>
-  );
-};
+  )};
+
+
+
+
+
+`

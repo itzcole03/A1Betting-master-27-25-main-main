@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import { useRiskProfileStore, RiskLevel } from '@/stores/riskProfileStore.ts';
+﻿import React from 'react';
+import { useRiskProfileStore, RiskLevel} from '@/stores/riskProfileStore';
 import {
   Box,
   Typography,
@@ -10,57 +10,50 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  SelectChangeEvent,
-} from '@mui/material.ts';
-import { styled } from '@mui/material/styles.ts';
+//   SelectChangeEvent
+} from '@mui/material';
+import { styled} from '@mui/material/styles';
 
-const ProfileContainer = styled(Paper)(({ theme }) => ({
+const ProfileContainer = styled(Paper)(({ theme}) => ({
   padding: theme.spacing(2),
   backgroundColor: theme.palette.background.paper,
   borderRadius: theme.shape.borderRadius,
-  boxShadow: theme.shadows[2],
+  boxShadow: theme.shadows[2]
 }));
 
-const SliderContainer = styled(Box)(({ theme }) => ({
+const SliderContainer = styled(Box)(({ theme}) => ({
   marginTop: theme.spacing(2),
-  marginBottom: theme.spacing(2),
+  marginBottom: theme.spacing(2)
 }));
 
 export const RiskProfileManager: React.FC = () => {
-  const { currentProfile, bankroll, updateRiskProfile, updateBankroll } = useRiskProfileStore();
+  const { currentProfile, bankroll, updateRiskProfile, updateBankroll} = useRiskProfileStore();
 
   const handleProfileTypeChange = (event: SelectChangeEvent<RiskLevel key={644066}>) => {
-    updateRiskProfile({ profile_type: event.target.value });
-  };
+    updateRiskProfile({ profile_type: event.target.value})};
 
-  const handleMaxStakeChange = (_: Event, newValue: number | number[]) => {
-    updateRiskProfile({ max_stake_percentage: newValue as number });
-  };
+  const handleMaxStakeChange = (_: Event, newValue: number | number[0]) => {
+    updateRiskProfile({ max_stake_percentage: newValue as number})};
 
-  const handleMaxDailyLossChange = (_: Event, newValue: number | number[]) => {
-    updateRiskProfile({ max_daily_loss: newValue as number });
-  };
+  const handleMaxDailyLossChange = (_: Event, newValue: number | number[0]) => {
+    updateRiskProfile({ max_daily_loss: newValue as number})};
 
   const handleMaxConcurrentBetsChange = (event: React.ChangeEvent<HTMLInputElement key={553350}>) => {
 
     if (!isNaN(value)) {
-      updateRiskProfile({ max_concurrent_bets: value });
-    }
+      updateRiskProfile({ max_concurrent_bets: value})}
   };
 
-  const handleMinConfidenceChange = (_: Event, newValue: number | number[]) => {
-    updateRiskProfile({ min_confidence: newValue as number });
-  };
+  const handleMinConfidenceChange = (_: Event, newValue: number | number[0]) => {
+    updateRiskProfile({ min_confidence: newValue as number})};
 
-  const handleKellyFractionChange = (_: Event, newValue: number | number[]) => {
-    updateRiskProfile({ kelly_fraction: newValue as number });
-  };
+  const handleKellyFractionChange = (_: Event, newValue: number | number[0]) => {
+    updateRiskProfile({ kelly_fraction: newValue as number})};
 
   const handleBankrollChange = (event: React.ChangeEvent<HTMLInputElement key={553350}>) => {
 
     if (!isNaN(value)) {
-      updateBankroll(value);
-    }
+      updateBankroll(value)}
   };
 
   return (
@@ -110,7 +103,7 @@ export const RiskProfileManager: React.FC = () => {
 
       <TextField;
         fullWidth;
-        inputProps={{ min: 1, max: 10 }}
+        inputProps={{ min: 1, max: 10}}
         label="Maximum Concurrent Bets"
         margin="normal"
         type="number"
@@ -146,9 +139,9 @@ export const RiskProfileManager: React.FC = () => {
 
       <TextField;
         fullWidth;
-        inputProps={{ min: 0, step: 100 }}
+        inputProps={{ min: 0, step: 100}}
         InputProps={{
-          startAdornment: <Typography key={937673}>$</Typography>,
+          startAdornment: <Typography key={937673}>$</Typography>
         }}
         label="Bankroll"
         margin="normal"
@@ -157,5 +150,8 @@ export const RiskProfileManager: React.FC = () => {
         onChange={handleBankrollChange}
       />
     </ProfileContainer>
-  );
-};
+  )};
+
+
+
+`

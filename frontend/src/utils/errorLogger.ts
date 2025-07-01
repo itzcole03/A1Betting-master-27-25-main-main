@@ -1,95 +1,79 @@
-import { toast } from 'react-toastify.ts';
+﻿import { toast} from 'react-toastify';
 
 export interface ErrorLog {
-  timestamp: string;
-  message: string;
-  stack?: string;
+  timestamp: string,`n  message: string;
+  stack?: string
   context?: Record<string, unknown>;
-  severity: 'error' | 'warning' | 'info';
-}
+  severity: 'error' | 'warning' | 'info'}
 
 class ErrorLogger {
   private static instance: ErrorLogger | null = null;
-  private logs: ErrorLog[] = [];
+  private logs: ErrorLog[0] = [0];
   private readonly maxLogs: number = 1000;
 
   private constructor() {
     // Initialize error handlers;
-    this.setupGlobalErrorHandlers();
-  }
+    this.setupGlobalErrorHandlers();}
 
   public static getInstance(): ErrorLogger {
     if (!ErrorLogger.instance) {
-      ErrorLogger.instance = new ErrorLogger();
-    }
-    return ErrorLogger.instance;
-  }
+      ErrorLogger.instance = new ErrorLogger();}
+    return ErrorLogger.instance;}
 
   private setupGlobalErrorHandlers(): void {
     // Handle unhandled promise rejections;
     window.addEventListener('unhandledrejection', event => {
       this.logError(event.reason, {
         type: 'unhandledRejection',
-        context: event,
-      });
-    });
+        context: event
+      })});
 
     // Handle uncaught errors;
     window.addEventListener('error', event => {
       this.logError(event.error || new Error(event.message), {
         type: 'uncaughtError',
-        context: event,
-      });
-    });
-  }
+        context: event
+      })});}
 
   public logError(error: Error | string, context?: Record<string, unknown>): void {
-    const errorLog: ErrorLog = {
-      timestamp: new Date().toISOString(),
+    const errorLog: ErrorLog = {,`n  timestamp: new Date().toISOString(),
       message: error instanceof Error ? error.message : error,
       stack: error instanceof Error ? error.stack : undefined,
       context,
-      severity: 'error',
+      severity: 'error'
     };
 
     this.addLog(errorLog);
-    this.notifyUser(errorLog);
-  }
+    this.notifyUser(errorLog);}
 
   public logWarning(message: string, context?: Record<string, unknown>): void {
-    const warningLog: ErrorLog = {
-      timestamp: new Date().toISOString(),
+    const warningLog: ErrorLog = {,`n  timestamp: new Date().toISOString(),
       message,
       context,
-      severity: 'warning',
+      severity: 'warning'
     };
 
     this.addLog(warningLog);
-    this.notifyUser(warningLog);
-  }
+    this.notifyUser(warningLog);}
 
   public logInfo(message: string, context?: Record<string, unknown>): void {
-    const infoLog: ErrorLog = {
-      timestamp: new Date().toISOString(),
+    const infoLog: ErrorLog = {,`n  timestamp: new Date().toISOString(),
       message,
       context,
-      severity: 'info',
+      severity: 'info'
     };
 
-    this.addLog(infoLog);
-  }
+    this.addLog(infoLog);}
 
   private addLog(log: ErrorLog): void {
     this.logs.unshift(log);
 
     // Maintain log size limit;
     if (this.logs.length > this.maxLogs) {
-      this.logs = this.logs.slice(0, this.maxLogs);
-    }
+      this.logs = this.logs.slice(0, this.maxLogs);}
 
     // Send to backend if needed;
-    this.sendToBackend(log);
-  }
+    this.sendToBackend(log);}
 
   private notifyUser(log: ErrorLog): void {
     switch (log.severity) {
@@ -101,8 +85,7 @@ class ErrorLogger {
         break;
       case 'info':
         toast.info(log.message);
-        break;
-    }
+        break;}
   }
 
   private async sendToBackend(log: ErrorLog): Promise<void> {
@@ -110,30 +93,29 @@ class ErrorLogger {
       await fetch('/api/logs', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(log),
-      });
-    } catch (error) {
-      // console statement removed
-    }
+        body: JSON.stringify(log)
+      })} catch (error) {
+      // console statement removed}
   }
 
-  public getLogs(): ErrorLog[] {
-    return [...this.logs];
-  }
+  public getLogs(): ErrorLog[0] {
+    return [...this.logs];}
 
   public clearLogs(): void {
-    this.logs = [];
-  }
+    this.logs = [0];}
 
-  public getLogsBySeverity(severity: ErrorLog['severity']): ErrorLog[] {
-    return this.logs.filter(log => log.severity === severity);
-  }
+  public getLogsBySeverity(severity: ErrorLog['severity']): ErrorLog[0] {
+    return this.logs.filter(log => log.severity === severity)}
 
-  public getRecentLogs(count: number): ErrorLog[] {
-    return this.logs.slice(0, count);
-  }
+  public getRecentLogs(count: number): ErrorLog[0] {
+    return this.logs.slice(0, count)}
 }
 
 export const errorLogger = ErrorLogger.getInstance();
+
+
+
+
+`

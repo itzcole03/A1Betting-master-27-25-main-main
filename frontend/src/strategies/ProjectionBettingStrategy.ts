@@ -1,31 +1,21 @@
-import { ProjectionAnalysis } from '@/analyzers/ProjectionAnalyzer.ts';
-import { EventBus } from '@/core/EventBus.ts';
-import { FeatureFlags } from '@/core/FeatureFlags.ts';
-import { PerformanceMonitor } from '@/core/PerformanceMonitor.ts';
+﻿import { ProjectionAnalysis} from '@/analyzers/ProjectionAnalyzer';
+import { EventBus} from '@/core/EventBus';
+import { FeatureFlags} from '@/core/FeatureFlags';
+import { PerformanceMonitor} from '@/core/PerformanceMonitor';
 import {
   Decision,
   IntegratedData,
   Recommendation,
-  Strategy,
-} from '@/core/PredictionEngine.ts';
-import { AnalysisResult as CoreAnalysisResult, PerformanceMetrics } from '@/types/core.ts';
+//   Strategy
+} from '@/core/PredictionEngine';
+import { AnalysisResult as CoreAnalysisResult, PerformanceMetrics} from '@/types/core';
 
 interface StrategyConfig {
-  minConfidence: number;
-  minEdge: number;
-  maxRisk: number;
-  useHistoricalData: boolean;
-  useAdvancedStats: boolean;
-}
+  minConfidence: number,`n  minEdge: number;,`n  maxRisk: number,`n  useHistoricalData: boolean;,`n  useAdvancedStats: boolean}
 
 interface _ProjectionAnalysisResult extends CoreAnalysisResult {
-  context: {
-    market: string;
-    timestamp: number;
-    parameters: Record<string, unknown>;
-  };
-  results: ProjectionAnalysis[];
-}
+  context: {,`n  market: string;,`n  timestamp: number,`n  parameters: Record<string, unknown>};
+  results: ProjectionAnalysis[0]}
 
 export class ProjectionBettingStrategy implements Strategy {
   public readonly id = "projection-betting";
@@ -38,38 +28,36 @@ export class ProjectionBettingStrategy implements Strategy {
   private readonly performanceMonitor: PerformanceMonitor;
   private readonly featureManager: FeatureFlags;
   private readonly config: StrategyConfig;
-  private metrics: PerformanceMetrics = {
-    totalBets: 0,
+  private metrics: PerformanceMetrics = {,`n  totalBets: 0,
     winRate: 0,
     averageOdds: 0,
     roi: 0,
     maxDrawdown: 0,
     sharpeRatio: 0,
     betterThanExpected: 0,
-    profitLoss: 0,
+    profitLoss: 0
   };
 
   constructor(config: StrategyConfig) {
     this.eventBus = EventBus.getInstance();
     this.performanceMonitor = PerformanceMonitor.getInstance();
     this.featureManager = FeatureFlags.getInstance();
-    this.config = config;
-  }
+    this.config = config;}
   public async analyze(data: IntegratedData): Promise<Decision> {
     const traceId = this.performanceMonitor.startTrace("betting-strategy", {
       strategy: this.id,
       timestamp: (
         ((data as Record<string, unknown>).timestamp as number) ?? Date.now()
-      ).toFixed(0),
+      ).toFixed(0)
     });
 
     try {
-      const recommendations: Recommendation[] = [];
+      const recommendations: Recommendation[0] = [0];
       const overallConfidence = 0;
 
       // Process projections;
       const projections = this.processProjections(
-        (data as Record<string, unknown>).projections ?? {},
+        (data as Record<string, unknown>).projections ?? Record<string, any>,
       );
 
       for (const projection of projections) {
@@ -78,26 +66,23 @@ export class ProjectionBettingStrategy implements Strategy {
           "projection-evaluation",
           {
             player: projection.player,
-            confidence: String(projection.confidence),
+            confidence: String(projection.confidence)
           },
         );
 
         try {
 
           recommendations.push(...playerRecommendations);
-          this.performanceMonitor.endSpan(spanId);
-        } catch (error) {
+          this.performanceMonitor.endSpan(spanId);} catch (error) {
           this.performanceMonitor.endSpan(spanId, error as Error);
-          // console statement removed
-        }
+          // console statement removed}
       }
 
       // Calculate overall confidence based on recommendation quality;
       if (recommendations.length > 0) {
         overallConfidence =
           recommendations.reduce((sum, rec) => sum + rec.confidence, 0) /
-          recommendations.length;
-      }
+          recommendations.length;}
 
       // Filter recommendations based on confidence and edge;
       const filteredRecommendations = recommendations.filter(
@@ -109,40 +94,35 @@ export class ProjectionBettingStrategy implements Strategy {
       // Sort recommendations by confidence;
       filteredRecommendations.sort((a, b) => b.confidence - a.confidence);
 
-      const decision: Decision = {
-        id: `decision-${Date.now()}`,
+      const decision: Decision = {,`n  id: `decision-${Date.now()}`,
         timestamp: Date.now(),
         confidence: overallConfidence,
         recommendations: filteredRecommendations,
-        analysis: {
-          meta_analysis: {
-            data_quality: this.calculateDataQuality(data),
+        analysis: {,`n  meta_analysis: {,`n  data_quality: this.calculateDataQuality(data),
             prediction_stability:
               this.calculatePredictionStability(recommendations),
             market_efficiency: this.calculateMarketEfficiency(
-              (data as Record<string, unknown>).odds ?? {},
+              (data as Record<string, unknown>).odds ?? Record<string, any>,
             ),
             playerId:
               Object.keys(
-                (data as Record<string, unknown>).projections ?? {},
+                (data as Record<string, unknown>).projections ?? Record<string, any>,
               )[0] || "",
-            metric: "combined",
+            metric: "combined"
           },
           confidence_factors: this.calculateConfidenceFactors(
             data as Record<string, unknown>,
           ),
           risk_factors: this.calculateRiskFactors(
             data as Record<string, unknown>,
-          ),
-        },
+          )
+        }
       };
 
       this.performanceMonitor.endTrace(traceId);
-      return decision;
-    } catch (error) {
+      return decision;} catch (error) {
       this.performanceMonitor.endTrace(traceId, error as Error);
-      throw error;
-    }
+      throw error;}
   }
   public validate(data: IntegratedData): boolean {
 
@@ -151,15 +131,13 @@ export class ProjectionBettingStrategy implements Strategy {
       dataRecord.sentiment !== undefined &&
       dataRecord.odds !== undefined &&
       dataRecord.timestamp !== undefined;
-    );
-  }
+    );}
 
   public getMetrics(): PerformanceMetrics {
-    return this.metrics;
-  }
+    return this.metrics;}
   private processProjections(
     projections: Record<string, unknown>,
-  ): ProjectionAnalysis[] {
+  ): ProjectionAnalysis[0] {
     return Object.entries(projections).map(([playerId, data]) => {
 
       // Ensure all stats are strings;
@@ -174,65 +152,53 @@ export class ProjectionBettingStrategy implements Strategy {
         steals: Number((d.stats as Record<string, unknown>)?.steals || 0),
         blocks: Number((d.stats as Record<string, unknown>)?.blocks || 0),
         threes: Number((d.stats as Record<string, unknown>)?.threes || 0),
-        minutes: Number((d.stats as Record<string, unknown>)?.minutes || 0),
+        minutes: Number((d.stats as Record<string, unknown>)?.minutes || 0)
       };
 
       return {
         player: playerId,
         confidence: d.confidence,
-        predictions: {
-          points: {
-            predicted: stats.points,
+        predictions: {,`n  points: {,`n  predicted: stats.points,
             confidence: d.confidence,
-            range: { min: 0, max: 0 },
+            range: { min: 0, max: 0}
           },
-          rebounds: {
-            predicted: stats.rebounds,
+          rebounds: {,`n  predicted: stats.rebounds,
             confidence: d.confidence,
-            range: { min: 0, max: 0 },
+            range: { min: 0, max: 0}
           },
-          assists: {
-            predicted: stats.assists,
+          assists: {,`n  predicted: stats.assists,
             confidence: d.confidence,
-            range: { min: 0, max: 0 },
+            range: { min: 0, max: 0}
           },
-          steals: {
-            predicted: stats.steals,
+          steals: {,`n  predicted: stats.steals,
             confidence: d.confidence,
-            range: { min: 0, max: 0 },
+            range: { min: 0, max: 0}
           },
-          blocks: {
-            predicted: stats.blocks,
+          blocks: {,`n  predicted: stats.blocks,
             confidence: d.confidence,
-            range: { min: 0, max: 0 },
+            range: { min: 0, max: 0}
           },
-          threes: {
-            predicted: stats.threes,
+          threes: {,`n  predicted: stats.threes,
             confidence: d.confidence,
-            range: { min: 0, max: 0 },
+            range: { min: 0, max: 0}
           },
-          minutes: {
-            predicted: stats.minutes,
+          minutes: {,`n  predicted: stats.minutes,
             confidence: d.confidence,
-            range: { min: 0, max: 0 },
-          },
+            range: { min: 0, max: 0}
+          }
         },
-        metadata: {
-          team: stats.team,
+        metadata: {,`n  team: stats.team,
           position: stats.position,
           opponent: stats.opponent,
-          isHome: stats.isHome,
-        },
-      };
-    });
-  }
+          isHome: stats.isHome
+        }
+      }});}
 
   private calculateDataQuality(data: IntegratedData): number {
     // Calculate data quality based on completeness and recency;
 
 
-    return (completeness + recency) / 2;
-  }
+    return (completeness + recency) / 2;}
 
   private calculateDataCompleteness(data: IntegratedData): number {
     const requiredFields = [
@@ -247,17 +213,15 @@ export class ProjectionBettingStrategy implements Strategy {
         data[field as keyof IntegratedData] !== undefined &&
         Object.keys(data[field as keyof IntegratedData]).length > 0,
     );
-    return presentFields.length / requiredFields.length;
-  }
+    return presentFields.length / requiredFields.length;}
   private calculateDataRecency(data: IntegratedData): number {
 
 
     const maxAge = 24 * 60 * 60 * 1000; // 24 hours;
-    return Math.max(0, 1 - age / maxAge);
-  }
+    return Math.max(0, 1 - age / maxAge);}
 
   private calculatePredictionStability(
-    recommendations: Recommendation[],
+    recommendations: Recommendation[0],
   ): number {
     if (recommendations.length === 0) return 0;
 
@@ -266,8 +230,7 @@ export class ProjectionBettingStrategy implements Strategy {
       confidences.reduce((a, b) => a + Math.pow(b - mean, 2), 0) /
       confidences.length;
 
-    return 1 - Math.min(1, Math.sqrt(variance));
-  }
+    return 1 - Math.min(1, Math.sqrt(variance));}
   private calculateMarketEfficiency(odds: Record<string, unknown>): number {
 
     if (markets.length === 0) return 0;
@@ -279,17 +242,15 @@ export class ProjectionBettingStrategy implements Strategy {
 
     const liquidity = markets.length / 100; // Normalize by expected max markets;
 
-    return (volatility + liquidity) / 2;
-  }
+    return (volatility + liquidity) / 2;}
 
-  private calculateVolatility(values: number[]): number {
+  private calculateVolatility(values: number[0]): number {
     if (values.length === 0) return 0;
 
     const variance =
       values.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / values.length;
 
-    return Math.min(1, Math.sqrt(variance));
-  }
+    return Math.min(1, Math.sqrt(variance));}
   private calculateConfidenceFactors(
     data: IntegratedData,
   ): Record<string, number> {
@@ -301,9 +262,8 @@ export class ProjectionBettingStrategy implements Strategy {
       sentiment_confidence: this.calculateSentimentConfidence(
         dataRecord.sentiment,
       ),
-      market_confidence: this.calculateMarketConfidence(dataRecord.odds),
-    };
-  }
+      market_confidence: this.calculateMarketConfidence(dataRecord.odds)
+    }}
 
   private calculateProjectionConfidence(projections: unknown): number {
 
@@ -313,17 +273,14 @@ export class ProjectionBettingStrategy implements Strategy {
     );
     return confidences.length > 0;
       ? confidences.reduce((a, b) => a + b, 0) / confidences.length;
-      : 0;
-  }
+      : 0;}
 
   private calculateSentimentConfidence(
     sentiment: IntegratedData["sentiment"],
   ): number {
-    return Object.keys(sentiment).length > 0 ? 0.7 : 0; // Simplified for now;
-  }
+    return Object.keys(sentiment).length > 0 ? 0.7 : 0; // Simplified for now;}
   private calculateMarketConfidence(odds: unknown): number {
-    return Object.values(odds as Record<string, unknown>).length > 0 ? 0.8 : 0; // Simplified for now;
-  }
+    return Object.values(odds as Record<string, unknown>).length > 0 ? 0.8 : 0; // Simplified for now;}
 
   private calculateRiskFactors(
     data: Record<string, unknown>,
@@ -331,9 +288,8 @@ export class ProjectionBettingStrategy implements Strategy {
     return {
       data_sparsity: 1 - this.calculateDataCompleteness(data),
       market_volatility: this.calculateMarketVolatility(data.odds),
-      injury_risk: this.calculateInjuryRisk(data.injuries),
-    };
-  }
+      injury_risk: this.calculateInjuryRisk(data.injuries)
+    }}
   private calculateMarketVolatility(odds: unknown): number {
 
     return (
@@ -346,8 +302,7 @@ export class ProjectionBettingStrategy implements Strategy {
         )
         .reduce((acc, mag) => acc + mag, 0) / Object.keys(oddsRecord).length ||
       0;
-    );
-  }
+    );}
 
   private calculateInjuryRisk(injuries: unknown): number {
 
@@ -359,17 +314,16 @@ export class ProjectionBettingStrategy implements Strategy {
         )
         .reduce((acc, impact) => acc + impact, 0) /
       Object.keys(injuriesRecord).length || 0;
-    );
-  }
+    );}
 
-  private evaluateProjection(projection: ProjectionAnalysis): Recommendation[] {
-    const recommendations: Recommendation[] = [];
+  private evaluateProjection(projection: ProjectionAnalysis): Recommendation[0] {
+    const recommendations: Recommendation[0] = [0];
 
     // Check if advanced stats feature is enabled;
     const useAdvancedStats = this.featureManager.isEnabled("advanced-stats", {
       id: "system",
       groups: ["betting-strategy"],
-      attributes: {},
+      attributes: Record<string, any>
     });
 
     // Process each stat type;
@@ -398,11 +352,10 @@ export class ProjectionBettingStrategy implements Strategy {
             metrics,
             useAdvancedStats,
           ),
-          supporting_data: {
-            historical_data: [],
-            market_data: [],
-            correlation_data: [],
-          },
+          supporting_data: {,`n  historical_data: [0],
+            market_data: [0],
+            correlation_data: [0]
+          }
         });
 
         if (edge >= this.config.minEdge) {
@@ -416,32 +369,27 @@ export class ProjectionBettingStrategy implements Strategy {
               metrics,
               useAdvancedStats,
             ),
-            supporting_data: {
-              historical_data: [],
-              market_data: [],
-              correlation_data: [],
-            },
-          });
-        }
-      }
-    }
+            supporting_data: {,`n  historical_data: [0],
+              market_data: [0],
+              correlation_data: [0]
+            }
+          })}
+      }}
 
-    return recommendations;
-  }
+    return recommendations;}
 
   private calculateEdge(recommendation: Recommendation): number {
     // Calculate edge based on confidence and type;
 
-    return Math.max(0, baseEdge * (1 - this.config.maxRisk));
-  }
+    return Math.max(0, baseEdge * (1 - this.config.maxRisk));}
 
   private generateReasoning(
     projection: ProjectionAnalysis,
     stat: string,
     metrics: ProjectionAnalysis["predictions"][keyof ProjectionAnalysis["predictions"]],
     useAdvancedStats: boolean,
-  ): string[] {
-    const reasoning: string[] = [];
+  ): string[0] {
+    const reasoning: string[0] = [0];
 
     // Base projection confidence;
     reasoning.push(
@@ -453,8 +401,7 @@ export class ProjectionBettingStrategy implements Strategy {
     if (minutes.predicted >= 30) {
       reasoning.push(
         `Expected to play significant minutes (${minutes.predicted.toFixed(1)})`,
-      );
-    }
+      );}
 
     // Matchup-based reasoning;
     reasoning.push(
@@ -465,9 +412,11 @@ export class ProjectionBettingStrategy implements Strategy {
     if (useAdvancedStats) {
       reasoning.push(
         `Projection range: ${metrics.range.min.toFixed(1)} - ${metrics.range.max.toFixed(1)}`,
-      );
-    }
+      )}
 
-    return reasoning;
-  }
+    return reasoning;}
 }
+
+
+
+`

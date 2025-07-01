@@ -1,7 +1,9 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface ErrorMessageProps {
-    error: Error | unknown;
-    onRetry?: () => void;
-}
+  error: Error | unknown;
+  onRetry?: () => void;}
 export declare const ErrorMessage: React.FC<ErrorMessageProps>;
-export {};
+export Record<string, any>;
+
+
+

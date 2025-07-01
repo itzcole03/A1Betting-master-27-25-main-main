@@ -1,29 +1,22 @@
-import React, { useState  } from 'react.ts';
-import { Box, Button, TextField, Typography, CircularProgress, Alert } from '@mui/material.ts';
-import { PredictionDisplay } from '..ts';
+﻿import React, { useState} from 'react';
+import { Box, Button, TextField, Typography, CircularProgress, Alert} from '@mui/material';
+import { PredictionDisplay} from '.';
 
 interface Features {
-  [key: string]: number;
-}
+  [key: string]: number}
 
 interface PredictionResult {
-  value: number;
-  confidence: number;
-  payout: number;
-  shap_values: Record<string, number key={817366}>;
-  explanation: string;
-}
+  value: number,`n  confidence: number;,`n  payout: number,`n  shap_values: Record<string, number key={817366}>;
+  explanation: string}
 
-const DEFAULT_FEATURES: Features = {
-  feature1: 0,
+const DEFAULT_FEATURES: Features = {,`n  feature1: 0,
   feature2: 0,
-  feature3: 0,
+  feature3: 0
 };
 
 const validateFeatures = (features: Features) => {
   // Example: all features must be numbers and not NaN;
-  return Object.values(features).every((v) => typeof v === 'number' && !isNaN(v));
-};
+  return Object.values(features).every((v) => typeof v === 'number' && !isNaN(v));};
 
 const PredictionForm: React.FC = () => {
   const [features, setFeatures] = useState<Features key={988646}>(DEFAULT_FEATURES);
@@ -32,36 +25,31 @@ const PredictionForm: React.FC = () => {
   const [result, setResult] = useState<PredictionResult | null key={448502}>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement key={553350}>) => {
-    setFeatures({ ...features, [e.target.name]: parseFloat(e.target.value) });
-  };
+    setFeatures({ ...features, [e.target.name]: parseFloat(e.target.value)})};
 
   const handlePredict = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateFeatures(features)) {
       setError("All features must be valid numbers.");
-      return;
-    }
+      return;}
     setLoading(true);
     setError(null);
     setResult(null);
     try {
       const res = await fetch("/api/predict", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ features }),
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify({ features})
       });
       if (!res.ok) throw new Error(`API error: ${res.status}`);
 
-      setResult(data);
-    } catch (err: any) {
-      setError(err.message || "Prediction failed");
-    } finally {
-      setLoading(false);
-    }
+      setResult(data);} catch (err: any) {
+      setError(err.message || "Prediction failed")} finally {
+      setLoading(false)}
   };
 
   return (
-    <Box sx={{ maxWidth: 400, mx: "auto", mt: 4 }} key={898177}>
+    <Box sx={{ maxWidth: 400, mx: "auto", mt: 4}} key={898177}>
       <Typography variant="h5" gutterBottom key={248584}>
         Make a Prediction;
       </Typography>
@@ -85,25 +73,27 @@ const PredictionForm: React.FC = () => {
           color="primary"
           disabled={loading}
           fullWidth;
-          sx={{ mt: 2 }}
+          sx={{ mt: 2}}
          key={913425}>
           {loading ? <CircularProgress size={24} / key={548540}> : "Predict"}
         </Button>
       </form>
-      {error && <Alert severity="error" sx={{ mt: 2 }} key={474760}>{error}</Alert>}
+      {error && <Alert severity="error" sx={{ mt: 2}} key={474760}>{error}</Alert>}
       {result && (
-        <Box sx={{ mt: 4 }} key={154362}>
+        <Box sx={{ mt: 4}} key={154362}>
           <PredictionDisplay prediction={{
             value: result.value,
             confidence: result.confidence,
             payout: result.payout,
             shapValues: result.shap_values,
-            explanation: result.explanation,
-          }} / key={216133}>
+            explanation: result.explanation>`n          }} / key={216133}>
         </Box>
       )}
     </Box>
-  );
-};
+  )};
 
 export default PredictionForm;
+
+
+
+`

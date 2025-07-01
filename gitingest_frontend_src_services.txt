@@ -1,0 +1,5134 @@
+Directory structure:
+└── services/
+    ├── ApiService.ts
+    ├── improvedApiService.ts
+    ├── PrizePicksApiService.ts
+    ├── productionApiService.ts
+    ├── realApiService.ts
+    ├── realDataService.ts
+    ├── realTimeDataAggregator.ts
+    ├── realTimeDataService.ts
+    ├── realTimePredictionEngine.d.ts
+    ├── realTimePredictionEngine.ts
+    ├── realTimeUpdates.d.ts
+    ├── realTimeUpdates.ts
+    ├── realTimeUpdateService.d.ts
+    ├── realTimeUpdateService.ts
+    ├── api/
+    │   ├── ApiService.ts
+    │   ├── EnhancedApiService.ts
+    │   └── ProductionApiService.ts
+    └── unified/
+        ├── ApiService.ts
+        ├── EnhancedBackendApiService.ts
+        ├── ExternalApiService.ts
+        └── PrizePicksApiService.ts
+
+================================================
+FILE: ApiService.ts
+================================================
+import EventEmitter from 'eventemitter3.ts';
+import { AxiosInstance } from 'axios.ts';
+
+
+
+export interface ApiResponse<T> {
+  data: T;
+  status: number;
+  timestamp: number;
+}
+
+export interface ApiServiceConfig {
+  baseURL: string;
+  timeout?: number;
+  retryAttempts?: number;
+}
+
+export interface ApiServiceEvents {
+  error: (error: Error) => void;
+  request: (endpoint: string) => void;
+  response: (response: ApiResponse<unknown>) => void;
+}
+
+export abstract class BaseApiService extends EventEmitter<ApiServiceEvents> {
+  protected readonly client: AxiosInstance;
+  protected readonly config: ApiServiceConfig;
+
+  constructor(config: ApiServiceConfig) {
+    super();
+    this.config = config;
+    this.client = this.initializeClient();
+  }
+
+  protected abstract initializeClient(): AxiosInstance;
+  
+  protected abstract handleError(error: Error): void;
+  
+  protected abstract handleResponse<T>(response: ApiResponse<T>): void;
+  
+  public abstract get<T>(endpoint: string, params?: Record<string, unknown>): Promise<T>;
+  
+  public abstract post<T>(endpoint: string, data: unknown): Promise<T>;
+} 
+
+
+================================================
+FILE: improvedApiService.ts
+================================================
+import { environmentManager } from '../config/environment';
+import {
+    ActiveBet,
+    ApiResponse,
+    ArbitrageOpportunity,
+    BettingOpportunity,
+    HealthCheckResponse,
+    Prediction,
+    Transaction
+} from '../types/apiTypes';
+import { cacheService } from './cacheService';
+import { EnhancedApiClient } from './enhancedApiClient';
+
+class ImprovedApiService {
+  private client: EnhancedApiClient;
+  private config: any;
+
+  constructor() {
+    this.config = environmentManager.getConfig();
+    this.client = new EnhancedApiClient(this.config.apiUrl, this.config.timeout);
+  }
+
+  // Health and Status
+  async getHealth(): Promise<HealthCheckResponse> {
+    const cacheKey = 'health-status';
+    const cacheTTL = 30 * 1000; // 30 seconds
+
+    return await cacheService.getOrFetch(
+      cacheKey,
+      () => this.client.get<HealthCheckResponse>('/health'),
+      cacheTTL
+    );
+  }
+
+  async getSystemHealth(): Promise<ApiResponse> {
+    const cacheKey = 'system-health';
+    const cacheTTL = 60 * 1000; // 1 minute
+
+    return await cacheService.getOrFetch(
+      cacheKey,
+      () => this.client.get<ApiResponse>('/api/health/all'),
+      cacheTTL
+    );
+  }
+
+  // Betting Opportunities
+  async getBettingOpportunities(sport?: string, limit: number = 20): Promise<BettingOpportunity[]> {
+    const cacheKey = `betting-opportunities-${sport || 'all'}-${limit}`;
+    const cacheTTL = 30 * 1000; // 30 seconds for live data
+
+    try {
+      const response = await cacheService.getOrFetch(
+        cacheKey,
+        () => this.client.get<ApiResponse<BettingOpportunity[]>>('/api/betting-opportunities', {
+          params: { sport, limit }
+        }),
+        cacheTTL
+      );
+
+      return Array.isArray(response) ? response : response.data || [];
+    } catch (error) {
+      console.error('Failed to fetch betting opportunities:', error);
+      return [];
+    }
+  }
+
+  async getArbitrageOpportunities(limit: number = 10): Promise<ArbitrageOpportunity[]> {
+    const cacheKey = `arbitrage-opportunities-${limit}`;
+    const cacheTTL = 60 * 1000; // 1 minute
+
+    try {
+      const response = await cacheService.getOrFetch(
+        cacheKey,
+        () => this.client.get<ApiResponse<ArbitrageOpportunity[]>>('/api/arbitrage-opportunities', {
+          params: { limit }
+        }),
+        cacheTTL
+      );
+
+      return Array.isArray(response) ? response : response.data || [];
+    } catch (error) {
+      console.error('Failed to fetch arbitrage opportunities:', error);
+      return [];
+    }
+  }
+
+  // Predictions
+  async getPredictions(params?: any): Promise<Prediction[]> {
+    const cacheKey = `predictions-${JSON.stringify(params || {})}`;
+    const cacheTTL = 5 * 60 * 1000; // 5 minutes
+
+    try {
+      const response = await cacheService.getOrFetch(
+        cacheKey,
+        () => this.client.get<ApiResponse<Prediction[]>>('/api/predictions', { params }),
+        cacheTTL
+      );
+
+      return Array.isArray(response) ? response : response.data || [];
+    } catch (error) {
+      console.error('Failed to fetch predictions:', error);
+      return [];
+    }
+  }
+
+  async getUltraAccuracyPredictions(): Promise<any> {
+    const cacheKey = 'ultra-accuracy-predictions';
+    const cacheTTL = 2 * 60 * 1000; // 2 minutes for high-accuracy predictions
+
+    try {
+      return await cacheService.getOrFetch(
+        cacheKey,
+        () => this.client.get('/api/v4/predict/ultra-accuracy'),
+        cacheTTL
+      );
+    } catch (error) {
+      console.error('Failed to fetch ultra-accuracy predictions:', error);
+      return { predictions: [], accuracy: 0 };
+    }
+  }
+
+  // User Data and Analytics
+  async getUserAnalytics(): Promise<any> {
+    const cacheKey = 'user-analytics';
+    const cacheTTL = 5 * 60 * 1000; // 5 minutes
+
+    try {
+      return await cacheService.getOrFetch(
+        cacheKey,
+        () => this.client.get('/api/analytics/advanced'),
+        cacheTTL
+      );
+    } catch (error) {
+      console.error('Failed to fetch user analytics:', error);
+      return {
+        summary: { accuracy: 0, totalBets: 0, winningBets: 0 },
+        recentPerformance: [],
+        topPerformingSports: [],
+        monthlyTrends: []
+      };
+    }
+  }
+
+  async getActiveBets(): Promise<ActiveBet[]> {
+    try {
+      const response = await this.client.get<ApiResponse<ActiveBet[]>>('/api/active-bets');
+      return Array.isArray(response) ? response : response.data || [];
+    } catch (error) {
+      console.error('Failed to fetch active bets:', error);
+      return [];
+    }
+  }
+
+  async getTransactions(): Promise<Transaction[]> {
+    try {
+      const response = await this.client.get<ApiResponse<Transaction[]>>('/api/transactions');
+      return Array.isArray(response) ? response : response.data || [];
+    } catch (error) {
+      console.error('Failed to fetch transactions:', error);
+      return [];
+    }
+  }
+
+  // PrizePicks Integration
+  async getPrizePicksProps(): Promise<any[]> {
+    const cacheKey = 'prizepicks-props';
+    const cacheTTL = 2 * 60 * 1000; // 2 minutes for live props
+
+    try {
+      return await cacheService.getOrFetch(
+        cacheKey,
+        () => this.client.get('/api/prizepicks/props'),
+        cacheTTL
+      );
+    } catch (error) {
+      console.error('Failed to fetch PrizePicks props:', error);
+      return [];
+    }
+  }
+
+  // Model Performance
+  async getModelPerformance(): Promise<any> {
+    const cacheKey = 'model-performance';
+    const cacheTTL = 10 * 60 * 1000; // 10 minutes
+
+    try {
+      return await cacheService.getOrFetch(
+        cacheKey,
+        () => this.client.get('/api/ultra-accuracy/model-performance'),
+        cacheTTL
+      );
+    } catch (error) {
+      console.error('Failed to fetch model performance:', error);
+      return {
+        accuracy: 0.85,
+        models: [],
+        real_time_metrics: {}
+      };
+    }
+  }
+
+  // Cache Management
+  clearCache(): void {
+    cacheService.clear();
+  }
+
+  invalidateCache(pattern?: string): void {
+    if (pattern) {
+      const stats = cacheService.getStats();
+      stats.keys.forEach(key => {
+        if (key.includes(pattern)) {
+          cacheService.invalidate(key);
+        }
+      });
+    } else {
+      cacheService.clear();
+    }
+  }
+
+  getCacheStats() {
+    return cacheService.getStats();
+  }
+
+  // Generic API methods with caching
+  async get<T>(endpoint: string, params?: any, cacheTTL?: number): Promise<T> {
+    if (cacheTTL && this.config.cacheEnabled) {
+      const cacheKey = `${endpoint}-${JSON.stringify(params || {})}`;
+      return await cacheService.getOrFetch(
+        cacheKey,
+        () => this.client.get<T>(endpoint, { params }),
+        cacheTTL
+      );
+    }
+
+    return await this.client.get<T>(endpoint, { params });
+  }
+
+  async post<T>(endpoint: string, data?: any): Promise<T> {
+    // Clear related cache entries on POST requests
+    this.invalidateCache(endpoint.split('/')[1]); // Clear cache for the resource type
+    return await this.client.post<T>(endpoint, data);
+  }
+
+  async put<T>(endpoint: string, data?: any): Promise<T> {
+    // Clear related cache entries on PUT requests
+    this.invalidateCache(endpoint.split('/')[1]);
+    return await this.client.put<T>(endpoint, data);
+  }
+
+  async delete<T>(endpoint: string): Promise<T> {
+    // Clear related cache entries on DELETE requests
+    this.invalidateCache(endpoint.split('/')[1]);
+    return await this.client.delete<T>(endpoint);
+  }
+}
+
+// Create and export singleton instance
+export const improvedApiService = new ImprovedApiService();
+
+// Export for backward compatibility
+export const apiService = improvedApiService;
+
+export default improvedApiService; 
+
+
+================================================
+FILE: PrizePicksApiService.ts
+================================================
+import axios, { AxiosInstance } from 'axios.ts';
+import { BaseApiService, ApiResponse, ApiServiceConfig } from './ApiService.ts';
+
+
+
+export interface PrizePicksProp {
+  id: string;
+  type: string;
+  value: number;
+  player: {
+    name: string;
+    team: string;
+    position: string;
+  };
+  game: {
+    startTime: string;
+    homeTeam: string;
+    awayTeam: string;
+  };
+}
+
+export class PrizePicksApiService extends BaseApiService {
+  protected initializeClient(): AxiosInstance {
+    return axios.create({
+      baseURL: this.config.baseURL,
+      timeout: this.config.timeout || 10000,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  protected handleError(error: Error): void {
+    this.emit('error', error);
+    // console statement removed
+  }
+
+  protected handleResponse<T>(response: ApiResponse<T>): void {
+    this.emit('response', response);
+  }
+
+  public async get<T>(endpoint: string, params?: Record<string, unknown>): Promise<T> {
+    try {
+      this.emit('request', endpoint);
+
+      const apiResponse: ApiResponse<T> = {
+        data: response.data,
+        status: response.status,
+        timestamp: Date.now(),
+      };
+      this.handleResponse(apiResponse);
+      return response.data;
+    } catch (error) {
+      this.handleError(error as Error);
+      throw error;
+    }
+  }
+
+  public async post<T>(endpoint: string, data: unknown): Promise<T> {
+    try {
+      this.emit('request', endpoint);
+
+      const apiResponse: ApiResponse<T> = {
+        data: response.data,
+        status: response.status,
+        timestamp: Date.now(),
+      };
+      this.handleResponse(apiResponse);
+      return response.data;
+    } catch (error) {
+      this.handleError(error as Error);
+      throw error;
+    }
+  }
+
+  // PrizePicks specific methods;
+  public async getAvailableProps(): Promise<PrizePicksProp[]> {
+    return this.get<PrizePicksProp[]>('/props/available');
+  }
+
+  public async getPlayerStats(playerId: string): Promise<any> {
+    return this.get(`/players/${playerId}/stats`);
+  }
+
+  public async getGameDetails(gameId: string): Promise<any> {
+    return this.get(`/games/${gameId}`);
+  }
+} 
+
+
+================================================
+FILE: productionApiService.ts
+================================================
+/**
+ * Production API Service for A1Betting Frontend
+ * 
+ * This service provides a unified interface to all backend endpoints,
+ * replacing all hardcoded URLs and mock data with real API calls.
+ * 
+ * Integrates with the production backend endpoints created in:
+ * - backend/main_enhanced_prod.py
+ * - backend/specialist_apis.py
+ * - backend/config_manager.py
+ */
+
+import axios from 'axios';
+
+// Define interfaces to work with any axios version
+interface ApiAxiosInstance {
+    get<T = any>(url: string): Promise<{ data: T }>;
+    post<T = any>(url: string, data?: any): Promise<{ data: T }>;
+    put<T = any>(url: string, data?: any): Promise<{ data: T }>;
+    delete<T = any>(url: string): Promise<{ data: T }>;
+    interceptors: {
+        request: {
+            use(onFulfilled: (config: any) => any, onRejected?: (error: any) => any): void;
+        };
+        response: {
+            use(onFulfilled: (response: any) => any, onRejected?: (error: any) => any): void;
+        };
+    };
+}
+
+// Types for API responses
+export interface ApiResponse<T> {
+    data: T;
+    status: number;
+    message?: string;
+}
+
+export interface HealthResponse {
+    status: string;
+    timestamp: string;
+    version: string;
+    services: {
+        database: string;
+        cache: string;
+        specialist_apis: string;
+    };
+    system: {
+        cpu_usage: number;
+        memory_usage: number;
+        disk_usage: number;
+    };
+}
+
+export interface GameData {
+    id: string;
+    sport: string;
+    home_team: string;
+    away_team: string;
+    start_time: string;
+    status: string;
+    odds?: OddsData[];
+}
+
+export interface OddsData {
+    bookmaker: string;
+    market: string;
+    outcomes: {
+        name: string;
+        price: number;
+    }[];
+    last_update: string;
+}
+
+export interface PlayerProp {
+    id: string;
+    player_name: string;
+    stat_type: string;
+    line: number;
+    over_odds: number;
+    under_odds: number;
+    game_id: string;
+    market_source: string;
+}
+
+export interface NewsItem {
+    id: string;
+    title: string;
+    description: string;
+    url: string;
+    source: string;
+    published_at: string;
+    sport?: string;
+}
+
+export interface PredictionData {
+    id: string;
+    game_id: string;
+    prediction_type: string;
+    confidence: number;
+    predicted_outcome: string;
+    probability: number;
+    model_used: string;
+    features_used: string[];
+    created_at: string;
+}
+
+export interface ArbitrageOpportunity {
+    id: string;
+    game_id: string;
+    sport: string;
+    bookmakers: string[];
+    profit_percentage: number;
+    total_stake: number;
+    legs: {
+        bookmaker: string;
+        market: string;
+        selection: string;
+        odds: number;
+        stake: number;
+    }[];
+    expires_at: string;
+}
+
+export interface ValueBet {
+    id: string;
+    game_id: string;
+    market: string;
+    selection: string;
+    bookmaker_odds: number;
+    fair_odds: number;
+    value_percentage: number;
+    recommended_stake: number;
+    confidence: number;
+}
+
+export interface UserProfile {
+    id: string;
+    email: string;
+    username: string;
+    risk_profile: string;
+    bankroll: number;
+    total_bets: number;
+    win_rate: number;
+    total_profit: number;
+    created_at: string;
+}
+
+class ProductionApiService {
+    private client: ApiAxiosInstance;
+    private baseURL: string;
+
+    constructor() {
+        this.baseURL = API_CONFIG.baseURL;
+
+        this.client = axios.create({
+            baseURL: this.baseURL,
+            timeout: API_CONFIG.timeout,
+            headers: API_CONFIG.headers,
+        }) as ApiAxiosInstance;
+
+        this.setupInterceptors();
+    }
+
+    private setupInterceptors(): void {
+        // Request interceptor for authentication
+        this.client.interceptors.request.use(
+            (config: any) => {
+                const token = localStorage.getItem('auth_token');
+                if (token) {
+                    config.headers.Authorization = `Bearer ${token}`;
+                }
+                return config;
+            },
+            (error: any) => Promise.reject(error)
+        );
+
+        // Response interceptor for error handling
+        this.client.interceptors.response.use(
+            (response: any) => response,
+            (error: any) => {
+                if (error.response?.status === 401) {
+                    localStorage.removeItem('auth_token');
+                    window.location.href = '/login';
+                }
+
+                // Log errors in development
+                if (import.meta.env.DEV) {
+                    console.error('API Error:', error.response?.data || error.message);
+                }
+
+                return Promise.reject(error);
+            }
+        );
+    }
+
+    // Health and System Endpoints
+    async getHealth(): Promise<HealthResponse> {
+        const response = await this.client.get<HealthResponse>('/health');
+        return response.data;
+    }
+
+    async getDetailedHealth(): Promise<any> {
+        const response = await this.client.get('/health/detailed');
+        return response.data;
+    }
+
+    // Live Games and Sports Data
+    async getLiveGames(sport?: string, date?: string): Promise<GameData[]> {
+        const params = new URLSearchParams();
+        if (sport) params.append('sport', sport);
+        if (date) params.append('date', date);
+
+        const response = await this.client.get<GameData[]>(`/api/v1/live-games?${params}`);
+        return response.data;
+    }
+
+    async getGameOdds(gameId: string, market?: string): Promise<OddsData[]> {
+        const params = new URLSearchParams();
+        if (market) params.append('market', market);
+
+        const response = await this.client.get<OddsData[]>(`/api/v1/odds/${gameId}?${params}`);
+        return response.data;
+    }
+
+    // Player Props and Statistics
+    async getPlayerProps(sport?: string, player?: string): Promise<PlayerProp[]> {
+        const params = new URLSearchParams();
+        if (sport) params.append('sport', sport);
+        if (player) params.append('player', player);
+
+        const response = await this.client.get<PlayerProp[]>(`/api/v1/player-props?${params}`);
+        return response.data;
+    }
+
+    async getPlayerStats(playerId: string): Promise<any> {
+        const response = await this.client.get(`/api/v1/player-stats/${playerId}`);
+        return response.data;
+    }
+
+    // News and Information
+    async getSportsNews(sport?: string, limit?: number): Promise<NewsItem[]> {
+        const params = new URLSearchParams();
+        if (sport) params.append('sport', sport);
+        if (limit) params.append('limit', limit.toString());
+
+        const response = await this.client.get<NewsItem[]>(`/api/v1/sports-news?${params}`);
+        return response.data;
+    }
+
+    // Predictions and Analysis
+    async getPredictions(gameId?: string, sport?: string): Promise<PredictionData[]> {
+        const params = new URLSearchParams();
+        if (gameId) params.append('game_id', gameId);
+        if (sport) params.append('sport', sport);
+
+        const response = await this.client.get<PredictionData[]>(`/api/predictions?${params}`);
+        return response.data;
+    }
+
+    async getBettingOpportunities(sport?: string, minValue?: number): Promise<any[]> {
+        const params = new URLSearchParams();
+        if (sport) params.append('sport', sport);
+        if (minValue) params.append('min_value', minValue.toString());
+
+        const response = await this.client.get(`/api/betting-opportunities?${params}`);
+        return response.data;
+    }
+
+    // Arbitrage and Value Betting
+    async getArbitrageOpportunities(sport?: string, minProfit?: number): Promise<ArbitrageOpportunity[]> {
+        const params = new URLSearchParams();
+        if (sport) params.append('sport', sport);
+        if (minProfit) params.append('min_profit', minProfit.toString());
+
+        const response = await this.client.get<ArbitrageOpportunity[]>(`/api/arbitrage-opportunities?${params}`);
+        return response.data;
+    }
+
+    async getValueBets(sport?: string, minValue?: number): Promise<ValueBet[]> {
+        const params = new URLSearchParams();
+        if (sport) params.append('sport', sport);
+        if (minValue) params.append('min_value', minValue.toString());
+
+        const response = await this.client.get<ValueBet[]>(`/api/value-bets?${params}`);
+        return response.data;
+    }
+
+    // User Management
+    async getUserProfile(): Promise<UserProfile> {
+        const response = await this.client.get<UserProfile>('/api/user/profile');
+        return response.data;
+    }
+
+    async updateUserProfile(data: Partial<UserProfile>): Promise<UserProfile> {
+        const response = await this.client.put<UserProfile>('/api/user/profile', data);
+        return response.data;
+    }
+
+    // Betting Actions
+    async placeBet(betData: {
+        game_id: string;
+        market: string;
+        selection: string;
+        stake: number;
+        odds: number;
+    }): Promise<any> {
+        const response = await this.client.post('/api/place-bet', betData);
+        return response.data;
+    }
+
+    async getUserBets(status?: string): Promise<any[]> {
+        const params = new URLSearchParams();
+        if (status) params.append('status', status);
+
+        const response = await this.client.get(`/api/user/bets?${params}`);
+        return response.data;
+    }
+
+    // Analytics and Feedback
+    async getAnalytics(timeframe?: string): Promise<any> {
+        const params = new URLSearchParams();
+        if (timeframe) params.append('timeframe', timeframe);
+
+        const response = await this.client.get(`/api/analytics?${params}`);
+        return response.data;
+    }
+
+    async submitFeedback(feedback: {
+        prediction_id: string;
+        outcome: boolean;
+        confidence: number;
+        notes?: string;
+    }): Promise<any> {
+        const response = await this.client.post('/api/feedback', feedback);
+        return response.data;
+    }
+
+    // Unified Data Feed
+    async getUnifiedFeed(date?: string): Promise<{
+        live_games: GameData[];
+        top_props: PlayerProp[];
+        value_bets: ValueBet[];
+        arbitrage_opportunities: ArbitrageOpportunity[];
+        latest_news: NewsItem[];
+        predictions: PredictionData[];
+    }> {
+        const params = new URLSearchParams();
+        if (date) params.append('date', date);
+
+        const response = await this.client.get(`/api/v1/unified-data?${params}`);
+        return response.data;
+    }
+
+    // Specialist API Endpoints (direct access to external data)
+    async getSportradarGames(sport: string, date?: string): Promise<any[]> {
+        const params = new URLSearchParams();
+        params.append('sport', sport);
+        if (date) params.append('date', date);
+
+        const response = await this.client.get(`/api/v1/sr/games?${params}`);
+        return response.data;
+    }
+
+    async getTheOddsData(sport: string, region?: string): Promise<any[]> {
+        const params = new URLSearchParams();
+        params.append('sport', sport);
+        if (region) params.append('region', region);
+
+        const response = await this.client.get(`/api/v1/the-odds/sports/${sport}?${params}`);
+        return response.data;
+    }
+
+    async getPrizePicksProps(league?: string): Promise<any[]> {
+        const params = new URLSearchParams();
+        if (league) params.append('league', league);
+
+        const response = await this.client.get(`/api/v1/prizepicks/props?${params}`);
+        return response.data;
+    }
+
+    async getESPNData(sport: string): Promise<any[]> {
+        const response = await this.client.get(`/api/v1/espn/${sport}`);
+        return response.data;
+    }
+
+    // WebSocket connection helper
+    connectWebSocket(onMessage?: (data: any) => void): WebSocket | null {
+        try {
+            const wsUrl = this.baseURL.replace('http', 'ws') + '/ws';
+            const ws = new WebSocket(wsUrl);
+
+            ws.onopen = () => {
+                console.log('WebSocket connected');
+            };
+
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                if (onMessage) {
+                    onMessage(data);
+                }
+            };
+
+            ws.onclose = () => {
+                console.log('WebSocket disconnected');
+            };
+
+            ws.onerror = (error) => {
+                console.error('WebSocket error:', error);
+            };
+
+            return ws;
+        } catch (error) {
+            console.error('Failed to create WebSocket connection:', error);
+            return null;
+        }
+    }
+}
+
+// Export singleton instance
+export const productionApiService = new ProductionApiService();
+
+// Export default for easier imports
+export default productionApiService;
+
+
+
+================================================
+FILE: realApiService.ts
+================================================
+/**
+ * Real API Service
+ * Replaces cloudMockService with actual backend integration
+ * Production-ready implementation with error handling and retry logic
+ */
+
+export interface ApiConfig {
+  baseUrl: string;
+  timeout: number;
+  retryAttempts: number;
+  retryDelay: number;
+}
+
+export class RealApiService {
+  private config: ApiConfig;
+  private retryCount = new Map<string, number>();
+
+  constructor(config?: Partial<ApiConfig>) {
+    this.config = {
+      baseUrl: process.env.REACT_APP_API_URL || 'http://localhost:8000',
+      timeout: 10000,
+      retryAttempts: 3,
+      retryDelay: 1000,
+      ...config
+    };
+  }
+
+  private async makeRequest<T>(
+    endpoint: string, 
+    options: RequestInit = {}
+  ): Promise<T> {
+    const url = `${this.config.baseUrl}${endpoint}`;
+    const requestKey = `${options.method || 'GET'}-${endpoint}`;
+    
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), this.config.timeout);
+
+    try {
+      const response = await fetch(url, {
+        ...options,
+        signal: controller.signal,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          ...options.headers,
+        },
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      
+      // Reset retry count on success
+      this.retryCount.delete(requestKey);
+      
+      return data;
+    } catch (error) {
+      clearTimeout(timeoutId);
+      
+      // Handle retry logic
+      const currentRetries = this.retryCount.get(requestKey) || 0;
+      
+      if (currentRetries < this.config.retryAttempts && 
+          (error instanceof TypeError || error.message.includes('fetch'))) {
+        
+        this.retryCount.set(requestKey, currentRetries + 1);
+        
+        // Exponential backoff
+        const delay = this.config.retryDelay * Math.pow(2, currentRetries);
+        await new Promise(resolve => setTimeout(resolve, delay));
+        
+        return this.makeRequest<T>(endpoint, options);
+      }
+      
+      // Reset retry count and throw error
+      this.retryCount.delete(requestKey);
+      throw error;
+    }
+  }
+
+  public async getHealth() {
+    return this.makeRequest<{
+      status: string;
+      timestamp: string;
+      version: string;
+      uptime: number;
+      services: Record<string, string>;
+    }>('/health');
+  }
+
+  public async getBettingOpportunities() {
+    return this.makeRequest<Array<{
+      id: string;
+      sport: string;
+      event: string;
+      market: string;
+      odds: number;
+      probability: number;
+      expected_value: number;
+      kelly_fraction: number;
+      confidence: number;
+      risk_level: string;
+      recommendation: string;
+    }>>('/api/betting-opportunities');
+  }
+
+  public async getArbitrageOpportunities() {
+    return this.makeRequest<Array<{
+      id: string;
+      sport: string;
+      event: string;
+      bookmaker_a: string;
+      bookmaker_b: string;
+      odds_a: number;
+      odds_b: number;
+      profit_margin: number;
+      required_stake: number;
+    }>>('/api/arbitrage-opportunities');
+  }
+
+  public async getPredictions() {
+    return this.makeRequest<{
+      predictions: Array<{
+        id: string;
+        sport: string;
+        event: string;
+        prediction: string;
+        confidence: number;
+        odds: number;
+        expected_value: number;
+        timestamp: string;
+        model_version: string;
+      }>;
+      total_count: number;
+    }>('/api/predictions');
+  }
+
+  public async getModelPerformance() {
+    return this.makeRequest<{
+      overall_accuracy: number;
+      recent_accuracy: number;
+      model_metrics: {
+        precision: number;
+        recall: number;
+        f1_score: number;
+        auc_roc: number;
+      };
+      performance_by_sport: Record<string, { accuracy: number; games: number }>;
+    }>('/api/ultra-accuracy/model-performance');
+  }
+
+  public async isBackendAvailable(): Promise<boolean> {
+    try {
+      await this.getHealth();
+      return true;
+    } catch (error) {
+      console.warn('Backend not available:', error);
+      return false;
+    }
+  }
+}
+
+export const realApiService = new RealApiService();
+
+
+
+================================================
+FILE: realDataService.ts
+================================================
+export interface RealDataSource {
+  connected: boolean;
+  quality: number;
+  lastUpdate: Date;
+  data: any;
+  error: string | null;
+  source: string;
+  endpoint: string;
+}
+
+export interface BettingOpportunity {
+  id: string;
+  sport: string;
+  home_team: string;
+  away_team: string;
+  confidence: number;
+  expected_value: number;
+  recommended_bet: string;
+  game_time: string;
+}
+
+export interface PlayerProp {
+  id: string;
+  player_name: string;
+  stat_type: string;
+  line: number;
+  over_odds: number;
+  under_odds: number;
+  recommendation: string;
+}
+
+export interface PerformanceStats {
+  total_accuracy: number;
+  total_bets: number;
+  total_wins: number;
+  total_profit: number;
+  win_rate: number;
+  roi: number;
+}
+
+export class RealDataService {
+  private sources: Map<string, RealDataSource> = new Map();
+  private baseUrl: string = 'http://localhost:8000';
+  private cache: Map<string, { data: any; timestamp: number; ttl: number }> = new Map();
+  private requestQueue: Map<string, Promise<any>> = new Map();
+  private readonly CACHE_TTL = 30000; // 30 seconds
+
+  private async getCachedOrFetch<T>(key: string, fetcher: () => Promise<T>, ttl: number = this.CACHE_TTL): Promise<T> {
+    // Check cache first
+    const cached = this.cache.get(key);
+    if (cached && Date.now() - cached.timestamp < cached.ttl) {
+      return cached.data as T;
+    }
+
+    // Check if request is already in progress
+    if (this.requestQueue.has(key)) {
+      return this.requestQueue.get(key) as Promise<T>;
+    }
+
+    // Start new request
+    const promise = fetcher().then(data => {
+      // Cache the result
+      this.cache.set(key, {
+        data,
+        timestamp: Date.now(),
+        ttl
+      });
+      
+      // Remove from queue
+      this.requestQueue.delete(key);
+      
+      return data;
+    }).catch(error => {
+      // Remove from queue on error
+      this.requestQueue.delete(key);
+      throw error;
+    });
+
+    this.requestQueue.set(key, promise);
+    return promise;
+  }
+
+  private clearExpiredCache(): void {
+    const now = Date.now();
+    for (const [key, value] of this.cache.entries()) {
+      if (now - value.timestamp > value.ttl) {
+        this.cache.delete(key);
+      }
+    }
+  }
+
+  async initializeSources(): Promise<void> {
+    // Clear expired cache periodically
+    this.clearExpiredCache();
+    
+    // Test connectivity to real backend endpoints
+    const endpoints = [
+      { name: 'betting-opportunities', url: '/api/betting-opportunities' },
+      { name: 'prizepicks-props', url: '/api/prizepicks/props' },
+      { name: 'performance-stats', url: '/api/v1/performance-stats' },
+      { name: 'health-check', url: '/health' }
+    ];
+
+    for (const endpoint of endpoints) {
+      try {
+        const response = await fetch(`${this.baseUrl}${endpoint.url}`);
+        const isConnected = response.ok;
+        
+        this.sources.set(endpoint.name, {
+          connected: isConnected,
+          quality: isConnected ? 0.95 : 0.0,
+          lastUpdate: new Date(),
+          data: isConnected ? await response.json() : null,
+          error: isConnected ? null : `HTTP ${response.status}: ${response.statusText}`,
+          source: `Backend API - ${endpoint.name}`,
+          endpoint: endpoint.url
+        });
+      } catch (error) {
+        this.sources.set(endpoint.name, {
+          connected: false,
+          quality: 0.0,
+          lastUpdate: new Date(),
+          data: null,
+          error: error instanceof Error ? error.message : 'Unknown error',
+          source: `Backend API - ${endpoint.name}`,
+          endpoint: endpoint.url
+        });
+      }
+    }
+  }
+
+  getSources(): Map<string, RealDataSource> {
+    return this.sources;
+  }
+
+  getConnectedSources(): RealDataSource[] {
+    return Array.from(this.sources.values()).filter(
+      (source) => source.connected,
+    );
+  }
+
+  async refreshData(): Promise<void> {
+    // Clear expired cache before refresh
+    this.clearExpiredCache();
+    
+    // Refresh data from all connected sources
+    for (const [, source] of this.sources.entries()) {
+      if (source.connected) {
+        try {
+          const response = await fetch(`${this.baseUrl}${source.endpoint}`);
+          if (response.ok) {
+            source.data = await response.json();
+            source.lastUpdate = new Date();
+            source.error = null;
+            source.quality = 0.95;
+          } else {
+            source.error = `HTTP ${response.status}: ${response.statusText}`;
+            source.connected = false;
+            source.quality = 0.0;
+          }
+        } catch (error) {
+          source.error = error instanceof Error ? error.message : 'Unknown error';
+          source.connected = false;
+          source.quality = 0.0;
+        }
+      }
+    }
+  }
+
+  async getBettingOpportunities(): Promise<BettingOpportunity[]> {
+    return this.getCachedOrFetch<BettingOpportunity[]>('betting-opportunities', async () => {
+      try {
+        const response = await fetch(`${this.baseUrl}/api/betting-opportunities`);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        return await response.json();
+      } catch (error) {
+        console.error('Failed to fetch betting opportunities:', error);
+        return [];
+      }
+    });
+  }
+
+  async getPrizePicksProps(): Promise<PlayerProp[]> {
+    return this.getCachedOrFetch<PlayerProp[]>('prizepicks-props', async () => {
+      try {
+        const response = await fetch(`${this.baseUrl}/api/prizepicks/props`);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        return await response.json();
+      } catch (error) {
+        console.error('Failed to fetch PrizePicks props:', error);
+        return [];
+      }
+    });
+  }
+
+  async getPerformanceStats(): Promise<PerformanceStats | null> {
+    return this.getCachedOrFetch<PerformanceStats | null>('performance-stats', async () => {
+      try {
+        const response = await fetch(`${this.baseUrl}/api/v1/performance-stats`);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        return await response.json();
+      } catch (error) {
+        console.error('Failed to fetch performance stats:', error);
+        return null;
+      }
+    });
+  }
+
+  async getHealthStatus(): Promise<any> {
+    return this.getCachedOrFetch<any>('health-status', async () => {
+      try {
+        const response = await fetch(`${this.baseUrl}/health`);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        return await response.json();
+      } catch (error) {
+        console.error('Failed to fetch health status:', error);
+        return { status: 'unhealthy', error: error instanceof Error ? error.message : 'Unknown error' };
+      }
+    });
+  }
+
+  async getAdvancedAnalytics(): Promise<any> {
+    return this.getCachedOrFetch<any>('advanced-analytics', async () => {
+      try {
+        const response = await fetch(`${this.baseUrl}/api/analytics/advanced`);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        return await response.json();
+      } catch (error) {
+        console.error('Failed to fetch advanced analytics:', error);
+        return null;
+      }
+    });
+  }
+
+  // Batch request functionality for efficiency
+  async batchFetch(requests: Array<{ key: string; url: string }>): Promise<Map<string, any>> {
+    const results = new Map<string, any>();
+    
+    // Execute requests in parallel
+    const promises = requests.map(async ({ key, url }) => {
+      try {
+        const response = await fetch(`${this.baseUrl}${url}`);
+        if (response.ok) {
+          const data = await response.json();
+          results.set(key, data);
+          
+          // Cache the result
+          this.cache.set(key, {
+            data,
+            timestamp: Date.now(),
+            ttl: this.CACHE_TTL
+          });
+        }
+      } catch (error) {
+        console.error(`Failed to fetch ${key}:`, error);
+        results.set(key, null);
+      }
+    });
+    
+    await Promise.all(promises);
+    return results;
+  }
+
+  isSourceConnected(sourceName: string): boolean {
+    const source = this.sources.get(sourceName);
+    return source?.connected ?? false;
+  }
+
+  getSourceQuality(sourceName: string): number {
+    const source = this.sources.get(sourceName);
+    return source?.quality ?? 0.0;
+  }
+
+  getLastError(sourceName: string): string | null {
+    const source = this.sources.get(sourceName);
+    return source?.error ?? null;
+  }
+
+  // Performance monitoring
+  getCacheStats(): { size: number; hitRate: number } {
+    return {
+      size: this.cache.size,
+      hitRate: this.cache.size > 0 ? 0.85 : 0 // Estimated hit rate
+    };
+  }
+
+  // Cleanup method for memory management
+  cleanup(): void {
+    this.cache.clear();
+    this.requestQueue.clear();
+  }
+}
+
+export const realDataService = new RealDataService();
+
+
+
+================================================
+FILE: realTimeDataAggregator.ts
+================================================
+import axios from 'axios.ts';
+import { RealDataSource } from './realDataService.ts';
+
+export interface LiveOdds {
+  sportsbook: string;
+  moneyline: { home: number; away: number };
+  spread: { line: number; home: number; away: number };
+  total: { line: number; over: number; under: number };
+  lastUpdate: Date;
+}
+
+export interface PlayerProps {
+  playerId: string;
+  playerName: string;
+  props: {
+    statType: string;
+    line: number;
+    over: number;
+    under: number;
+    sportsbook: string;
+  }[];
+}
+
+export interface LiveGameData {
+  gameId: string;
+  sport: string;
+  homeTeam: string;
+  awayTeam: string;
+  score: { home: number; away: number };
+  quarter: string;
+  timeRemaining: string;
+  possession: string;
+  lastPlay: string;
+  momentum: number;
+}
+
+export interface MarketMovement {
+  timestamp: Date;
+  lineChange: number;
+  volumeChange: number;
+  direction: "up" | "down" | "stable";
+  significance: "minor" | "moderate" | "major";
+}
+
+export class RealTimeDataAggregator {
+  private wsConnections: Map<string, WebSocket> = new Map();
+  private dataCache: Map<string, any> = new Map();
+  private updateCallbacks: Map<string, Function[]> = new Map();
+
+  // Additional real-time data sources;
+  private additionalSources = {
+    // Odds comparison sites;
+    ODDS_API: "https://api.the-odds-api.com/v4/sports",
+    ODDS_SHARK: "https://www.oddsshark.com/api",
+
+    // Live scores and stats;
+    LIVE_SCORES: "https://api.sportradar.com/nba/trial/v7/en/games",
+    ESPN_LIVE: "https://site.api.espn.com/apis/site/v2/sports",
+
+    // Social media and sentiment;
+    TWITTER_API: "https://api.twitter.com/2/tweets/search/recent",
+    REDDIT_LIVE: "https://www.reddit.com/r/sportsbook/new.json",
+
+    // Weather and conditions;
+    WEATHER_LIVE: "https://api.openweathermap.org/data/2.5/weather",
+
+    // Injury and news;
+    ROTOWORLD: "https://www.rotoworld.com/api",
+    FANTASY_LABS: "https://api.fantasylabs.com",
+
+    // Advanced stats;
+    NBA_STATS: "https://stats.nba.com/stats",
+    BASKETBALL_REF: "https://www.basketball-reference.com/api",
+
+    // Betting market data;
+    PINNACLE: "https://api.pinnacle.com/v1",
+    BETFAIR: "https://api.betfair.com/exchange/betting/rest/v1.0",
+
+    // Cryptocurrency for market patterns;
+    BINANCE: "https://api.binance.com/api/v3/ticker/24hr",
+    COINBASE: "https://api.coinbase.com/v2/exchange-rates",
+  };
+
+  async initializeRealTimeFeeds(): Promise<void> {
+    await Promise.all([
+      this.connectToOddsFeeds(),
+      this.connectToLiveScores(),
+      this.connectToSocialFeeds(),
+      this.connectToWeatherFeeds(),
+      this.connectToNewsFeeds(),
+      this.connectToMarketFeeds(),
+      this.connectToCryptoFeeds(),
+    ]);
+  }
+
+  private async connectToOddsFeeds(): Promise<void> {
+    try {
+      // Connect to multiple odds providers;
+      const oddsProviders = [
+        "draftkings",
+        "fanduel",
+        "betmgm",
+        "caesars",
+        "pointsbet",
+        "barstool",
+        "unibet",
+      ];
+
+      for (const provider of oddsProviders) {
+        try {
+          const response = await this.makeSecureRequest(
+            `${this.additionalSources.ODDS_API}/${provider}/odds`,
+          );
+          this.dataCache.set(`odds_${provider}`, {
+            data: response,
+            timestamp: new Date(),
+            provider,
+          });
+        } catch (error) {
+          // console statement removed
+        }
+      }
+    } catch (error) {
+      // console statement removed
+    }
+  }
+
+  private async connectToLiveScores(): Promise<void> {
+    const sports = [
+      "nba",
+      "nfl",
+      "mlb",
+      "nhl",
+      "wnba",
+      "soccer",
+      "pga",
+      "tennis",
+      "esports",
+      "mma",
+    ];
+
+    for (const sport of sports) {
+      try {
+
+        this.dataCache.set(`live_${sport}`, {
+          games: liveGames,
+          timestamp: new Date(),
+        });
+
+        // Set up real-time updates;
+        this.setupLiveGameUpdates(sport);
+      } catch (error) {
+        // console statement removed
+      }
+    }
+  }
+
+  private async connectToSocialFeeds(): Promise<void> {
+    try {
+      // Reddit live feeds;
+      const subreddits = [
+        "sportsbook",
+        "nba",
+        "nfl",
+        "mlb",
+        "nhl",
+        "fantasyfootball",
+      ];
+
+      for (const subreddit of subreddits) {
+        try {
+
+          this.dataCache.set(`reddit_${subreddit}`, {
+            posts,
+            sentiment: this.analyzeSentiment(posts),
+            timestamp: new Date(),
+          });
+        } catch (error) {
+          // console statement removed
+        }
+      }
+
+      // Twitter sentiment (if available)
+      await this.fetchTwitterSentiment();
+    } catch (error) {
+      // console statement removed
+    }
+  }
+
+  private async connectToWeatherFeeds(): Promise<void> {
+    const stadiumLocations = [
+      { name: "MetLife Stadium", lat: 40.8135, lon: -74.0745 },
+      { name: "Lambeau Field", lat: 44.5013, lon: -88.0622 },
+      { name: "Soldier Field", lat: 41.8623, lon: -87.6167 },
+      { name: "Fenway Park", lat: 42.3467, lon: -71.0972 },
+    ];
+
+    for (const stadium of stadiumLocations) {
+      try {
+
+        this.dataCache.set(`weather_${stadium.name}`, {
+          weather,
+          impact: this.calculateWeatherImpact(weather),
+          timestamp: new Date(),
+        });
+      } catch (error) {
+        // console statement removed
+      }
+    }
+  }
+
+  private async connectToNewsFeeds(): Promise<void> {
+    const newsSources = [
+      "espn.com/nba/rss",
+      "espn.com/nfl/rss",
+      "espn.com/mlb/rss",
+      "espn.com/nhl/rss",
+      "rotoworld.com/rss",
+      "fantasypros.com/rss",
+    ];
+
+    for (const source of newsSources) {
+      try {
+
+        this.dataCache.set(`news_${source}`, {
+          articles: news,
+          sentiment: this.analyzeNewsSentiment(news),
+          timestamp: new Date(),
+        });
+      } catch (error) {
+        // console statement removed
+      }
+    }
+  }
+
+  private async connectToMarketFeeds(): Promise<void> {
+    try {
+      // Fetch cryptocurrency data for market pattern analysis;
+
+      this.dataCache.set("crypto_patterns", {
+        data: cryptoData,
+        volatility: this.calculateCryptoVolatility(cryptoData),
+        timestamp: new Date(),
+      });
+
+      // Fetch forex data for economic indicators;
+
+      this.dataCache.set("forex_indicators", {
+        data: forexData,
+        trends: this.analyzeForexTrends(forexData),
+        timestamp: new Date(),
+      });
+    } catch (error) {
+      // console statement removed
+    }
+  }
+
+  private async connectToCryptoFeeds(): Promise<void> {
+    try {
+
+      for (const symbol of cryptoSymbols) {
+
+        this.dataCache.set(`crypto_${symbol}`, {
+          price: data.price,
+          volume: data.volume,
+          volatility: data.priceChangePercent,
+          timestamp: new Date(),
+        });
+      }
+    } catch (error) {
+      // console statement removed
+    }
+  }
+
+  private async makeSecureRequest(
+    url: string,
+    options: any = {},
+  ): Promise<any> {
+    try {
+      const response = await axios.get(url, {
+        timeout: 10000,
+        headers: {
+          "User-Agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+          Accept: "application/json",
+          ...options.headers,
+        },
+        ...options,
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Request failed: ${error}`);
+    }
+  }
+
+  private async fetchLiveGames(sport: string): Promise<LiveGameData[]> {
+    try {
+
+
+      return (
+        data.events?.map((event: any) => ({
+          gameId: event.id,
+          sport: sport.toUpperCase(),
+          homeTeam:
+            event.competitions[0]?.competitors?.find(
+              (c: any) => c.homeAway === "home",
+            )?.team?.displayName || "Unknown",
+          awayTeam:
+            event.competitions[0]?.competitors?.find(
+              (c: any) => c.homeAway === "away",
+            )?.team?.displayName || "Unknown",
+          score: {
+            home: parseInt(
+              event.competitions[0]?.competitors?.find(
+                (c: any) => c.homeAway === "home",
+              )?.score || "0",
+            ),
+            away: parseInt(
+              event.competitions[0]?.competitors?.find(
+                (c: any) => c.homeAway === "away",
+              )?.score || "0",
+            ),
+          },
+          quarter: event.status?.period?.toString() || "1",
+          timeRemaining: event.status?.displayClock || "12:00",
+          possession: "Unknown",
+          lastPlay: "Game in progress",
+          momentum: Math.random() * 2 - 1,
+        })) || []
+      );
+    } catch (error) {
+      return [];
+    }
+  }
+
+  private getSportPath(sport: string): string {
+    const paths: { [key: string]: string } = {
+      nba: "basketball/nba",
+      nfl: "football/nfl",
+      mlb: "baseball/mlb",
+      nhl: "hockey/nhl",
+    };
+    return paths[sport] || "basketball/nba";
+  }
+
+  private async fetchRedditPosts(subreddit: string): Promise<any[]> {
+    try {
+
+
+      return data.data?.children?.map((post: any) => post.data) || [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  private async fetchTwitterSentiment(): Promise<void> {
+    // Twitter API requires authentication, so we'll simulate this;
+    const simulatedTweets = [
+      { text: "LeBron looking great tonight!", sentiment: 0.8 },
+      { text: "This game is going over for sure", sentiment: 0.6 },
+      { text: "Terrible performance by the defense", sentiment: -0.7 },
+    ];
+
+    this.dataCache.set("twitter_sentiment", {
+      tweets: simulatedTweets,
+      overallSentiment:
+        simulatedTweets.reduce((sum, tweet) => sum + tweet.sentiment, 0) /
+        simulatedTweets.length,
+      timestamp: new Date(),
+    });
+  }
+
+  private async fetchWeatherData(lat: number, lon: number): Promise<any> {
+    try {
+
+      return await this.makeSecureRequest(url);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  private async fetchNewsData(source: string): Promise<any[]> {
+    try {
+
+
+      return data.items || [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  private async fetchCryptoData(): Promise<any> {
+    try {
+
+      return await this.makeSecureRequest(url);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  private async fetchForexData(): Promise<any> {
+    try {
+
+      return await this.makeSecureRequest(url);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  private async fetchCryptoSymbolData(symbol: string): Promise<any> {
+    try {
+
+      return await this.makeSecureRequest(url);
+    } catch (error) {
+      return { price: 0, volume: 0, priceChangePercent: 0 };
+    }
+  }
+
+  private setupLiveGameUpdates(sport: string): void {
+    setInterval(async () => {
+      try {
+
+        this.dataCache.set(`live_${sport}`, {
+          games: liveGames,
+          timestamp: new Date(),
+        });
+
+        // Notify subscribers;
+        this.notifySubscribers(`live_${sport}`, liveGames);
+      } catch (error) {
+        // console statement removed
+      }
+    }, 30000); // Update every 30 seconds;
+  }
+
+  private analyzeSentiment(posts: any[]): number {
+    if (!posts.length) return 0;
+
+    const totalSentiment = 0;
+    const count = 0;
+
+    posts.forEach((post) => {
+
+      const sentiment = 0;
+
+      // Positive keywords;
+      const positiveWords = [
+        "win",
+        "great",
+        "amazing",
+        "best",
+        "good",
+        "excellent",
+        "perfect",
+        "love",
+      ];
+      const negativeWords = [
+        "lose",
+        "bad",
+        "worst",
+        "terrible",
+        "awful",
+        "hate",
+        "sucks",
+        "disappointing",
+      ];
+
+      positiveWords.forEach((word) => {
+        if (title.includes(word)) sentiment += 0.1;
+      });
+
+      negativeWords.forEach((word) => {
+        if (title.includes(word)) sentiment -= 0.1;
+      });
+
+      totalSentiment += sentiment;
+      count++;
+    });
+
+    return count > 0 ? totalSentiment / count : 0;
+  }
+
+  private analyzeNewsSentiment(articles: any[]): number {
+    if (!articles.length) return 0;
+
+    const totalSentiment = 0;
+    const count = 0;
+
+    articles.forEach((article) => {
+
+      const sentiment = 0;
+
+      // Advanced sentiment analysis;
+      const positivePatterns = [
+        /\b(win|victory|success|record|best|great|excellent|outstanding|dominant)\b/g,
+        /\b(comeback|clutch|amazing|spectacular|brilliant)\b/g,
+      ];
+
+      const negativePatterns = [
+        /\b(lose|loss|injury|suspended|worst|terrible|disappointing)\b/g,
+        /\b(struggle|concern|doubt|question|problem)\b/g,
+      ];
+
+      positivePatterns.forEach((pattern) => {
+
+        if (matches) sentiment += matches.length * 0.2;
+      });
+
+      negativePatterns.forEach((pattern) => {
+
+        if (matches) sentiment -= matches.length * 0.2;
+      });
+
+      totalSentiment += sentiment;
+      count++;
+    });
+
+    return count > 0 ? totalSentiment / count : 0;
+  }
+
+  private calculateWeatherImpact(weather: any): number {
+    if (!weather?.current_weather) return 0;
+
+
+
+    const impact = 0;
+
+    // Temperature impact;
+    if (temp < 32 || temp > 90) impact += 0.1;
+    if (temp < 20 || temp > 100) impact += 0.2;
+
+    // Wind impact;
+    if (wind > 15) impact += 0.1;
+    if (wind > 25) impact += 0.2;
+
+    // Precipitation impact;
+    if (precipitation > 0.1) impact += 0.15;
+    if (precipitation > 0.5) impact += 0.25;
+
+    return Math.min(impact, 0.5); // Cap at 50% impact;
+  }
+
+  private calculateCryptoVolatility(cryptoData: any): number {
+    if (!cryptoData?.bpi?.USD?.rate_float) return 0;
+
+    // Simulate volatility calculation;
+    return Math.random() * 0.1;
+  }
+
+  private analyzeForexTrends(forexData: any): any {
+    if (!forexData?.rates) return {};
+
+    return {
+      usdStrength: Math.random() * 2 - 1,
+      volatility: Math.random() * 0.1,
+      trend: Math.random() > 0.5 ? "up" : "down",
+    };
+  }
+
+  private notifySubscribers(dataType: string, data: any): void {
+
+    callbacks.forEach((callback) => {
+      try {
+        callback(data);
+      } catch (error) {
+        // console statement removed
+      }
+    });
+  }
+
+  // Public methods for accessing real-time data;
+  public getLiveOdds(gameId: string): LiveOdds[] {
+    const odds: LiveOdds[] = [];
+
+    ["draftkings", "fanduel", "betmgm", "caesars"].forEach((provider) => {
+
+      if (data) {
+        odds.push({
+          sportsbook: provider,
+          moneyline: {
+            home: -110 + Math.random() * 40,
+            away: -110 + Math.random() * 40,
+          },
+          spread: { line: Math.random() * 10 - 5, home: -110, away: -110 },
+          total: { line: 220 + Math.random() * 20, over: -110, under: -110 },
+          lastUpdate: data.timestamp,
+        });
+      }
+    });
+
+    return odds;
+  }
+
+  public getLiveGameData(sport: string): LiveGameData[] {
+
+    return data?.games || [];
+  }
+
+  public getSentimentData(topic: string): any {
+
+
+    return {
+      reddit: redditData?.sentiment || 0,
+      twitter: twitterData?.overallSentiment || 0,
+      combined:
+        ((redditData?.sentiment || 0) + (twitterData?.overallSentiment || 0)) /
+        2,
+    };
+  }
+
+  public getWeatherImpact(location: string): any {
+    return this.dataCache.get(`weather_${location}`);
+  }
+
+  public getMarketIndicators(): any {
+
+
+    return {
+      cryptoVolatility: crypto?.volatility || 0,
+      forexTrends: forex?.trends || {},
+      marketSentiment: Math.random() * 2 - 1,
+    };
+  }
+
+  public subscribe(dataType: string, callback: Function): void {
+    if (!this.updateCallbacks.has(dataType)) {
+      this.updateCallbacks.set(dataType, []);
+    }
+    this.updateCallbacks.get(dataType)!.push(callback);
+  }
+
+  public unsubscribe(dataType: string, callback: Function): void {
+
+
+    if (index > -1) {
+      callbacks.splice(index, 1);
+    }
+  }
+
+  public getAllCachedData(): Map<string, any> {
+    return new Map(this.dataCache);
+  }
+}
+
+export const realTimeDataAggregator = new RealTimeDataAggregator();
+
+// Mock implementation for missing service;
+export interface RealDataSource {
+  connected: boolean;
+  quality: number;
+  lastUpdate: Date;
+  data: any;
+  error: string | null;
+  source: string;
+}
+
+
+
+================================================
+FILE: realTimeDataService.ts
+================================================
+/**
+ * Real-time Data Service
+ * Centralized service for fetching live data from the backend
+ */
+
+import React from 'react';
+
+export interface RealTimeData {
+  liveGames: number;
+  predictions: number;
+  accuracy: number;
+  profit: number;
+  neuralActivity: number;
+  quantumCoherence: number;
+  dataPoints: number;
+  processingSpeed: number;
+  confidence: number;
+  activeBots: number;
+  winStreak: number;
+  marketAnalysis: string;
+  // Extended data from backend analytics
+  sportBreakdown: {
+    NBA: { accuracy: number; roi: number; volume: number };
+    NFL: { accuracy: number; roi: number; volume: number };
+    NHL: { accuracy: number; roi: number; volume: number };
+    MLB: { accuracy: number; roi: number; volume: number };
+    Soccer: { accuracy: number; roi: number; volume: number };
+  };
+  upcomingOpportunities: Array<{
+    game: string;
+    sport: string;
+    market: string;
+    confidence: number;
+    expected_value: number;
+    recommendation: string;
+  }>;
+  systemMetrics: {
+    uptime: number;
+    errorRate: number;
+    responseTime: number;
+    totalUsers: number;
+    totalPredictionsToday: number;
+    avgWinRate: number;
+    systemHealth: string;
+  };
+  marketData: {
+    efficiency: number;
+    arbitrageOpportunities: number;
+    valueBets: number;
+    sentiment: string;
+    totalVolume24h: number;
+    largeBets24h: number;
+  };
+}
+
+export class RealTimeDataService {
+  private static instance: RealTimeDataService;
+  private cache: RealTimeData | null = null;
+  private lastFetchTime = 0;
+  private readonly CACHE_DURATION = 5000; // 5 seconds
+  private readonly BASE_URL = 'http://localhost:8000';
+
+  private constructor() {}
+
+  static getInstance(): RealTimeDataService {
+    if (!RealTimeDataService.instance) {
+      RealTimeDataService.instance = new RealTimeDataService();
+    }
+    return RealTimeDataService.instance;
+  }
+
+  async fetchRealTimeData(): Promise<RealTimeData> {
+    const now = Date.now();
+
+    // Return cached data if still fresh
+    if (this.cache && now - this.lastFetchTime < this.CACHE_DURATION) {
+      return this.cache;
+    }
+
+    try {
+      // Try multiple backend URLs
+      const backendUrls = [
+        this.BASE_URL,
+        '', // Relative URL for proxy
+        window.location.origin.replace(/:\d+/, ':8000'), // Dynamic port
+      ];
+
+      let healthData = null;
+      let analyticsData = null;
+
+      for (const baseUrl of backendUrls) {
+        try {
+          console.log(`🔄 RealTime: Trying backend: ${baseUrl}`);
+          const [healthResponse, analyticsResponse] = await Promise.all([
+            fetch(`${baseUrl}/api/health/all`),
+            fetch(`${baseUrl}/api/analytics/advanced`),
+          ]);
+
+          if (healthResponse.ok && analyticsResponse.ok) {
+            healthData = await healthResponse.json();
+            analyticsData = await analyticsResponse.json();
+            console.log(`✅ RealTime: Connected to ${baseUrl}`);
+            break;
+          }
+        } catch (error) {
+          console.log(`❌ RealTime: Failed ${baseUrl}:`, error.message);
+          continue;
+        }
+      }
+
+      if (!healthData || !analyticsData) {
+        throw new Error('All backend URLs failed');
+      }
+
+      const data: RealTimeData = {
+        liveGames: healthData.models?.active_models || 0,
+        predictions: healthData.models?.predictions_today || 0,
+        accuracy: healthData.models?.model_accuracy || 0,
+        profit: Math.round(
+          (analyticsData.performance_analytics?.model_performance?.roi_trend?.slice(-1)[0] || 0) *
+            100000
+        ),
+        neuralActivity: healthData.performance?.cpu_usage || 0,
+        quantumCoherence:
+          Math.round((healthData.api_metrics?.cache_hit_rate || 0) * 100 * 100) / 100,
+        dataPoints: analyticsData.machine_learning_insights?.data_points_processed || 0,
+        processingSpeed: healthData.api_metrics?.requests_per_minute || 0,
+        confidence:
+          Math.round((analyticsData.machine_learning_insights?.model_confidence || 0) * 100 * 100) /
+          100,
+        activeBots: healthData.models?.active_models || 0,
+        winStreak: analyticsData.performance_analytics?.sport_breakdown?.NBA?.volume || 0,
+        marketAnalysis: analyticsData.market_analysis?.market_sentiment || 'Active',
+        // Extended data mapping
+        sportBreakdown: analyticsData.performance_analytics?.sport_breakdown || {
+          NBA: { accuracy: 0, roi: 0, volume: 0 },
+          NFL: { accuracy: 0, roi: 0, volume: 0 },
+          NHL: { accuracy: 0, roi: 0, volume: 0 },
+          MLB: { accuracy: 0, roi: 0, volume: 0 },
+          Soccer: { accuracy: 0, roi: 0, volume: 0 },
+        },
+        upcomingOpportunities: analyticsData.predictive_insights?.upcoming_opportunities || [],
+        systemMetrics: {
+          uptime: healthData.uptime || 0,
+          errorRate: healthData.api_metrics?.error_rate || 0,
+          responseTime: healthData.api_metrics?.average_response_time || 0,
+          totalUsers: Math.round(
+            (analyticsData.machine_learning_insights?.data_points_processed || 0) / 100
+          ),
+          totalPredictionsToday: healthData.models?.predictions_today || 0,
+          avgWinRate: healthData.models?.model_accuracy || 0,
+          systemHealth: healthData.status || 'unknown',
+        },
+        marketData: {
+          efficiency: analyticsData.market_analysis?.market_efficiency || 0,
+          arbitrageOpportunities: analyticsData.market_analysis?.arbitrage_opportunities || 0,
+          valueBets: analyticsData.market_analysis?.value_bets_identified || 0,
+          sentiment: analyticsData.market_analysis?.market_sentiment || 'neutral',
+          totalVolume24h: analyticsData.market_analysis?.volume_analysis?.total_volume_24h || 0,
+          largeBets24h: analyticsData.market_analysis?.volume_analysis?.large_bets_24h || 0,
+        },
+      };
+
+      this.cache = data;
+      this.lastFetchTime = now;
+
+      return data;
+    } catch (error) {
+      console.error('Failed to fetch real-time data:', error);
+
+      // Return fallback data on error
+      return {
+        liveGames: 0,
+        predictions: 0,
+        accuracy: 0,
+        profit: 0,
+        neuralActivity: 0,
+        quantumCoherence: 0,
+        dataPoints: 0,
+        processingSpeed: 0,
+        confidence: 0,
+        activeBots: 0,
+        winStreak: 0,
+        marketAnalysis: 'Error',
+        sportBreakdown: {
+          NBA: { accuracy: 0, roi: 0, volume: 0 },
+          NFL: { accuracy: 0, roi: 0, volume: 0 },
+          NHL: { accuracy: 0, roi: 0, volume: 0 },
+          MLB: { accuracy: 0, roi: 0, volume: 0 },
+          Soccer: { accuracy: 0, roi: 0, volume: 0 },
+        },
+        upcomingOpportunities: [],
+        systemMetrics: {
+          uptime: 0,
+          errorRate: 0,
+          responseTime: 0,
+          totalUsers: 0,
+          totalPredictionsToday: 0,
+          avgWinRate: 0,
+          systemHealth: 'error',
+        },
+        marketData: {
+          efficiency: 0,
+          arbitrageOpportunities: 0,
+          valueBets: 0,
+          sentiment: 'error',
+          totalVolume24h: 0,
+          largeBets24h: 0,
+        },
+      };
+    }
+  }
+
+  // Hook for React components
+  static useRealTimeData(): {
+    data: RealTimeData | null;
+    loading: boolean;
+    error: string | null;
+    refetch: () => Promise<void>;
+  } {
+    const [data, setData] = React.useState<RealTimeData | null>(null);
+    const [loading, setLoading] = React.useState(true);
+    const [error, setError] = React.useState<string | null>(null);
+
+    const service = RealTimeDataService.getInstance();
+
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const result = await service.fetchRealTimeData();
+        setData(result);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Unknown error');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    React.useEffect(() => {
+      fetchData();
+
+      // Refresh every 30 seconds
+      const interval = setInterval(fetchData, 30000);
+      return () => clearInterval(interval);
+    }, []);
+
+    return { data, loading, error, refetch: fetchData };
+  }
+}
+
+// Re-export for convenience
+export const realTimeDataService = RealTimeDataService.getInstance();
+
+
+
+================================================
+FILE: realTimePredictionEngine.d.ts
+================================================
+export interface EnhancedPrediction {
+    id: string;
+    sport: string;
+    type: string;
+    game: string;
+    pick: string;
+    valueGrade: string;
+    confidence: number;
+    expectedValue: number;
+    riskScore: number;
+    modelConsensus: number;
+    kellyOptimal: number;
+    dataQuality: number;
+    odds: number;
+    backtestResults: {
+        winRate: number;
+        avgReturn: number;
+        maxDrawdown: number;
+        profitFactor: number;
+    };
+    realTimeFactors: {
+        lineMovement: number;
+        publicBetting: number;
+        sharpMoney: boolean;
+        weatherImpact: number;
+    };
+    reasoning: string[];
+    sources: string[];
+    timestamp: Date;
+    value: string;
+    risk: number;
+    details: string;
+}
+
+
+
+================================================
+FILE: realTimePredictionEngine.ts
+================================================
+// Copied from prototype for RealTimePredictions integration;
+export interface EnhancedPrediction {
+    id: string;
+    sport: string;
+    type: string;
+    game: string;
+    pick: string;
+    valueGrade: string;
+    confidence: number;
+    expectedValue: number;
+    riskScore: number;
+    modelConsensus: number;
+    kellyOptimal: number;
+    dataQuality: number;
+    odds: number;
+    backtestResults: {
+        winRate: number;
+        avgReturn: number;
+        maxDrawdown: number;
+        profitFactor: number;
+    };
+    realTimeFactors: {
+        lineMovement: number;
+        publicBetting: number;
+        sharpMoney: boolean;
+        weatherImpact: number;
+    };
+    reasoning: string[];
+    sources: string[];
+    timestamp: Date;
+    value: string; // fallback for legacy;
+    risk: number; // fallback for legacy;
+    details: string; // fallback for legacy;
+}
+
+
+
+================================================
+FILE: realTimeUpdates.d.ts
+================================================
+import { Sport } from "./sportsAnalytics.js";
+/**
+ * Status reporting for UI/monitoring.
+ */
+declare global {
+    interface Window {
+        appStatus?: {
+            [key: string]: {
+                connected: boolean;
+                quality: number;
+                timestamp: number;
+            };
+        };
+    }
+}
+interface LiveOdds {
+    propId: string;
+    value: number;
+    overMultiplier: number;
+    underMultiplier: number;
+    timestamp: number;
+    movement: {
+        direction: "up" | "down" | "stable";
+        amount: number;
+        timeFrame: number;
+    };
+}
+interface InjuryUpdate {
+    playerId: string;
+    playerName: string;
+    team: string;
+    status: "out" | "questionable" | "probable" | "available";
+    injury: string;
+    timestamp: number;
+    expectedReturn?: string;
+}
+interface LineMovement {
+    propId: string;
+    oldValue: number;
+    newValue: number;
+    direction: "up" | "down";
+    timestamp: number;
+    confidence: number;
+}
+interface BreakingNews {
+    id: string;
+    title: string;
+    content: string;
+    type: "injury" | "trade" | "suspension" | "other";
+    timestamp: number;
+    impact: "high" | "medium" | "low";
+    affectedProps?: string[];
+}
+interface Prediction {
+    id: string;
+    event: string;
+    market: string;
+    prediction: string;
+    confidence: number;
+    timestamp: number;
+}
+declare class RealTimeUpdatesService {
+    private static instance;
+    private liveOdds;
+    private injuries;
+    private lineMovements;
+    private breakingNews;
+    private predictions;
+    private subscribers;
+    private readonly CACHE_DURATION;
+    private cache;
+    private ws;
+    private connected;
+    private constructor();
+    /**
+     * Returns the singleton instance of RealTimeUpdatesService.
+     */
+    static getInstance(): RealTimeUpdatesService;
+    /**
+     * Initialize the WebSocket connection for real-time updates.
+     * Reports connection status for UI.
+     */
+    /**
+     * Initialize the WebSocket connection for real-time updates.
+     * Reports connection status for UI.
+     */
+    private initializeWebSocket;
+    /**
+     * Returns the latest live odds for a given propId, using cache if available.
+     */
+    getLiveOdds(propId: string): Promise<LiveOdds | null>;
+    /**
+     * Updates the live odds and notifies subscribers.
+     */
+    updateLiveOdds(odds: LiveOdds): Promise<void>;
+    getInjuryUpdate(playerId: string): Promise<InjuryUpdate | null>;
+    updateInjuryStatus(update: InjuryUpdate): Promise<void>;
+    getLineMovements(propId: string): Promise<LineMovement[]>;
+    recordLineMovement(movement: LineMovement): Promise<void>;
+    getBreakingNews(): Promise<BreakingNews[]>;
+    addBreakingNews(news: BreakingNews): Promise<void>;
+    getPrediction(id: string): Promise<Prediction | null>;
+    updatePrediction(prediction: Prediction): Promise<void>;
+    /**
+     * Subscribe to a real-time update event.
+     * Returns an unsubscribe function.
+     */
+    subscribe<K extends keyof RealTimeUpdateEventMap>(type: K, callback: (data: RealTimeUpdateEventMap[K]) => void): () => void;
+    /**
+     * Notify all subscribers of a given event type.
+     */
+    private notifySubscribers;
+    getSportUpdates(sport: Sport): Promise<{
+        odds: LiveOdds[];
+        injuries: InjuryUpdate[];
+        lineMovements: LineMovement[];
+        news: BreakingNews[];
+        predictions: Prediction[];
+    }>;
+    private getFromCache;
+    private setCache;
+    /**
+     * Returns true if the real-time service is connected.
+     */
+    isConnected(): boolean;
+    /**
+     * Simulate real-time updates if feature flag is disabled or WS fails.
+     * Pushes random odds, injuries, etc. for demo/dev mode.
+     */
+    simulateRealtime(): void;
+    private isLiveOdds;
+    private isInjuryUpdate;
+    private isLineMovement;
+    private isBreakingNews;
+    private isPrediction;
+}
+/**
+ * Event map for strict typing of real-time event subscriptions.
+ */
+interface RealTimeUpdateEventMap {
+    odds: LiveOdds;
+    injury: InjuryUpdate;
+    lineMovement: LineMovement;
+    breakingNews: BreakingNews;
+    prediction: Prediction;
+}
+export declare const realTimeUpdates: RealTimeUpdatesService;
+export {};
+
+
+
+================================================
+FILE: realTimeUpdates.ts
+================================================
+import { Sport } from "./sportsAnalytics.js";
+import { notificationService } from "./notification.js";
+// import { useWebSocket } from "@/hooks/useWebSocket.js"; // No longer used in service layer;
+
+/**
+ * Real-time updates feature flag and env config.
+ */
+
+
+/**
+ * Status reporting for UI/monitoring.
+ */
+declare global {
+  interface Window {
+    appStatus?: {
+      [key: string]: {
+        connected: boolean;
+        quality: number;
+        timestamp: number;
+      };
+    };
+  }
+}
+
+function reportRealtimeStatus(
+  source: string,
+  connected: boolean,
+  quality: number,
+) {
+  if (typeof window !== "undefined" && window.appStatus) {
+    window.appStatus["realtime"] = {
+      connected,
+      quality,
+      timestamp: Date.now(),
+    };
+  }
+  // Optionally: emit event or log;
+  console.info(`[RealTimeUpdatesService] ${source} status:`, {
+    connected,
+    quality,
+  });
+}
+
+interface LiveOdds {
+  propId: string;
+  value: number;
+  overMultiplier: number;
+  underMultiplier: number;
+  timestamp: number;
+  movement: {
+    direction: "up" | "down" | "stable";
+    amount: number;
+    timeFrame: number;
+  };
+}
+
+interface InjuryUpdate {
+  playerId: string;
+  playerName: string;
+  team: string;
+  status: "out" | "questionable" | "probable" | "available";
+  injury: string;
+  timestamp: number;
+  expectedReturn?: string;
+}
+
+interface LineMovement {
+  propId: string;
+  oldValue: number;
+  newValue: number;
+  direction: "up" | "down";
+  timestamp: number;
+  confidence: number;
+}
+
+interface BreakingNews {
+  id: string;
+  title: string;
+  content: string;
+  type: "injury" | "trade" | "suspension" | "other";
+  timestamp: number;
+  impact: "high" | "medium" | "low";
+  affectedProps?: string[];
+}
+
+interface Prediction {
+  id: string;
+  event: string;
+  market: string;
+  prediction: string;
+  confidence: number;
+  timestamp: number;
+}
+
+class RealTimeUpdatesService {
+  private static instance: RealTimeUpdatesService;
+  private liveOdds: Map<string, LiveOdds> = new Map();
+  private injuries: Map<string, InjuryUpdate> = new Map();
+  private lineMovements: Map<string, LineMovement[]> = new Map();
+  private breakingNews: Map<string, BreakingNews> = new Map();
+  private predictions: Map<string, Prediction> = new Map();
+  private subscribers: Map<
+    keyof RealTimeUpdateEventMap,
+    Set<(data: RealTimeUpdateEventMap[keyof RealTimeUpdateEventMap]) => void>
+  > = new Map();
+  private readonly CACHE_DURATION = 1000 * 60 * 5; // 5 minutes;
+  private cache: Map<string, unknown> = new Map();
+  // WebSocket logic is now handled outside the class for React compliance;
+  private ws: WebSocket | null = null;
+  private connected = false;
+
+  private constructor() {
+    if (!VITE_DISABLE_REALTIME) {
+      this.initializeWebSocket();
+    } else {
+      reportRealtimeStatus("disabled", false, 0);
+    }
+  }
+
+  /**
+   * Returns the singleton instance of RealTimeUpdatesService.
+   */
+  static getInstance(): RealTimeUpdatesService {
+    if (!RealTimeUpdatesService.instance) {
+      RealTimeUpdatesService.instance = new RealTimeUpdatesService();
+    }
+    return RealTimeUpdatesService.instance;
+  }
+
+  /**
+   * Initialize the WebSocket connection for real-time updates.
+   * Reports connection status for UI.
+   */
+  /**
+   * Initialize the WebSocket connection for real-time updates.
+   * Reports connection status for UI.
+   */
+  private initializeWebSocket(): void {
+    // Safety checks to prevent invalid WebSocket connections;
+    if (
+      !VITE_WS_URL ||
+      VITE_WS_URL === "" ||
+      VITE_WS_URL === "wss://api.betproai.com/ws" ||
+      VITE_WS_URL.includes("api.betproai.com") ||
+      VITE_WS_URL.includes("localhost:3000") ||
+      VITE_WS_URL.includes("localhost:8000") ||
+      VITE_WS_URL.includes("localhost:3001") ||
+      import.meta.env.VITE_ENABLE_WEBSOCKET === "false" ||
+      VITE_DISABLE_REALTIME;
+    ) {
+      // console statement removed
+      reportRealtimeStatus("websocket", false, 0);
+      return;
+    }
+
+    // Use a standard WebSocket for non-React environments;
+    this.ws = new WebSocket(VITE_WS_URL);
+    this.ws.onopen = () => reportRealtimeStatus("websocket", true, 1);
+    this.ws.onerror = () => reportRealtimeStatus("websocket", false, 0.5);
+    this.ws.onclose = () => reportRealtimeStatus("websocket", false, 0);
+    this.ws.onmessage = (event: MessageEvent) => {
+      try {
+        const data: { type: keyof WebSocketEventMap; payload: unknown } =
+          JSON.parse(event.data);
+        switch (data.type) {
+          case "odds:update":
+            if (this.isLiveOdds(data.payload))
+              this.updateLiveOdds(data.payload);
+            break;
+          case "injury:update":
+            if (this.isInjuryUpdate(data.payload))
+              this.updateInjuryStatus(data.payload);
+            break;
+          case "line:movement":
+            if (this.isLineMovement(data.payload))
+              this.recordLineMovement(data.payload);
+            break;
+          case "news:update":
+            if (this.isBreakingNews(data.payload))
+              this.addBreakingNews(data.payload);
+            break;
+          case "prediction:update":
+            if (this.isPrediction(data.payload))
+              this.updatePrediction(data.payload);
+            break;
+        }
+      } catch (err) {
+        // console statement removed
+      }
+    };
+  }
+
+  // Live Odds;
+  /**
+   * Returns the latest live odds for a given propId, using cache if available.
+   */
+  async getLiveOdds(propId: string): Promise<LiveOdds | null> {
+
+
+    if (
+      cached &&
+      typeof cached === "object" &&
+      cached !== null &&
+      "propId" in cached &&
+      "value" in cached &&
+      "overMultiplier" in cached &&
+      "underMultiplier" in cached;
+    ) {
+      return cached as LiveOdds;
+    }
+
+    if (odds) {
+      this.setCache(cacheKey, odds);
+    }
+    return odds || null;
+  }
+
+  /**
+   * Updates the live odds and notifies subscribers.
+   */
+  async updateLiveOdds(odds: LiveOdds): Promise<void> {
+    this.liveOdds.set(odds.propId, odds);
+    this.notifySubscribers("odds", odds);
+    this.setCache(`odds_${odds.propId}`, odds);
+  }
+
+  // Injury Updates;
+  async getInjuryUpdate(playerId: string): Promise<InjuryUpdate | null> {
+    return this.injuries.get(playerId) || null;
+  }
+
+  async updateInjuryStatus(update: InjuryUpdate): Promise<void> {
+    this.injuries.set(update.playerId, update);
+    this.notifySubscribers("injury", update);
+
+    if (update.status === "out" || update.status === "questionable") {
+      notificationService.notify(
+        "warning",
+        `${update.playerName} (${update.team}) is ${update.status} - ${update.injury}`,
+      );
+    }
+  }
+
+  // Line Movements;
+  async getLineMovements(propId: string): Promise<LineMovement[]> {
+    return this.lineMovements.get(propId) || [];
+  }
+
+  async recordLineMovement(movement: LineMovement): Promise<void> {
+
+    movements.push(movement);
+    this.lineMovements.set(movement.propId, movements);
+    this.notifySubscribers("lineMovement", movement);
+
+    if (Math.abs(movement.newValue - movement.oldValue) >= 0.5) {
+      notificationService.notify(
+        "info",
+        `Line moved ${movement.direction} from ${movement.oldValue} to ${movement.newValue}`,
+      );
+    }
+  }
+
+  // Breaking News;
+  async getBreakingNews(): Promise<BreakingNews[]> {
+    return Array.from(this.breakingNews.values()).sort(
+      (a, b) => b.timestamp - a.timestamp,
+    );
+  }
+
+  async addBreakingNews(news: BreakingNews): Promise<void> {
+    this.breakingNews.set(news.id, news);
+    this.notifySubscribers("breakingNews", news);
+
+    if (news.impact === "high") {
+      notificationService.notify("error", news.title);
+    }
+  }
+
+  // Predictions;
+  async getPrediction(id: string): Promise<Prediction | null> {
+    return this.predictions.get(id) || null;
+  }
+
+  async updatePrediction(prediction: Prediction): Promise<void> {
+    this.predictions.set(prediction.id, prediction);
+    this.notifySubscribers("prediction", prediction);
+  }
+
+  // Subscription System;
+  /**
+   * Subscribe to a real-time update event.
+   * Returns an unsubscribe function.
+   */
+  subscribe<K extends keyof RealTimeUpdateEventMap>(
+    type: K,
+    callback: (data: RealTimeUpdateEventMap[K]) => void,
+  ): () => void {
+    if (!this.subscribers.has(type)) {
+      this.subscribers.set(type, new Set());
+    }
+    (
+      this.subscribers.get(type) as Set<
+        (data: RealTimeUpdateEventMap[K]) => void;
+      >
+    ).add(callback);
+
+    return () => {
+      const subscribers = this.subscribers.get(type) as Set<
+        (data: RealTimeUpdateEventMap[K]) => void;
+      >;
+      if (subscribers) {
+        subscribers.delete(callback);
+      }
+    };
+  }
+
+  /**
+   * Notify all subscribers of a given event type.
+   */
+  private notifySubscribers<K extends keyof RealTimeUpdateEventMap>(
+    type: K,
+    data: RealTimeUpdateEventMap[K],
+  ): void {
+    const subscribers = this.subscribers.get(type) as Set<
+      (data: RealTimeUpdateEventMap[K]) => void;
+    >;
+    if (subscribers) {
+      subscribers.forEach((callback) => callback(data));
+    }
+  }
+
+  // Sport-specific Updates;
+  async getSportUpdates(sport: Sport): Promise<{
+    odds: LiveOdds[];
+    injuries: InjuryUpdate[];
+    lineMovements: LineMovement[];
+    news: BreakingNews[];
+    predictions: Prediction[];
+  }> {
+
+
+    if (
+      cached &&
+      typeof cached === "object" &&
+      cached !== null &&
+      "odds" in cached &&
+      "injuries" in cached &&
+      "lineMovements" in cached &&
+      "news" in cached &&
+      "predictions" in cached &&
+      Array.isArray((cached as { odds: unknown }).odds) &&
+      Array.isArray((cached as { injuries: unknown }).injuries) &&
+      Array.isArray((cached as { lineMovements: unknown }).lineMovements) &&
+      Array.isArray((cached as { news: unknown }).news) &&
+      Array.isArray((cached as { predictions: unknown }).predictions)
+    ) {
+      return cached as {
+        odds: LiveOdds[];
+        injuries: InjuryUpdate[];
+        lineMovements: LineMovement[];
+        news: BreakingNews[];
+        predictions: Prediction[];
+      };
+    }
+
+    const updates = {
+      odds: Array.from(this.liveOdds.values()).filter((odds) =>
+        odds.propId.startsWith(sport),
+      ),
+      injuries: Array.from(this.injuries.values()).filter((injury) =>
+        injury.team.startsWith(sport),
+      ),
+      lineMovements: Array.from(this.lineMovements.values())
+        .flat()
+        .filter((movement) => movement.propId.startsWith(sport)),
+      news: Array.from(this.breakingNews.values()).filter((news) =>
+        news.title.toLowerCase().includes(sport.toLowerCase()),
+      ),
+      predictions: Array.from(this.predictions.values()).filter(
+        (prediction) =>
+          typeof prediction.event === "string" &&
+          prediction.event.toLowerCase().includes(sport.toLowerCase()),
+      ),
+    };
+
+    this.setCache(cacheKey, updates);
+    return updates;
+  }
+
+  // Cache Management;
+  private getFromCache<T>(key: string): T | null {
+    const cached = this.cache.get(key) as;
+      | { data: T; timestamp: number }
+      | undefined;
+    if (!cached) return null;
+    if (Date.now() - cached.timestamp > this.CACHE_DURATION) {
+      this.cache.delete(key);
+      return null;
+    }
+    return cached.data;
+  }
+
+  private setCache<T>(key: string, data: T): void {
+    this.cache.set(key, {
+      data,
+      timestamp: Date.now(),
+    });
+  }
+
+  /**
+   * Returns true if the real-time service is connected.
+   */
+  public isConnected(): boolean {
+    return !VITE_DISABLE_REALTIME && this.connected;
+  }
+
+  /**
+   * Simulate real-time updates if feature flag is disabled or WS fails.
+   * Pushes random odds, injuries, etc. for demo/dev mode.
+   */
+  public simulateRealtime(): void {
+    if (!VITE_DISABLE_REALTIME) return;
+    // Simulate a random odds update every 10s;
+    setInterval(() => {
+      const odds: LiveOdds = {
+        propId: `sim-odds-${Math.floor(Math.random() * 10)}`,
+        value: Math.random() * 100,
+        overMultiplier: 1.8,
+        underMultiplier: 2.0,
+        timestamp: Date.now(),
+        movement: { direction: "stable", amount: 0, timeFrame: 60 },
+      };
+      this.updateLiveOdds(odds);
+    }, 10000);
+    // Simulate a random injury update every 30s;
+    setInterval(() => {
+      const injury: InjuryUpdate = {
+        playerId: `sim-player-${Math.floor(Math.random() * 5)}`,
+        playerName: "Simulated Player",
+        team: "SIM",
+        status: "questionable",
+        injury: "Simulated Injury",
+        timestamp: Date.now(),
+      };
+      this.updateInjuryStatus(injury);
+    }, 30000);
+    // Simulate a breaking news every 60s;
+    setInterval(() => {
+      const news: BreakingNews = {
+        id: `sim-news-${Date.now()}`,
+        title: "Simulated Breaking News",
+        content: "This is a simulated news event.",
+        type: "other",
+        timestamp: Date.now(),
+        impact: "medium",
+      };
+      this.addBreakingNews(news);
+    }, 60000);
+    reportRealtimeStatus("simulated", false, 0.2);
+  }
+
+  // Type guards for event payloads;
+  private isLiveOdds(data: unknown): data is LiveOdds {
+    return (
+      typeof data === "object" &&
+      data !== null &&
+      "propId" in data &&
+      "value" in data;
+    );
+  }
+  private isInjuryUpdate(data: unknown): data is InjuryUpdate {
+    return (
+      typeof data === "object" &&
+      data !== null &&
+      "playerId" in data &&
+      "status" in data;
+    );
+  }
+  private isLineMovement(data: unknown): data is LineMovement {
+    return (
+      typeof data === "object" &&
+      data !== null &&
+      "propId" in data &&
+      "oldValue" in data &&
+      "newValue" in data;
+    );
+  }
+  private isBreakingNews(data: unknown): data is BreakingNews {
+    return (
+      typeof data === "object" &&
+      data !== null &&
+      "id" in data &&
+      "title" in data;
+    );
+  }
+  private isPrediction(data: unknown): data is Prediction {
+    return (
+      typeof data === "object" &&
+      data !== null &&
+      "id" in data &&
+      "prediction" in data;
+    );
+  }
+}
+
+/**
+ * Event map for strict typing of real-time event subscriptions.
+ */
+interface RealTimeUpdateEventMap {
+  odds: LiveOdds;
+  injury: InjuryUpdate;
+  lineMovement: LineMovement;
+  breakingNews: BreakingNews;
+  prediction: Prediction;
+}
+
+interface WebSocketEventMap {
+  "odds:update": LiveOdds;
+  "injury:update": InjuryUpdate;
+  "line:movement": LineMovement;
+  "news:update": BreakingNews;
+  "prediction:update": Prediction;
+}
+
+// TODO: Add comprehensive unit and integration tests for all fallback and error-handling logic.
+export const realTimeUpdates = RealTimeUpdatesService.getInstance();
+if (VITE_DISABLE_REALTIME) {
+  realTimeUpdates.simulateRealtime();
+}
+
+
+
+================================================
+FILE: realTimeUpdateService.d.ts
+================================================
+import { EventEmitter } from 'events.ts';
+export declare class RealTimeUpdateService extends EventEmitter {
+    private sportsApi;
+    private oddsApi;
+    private sentimentApi;
+    private pollingInterval;
+    private pollingTimer;
+    private ws;
+    private featureEnabled;
+    constructor();
+    private initialize;
+    private initWebSocket;
+    private handleMessage;
+    private startPollingFallback;
+    private pollAll;
+    stop(): void;
+}
+export declare const realTimeUpdateService: RealTimeUpdateService;
+
+
+
+================================================
+FILE: realTimeUpdateService.ts
+================================================
+import { SportsDataApi, OddsDataApi, SentimentApi } from './integrations.ts';
+import { EventEmitter } from 'events.ts';
+import { isFeatureEnabled } from "./configService.ts";
+import {
+  normalizePlayerProp,
+  normalizeGameState,
+  normalizeSentiment,
+} from "./integrations/normalizeExternalData.js";
+import { logLiveData } from "./integrations/liveDataLogger.js";
+
+// Status reporting for UI/monitoring;
+function reportRealTimeStatus(connected: boolean, quality: number) {
+  if (typeof window !== "undefined") {
+    if (!window.appStatus) window.appStatus = {};
+    window.appStatus.realtime = { connected, quality, timestamp: Date.now() };
+  }
+}
+
+// Simulated fallback data for degraded/disabled scenarios;
+const simulatedGames = [
+  {
+    id: "sim-game",
+    status: "scheduled",
+    teams: ["A", "B"],
+    startTime: new Date().toISOString(),
+  },
+];
+
+const simulatedSentiment = [
+  { id: "sim-sentiment", player: "Sim Player", sentiment: 0 },
+];
+
+export class RealTimeUpdateService extends EventEmitter {
+  private sportsApi = new SportsDataApi();
+  private oddsApi = new OddsDataApi();
+  private sentimentApi = new SentimentApi();
+  private pollingInterval = 10000; // fallback polling in ms;
+  private pollingTimer: NodeJS.Timeout | null = null;
+  private ws: WebSocket | null = null;
+  private featureEnabled = true;
+
+  constructor() {
+    super();
+    this.initialize();
+  }
+
+  private async initialize() {
+    this.featureEnabled = await isFeatureEnabled("REALTIME_UPDATES");
+    if (!this.featureEnabled) {
+      reportRealTimeStatus(false, 0);
+      logLiveData(
+        "[RealTimeUpdateService] Feature flag disabled. No real-time updates.",
+      );
+      this.emit("games", simulatedGames);
+      this.emit("odds", simulatedOdds);
+      this.emit("sentiment", simulatedSentiment);
+      return;
+    }
+    this.initWebSocket();
+  }
+
+  private initWebSocket() {
+    if (!this.featureEnabled) return;
+
+    // Safety checks to prevent invalid WebSocket connections - AGGRESSIVE FOR DEBUGGING;
+    if (
+      !wsUrl ||
+      wsUrl === "" ||
+      wsUrl === "wss://api.betproai.com/ws" ||
+      wsUrl.includes("api.betproai.com") ||
+      wsUrl.includes("localhost") ||
+      wsUrl.includes("ws://") ||
+      wsUrl.includes("wss://") ||
+      import.meta.env.VITE_ENABLE_WEBSOCKET === "false" ||
+      import.meta.env.NODE_ENV === "development"
+    ) {
+      // console statement removed:",
+        wsUrl,
+      );
+      this.startPollingFallback();
+      return;
+    }
+
+    try {
+      this.ws = new WebSocket(wsUrl);
+      this.ws.onmessage = (event) => this.handleMessage(event.data);
+      this.ws.onerror = () => this.startPollingFallback();
+      this.ws.onclose = () => this.startPollingFallback();
+      reportRealTimeStatus(true, 1);
+    } catch {
+      this.startPollingFallback();
+    }
+  }
+
+  private handleMessage(data: string) {
+    try {
+
+      // Normalize and route to appropriate listeners;
+      let normalized;
+      switch (parsed.type) {
+        case "games":
+          normalized = Array.isArray(parsed.payload)
+            ? parsed.payload.map(normalizeGameState)
+            : normalizeGameState(parsed.payload);
+          break;
+        case "odds":
+          normalized = Array.isArray(parsed.payload)
+            ? parsed.payload.map(normalizePlayerProp)
+            : normalizePlayerProp(parsed.payload);
+          break;
+        case "sentiment":
+          normalized = Array.isArray(parsed.payload)
+            ? parsed.payload.map(normalizeSentiment)
+            : normalizeSentiment(parsed.payload);
+          break;
+        default:
+          normalized = parsed.payload;
+      }
+      this.emit(parsed.type, normalized);
+      logLiveData(`[WS] ${parsed.type} update received`);
+    } catch (e) {
+      // Log parse error;
+      logLiveData(`[WS ERROR] Failed to parse message: ${e}`);
+      // console statement removed
+    }
+  }
+
+  private startPollingFallback() {
+    if (!this.featureEnabled) return;
+    if (this.pollingTimer) return;
+    reportRealTimeStatus(false, 0.5);
+    logLiveData("[FALLBACK] WebSocket failed, using polling fallback");
+    this.pollingTimer = setInterval(() => this.pollAll(), this.pollingInterval);
+  }
+
+  private async pollAll() {
+    if (!this.featureEnabled) {
+      reportRealTimeStatus(false, 0);
+      this.emit("games", simulatedGames);
+      this.emit("odds", simulatedOdds);
+      this.emit("sentiment", simulatedSentiment);
+      return;
+    }
+    // Poll all APIs for updates;
+    try {
+      const [games, odds, sentiment] = await Promise.all([
+        this.sportsApi.getGames(),
+        this.oddsApi.getOdds(),
+        this.sentimentApi.getSentimentSnapshot(),
+      ]);
+      this.emit(
+        "games",
+        Array.isArray(games)
+          ? games.map(normalizeGameState)
+          : normalizeGameState(games),
+      );
+      this.emit(
+        "odds",
+        Array.isArray(odds)
+          ? odds.map(normalizePlayerProp)
+          : normalizePlayerProp(odds),
+      );
+      this.emit(
+        "sentiment",
+        Array.isArray(sentiment)
+          ? sentiment.map(normalizeSentiment)
+          : normalizeSentiment(sentiment),
+      );
+      reportRealTimeStatus(true, 1);
+      logLiveData("[POLL] Data polled from APIs");
+    } catch (e) {
+      reportRealTimeStatus(false, 0.3);
+      logLiveData(`[POLL ERROR] ${e}`);
+      // console statement removed
+      this.emit("games", simulatedGames);
+      this.emit("odds", simulatedOdds);
+      this.emit("sentiment", simulatedSentiment);
+    }
+  }
+
+  public stop() {
+    if (this.pollingTimer) clearInterval(this.pollingTimer);
+    if (this.ws) this.ws.close();
+  }
+}
+
+export const realTimeUpdateService = new RealTimeUpdateService();
+
+
+
+================================================
+FILE: api/ApiService.ts
+================================================
+/**
+ * Comprehensive API Service Layer for A1Betting Frontend
+ * Provides typed interfaces to all backend endpoints with proper error handling.
+ */
+import axios, { AxiosError, AxiosResponse } from 'axios';
+
+// Define base URL from environment variables
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+
+// Create axios instance with default configuration
+const apiClient = axios.create({
+  baseURL: BASE_URL,
+  timeout: 30000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// --- Request Interceptor ---
+apiClient.interceptors.request.use(
+  (config) => {
+    // In a real app, you'd get the token from a state manager or local storage
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      if (config.headers) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    }
+    if (import.meta.env.DEV) {
+      console.log(`[API Request] ${config.method?.toUpperCase()} ${config.url}`, config.data || '');
+    }
+    return config;
+  },
+  (error) => {
+    console.error('[API Request Error]', error);
+    return Promise.reject(error);
+  },
+);
+
+// --- Response Interceptor ---
+apiClient.interceptors.response.use(
+  (response: AxiosResponse) => {
+    if (import.meta.env.DEV) {
+      console.log(`[API Response] ${response.config.method?.toUpperCase()} ${response.config.url}`, response.status, response.data);
+    }
+    return response;
+  },
+  (error: AxiosError) => {
+    console.error(
+      `[API Response Error] ${error.config?.method?.toUpperCase()} ${error.config?.url}`,
+      error.response?.status,
+      error.response?.data,
+    );
+
+    if (error.response?.status === 401) {
+      // Handle unauthorized access, e.g., redirect to login
+      console.error("Unauthorized access - redirecting to login.");
+      // window.location.href = '/login';
+    }
+
+    // Return a structured error to be handled by the calling code
+    return Promise.reject(error.response || error.message);
+  },
+);
+
+
+/**
+ * A generic and simplified API service for interacting with the backend.
+ */
+export class ApiService {
+  /**
+   * Generic GET method for fetching data from an endpoint.
+   * @param endpoint - The API endpoint to call (e.g., '/api/v1/predictions').
+   * @param params - Optional query parameters.
+   * @returns A promise that resolves with the response data.
+   */
+  static async get<T>(endpoint: string, params?: Record<string, any>): Promise<T> {
+    try {
+      const response = await apiClient.get<T>(endpoint, { params });
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching data from ${endpoint}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Generic POST method for sending data to an endpoint.
+   * @param endpoint - The API endpoint to call.
+   * @param data - The data to send in the request body.
+   * @returns A promise that resolves with the response data.
+   */
+  static async post<T>(endpoint: string, data: any): Promise<T> {
+    try {
+      const response = await apiClient.post<T>(endpoint, data);
+      return response.data;
+    } catch (error) {
+      console.error(`Error posting data to ${endpoint}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+ * Generic PUT method for updating data at an endpoint.
+ * @param endpoint - The API endpoint to call.
+ * @param data - The data to send in the request body.
+ * @returns A promise that resolves with the response data.
+ */
+  static async put<T>(endpoint: string, data: any): Promise<T> {
+    try {
+      const response = await apiClient.put<T>(endpoint, data);
+      return response.data;
+    } catch (error) {
+      console.error(`Error updating data at ${endpoint}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Generic DELETE method for removing data from an endpoint.
+   * @param endpoint - The API endpoint to call.
+   * @returns A promise that resolves with the response data.
+   */
+  static async delete<T>(endpoint: string): Promise<T> {
+    try {
+      const response = await apiClient.delete<T>(endpoint);
+      return response.data;
+    } catch (error) {
+      console.error(`Error deleting data from ${endpoint}:`, error);
+      throw error;
+    }
+  }
+}
+
+// Export a singleton instance
+export const api = ApiService;
+export default ApiService;
+
+
+
+================================================
+FILE: api/EnhancedApiService.ts
+================================================
+/**
+ * Enhanced API Service for A1Betting Platform;
+ *
+ * This service provides comprehensive API integration with:
+ * - Advanced prediction endpoints;
+ * - Real-time betting opportunities;
+ * - Risk management and portfolio optimization;
+ * - Arbitrage detection and market analysis;
+ * - Comprehensive error handling and retry logic;
+ */
+
+import axios, { AxiosInstance, AxiosResponse } from 'axios.ts';
+
+// ============================================================================
+// TYPES AND INTERFACES;
+// ============================================================================
+
+export interface PredictionRequest {
+    event_id: string;
+    sport: string;
+    features: Record<string, number>;
+    models?: string[];
+    require_explanations?: boolean;
+    risk_tolerance?: number;
+    bankroll?: number;
+    metadata?: Record<string, any>;
+}
+
+export interface ModelPrediction {
+    model_name: string;
+    model_type: string;
+    value: number;
+    probability: number;
+    confidence: number;
+    performance: Record<string, number>;
+    shap_values: Record<string, number>;
+    feature_importance: Record<string, number>;
+    prediction_time: number;
+    model_version: string;
+}
+
+export interface RiskAssessment {
+    kelly_fraction: number;
+    recommended_bet_size: number;
+    max_bet_size: number;
+    risk_level: string;
+    expected_value: number;
+    variance: number;
+    sharpe_ratio: number;
+}
+
+export interface MarketAnalysis {
+    market_efficiency: number;
+    arbitrage_opportunities: Array<{
+        bookmaker_a: string;
+        bookmaker_b: string;
+        odds_a: number;
+        odds_b: number;
+        profit_margin: number;
+        required_stake: number;
+    }>;
+    value_bets: Array<{
+        market: string;
+        predicted_odds: number;
+        market_odds: number;
+        value_percentage: number;
+        confidence: number;
+    }>;
+    market_sentiment: string;
+    liquidity_score: number;
+}
+
+export interface PredictionResponse {
+    event_id: string;
+    sport: string;
+    final_value: number;
+    win_probability: number;
+    ensemble_confidence: number;
+    expected_payout: number;
+    risk_assessment: RiskAssessment;
+    market_analysis: MarketAnalysis;
+    model_breakdown: ModelPrediction[];
+    model_consensus: number;
+    shap_values: Record<string, number>;
+    feature_importance: Record<string, number>;
+    explanation: string;
+    confidence_intervals?: Record<string, [number, number]>;
+    prediction_timestamp: string;
+    processing_time: number;
+    model_versions: Record<string, string>;
+    data_quality_score: number;
+}
+
+export interface BettingOpportunity {
+    id: string;
+    sport: string;
+    event: string;
+    market: string;
+    odds: number;
+    probability: number;
+    expected_value: number;
+    kelly_fraction: number;
+    confidence: number;
+    risk_level: string;
+    recommendation: string;
+}
+
+export interface ArbitrageOpportunity {
+    id: string;
+    sport: string;
+    event: string;
+    bookmaker_a: string;
+    bookmaker_b: string;
+    odds_a: number;
+    odds_b: number;
+    profit_margin: number;
+    required_stake: number;
+}
+
+export interface Transaction {
+    id: string;
+    type: string;
+    amount: number;
+    description: string;
+    timestamp: string;
+    status: string;
+}
+
+export interface RiskProfile {
+    id: string;
+    name: string;
+    description: string;
+    max_bet_percentage: number;
+    kelly_multiplier: number;
+    min_confidence: number;
+}
+
+export interface ActiveBet {
+    id: string;
+    event: string;
+    market: string;
+    selection: string;
+    odds: number;
+    stake: number;
+    potential_return: number;
+    status: string;
+    placed_at: string;
+}
+
+// ============================================================================
+// API SERVICE CLASS;
+// ============================================================================
+
+class EnhancedApiService {
+    private api: AxiosInstance;
+    private baseURL: string;
+    private retryAttempts: number = 3;
+    private retryDelay: number = 1000;
+
+    constructor() {
+        // Get API base URL from environment or use default;
+        this.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
+        // Create axios instance with enhanced configuration;
+        this.api = axios.create({
+            baseURL: this.baseURL,
+            timeout: 30000, // 30 second timeout;
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+        });
+
+        // Setup request interceptor;
+        this.api.interceptors.request.use(
+            (config) => {
+                // console statement removed} ${config.url}`);
+                return config;
+            },
+            (error) => {
+                // console statement removed
+                return Promise.reject(error);
+            }
+        );
+
+        // Setup response interceptor with retry logic;
+        this.api.interceptors.response.use(
+            (response) => {
+                // console statement removed
+                return response;
+            },
+            async (error) => {
+                // console statement removed
+
+                // Implement retry logic for certain errors;
+                if (this.shouldRetry(error) && error.config && !error.config._retry) {
+                    error.config._retry = true;
+                    error.config._retryCount = (error.config._retryCount || 0) + 1;
+
+                    if (error.config._retryCount <= this.retryAttempts) {
+                        // console statement removed`);
+                        await this.delay(this.retryDelay * error.config._retryCount);
+                        return this.api.request(error.config);
+                    }
+                }
+
+                return Promise.reject(error);
+            }
+        );
+    }
+
+    // ============================================================================
+    // UTILITY METHODS;
+    // ============================================================================
+
+    private shouldRetry(error: any): boolean {
+        // Retry on network errors, timeouts, and 5xx server errors;
+        return (
+            !error.response ||
+            error.code === 'NETWORK_ERROR' ||
+            error.code === 'TIMEOUT' ||
+            (error.response.status >= 500 && error.response.status < 600)
+        );
+    }
+
+    private delay(ms: number): Promise<void> {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    private handleApiError(error: any, context: string): never {
+
+
+        // console statement removed
+
+        throw new Error(`${context} failed: ${message} (Status: ${status})`);
+    }
+
+    // ============================================================================
+    // PREDICTION ENDPOINTS;
+    // ============================================================================
+
+    async getPrediction(request: PredictionRequest): Promise<PredictionResponse> {
+        try {
+            const response: AxiosResponse<PredictionResponse> = await this.api.post('/api/v2/predict', request);
+            return response.data;
+        } catch (error) {
+            this.handleApiError(error, 'Prediction request');
+        }
+    }
+
+    async getModelStatus(): Promise<any> {
+        try {
+
+            return response.data;
+        } catch (error) {
+            this.handleApiError(error, 'Model status request');
+        }
+    }
+
+    // ============================================================================
+    // BETTING OPPORTUNITIES;
+    // ============================================================================
+
+    async getBettingOpportunities(sport?: string, limit: number = 10): Promise<BettingOpportunity[]> {
+        try {
+
+            if (sport) params.append('sport', sport);
+            params.append('limit', limit.toString());
+
+            const response: AxiosResponse<BettingOpportunity[]> = await this.api.get(
+                `/api/betting-opportunities?${params.toString()}`
+            );
+            return response.data;
+        } catch (error) {
+            this.handleApiError(error, 'Betting opportunities request');
+        }
+    }
+
+    async getArbitrageOpportunities(limit: number = 5): Promise<ArbitrageOpportunity[]> {
+        try {
+            const response: AxiosResponse<ArbitrageOpportunity[]> = await this.api.get(
+                `/api/arbitrage-opportunities?limit=${limit}`
+            );
+            return response.data;
+        } catch (error) {
+            this.handleApiError(error, 'Arbitrage opportunities request');
+        }
+    }
+
+    // ============================================================================
+    // BANKROLL MANAGEMENT;
+    // ============================================================================
+
+    async getTransactions(): Promise<{ transactions: Transaction[]; total_count: number }> {
+        try {
+
+            return response.data;
+        } catch (error) {
+            this.handleApiError(error, 'Transactions request');
+        }
+    }
+
+    async getRiskProfiles(): Promise<{ profiles: RiskProfile[] }> {
+        try {
+
+            return response.data;
+        } catch (error) {
+            this.handleApiError(error, 'Risk profiles request');
+        }
+    }
+
+    async getActiveBets(): Promise<{ active_bets: ActiveBet[]; total_count: number }> {
+        try {
+
+            return response.data;
+        } catch (error) {
+            this.handleApiError(error, 'Active bets request');
+        }
+    }
+
+    // ============================================================================
+    // SYSTEM HEALTH;
+    // ============================================================================
+
+    async getHealthStatus(): Promise<any> {
+        try {
+
+            return response.data;
+        } catch (error) {
+            this.handleApiError(error, 'Health check request');
+        }
+    }
+
+    async getPredictionEngineHealth(): Promise<any> {
+        try {
+
+            return response.data;
+        } catch (error) {
+            this.handleApiError(error, 'Prediction engine health check');
+        }
+    }
+
+    // ============================================================================
+    // REAL-TIME FEATURES;
+    // ============================================================================
+
+    async subscribeToUpdates(callback: (data: any) => void): Promise<WebSocket | null> {
+        try {
+
+
+            ws.onopen = () => {
+                // console statement removed
+            };
+
+            ws.onmessage = (event) => {
+                try {
+
+                    callback(data);
+                } catch (error) {
+                    // console statement removed
+                }
+            };
+
+            ws.onerror = (error) => {
+                // console statement removed
+            };
+
+            ws.onclose = () => {
+                // console statement removed
+            };
+
+            return ws;
+        } catch (error) {
+            // console statement removed
+            return null;
+        }
+    }
+
+    // ============================================================================
+    // BATCH OPERATIONS;
+    // ============================================================================
+
+    async getBatchPredictions(requests: PredictionRequest[]): Promise<PredictionResponse[]> {
+        try {
+
+
+            return results;
+                .filter((result): result is PromiseFulfilledResult<PredictionResponse> =>
+                    result.status === 'fulfilled'
+                )
+                .map(result => result.value);
+        } catch (error) {
+            this.handleApiError(error, 'Batch predictions request');
+        }
+    }
+
+    // ============================================================================
+    // ANALYTICS AND REPORTING;
+    // ============================================================================
+
+    async getPerformanceMetrics(timeframe: string = '7d'): Promise<any> {
+        try {
+
+            return response.data;
+        } catch (error) {
+            // Production error handling - no mock data fallbacks;
+            // console statement removed
+            throw new Error('Performance metrics unavailable. Please try again later.');
+        }
+    }
+
+    async getMarketAnalytics(sport?: string): Promise<any> {
+        try {
+
+
+            return response.data;
+        } catch (error) {
+            // Production error handling - no mock data fallbacks;
+            // console statement removed
+            throw new Error('Market analytics unavailable. Please try again later.');
+        }
+    }
+}
+
+// ============================================================================
+// SINGLETON EXPORT;
+// ============================================================================
+
+export const apiService = new EnhancedApiService();
+export default apiService;
+
+
+
+================================================
+FILE: api/ProductionApiService.ts
+================================================
+/**
+ * Production-ready API service with comprehensive error handling, retries, and caching;
+ */
+
+import { logApiCall, logError } from '@/utils/logger.ts';
+
+interface ApiConfig {
+  baseUrl: string;
+  timeout: number;
+  retries: number;
+  retryDelay: number;
+}
+
+interface ApiResponse<T> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  timestamp: number;
+  cached?: boolean;
+}
+
+interface CacheEntry<T> {
+  data: T;
+  timestamp: number;
+  ttl: number;
+}
+
+export class ProductionApiService {
+  private config: ApiConfig;
+  private cache = new Map<string, CacheEntry<any>>();
+  private abortControllers = new Map<string, AbortController>();
+
+  constructor(config: Partial<ApiConfig> = {}) {
+    this.config = {
+      baseUrl: import.meta.env.VITE_API_BASE_URL || "http://localhost:8000",
+      timeout: 30000,
+      retries: 3,
+      retryDelay: 1000,
+      ...config,
+    };
+  }
+
+  private generateCacheKey(
+    endpoint: string,
+    params?: Record<string, any>,
+  ): string {
+    return `${endpoint}:${JSON.stringify(params || {})}`;
+  }
+
+  private isValidCacheEntry<T>(entry: CacheEntry<T>): boolean {
+    return Date.now() - entry.timestamp < entry.ttl;
+  }
+
+  private getFromCache<T>(key: string): T | null {
+
+    if (entry && this.isValidCacheEntry(entry)) {
+      return entry.data;
+    }
+    if (entry) {
+      this.cache.delete(key);
+    }
+    return null;
+  }
+
+  private setCache<T>(key: string, data: T, ttl: number = 300000): void {
+    this.cache.set(key, { data, timestamp: Date.now(), ttl });
+  }
+
+  private async delay(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  private async fetchWithRetry<T>(
+    url: string,
+    options: RequestInit = {},
+    retries: number = this.config.retries,
+  ): Promise<T> {
+
+    let lastError: Error;
+
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      try {
+        const requestId = `${Date.now()}-${Math.random()}`;
+        const controller = new AbortController();
+
+        this.abortControllers.set(requestId, controller);
+
+        const timeoutId = setTimeout(
+          () => controller.abort(),
+          this.config.timeout,
+        );
+
+        const response = await fetch(url, {
+          ...options,
+          signal: controller.signal,
+        });
+
+        clearTimeout(timeoutId);
+        this.abortControllers.delete(requestId);
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+
+        logApiCall(url, options.method || "GET", true, duration);
+        return data;
+      } catch (error) {
+        lastError = error as Error;
+
+        if (attempt === retries) {
+
+          logApiCall(url, options.method || "GET", false, duration);
+          logError(lastError, `API request to ${url}`);
+          break;
+        }
+
+        if (lastError.name !== "AbortError") {
+          await this.delay(this.config.retryDelay * Math.pow(2, attempt));
+        }
+      }
+    }
+
+    throw lastError!;
+  }
+
+  async get<T>(
+    endpoint: string,
+    params?: Record<string, any>,
+    options: { cache?: boolean; cacheTtl?: number } = {},
+  ): Promise<ApiResponse<T>> {
+    try {
+      const { cache = true, cacheTtl = 300000 } = options;
+
+      // Check cache first;
+      if (cache) {
+
+        if (cachedData) {
+          return {
+            success: true,
+            data: cachedData,
+            timestamp: Date.now(),
+            cached: true,
+          };
+        }
+      }
+
+      if (params) {
+        Object.entries(params).forEach(([key, value]) => {
+          url.searchParams.append(key, String(value));
+        });
+      }
+
+      // Cache successful responses;
+      if (cache) {
+        this.setCache(cacheKey, data, cacheTtl);
+      }
+
+      return {
+        success: true,
+        data,
+        timestamp: Date.now(),
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error",
+        timestamp: Date.now(),
+      };
+    }
+  }
+
+  async post<T>(
+    endpoint: string,
+    body?: any,
+    headers?: Record<string, string>,
+  ): Promise<ApiResponse<T>> {
+    try {
+
+      const data = await this.fetchWithRetry<T>(url.toString(), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...headers,
+        },
+        body: body ? JSON.stringify(body) : undefined,
+      });
+
+      return {
+        success: true,
+        data,
+        timestamp: Date.now(),
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error",
+        timestamp: Date.now(),
+      };
+    }
+  }
+
+  async put<T>(
+    endpoint: string,
+    body?: any,
+    headers?: Record<string, string>,
+  ): Promise<ApiResponse<T>> {
+    try {
+
+      const data = await this.fetchWithRetry<T>(url.toString(), {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          ...headers,
+        },
+        body: body ? JSON.stringify(body) : undefined,
+      });
+
+      return {
+        success: true,
+        data,
+        timestamp: Date.now(),
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error",
+        timestamp: Date.now(),
+      };
+    }
+  }
+
+  async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
+    try {
+
+      const data = await this.fetchWithRetry<T>(url.toString(), {
+        method: "DELETE",
+      });
+
+      return {
+        success: true,
+        data,
+        timestamp: Date.now(),
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error",
+        timestamp: Date.now(),
+      };
+    }
+  }
+
+  // Abort all pending requests;
+  abortAllRequests(): void {
+    this.abortControllers.forEach((controller) => {
+      controller.abort();
+    });
+    this.abortControllers.clear();
+  }
+
+  // Clear cache;
+  clearCache(): void {
+    this.cache.clear();
+  }
+
+  // Get cache stats;
+  getCacheStats(): { size: number; keys: string[] } {
+    return {
+      size: this.cache.size,
+      keys: Array.from(this.cache.keys()),
+    };
+  }
+
+  // Health check endpoint;
+  async healthCheck(): Promise<boolean> {
+    try {
+
+      return response.success;
+    } catch {
+      return false;
+    }
+  }
+}
+
+// Create singleton instance;
+export const productionApiService = new ProductionApiService();
+
+// Specific API endpoints with proper typing;
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  tier: string;
+  balance: number;
+  winRate: number;
+  totalProfit: number;
+}
+
+export interface Prediction {
+  id: string;
+  event: string;
+  outcome: string;
+  odds: number;
+  confidence: number;
+  edge: number;
+  modelProb: number;
+  commenceTime: string;
+  sport: string;
+  league: string;
+}
+
+export interface SystemHealth {
+  status: "online" | "offline" | "degraded";
+  accuracy: number;
+  activePredictions: number;
+  uptime: number;
+  lastUpdate: string;
+}
+
+// Typed API methods;
+export const api = {
+  // User endpoints;
+  async getUser(userId: string): Promise<ApiResponse<User>> {
+    return productionApiService.get<User>(`/users/${userId}`);
+  },
+
+  async updateUser(
+    userId: string,
+    userData: Partial<User>,
+  ): Promise<ApiResponse<User>> {
+    return productionApiService.put<User>(`/users/${userId}`, userData);
+  },
+
+  // Prediction endpoints;
+  async getPredictions(
+    sport?: string,
+    league?: string,
+  ): Promise<ApiResponse<Prediction[]>> {
+    const params: Record<string, any> = {};
+    if (sport) params.sport = sport;
+    if (league) params.league = league;
+
+    return productionApiService.get<Prediction[]>("/predictions", params);
+  },
+
+  async getPrediction(predictionId: string): Promise<ApiResponse<Prediction>> {
+    return productionApiService.get<Prediction>(`/predictions/${predictionId}`);
+  },
+
+  // System health;
+  async getSystemHealth(): Promise<ApiResponse<SystemHealth>> {
+    return productionApiService.get<SystemHealth>("/health");
+  },
+
+  async getAccuracyMetrics(): Promise<
+    ApiResponse<{ overall_accuracy: number; daily_accuracy: number }>
+  > {
+    return productionApiService.get("/metrics/accuracy");
+  },
+
+  async getUserAnalytics(
+    userId: string,
+  ): Promise<ApiResponse<{ yearly: Record<number, number> }>> {
+    return productionApiService.get(`/analytics/users/${userId}`);
+  },
+
+  // Health check;
+  async healthCheck(): Promise<boolean> {
+    return productionApiService.healthCheck();
+  },
+
+  // PrizePicks specific endpoints;
+  async getPrizePicksProps(params: {
+    sport?: string;
+    minConfidence?: number;
+  }): Promise<ApiResponse<any[]>> {
+    return productionApiService.get<any[]>("/api/prizepicks/props", params);
+  },
+
+  async getPrizePicksRecommendations(params: {
+    sport?: string;
+    strategy?: string;
+    minConfidence?: number;
+  }): Promise<ApiResponse<any[]>> {
+    return productionApiService.get<any[]>("/api/prizepicks/recommendations", params);
+  },
+
+  // Money Maker Pro endpoints;
+  async getBettingOpportunities(params?: {
+    sport?: string;
+    minEdge?: number;
+  }): Promise<ApiResponse<any[]>> {
+    return productionApiService.get<any[]>("/api/betting-opportunities", params);
+  },
+
+  async getArbitrageOpportunities(): Promise<ApiResponse<any[]>> {
+    return productionApiService.get<any[]>("/api/arbitrage-opportunities");
+  },
+
+  async getPortfolioAnalysis(userId: string): Promise<ApiResponse<any>> {
+    return productionApiService.get<any>(`/api/portfolio/${userId}/analysis`);
+  },
+
+  // PropOllama chat endpoint;
+  async sendChatMessage(message: string, context?: any): Promise<ApiResponse<any>> {
+    return productionApiService.post<any>("/api/propollama/chat", {
+      message,
+      context,
+    });
+  },
+};
+
+
+
+================================================
+FILE: unified/ApiService.ts
+================================================
+import EventEmitter from 'eventemitter3.ts';
+import { AxiosInstance } from 'axios.ts';
+
+export interface ApiResponse<T> {
+  data: T;
+  status: number;
+  timestamp: number;
+}
+
+export interface ApiServiceConfig {
+  baseURL: string;
+  timeout?: number;
+  retryAttempts?: number;
+}
+
+export interface ApiServiceEvents {
+  error: (error: Error) => void;
+  request: (endpoint: string) => void;
+  response: (response: ApiResponse<unknown>) => void;
+}
+
+export abstract class BaseApiService extends EventEmitter<ApiServiceEvents> {
+  protected readonly client: AxiosInstance;
+  protected readonly config: ApiServiceConfig;
+
+  constructor(config: ApiServiceConfig) {
+    super();
+    this.config = config;
+    this.client = this.initializeClient();
+  }
+
+  protected abstract initializeClient(): AxiosInstance;
+
+  protected abstract handleError(error: Error): void;
+
+  protected abstract handleResponse<T>(response: ApiResponse<T>): void;
+
+  public abstract get<T>(endpoint: string, params?: Record<string, unknown>): Promise<T>;
+
+  public abstract post<T>(endpoint: string, data: unknown): Promise<T>;
+}
+
+
+
+================================================
+FILE: unified/EnhancedBackendApiService.ts
+================================================
+/**
+ * Enhanced Backend API Integration Service;
+ * Complete integration with enhanced mathematical backend services;
+ */
+
+import axios, { AxiosInstance, AxiosResponse } from 'axios.ts';
+import { UnifiedLogger } from './UnifiedLogger.ts';
+import { UnifiedCache } from './UnifiedCache.ts';
+import { UnifiedErrorService } from './UnifiedErrorService.ts';
+
+// Enhanced prediction request/response types;
+export interface EnhancedPredictionRequest {
+  event_id: string;
+  sport: string;
+  features: Record<string, number>;
+
+  // Mathematical rigor settings;
+  enable_neuromorphic: boolean;
+  neuromorphic_timesteps: number;
+  enable_mamba: boolean;
+  mamba_sequence_length: number;
+  enable_causal_inference: boolean;
+  causal_significance_level: number;
+  enable_topological: boolean;
+  topological_max_dimension: number;
+  enable_riemannian: boolean;
+  riemannian_manifold_dim: number;
+
+  // Advanced computation settings;
+  use_gpu: boolean;
+  numerical_precision: string;
+  convergence_tolerance: number;
+  context: Record<string, any>;
+}
+
+export interface EnhancedPredictionResponse {
+  event_id: string;
+  strategy_used: string;
+
+  // Core predictions with enhanced accuracy;
+  base_prediction: number;
+  neuromorphic_enhancement: number;
+  mamba_temporal_refinement: number;
+  causal_adjustment: number;
+  topological_smoothing: number;
+  riemannian_projection: number;
+  final_prediction: number;
+
+  // Mathematical rigor metrics;
+  neuromorphic_metrics: Record<string, any>;
+  mamba_metrics: Record<string, any>;
+  causal_metrics: Record<string, any>;
+  topological_metrics: Record<string, any>;
+  riemannian_metrics: Record<string, any>;
+
+  // Advanced mathematical properties;
+  riemannian_curvature: number;
+  persistent_betti_numbers: Record<string, number>;
+  causal_graph_structure: Record<string, string[]>;
+  mamba_eigenvalue_spectrum: number[];
+  neuromorphic_spike_statistics: Record<string, number>;
+  topological_persistence_barcode: number[][];
+
+  // Convergence and stability analysis;
+  convergence_rate: number;
+  stability_margin: number;
+  lyapunov_exponent: number;
+  mathematical_guarantees: Record<string, boolean>;
+
+  // Computational complexity analysis;
+  actual_complexity: Record<string, any>;
+  runtime_analysis: Record<string, number>;
+  memory_usage: Record<string, number>;
+
+  // Uncertainty quantification;
+  prediction_confidence: number;
+  uncertainty_bounds: number[];
+  confidence_intervals: Record<string, number[]>;
+
+  // Performance metrics;
+  total_processing_time: number;
+  component_processing_times: Record<string, number>;
+  timestamp: string;
+
+  // Mathematical validation;
+  numerical_stability: Record<string, boolean>;
+  convergence_diagnostics: Record<string, any>;
+  theoretical_bounds_satisfied: boolean;
+}
+
+export interface FeatureEngineeringRequest {
+  data: Record<string, number[]>;
+  feature_types: string[];
+  enable_wavelet_transforms: boolean;
+  enable_manifold_learning: boolean;
+  enable_information_theory: boolean;
+  enable_graph_features: boolean;
+  target_dimensionality?: number;
+}
+
+export interface FeatureEngineeringResponse {
+  original_features: Record<string, number[]>;
+  engineered_features: Record<string, number[]>;
+  feature_importance: Record<string, number>;
+  dimensionality_reduction: {
+    original_dim: number;
+    reduced_dim: number;
+    explained_variance: number;
+    intrinsic_dimension: number;
+  };
+  manifold_properties: {
+    curvature_estimates: number[];
+    topology_summary: Record<string, any>;
+    geodesic_distances: number[][];
+  };
+  information_theory_metrics: {
+    mutual_information: Record<string, number>;
+    transfer_entropy: Record<string, number>;
+    feature_relevance: Record<string, number>;
+  };
+  processing_time: number;
+  mathematical_validation: Record<string, boolean>;
+}
+
+export interface RiskAssessmentRequest {
+  portfolio: Record<string, number>;
+  market_data: Record<string, number[]>;
+  risk_metrics: string[];
+  confidence_level: number;
+  time_horizon: number;
+}
+
+export interface RiskAssessmentResponse {
+  portfolio_risk: {
+    value_at_risk: number;
+    expected_shortfall: number;
+    maximum_drawdown: number;
+    sharpe_ratio: number;
+    sortino_ratio: number;
+  };
+  extreme_value_analysis: {
+    gev_parameters: Record<string, number>;
+    return_levels: Record<string, number>;
+    tail_index: number;
+    hill_estimator: number;
+  };
+  copula_analysis: {
+    dependence_structure: string;
+    tail_dependence: Record<string, number>;
+    model_selection: Record<string, number>;
+  };
+  stress_testing: {
+    scenarios: Record<string, number>;
+    portfolio_impact: Record<string, number>;
+    worst_case_loss: number;
+  };
+  risk_decomposition: Record<string, number>;
+  processing_time: number;
+  model_validation: Record<string, boolean>;
+}
+
+export interface MathematicalAnalysisRequest {
+  prediction_data: Array<Record<string, any>>;
+  analysis_depth: string;
+  include_stability_analysis: boolean;
+  include_convergence_analysis: boolean;
+  include_sensitivity_analysis: boolean;
+  include_robustness_analysis: boolean;
+  verify_theoretical_guarantees: boolean;
+  check_mathematical_consistency: boolean;
+}
+
+export interface MathematicalAnalysisResponse {
+  mathematical_analysis: Record<string, any>;
+  analysis_depth: string;
+  data_dimensions: {
+    num_samples: number;
+    num_features: number;
+    has_outcomes: boolean;
+  };
+  computational_performance: {
+    analysis_time: number;
+    samples_per_second: number;
+  };
+  mathematical_rigor_score: number;
+  timestamp: string;
+}
+
+export interface ModelStatusResponse {
+  models: Array<{
+    id: string;
+    name: string;
+    status: "active" | "training" | "error" | "updating";
+    accuracy: number;
+    last_update: string;
+    mathematical_properties: {
+      convergence_verified: boolean;
+      stability_guaranteed: boolean;
+      theoretical_bounds: boolean;
+    };
+    performance_metrics: {
+      prediction_speed: number;
+      memory_usage: number;
+      computational_complexity: string;
+    };
+  }>;
+  system_health: {
+    overall_status: string;
+    component_status: Record<string, string>;
+    error_rate: number;
+    average_response_time: number;
+  };
+  mathematical_foundations: Record<string, any>;
+}
+
+class EnhancedBackendApiService {
+  private static instance: EnhancedBackendApiService;
+  private client: AxiosInstance;
+  private logger: UnifiedLogger;
+  private cache: UnifiedCache;
+  private errorService: UnifiedErrorService;
+  private baseURL: string;
+
+  private constructor() {
+    this.logger = UnifiedLogger.getInstance();
+    this.cache = UnifiedCache.getInstance();
+    this.errorService = UnifiedErrorService.getInstance();
+    this.baseURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+
+    this.client = axios.create({
+      baseURL: this.baseURL,
+      timeout: 30000, // Increased for mathematical computations;
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    this.setupInterceptors();
+  }
+
+  static getInstance(): EnhancedBackendApiService {
+    if (!EnhancedBackendApiService.instance) {
+      EnhancedBackendApiService.instance = new EnhancedBackendApiService();
+    }
+    return EnhancedBackendApiService.instance;
+  }
+
+  private setupInterceptors(): void {
+    // Request interceptor;
+    this.client.interceptors.request.use(
+      (config) => {
+        this.logger.info("Enhanced Backend API Request", {
+          url: config.url,
+          method: config.method,
+          timestamp: new Date().toISOString(),
+        });
+        return config;
+      },
+      (error) => {
+        this.errorService.handleError(error, "API_REQUEST_ERROR");
+        return Promise.reject(error);
+      },
+    );
+
+    // Response interceptor;
+    this.client.interceptors.response.use(
+      (response: AxiosResponse) => {
+        this.logger.info("Enhanced Backend API Response", {
+          url: response.config.url,
+          status: response.status,
+          responseTime: response.headers["x-response-time"],
+          timestamp: new Date().toISOString(),
+        });
+        return response;
+      },
+      (error) => {
+        this.errorService.handleError(error, "API_RESPONSE_ERROR");
+        return Promise.reject(error);
+      },
+    );
+  }
+
+  // Enhanced Revolutionary Prediction;
+  async getEnhancedRevolutionaryPrediction(
+    request: EnhancedPredictionRequest,
+  ): Promise<EnhancedPredictionResponse> {
+
+    try {
+      // Check cache first;
+
+      if (cached) {
+        this.logger.info("Returning cached enhanced revolutionary prediction", {
+          eventId: request.event_id,
+        });
+        return cached;
+      }
+
+      const response = await this.client.post<EnhancedPredictionResponse>(
+        "/api/enhanced-revolutionary/predict/enhanced",
+        request,
+      );
+
+      // Cache for 2 minutes (mathematical computations are expensive)
+      await this.cache.set(cacheKey, result, 120);
+
+      this.logger.info("Generated enhanced revolutionary prediction", {
+        eventId: request.event_id,
+        finalPrediction: result.final_prediction,
+        confidence: result.prediction_confidence,
+        mathematicalGuarantees: Object.values(
+          result.mathematical_guarantees,
+        ).filter(Boolean).length,
+        processingTime: result.total_processing_time,
+      });
+
+      return result;
+    } catch (error) {
+      this.logger.error("Enhanced revolutionary prediction failed", {
+        error: error.message,
+        request,
+      });
+      throw error;
+    }
+  }
+
+  // Enhanced Feature Engineering;
+  async getEnhancedFeatureEngineering(
+    request: FeatureEngineeringRequest,
+  ): Promise<FeatureEngineeringResponse> {
+    try {
+      const response = await this.client.post<FeatureEngineeringResponse>(
+        "/api/enhanced-features/engineer",
+        request,
+      );
+
+      this.logger.info("Enhanced feature engineering completed", {
+        originalDim: response.data.dimensionality_reduction.original_dim,
+        reducedDim: response.data.dimensionality_reduction.reduced_dim,
+        explainedVariance:
+          response.data.dimensionality_reduction.explained_variance,
+        processingTime: response.data.processing_time,
+      });
+
+      return response.data;
+    } catch (error) {
+      this.logger.error("Enhanced feature engineering failed", {
+        error: error.message,
+        request,
+      });
+      throw error;
+    }
+  }
+
+  // Enhanced Risk Assessment;
+  async getEnhancedRiskAssessment(
+    request: RiskAssessmentRequest,
+  ): Promise<RiskAssessmentResponse> {
+    try {
+      const response = await this.client.post<RiskAssessmentResponse>(
+        "/api/enhanced-risk/assess",
+        request,
+      );
+
+      this.logger.info("Enhanced risk assessment completed", {
+        valueAtRisk: response.data.portfolio_risk.value_at_risk,
+        expectedShortfall: response.data.portfolio_risk.expected_shortfall,
+        tailIndex: response.data.extreme_value_analysis.tail_index,
+        processingTime: response.data.processing_time,
+      });
+
+      return response.data;
+    } catch (error) {
+      this.logger.error("Enhanced risk assessment failed", {
+        error: error.message,
+        request,
+      });
+      throw error;
+    }
+  }
+
+  // Mathematical Analysis and Validation;
+  async getMathematicalAnalysis(
+    request: MathematicalAnalysisRequest,
+  ): Promise<MathematicalAnalysisResponse> {
+    try {
+      const response = await this.client.post<MathematicalAnalysisResponse>(
+        "/api/enhanced-revolutionary/analyze/mathematical-rigor",
+        request,
+      );
+
+      this.logger.info("Mathematical analysis completed", {
+        analysisDepth: response.data.analysis_depth,
+        rigorScore: response.data.mathematical_rigor_score,
+        samplesProcessed: response.data.data_dimensions.num_samples,
+        analysisTime: response.data.computational_performance.analysis_time,
+      });
+
+      return response.data;
+    } catch (error) {
+      this.logger.error("Mathematical analysis failed", {
+        error: error.message,
+        request,
+      });
+      throw error;
+    }
+  }
+
+  // Get Mathematical Foundations;
+  async getMathematicalFoundations(): Promise<Record<string, any>> {
+
+    try {
+
+      if (cached) {
+        return cached;
+      }
+
+      const response = await this.client.get(
+        "/api/enhanced-revolutionary/research/mathematical-foundations",
+      );
+
+      // Cache for 1 hour (foundations don't change often)
+      await this.cache.set(cacheKey, result, 3600);
+
+      this.logger.info("Retrieved mathematical foundations");
+      return result;
+    } catch (error) {
+      this.logger.error("Failed to get mathematical foundations", {
+        error: error.message,
+      });
+      throw error;
+    }
+  }
+
+  // Enhanced Model Status;
+  async getEnhancedModelStatus(): Promise<ModelStatusResponse> {
+    try {
+      const response = await this.client.get<ModelStatusResponse>(
+        "/api/enhanced-models/status",
+      );
+
+      this.logger.info("Retrieved enhanced model status", {
+        totalModels: response.data.models.length,
+        activeModels: response.data.models.filter((m) => m.status === "active")
+          .length,
+        overallStatus: response.data.system_health.overall_status,
+        errorRate: response.data.system_health.error_rate,
+      });
+
+      return response.data;
+    } catch (error) {
+      this.logger.error("Failed to get enhanced model status", {
+        error: error.message,
+      });
+      throw error;
+    }
+  }
+
+  // Unified Prediction (orchestrates all services)
+  async getUnifiedPrediction(request: {
+    event_id: string;
+    sport: string;
+    features: Record<string, number>;
+    include_all_enhancements: boolean;
+    processing_level: "basic" | "advanced" | "research_grade" | "revolutionary";
+  }): Promise<{
+    predictions: Record<string, number>;
+    enhanced_revolutionary: EnhancedPredictionResponse;
+    feature_engineering: FeatureEngineeringResponse;
+    risk_assessment: RiskAssessmentResponse;
+    mathematical_analysis: MathematicalAnalysisResponse;
+    unified_confidence: number;
+    processing_summary: Record<string, any>;
+  }> {
+    try {
+
+      // Parallel processing for efficiency;
+      const [enhancedPrediction, featureEngineering, riskAssessment] =
+        await Promise.all([
+          // Enhanced revolutionary prediction;
+          this.getEnhancedRevolutionaryPrediction({
+            event_id: request.event_id,
+            sport: request.sport,
+            features: request.features,
+            enable_neuromorphic: request.processing_level !== "basic",
+            neuromorphic_timesteps:
+              request.processing_level === "revolutionary" ? 200 : 100,
+            enable_mamba: request.processing_level !== "basic",
+            mamba_sequence_length:
+              request.processing_level === "revolutionary" ? 100 : 50,
+            enable_causal_inference:
+              request.processing_level === "advanced" ||
+              request.processing_level === "revolutionary",
+            causal_significance_level: 0.05,
+            enable_topological:
+              request.processing_level === "research_grade" ||
+              request.processing_level === "revolutionary",
+            topological_max_dimension: 2,
+            enable_riemannian:
+              request.processing_level === "research_grade" ||
+              request.processing_level === "revolutionary",
+            riemannian_manifold_dim: 16,
+            use_gpu: request.processing_level === "revolutionary",
+            numerical_precision:
+              request.processing_level === "revolutionary"
+                ? "float64"
+                : "float32",
+            convergence_tolerance: 1e-6,
+            context: {
+              processing_level: request.processing_level,
+              include_all_enhancements: request.include_all_enhancements,
+            },
+          }),
+
+          // Feature engineering;
+          this.getEnhancedFeatureEngineering({
+            data: { features: Object.values(request.features) },
+            feature_types: ["numerical", "temporal", "categorical"],
+            enable_wavelet_transforms: request.processing_level !== "basic",
+            enable_manifold_learning:
+              request.processing_level === "advanced" ||
+              request.processing_level === "research_grade" ||
+              request.processing_level === "revolutionary",
+            enable_information_theory: request.processing_level !== "basic",
+            enable_graph_features:
+              request.processing_level === "research_grade" ||
+              request.processing_level === "revolutionary",
+            target_dimensionality:
+              request.processing_level === "revolutionary" ? 32 : 16,
+          }),
+
+          // Risk assessment;
+          this.getEnhancedRiskAssessment({
+            portfolio: { prediction: 1.0 },
+            market_data: { features: Object.values(request.features) },
+            risk_metrics: ["var", "es", "maximum_drawdown"],
+            confidence_level: 0.95,
+            time_horizon: 1,
+          }),
+        ]);
+
+      // Mathematical analysis (after other computations)
+      const mathematicalAnalysis = await this.getMathematicalAnalysis({
+        prediction_data: [
+          {
+            features: request.features,
+            prediction: enhancedPrediction.final_prediction,
+            confidence: enhancedPrediction.prediction_confidence,
+          },
+        ],
+        analysis_depth:
+          request.processing_level === "revolutionary"
+            ? "research"
+            : "comprehensive",
+        include_stability_analysis: true,
+        include_convergence_analysis: true,
+        include_sensitivity_analysis: request.processing_level !== "basic",
+        include_robustness_analysis:
+          request.processing_level === "research_grade" ||
+          request.processing_level === "revolutionary",
+        verify_theoretical_guarantees: request.processing_level !== "basic",
+        check_mathematical_consistency: true,
+      });
+
+      // Calculate unified confidence;
+      const confidenceComponents = [
+        enhancedPrediction.prediction_confidence,
+        featureEngineering.dimensionality_reduction.explained_variance,
+        1.0 - riskAssessment.portfolio_risk.value_at_risk,
+        mathematicalAnalysis.mathematical_rigor_score / 100,
+      ];
+      const unifiedConfidence =
+        confidenceComponents.reduce((a, b) => a + b, 0) /
+        confidenceComponents.length;
+
+      const result = {
+        predictions: {
+          enhanced_revolutionary: enhancedPrediction.final_prediction,
+          base_prediction: enhancedPrediction.base_prediction,
+          neuromorphic_enhancement: enhancedPrediction.neuromorphic_enhancement,
+          mamba_refinement: enhancedPrediction.mamba_temporal_refinement,
+          causal_adjustment: enhancedPrediction.causal_adjustment,
+          topological_smoothing: enhancedPrediction.topological_smoothing,
+          riemannian_projection: enhancedPrediction.riemannian_projection,
+        },
+        enhanced_revolutionary: enhancedPrediction,
+        feature_engineering: featureEngineering,
+        risk_assessment: riskAssessment,
+        mathematical_analysis: mathematicalAnalysis,
+        unified_confidence: unifiedConfidence,
+        processing_summary: {
+          total_time_ms: totalTime,
+          processing_level: request.processing_level,
+          mathematical_guarantees_met: Object.values(
+            enhancedPrediction.mathematical_guarantees,
+          ).filter(Boolean).length,
+          rigor_score: mathematicalAnalysis.mathematical_rigor_score,
+          stability_verified:
+            mathematicalAnalysis.mathematical_analysis.theoretical_guarantees;
+              ?.asymptotic_stability || false,
+          convergence_achieved: enhancedPrediction.convergence_rate > 0.8,
+          numerical_stability: Object.values(
+            enhancedPrediction.numerical_stability,
+          ).every(Boolean),
+        },
+      };
+
+      this.logger.info("Unified prediction completed", {
+        eventId: request.event_id,
+        processingLevel: request.processing_level,
+        unifiedConfidence,
+        totalTime,
+        guaranteesMet: result.processing_summary.mathematical_guarantees_met,
+      });
+
+      return result;
+    } catch (error) {
+      this.logger.error("Unified prediction failed", {
+        error: error.message,
+        request,
+      });
+      throw error;
+    }
+  }
+
+  // Health check;
+  async healthCheck(): Promise<{
+    status: string;
+    services: Record<string, boolean>;
+    mathematical_engines: Record<string, boolean>;
+    response_time: number;
+  }> {
+
+    try {
+
+
+      return {
+        status: "healthy",
+        services: response.data.services || {},
+        mathematical_engines: response.data.mathematical_engines || {},
+        response_time: responseTime,
+      };
+    } catch (error) {
+
+      this.logger.error("Backend health check failed", {
+        error: error.message,
+        responseTime,
+      });
+
+      return {
+        status: "unhealthy",
+        services: {},
+        mathematical_engines: {},
+        response_time: responseTime,
+      };
+    }
+  }
+}
+
+export default EnhancedBackendApiService;
+
+
+
+================================================
+FILE: unified/ExternalApiService.ts
+================================================
+import { EventEmitter } from 'events.ts';
+
+export interface SportsNewsArticle {
+  id: string;
+  title: string;
+  summary: string;
+  url: string;
+  publishedAt: string;
+}
+
+interface ApiConfig {
+  baseURL: string;
+  timeout?: number;
+}
+
+/**
+ * Modern ExternalApiService with proper async/await and error handling;
+ */
+export class ExternalApiService extends EventEmitter {
+  private config: ApiConfig;
+
+  constructor(config: ApiConfig) {
+    super();
+    this.config = config;
+  }
+
+  /**
+   * @deprecated Use newsService.fetchHeadlines instead. This method will be removed in a future release.
+   * Calls the unified newsService.fetchHeadlines for robust news fetching.
+   */
+  public async getSportsNews(): Promise<SportsNewsArticle[]> {
+    // DEPRECATED: Use newsService.fetchHeadlines instead;
+    // console statement removed
+    
+    try {
+      // Dynamic import to avoid circular dependencies;
+
+
+      // Map ESPNHeadline to SportsNewsArticle;
+      return headlines.map((h: any) => ({
+        id: h.id || `article-${Date.now()}`,
+        title: h.title || h.summary || 'Untitled',
+        summary: h.summary || h.title || 'No summary available',
+        url: h.link || '',
+        publishedAt: h.publishedAt || new Date().toISOString(),
+      }));
+    } catch (error) {
+      // console statement removed
+      this.emit('error', error);
+      
+      // Return fallback data;
+      return [
+        {
+          id: 'fallback-1',
+          title: 'Sports News Unavailable',
+          summary: 'Unable to fetch latest sports news at this time.',
+          url: '',
+          publishedAt: new Date().toISOString(),
+        },
+      ];
+    }
+  }
+
+  // Add more endpoints as needed;
+  public async getSchedule(): Promise<any[]> {
+    try {
+      const response = await fetch(`${this.config.baseURL}/schedule`, {
+        signal: AbortSignal.timeout(this.config.timeout || 5000),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      return await response.json();
+    } catch (error) {
+      // console statement removed
+      this.emit('error', error);
+      return [];
+    }
+  }
+}
+
+export const externalApiService = new ExternalApiService({
+  baseURL: import.meta.env.VITE_EXTERNAL_API_URL || 'https://api.sportsdata.io/v3/news',
+  timeout: 10000,
+});
+
+
+
+================================================
+FILE: unified/PrizePicksApiService.ts
+================================================
+import axios from 'axios.ts';
+import type { AxiosInstance } from 'axios.ts';
+import { BaseApiService, ApiResponse } from './ApiService.js';
+import type { PrizePicksPlayer, Game, PrizePicksProjection } from '@/types/prizePicks.js';
+
+
+export class PrizePicksApiService extends BaseApiService {
+  protected initializeClient(): AxiosInstance {
+    return axios.create({
+      baseURL: this.config.baseURL,
+      timeout: this.config.timeout || 10000,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  protected handleError(error: Error): void {
+    this.emit('error', error);
+    // console statement removed
+  }
+
+  protected handleResponse<T>(response: ApiResponse<T>): void {
+    this.emit('response', response);
+  }
+
+  public async get<T>(endpoint: string, params?: Record<string, unknown>): Promise<T> {
+    try {
+      this.emit('request', endpoint);
+
+      const apiResponse: ApiResponse<T> = {
+        data: response.data,
+        status: response.status,
+        timestamp: Date.now(),
+      };
+      this.handleResponse(apiResponse);
+      return response.data;
+    } catch (error) {
+      this.handleError(error as Error);
+      throw error;
+    }
+  }
+
+  public async post<T>(endpoint: string, data: unknown): Promise<T> {
+    try {
+      this.emit('request', endpoint);
+
+      const apiResponse: ApiResponse<T> = {
+        data: response.data,
+        status: response.status,
+        timestamp: Date.now(),
+      };
+      this.handleResponse(apiResponse);
+      return response.data;
+    } catch (error) {
+      this.handleError(error as Error);
+      throw error;
+    }
+  }
+
+  // PrizePicks specific methods;
+  public async getAvailableProps(): Promise<PrizePicksProjection[]> {
+    return this.get<PrizePicksProjection[]>('/props/available');
+  }
+
+  public async getPlayerStats(playerId: string): Promise<PrizePicksPlayer> {
+    // Returns player details and stats, strictly typed;
+    return this.get<PrizePicksPlayer>(`/players/${playerId}/stats`);
+  }
+
+  public async getGameDetails(gameId: string): Promise<Game> {
+    // Returns full game details, strictly typed;
+    return this.get<Game>(`/games/${gameId}`);
+  }
+}
+
+

@@ -1,5 +1,5 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React, { useState, useEffect} from 'react';
+import { motion} from 'framer-motion';
 import {
   TrendingUp,
   DollarSign,
@@ -26,8 +26,8 @@ import {
   AlertTriangle,
   CheckCircle,
   Users,
-  Globe,
-} from 'lucide-react.ts';
+//   Globe
+} from 'lucide-react';
 
 // ============================================================================
 // MOCK DATA;
@@ -40,7 +40,7 @@ const mockMetrics = [
     value: "72.4%",
     change: "+2.3%",
     trend: "up",
-    color: "green",
+    color: "green"
   },
   {
     id: "2",
@@ -48,7 +48,7 @@ const mockMetrics = [
     value: "$18,247",
     change: "+$3,421",
     trend: "up",
-    color: "blue",
+    color: "blue"
   },
   {
     id: "3",
@@ -56,7 +56,7 @@ const mockMetrics = [
     value: "8",
     change: "+3",
     trend: "up",
-    color: "purple",
+    color: "purple"
   },
   {
     id: "4",
@@ -64,7 +64,7 @@ const mockMetrics = [
     value: "91.5%",
     change: "+1.2%",
     trend: "up",
-    color: "orange",
+    color: "orange"
   },
 ];
 
@@ -76,7 +76,7 @@ const mockOpportunities = [
     confidence: 94,
     value: "+12.3%",
     status: "live",
-    timeLeft: "2h 15m",
+    timeLeft: "2h 15m"
   },
   {
     id: "2",
@@ -85,7 +85,7 @@ const mockOpportunities = [
     confidence: 87,
     value: "+8.7%",
     status: "upcoming",
-    timeLeft: "4h 30m",
+    timeLeft: "4h 30m"
   },
   {
     id: "3",
@@ -94,7 +94,7 @@ const mockOpportunities = [
     confidence: 82,
     value: "+6.1%",
     status: "upcoming",
-    timeLeft: "6h 45m",
+    timeLeft: "6h 45m"
   },
 ];
 
@@ -104,27 +104,27 @@ const mockRecentActivity = [
     type: "win",
     message: "Lakers Over 230.5 ✓",
     amount: "+$247",
-    time: "5m ago",
+    time: "5m ago"
   },
   {
     id: "2",
     type: "prediction",
     message: "New prediction: Celtics -4.5",
     confidence: "94%",
-    time: "12m ago",
+    time: "12m ago"
   },
   {
     id: "3",
     type: "win",
     message: "Warriors ML ✓",
     amount: "+$180",
-    time: "1h ago",
+    time: "1h ago"
   },
   {
     id: "4",
     type: "alert",
     message: "Value opportunity detected",
-    time: "2h ago",
+    time: "2h ago"
   },
 ];
 
@@ -132,10 +132,7 @@ const mockRecentActivity = [
 // COMPONENTS;
 // ============================================================================
 
-const MetricCard: React.FC<{
-  metric: (typeof mockMetrics)[0];
-  index: number;
-}> = ({ metric, index }) => {
+const MetricCard: React.FC<{,`n  metric: (typeof mockMetrics)[0];,`n  index: number}> = ({ metric, index}) => {
   const getColorClasses = (color: string) => {
     switch (color) {
       case "green":
@@ -146,9 +143,7 @@ const MetricCard: React.FC<{
         return "border-purple-200 bg-gradient-to-br from-purple-50 to-purple-100";
       case "orange":
         return "border-orange-200 bg-gradient-to-br from-orange-50 to-orange-100";
-      default:
-        return "border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100";
-    }
+      default: return "border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100"}
   };
 
   const getTextColor = (color: string) => {
@@ -161,9 +156,7 @@ const MetricCard: React.FC<{
         return "text-purple-700";
       case "orange":
         return "text-orange-700";
-      default:
-        return "text-gray-700";
-    }
+      default: return "text-gray-700"}
   };
 
   const getIconColor = (color: string) => {
@@ -176,9 +169,7 @@ const MetricCard: React.FC<{
         return "text-purple-600";
       case "orange":
         return "text-orange-600";
-      default:
-        return "text-gray-600";
-    }
+      default: return "text-gray-600"}
   };
 
   const getGlowColor = (color: string) => {
@@ -191,20 +182,18 @@ const MetricCard: React.FC<{
         return "rgba(147, 51, 234, 0.1)";
       case "orange":
         return "rgba(251, 146, 60, 0.1)";
-      default:
-        return "rgba(156, 163, 175, 0.1)";
-    }
+      default: return "rgba(156, 163, 175, 0.1)"}
   };
 
   return (
     <motion.div;
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
+      initial={{ opacity: 0, y: 20}}
+      animate={{ opacity: 1, y: 0}}
+      transition={{ delay: index * 0.1, duration: 0.5}}
       whileHover={{
         y: -4,
         scale: 1.02,
-        boxShadow: `0 20px 40px ${getGlowColor(metric.color)}`,
+        boxShadow: `0 20px 40px ${getGlowColor(metric.color)}`
       }}
       className={`p-6 rounded-xl border-2 ${getColorClasses(metric.color)} hover:shadow-2xl transition-all duration-300 cursor-pointer relative overflow-hidden`}
      key={756559}>
@@ -217,8 +206,8 @@ const MetricCard: React.FC<{
             {metric.title}
           </h3>
           <motion.div;
-            whileHover={{ rotate: 180, scale: 1.2 }}
-            transition={{ duration: 0.3 }}
+            whileHover={{ rotate: 180, scale: 1.2}}
+            transition={{ duration: 0.3}}
             className={`p-2 rounded-lg ${getColorClasses(metric.color)} shadow-sm`}
            key={383166}>
             {metric.trend === "up" ? (
@@ -233,9 +222,9 @@ const MetricCard: React.FC<{
 
         <div className="mb-3" key={6076}>
           <motion.p;
-            initial={{ scale: 0.8 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: index * 0.1 + 0.2 }}
+            initial={{ scale: 0.8}}
+            animate={{ scale: 1}}
+            transition={{ delay: index * 0.1 + 0.2}}
             className={`text-3xl font-bold ${getTextColor(metric.color)} tracking-tight`}
            key={852275}>
             {metric.value}
@@ -250,7 +239,7 @@ const MetricCard: React.FC<{
             {metric.change} from last period;
           </p>
           <motion.div;
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ scale: 1.1}}
             className="text-xs text-gray-500 bg-white/70 px-2 py-1 rounded-full"
            key={390086}>
             24h;
@@ -259,14 +248,11 @@ const MetricCard: React.FC<{
       </div>
 
       {/* Animated border */}
-      <div className="absolute inset-0 rounded-xl border-2 border-transparent bg-gradient-to-r from-transparent via-white/20 to-transparent bg-[length:200%_100%] animate-pulse" / key={63076}>
+      <div className="absolute inset-0 rounded-xl border-2 border-transparent bg-gradient-to-r from-transparent via-white/20 to-transparent bg-[length: 200%_100%] animate-pulse" / key={63076}>
     </motion.div>
-  );
-};
+  )};
 
-const OpportunityCard: React.FC<{
-  opportunity: (typeof mockOpportunities)[0];
-}> = ({ opportunity }) => {
+const OpportunityCard: React.FC<{,`n  opportunity: (typeof mockOpportunities)[0]}> = ({ opportunity}) => {
   return (
     <div className="p-4 bg-white rounded-lg border border-gray-200 hover:border-gray-300 transition-all duration-200" key={831504}>
       <div className="flex items-center justify-between mb-3" key={56204}>
@@ -275,8 +261,7 @@ const OpportunityCard: React.FC<{
             className={`w-2 h-2 rounded-full ${
               opportunity.status === "live"
                 ? "bg-green-500 animate-pulse"
-                : "bg-orange-500"
-            }`}
+                : "bg-orange-500"}`}
            key={691854}></div>
           <h3 className="font-semibold text-gray-900" key={702224}>{opportunity.game}</h3>
         </div>
@@ -310,11 +295,10 @@ const OpportunityCard: React.FC<{
         View Details;
       </button>
     </div>
-  );
-};
+  );};
 
-const ActivityItem: React.FC<{ activity: (typeof mockRecentActivity)[0] }> = ({
-  activity,
+const ActivityItem: React.FC<{ activity: (typeof mockRecentActivity)[0]}> = ({
+//   activity
 }) => {
   const getIcon = () => {
     switch (activity.type) {
@@ -324,13 +308,11 @@ const ActivityItem: React.FC<{ activity: (typeof mockRecentActivity)[0] }> = ({
         return <Brain className="w-4 h-4 text-blue-600" / key={587488}>;
       case "alert":
         return <AlertTriangle className="w-4 h-4 text-orange-600" / key={887574}>;
-      default:
-        return <Activity className="w-4 h-4 text-gray-600" / key={697010}>;
-    }
+      default: return <Activity className="w-4 h-4 text-gray-600" / key={697010}>}
   };
 
   return (
-    <div className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors" key={896444}>
+    <div className="flex items-center gap-3 p-3 hover: bg-gray-50 rounded-lg transition-colors" key={896444}>
       <div className="flex-shrink-0" key={11962}>{getIcon()}</div>
       <div className="flex-1 min-w-0" key={704093}>
         <p className="text-sm font-medium text-gray-900 truncate" key={736214}>
@@ -349,8 +331,7 @@ const ActivityItem: React.FC<{ activity: (typeof mockRecentActivity)[0] }> = ({
         <p className="text-xs text-gray-500" key={596425}>{activity.time}</p>
       </div>
     </div>
-  );
-};
+  )};
 
 // ============================================================================
 // MAIN DASHBOARD COMPONENT;
@@ -591,7 +572,10 @@ const ConsolidatedUniversalDashboard: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  );};
 
 export default ConsolidatedUniversalDashboard;
+
+
+
+`

@@ -182,7 +182,7 @@ body.theme-cyber-light select option {
   border: none !important;
   padding: 8px 12px !important;
   font-size: 16px !important;
-  font-family: "Inter", system-ui, sans-serif !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
 }
 
 /* Dark mode dropdown options with maximum contrast */
@@ -198,7 +198,7 @@ body.theme-cyber-dark select option {
   border: none !important;
   padding: 8px 12px !important;
   font-size: 16px !important;
-  font-family: "Inter", system-ui, sans-serif !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
 }
 
 /* Hover and selected states for dropdown options */
@@ -328,14 +328,7 @@ body.theme-cyber-dark select option {
 
 /* Ensure holographic text works in both modes */
 .holographic {
-  background: linear-gradient(
-    45deg,
-    #ff006e,
-    #8338ec,
-    #3a86ff,
-    #06ffa5,
-    #ffbe0b
-  ) !important;
+  background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b) !important;
   background-size: 400% 400% !important;
   animation: gradient-shift 8s ease infinite !important;
   -webkit-background-clip: text !important;

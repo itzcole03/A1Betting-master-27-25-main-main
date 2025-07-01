@@ -1,13 +1,10 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface ModelPerformanceHistory {
-    date: string;
-    accuracy: number;
-    f1: number;
-}
+  date: string,`n  accuracy: number;,`n  f1: number}
 interface AdvancedMLDashboardPanelsProps {
-    eventId: string;
-    modelId: string;
-    modelPerformanceHistory: ModelPerformanceHistory[];
-}
+  eventId: string,`n  modelId: string;,`n  modelPerformanceHistory: ModelPerformanceHistory[0]}
 export declare const AdvancedMLDashboardPanels: React.FC<AdvancedMLDashboardPanelsProps>;
-export {};
+export Record<string, any>;
+
+
+`

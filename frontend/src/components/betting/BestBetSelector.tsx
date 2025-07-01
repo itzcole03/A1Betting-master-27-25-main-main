@@ -1,23 +1,16 @@
-import React, { useMemo  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React, { useMemo} from 'react';
+import { motion} from 'framer-motion';
 
 interface Prediction {
-  id: string;
-  timestamp: string;
-  prediction: number;
-  confidence: number;
-  shapValues: Record<string, number key={817366}>;
-  kellyValue: number;
-  marketEdge: number;
-}
+  id: string,`n  timestamp: string;,`n  prediction: number,`n  confidence: number;,`n  shapValues: Record<string, number key={817366}>;
+  kellyValue: number,`n  marketEdge: number}
 
 interface BestBetSelectorProps {
-  predictions: Prediction[];
-}
+  predictions: Prediction[0]}
 
-const BestBetSelector: React.FC<BestBetSelectorProps key={324108}> = ({ predictions }) => {
+const BestBetSelector: React.FC<BestBetSelectorProps key={324108}> = ({ predictions}) => {
   const bestBets = useMemo(() => {
-    if (!predictions.length) return [];
+    if (!predictions.length) return [0];
 
     // Score each prediction based on multiple factors;
     const scoredPredictions = predictions.map(pred => {
@@ -31,29 +24,26 @@ const BestBetSelector: React.FC<BestBetSelectorProps key={324108}> = ({ predicti
 
       return {
         ...pred,
-        score: totalScore,
-      };
-    });
+        score: totalScore
+      }});
 
     // Sort by score and return top 3;
-    return scoredPredictions.sort((a, b) => b.score - a.score).slice(0, 3);
-  }, [predictions]);
+    return scoredPredictions.sort((a, b) => b.score - a.score).slice(0, 3);}, [predictions]);
 
   const getScoreColor = (score: number) => {
     if (score >= 0.8) return 'text-green-500';
     if (score >= 0.6) return 'text-yellow-500';
-    return 'text-red-500';
-  };
+    return 'text-red-500';};
 
   return (
     <div className="space-y-4" key={160407}>
       {bestBets.map((bet, index) => (
         <motion.div;
           key={bet.id}
-          animate={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0}}
           className="premium-input-container p-4"
-          initial={{ opacity: 0, y: 20 }}
-          transition={{ delay: index * 0.1 }}
+          initial={{ opacity: 0, y: 20}}
+          transition={{ delay: index * 0.1}}
          key={501564}>
           <div className="flex justify-between items-start" key={678391}>
             <div key={241917}>
@@ -106,8 +96,7 @@ const BestBetSelector: React.FC<BestBetSelectorProps key={324108}> = ({ predicti
                   <span;
                     key={feature}
                     className={`px-2 py-1 rounded-full text-xs ${
-                      value  key={523401}> 0 ? 'bg-primary-100 text-primary-700' : 'bg-red-100 text-red-700'
-                    }`}
+                      value  key={523401}> 0 ? 'bg-primary-100 text-primary-700' : 'bg-red-100 text-red-700'}`}
                   >
                     {feature}: {value.toFixed(2)}
                   </span>
@@ -123,7 +112,11 @@ const BestBetSelector: React.FC<BestBetSelectorProps key={324108}> = ({ predicti
         </div>
       )}
     </div>
-  );
-};
+  );};
 
 export default React.memo(BestBetSelector);
+
+
+
+
+`

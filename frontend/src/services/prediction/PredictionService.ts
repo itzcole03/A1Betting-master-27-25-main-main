@@ -1,12 +1,11 @@
-import type { PredictionWithConfidence } from '../../types/confidence';
-import type { ContextualInput } from '../../types/filters';
+﻿import type { PredictionWithConfidence} from '../../types/confidence';
+import type { ContextualInput} from '../../types/filters';
 import ApiService from '../api/ApiService';
 
 /**
  * A service for fetching predictions from the backend.
  */
 export class PredictionService {
-
   /**
    * Fetches a prediction with confidence details from the backend.
    * @param eventId - The ID of the event.
@@ -26,14 +25,14 @@ export class PredictionService {
         event_id: eventId,
         model,
         market,
-        context,
+//         context
       });
-      return prediction;
-    } catch (error) {
+      return prediction;} catch (error) {
       console.error(`Error fetching prediction for event ${eventId}:`, error);
-      throw new Error('Failed to fetch prediction.');
-    }
-  }
-}
+      throw new Error('Failed to fetch prediction.');}
+  }}
 
 export const predictionService = new PredictionService();
+
+
+`

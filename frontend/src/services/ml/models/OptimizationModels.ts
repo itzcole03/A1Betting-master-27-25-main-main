@@ -1,9 +1,8 @@
-import { BaseModel, ModelConfig, ModelPrediction } from './BaseModel.js';
+﻿import { BaseModel, ModelConfig, ModelPrediction} from './BaseModel.js';
 
 class BayesianOptimizationModel extends BaseModel {
   constructor(config: ModelConfig) {
-    super(config);
-  }
+    super(config)}
 
   async predict(input: unknown): Promise<ModelPrediction> {
     return {
@@ -12,25 +11,22 @@ class BayesianOptimizationModel extends BaseModel {
       confidence: 0.78,
       weight: this.config.weight || 1,
       features: input,
-      metadata: {},
-    };
-  }
+      metadata: Record<string, any>
+    }}
 
-  async train(): Promise<void> {}
+  async train(): Promise<void> Record<string, any>
 
   async evaluate(): Promise<unknown> {
-    return {};
-  }
+    return Record<string, any>;}
 
-  async save(): Promise<void> {}
+  async save(): Promise<void> Record<string, any>
 
-  async load(): Promise<void> {}
+  async load(): Promise<void> Record<string, any>
 }
 
 class GeneticAlgorithmModel extends BaseModel {
   constructor(config: ModelConfig) {
-    super(config);
-  }
+    super(config)}
 
   async predict(input: unknown): Promise<ModelPrediction> {
     return {
@@ -39,19 +35,21 @@ class GeneticAlgorithmModel extends BaseModel {
       confidence: 0.75,
       weight: this.config.weight || 1,
       features: input,
-      metadata: {},
-    };
-  }
+      metadata: Record<string, any>
+    }}
 
-  async train(): Promise<void> {}
+  async train(): Promise<void> Record<string, any>
 
   async evaluate(): Promise<unknown> {
-    return {};
-  }
+    return Record<string, any>;}
 
-  async save(): Promise<void> {}
+  async save(): Promise<void> Record<string, any>
 
-  async load(): Promise<void> {}
+  async load(): Promise<void> Record<string, any>
 }
 
-export { BayesianOptimizationModel, GeneticAlgorithmModel };
+export { BayesianOptimizationModel, GeneticAlgorithmModel};
+
+
+
+

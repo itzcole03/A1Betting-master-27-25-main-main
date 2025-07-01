@@ -1,31 +1,19 @@
-import React from 'react.ts';
-import { useState, useEffect } from 'react.ts';
+﻿import React from 'react';
+import { useState, useEffect} from 'react';
 
 interface EnhancedPrediction {
-  id: string;
-  sport: string;
-  type: string;
-  game: string;
-  prediction: string;
-  confidence: number;
-  odds: number;
-  valueGrade: string;
-  risk: number;
-  expectedValue: number;
-  timestamp: Date;
-}
+  id: string,`n  sport: string;,`n  type: string,`n  game: string;,`n  prediction: string,`n  confidence: number;,`n  odds: number,`n  valueGrade: string;,`n  risk: number,`n  expectedValue: number;,`n  timestamp: Date}
 
 interface RealTimePredictionsProps {
-  predictions?: EnhancedPrediction[];
-  loading?: boolean;
-}
+  predictions?: EnhancedPrediction[0];
+  loading?: boolean}
 
 export function RealTimePredictions({
   predictions: propPredictions,
-  loading: propLoading,
-}: RealTimePredictionsProps = {}) {
+  loading: propLoading
+}: RealTimePredictionsProps = Record<string, any>) {
   // State declarations first;
-  const [predictions, setPredictions] = useState<EnhancedPrediction[] key={424258}>([]);
+  const [predictions, setPredictions] = useState<EnhancedPrediction[0] key={424258}>([0]);
   const [loading, setLoading] = useState(false);
   const [selectedSport, setSelectedSport] = useState("All");
   const [selectedType, setSelectedType] = useState("All");
@@ -48,7 +36,7 @@ export function RealTimePredictions({
             valueGrade: "A",
             risk: 0.15,
             expectedValue: 12.3,
-            timestamp: new Date(),
+            timestamp: new Date()
           },
           {
             id: "2",
@@ -61,7 +49,7 @@ export function RealTimePredictions({
             valueGrade: "B+",
             risk: 0.22,
             expectedValue: 8.7,
-            timestamp: new Date(),
+            timestamp: new Date()
           },
           {
             id: "3",
@@ -74,15 +62,12 @@ export function RealTimePredictions({
             valueGrade: "A+",
             risk: 0.12,
             expectedValue: 15.8,
-            timestamp: new Date(),
+            timestamp: new Date()
           },
         ]);
-        setLoading(false);
-      }, 1000);
-    } else {
-      setPredictions(propPredictions || []);
-      setLoading(propLoading || false);
-    }
+        setLoading(false);}, 1000);} else {
+      setPredictions(propPredictions || [0]);
+      setLoading(propLoading || false);}
   }, [propPredictions, propLoading]);
 
   // Safe filtering with proper checks;
@@ -91,8 +76,7 @@ export function RealTimePredictions({
     if (!pred) return false; // Additional safety check;
 
 
-    return sportMatch && typeMatch;
-  });
+    return sportMatch && typeMatch;});
 
   const getValueGradeColor = (grade: string) => {
     const colors = {
@@ -102,30 +86,26 @@ export function RealTimePredictions({
       B: "text-blue-500 bg-blue-50 dark:bg-blue-900/20",
       "C+": "text-yellow-600 bg-yellow-100 dark:bg-yellow-900/30",
       C: "text-yellow-500 bg-yellow-50 dark:bg-yellow-900/20",
-      D: "text-red-600 bg-red-100 dark:bg-red-900/30",
+      D: "text-red-600 bg-red-100 dark:bg-red-900/30"
     };
-    return colors[grade as keyof typeof colors] || colors["C"];
-  };
+    return colors[grade as keyof typeof colors] || colors["C"];};
 
   const getRiskColor = (risk: number) => {
     if (risk < 0.2) return "text-green-600";
     if (risk < 0.4) return "text-yellow-600";
-    return "text-red-600";
-  };
+    return "text-red-600";};
 
   const getConfidenceColor = (confidence: number) => {
     if (confidence >= 85) return "text-green-600";
     if (confidence >= 75) return "text-yellow-600";
-    return "text-red-600";
-  };
+    return "text-red-600";};
 
   const formatTimestamp = (timestamp: Date) => {
     return new Intl.DateTimeFormat("en-US", {
       hour: "2-digit",
       minute: "2-digit",
-      second: "2-digit",
-    }).format(timestamp);
-  };
+      second: "2-digit"
+    }).format(timestamp)};
 
   if (loading) {
     return (
@@ -137,13 +117,12 @@ export function RealTimePredictions({
         <div className="space-y-3" key={186520}>
           {[1, 2, 3].map((i) => (
             <div key={i} className="animate-pulse" key={317458}>
-              <div className="h-24 bg-gray-200 dark:bg-gray-700 rounded-lg" key={361400}></div>
+              <div className="h-24 bg-gray-200 dark: bg-gray-700 rounded-lg" key={361400}></div>
             </div>
           ))}
         </div>
       </div>
-    );
-  }
+    )}
 
   return (
     <div className="space-y-4" key={160407}>
@@ -255,7 +234,7 @@ export function RealTimePredictions({
                    key={858352}>
                     {prediction.valueGrade}
                   </div>
-                  <div className="mt-2 text-lg font-bold text-green-600 dark:text-green-400" key={298235}>
+                  <div className="mt-2 text-lg font-bold text-green-600 dark: text-green-400" key={298235}>
                     +{prediction.expectedValue.toFixed(1)}%
                   </div>
                   <div className="text-xs text-gray-500 dark:text-gray-400" key={849702}>
@@ -268,5 +247,9 @@ export function RealTimePredictions({
         )}
       </div>
     </div>
-  );
-}
+  )}
+
+
+
+
+`

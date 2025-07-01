@@ -1,31 +1,30 @@
-import { AnimatePresence, motion } from 'framer-motion.ts';
-import { BarChart2, DollarSign, History, Home, Layers, LineChart, Menu, Moon, PieChart, Settings, Sun, TrendingUp, Zap } from 'lucide-react.ts';
-import React, { useState  } from 'react.ts';
-import { NavLink } from 'react-router-dom.ts';
-import { useTheme } from '@/../providers/ThemeProvider.ts';
+﻿import { AnimatePresence, motion} from 'framer-motion';
+import { BarChart2, DollarSign, History, Home, Layers, LineChart, Menu, Moon, PieChart, Settings, Sun, TrendingUp, Zap} from 'lucide-react';
+import React, { useState} from 'react';
+import { NavLink} from 'react-router-dom';
+import { useTheme} from '@/../providers/ThemeProvider';
 
 
 const navItems = [
-  { name: 'Dashboard', path: '/', icon: Home },
-  { name: 'Player Props', path: '/player-props', icon: PieChart },
-  { name: 'AI Predictions', path: '/ai-predictions', icon: BarChart2 },
-  { name: 'Win Probabilities', path: '/win-probabilities', icon: TrendingUp },
-  { name: 'Arbitrage', path: '/arbitrage', icon: Zap },
-  { name: 'Smart Lineups', path: '/smart-lineups', icon: Layers },
-  { name: 'Betting History', path: '/betting-history', icon: History },
-  { name: 'ML Analytics', path: '/ml-analytics', icon: LineChart },
-  { name: 'Bankroll', path: '/bankroll', icon: DollarSign },
-  { name: 'Settings', path: '/settings', icon: Settings },
+  { name: 'Dashboard', path: '/', icon: Home},
+  { name: 'Player Props', path: '/player-props', icon: PieChart},
+  { name: 'AI Predictions', path: '/ai-predictions', icon: BarChart2},
+  { name: 'Win Probabilities', path: '/win-probabilities', icon: TrendingUp},
+  { name: 'Arbitrage', path: '/arbitrage', icon: Zap},
+  { name: 'Smart Lineups', path: '/smart-lineups', icon: Layers},
+  { name: 'Betting History', path: '/betting-history', icon: History},
+  { name: 'ML Analytics', path: '/ml-analytics', icon: LineChart},
+  { name: 'Bankroll', path: '/bankroll', icon: DollarSign},
+  { name: 'Settings', path: '/settings', icon: Settings},
 ];
 
 const Sidebar: React.FC = () => {
-  const { isDark, toggleTheme } = useTheme();
+  const { isDark, toggleTheme} = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
 
   const toggleTheme = () => {
-    toggleTheme();
-  };
+    toggleTheme();};
 
   const SidebarContent = () => (
     <div className="flex flex-col h-full p-4 space-y-6 glass bg-gradient-to-br from-[#23235b]/80 to-[#1a1a2e]/90 text-text shadow-2xl border-r border-white/10" key={640579}>
@@ -43,9 +42,8 @@ const Sidebar: React.FC = () => {
               <NavLink;
                 to={item.path}
                 onClick={closeMobileMenu}
-                className={({ isActive }) = key={285200}>
-                  `flex items-center space-x-3 px-4 py-3 rounded-xl transition-all font-semibold text-base hover:bg-primary-600/20 hover:text-primary-400 modern-card shadow-sm ${isActive ? 'bg-primary-600/30 text-primary-200' : 'text-white/90'}`
-                }
+                className={({ isActive}) = key={285200}>
+                  `flex items-center space-x-3 px-4 py-3 rounded-xl transition-all font-semibold text-base hover:bg-primary-600/20 hover:text-primary-400 modern-card shadow-sm ${isActive ? 'bg-primary-600/30 text-primary-200' : 'text-white/90'}`}
               >
                 <item.icon className="w-5 h-5 opacity-80" / key={606701}>
                 <span key={595076}>{item.name}</span>
@@ -89,10 +87,10 @@ const Sidebar: React.FC = () => {
       <AnimatePresence key={359944}>
         {isMobileMenuOpen && (
           <motion.div;
-            initial={{ x: '-100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '-100%' }}
-            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            initial={{ x: '-100%'}}
+            animate={{ x: 0}}
+            exit={{ x: '-100%'}}
+            transition={{ type: 'spring', stiffness: 300, damping: 30}}
             className="md:hidden fixed inset-0 z-40 flex"
            key={485237}>
             <div className="w-64 h-full" key={642734}>
@@ -103,7 +101,10 @@ const Sidebar: React.FC = () => {
         )}
       </AnimatePresence>
     </>
-  );
-};
+  )};
 
 export default Sidebar;
+
+
+
+`

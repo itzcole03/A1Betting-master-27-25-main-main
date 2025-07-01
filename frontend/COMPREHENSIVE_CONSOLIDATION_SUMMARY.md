@@ -121,12 +121,7 @@ const { predictions, isLoading } = usePredictions({ realtime: true });
 
 ```typescript
 // Replaces 228+ individual hooks with 20 essential, powerful hooks
-import {
-  usePredictions,
-  useUniversalForm,
-  useDebounce,
-  useToast,
-} from "./hooks/UniversalHooks";
+import { usePredictions, useUniversalForm, useDebounce, useToast } from './hooks/UniversalHooks';
 
 // Data hooks with caching
 const { predictions, isLoading } = usePredictions({
@@ -154,14 +149,14 @@ const { values, handleSubmit, errors } = useUniversalForm(initialData, {
 
 ```typescript
 // Replaces 150+ utility functions with organized modules
-import { formatters, validators, collections, performance } from "./utils";
+import { formatters, validators, collections, performance } from './utils';
 
 // Formatting utilities
 const price = formatters.currency(1234.56); // "$1,234.56"
 const odds = formatters.odds(2.5); // "+150"
 
 // Validation utilities
-const isValidEmail = validators.email("user@example.com");
+const isValidEmail = validators.email('user@example.com');
 
 // Performance utilities
 const debouncedFn = performance.debounce(searchFunction, 300);

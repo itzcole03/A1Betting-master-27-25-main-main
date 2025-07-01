@@ -1,44 +1,34 @@
-import React, { createContext, useContext, useEffect, useState  } from 'react.ts';
-import { webSocketManager } from '@/services/unified/WebSocketManager.ts';
-import { errorLogger } from '@/utils/errorLogger.ts';
+﻿import React, { createContext, useContext, useEffect, useState} from 'react';
+import { webSocketManager} from '@/services/unified/WebSocketManager';
+import { errorLogger} from '@/utils/errorLogger';
 
 interface WebSocketContextType {
-  isConnected: boolean;
-  lastMessage: any;
-  subscribe: (event: string, callback: (data: any) => void) => void;
-  unsubscribe: (event: string, callback: (data: any) => void) => void;
-}
+  isConnected: boolean,`n  lastMessage: any;,`n  subscribe: (event: string, callback: (data: any) => void) => void,`n  unsubscribe: (event: string, callback: (data: any) => void) => void}
 
 export const useWebSocket = () => {
 
   if (!context) {
-    throw new Error('useWebSocket must be used within a WebSocketProvider');
-  }
-  return context;
-};
+    throw new Error('useWebSocket must be used within a WebSocketProvider')}
+  return context;};
 
-export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const WebSocketProvider: React.FC<{ children: React.ReactNode}> = ({ children}) => {
   const [isConnected, setIsConnected] = useState(false);
   const [lastMessage, setLastMessage] = useState<any key={295429}>(null);
 
   useEffect(() => {
     const handleConnect = () => {
       setIsConnected(true);
-      errorLogger.logInfo('WebSocket connected', { context: 'WebSocketProvider' });
-    };
+      errorLogger.logInfo('WebSocket connected', { context: 'WebSocketProvider'})};
 
     const handleDisconnect = () => {
       setIsConnected(false);
-      errorLogger.logWarning('WebSocket disconnected', { context: 'WebSocketProvider' });
-    };
+      errorLogger.logWarning('WebSocket disconnected', { context: 'WebSocketProvider'})};
 
     const handleError = (error: Error) => {
-      errorLogger.logError(error, { context: 'WebSocketProvider' });
-    };
+      errorLogger.logError(error, { context: 'WebSocketProvider'})};
 
     const handleMessage = (message: any) => {
-      setLastMessage(message);
-    };
+      setLastMessage(message)};
 
     // Subscribe to WebSocketManager events;
     webSocketManager.on('connect', handleConnect);
@@ -51,9 +41,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       webSocketManager.off('connect', handleConnect);
       webSocketManager.off('disconnect', handleDisconnect);
       webSocketManager.off('error', handleError);
-      webSocketManager.off('message', handleMessage);
-    };
-  }, []);
+      webSocketManager.off('message', handleMessage);};}, [0]);
 
   /**
    * Provides WebSocket context with unified event-driven API.
@@ -63,10 +51,13 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     isConnected,
     lastMessage,
     subscribe: (event: string, callback: (data: any) => void) => webSocketManager.on(event, callback),
-    unsubscribe: (event: string, callback: (data: any) => void) => webSocketManager.off(event, callback),
+    unsubscribe: (event: string, callback: (data: any) => void) => webSocketManager.off(event, callback)
   };
 
   return (
     <WebSocketContext.Provider value={value} key={745137}>{children}</WebSocketContext.Provider>
-  );
-};
+  );};
+
+
+
+`

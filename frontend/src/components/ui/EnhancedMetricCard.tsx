@@ -1,15 +1,12 @@
-import React from 'react.ts';
-import { cn } from '@/lib/utils.ts';
+﻿import React from 'react';
+import { cn} from '@/lib/utils';
 
 interface EnhancedMetricCardProps {
-  label: string;
-  value: string | number;
-  icon: string;
-  change?: string;
+  label: string,`n  value: string | number;,`n  icon: string;
+  change?: string
   trend?: "up" | "down" | "neutral";
-  className?: string;
-  glowing?: boolean;
-}
+  className?: string
+  glowing?: boolean}
 
 const EnhancedMetricCard: React.FC<EnhancedMetricCardProps key={176474}> = ({
   label,
@@ -18,18 +15,18 @@ const EnhancedMetricCard: React.FC<EnhancedMetricCardProps key={176474}> = ({
   change,
   trend = "neutral",
   className = "",
-  glowing = false,
+  glowing = false
 }) => {
   const trendColors = {
     up: "text-green-400",
     down: "text-red-400",
-    neutral: "text-gray-400",
+    neutral: "text-gray-400"
   };
 
   const trendIcons = {
     up: "fa-arrow-up",
     down: "fa-arrow-down",
-    neutral: "fa-minus",
+    neutral: "fa-minus"
   };
 
   return (
@@ -45,7 +42,7 @@ const EnhancedMetricCard: React.FC<EnhancedMetricCardProps key={176474}> = ({
         border: "1px solid rgba(255, 255, 255, 0.1)",
         boxShadow: glowing;
           ? "0 0 20px rgba(0,255,136,0.6), 0 0 40px rgba(0,255,136,0.4)"
-          : "0 8px 32px rgba(0, 0, 0, 0.1)",
+          : "0 8px 32px rgba(0, 0, 0, 0.1)"
       }}
      key={278568}>
       {/* Icon */}
@@ -56,7 +53,7 @@ const EnhancedMetricCard: React.FC<EnhancedMetricCardProps key={176474}> = ({
       {/* Value */}
       <div;
         className="text-2xl font-bold mb-2 text-white"
-        style={{ fontFamily: "Inter, system-ui, sans-serif" }}
+        style={{ fontFamily: "Inter, system-ui, sans-serif"}}
        key={165064}>
         {value}
       </div>
@@ -77,7 +74,11 @@ const EnhancedMetricCard: React.FC<EnhancedMetricCardProps key={176474}> = ({
         </div>
       )}
     </div>
-  );
-};
+  );};
 
 export default EnhancedMetricCard;
+
+
+
+
+`

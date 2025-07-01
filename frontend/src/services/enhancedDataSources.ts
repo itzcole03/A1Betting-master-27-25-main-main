@@ -1,19 +1,5 @@
-export interface EnhancedDataSource {
-  id: string;
-  name: string;
-  category: string;
-  connected: boolean;
-  quality: number;
-  reliability: number;
-  lastUpdate: Date;
-  data: any;
-  error: string | null;
-  metrics: {
-    latency: number;
-    uptime: number;
-    errorRate: number;
-  };
-}
+﻿export interface EnhancedDataSource {
+  id: string,`n  name: string;,`n  category: string,`n  connected: boolean;,`n  quality: number,`n  reliability: number;,`n  lastUpdate: Date,`n  data: any;,`n  error: string | null,`n  metrics: {,`n  latency: number,`n  uptime: number;,`n  errorRate: number}}
 
 export class EnhancedDataSourceManager {
   private sources: Map<string, EnhancedDataSource> = new Map();
@@ -25,39 +11,38 @@ export class EnhancedDataSourceManager {
         id: "espn_api",
         name: "ESPN API",
         category: "sports_data",
-        endpoint: "https://site.api.espn.com/apis/site/v2/sports",
+        endpoint: "https://site.api.espn.com/apis/site/v2/sports"
       },
       {
         id: "prizepicks_props",
         name: "PrizePicks Props",
         category: "prizepicks",
-        endpoint: "https://api.prizepicks.com/projections",
+        endpoint: "https://api.prizepicks.com/projections"
       },
       {
         id: "odds_api",
         name: "Odds API",
         category: "odds",
-        endpoint: "https://api.the-odds-api.com/v4/sports",
+        endpoint: "https://api.the-odds-api.com/v4/sports"
       },
       {
         id: "reddit_sentiment",
         name: "Reddit Sentiment",
         category: "sentiment",
-        endpoint: "https://www.reddit.com/r/sportsbook/hot.json",
+        endpoint: "https://www.reddit.com/r/sportsbook/hot.json"
       },
       {
         id: "weather_api",
         name: "Weather API",
         category: "weather",
-        endpoint: "https://api.open-meteo.com/v1/forecast",
+        endpoint: "https://api.open-meteo.com/v1/forecast"
       },
     ];
 
     for (const config of sourceConfigs) {
       try {
 
-        this.sources.set(config.id, source);
-      } catch (error) {
+        this.sources.set(config.id, source);} catch (error) {
         // console statement removed
         // Add as disconnected source;
         this.sources.set(config.id, {
@@ -70,16 +55,14 @@ export class EnhancedDataSourceManager {
           lastUpdate: new Date(),
           data: null,
           error: error.message,
-          metrics: { latency: 0, uptime: 0, errorRate: 1 },
-        });
-      }
+          metrics: { latency: 0, uptime: 0, errorRate: 1}
+        })}
     }
 
     // Start periodic updates;
     this.startPeriodicUpdates();
 
-    return this.sources;
-  }
+    return this.sources;}
 
   private async initializeSource(config: any): Promise<EnhancedDataSource> {
 
@@ -100,12 +83,10 @@ export class EnhancedDataSourceManager {
         metrics: {
           latency,
           uptime: 0.99 + Math.random() * 0.01,
-          errorRate: Math.random() * 0.05,
-        },
-      };
-    } catch (error) {
-      throw error;
-    }
+          errorRate: Math.random() * 0.05
+        }
+      }} catch (error) {
+      throw error;}
   }
 
   private async fetchSourceData(
@@ -124,9 +105,7 @@ export class EnhancedDataSourceManager {
         return this.generateSentimentData();
       case "weather":
         return this.generateWeatherData();
-      default:
-        return { message: "Mock data", timestamp: new Date() };
-    }
+      default: return { message: "Mock data", timestamp: new Date()}}
   }
 
   private generateSportsData(): any {
@@ -138,7 +117,7 @@ export class EnhancedDataSourceManager {
           homeTeam: "Lakers",
           awayTeam: "Warriors",
           gameTime: new Date(Date.now() + 3600000).toISOString(),
-          status: "Scheduled",
+          status: "Scheduled"
         },
       ],
       players: [
@@ -148,11 +127,10 @@ export class EnhancedDataSourceManager {
           team: "Lakers",
           position: "SF",
           sport: "NBA",
-          stats: { points: 25.4, rebounds: 7.8, assists: 6.2 },
+          stats: { points: 25.4, rebounds: 7.8, assists: 6.2}
         },
-      ],
-    };
-  }
+      ]
+    }}
 
   private generatePrizePicksData(): any {
     return {
@@ -164,11 +142,10 @@ export class EnhancedDataSourceManager {
           line: 25.5,
           sport: "NBA",
           confidence_score: 0.85,
-          expected_value: 3.2,
+          expected_value: 3.2
         },
-      ],
-    };
-  }
+      ]
+    }}
 
   private generateOddsData(): any {
     return {
@@ -184,17 +161,16 @@ export class EnhancedDataSourceManager {
                 {
                   key: "h2h",
                   outcomes: [
-                    { name: "Lakers", price: 1.85 },
-                    { name: "Warriors", price: 1.95 },
-                  ],
+                    { name: "Lakers", price: 1.85},
+                    { name: "Warriors", price: 1.95},
+                  ]
                 },
-              ],
+              ]
             },
-          ],
+          ]
         },
-      ],
-    };
-  }
+      ]
+    }}
 
   private generateSentimentData(): any {
     return {
@@ -203,43 +179,35 @@ export class EnhancedDataSourceManager {
           title: "Lakers looking strong tonight",
           sentiment_score: 0.7,
           upvotes: 156,
-          comments: 43,
+          comments: 43
         },
       ],
-      overall_sentiment: 0.6,
-    };
-  }
+      overall_sentiment: 0.6
+    }}
 
   private generateWeatherData(): any {
     return {
-      current_weather: {
-        temperature: 72,
+      current_weather: {,`n  temperature: 72,
         windspeed: 8,
-        precipitation: 0,
+        precipitation: 0
       },
-      game_impact_score: 0.1,
-    };
-  }
+      game_impact_score: 0.1
+    }}
 
   private startPeriodicUpdates(): void {
     this.updateInterval = setInterval(async () => {
-      await this.refreshAllSources();
-    }, 300000); // Update every 5 minutes;
-  }
+      await this.refreshAllSources();}, 300000); // Update every 5 minutes;}
 
   async refreshAllSources(): Promise<void> {
     const updatePromises = Array.from(this.sources.keys()).map(
       async (sourceId) => {
         try {
-          await this.refreshSource(sourceId);
-        } catch (error) {
-          // console statement removed
-        }
+          await this.refreshSource(sourceId);} catch (error) {
+          // console statement removed}
       },
     );
 
-    await Promise.all(updatePromises);
-  }
+    await Promise.all(updatePromises);}
 
   private async refreshSource(sourceId: string): Promise<void> {
 
@@ -257,33 +225,29 @@ export class EnhancedDataSourceManager {
         error: null,
         metrics: {
           ...source.metrics,
-          latency,
-        },
-      });
-    } catch (error) {
+//           latency
+        }
+      })} catch (error) {
       this.sources.set(sourceId, {
         ...source,
         connected: false,
         error: error.message,
         metrics: {
           ...source.metrics,
-          errorRate: Math.min(1, source.metrics.errorRate + 0.1),
-        },
-      });
-    }
+          errorRate: Math.min(1, source.metrics.errorRate + 0.1)
+        }
+      })}
   }
 
-  getConnectedSources(): EnhancedDataSource[] {
+  getConnectedSources(): EnhancedDataSource[0] {
     return Array.from(this.sources.values()).filter(
       (source) => source.connected,
-    );
-  }
+    );}
 
-  getSourcesByCategory(category: string): EnhancedDataSource[] {
+  getSourcesByCategory(category: string): EnhancedDataSource[0] {
     return Array.from(this.sources.values()).filter(
       (source) => source.category === category,
-    );
-  }
+    )}
 
   getOverallDataQuality(): number {
 
@@ -292,8 +256,7 @@ export class EnhancedDataSourceManager {
     return (
       connectedSources.reduce((sum, source) => sum + source.quality, 0) /
       connectedSources.length;
-    );
-  }
+    );}
 
   getSourceReliability(): number {
 
@@ -302,12 +265,10 @@ export class EnhancedDataSourceManager {
     return (
       connectedSources.reduce((sum, source) => sum + source.reliability, 0) /
       connectedSources.length;
-    );
-  }
+    );}
 
   getAllSources(): Map<string, EnhancedDataSource> {
-    return new Map(this.sources);
-  }
+    return new Map(this.sources);}
 
   getDataSourceMetrics(): any {
 
@@ -324,16 +285,17 @@ export class EnhancedDataSourceManager {
         connectedSources.reduce((sum, s) => sum + s.metrics.errorRate, 0) /
         connectedSources.length,
       dataQuality: this.getOverallDataQuality(),
-      reliability: this.getSourceReliability(),
-    };
-  }
+      reliability: this.getSourceReliability()
+    }}
 
   disconnect(): void {
     if (this.updateInterval) {
       clearInterval(this.updateInterval);
-      this.updateInterval = null;
-    }
-  }
-}
+      this.updateInterval = null;}
+  }}
 
 export const enhancedDataSourceManager = new EnhancedDataSourceManager();
+
+
+
+`

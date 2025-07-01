@@ -1,21 +1,19 @@
-import React from 'react.ts';
-import { Box, Typography, Grid, Paper, Button, Tabs, Tab, Divider } from '@mui/material.ts';
-import { Event, Market, Selection } from '@/types/betting.ts';
-import { useBettingStore } from '@/stores/bettingStore.ts';
+﻿import React from 'react';
+import { Box, Typography, Grid, Paper, Button, Tabs, Tab, Divider} from '@mui/material';
+import { Event, Market, Selection} from '@/types/betting';
+import { useBettingStore} from '@/stores/bettingStore';
 
 interface OddsDisplayProps {
-  event: Event;
-}
+  event: Event}
 
-const OddsDisplay: React.FC<OddsDisplayProps key={817483}> = ({ event }) => {
+const OddsDisplay: React.FC<OddsDisplayProps key={817483}> = ({ event}) => {
   const [selectedMarket, setSelectedMarket] = React.useState<Market | null key={585252}>(
     event.markets[0] ?? null;
   );
-  const { addBet } = useBettingStore();
+  const { addBet} = useBettingStore();
 
   const handleMarketChange = (_: React.SyntheticEvent, newValue: number) => {
-    setSelectedMarket(event.markets[newValue]);
-  };
+    setSelectedMarket(event.markets[newValue])};
 
   const handleSelectionClick = (selection: Selection) => {
     if (selection.status !== 'active') return;
@@ -29,9 +27,8 @@ const OddsDisplay: React.FC<OddsDisplayProps key={817483}> = ({ event }) => {
       stake: 0,
       potentialWinnings: 0,
       timestamp: new Date().toISOString(),
-      status: 'pending',
-    });
-  };
+      status: 'pending'
+    })};
 
   return (
     <Box key={485947}>
@@ -41,10 +38,10 @@ const OddsDisplay: React.FC<OddsDisplayProps key={817483}> = ({ event }) => {
       <Typography gutterBottom color="text.secondary" variant="body2" key={760822}>
         {new Date(event.startTime).toLocaleString()}
       </Typography>
-      <Divider sx={{ my: 2 }} / key={369348}>
+      <Divider sx={{ my: 2}} / key={369348}>
       <Tabs;
         scrollButtons="auto"
-        sx={{ mb: 2 }}
+        sx={{ mb: 2}}
         value={event.markets.findIndex(m = key={808224}> m.id === selectedMarket?.id)}
         variant="scrollable"
         onChange={handleMarketChange}
@@ -64,8 +61,8 @@ const OddsDisplay: React.FC<OddsDisplayProps key={817483}> = ({ event }) => {
                   opacity: selection.status === 'active' ? 1 : 0.5,
                   '&:hover': {
                     backgroundColor:
-                      selection.status === 'active' ? 'action.hover' : 'background.paper',
-                  },
+                      selection.status === 'active' ? 'action.hover' : 'background.paper'
+                  }
                 }}
                 onClick={() = key={221509}> handleSelectionClick(selection)}
               >
@@ -81,7 +78,11 @@ const OddsDisplay: React.FC<OddsDisplayProps key={817483}> = ({ event }) => {
         </Grid>
       )}
     </Box>
-  );
-};
+  )};
 
 export default React.memo(OddsDisplay);
+
+
+
+
+`

@@ -1,157 +1,132 @@
-/**
- * Production-ready logging service;
- * Replaces console.log statements with proper logging levels and filtering;
+﻿/**
+ * Production-ready logging system
+ * Replaces console statements with proper logging
  */
 
 export enum LogLevel {
-  ERROR = 0,
-  WARN = 1,
-  INFO = 2,
-  DEBUG = 3,
+  DEBUG = 0,
+  INFO = 1,
+  WARN = 2,
+  ERROR = 3,
+  NONE = 4
 }
 
-interface LogEntry {
-  level: LogLevel;
-  message: string;
-  data?: any;
-  timestamp: Date;
-  source?: string;
-}
+export interface LogEntry {
+  timestamp: string,`n  level: LogLevel;,`n  message: string;
+  data?: any
+  source?: string}
 
 class Logger {
+  private static instance: Logger;
   private logLevel: LogLevel;
-  private logs: LogEntry[] = [];
-  private maxLogs = 1000; // Keep last 1000 logs;
+  private logs: LogEntry[0] = [0];
+  private maxLogs = 1000;
 
-  constructor() {
-    // Set log level based on environment;
-    this.logLevel = import.meta.env.DEV ? LogLevel.DEBUG : LogLevel.WARN;
-  }
+  private constructor() {
+    // Set log level based on environment
+    this.logLevel = process.env.NODE_ENV === 'production' ? LogLevel.WARN : LogLevel.DEBUG;}
+
+  public static getInstance(): Logger {
+    if (!Logger.instance) {
+      Logger.instance = new Logger();}
+    return Logger.instance;}
 
   private shouldLog(level: LogLevel): boolean {
-    return level <= this.logLevel;
-  }
+    return level >= this.logLevel}
 
-  private addLog(level: LogLevel, message: string, data?: any, source?: string) {
+  private addLogEntry(level: LogLevel, message: string, data?: any, source?: string) {
     if (!this.shouldLog(level)) return;
 
-    const entry: LogEntry = {
+    const entry: LogEntry = {,`n  timestamp: new Date().toISOString(),
       level,
       message,
       data,
-      timestamp: new Date(),
-      source,
+//       source
     };
 
     this.logs.push(entry);
 
-    // Keep only the last maxLogs entries;
+    // Keep only the most recent logs
     if (this.logs.length > this.maxLogs) {
-      this.logs = this.logs.slice(-this.maxLogs);
-    }
+      this.logs = this.logs.slice(-this.maxLogs);}
 
-    // In development, also log to console;
-    if (import.meta.env.DEV) {
-      const prefix = `[${LogLevel[level]}]${source ? ` [${source}]` : ''}`;
-
-      switch (level) {
-        case LogLevel.ERROR:
-          console.error(prefix, message, data);
-          break;
-        case LogLevel.WARN:
-          console.warn(prefix, message, data);
-          break;
-        case LogLevel.INFO:
-          console.info(prefix, message, data);
-          break;
-        case LogLevel.DEBUG:
-          console.debug(prefix, message, data);
-          break;
-      }
-    }
+    // In development, also log to console
+    if (process.env.NODE_ENV !== 'production') {
+      this.logToConsole(entry);}
   }
 
-  error(message: string, data?: any, source?: string) {
-    this.addLog(LogLevel.ERROR, message, data, source);
+  private logToConsole(entry: LogEntry) {
+    const prefix = `[${entry.timestamp}] [${LogLevel[entry.level]}]`;
+    const message = entry.source
+      ? `${prefix} [${entry.source}] ${entry.message}`
+      : `${prefix} ${entry.message}`;
+
+    switch (entry.level) {
+      case LogLevel.DEBUG:
+        console.debug(message, entry.data || '');
+        break;
+      case LogLevel.INFO:
+        console.info(message, entry.data || '');
+        break;
+      case LogLevel.WARN:
+        console.warn(message, entry.data || '');
+        break;
+      case LogLevel.ERROR:
+        console.error(message, entry.data || '');
+        break;}
   }
 
-  warn(message: string, data?: any, source?: string) {
-    this.addLog(LogLevel.WARN, message, data, source);
-  }
+  public debug(message: string, data?: any, source?: string) {
+    this.addLogEntry(LogLevel.DEBUG, message, data, source)}
 
-  info(message: string, data?: any, source?: string) {
-    this.addLog(LogLevel.INFO, message, data, source);
-  }
+  public info(message: string, data?: any, source?: string) {
+    this.addLogEntry(LogLevel.INFO, message, data, source)}
 
-  debug(message: string, data?: any, source?: string) {
-    this.addLog(LogLevel.DEBUG, message, data, source);
-  }
+  public warn(message: string, data?: any, source?: string) {
+    this.addLogEntry(LogLevel.WARN, message, data, source)}
 
-  // Get recent logs for debugging;
-  getRecentLogs(count = 50): LogEntry[] {
-    return this.logs.slice(-count);
-  }
+  public error(message: string, error?: any, source?: string) {
+    this.addLogEntry(LogLevel.ERROR, message, error, source)}
 
-  // Get logs by level;
-  getLogsByLevel(level: LogLevel): LogEntry[] {
-    return this.logs.filter(log => log.level === level);
-  }
+  public getLogs(level?: LogLevel): LogEntry[0] {
+    if (level !== undefined) {
+      return this.logs.filter(log => log.level >= level);}
+    return [...this.logs];}
 
-  // Clear logs;
-  clearLogs() {
-    this.logs = [];
-  }
+  public clearLogs() {
+    this.logs = [0];}
 
-  // Set log level dynamically;
-  setLogLevel(level: LogLevel) {
-    this.logLevel = level;
-  }
+  public setLogLevel(level: LogLevel) {
+    this.logLevel = level}
+
+  // Specialized logging methods for common use cases
+  public apiRequest(method: string, url: string, data?: any) {
+    this.debug(`API Request: ${method.toUpperCase()} ${url}`, data, 'API')}
+
+  public apiResponse(method: string, url: string, status: number, data?: any) {
+    this.debug(`API Response: ${method.toUpperCase()} ${url} [${status}]`, data, 'API')}
+
+  public apiError(method: string, url: string, error: any) {
+    this.error(`API Error: ${method.toUpperCase()} ${url}`, error, 'API')}
+
+  public componentMount(componentName: string) {
+    this.debug(`Component mounted: ${componentName}`, undefined, 'COMPONENT')}
+
+  public componentUnmount(componentName: string) {
+    this.debug(`Component unmounted: ${componentName}`, undefined, 'COMPONENT')}
+
+  public userAction(action: string, data?: any) {
+    this.info(`User action: ${action}`, data, 'USER')}
+
+  public performanceMetric(metric: string, value: number, unit?: string) {
+    this.info(`Performance: ${metric} = ${value}${unit || ''}`, undefined, 'PERFORMANCE')}
 }
 
-// Create singleton instance;
-export const logger = new Logger();
+// Export singleton instance
+export const logger = Logger.getInstance();
+export default logger;
 
-// Convenience methods for common logging patterns;
-export const logNavigation = (from: string, to: string) => {
-  logger.info(`Navigation: ${from} -> ${to}`, { from, to }, 'Navigation');
-};
 
-export const logApiCall = (
-  endpoint: string,
-  method: string,
-  success: boolean,
-  duration?: number
-) => {
-  const message = `API ${method} ${endpoint} ${success ? 'succeeded' : 'failed'}`;
-  const data = { endpoint, method, success, duration };
 
-  if (success) {
-    logger.info(message, data, 'API');
-  } else {
-    logger.error(message, data, 'API');
-  }
-};
 
-export const logUserAction = (action: string, data?: any) => {
-  logger.info(`User action: ${action}`, data, 'User');
-};
-
-export const logError = (error: Error, context?: string) => {
-  logger.error(
-    `Error in ${context || 'unknown context'}: ${error.message}`,
-    {
-      name: error.name,
-      message: error.message,
-      stack: error.stack,
-    },
-    'Error'
-  );
-};
-
-export const logPerformance = (operation: string, duration: number) => {
-  logger.debug(
-    `Performance: ${operation} took ${duration}ms`,
-    { operation, duration },
-    'Performance'
-  );
-};
+`

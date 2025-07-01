@@ -1,7 +1,9 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface ModelPerformanceDashboardProps {
-    modelName: string;
-    availableModels?: string[];
-}
+  modelName: string;
+  availableModels?: string[0];}
 export declare const ModelPerformanceDashboard: React.FC<ModelPerformanceDashboardProps>;
-export {};
+export Record<string, any>;
+
+
+

@@ -1,5 +1,5 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React, { useState, useEffect} from 'react';
+import { motion} from 'framer-motion';
 import {
   BarChart3,
   TrendingUp,
@@ -15,39 +15,17 @@ import {
   Zap,
   Eye,
   AlertTriangle,
-  CheckCircle,
-} from 'lucide-react.ts';
+//   CheckCircle
+} from 'lucide-react';
 
 interface ModelPerformance {
-  id: string;
-  name: string;
-  accuracy: number;
-  predictions: number;
-  profit: number;
-  roi: number;
-  sharpeRatio: number;
-  maxDrawdown: number;
-  lastUpdated: Date;
-  status: "active" | "training" | "offline";
-}
+  id: string,`n  name: string;,`n  accuracy: number,`n  predictions: number;,`n  profit: number,`n  roi: number;,`n  sharpeRatio: number,`n  maxDrawdown: number;,`n  lastUpdated: Date,`n  status: "active" | "training" | "offline"}
 
 interface AnalyticsMetrics {
-  totalPredictions: number;
-  accuracy: number;
-  profit: number;
-  roi: number;
-  winRate: number;
-  avgOdds: number;
-  avgStake: number;
-  totalVolume: number;
-  bestModel: string;
-  worstModel: string;
-  riskScore: number;
-  confidenceScore: number;
-}
+  totalPredictions: number,`n  accuracy: number;,`n  profit: number,`n  roi: number;,`n  winRate: number,`n  avgOdds: number;,`n  avgStake: number,`n  totalVolume: number;,`n  bestModel: string,`n  worstModel: string;,`n  riskScore: number,`n  confidenceScore: number}
 
 export const CleanAnalytics: React.FC = () => {
-  const [models, setModels] = useState<ModelPerformance[] key={45592}>([
+  const [models, setModels] = useState<ModelPerformance[0] key={45592}>([
     {
       id: "1",
       name: "NBA Advanced Model v3.2",
@@ -58,7 +36,7 @@ export const CleanAnalytics: React.FC = () => {
       sharpeRatio: 2.8,
       maxDrawdown: -8.2,
       lastUpdated: new Date(),
-      status: "active",
+      status: "active"
     },
     {
       id: "2",
@@ -70,7 +48,7 @@ export const CleanAnalytics: React.FC = () => {
       sharpeRatio: 2.3,
       maxDrawdown: -12.1,
       lastUpdated: new Date(Date.now() - 5 * 60 * 1000),
-      status: "active",
+      status: "active"
     },
     {
       id: "3",
@@ -82,7 +60,7 @@ export const CleanAnalytics: React.FC = () => {
       sharpeRatio: 3.1,
       maxDrawdown: -6.5,
       lastUpdated: new Date(Date.now() - 2 * 60 * 1000),
-      status: "active",
+      status: "active"
     },
     {
       id: "4",
@@ -94,7 +72,7 @@ export const CleanAnalytics: React.FC = () => {
       sharpeRatio: 1.9,
       maxDrawdown: -15.3,
       lastUpdated: new Date(Date.now() - 30 * 60 * 1000),
-      status: "training",
+      status: "training"
     },
   ]);
 
@@ -110,7 +88,7 @@ export const CleanAnalytics: React.FC = () => {
     bestModel: "Ensemble Model v2.1",
     worstModel: "Deep Learning Predictor v4.0",
     riskScore: 3.7,
-    confidenceScore: 94.2,
+    confidenceScore: 94.2
   });
 
   // Simulate real-time updates;
@@ -125,13 +103,11 @@ export const CleanAnalytics: React.FC = () => {
           ),
           profit: Math.max(0, model.profit + (Math.random() - 0.3) * 100),
           roi: Math.max(0, model.roi + (Math.random() - 0.5) * 2),
-          lastUpdated: new Date(),
+          lastUpdated: new Date()
         })),
-      );
-    }, 30000);
+      )}, 30000);
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)}, [0]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -142,8 +118,7 @@ export const CleanAnalytics: React.FC = () => {
       case "offline":
         return "text-red-400 bg-red-500/10 border-red-500/20";
       default:
-        return "text-gray-400 bg-gray-500/10 border-gray-500/20";
-    }
+        return "text-gray-400 bg-gray-500/10 border-gray-500/20"}
   };
 
   const getStatusIcon = (status: string) => {
@@ -155,16 +130,15 @@ export const CleanAnalytics: React.FC = () => {
       case "offline":
         return <AlertTriangle size={12} className="text-red-400" / key={270405}>;
       default:
-        return <Activity size={12} className="text-gray-400" / key={873790}>;
-    }
+        return <Activity size={12} className="text-gray-400" / key={873790}>}
   };
 
   return (
     <div className="space-y-8" key={778766}>
       {/* Header */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
         className="relative p-8 rounded-2xl bg-gradient-to-br from-purple-900/30 via-blue-900/20 to-cyan-900/30 border border-gray-700/50 backdrop-blur-xl overflow-hidden"
        key={158141}>
         <div className="absolute inset-0 opacity-10" key={335614}>
@@ -196,9 +170,9 @@ export const CleanAnalytics: React.FC = () => {
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" key={765662}>
         <motion.div;
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+          initial={{ opacity: 0, y: 20}}
+          animate={{ opacity: 1, y: 0}}
+          transition={{ delay: 0.1}}
           className="p-6 rounded-2xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 border border-green-500/30 backdrop-blur-xl"
          key={901647}>
           <div className="flex items-center justify-between mb-4" key={810034}>
@@ -214,9 +188,9 @@ export const CleanAnalytics: React.FC = () => {
         </motion.div>
 
         <motion.div;
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          initial={{ opacity: 0, y: 20}}
+          animate={{ opacity: 1, y: 0}}
+          transition={{ delay: 0.2}}
           className="p-6 rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 backdrop-blur-xl"
          key={854731}>
           <div className="flex items-center justify-between mb-4" key={810034}>
@@ -232,9 +206,9 @@ export const CleanAnalytics: React.FC = () => {
         </motion.div>
 
         <motion.div;
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+          initial={{ opacity: 0, y: 20}}
+          animate={{ opacity: 1, y: 0}}
+          transition={{ delay: 0.3}}
           className="p-6 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 backdrop-blur-xl"
          key={186645}>
           <div className="flex items-center justify-between mb-4" key={810034}>
@@ -250,9 +224,9 @@ export const CleanAnalytics: React.FC = () => {
         </motion.div>
 
         <motion.div;
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
+          initial={{ opacity: 0, y: 20}}
+          animate={{ opacity: 1, y: 0}}
+          transition={{ delay: 0.4}}
           className="p-6 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 backdrop-blur-xl"
          key={271763}>
           <div className="flex items-center justify-between mb-4" key={810034}>
@@ -291,9 +265,9 @@ export const CleanAnalytics: React.FC = () => {
             {models.map((model, index) => (
               <motion.div;
                 key={model.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
+                initial={{ opacity: 0, x: -20}}
+                animate={{ opacity: 1, x: 0}}
+                transition={{ delay: index * 0.1}}
                 className="p-6 rounded-2xl bg-gradient-to-br from-gray-900/50 to-gray-800/30 border border-gray-700/50 backdrop-blur-xl hover:border-gray-600/50 transition-all"
                key={888145}>
                 <div className="flex items-start justify-between mb-4" key={886571}>
@@ -419,7 +393,7 @@ export const CleanAnalytics: React.FC = () => {
                 <div className="w-full bg-gray-700 rounded-full h-2" key={811414}>
                   <div;
                     className="bg-gradient-to-r from-green-500 to-yellow-500 h-2 rounded-full"
-                    style={{ width: `${(metrics.riskScore / 10) * 100}%` }}
+                    style={{ width: `${(metrics.riskScore / 10) * 100}%`}}
                   / key={149941}>
                 </div>
               </div>
@@ -434,7 +408,7 @@ export const CleanAnalytics: React.FC = () => {
                 <div className="w-full bg-gray-700 rounded-full h-2" key={811414}>
                   <div;
                     className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full"
-                    style={{ width: `${metrics.confidenceScore}%` }}
+                    style={{ width: `${metrics.confidenceScore}%`}}
                   / key={434449}>
                 </div>
               </div>
@@ -470,7 +444,11 @@ export const CleanAnalytics: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )};
 
 export default CleanAnalytics;
+
+
+
+
+`

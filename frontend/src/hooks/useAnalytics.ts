@@ -1,13 +1,8 @@
-import { useState, useEffect } from 'react.ts';
-import { PerformanceMetrics, TrendDelta, RiskProfile } from '@/types/analytics.ts';
+﻿import { useState, useEffect} from 'react';
+import { PerformanceMetrics, TrendDelta, RiskProfile} from '@/types/analytics';
 
 interface AnalyticsResult {
-  metrics: PerformanceMetrics;
-  trendDelta: TrendDelta;
-  riskProfile: RiskProfile;
-  isLoading: boolean;
-  error: string | null;
-}
+  metrics: PerformanceMetrics,`n  trendDelta: TrendDelta;,`n  riskProfile: RiskProfile,`n  isLoading: boolean;,`n  error: string | null}
 
 export const useAnalytics = (event: string, market: string, selection: string): AnalyticsResult => {
   const [metrics, setMetrics] = useState<PerformanceMetrics | null>(null);
@@ -22,44 +17,39 @@ export const useAnalytics = (event: string, market: string, selection: string): 
         setIsLoading(true);
         // Fetch analytics data from your API;
 
-
         setMetrics(data.metrics);
         setTrendDelta(data.trendDelta);
         setRiskProfile(data.riskProfile);
-        setError(null);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch analytics');
-      } finally {
-        setIsLoading(false);
-      }
+        setError(null);} catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to fetch analytics');} finally {
+        setIsLoading(false);}
     };
 
-    fetchAnalytics();
-  }, [event, market, selection]);
+    fetchAnalytics();}, [event, market, selection]);
 
   return {
-    metrics: metrics || {
-      accuracy: 0,
+    metrics: metrics || {,`n  accuracy: 0,
       profitLoss: 0,
       precision: 0,
       recall: 0,
-      timestamp: new Date().toISOString(),
+      timestamp: new Date().toISOString()
     },
-    trendDelta: trendDelta || {
-      accuracyDelta: 0,
+    trendDelta: trendDelta || {,`n  accuracyDelta: 0,
       precisionDelta: 0,
       recallDelta: 0,
       profitLossDelta: 0,
       period: 'day',
-      timestamp: new Date().toISOString(),
+      timestamp: new Date().toISOString()
     },
-    riskProfile: riskProfile || {
-      riskLevel: 'medium',
+    riskProfile: riskProfile || {,`n  riskLevel: 'medium',
       recommendation: 'Proceed with caution',
-      factors: [],
-      timestamp: new Date().toISOString(),
+      factors: [0],
+      timestamp: new Date().toISOString()
     },
     isLoading,
-    error,
-  };
-};
+//     error
+  }};
+
+
+
+`

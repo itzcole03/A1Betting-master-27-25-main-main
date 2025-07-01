@@ -1,17 +1,17 @@
-import React, { useState, useEffect  } from 'react.ts';
+﻿import React, { useState, useEffect} from 'react';
 import {
   CYBER_COLORS,
   CYBER_GRADIENTS,
   CyberContainer,
   CyberText,
-  CyberButton,
-} from './CyberTheme.ts';
+//   CyberButton
+} from './CyberTheme';
 import {
   MegaCard,
   MegaInput,
   MegaAlert,
-  MegaButton as MegaBtn,
-} from './MegaUI.ts';
+  MegaButton as MegaBtn
+} from './MegaUI';
 import {
   Users,
   Activity,
@@ -25,13 +25,12 @@ import {
   Eye,
   EyeOff,
   UserX,
-  UserCheck,
-} from 'lucide-react.ts';
+//   UserCheck
+} from 'lucide-react';
 
 // MEGA ADMIN PANEL - Cyber-themed administrative interface;
 const MegaAdminPanel: React.FC<{
-  className?: string;
-}> = ({ className = "" }) => {
+  className?: string}> = ({ className = ""}) => {
   const [activeTab, setActiveTab] = useState("users");
   const [searchQuery, setSearchQuery] = useState("");
   const [users, setUsers] = useState([
@@ -44,7 +43,7 @@ const MegaAdminPanel: React.FC<{
       lastLogin: "2024-01-15T10:30:00Z",
       balance: 127430.5,
       totalBets: 1247,
-      winRate: 89.4,
+      winRate: 89.4
     },
     {
       id: "2",
@@ -55,7 +54,7 @@ const MegaAdminPanel: React.FC<{
       lastLogin: "2024-01-15T09:15:00Z",
       balance: 45230.0,
       totalBets: 892,
-      winRate: 84.2,
+      winRate: 84.2
     },
     {
       id: "3",
@@ -66,7 +65,7 @@ const MegaAdminPanel: React.FC<{
       lastLogin: "2024-01-10T14:22:00Z",
       balance: 1230.0,
       totalBets: 156,
-      winRate: 62.1,
+      winRate: 62.1
     },
   ]);
 
@@ -76,21 +75,21 @@ const MegaAdminPanel: React.FC<{
       level: "info",
       message: "Neural network model v4.2 deployed successfully",
       timestamp: "2024-01-15T10:45:00Z",
-      category: "deployment",
+      category: "deployment"
     },
     {
       id: "2",
       level: "warning",
       message: "High memory usage detected on prediction service",
       timestamp: "2024-01-15T10:30:00Z",
-      category: "performance",
+      category: "performance"
     },
     {
       id: "3",
       level: "error",
       message: "Failed to connect to external odds API",
       timestamp: "2024-01-15T10:15:00Z",
-      category: "integration",
+      category: "integration"
     },
   ]);
 
@@ -102,14 +101,14 @@ const MegaAdminPanel: React.FC<{
     systemUptime: "99.97%",
     cpuUsage: 67.8,
     memoryUsage: 84.3,
-    modelsRunning: 47,
+    modelsRunning: 47
   });
 
   const tabs = [
-    { key: "users", label: "User Management", icon: Users },
-    { key: "logs", label: "System Logs", icon: Activity },
-    { key: "stats", label: "System Stats", icon: BarChart3 },
-    { key: "settings", label: "Settings", icon: Settings },
+    { key: "users", label: "User Management", icon: Users},
+    { key: "logs", label: "System Logs", icon: Activity},
+    { key: "stats", label: "System Stats", icon: BarChart3},
+    { key: "settings", label: "Settings", icon: Settings},
   ];
 
   const handleUserStatusUpdate = (
@@ -118,10 +117,9 @@ const MegaAdminPanel: React.FC<{
   ) => {
     setUsers((prev) =>
       prev.map((user) =>
-        user.id === userId ? { ...user, status: newStatus } : user,
+        user.id === userId ? { ...user, status: newStatus} : user,
       ),
-    );
-  };
+    )};
 
   const filteredUsers = users.filter(
     (user) =>
@@ -137,34 +135,32 @@ const MegaAdminPanel: React.FC<{
         return "#ffa502";
       case "info":
         return CYBER_COLORS.primary;
-      default:
-        return CYBER_COLORS.text.muted;
-    }
+      default: return CYBER_COLORS.text.muted}
   };
 
   const renderUsersTab = () => (
-    <div style={{ display: "grid", gap: "24px" }} key={588121}>
+    <div style={{ display: "grid", gap: "24px"}} key={588121}>
       {/* User Stats */}
       <div;
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: "16px",
+          gap: "16px"
         }}
        key={125470}>
         <MegaCard variant="glass" padding="md" key={634886}>
-          <div style={{ textAlign: "center" }} key={912688}>
+          <div style={{ textAlign: "center"}} key={912688}>
             <Users;
               size={24}
               color={CYBER_COLORS.primary}
-              style={{ marginBottom: "8px" }}
+              style={{ marginBottom: "8px"}}
             / key={451344}>
             <CyberText;
               variant="title"
               style={{
                 color: CYBER_COLORS.primary,
                 fontSize: "20px",
-                marginBottom: "4px",
+                marginBottom: "4px"
               }}
              key={410123}>
               {systemMetrics.totalUsers.toLocaleString()}
@@ -176,18 +172,18 @@ const MegaAdminPanel: React.FC<{
         </MegaCard>
 
         <MegaCard variant="glass" padding="md" key={634886}>
-          <div style={{ textAlign: "center" }} key={912688}>
+          <div style={{ textAlign: "center"}} key={912688}>
             <Activity;
               size={24}
               color={CYBER_COLORS.secondary}
-              style={{ marginBottom: "8px" }}
+              style={{ marginBottom: "8px"}}
             / key={409473}>
             <CyberText;
               variant="title"
               style={{
                 color: CYBER_COLORS.secondary,
                 fontSize: "20px",
-                marginBottom: "4px",
+                marginBottom: "4px"
               }}
              key={699666}>
               {systemMetrics.activeUsers.toLocaleString()}
@@ -199,18 +195,18 @@ const MegaAdminPanel: React.FC<{
         </MegaCard>
 
         <MegaCard variant="glass" padding="md" key={634886}>
-          <div style={{ textAlign: "center" }} key={912688}>
+          <div style={{ textAlign: "center"}} key={912688}>
             <Shield;
               size={24}
               color={CYBER_COLORS.accent}
-              style={{ marginBottom: "8px" }}
+              style={{ marginBottom: "8px"}}
             / key={803850}>
             <CyberText;
               variant="title"
               style={{
                 color: CYBER_COLORS.accent,
                 fontSize: "20px",
-                marginBottom: "4px",
+                marginBottom: "4px"
               }}
              key={922463}>
               {systemMetrics.activeSessions}
@@ -234,62 +230,62 @@ const MegaAdminPanel: React.FC<{
 
       {/* Users Table */}
       <MegaCard variant="glass" padding="none" key={412065}>
-        <div style={{ overflowX: "auto" }} key={554085}>
-          <table style={{ width: "100%", borderCollapse: "collapse" }} key={216615}>
+        <div style={{ overflowX: "auto"}} key={554085}>
+          <table style={{ width: "100%", borderCollapse: "collapse"}} key={216615}>
             <thead key={851248}>
               <tr;
-                style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.05)" }}
+                style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.05)"}}
                key={838255}>
-                <th style={{ padding: "16px", textAlign: "left" }} key={882640}>
+                <th style={{ padding: "16px", textAlign: "left"}} key={882640}>
                   <CyberText;
                     variant="caption"
                     color="muted"
-                    style={{ fontWeight: "600" }}
+                    style={{ fontWeight: "600"}}
                    key={879803}>
                     USER;
                   </CyberText>
                 </th>
-                <th style={{ padding: "16px", textAlign: "left" }} key={882640}>
+                <th style={{ padding: "16px", textAlign: "left"}} key={882640}>
                   <CyberText;
                     variant="caption"
                     color="muted"
-                    style={{ fontWeight: "600" }}
+                    style={{ fontWeight: "600"}}
                    key={879803}>
                     ROLE;
                   </CyberText>
                 </th>
-                <th style={{ padding: "16px", textAlign: "right" }} key={440506}>
+                <th style={{ padding: "16px", textAlign: "right"}} key={440506}>
                   <CyberText;
                     variant="caption"
                     color="muted"
-                    style={{ fontWeight: "600" }}
+                    style={{ fontWeight: "600"}}
                    key={879803}>
                     BALANCE;
                   </CyberText>
                 </th>
-                <th style={{ padding: "16px", textAlign: "right" }} key={440506}>
+                <th style={{ padding: "16px", textAlign: "right"}} key={440506}>
                   <CyberText;
                     variant="caption"
                     color="muted"
-                    style={{ fontWeight: "600" }}
+                    style={{ fontWeight: "600"}}
                    key={879803}>
                     WIN RATE;
                   </CyberText>
                 </th>
-                <th style={{ padding: "16px", textAlign: "center" }} key={109956}>
+                <th style={{ padding: "16px", textAlign: "center"}} key={109956}>
                   <CyberText;
                     variant="caption"
                     color="muted"
-                    style={{ fontWeight: "600" }}
+                    style={{ fontWeight: "600"}}
                    key={879803}>
                     STATUS;
                   </CyberText>
                 </th>
-                <th style={{ padding: "16px", textAlign: "right" }} key={440506}>
+                <th style={{ padding: "16px", textAlign: "right"}} key={440506}>
                   <CyberText;
                     variant="caption"
                     color="muted"
-                    style={{ fontWeight: "600" }}
+                    style={{ fontWeight: "600"}}
                    key={879803}>
                     ACTIONS;
                   </CyberText>
@@ -301,14 +297,14 @@ const MegaAdminPanel: React.FC<{
                 <tr;
                   key={user.id}
                   style={{
-                    borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
+                    borderBottom: "1px solid rgba(255, 255, 255, 0.05)"
                   }}
                  key={95052}>
-                  <td style={{ padding: "16px" }} key={118463}>
+                  <td style={{ padding: "16px"}} key={118463}>
                     <div key={241917}>
                       <CyberText;
                         variant="body"
-                        style={{ fontWeight: "600", marginBottom: "2px" }}
+                        style={{ fontWeight: "600", marginBottom: "2px"}}
                        key={891721}>
                         {user.name}
                       </CyberText>
@@ -317,7 +313,7 @@ const MegaAdminPanel: React.FC<{
                       </CyberText>
                     </div>
                   </td>
-                  <td style={{ padding: "16px" }} key={118463}>
+                  <td style={{ padding: "16px"}} key={118463}>
                     <span;
                       style={{
                         padding: "4px 8px",
@@ -326,38 +322,38 @@ const MegaAdminPanel: React.FC<{
                         fontWeight: "600",
                         backgroundColor: `${CYBER_COLORS.accent}20`,
                         color: CYBER_COLORS.accent,
-                        border: `1px solid ${CYBER_COLORS.accent}40`,
+                        border: `1px solid ${CYBER_COLORS.accent}40`
                       }}
                      key={794013}>
                       {user.role}
                     </span>
                   </td>
-                  <td style={{ padding: "16px", textAlign: "right" }} key={611186}>
+                  <td style={{ padding: "16px", textAlign: "right"}} key={611186}>
                     <CyberText;
                       variant="body"
-                      style={{ color: CYBER_COLORS.primary, fontWeight: "600" }}
+                      style={{ color: CYBER_COLORS.primary, fontWeight: "600"}}
                      key={761645}>
                       ${user.balance.toLocaleString()}
                     </CyberText>
                   </td>
-                  <td style={{ padding: "16px", textAlign: "right" }} key={611186}>
+                  <td style={{ padding: "16px", textAlign: "right"}} key={611186}>
                     <CyberText;
                       variant="body"
                       style={{
                         color: CYBER_COLORS.secondary,
-                        fontWeight: "600",
+                        fontWeight: "600"
                       }}
                      key={25200}>
                       {user.winRate.toFixed(1)}%
                     </CyberText>
                   </td>
-                  <td style={{ padding: "16px", textAlign: "center" }} key={811855}>
+                  <td style={{ padding: "16px", textAlign: "center"}} key={811855}>
                     <div;
                       style={{
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        gap: "4px",
+                        gap: "4px"
                       }}
                      key={192276}>
                       {user.status === "active" ? (
@@ -371,14 +367,14 @@ const MegaAdminPanel: React.FC<{
                           color:
                             user.status === "active"
                               ? CYBER_COLORS.primary;
-                              : "#ff4757",
+                              : "#ff4757"
                         }}
                        key={369754}>
                         {user.status}
                       </CyberText>
                     </div>
                   </td>
-                  <td style={{ padding: "16px", textAlign: "right" }} key={611186}>
+                  <td style={{ padding: "16px", textAlign: "right"}} key={611186}>
                     <MegaBtn;
                       variant={user.status === "active" ? "danger" : "success"}
                       size="sm"
@@ -386,15 +382,13 @@ const MegaAdminPanel: React.FC<{
                         handleUserStatusUpdate(
                           user.id,
                           user.status === "active" ? "suspended" : "active",
-                        )
-                      }
+                        )}
                       icon={
                         user.status === "active" ? (
                           <UserX size={14} / key={947563}>
                         ) : (
                           <UserCheck size={14} / key={148320}>
-                        )
-                      }
+                        )}
                     >
                       {user.status === "active" ? "Suspend" : "Activate"}
                     </MegaBtn>
@@ -410,10 +404,10 @@ const MegaAdminPanel: React.FC<{
 
   const renderLogsTab = () => (
     <MegaCard variant="glass" padding="lg" key={736026}>
-      <CyberText variant="title" style={{ marginBottom: "16px" }} key={926451}>
+      <CyberText variant="title" style={{ marginBottom: "16px"}} key={926451}>
         System Logs;
       </CyberText>
-      <div style={{ display: "grid", gap: "12px" }} key={543541}>
+      <div style={{ display: "grid", gap: "12px"}} key={543541}>
         {systemLogs.map((log) => (
           <div;
             key={log.id}
@@ -424,11 +418,11 @@ const MegaAdminPanel: React.FC<{
               border: "1px solid rgba(255, 255, 255, 0.05)",
               display: "flex",
               justifyContent: "space-between",
-              alignItems: "flex-start",
+              alignItems: "flex-start"
             }}
            key={518859}>
-            <div style={{ flex: 1 }} key={130883}>
-              <CyberText variant="body" style={{ marginBottom: "4px" }} key={911435}>
+            <div style={{ flex: 1}} key={130883}>
+              <CyberText variant="body" style={{ marginBottom: "4px"}} key={911435}>
                 {log.message}
               </CyberText>
               <CyberText variant="caption" color="muted" key={505352}>
@@ -444,7 +438,7 @@ const MegaAdminPanel: React.FC<{
                 backgroundColor: `${getLogLevelColor(log.level)}20`,
                 color: getLogLevelColor(log.level),
                 border: `1px solid ${getLogLevelColor(log.level)}40`,
-                textTransform: "uppercase",
+                textTransform: "uppercase"
               }}
              key={941358}>
               {log.level}
@@ -460,7 +454,7 @@ const MegaAdminPanel: React.FC<{
       style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-        gap: "16px",
+        gap: "16px"
       }}
      key={390928}>
       {[
@@ -468,42 +462,42 @@ const MegaAdminPanel: React.FC<{
           label: "System Uptime",
           value: systemMetrics.systemUptime,
           icon: Shield,
-          color: CYBER_COLORS.primary,
+          color: CYBER_COLORS.primary
         },
         {
           label: "CPU Usage",
           value: `${systemMetrics.cpuUsage}%`,
           icon: Activity,
-          color: CYBER_COLORS.secondary,
+          color: CYBER_COLORS.secondary
         },
         {
           label: "Memory Usage",
           value: `${systemMetrics.memoryUsage}%`,
           icon: BarChart3,
-          color: CYBER_COLORS.accent,
+          color: CYBER_COLORS.accent
         },
         {
           label: "Models Running",
           value: systemMetrics.modelsRunning.toString(),
           icon: Settings,
-          color: CYBER_COLORS.purple,
+          color: CYBER_COLORS.purple
         },
       ].map((metric, index) => {
 
         return (
           <MegaCard key={index} variant="glass" padding="lg" key={623245}>
-            <div style={{ textAlign: "center" }} key={912688}>
+            <div style={{ textAlign: "center"}} key={912688}>
               <Icon;
                 size={32}
                 color={metric.color}
-                style={{ marginBottom: "16px" }}
+                style={{ marginBottom: "16px"}}
               / key={760425}>
               <CyberText;
                 variant="title"
                 style={{
                   color: metric.color,
                   fontSize: "24px",
-                  marginBottom: "8px",
+                  marginBottom: "8px"
                 }}
                key={117858}>
                 {metric.value}
@@ -513,8 +507,7 @@ const MegaAdminPanel: React.FC<{
               </CyberText>
             </div>
           </MegaCard>
-        );
-      })}
+        )})}
     </div>
   );
 
@@ -524,26 +517,26 @@ const MegaAdminPanel: React.FC<{
       style={{
         minHeight: "100vh",
         background: CYBER_GRADIENTS.background,
-        padding: "24px",
+        padding: "24px"
       }}
      key={501408}>
       {/* Header */}
       <MegaCard;
         variant="panel"
-        style={{ marginBottom: "24px", padding: "20px" }}
+        style={{ marginBottom: "24px", padding: "20px"}}
        key={924020}>
         <div;
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            marginBottom: "16px",
+            marginBottom: "16px"
           }}
          key={580818}>
           <div key={241917}>
             <CyberText;
               variant="title"
-              style={{ fontSize: "28px", marginBottom: "4px" }}
+              style={{ fontSize: "28px", marginBottom: "4px"}}
              key={851908}>
               Admin Control Center;
             </CyberText>
@@ -551,7 +544,7 @@ const MegaAdminPanel: React.FC<{
               System administration and user management;
             </CyberText>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }} key={537788}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px"}} key={537788}>
             <Shield size={16} color={CYBER_COLORS.primary} / key={814101}>
             <CyberText variant="caption" color="accent" key={194784}>
               Administrator Access;
@@ -560,7 +553,7 @@ const MegaAdminPanel: React.FC<{
         </div>
 
         {/* Tab Navigation */}
-        <div style={{ display: "flex", gap: "8px" }} key={772482}>
+        <div style={{ display: "flex", gap: "8px"}} key={772482}>
           {tabs.map((tab) => {
 
             return (
@@ -570,12 +563,11 @@ const MegaAdminPanel: React.FC<{
                 active={activeTab === tab.key}
                 onClick={() = key={287146}> setActiveTab(tab.key)}
                 icon={<Icon size={16} / key={856509}>}
-                style={{ marginBottom: 0, width: "auto", padding: "8px 16px" }}
+                style={{ marginBottom: 0, width: "auto", padding: "8px 16px"}}
               >
                 {tab.label}
               </CyberButton>
-            );
-          })}
+            )})}
         </div>
       </MegaCard>
 
@@ -588,14 +580,14 @@ const MegaAdminPanel: React.FC<{
           <MegaCard;
             variant="glass"
             padding="lg"
-            style={{ textAlign: "center" }}
+            style={{ textAlign: "center"}}
            key={89933}>
             <Settings;
               size={48}
               color={CYBER_COLORS.accent}
-              style={{ marginBottom: "16px", margin: "0 auto" }}
+              style={{ marginBottom: "16px", margin: "0 auto"}}
             / key={237103}>
-            <CyberText variant="title" style={{ marginBottom: "8px" }} key={813364}>
+            <CyberText variant="title" style={{ marginBottom: "8px"}} key={813364}>
               System Settings;
             </CyberText>
             <CyberText variant="body" color="muted" key={892775}>
@@ -605,7 +597,10 @@ const MegaAdminPanel: React.FC<{
         )}
       </div>
     </div>
-  );
-};
+  );};
 
 export default MegaAdminPanel;
+
+
+
+`

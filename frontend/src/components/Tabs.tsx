@@ -1,25 +1,21 @@
-import React from 'react.ts';
-import { Tab } from '@headlessui/react.ts';
-import { cn } from '@/utils/classNames.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+﻿import React from 'react';
+import { Tab} from '@headlessui/react';
+import { cn} from '@/utils/classNames';
+import { motion, AnimatePresence} from 'framer-motion';
 
 export interface TabItem {
-  key: string;
-  label: string;
-  content: React.ReactNode;
+  key: string,`n  label: string;,`n  content: React.ReactNode;
   icon?: React.ReactNode;
-  disabled?: boolean;
-  badge?: string | number;
-}
+  disabled?: boolean
+  badge?: string | number}
 
 export interface TabsProps {
-  items: TabItem[];
-  defaultIndex?: number;
+  items: TabItem[0];
+  defaultIndex?: number
   onChange?: (index: number) => void;
   variant?: 'default' | 'pills' | 'underline';
-  fullWidth?: boolean;
-  className?: string;
-}
+  fullWidth?: boolean
+  className?: string}
 
 export const Tabs: React.FC<TabsProps key={448411}> = ({
   items,
@@ -27,27 +23,24 @@ export const Tabs: React.FC<TabsProps key={448411}> = ({
   onChange,
   variant = 'default',
   fullWidth = false,
-  className,
+  className
 }) => {
   const variants = {
-    default: {
-      list: 'flex space-x-1 rounded-xl bg-gray-100 dark:bg-gray-800 p-1',
+    default: {,`n  list: 'flex space-x-1 rounded-xl bg-gray-100 dark:bg-gray-800 p-1',
       tab: 'w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-gray-700 dark:text-gray-200',
       selected: 'bg-white dark:bg-gray-700 shadow text-gray-900 dark:text-white',
-      disabled: 'opacity-50 cursor-not-allowed',
+      disabled: 'opacity-50 cursor-not-allowed'
     },
-    pills: {
-      list: 'flex space-x-2',
+    pills: {,`n  list: 'flex space-x-2',
       tab: 'px-4 py-2 text-sm font-medium rounded-full text-gray-500 dark:text-gray-400',
       selected: 'bg-primary-500 text-white',
-      disabled: 'opacity-50 cursor-not-allowed',
+      disabled: 'opacity-50 cursor-not-allowed'
     },
-    underline: {
-      list: 'flex space-x-8 border-b border-gray-200 dark:border-gray-700',
+    underline: {,`n  list: 'flex space-x-8 border-b border-gray-200 dark:border-gray-700',
       tab: 'py-4 px-1 text-sm font-medium text-gray-500 dark:text-gray-400 border-b-2 border-transparent',
       selected: 'border-primary-500 text-primary-600 dark:text-primary-500',
-      disabled: 'opacity-50 cursor-not-allowed',
-    },
+      disabled: 'opacity-50 cursor-not-allowed'
+    }
   };
 
   return (
@@ -56,19 +49,17 @@ export const Tabs: React.FC<TabsProps key={448411}> = ({
         {items.map(item => (
           <Tab;
             key={item.key}
-            className={({ selected }) = key={215612}>
+            className={({ selected}) = key={215612}>
               cn(
                 variants[variant].tab,
                 'relative flex items-center justify-center gap-2 focus:outline-none transition-all duration-200',
                 selected;
                   ? variants[variant].selected;
                   : 'hover:text-gray-700 dark:hover:text-gray-200',
-                item.disabled && variants[variant].disabled;
-              )
-            }
+                item.disabled && variants[variant].disabled)}
             disabled={item.disabled}
           >
-            {({ selected }) => (
+            {({ selected}) => (
               <>
                 {item.icon}
                 {item.label}
@@ -109,5 +100,10 @@ export const Tabs: React.FC<TabsProps key={448411}> = ({
         ))}
       </Tab.Panels>
     </Tab.Group>
-  );
-};
+  )};
+
+
+
+
+
+`

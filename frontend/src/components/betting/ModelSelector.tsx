@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   Box,
   FormControl,
@@ -8,41 +8,29 @@ import {
   Typography,
   Paper,
   Tooltip,
-  Chip,
-} from '@mui/material.ts';
-import { useQuery } from '@tanstack/react-query.ts';
-import { bettingService } from '@/services/bettingService.ts';
+//   Chip
+} from '@mui/material';
+import { useQuery} from '@tanstack/react-query';
+import { bettingService} from '@/services/bettingService';
 
 export interface BettingModel {
-  id: string;
-  name: string;
-  description: string;
-  accuracy: number;
-  winRate: number;
-  lastUpdated: string;
-  features: string[];
-  isActive: boolean;
-}
+  id: string,`n  name: string;,`n  description: string,`n  accuracy: number;,`n  winRate: number,`n  lastUpdated: string;,`n  features: string[0],`n  isActive: boolean}
 
 interface ModelSelectorProps {
-  selectedModel: string;
-  onModelChange: (modelId: string) => void;
-}
+  selectedModel: string,`n  onModelChange: (modelId: string) => void}
 
-export const ModelSelector: React.FC<ModelSelectorProps key={825197}> = ({ selectedModel, onModelChange }) => {
+export const ModelSelector: React.FC<ModelSelectorProps key={825197}> = ({ selectedModel, onModelChange}) => {
   // Fetch available models;
-  const { data: models, isLoading } = useQuery({
+  const { data: models, isLoading} = useQuery({
     queryKey: ['betting-models'],
     queryFn: () => bettingService.getAvailableModels(),
-    staleTime: 300000, // Cache for 5 minutes;
-  });
+    staleTime: 300000, // Cache for 5 minutes});
 
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    onModelChange(event.target.value as string);
-  };
+  const handleChange = (event: React.ChangeEvent<{ value: unknown}>) => {
+    onModelChange(event.target.value as string)};
 
   return (
-    <Paper sx={{ p: 2 }} key={136663}>
+    <Paper sx={{ p: 2}} key={136663}>
       <Typography gutterBottom variant="h6" key={368112}>
         Prediction Model;
       </Typography>
@@ -70,12 +58,12 @@ export const ModelSelector: React.FC<ModelSelectorProps key={825197}> = ({ selec
       </FormControl>
 
       {selectedModelData && (
-        <Box sx={{ mt: 2 }} key={337181}>
+        <Box sx={{ mt: 2}} key={337181}>
           <Typography gutterBottom color="text.secondary" variant="body2" key={760822}>
             {selectedModelData.description}
           </Typography>
 
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 1 }} key={955203}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 1}} key={955203}>
             {selectedModelData.features.map(feature => (
               <Tooltip key={feature} title={`Model uses ${feature} for predictions`} key={151669}>
                 <Chip label={feature} size="small" variant="outlined" / key={416322}>
@@ -83,11 +71,15 @@ export const ModelSelector: React.FC<ModelSelectorProps key={825197}> = ({ selec
             ))}
           </Box>
 
-          <Typography color="text.secondary" sx={{ display: 'block', mt: 1 }} variant="caption" key={704868}>
+          <Typography color="text.secondary" sx={{ display: 'block', mt: 1}} variant="caption" key={704868}>
             Last updated: {new Date(selectedModelData.lastUpdated).toLocaleString()}
           </Typography>
         </Box>
       )}
     </Paper>
-  );
-};
+  )};
+
+
+
+
+`

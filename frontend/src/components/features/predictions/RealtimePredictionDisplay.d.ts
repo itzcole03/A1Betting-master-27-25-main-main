@@ -1,6 +1,8 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface RealtimePredictionDisplayProps {
-    predictionId: string;
-}
+  predictionId: string}
 export declare const RealtimePredictionDisplay: React.FC<RealtimePredictionDisplayProps>;
-export {};
+export Record<string, any>;
+
+
+

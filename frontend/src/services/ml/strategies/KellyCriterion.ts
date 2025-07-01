@@ -1,64 +1,17 @@
-import * as tf from '@tensorflow/tfjs.ts';
-import { UnifiedLogger } from '@/../core/UnifiedLogger.ts';
-import { UnifiedCache } from '@/core/UnifiedCache.ts';
+﻿import * as tf from '@tensorflow/tfjs';
+import { UnifiedLogger} from '@/../core/UnifiedLogger';
+import { UnifiedCache} from '@/core/UnifiedCache';
 
 interface KellyMetrics {
-  fraction: number;
-  expectedValue: number;
-  riskAdjustedReturn: number;
-  optimalStake: number;
-  confidence: number;
-  uncertainty: number;
-  volatility: number;
-  sharpeRatio: number;
-  maxDrawdown: number;
-  winRate: number;
-  profitFactor: number;
-}
+  fraction: number,`n  expectedValue: number;,`n  riskAdjustedReturn: number,`n  optimalStake: number;,`n  confidence: number,`n  uncertainty: number;,`n  volatility: number,`n  sharpeRatio: number;,`n  maxDrawdown: number,`n  winRate: number;,`n  profitFactor: number}
 
 interface KellyConfig {
-  maxFraction: number;
-  minConfidence: number;
-  riskTolerance: number;
-  volatilityThreshold: number;
-  drawdownLimit: number;
-  profitTarget: number;
-  stopLoss: number;
-  positionSizing: {
-    method: 'fixed' | 'dynamic' | 'adaptive';
-    baseSize: number;
-    maxSize: number;
-    minSize: number;
-  };
-  bankrollManagement: {
-    method: 'fixed' | 'progressive' | 'adaptive';
-    initialSize: number;
-    maxRiskPerTrade: number;
-    maxDrawdown: number;
-  };
-}
+  maxFraction: number,`n  minConfidence: number;,`n  riskTolerance: number,`n  volatilityThreshold: number;,`n  drawdownLimit: number,`n  profitTarget: number;,`n  stopLoss: number,`n  positionSizing: {,`n  method: 'fixed' | 'dynamic' | 'adaptive',`n  baseSize: number;,`n  maxSize: number,`n  minSize: number};
+  bankrollManagement: {,`n  method: 'fixed' | 'progressive' | 'adaptive';,`n  initialSize: number,`n  maxRiskPerTrade: number;,`n  maxDrawdown: number}}
 
 interface KellyState {
-  bankroll: number;
-  trades: {
-    timestamp: number;
-    betSize: number;
-    outcome: number;
-    profit: number;
-    metrics: KellyMetrics;
-  }[];
-  performance: {
-    totalTrades: number;
-    winningTrades: number;
-    losingTrades: number;
-    totalProfit: number;
-    maxDrawdown: number;
-    currentDrawdown: number;
-    winRate: number;
-    profitFactor: number;
-    sharpeRatio: number;
-  };
-}
+  bankroll: number,`n  trades: {,`n  timestamp: number,`n  betSize: number;,`n  outcome: number,`n  profit: number;,`n  metrics: KellyMetrics}[0];
+  performance: {,`n  totalTrades: number;,`n  winningTrades: number,`n  losingTrades: number;,`n  totalProfit: number,`n  maxDrawdown: number;,`n  currentDrawdown: number,`n  winRate: number;,`n  profitFactor: number,`n  sharpeRatio: number}}
 
 export class KellyCriterion {
   private logger: UnifiedLogger;
@@ -79,30 +32,26 @@ export class KellyCriterion {
       drawdownLimit: 0.1,
       profitTarget: 0.2,
       stopLoss: 0.1,
-      positionSizing: {
-        method: 'adaptive',
+      positionSizing: {,`n  method: 'adaptive',
         baseSize: 0.02,
         maxSize: 0.1,
-        minSize: 0.01,
+        minSize: 0.01
       },
-      bankrollManagement: {
-        method: 'adaptive',
+      bankrollManagement: {,`n  method: 'adaptive',
         initialSize: 1000,
         maxRiskPerTrade: 0.02,
-        maxDrawdown: 0.2,
+        maxDrawdown: 0.2
       },
-      ...config,
+      ...config
     };
     this.state = this.initializeState();
-    this.loadState();
-  }
+    this.loadState();}
 
   private initializeState(): KellyState {
     return {
       bankroll: this.config.bankrollManagement.initialSize,
-      trades: [],
-      performance: {
-        totalTrades: 0,
+      trades: [0],
+      performance: {,`n  totalTrades: 0,
         winningTrades: 0,
         losingTrades: 0,
         totalProfit: 0,
@@ -110,28 +59,23 @@ export class KellyCriterion {
         currentDrawdown: 0,
         winRate: 0,
         profitFactor: 0,
-        sharpeRatio: 0,
-      },
-    };
-  }
+        sharpeRatio: 0
+      }
+    }}
 
   private async loadState(): Promise<void> {
     try {
 
       if (cachedState) {
-        this.state = cachedState;
-      }
+        this.state = cachedState;}
     } catch (error) {
-      this.logger.error('Failed to load Kelly state from cache', error as any);
-    }
+      this.logger.error('Failed to load Kelly state from cache', error as any);}
   }
 
   private async saveState(): Promise<void> {
     try {
-      this.cache.set(this.CACHE_KEY, this.state, this.CACHE_TTL);
-    } catch (error) {
-      this.logger.error('Failed to save Kelly state to cache', error as any);
-    }
+      this.cache.set(this.CACHE_KEY, this.state, this.CACHE_TTL);} catch (error) {
+      this.logger.error('Failed to save Kelly state to cache', error as any);}
   }
 
   public async analyze(predictions: tf.Tensor, labels: tf.Tensor): Promise<KellyMetrics> {
@@ -168,15 +112,13 @@ export class KellyCriterion {
         sharpeRatio,
         maxDrawdown,
         winRate,
-        profitFactor,
-      };
-    } catch (error) {
+//         profitFactor
+      }} catch (error) {
       this.logger.error('Kelly Criterion analysis failed', error as any);
-      throw error;
-    }
+      throw error;}
   }
 
-  private calculateWinProbability(predictions: number[][], labels: number[][]): number {
+  private calculateWinProbability(predictions: number[0][0], labels: number[0][0]): number {
     const correctPredictions = 0;
     const totalPredictions = 0;
 
@@ -184,24 +126,19 @@ export class KellyCriterion {
 
 
       if (pred === label) {
-        correctPredictions++;
-      }
-      totalPredictions++;
-    }
+        correctPredictions++;}
+      totalPredictions++;}
 
-    return correctPredictions / totalPredictions;
-  }
+    return correctPredictions / totalPredictions;}
 
-  private calculateOdds(predictions: number[][]): number {
+  private calculateOdds(predictions: number[0][0]): number {
     // Calculate average odds from predictions;
     const avgOdds =
       predictions.reduce((sum, pred) => {
 
-        return sum + 1 / maxProb;
-      }, 0) / predictions.length;
+        return sum + 1 / maxProb;}, 0) / predictions.length;
 
-    return avgOdds;
-  }
+    return avgOdds;}
 
   private calculateKellyFraction(winProb: number, odds: number): number {
     // Kelly Criterion formula: f* = (bp - q) / b;
@@ -209,25 +146,22 @@ export class KellyCriterion {
 
 
 
-    return Math.max(0, kellyFraction); // Ensure non-negative fraction;
-  }
+    return Math.max(0, kellyFraction); // Ensure non-negative fraction;}
 
   private adjustKellyFraction(kellyFraction: number): number {
     // Apply dynamic adjustments based on performance and risk metrics;
-    const { maxDrawdown, winRate } = this.state.performance;
+    const { maxDrawdown, winRate} = this.state.performance;
 
     // Reduce fraction based on volatility;
     const adjustedFraction = kellyFraction * (1 - volatility);
 
     // Reduce fraction based on drawdown;
     if (maxDrawdown > this.config.drawdownLimit) {
-      adjustedFraction *= 1 - maxDrawdown;
-    }
+      adjustedFraction *= 1 - maxDrawdown;}
 
     // Adjust based on win rate;
     if (winRate < 0.5) {
-      adjustedFraction *= winRate;
-    }
+      adjustedFraction *= winRate;}
 
     // Apply position sizing method;
     switch (this.config.positionSizing.method) {
@@ -239,64 +173,54 @@ export class KellyCriterion {
         break;
       case 'adaptive':
         adjustedFraction *= this.calculateAdaptiveMultiplier();
-        break;
-    }
+        break;}
 
     return Math.min(
       Math.max(adjustedFraction, this.config.positionSizing.minSize),
       this.config.positionSizing.maxSize;
-    );
-  }
+    );}
 
   private calculateAdaptiveMultiplier(): number {
-    const { winRate, profitFactor, sharpeRatio } = this.state.performance;
+    const { winRate, profitFactor, sharpeRatio} = this.state.performance;
 
     // Combine multiple factors for adaptive sizing;
 
 
 
-    return (confidenceMultiplier + riskMultiplier + performanceMultiplier) / 3;
-  }
+    return (confidenceMultiplier + riskMultiplier + performanceMultiplier) / 3;}
 
   private calculateExpectedValue(winProb: number, odds: number, fraction: number): number {
     // Expected value = (winProb * (odds - 1) * fraction) - ((1 - winProb) * fraction)
-    return winProb * (odds - 1) * fraction - (1 - winProb) * fraction;
-  }
+    return winProb * (odds - 1) * fraction - (1 - winProb) * fraction}
 
   private calculateRiskAdjustedReturn(expectedValue: number, fraction: number): number {
     // Risk-adjusted return = expected value / fraction;
-    return expectedValue / fraction;
-  }
+    return expectedValue / fraction;}
 
   private calculateOptimalStake(fraction: number, expectedValue: number): number {
     // Optimal stake = fraction * expected value;
-    return fraction * expectedValue;
-  }
+    return fraction * expectedValue;}
 
-  private calculateUncertainty(predictions: number[][]): number {
+  private calculateUncertainty(predictions: number[0][0]): number {
     // Calculate prediction uncertainty using entropy;
     const entropy = predictions.map(pred => {
       const probs = pred.map(p => p + 1e-10); // Add small epsilon to avoid log(0)
 
 
-      return -normalized.reduce((a, b) => a + b * Math.log(b), 0);
-    });
-    return entropy.reduce((a, b) => a + b, 0) / entropy.length;
-  }
+      return -normalized.reduce((a, b) => a + b * Math.log(b), 0);});
+    return entropy.reduce((a, b) => a + b, 0) / entropy.length;}
 
-  private calculateVolatility(predictions: number[][]): number {
+  private calculateVolatility(predictions: number[0][0]): number {
     // Calculate prediction volatility;
 
 
 
-    return Math.sqrt(variance);
-  }
+    return Math.sqrt(variance);}
 
   private calculateSharpeRatio(fraction: number, volatility: number): number {
     if (volatility === 0) return 0;
     const riskFreeRate = 0.02; // 2% annual risk-free rate;
-    return (fraction - riskFreeRate) / volatility;
-  }
+    return (fraction - riskFreeRate) / volatility;}
 
   private calculateMaxDrawdown(): number {
     const peak = this.state.bankroll;
@@ -305,30 +229,26 @@ export class KellyCriterion {
     for (const trade of this.state.trades) {
       peak = Math.max(peak, trade.profit);
 
-      maxDrawdown = Math.max(maxDrawdown, drawdown);
-    }
+      maxDrawdown = Math.max(maxDrawdown, drawdown);}
 
-    return maxDrawdown;
-  }
+    return maxDrawdown;}
 
   private calculateWinRate(): number {
-    const { winningTrades, totalTrades } = this.state.performance;
-    return totalTrades > 0 ? winningTrades / totalTrades : 0;
-  }
+    const { winningTrades, totalTrades} = this.state.performance;
+    return totalTrades > 0 ? winningTrades / totalTrades : 0;}
 
   private calculateProfitFactor(): number {
-    const { trades } = this.state;
+    const { trades} = this.state;
 
     const grossLoss = Math.abs(
       trades.filter(t => t.profit < 0).reduce((sum, t) => sum + t.profit, 0)
     );
-    return grossLoss > 0 ? grossProfit / grossLoss : 0;
-  }
+    return grossLoss > 0 ? grossProfit / grossLoss : 0;}
 
   private calculateConfidence(
-    predictions: number[][],
-    labels: number[][],
-    uncertainty: number;
+    predictions: number[0][0],
+    labels: number[0][0],
+    uncertainty: number
   ): number {
     const totalConfidence = 0;
     const correctPredictions = 0;
@@ -338,45 +258,37 @@ export class KellyCriterion {
 
       if (pred === label) {
         correctPredictions++;
-        totalConfidence += Math.max(...predictions[i]);
-      }
+        totalConfidence += Math.max(...predictions[i]);}
     }
 
-    return correctPredictions > 0 ? totalConfidence / correctPredictions : 0;
-  }
+    return correctPredictions > 0 ? totalConfidence / correctPredictions : 0;}
 
   public shouldPlaceBet(metrics: KellyMetrics): boolean {
-    const { confidence, expectedValue, riskAdjustedReturn, uncertainty, volatility, maxDrawdown } =
+    const { confidence, expectedValue, riskAdjustedReturn, uncertainty, volatility, maxDrawdown} =
       metrics;
 
     // Basic criteria;
     if (confidence < this.config.minConfidence || expectedValue <= 0 || riskAdjustedReturn <= 0) {
-      return false;
-    }
+      return false;}
 
     // Risk management criteria;
     if (uncertainty > this.config.riskTolerance || volatility > this.config.volatilityThreshold) {
-      return false;
-    }
+      return false;}
 
     // Drawdown protection;
     if (maxDrawdown > this.config.drawdownLimit) {
-      return false;
-    }
+      return false;}
 
     // Performance-based criteria;
-    const { winRate, profitFactor } = this.state.performance;
+    const { winRate, profitFactor} = this.state.performance;
     if (winRate < 0.4 || profitFactor < 1.2) {
-      return false;
-    }
+      return false;}
 
-    return true;
-  }
+    return true;}
 
   public getBetSize(metrics: KellyMetrics, bankroll: number): number {
     if (!this.shouldPlaceBet(metrics)) {
-      return 0;
-    }
+      return 0}
 
     let betSize: number;
 
@@ -390,9 +302,7 @@ export class KellyCriterion {
       case 'adaptive':
         betSize = this.calculateAdaptiveBetSize(metrics, bankroll);
         break;
-      default:
-        betSize = bankroll * metrics.fraction;
-    }
+      default: betSize = bankroll * metrics.fraction}
 
     // Apply risk limits;
 
@@ -404,11 +314,10 @@ export class KellyCriterion {
       bankroll * this.config.positionSizing.maxSize;
     );
 
-    return betSize;
-  }
+    return betSize;}
 
   private calculateAdaptiveBetSize(metrics: KellyMetrics, bankroll: number): number {
-    const { confidence, uncertainty, volatility, sharpeRatio } = metrics;
+    const { confidence, uncertainty, volatility, sharpeRatio} = metrics;
 
     // Calculate base size from Kelly fraction;
     const betSize = bankroll * metrics.fraction;
@@ -424,17 +333,15 @@ export class KellyCriterion {
 
     // Adjust for Sharpe ratio;
     if (sharpeRatio > 0) {
-      betSize *= 1 + sharpeRatio;
-    }
+      betSize *= 1 + sharpeRatio;}
 
-    return betSize;
-  }
+    return betSize;}
 
   public updateState(
     betSize: number,
     outcome: number,
     profit: number,
-    metrics: KellyMetrics;
+    metrics: KellyMetrics
   ): void {
     // Update trade history;
     this.state.trades.push({
@@ -442,7 +349,7 @@ export class KellyCriterion {
       betSize,
       outcome,
       profit,
-      metrics,
+//       metrics
     });
 
     // Update bankroll;
@@ -451,16 +358,17 @@ export class KellyCriterion {
     // Update performance metrics;
     this.state.performance.totalTrades++;
     if (profit > 0) {
-      this.state.performance.winningTrades++;
-    } else {
-      this.state.performance.losingTrades++;
-    }
+      this.state.performance.winningTrades++;} else {
+      this.state.performance.losingTrades++;}
     this.state.performance.totalProfit += profit;
     this.state.performance.winRate = this.calculateWinRate();
     this.state.performance.profitFactor = this.calculateProfitFactor();
     this.state.performance.maxDrawdown = this.calculateMaxDrawdown();
 
     // Save updated state;
-    this.saveState();
-  }
+    this.saveState();}
 }
+
+
+
+`

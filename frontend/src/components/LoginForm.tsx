@@ -1,18 +1,17 @@
-import React, { useState  } from 'react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
-import { useAuth } from '@/providers/AuthProvider.ts';
+﻿import React, { useState} from 'react'
+import { motion, AnimatePresence} from 'framer-motion'
+import { useAuth} from '@/providers/AuthProvider'
 
 interface LoginFormProps {
   onSuccess?: () => void;
-  onToggleForm?: () => void;
-}
+  onToggleForm?: () => void}
 
-const LoginForm: React.FC<LoginFormProps key={2360}> = ({ onSuccess, onToggleForm }) => {
+const LoginForm: React.FC<LoginFormProps key={2360}> = ({ onSuccess, onToggleForm}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
+  const { login} = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,20 +20,17 @@ const LoginForm: React.FC<LoginFormProps key={2360}> = ({ onSuccess, onToggleFor
 
     try {
       await login(email, password);
-      onSuccess?.();
-    } catch (err) {
-      setError('Invalid email or password');
-    } finally {
-      setIsLoading(false);
-    }
+      onSuccess?.()} catch (err) {
+      setError('Invalid email or password')} finally {
+      setIsLoading(false)}
   };
 
   return (
     <motion.div;
-      animate={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 0}}
       className="w-full max-w-md mx-auto"
-      exit={{ opacity: 0, y: -20 }}
-      initial={{ opacity: 0, y: 20 }}
+      exit={{ opacity: 0, y: -20}}
+      initial={{ opacity: 0, y: 20}}
      key={315589}>
       <form className="space-y-6" onSubmit={handleSubmit} key={229713}>
         <div key={241917}>
@@ -75,9 +71,9 @@ const LoginForm: React.FC<LoginFormProps key={2360}> = ({ onSuccess, onToggleFor
 
         {error && (
           <motion.p;
-            animate={{ opacity: 1 }}
+            animate={{ opacity: 1}}
             className="text-sm text-red-600 dark:text-red-400"
-            initial={{ opacity: 0 }}
+            initial={{ opacity: 0}}
            key={802426}>
             {error}
           </motion.p>
@@ -126,7 +122,10 @@ const LoginForm: React.FC<LoginFormProps key={2360}> = ({ onSuccess, onToggleFor
         </p>
       </form>
     </motion.div>
-  );
-};
+  )};
 
 export default React.memo(LoginForm);
+
+
+
+

@@ -1,7 +1,7 @@
-type ThemeMode = 'light' | 'dark' | 'system';
+﻿type ThemeMode = 'light' | 'dark' | 'system';
 export declare function useTheme(): {
-    mode: ThemeMode;
-    theme: "light" | "dark";
-    setThemeMode: (newMode: ThemeMode) => void;
-};
-export {};
+  mode: ThemeMode,`n  theme: 'light' | 'dark';,`n  setThemeMode: (newMode: ThemeMode) => void};
+export Record<string, any>;
+
+
+`

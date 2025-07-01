@@ -1,6 +1,8 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface LayoutProps {
-    children: React.ReactNode;
-}
+  children: React.ReactNode}
 export declare const Layout: React.FC<LayoutProps>;
-export {};
+export Record<string, any>;
+
+
+

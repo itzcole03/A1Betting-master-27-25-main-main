@@ -1,14 +1,13 @@
-import React, { useState, useMemo  } from 'react.ts';
-import { Box, Typography, TextField, MenuItem, Grid, Paper, CircularProgress } from '@mui/material.ts';
-import { BetRecommendationCard } from './BetRecommendationCard.ts';
-import { BetRecommendation } from '@/core/types/prediction.ts';
-import { PredictionExplanationModal } from './PredictionExplanationModal.ts';
+﻿import React, { useState, useMemo} from 'react';
+import { Box, Typography, TextField, MenuItem, Grid, Paper, CircularProgress} from '@mui/material';
+import { BetRecommendationCard} from './BetRecommendationCard';
+import { BetRecommendation} from '@/core/types/prediction';
+import { PredictionExplanationModal} from './PredictionExplanationModal';
 
 interface BetRecommendationListProps {
-  recommendations: BetRecommendation[];
-  loading?: boolean;
-  error?: string;
-}
+  recommendations: BetRecommendation[0];
+  loading?: boolean
+  error?: string}
 
 type SortOption = 'confidence' | 'stake' | 'expectedValue' | 'riskLevel';
 type FilterOption = 'all' | 'low' | 'medium' | 'high';
@@ -16,7 +15,7 @@ type FilterOption = 'all' | 'low' | 'medium' | 'high';
 export const BetRecommendationList: React.FC<BetRecommendationListProps key={225493}> = ({
   recommendations,
   loading = false,
-  error,
+//   error
 }) => {
   const [sortBy, setSortBy] = useState<SortOption key={303251}>('confidence');
   const [filterBy, setFilterBy] = useState<FilterOption key={992183}>('all');
@@ -29,8 +28,7 @@ export const BetRecommendationList: React.FC<BetRecommendationListProps key={225
 
     // Apply risk level filter;
     if (filterBy !== 'all') {
-      filtered = filtered.filter(rec => rec.riskLevel === filterBy);
-    }
+      filtered = filtered.filter(rec => rec.riskLevel === filterBy);}
 
     // Apply sorting;
     return filtered.sort((a, b) => {
@@ -44,39 +42,33 @@ export const BetRecommendationList: React.FC<BetRecommendationListProps key={225
         case 'riskLevel':
 
           return riskOrder[a.riskLevel] - riskOrder[b.riskLevel];
-        default:
-          return 0;
-      }
-    });
-  }, [recommendations, sortBy, filterBy]);
+        default: return 0}
+    })}, [recommendations, sortBy, filterBy]);
 
   if (loading) {
     return (
       <Box alignItems="center" display="flex" justifyContent="center" minHeight={200} key={317353}>
         <CircularProgress / key={730118}>
       </Box>
-    );
-  }
+    );}
 
   if (error) {
     return (
-      <Paper sx={{ p: 2, bgcolor: 'error.light' }} key={310073}>
+      <Paper sx={{ p: 2, bgcolor: 'error.light'}} key={310073}>
         <Typography color="error" key={618175}>{error}</Typography>
       </Paper>
-    );
-  }
+    )}
 
   if (recommendations.length === 0) {
     return (
-      <Paper sx={{ p: 2 }} key={136663}>
+      <Paper sx={{ p: 2}} key={136663}>
         <Typography color="text.secondary" key={631323}>No bet recommendations available</Typography>
       </Paper>
-    );
-  }
+    )}
 
   return (
     <Box key={485947}>
-      <Grid container spacing={2} sx={{ mb: 3 }} key={482082}>
+      <Grid container spacing={2} sx={{ mb: 3}} key={482082}>
         <Grid item sm={6} xs={12} key={72011}>
           <TextField;
             fullWidth;
@@ -127,19 +119,22 @@ export const BetRecommendationList: React.FC<BetRecommendationListProps key={225
               {
                 modelName: selectedRecommendation.prediction.type,
                 confidence: selectedRecommendation.confidence,
-                shapExplanation: {
-                  featureNames: Object.keys(selectedRecommendation.prediction.features),
+                shapExplanation: {,`n  featureNames: Object.keys(selectedRecommendation.prediction.features),
                   featureValues: Object.values(selectedRecommendation.prediction.features),
-                  importanceScores: [],
+                  importanceScores: [0],
                   baseValue: 0,
-                  prediction: selectedRecommendation.prediction.prediction,
-                },
+                  prediction: selectedRecommendation.prediction.prediction
+                }
               },
-            ],
+            ]
           }}
           onClose={() = key={997737}> setSelectedRecommendation(null)}
         />
       )}
     </Box>
-  );
-};
+  )};
+
+
+
+
+`

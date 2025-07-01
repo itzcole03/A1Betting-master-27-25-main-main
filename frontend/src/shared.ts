@@ -1,4 +1,6 @@
-export interface PrizePicksEntry {
+﻿export interface PrizePicksEntry {
   id: string;
-  status?: string;
-} 
+  status?: string}
+
+
+

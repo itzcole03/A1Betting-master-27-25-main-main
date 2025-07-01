@@ -1,21 +1,7 @@
-export interface User {
-  id: string;
-  username: string;
-  email: string;
-  createdAt: Date;
-  lastActive: Date;
-  preferences: {
-    riskTolerance: number;
-    notificationSettings: {
-      email: boolean;
-      push: boolean;
-      sms: boolean;
-    };
-  };
-  statistics: {
-    totalBets: number;
-    winRate: number;
-    averageStake: number;
-    totalProfit: number;
-  };
-}
+﻿export interface User {
+  id: string,`n  username: string;,`n  email: string,`n  createdAt: Date;,`n  lastActive: Date,`n  preferences: {,`n  riskTolerance: number,`n  notificationSettings: {,`n  email: boolean,`n  push: boolean;,`n  sms: boolean}};
+  statistics: {,`n  totalBets: number;,`n  winRate: number,`n  averageStake: number;,`n  totalProfit: number}}
+
+
+
+`

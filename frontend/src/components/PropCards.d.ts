@@ -1,17 +1,11 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface Prop {
-    id: string;
-    title: string;
-    description: string;
-    odds: number;
-    category: string;
-    confidence: number;
-    prediction: string;
-}
+  id: string,`n  title: string;,`n  description: string,`n  odds: number;,`n  category: string,`n  confidence: number;,`n  prediction: string}
 interface PropCardsProps {
-    data: Prop[];
-    isLoading: boolean;
-}
+  data: Prop[0],`n  isLoading: boolean}
 export declare const PropCards: React.FC<PropCardsProps>;
 declare const _default: React.NamedExoticComponent<PropCardsProps>;
 export default _default;
+
+
+`

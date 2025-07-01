@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   Drawer,
   List,
@@ -6,38 +6,35 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  useTheme,
-} from '@mui/material.ts';
+//   useTheme
+} from '@mui/material';
 import {
   Dashboard as DashboardIcon,
   SportsSoccer as SportsIcon,
   AccountBalance as WalletIcon,
   History as HistoryIcon,
-  Settings as SettingsIcon,
-} from '@mui/icons-material.ts';
-import { useNavigate, useLocation } from 'react-router-dom.ts';
+  Settings as SettingsIcon
+} from '@mui/icons-material';
+import { useNavigate, useLocation} from 'react-router-dom';
 
 interface SidebarProps {
-  open: boolean;
-  onClose: () => void;
-}
+  open: boolean,`n  onClose: () => void}
 
 const menuItems = [
-  { text: 'Dashboard', icon: <DashboardIcon / key={467532}>, path: '/' },
-  { text: 'Sports', icon: <SportsIcon / key={98948}>, path: '/sports' },
-  { text: 'Wallet', icon: <WalletIcon / key={620232}>, path: '/wallet' },
-  { text: 'History', icon: <HistoryIcon / key={45718}>, path: '/history' },
-  { text: 'Settings', icon: <SettingsIcon / key={722197}>, path: '/settings' },
+  { text: 'Dashboard', icon: <DashboardIcon / key={467532}>, path: '/'},
+  { text: 'Sports', icon: <SportsIcon / key={98948}>, path: '/sports'},
+  { text: 'Wallet', icon: <WalletIcon / key={620232}>, path: '/wallet'},
+  { text: 'History', icon: <HistoryIcon / key={45718}>, path: '/history'},
+  { text: 'Settings', icon: <SettingsIcon / key={722197}>, path: '/settings'},
 ];
 
-const Sidebar = ({ open, onClose }: SidebarProps) => {
+const Sidebar = ({ open, onClose}: SidebarProps) => {
 
 
 
   const handleNavigation = (path: string) => {
     navigate(path);
-    onClose();
-  };
+    onClose();};
 
   return (
     <Drawer;
@@ -50,8 +47,8 @@ const Sidebar = ({ open, onClose }: SidebarProps) => {
           width: theme.custom.sidebarWidth,
           boxSizing: 'border-box',
           mt: `${theme.custom.headerHeight}px`,
-          transition: theme.custom.transition,
-        },
+          transition: theme.custom.transition
+        }
       }}
       variant="persistent"
       onClose={onClose}
@@ -70,7 +67,10 @@ const Sidebar = ({ open, onClose }: SidebarProps) => {
         ))}
       </List>
     </Drawer>
-  );
-};
+  );};
 
 export default Sidebar;
+
+
+
+`

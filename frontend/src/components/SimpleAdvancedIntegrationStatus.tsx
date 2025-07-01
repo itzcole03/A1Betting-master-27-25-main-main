@@ -1,10 +1,10 @@
-/**
+﻿/**
  * Simple-to-Advanced Integration Status;
  * Shows how the simple user interface is powered by advanced backend systems;
  */
 
-import React, { useState, useEffect  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+import React, { useState, useEffect} from 'react';
+import { motion} from 'framer-motion';
 import {
   Brain,
   Zap,
@@ -17,30 +17,25 @@ import {
   CheckCircle,
   ArrowRight,
   Eye,
-  Settings,
-} from 'lucide-react.ts';
-import { integrationService } from '@/services/integrationService.ts';
-import { enhancedBridge } from '@/services/enhancedIntegrationBridge.ts';
+//   Settings
+} from 'lucide-react';
+import { integrationService} from '@/services/integrationService';
+import { enhancedBridge} from '@/services/enhancedIntegrationBridge';
 
 interface SystemStatus {
-  component: string;
-  simpleFeature: string;
-  advancedPower: string;
-  status: "active" | "inactive" | "loading";
-  metrics?: any;
-}
+  component: string,`n  simpleFeature: string;,`n  advancedPower: string,`n  status: "active" | "inactive" | "loading";
+  metrics?: any}
 
 export const SimpleAdvancedIntegrationStatus: React.FC = () => {
-  const [systemStatuses, setSystemStatuses] = useState<SystemStatus[] key={354228}>([]);
+  const [systemStatuses, setSystemStatuses] = useState<SystemStatus[0] key={354228}>([0]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    checkIntegrationStatus();
-  }, []);
+    checkIntegrationStatus()}, [0]);
 
   const checkIntegrationStatus = async () => {
     setIsLoading(true);
-    const statuses: SystemStatus[] = [];
+    const statuses: SystemStatus[0] = [0];
 
     // Check each integration point;
     try {
@@ -52,10 +47,9 @@ export const SimpleAdvancedIntegrationStatus: React.FC = () => {
         advancedPower:
           "UltraAdvancedMLDashboard + Multiple ML Models + SHAP Analysis",
         status: predictions.length > 0 ? "active" : "inactive",
-        metrics: {
-          count: predictions.length,
-          accuracy: predictions[0]?.confidence || 0,
-        },
+        metrics: {,`n  count: predictions.length,
+          accuracy: predictions[0]?.confidence || 0
+        }
       });
 
       // 2. Analytics Integration;
@@ -66,11 +60,10 @@ export const SimpleAdvancedIntegrationStatus: React.FC = () => {
         advancedPower:
           "AdvancedAnalyticsHub + Real-time Performance Tracking + Risk Assessment",
         status: analytics.totalProfit !== undefined ? "active" : "inactive",
-        metrics: {
-          profit: analytics.totalProfit,
+        metrics: {,`n  profit: analytics.totalProfit,
           winRate: analytics.winRate,
-          roi: analytics.roi,
-        },
+          roi: analytics.roi
+        }
       });
 
       // 3. Betting Opportunities Integration;
@@ -81,10 +74,9 @@ export const SimpleAdvancedIntegrationStatus: React.FC = () => {
         advancedPower:
           "BettingOpportunityService + ArbitrageEngine + Kelly Criterion + Risk Management",
         status: opportunities.length > 0 ? "active" : "inactive",
-        metrics: {
-          opportunities: opportunities.length,
-          avgReturn: opportunities[0]?.expectedReturn || 0,
-        },
+        metrics: {,`n  opportunities: opportunities.length,
+          avgReturn: opportunities[0]?.expectedReturn || 0
+        }
       });
 
       // 4. Backend API Integration;
@@ -95,10 +87,9 @@ export const SimpleAdvancedIntegrationStatus: React.FC = () => {
         advancedPower:
           "WebSocket Manager + Real-time Data Orchestrator + Multi-source API Integration",
         status: health.status === "online" ? "active" : "inactive",
-        metrics: {
-          uptime: health.data?.uptime || 0,
-          services: Object.keys(health.data?.services || {}).length,
-        },
+        metrics: {,`n  uptime: health.data?.uptime || 0,
+          services: Object.keys(health.data?.services || Record<string, any>).length
+        }
       });
 
       // 5. Money Maker Integration;
@@ -112,19 +103,15 @@ export const SimpleAdvancedIntegrationStatus: React.FC = () => {
         advancedPower:
           "UltimateMoneyMaker + Portfolio Optimization + Multi-model Ensemble + Advanced Risk Algorithms",
         status: moneyMaker.picks.length > 0 ? "active" : "inactive",
-        metrics: {
-          picks: moneyMaker.picks.length,
+        metrics: {,`n  picks: moneyMaker.picks.length,
           projectedROI: moneyMaker.roi,
-          confidence: moneyMaker.confidence,
-        },
-      });
-    } catch (error) {
-      // console statement removed
-    }
+          confidence: moneyMaker.confidence
+        }
+      })} catch (error) {
+      // console statement removed}
 
     setSystemStatuses(statuses);
-    setIsLoading(false);
-  };
+    setIsLoading(false)};
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -135,8 +122,7 @@ export const SimpleAdvancedIntegrationStatus: React.FC = () => {
       case "loading":
         return "text-yellow-400 bg-yellow-500/10 border-yellow-500/30";
       default:
-        return "text-gray-400 bg-gray-500/10 border-gray-500/30";
-    }
+        return "text-gray-400 bg-gray-500/10 border-gray-500/30"}
   };
 
   const getStatusIcon = (status: string) => {
@@ -148,8 +134,7 @@ export const SimpleAdvancedIntegrationStatus: React.FC = () => {
       case "loading":
         return <Cpu className="w-5 h-5 text-yellow-400 animate-spin" / key={787849}>;
       default:
-        return <Database className="w-5 h-5 text-gray-400" / key={680506}>;
-    }
+        return <Database className="w-5 h-5 text-gray-400" / key={680506}>}
   };
 
   if (isLoading) {
@@ -162,8 +147,7 @@ export const SimpleAdvancedIntegrationStatus: React.FC = () => {
           </span>
         </div>
       </div>
-    );
-  }
+    )}
 
   return (
     <div className="p-6 bg-gray-900 rounded-lg shadow-2xl" key={572421}>
@@ -182,9 +166,9 @@ export const SimpleAdvancedIntegrationStatus: React.FC = () => {
         {systemStatuses.map((system, index) => (
           <motion.div;
             key={system.component}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
+            initial={{ opacity: 0, y: 20}}
+            animate={{ opacity: 1, y: 0}}
+            transition={{ delay: index * 0.1}}
             className={`p-4 rounded-lg border backdrop-blur-sm ${getStatusColor(system.status)}`}
            key={50689}>
             <div className="flex items-start justify-between mb-3" key={310936}>
@@ -304,7 +288,11 @@ export const SimpleAdvancedIntegrationStatus: React.FC = () => {
         </button>
       </div>
     </div>
-  );
-};
+  )};
 
 export default SimpleAdvancedIntegrationStatus;
+
+
+
+
+`

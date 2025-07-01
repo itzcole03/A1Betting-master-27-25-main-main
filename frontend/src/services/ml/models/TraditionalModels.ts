@@ -1,7 +1,8 @@
-import { BaseModel, ModelConfig, ModelPrediction } from './BaseModel.js';
+﻿import { BaseModel, ModelConfig, ModelPrediction} from './BaseModel.js';
 
 class LogisticRegressionModel extends BaseModel {
-  constructor(config: ModelConfig) { super(config); }
+  constructor(config: ModelConfig) {
+    super(config)}
   async predict(input: unknown): Promise<ModelPrediction> {
     return {
       modelName: this.config.name,
@@ -9,17 +10,18 @@ class LogisticRegressionModel extends BaseModel {
       confidence: 0.88,
       weight: this.config.weight || 1,
       features: input,
-      metadata: {},
-    };
-  }
-  async train(): Promise<void> {}
-  async evaluate(): Promise<unknown> { return {}; }
-  async save(): Promise<void> {}
-  async load(): Promise<void> {}
+      metadata: Record<string, any>
+    }}
+  async train(): Promise<void> Record<string, any>
+  async evaluate(): Promise<unknown> {
+    return Record<string, any>;}
+  async save(): Promise<void> Record<string, any>
+  async load(): Promise<void> Record<string, any>
 }
 
 class RandomForestModel extends BaseModel {
-  constructor(config: ModelConfig) { super(config); }
+  constructor(config: ModelConfig) {
+    super(config)}
   async predict(input: unknown): Promise<ModelPrediction> {
     return {
       modelName: this.config.name,
@@ -27,13 +29,17 @@ class RandomForestModel extends BaseModel {
       confidence: 0.92,
       weight: this.config.weight || 1,
       features: input,
-      metadata: {},
-    };
-  }
-  async train(): Promise<void> {}
-  async evaluate(): Promise<unknown> { return {}; }
-  async save(): Promise<void> {}
-  async load(): Promise<void> {}
+      metadata: Record<string, any>
+    }}
+  async train(): Promise<void> Record<string, any>
+  async evaluate(): Promise<unknown> {
+    return Record<string, any>;}
+  async save(): Promise<void> Record<string, any>
+  async load(): Promise<void> Record<string, any>
 }
 
-export { LogisticRegressionModel, RandomForestModel };
+export { LogisticRegressionModel, RandomForestModel};
+
+
+
+

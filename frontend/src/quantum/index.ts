@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 🚀 A1BETTING QUANTUM PLATFORM - MASTER CONSOLIDATION INDEX;
  *
  * Single point of access for the entire consolidated platform;
@@ -22,17 +22,17 @@
 // =================================
 // 🎨 MEGA COMPONENTS SYSTEM;
 // =================================
-export { default as MegaApp } from '@/components/mega/MegaApp.ts';
-export { default as MegaDashboard } from '@/components/mega/MegaDashboard.ts';
-export { default as MegaBetting } from '@/components/mega/MegaBetting.ts';
-export { default as MegaAnalytics } from '@/components/mega/MegaAnalytics.ts';
-export { default as MegaAdminPanel } from '@/components/mega/MegaAdminPanel.ts';
-export { default as MegaPrizePicks } from '@/components/mega/MegaPrizePicks.ts';
+export { default as MegaApp} from '@/components/mega/MegaApp';
+export { default as MegaDashboard} from '@/components/mega/MegaDashboard';
+export { default as MegaBetting} from '@/components/mega/MegaBetting';
+export { default as MegaAnalytics} from '@/components/mega/MegaAnalytics';
+export { default as MegaAdminPanel} from '@/components/mega/MegaAdminPanel';
+export { default as MegaPrizePicks} from '@/components/mega/MegaPrizePicks';
 
 // UI System Components;
-export { default as MegaUI } from '@/components/mega/MegaUI.ts';
-export { default as MegaLayout } from '@/components/mega/MegaLayout.ts';
-export { default as MegaFeatures } from '@/components/mega/MegaFeatures.ts';
+export { default as MegaUI} from '@/components/mega/MegaUI';
+export { default as MegaLayout} from '@/components/mega/MegaLayout';
+export { default as MegaFeatures} from '@/components/mega/MegaFeatures';
 
 // Cyber Theme System;
 export {
@@ -42,21 +42,21 @@ export {
   CYBER_ANIMATIONS,
   CyberContainer,
   CyberText,
-  CyberButton,
-} from '@/components/mega/CyberTheme.ts';
+//   CyberButton
+} from '@/components/mega/CyberTheme';
 
 // =================================
 // 🚀 ULTIMATE SERVICES SYSTEM;
 // =================================
 export {
   default as QuantumServices,
-  UltimateServicesManager,
-} from '@/services/UltimateServices.ts';
+//   UltimateServicesManager
+} from '@/services/UltimateServices';
 
 // =================================
 // 🎯 QUANTUM HOOKS SYSTEM;
 // =================================
-export { default as useQuantumPlatform } from '@/hooks/UltimateHooks.ts';
+export { default as useQuantumPlatform} from '@/hooks/UltimateHooks';
 export {
   useQuantumData,
   useQuantumML,
@@ -67,13 +67,13 @@ export {
   useQuantumSettings,
   useQuantumWebSocket,
   useQuantumForm,
-  useQuantumUI,
-} from '@/hooks/UltimateHooks.ts';
+//   useQuantumUI
+} from '@/hooks/UltimateHooks';
 
 // =================================
 // 🔧 ULTIMATE UTILITIES SYSTEM;
 // =================================
-export { default as UltimateUtils } from '@/utils/UltimateUtils.ts';
+export { default as UltimateUtils} from '@/utils/UltimateUtils';
 export {
   CoreUtils,
   OddsUtils,
@@ -82,8 +82,8 @@ export {
   ValidationUtils,
   UIUtils,
   PerformanceUtils,
-  ErrorUtils,
-} from '@/utils/UltimateUtils.ts';
+//   ErrorUtils
+} from '@/utils/UltimateUtils';
 
 // =================================
 // 🎮 QUANTUM PLATFORM CLASS;
@@ -97,15 +97,12 @@ export class QuantumPlatform {
   private initialized = false;
 
   private constructor() {
-    this.logConsolidationStats();
-  }
+    this.logConsolidationStats();}
 
   public static getInstance(): QuantumPlatform {
     if (!QuantumPlatform.instance) {
-      QuantumPlatform.instance = new QuantumPlatform();
-    }
-    return QuantumPlatform.instance;
-  }
+      QuantumPlatform.instance = new QuantumPlatform();}
+    return QuantumPlatform.instance;}
 
   /**
    * Initialize the entire Quantum Platform;
@@ -123,11 +120,9 @@ export class QuantumPlatform {
 
       this.initialized = true;
 
+      // console statement removed} catch (error) {
       // console statement removed
-    } catch (error) {
-      // console statement removed
-      throw error;
-    }
+      throw error;}
   }
 
   /**
@@ -135,45 +130,39 @@ export class QuantumPlatform {
    */
   public async getHealthCheck(): Promise<any> {
 
-    return await services.QuantumServices.healthCheck();
-  }
+    return await services.QuantumServices.healthCheck();}
 
   /**
    * Get platform statistics;
    */
   public getStats(): any {
     return {
-      consolidation: {
-        componentsReduced: "96%",
+      consolidation: {,`n  componentsReduced: "96%",
         servicesReduced: "95%",
         hooksReduced: "93%",
         utilsReduced: "96%",
         bundleSizeReduced: "95%",
         memoryReduced: "87%",
-        loadTimeImproved: "92%",
+        loadTimeImproved: "92%"
       },
-      performance: {
-        loadTime: "1.2s",
+      performance: {,`n  loadTime: "1.2s",
         bundleSize: "2.1MB",
         memoryUsage: "45MB",
-        accuracy: "97.3%",
+        accuracy: "97.3%"
       },
-      features: {
-        cyberTheme: "100% Preserved",
+      features: {,`n  cyberTheme: "100% Preserved",
         architecture: "Completely Optimized",
         realTimeData: "Active",
         mlPredictions: "Online",
         arbitrageScanning: "Running",
-        userExperience: "Enhanced",
-      },
-    };
-  }
+        userExperience: "Enhanced"
+      }
+    }}
 
   private async initializeServices(): Promise<void> {
     // Services auto-initialize when imported;
 
-    // console statement removed
-  }
+    // console statement removed}
 
   private async initializeTheme(): Promise<void> {
     // Apply cyber theme to document;
@@ -188,8 +177,7 @@ export class QuantumPlatform {
     document.body.style.color = "white";
     document.body.style.fontFamily = '"Inter", system-ui, sans-serif';
 
-    // console statement removed
-  }
+    // console statement removed}
 
   private async initializePerformanceMonitoring(): Promise<void> {
     // Monitor performance;
@@ -197,11 +185,9 @@ export class QuantumPlatform {
       const navigation = performance.getEntriesByType(
         "navigation",
       )[0] as PerformanceNavigationTiming;
-      // console statement removed
-    }
+      // console statement removed}
 
-    // console statement removed
-  }
+    // console statement removed}
 
   private logConsolidationStats(): void {
     // console statement removed
@@ -228,8 +214,7 @@ export class QuantumPlatform {
 • Documentation: Complete;
 
 🚀 READY FOR MAXIMUM PERFORMANCE!
-    `);
-  }
+    `);}
 }
 
 // =================================
@@ -260,14 +245,13 @@ export const QuickAccess = {
   components: () => import("../components/mega"),
 
   // Theme system;
-  theme: {
-    colors: () =>
+  theme: {,`n  colors: () =>
       import("../components/mega/CyberTheme").then((m) => m.CYBER_COLORS),
     gradients: () =>
       import("../components/mega/CyberTheme").then((m) => m.CYBER_GRADIENTS),
     glass: () =>
-      import("../components/mega/CyberTheme").then((m) => m.CYBER_GLASS),
-  },
+      import("../components/mega/CyberTheme").then((m) => m.CYBER_GLASS)
+  }
 };
 
 // =================================
@@ -279,18 +263,17 @@ export default {
   QuickAccess,
 
   // Re-export everything for convenience;
-  Components: {
-    MegaApp: () => import("../components/mega").then((m) => m.MegaApp),
+  Components: {,`n  MegaApp: () => import("../components/mega").then((m) => m.MegaApp),
     MegaDashboard: () =>
       import("../components/mega").then((m) => m.MegaDashboard),
     MegaBetting: () => import("../components/mega").then((m) => m.MegaBetting),
     MegaAnalytics: () =>
-      import("../components/mega").then((m) => m.MegaAnalytics),
+      import("../components/mega").then((m) => m.MegaAnalytics)
   },
 
   Services: () => import("../services/UltimateServices"),
   Hooks: () => import("../hooks/UltimateHooks"),
-  Utils: () => import("../utils/UltimateUtils"),
+  Utils: () => import("../utils/UltimateUtils")
 };
 
 // =================================
@@ -304,3 +287,7 @@ export default {
 🧠 All ML features enhanced!
 💰 Ready for maximum profit!
 `);
+
+
+
+`

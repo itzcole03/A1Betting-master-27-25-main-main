@@ -1,43 +1,37 @@
-import React, { useState  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
-import { useAuth } from '@/providers/useAuth.ts';
+﻿import React, { useState} from 'react';
+import { motion} from 'framer-motion';
+import { useAuth} from '@/providers/useAuth';
 
 interface RegisterFormProps {
   onSuccess?: () => void;
-  onToggleForm?: () => void;
-}
+  onToggleForm?: () => void;}
 
-const RegisterForm: React.FC<RegisterFormProps key={159018}> = ({ onSuccess, onToggleForm }) => {
+const RegisterForm: React.FC<RegisterFormProps key={159018}> = ({ onSuccess, onToggleForm}) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     confirmPassword: '',
-    username: '',
+    username: ''
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { register } = useAuth();
+  const { register} = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement key={553350}>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+    const { name, value} = e.target;
+    setFormData(prev => ({ ...prev, [name]: value}));};
 
   const validateForm = () => {
     if (!formData.email || !formData.password || !formData.username) {
       setError('All fields are required');
-      return false;
-    }
+      return false;}
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
-      return false;
-    }
+      return false;}
     if (formData.password.length < 8) {
       setError('Password must be at least 8 characters long');
-      return false;
-    }
-    return true;
-  };
+      return false;}
+    return true;};
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,20 +42,17 @@ const RegisterForm: React.FC<RegisterFormProps key={159018}> = ({ onSuccess, onT
     setIsLoading(true);
     try {
       await register(formData.email, formData.password, formData.username);
-      onSuccess?.();
-    } catch (err) {
-      setError('Registration failed. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
+      onSuccess?.();} catch (err) {
+      setError('Registration failed. Please try again.');} finally {
+      setIsLoading(false);}
   };
 
   return (
     <motion.div;
-      animate={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 0}}
       className="w-full max-w-md mx-auto"
-      exit={{ opacity: 0, y: -20 }}
-      initial={{ opacity: 0, y: 20 }}
+      exit={{ opacity: 0, y: -20}}
+      initial={{ opacity: 0, y: 20}}
      key={315589}>
       <form className="space-y-6" onSubmit={handleSubmit} key={229713}>
         <div key={241917}>
@@ -142,9 +133,9 @@ const RegisterForm: React.FC<RegisterFormProps key={159018}> = ({ onSuccess, onT
 
         {error && (
           <motion.p;
-            animate={{ opacity: 1 }}
+            animate={{ opacity: 1}}
             className="text-sm text-red-600 dark:text-red-400"
-            initial={{ opacity: 0 }}
+            initial={{ opacity: 0}}
            key={802426}>
             {error}
           </motion.p>
@@ -193,7 +184,9 @@ const RegisterForm: React.FC<RegisterFormProps key={159018}> = ({ onSuccess, onT
         </p>
       </form>
     </motion.div>
-  );
-};
+  );};
 
 export default React.memo(RegisterForm);
+
+
+

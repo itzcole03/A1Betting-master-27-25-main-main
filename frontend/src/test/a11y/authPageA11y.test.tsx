@@ -1,11 +1,11 @@
-// betaTest4/src/test/a11y/authPageA11y.test.tsx;
+﻿// betaTest4/src/test/a11y/authPageA11y.test.tsx;
 
-import React from 'react.ts';
-import { render, act } from '@testing-library/react.ts';
-import { axe, toHaveNoViolations } from 'jest-axe.ts';
-import AuthPage from '@/pages/AuthPage.ts';
-import { MemoryRouter } from 'react-router-dom.ts'; // Needed because AuthPage uses useNavigate;
-import { initializeUnifiedConfig } from '@/core/UnifiedConfig.ts';
+import React from 'react';
+import { render, act} from '@testing-library/react';
+import { axe, toHaveNoViolations} from 'jest-axe';
+import AuthPage from '@/pages/AuthPage';
+import { MemoryRouter} from 'react-router-dom'; // Needed because AuthPage uses useNavigate;
+import { initializeUnifiedConfig} from '@/core/UnifiedConfig';
 
 // Mock UnifiedConfig to always provide a config object;
 jest.mock('../../core/UnifiedConfig', () => {
@@ -17,62 +17,57 @@ jest.mock('../../core/UnifiedConfig', () => {
     config: '/api/config',
     news: '/api/news',
     sentiment: '/api/sentiment',
-    live: '/api/live',
+    live: '/api/live'
   };
   const config = {
     appName: 'Test App',
     version: '1.0.0',
-    features: {},
+    features: Record<string, any>,
     apiBaseUrl: 'http://localhost:8000',
     sentryDsn: '',
     websocketUrl: 'ws://localhost:8080',
-    getApiEndpoint: (key: string) => (apiEndpoints as Record<string, string key={248182}>)[key] || '',
+    getApiEndpoint: (key: string) => (apiEndpoints as Record<string, string key={248182}>)[key] || ''
   };
   return {
     ...jest.requireActual('../../core/UnifiedConfig'),
     initializeUnifiedConfig: jest.fn(() => Promise.resolve(config)),
     fetchAppConfig: jest.fn(() => Promise.resolve(config)),
     getInitializedUnifiedConfig: jest.fn(() => config),
-    globalUnifiedConfig: config,
-  };
-});
+    globalUnifiedConfig: config
+  }});
 
 expect.extend(toHaveNoViolations);
 
 beforeAll(async () => {
   await initializeUnifiedConfig();
   jest.spyOn(realAuthServiceModule.authService, 'login').mockResolvedValue({
-    user: { id: 'u1', email: 'test@example.com', username: 'testuser' },
-    token: 'mock-token',
+    user: { id: 'u1', email: 'test@example.com', username: 'testuser'},
+    token: 'mock-token'
   });
-  jest.spyOn(realAuthServiceModule.authService, 'logout').mockResolvedValue(undefined);
-});
+  jest.spyOn(realAuthServiceModule.authService, 'logout').mockResolvedValue(undefined);});
 
 describe('AuthPage Accessibility', () => {
   it('should not have any automatically detectable accessibility issues', async () => {
-    const { container } = render(
+    const { container} = render(
       <MemoryRouter key={316350}>
         <AuthPage / key={563999}>
       </MemoryRouter>
     );
 
-    expect(results).toHaveNoViolations();
-  });
-});
+    expect(results).toHaveNoViolations();});});
 
 describe('AuthPage Accessibility Tests', () => {
   it('AuthPage should have no accessibility violations on initial render', async () => {
-    const { container } = render(
+    const { container} = render(
       <MemoryRouter key={316350}>
         <AuthPage / key={563999}>
       </MemoryRouter>
     );
 
-    expect(results).toHaveNoViolations();
-  });
+    expect(results).toHaveNoViolations();});
 
   it('AuthPage should have no accessibility violations after form interaction (e.g., error messages shown)', async () => {
-    const { container, getByRole } = render(
+    const { container, getByRole} = render(
       <MemoryRouter key={316350}>
         <AuthPage / key={563999}>
       </MemoryRouter>
@@ -80,9 +75,10 @@ describe('AuthPage Accessibility Tests', () => {
     // Simulate form submit with empty fields to trigger error;
 
     await act(async () => {
-      submitBtn.click();
-    });
+      submitBtn.click();});
 
-    expect(results).toHaveNoViolations();
-  });
-});
+    expect(results).toHaveNoViolations();});});
+
+
+
+

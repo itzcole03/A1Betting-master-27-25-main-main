@@ -1,8 +1,8 @@
-import React, { useState, useEffect  } from 'react.ts';
+﻿import React, { useState, useEffect} from 'react'
 
 export const ConnectionTest: React.FC = () => {
   const [status, setStatus] = useState<string key={278855}>("Testing...");
-  const [details, setDetails] = useState<any key={295429}>({});
+  const [details, setDetails] = useState<any key={295429}>(Record<string, any>);
 
   const isCloudEnvironment =
     window.location.protocol === "https:" &&
@@ -17,21 +17,20 @@ export const ConnectionTest: React.FC = () => {
         apiUrl: "Mock Service (HTTPS Cloud Environment)",
         mock_accuracy: "96.5%",
         note: "Using realistic demo data in cloud preview",
-        timestamp: new Date().toISOString(),
+        timestamp: new Date().toISOString()
       });
-      return;
-    }
+      return}
 
     try {
       // console statement removed
       setStatus("Connecting...");
-      setDetails({ apiUrl, timestamp: new Date().toISOString() });
+      setDetails({ apiUrl, timestamp: new Date().toISOString()});
 
       const response = await fetch(`${apiUrl}/health`, {
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
-        },
+          "Content-Type": "application/json"
+        }
       });
 
       if (response.ok) {
@@ -41,33 +40,29 @@ export const ConnectionTest: React.FC = () => {
           apiUrl,
           status: response.status,
           data: data,
-          timestamp: new Date().toISOString(),
-        });
-      } else {
+          timestamp: new Date().toISOString()
+        })} else {
         setStatus(`❌ HTTP ${response.status}: ${response.statusText}`);
         setDetails({
           apiUrl,
           status: response.status,
           statusText: response.statusText,
-          timestamp: new Date().toISOString(),
-        });
-      }
+          timestamp: new Date().toISOString()
+        })}
     } catch (error: any) {
       setStatus(`❌ Connection failed: ${error.message}`);
       setDetails({
         apiUrl,
         error: error.message,
-        timestamp: new Date().toISOString(),
+        timestamp: new Date().toISOString()
       });
-      // console statement removed
-    }
+      // console statement removed}
   };
 
   useEffect(() => {
     testConnection();
     const interval = setInterval(testConnection, 10000); // Test every 10 seconds;
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)}, [0]);
 
   return (
     <div className="fixed top-4 right-4 bg-black/90 text-white p-4 rounded-lg border border-cyan-500/30 backdrop-blur-lg z-50 max-w-md" key={709964}>
@@ -100,7 +95,11 @@ export const ConnectionTest: React.FC = () => {
         {isCloudEnvironment ? "Refresh Status" : "Test Now"}
       </button>
     </div>
-  );
-};
+  )};
 
 export default ConnectionTest;
+
+
+
+
+`

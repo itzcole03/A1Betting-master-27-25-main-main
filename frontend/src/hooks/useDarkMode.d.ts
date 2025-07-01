@@ -1,4 +1,4 @@
-export declare const useDarkMode: () => {
-    isDarkMode: any;
-    toggleDarkMode: () => void;
-};
+﻿export declare const useDarkMode: () => {,`n  isDarkMode: any;,`n  toggleDarkMode: () => void};
+
+
+`

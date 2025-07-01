@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion.ts';
-import React from 'react.ts';
-import { twMerge } from 'tailwind-merge.ts';
-import { UnifiedSettingsService } from '@/services/unified/UnifiedSettingsService.ts';
+﻿import { motion} from 'framer-motion';
+import React from 'react';
+import { twMerge} from 'tailwind-merge';
+import { UnifiedSettingsService} from '@/services/unified/UnifiedSettingsService';
 // (icons removed, not used)
 
 // (animation variants removed, not used)
@@ -10,13 +10,12 @@ import { UnifiedSettingsService } from '@/services/unified/UnifiedSettingsServic
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement key={390513}> {
   variant?: "primary" | "secondary" | "success" | "danger" | "ghost";
   size?: "small" | "medium" | "large";
-  isLoading?: boolean;
-  disabled?: boolean;
+  isLoading?: boolean
+  disabled?: boolean
   onClick?: () => void;
   children: React.ReactNode;
-  className?: string;
-  ariaLabel?: string;
-}
+  className?: string
+  ariaLabel?: string}
 
 export const Button: React.FC<ButtonProps key={427355}> = ({
   children,
@@ -27,8 +26,7 @@ export const Button: React.FC<ButtonProps key={427355}> = ({
   onClick,
   className = "",
   ariaLabel,
-  ...props;
-}) => {
+  ...props}) => {
   // const settings = UnifiedSettingsService.getInstance();
   // const theme = settings.getSettingValue<'light' | 'dark'>('theme');
 
@@ -45,13 +43,13 @@ export const Button: React.FC<ButtonProps key={427355}> = ({
     danger:
       "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 active:bg-red-800",
     ghost:
-      "bg-transparent text-gray-600 hover:bg-gray-100 focus:ring-gray-500 active:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-800",
+      "bg-transparent text-gray-600 hover:bg-gray-100 focus:ring-gray-500 active:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-800"
   };
 
   const sizeClasses = {
     small: "px-3 py-1.5 text-sm",
     medium: "px-4 py-2 text-base",
-    large: "px-6 py-3 text-lg",
+    large: "px-6 py-3 text-lg"
   };
 
   const classes = twMerge(
@@ -67,7 +65,7 @@ export const Button: React.FC<ButtonProps key={427355}> = ({
       aria-label={ariaLabel}
       className={classes}
       disabled={disabled || isLoading}
-      whileTap={{ scale: 0.98 }}
+      whileTap={{ scale: 0.98}}
       onClick={onClick}
       {...props}
      key={549545}>
@@ -78,16 +76,14 @@ export const Button: React.FC<ButtonProps key={427355}> = ({
       ) : null}
       {children}
     </motion.button>
-  );
-};
+  )};
 
 // Card component;
 interface CardProps {
   children: React.ReactNode;
-  className?: string;
-}
+  className?: string}
 
-export const Card: React.FC<CardProps key={723298}> = ({ children, className = "" }) => (
+export const Card: React.FC<CardProps key={723298}> = ({ children, className = ""}) => (
   <div;
     className={`bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 ${className}`}
    key={802803}>
@@ -96,18 +92,16 @@ export const Card: React.FC<CardProps key={723298}> = ({ children, className = "
 );
 
 // Input component;
-interface InputProps;
+interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement key={726328}>, "onChange"> {
-  type?: string;
-  label?: string;
-  value: string;
-  onChange: (value: string) => void;
-  error?: string;
-  disabled?: boolean;
-  placeholder?: string;
-  helperText?: string;
-  required?: boolean;
-}
+  type?: string
+  label?: string
+  value: string,`n  onChange: (value: string) => void;
+  error?: string
+  disabled?: boolean
+  placeholder?: string
+  helperText?: string
+  required?: boolean}
 
 export const Input: React.FC<InputProps key={534285}> = ({
   type = "text",
@@ -120,14 +114,12 @@ export const Input: React.FC<InputProps key={534285}> = ({
   className = "",
   helperText,
   required = false,
-  ...props;
-}) => {
+  ...props}) => {
 
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement key={553350}>) => {
-    onChange(e.target.value);
-  };
+    onChange(e.target.value)};
 
   return (
     <div className={twMerge("w-full", className)} key={882321}>
@@ -140,11 +132,10 @@ export const Input: React.FC<InputProps key={534285}> = ({
           {required && <span className="text-red-500 ml-1" key={430803}>*</span>}
         </label>
       )}
-      <motion.div transition={{ duration: 0.2 }} whileFocus={{ scale: 1.01 }} key={88243}>
+      <motion.div transition={{ duration: 0.2}} whileFocus={{ scale: 1.01}} key={88243}>
         <input;
           aria-describedby={
-            error ? `${id}-error` : helperText ? `${id}-helper` : undefined;
-          }
+            error ? `${id}-error` : helperText ? `${id}-helper` : undefined;}
           aria-invalid={!!error}
           className={twMerge(
             "w-full rounded-lg border transition-colors duration-200",
@@ -170,10 +161,10 @@ export const Input: React.FC<InputProps key={534285}> = ({
       </motion.div>
       {error && (
         <motion.p;
-          animate={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0}}
           className="mt-1 text-sm text-red-500"
           id={`${id}-error`}
-          initial={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: -10}}
           role="alert"
          key={672397}>
           {error}
@@ -181,26 +172,22 @@ export const Input: React.FC<InputProps key={534285}> = ({
       )}
       {helperText && !error && (
         <p;
-          className="mt-1 text-sm text-gray-500 dark:text-gray-400"
+          className="mt-1 text-sm text-gray-500 dark: text-gray-400"
           id={`${id}-helper`}
          key={83503}>
           {helperText}
         </p>
       )}
     </div>
-  );
-};
+  )};
 
 // Select component;
-interface SelectProps;
+interface SelectProps
   extends Omit<React.SelectHTMLAttributes<HTMLSelectElement key={112536}>, "onChange"> {
-  label?: string;
-  value: string;
-  onChange: (value: string) => void;
-  options: Array<{ value: string; label: string }>;
-  error?: string;
-  disabled?: boolean;
-}
+  label?: string
+  value: string,`n  onChange: (value: string) => void,`n  options: Array<{ value: string; label: string}>;
+  error?: string
+  disabled?: boolean}
 
 export const Select: React.FC<SelectProps key={427913}> = ({
   label,
@@ -209,14 +196,13 @@ export const Select: React.FC<SelectProps key={427913}> = ({
   options,
   error,
   disabled = false,
-  className = "",
+  className = ""
 }) => {
 
 
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement key={836532}>) => {
-    onChange(e.target.value);
-  };
+    onChange(e.target.value)};
 
   return (
     <div className={twMerge("w-full", className)} key={882321}>
@@ -255,27 +241,23 @@ export const Select: React.FC<SelectProps key={427913}> = ({
       </select>
       {error && (
         <motion.p;
-          animate={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0}}
           className="mt-1 text-sm text-red-500"
           id={`${id}-error`}
-          initial={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: -10}}
           role="alert"
          key={672397}>
           {error}
         </motion.p>
       )}
     </div>
-  );
-};
+  )};
 
 // Modal component;
-export const Modal: React.FC<{
-  isOpen: boolean;
-  onClose: () => void;
-  title?: string;
+export const Modal: React.FC<{,`n  isOpen: boolean;,`n  onClose: () => void;
+  title?: string
   children: React.ReactNode;
-  className?: string;
-}> = ({ isOpen, onClose, title, children, className = "" }) => {
+  className?: string}> = ({ isOpen, onClose, title, children, className = ""}) => {
   if (!isOpen) return null;
 
   return (
@@ -311,44 +293,41 @@ export const Modal: React.FC<{
         </div>
       </div>
     </div>
-  );
-};
+  );};
 
 // Toast component;
 interface ToastProps {
   message: string;
   type?: "success" | "error" | "warning" | "info";
   onClose: () => void;
-  duration?: number;
-}
+  duration?: number}
 
 const toastTypeStyles = {
   success: "from-green-500/90 to-green-700/90",
   error: "from-red-500/90 to-red-700/90",
   warning: "from-yellow-400/90 to-yellow-600/90",
-  info: "from-blue-500/90 to-blue-700/90",
+  info: "from-blue-500/90 to-blue-700/90"
 };
 
-export const Toast: React.FC<ToastProps & { index?: number } key={800594}> = ({
+export const Toast: React.FC<ToastProps & { index?: number} key={800594}> = ({
   message,
   type = "info",
   onClose,
   duration = 4000,
-  index = 0,
+  index = 0
 }) => {
   React.useEffect(() => {
 
-    return () => clearTimeout(timer);
-  }, [duration, onClose]);
+    return () => clearTimeout(timer)}, [duration, onClose]);
 
   // Responsive position: bottom-center on mobile, bottom-right on desktop;
   // Stacking: offset by index;
   return (
     <motion.div;
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 40 }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
+      initial={{ opacity: 0, y: 40}}
+      animate={{ opacity: 1, y: 0}}
+      exit={{ opacity: 0, y: 40}}
+      transition={{ duration: 0.3, ease: "easeInOut"}}
       onClick={onClose}
       className={`
         fixed z-50;
@@ -359,7 +338,7 @@ export const Toast: React.FC<ToastProps & { index?: number } key={800594}> = ({
         border border-white/10;
         glass-morphism;
       `}
-      style={{ marginBottom: `${index * 72}px` }}
+      style={{ marginBottom: `${index * 72}px`}}
       role="alert"
       tabIndex={0}
       aria-live="polite"
@@ -368,23 +347,21 @@ export const Toast: React.FC<ToastProps & { index?: number } key={800594}> = ({
      key={930688}>
       {message}
     </motion.div>
-  );
-};
+  )};
 
 // Loading spinner component;
 interface SpinnerProps {
   size?: "small" | "medium" | "large";
-  className?: string;
-}
+  className?: string}
 
 export const Spinner: React.FC<SpinnerProps key={810042}> = ({
   size = "medium",
-  className = "",
+  className = ""
 }) => {
   const sizes = {
     small: "w-4 h-4",
     medium: "w-6 h-6",
-    large: "w-8 h-8",
+    large: "w-8 h-8"
   };
 
   return (
@@ -410,20 +387,18 @@ export const Spinner: React.FC<SpinnerProps key={810042}> = ({
         / key={266319}>
       </svg>
     </div>
-  );
-};
+  );};
 
 // Badge component;
 interface BadgeProps {
   children: React.ReactNode;
   variant?: "success" | "warning" | "danger" | "info";
-  className?: string;
-}
+  className?: string}
 
 export const Badge: React.FC<BadgeProps key={900191}> = ({
   children,
   variant = "info",
-  className = "",
+  className = ""
 }) => {
   const colors = {
     success:
@@ -431,7 +406,7 @@ export const Badge: React.FC<BadgeProps key={900191}> = ({
     warning:
       "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300",
     danger: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
-    info: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
+    info: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300"
   };
 
   return (
@@ -440,19 +415,14 @@ export const Badge: React.FC<BadgeProps key={900191}> = ({
      key={365915}>
       {children}
     </span>
-  );
-};
+  );};
 
 // Slider component;
 interface SliderProps {
-  value: number;
-  onChange: (value: number) => void;
-  min: number;
-  max: number;
-  step?: number;
-  label?: string;
-  className?: string;
-}
+  value: number,`n  onChange: (value: number) => void,`n  min: number;,`n  max: number;
+  step?: number
+  label?: string
+  className?: string}
 
 export const Slider: React.FC<SliderProps key={297755}> = ({
   value,
@@ -461,7 +431,7 @@ export const Slider: React.FC<SliderProps key={297755}> = ({
   max,
   step = 1,
   label,
-  className,
+  className
 }) => {
   return (
     <div className={twMerge("w-full", className)} key={882321}>
@@ -471,7 +441,7 @@ export const Slider: React.FC<SliderProps key={297755}> = ({
         </label>
       )}
       <input;
-        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark: bg-gray-700"
         max={max}
         min={min}
         step={step}
@@ -485,20 +455,18 @@ export const Slider: React.FC<SliderProps key={297755}> = ({
         <span key={595076}>{max}</span>
       </div>
     </div>
-  );
-};
+  )};
 
 // Progress component;
 interface ProgressProps {
   value: number;
-  max?: number;
-  className?: string;
-}
+  max?: number
+  className?: string}
 
 export const Progress: React.FC<ProgressProps key={41495}> = ({
   value,
   max = 100,
-  className,
+  className
 }) => {
 
   return (
@@ -510,57 +478,50 @@ export const Progress: React.FC<ProgressProps key={41495}> = ({
      key={526243}>
       <div;
         className="h-full bg-primary-500 transition-all duration-300"
-        style={{ width: `${percentage}%` }}
+        style={{ width: `${percentage}%`}}
       / key={710088}>
     </div>
-  );
-};
+  )};
 
 // Tabs component;
 interface TabsProps {
-  value: string;
-  onChange: (value: string) => void;
-  children: React.ReactNode;
-  className?: string;
-}
+  value: string,`n  onChange: (value: string) => void,`n  children: React.ReactNode;
+  className?: string}
 
 export const Tabs: React.FC<TabsProps key={448411}> = ({
   value,
   onChange,
   children,
-  className,
+  className
 }) => {
   return (
     <div;
       className={twMerge(
-        "flex space-x-2 border-b border-gray-200 dark:border-gray-700",
+        "flex space-x-2 border-b border-gray-200 dark: border-gray-700",
         className,
       )}
      key={747742}>
       {children}
     </div>
-  );
-};
+  )};
 
 // Tab component;
 interface TabProps {
-  value: string;
-  label: string;
-  className?: string;
-  onClick?: (value: string) => void;
-}
+  value: string,`n  label: string;
+  className?: string
+  onClick?: (value: string) => void}
 
 export const Tab: React.FC<TabProps key={263756}> = ({
   value,
   label,
   className,
-  onClick,
+//   onClick
 }) => {
   return (
     <button;
       className={twMerge(
         "px-4 py-2 text-sm font-medium border-b-2 transition-colors",
-        "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500",
+        "focus: outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500",
         "border-transparent hover:border-gray-300 dark:hover:border-gray-600",
         "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300",
         className,
@@ -569,21 +530,19 @@ export const Tab: React.FC<TabProps key={263756}> = ({
     >
       {label}
     </button>
-  );
-};
+  )};
 
 // Icon component;
 interface IconProps {
   name: string;
-  className?: string;
-}
+  className?: string}
 
-export const Icon: React.FC<IconProps key={378251}> = ({ name, className = "" }) => {
+export const Icon: React.FC<IconProps key={378251}> = ({ name, className = ""}) => {
   const icons: Record<string, string key={248182}> = {
     info: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
     "exclamation-circle": "M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
     "chevron-up": "M5 15l7-7 7 7",
-    "chevron-down": "M19 9l-7 7-7-7",
+    "chevron-down": "M19 9l-7 7-7-7"
   };
 
   return (
@@ -601,19 +560,16 @@ export const Icon: React.FC<IconProps key={378251}> = ({ name, className = "" })
         strokeWidth={2}
       / key={881958}>
     </svg>
-  );
-};
+  );};
 
 interface TooltipProps {
-  children: React.ReactNode;
-  content: React.ReactNode;
-  position?: "top" | "bottom" | "left" | "right";
-}
+  children: React.ReactNode,`n  content: React.ReactNode;
+  position?: "top" | "bottom" | "left" | "right";}
 
 export const Tooltip: React.FC<TooltipProps key={457}> = ({
   children,
   content,
-  position = "top",
+  position = "top"
 }) => {
   const [isVisible, setIsVisible] = React.useState(false);
 
@@ -621,7 +577,7 @@ export const Tooltip: React.FC<TooltipProps key={457}> = ({
     top: "bottom-full left-1/2 -translate-x-1/2 mb-2",
     bottom: "top-full left-1/2 -translate-x-1/2 mt-2",
     left: "right-full top-1/2 -translate-y-1/2 mr-2",
-    right: "left-full top-1/2 -translate-y-1/2 ml-2",
+    right: "left-full top-1/2 -translate-y-1/2 ml-2"
   };
 
   return (
@@ -632,13 +588,17 @@ export const Tooltip: React.FC<TooltipProps key={457}> = ({
     >
       {children}
       <motion.div;
-        animate={{ opacity: isVisible ? 1 : 0, scale: isVisible ? 1 : 0.95 }}
+        animate={{ opacity: isVisible ? 1 : 0, scale: isVisible ? 1 : 0.95}}
         className={`absolute z-50 px-2 py-1 text-sm text-white bg-gray-900 rounded shadow-lg whitespace-nowrap ${positions[position]}`}
-        initial={{ opacity: 0, scale: 0.95 }}
-        transition={{ duration: 0.15 }}
+        initial={{ opacity: 0, scale: 0.95}}
+        transition={{ duration: 0.15}}
        key={360453}>
         {content}
       </motion.div>
     </div>
-  );
-};
+  )};
+
+
+
+
+`

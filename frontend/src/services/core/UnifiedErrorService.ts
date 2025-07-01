@@ -1,17 +1,15 @@
-import { UnifiedLogger } from '@/core/UnifiedLogger.ts';
-import { UnifiedServiceRegistry } from '@/unified/UnifiedServiceRegistry.ts';
-import { UnifiedNotificationService } from './UnifiedNotificationService.ts';
+﻿import { UnifiedLogger} from '@/core/UnifiedLogger';
+import { UnifiedServiceRegistry} from '@/unified/UnifiedServiceRegistry';
+import { UnifiedNotificationService} from './UnifiedNotificationService';
 
 export interface ErrorContext {
-  code: string;
-  message: string;
-  details?: any;
+  code: string,`n  message: string;
+  details?: any
   timestamp: number;
-  component?: string;
-  action?: string;
-  user?: string;
-  stack?: string;
-}
+  component?: string
+  action?: string
+  user?: string
+  stack?: string}
 
 export class UnifiedErrorService {
   private static instance: UnifiedErrorService;
@@ -24,31 +22,25 @@ export class UnifiedErrorService {
     this.logger = UnifiedLogger.getInstance();
     this.notificationService = UnifiedNotificationService.getInstance(registry);
     this.errorCount = new Map();
-    this.startErrorCountReset();
-  }
+    this.startErrorCountReset();}
 
   public static getInstance(registry: UnifiedServiceRegistry): UnifiedErrorService {
     if (!UnifiedErrorService.instance) {
-      UnifiedErrorService.instance = new UnifiedErrorService(registry);
-    }
-    return UnifiedErrorService.instance;
-  }
+      UnifiedErrorService.instance = new UnifiedErrorService(registry)}
+    return UnifiedErrorService.instance}
 
   private startErrorCountReset(): void {
     setInterval(() => {
-      this.errorCount.clear();
-    }, 60000); // Reset every minute;
-  }
+      this.errorCount.clear();}, 60000); // Reset every minute;}
 
   public handleError(error: unknown, component: string, action: string): void {
-    const errorContext: ErrorContext = {
-      code: this.getErrorCode(error),
+    const errorContext: ErrorContext = {,`n  code: this.getErrorCode(error),
       message: this.getErrorMessage(error),
       details: this.getErrorDetails(error),
       timestamp: Date.now(),
       component,
       action,
-      stack: error instanceof Error ? error.stack : undefined,
+      stack: error instanceof Error ? error.stack : undefined
     };
 
     // Log the error;
@@ -70,45 +62,40 @@ export class UnifiedErrorService {
         title: 'High Error Rate Detected',
         message: `Component: ${component}, Action: ${action}, Count: ${currentCount}`,
         severity: 'high',
-        timestamp: Date.now(),
-      });
-    }
+        timestamp: Date.now()
+      })}
   }
 
   private getErrorCode(error: unknown): string {
     if (error instanceof Error) {
-      return error.name;
-    }
-    return 'UNKNOWN_ERROR';
-  }
+      return error.name}
+    return 'UNKNOWN_ERROR'}
 
   private getErrorMessage(error: unknown): string {
     if (error instanceof Error) {
-      return error.message;
-    }
-    return String(error);
-  }
+      return error.message}
+    return String(error)}
 
   private getErrorDetails(error: unknown): any {
     if (error instanceof Error) {
       return {
         name: error.name,
         message: error.message,
-        stack: error.stack,
-      };
-    }
-    return { error: String(error) };
-  }
+        stack: error.stack
+      }}
+    return { error: String(error)}}
 
   public getErrorCount(component: string, action: string): number {
-    return this.errorCount.get(`${component}:${action}`) || 0;
-  }
+    return this.errorCount.get(`${component}:${action}`) || 0}
 
   public resetErrorCount(component: string, action: string): void {
-    this.errorCount.delete(`${component}:${action}`);
-  }
+    this.errorCount.delete(`${component}:${action}`)}
 
   public clearAllErrorCounts(): void {
-    this.errorCount.clear();
-  }
+    this.errorCount.clear();}
 }
+
+
+
+
+`

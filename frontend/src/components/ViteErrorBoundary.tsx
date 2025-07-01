@@ -1,91 +1,75 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+﻿import React, { Component, ErrorInfo, ReactNode} from 'react';
 
 interface Props {
-  children: ReactNode;
-}
+  children: ReactNode}
 
 interface State {
-  hasError: boolean;
-  error: Error | null;
-  errorInfo: ErrorInfo | null;
-}
+  hasError: boolean,`n  error: Error | null;,`n  errorInfo: ErrorInfo | null}
 
 class ViteErrorBoundary extends Component<Props, State> {
-  public state: State = {
-    hasError: false,
+  public state: State = {,`n  hasError: false,
     error: null,
-    errorInfo: null,
+    errorInfo: null
   };
 
   public static getDerivedStateFromError(error: Error): State {
     return {
       hasError: true,
       error,
-      errorInfo: null,
-    };
-  }
+      errorInfo: null
+    }}
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('Uncaught error:', error, errorInfo);
     this.setState({
       error,
-      errorInfo,
-    });
-  }
+//       errorInfo
+    })}
 
   public render() {
     if (this.state.hasError) {
       return (
-        <div
-          style={{
+        <div style={{
             padding: '20px',
             margin: '20px',
             border: '2px solid #ef4444',
             borderRadius: '12px',
             backgroundColor: 'rgba(239, 68, 68, 0.1)',
             color: '#ef4444',
-            fontFamily: "'Inter', system-ui, sans-serif",
-          }}
-        >
-          <h2
-            style={{
+            fontFamily: "'Inter', system-ui, sans-serif"
+          }}>`n        >
+          <h2 style={{
               margin: '0 0 16px 0',
               fontSize: '1.5rem',
-              fontWeight: 'bold',
-            }}
-          >
+              fontWeight: 'bold'
+            }}>`n          >
             Something went wrong
           </h2>
-          <p style={{ margin: '0 0 16px 0' }}>
+          <p style={{ margin: '0 0 16px 0'}}>
             An error occurred in the application. Please refresh the page to continue.
           </p>
-          <details style={{ marginTop: '16px' }}>
-            <summary
-              style={{
+          <details style={{ marginTop: '16px'}}>
+            <summary style={{
                 cursor: 'pointer',
                 marginBottom: '8px',
-                fontWeight: '600',
-              }}
-            >
+                fontWeight: '600'
+              }}>`n            >
               Error details (click to expand)
             </summary>
-            <pre
-              style={{
+            <pre style={{
                 backgroundColor: 'rgba(0, 0, 0, 0.2)',
                 padding: '12px',
                 borderRadius: '8px',
                 fontSize: '12px',
                 overflow: 'auto',
                 whiteSpace: 'pre-wrap',
-                wordBreak: 'break-word',
-              }}
-            >
+                wordBreak: 'break-word'
+              }}>`n            >
               {this.state.error && this.state.error.toString()}
               {this.state.errorInfo && this.state.errorInfo.componentStack}
             </pre>
           </details>
-          <button
-            onClick={() => window.location.reload()}
+          <button onClick={() => window.location.reload()}
             style={{
               marginTop: '16px',
               padding: '8px 16px',
@@ -94,17 +78,19 @@ class ViteErrorBoundary extends Component<Props, State> {
               border: 'none',
               borderRadius: '6px',
               cursor: 'pointer',
-              fontWeight: '600',
+              fontWeight: '600'
             }}
           >
             Reload Page
           </button>
         </div>
-      );
-    }
+      )}
 
-    return this.props.children;
-  }
+    return this.props.children}
 }
 
 export default ViteErrorBoundary;
+
+
+
+`

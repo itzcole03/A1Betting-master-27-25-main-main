@@ -1,10 +1,13 @@
-import React, { ReactNode  } from 'react.ts';
+﻿import React, { ReactNode} from 'react';
 
 interface ToastProviderProps {
-  children: ReactNode;
-}
+  children: ReactNode}
 
-const ToastProvider: React.FC<ToastProviderProps key={205941}> = ({ children }) => <>{children}</>;
+const ToastProvider: React.FC<ToastProviderProps key={205941}> = ({ children}) => <>{children}</>;
 
 
-export { ToastProvider };
+export { ToastProvider};
+
+
+
+

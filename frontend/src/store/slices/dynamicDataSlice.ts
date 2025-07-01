@@ -1,35 +1,21 @@
-import { newsService } from '@/services/newsService.ts';
-import type { OddsData } from '@/types/betting.ts';
-import type { DailyFantasyProjection } from '@/types/fantasy.ts';
-import type { ESPNHeadline } from '@/types/news.ts';
-import type { SocialSentimentData } from '@/types/sentiment.ts';
-import type { AppStore } from '@/useAppStore.ts';
-import type { StateCreator } from 'zustand.ts';
+﻿import { newsService} from '@/services/newsService';
+import type { OddsData} from '@/types/betting';
+import type { DailyFantasyProjection} from '@/types/fantasy';
+import type { ESPNHeadline} from '@/types/news';
+import type { SocialSentimentData} from '@/types/sentiment';
+import type { AppStore} from '@/useAppStore';
+import type { StateCreator} from 'zustand';
 // ActiveSubscription is not defined in types/webSocket.ts, so define it locally here for now;
 export type ActiveSubscription = {
-  feedName: string;
-  subscribedAt: string;
+  feedName: string,`n  subscribedAt: string;
   // Allow additional properties, but avoid 'any'.
-  [key: string]: unknown;
-};
+  [key: string]: unknown};
 
 export interface DynamicDataSlice {
   sentiments: Record<string, SocialSentimentData>; // Keyed by topic/player name;
-  headlines: ESPNHeadline[];
-  dailyFantasyProjections: DailyFantasyProjection[];
-  liveOdds: Record<string, OddsData>; // Keyed by propId or marketId;
-  activeSubscriptions: ActiveSubscription[];
-  isLoadingSentiments: boolean;
-  isLoadingHeadlines: boolean;
-  isLoadingFantasyProjections: boolean;
-  error: string | null; // Shared error for this slice;
-  fetchSentiments: (topic: string) => Promise<void>;
-  fetchHeadlines: () => Promise<void>;
-  fetchDailyFantasyProjections: (date: string, league?: string) => Promise<void>;
-  updateLiveOdd: (odd: OddsData) => void; // For WebSocket updates;
-  addSubscription: (subscription: ActiveSubscription) => void;
-  removeSubscription: (feedName: string) => void;
-}
+  headlines: ESPNHeadline[0],`n  dailyFantasyProjections: DailyFantasyProjection[0];,`n  liveOdds: Record<string, OddsData>; // Keyed by propId or marketId;
+  activeSubscriptions: ActiveSubscription[0],`n  isLoadingSentiments: boolean;,`n  isLoadingHeadlines: boolean,`n  isLoadingFantasyProjections: boolean;,`n  error: string | null; // Shared error for this slice;,`n  fetchSentiments: (topic: string) => Promise<void>,`n  fetchHeadlines: () => Promise<void>;,`n  fetchDailyFantasyProjections: (date: string, league?: string) => Promise<void>;
+  updateLiveOdd: (odd: OddsData) => void; // For WebSocket updates;,`n  addSubscription: (subscription: ActiveSubscription) => void,`n  removeSubscription: (feedName: string) => void}
 
 export const initialDynamicDataState: Pick<
   DynamicDataSlice,
@@ -43,82 +29,72 @@ export const initialDynamicDataState: Pick<
   | 'isLoadingFantasyProjections'
   | 'error'
 > = {
-  sentiments: {},
-  headlines: [],
-  dailyFantasyProjections: [],
-  liveOdds: {},
-  activeSubscriptions: [],
+  sentiments: Record<string, any>,
+  headlines: [0],
+  dailyFantasyProjections: [0],
+  liveOdds: Record<string, any>,
+  activeSubscriptions: [0],
   isLoadingSentiments: false,
   isLoadingHeadlines: false,
   isLoadingFantasyProjections: false,
-  error: null,
+  error: null
 };
 
-export const createDynamicDataSlice: StateCreator<AppStore, [], [], DynamicDataSlice> = (
+export const createDynamicDataSlice: StateCreator<AppStore, [0], [0], DynamicDataSlice> = (
   set,
-  get
+//   get
 ) => ({
   ...initialDynamicDataState,
   fetchSentiments: async topic => {
-    set({ isLoadingSentiments: true, error: null });
+    set({ isLoadingSentiments: true, error: null});
     try {
-
-      set((state: DynamicDataSlice) => ({
-        sentiments: { ...state.sentiments, [topic.toLowerCase()]: sentimentData },
-        isLoadingSentiments: false,
-      }));
-    } catch (e) {
-
-      set({ error: errorMsg, isLoadingSentiments: false });
+      set((state: DynamicDataSlice) => ({,`n  sentiments: { ...state.sentiments, [topic.toLowerCase()]: sentimentData},
+        isLoadingSentiments: false
+      }))} catch (e) {
+      set({ error: errorMsg, isLoadingSentiments: false});
       get().addToast({
         message: `Error fetching sentiment for ${topic}: ${errorMsg}`,
-        type: 'error',
-      });
-    }
+        type: 'error'
+      })}
   },
   fetchHeadlines: async () => {
-    set({ isLoadingHeadlines: true, error: null });
+    set({ isLoadingHeadlines: true, error: null});
     try {
       const headlines = await newsService.fetchHeadlines(); // Default source 'espn'
-      set({ headlines, isLoadingHeadlines: false });
-    } catch (e) {
-
-      set({ error: errorMsg, isLoadingHeadlines: false });
-      get().addToast({ message: `Error fetching headlines: ${errorMsg}`, type: 'error' });
-    }
+      set({ headlines, isLoadingHeadlines: false})} catch (e) {
+      set({ error: errorMsg, isLoadingHeadlines: false});
+      get().addToast({ message: `Error fetching headlines: ${errorMsg}`, type: 'error'})}
   },
   fetchDailyFantasyProjections: async (date, league) => {
-    set({ isLoadingFantasyProjections: true, error: null });
+    set({ isLoadingFantasyProjections: true, error: null});
     try {
-
-      set({ dailyFantasyProjections: projections, isLoadingFantasyProjections: false });
-    } catch (e) {
-
-      set({ error: errorMsg, isLoadingFantasyProjections: false });
+      set({ dailyFantasyProjections: projections, isLoadingFantasyProjections: false})} catch (e) {
+      set({ error: errorMsg, isLoadingFantasyProjections: false});
       get().addToast({
         message: `Error fetching Daily Fantasy Projections: ${errorMsg}`,
-        type: 'error',
-      });
-    }
+        type: 'error'
+      })}
   },
   updateLiveOdd: (odd: OddsData) => {
-    set((state: DynamicDataSlice) => ({
-      liveOdds: { ...state.liveOdds, [odd.event_id]: odd },
+    set((state: DynamicDataSlice) => ({,`n  liveOdds: { ...state.liveOdds, [odd.event_id]: odd}
     }));
     // Optionally, add a toast or log this update;
-    // get().addToast({ message: `Live odds updated for event ${odd.event_id}`, type: 'info' });
-  },
+    // get().addToast({ message: `Live odds updated for event ${odd.event_id}`, type: 'info'})},
   addSubscription: subscription => {
-    set((state: DynamicDataSlice) => ({
-      activeSubscriptions: [
-        ...state.activeSubscriptions.filter((s: ActiveSubscription) => s.feedName !== subscription.feedName),
+    set((state: DynamicDataSlice) => ({,`n  activeSubscriptions: [
+        ...state.activeSubscriptions.filter(
+          (s: ActiveSubscription) => s.feedName !== subscription.feedName
+        ),
         subscription,
-      ],
-    }));
-  },
+      ]
+    }))},
   removeSubscription: feedName => {
-    set((state: DynamicDataSlice) => ({
-      activeSubscriptions: state.activeSubscriptions.filter((s: ActiveSubscription) => s.feedName !== feedName),
-    }));
-  },
+    set((state: DynamicDataSlice) => ({,`n  activeSubscriptions: state.activeSubscriptions.filter(
+        (s: ActiveSubscription) => s.feedName !== feedName
+      )
+    }))}
 });
+
+
+
+`

@@ -1,13 +1,10 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface ModelStatus {
-    id: string;
-    name: string;
-    status: 'active' | 'training' | 'error';
-    confidence: number;
-    lastUpdate: string;
-}
+  id: string,`n  name: string;,`n  status: 'active' | 'training' | 'error',`n  confidence: number;,`n  lastUpdate: string}
 interface AdvancedMLDashboardProps {
-    models: ModelStatus[];
-}
+  models: ModelStatus[0]}
 export declare const AdvancedMLDashboard: React.FC<AdvancedMLDashboardProps>;
-export {};
+export Record<string, any>;
+
+
+`

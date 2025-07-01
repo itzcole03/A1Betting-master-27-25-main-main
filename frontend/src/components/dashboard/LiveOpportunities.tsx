@@ -1,5 +1,5 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+﻿import React, { useState, useEffect} from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
 import {
   TrendingUp,
   TrendingDown,
@@ -10,37 +10,20 @@ import {
   ChevronRight,
   Flame,
   Zap,
-  Eye,
-} from 'lucide-react.ts';
+//   Eye
+} from 'lucide-react';
 
 interface LiveOpportunity {
-  id: string;
-  game: string;
-  teams: {
-    home: string;
-    away: string;
-  };
-  prediction: string;
-  predictionType: "spread" | "total" | "moneyline" | "player_prop";
-  confidence: number;
-  odds: number;
-  expectedValue: number;
-  valueRating: "hot" | "warm" | "cool";
-  timeUntilGame: string;
-  currentLine: number;
-  recommendedLine: number;
-  edgePercentage: number;
-  bookmaker: string;
-  lastUpdated: Date;
-  volume?: number;
-  marketMovement?: "up" | "down" | "stable";
-}
+  id: string,`n  game: string;,`n  teams: {,`n  home: string;,`n  away: string};
+  prediction: string,`n  predictionType: "spread" | "total" | "moneyline" | "player_prop";,`n  confidence: number,`n  odds: number;,`n  expectedValue: number,`n  valueRating: "hot" | "warm" | "cool";,`n  timeUntilGame: string,`n  currentLine: number;,`n  recommendedLine: number,`n  edgePercentage: number;,`n  bookmaker: string,`n  lastUpdated: Date;
+  volume?: number
+  marketMovement?: "up" | "down" | "stable";}
 
-const mockOpportunities: LiveOpportunity[] = [
+const mockOpportunities: LiveOpportunity[0] = [
   {
     id: "1",
     game: "Lakers vs Warriors",
-    teams: { home: "Lakers", away: "Warriors" },
+    teams: { home: "Lakers", away: "Warriors"},
     prediction: "Over 235.5 Points",
     predictionType: "total",
     confidence: 94,
@@ -54,12 +37,12 @@ const mockOpportunities: LiveOpportunity[] = [
     bookmaker: "DraftKings",
     lastUpdated: new Date(),
     volume: 85000,
-    marketMovement: "up",
+    marketMovement: "up"
   },
   {
     id: "2",
     game: "Celtics vs Heat",
-    teams: { home: "Celtics", away: "Heat" },
+    teams: { home: "Celtics", away: "Heat"},
     prediction: "Celtics -5.5",
     predictionType: "spread",
     confidence: 87,
@@ -73,12 +56,12 @@ const mockOpportunities: LiveOpportunity[] = [
     bookmaker: "FanDuel",
     lastUpdated: new Date(Date.now() - 5 * 60 * 1000),
     volume: 62000,
-    marketMovement: "stable",
+    marketMovement: "stable"
   },
   {
     id: "3",
     game: "Nuggets vs Suns",
-    teams: { home: "Nuggets", away: "Suns" },
+    teams: { home: "Nuggets", away: "Suns"},
     prediction: "Under 228.5 Points",
     predictionType: "total",
     confidence: 81,
@@ -92,12 +75,12 @@ const mockOpportunities: LiveOpportunity[] = [
     bookmaker: "BetMGM",
     lastUpdated: new Date(Date.now() - 10 * 60 * 1000),
     volume: 43000,
-    marketMovement: "down",
+    marketMovement: "down"
   },
   {
     id: "4",
     game: "Bucks vs Nets",
-    teams: { home: "Bucks", away: "Nets" },
+    teams: { home: "Bucks", away: "Nets"},
     prediction: "Giannis Over 28.5 Points",
     predictionType: "player_prop",
     confidence: 92,
@@ -111,7 +94,7 @@ const mockOpportunities: LiveOpportunity[] = [
     bookmaker: "Caesars",
     lastUpdated: new Date(Date.now() - 2 * 60 * 1000),
     volume: 71000,
-    marketMovement: "up",
+    marketMovement: "up"
   },
 ];
 
@@ -123,7 +106,7 @@ const getValueRatingConfig = (rating: LiveOpportunity["valueRating"]) => {
         gradient: "from-red-500/20 to-orange-500/20",
         border: "border-red-500/30",
         badge: "bg-red-500/20 text-red-400",
-        emoji: "🔥",
+        emoji: "🔥"
       };
     case "warm":
       return {
@@ -131,7 +114,7 @@ const getValueRatingConfig = (rating: LiveOpportunity["valueRating"]) => {
         gradient: "from-yellow-500/20 to-orange-500/20",
         border: "border-yellow-500/30",
         badge: "bg-yellow-500/20 text-yellow-400",
-        emoji: "⚡",
+        emoji: "⚡"
       };
     case "cool":
       return {
@@ -139,17 +122,14 @@ const getValueRatingConfig = (rating: LiveOpportunity["valueRating"]) => {
         gradient: "from-blue-500/20 to-cyan-500/20",
         border: "border-blue-500/30",
         badge: "bg-blue-500/20 text-blue-400",
-        emoji: "🎯",
+        emoji: "🎯"
       };
-    default:
-      return {
-        icon: <Activity size={16} className="text-gray-400" / key={231894}>,
+    default: return {,`n  icon: <Activity size={16} className="text-gray-400" / key={231894}>,
         gradient: "from-gray-500/20 to-gray-600/20",
         border: "border-gray-500/30",
         badge: "bg-gray-500/20 text-gray-400",
-        emoji: "📊",
-      };
-  }
+        emoji: "📊"
+      }}
 };
 
 const getMovementIcon = (movement?: string) => {
@@ -158,24 +138,21 @@ const getMovementIcon = (movement?: string) => {
       return <TrendingUp size={12} className="text-green-400" / key={205504}>;
     case "down":
       return <TrendingDown size={12} className="text-red-400" / key={363946}>;
-    default:
-      return <Activity size={12} className="text-gray-400" / key={873790}>;
-  }
+    default: return <Activity size={12} className="text-gray-400" / key={873790}>}
 };
 
 interface LiveOpportunitiesProps {
-  className?: string;
-  maxItems?: number;
-  showHeader?: boolean;
-}
+  className?: string
+  maxItems?: number
+  showHeader?: boolean}
 
 export const LiveOpportunities: React.FC<LiveOpportunitiesProps key={344846}> = ({
   className = "",
   maxItems = 4,
-  showHeader = true,
+  showHeader = true
 }) => {
   const [opportunities, setOpportunities] =
-    useState<LiveOpportunity[] key={741573}>(mockOpportunities);
+    useState<LiveOpportunity[0] key={741573}>(mockOpportunities);
   const [selectedOpportunity, setSelectedOpportunity] = useState<string | null key={121216}>(
     null,
   );
@@ -194,13 +171,11 @@ export const LiveOpportunities: React.FC<LiveOpportunitiesProps key={344846}> = 
           expectedValue: Math.max(
             3,
             Math.min(20, opp.expectedValue + (Math.random() - 0.5) * 1),
-          ),
+          )
         })),
-      );
-    }, 30000); // Update every 30 seconds;
+      )}, 30000); // Update every 30 seconds;
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval);}, [0]);
 
   return (
     <div className={className} key={684864}>
@@ -233,10 +208,10 @@ export const LiveOpportunities: React.FC<LiveOpportunitiesProps key={344846}> = 
           return (
             <motion.div;
               key={opportunity.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ scale: 1.02 }}
+              initial={{ opacity: 0, y: 20}}
+              animate={{ opacity: 1, y: 0}}
+              transition={{ delay: index * 0.1}}
+              whileHover={{ scale: 1.02}}
               className={`
                 relative p-6 rounded-2xl border backdrop-blur-xl cursor-pointer transition-all;
                 bg-gradient-to-r ${config.gradient} ${config.border}
@@ -244,8 +219,7 @@ export const LiveOpportunities: React.FC<LiveOpportunitiesProps key={344846}> = 
                 hover:shadow-xl hover:border-opacity-60;
               `}
               onClick={() = key={164965}>
-                setSelectedOpportunity(isSelected ? null : opportunity.id)
-              }
+                setSelectedOpportunity(isSelected ? null : opportunity.id)}
             >
               {/* Header */}
               <div className="flex items-start justify-between mb-4" key={886571}>
@@ -328,9 +302,9 @@ export const LiveOpportunities: React.FC<LiveOpportunitiesProps key={344846}> = 
               <AnimatePresence key={359944}>
                 {isSelected && (
                   <motion.div;
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
+                    initial={{ opacity: 0, height: 0}}
+                    animate={{ opacity: 1, height: "auto"}}
+                    exit={{ opacity: 0, height: 0}}
                     className="mt-4 pt-4 border-t border-gray-700/50"
                    key={616682}>
                     <div className="grid grid-cols-2 gap-4 text-sm" key={538116}>
@@ -371,8 +345,7 @@ export const LiveOpportunities: React.FC<LiveOpportunitiesProps key={344846}> = 
                 )}
               </AnimatePresence>
             </motion.div>
-          );
-        })}
+          );})}
       </div>
 
       {opportunities.length > maxItems && (
@@ -383,7 +356,11 @@ export const LiveOpportunities: React.FC<LiveOpportunitiesProps key={344846}> = 
         </div>
       )}
     </div>
-  );
-};
+  );};
 
 export default LiveOpportunities;
+
+
+
+
+`

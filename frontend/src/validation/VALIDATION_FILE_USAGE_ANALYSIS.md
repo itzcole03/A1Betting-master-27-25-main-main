@@ -20,6 +20,7 @@ This directory contains Zod-based validation schemas and middleware for validati
 ## File Breakdown
 
 ### schemas.ts
+
 - **Purpose:** Exports Zod validation schemas for bets, users, predictions, markets, and events, and provides an Express middleware for validating requests against these schemas.
 - **Usage:** Used to validate API request bodies and data models throughout the app, ensuring type safety and data integrity.
 - **Notes:** Integrates with Express for request validation. Uses Zod for schema definitions and async parsing.
@@ -27,4 +28,4 @@ This directory contains Zod-based validation schemas and middleware for validati
 
 ---
 
-*This documentation is auto-generated and should be updated as files are added, removed, or refactored in the validation directory.*
+_This documentation is auto-generated and should be updated as files are added, removed, or refactored in the validation directory._

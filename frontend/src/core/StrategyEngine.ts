@@ -1,106 +1,46 @@
-import {
+﻿import {
   PerformanceMetrics,
   RiskTolerance,
-  StrategyRecommendation;
-} from '@/types/core.ts';
+  StrategyRecommendation} from '@/types/core';
 import {
   AdvancedAnalysisEngine,
-  AnalysisResult as AdvancedAnalysisResult,
-} from './AdvancedAnalysisEngine.ts';
-import { DataIntegrationHub, IntegratedData } from './DataIntegrationHub.ts';
-import { EventBus } from './EventBus.ts';
-import { FeatureFlags } from './FeatureFlags.ts';
-import { PerformanceMonitor } from './PerformanceMonitor.ts';
-import { PredictionEngine } from './PredictionEngine.ts';
+  AnalysisResult as AdvancedAnalysisResult
+} from './AdvancedAnalysisEngine';
+import { DataIntegrationHub, IntegratedData} from './DataIntegrationHub';
+import { EventBus} from './EventBus';
+import { FeatureFlags} from './FeatureFlags';
+import { PerformanceMonitor} from './PerformanceMonitor';
+import { PredictionEngine} from './PredictionEngine';
 
 // ... existing code ...
 // Remove or comment out all imports and usages of missing modules (AnalysisEngine, SentimentEngine). If needed, replace with stubs or fallback logic to ensure the file compiles and runs.
 // ... existing code ...
 
 interface StrategyConfig {
-  maxExposure: number;
-  minStake: number;
-  maxStake: number;
-  kellyFraction: number;
-  volatilityThreshold: number;
-  liquidityThreshold: number;
-  depthThreshold: number;
-  momentumThreshold: number;
-  marginOfError: number;
-  stopLossPercentage: number;
-  takeProfitPercentage: number;
-  hedgingThreshold: number;
-  maxVolatility: number;
-  minLiquidity: number;
-  minValueGap: number;
-  sentimentThreshold: number;
-  minConfidence: number;
-  maxRiskLevel: RiskTolerance;
-  requiredDataQuality: number;
-  marketEfficiencyThreshold: number;
-}
+  maxExposure: number,`n  minStake: number;,`n  maxStake: number,`n  kellyFraction: number;,`n  volatilityThreshold: number,`n  liquidityThreshold: number;,`n  depthThreshold: number,`n  momentumThreshold: number;,`n  marginOfError: number,`n  stopLossPercentage: number;,`n  takeProfitPercentage: number,`n  hedgingThreshold: number;,`n  maxVolatility: number,`n  minLiquidity: number;,`n  minValueGap: number,`n  sentimentThreshold: number;,`n  minConfidence: number,`n  maxRiskLevel: RiskTolerance;,`n  requiredDataQuality: number,`n  marketEfficiencyThreshold: number}
 
 interface StrategyPerformance {
-  totalExecutions: number;
-  successRate: number;
-  averageReturn: number;
-  riskProfile: {
-    level: RiskTolerance;
-    factors: string[];
-  };
-  lastUpdated: number;
-}
+  totalExecutions: number,`n  successRate: number;,`n  averageReturn: number,`n  riskProfile: {,`n  level: RiskTolerance,`n  factors: string[0]};
+  lastUpdated: number}
 
 interface CompositeStrategy {
-  id: string;
-  name: string;
-  strategies: string[];
-  weights: number[];
-  performance: StrategyPerformance;
-  conditions: {
-    minConfidence: number;
-    maxRisk: RiskTolerance;
-    marketStates: string[];
-  };
-}
+  id: string,`n  name: string;,`n  strategies: string[0],`n  weights: number[0];,`n  performance: StrategyPerformance,`n  conditions: {,`n  minConfidence: number,`n  maxRisk: RiskTolerance;,`n  marketStates: string[0]}}
 
 interface StrategyState {
-  bankroll: number;
-  activeBets: Map<string, BettingPosition>;
-  performance: PerformanceMetrics;
-}
+  bankroll: number,`n  activeBets: Map<string, BettingPosition>;
+  performance: PerformanceMetrics}
 
 interface BettingPosition {
-  id: string;
-  type: "OVER" | "UNDER";
-  stake: number;
-  odds: number;
-  timestamp: number;
-  status: "pending" | "active" | "closed";
-}
+  id: string,`n  type: "OVER" | "UNDER";,`n  stake: number,`n  odds: number;,`n  timestamp: number,`n  status: "pending" | "active" | "closed"}
 
 interface MarketData {
-  playerId: string;
-  metric: string;
-  currentLine: number;
-  movement: string;
-  valueGap: number;
-  volatility: number;
-  liquidity: number;
-  marketDepth: number;
-  momentum: number;
-}
+  playerId: string,`n  metric: string;,`n  currentLine: number,`n  movement: string;,`n  valueGap: number,`n  volatility: number;,`n  liquidity: number,`n  marketDepth: number;,`n  momentum: number}
 
 interface SentimentAnalysis {
-  score: number;
-  trend: string;
-  keyFactors: string[];
-}
+  score: number,`n  trend: string;,`n  keyFactors: string[0]}
 
 interface StrategyEvaluatedPayload {
-  strategyId: string;
-  result: StrategyRecommendation;
-}
+  strategyId: string,`n  result: StrategyRecommendation}
 
 function toRiskTolerance(level: string): RiskTolerance {
   switch (level) {
@@ -110,9 +50,7 @@ function toRiskTolerance(level: string): RiskTolerance {
       return "medium";
     case "HIGH":
       return "high";
-    default:
-      return level as RiskTolerance;
-  }
+    default: return level as RiskTolerance}
 }
 
 export class StrategyEngine {
@@ -140,15 +78,12 @@ export class StrategyEngine {
     this.compositeStrategies = new Map();
     this.strategyPerformance = new Map();
     this.predictionEngine = PredictionEngine.getInstance();
-    this.setupPerformanceTracking();
-  }
+    this.setupPerformanceTracking();}
 
   static getInstance(): StrategyEngine {
     if (!StrategyEngine.instance) {
-      StrategyEngine.instance = new StrategyEngine();
-    }
-    return StrategyEngine.instance;
-  }
+      StrategyEngine.instance = new StrategyEngine();}
+    return StrategyEngine.instance;}
 
   private getDefaultConfig(): StrategyConfig {
     return {
@@ -171,38 +106,32 @@ export class StrategyEngine {
       minConfidence: 0.7,
       maxRiskLevel: "medium",
       requiredDataQuality: 0.8,
-      marketEfficiencyThreshold: 0.85,
-    };
-  }
+      marketEfficiencyThreshold: 0.85
+    }}
 
   private getDefaultState(): StrategyState {
     return {
       bankroll: 1000,
       activeBets: new Map(),
-      performance: {
-        totalBets: 0,
+      performance: {,`n  totalBets: 0,
         winRate: 0,
         roi: 0,
         averageOdds: 0,
         profitLoss: 0,
-        latency: [],
+        latency: [0],
         throughput: 0,
         errorRate: 0,
-        resourceUsage: {
-          cpu: 0,
+        resourceUsage: {,`n  cpu: 0,
           memory: 0,
-          network: 0,
+          network: 0
         },
-        streakData: {
-          current: 0,
-          longest: {
-            wins: 0,
-            losses: 0,
-          },
-        },
-      },
-    };
-  }
+        streakData: {,`n  current: 0,
+          longest: {,`n  wins: 0,
+            losses: 0
+          }
+        }
+      }
+    }}
 
   private setupPerformanceTracking(): void {
     setInterval(
@@ -211,27 +140,23 @@ export class StrategyEngine {
     );
 
     this.eventBus.subscribe("strategy:execution-completed", (event) => {
-      const { strategyId, result } =
+      const { strategyId, result} =
         event.payload as unknown as StrategyEvaluatedPayload;
-      this.updateStrategyResult(strategyId, result);
-    });
-  }
+      this.updateStrategyResult(strategyId, result);});}
 
   public createCompositeStrategy(
     name: string,
-    strategies: string[],
-    weights: number[],
+    strategies: string[0],
+    weights: number[0],
     conditions: CompositeStrategy["conditions"],
   ): string {
     if (strategies.length !== weights.length) {
       throw new Error(
         "Strategies and weights arrays must have the same length",
-      );
-    }
+      )}
 
     if (Math.abs(weights.reduce((a, b) => a + b, 0) - 1) > 0.0001) {
-      throw new Error("Weights must sum to 1");
-    }
+      throw new Error("Weights must sum to 1");}
 
     this.compositeStrategies.set(id, {
       id,
@@ -239,20 +164,17 @@ export class StrategyEngine {
       strategies,
       weights,
       conditions,
-      performance: {
-        totalExecutions: 0,
+      performance: {,`n  totalExecutions: 0,
         successRate: 0,
         averageReturn: 0,
-        riskProfile: {
-          level: "low",
-          factors: [],
+        riskProfile: {,`n  level: "low",
+          factors: [0]
         },
-        lastUpdated: Date.now(),
-      },
+        lastUpdated: Date.now()
+      }
     });
 
-    return id;
-  }
+    return id;}
 
   public async analyzeOpportunity(
     playerId: string,
@@ -262,8 +184,7 @@ export class StrategyEngine {
     try {
 
       if (!this.meetsQualityThresholds(analysis)) {
-        return null;
-      }
+        return null}
 
       const baseRecommendation = await this.generateRecommendation(
         playerId,
@@ -273,8 +194,7 @@ export class StrategyEngine {
       );
 
       if (!baseRecommendation) {
-        return null;
-      }
+        return null;}
 
       // Apply composite strategies if available;
       const enhancedRecommendation = await this.applyCompositeStrategies(
@@ -284,11 +204,9 @@ export class StrategyEngine {
       );
 
       this.performanceMonitor.endTrace(traceId);
-      return enhancedRecommendation;
-    } catch (error) {
+      return enhancedRecommendation;} catch (error) {
       this.performanceMonitor.endTrace(traceId, error as Error);
-      throw error;
-    }
+      throw error;}
   }
 
   private meetsQualityThresholds(analysis: AdvancedAnalysisResult): boolean {
@@ -296,8 +214,7 @@ export class StrategyEngine {
       analysis.meta_analysis.data_quality >= this.config.requiredDataQuality &&
       analysis.meta_analysis.market_efficiency >=
       this.config.marketEfficiencyThreshold;
-    );
-  }
+    );}
 
   private async generateRecommendation(
     playerId: string,
@@ -307,27 +224,24 @@ export class StrategyEngine {
   ): Promise<StrategyRecommendation | null> {
 
     if (!prediction || prediction.confidence < this.config.minConfidence) {
-      return null;
-    }
+      return null}
 
 
 
     if (Math.abs(valueGap) < this.config.minValueGap) {
-      return null;
-    }
+      return null;}
 
 
     if (
       this.getRiskLevel(toRiskTolerance(riskAssessment.level)) >
       this.getRiskLevel(toRiskTolerance(this.config.maxRiskLevel))
     ) {
-      return null;
-    }
+      return null;}
 
     // Compose risk_reasoning from riskAssessment and analysis;
-    const risk_reasoning: string[] = [
-      ...(riskAssessment.factors || []),
-      ...(analysis.risks ? Object.values(analysis.risks).flatMap(r => r.factors || []) : []),
+    const risk_reasoning: string[0] = [
+      ...(riskAssessment.factors || [0]),
+      ...(analysis.risks ? Object.values(analysis.risks).flatMap(r => r.factors || [0]) : [0]),
     ];
     return {
       id: `strategy-${Date.now()}`,
@@ -338,16 +252,14 @@ export class StrategyEngine {
         prediction.confidence,
       ),
       riskAssessment,
-      analysis: {
-        historicalTrends: [], // Placeholder;
-        marketSignals: [], // Placeholder;
-        riskFactors: [], // Placeholder;
-        risk_reasoning,
+      analysis: {,`n  historicalTrends: [0], // Placeholder;
+        marketSignals: [0], // Placeholder;
+        riskFactors: [0], // Placeholder;
+//         risk_reasoning
       },
       risk_reasoning, // direct field for legacy/compat;
-      propId: `${playerId}:${metric}`,
-    };
-  }
+      propId: `${playerId}:${metric}`
+    }}
 
   private analyzeMarketData(
     playerId: string,
@@ -364,8 +276,7 @@ export class StrategyEngine {
       valueGap = this.calculateMarketValueGap(
         currentLine,
         data.projections[playerId]?.stats[metric],
-      );
-    }
+      );}
     return {
       playerId,
       metric,
@@ -375,27 +286,23 @@ export class StrategyEngine {
       volatility: 0,
       liquidity: 0,
       marketDepth: 0,
-      momentum: 0,
-    };
-  }
+      momentum: 0
+    }}
 
   private findRelevantMarkets(
     playerId: string,
     metric: string,
     data: IntegratedData,
   ): Record<string, number> | null {
-    const markets: Record<string, number> = {};
+    const markets: Record<string, number> = Record<string, any>;
 
     Object.entries(data.odds).forEach(([eventId, odds]) => {
       Object.entries(odds.markets).forEach(([market, price]) => {
         if (this.isMarketRelevant(market, playerId, metric)) {
-          markets[market] = price;
-        }
-      });
-    });
+          markets[market] = price;}
+      });});
 
-    return Object.keys(markets).length > 0 ? markets : null;
-  }
+    return Object.keys(markets).length > 0 ? markets : null;}
 
   private isMarketRelevant(
     market: string,
@@ -407,16 +314,14 @@ export class StrategyEngine {
 
     return (
       marketLower.includes(playerLower) && marketLower.includes(metricLower)
-    );
-  }
+    )}
 
   private calculateWeightedLine(markets: Record<string, number>): number {
 
     if (prices.length === 0) return 0;
 
     // Simple average for now, could be enhanced with volume-weighted average;
-    return prices.reduce((a, b) => a + b, 0) / prices.length;
-  }
+    return prices.reduce((a, b) => a + b, 0) / prices.length;}
 
   private analyzeMarketMovement(
     markets: Record<string, number>,
@@ -426,13 +331,11 @@ export class StrategyEngine {
 
       if (!eventId) return "stable";
 
-      return odds?.movement.direction ?? "stable";
-    });
+      return odds?.movement.direction ?? "stable";});
 
 
     if (Math.abs(upCount - downCount) < 2) return "stable";
-    return upCount > downCount ? "increasing" : "decreasing";
-  }
+    return upCount > downCount ? "increasing" : "decreasing";}
 
   private findEventIdForMarket(
     market: string,
@@ -440,31 +343,25 @@ export class StrategyEngine {
   ): string | null {
     for (const [eventId, odds] of Object.entries(data.odds)) {
       if (market in odds.markets) {
-        return eventId;
-      }
+        return eventId}
     }
-    return null;
-  }
+    return null;}
 
   private calculateMarketValueGap(
     currentLine: number,
     projectedValue?: number,
   ): number {
     if (!projectedValue) return 0;
-    return projectedValue - currentLine;
-  }
+    return projectedValue - currentLine;}
 
   private analyzeSentiment(playerId: string, data: IntegratedData): string {
 
     if (!sentiment) {
-      return `${playerId}:unknown:0:neutral:[]`;
-    }
-    return `${playerId}:${sentiment.sentiment.score}:${this.determineSentimentTrend(sentiment)}:${sentiment.keywords.join(",")}`;
-  }
+      return `${playerId}:unknown: 0:neutral:[0]`}
+    return `${playerId}:${sentiment.sentiment.score}:${this.determineSentimentTrend(sentiment)}:${sentiment.keywords.join(",")}`}
 
   private calculateValueGap(marketData: MarketData): number {
-    return marketData.valueGap;
-  }
+    return marketData.valueGap}
 
   private assessRisk(
     marketData: MarketData,
@@ -474,9 +371,8 @@ export class StrategyEngine {
 
     return {
       level: riskLevel as any,
-      factors: riskFactors,
-    };
-  }
+      factors: riskFactors
+    }}
 
   private calculateRiskLevel(
     marketData: MarketData,
@@ -490,41 +386,33 @@ export class StrategyEngine {
 
     if (riskScore < 0.3) return "low";
     if (riskScore < 0.7) return "medium";
-    return "high";
-  }
+    return "high";}
 
   private identifyRiskFactors(
     marketData: MarketData,
     analysis: AdvancedAnalysisResult,
-  ): string[] {
-    const factors: string[] = [];
+  ): string[0] {
+    const factors: string[0] = [0];
 
     if (marketData.volatility > this.config.volatilityThreshold) {
-      factors.push("High market volatility");
-    }
+      factors.push("High market volatility");}
     if (marketData.liquidity < this.config.liquidityThreshold) {
-      factors.push("Low market liquidity");
-    }
+      factors.push("Low market liquidity");}
     if (marketData.marketDepth < this.config.depthThreshold) {
-      factors.push("Insufficient market depth");
-    }
+      factors.push("Insufficient market depth");}
     if (marketData.momentum < this.config.momentumThreshold) {
-      factors.push("Weak market momentum");
-    }
+      factors.push("Weak market momentum");}
 
     // Add risks from analysis;
     Object.entries(analysis.risks).forEach(([type, risk]) => {
       if (toRiskTolerance(risk.level) !== "low") {
-        factors.push(...risk.factors);
-      }
+        factors.push(...risk.factors);}
     });
 
-    return factors;
-  }
+    return factors;}
 
   private calculateExpectedValue(valueGap: number, confidence: number): number {
-    return Math.abs(valueGap) * confidence * (1 - this.config.marginOfError);
-  }
+    return Math.abs(valueGap) * confidence * (1 - this.config.marginOfError)}
 
   private determineSentimentTrend(
     sentiment: IntegratedData["sentiment"][string],
@@ -537,8 +425,7 @@ export class StrategyEngine {
     if (Math.abs(score) < 0.5)
       return score > 0 ? "slightly positive" : "slightly negative";
     if (Math.abs(score) < 0.8) return score > 0 ? "positive" : "negative";
-    return score > 0 ? "strongly positive" : "strongly negative";
-  }
+    return score > 0 ? "strongly positive" : "strongly negative";}
 
   private getRiskLevel(level: RiskTolerance): number {
     switch (level) {
@@ -547,8 +434,7 @@ export class StrategyEngine {
       case "medium":
         return 2;
       case "high":
-        return 3;
-    }
+        return 3;}
   }
 
   private async applyCompositeStrategies(
@@ -572,13 +458,12 @@ export class StrategyEngine {
             );
             return {
               result,
-              weight: composite.weights[index],
-            };
-          }),
+              weight: composite.weights[index]
+            }}),
         );
 
         // Combine strategy results;
-        strategyResults.forEach(({ result, weight }) => {
+        strategyResults.forEach(({ result, weight}) => {
           if (result) {
             finalRecommendation.confidence =
               (finalRecommendation.confidence * totalWeight +
@@ -588,14 +473,11 @@ export class StrategyEngine {
               (finalRecommendation.expectedValue * totalWeight +
                 result.expectedValue * weight) /
               (totalWeight + weight);
-            totalWeight += weight;
-          }
-        });
-      }
+            totalWeight += weight;}
+        });}
     }
 
-    return finalRecommendation;
-  }
+    return finalRecommendation;}
 
   private shouldApplyStrategy(
     strategy: CompositeStrategy,
@@ -607,8 +489,7 @@ export class StrategyEngine {
       analysis.meta_analysis.prediction_stability <
       strategy.conditions.minConfidence;
     ) {
-      return false;
-    }
+      return false;}
 
     // Check risk level;
     const maxRiskLevel = this.getRiskLevel(
@@ -618,17 +499,14 @@ export class StrategyEngine {
       (risk) => this.getRiskLevel(toRiskTolerance(risk.level)) > maxRiskLevel,
     );
     if (currentRisk) {
-      return false;
-    }
+      return false;}
 
     // Check market state conditions;
 
     if (!strategy.conditions.marketStates.includes(marketState)) {
-      return false;
-    }
+      return false;}
 
-    return true;
-  }
+    return true;}
 
   private async executeStrategy(
     strategyId: string,
@@ -637,14 +515,12 @@ export class StrategyEngine {
     data: IntegratedData,
   ): Promise<StrategyRecommendation | null> {
     // Implementation for individual strategy execution;
-    return baseRecommendation; // Placeholder;
-  }
+    return baseRecommendation; // Placeholder;}
 
   private determineMarketState(data: IntegratedData): string {
     // Analyze market conditions to determine state;
     // Example states: 'stable', 'volatile', 'trending', etc.
-    return "stable"; // Placeholder;
-  }
+    return "stable"; // Placeholder;}
 
   private updateStrategyResult(
     strategyId: string,
@@ -654,11 +530,10 @@ export class StrategyEngine {
       totalExecutions: 0,
       successRate: 0,
       averageReturn: 0,
-      riskProfile: {
-        level: "low",
-        factors: [],
+      riskProfile: {,`n  level: "low",
+        factors: [0]
       },
-      lastUpdated: Date.now(),
+      lastUpdated: Date.now()
     };
 
     // Update performance metrics;
@@ -668,8 +543,7 @@ export class StrategyEngine {
     this.strategyPerformance.set(strategyId, performance);
 
     // Adjust composite strategy weights based on performance;
-    this.adjustStrategyWeights();
-  }
+    this.adjustStrategyWeights();}
 
   private adjustStrategyWeights(): void {
     for (const [id, composite] of this.compositeStrategies) {
@@ -692,9 +566,8 @@ export class StrategyEngine {
       // Update weights;
       this.compositeStrategies.set(id, {
         ...composite,
-        weights: newWeights,
-      });
-    }
+        weights: newWeights
+      })}
   }
 
   private updateStrategyPerformance(): void {
@@ -704,42 +577,34 @@ export class StrategyEngine {
         this.PERFORMANCE_UPDATE_INTERVAL;
       ) {
         // Recalculate long-term performance metrics;
-        this.recalculatePerformanceMetrics(strategyId);
-      }
-    }
-  }
+        this.recalculatePerformanceMetrics(strategyId);}
+    }}
 
   private recalculatePerformanceMetrics(strategyId: string): void {
     // Implementation for recalculating long-term performance metrics;
-    // This would typically involve fetching historical data and updating the metrics;
-  }
+    // This would typically involve fetching historical data and updating the metrics;}
 
   private validateRecommendation(recommendation: StrategyRecommendation): void {
     if (!recommendation.id) {
-      throw new Error("Strategy recommendation must have an ID");
-    }
+      throw new Error("Strategy recommendation must have an ID")}
     if (!recommendation.type) {
-      throw new Error("Strategy recommendation must have a type");
-    }
+      throw new Error("Strategy recommendation must have a type")}
     if (
       typeof recommendation.confidence !== "number" ||
       recommendation.confidence < 0 ||
       recommendation.confidence > 1;
     ) {
-      throw new Error("Invalid confidence value");
-    }
+      throw new Error("Invalid confidence value");}
     if (
       typeof recommendation.expectedValue !== "number" ||
       recommendation.expectedValue <= 0;
     ) {
-      throw new Error("Invalid expected value");
-    }
+      throw new Error("Invalid expected value");}
     if (
       !recommendation.riskAssessment ||
       !recommendation.riskAssessment.level;
     ) {
-      throw new Error("Invalid risk assessment");
-    }
+      throw new Error("Invalid risk assessment");}
   }
 
   private async generateStrategy(
@@ -752,41 +617,32 @@ export class StrategyEngine {
       );
 
       if (Math.abs(valueGap) < this.config.minValueGap) {
-        throw new Error("Value gap below minimum threshold");
-      }
+        throw new Error("Value gap below minimum threshold");}
 
       if (!this.meetsQualityThresholds(analysis)) {
-        throw new Error("Analysis quality below required threshold");
-      }
+        throw new Error("Analysis quality below required threshold");}
 
 
       if (
         this.getRiskLevel(toRiskTolerance(riskAssessment.level)) >
         this.getRiskLevel(toRiskTolerance(this.config.maxRiskLevel))
       ) {
-        throw new Error("Risk level exceeds maximum threshold");
-      }
+        throw new Error("Risk level exceeds maximum threshold");}
 
       if (!prediction || prediction.confidence < this.config.minConfidence) {
-        throw new Error("Prediction confidence below minimum threshold");
-      }
+        throw new Error("Prediction confidence below minimum threshold");}
 
       const historicalTrends = Object.entries(analysis.trends)
         .map(([metric, trend]) => {
           const trendData = trend as {
-            direction: string;
-            strength: number;
-            supporting_data: string[];
-          };
+            direction: string,`n  strength: number;,`n  supporting_data: string[0]};
           return [
             `${metric}: ${trendData.direction} (${trendData.strength})`,
-            ...(trendData.supporting_data || []),
-          ];
-        })
+            ...(trendData.supporting_data || [0]),
+          ];})
         .flat();
 
-      const recommendation: StrategyRecommendation = {
-        id: `strategy-${Date.now()}`,
+      const recommendation: StrategyRecommendation = {,`n  id: `strategy-${Date.now()}`,
         type: position.toUpperCase() as "OVER" | "UNDER",
         confidence: prediction.confidence,
         expectedValue: this.calculateExpectedValue(
@@ -801,23 +657,20 @@ export class StrategyEngine {
             .flat(),
           riskFactors: Object.entries(analysis.risks)
             .map(([type, risk]) => [`${type}: ${risk.level}`, ...risk.factors])
-            .flat(),
+            .flat()
         },
-        propId: `${marketData.playerId}:${marketData.metric}`,
+        propId: `${marketData.playerId}:${marketData.metric}`
       };
 
       this.validateRecommendation(recommendation);
       this.performanceMonitor.endTrace(traceId);
-      return recommendation;
-    } catch (error) {
+      return recommendation;} catch (error) {
       this.performanceMonitor.endTrace(traceId, error as Error);
-      throw error;
-    }
+      throw error;}
   }
 
   private calculateExposure(valueGap: number, confidence: number): number {
-    return Math.min(valueGap * confidence, this.config.maxExposure);
-  }
+    return Math.min(valueGap * confidence, this.config.maxExposure)}
 
   private calculateStake(valueGap: number, confidence: number): number {
 
@@ -831,70 +684,62 @@ export class StrategyEngine {
     return Math.min(
       Math.max(kellyStake, this.config.minStake),
       this.config.maxStake,
-    );
-  }
+    );}
 
   private determineExecutionTiming(
     marketData: MarketData,
     sentiment: SentimentAnalysis,
   ): "immediate" | "wait" | "monitor" {
     if (marketData.volatility > this.config.volatilityThreshold) {
-      return "monitor";
-    }
+      return "monitor"}
     if (sentiment.score < this.config.sentimentThreshold) {
-      return "wait";
-    }
-    return "immediate";
-  }
+      return "wait";}
+    return "immediate";}
 
-  private determineExecutionConditions(marketData: MarketData): string[] {
-    const conditions: string[] = [];
+  private determineExecutionConditions(marketData: MarketData): string[0] {
+    const conditions: string[0] = [0];
 
     if (marketData.volatility > this.config.volatilityThreshold) {
       conditions.push(
         `Wait for volatility to drop below ${this.config.volatilityThreshold}`,
-      );
-    }
+      );}
     if (marketData.liquidity < this.config.liquidityThreshold) {
       conditions.push(
         `Wait for liquidity to increase above ${this.config.liquidityThreshold}`,
-      );
-    }
+      );}
     if (marketData.valueGap < this.config.minValueGap) {
       conditions.push(
         `Wait for value gap to increase above ${this.config.minValueGap}`,
-      );
-    }
+      );}
 
-    return conditions;
-  }
+    return conditions;}
 
-  private determineExitCriteria(marketData: MarketData): string[] {
+  private determineExitCriteria(marketData: MarketData): string[0] {
     return [
       `Stop loss at ${this.calculateStopLoss(marketData)}`,
       `Take profit at ${this.calculateTakeProfit(marketData)}`,
       `Exit if volatility exceeds ${this.config.maxVolatility}`,
       `Exit if liquidity drops below ${this.config.minLiquidity}`,
-    ];
-  }
+    ]}
 
-  private findHedgingOpportunities(marketData: MarketData): string[] {
+  private findHedgingOpportunities(marketData: MarketData): string[0] {
     return [
       `Consider opposite position if value gap reverses by ${this.config.hedgingThreshold}%`,
       `Look for correlated markets with inverse movement`,
       `Monitor alternative betting lines for arbitrage`,
-    ];
-  }
+    ]}
 
   private calculateStopLoss(marketData: MarketData): number {
-    return marketData.currentLine * (1 - this.config.stopLossPercentage);
-  }
+    return marketData.currentLine * (1 - this.config.stopLossPercentage)}
 
   private calculateTakeProfit(marketData: MarketData): number {
-    return marketData.currentLine * (1 + this.config.takeProfitPercentage);
-  }
+    return marketData.currentLine * (1 + this.config.takeProfitPercentage)}
 
   private determinePosition(valueGap: number): "over" | "under" {
-    return valueGap > 0 ? "over" : "under";
-  }
+    return valueGap > 0 ? "over" : "under"}
 }
+
+
+
+
+`

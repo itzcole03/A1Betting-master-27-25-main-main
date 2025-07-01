@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+﻿import React, { useState, useEffect, useMemo, useCallback} from 'react'
+import { motion, AnimatePresence} from 'framer-motion'
 import {
   Card,
   CardContent,
@@ -41,8 +41,8 @@ import {
   ButtonGroup,
   Stepper,
   Step,
-  StepLabel,
-} from '@mui/material.ts';
+//   StepLabel
+} from '@mui/material';
 import {
   TrendingUp,
   TrendingDown,
@@ -79,8 +79,8 @@ import {
   VerifiedUser,
   FlashOn,
   AccessTime,
-  Cached,
-} from '@mui/icons-material.ts';
+//   Cached
+} from '@mui/icons-material';
 import {
   LineChart,
   Line,
@@ -96,98 +96,49 @@ import {
   Bar,
   ScatterChart,
   Scatter,
-  ComposedChart,
-} from 'recharts.ts';
+//   ComposedChart
+} from 'recharts';
 import {
   formatCurrency,
   formatPercentage,
   formatOdds,
-  formatDateTime,
-} from '@/utils/formatters.ts';
+//   formatDateTime
+} from '@/utils/formatters';
 
 interface ArbitrageOpportunity {
-  id: string;
-  sport: string;
-  league: string;
-  event: string;
-  market: string;
+  id: string,`n  sport: string;,`n  league: string,`n  event: string;,`n  market: string;
 
   // Side A (Back)
-  sideA: {
-    selection: string;
-    bookmaker: string;
-    odds: number;
-    stake: number;
-    payout: number;
-  };
+  sideA: {,`n  selection: string;,`n  bookmaker: string,`n  odds: number;,`n  stake: number,`n  payout: number};
 
   // Side B (Lay or opposing bet)
-  sideB: {
-    selection: string;
-    bookmaker: string;
-    odds: number;
-    stake: number;
-    payout: number;
-  };
+  sideB: {,`n  selection: string;,`n  bookmaker: string,`n  odds: number;,`n  stake: number,`n  payout: number};
 
   // Arbitrage Metrics;
-  profitMargin: number;
-  totalStake: number;
-  guaranteedProfit: number;
-  roi: number;
+  profitMargin: number,`n  totalStake: number;,`n  guaranteedProfit: number,`n  roi: number;
 
   // Risk & Timing;
-  riskLevel: "low" | "medium" | "high";
-  timeToExpiry: number;
-  lastUpdate: Date;
-  discoveryTime: Date;
-  confidence: number;
+  riskLevel: "low" | "medium" | "high",`n  timeToExpiry: number;,`n  lastUpdate: Date,`n  discoveryTime: Date;,`n  confidence: number;
 
   // Market Data;
-  volume: {
-    sideA: number;
-    sideB: number;
-  };
-  liquidity: {
-    sideA: number;
-    sideB: number;
-  };
+  volume: {,`n  sideA: number;,`n  sideB: number};
+  liquidity: {,`n  sideA: number;,`n  sideB: number};
 
   // Execution;
   status: "active" | "executing" | "completed" | "expired" | "failed";
-  executionTime?: Date;
-  actualProfit?: number;
+  executionTime?: Date
+  actualProfit?: number
 
   // Metadata;
-  tags: string[];
-  bookmakerPair: string;
-  isBookmarked: boolean;
-}
+  tags: string[0],`n  bookmakerPair: string;,`n  isBookmarked: boolean}
 
 interface ArbitrageCalculation {
-  stake: number;
-  allocation: {
-    sideA: number;
-    sideB: number;
-  };
-  profit: number;
-  margin: number;
-  roi: number;
-}
+  stake: number,`n  allocation: {,`n  sideA: number,`n  sideB: number};
+  profit: number,`n  margin: number;,`n  roi: number}
 
 interface ExecutionPlan {
-  opportunity: ArbitrageOpportunity;
-  steps: {
-    step: number;
-    action: string;
-    bookmaker: string;
-    amount: number;
-    odds: number;
-    status: "pending" | "executing" | "completed" | "failed";
-  }[];
-  totalTime: number;
-  riskLevel: string;
-}
+  opportunity: ArbitrageOpportunity,`n  steps: {,`n  step: number,`n  action: string;,`n  bookmaker: string,`n  amount: number;,`n  odds: number,`n  status: "pending" | "executing" | "completed" | "failed"}[0];
+  totalTime: number,`n  riskLevel: string}
 
 const BOOKMAKER_COLORS = {
   DraftKings: "#ff6600",
@@ -196,7 +147,7 @@ const BOOKMAKER_COLORS = {
   Caesars: "#d4af37",
   BetMGM: "#1976d2",
   PointsBet: "#00bcd4",
-  Pinnacle: "#9c27b0",
+  Pinnacle: "#9c27b0"
 };
 
 const COLORS = {
@@ -205,17 +156,17 @@ const COLORS = {
   success: "#2e7d32",
   warning: "#ed6c02",
   error: "#d32f2f",
-  info: "#0288d1",
+  info: "#0288d1"
 };
 
 export const ArbitrageOpportunities: React.FC = () => {
   // State Management;
-  const [opportunities, setOpportunities] = useState < ArbitrageOpportunity[] key = { 128378} > (
-    [],
+  const [opportunities, setOpportunities] = useState < ArbitrageOpportunity[0] key = { 128378} > (
+    [0],
   );
   const [filteredOpportunities, setFilteredOpportunities] = useState<
-    ArbitrageOpportunity[]
-  >([]);
+    ArbitrageOpportunity[0]
+  >([0]);
   const [selectedOpportunity, setSelectedOpportunity] =
     useState < ArbitrageOpportunity | null key = { 407613} > (null);
   const [executionPlan, setExecutionPlan] = useState < ExecutionPlan | null key = { 842518} > (
@@ -237,7 +188,7 @@ export const ArbitrageOpportunities: React.FC = () => {
     minMargin: 0,
     maxRisk: "high",
     bookmakerPair: "all",
-    timeToExpiry: "all",
+    timeToExpiry: "all"
   });
 
   // Real-time Data Loading with backend integration
@@ -248,26 +199,23 @@ export const ArbitrageOpportunities: React.FC = () => {
       const analyticsData = await response.json();
 
       // Convert backend data to ArbitrageOpportunity format
-      const realOpportunities: ArbitrageOpportunity[] =
-        analyticsData.predictive_insights?.upcoming_opportunities?.map((opp: any, index: number) => ({
-          id: `arb-${index + 1}`,
+      const realOpportunities: ArbitrageOpportunity[0] =
+        analyticsData.predictive_insights?.upcoming_opportunities?.map((opp: any, index: number) => ({,`n  id: `arb-${index + 1}`,
           sport: opp.sport || "Basketball",
           league: opp.sport || "NBA",
           event: opp.game || "Unknown vs Unknown",
           market: opp.market?.replace('_', ' ') || "Moneyline",
-          sideA: {
-            selection: `${opp.game?.split(' vs ')[0]} Win` || "Home Win",
+          sideA: {,`n  selection: `${opp.game?.split(' vs ')[0]} Win` || "Home Win",
             bookmaker: "DraftKings",
             odds: 2.15,
             stake: Math.round(opp.expected_value * 37.4) || 465,
-            payout: 1000.0,
+            payout: 1000.0
           },
-          sideB: {
-            selection: `${opp.game?.split(' vs ')[1]} Win` || "Away Win",
+          sideB: {,`n  selection: `${opp.game?.split(' vs ')[1]} Win` || "Away Win",
             bookmaker: "FanDuel",
             odds: 1.95,
             stake: Math.round(opp.expected_value * 42.6) || 535,
-            payout: Math.round(opp.expected_value * 83.1) || 1043,
+            payout: Math.round(opp.expected_value * 83.1) || 1043
           },
           profitMargin: Math.round(opp.confidence * 0.046) || 0.043,
           totalStake: 1000.0,
@@ -279,20 +227,18 @@ export const ArbitrageOpportunities: React.FC = () => {
           discoveryTime: new Date(Date.now() - 300000),
           confidence: opp.confidence || 0.95,
 
-          volume: {
-            sideA: 2450000,
-            sideB: 1890000,
+          volume: {,`n  sideA: 2450000,
+            sideB: 1890000
           },
-          liquidity: {
-            sideA: 0.92,
-            sideB: 0.88,
+          liquidity: {,`n  sideA: 0.92,
+            sideB: 0.88
           },
 
           status: "active",
 
           tags: ["high-volume", "low-risk", "trending"],
           bookmakerPair: "DraftKings-FanDuel",
-          isBookmarked: true,
+          isBookmarked: true
         },
         {
           id: "arb-002",
@@ -301,20 +247,18 @@ export const ArbitrageOpportunities: React.FC = () => {
           event: "Chiefs vs Bills",
           market: "Spread (-3.5)",
 
-          sideA: {
-            selection: "Chiefs -3.5",
+          sideA: {,`n  selection: "Chiefs -3.5",
             bookmaker: "Bet365",
             odds: 2.05,
             stake: 487.8,
-            payout: 1000.0,
+            payout: 1000.0
           },
 
-          sideB: {
-            selection: "Bills +3.5",
+          sideB: {,`n  selection: "Bills +3.5",
             bookmaker: "BetMGM",
             odds: 1.98,
             stake: 512.2,
-            payout: 1014.2,
+            payout: 1014.2
           },
 
           profitMargin: 0.014,
@@ -328,20 +272,18 @@ export const ArbitrageOpportunities: React.FC = () => {
           discoveryTime: new Date(Date.now() - 180000),
           confidence: 0.87,
 
-          volume: {
-            sideA: 1560000,
-            sideB: 1780000,
+          volume: {,`n  sideA: 1560000,
+            sideB: 1780000
           },
-          liquidity: {
-            sideA: 0.85,
-            sideB: 0.91,
+          liquidity: {,`n  sideA: 0.85,
+            sideB: 0.91
           },
 
           status: "active",
 
           tags: ["primetime", "playoffs"],
           bookmakerPair: "Bet365-BetMGM",
-          isBookmarked: false,
+          isBookmarked: false
         },
         {
           id: "arb-003",
@@ -350,20 +292,18 @@ export const ArbitrageOpportunities: React.FC = () => {
           event: "Man City vs Liverpool",
           market: "Over/Under 2.5 Goals",
 
-          sideA: {
-            selection: "Over 2.5",
+          sideA: {,`n  selection: "Over 2.5",
             bookmaker: "Pinnacle",
             odds: 1.85,
             stake: 540.54,
-            payout: 1000.0,
+            payout: 1000.0
           },
 
-          sideB: {
-            selection: "Under 2.5",
+          sideB: {,`n  selection: "Under 2.5",
             bookmaker: "Caesars",
             odds: 2.2,
             stake: 459.46,
-            payout: 1010.81,
+            payout: 1010.81
           },
 
           profitMargin: 0.011,
@@ -377,20 +317,18 @@ export const ArbitrageOpportunities: React.FC = () => {
           discoveryTime: new Date(Date.now() - 120000),
           confidence: 0.78,
 
-          volume: {
-            sideA: 890000,
-            sideB: 1200000,
+          volume: {,`n  sideA: 890000,
+            sideB: 1200000
           },
-          liquidity: {
-            sideA: 0.79,
-            sideB: 0.83,
+          liquidity: {,`n  sideA: 0.79,
+            sideB: 0.83
           },
 
           status: "active",
 
           tags: ["classic", "high-stakes", "expiring-soon"],
           bookmakerPair: "Pinnacle-Caesars",
-          isBookmarked: false,
+          isBookmarked: false
         },
         {
           id: "arb-004",
@@ -399,20 +337,18 @@ export const ArbitrageOpportunities: React.FC = () => {
           event: "Djokovic vs Nadal",
           market: "Match Winner",
 
-          sideA: {
-            selection: "Djokovic",
+          sideA: {,`n  selection: "Djokovic",
             bookmaker: "PointsBet",
             odds: 1.78,
             stake: 561.8,
-            payout: 1000.0,
+            payout: 1000.0
           },
 
-          sideB: {
-            selection: "Nadal",
+          sideB: {,`n  selection: "Nadal",
             bookmaker: "DraftKings",
             odds: 2.35,
             stake: 438.2,
-            payout: 1029.77,
+            payout: 1029.77
           },
 
           profitMargin: 0.03,
@@ -426,13 +362,11 @@ export const ArbitrageOpportunities: React.FC = () => {
           discoveryTime: new Date(Date.now() - 90000),
           confidence: 0.91,
 
-          volume: {
-            sideA: 567000,
-            sideB: 789000,
+          volume: {,`n  sideA: 567000,
+            sideB: 789000
           },
-          liquidity: {
-            sideA: 0.88,
-            sideB: 0.92,
+          liquidity: {,`n  sideA: 0.88,
+            sideB: 0.92
           },
 
           status: "executing",
@@ -440,17 +374,14 @@ export const ArbitrageOpportunities: React.FC = () => {
 
           tags: ["GOAT-match", "clay-court", "executing"],
           bookmakerPair: "PointsBet-DraftKings",
-          isBookmarked: true,
+          isBookmarked: true
         },
       ];
 
-setOpportunities(mockOpportunities);
-    } catch (error) {
-  // console statement removed
-} finally {
-  setIsLoading(false);
-}
-  }, []);
+setOpportunities(mockOpportunities)} catch (error) {
+  // console statement removed} finally {
+  setIsLoading(false)}
+  }, [0]);
 
 // Load data on mount and auto-refresh;
 useEffect(() => {
@@ -458,8 +389,7 @@ useEffect(() => {
 
   if (autoRefresh) {
     const interval = setInterval(loadArbitrageData, 10000); // Refresh every 10 seconds;
-    return () => clearInterval(interval);
-  }
+    return () => clearInterval(interval)}
 }, [loadArbitrageData, autoRefresh]);
 
 // Filter opportunities;
@@ -467,44 +397,37 @@ useEffect(() => {
   const filtered = opportunities;
 
   if (filters.sport !== "all") {
-    filtered = filtered.filter((opp) => opp.sport === filters.sport);
-  }
+    filtered = filtered.filter((opp) => opp.sport === filters.sport)}
 
   if (filters.minProfit > 0) {
     filtered = filtered.filter(
       (opp) => opp.guaranteedProfit >= filters.minProfit,
-    );
-  }
+    )}
 
   if (filters.minMargin > 0) {
     filtered = filtered.filter(
       (opp) => opp.profitMargin >= filters.minMargin,
-    );
-  }
+    )}
 
   if (filters.maxRisk !== "high") {
 
 
     filtered = filtered.filter(
       (opp) => riskOrder[opp.riskLevel] <= maxRiskLevel,
-    );
-  }
+    )}
 
   if (filters.bookmakerPair !== "all") {
     filtered = filtered.filter(
       (opp) => opp.bookmakerPair === filters.bookmakerPair,
-    );
-  }
+    )}
 
   if (onlyBookmarked) {
-    filtered = filtered.filter((opp) => opp.isBookmarked);
-  }
+    filtered = filtered.filter((opp) => opp.isBookmarked)}
 
   // Sort by profit margin descending;
   filtered.sort((a, b) => b.profitMargin - a.profitMargin);
 
-  setFilteredOpportunities(filtered);
-}, [opportunities, filters, onlyBookmarked]);
+  setFilteredOpportunities(filtered)}, [opportunities, filters, onlyBookmarked]);
 
 // Calculate arbitrage for custom stake;
 const calculateArbitrage = useCallback(
@@ -512,7 +435,7 @@ const calculateArbitrage = useCallback(
     opportunity: ArbitrageOpportunity,
     stake: number,
   ): ArbitrageCalculation => {
-    const { sideA, sideB } = opportunity;
+    const { sideA, sideB} = opportunity;
 
     // Calculate optimal allocation;
 
@@ -523,16 +446,14 @@ const calculateArbitrage = useCallback(
 
     return {
       stake,
-      allocation: {
-        sideA: stakeA,
-        sideB: stakeB,
+      allocation: {,`n  sideA: stakeA,
+        sideB: stakeB
       },
       profit,
       margin,
-      roi,
-    };
-  },
-  [],
+//       roi
+    }},
+  [0],
 );
 
 // Event Handlers;
@@ -540,11 +461,10 @@ const handleBookmark = useCallback((opportunityId: string) => {
   setOpportunities((prev) =>
     prev.map((opp) =>
       opp.id === opportunityId;
-          ? { ...opp, isBookmarked: !opp.isBookmarked }
+          ? { ...opp, isBookmarked: !opp.isBookmarked}
   : opp,
       ),
-    );
-  }, []);
+    )}, [0]);
 
 const handleExecute = useCallback((opportunity: ArbitrageOpportunity) => {
   // Create execution plan;
@@ -557,7 +477,7 @@ const handleExecute = useCallback((opportunity: ArbitrageOpportunity) => {
         bookmaker: opportunity.sideA.bookmaker,
         amount: opportunity.sideA.stake,
         odds: opportunity.sideA.odds,
-        status: "pending",
+        status: "pending"
       },
       {
         step: 2,
@@ -565,23 +485,22 @@ const handleExecute = useCallback((opportunity: ArbitrageOpportunity) => {
         bookmaker: opportunity.sideB.bookmaker,
         amount: opportunity.sideB.stake,
         odds: opportunity.sideB.odds,
-        status: "pending",
+        status: "pending"
       },
     ],
     totalTime: 45, // seconds;
-    riskLevel: opportunity.riskLevel,
+    riskLevel: opportunity.riskLevel
   };
 
   setExecutionPlan(plan);
-  setShowExecutionDialog(true);
-}, []);
+  setShowExecutionDialog(true)}, [0]);
 
 const handleExecutePlan = useCallback(async () => {
   if (!executionPlan) return;
 
   try {
     // Simulate execution;
-    for (const i = 0; i < executionPlan.steps.length; i++) {
+    for (let i = 0 i < executionPlan.steps.length; i++) {
 
       // Update step status to executing;
       setExecutionPlan((prev) =>
@@ -589,8 +508,8 @@ const handleExecutePlan = useCallback(async () => {
             ? {
     ...prev,
     steps: prev.steps.map((s, idx) =>
-      idx === i ? { ...s, status: "executing" } : s,
-    ),
+      idx === i ? { ...s, status: "executing"} : s,
+    )
   }
   : null,
         );
@@ -604,12 +523,11 @@ setExecutionPlan((prev) =>
             ?{
                 ...prev,
     steps: prev.steps.map((s, idx) =>
-      idx === i ? { ...s, status: "completed" } : s,
-    ),
+      idx === i ? { ...s, status: "completed"} : s,
+    )
               }
             : null,
-        );
-      }
+        )}
 
 // Update opportunity status;
 setOpportunities((prev) =>
@@ -619,7 +537,7 @@ setOpportunities((prev) =>
                 ...opp,
     status: "completed",
       executionTime: new Date(),
-        actualProfit: executionPlan.opportunity.guaranteedProfit,
+        actualProfit: executionPlan.opportunity.guaranteedProfit
               }
             : opp,
         ),
@@ -627,19 +545,15 @@ setOpportunities((prev) =>
 
 setTimeout(() => {
   setShowExecutionDialog(false);
-  setExecutionPlan(null);
-}, 2000);
-    } catch (error) {
-  // console statement removed
-}
+  setExecutionPlan(null)}, 2000)} catch (error) {
+  // console statement removed}
   }, [executionPlan]);
 
 const exportData = useCallback(() => {
   const exportData = {
     timestamp: new Date().toISOString(),
     opportunities: filteredOpportunities,
-    summary: {
-      totalOpportunities: opportunities.length,
+    summary: {,`n  totalOpportunities: opportunities.length,
       avgProfitMargin:
         opportunities.reduce((sum, opp) => sum + opp.profitMargin, 0) /
         opportunities.length,
@@ -649,20 +563,19 @@ const exportData = useCallback(() => {
       ),
       bookmakerPairs: [
         ...new Set(opportunities.map((opp) => opp.bookmakerPair)),
-      ],
-    },
+      ]
+    }
   };
 
   const blob = new Blob([JSON.stringify(exportData, null, 2)], {
-    type: "application/json",
+    type: "application/json"
   });
 
 
   a.href = url;
   a.download = `arbitrage-opportunities-${Date.now()}.json`;
   a.click();
-  URL.revokeObjectURL(url);
-}, [filteredOpportunities, opportunities]);
+  URL.revokeObjectURL(url)}, [filteredOpportunities, opportunities]);
 
 // Summary metrics;
 const summaryMetrics = useMemo(() => {
@@ -684,9 +597,8 @@ const summaryMetrics = useMemo(() => {
     totalProfit,
     avgConfidence,
     executingCount: opportunities.filter((opp) => opp.status === "executing")
-      .length,
-  };
-}, [opportunities]);
+      .length
+  }}, [opportunities]);
 
 if (isLoading) {
   return (
@@ -696,19 +608,18 @@ if (isLoading) {
       alignItems="center"
       height={400}
       key={219816}>
-      <LinearProgress sx={{ width: "50%" }} / key={592693}>
+      <LinearProgress sx={{ width: "50%"}} / key={592693}>
     </Box>
-  );
-}
+  )}
 
 return (
   <motion.div;
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
+    initial={{ opacity: 0, y: 20}}
+    animate={{ opacity: 1, y: 0}}
+    transition={{ duration: 0.5}}
     className="w-full"
     key={253890}>
-    <Card sx={{ mb: 3 }} key={857343}>
+    <Card sx={{ mb: 3}} key={857343}>
       <CardContent key={452065}>
         <Box;
         display="flex"
@@ -719,7 +630,7 @@ return (
         <Typography;
         variant="h5"
         component="h2"
-        sx={{ display: "flex", alignItems: "center", gap: 1 }}
+        sx={{ display: "flex", alignItems: "center", gap: 1}}
         key={972323}>
         <SwapHoriz / key={903320}>
         Arbitrage Opportunities;
@@ -741,8 +652,7 @@ return (
         <Switch;
       checked={autoRefresh}
       onChange={(e) = key = { 196002} > setAutoRefresh(e.target.checked)}
-                  />
-                }
+                  />}
       label="Auto Refresh"
               />
       <FormControlLabel;
@@ -750,8 +660,7 @@ return (
         <Switch;
       checked={onlyBookmarked}
       onChange={(e) = key = { 809646} > setOnlyBookmarked(e.target.checked)}
-                  />
-                }
+                  />}
       label="Bookmarked"
               />
       <IconButton onClick={loadArbitrageData} key={219372}>
@@ -763,10 +672,10 @@ return (
     </Box>
   </Box>
 
-          {/* Summary Cards */ }
-<Grid container spacing={2} sx={{ mb: 3 }} key={482082}>
+          {/* Summary Cards */}
+<Grid container spacing={2} sx={{ mb: 3}} key={482082}>
   <Grid item xs={12} sm={6} md={3} key={214380}>
-    <Paper sx={{ p: 2, textAlign: "center" }} key={534920}>
+    <Paper sx={{ p: 2, textAlign: "center"}} key={534920}>
       <Typography variant="h4" color="success.main" key={386495}>
         {summaryMetrics.activeCount}
       </Typography>
@@ -784,7 +693,7 @@ return (
   </Grid>
 
   <Grid item xs={12} sm={6} md={3} key={214380}>
-    <Paper sx={{ p: 2, textAlign: "center" }} key={534920}>
+    <Paper sx={{ p: 2, textAlign: "center"}} key={534920}>
       <Typography variant="h4" color="primary.main" key={559183}>
         {formatPercentage(summaryMetrics.avgMargin)}
       </Typography>
@@ -802,7 +711,7 @@ return (
   </Grid>
 
   <Grid item xs={12} sm={6} md={3} key={214380}>
-    <Paper sx={{ p: 2, textAlign: "center" }} key={534920}>
+    <Paper sx={{ p: 2, textAlign: "center"}} key={534920}>
       <Typography variant="h4" color="secondary.main" key={711142}>
         {formatCurrency(summaryMetrics.totalProfit)}
       </Typography>
@@ -816,7 +725,7 @@ return (
   </Grid>
 
   <Grid item xs={12} sm={6} md={3} key={214380}>
-    <Paper sx={{ p: 2, textAlign: "center" }} key={534920}>
+    <Paper sx={{ p: 2, textAlign: "center"}} key={534920}>
       <Typography variant="h4" color="info.main" key={656320}>
         {formatPercentage(summaryMetrics.avgConfidence)}
       </Typography>
@@ -830,16 +739,15 @@ return (
   </Grid>
 </Grid>
 
-{/* Filters */ }
-          <Grid container spacing={2} sx={{ mb: 2 }} key={795993}>
+{/* Filters */}
+          <Grid container spacing={2} sx={{ mb: 2}} key={795993}>
             <Grid item xs={2} key={114891}>
               <FormControl fullWidth size="small" key={82290}>
                 <InputLabel key={405232}>Sport</InputLabel>
                 <Select;
                   value={filters.sport}
                   onChange={(e) = key={632798}>
-                    setFilters((prev) => ({ ...prev, sport: e.target.value }))
-                  }
+                    setFilters((prev) => ({ ...prev, sport: e.target.value}))}
                 >
                   <MenuItem value="all" key={641531}>All Sports</MenuItem>
                   <MenuItem value="Basketball" key={779545}>Basketball</MenuItem>
@@ -859,9 +767,8 @@ return (
                 onChange={(e) = key={463347}>
                   setFilters((prev) => ({
                     ...prev,
-                    minProfit: Number(e.target.value),
-                  }))
-                }
+                    minProfit: Number(e.target.value)
+                  }))}
               />
             </Grid>
             <Grid item xs={2} key={114891}>
@@ -874,9 +781,8 @@ return (
                 onChange={(e) = key={255165}>
                   setFilters((prev) => ({
                     ...prev,
-                    minMargin: Number(e.target.value) / 100,
-                  }))
-                }
+                    minMargin: Number(e.target.value) / 100
+                  }))}
               />
             </Grid>
             <Grid item xs={2} key={114891}>
@@ -885,8 +791,7 @@ return (
                 <Select;
                   value={filters.maxRisk}
                   onChange={(e) = key={246093}>
-                    setFilters((prev) => ({ ...prev, maxRisk: e.target.value }))
-                  }
+                    setFilters((prev) => ({ ...prev, maxRisk: e.target.value}))}
                 >
                   <MenuItem value="low" key={779692}>Low Risk Only</MenuItem>
                   <MenuItem value="medium" key={834279}>Low + Medium</MenuItem>
@@ -900,8 +805,7 @@ return (
     variant="outlined"
     onClick={() = key = { 582954} > {
       setSelectedOpportunity(filteredOpportunities[0] || null);
-    setShowCalculatorDialog(true);
-                }}
+    setShowCalculatorDialog(true)}}
     startIcon={<Calculate / key={125773}>}
     disabled={filteredOpportunities.length === 0}
               >
@@ -915,8 +819,8 @@ return (
   </Grid>
           </Grid >
 
-  {/* Opportunities Table */ }
-  < TableContainer component = { Paper } key = { 746829} >
+  {/* Opportunities Table */}
+  < TableContainer component = { Paper} key = { 746829} >
     <Table size="small" key={822594}>
       <TableHead key={813147}>
         <TableRow key={300096}>
@@ -937,12 +841,12 @@ return (
           <TableRow;
         key={opportunity.id}
         sx={{
-          "&:hover": { backgroundColor: "action.hover" },
+          "&:hover": { backgroundColor: "action.hover"},
           backgroundColor:
             opportunity.profitMargin  key={ 861710} > 0.03;
                           ? "success.light"
           : "inherit",
-          opacity: opportunity.status === "expired" ? 0.6 : 1,
+          opacity: opportunity.status === "expired" ? 0.6 : 1
                     }}
                   >
         <TableCell key={942983}>
@@ -1017,8 +921,7 @@ return (
         ? "success"
                             : opportunity.profitMargin > 0.015;
         ? "warning"
-        : "default"
-                        }
+        : "default"}
         size="small"
                       />
         <Typography variant="caption" display="block" key={58065}>
@@ -1034,8 +937,7 @@ return (
             ? "success"
             : opportunity.riskLevel === "medium"
               ? "warning"
-              : "error"
-        }
+              : "error"}
         size="small"
         / key={807926}>
       </TableCell>
@@ -1045,14 +947,13 @@ return (
           <LinearProgress;
           variant="determinate"
           value={opportunity.confidence * 100}
-          sx={{ width: 40, height: 6 }}
+          sx={{ width: 40, height: 6}}
           color={
             opportunity.confidence  key={356992}> 0.9;
           ? "success"
                               : opportunity.confidence > 0.8;
           ? "warning"
-          : "error"
-                          }
+          : "error"}
                         />
           <Typography variant="caption" key={472228}>
             {formatPercentage(opportunity.confidence)}
@@ -1081,8 +982,7 @@ return (
                 ? "info"
                 : opportunity.status === "expired"
                   ? "error"
-                  : "default"
-        }
+                  : "default"}
         size="small"
         icon={
           opportunity.status === "active" ? (
@@ -1091,8 +991,7 @@ return (
         <Cached className="animate-spin" / key={952201}>
         ) : opportunity.status === "expired" ? (
         <AccessTime / key={713370}>
-        ) : undefined;
-                        }
+        ) : undefined}
                       />
       </TableCell>
 
@@ -1125,8 +1024,7 @@ return (
       size="small"
       onClick={() = key = { 410277} > {
         setSelectedOpportunity(opportunity);
-                            setShowCalculatorDialog(true);
-      }}
+                            setShowCalculatorDialog(true)}}
                         >
       <Calculate / key={125773}>
     </IconButton>
@@ -1140,22 +1038,20 @@ return (
 
 {
   filteredOpportunities.length === 0 && (
-    <Alert severity="info" sx={{ mt: 2 }} key={550011}>
+    <Alert severity="info" sx={{ mt: 2}} key={550011}>
       No arbitrage opportunities found matching your filters. Try;
       adjusting the filters or wait for new opportunities to appear.
     </Alert>
-  )
-}
+  )}
         </CardContent >
       </Card >
 
-  {/* Execution Dialog */ }
+  {/* Execution Dialog */}
   < Dialog;
-open = { showExecutionDialog }
+open = { showExecutionDialog}
 onClose = {() = key = { 263204} > setShowExecutionDialog(false)}
 maxWidth = "md"
-fullWidth;
-      >
+fullWidth>
         <DialogTitle key={731539}>Execute Arbitrage Opportunity</DialogTitle>
         <DialogContent key={509164}>
           {executionPlan && (
@@ -1165,7 +1061,7 @@ fullWidth;
                 {executionPlan.opportunity.market}
               </Typography>
 
-              <Grid container spacing={2} sx={{ mb: 3 }} key={482082}>
+              <Grid container spacing={2} sx={{ mb: 3}} key={482082}>
                 <Grid item xs={4} key={686152}>
                   <Typography variant="caption" key={472228}>Guaranteed Profit</Typography>
                   <Typography variant="h5" color="success.main" key={850965}>
@@ -1187,8 +1083,7 @@ fullWidth;
                         ? "success"
                         : executionPlan.riskLevel === "medium"
                           ? "warning"
-                          : "error"
-                    }
+                          : "error"}
                   / key={219563}>
                 </Grid>
               </Grid>
@@ -1210,13 +1105,11 @@ fullWidth;
                         ) : step.status === "failed" ? (
                           <Error color="error" / key={755825}>
                         ) : (
-                          step.step;
-                        )
-                      }
+                          step.step)}
                     >
                       {step.action}
                     </StepLabel>
-                    <Box sx={{ ml: 3, mb: 2 }} key={391959}>
+                    <Box sx={{ ml: 3, mb: 2}} key={391959}>
                       <Typography variant="body2" key={679167}>
                         {step.bookmaker} • {formatCurrency(step.amount)} @{" "}
                         {formatOdds(step.odds)}
@@ -1231,8 +1124,7 @@ fullWidth;
                               ? "warning"
                               : step.status === "failed"
                                 ? "error"
-                                : "default"
-                        }
+                                : "default"}
                       / key={403315}>
                     </Box>
                   </Step>
@@ -1257,13 +1149,12 @@ fullWidth;
         </DialogActions >
       </Dialog >
 
-  {/* Calculator Dialog */ }
+  {/* Calculator Dialog */}
   < Dialog;
-open = { showCalculatorDialog }
+open = { showCalculatorDialog}
 onClose = {() = key = { 245651} > setShowCalculatorDialog(false)}
 maxWidth = "sm"
-fullWidth;
-      >
+fullWidth>
         <DialogTitle key={731539}>Arbitrage Calculator</DialogTitle>
         <DialogContent key={509164}>
           {selectedOpportunity && (
@@ -1278,7 +1169,7 @@ fullWidth;
                 type="number"
                 value={customStake}
                 onChange={(e) = key={34375}> setCustomStake(Number(e.target.value))}
-                sx={{ mb: 2 }}
+                sx={{ mb: 2}}
               />
 
               {(() => {
@@ -1317,8 +1208,7 @@ fullWidth;
                       </Typography>
                     </Box>
                   </Stack>
-                );
-              })()}
+                )})()}
             </Box>
           )}
         </DialogContent>
@@ -1327,7 +1217,13 @@ fullWidth;
         </DialogActions>
       </Dialog >
     </motion.div >
-  );
-};
+  )};
 
 export default ArbitrageOpportunities;
+
+
+
+
+
+
+`

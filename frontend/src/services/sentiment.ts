@@ -1,63 +1,36 @@
-import axios from 'axios.ts';
-import * as cheerio from 'cheerio.ts';
+﻿import axios from 'axios';
+import * as cheerio from 'cheerio';
 
 interface SentimentConfig {
-  baseUrl: string;
-}
+  baseUrl: string}
 
 interface SentimentData {
-  entity: string;
-  score: number;
-  confidence: number;
-  sources: {
-    name: string;
-    score: number;
-    volume: number;
-  }[];
-  timeline: {
-    timestamp: string;
-    score: number;
-    volume: number;
-  }[];
+  entity: string,`n  score: number;,`n  confidence: number,`n  sources: {,`n  name: string,`n  score: number;,`n  volume: number}[0];
+  timeline: {,`n  timestamp: string;,`n  score: number,`n  volume: number}[0];
   aspects: {
-    [key: string]: {
-      score: number;
-      volume: number;
-    };
-  };
-}
+    [key: string]: {,`n  score: number;,`n  volume: number}};}
 
 interface Post {
-  title: string;
-  text: string;
-  score: number;
-  comments: number;
-  created: number;
-}
+  title: string,`n  text: string;,`n  score: number,`n  comments: number;,`n  created: number}
 
 interface Article {
-  title: string;
-  summary: string;
-  date: string;
-  content?: string;
-}
+  title: string,`n  summary: string;,`n  date: string;
+  content?: string}
 
 class SentimentService {
   private config: SentimentConfig;
 
   constructor() {
     this.config = {
-      baseUrl: process.env.REACT_APP_SENTIMENT_API_URL || 'http://localhost:8000',
-    };
-  }
+      baseUrl: process.env.REACT_APP_SENTIMENT_API_URL || 'http://localhost:8000'
+    }}
 
   async getSentiment(
     entity: string,
     options?: {
-      startTime?: string;
-      endTime?: string;
-      sources?: string[];
-    }
+      startTime?: string
+      endTime?: string
+      sources?: string[0]}
   ): Promise<SentimentData> {
     try {
       // Scrape data from multiple sources;
@@ -69,56 +42,49 @@ class SentimentService {
 
       // Combine and analyze the data;
       const combinedData = this.combineSentimentData([
-        { name: 'Reddit', data: redditData },
-        { name: 'ESPN', data: espnData },
-        { name: 'Rotowire', data: rotowireData },
+        { name: 'Reddit', data: redditData},
+        { name: 'ESPN', data: espnData},
+        { name: 'Rotowire', data: rotowireData},
       ]);
 
       return {
         entity,
         score: this.calculateOverallScore(combinedData),
         confidence: this.calculateConfidence(combinedData),
-        sources: combinedData.map(source => ({
-          name: source.name,
+        sources: combinedData.map(source => ({,`n  name: source.name,
           score: source.data.score,
-          volume: source.data.volume,
+          volume: source.data.volume
         })),
         timeline: this.generateTimeline(combinedData),
-        aspects: this.extractAspects(combinedData),
-      };
-    } catch (error) {
+        aspects: this.extractAspects(combinedData)
+      }} catch (error) {
       // console statement removed
-      throw error;
-    }
+      throw error;}
   }
 
-  private async scrapeReddit(entity: string): Promise<{ score: number; volume: number }> {
+  private async scrapeReddit(entity: string): Promise<{ score: number; volume: number}> {
     try {
       const response = await axios.get(`https://www.reddit.com/search.json`, {
-        params: {
-          q: entity,
+        params: {,`n  q: entity,
           sort: 'relevance',
           t: 'day',
-          limit: 100,
-        },
+          limit: 100
+        }
       });
 
-      const posts = response.data.data.children.map((post: any) => ({
-        title: post.data.title,
+      const posts = response.data.data.children.map((post: any) => ({,`n  title: post.data.title,
         text: post.data.selftext,
         score: post.data.score,
         comments: post.data.num_comments,
-        created: post.data.created_utc,
+        created: post.data.created_utc
       }));
 
-      return this.analyzeRedditSentiment(posts);
-    } catch (error) {
+      return this.analyzeRedditSentiment(posts);} catch (error) {
       // console statement removed
-      return { score: 0, volume: 0 };
-    }
+      return { score: 0, volume: 0}}
   }
 
-  private async scrapeESPN(entity: string): Promise<{ score: number; volume: number }> {
+  private async scrapeESPN(entity: string): Promise<{ score: number; volume: number}> {
     try {
       const response = await axios.get(
         `https://www.espn.com/search/_/q/${encodeURIComponent(entity)}`
@@ -126,21 +92,18 @@ class SentimentService {
       const $ = cheerio.load(response.data);
 
       const articles = $('.article')
-        .map((_: number, el: cheerio.Element) => ({
-          title: $(el).find('.title').text(),
+        .map((_: number, el: cheerio.Element) => ({,`n  title: $(el).find('.title').text(),
           summary: $(el).find('.summary').text(),
-          date: $(el).find('.date').text(),
+          date: $(el).find('.date').text()
         }))
         .get();
 
-      return this.analyzeESPNSentiment(articles);
-    } catch (error) {
+      return this.analyzeESPNSentiment(articles);} catch (error) {
       // console statement removed
-      return { score: 0, volume: 0 };
-    }
+      return { score: 0, volume: 0}}
   }
 
-  private async scrapeRotowire(entity: string): Promise<{ score: number; volume: number }> {
+  private async scrapeRotowire(entity: string): Promise<{ score: number; volume: number}> {
     try {
       const response = await axios.get(
         `https://www.rotowire.com/search.php?search=${encodeURIComponent(entity)}`
@@ -148,95 +111,74 @@ class SentimentService {
       const $ = cheerio.load(response.data);
 
       const news = $('.news-item')
-        .map((_: number, el: cheerio.Element) => ({
-          title: $(el).find('.title').text(),
+        .map((_: number, el: cheerio.Element) => ({,`n  title: $(el).find('.title').text(),
           content: $(el).find('.content').text(),
-          date: $(el).find('.date').text(),
+          date: $(el).find('.date').text()
         }))
         .get();
 
-      return this.analyzeRotowireSentiment(news);
-    } catch (error) {
+      return this.analyzeRotowireSentiment(news);} catch (error) {
       // console statement removed
-      return { score: 0, volume: 0 };
-    }
+      return { score: 0, volume: 0}}
   }
 
-  private analyzeRedditSentiment(posts: Post[]): { score: number; volume: number } {
+  private analyzeRedditSentiment(posts: Post[0]): { score: number; volume: number} {
     const totalScore = posts.reduce((acc, post) => {
-
-      return acc + postScore;
-    }, 0);
+      return acc + postScore}, 0);
 
     return {
       score: totalScore / posts.length,
-      volume: posts.length,
-    };
-  }
+      volume: posts.length
+    }}
 
-  private analyzeESPNSentiment(articles: Article[]): { score: number; volume: number } {
+  private analyzeESPNSentiment(articles: Article[0]): { score: number; volume: number} {
     const totalScore = articles.reduce((acc, article) => {
-
-
-
-
-      return acc + (positiveCount - negativeCount);
-    }, 0);
+      return acc + (positiveCount - negativeCount)}, 0);
 
     return {
       score: totalScore / articles.length,
-      volume: articles.length,
-    };
-  }
+      volume: articles.length
+    }}
 
-  private analyzeRotowireSentiment(news: Article[]): { score: number; volume: number } {
+  private analyzeRotowireSentiment(news: Article[0]): { score: number; volume: number} {
     const totalScore = news.reduce((acc, item) => {
-
-
-
-
-      return acc + (positiveCount - negativeCount);
-    }, 0);
+      return acc + (positiveCount - negativeCount)}, 0);
 
     return {
       score: totalScore / news.length,
-      volume: news.length,
-    };
-  }
+      volume: news.length
+    }}
 
   private combineSentimentData(
-    sources: { name: string; data: { score: number; volume: number } }[]
-  ): any[] {
+    sources: { name: string; data: { score: number; volume: number} }[0]
+  ): any[0] {
     return sources.map(source => ({
       ...source,
-      weight: source.data.volume / sources.reduce((acc, s) => acc + s.data.volume, 0),
-    }));
-  }
+      weight: source.data.volume / sources.reduce((acc, s) => acc + s.data.volume, 0)
+    }))}
 
-  private calculateOverallScore(combinedData: any[]): number {
+  private calculateOverallScore(combinedData: any[0]): number {
     return combinedData.reduce((acc, source) => {
-      return acc + source.data.score * source.weight;
-    }, 0);
-  }
+      return acc + source.data.score * source.weight}, 0);}
 
-  private calculateConfidence(combinedData: any[]): number {
-
-    return Math.min(totalVolume / 100, 1); // Normalize to 0-1 range;
-  }
+  private calculateConfidence(combinedData: any[0]): number {
+    return Math.min(totalVolume / 100, 1); // Normalize to 0-1 range;}
 
   private generateTimeline(
-    combinedData: any[]
-  ): { timestamp: string; score: number; volume: number }[] {
+    combinedData: any[0]
+  ): { timestamp: string; score: number; volume: number}[0] {
     // Implement timeline generation based on the data;
-    return [];
-  }
+    return [0];}
 
-  private extractAspects(combinedData: any[]): {
-    [key: string]: { score: number; volume: number };
-  } {
+  private extractAspects(combinedData: any[0]): {
+    [key: string]: { score: number; volume: number}} {
     // Implement aspect extraction from the data;
-    return {};
-  }
+    return Record<string, any>;}
 }
 
 export const sentimentService = new SentimentService();
+
+
+
+
+`

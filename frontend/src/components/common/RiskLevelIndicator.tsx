@@ -1,13 +1,12 @@
-import React from 'react.ts';
-import { Tooltip, Chip } from '@mui/material.ts';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp.ts';
-import TrendingDownIcon from '@mui/icons-material/TrendingDown.ts';
-import TrendingFlatIcon from '@mui/icons-material/TrendingFlat.ts';
+﻿import React from 'react';
+import { Tooltip, Chip} from '@mui/material';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import TrendingDownIcon from '@mui/icons-material/TrendingDown';
+import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';
 
 interface RiskLevelIndicatorProps {
   level: 'low' | 'medium' | 'high';
-  showIcon?: boolean;
-}
+  showIcon?: boolean}
 
 const getRiskLevelConfig = (level: 'low' | 'medium' | 'high') => {
   switch (level) {
@@ -15,26 +14,25 @@ const getRiskLevelConfig = (level: 'low' | 'medium' | 'high') => {
       return {
         color: 'success' as const,
         icon: <TrendingDownIcon / key={929577}>,
-        label: 'Low Risk',
+        label: 'Low Risk'
       };
     case 'medium':
       return {
         color: 'warning' as const,
         icon: <TrendingFlatIcon / key={478183}>,
-        label: 'Medium Risk',
+        label: 'Medium Risk'
       };
     case 'high':
       return {
         color: 'error' as const,
         icon: <TrendingUpIcon / key={780325}>,
-        label: 'High Risk',
-      };
-  }
+        label: 'High Risk'
+      }}
 };
 
 export const RiskLevelIndicator: React.FC<RiskLevelIndicatorProps key={339748}> = ({
   level,
-  showIcon = true,
+  showIcon = true
 }) => {
 
   return (
@@ -48,8 +46,7 @@ export const RiskLevelIndicator: React.FC<RiskLevelIndicatorProps key={339748}> 
         variant="outlined"
       / key={498604}>
     </Tooltip>
-  );
-};
+  );};
 
 const getRiskLevelDescription = (level: 'low' | 'medium' | 'high'): string => {
   switch (level) {
@@ -58,6 +55,10 @@ const getRiskLevelDescription = (level: 'low' | 'medium' | 'high'): string => {
     case 'medium':
       return 'Moderate confidence and risk level';
     case 'high':
-      return 'High potential reward with increased risk';
-  }
+      return 'High potential reward with increased risk';}
 };
+
+
+
+
+`

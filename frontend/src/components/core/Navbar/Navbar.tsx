@@ -1,11 +1,11 @@
-import { useThemeStore } from '@/stores/themeStore.ts';
+﻿import { useThemeStore} from '@/stores/themeStore';
 import {
   Brightness4 as DarkModeIcon,
   Brightness7 as LightModeIcon,
   Menu as MenuIcon,
   Notifications as NotificationsIcon,
-  Settings as SettingsIcon,
-} from '@mui/icons-material.ts';
+  Settings as SettingsIcon
+} from '@mui/icons-material';
 import {
   AppBar,
   Avatar,
@@ -17,47 +17,41 @@ import {
   Tooltip,
   Typography,
   useMediaQuery,
-  useTheme,
-} from '@mui/material.ts';
-import React from 'react.ts';
-import { useNavigate } from 'react-router-dom.ts';
-import { useAuth } from '@/../providers/useAuth.ts';
+//   useTheme
+} from '@mui/material';
+import React from 'react';
+import { useNavigate} from 'react-router-dom';
+import { useAuth} from '@/../providers/useAuth';
 
 interface NavbarProps {
   onMenuClick?: () => void;
-  showMenuButton?: boolean;
-}
+  showMenuButton?: boolean}
 
-const Navbar: React.FC<NavbarProps key={969058}> = ({ onMenuClick, showMenuButton = true }) => {
+const Navbar: React.FC<NavbarProps key={969058}> = ({ onMenuClick, showMenuButton = true}) => {
 
-  const { user, logout } = useAuth();
-  const { mode, toggleTheme } = useThemeStore();
+  const { user, logout} = useAuth();
+  const { mode, toggleTheme} = useThemeStore();
 
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement key={178068}>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement key={9296}>) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)};
 
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null);};
 
   const handleProfile = () => {
     handleClose();
-    navigate('/profile');
-  };
+    navigate('/profile');};
 
   const handleSettings = () => {
     handleClose();
-    navigate('/settings');
-  };
+    navigate('/settings');};
 
   const handleLogout = () => {
     handleClose();
-    logout();
-  };
+    logout();};
 
   return (
     <AppBar;
@@ -66,7 +60,7 @@ const Navbar: React.FC<NavbarProps key={969058}> = ({ onMenuClick, showMenuButto
         zIndex: theme = key={90451}> theme.zIndex.drawer + 1,
         backgroundColor: theme.palette.background.paper,
         color: theme.palette.text.primary,
-        boxShadow: 1,
+        boxShadow: 1
       }}
     >
       <Toolbar key={629347}>
@@ -75,7 +69,7 @@ const Navbar: React.FC<NavbarProps key={969058}> = ({ onMenuClick, showMenuButto
             aria-label="open drawer"
             color="inherit"
             edge="start"
-            sx={{ mr: 2 }}
+            sx={{ mr: 2}}
             onClick={onMenuClick}
            key={823750}>
             <MenuIcon / key={955480}>
@@ -89,7 +83,7 @@ const Navbar: React.FC<NavbarProps key={969058}> = ({ onMenuClick, showMenuButto
             flexGrow: 1,
             display: 'flex',
             alignItems: 'center',
-            gap: 1,
+            gap: 1
           }}
           variant="h6"
          key={991658}>
@@ -100,13 +94,12 @@ const Navbar: React.FC<NavbarProps key={969058}> = ({ onMenuClick, showMenuButto
             src="/logo.svg"
             sx={{
               height: 32,
-              width: 'auto'
-            }}
+              width: 'auto'}}
           / key={821043}>
           {!isMobile && 'Sports Betting AI'}
         </Typography>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }} key={109447}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1}} key={109447}>
           <Tooltip title="Toggle theme" key={710288}>
             <IconButton color="inherit" onClick={toggleTheme} key={718959}>
               {mode === 'dark' ? <LightModeIcon / key={47521}> : <DarkModeIcon / key={951831}>}
@@ -131,14 +124,14 @@ const Navbar: React.FC<NavbarProps key={969058}> = ({ onMenuClick, showMenuButto
               aria-expanded={open ? 'true' : undefined}
               aria-haspopup="true"
               size="small"
-              sx={{ ml: 2 }}
+              sx={{ ml: 2}}
               onClick={handleClick}
              key={630997}>
               <Avatar;
                 sx={{
                   width: 32,
                   height: 32,
-                  bgcolor: theme.palette.primary.main,
+                  bgcolor: theme.palette.primary.main
                 }}
                key={224456}>
                 {user?.name?.[0] || 'U'}
@@ -149,24 +142,23 @@ const Navbar: React.FC<NavbarProps key={969058}> = ({ onMenuClick, showMenuButto
 
         <Menu;
           anchorEl={anchorEl}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+          anchorOrigin={{ horizontal: 'right', vertical: 'bottom'}}
           id="account-menu"
           open={open}
           PaperProps={{
             elevation: 0,
-            sx: {
-              overflow: 'visible',
+            sx: {,`n  overflow: 'visible',
               filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
               mt: 1.5,
               '& .MuiAvatar-root': {
                 width: 32,
                 height: 32,
                 ml: -0.5,
-                mr: 1,
-              },
-            },
+                mr: 1
+              }
+            }
           }}
-          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+          transformOrigin={{ horizontal: 'right', vertical: 'top'}}
           onClick={handleClose}
           onClose={handleClose}
          key={581746}>
@@ -174,13 +166,17 @@ const Navbar: React.FC<NavbarProps key={969058}> = ({ onMenuClick, showMenuButto
             <Avatar / key={218273}> Profile;
           </MenuItem>
           <MenuItem onClick={handleSettings} key={3438}>
-            <SettingsIcon fontSize="small" sx={{ mr: 1 }} / key={291271}> Settings;
+            <SettingsIcon fontSize="small" sx={{ mr: 1}} / key={291271}> Settings;
           </MenuItem>
           <MenuItem onClick={handleLogout} key={122348}>Logout</MenuItem>
         </Menu>
       </Toolbar>
     </AppBar>
-  );
-};
+  );};
 
 export default React.memo(Navbar);
+
+
+
+
+`

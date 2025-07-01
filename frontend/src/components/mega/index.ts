@@ -1,13 +1,13 @@
-// MEGA COMPONENTS INDEX - Consolidated components with cyber theme;
-import MegaAppComponent from './MegaApp.ts';
-import MegaDashboardComponent from './MegaDashboard.ts';
-import MegaBettingComponent from './MegaBetting.ts';
-import MegaAnalyticsComponent from './MegaAnalytics.ts';
-import MegaAdminPanelComponent from './MegaAdminPanel.ts';
-import MegaPrizePicksComponent from './MegaPrizePicks.ts';
-import MegaUIComponents from './MegaUI.ts';
-import MegaLayoutComponents from './MegaLayout.ts';
-import MegaFeaturesComponents from './MegaFeatures.ts';
+﻿// MEGA COMPONENTS INDEX - Consolidated components with cyber theme;
+import MegaAppComponent from './MegaApp';
+import MegaDashboardComponent from './MegaDashboard';
+import MegaBettingComponent from './MegaBetting';
+import MegaAnalyticsComponent from './MegaAnalytics';
+import MegaAdminPanelComponent from './MegaAdminPanel';
+import MegaPrizePicksComponent from './MegaPrizePicks';
+import MegaUIComponents from './MegaUI';
+import MegaLayoutComponents from './MegaLayout';
+import MegaFeaturesComponents from './MegaFeatures';
 import {
   CYBER_COLORS,
   CYBER_GRADIENTS,
@@ -15,16 +15,16 @@ import {
   CYBER_ANIMATIONS,
   CyberContainer,
   CyberText,
-  CyberButton,
-} from './CyberTheme.ts';
+//   CyberButton
+} from './CyberTheme';
 
 // Main app components;
-export { MegaAppComponent as MegaApp };
-export { MegaDashboardComponent as MegaDashboard };
-export { MegaBettingComponent as MegaBetting };
-export { MegaAnalyticsComponent as MegaAnalytics };
-export { MegaAdminPanelComponent as MegaAdminPanel };
-export { MegaPrizePicksComponent as MegaPrizePicks };
+export { MegaAppComponent as MegaApp};
+export { MegaDashboardComponent as MegaDashboard};
+export { MegaBettingComponent as MegaBetting};
+export { MegaAnalyticsComponent as MegaAnalytics};
+export { MegaAdminPanelComponent as MegaAdminPanel};
+export { MegaPrizePicksComponent as MegaPrizePicks};
 
 // UI components;
 export const {
@@ -33,17 +33,17 @@ export const {
   MegaModal,
   MegaInput,
   MegaAlert,
-  MegaSkeleton,
+//   MegaSkeleton
 } = MegaUIComponents;
 
 // Layout components;
-export const { MegaSidebar, MegaHeader, MegaAppShell } = MegaLayoutComponents;
+export const { MegaSidebar, MegaHeader, MegaAppShell} = MegaLayoutComponents;
 
 // Feature components;
 export const {
   MegaArbitrageEngine,
   MegaPredictionEngine,
-  MegaRevolutionaryInterface,
+//   MegaRevolutionaryInterface
 } = MegaFeaturesComponents;
 
 // Theme system;
@@ -54,7 +54,7 @@ export {
   CYBER_ANIMATIONS,
   CyberContainer,
   CyberText,
-  CyberButton,
+//   CyberButton
 };
 
 // Consolidation notice;
@@ -95,6 +95,10 @@ export default {
     CYBER_ANIMATIONS,
     CyberContainer,
     CyberText,
-    CyberButton,
-  },
+//     CyberButton
+  }
 };
+
+
+
+`

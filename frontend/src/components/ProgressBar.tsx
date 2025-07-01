@@ -1,29 +1,23 @@
-import React from 'react.ts';
-import { EntryStatus } from '@/types.ts';
-import { calculateProgressPercentage } from '@/utils/odds.ts';
-import { motion, Variants } from 'framer-motion.ts';
+﻿import React from 'react';
+import { EntryStatus} from '@/types';
+import { calculateProgressPercentage} from '@/utils/odds';
+import { motion, Variants} from 'framer-motion';
 
 interface ProgressBarProps {
-  current: number;
-  target: number;
-  status: EntryStatus;
-  showPercentage?: boolean;
-  className?: string;
-  showGlow?: boolean;
-  animated?: boolean;
-}
+  current: number,`n  target: number;,`n  status: EntryStatus;
+  showPercentage?: boolean
+  className?: string
+  showGlow?: boolean
+  animated?: boolean}
 
-const progressVariants: Variants = {
-  initial: { width: 0 },
-  animate: (percentage: number) => ({
-    width: `${percentage}%`,
-    transition: { duration: 1, ease: 'easeOut' },
-  }),
+const progressVariants: Variants = {,`n  initial: { width: 0},
+  animate: (percentage: number) => ({,`n  width: `${percentage}%`,
+    transition: { duration: 1, ease: 'easeOut'}
+  })
 };
 
-const glowVariants: Variants = {
-  initial: { opacity: 0 },
-  animate: { opacity: [0.4, 1, 0.4], transition: { duration: 2, repeat: Infinity } },
+const glowVariants: Variants = {,`n  initial: { opacity: 0},
+  animate: { opacity: [0.4, 1, 0.4], transition: { duration: 2, repeat: Infinity} }
 };
 
 export const ProgressBar: React.FC<ProgressBarProps key={734163}> = ({
@@ -33,33 +27,29 @@ export const ProgressBar: React.FC<ProgressBarProps key={734163}> = ({
   showPercentage = false,
   className = '',
   showGlow = true,
-  animated = true,
+  animated = true
 }) => {
 
   const getStatusColor = () => {
     switch (status) {
       case EntryStatus.WON:
-        return {
-          bar: 'bg-green-500',
+        return {,`n  bar: 'bg-green-500',
           text: 'text-green-500',
-          glow: 'shadow-green-500/50',
+          glow: 'shadow-green-500/50'
         };
       case EntryStatus.LOST:
-        return {
-          bar: 'bg-red-500',
+        return {,`n  bar: 'bg-red-500',
           text: 'text-red-500',
-          glow: 'shadow-red-500/50',
+          glow: 'shadow-red-500/50'
         };
       default:
-        return {
-          bar: 'bg-primary-500',
+        return {,`n  bar: 'bg-primary-500',
           text: 'text-primary-500',
-          glow: 'shadow-primary-500/50',
-        };
-    }
+          glow: 'shadow-primary-500/50'
+        }}
   };
 
-  const { bar, text, glow } = getStatusColor();
+  const { bar, text, glow} = getStatusColor();
 
   return (
     <div className="relative" key={579431}>
@@ -94,7 +84,7 @@ export const ProgressBar: React.FC<ProgressBarProps key={734163}> = ({
               blur-sm;
             `}
             initial="initial"
-            style={{ width: `${percentage}%` }}
+            style={{ width: `${percentage}%`}}
             variants={glowVariants}
           / key={463146}>
         )}
@@ -110,7 +100,7 @@ export const ProgressBar: React.FC<ProgressBarProps key={734163}> = ({
             style={{
               width: `${percentage}%`,
               backgroundSize: '20px 100%',
-              animation: 'progress-stripe 1s linear infinite',
+              animation: 'progress-stripe 1s linear infinite'
             }}
           / key={909063}>
         )}
@@ -120,14 +110,19 @@ export const ProgressBar: React.FC<ProgressBarProps key={734163}> = ({
       {showPercentage && (
         <div className="absolute -top-6 right-0" key={572462}>
           <motion.span;
-            animate={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0}}
             className={`text-xs font-medium ${text}`}
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 10}}
            key={156985}>
             {percentage}%
           </motion.span>
         </div>
       )}
     </div>
-  );
-};
+  )};
+
+
+
+
+
+`

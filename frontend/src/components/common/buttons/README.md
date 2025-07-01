@@ -3,6 +3,7 @@
 This directory contains shared button components and groups for the application.
 
 ## Files and Purpose
+
 - `BettingButton.tsx`: Button for betting actions.
 - `BettingButtonGroup.tsx`: Group of betting-related buttons.
 - `Button.tsx`: Generic reusable button component.

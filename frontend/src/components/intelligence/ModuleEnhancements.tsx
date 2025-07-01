@@ -1,89 +1,68 @@
-import React from 'react.ts';
-import { motion } from 'framer-motion.ts';
-import { DollarSign, Target, TrendingUp } from 'lucide-react.ts';
+﻿import React from 'react';
+import { motion} from 'framer-motion';
+import { DollarSign, Target, TrendingUp} from 'lucide-react';
 
 // Enhanced styling for module management;
 export const moduleEnhancementStyles = `
   .enhanced-module-card {
     background: linear-gradient(135deg, rgba(30, 41, 59, 0.4) 0%, rgba(51, 65, 85, 0.3) 100%);
     border: 2px solid rgba(71, 85, 105, 0.4);
-    border-radius: 16px;
-    padding: 20px;
-    backdrop-filter: blur(12px);
-    transition: all 0.3s ease;
-  }
+    border-radius: 16px,`n  padding: 20px;
+    backdrop-filter: blur(12px),`n  transition: all 0.3s ease}
 
-  .enhanced-module-card:hover {
-    transform: scale(1.03) rotateY(2deg);
+  .enhanced-module-card:hover {,`n  transform: scale(1.03) rotateY(2deg);
     border-color: rgba(71, 85, 105, 0.6);
     background: linear-gradient(135deg, rgba(51, 65, 85, 0.3) 0%, rgba(71, 85, 105, 0.25) 100%);
-    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.3);
-  }
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.3)}
 
   .enhanced-module-card.active {
     background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(16, 185, 129, 0.1) 50%, rgba(59, 130, 246, 0.15) 100%);
     border-color: rgba(34, 197, 94, 0.6);
-    box-shadow: 0 25px 50px -12px rgba(34, 197, 94, 0.4);
-  }
+    box-shadow: 0 25px 50px -12px rgba(34, 197, 94, 0.4)}
 
   .money-badge {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background: linear-gradient(45deg, #fbbf24, #f59e0b);
+    position: absolute,`n  top: -8px;,`n  right: -8px,`n  background: linear-gradient(45deg, #fbbf24, #f59e0b);
     color: black;
     font-size: 11px;
-    font-weight: bold;
-    padding: 4px 8px;
+    font-weight: bold,`n  padding: 4px 8px;
     border-radius: 9999px;
     box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4);
-    animation: pulse 2s infinite;
-  }
+    animation: pulse 2s infinite}
 
   .profit-bar {
-    width: 100%;
-    height: 6px;
-    background: rgba(71, 85, 105, 0.3);
-    border-radius: 3px;
-    overflow: hidden;
-  }
+    width: 100%,`n  height: 6px;,`n  background: rgba(71, 85, 105, 0.3);
+    border-radius: 3px,`n  overflow: hidden}
 
   .profit-fill {
     height: 100%;
-    border-radius: 3px;
-    transition: width 1s ease-out;
-  }
+    border-radius: 3px,`n  transition: width 1s ease-out}
 
   .profit-fill.high {
-    background: linear-gradient(90deg, #10b981, #34d399);
-  }
+    background: linear-gradient(90deg, #10b981, #34d399)}
 
   .profit-fill.medium {
-    background: linear-gradient(90deg, #3b82f6, #60a5fa);
-  }
+    background: linear-gradient(90deg, #3b82f6, #60a5fa)}
 
   .profit-fill.low {
-    background: linear-gradient(90deg, #6b7280, #9ca3af);
-  }
+    background: linear-gradient(90deg, #6b7280, #9ca3af)}
 `;
 
 // Money-making scores for modules;
 export const getModuleScore = (moduleId: string) => {
   const scores = {
-    "advanced-analytics": { money: 95, accuracy: 12, profit: 25000 },
-    "ultra-accuracy": { money: 92, accuracy: 18, profit: 22000 },
-    "ultra-ml": { money: 88, accuracy: 15, profit: 20000 },
-    "realtime-accuracy": { money: 85, accuracy: 10, profit: 18000 },
-    "strategy-engine": { money: 82, accuracy: 6, profit: 15000 },
-    "mega-analytics": { money: 90, accuracy: 20, profit: 30000 },
-    "performance-analytics": { money: 78, accuracy: 5, profit: 10000 },
-    "ml-model-center": { money: 75, accuracy: 8, profit: 12000 },
+    "advanced-analytics": { money: 95, accuracy: 12, profit: 25000},
+    "ultra-accuracy": { money: 92, accuracy: 18, profit: 22000},
+    "ultra-ml": { money: 88, accuracy: 15, profit: 20000},
+    "realtime-accuracy": { money: 85, accuracy: 10, profit: 18000},
+    "strategy-engine": { money: 82, accuracy: 6, profit: 15000},
+    "mega-analytics": { money: 90, accuracy: 20, profit: 30000},
+    "performance-analytics": { money: 78, accuracy: 5, profit: 10000},
+    "ml-model-center": { money: 75, accuracy: 8, profit: 12000}
   };
-  return scores[moduleId] || { money: 50, accuracy: 3, profit: 5000 };
-};
+  return scores[moduleId] || { money: 50, accuracy: 3, profit: 5000}};
 
 // Enhanced module card component;
-export const EnhancedModuleIndicators = ({ moduleId, isActive }) => {
+export const EnhancedModuleIndicators = ({ moduleId, isActive}) => {
 
   return (
     <>
@@ -93,19 +72,19 @@ export const EnhancedModuleIndicators = ({ moduleId, isActive }) => {
       )}
 
       {/* Performance metrics */}
-      <div style={{ marginBottom: "12px" }} key={559205}>
+      <div style={{ marginBottom: "12px"}} key={559205}>
         <div;
           style={{
             display: "flex",
             justifyContent: "space-between",
-            marginBottom: "4px",
+            marginBottom: "4px"
           }}
          key={594268}>
-          <span style={{ fontSize: "11px", color: "#94a3b8" }} key={712316}>
+          <span style={{ fontSize: "11px", color: "#94a3b8"}} key={712316}>
             Money Impact;
           </span>
           <span;
-            style={{ fontSize: "11px", fontWeight: "bold", color: "#10b981" }}
+            style={{ fontSize: "11px", fontWeight: "bold", color: "#10b981"}}
            key={675849}>
             {scores.money}%
           </span>
@@ -113,7 +92,7 @@ export const EnhancedModuleIndicators = ({ moduleId, isActive }) => {
         <div className="profit-bar" key={190170}>
           <div;
             className={`profit-fill ${scores.money  key={235590}>= 85 ? "high" : scores.money >= 70 ? "medium" : "low"}`}
-            style={{ width: `${scores.money}%` }}
+            style={{ width: `${scores.money}%`}}
           />
         </div>
       </div>
@@ -123,7 +102,7 @@ export const EnhancedModuleIndicators = ({ moduleId, isActive }) => {
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gap: "8px",
-          marginBottom: "8px",
+          marginBottom: "8px"
         }}
        key={465743}>
         <div;
@@ -131,13 +110,13 @@ export const EnhancedModuleIndicators = ({ moduleId, isActive }) => {
             background: "rgba(59, 130, 246, 0.1)",
             padding: "6px",
             borderRadius: "6px",
-            border: "1px solid rgba(59, 130, 246, 0.2)",
+            border: "1px solid rgba(59, 130, 246, 0.2)"
           }}
          key={234963}>
-          <div style={{ display: "flex", justifyContent: "space-between" }} key={754913}>
-            <span style={{ fontSize: "10px", color: "#93c5fd" }} key={358851}>Accuracy</span>
+          <div style={{ display: "flex", justifyContent: "space-between"}} key={754913}>
+            <span style={{ fontSize: "10px", color: "#93c5fd"}} key={358851}>Accuracy</span>
             <span;
-              style={{ fontSize: "10px", fontWeight: "bold", color: "#60a5fa" }}
+              style={{ fontSize: "10px", fontWeight: "bold", color: "#60a5fa"}}
              key={971076}>
               +{scores.accuracy}%
             </span>
@@ -149,13 +128,13 @@ export const EnhancedModuleIndicators = ({ moduleId, isActive }) => {
             background: "rgba(34, 197, 94, 0.1)",
             padding: "6px",
             borderRadius: "6px",
-            border: "1px solid rgba(34, 197, 94, 0.2)",
+            border: "1px solid rgba(34, 197, 94, 0.2)"
           }}
          key={698274}>
-          <div style={{ display: "flex", justifyContent: "space-between" }} key={754913}>
-            <span style={{ fontSize: "10px", color: "#86efac" }} key={968213}>Daily</span>
+          <div style={{ display: "flex", justifyContent: "space-between"}} key={754913}>
+            <span style={{ fontSize: "10px", color: "#86efac"}} key={968213}>Daily</span>
             <span;
-              style={{ fontSize: "10px", fontWeight: "bold", color: "#22c55e" }}
+              style={{ fontSize: "10px", fontWeight: "bold", color: "#22c55e"}}
              key={617399}>
               ${(scores.profit / 1000).toFixed(0)}k;
             </span>
@@ -163,11 +142,14 @@ export const EnhancedModuleIndicators = ({ moduleId, isActive }) => {
         </div>
       </div>
     </>
-  );
-};
+  );};
 
 export default {
   moduleEnhancementStyles,
   getModuleScore,
-  EnhancedModuleIndicators,
+//   EnhancedModuleIndicators
 };
+
+
+
+`

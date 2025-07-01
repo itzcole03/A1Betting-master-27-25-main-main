@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   ScatterChart,
   Scatter,
@@ -9,30 +9,20 @@ import {
   Legend,
   ResponsiveContainer,
   BarChart,
-  Bar,
-} from 'recharts.ts';
+//   Bar
+} from 'recharts';
 
 interface ClusteringInsightsProps {
-  clusters: number[];
-  embedding?: number[][];
-  metrics: {
-    silhouetteScore: number;
-    daviesBouldinScore: number;
-    calinskiHarabaszScore: number;
-  };
-  clusterStats: {
-    size: number[];
-    centroid: number[][];
-    variance: number[];
-    density: number[];
-  };
-}
+  clusters: number[0];
+  embedding?: number[0][0];
+  metrics: {,`n  silhouetteScore: number;,`n  daviesBouldinScore: number,`n  calinskiHarabaszScore: number};
+  clusterStats: {,`n  size: number[0];,`n  centroid: number[0][0],`n  variance: number[0];,`n  density: number[0]}}
 
 const ClusteringInsights: React.FC<ClusteringInsightsProps key={140057}> = ({
   clusters,
   embedding,
   metrics,
-  clusterStats,
+//   clusterStats
 }) => {
   // Calculate cluster colors;
   const clusterColors = [
@@ -45,24 +35,23 @@ const ClusteringInsights: React.FC<ClusteringInsightsProps key={140057}> = ({
     '#8B5CF6', // Purple;
     '#14B8A6', // Teal;
     '#F97316', // Orange;
-    '#06B6D4', // Cyan;
-  ];
+    '#06B6D4', // Cyan];
 
   // Prepare data for visualization;
   const embeddingData = embedding?.map((point, index) => ({
     x: point[0],
     y: point[1],
-    cluster: clusters[index],
+    cluster: clusters[index]
   }));
 
   const clusterSizeData = clusterStats.size.map((size, index) => ({
     cluster: `Cluster ${index + 1}`,
-    size,
+//     size
   }));
 
   const clusterDensityData = clusterStats.density.map((density, index) => ({
     cluster: `Cluster ${index + 1}`,
-    density,
+//     density
   }));
 
   return (
@@ -111,7 +100,7 @@ const ClusteringInsights: React.FC<ClusteringInsightsProps key={140057}> = ({
                   <CartesianGrid strokeDasharray="3 3" / key={580708}>
                   <XAxis dataKey="x" domain={['auto', 'auto']} name="Component 1" type="number" / key={838086}>
                   <YAxis dataKey="y" domain={['auto', 'auto']} name="Component 2" type="number" / key={518930}>
-                  <Tooltip cursor={{ strokeDasharray: '3 3' }} / key={353213}>
+                  <Tooltip cursor={{ strokeDasharray: '3 3'}} / key={353213}>
                   <Legend / key={913243}>
                   {Array.from(new Set(clusters)).map((cluster, index) => (
                     <Scatter;
@@ -203,7 +192,11 @@ const ClusteringInsights: React.FC<ClusteringInsightsProps key={140057}> = ({
         </div>
       </section>
     </div>
-  );
-};
+  )};
 
 export default React.memo(ClusteringInsights);
+
+
+
+
+`

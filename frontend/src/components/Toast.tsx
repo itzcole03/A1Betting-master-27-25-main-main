@@ -1,15 +1,14 @@
-import React, { useEffect  } from 'react.ts';
-import { cn } from '@/utils/classNames.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+﻿import React, { useEffect} from 'react';
+import { cn} from '@/utils/classNames';
+import { motion, AnimatePresence} from 'framer-motion';
 
 export interface ToastProps {
   id: string;
   type?: 'success' | 'error' | 'warning' | 'info';
-  title?: string;
+  title?: string
   message: string;
-  duration?: number;
-  onClose: (id: string) => void;
-}
+  duration?: number
+  onClose: (id: string) => void}
 
 const icons = {
   success: (
@@ -41,14 +40,14 @@ const icons = {
         strokeWidth={2}
       / key={836795}>
     </svg>
-  ),
+  )
 };
 
 const variants = {
   success: 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800',
   error: 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800',
   warning: 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800',
-  info: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800',
+  info: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800'
 };
 
 const Toast: React.FC<ToastProps key={207256}> = ({
@@ -57,27 +56,25 @@ const Toast: React.FC<ToastProps key={207256}> = ({
   title,
   message,
   duration = 5000,
-  onClose,
+//   onClose
 }) => {
   useEffect(() => {
     if (duration) {
       const timer = setTimeout(() => {
-        onClose(id);
-      }, duration);
-      return () => clearTimeout(timer);
-    }
+        onClose(id)}, duration);
+      return () => clearTimeout(timer)}
   }, [duration, id, onClose]);
 
   return (
     <AnimatePresence key={359944}>
       <motion.div;
-        animate={{ opacity: 1, y: 0, scale: 1 }}
+        animate={{ opacity: 1, y: 0, scale: 1}}
         className={cn(
           'pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg border shadow-lg',
           variants[type]
         )}
-        exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
-        initial={{ opacity: 0, y: 50, scale: 0.3 }}
+        exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2} }}
+        initial={{ opacity: 0, y: 50, scale: 0.3}}
        key={364808}>
         <div className="p-4" key={916123}>
           <div className="flex items-start" key={170970}>
@@ -108,5 +105,10 @@ const Toast: React.FC<ToastProps key={207256}> = ({
         </div>
       </motion.div>
     </AnimatePresence>
-  );
-};
+  )};
+
+
+
+
+
+

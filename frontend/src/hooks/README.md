@@ -8,6 +8,7 @@ This directory contains all custom React hooks for the application.
 - Test files are in the `__tests__/` subfolder.
 
 ## Example Hooks
+
 - `useAnalytics.ts`: Analytics data and logic.
 - `useApi.ts`: API request abstraction.
 - `useBettingAnalytics.ts`: Betting analytics logic.

@@ -1,8 +1,8 @@
-/**
+﻿/**
  * Comprehensive API Service Layer for A1Betting Frontend
  * Provides typed interfaces to all backend endpoints with proper error handling.
  */
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse} from 'axios';
 
 // Define base URL from environment variables
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
@@ -12,57 +12,52 @@ const apiClient = axios.create({
   baseURL: BASE_URL,
   timeout: 30000,
   headers: {
-    'Content-Type': 'application/json',
-  },
+    'Content-Type': 'application/json'
+  }
 });
 
 // --- Request Interceptor ---
 apiClient.interceptors.request.use(
-  (config) => {
+  config => {
     // In a real app, you'd get the token from a state manager or local storage
     const token = localStorage.getItem('auth_token');
     if (token) {
       if (config.headers) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
+        config.headers.Authorization = `Bearer ${token}`;}
     }
     if (import.meta.env.DEV) {
-      console.log(`[API Request] ${config.method?.toUpperCase()} ${config.url}`, config.data || '');
-    }
-    return config;
-  },
-  (error) => {
+      console.log(`[API Request] ${config.method?.toUpperCase()} ${config.url}`, config.data || '');}
+    return config;},
+  error => {
     console.error('[API Request Error]', error);
-    return Promise.reject(error);
-  },
+    return Promise.reject(error);}
 );
 
 // --- Response Interceptor ---
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => {
     if (import.meta.env.DEV) {
-      console.log(`[API Response] ${response.config.method?.toUpperCase()} ${response.config.url}`, response.status, response.data);
-    }
-    return response;
-  },
+      console.log(
+        `[API Response] ${response.config.method?.toUpperCase()} ${response.config.url}`,
+        response.status,
+        response.data
+      )}
+    return response;},
   (error: AxiosError) => {
     console.error(
       `[API Response Error] ${error.config?.method?.toUpperCase()} ${error.config?.url}`,
       error.response?.status,
-      error.response?.data,
+      error.response?.data
     );
 
     if (error.response?.status === 401) {
       // Handle unauthorized access, e.g., redirect to login
-      console.error("Unauthorized access - redirecting to login.");
-      // window.location.href = '/login';
-    }
+      console.error('Unauthorized access - redirecting to login.');
+      // window.location.href = '/login';}
 
     // Return a structured error to be handled by the calling code
-    return Promise.reject(error.response || error.message);
-  },
+    return Promise.reject(error.response || error.message);}
 );
-
 
 /**
  * A generic and simplified API service for interacting with the backend.
@@ -76,12 +71,10 @@ export class ApiService {
    */
   static async get<T>(endpoint: string, params?: Record<string, any>): Promise<T> {
     try {
-      const response = await apiClient.get<T>(endpoint, { params });
-      return response.data;
-    } catch (error) {
+      const response = await apiClient.get<T>(endpoint, { params});
+      return response.data;} catch (error) {
       console.error(`Error fetching data from ${endpoint}:`, error);
-      throw error;
-    }
+      throw error;}
   }
 
   /**
@@ -93,27 +86,23 @@ export class ApiService {
   static async post<T>(endpoint: string, data: any): Promise<T> {
     try {
       const response = await apiClient.post<T>(endpoint, data);
-      return response.data;
-    } catch (error) {
+      return response.data;} catch (error) {
       console.error(`Error posting data to ${endpoint}:`, error);
-      throw error;
-    }
+      throw error;}
   }
 
   /**
- * Generic PUT method for updating data at an endpoint.
- * @param endpoint - The API endpoint to call.
- * @param data - The data to send in the request body.
- * @returns A promise that resolves with the response data.
- */
+   * Generic PUT method for updating data at an endpoint.
+   * @param endpoint - The API endpoint to call.
+   * @param data - The data to send in the request body.
+   * @returns A promise that resolves with the response data.
+   */
   static async put<T>(endpoint: string, data: any): Promise<T> {
     try {
       const response = await apiClient.put<T>(endpoint, data);
-      return response.data;
-    } catch (error) {
+      return response.data;} catch (error) {
       console.error(`Error updating data at ${endpoint}:`, error);
-      throw error;
-    }
+      throw error;}
   }
 
   /**
@@ -124,14 +113,14 @@ export class ApiService {
   static async delete<T>(endpoint: string): Promise<T> {
     try {
       const response = await apiClient.delete<T>(endpoint);
-      return response.data;
-    } catch (error) {
+      return response.data;} catch (error) {
       console.error(`Error deleting data from ${endpoint}:`, error);
-      throw error;
-    }
-  }
-}
+      throw error;}
+  }}
 
 // Export a singleton instance
 export const api = ApiService;
 export default ApiService;
+
+
+`

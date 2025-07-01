@@ -1,21 +1,18 @@
-import React from 'react.ts';
-import { useState } from 'react.ts';
-import { useBettingAnalytics } from '@/hooks/useBettingAnalytics.ts';
-import { BettingStrategy } from '@/services/unified/UnifiedBettingAnalytics.ts';
-import { RiskReasoningDisplay } from '@/shared/RiskReasoningDisplay.ts';
+﻿import React from 'react';
+import { useState} from 'react';
+import { useBettingAnalytics} from '@/hooks/useBettingAnalytics';
+import { BettingStrategy} from '@/services/unified/UnifiedBettingAnalytics';
+import { RiskReasoningDisplay} from '@/shared/RiskReasoningDisplay';
 
 interface BettingAnalyticsProps {
-  market: string;
-  initialOdds: number;
-  initialStake: number;
-  className?: string;
-}
+  market: string,`n  initialOdds: number;,`n  initialStake: number;
+  className?: string}
 
 export function BettingAnalytics({
   market,
   initialOdds,
   initialStake,
-  className = '',
+  className = ''
 }: BettingAnalyticsProps) {
   const [odds, setOdds] = useState(initialOdds);
   const [stake, setStake] = useState(initialStake);
@@ -29,41 +26,37 @@ export function BettingAnalytics({
     removeStrategy,
     calculatePotentialProfit,
     getRecommendedStake,
-    getRiskAssessment,
+//     getRiskAssessment
   } = useBettingAnalytics({
     market,
     odds,
     stake,
-    autoRefresh: true,
+    autoRefresh: true
   });
 
   const handleAddStrategy = () => {
-    const newStrategy: BettingStrategy = {
-      id: crypto.randomUUID(),
+    const newStrategy: BettingStrategy = {,`n  id: crypto.randomUUID(),
       name: 'Custom Strategy',
       riskLevel: 'medium',
       stakePercentage: 5,
       minOdds: 1.5,
-      maxOdds: 3.0,
+      maxOdds: 3.0
     };
-    addStrategy(newStrategy);
-  };
+    addStrategy(newStrategy);};
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center p-8" key={330113}>
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" / key={299563}>
       </div>
-    );
-  }
+    );}
 
   if (error) {
     return (
       <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700" key={679835}>
         <p key={161203}>Error loading analysis: {error.message}</p>
       </div>
-    );
-  }
+    )}
 
 
 
@@ -107,8 +100,7 @@ export function BettingAnalytics({
                 ? 'bg-green-50 text-green-700'
                 : riskAssessment.level === 'medium'
                   ? 'bg-yellow-50 text-yellow-700'
-                  : 'bg-red-50 text-red-700'
-              }`}
+                  : 'bg-red-50 text-red-700'}`}
            key={54984}>
             <p className="font-semibold capitalize" key={452184}>Risk Level: {riskAssessment.level}</p>
             <ul className="mt-2 space-y-1" key={838219}>
@@ -209,5 +201,9 @@ export function BettingAnalytics({
         )}
       </div>
     </div>
-  );
-}
+  );}
+
+
+
+
+`

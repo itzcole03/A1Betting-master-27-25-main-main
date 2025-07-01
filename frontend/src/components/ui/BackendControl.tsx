@@ -1,5 +1,5 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+﻿import React, { useState, useEffect} from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
 import {
   Server,
   Play,
@@ -11,16 +11,15 @@ import {
   XCircle,
   Clock,
   Settings,
-  Terminal,
-} from 'lucide-react.ts';
-import { api } from '@/services/api.ts';
-import { BackendStarter } from '@/utils/backendStarter.ts';
-import toast from 'react-hot-toast.ts';
+//   Terminal
+} from 'lucide-react';
+import { api} from '@/services/api';
+import { BackendStarter} from '@/utils/backendStarter';
+import toast from 'react-hot-toast';
 
 interface BackendControlProps {
   isOffline: boolean;
-  onStatusChange?: (isOnline: boolean) => void;
-}
+  onStatusChange?: (isOnline: boolean) => void}
 
 // Detect if user is on Windows;
 const isWindows = () => {
@@ -29,12 +28,11 @@ const isWindows = () => {
     navigator.platform.includes("Win") ||
     navigator.userAgent.includes("Windows");
   // console statement removed
-  return isWin;
-};
+  return isWin;};
 
 export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
   isOffline,
-  onStatusChange,
+//   onStatusChange
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
@@ -44,14 +42,13 @@ export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
 
   // Update backend status when isOffline prop changes;
   useEffect(() => {
-    setBackendStatus(isOffline ? "offline" : "online");
-  }, [isOffline]);
+    setBackendStatus(isOffline ? "offline" : "online");}, [isOffline]);
 
   const testConnection = async () => {
     setIsLoading(true);
 
     try {
-      toast.loading("Testing backend connection...", { id: "connection-test" });
+      toast.loading("Testing backend connection...", { id: "connection-test"});
 
       if (status.isOnline) {
         setBackendStatus("online");
@@ -60,10 +57,9 @@ export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
             <div className="font-semibold" key={503466}>✅ Backend Online</div>
             <div className="text-sm" key={280879}>All services are responding normally</div>
           </>,
-          { id: "connection-test" },
+          { id: "connection-test"},
         );
-        onStatusChange?.(true);
-      } else {
+        onStatusChange?.(true);} else {
         setBackendStatus("offline");
 
         // Check if we're in a cloud environment;
@@ -85,11 +81,10 @@ export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
           </>,
           {
             id: "connection-test",
-            duration: 6000,
+            duration: 6000
           },
         );
-        onStatusChange?.(false);
-      }
+        onStatusChange?.(false);}
     } catch (error) {
       setBackendStatus("error");
       const errorMessage =
@@ -105,15 +100,13 @@ export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
         </>,
         {
           id: "connection-test",
-          duration: 6000,
+          duration: 6000
         },
       );
 
       // console statement removed
-      onStatusChange?.(false);
-    } finally {
-      setIsLoading(false);
-    }
+      onStatusChange?.(false);} finally {
+      setIsLoading(false);}
   };
 
   const startBackend = async () => {
@@ -123,7 +116,7 @@ export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
 
     try {
       // Always show immediate feedback that the button was clicked;
-      toast.loading("Checking backend status...", { id: "backend-start" });
+      toast.loading("Checking backend status...", { id: "backend-start"});
       // console statement removed...");
 
       // First, try multiple connection attempts;
@@ -133,7 +126,7 @@ export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
       // Always process the result, whether success or failure;
       if (result?.success) {
         setBackendStatus("online");
-        toast.success(result.message, { id: "backend-start" });
+        toast.success(result.message, { id: "backend-start"});
         onStatusChange?.(true);
 
         // Retest connection after a short delay;
@@ -145,12 +138,10 @@ export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
               "Backend started but connection lost. Please check manually.",
               {
                 id: "backend-recheck",
-                duration: 8000,
+                duration: 8000
               },
-            );
-          }
-        }, 3000);
-      } else {
+            )}
+        }, 3000);} else {
         setBackendStatus("offline");
 
         // Always show the message to the user, even if it's about environment restrictions;
@@ -213,17 +204,16 @@ export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
                       ? "Run each command separately in PowerShell/CMD"
                       : "Commands can be chained with &&"}
                   </div>
-                  <div key={241917}>Backend should start on http://localhost:8000</div>
+                  <div key={241917}>Backend should start on http: //localhost:8000</div>
                 </>
               )}
             </div>
           </>,
           {
             id: "backend-start",
-            duration: isEnvironmentMessage ? 8000 : 12000,
+            duration: isEnvironmentMessage ? 8000 : 12000
           },
-        );
-      }
+        )}
     } catch (error) {
       // console statement removed
       setBackendStatus("error");
@@ -270,14 +260,12 @@ export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
         </>,
         {
           id: "backend-start",
-          duration: 12000,
+          duration: 12000
         },
       );
 
-      // console statement removed
-    } finally {
-      setIsLoading(false);
-    }
+      // console statement removed} finally {
+      setIsLoading(false);}
   };
 
   const restartBackend = async () => {
@@ -286,28 +274,24 @@ export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
 
     try {
       toast.loading("Restarting backend services...", {
-        id: "backend-restart",
+        id: "backend-restart"
       });
 
       if (result.success) {
         setBackendStatus("online");
-        toast.success(result.message, { id: "backend-restart" });
-        onStatusChange?.(true);
-      } else {
+        toast.success(result.message, { id: "backend-restart"});
+        onStatusChange?.(true);} else {
         setBackendStatus("offline");
         toast.error(result.message, {
           id: "backend-restart",
-          duration: 6000,
-        });
-      }
+          duration: 6000
+        })}
     } catch (error) {
       setBackendStatus("error");
       toast.error("Failed to restart backend services", {
-        id: "backend-restart",
-      });
-    } finally {
-      setIsLoading(false);
-    }
+        id: "backend-restart"
+      })} finally {
+      setIsLoading(false);}
   };
 
   const getStatusColor = () => {
@@ -320,9 +304,7 @@ export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
         return "text-yellow-400 border-yellow-500/30 bg-yellow-500/10";
       case "error":
         return "text-red-400 border-red-500/30 bg-red-500/10";
-      default:
-        return "text-gray-400 border-gray-500/30 bg-gray-500/10";
-    }
+      default: return "text-gray-400 border-gray-500/30 bg-gray-500/10"}
   };
 
   const getStatusIcon = () => {
@@ -335,16 +317,14 @@ export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
         return <Clock className="w-4 h-4 animate-spin" / key={825194}>;
       case "error":
         return <XCircle className="w-4 h-4" / key={709529}>;
-      default:
-        return <Server className="w-4 h-4" / key={234913}>;
-    }
+      default: return <Server className="w-4 h-4" / key={234913}>}
   };
 
   return (
     <div className="fixed bottom-4 right-4 z-50" key={942741}>
       <motion.div;
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
+        initial={{ scale: 0.9, opacity: 0}}
+        animate={{ scale: 1, opacity: 1}}
         className="bg-black/80 backdrop-blur-xl border border-gray-600/50 rounded-xl shadow-2xl"
        key={904301}>
         {/* Main Control Panel */}
@@ -397,8 +377,8 @@ export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
           {/* Action Buttons */}
           <div className="flex gap-2" key={15266}>
             <motion.button;
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05}}
+              whileTap={{ scale: 0.95}}
               onClick={testConnection}
               disabled={isLoading}
               className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 text-white text-sm font-medium rounded-lg transition-colors"
@@ -409,13 +389,12 @@ export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
 
             {(backendStatus === "offline" || backendStatus === "error") && (
               <motion.button;
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.05}}
+                whileTap={{ scale: 0.95}}
                 onClick={(e) = key={51298}> {
                   e.preventDefault();
                   // console statement removed
-                  startBackend();
-                }}
+                  startBackend();}}
                 disabled={isLoading}
                 className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-600 text-white text-sm font-medium rounded-lg transition-colors"
               >
@@ -426,8 +405,8 @@ export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
 
             {backendStatus === "online" && (
               <motion.button;
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.05}}
+                whileTap={{ scale: 0.95}}
                 onClick={restartBackend}
                 disabled={isLoading}
                 className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-yellow-600 hover:bg-yellow-700 disabled:bg-gray-600 text-white text-sm font-medium rounded-lg transition-colors"
@@ -443,9 +422,9 @@ export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
         <AnimatePresence key={359944}>
           {showDetails && (
             <motion.div;
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
+              initial={{ height: 0, opacity: 0}}
+              animate={{ height: "auto", opacity: 1}}
+              exit={{ height: 0, opacity: 0}}
               className="border-t border-gray-600/50 p-4 bg-gray-900/50"
              key={252774}>
               <div className="flex items-center gap-2 mb-3" key={884420}>
@@ -470,8 +449,7 @@ export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
                         ? "text-green-400"
                         : backendStatus === "starting"
                           ? "text-yellow-400"
-                          : "text-red-400"
-                    }`}
+                          : "text-red-400"}`}
                    key={133422}>
                     {backendStatus.toUpperCase()}
                   </span>
@@ -529,8 +507,7 @@ export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
                             python main_enhanced.py;
                           </div>
                         </>
-                      );
-                    })()}
+                      );})()}
                   </div>
                 </div>
               </div>
@@ -539,7 +516,10 @@ export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
         </AnimatePresence>
       </motion.div>
     </div>
-  );
-};
+  );};
 
 export default BackendControl;
+
+
+
+`

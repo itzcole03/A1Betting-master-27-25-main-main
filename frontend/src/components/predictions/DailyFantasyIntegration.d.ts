@@ -1,19 +1,13 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface DailyFantasyData {
-    playerId: string;
-    playerName: string;
-    team: string;
-    position: string;
-    salary: number;
-    projectedPoints: number;
-    actualPoints?: number;
-    ownershipPercentage?: number;
-    valueScore?: number;
-}
+  playerId: string,`n  playerName: string;,`n  team: string,`n  position: string;,`n  salary: number,`n  projectedPoints: number;
+  actualPoints?: number;
+  ownershipPercentage?: number;
+  valueScore?: number;}
 interface DailyFantasyIntegrationProps {
-    onDataUpdate: (data: DailyFantasyData[]) => void;
-    sport: string;
-    date: string;
-}
+  onDataUpdate: (data: DailyFantasyData[0]) => void,`n  sport: string;,`n  date: string}
 export declare const DailyFantasyIntegration: React.FC<DailyFantasyIntegrationProps>;
-export {};
+export Record<string, any>;
+
+
+`

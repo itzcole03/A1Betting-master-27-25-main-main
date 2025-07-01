@@ -1,6 +1,6 @@
-// betaTest4/src/test/unit/useAppStore.test.ts;
-import { useAppStore, getInitialState } from '@/store/useAppStore.ts';
-import { act } from '@testing-library/react.ts'; // For store actions;
+﻿// betaTest4/src/test/unit/useAppStore.test.ts;
+import { useAppStore, getInitialState} from '@/store/useAppStore';
+import { act} from '@testing-library/react'; // For store actions;
 
 // Mock services that the store might call indirectly via actions;
 // We only mock them if an action we test directly calls a service.
@@ -8,10 +8,9 @@ import { act } from '@testing-library/react.ts'; // For store actions;
 
 // Example: Mock authService if testing login/logout actions that use it;
 jest.mock('../../services/authService', () => ({
-  authService: {
-    login: jest.fn(),
-    logout: jest.fn(),
-  },
+  authService: {,`n  login: jest.fn(),
+    logout: jest.fn()
+  }
 }));
 
 // Mock UnifiedConfig to always provide a config object;
@@ -24,38 +23,36 @@ jest.mock('../../core/UnifiedConfig', () => {
     config: '/api/config',
     news: '/api/news',
     sentiment: '/api/sentiment',
-    live: '/api/live',
+    live: '/api/live'
   };
   const config = {
     appName: 'Test App',
     version: '1.0.0',
-    features: {},
+    features: Record<string, any>,
     apiBaseUrl: 'http://localhost:8000',
     sentryDsn: '',
     websocketUrl: 'ws://localhost:8080',
-    getApiEndpoint: (key: string) => (apiEndpoints as Record<string, string>)[key] || '',
+    getApiEndpoint: (key: string) => (apiEndpoints as Record<string, string>)[key] || ''
   };
   return {
     ...jest.requireActual('../../core/UnifiedConfig'),
     initializeUnifiedConfig: jest.fn(() => Promise.resolve(config)),
     fetchAppConfig: jest.fn(() => Promise.resolve(config)),
     getInitializedUnifiedConfig: jest.fn(() => config),
-    globalUnifiedConfig: config,
-  };
-});
+    globalUnifiedConfig: config
+  }});
 
 jest.mock('../../store/useAppStore', () => {
-
   // Zustand store hybrid mock;
   let state: any = {
     // Arrays;
-    props: [],
-    legs: [],
-    entries: [],
-    toasts: [],
-    betSlipLegs: [],
-    selectedPropIds: [],
-    safeSelectedPropIds: [],
+    props: [0],
+    legs: [0],
+    entries: [0],
+    toasts: [0],
+    betSlipLegs: [0],
+    selectedPropIds: [0],
+    safeSelectedPropIds: [0],
     // Booleans;
     isLoadingProps: false,
     isLoadingAppProps: false,
@@ -77,81 +74,70 @@ jest.mock('../../store/useAppStore', () => {
     addLeg: jest.fn(),
     removeLeg: jest.fn(),
     addToast: jest.fn((toast: any) => {
-
-      state.toasts.push({ ...toast, id });
-      return id;
-    }),
+      state.toasts.push({ ...toast, id});
+      return id;}),
     removeToast: jest.fn((id: string) => {
-      state.toasts = state.toasts.filter((t: any) => t.id !== id);
-    }),
+      state.toasts = state.toasts.filter((t: any) => t.id !== id)}),
     updateStake: jest.fn(),
     clearSlip: jest.fn(() => {
-      state.legs = [];
+      state.legs = [0];
       state.stake = 0;
-      state.potentialPayout = 0;
-    }),
+      state.potentialPayout = 0;}),
     submitSlip: jest.fn(),
     setProps: jest.fn(),
     updateEntry: jest.fn(),
     // Additional for store;
     stake: 0,
-    potentialPayout: 0,
+    potentialPayout: 0
   };
 
   useAppStore.getState = () => state;
   useAppStore.setState = (partial: any) => {
-    state = { ...state, ...(typeof partial === 'function' ? partial(state) : partial) };
-  };
+    state = { ...state, ...(typeof partial === 'function' ? partial(state) : partial)}};
   useAppStore.subscribe = jest.fn();
   useAppStore.destroy = jest.fn();
-  return { useAppStore, getInitialState: real.getInitialState };
-});
+  return { useAppStore, getInitialState: real.getInitialState}});
 
 describe('useAppStore Zustand Store', () => {
   beforeEach(() => {
     // Reset store to initial state before each test;
     act(() => {
-      useAppStore.setState(getInitialState());
-    });
+      useAppStore.setState(getInitialState());});
     // Clear any mocks if they were called;
-    jest.clearAllMocks();
-  });
+    jest.clearAllMocks();});
 
   it('should initialize with default auth state', () => {
-    const { isAuthenticated, user, token } = useAppStore.getState();
+    const { isAuthenticated, user, token} = useAppStore.getState();
     expect(isAuthenticated).toBe(false);
     expect(user).toBeNull();
-    expect(token).toBeNull();
-  });
+    expect(token).toBeNull();});
 
   it('should allow adding and removing a toast notification', () => {
     const toastId = '';
     act(() => {
-      toastId = useAppStore.getState().addToast({ message: 'Test Toast', type: 'info' });
-    });
+      toastId = useAppStore.getState().addToast({ message: 'Test Toast', type: 'info'})});
     expect(useAppStore.getState().toasts).toHaveLength(1);
     expect(useAppStore.getState().toasts[0].message).toBe('Test Toast');
     expect(useAppStore.getState().toasts[0].id).toBe(toastId);
 
     act(() => {
-      useAppStore.getState().removeToast(toastId);
-    });
-    expect(useAppStore.getState().toasts).toHaveLength(0);
-  });
+      useAppStore.getState().removeToast(toastId);});
+    expect(useAppStore.getState().toasts).toHaveLength(0);});
 
   it('should update stake and calculate potential payout correctly for BetSlip', () => {
     // Scaffold: If the store does not auto-set stake/payout, skip real assertion;
-    expect(true).toBe(true); // TODO: Implement real assertion if feature is implemented;
-  });
+    expect(true).toBe(true); // TODO: Implement real assertion if feature is implemented});
 
   it('clearSlip action should reset bet slip state', () => {
     // Scaffold: If the store does not auto-set stake/payout, skip real assertion;
-    expect(true).toBe(true); // TODO: Implement real assertion if feature is implemented;
-  });
+    expect(true).toBe(true); // TODO: Implement real assertion if feature is implemented});
 
   // Add more tests for other actions and state aspects:
   // - login success/failure (mocking authService.login responses)
   // - fetchProps success/failure;
   // - fetchEntries behavior with/without auth;
-  // - etc.
-});
+  // - etc.});
+
+
+
+`

@@ -1,24 +1,22 @@
-import React from 'react.ts';
-import { useUnifiedAnalytics } from '@/hooks/useUnifiedAnalytics.ts';
+﻿import React from 'react';
+import { useUnifiedAnalytics} from '@/hooks/useUnifiedAnalytics';
 
-const exportToJson = (data: any) => {
+const exportToJson = (data: unknown) => {
 
 
 
   a.href = url;
   a.download = 'hyperml-insights.json';
   a.click();
-  URL.revokeObjectURL(url);
-};
+  URL.revokeObjectURL(url)};
 
 interface HyperMLInsightsProps {
-  autoUpdateInterval?: number;
-  showMarketAnalysis?: boolean;
-  showRiskMetrics?: boolean;
-  showInefficiencies?: boolean;
-  showHedging?: boolean;
-  showRecommendation?: boolean;
-}
+  autoUpdateInterval?: number
+  showMarketAnalysis?: boolean
+  showRiskMetrics?: boolean
+  showInefficiencies?: boolean
+  showHedging?: boolean
+  showRecommendation?: boolean}
 
 const HyperMLInsights: React.FC<HyperMLInsightsProps key={889266}> = ({
   autoUpdateInterval = 60000,
@@ -26,11 +24,11 @@ const HyperMLInsights: React.FC<HyperMLInsightsProps key={889266}> = ({
   showRiskMetrics = true,
   showInefficiencies = true,
   showHedging = true,
-  showRecommendation = true,
+  showRecommendation = true
 }) => {
-  const { ml, betting } = useUnifiedAnalytics({
-    ml: { autoUpdate: true, updateInterval: autoUpdateInterval },
-    betting: true,
+  const { ml, betting} = useUnifiedAnalytics({
+    ml: { autoUpdate: true, updateInterval: autoUpdateInterval},
+    betting: true
   });
 
   if (ml.loading || betting.loading) {
@@ -41,8 +39,7 @@ const HyperMLInsights: React.FC<HyperMLInsightsProps key={889266}> = ({
           className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"
         / key={205544}>
       </div>
-    );
-  }
+    )}
 
   if (ml.error || betting.error) {
     return (
@@ -53,14 +50,12 @@ const HyperMLInsights: React.FC<HyperMLInsightsProps key={889266}> = ({
           className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
           onClick={() = key={602268}> {
             ml.refetch();
-            betting.refetch();
-          }}
+            betting.refetch()}}
         >
           Retry;
         </button>
       </div>
-    );
-  }
+    )}
 
 
   if (!mlResult) {
@@ -68,10 +63,9 @@ const HyperMLInsights: React.FC<HyperMLInsightsProps key={889266}> = ({
       <div className="p-4 text-gray-500" role="status" key={928858}>
         No HyperML analytics available.
       </div>
-    );
-  }
+    )}
 
-  // BettingAnalytics type: { roi, winRate, profitLoss, riskMetrics: { var, sharpe, sortino }, confidence }
+  // BettingAnalytics type: { roi, winRate, profitLoss, riskMetrics: { var, sharpe, sortino}, confidence}
   // Remove kelly, use only available fields;
 
   return (
@@ -183,14 +177,13 @@ const HyperMLInsights: React.FC<HyperMLInsightsProps key={889266}> = ({
               className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
               onClick={() = key={299616}> {
                 ml.refetch();
-                betting.refetch();
-              }}
+                betting.refetch()}}
             >
               Refresh Analysis;
             </button>
             <button;
               className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300"
-              onClick={() = key={833748}> exportToJson({ mlResult, bettingResult })}
+              onClick={() = key={833748}> exportToJson({ mlResult, bettingResult})}
             >
               Export JSON;
             </button>
@@ -198,7 +191,12 @@ const HyperMLInsights: React.FC<HyperMLInsightsProps key={889266}> = ({
         </section>
       )}
     </div>
-  );
-};
+  )};
 
 export default React.memo(HyperMLInsights);
+
+
+
+
+
+

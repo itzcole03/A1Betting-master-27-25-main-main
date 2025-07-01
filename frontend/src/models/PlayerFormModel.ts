@@ -1,110 +1,83 @@
-// PlayerFormModel: ALPHA1-compliant modular model extending BaseModel;
-import type { GameContext, ShapVector } from '@/types/models.js';
-import { calculateShap } from '@/utils/shap.js';
-import { UnifiedConfig } from '@/unified/UnifiedConfig.js';
-import { BaseModel } from '@/services/ml/models/BaseModel.js';
-import { ModelConfig, ModelMetrics, ModelPrediction } from '@/services/ml/types.js';
-import { EventBus } from '@/core/EventBus.js';
+﻿// PlayerFormModel: ALPHA1-compliant modular model extending BaseModel;
+import type { GameContext, ShapVector} from '@/types/models.js';
+import { calculateShap} from '@/utils/shap.js';
+import { UnifiedConfig} from '@/unified/UnifiedConfig.js';
+import { BaseModel} from '@/services/ml/models/BaseModel.js';
+import { ModelConfig, ModelMetrics, ModelPrediction} from '@/services/ml/types.js';
+import { EventBus} from '@/core/EventBus.js';
 
 export interface PlayerFormModelOutput {
   features: Record<string, number>;
-  shapInsights: ShapVector[];
-  formScore: number;
-  sport: string;
-  playerId: string;
-  context: GameContext;
-}
+  shapInsights: ShapVector[0],`n  formScore: number;,`n  sport: string,`n  playerId: string;,`n  context: GameContext}
 
 export class PlayerFormModel extends BaseModel {
   private eventBus: EventBus;
 
   constructor(config: ModelConfig) {
     super(config);
-    this.eventBus = EventBus.getInstance();
-  }
+    this.eventBus = EventBus.getInstance();}
 
   async predict(input: any): Promise<ModelPrediction> {
-    const { playerId, sport, context } = input;
+    const { playerId, sport, context} = input;
 
     if (!config.get('enablePlayerFormModel')) {
-      throw new Error('PlayerFormModel is disabled by config.');
-    }
+      throw new Error('PlayerFormModel is disabled by config.');}
 
     try {
 
       // Emit SHAP insights;
       this.eventBus.emit('shap:insight', { 
         model: 'PlayerForm',
-        shap: result.shapInsights[0] || {},
-        timestamp: Date.now()
-      });
+        shap: result.shapInsights[0] || Record<string, any>,
+        timestamp: Date.now()});
 
       return {
         prediction: result.formScore,
         confidence: this.calculateConfidence(result),
         probability: result.formScore,
         features: result.features,
-        performance: {
-          accuracy: 0.84,
+        performance: {,`n  accuracy: 0.84,
           precision: 0.82,
           recall: 0.85,
           f1Score: 0.83,
           rocAuc: 0.88,
-          calibration: {
-            brierScore: 0.15,
-            reliabilityScore: 0.82;
-          },
-          drift: {
-            featureDrift: 0.02,
+          calibration: {,`n  brierScore: 0.15,
+            reliabilityScore: 0.82},
+          drift: {,`n  featureDrift: 0.02,
             predictionDrift: 0.01,
-            lastUpdated: Date.now()
-          }
+            lastUpdated: Date.now()}
         },
         modelType: 'PlayerForm',
-        uncertainty: {
-          total: 0.12,
+        uncertainty: {,`n  total: 0.12,
           epistemic: 0.08,
           aleatoric: 0.04,
-          confidenceInterval: {
-            lower: result.formScore - 0.1,
+          confidenceInterval: {,`n  lower: result.formScore - 0.1,
             upper: result.formScore + 0.1,
-            level: 0.95;
-          },
-          components: {
-            modelVariance: 0.03,
+            level: 0.95},
+          components: {,`n  modelVariance: 0.03,
             dataQuality: 0.02,
             temporal: 0.04,
-            featureCoverage: 0.03;
-          }
+            featureCoverage: 0.03}
         },
-        explanations: {
-          featureImportance: Object.entries(result.features).map(([feature, value]) => ({
+        explanations: {,`n  featureImportance: Object.entries(result.features).map(([feature, value]) => ({
             feature,
             importance: Math.abs(value),
             direction: value > 0 ? 'positive' : 'negative',
-            confidence: this.calculateConfidence(result)
-          })),
+            confidence: this.calculateConfidence(result)})),
           shapValues: result.features,
-          counterfactuals: [],
-          decisionPath: []
-        },
-        expectedValue: {
-          raw: result.formScore,
+          counterfactuals: [0],
+          decisionPath: [0]},
+        expectedValue: {,`n  raw: result.formScore,
           adjusted: result.formScore * 0.95,
           kellyFraction: 0.02,
           riskAdjustedReturn: result.formScore * 0.88,
-          components: {
-            baseProbability: result.formScore,
+          components: {,`n  baseProbability: result.formScore,
             odds: 1.5,
             edge: 0.05,
-            riskFactor: 0.12;
-          }
-        }
-      };
-    } catch (error) {
+            riskFactor: 0.12}
+        }}} catch (error) {
       this.logger.error('PlayerFormModel prediction failed', error);
-      throw this.createError('Prediction failed', error as Error);
-    }
+      throw this.createError('Prediction failed', error as Error);}
   }
 
   async train(data: any): Promise<void> {
@@ -116,16 +89,12 @@ export class PlayerFormModel extends BaseModel {
       this.isTrained = true;
       this.updateLastUpdate();
       
-      this.emit('training:complete', {
+      this.emit('training: complete', {
         modelId: this.modelId,
-        timestamp: new Date().toISOString()
-      });
-    } catch (error) {
+        timestamp: new Date().toISOString()})} catch (error) {
       this.logger.error('PlayerFormModel training failed', error);
-      throw this.createError('Training failed', error as Error);
-    } finally {
-      this.isTraining = false;
-    }
+      throw this.createError('Training failed', error as Error);} finally {
+      this.isTraining = false;}
   }
 
   async evaluate(_data?: any): Promise<ModelMetrics> {
@@ -141,48 +110,40 @@ export class PlayerFormModel extends BaseModel {
         f1Score,
         auc: 0.87 + (Math.random() * 0.08),
         trainingTime: 150 + Math.random() * 50,
-        inferenceTime: 5 + Math.random() * 3;
-      };
-    } catch (error) {
+        inferenceTime: 5 + Math.random() * 3}} catch (error) {
       this.logger.error('PlayerFormModel evaluation failed', error);
-      throw this.createError('Evaluation failed', error as Error);
-    }
+      throw this.createError('Evaluation failed', error as Error);}
   }
 
   async save(path: string): Promise<void> {
     this.logger.info(`Saving PlayerFormModel to ${path}`);
     // In a real implementation, this would serialize to file/database;
-    this.logger.info('PlayerFormModel saved successfully');
-  }
+    this.logger.info('PlayerFormModel saved successfully');}
 
   async load(path: string): Promise<void> {
     this.logger.info(`Loading PlayerFormModel from ${path}`);
     this.isTrained = true;
     this.updateLastUpdate();
-    this.logger.info('PlayerFormModel loaded successfully');
-  }
+    this.logger.info('PlayerFormModel loaded successfully');}
 
   private async simulateTraining(data: any): Promise<void> {
 
     for (const i = 0; i < epochs; i++) {
       await new Promise(resolve => setTimeout(resolve, 120));
-      this.emit('training:progress', {
+      this.emit('training: progress', {
         epoch: i + 1,
         totalEpochs: epochs,
-        loss: Math.max(0.08, 1.0 - (i / epochs) * 0.85 + Math.random() * 0.1)
-      });
-    }
+        loss: Math.max(0.08, 1.0 - (i / epochs) * 0.85 + Math.random() * 0.1)})}
   }
 
   private calculateConfidence(result: PlayerFormModelOutput): number {
 
-    return Math.min(0.96, 0.72 + (featureQuality * 0.22));
-  }
+    return Math.min(0.96, 0.72 + (featureQuality * 0.22))}
 
   private async getPlayerFormFeatures(
     playerId: string,
     sport: string,
-    context: GameContext;
+    context: GameContext
   ): Promise<PlayerFormModelOutput> {
     
     // Simulate player form analysis based on sport;
@@ -202,9 +163,7 @@ export class PlayerFormModel extends BaseModel {
       case 'nhl':
         features = await this.getNhlFormFeatures(playerId, context);
         break;
-      default:
-        features = await this.getGenericFormFeatures(playerId, context);
-    }
+      default: features = await this.getGenericFormFeatures(playerId, context)}
 
 
     return {
@@ -213,9 +172,7 @@ export class PlayerFormModel extends BaseModel {
       formScore,
       sport,
       playerId,
-      context;
-    };
-  }
+      context};}
 
   private async getMlbFormFeatures(_playerId: string, _context: GameContext): Promise<Record<string, number>> {
     await new Promise(resolve => setTimeout(resolve, 15));
@@ -226,9 +183,7 @@ export class PlayerFormModel extends BaseModel {
       k_rate_l7: 0.15 + Math.random() * 0.15, // 15-30%
       babip_l7: 0.280 + Math.random() * 0.120, // .280-.400;
       iso_l7: 0.120 + Math.random() * 0.180, // .120-.300;
-      wrc_plus_l7: 80 + Math.random() * 60 // 80-140;
-    };
-  }
+      wrc_plus_l7: 80 + Math.random() * 60 // 80-140}}
 
   private async getBasketballFormFeatures(_playerId: string, _context: GameContext): Promise<Record<string, number>> {
     await new Promise(resolve => setTimeout(resolve, 15));
@@ -240,9 +195,7 @@ export class PlayerFormModel extends BaseModel {
       reb_l5: 3 + Math.random() * 12, // 3-15 rebounds;
       ast_l5: 2 + Math.random() * 10, // 2-12 assists;
       tov_l5: 1 + Math.random() * 4, // 1-5 turnovers;
-      usg_rate_l5: 0.15 + Math.random() * 0.20 // 15-35% usage;
-    };
-  }
+      usg_rate_l5: 0.15 + Math.random() * 0.20 // 15-35% usage}}
 
   private async getSoccerFormFeatures(_playerId: string, _context: GameContext): Promise<Record<string, number>> {
     await new Promise(resolve => setTimeout(resolve, 15));
@@ -254,9 +207,7 @@ export class PlayerFormModel extends BaseModel {
       tackles_l5: Math.random() * 10, // 0-10 tackles;
       interceptions_l5: Math.random() * 8, // 0-8 interceptions;
       xg_l5: Math.random() * 3, // 0-3 expected goals;
-      xga_l5: Math.random() * 2 // 0-2 expected goals against;
-    };
-  }
+      xga_l5: Math.random() * 2 // 0-2 expected goals against}}
 
   private async getNhlFormFeatures(_playerId: string, _context: GameContext): Promise<Record<string, number>> {
     await new Promise(resolve => setTimeout(resolve, 15));
@@ -268,9 +219,7 @@ export class PlayerFormModel extends BaseModel {
       pim_l5: Math.random() * 15, // 0-15 penalty minutes;
       toi_l5: 12 + Math.random() * 10, // 12-22 minutes;
       fow_pct_l5: 0.40 + Math.random() * 0.25, // 40-65%
-      plus_minus_l5: -3 + Math.random() * 8 // -3 to +5;
-    };
-  }
+      plus_minus_l5: -3 + Math.random() * 8 // -3 to +5}}
 
   private async getGenericFormFeatures(_playerId: string, _context: GameContext): Promise<Record<string, number>> {
     await new Promise(resolve => setTimeout(resolve, 15));
@@ -278,22 +227,17 @@ export class PlayerFormModel extends BaseModel {
       form_rating_l5: 0.5 + Math.random() * 0.4, // 0.5-0.9;
       performance_trend: -0.2 + Math.random() * 0.4, // -0.2 to +0.2;
       consistency_score: 0.6 + Math.random() * 0.3, // 0.6-0.9;
-      fatigue_factor: 0.1 + Math.random() * 0.8 // 0.1-0.9;
-    };
-  }
+      fatigue_factor: 0.1 + Math.random() * 0.8 // 0.1-0.9}}
 
   private calculateFormScore(features: Record<string, number>): number {
     const weights = Object.keys(features).reduce((acc, key) => {
       acc[key] = 1 / Object.keys(features).length;
-      return acc;
-    }, {} as Record<string, number>);
+      return acc;}, Record<string, any> as Record<string, number>);
 
     const weightedSum = Object.entries(features).reduce((sum, [key, value]) => {
-      return sum + (value * weights[key]);
-    }, 0);
+      return sum + (value * weights[key]);}, 0);
 
-    return Math.min(1.0, Math.max(0.0, weightedSum));
-  }
+    return Math.min(1.0, Math.max(0.0, weightedSum));}
 }
 
 /**
@@ -304,23 +248,21 @@ export class PlayerFormModel extends BaseModel {
 export async function getPlayerFormFeatures(
   playerId: string,
   sport: string,
-  context: GameContext;
+  context: GameContext
 ): Promise<PlayerFormModelOutput> {
 
   if (!config.get('enablePlayerFormModel')) {
-    throw new Error('PlayerFormModel is disabled by config.');
-  }
+    throw new Error('PlayerFormModel is disabled by config.')}
   // Minimal valid ModelConfig for PlayerFormModel;
   const modelConfig = {
     name: 'PlayerFormModel',
     type: 'traditional' as const,
-    features: [],
-    target: 'formScore',
+    features: [0],
+    target: 'formScore'
   };
   // Singleton pattern;
   if (!(globalThis as any)._playerFormModelSingleton) {
-    (globalThis as any)._playerFormModelSingleton = new PlayerFormModel(modelConfig);
-  }
+    (globalThis as any)._playerFormModelSingleton = new PlayerFormModel(modelConfig);}
 
   // Use the public predict method;
 
@@ -328,10 +270,12 @@ export async function getPlayerFormFeatures(
   // Extract PlayerFormModelOutput from prediction;
   return {
     features: prediction.features,
-    shapInsights: prediction.explanations?.shapValues ? [prediction.explanations.shapValues] : [],
+    shapInsights: prediction.explanations?.shapValues ? [prediction.explanations.shapValues] : [0],
     formScore: prediction.prediction,
     sport,
     playerId,
-    context;
-  };
-}
+    context};}
+
+
+
+`

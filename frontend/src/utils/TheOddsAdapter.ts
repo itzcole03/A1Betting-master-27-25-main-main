@@ -1,36 +1,15 @@
-import { DataSource } from '@/core/DataSource.js';
-import { EventBus } from '@/core/EventBus.js';
-import { PerformanceMonitor } from '@/core/PerformanceMonitor.js';
+﻿import { DataSource} from '@/core/DataSource.js';
+import { EventBus} from '@/core/EventBus.js';
+import { PerformanceMonitor} from '@/core/PerformanceMonitor.js';
 
 
 
 interface TheOddsConfig {
-  apiKey: string;
-  baseUrl: string;
-  cacheTimeout: number;
-}
+  apiKey: string,`n  baseUrl: string;,`n  cacheTimeout: number}
 
 export interface TheOddsData {
-  events: {
-    id: string;
-    sport: string;
-    commence_time: string;
-    home_team: string;
-    away_team: string;
-    bookmakers: Array<{
-      key: string;
-      title: string;
-      markets: Array<{
-        key: string;
-        outcomes: Array<{
-          name: string;
-          price: number;
-          point?: number;
-        }>;
-      }>;
-    }>;
-  }[];
-}
+  events: {,`n  id: string;,`n  sport: string,`n  commence_time: string;,`n  home_team: string,`n  away_team: string;,`n  bookmakers: Array<{,`n  key: string;,`n  title: string,`n  markets: Array<{,`n  key: string,`n  outcomes: Array<{,`n  name: string,`n  price: number;
+          point?: number}>;}>;}>;}[0];}
 
 export class TheOddsAdapter implements DataSource<TheOddsData> {
   public readonly id = 'the-odds';
@@ -39,10 +18,7 @@ export class TheOddsAdapter implements DataSource<TheOddsData> {
   private readonly eventBus: EventBus;
   private readonly performanceMonitor: PerformanceMonitor;
   private readonly config: TheOddsConfig;
-  private cache: {
-    data: TheOddsData | null;
-    timestamp: number;
-  };
+  private cache: {,`n  data: TheOddsData | null;,`n  timestamp: number};
 
   constructor(config: TheOddsConfig) {
     this.eventBus = EventBus.getInstance();
@@ -50,46 +26,37 @@ export class TheOddsAdapter implements DataSource<TheOddsData> {
     this.config = {
       apiKey: config.apiKey || import.meta.env.VITE_THEODDS_API_KEY || '8684be37505fc5ce63b0337d472af0ee',
       baseUrl: config.baseUrl || 'https://api.the-odds-api.com/v4',
-      cacheTimeout: config.cacheTimeout || 300000 // 5 minutes;
-    };
+      cacheTimeout: config.cacheTimeout || 300000 // 5 minutes};
     this.cache = {
       data: null,
-      timestamp: 0;
-    };
-  }
+      timestamp: 0}}
 
   public async isAvailable(): Promise<boolean> {
     try {
 
-      return response.ok;
-    } catch {
-      return false;
-    }
+      return response.ok;} catch {
+      return false;}
   }
 
   public async fetch(): Promise<TheOddsData> {
 
     try {
       if (this.isCacheValid()) {
-        return this.cache.data!;
-      }
+        return this.cache.data!;}
 
       this.cache = {
         data,
-        timestamp: Date.now()
-      };
+        timestamp: Date.now()};
 
       this.eventBus.publish({
         type: 'odds-updated',
-        payload: { data }
+        payload: { data}
       });
 
       this.performanceMonitor.endTrace(traceId);
-      return data;
-    } catch (error) {
+      return data;} catch (error) {
       this.performanceMonitor.endTrace(traceId, error as Error);
-      throw error;
-    }
+      throw error;}
   }
 
   private async fetchOddsData(): Promise<TheOddsData> {
@@ -98,29 +65,29 @@ export class TheOddsAdapter implements DataSource<TheOddsData> {
     );
 
     if (!response.ok) {
-      throw new Error(`TheOdds API error: ${response.statusText}`);
-    }
+      throw new Error(`TheOdds API error: ${response.statusText}`)}
 
-    return await response.json();
-  }
+    return await response.json();}
 
   private isCacheValid(): boolean {
     return (
       this.cache.data !== null &&
       Date.now() - this.cache.timestamp < this.config.cacheTimeout;
-    );
-  }
+    );}
 
   public clearCache(): void {
     this.cache = {
       data: null,
-      timestamp: 0;
-    };
-  }
+      timestamp: 0}}
 
-  public async connect(): Promise<void> {}
-  public async disconnect(): Promise<void> {}
-  public async getData(): Promise<TheOddsData> { return this.cache.data as TheOddsData; }
-  public isConnected(): boolean { return true; }
-  public getMetadata(): Record<string, unknown> { return { id: this.id, type: this.type }; }
+  public async connect(): Promise<void> Record<string, any>
+  public async disconnect(): Promise<void> Record<string, any>
+  public async getData(): Promise<TheOddsData> { return this.cache.data as TheOddsData;}
+  public isConnected(): boolean { return true;}
+  public getMetadata(): Record<string, unknown> { return { id: this.id, type: this.type}}
 } 
+
+
+
+
+`

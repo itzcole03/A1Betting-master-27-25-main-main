@@ -1,8 +1,5 @@
-export declare function useFilteredPredictions(): {
-    predictions: any;
-    loading: any;
-    error: any;
-    hasResults: boolean;
-    totalPredictions: any;
-    filteredCount: any;
-};
+﻿export declare function useFilteredPredictions(): {
+  predictions: any,`n  loading: any;,`n  error: any,`n  hasResults: boolean;,`n  totalPredictions: any,`n  filteredCount: any};
+
+
+`

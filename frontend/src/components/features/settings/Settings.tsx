@@ -1,14 +1,14 @@
-import React, { useEffect, useState  } from 'react.ts';
-import { Sun, Moon, ToggleLeft, ToggleRight, Loader2, AlertTriangle } from 'lucide-react.ts';
-import { UnifiedApplicationConfig } from '@/core/UnifiedConfig.ts';
-import { configService } from '@/services/configService.ts';
-import { useAppStore } from '@/store/useAppStore.ts';
-import { useTheme } from '@/providers/ThemeProvider.ts';
+import React, { useEffect, useState} from 'react';
+import { Sun, Moon, ToggleLeft, ToggleRight, Loader2, AlertTriangle} from 'lucide-react';
+import { UnifiedApplicationConfig} from '@/core/UnifiedConfig';
+import { configService} from '@/services/configService';
+import { useAppStore} from '@/store/useAppStore';
+import { useTheme} from '@/providers/ThemeProvider';
 
 
 const Settings: React.FC = () => {
-  const { theme, setTheme } = useTheme();
-  const { addToast } = useAppStore();
+  const { theme, setTheme} = useTheme();
+  const { addToast} = useAppStore();
   const [appConfig, setAppConfig] = useState<UnifiedApplicationConfig | null key={109917}>(null);
   const [isLoadingConfig, setIsLoadingConfig] = useState(true);
   const [configError, setConfigError] = useState<string | null key={121216}>(null);
@@ -19,26 +19,21 @@ const Settings: React.FC = () => {
       setConfigError(null);
       try {
 
-        setAppConfig(config);
-      } catch (error: any) {
+        setAppConfig(config);} catch (error: unknown) {
         setConfigError(error.message || 'Failed to load application configuration.');
-        addToast({ message: 'Error loading app configuration.', type: 'error' });
-      } finally {
-        setIsLoadingConfig(false);
-      }
+        addToast({ message: 'Error loading app configuration.', type: 'error'})} finally {
+        setIsLoadingConfig(false);}
     };
-    loadConfig();
-  }, [addToast]);
+    loadConfig();}, [addToast]);
 
   const handleFeatureToggle = (featureName: string) => {
     // In a real app, this would likely call a service to update user preferences or admin settings.
     // For now, this is a visual toggle only, actual feature flag state comes from config.
-    addToast({ message: `Feature "${featureName}" toggle clicked. (This is a visual demo - persistence not implemented here)`, type: 'info' });
+    addToast({ message: `Feature "${featureName}" toggle clicked. (This is a visual demo - persistence not implemented here)`, type: 'info'});
     // To make it truly dynamic IF the backend supports on-the-fly updates & UnifiedConfig could be refreshed:
     // 1. Call a service: await userService.updateFeatureFlag(featureName, !appConfig?.featureFlags[featureName]);
     // 2. Refresh config: const newConfig = await configService.fetchAppConfig(true); // force refresh;
-    // 3. setAppConfig(newConfig);
-  };
+    // 3. setAppConfig(newConfig);};
 
   return (
     <div className="space-y-12 animate-fade-in" key={174859}>
@@ -88,12 +83,12 @@ const Settings: React.FC = () => {
               <AlertTriangle size={24} className="mr-3" / key={165614}> {configError}
             </div>
           )}
-          {!isLoadingConfig && !configError && appConfig?.featureFlags && Object.keys(appConfig.featureFlags || {}).length > 0 ? (
+          {!isLoadingConfig && !configError && appConfig?.featureFlags && Object.keys(appConfig.featureFlags || Record<string, any>).length > 0 ? (
             <ul className="space-y-4" key={288996}>
-              {Object.entries(appConfig.featureFlags || {}).map(([flagName, isEnabled]) => (
+              {Object.entries(appConfig.featureFlags || Record<string, any>).map(([flagName, isEnabled]) => (
                 <li key={flagName} className="flex items-center justify-between" key={956372}>
                   <span className="text-lg text-primary-100 font-semibold capitalize" key={110431}>{flagName.replace(/([A-Z])/g, ' $1').trim()}</span>
-                  <button onClick={() = key={965186}> handleFeatureToggle(flagName)} aria-label={`Toggle ${flagName}`} className="focus:outline-none">
+                  <button onClick={() = key={965186}> handleFeatureToggle(flagName)} aria-label={`Toggle ${flagName}`} className="focus: outline-none">
                     {isEnabled ? (
                       <ToggleRight size={36} className="text-green-400 drop-shadow-lg" / key={424387}>
                     ) : (
@@ -110,7 +105,11 @@ const Settings: React.FC = () => {
       </div>
       {/* Add more settings sections as needed: Notifications, Account, Data Sources etc. */}
     </div>
-  );
-};
+  )};
 
 export default Settings; 
+
+
+
+`
+

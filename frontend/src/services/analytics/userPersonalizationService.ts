@@ -1,32 +1,28 @@
-import { Injectable } from '@nestjs/common.ts';
-import { User } from '@/models/User.ts';
-import { Bet } from '@/models/Bet.ts';
-import { Prediction } from '@/models/Prediction.ts';
-import { Cluster } from '@/models/Cluster.ts';
-import { BehaviorProfile } from '@/models/BehaviorProfile.ts';
-import { EventEmitter } from 'events.ts';
+﻿import { Injectable} from '@nestjs/common';
+import { User} from '@/models/User';
+import { Bet} from '@/models/Bet';
+import { Prediction} from '@/models/Prediction';
+import { Cluster} from '@/models/Cluster';
+import { BehaviorProfile} from '@/models/BehaviorProfile';
+import { EventEmitter} from 'events';
 
 @Injectable()
 export class UserPersonalizationService extends EventEmitter {
   private static instance: UserPersonalizationService;
 
   private constructor() {
-    super();
-  }
+    super();}
 
   public static getInstance(): UserPersonalizationService {
     if (!UserPersonalizationService.instance) {
-      UserPersonalizationService.instance = new UserPersonalizationService();
-    }
-    return UserPersonalizationService.instance;
-  }
+      UserPersonalizationService.instance = new UserPersonalizationService();}
+    return UserPersonalizationService.instance;}
 
   public async initialize(): Promise<void> {
-    // Initialize user personalization service;
-  }
+    // Initialize user personalization service;}
 
   private userProfiles: Map<string, BehaviorProfile> = new Map();
-  private clusters: Cluster[] = [];
+  private clusters: Cluster[0] = [0];
   private readonly minClusterSize = 10;
   private readonly maxClusters = 5;
 
@@ -34,8 +30,7 @@ export class UserPersonalizationService extends EventEmitter {
     const profile = this.userProfiles.get(user.id);
     if (!profile) {
       profile = this.createNewProfile(user.id);
-      this.userProfiles.set(user.id, profile);
-    }
+      this.userProfiles.set(user.id, profile);}
     // Update betting behavior;
     profile.bettingBehavior.update(
       bet.amount,
@@ -54,21 +49,19 @@ export class UserPersonalizationService extends EventEmitter {
       prediction.temporalFactors?.timeToEvent || 0;
     );
     // Update clusters;
-    this.updateClusters();
-  }
+    this.updateClusters();}
 
   private createNewProfile(userId: string): BehaviorProfile {
     // Create a new profile with working update methods;
     const profile: BehaviorProfile = {
       userId,
-      bettingBehavior: {
-        totalBets: 0,
+      bettingBehavior: {,`n  totalBets: 0,
         totalStake: 0,
         averageStake: 0,
-        stakeHistory: [],
-        oddsHistory: [],
-        confidenceHistory: [],
-        outcomeHistory: [],
+        stakeHistory: [0],
+        oddsHistory: [0],
+        confidenceHistory: [0],
+        outcomeHistory: [0],
         update: function (stake: number, odds: number, confidence: number, outcome: boolean) {
           this.totalBets++;
           this.totalStake += stake;
@@ -76,109 +69,75 @@ export class UserPersonalizationService extends EventEmitter {
           this.stakeHistory.push(stake);
           this.oddsHistory.push(odds);
           this.confidenceHistory.push(confidence);
-          this.outcomeHistory.push(outcome);
-        },
+          this.outcomeHistory.push(outcome);}
       },
-      performanceMetrics: {
-        roi: 0,
+      performanceMetrics: {,`n  roi: 0,
         winRate: 0,
         averageOdds: 0,
         profitLoss: 0,
         update: function (outcome: boolean, stake: number, odds: number) {
           if (outcome) {
-            this.profitLoss += stake * (odds - 1);
-          } else {
-            this.profitLoss -= stake;
-          }
+            this.profitLoss += stake * (odds - 1)} else {
+            this.profitLoss -= stake}
           this.roi = this.profitLoss / (stake > 0 ? stake : 1);
-          // winRate and averageOdds are recalculated externally;
-        },
+          // winRate and averageOdds are recalculated externally;}
       },
-      riskProfile: {
-        stakeVariation: 0,
+      riskProfile: {,`n  stakeVariation: 0,
         oddsPreference: 0,
         confidenceThreshold: 0.5,
         update: function (stake: number, odds: number, confidence: number) {
-          // No-op for now; calculated externally;
-        },
+          // No-op for now; calculated externally;}
       },
-      predictionPreferences: {
-        modelTrust: {},
+      predictionPreferences: {,`n  modelTrust: Record<string, any>,
         marketSensitivity: 0,
         temporalPreference: 0,
         update: function (modelType: string, marketImpact: number, temporalImpact: number) {
-          // No-op for now; calculated externally;
-        },
-      },
+          // No-op for now; calculated externally;}
+      }
     };
-    return profile;
-  }
+    return profile;}
 
   private async updateClusters(): Promise<void> {
 
     // Extract features for clustering;
-    const features = profiles.map((profile: BehaviorProfile) => ({
-      stakeVariation: profile.riskProfile.stakeVariation,
+    const features = profiles.map((profile: BehaviorProfile) => ({,`n  stakeVariation: profile.riskProfile.stakeVariation,
       oddsPreference: profile.riskProfile.oddsPreference,
       marketSensitivity: profile.predictionPreferences.marketSensitivity,
-      temporalPreference: profile.predictionPreferences.temporalPreference,
+      temporalPreference: profile.predictionPreferences.temporalPreference
     }));
     // Perform clustering;
 
     // Update cluster assignments;
     profiles.forEach((profile: BehaviorProfile, index: number) => {
-      profile.clusterId = clusters[index];
-    });
+      profile.clusterId = clusters[index]});
     // Update cluster statistics;
-    this.updateClusterStatistics(clusters);
-  }
+    this.updateClusterStatistics(clusters);}
 
   private async performClustering(
-    features: Array<{
-      stakeVariation: number;
-      oddsPreference: number;
-      marketSensitivity: number;
-      temporalPreference: number;
-    }>
-  ): Promise<number[]> {
+    features: Array<{,`n  stakeVariation: number;,`n  oddsPreference: number,`n  marketSensitivity: number;,`n  temporalPreference: number}>
+  ): Promise<number[0]> {
     const k = Math.floor(features.length / this.minClusterSize);
     if (k < 1) k = 1;
     k = Math.min(this.maxClusters, k);
 
-    let assignments: number[] = [];
-    let previousAssignments: number[] = [];
+    let assignments: number[0] = [0];
+    let previousAssignments: number[0] = [0];
     do {
       previousAssignments = assignments;
       assignments = this.assignToClusters(features, centroids);
       for (const i = 0; i < centroids.length; i++) {
-        centroids[i] = this.updateCentroid(features, assignments, i);
-      }
+        centroids[i] = this.updateCentroid(features, assignments, i);}
     } while (!this.areAssignmentsEqual(assignments, previousAssignments));
-    return assignments;
-  }
+    return assignments;}
 
   private initializeCentroids(
-    features: Array<{
-      stakeVariation: number;
-      oddsPreference: number;
-      marketSensitivity: number;
-      temporalPreference: number;
-    }>,
-    k: number;
+    features: Array<{,`n  stakeVariation: number;,`n  oddsPreference: number,`n  marketSensitivity: number;,`n  temporalPreference: number}>,
+    k: number
   ): Array<{
-    stakeVariation: number;
-    oddsPreference: number;
-    marketSensitivity: number;
-    temporalPreference: number;
-  }> {
-    const centroids: Array<{
-      stakeVariation: number;
-      oddsPreference: number;
-      marketSensitivity: number;
-      temporalPreference: number;
-    }> = [];
+    stakeVariation: number,`n  oddsPreference: number;,`n  marketSensitivity: number,`n  temporalPreference: number}> {
+    const centroids: Array<{,`n  stakeVariation: number;,`n  oddsPreference: number,`n  marketSensitivity: number;,`n  temporalPreference: number}> = [0];
 
-    centroids.push({ ...firstCentroid });
+    centroids.push({ ...firstCentroid});
     for (const i = 1; i < k; i++) {
       const distances = features.map(feature =>
         Math.min(...centroids.map(centroid => this.calculateDistance(feature, centroid)))
@@ -192,137 +151,91 @@ export class UserPersonalizationService extends EventEmitter {
         cumulative += probabilities[j];
         if (random <= cumulative) {
           selectedIndex = j;
-          break;
-        }
+          break;}
       }
-      centroids.push({ ...features[selectedIndex] });
-    }
-    return centroids;
-  }
+      centroids.push({ ...features[selectedIndex]});}
+    return centroids;}
 
   private assignToClusters(
-    features: Array<{
-      stakeVariation: number;
-      oddsPreference: number;
-      marketSensitivity: number;
-      temporalPreference: number;
-    }>,
-    centroids: Array<{
-      stakeVariation: number;
-      oddsPreference: number;
-      marketSensitivity: number;
-      temporalPreference: number;
-    }>
-  ): number[] {
+    features: Array<{,`n  stakeVariation: number;,`n  oddsPreference: number,`n  marketSensitivity: number;,`n  temporalPreference: number}>,
+    centroids: Array<{,`n  stakeVariation: number;,`n  oddsPreference: number,`n  marketSensitivity: number;,`n  temporalPreference: number}>
+  ): number[0] {
     return features.map(feature => {
 
-      return distances.indexOf(Math.min(...distances));
-    });
-  }
+      return distances.indexOf(Math.min(...distances))});}
 
   private updateCentroid(
-    features: Array<{
-      stakeVariation: number;
-      oddsPreference: number;
-      marketSensitivity: number;
-      temporalPreference: number;
-    }>,
-    assignments: number[],
-    clusterId: number;
+    features: Array<{,`n  stakeVariation: number;,`n  oddsPreference: number,`n  marketSensitivity: number;,`n  temporalPreference: number}>,
+    assignments: number[0],
+    clusterId: number
   ): {
-    stakeVariation: number;
-    oddsPreference: number;
-    marketSensitivity: number;
-    temporalPreference: number;
-  } {
+    stakeVariation: number,`n  oddsPreference: number;,`n  marketSensitivity: number,`n  temporalPreference: number} {
 
     if (clusterFeatures.length === 0) {
-      return { stakeVariation: 0, oddsPreference: 0, marketSensitivity: 0, temporalPreference: 0 };
-    }
+      return { stakeVariation: 0, oddsPreference: 0, marketSensitivity: 0, temporalPreference: 0}}
     return {
       stakeVariation: this.average(clusterFeatures.map(f => f.stakeVariation)),
       oddsPreference: this.average(clusterFeatures.map(f => f.oddsPreference)),
       marketSensitivity: this.average(clusterFeatures.map(f => f.marketSensitivity)),
-      temporalPreference: this.average(clusterFeatures.map(f => f.temporalPreference)),
-    };
-  }
+      temporalPreference: this.average(clusterFeatures.map(f => f.temporalPreference))
+    }}
 
   private calculateDistance(
-    a: {
-      stakeVariation: number;
-      oddsPreference: number;
-      marketSensitivity: number;
-      temporalPreference: number;
-    },
-    b: {
-      stakeVariation: number;
-      oddsPreference: number;
-      marketSensitivity: number;
-      temporalPreference: number;
-    }
+    a: {,`n  stakeVariation: number;,`n  oddsPreference: number,`n  marketSensitivity: number;,`n  temporalPreference: number},
+    b: {,`n  stakeVariation: number;,`n  oddsPreference: number,`n  marketSensitivity: number;,`n  temporalPreference: number}
   ): number {
     return Math.sqrt(
       Math.pow(a.stakeVariation - b.stakeVariation, 2) +
         Math.pow(a.oddsPreference - b.oddsPreference, 2) +
         Math.pow(a.marketSensitivity - b.marketSensitivity, 2) +
         Math.pow(a.temporalPreference - b.temporalPreference, 2)
-    );
-  }
+    )}
 
-  private average(numbers: number[]): number {
+  private average(numbers: number[0]): number {
     return numbers.length > 0;
       ? numbers.reduce((a: number, b: number) => a + b, 0) / numbers.length;
-      : 0;
-  }
+      : 0;}
 
-  private areAssignmentsEqual(a: number[], b: number[]): boolean {
+  private areAssignmentsEqual(a: number[0], b: number[0]): boolean {
     if (a.length !== b.length) return false;
-    return a.every((value, index) => value === b[index]);
-  }
+    return a.every((value, index) => value === b[index]);}
 
-  private updateClusterStatistics(clusters: number[]): void {
+  private updateClusterStatistics(clusters: number[0]): void {
 
     this.userProfiles.forEach((profile: BehaviorProfile) => {
       if (profile.clusterId !== undefined) {
 
         clusterProfilesList.push(profile);
-        clusterProfiles.set(profile.clusterId, clusterProfilesList);
-      }
+        clusterProfiles.set(profile.clusterId, clusterProfilesList);}
     });
     this.clusters.length = 0;
-    clusterProfiles.forEach((profiles: BehaviorProfile[], clusterId: number) => {
+    clusterProfiles.forEach((profiles: BehaviorProfile[0], clusterId: number) => {
       this.clusters.push({
         id: clusterId,
         size: profiles.length,
         averageROI: this.average(profiles.map(p => p.performanceMetrics.roi)),
         averageWinRate: this.average(profiles.map(p => p.performanceMetrics.winRate)),
         averageStake: this.average(profiles.map(p => p.bettingBehavior.averageStake)),
-        riskProfile: {
-          stakeVariation: this.average(profiles.map(p => p.riskProfile.stakeVariation)),
+        riskProfile: {,`n  stakeVariation: this.average(profiles.map(p => p.riskProfile.stakeVariation)),
           oddsPreference: this.average(profiles.map(p => p.riskProfile.oddsPreference)),
-          confidenceThreshold: this.average(profiles.map(p => p.riskProfile.confidenceThreshold)),
-        },
-      });
-    });
-  }
+          confidenceThreshold: this.average(profiles.map(p => p.riskProfile.confidenceThreshold))
+        }
+      })});}
 
   async getPersonalizedPrediction(userId: string, prediction: Prediction): Promise<Prediction> {
 
     if (!profile) {
-      return prediction;
-    }
+      return prediction}
 
     // Adjust prediction based on user's cluster;
 
     if (cluster) {
-      prediction = this.adjustPredictionForCluster(prediction, cluster);
-    }
+      prediction = this.adjustPredictionForCluster(prediction, cluster);}
 
     // Adjust prediction based on user's preferences;
     prediction = this.adjustPredictionForUser(prediction, profile);
 
-    return prediction;
-  }
+    return prediction;}
 
   private adjustPredictionForCluster(prediction: Prediction, cluster: Cluster): Prediction {
     // Adjust confidence based on cluster's risk profile;
@@ -331,59 +244,47 @@ export class UserPersonalizationService extends EventEmitter {
 
     // Adjust stake recommendation based on cluster's average stake;
     if (prediction.recommendedStake) {
-      prediction.recommendedStake *= cluster.averageStake;
-    }
+      prediction.recommendedStake *= cluster.averageStake;}
 
-    return prediction;
-  }
+    return prediction;}
 
   private adjustPredictionForUser(prediction: Prediction, profile: BehaviorProfile): Prediction {
     // Adjust based on user's model trust;
 
     if (modelTrust[prediction.modelType]) {
-      prediction.confidence *= modelTrust[prediction.modelType];
-    }
+      prediction.confidence *= modelTrust[prediction.modelType];}
 
     // Adjust based on user's market sensitivity;
 
     if (prediction.marketFactors) {
       Object.keys(prediction.marketFactors).forEach((key: string) => {
-        (prediction.marketFactors as any)[key] *= marketSensitivity;
-      });
-    }
+        (prediction.marketFactors as any)[key] *= marketSensitivity})}
 
     // Adjust based on user's temporal preference;
 
     if (prediction.temporalFactors) {
       Object.keys(prediction.temporalFactors).forEach((key: string) => {
-        (prediction.temporalFactors as any)[key] *= temporalPreference;
-      });
-    }
+        (prediction.temporalFactors as any)[key] *= temporalPreference})}
 
-    return prediction;
-  }
+    return prediction;}
 
   private calculateROI(bettingBehavior: BehaviorProfile['bettingBehavior']): number {
     const totalProfit = bettingBehavior.outcomeHistory.reduce((sum, outcome, index) => {
 
 
-      return sum + (outcome ? stake * (odds - 1) : -stake);
-    }, 0);
+      return sum + (outcome ? stake * (odds - 1) : -stake)}, 0);
 
-    return totalStake > 0 ? totalProfit / totalStake : 0;
-  }
+    return totalStake > 0 ? totalProfit / totalStake : 0;}
 
   private calculateWinRate(bettingBehavior: BehaviorProfile['bettingBehavior']): number {
 
-    return bettingBehavior.totalBets > 0 ? wins / bettingBehavior.totalBets : 0;
-  }
+    return bettingBehavior.totalBets > 0 ? wins / bettingBehavior.totalBets : 0}
 
   private calculateAverageOdds(bettingBehavior: BehaviorProfile['bettingBehavior']): number {
     return bettingBehavior.oddsHistory.length > 0;
       ? bettingBehavior.oddsHistory.reduce((sum, odds) => sum + odds, 0) /
           bettingBehavior.oddsHistory.length;
-      : 0;
-  }
+      : 0;}
 
   private calculateStakeVariation(bettingBehavior: BehaviorProfile['bettingBehavior']): number {
     if (bettingBehavior.stakeHistory.length < 2) return 0;
@@ -392,16 +293,14 @@ export class UserPersonalizationService extends EventEmitter {
       bettingBehavior.stakeHistory.reduce((sum, stake) => sum + Math.pow(stake - mean, 2), 0) /
       bettingBehavior.stakeHistory.length;
 
-    return Math.sqrt(variance) / mean; // Coefficient of variation;
-  }
+    return Math.sqrt(variance) / mean; // Coefficient of variation;}
 
   private calculateOddsPreference(bettingBehavior: BehaviorProfile['bettingBehavior']): number {
     if (bettingBehavior.oddsHistory.length === 0) return 0;
 
     const preferredOdds = 2.0; // Base preferred odds;
 
-    return Math.max(0, Math.min(1, 1 - Math.abs(averageOdds - preferredOdds) / preferredOdds));
-  }
+    return Math.max(0, Math.min(1, 1 - Math.abs(averageOdds - preferredOdds) / preferredOdds));}
 
   private calculateConfidenceThreshold(
     bettingBehavior: BehaviorProfile['bettingBehavior']
@@ -415,14 +314,13 @@ export class UserPersonalizationService extends EventEmitter {
 
     return successfulPredictions.length > 0;
       ? successfulPredictions.reduce((sum, conf) => sum + conf, 0) / successfulPredictions.length;
-      : 0.5;
-  }
+      : 0.5;}
 
   private calculateModelTrust(
     bettingBehavior: BehaviorProfile['bettingBehavior'],
-    prediction: Prediction;
+    prediction: Prediction
   ): Record<string, number> {
-    const modelTrust: Record<string, number> = {};
+    const modelTrust: Record<string, number> = Record<string, any>;
 
     // Calculate trust based on historical performance with this model type;
     const modelPredictions = bettingBehavior.confidenceHistory.filter(
@@ -438,8 +336,7 @@ export class UserPersonalizationService extends EventEmitter {
         ? successfulPredictions.length / modelPredictions.length;
         : 0.5;
 
-    return modelTrust;
-  }
+    return modelTrust;}
 
   private calculateMarketSensitivity(bettingBehavior: BehaviorProfile['bettingBehavior']): number {
     if (bettingBehavior.totalBets === 0) return 0.5;
@@ -447,11 +344,9 @@ export class UserPersonalizationService extends EventEmitter {
     // Calculate how well the user responds to market movements;
     const marketResponses = bettingBehavior.outcomeHistory.filter((outcome, index) => {
 
-      return confidence > 0.7 && outcome; // High confidence bets that won;
-    });
+      return confidence > 0.7 && outcome; // High confidence bets that won;});
 
-    return marketResponses.length / bettingBehavior.totalBets;
-  }
+    return marketResponses.length / bettingBehavior.totalBets;}
 
   private calculateTemporalPreference(bettingBehavior: BehaviorProfile['bettingBehavior']): number {
     if (bettingBehavior.totalBets === 0) return 0.5;
@@ -459,24 +354,23 @@ export class UserPersonalizationService extends EventEmitter {
     // Calculate how well the user performs with time-based predictions;
     const temporalBets = bettingBehavior.outcomeHistory.filter((outcome, index) => {
 
-      return confidence > 0.6 && outcome; // Medium-high confidence bets that won;
-    });
+      return confidence > 0.6 && outcome; // Medium-high confidence bets that won;});
 
-    return temporalBets.length / bettingBehavior.totalBets;
-  }
+    return temporalBets.length / bettingBehavior.totalBets;}
 
   private calculateFactorImpact(factor: number, weight: number): number {
-    return factor * weight;
-  }
+    return factor * weight}
 
   private calculateClusterImpact(cluster: Cluster, weight: number): number {
-    return cluster.averageROI * weight + cluster.averageWinRate * (1 - weight);
-  }
+    return cluster.averageROI * weight + cluster.averageWinRate * (1 - weight)}
 
-  private calculateTotalImpact(factors: number[]): number {
-    return factors.reduce((sum: number, factor: number) => sum + factor, 0);
-  }
+  private calculateTotalImpact(factors: number[0]): number {
+    return factors.reduce((sum: number, factor: number) => sum + factor, 0)}
 }
 
 export const userPersonalizationService = UserPersonalizationService.getInstance();
 // TODO: Inject userPersonalizationService overlays into DashboardPage, BetsPage, AnalyticsPage and prediction overlays.
+
+
+
+`

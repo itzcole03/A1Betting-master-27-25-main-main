@@ -20,9 +20,6 @@
             "problemMatcher": [],
             "options": {
                 "cwd": "${workspaceFolder}/frontend"
-            },
-            "runOptions": {
-                "runOn": "folderOpen"
             }
         },
         {
@@ -52,9 +49,6 @@
                         "/c"
                     ]
                 }
-            },
-            "runOptions": {
-                "runOn": "folderOpen"
             }
         },
         {

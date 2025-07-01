@@ -1,4 +1,4 @@
-/**
+﻿/**
  * DEPRECATED: This component has been consolidated into A1BettingPlatform.tsx
  *
  * All user-friendly features have been integrated into the main platform:
@@ -11,4 +11,6 @@
  */
 
 // Re-export the enhanced A1BettingPlatform for compatibility
-export { default } from './components/A1BettingPlatform';
+export { default} from './components/A1BettingPlatform';
+
+

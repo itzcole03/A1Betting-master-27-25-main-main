@@ -14,7 +14,7 @@
 ## Example Usage
 
 ```typescript
-import { betSchema } from "./validation/schemas";
+import { betSchema } from './validation/schemas';
 
 const result = betSchema.parse(apiResponse);
 ```

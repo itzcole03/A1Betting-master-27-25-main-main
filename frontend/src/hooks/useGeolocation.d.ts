@@ -1,19 +1,11 @@
-interface GeolocationState {
-    loading: boolean;
-    accuracy: number | null;
-    altitude: number | null;
-    altitudeAccuracy: number | null;
-    heading: number | null;
-    latitude: number | null;
-    longitude: number | null;
-    speed: number | null;
-    timestamp: number | null;
-    error: GeolocationPositionError | null;
-}
+﻿interface GeolocationState {
+  loading: boolean,`n  accuracy: number | null;,`n  altitude: number | null,`n  altitudeAccuracy: number | null;,`n  heading: number | null,`n  latitude: number | null;,`n  longitude: number | null,`n  speed: number | null;,`n  timestamp: number | null,`n  error: GeolocationPositionError | null}
 interface GeolocationOptions {
-    enableHighAccuracy?: boolean;
-    timeout?: number;
-    maximumAge?: number;
-}
+  enableHighAccuracy?: boolean;
+  timeout?: number;
+  maximumAge?: number;}
 export declare const useGeolocation: (options?: GeolocationOptions) => GeolocationState;
-export {};
+export Record<string, any>;
+
+
+`

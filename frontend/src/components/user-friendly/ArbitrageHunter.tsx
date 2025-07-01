@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React, { useState, useEffect, useMemo} from 'react';
+import { motion} from 'framer-motion';
 import {
   Zap,
   TrendingUp,
@@ -10,40 +10,19 @@ import {
   CheckCircle,
   BarChart3,
   Target,
-  Shield,
-} from 'lucide-react.ts';
-import { logger } from '@/utils/logger.ts';
+//   Shield
+} from 'lucide-react';
+import { logger} from '@/utils/logger';
 
 interface ArbitrageOpportunity {
-  id: string;
-  sport: string;
-  game: string;
-  market: string;
-  guaranteed_profit: number;
-  profit_percentage: number;
-  total_stake: number;
-  time_remaining: string;
-  bookmakers: {
-    name: string;
-    odds: number;
-    stake: number;
-    outcome: string;
-  }[];
-  risk_score: number;
-  confidence: number;
-  execution_complexity: 'simple' | 'moderate' | 'complex';
-}
+  id: string,`n  sport: string;,`n  game: string,`n  market: string;,`n  guaranteed_profit: number,`n  profit_percentage: number;,`n  total_stake: number,`n  time_remaining: string;,`n  bookmakers: {,`n  name: string;,`n  odds: number,`n  stake: number;,`n  outcome: string}[0];
+  risk_score: number,`n  confidence: number;,`n  execution_complexity: 'simple' | 'moderate' | 'complex'}
 
 interface ArbitrageMetrics {
-  total_opportunities: number;
-  avg_profit_margin: number;
-  total_guaranteed_profit: number;
-  success_rate: number;
-  execution_speed: number;
-}
+  total_opportunities: number,`n  avg_profit_margin: number;,`n  total_guaranteed_profit: number,`n  success_rate: number;,`n  execution_speed: number}
 
 const ArbitrageHunter: React.FC = () => {
-  const [opportunities, setOpportunities] = useState<ArbitrageOpportunity[] key={128378}>([]);
+  const [opportunities, setOpportunities] = useState<ArbitrageOpportunity[0] key={128378}>([0]);
   const [loading, setLoading] = useState(true);
   const [scanning, setScanning] = useState(false);
   const [autoScan, setAutoScan] = useState(false);
@@ -52,11 +31,11 @@ const ArbitrageHunter: React.FC = () => {
     avg_profit_margin: 0,
     total_guaranteed_profit: 0,
     success_rate: 0,
-    execution_speed: 0,
+    execution_speed: 0
   });
 
   // Mock arbitrage opportunities;
-  const mockOpportunities: ArbitrageOpportunity[] = useMemo(() => [
+  const mockOpportunities: ArbitrageOpportunity[0] = useMemo(() => [
     {
       id: '1',
       sport: 'NBA',
@@ -67,13 +46,12 @@ const ArbitrageHunter: React.FC = () => {
       total_stake: 1000,
       time_remaining: '1h 23m',
       bookmakers: [
-        { name: 'DraftKings', odds: 2.10, stake: 476.19, outcome: 'Lakers Win' },
-        { name: 'FanDuel', odds: 2.05, stake: 523.81, outcome: 'Warriors Win' }
+        { name: 'DraftKings', odds: 2.10, stake: 476.19, outcome: 'Lakers Win'},
+        { name: 'FanDuel', odds: 2.05, stake: 523.81, outcome: 'Warriors Win'}
       ],
       risk_score: 2,
       confidence: 98,
-      execution_complexity: 'simple'
-    },
+      execution_complexity: 'simple'},
     {
       id: '2',
       sport: 'NFL',
@@ -84,13 +62,12 @@ const ArbitrageHunter: React.FC = () => {
       total_stake: 500,
       time_remaining: '45m',
       bookmakers: [
-        { name: 'BetMGM', odds: 1.91, stake: 262.30, outcome: 'Over 47.5' },
-        { name: 'Caesars', odds: 1.98, stake: 237.70, outcome: 'Under 47.5' }
+        { name: 'BetMGM', odds: 1.91, stake: 262.30, outcome: 'Over 47.5'},
+        { name: 'Caesars', odds: 1.98, stake: 237.70, outcome: 'Under 47.5'}
       ],
       risk_score: 1,
       confidence: 99,
-      execution_complexity: 'simple'
-    },
+      execution_complexity: 'simple'},
     {
       id: '3',
       sport: 'Esports',
@@ -101,14 +78,13 @@ const ArbitrageHunter: React.FC = () => {
       total_stake: 500,
       time_remaining: '2h 15m',
       bookmakers: [
-        { name: 'Bet365', odds: 1.75, stake: 285.71, outcome: 'T1 Win' },
-        { name: 'Pinnacle', odds: 2.35, stake: 214.29, outcome: 'DRX Win' }
+        { name: 'Bet365', odds: 1.75, stake: 285.71, outcome: 'T1 Win'},
+        { name: 'Pinnacle', odds: 2.35, stake: 214.29, outcome: 'DRX Win'}
       ],
       risk_score: 3,
       confidence: 95,
-      execution_complexity: 'moderate'
-    }
-  ], []);
+      execution_complexity: 'moderate'}
+  ], [0]);
 
   useEffect(() => {
     const initializeHunter = async () => {
@@ -122,17 +98,12 @@ const ArbitrageHunter: React.FC = () => {
           avg_profit_margin: mockOpportunities.reduce((acc, opp) => acc + opp.profit_percentage, 0) / mockOpportunities.length,
           total_guaranteed_profit: mockOpportunities.reduce((acc, opp) => acc + opp.guaranteed_profit, 0),
           success_rate: 97.3,
-          execution_speed: 2.4;
-        });
-      } catch (error) {
-        logger.error('Failed to initialize arbitrage hunter', error);
-      } finally {
-        setLoading(false);
-      }
+          execution_speed: 2.4})} catch (error) {
+        logger.error('Failed to initialize arbitrage hunter', error);} finally {
+        setLoading(false);}
     };
 
-    initializeHunter();
-  }, [mockOpportunities]);
+    initializeHunter();}, [mockOpportunities]);
 
   // Auto-scan functionality;
   useEffect(() => {
@@ -144,8 +115,7 @@ const ArbitrageHunter: React.FC = () => {
       
       // Simulate finding new opportunities;
       if (Math.random() > 0.7) {
-        const newOpp: ArbitrageOpportunity = {
-          id: Date.now().toString(),
+        const newOpp: ArbitrageOpportunity = {,`n  id: Date.now().toString(),
           sport: ['NBA', 'NFL', 'NHL', 'Esports'][Math.floor(Math.random() * 4)],
           game: 'New Game vs Another Team',
           market: ['Moneyline', 'Total Points', 'Spread'][Math.floor(Math.random() * 3)],
@@ -154,34 +124,27 @@ const ArbitrageHunter: React.FC = () => {
           total_stake: Math.random() * 500 + 500,
           time_remaining: `${Math.floor(Math.random() * 3) + 1}h ${Math.floor(Math.random() * 60)}m`,
           bookmakers: [
-            { name: 'BookA', odds: Math.random() * 2 + 1.5, stake: 250, outcome: 'Outcome A' },
-            { name: 'BookB', odds: Math.random() * 2 + 1.5, stake: 250, outcome: 'Outcome B' }
+            { name: 'BookA', odds: Math.random() * 2 + 1.5, stake: 250, outcome: 'Outcome A'},
+            { name: 'BookB', odds: Math.random() * 2 + 1.5, stake: 250, outcome: 'Outcome B'}
           ],
           risk_score: Math.floor(Math.random() * 5) + 1,
           confidence: Math.floor(Math.random() * 10) + 90,
-          execution_complexity: ['simple', 'moderate', 'complex'][Math.floor(Math.random() * 3)] as any;
-        };
+          execution_complexity: ['simple', 'moderate', 'complex'][Math.floor(Math.random() * 3)] as any};
 
-        setOpportunities(prev => [newOpp, ...prev.slice(0, 9)]);
-      }
+        setOpportunities(prev => [newOpp, ...prev.slice(0, 9)]);}
       
-      setScanning(false);
-    }, 10000);
+      setScanning(false);}, 10000);
 
-    return () => clearInterval(interval);
-  }, [autoScan]);
+    return () => clearInterval(interval);}, [autoScan]);
 
   const handleManualScan = async () => {
     setScanning(true);
     try {
       await new Promise(resolve => setTimeout(resolve, 2000));
       // Refresh opportunities;
-      setOpportunities([...mockOpportunities]);
-    } catch (error) {
-      logger.error('Manual scan failed', error);
-    } finally {
-      setScanning(false);
-    }
+      setOpportunities([...mockOpportunities]);} catch (error) {
+      logger.error('Manual scan failed', error);} finally {
+      setScanning(false);}
   };
 
   const getComplexityColor = (complexity: string) => {
@@ -189,15 +152,13 @@ const ArbitrageHunter: React.FC = () => {
       case 'simple': return 'text-green-400 bg-green-400/20';
       case 'moderate': return 'text-yellow-400 bg-yellow-400/20';
       case 'complex': return 'text-red-400 bg-red-400/20';
-      default: return 'text-gray-400 bg-gray-400/20';
-    }
+      default: return 'text-gray-400 bg-gray-400/20'}
   };
 
   const getRiskColor = (risk: number) => {
     if (risk <= 2) return 'text-green-400';
     if (risk <= 3) return 'text-yellow-400';
-    return 'text-red-400';
-  };
+    return 'text-red-400';};
 
   if (loading) {
     return (
@@ -207,8 +168,7 @@ const ArbitrageHunter: React.FC = () => {
           <p className="mt-4 text-gray-400" key={301158}>Initializing Arbitrage Hunter...</p>
         </div>
       </div>
-    );
-  }
+    );}
 
   return (
     <div className="space-y-6" key={501869}>
@@ -240,10 +200,9 @@ const ArbitrageHunter: React.FC = () => {
             className={`px-6 py-3 rounded-lg font-medium transition-all ${
               scanning; 
                 ? 'bg-gray-600 cursor-not-allowed' 
-                : 'bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500'
-            }`}
-            whileHover={{ scale: scanning ? 1 : 1.05 }}
-            whileTap={{ scale: scanning ? 1 : 0.95 }}
+                : 'bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500'}`}
+            whileHover={{ scale: scanning ? 1 : 1.05}}
+            whileTap={{ scale: scanning ? 1 : 0.95}}
            key={12605}>
             {scanning ? (
               <div className="flex items-center gap-2" key={100294}>
@@ -333,8 +292,8 @@ const ArbitrageHunter: React.FC = () => {
             {opportunities.map((opportunity) => (
               <motion.div;
                 key={opportunity.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 20}}
+                animate={{ opacity: 1, y: 0}}
                 className="bg-gray-800/40 backdrop-blur border border-gray-700/50 rounded-xl p-6 hover:border-yellow-500/50 transition-all"
                key={190333}>
                 <div className="flex items-start justify-between mb-4" key={886571}>
@@ -417,8 +376,8 @@ const ArbitrageHunter: React.FC = () => {
                   
                   <motion.button;
                     className="px-6 py-2 bg-gradient-to-r from-green-500 to-green-600 rounded-lg font-medium hover:from-green-400 hover:to-green-500 transition-all"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.05}}
+                    whileTap={{ scale: 0.95}}
                    key={670897}>
                     Execute Arbitrage;
                   </motion.button>
@@ -429,7 +388,10 @@ const ArbitrageHunter: React.FC = () => {
         )}
       </div>
     </div>
-  );
-};
+  );};
 
 export default ArbitrageHunter;
+
+
+
+`

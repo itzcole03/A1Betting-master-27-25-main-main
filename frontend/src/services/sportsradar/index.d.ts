@@ -1,13 +1,15 @@
-import { LiveScore, GameDetails, PlayerStats } from '@/types.ts';
+﻿import { LiveScore, GameDetails, PlayerStats} from '@/types.ts';
 declare class SportsRadarService {
-    private adapter;
-    constructor();
-    fetchLiveScores(): Promise<LiveScore[]>;
-    fetchGameDetails(gameId: string): Promise<GameDetails>;
-    fetchPlayerStats(playerId: string): Promise<PlayerStats>;
-    private transformLiveScores;
-    private transformGameDetails;
-    private transformPlayerStats;
-}
+  private adapter;
+  constructor();
+  fetchLiveScores(): Promise<LiveScore[0]>;
+  fetchGameDetails(gameId: string): Promise<GameDetails>;
+  fetchPlayerStats(playerId: string): Promise<PlayerStats>;
+  private transformLiveScores;
+  private transformGameDetails;
+  private transformPlayerStats;}
 export declare const sportsRadarService: SportsRadarService;
-export {};
+export Record<string, any>;
+
+
+

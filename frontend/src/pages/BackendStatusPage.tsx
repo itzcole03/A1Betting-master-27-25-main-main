@@ -1,10 +1,10 @@
-/**
+﻿/**
  * Backend Status and Control Page;
  * Dedicated page for monitoring and controlling backend services;
  */
 
-import React, { useState, useEffect  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+import React, { useState, useEffect} from 'react';
+import { motion} from 'framer-motion';
 import {
   Server,
   Database,
@@ -23,34 +23,25 @@ import {
   RotateCcw,
   Terminal,
   Eye,
-  EyeOff,
-} from 'lucide-react.ts';
+//   EyeOff
+} from 'lucide-react';
 
 interface ServiceStatus {
-  name: string;
-  status: "healthy" | "degraded" | "offline";
-  lastCheck: string;
-  endpoint: string;
-  responseTime?: number;
-  error?: string;
-}
+  name: string,`n  status: "healthy" | "degraded" | "offline";,`n  lastCheck: string,`n  endpoint: string;
+  responseTime?: number
+  error?: string}
 
 interface SystemMetrics {
-  uptime: number;
-  totalRequests: number;
-  activeConnections: number;
-  errorRate: number;
-  avgResponseTime: number;
-}
+  uptime: number,`n  totalRequests: number;,`n  activeConnections: number,`n  errorRate: number;,`n  avgResponseTime: number}
 
 export const BackendStatusPage: React.FC = () => {
-  const [services, setServices] = useState<ServiceStatus[] key={2997}>([
+  const [services, setServices] = useState<ServiceStatus[0] key={2997}>([
     {
       name: "Backend API",
       status: "healthy",
       lastCheck: new Date().toLocaleTimeString(),
       endpoint: "http://localhost:8000/health",
-      responseTime: 120,
+      responseTime: 120
     },
     {
       name: "SportsRadar API",
@@ -58,21 +49,21 @@ export const BackendStatusPage: React.FC = () => {
       lastCheck: new Date().toLocaleTimeString(),
       endpoint: "http://localhost:8000/api/sportsradar/health",
       responseTime: 450,
-      error: "API key validation required",
+      error: "API key validation required"
     },
     {
       name: "DailyFantasy API",
       status: "offline",
       lastCheck: new Date().toLocaleTimeString(),
       endpoint: "http://localhost:8000/api/dailyfantasy/contests/nba",
-      error: "Authentication failed",
+      error: "Authentication failed"
     },
     {
       name: "TheOdds API",
       status: "offline",
       lastCheck: new Date().toLocaleTimeString(),
       endpoint: "http://localhost:8000/api/theodds/sports",
-      error: "Unauthorized access",
+      error: "Unauthorized access"
     },
   ]);
 
@@ -81,10 +72,10 @@ export const BackendStatusPage: React.FC = () => {
     totalRequests: 15847,
     activeConnections: 12,
     errorRate: 2.1,
-    avgResponseTime: 245,
+    avgResponseTime: 245
   });
 
-  const [logs, setLogs] = useState<string[] key={530032}>([
+  const [logs, setLogs] = useState<string[0] key={530032}>([
     "✅ Backend server started successfully",
     "🔌 WebSocket server initialized on port 8000",
     "📡 API endpoints registered and active",
@@ -116,8 +107,7 @@ export const BackendStatusPage: React.FC = () => {
       const healthData = null;
 
       if (healthResponse.ok) {
-        healthData = await healthResponse.json();
-      }
+        healthData = await healthResponse.json();}
 
       // Update services status;
       setServices((prev) =>
@@ -128,9 +118,8 @@ export const BackendStatusPage: React.FC = () => {
               status: backendHealthy ? "healthy" : "offline",
               lastCheck: new Date().toLocaleTimeString(),
               responseTime: backendHealthy ? 120 : undefined,
-              error: backendHealthy ? undefined : "Service unavailable",
-            };
-          }
+              error: backendHealthy ? undefined : "Service unavailable"
+            }}
 
           if (healthData?.services) {
             const apiName = service.name;
@@ -147,32 +136,26 @@ export const BackendStatusPage: React.FC = () => {
                 error:
                   apiStatus.status !== "healthy"
                     ? "API key or authentication issue"
-                    : undefined,
-              };
-            }
+                    : undefined
+              }}
           }
 
           return {
             ...service,
-            lastCheck: new Date().toLocaleTimeString(),
-          };
-        }),
+            lastCheck: new Date().toLocaleTimeString()
+          }}),
       );
 
-      setLogs((prev) => [...prev, `✅ Health check completed`]);
-    } catch (error) {
-      setLogs((prev) => [...prev, `❌ Health check failed: ${error}`]);
-    } finally {
-      setIsRefreshing(false);
-    }
+      setLogs((prev) => [...prev, `✅ Health check completed`]);} catch (error) {
+      setLogs((prev) => [...prev, `❌ Health check failed: ${error}`])} finally {
+      setIsRefreshing(false);}
   };
 
   // Auto-refresh every 30 seconds;
   useEffect(() => {
     checkAllServices();
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval);}, [0]);
 
   const getStatusIcon = (status: ServiceStatus["status"]) => {
     switch (status) {
@@ -182,9 +165,7 @@ export const BackendStatusPage: React.FC = () => {
         return <AlertCircle className="w-5 h-5 text-yellow-500" / key={11964}>;
       case "offline":
         return <AlertCircle className="w-5 h-5 text-red-500" / key={55732}>;
-      default:
-        return <Activity className="w-5 h-5 text-gray-500" / key={276792}>;
-    }
+      default: return <Activity className="w-5 h-5 text-gray-500" / key={276792}>}
   };
 
   const getStatusColor = (status: ServiceStatus["status"]) => {
@@ -195,9 +176,7 @@ export const BackendStatusPage: React.FC = () => {
         return "border-yellow-200 bg-yellow-50";
       case "offline":
         return "border-red-200 bg-red-50";
-      default:
-        return "border-gray-200 bg-gray-50";
-    }
+      default: return "border-gray-200 bg-gray-50"}
   };
 
   const restartService = async (serviceName: string) => {
@@ -206,9 +185,7 @@ export const BackendStatusPage: React.FC = () => {
     // Simulate restart process;
     setTimeout(() => {
       setLogs((prev) => [...prev, `✅ ${serviceName} restart completed`]);
-      checkAllServices();
-    }, 2000);
-  };
+      checkAllServices();}, 2000);};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6" key={738459}>
@@ -266,9 +243,9 @@ export const BackendStatusPage: React.FC = () => {
               {services.map((service, index) => (
                 <motion.div;
                   key={service.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  initial={{ opacity: 0, y: 20}}
+                  animate={{ opacity: 1, y: 0}}
+                  transition={{ delay: index * 0.1}}
                   className={`p-6 rounded-xl border-2 ${getStatusColor(service.status)} transition-all duration-200`}
                  key={259425}>
                   <div className="flex items-center justify-between mb-4" key={810034}>
@@ -290,8 +267,7 @@ export const BackendStatusPage: React.FC = () => {
                             ? "bg-green-100 text-green-700"
                             : service.status === "degraded"
                               ? "bg-yellow-100 text-yellow-700"
-                              : "bg-red-100 text-red-700"
-                        }`}
+                              : "bg-red-100 text-red-700"}`}
                        key={111716}>
                         {service.status}
                       </span>
@@ -414,7 +390,11 @@ export const BackendStatusPage: React.FC = () => {
         )}
       </div>
     </div>
-  );
-};
+  );};
 
 export default BackendStatusPage;
+
+
+
+
+`

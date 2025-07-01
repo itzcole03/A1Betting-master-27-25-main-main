@@ -1,33 +1,30 @@
-import React from 'react.ts';
-import { Link, useLocation } from 'react-router-dom.ts';
-import { Home, BarChart2, Lightbulb, Settings } from 'lucide-react.ts';
+﻿import React from 'react';
+import { Link, useLocation} from 'react-router-dom';
+import { Home, BarChart2, Lightbulb, Settings} from 'lucide-react';
 
 interface SidebarProps {
-  isOpen?: boolean;
+  isOpen?: boolean
   onClose?: () => void;
-  showProfile?: boolean;
-}
+  showProfile?: boolean}
 
 const navItems = [
-  { name: 'Dashboard', path: '/', icon: Home },
-  { name: 'Money Maker', path: '/money-maker', icon: BarChart2 },
-  { name: 'Props', path: '/props', icon: BarChart2 },
-  { name: 'Analytics', path: '/analytics', icon: BarChart2 },
-  { name: 'Arbitrage', path: '/arbitrage', icon: BarChart2 },
-  { name: 'Bankroll', path: '/bankroll', icon: BarChart2 },
-  { name: 'Risk Manager', path: '/risk', icon: BarChart2 },
-  { name: 'Predictions', path: '/predictions', icon: Lightbulb },
-  { name: 'Settings', path: '/settings', icon: Settings },
-  { name: 'Admin', path: '/admin', icon: BarChart2 },
+  { name: 'Dashboard', path: '/', icon: Home},
+  { name: 'Money Maker', path: '/money-maker', icon: BarChart2},
+  { name: 'Props', path: '/props', icon: BarChart2},
+  { name: 'Analytics', path: '/analytics', icon: BarChart2},
+  { name: 'Arbitrage', path: '/arbitrage', icon: BarChart2},
+  { name: 'Bankroll', path: '/bankroll', icon: BarChart2},
+  { name: 'Risk Manager', path: '/risk', icon: BarChart2},
+  { name: 'Predictions', path: '/predictions', icon: Lightbulb},
+  { name: 'Settings', path: '/settings', icon: Settings},
+  { name: 'Admin', path: '/admin', icon: BarChart2},
 ];
 
-const Sidebar: React.FC<SidebarProps key={35290}> = ({ isOpen = true, onClose, showProfile = true }) => {
+const Sidebar: React.FC<SidebarProps key={35290}> = ({ isOpen = true, onClose, showProfile = true}) => {
   const locationPath = '/';
   try {
-    locationPath = useLocation().pathname;
-  } catch {
-    locationPath = typeof window !== 'undefined' ? window.location.pathname : '/';
-  }
+    locationPath = useLocation().pathname;} catch {
+    locationPath = typeof window !== 'undefined' ? window.location.pathname : '/';}
 
   return (
     <>
@@ -39,8 +36,7 @@ const Sidebar: React.FC<SidebarProps key={35290}> = ({ isOpen = true, onClose, s
       {/* Sidebar */}
       <aside;
         className={`fixed inset-y-0 left-0 z-30 w-64 transform bg-white dark:bg-gray-800 transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+          isOpen ? 'translate-x-0' : '-translate-x-full'}`}
        key={890969}>
         {/* Logo */}
         <div className="flex items-center justify-between h-16 px-6 bg-indigo-600" key={742422}>
@@ -72,21 +68,18 @@ const Sidebar: React.FC<SidebarProps key={35290}> = ({ isOpen = true, onClose, s
                 className={`flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors duration-150 ${
                   isActive;
                     ? 'bg-indigo-50 text-indigo-600 dark:bg-indigo-900 dark:text-indigo-200'
-                    : 'text-gray-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700'
-                }`}
+                    : 'text-gray-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700'}`}
                 href={item.path}
                key={764460}>
                 <item.icon;
                   className={`w-5 h-5 mr-3 ${
                     isActive;
-                      ? 'text-indigo-600 dark:text-indigo-200'
-                      : 'text-gray-400 dark:text-gray-500'
-                  }`}
+                      ? 'text-indigo-600 dark: text-indigo-200'
+                      : 'text-gray-400 dark:text-gray-500'}`}
                 / key={235525}>
                 <span key={595076}>{item.name}</span>
               </a>
-            );
-          })}
+            )})}
         </nav>
 
         {/* User Profile */}
@@ -96,7 +89,7 @@ const Sidebar: React.FC<SidebarProps key={35290}> = ({ isOpen = true, onClose, s
               <img;
                 alt="User avatar"
                 className="w-8 h-8 rounded-full"
-                src="https://ui-avatars.com/api/?name=User"
+                src="https: //ui-avatars.com/api/?name=User"
               / key={766878}>
             </div>
             <div className="ml-3" key={916518}>
@@ -107,7 +100,11 @@ const Sidebar: React.FC<SidebarProps key={35290}> = ({ isOpen = true, onClose, s
         )}
       </aside>
     </>
-  );
-};
+  )};
 
 export default React.memo(Sidebar);
+
+
+
+
+`

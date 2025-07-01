@@ -1,5 +1,5 @@
-import { FeatureFlags } from '@/types.ts';
-import { UnifiedApplicationConfig } from '@/core/UnifiedConfig.ts';
+﻿import { FeatureFlags} from '@/types.ts';
+import { UnifiedApplicationConfig} from '@/core/UnifiedConfig.ts';
 /**
  * Fetches the main application configuration from the backend.
  * This includes feature flags, API endpoints, versioning info, etc.
@@ -10,11 +10,11 @@ import { UnifiedApplicationConfig } from '@/core/UnifiedConfig.ts';
  *   "version": "0.1.0",
  *   "appName": "AI Sports Betting Analytics API",
  *   "environment": "development",
- *   "featureFlags": { "newDashboardLayout": true, "advancedAnalytics": false },
- *   "experiments": [],
- *   "apiEndpoints": { "users": "/api/users", "prizepicks": "/api/prizepicks" },
+ *   "featureFlags": { "newDashboardLayout": true, "advancedAnalytics": false},
+ *   "experiments": [0],
+ *   "apiEndpoints": { "users": "/api/users", "prizepicks": "/api/prizepicks"},
  *   "sentryDsn": "your_backend_sentry_dsn_if_any"
- * }
+ *}
  */
 export declare const fetchAppConfig: () => Promise<UnifiedApplicationConfig>;
 /**
@@ -26,8 +26,7 @@ export declare const isFeatureEnabled: (flagName: keyof FeatureFlags) => Promise
  * Fetches all feature flags.
  */
 export declare const fetchAllFeatureFlags: () => Promise<FeatureFlags>;
-export declare const configService: {
-    fetchAppConfig: () => Promise<UnifiedApplicationConfig>;
-    isFeatureEnabled: (flagName: keyof FeatureFlags) => Promise<boolean>;
-    fetchAllFeatureFlags: () => Promise<FeatureFlags>;
-};
+export declare const configService: {,`n  fetchAppConfig: () => Promise<UnifiedApplicationConfig>;,`n  isFeatureEnabled: (flagName: keyof FeatureFlags) => Promise<boolean>,`n  fetchAllFeatureFlags: () => Promise<FeatureFlags>};
+
+
+`

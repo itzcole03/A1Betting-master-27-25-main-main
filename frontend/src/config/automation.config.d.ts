@@ -1,36 +1,10 @@
-export interface AutomationConfig {
-    updateInterval: number;
-    riskManagement: {
-        maxActiveBets: number;
-        minConfidence: number;
-        maxStakePercentage: number;
-        stopLossPercentage: number;
-        takeProfitPercentage: number;
-    };
-    prediction: {
-        minSampleSize: number;
-        maxTrials: number;
-        explorationRate: number;
-        recalibrationThreshold: number;
-    };
-    userPersonalization: {
-        minClusterSize: number;
-        maxClusters: number;
-        confidenceThreshold: number;
-    };
-    notification: {
-        enabled: boolean;
-        channels: {
-            email: boolean;
-            push: boolean;
-            sms: boolean;
-        };
-        priorityLevels: {
-            info: boolean;
-            warning: boolean;
-            error: boolean;
-            success: boolean;
-        };
-    };
-}
+﻿export interface AutomationConfig {
+  updateInterval: number,`n  riskManagement: {,`n  maxActiveBets: number,`n  minConfidence: number;,`n  maxStakePercentage: number,`n  stopLossPercentage: number;,`n  takeProfitPercentage: number};
+  prediction: {,`n  minSampleSize: number;,`n  maxTrials: number,`n  explorationRate: number;,`n  recalibrationThreshold: number};
+  userPersonalization: {,`n  minClusterSize: number;,`n  maxClusters: number,`n  confidenceThreshold: number};
+  notification: {,`n  enabled: boolean;,`n  channels: {,`n  email: boolean;,`n  push: boolean,`n  sms: boolean};
+    priorityLevels: {,`n  info: boolean;,`n  warning: boolean,`n  error: boolean;,`n  success: boolean};};}
 export declare const defaultConfig: AutomationConfig;
+
+
+`

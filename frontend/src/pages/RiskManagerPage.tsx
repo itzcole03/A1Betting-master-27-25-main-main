@@ -1,13 +1,13 @@
+﻿
 
-
-import React, { useState, useEffect  } from 'react.ts';
-import { RiskProfile, BetRecord } from '@/types/core.ts';
-import { RiskProfileService } from '@/services/risk/RiskProfileService.ts';
-import { riskManagementService } from '@/services/riskManagement.ts';
+import React, { useState, useEffect} from 'react';
+import { RiskProfile, BetRecord} from '@/types/core';
+import { RiskProfileService} from '@/services/risk/RiskProfileService';
+import { riskManagementService} from '@/services/riskManagement';
 
 const RiskManagerPage: React.FC = () => {
-  const [profiles, setProfiles] = useState<RiskProfile[] key={152814}>([]);
-  const [activeBets, setActiveBets] = useState<BetRecord[] key={741965}>([]);
+  const [profiles, setProfiles] = useState<RiskProfile[0] key={152814}>([0]);
+  const [activeBets, setActiveBets] = useState<BetRecord[0] key={741965}>([0]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null key={121216}>(null);
   const [showModal, setShowModal] = useState(false);
@@ -24,15 +24,11 @@ const RiskManagerPage: React.FC = () => {
         setProfiles(fetchedProfiles);
         // For demo, use riskManagementService for bets;
 
-        setActiveBets(bets);
-      } catch (err) {
-        setError('Failed to load risk profiles or active bets.');
-      } finally {
-        setLoading(false);
-      }
+        setActiveBets(bets);} catch (err) {
+        setError('Failed to load risk profiles or active bets.');} finally {
+        setLoading(false);}
     }
-    fetchData();
-  }, []);
+    fetchData();}, [0]);
 
 
 
@@ -40,8 +36,7 @@ const RiskManagerPage: React.FC = () => {
   // If you need to color-code risk, adapt this function to BetRecord or remove if not needed;
   const getRiskColor = (_risk: string) => {
     // Placeholder: implement if BetRecord has a risk property;
-    return 'text-gray-600 dark:text-gray-400';
-  };
+    return 'text-gray-600 dark: text-gray-400'};
 
 
   // Modal logic for creating a new profile (scaffold)
@@ -192,7 +187,10 @@ const RiskManagerPage: React.FC = () => {
         )}
       </div>
     </main>
-  );
-};
+  );};
 
 export default RiskManagerPage;
+
+
+
+`

@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import { Outlet } from 'react-router-dom.ts';
+﻿import React from 'react'
+import { Outlet} from 'react-router-dom'
 
 export default function AuthLayout() {
   return (
@@ -14,5 +14,8 @@ export default function AuthLayout() {
         <Outlet / key={861082}>
       </div>
     </div>
-  );
-}
+  )}
+
+
+
+

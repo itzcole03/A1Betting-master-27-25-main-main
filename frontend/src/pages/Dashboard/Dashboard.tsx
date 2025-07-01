@@ -1,9 +1,9 @@
-import React from 'react.ts';
-import { Box, Typography, Grid, Paper, useTheme } from '@mui/material.ts';
-import { useQuery } from '@tanstack/react-query.ts';
-import { getActiveBets, getTotalWinnings, getWinRate } from '@services/bettingService.ts';
-import LoadingState from '@components/core/LoadingState.ts';
-import ErrorState from '@components/core/ErrorState.ts';
+﻿import React from 'react';
+import { Box, Typography, Grid, Paper, useTheme} from '@mui/material';
+import { useQuery} from '@tanstack/react-query';
+import { getActiveBets, getTotalWinnings, getWinRate} from '@services/bettingService';
+import LoadingState from '@components/core/LoadingState';
+import ErrorState from '@components/core/ErrorState';
 
 const Dashboard = () => {
 
@@ -11,35 +11,34 @@ const Dashboard = () => {
     data: activeBets = 0,
     isLoading: isLoadingBets,
     error: betsError,
-    refetch: refetchBets,
+    refetch: refetchBets
   } = useQuery({
     queryKey: ['activeBets'],
-    queryFn: getActiveBets,
+    queryFn: getActiveBets
   });
 
   const {
     data: totalWinnings = 0,
     isLoading: isLoadingWinnings,
     error: winningsError,
-    refetch: refetchWinnings,
+    refetch: refetchWinnings
   } = useQuery({
     queryKey: ['totalWinnings'],
-    queryFn: getTotalWinnings,
+    queryFn: getTotalWinnings
   });
 
   const {
     data: winRate = 0,
     isLoading: isLoadingWinRate,
     error: winRateError,
-    refetch: refetchWinRate,
+    refetch: refetchWinRate
   } = useQuery({
     queryKey: ['winRate'],
-    queryFn: getWinRate,
+    queryFn: getWinRate
   });
 
   if (isLoadingBets || isLoadingWinnings || isLoadingWinRate) {
-    return <LoadingState message="Loading dashboard data..." / key={572352}>;
-  }
+    return <LoadingState message="Loading dashboard data..." / key={572352}>;}
 
   if (betsError || winningsError || winRateError) {
     return (
@@ -48,11 +47,9 @@ const Dashboard = () => {
         onRetry={() = key={452546}> {
           refetchBets();
           refetchWinnings();
-          refetchWinRate();
-        }}
+          refetchWinRate();}}
       />
-    );
-  }
+    );}
 
   return (
     <Box key={485947}>
@@ -70,8 +67,8 @@ const Dashboard = () => {
               transition: 'transform 0.2s',
               '&:hover': {
                 transform: 'scale(1.02)',
-                boxShadow: theme.shadows[4],
-              },
+                boxShadow: theme.shadows[4]
+              }
             }}
            key={917336}>
             <Typography gutterBottom variant="h6" key={368112}>
@@ -92,8 +89,8 @@ const Dashboard = () => {
               transition: 'transform 0.2s',
               '&:hover': {
                 transform: 'scale(1.02)',
-                boxShadow: theme.shadows[4],
-              },
+                boxShadow: theme.shadows[4]
+              }
             }}
            key={917336}>
             <Typography gutterBottom variant="h6" key={368112}>
@@ -114,8 +111,8 @@ const Dashboard = () => {
               transition: 'transform 0.2s',
               '&:hover': {
                 transform: 'scale(1.02)',
-                boxShadow: theme.shadows[4],
-              },
+                boxShadow: theme.shadows[4]
+              }
             }}
            key={917336}>
             <Typography gutterBottom variant="h6" key={368112}>
@@ -128,7 +125,9 @@ const Dashboard = () => {
         </Grid>
       </Grid>
     </Box>
-  );
-};
+  );};
 
 export default Dashboard;
+
+
+

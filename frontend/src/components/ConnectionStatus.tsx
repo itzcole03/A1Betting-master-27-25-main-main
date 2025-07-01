@@ -1,29 +1,27 @@
-import { Alert, Box, CircularProgress, Snackbar, Typography } from '@mui/material.ts';
-import { styled } from '@mui/material/styles.ts';
-import React from 'react.ts';
-import { useWebSocketStore } from '@/stores/websocketStore.ts';
-import { fadeIn } from '@/utils/animations.ts';
+﻿import { Alert, Box, CircularProgress, Snackbar, Typography} from '@mui/material'
+import { styled} from '@mui/material/styles'
+import React from 'react'
+import { useWebSocketStore} from '@/stores/websocketStore'
+import { fadeIn} from '@/utils/animations'
 
-const StatusContainer = styled(Box)(({ theme }) => ({
+const StatusContainer = styled(Box)(({ theme}) => ({
   position: 'fixed',
   bottom: theme.spacing(2),
   right: theme.spacing(2),
   zIndex: theme.zIndex.snackbar,
-  animation: `${fadeIn} 0.3s ease-in-out`,
+  animation: `${fadeIn} 0.3s ease-in-out`
 }));
 
 export const ConnectionStatus: React.FC = () => {
-  const { isConnected, isReconnecting, lastError, resetError } = useWebSocketStore();
-  const [serviceStatus, setServiceStatus] = React.useState<Record<string, unknown key={523311}>>({});
+  const { isConnected, isReconnecting, lastError, resetError} = useWebSocketStore();
+  const [serviceStatus, setServiceStatus] = React.useState<Record<string, unknown key={523311}>>(Record<string, any>);
 
   React.useEffect(() => {
     const updateStatus = () => {
-      setServiceStatus(window.appStatus ? { ...window.appStatus } : {});
-    };
+      setServiceStatus(window.appStatus ? { ...window.appStatus} : Record<string, any>)};
     updateStatus();
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)}, [0]);
 
   const renderStatus = (service: string, label: string) => {
 
@@ -45,8 +43,7 @@ export const ConnectionStatus: React.FC = () => {
           {status.timestamp ? `Updated ${Math.floor((Date.now() - status.timestamp) / 1000)}s ago` : ''}
         </Typography>
       </Box>
-    );
-  };
+    )};
 
   return (
     <>
@@ -71,15 +68,19 @@ export const ConnectionStatus: React.FC = () => {
       </StatusContainer>
 
       <Snackbar;
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center'}}
         autoHideDuration={6000}
         open={!!lastError}
         onClose={resetError}
        key={378587}>
-        <Alert severity="error" sx={{ width: '100%' }} onClose={resetError} key={558867}>
+        <Alert severity="error" sx={{ width: '100%'}} onClose={resetError} key={558867}>
           {lastError}
         </Alert>
       </Snackbar>
     </>
-  );
-};
+  )};
+
+
+
+
+`

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React, { useState, useEffect, useMemo} from 'react';
+import { motion} from 'framer-motion';
 import {
   Target,
   TrendingUp,
@@ -10,57 +10,38 @@ import {
   Activity,
   Clock,
   Star,
-  AlertTriangle,
-} from 'lucide-react.ts';
-import { productionApiService } from '@/services/api/ProductionApiService.ts';
-import { logger } from '@/utils/logger.ts';
+//   AlertTriangle
+} from 'lucide-react';
+import { productionApiService} from '@/services/api/ProductionApiService';
+import { logger} from '@/utils/logger';
 
 interface Opportunity {
-  id: string;
-  type: 'prizepicks' | 'arbitrage' | 'value_bet' | 'parlay';
-  sport: string;
-  game: string;
-  description: string;
-  expectedValue: number;
-  confidence: number;
-  stake: number;
-  potentialProfit: number;
-  riskLevel: 'low' | 'medium' | 'high';
-  timeRemaining: string;
-  bookmakers?: string[];
-  analytics: {
-    winProbability: number;
-    sharpeRatio: number;
-    kelly: number;
-  };
-}
+  id: string,`n  type: 'prizepicks' | 'arbitrage' | 'value_bet' | 'parlay';,`n  sport: string,`n  game: string;,`n  description: string,`n  expectedValue: number;,`n  confidence: number,`n  stake: number;,`n  potentialProfit: number,`n  riskLevel: 'low' | 'medium' | 'high';,`n  timeRemaining: string;
+  bookmakers?: string[0];
+  analytics: {,`n  winProbability: number;,`n  sharpeRatio: number,`n  kelly: number}}
 
 interface ScannerMetrics {
-  totalScanned: number;
-  foundOpportunities: number;
-  avgExpectedValue: number;
-  successRate: number;
-}
+  totalScanned: number,`n  foundOpportunities: number;,`n  avgExpectedValue: number,`n  successRate: number}
 
 const UltimateOpportunityScanner: React.FC = () => {
-  const [opportunities, setOpportunities] = useState<Opportunity[] key={974691}>([]);
+  const [opportunities, setOpportunities] = useState<Opportunity[0] key={974691}>([0]);
   const [loading, setLoading] = useState(true);
   const [scanning, setScanning] = useState(false);
   const [metrics, setMetrics] = useState<ScannerMetrics key={533841}>({
     totalScanned: 0,
     foundOpportunities: 0,
     avgExpectedValue: 0,
-    successRate: 0,
+    successRate: 0
   });
   const [selectedFilters, setSelectedFilters] = useState({
     sport: 'all',
     type: 'all',
     riskLevel: 'all',
-    minExpectedValue: 0,
+    minExpectedValue: 0
   });
 
   // Mock data for demonstration;
-  const mockOpportunities: Opportunity[] = useMemo(() => [
+  const mockOpportunities: Opportunity[0] = useMemo(() => [
     {
       id: '1',
       type: 'prizepicks',
@@ -73,11 +54,10 @@ const UltimateOpportunityScanner: React.FC = () => {
       potentialProfit: 112.50,
       riskLevel: 'low',
       timeRemaining: '2h 45m',
-      analytics: {
-        winProbability: 0.68,
+      analytics: {,`n  winProbability: 0.68,
         sharpeRatio: 1.45,
-        kelly: 0.15,
-      },
+        kelly: 0.15
+      }
     },
     {
       id: '2',
@@ -92,11 +72,10 @@ const UltimateOpportunityScanner: React.FC = () => {
       riskLevel: 'low',
       timeRemaining: '1h 20m',
       bookmakers: ['DraftKings', 'FanDuel'],
-      analytics: {
-        winProbability: 1.0,
+      analytics: {,`n  winProbability: 1.0,
         sharpeRatio: 2.8,
-        kelly: 0.25,
-      },
+        kelly: 0.25
+      }
     },
     {
       id: '3',
@@ -110,13 +89,12 @@ const UltimateOpportunityScanner: React.FC = () => {
       potentialProfit: 83.30,
       riskLevel: 'medium',
       timeRemaining: '45m',
-      analytics: {
-        winProbability: 0.62,
+      analytics: {,`n  winProbability: 0.62,
         sharpeRatio: 1.2,
-        kelly: 0.12,
-      },
+        kelly: 0.12
+      }
     },
-  ], []);
+  ], [0]);
 
   // Initialize scanner;
   useEffect(() => {
@@ -131,17 +109,13 @@ const UltimateOpportunityScanner: React.FC = () => {
           totalScanned: 1247,
           foundOpportunities: mockOpportunities.length,
           avgExpectedValue: mockOpportunities.reduce((acc, opp) => acc + opp.expectedValue, 0) / mockOpportunities.length,
-          successRate: 73.2,
-        });
-      } catch (error) {
-        logger.error('Failed to initialize opportunity scanner', error);
-      } finally {
-        setLoading(false);
-      }
+          successRate: 73.2
+        })} catch (error) {
+        logger.error('Failed to initialize opportunity scanner', error);} finally {
+        setLoading(false);}
     };
 
-    initializeScanner();
-  }, [mockOpportunities]);
+    initializeScanner();}, [mockOpportunities]);
 
   const handleScan = async () => {
     setScanning(true);
@@ -150,8 +124,7 @@ const UltimateOpportunityScanner: React.FC = () => {
       await new Promise(resolve => setTimeout(resolve, 2000));
       
       // Add some variation to mock new opportunities;
-      const newOpportunity: Opportunity = {
-        id: Date.now().toString(),
+      const newOpportunity: Opportunity = {,`n  id: Date.now().toString(),
         type: 'value_bet',
         sport: 'NHL',
         game: 'Rangers vs Bruins',
@@ -162,24 +135,20 @@ const UltimateOpportunityScanner: React.FC = () => {
         potentialProfit: Math.random() * 50 + 100,
         riskLevel: 'medium',
         timeRemaining: '3h 15m',
-        analytics: {
-          winProbability: Math.random() * 0.3 + 0.6,
+        analytics: {,`n  winProbability: Math.random() * 0.3 + 0.6,
           sharpeRatio: Math.random() * 2 + 1,
-          kelly: Math.random() * 0.2 + 0.1,
-        },
+          kelly: Math.random() * 0.2 + 0.1
+        }
       };
 
       setOpportunities(prev => [newOpportunity, ...prev]);
       setMetrics(prev => ({
         ...prev,
         foundOpportunities: prev.foundOpportunities + 1,
-        totalScanned: prev.totalScanned + Math.floor(Math.random() * 100 + 50),
-      }));
-    } catch (error) {
-      logger.error('Scanning failed', error);
-    } finally {
-      setScanning(false);
-    }
+        totalScanned: prev.totalScanned + Math.floor(Math.random() * 100 + 50)
+      }))} catch (error) {
+      logger.error('Scanning failed', error);} finally {
+      setScanning(false);}
   };
 
   const filteredOpportunities = useMemo(() => {
@@ -188,17 +157,14 @@ const UltimateOpportunityScanner: React.FC = () => {
       if (selectedFilters.type !== 'all' && opp.type !== selectedFilters.type) return false;
       if (selectedFilters.riskLevel !== 'all' && opp.riskLevel !== selectedFilters.riskLevel) return false;
       if (opp.expectedValue < selectedFilters.minExpectedValue) return false;
-      return true;
-    });
-  }, [opportunities, selectedFilters]);
+      return true;});}, [opportunities, selectedFilters]);
 
   const getRiskColor = (riskLevel: string) => {
     switch (riskLevel) {
       case 'low': return 'text-green-400 bg-green-400/20';
       case 'medium': return 'text-yellow-400 bg-yellow-400/20';
       case 'high': return 'text-red-400 bg-red-400/20';
-      default: return 'text-gray-400 bg-gray-400/20';
-    }
+      default: return 'text-gray-400 bg-gray-400/20'}
   };
 
   const getTypeIcon = (type: string) => {
@@ -207,8 +173,7 @@ const UltimateOpportunityScanner: React.FC = () => {
       case 'arbitrage': return <Zap className="w-4 h-4" / key={768470}>;
       case 'value_bet': return <TrendingUp className="w-4 h-4" / key={673347}>;
       case 'parlay': return <BarChart3 className="w-4 h-4" / key={509964}>;
-      default: return <Target className="w-4 h-4" / key={184202}>;
-    }
+      default: return <Target className="w-4 h-4" / key={184202}>}
   };
 
   if (loading) {
@@ -219,8 +184,7 @@ const UltimateOpportunityScanner: React.FC = () => {
           <p className="mt-4 text-gray-400" key={301158}>Initializing Opportunity Scanner...</p>
         </div>
       </div>
-    );
-  }
+    );}
 
   return (
     <div className="space-y-6" key={501869}>
@@ -241,10 +205,9 @@ const UltimateOpportunityScanner: React.FC = () => {
           className={`px-6 py-3 rounded-lg font-medium transition-all ${
             scanning; 
               ? 'bg-gray-600 cursor-not-allowed' 
-              : 'bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500'
-          }`}
-          whileHover={{ scale: scanning ? 1 : 1.05 }}
-          whileTap={{ scale: scanning ? 1 : 0.95 }}
+              : 'bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500'}`}
+          whileHover={{ scale: scanning ? 1 : 1.05}}
+          whileTap={{ scale: scanning ? 1 : 0.95}}
          key={323699}>
           {scanning ? (
             <div className="flex items-center gap-2" key={100294}>
@@ -301,7 +264,7 @@ const UltimateOpportunityScanner: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4" key={426410}>
           <select; 
             value={selectedFilters.sport}
-            onChange={(e) = key={203768}> setSelectedFilters(prev => ({ ...prev, sport: e.target.value }))}
+            onChange={(e) = key={203768}> setSelectedFilters(prev => ({ ...prev, sport: e.target.value}))}
             className="bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white"
           >
             <option value="all" key={673287}>All Sports</option>
@@ -313,7 +276,7 @@ const UltimateOpportunityScanner: React.FC = () => {
 
           <select; 
             value={selectedFilters.type}
-            onChange={(e) = key={972278}> setSelectedFilters(prev => ({ ...prev, type: e.target.value }))}
+            onChange={(e) = key={972278}> setSelectedFilters(prev => ({ ...prev, type: e.target.value}))}
             className="bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white"
           >
             <option value="all" key={673287}>All Types</option>
@@ -325,7 +288,7 @@ const UltimateOpportunityScanner: React.FC = () => {
 
           <select; 
             value={selectedFilters.riskLevel}
-            onChange={(e) = key={61185}> setSelectedFilters(prev => ({ ...prev, riskLevel: e.target.value }))}
+            onChange={(e) = key={61185}> setSelectedFilters(prev => ({ ...prev, riskLevel: e.target.value}))}
             className="bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white"
           >
             <option value="all" key={673287}>All Risk Levels</option>
@@ -338,7 +301,7 @@ const UltimateOpportunityScanner: React.FC = () => {
             type="number"
             placeholder="Min Expected Value"
             value={selectedFilters.minExpectedValue}
-            onChange={(e) = key={584515}> setSelectedFilters(prev => ({ ...prev, minExpectedValue: Number(e.target.value) }))}
+            onChange={(e) = key={584515}> setSelectedFilters(prev => ({ ...prev, minExpectedValue: Number(e.target.value)}))}
             className="bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white"
           />
         </div>
@@ -358,8 +321,8 @@ const UltimateOpportunityScanner: React.FC = () => {
             {filteredOpportunities.map((opportunity) => (
               <motion.div;
                 key={opportunity.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 20}}
+                animate={{ opacity: 1, y: 0}}
                 className="bg-gray-800/40 backdrop-blur border border-gray-700/50 rounded-xl p-6 hover:border-cyan-500/50 transition-all"
                key={488478}>
                 <div className="flex items-start justify-between mb-4" key={886571}>
@@ -415,8 +378,8 @@ const UltimateOpportunityScanner: React.FC = () => {
                   
                   <motion.button;
                     className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-lg font-medium hover:from-cyan-400 hover:to-purple-500 transition-all"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.05}}
+                    whileTap={{ scale: 0.95}}
                    key={854071}>
                     Place Bet;
                   </motion.button>
@@ -427,7 +390,10 @@ const UltimateOpportunityScanner: React.FC = () => {
         )}
       </div>
     </div>
-  );
-};
+  );};
 
 export default UltimateOpportunityScanner;
+
+
+
+`

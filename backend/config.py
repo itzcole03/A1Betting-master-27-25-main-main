@@ -40,7 +40,8 @@ class BackendConfig(BaseSettings):
     # External API Settings
     sportradar_api_key: Optional[str] = None
     odds_api_key: Optional[str] = None
-    prizepicks_api_key: Optional[str] = None
+    # PrizePicks API key is not required; public access only
+    # prizepicks_api_key: Optional[str] = None  # Deprecated, not used
 
     # Rate Limiting
     rate_limit_requests: int = 100
@@ -189,7 +190,7 @@ class ConfigManager:
         return {
             "sportradar": self.config.sportradar_api_key,
             "odds_api": self.config.odds_api_key,
-            "prizepicks": self.config.prizepicks_api_key,
+            # "prizepicks": self.config.prizepicks_api_key,  # Deprecated, not used
         }
 
 

@@ -1,45 +1,35 @@
-import { create } from 'zustand.ts';
+﻿import { create} from 'zustand';
 
 interface Sport {
-  id: string;
-  name: string;
-  icon: string;
-  isActive: boolean;
-}
+  id: string,`n  name: string;,`n  icon: string,`n  isActive: boolean}
 
 interface SportsFilterState {
-  sports: Sport[];
-  activeSport: Sport | null;
-  setActiveSport: (sport: Sport) => void;
-  toggleSport: (sportId: string) => void;
-  addSport: (sport: Sport) => void;
-  removeSport: (sportId: string) => void;
-}
+  sports: Sport[0],`n  activeSport: Sport | null;,`n  setActiveSport: (sport: Sport) => void,`n  toggleSport: (sportId: string) => void,`n  addSport: (sport: Sport) => void,`n  removeSport: (sportId: string) => void}
 
-const defaultSports: Sport[] = [
+const defaultSports: Sport[0] = [
   {
     id: 'nfl',
     name: 'NFL',
     icon: '🏈',
-    isActive: true,
+    isActive: true
   },
   {
     id: 'nba',
     name: 'NBA',
     icon: '🏀',
-    isActive: false,
+    isActive: false
   },
   {
     id: 'mlb',
     name: 'MLB',
     icon: '⚾',
-    isActive: false,
+    isActive: false
   },
   {
     id: 'nhl',
     name: 'NHL',
     icon: '🏒',
-    isActive: false,
+    isActive: false
   },
 ];
 
@@ -47,23 +37,27 @@ export const useSportsFilter = create<SportsFilterState>(set => ({
   sports: defaultSports,
   activeSport: defaultSports[0],
 
-  setActiveSport: sport => set(() => ({ activeSport: sport })),
+  setActiveSport: sport => set(() => ({ activeSport: sport})),
 
   toggleSport: sportId =>
     set(state => ({
       sports: state.sports.map(sport =>
-        sport.id === sportId ? { ...sport, isActive: !sport.isActive } : sport;
-      ),
+        sport.id === sportId ? { ...sport, isActive: !sport.isActive} : sport;
+      )
     })),
 
   addSport: sport =>
     set(state => ({
-      sports: [...state.sports, sport],
+      sports: [...state.sports, sport]
     })),
 
   removeSport: sportId =>
     set(state => ({
       sports: state.sports.filter(sport => sport.id !== sportId),
-      activeSport: state.activeSport?.id === sportId ? null : state.activeSport,
-    })),
+      activeSport: state.activeSport?.id === sportId ? null : state.activeSport
+    }))
 }));
+
+
+
+`

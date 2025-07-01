@@ -1,31 +1,29 @@
-import React from 'react.ts';
-import { cn } from '@/lib/utils.ts';
+﻿import React from 'react';
+import { cn} from '@/lib/utils';
 
 // Try to import Radix UI, fallback to simple implementation if it fails;
 let TabsPrimitive: any;
 try {
-  TabsPrimitive = require("@radix-ui/react-tabs");
-} catch (error) {
+  TabsPrimitive = require("@radix-ui/react-tabs");} catch (error) {
   // console statement removed
   // Import our simple fallback;
   const {
     Tabs: SimpleTabs,
     TabsList: SimpleTabsList,
     TabsTrigger: SimpleTabsTrigger,
-    TabsContent: SimpleTabsContent,
+    TabsContent: SimpleTabsContent
   } = require("./tabs-simple");
   TabsPrimitive = {
     Root: SimpleTabs,
     List: SimpleTabsList,
     Trigger: SimpleTabsTrigger,
-    Content: SimpleTabsContent,
-  };
-}
+    Content: SimpleTabsContent
+  }}
 
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List key={416361}>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List key={416361}>
->(({ className, ...props }, ref) => (
+>(({ className, ...props}, ref) => (
   <TabsPrimitive.List;
     ref={ref}
     className={cn(
@@ -40,7 +38,7 @@ TabsList.displayName = TabsPrimitive.List.displayName;
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger key={603722}>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger key={603722}>
->(({ className, ...props }, ref) => (
+>(({ className, ...props}, ref) => (
   <TabsPrimitive.Trigger;
     ref={ref}
     className={cn(
@@ -55,7 +53,7 @@ TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 const TabsContent = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Content key={32943}>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content key={32943}>
->(({ className, ...props }, ref) => (
+>(({ className, ...props}, ref) => (
   <TabsPrimitive.Content;
     ref={ref}
     className={cn(
@@ -67,4 +65,7 @@ const TabsContent = React.forwardRef<
 ));
 TabsContent.displayName = TabsPrimitive.Content.displayName;
 
-export { Tabs, TabsList, TabsTrigger, TabsContent };
+export { Tabs, TabsList, TabsTrigger, TabsContent};
+
+
+

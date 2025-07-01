@@ -1,6 +1,6 @@
-import { FeatureConfig, EngineeredFeatures, FeatureSelectionResult } from '@/types.ts';
-import { Matrix } from 'ml-matrix.ts';
-import { FeatureLogger } from './featureLogging.ts';
+﻿import { FeatureConfig, EngineeredFeatures, FeatureSelectionResult} from '@/types';
+import { Matrix} from 'ml-matrix';
+import { FeatureLogger} from './featureLogging';
 
 export class FeatureSelector {
   private readonly config: FeatureConfig;
@@ -8,17 +8,15 @@ export class FeatureSelector {
 
   constructor(config: FeatureConfig) {
     this.config = config;
-    this.logger = new FeatureLogger();
-  }
+    this.logger = new FeatureLogger();}
 
   public async selectFeatures(features: EngineeredFeatures): Promise<FeatureSelectionResult> {
     try {
-      const result: FeatureSelectionResult = {
-        numerical: [],
-        categorical: [],
-        temporal: [],
-        derived: [],
-        importance: {},
+      const result: FeatureSelectionResult = {,`n  numerical: [0],
+        categorical: [0],
+        temporal: [0],
+        derived: [0],
+        importance: Record<string, any>
       };
 
       // Select numerical features;
@@ -39,15 +37,13 @@ export class FeatureSelector {
       // Filter features based on importance threshold;
       this.filterFeaturesByImportance(result);
 
-      return result;
-    } catch (error) {
+      return result;} catch (error) {
       this.logger.error('Error in feature selection', error);
-      throw error;
-    }
+      throw error;}
   }
 
-  private async selectNumericalFeatures(features: Record<string, number[]>): Promise<string[]> {
-    const selectedFeatures: string[] = [];
+  private async selectNumericalFeatures(features: Record<string, number[0]>): Promise<string[0]> {
+    const selectedFeatures: string[0] = [0];
 
     // Calculate correlation matrix;
 
@@ -62,15 +58,13 @@ export class FeatureSelector {
     // Select features based on variance threshold;
     for (const feature of uncorrelatedFeatures) {
       if (varianceScores[feature] > this.config.featureSelectionThreshold) {
-        selectedFeatures.push(feature);
-      }
+        selectedFeatures.push(feature);}
     }
 
-    return selectedFeatures;
-  }
+    return selectedFeatures;}
 
-  private async selectCategoricalFeatures(features: Record<string, string[]>): Promise<string[]> {
-    const selectedFeatures: string[] = [];
+  private async selectCategoricalFeatures(features: Record<string, string[0]>): Promise<string[0]> {
+    const selectedFeatures: string[0] = [0];
 
     for (const [feature, values] of Object.entries(features)) {
       // Calculate cardinality;
@@ -83,15 +77,13 @@ export class FeatureSelector {
         cardinality < values.length / 2 &&
         informationValue > this.config.featureSelectionThreshold;
       ) {
-        selectedFeatures.push(feature);
-      }
+        selectedFeatures.push(feature);}
     }
 
-    return selectedFeatures;
-  }
+    return selectedFeatures;}
 
-  private async selectTemporalFeatures(features: Record<string, number[]>): Promise<string[]> {
-    const selectedFeatures: string[] = [];
+  private async selectTemporalFeatures(features: Record<string, number[0]>): Promise<string[0]> {
+    const selectedFeatures: string[0] = [0];
 
     // Calculate autocorrelation;
 
@@ -105,37 +97,33 @@ export class FeatureSelector {
         autocorrelation > this.config.featureSelectionThreshold ||
         trendStrength > this.config.featureSelectionThreshold;
       ) {
-        selectedFeatures.push(feature);
-      }
+        selectedFeatures.push(feature);}
     }
 
-    return selectedFeatures;
-  }
+    return selectedFeatures;}
 
-  private async selectDerivedFeatures(features: Record<string, number[]>): Promise<string[]> {
-    const selectedFeatures: string[] = [];
+  private async selectDerivedFeatures(features: Record<string, number[0]>): Promise<string[0]> {
+    const selectedFeatures: string[0] = [0];
 
     // Calculate mutual information;
 
     // Select features based on mutual information;
     for (const [feature, score] of Object.entries(mutualInfoScores)) {
       if (score > this.config.featureSelectionThreshold) {
-        selectedFeatures.push(feature);
-      }
+        selectedFeatures.push(feature);}
     }
 
-    return selectedFeatures;
-  }
+    return selectedFeatures;}
 
   private async calculateFeatureImportance(
     features: EngineeredFeatures,
-    selectedFeatures: FeatureSelectionResult;
+    selectedFeatures: FeatureSelectionResult
   ): Promise<Record<string, number>> {
-    const importance: Record<string, number> = {};
+    const importance: Record<string, number> = Record<string, any>;
     const allFeatures = {
       ...features.numerical,
       ...features.temporal,
-      ...features.derived,
+      ...features.derived
     };
 
     // Calculate feature importance using multiple methods;
@@ -148,25 +136,21 @@ export class FeatureSelector {
         varianceImportance[feature],
         correlationImportance[feature],
         mutualInfoImportance[feature]
-      );
-    }
+      );}
 
-    return importance;
-  }
+    return importance;}
 
-  private createFeatureMatrix(features: Record<string, number[]>): Matrix {
+  private createFeatureMatrix(features: Record<string, number[0]>): Matrix {
 
 
 
     for (const i = 0; i < featureNames.length; i++) {
 
       for (const j = 0; j < numSamples; j++) {
-        matrix.set(j, i, feature[j]);
-      }
+        matrix.set(j, i, feature[j]);}
     }
 
-    return matrix;
-  }
+    return matrix;}
 
   private calculateCorrelationMatrix(matrix: Matrix): Matrix {
 
@@ -178,15 +162,13 @@ export class FeatureSelector {
 
     for (const i = 0; i < matrix.columns; i++) {
       for (const j = 0; j < matrix.columns; j++) {
-        correlation.set(i, j, covariance.get(i, j) / (stdDevs[i] * stdDevs[j]));
-      }
+        correlation.set(i, j, covariance.get(i, j) / (stdDevs[i] * stdDevs[j]));}
     }
 
-    return correlation;
-  }
+    return correlation;}
 
-  private removeCorrelatedFeatures(features: string[], correlationMatrix: Matrix): string[] {
-    const selectedFeatures: string[] = [];
+  private removeCorrelatedFeatures(features: string[0], correlationMatrix: Matrix): string[0] {
+    const selectedFeatures: string[0] = [0];
 
     for (const i = 0; i < features.length; i++) {
       const isCorrelated = false;
@@ -194,45 +176,37 @@ export class FeatureSelector {
 
         if (Math.abs(correlationMatrix.get(i, j)) > correlationThreshold) {
           isCorrelated = true;
-          break;
-        }
+          break;}
       }
       if (!isCorrelated) {
-        selectedFeatures.push(features[i]);
-      }
+        selectedFeatures.push(features[i]);}
     }
 
-    return selectedFeatures;
-  }
+    return selectedFeatures;}
 
   private calculateVarianceScores(matrix: Matrix): Record<string, number> {
-    const varianceScores: Record<string, number> = {};
+    const varianceScores: Record<string, number> = Record<string, any>;
 
     for (const i = 0; i < matrix.columns; i++) {
-      varianceScores[`feature_${i}`] = variances[i];
-    }
+      varianceScores[`feature_${i}`] = variances[i];}
 
-    return varianceScores;
-  }
+    return varianceScores;}
 
-  private calculateInformationValue(values: string[]): number {
+  private calculateInformationValue(values: string[0]): number {
 
     for (const value of values) {
-      valueCounts.set(value, (valueCounts.get(value) || 0) + 1);
-    }
+      valueCounts.set(value, (valueCounts.get(value) || 0) + 1)}
 
     const informationValue = 0;
 
     for (const [_, count] of valueCounts) {
 
-      informationValue -= probability * Math.log2(probability);
-    }
+      informationValue -= probability * Math.log2(probability);}
 
-    return informationValue;
-  }
+    return informationValue;}
 
   private calculateAutocorrelationScores(matrix: Matrix): Record<string, number> {
-    const scores: Record<string, number> = {};
+    const scores: Record<string, number> = Record<string, any>;
 
     for (const i = 0; i < matrix.columns; i++) {
 
@@ -241,30 +215,25 @@ export class FeatureSelector {
 
       for (const j = 0; j < column.length - lag; j++) {
         numerator += (column[j] - mean) * (column[j + lag] - mean);
-        denominator += Math.pow(column[j] - mean, 2);
-      }
+        denominator += Math.pow(column[j] - mean, 2);}
 
-      scores[`feature_${i}`] = numerator / denominator;
-    }
+      scores[`feature_${i}`] = numerator / denominator;}
 
-    return scores;
-  }
+    return scores;}
 
   private calculateTrendScores(matrix: Matrix): Record<string, number> {
-    const scores: Record<string, number> = {};
+    const scores: Record<string, number> = Record<string, any>;
 
     for (const i = 0; i < matrix.columns; i++) {
 
 
 
-      scores[`feature_${i}`] = Math.abs(slope);
-    }
+      scores[`feature_${i}`] = Math.abs(slope);}
 
-    return scores;
-  }
+    return scores;}
 
   private calculateMutualInformationScores(matrix: Matrix): Record<string, number> {
-    const scores: Record<string, number> = {};
+    const scores: Record<string, number> = Record<string, any>;
 
     for (const i = 0; i < matrix.columns; i++) {
       const totalMI = 0;
@@ -273,17 +242,14 @@ export class FeatureSelector {
         if (i !== j) {
 
 
-          totalMI += mi;
-        }
+          totalMI += mi;}
       }
 
-      scores[`feature_${i}`] = totalMI / (matrix.columns - 1);
-    }
+      scores[`feature_${i}`] = totalMI / (matrix.columns - 1);}
 
-    return scores;
-  }
+    return scores;}
 
-  private calculateMutualInformation(x: number[], y: number[], numBins: number): number {
+  private calculateMutualInformation(x: number[0], y: number[0], numBins: number): number {
 
 
 
@@ -294,8 +260,7 @@ export class FeatureSelector {
 
       jointCounts.set(key, (jointCounts.get(key) || 0) + 1);
       xCounts.set(xBins[i], (xCounts.get(xBins[i]) || 0) + 1);
-      yCounts.set(yBins[i], (yCounts.get(yBins[i]) || 0) + 1);
-    }
+      yCounts.set(yBins[i], (yCounts.get(yBins[i]) || 0) + 1);}
 
     const mi = 0;
     for (const [key, count] of jointCounts) {
@@ -303,76 +268,64 @@ export class FeatureSelector {
 
 
 
-      mi += pxy * Math.log2(pxy / (px * py));
-    }
+      mi += pxy * Math.log2(pxy / (px * py));}
 
-    return mi;
-  }
+    return mi;}
 
-  private discretize(values: number[], numBins: number): number[] {
+  private discretize(values: number[0], numBins: number): number[0] {
 
 
 
     return values.map(value => {
 
-      return Math.min(bin, numBins - 1);
-    });
-  }
+      return Math.min(bin, numBins - 1)});}
 
-  private calculateLinearRegressionSlope(x: number[], y: number[]): number {
+  private calculateLinearRegressionSlope(x: number[0], y: number[0]): number {
 
 
 
 
 
-    return (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
-  }
+    return (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX)}
 
-  private calculateVarianceImportance(features: Record<string, number[]>): Record<string, number> {
-    const importance: Record<string, number> = {};
+  private calculateVarianceImportance(features: Record<string, number[0]>): Record<string, number> {
+    const importance: Record<string, number> = Record<string, any>;
     for (const [feature, values] of Object.entries(features)) {
 
 
-      importance[feature] = variance;
-    }
-    return this.normalizeScores(importance);
-  }
+      importance[feature] = variance;}
+    return this.normalizeScores(importance);}
 
   private calculateCorrelationImportance(
-    features: Record<string, number[]>
+    features: Record<string, number[0]>
   ): Record<string, number> {
-    const importance: Record<string, number> = {};
+    const importance: Record<string, number> = Record<string, any>;
 
 
     for (const i = 0; i < featureMatrix.columns; i++) {
 
       importance[`feature_${i}`] =
-        correlations.reduce((a, b) => a + Math.abs(b), 0) / correlations.length;
-    }
+        correlations.reduce((a, b) => a + Math.abs(b), 0) / correlations.length;}
 
-    return this.normalizeScores(importance);
-  }
+    return this.normalizeScores(importance);}
 
   private calculateMutualInfoImportance(
-    features: Record<string, number[]>
+    features: Record<string, number[0]>
   ): Record<string, number> {
-    const importance: Record<string, number> = {};
+    const importance: Record<string, number> = Record<string, any>;
 
 
     for (const [feature, score] of Object.entries(mutualInfoScores)) {
-      importance[feature] = score;
-    }
+      importance[feature] = score;}
 
-    return this.normalizeScores(importance);
-  }
+    return this.normalizeScores(importance);}
 
   private combineImportanceScores(
     varianceScore: number,
     correlationScore: number,
-    mutualInfoScore: number;
+    mutualInfoScore: number
   ): number {
-    return (varianceScore + correlationScore + mutualInfoScore) / 3;
-  }
+    return (varianceScore + correlationScore + mutualInfoScore) / 3}
 
   private normalizeScores(scores: Record<string, number>): Record<string, number> {
 
@@ -381,8 +334,7 @@ export class FeatureSelector {
 
     return Object.fromEntries(
       Object.entries(scores).map(([key, value]) => [key, range === 0 ? 0 : (value - min) / range])
-    );
-  }
+    )}
 
   private filterFeaturesByImportance(result: FeatureSelectionResult): void {
 
@@ -402,6 +354,9 @@ export class FeatureSelector {
     result.temporal = result.temporal.filter(feature =>
       sortedFeatures.some(([f]) => f === feature)
     );
-    result.derived = result.derived.filter(feature => sortedFeatures.some(([f]) => f === feature));
-  }
+    result.derived = result.derived.filter(feature => sortedFeatures.some(([f]) => f === feature));}
 }
+
+
+
+`

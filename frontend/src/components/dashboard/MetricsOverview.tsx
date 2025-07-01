@@ -1,5 +1,5 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React, { useState, useEffect} from 'react';
+import { motion} from 'framer-motion';
 import {
   DollarSign,
   TrendingUp,
@@ -10,37 +10,28 @@ import {
   BarChart3,
   Eye,
   Clock,
-  Zap,
-} from 'lucide-react.ts';
+//   Zap
+} from 'lucide-react';
 
 interface MetricData {
-  id: string;
-  label: string;
-  value: string | number;
-  change: number;
-  changeType: "positive" | "negative" | "neutral";
-  icon: React.ReactNode;
-  trend: number[];
-  prefix?: string;
-  suffix?: string;
-  description?: string;
-  isPercentage?: boolean;
-  gradient: string;
-  borderColor: string;
-}
+  id: string,`n  label: string;,`n  value: string | number,`n  change: number;,`n  changeType: "positive" | "negative" | "neutral",`n  icon: React.ReactNode;,`n  trend: number[0];
+  prefix?: string
+  suffix?: string
+  description?: string
+  isPercentage?: boolean
+  gradient: string,`n  borderColor: string}
 
 interface MetricsOverviewProps {
-  className?: string;
+  className?: string
   layout?: "grid" | "row";
-  showTrends?: boolean;
-}
+  showTrends?: boolean}
 
 export const MetricsOverview: React.FC<MetricsOverviewProps key={933773}> = ({
   className = "",
   layout = "grid",
-  showTrends = true,
+  showTrends = true
 }) => {
-  const [metrics, setMetrics] = useState<MetricData[] key={823498}>([
+  const [metrics, setMetrics] = useState<MetricData[0] key={823498}>([
     {
       id: "win-rate",
       label: "Win Rate",
@@ -53,7 +44,7 @@ export const MetricsOverview: React.FC<MetricsOverviewProps key={933773}> = ({
       description: "+2.3% this period",
       isPercentage: true,
       gradient: "from-green-500/20 to-emerald-500/20",
-      borderColor: "border-green-500/30",
+      borderColor: "border-green-500/30"
     },
     {
       id: "roi",
@@ -67,7 +58,7 @@ export const MetricsOverview: React.FC<MetricsOverviewProps key={933773}> = ({
       description: "+$3.2% this period",
       isPercentage: true,
       gradient: "from-blue-500/20 to-cyan-500/20",
-      borderColor: "border-blue-500/30",
+      borderColor: "border-blue-500/30"
     },
     {
       id: "profit-loss",
@@ -80,7 +71,7 @@ export const MetricsOverview: React.FC<MetricsOverviewProps key={933773}> = ({
       prefix: "$",
       description: "+24.8% this period",
       gradient: "from-purple-500/20 to-pink-500/20",
-      borderColor: "border-purple-500/30",
+      borderColor: "border-purple-500/30"
     },
     {
       id: "active-bets",
@@ -92,7 +83,7 @@ export const MetricsOverview: React.FC<MetricsOverviewProps key={933773}> = ({
       trend: [6, 7, 8, 8, 8],
       description: "Currently tracking",
       gradient: "from-yellow-500/20 to-orange-500/20",
-      borderColor: "border-yellow-500/30",
+      borderColor: "border-yellow-500/30"
     },
   ]);
 
@@ -103,7 +94,7 @@ export const MetricsOverview: React.FC<MetricsOverviewProps key={933773}> = ({
       value: "$12,847",
       change: "+23.1%",
       trend: "up" as const,
-      gradient: "from-purple-600 to-blue-600",
+      gradient: "from-purple-600 to-blue-600"
     },
     {
       id: "win-rate-ai",
@@ -111,7 +102,7 @@ export const MetricsOverview: React.FC<MetricsOverviewProps key={933773}> = ({
       value: "89.2%",
       change: "+5.7%",
       trend: "up" as const,
-      gradient: "from-green-600 to-emerald-600",
+      gradient: "from-green-600 to-emerald-600"
     },
     {
       id: "ai-confidence",
@@ -119,7 +110,7 @@ export const MetricsOverview: React.FC<MetricsOverviewProps key={933773}> = ({
       value: "94.7%",
       change: "+1.2%",
       trend: "up" as const,
-      gradient: "from-cyan-600 to-blue-600",
+      gradient: "from-cyan-600 to-blue-600"
     },
     {
       id: "active-models",
@@ -127,7 +118,7 @@ export const MetricsOverview: React.FC<MetricsOverviewProps key={933773}> = ({
       value: "47",
       change: "+0.0%",
       trend: "neutral" as const,
-      gradient: "from-gray-600 to-gray-700",
+      gradient: "from-gray-600 to-gray-700"
     },
   ]);
 
@@ -148,30 +139,24 @@ export const MetricsOverview: React.FC<MetricsOverviewProps key={933773}> = ({
             trend: [
               ...metric.trend.slice(1),
               typeof newValue === "number" ? newValue : 0,
-            ],
-          };
-        }),
-      );
-    }, 30000);
+            ]
+          }}),
+      );}, 30000);
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval);}, [0]);
 
   const formatValue = (metric: MetricData): string => {
-    const { value, prefix = "", suffix = "", isPercentage } = metric;
+    const { value, prefix = "", suffix = "", isPercentage} = metric;
     const numValue =
       typeof value === "number" ? value : parseFloat(value.toString());
 
     if (isPercentage || suffix === "%") {
-      return `${prefix}${numValue.toFixed(1)}${suffix}`;
-    }
+      return `${prefix}${numValue.toFixed(1)}${suffix}`;}
 
     if (prefix === "$") {
-      return `${prefix}${numValue.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-    }
+      return `${prefix}${numValue.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2})}`}
 
-    return `${prefix}${numValue}${suffix}`;
-  };
+    return `${prefix}${numValue}${suffix}`;};
 
   const getChangeColor = (changeType: string) => {
     switch (changeType) {
@@ -179,9 +164,7 @@ export const MetricsOverview: React.FC<MetricsOverviewProps key={933773}> = ({
         return "text-green-400";
       case "negative":
         return "text-red-400";
-      default:
-        return "text-gray-400";
-    }
+      default: return "text-gray-400"}
   };
 
   const getChangeIcon = (changeType: string) => {
@@ -190,12 +173,10 @@ export const MetricsOverview: React.FC<MetricsOverviewProps key={933773}> = ({
         return <TrendingUp size={12} / key={264614}>;
       case "negative":
         return <TrendingDown size={12} / key={951114}>;
-      default:
-        return <Activity size={12} / key={430183}>;
-    }
+      default: return <Activity size={12} / key={430183}>}
   };
 
-  const renderTrendLine = (trend: number[]) => {
+  const renderTrendLine = (trend: number[0]) => {
 
 
 
@@ -203,8 +184,7 @@ export const MetricsOverview: React.FC<MetricsOverviewProps key={933773}> = ({
       .map((value, index) => {
 
 
-        return `${x},${y}`;
-      })
+        return `${x},${y}`;})
       .join(" ");
 
     return (
@@ -217,8 +197,7 @@ export const MetricsOverview: React.FC<MetricsOverviewProps key={933773}> = ({
           className="text-current"
         / key={393775}>
       </svg>
-    );
-  };
+    );};
 
   return (
     <div className={className} key={684864}>
@@ -227,9 +206,9 @@ export const MetricsOverview: React.FC<MetricsOverviewProps key={933773}> = ({
         {metrics.map((metric, index) => (
           <motion.div;
             key={metric.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
+            initial={{ opacity: 0, y: 20}}
+            animate={{ opacity: 1, y: 0}}
+            transition={{ delay: index * 0.1}}
             className={`
               relative p-6 rounded-2xl backdrop-blur-xl border transition-all;
               bg-gradient-to-br ${metric.gradient} ${metric.borderColor}
@@ -280,9 +259,9 @@ export const MetricsOverview: React.FC<MetricsOverviewProps key={933773}> = ({
         {aiMetrics.map((metric, index) => (
           <motion.div;
             key={metric.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: (index + 4) * 0.1 }}
+            initial={{ opacity: 0, y: 20}}
+            animate={{ opacity: 1, y: 0}}
+            transition={{ delay: (index + 4) * 0.1}}
             className={`
               relative p-6 rounded-2xl backdrop-blur-xl;
               bg-gradient-to-br ${metric.gradient}
@@ -302,8 +281,7 @@ export const MetricsOverview: React.FC<MetricsOverviewProps key={933773}> = ({
                     ? "bg-green-500/20 text-green-400"
                     : metric.trend === "down"
                       ? "bg-red-500/20 text-red-400"
-                      : "bg-gray-500/20 text-gray-400"
-                }
+                      : "bg-gray-500/20 text-gray-400"}
               `}
                key={284687}>
                 {metric.change}
@@ -349,7 +327,11 @@ export const MetricsOverview: React.FC<MetricsOverviewProps key={933773}> = ({
         </div>
       </div>
     </div>
-  );
-};
+  );};
 
 export default MetricsOverview;
+
+
+
+
+`

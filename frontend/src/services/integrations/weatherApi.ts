@@ -1,18 +1,19 @@
-import { ApiBase } from './apiBase.ts';
-import { API_CONFIG } from '@/config/apiConfig.ts';
+﻿import { ApiBase} from './apiBase';
+import { API_CONFIG} from '@/config/apiConfig';
 
 export class WeatherApi extends ApiBase {
   constructor() {
-    super(API_CONFIG.WEATHER.BASE_URL, API_CONFIG.WEATHER.API_KEY);
-  }
+    super(API_CONFIG.WEATHER.BASE_URL, API_CONFIG.WEATHER.API_KEY);}
 
-  async getWeather(params: Record<string, any> = {}) {
+  async getWeather(params: Record<string, any> = Record<string, any>) {
     return this.request({
       url: '/weather',
       method: 'GET',
-      params: { ...params, api_key: this.apiKey },
-    });
-  }
+      params: { ...params, api_key: this.apiKey}
+    })}
 
-  // Add more endpoints as needed;
-}
+  // Add more endpoints as needed;}
+
+
+
+

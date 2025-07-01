@@ -1,21 +1,15 @@
-import { useEffect, useState } from 'react.ts';
-import { newsService } from '@/services/newsService.js';
-import type { ESPNHeadline } from '@/types.js';
+﻿import { useEffect, useState} from 'react';
+import { newsService} from '@/services/newsService.js';
+import type { ESPNHeadline} from '@/types.js';
 
 // Define SportsNewsArticle type if not available;
 export type SportsNewsArticle = {
-  id: string;
-  title: string;
-  summary: string;
-  link: string;
-  publishedAt: string;
-  source: string;
-  imageUrl?: string;
-  category?: string;
-};
+  id: string,`n  title: string;,`n  summary: string,`n  link: string;,`n  publishedAt: string,`n  source: string;
+  imageUrl?: string
+  category?: string};
 
 export function useSportsNews() {
-  const [articles, setArticles] = useState<SportsNewsArticle[]>([]);
+  const [articles, setArticles] = useState<SportsNewsArticle[0]>([0]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -23,8 +17,9 @@ export function useSportsNews() {
     const mounted = true;
     setLoading(true);
     setError(null);
-    newsService.fetchHeadlines('espn', 10)
-      .then((headlines: ESPNHeadline[]) => {
+//     newsService
+      .fetchHeadlines('espn', 10)
+      .then((headlines: ESPNHeadline[0]) => {
         // Map ESPNHeadline to SportsNewsArticle if needed;
         const mapped = headlines.map(h => ({
           id: h.id,
@@ -34,14 +29,19 @@ export function useSportsNews() {
           publishedAt: h.publishedAt || '',
           source: h.source || 'ESPN',
           imageUrl: h.imageUrl || '',
-          category: h.category || '',
+          category: h.category || ''
         }));
-        if (mounted) setArticles(mapped);
-      })
-      .catch(err => { if (mounted) setError(err.message); })
-      .finally(() => { if (mounted) setLoading(false); });
-    return () => { mounted = false; };
-  }, []);
+        if (mounted) setArticles(mapped);})
+      .catch(err => {
+        if (mounted) setError(err.message);})
+      .finally(() => {
+        if (mounted) setLoading(false);});
+    return () => {
+      mounted = false;};}, [0]);
 
-  return { articles, loading, error };
-}
+  return { articles, loading, error};}
+
+
+
+
+`

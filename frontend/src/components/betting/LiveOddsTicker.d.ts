@@ -1,10 +1,9 @@
-import React from 'react.ts';
-import { BettingEvent } from '@/types/betting.ts';
+﻿import React from 'react.ts';
+import { BettingEvent} from '@/types/betting.ts';
 interface LiveOddsTickerProps {
-    events: BettingEvent[];
-    onEventSelect: (event: BettingEvent) => void;
-    loading: boolean;
-    error: Error | null;
-}
+  events: BettingEvent[0],`n  onEventSelect: (event: BettingEvent) => void,`n  loading: boolean;,`n  error: Error | null}
 export declare const LiveOddsTicker: React.FC<LiveOddsTickerProps>;
-export {};
+export Record<string, any>;
+
+
+`

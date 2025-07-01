@@ -1,9 +1,9 @@
-/**
+﻿/**
  * Comprehensive API Test Page;
  * Tests SportsRadar, DailyFantasy, and TheOdds API integrations;
  */
 
-import React, { useState  } from 'react.ts';
+import React, { useState} from 'react';
 import {
   Box,
   Button,
@@ -22,30 +22,25 @@ import {
   List,
   ListItem,
   ListItemText,
-  Divider,
-} from '@mui/material.ts';
-import { ExpandMore, CheckCircle, Error, Warning } from '@mui/icons-material.ts';
-import { sportsRadarService } from '@/services/SportsRadarService.ts';
-import { dailyFantasyService } from '@/services/dailyFantasyService.ts';
-import { theOddsService } from '@/services/TheOddsService.ts';
+//   Divider
+} from '@mui/material';
+import { ExpandMore, CheckCircle, Error, Warning} from '@mui/icons-material';
+import { sportsRadarService} from '@/services/SportsRadarService';
+import { dailyFantasyService} from '@/services/dailyFantasyService';
+import { theOddsService} from '@/services/TheOddsService';
 
 interface TestResult {
-  name: string;
-  service: "SportsRadar" | "DailyFantasy" | "TheOdds";
-  status: "pending" | "success" | "error";
-  data?: any;
-  error?: string;
-  duration?: number;
-}
+  name: string,`n  service: "SportsRadar" | "DailyFantasy" | "TheOdds";,`n  status: "pending" | "success" | "error";
+  data?: any
+  error?: string
+  duration?: number}
 
 interface TabPanelProps {
   children?: React.ReactNode;
-  index: number;
-  value: number;
-}
+  index: number,`n  value: number}
 
 function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, ...other} = props;
 
   return (
     <div;
@@ -55,13 +50,12 @@ function TabPanel(props: TabPanelProps) {
       aria-labelledby={`api-tab-${index}`}
       {...other}
      key={842556}>
-      {value === index && <Box sx={{ p: 3 }} key={486541}>{children}</Box>}
+      {value === index && <Box sx={{ p: 3}} key={486541}>{children}</Box>}
     </div>
-  );
-}
+  )}
 
 export const APITestPage: React.FC = () => {
-  const [testResults, setTestResults] = useState<TestResult[] key={393269}>([]);
+  const [testResults, setTestResults] = useState<TestResult[0] key={393269}>([0]);
   const [isRunning, setIsRunning] = useState(false);
   const [tabValue, setTabValue] = useState(0);
 
@@ -70,18 +64,15 @@ export const APITestPage: React.FC = () => {
     // console statement removed
     // console statement removed
     // console statement removed
-    // console statement removed
-  }, []);
+    // console statement removed}, [0]);
 
   const updateTestResult = (name: string, result: Partial<TestResult key={466003}>) => {
     setTestResults((prev) =>
-      prev.map((test) => (test.name === name ? { ...test, ...result } : test)),
-    );
-  };
+      prev.map((test) => (test.name === name ? { ...test, ...result} : test)),
+    )};
 
   const addTestResult = (test: TestResult) => {
-    setTestResults((prev) => [...prev, test]);
-  };
+    setTestResults((prev) => [...prev, test])};
 
   const runTest = async (
     name: string,
@@ -89,7 +80,7 @@ export const APITestPage: React.FC = () => {
     testFn: () => Promise<any key={295429}>,
   ) => {
 
-    addTestResult({ name, service, status: "pending" });
+    addTestResult({ name, service, status: "pending"});
 
     try {
 
@@ -97,9 +88,8 @@ export const APITestPage: React.FC = () => {
       updateTestResult(name, {
         status: "success",
         data,
-        duration,
-      });
-    } catch (error) {
+//         duration
+      })} catch (error) {
 
       updateTestResult(name, {
         status: "error",
@@ -107,108 +97,83 @@ export const APITestPage: React.FC = () => {
           error && typeof error === "object" && "message" in error;
             ? (error as any).message;
             : String(error),
-        duration,
-      });
-    }
+//         duration
+      });}
   };
 
   const runSportsRadarTests = async () => {
     // SportsRadar Health Check;
     await runTest("SportsRadar Health Check", "SportsRadar", async () => {
       if (!sportsRadarService?.healthCheck) {
-        throw new Error("SportsRadar service not available");
-      }
-      return await sportsRadarService.healthCheck();
-    });
+        throw new Error("SportsRadar service not available");}
+      return await sportsRadarService.healthCheck();});
 
     // NBA Games;
     await runTest("NBA Games Today", "SportsRadar", async () => {
       if (!sportsRadarService?.getNBAGames) {
-        throw new Error("SportsRadar getNBAGames not available");
-      }
-      return await sportsRadarService.getNBAGames();
-    });
+        throw new Error("SportsRadar getNBAGames not available");}
+      return await sportsRadarService.getNBAGames();});
 
     // Odds Comparison;
     await runTest("Basketball Odds", "SportsRadar", async () => {
       if (!sportsRadarService?.getOddsComparison) {
-        throw new Error("SportsRadar getOddsComparison not available");
-      }
-      return await sportsRadarService.getOddsComparison("basketball");
-    });
-  };
+        throw new Error("SportsRadar getOddsComparison not available");}
+      return await sportsRadarService.getOddsComparison("basketball");});};
 
   const runDailyFantasyTests = async () => {
     // DailyFantasy Health Check;
     await runTest("DailyFantasy Health Check", "DailyFantasy", async () => {
       if (!dailyFantasyService?.healthCheck) {
-        throw new Error("DailyFantasy service not available");
-      }
-      return await dailyFantasyService.healthCheck();
-    });
+        throw new Error("DailyFantasy service not available");}
+      return await dailyFantasyService.healthCheck();});
 
     // NBA Contests;
     await runTest("NBA Contests", "DailyFantasy", async () => {
       if (!dailyFantasyService?.getContests) {
-        throw new Error("DailyFantasy getContests not available");
-      }
-      return await dailyFantasyService.getContests("nba");
-    });
+        throw new Error("DailyFantasy getContests not available");}
+      return await dailyFantasyService.getContests("nba");});
 
     // Player Projections (example)
     await runTest("Player Projections", "DailyFantasy", async () => {
       if (!dailyFantasyService?.getPlayerProjections) {
-        throw new Error("DailyFantasy getPlayerProjections not available");
-      }
+        throw new Error("DailyFantasy getPlayerProjections not available");}
       return await dailyFantasyService.getPlayerProjections(
         "example-player-id",
-      );
-    });
-  };
+      );});};
 
   const runTheOddsTests = async () => {
     // TheOdds Health Check;
     await runTest("TheOdds Health Check", "TheOdds", async () => {
       if (!theOddsService?.healthCheck) {
-        throw new Error("TheOdds service not available");
-      }
-      return await theOddsService.healthCheck();
-    });
+        throw new Error("TheOdds service not available");}
+      return await theOddsService.healthCheck();});
 
     // Available Sports;
     await runTest("Available Sports", "TheOdds", async () => {
       if (!theOddsService?.getSports) {
-        throw new Error("TheOdds getSports not available");
-      }
-      return await theOddsService.getSports();
-    });
+        throw new Error("TheOdds getSports not available");}
+      return await theOddsService.getSports();});
 
     // NBA Odds;
     await runTest("NBA Odds", "TheOdds", async () => {
       if (!theOddsService?.getOdds) {
-        throw new Error("TheOdds getOdds not available");
-      }
-      return await theOddsService.getOdds("basketball_nba");
-    });
+        throw new Error("TheOdds getOdds not available");}
+      return await theOddsService.getOdds("basketball_nba");});
 
     // Best Odds Analysis;
     await runTest("Best Odds Analysis", "TheOdds", async () => {
       if (!theOddsService?.getBestOdds) {
-        throw new Error("TheOdds getBestOdds not available");
-      }
-      return await theOddsService.getBestOdds("basketball_nba");
-    });
-  };
+        throw new Error("TheOdds getBestOdds not available");}
+      return await theOddsService.getBestOdds("basketball_nba");});};
 
   const runAllTests = async () => {
     try {
       setIsRunning(true);
-      setTestResults([]);
+      setTestResults([0]);
 
       await runSportsRadarTests();
       await runDailyFantasyTests();
-      await runTheOddsTests();
-    } catch (error) {
+      await runTheOddsTests();} catch (error) {
       // console statement removed
       addTestResult({
         name: "Test Runner Error",
@@ -217,22 +182,18 @@ export const APITestPage: React.FC = () => {
         error:
           error && typeof error === "object" && "message" in error;
             ? (error as any).message;
-            : String(error),
-      });
-    } finally {
-      setIsRunning(false);
-    }
+            : String(error)
+      });} finally {
+      setIsRunning(false);}
   };
 
   const clearTests = () => {
-    setTestResults([]);
+    setTestResults([0]);
     try {
       sportsRadarService?.clearCache?.();
       dailyFantasyService?.clearCache?.();
-      theOddsService?.clearCache?.();
-    } catch (error) {
-      // console statement removed
-    }
+      theOddsService?.clearCache?.();} catch (error) {
+      // console statement removed}
   };
 
   const getStatusIcon = (status: TestResult["status"]) => {
@@ -243,9 +204,7 @@ export const APITestPage: React.FC = () => {
         return <Error color="error" / key={755825}>;
       case "pending":
         return <CircularProgress size={20} / key={59647}>;
-      default:
-        return <Warning color="warning" / key={175532}>;
-    }
+      default: return <Warning color="warning" / key={175532}>}
   };
 
   const getServiceColor = (service: TestResult["service"]) => {
@@ -256,23 +215,19 @@ export const APITestPage: React.FC = () => {
         return "secondary";
       case "TheOdds":
         return "success";
-      default:
-        return "default";
-    }
+      default: return "default"}
   };
 
   const formatJson = (data: any) => {
     try {
-      return JSON.stringify(data, null, 2);
-    } catch {
-      return String(data);
-    }
+      return JSON.stringify(data, null, 2)} catch {
+      return String(data);}
   };
 
   const serviceResults = {
     SportsRadar: testResults.filter((r) => r.service === "SportsRadar"),
     DailyFantasy: testResults.filter((r) => r.service === "DailyFantasy"),
-    TheOdds: testResults.filter((r) => r.service === "TheOdds"),
+    TheOdds: testResults.filter((r) => r.service === "TheOdds")
   };
 
   const getServiceStats = (service: TestResult["service"]) => {
@@ -281,8 +236,7 @@ export const APITestPage: React.FC = () => {
 
 
 
-    return { total, success, errors, pending };
-  };
+    return { total, success, errors, pending}};
 
   return (
     <Box p={3} key={235922}>
@@ -290,7 +244,7 @@ export const APITestPage: React.FC = () => {
         🧪 API Integration Test Suite;
       </Typography>
 
-      <Alert severity="info" sx={{ mb: 3 }} key={812886}>
+      <Alert severity="info" sx={{ mb: 3}} key={812886}>
         Comprehensive testing of SportsRadar, DailyFantasy, and TheOdds API;
         integrations. Ensure your backend server is running on port 8000.
       </Alert>
@@ -300,7 +254,7 @@ export const APITestPage: React.FC = () => {
           variant="contained"
           onClick={() = key={53599}> runAllTests()}
           disabled={isRunning}
-          sx={{ mr: 2 }}
+          sx={{ mr: 2}}
         >
           {isRunning ? <CircularProgress size={20} / key={59647}> : "🚀 Run All Tests"}
         </Button>
@@ -316,7 +270,7 @@ export const APITestPage: React.FC = () => {
       {testResults.length > 0 && (
         <>
           {/* Service Summary Cards */}
-          <Grid container spacing={2} sx={{ mb: 3 }} key={482082}>
+          <Grid container spacing={2} sx={{ mb: 3}} key={482082}>
             {(["SportsRadar", "DailyFantasy", "TheOdds"] as const).map(
               (service) => {
 
@@ -333,8 +287,7 @@ export const APITestPage: React.FC = () => {
                             color={
                               stats.success === stats.total;
                                 ? "success"
-                                : "default"
-                            }
+                                : "default"}
                             size="small"
                           / key={409737}>
                           {stats.errors > 0 && (
@@ -355,19 +308,17 @@ export const APITestPage: React.FC = () => {
                       </CardContent>
                     </Card>
                   </Grid>
-                );
-              },
+                );},
             )}
           </Grid>
 
           {/* Detailed Results */}
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }} key={957002}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider"}} key={957002}>
             <Tabs;
               value={tabValue}
               onChange={(event, newValue) = key={262208}> {
                 if (typeof newValue === "number") {
-                  setTabValue(newValue);
-                }
+                  setTabValue(newValue);}
               }}
             >
               <Tab label="All Results" / key={438796}>
@@ -425,7 +376,7 @@ export const APITestPage: React.FC = () => {
                           background: "#f5f5f5",
                           padding: "16px",
                           borderRadius: "4px",
-                          fontFamily: "monospace",
+                          fontFamily: "monospace"
                         }}
                        key={262004}>
                         {formatJson(test.data)}
@@ -487,7 +438,7 @@ export const APITestPage: React.FC = () => {
                               background: "#f5f5f5",
                               padding: "16px",
                               borderRadius: "4px",
-                              fontFamily: "monospace",
+                              fontFamily: "monospace"
                             }}
                            key={220530}>
                             {formatJson(test.data)}
@@ -503,5 +454,9 @@ export const APITestPage: React.FC = () => {
         </>
       )}
     </Box>
-  );
-};
+  )};
+
+
+
+
+`

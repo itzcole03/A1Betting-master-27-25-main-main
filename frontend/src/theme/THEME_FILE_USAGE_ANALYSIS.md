@@ -20,6 +20,7 @@ This directory contains theme configuration and utilities for the frontend appli
 ## File Breakdown
 
 ### index.ts
+
 - **Purpose:** Exports MUI theme objects for light and dark modes, with shared typography and component overrides. Provides a getTheme function and a useTheme hook for accessing the current theme from the theme store.
 - **Usage:** Used throughout the app to provide consistent theming and access to MUI theme objects based on user preference or system settings.
 - **Notes:** Integrates with Zustand theme store. Supports both light and dark mode palettes and component customizations.
@@ -27,4 +28,4 @@ This directory contains theme configuration and utilities for the frontend appli
 
 ---
 
-*This documentation is auto-generated and should be updated as files are added, removed, or refactored in the theme directory.*
+_This documentation is auto-generated and should be updated as files are added, removed, or refactored in the theme directory._

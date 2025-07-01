@@ -1,23 +1,23 @@
-import React from 'react.ts';
-import Box from '@mui/material/Box.ts';
-import Card from '@mui/material/Card.ts';
-import CardContent from '@mui/material/CardContent.ts';
-import Typography from '@mui/material/Typography.ts';
-import Button from '@mui/material/Button.ts';
-import Grid from '@mui/material/Grid.ts';
-import CircularProgress from '@mui/material/CircularProgress.ts';
-import Alert from '@mui/material/Alert.ts';
-import Select from '@mui/material/Select.ts';
-import MenuItem from '@mui/material/MenuItem.ts';
-import FormControl from '@mui/material/FormControl.ts';
-import InputLabel from '@mui/material/InputLabel.ts';
-import Slider from '@mui/material/Slider.ts';
-import TextField from '@mui/material/TextField.ts';
-import { useRiskProfile } from '@/hooks/useRiskProfile.ts';
-import { RiskProfile } from '@/types/core.ts';
+﻿import React from 'react';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Slider from '@mui/material/Slider';
+import TextField from '@mui/material/TextField';
+import { useRiskProfile} from '@/hooks/useRiskProfile';
+import { RiskProfile} from '@/types/core';
 
 export const RiskProfileManager: React.FC = () => {
-  const { activeProfile, profiles, isLoading, error, updateProfile, setActiveProfile } =
+  const { activeProfile, profiles, isLoading, error, updateProfile, setActiveProfile} =
     useRiskProfile();
 
   const [selectedProfile, setSelectedProfile] = React.useState<string key={278855}>('');
@@ -27,41 +27,34 @@ export const RiskProfileManager: React.FC = () => {
   React.useEffect(() => {
     if (activeProfile) {
       setSelectedProfile(activeProfile.id);
-      setEditedProfile(activeProfile);
-    }
+      setEditedProfile(activeProfile);}
   }, [activeProfile]);
 
   const handleProfileSelect = async (profileId: string) => {
     setSelectedProfile(profileId);
-    await setActiveProfile(profileId);
-  };
+    await setActiveProfile(profileId);};
 
   const handleEdit = () => {
-    setIsEditing(true);
-  };
+    setIsEditing(true);};
 
   const handleSave = async () => {
     if (editedProfile) {
 
       if (success) {
-        setIsEditing(false);
-      }
-    }
-  };
+        setIsEditing(false);}
+    }};
 
   const handleCancel = () => {
     setEditedProfile(activeProfile);
-    setIsEditing(false);
-  };
+    setIsEditing(false);};
 
   const handleProfileChange = (field: keyof RiskProfile, value: number) => {
     if (editedProfile) {
       setEditedProfile(prev => ({
         ...prev!,
         [field]: value,
-        updatedAt: Date.now(),
-      }));
-    }
+        updatedAt: Date.now()
+      }))}
   };
 
   if (isLoading) {
@@ -69,16 +62,14 @@ export const RiskProfileManager: React.FC = () => {
       <Box alignItems="center" display="flex" justifyContent="center" minHeight="200px" key={466939}>
         <CircularProgress / key={730118}>
       </Box>
-    );
-  }
+    );}
 
   if (error) {
     return (
-      <Alert severity="error" sx={{ mb: 2 }} key={957932}>
+      <Alert severity="error" sx={{ mb: 2}} key={957932}>
         Error loading risk profiles: {error.message}
       </Alert>
-    );
-  }
+    )}
 
   return (
     <Box key={485947}>
@@ -90,7 +81,7 @@ export const RiskProfileManager: React.FC = () => {
         <Grid item md={4} xs={12} key={317197}>
           <Card key={650115}>
             <CardContent key={452065}>
-              <FormControl fullWidth sx={{ mb: 2 }} key={150041}>
+              <FormControl fullWidth sx={{ mb: 2}} key={150041}>
                 <InputLabel key={405232}>Select Profile</InputLabel>
                 <Select;
                   label="Select Profile"
@@ -118,7 +109,7 @@ export const RiskProfileManager: React.FC = () => {
                         max={1000}
                         min={10}
                         step={10}
-                        sx={{ mb: 2 }}
+                        sx={{ mb: 2}}
                         value={editedProfile?.maxStake || 0}
                         valueLabelDisplay="auto"
                         onChange={(_, value) = key={347754}> handleProfileChange('maxStake', value as number)}
@@ -129,7 +120,7 @@ export const RiskProfileManager: React.FC = () => {
                         max={100}
                         min={1}
                         step={1}
-                        sx={{ mb: 2 }}
+                        sx={{ mb: 2}}
                         value={editedProfile?.minStake || 0}
                         valueLabelDisplay="auto"
                         onChange={(_, value) = key={972681}> handleProfileChange('minStake', value as number)}
@@ -140,12 +131,11 @@ export const RiskProfileManager: React.FC = () => {
                         max={0.95}
                         min={0.5}
                         step={0.05}
-                        sx={{ mb: 2 }}
+                        sx={{ mb: 2}}
                         value={editedProfile?.confidenceThreshold || 0}
                         valueLabelDisplay="auto"
                         onChange={(_, value) = key={597788}>
-                          handleProfileChange('confidenceThreshold', value as number)
-                        }
+                          handleProfileChange('confidenceThreshold', value as number)}
                       />
 
                       <Box display="flex" gap={1} mt={2} key={998177}>
@@ -172,7 +162,7 @@ export const RiskProfileManager: React.FC = () => {
                       <Button;
                         fullWidth;
                         color="primary"
-                        sx={{ mt: 2 }}
+                        sx={{ mt: 2}}
                         variant="contained"
                         onClick={handleEdit}
                        key={932344}>
@@ -231,5 +221,7 @@ export const RiskProfileManager: React.FC = () => {
         </Grid>
       </Grid>
     </Box>
-  );
-};
+  );};
+
+
+

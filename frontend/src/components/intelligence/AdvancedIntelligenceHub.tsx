@@ -1,12 +1,12 @@
-import React, { useState,
+﻿import React, { useState,
   useEffect,
   useCallback,
   useMemo,
   Suspense,
   lazy,
-  memo,
- } from 'react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+//   memo
+ } from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
 import {
   Brain,
   Activity,
@@ -35,23 +35,23 @@ import {
   Maximize,
   Download,
   Share,
-  Info,
-} from 'lucide-react.ts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.ts';
-import { Button } from '@/components/ui/button.ts';
-import { Badge } from '@/components/ui/badge.ts';
-import { Progress } from '@/components/ui/progress.ts';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs.ts';
-import { Input } from '@/components/ui/input.ts';
+//   Info
+} from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+import { Button} from '@/components/ui/button';
+import { Badge} from '@/components/ui/badge';
+import { Progress} from '@/components/ui/progress';
+import { Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
+import { Input} from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select.ts';
-import { useWebSocket } from '@/hooks/useWebSocket.ts';
-import toast from 'react-hot-toast.ts';
+//   SelectValue
+} from '@/components/ui/select';
+import { useWebSocket} from '@/hooks/useWebSocket';
+import toast from 'react-hot-toast';
 
 // Lazy load components for optimal performance;
 const UltraAccuracyDashboard = lazy(
@@ -66,11 +66,7 @@ const UnifiedStrategyEngineDisplay = lazy(
 
 // Types;
 interface IntelligenceModule {
-  id: string;
-  name: string;
-  description: string;
-  icon: React.ReactNode;
-  category:
+  id: string,`n  name: string;,`n  description: string,`n  icon: React.ReactNode;,`n  category:
     | "prediction"
     | "analytics"
     | "ml"
@@ -78,34 +74,21 @@ interface IntelligenceModule {
     | "monitoring"
     | "quantum"
     | "cyber";
-  priority: "critical" | "high" | "medium" | "low";
-  isActive: boolean;
-  component: React.ComponentType<any key={295429}>;
-  status: "healthy" | "warning" | "error" | "offline";
-  metrics: { accuracy: number; performance: number; reliability: number };
-  dependencies?: string[];
-  computationLevel?: "light" | "medium" | "heavy" | "extreme";
-}
+  priority: "critical" | "high" | "medium" | "low",`n  isActive: boolean;,`n  component: React.ComponentType<any key={295429}>;
+  status: "healthy" | "warning" | "error" | "offline",`n  metrics: { accuracy: number; performance: number; reliability: number};
+  dependencies?: string[0];
+  computationLevel?: "light" | "medium" | "heavy" | "extreme";}
 
 interface SystemMetrics {
-  cpu: number;
-  memory: number;
-  gpu: number;
-  network: number;
-  accuracy: number;
-  activeModules: number;
-  totalPredictions: number;
-  uptime: number;
-  responseTime: number;
-}
+  cpu: number,`n  memory: number;,`n  gpu: number,`n  network: number;,`n  accuracy: number,`n  activeModules: number;,`n  totalPredictions: number,`n  uptime: number;,`n  responseTime: number}
 
 // Enhanced loading component with better UX;
 const ModuleLoader: React.FC = memo(() => (
   <div className="flex items-center justify-center h-64 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl" key={676223}>
     <div className="text-center space-y-4" key={137844}>
       <motion.div;
-        animate={{ rotate: 360 }}
-        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+        animate={{ rotate: 360}}
+        transition={{ duration: 2, repeat: Infinity, ease: "linear"}}
         className="relative"
        key={337516}>
         <Brain className="w-12 h-12 text-blue-500" / key={375067}>
@@ -120,15 +103,11 @@ const ModuleLoader: React.FC = memo(() => (
 ));
 
 // Error boundary component;
-const ModuleErrorBoundary: React.FC<{
-  children: React.ReactNode;
-  moduleName: string;
-}> = ({ children, moduleName }) => {
+const ModuleErrorBoundary: React.FC<{,`n  children: React.ReactNode;,`n  moduleName: string}> = ({ children, moduleName}) => {
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    setHasError(false);
-  }, [moduleName]);
+    setHasError(false);}, [moduleName]);
 
   if (hasError) {
     return (
@@ -152,15 +131,13 @@ const ModuleErrorBoundary: React.FC<{
           </div>
         </div>
       </div>
-    );
-  }
+    );}
 
-  return <>{children}</>;
-};
+  return <>{children}</>;};
 
 // Default component for missing modules;
-const DefaultModule: React.FC<{ name: string; description?: string }> = memo(
-  ({ name, description }) => (
+const DefaultModule: React.FC<{ name: string; description?: string}> = memo(
+  ({ name, description}) => (
     <div className="flex items-center justify-center h-64 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border-2 border-dashed border-gray-300" key={929900}>
       <div className="text-center space-y-4" key={137844}>
         <Brain className="w-16 h-16 text-gray-400 mx-auto" / key={403314}>
@@ -184,7 +161,7 @@ export const AdvancedIntelligenceHub: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [activeTab, setActiveTab] = useState("ultra-accuracy");
-  const [moduleStates, setModuleStates] = useState<Record<string, boolean key={511444}>>({});
+  const [moduleStates, setModuleStates] = useState<Record<string, boolean key={511444}>>(Record<string, any>);
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [lastOptimization, setLastOptimization] = useState<Date | null key={636200}>(null);
 
@@ -197,14 +174,14 @@ export const AdvancedIntelligenceHub: React.FC = () => {
     activeModules: 3,
     totalPredictions: 15847,
     uptime: 99.8,
-    responseTime: 120,
+    responseTime: 120
   });
 
   // WebSocket connection with enhanced status;
-  const { isConnected, lastMessage } = useWebSocket("ws://localhost:8000");
+  const { isConnected, lastMessage} = useWebSocket("ws://localhost:8000");
 
   // Module definitions with comprehensive configuration;
-  const modules: IntelligenceModule[] = useMemo(
+  const modules: IntelligenceModule[0] = useMemo(
     () => [
       {
         id: "ultra-accuracy",
@@ -217,8 +194,8 @@ export const AdvancedIntelligenceHub: React.FC = () => {
         isActive: true,
         component: UltraAccuracyDashboard,
         status: "healthy",
-        metrics: { accuracy: 97.3, performance: 94.8, reliability: 99.2 },
-        computationLevel: "heavy",
+        metrics: { accuracy: 97.3, performance: 94.8, reliability: 99.2},
+        computationLevel: "heavy"
       },
       {
         id: "quantum-predictions",
@@ -231,9 +208,9 @@ export const AdvancedIntelligenceHub: React.FC = () => {
         isActive: false,
         component: QuantumPredictionsInterface,
         status: "healthy",
-        metrics: { accuracy: 98.1, performance: 92.3, reliability: 97.8 },
+        metrics: { accuracy: 98.1, performance: 92.3, reliability: 97.8},
         dependencies: ["ultra-accuracy"],
-        computationLevel: "extreme",
+        computationLevel: "extreme"
       },
       {
         id: "strategy-engine",
@@ -246,8 +223,8 @@ export const AdvancedIntelligenceHub: React.FC = () => {
         isActive: true,
         component: UnifiedStrategyEngineDisplay,
         status: "healthy",
-        metrics: { accuracy: 89.4, performance: 96.1, reliability: 94.7 },
-        computationLevel: "medium",
+        metrics: { accuracy: 89.4, performance: 96.1, reliability: 94.7},
+        computationLevel: "medium"
       },
       {
         id: "cyber-analytics",
@@ -260,9 +237,9 @@ export const AdvancedIntelligenceHub: React.FC = () => {
         isActive: false,
         component: DefaultModule,
         status: "warning",
-        metrics: { accuracy: 91.2, performance: 88.9, reliability: 93.4 },
+        metrics: { accuracy: 91.2, performance: 88.9, reliability: 93.4},
         dependencies: ["strategy-engine"],
-        computationLevel: "extreme",
+        computationLevel: "extreme"
       },
       {
         id: "performance-monitoring",
@@ -275,8 +252,8 @@ export const AdvancedIntelligenceHub: React.FC = () => {
         isActive: false,
         component: DefaultModule,
         status: "healthy",
-        metrics: { accuracy: 93.7, performance: 97.8, reliability: 99.1 },
-        computationLevel: "light",
+        metrics: { accuracy: 93.7, performance: 97.8, reliability: 99.1},
+        computationLevel: "light"
       },
       {
         id: "ml-insights",
@@ -289,9 +266,9 @@ export const AdvancedIntelligenceHub: React.FC = () => {
         isActive: false,
         component: DefaultModule,
         status: "healthy",
-        metrics: { accuracy: 95.6, performance: 90.2, reliability: 96.8 },
+        metrics: { accuracy: 95.6, performance: 90.2, reliability: 96.8},
         dependencies: ["ultra-accuracy"],
-        computationLevel: "heavy",
+        computationLevel: "heavy"
       },
       {
         id: "risk-analytics",
@@ -303,8 +280,8 @@ export const AdvancedIntelligenceHub: React.FC = () => {
         isActive: false,
         component: DefaultModule,
         status: "healthy",
-        metrics: { accuracy: 87.9, performance: 91.3, reliability: 88.6 },
-        computationLevel: "medium",
+        metrics: { accuracy: 87.9, performance: 91.3, reliability: 88.6},
+        computationLevel: "medium"
       },
       {
         id: "neural-ensemble",
@@ -317,12 +294,12 @@ export const AdvancedIntelligenceHub: React.FC = () => {
         isActive: false,
         component: DefaultModule,
         status: "healthy",
-        metrics: { accuracy: 96.4, performance: 89.7, reliability: 95.3 },
+        metrics: { accuracy: 96.4, performance: 89.7, reliability: 95.3},
         dependencies: ["ml-insights"],
-        computationLevel: "extreme",
+        computationLevel: "extreme"
       },
     ],
-    [],
+    [0],
   );
 
   // Filtered modules based on search and category;
@@ -333,9 +310,7 @@ export const AdvancedIntelligenceHub: React.FC = () => {
         module.description.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesCategory =
         selectedCategory === "all" || module.category === selectedCategory;
-      return matchesSearch && matchesCategory;
-    });
-  }, [modules, searchQuery, selectedCategory]);
+      return matchesSearch && matchesCategory;});}, [modules, searchQuery, selectedCategory]);
 
   // Active modules;
   const activeModules = useMemo(
@@ -354,26 +329,25 @@ export const AdvancedIntelligenceHub: React.FC = () => {
       return {
         status: "offline",
         color: "bg-gray-500",
-        textColor: "text-gray-700",
+        textColor: "text-gray-700"
       };
     if (healthyModules === totalActive)
       return {
         status: "optimal",
         color: "bg-green-500",
-        textColor: "text-green-700",
+        textColor: "text-green-700"
       };
     if (healthyModules / totalActive > 0.7)
       return {
         status: "good",
         color: "bg-yellow-500",
-        textColor: "text-yellow-700",
+        textColor: "text-yellow-700"
       };
     return {
       status: "degraded",
       color: "bg-red-500",
-      textColor: "text-red-700",
-    };
-  }, [activeModules]);
+      textColor: "text-red-700"
+    }}, [activeModules]);
 
   // Enhanced module toggle with dependency checking;
   const toggleModule = useCallback(
@@ -396,8 +370,7 @@ export const AdvancedIntelligenceHub: React.FC = () => {
           toast.error(
             `Cannot activate ${module.name}. Missing dependencies: ${missingDeps.join(", ")}`,
           );
-          return;
-        }
+          return;}
       }
 
       // Check dependent modules when deactivating;
@@ -412,22 +385,20 @@ export const AdvancedIntelligenceHub: React.FC = () => {
           toast.error(
             `Cannot deactivate ${module.name}. Required by: ${dependentModules.map((m) => m.name).join(", ")}`,
           );
-          return;
-        }
+          return;}
       }
 
       setModuleStates((prev) => ({
         ...prev,
-        [moduleId]: newState,
+        [moduleId]: newState
       }));
 
       toast.success(
         `${module.name} ${newState ? "activated" : "deactivated"}`,
         {
-          icon: newState ? "🟢" : "🔴",
+          icon: newState ? "🟢" : "🔴"
         },
-      );
-    },
+      )},
     [modules, moduleStates],
   );
 
@@ -443,21 +414,20 @@ export const AdvancedIntelligenceHub: React.FC = () => {
     try {
       // Multi-step optimization with user feedback;
       const steps = [
-        { message: "🧠 Optimizing neural networks...", duration: 1000 },
-        { message: "⚡ Calibrating prediction models...", duration: 800 },
+        { message: "🧠 Optimizing neural networks...", duration: 1000},
+        { message: "⚡ Calibrating prediction models...", duration: 800},
         {
           message: "🔄 Reallocating computational resources...",
-          duration: 600,
+          duration: 600
         },
-        { message: "📊 Updating performance metrics...", duration: 400 },
+        { message: "📊 Updating performance metrics...", duration: 400},
       ];
 
       for (const step of steps) {
         toast.dismiss(loadingToast);
 
         await new Promise((resolve) => setTimeout(resolve, step.duration));
-        toast.dismiss(stepToast);
-      }
+        toast.dismiss(stepToast);}
 
       // Apply optimizations;
       setSystemMetrics((prev) => ({
@@ -466,19 +436,16 @@ export const AdvancedIntelligenceHub: React.FC = () => {
         memory: Math.max(20, prev.memory - 15),
         gpu: Math.max(30, prev.gpu - 10),
         accuracy: Math.min(99.9, prev.accuracy + 1.5),
-        responseTime: Math.max(50, prev.responseTime - 30),
+        responseTime: Math.max(50, prev.responseTime - 30)
       }));
 
       setLastOptimization(new Date());
       toast.success("🚀 System optimized successfully! Performance improved.", {
-        duration: 4000,
-      });
-    } catch (error) {
+        duration: 4000
+      })} catch (error) {
       toast.error("❌ Optimization failed. Please try again.");
-      // console statement removed
-    } finally {
-      setIsOptimizing(false);
-    }
+      // console statement removed} finally {
+      setIsOptimizing(false);}
   }, [isOptimizing]);
 
   // Keyboard shortcuts for power users;
@@ -505,14 +472,11 @@ export const AdvancedIntelligenceHub: React.FC = () => {
           case "3":
             e.preventDefault();
             setActiveTab("strategy-engine");
-            break;
-        }
-      }
-    };
+            break;}
+      }};
 
     window.addEventListener("keydown", handleKeyPress);
-    return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [optimizeSystem]);
+    return () => window.removeEventListener("keydown", handleKeyPress);}, [optimizeSystem]);
 
   // Real-time updates with error handling;
   useEffect(() => {
@@ -539,26 +503,23 @@ export const AdvancedIntelligenceHub: React.FC = () => {
           responseTime: Math.max(
             50,
             Math.min(300, prev.responseTime + (Math.random() - 0.5) * 20),
-          ),
-        }));
-      } catch (error) {
-        // console statement removed
-      }
+          )
+        }))} catch (error) {
+        // console statement removed}
     }, 4000);
 
-    return () => clearInterval(interval);
-  }, [activeModules.length]);
+    return () => clearInterval(interval);}, [activeModules.length]);
 
   // Category options;
   const categories = [
-    { value: "all", label: "All Modules" },
-    { value: "prediction", label: "🎯 Prediction" },
-    { value: "analytics", label: "📊 Analytics" },
-    { value: "ml", label: "🧠 Machine Learning" },
-    { value: "strategy", label: "🎲 Strategy" },
-    { value: "monitoring", label: "📡 Monitoring" },
-    { value: "quantum", label: "⚛️ Quantum" },
-    { value: "cyber", label: "🛡️ Cyber" },
+    { value: "all", label: "All Modules"},
+    { value: "prediction", label: "🎯 Prediction"},
+    { value: "analytics", label: "📊 Analytics"},
+    { value: "ml", label: "🧠 Machine Learning"},
+    { value: "strategy", label: "🎲 Strategy"},
+    { value: "monitoring", label: "📡 Monitoring"},
+    { value: "quantum", label: "⚛️ Quantum"},
+    { value: "cyber", label: "🛡️ Cyber"},
   ];
 
   return (
@@ -566,15 +527,15 @@ export const AdvancedIntelligenceHub: React.FC = () => {
       <div className="max-w-7xl mx-auto space-y-6" key={295091}>
         {/* Enhanced Header */}
         <motion.div;
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: -20}}
+          animate={{ opacity: 1, y: 0}}
           className="text-center space-y-4"
          key={164215}>
           <div className="flex items-center justify-center space-x-4" key={50426}>
             <div className="relative" key={579431}>
               <motion.div;
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                animate={{ rotate: 360}}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear"}}
                key={291804}>
                 <Brain className="w-12 h-12 text-blue-600" / key={538254}>
               </motion.div>
@@ -664,33 +625,33 @@ export const AdvancedIntelligenceHub: React.FC = () => {
                   value: systemMetrics.cpu,
                   suffix: "%",
                   color: "blue",
-                  icon: <Cpu className="w-4 h-4" / key={997585}>,
+                  icon: <Cpu className="w-4 h-4" / key={997585}>
                 },
                 {
                   label: "Memory",
                   value: systemMetrics.memory,
                   suffix: "%",
                   color: "green",
-                  icon: <Network className="w-4 h-4" / key={733171}>,
+                  icon: <Network className="w-4 h-4" / key={733171}>
                 },
                 {
                   label: "Accuracy",
                   value: systemMetrics.accuracy,
                   suffix: "%",
                   color: "purple",
-                  icon: <Target className="w-4 h-4" / key={184202}>,
+                  icon: <Target className="w-4 h-4" / key={184202}>
                 },
                 {
                   label: "Uptime",
                   value: systemMetrics.uptime,
                   suffix: "%",
                   color: "emerald",
-                  icon: <CheckCircle className="w-4 h-4" / key={423201}>,
+                  icon: <CheckCircle className="w-4 h-4" / key={423201}>
                 },
               ].map((metric) => (
                 <motion.div;
                   key={metric.label}
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ scale: 1.02}}
                   className="text-center space-y-3 p-4 rounded-lg bg-gradient-to-br from-white to-gray-50 border"
                  key={685827}>
                   <div className="flex items-center justify-center space-x-2" key={936866}>
@@ -706,7 +667,7 @@ export const AdvancedIntelligenceHub: React.FC = () => {
                       value={metric.value}
                       className="h-3"
                       style={{
-                        background: `linear-gradient(to right, rgb(59 130 246 / 0.2), rgb(147 51 234 / 0.2))`,
+                        background: `linear-gradient(to right, rgb(59 130 246 / 0.2), rgb(147 51 234 / 0.2))`
                       }}
                     / key={451773}>
                     <div className="text-lg font-bold text-gray-900" key={591230}>
@@ -806,25 +767,24 @@ export const AdvancedIntelligenceHub: React.FC = () => {
               return (
                 <motion.div;
                   key={module.id}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  whileHover={{ y: -8, scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
+                  initial={{ opacity: 0, scale: 0.9}}
+                  animate={{ opacity: 1, scale: 1}}
+                  exit={{ opacity: 0, scale: 0.9}}
+                  whileHover={{ y: -8, scale: 1.02}}
+                  transition={{ duration: 0.2}}
                   layout;
                  key={327119}>
                   <Card;
                     className={`shadow-xl bg-white/90 backdrop-blur-sm hover:shadow-2xl transition-all duration-300 border-0 ${
                       isModuleActive;
                         ? "ring-2 ring-blue-200 bg-gradient-to-br from-blue-50/50 to-white"
-                        : ""
-                    }`}
+                        : ""}`}
                    key={8924}>
                     <CardHeader className="pb-3" key={82141}>
                       <div className="flex items-start justify-between" key={653478}>
                         <div className="flex items-center space-x-3" key={602729}>
                           <motion.div;
-                            whileHover={{ scale: 1.1, rotate: 5 }}
+                            whileHover={{ scale: 1.1, rotate: 5}}
                             className={`p-3 rounded-lg transition-all duration-200 ${
                               module.status === "healthy"
                                 ? "bg-green-100 text-green-600"
@@ -832,8 +792,7 @@ export const AdvancedIntelligenceHub: React.FC = () => {
                                   ? "bg-yellow-100 text-yellow-600"
                                   : module.status === "error"
                                     ? "bg-red-100 text-red-600"
-                                    : "bg-gray-100 text-gray-600"
-                            } ${isModuleActive ? "shadow-md" : ""}`}
+                                    : "bg-gray-100 text-gray-600"} ${isModuleActive ? "shadow-md" : ""}`}
                            key={343367}>
                             {module.icon}
                           </motion.div>
@@ -854,8 +813,7 @@ export const AdvancedIntelligenceHub: React.FC = () => {
                                     ? "destructive"
                                     : module.priority === "high"
                                       ? "default"
-                                      : "secondary"
-                                }
+                                      : "secondary"}
                                 className="text-xs"
                                key={80108}>
                                 {module.priority}
@@ -869,8 +827,8 @@ export const AdvancedIntelligenceHub: React.FC = () => {
                           </div>
                         </div>
                         <motion.div;
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.95 }}
+                          whileHover={{ scale: 1.1}}
+                          whileTap={{ scale: 0.95}}
                          key={34061}>
                           <Button;
                             variant="ghost"
@@ -879,11 +837,9 @@ export const AdvancedIntelligenceHub: React.FC = () => {
                             className={`transition-all duration-200 ${
                               isModuleActive;
                                 ? "text-green-600 hover:bg-green-50 hover:scale-110"
-                                : "text-gray-400 hover:bg-gray-50 hover:text-gray-600"
-                            }`}
+                                : "text-gray-400 hover:bg-gray-50 hover:text-gray-600"}`}
                             title={`${
-                              isModuleActive ? "Deactivate" : "Activate"
-                            } ${module.name}`}
+                              isModuleActive ? "Deactivate" : "Activate"} ${module.name}`}
                           >
                             {isModuleActive ? (
                               <ToggleRight className="w-5 h-5" / key={583439}>
@@ -905,17 +861,17 @@ export const AdvancedIntelligenceHub: React.FC = () => {
                           {
                             label: "Accuracy",
                             value: module.metrics.accuracy,
-                            color: "blue",
+                            color: "blue"
                           },
                           {
                             label: "Performance",
                             value: module.metrics.performance,
-                            color: "green",
+                            color: "green"
                           },
                           {
                             label: "Reliability",
                             value: module.metrics.reliability,
-                            color: "purple",
+                            color: "purple"
                           },
                         ].map((metric) => (
                           <div key={metric.label} className="space-y-1" key={933541}>
@@ -960,8 +916,7 @@ export const AdvancedIntelligenceHub: React.FC = () => {
                               ? "default"
                               : module.status === "warning"
                                 ? "secondary"
-                                : "destructive"
-                          }
+                                : "destructive"}
                           className="text-xs capitalize"
                          key={855267}>
                           {module.status}
@@ -977,8 +932,7 @@ export const AdvancedIntelligenceHub: React.FC = () => {
                     </CardContent>
                   </Card>
                 </motion.div>
-              );
-            })}
+              );})}
           </AnimatePresence>
         </div>
 
@@ -1021,8 +975,7 @@ export const AdvancedIntelligenceHub: React.FC = () => {
                         variant={
                           module.status === "healthy"
                             ? "default"
-                            : "destructive"
-                        }
+                            : "destructive"}
                         className="ml-1 text-xs"
                        key={897100}>
                         {module.status}
@@ -1038,8 +991,8 @@ export const AdvancedIntelligenceHub: React.FC = () => {
                     className="mt-6"
                    key={124340}>
                     <motion.div;
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
+                      initial={{ opacity: 0, y: 20}}
+                      animate={{ opacity: 1, y: 0}}
                       className="border rounded-xl p-6 bg-gradient-to-br from-white to-gray-50/50 shadow-sm"
                      key={982442}>
                       <div className="flex items-center justify-between mb-6" key={530716}>
@@ -1061,8 +1014,7 @@ export const AdvancedIntelligenceHub: React.FC = () => {
                             variant={
                               module.status === "healthy"
                                 ? "default"
-                                : "destructive"
-                            }
+                                : "destructive"}
                             className="capitalize"
                            key={578127}>
                             {module.status}
@@ -1113,7 +1065,10 @@ export const AdvancedIntelligenceHub: React.FC = () => {
         )}
       </div>
     </div>
-  );
-};
+  );};
 
 export default AdvancedIntelligenceHub;
+
+
+
+`

@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import Settings from '@/components/modern/Settings.ts';
+﻿import React from 'react';
+import Settings from '@/components/modern/Settings';
 
 
 const SettingsPage: React.FC = () => {
@@ -8,7 +8,9 @@ const SettingsPage: React.FC = () => {
       <h1 className="text-3xl font-semibold text-text mb-6" key={9200}>Settings</h1>
       <Settings / key={834927}>
     </div>
-  );
-};
+  )};
 
 export default SettingsPage; 
+
+
+

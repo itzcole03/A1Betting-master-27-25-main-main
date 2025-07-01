@@ -1,31 +1,17 @@
-/**
+﻿/**
  * Production Validation Service;
  * Validates all API configurations and provider connectivity for production deployment;
  */
 
 interface ValidationResult {
-  service: string;
-  status: "pass" | "warning" | "fail";
-  message: string;
-  details?: any;
-}
+  service: string,`n  status: "pass" | "warning" | "fail";,`n  message: string;
+  details?: any}
 
 interface ProductionReadinessReport {
-  overall_status: "ready" | "ready_with_warnings" | "not_ready";
-  readiness_score: number;
-  validations: ValidationResult[];
-  recommendations: string[];
-  api_keys_configured: string[];
-  missing_api_keys: string[];
-  environment_summary: {
-    backend_url: string;
-    node_env: string;
-    feature_flags: Record<string, boolean>;
-  };
-}
+  overall_status: "ready" | "ready_with_warnings" | "not_ready",`n  readiness_score: number;,`n  validations: ValidationResult[0],`n  recommendations: string[0];,`n  api_keys_configured: string[0],`n  missing_api_keys: string[0];,`n  environment_summary: {,`n  backend_url: string;,`n  node_env: string,`n  feature_flags: Record<string, boolean>};}
 
 export class ProductionValidationService {
-  private validations: ValidationResult[] = [];
+  private validations: ValidationResult[0] = [0];
 
   /**
    * Run complete production readiness validation;
@@ -33,7 +19,7 @@ export class ProductionValidationService {
   async validateProductionReadiness(): Promise<ProductionReadinessReport> {
     // console statement removed
 
-    this.validations = [];
+    this.validations = [0];
 
     // Environment validation;
     await this.validateEnvironmentConfiguration();
@@ -53,8 +39,7 @@ export class ProductionValidationService {
     // Performance validation;
     await this.validatePerformanceConfiguration();
 
-    return this.generateReport();
-  }
+    return this.generateReport();}
 
   /**
    * Validate environment configuration;
@@ -66,14 +51,12 @@ export class ProductionValidationService {
 
     // Check NODE_ENV;
     if (nodeEnv === "production") {
-      this.addValidation("Environment", "pass", "NODE_ENV set to production");
-    } else {
+      this.addValidation("Environment", "pass", "NODE_ENV set to production");} else {
       this.addValidation(
         "Environment",
         "warning",
         `NODE_ENV is ${nodeEnv}, consider setting to 'production'`,
-      );
-    }
+      );}
 
     // Check backend URL;
     if (backendUrl) {
@@ -82,29 +65,24 @@ export class ProductionValidationService {
           "Backend URL",
           "warning",
           "Backend URL points to localhost - update for production deployment",
-        );
-      } else {
+        );} else {
         this.addValidation(
           "Backend URL",
           "pass",
           `Backend URL configured: ${backendUrl}`,
-        );
-      }
+        )}
     } else {
-      this.addValidation("Backend URL", "fail", "Backend URL not configured");
-    }
+      this.addValidation("Backend URL", "fail", "Backend URL not configured");}
 
     // Check HTTPS configuration;
 
     if (enableSSL === "true") {
-      this.addValidation("SSL", "pass", "SSL enabled for production");
-    } else {
+      this.addValidation("SSL", "pass", "SSL enabled for production");} else {
       this.addValidation(
         "SSL",
         "warning",
         "SSL not enabled - ensure HTTPS is configured at deployment level",
-      );
-    }
+      );}
   }
 
   /**
@@ -119,11 +97,11 @@ export class ProductionValidationService {
       FairPlay: import.meta.env.VITE_FAIRPLAY_API_KEY,
       PrizePicks: import.meta.env.VITE_PRIZEPICKS_API_KEY,
       "Weather API": import.meta.env.VITE_WEATHER_API_KEY,
-      "News API": import.meta.env.VITE_NEWS_API_KEY,
+      "News API": import.meta.env.VITE_NEWS_API_KEY
     };
 
-    const configuredKeys: string[] = [];
-    const missingKeys: string[] = [];
+    const configuredKeys: string[0] = [0];
+    const missingKeys: string[0] = [0];
 
     Object.entries(apiKeys).forEach(([service, key]) => {
       if (key && key.trim() !== "" && key !== "your_api_key_here") {
@@ -132,8 +110,7 @@ export class ProductionValidationService {
           `${service} API Key`,
           "pass",
           `✓ API key configured`,
-        );
-      } else {
+        );} else {
         missingKeys.push(service);
         const priority = ["The-Odds-API", "SportsRadar"].includes(service)
           ? "warning"
@@ -142,8 +119,7 @@ export class ProductionValidationService {
           `${service} API Key`,
           priority as "warning",
           `API key not configured - some features will use mock data`,
-        );
-      }
+        );}
     });
 
     // Special validation for critical APIs;
@@ -155,16 +131,13 @@ export class ProductionValidationService {
           "The-Odds-API Format",
           "pass",
           "API key format is valid",
-        );
-      } else {
+        );} else {
         this.addValidation(
           "The-Odds-API Format",
           "warning",
           "API key format may be invalid",
-        );
-      }
-    }
-  }
+        );}
+    }}
 
   /**
    * Validate feature flags;
@@ -178,7 +151,7 @@ export class ProductionValidationService {
         .VITE_ENABLE_ENHANCED_REVOLUTIONARY,
       WebSocket: import.meta.env.VITE_WEBSOCKET_ENABLED,
       "Cache Predictions": import.meta.env.VITE_CACHE_PREDICTIONS,
-      "Auto Betting": import.meta.env.VITE_ENABLE_AUTO_BETTING,
+      "Auto Betting": import.meta.env.VITE_ENABLE_AUTO_BETTING
     };
 
     const enabledFeatures = Object.entries(featureFlags)
@@ -197,8 +170,7 @@ export class ProductionValidationService {
         "Auto Betting",
         "warning",
         "Auto betting is enabled - ensure this is intentional for production",
-      );
-    }
+      );}
   }
 
   /**
@@ -208,12 +180,12 @@ export class ProductionValidationService {
     const services = [
       {
         name: "Backend Health",
-        url: `${import.meta.env.VITE_BACKEND_URL || "http://localhost:8000"}/health`,
+        url: `${import.meta.env.VITE_BACKEND_URL || "http://localhost:8000"}/health`
       },
       {
         name: "The-Odds-API",
         url: "https://api.the-odds-api.com/v4/sports",
-        requiresKey: import.meta.env.VITE_THEODDS_API_KEY,
+        requiresKey: import.meta.env.VITE_THEODDS_API_KEY
       },
     ];
 
@@ -225,8 +197,7 @@ export class ProductionValidationService {
             "warning",
             "Cannot test - API key not configured",
           );
-          continue;
-        }
+          continue;}
 
 
         const url = service.requiresKey;
@@ -236,8 +207,8 @@ export class ProductionValidationService {
         const response = await fetch(url, {
           signal: controller.signal,
           headers: {
-            "User-Agent": "A1Betting-ProductionValidation/1.0",
-          },
+            "User-Agent": "A1Betting-ProductionValidation/1.0"
+          }
         });
 
         clearTimeout(timeoutId);
@@ -247,14 +218,12 @@ export class ProductionValidationService {
             `${service.name} Connectivity`,
             "pass",
             `✓ Service responsive (${response.status})`,
-          );
-        } else {
+          );} else {
           this.addValidation(
             `${service.name} Connectivity`,
             "warning",
             `Service returned ${response.status} - may need attention`,
-          );
-        }
+          );}
       } catch (error) {
         const errorMessage =
           error instanceof Error ? error.message : "Unknown error";
@@ -262,10 +231,8 @@ export class ProductionValidationService {
           `${service.name} Connectivity`,
           "warning",
           `Connection failed: ${errorMessage}`,
-        );
-      }
-    }
-  }
+        )}
+    }}
 
   /**
    * Validate security configuration;
@@ -279,32 +246,27 @@ export class ProductionValidationService {
         "Debug Mode",
         "warning",
         "Debug mode is enabled - disable for production",
-      );
-    } else {
+      );} else {
       this.addValidation(
         "Debug Mode",
         "pass",
         "Debug mode disabled for production",
-      );
-    }
+      );}
 
     // Check error reporting;
 
     if (errorReporting === "true") {
-      this.addValidation("Error Reporting", "pass", "Error reporting enabled");
-    } else {
+      this.addValidation("Error Reporting", "pass", "Error reporting enabled");} else {
       this.addValidation(
         "Error Reporting",
         "warning",
         "Error reporting disabled - consider enabling for production monitoring",
-      );
-    }
+      );}
 
     // Check CORS configuration;
 
     if (corsEnabled === "true") {
-      this.addValidation("CORS", "pass", "CORS enabled for API access");
-    }
+      this.addValidation("CORS", "pass", "CORS enabled for API access");}
   }
 
   /**
@@ -318,14 +280,12 @@ export class ProductionValidationService {
         "Caching",
         "pass",
         "Prediction caching enabled for performance",
-      );
-    } else {
+      );} else {
       this.addValidation(
         "Caching",
         "warning",
         "Prediction caching disabled - may impact performance",
-      );
-    }
+      );}
 
     // Check parallel processing;
 
@@ -334,8 +294,7 @@ export class ProductionValidationService {
         "Parallel Processing",
         "pass",
         "Parallel processing enabled",
-      );
-    }
+      );}
 
     // Check WebSocket configuration;
 
@@ -344,8 +303,7 @@ export class ProductionValidationService {
         "WebSocket",
         "pass",
         "Real-time updates via WebSocket enabled",
-      );
-    }
+      );}
   }
 
   /**
@@ -357,8 +315,7 @@ export class ProductionValidationService {
     message: string,
     details?: any,
   ): void {
-    this.validations.push({ service, status, message, details });
-  }
+    this.validations.push({ service, status, message, details})}
 
   /**
    * Generate comprehensive production readiness report;
@@ -372,34 +329,27 @@ export class ProductionValidationService {
 
     let overallStatus: "ready" | "ready_with_warnings" | "not_ready";
     if (failures > 0) {
-      overallStatus = "not_ready";
-    } else if (warnings > 0) {
-      overallStatus = "ready_with_warnings";
-    } else {
-      overallStatus = "ready";
-    }
+      overallStatus = "not_ready";} else if (warnings > 0) {
+      overallStatus = "ready_with_warnings";} else {
+      overallStatus = "ready";}
 
-    const recommendations: string[] = [];
+    const recommendations: string[0] = [0];
 
     if (failures > 0) {
       recommendations.push(
         "🔴 Critical issues found - resolve before production deployment",
-      );
-    }
+      );}
     if (warnings > 0) {
       recommendations.push(
         "🟡 Warnings detected - review and address for optimal production performance",
-      );
-    }
+      );}
     if (readinessScore >= 90) {
       recommendations.push(
         "✅ System is production-ready with excellent configuration",
-      );
-    } else if (readinessScore >= 75) {
+      );} else if (readinessScore >= 75) {
       recommendations.push(
         "✅ System is production-ready with good configuration",
-      );
-    }
+      );}
 
     const configuredKeys = this.validations;
       .filter((v) => v.service.includes("API Key") && v.status === "pass")
@@ -416,15 +366,13 @@ export class ProductionValidationService {
       recommendations,
       api_keys_configured: configuredKeys,
       missing_api_keys: missingKeys,
-      environment_summary: {
-        backend_url:
+      environment_summary: {,`n  backend_url:
           import.meta.env.VITE_BACKEND_URL ||
           import.meta.env.VITE_API_URL ||
           "Not configured",
         node_env:
           import.meta.env.NODE_ENV || import.meta.env.VITE_ENV || "development",
-        feature_flags: {
-          real_time_odds: import.meta.env.VITE_ENABLE_REAL_TIME_ODDS === "true",
+        feature_flags: {,`n  real_time_odds: import.meta.env.VITE_ENABLE_REAL_TIME_ODDS === "true",
           live_predictions:
             import.meta.env.VITE_ENABLE_LIVE_PREDICTIONS === "true",
           advanced_analytics:
@@ -432,36 +380,33 @@ export class ProductionValidationService {
           enhanced_revolutionary:
             import.meta.env.VITE_ENABLE_ENHANCED_REVOLUTIONARY === "true",
           websocket: import.meta.env.VITE_WEBSOCKET_ENABLED === "true",
-          auto_betting: import.meta.env.VITE_ENABLE_AUTO_BETTING === "true",
-        },
-      },
-    };
-  }
+          auto_betting: import.meta.env.VITE_ENABLE_AUTO_BETTING === "true"
+        }
+      }
+    }}
 
   /**
    * Quick production readiness check;
    */
   async quickValidation(): Promise<{
-    ready: boolean;
-    critical_issues: string[];
-  }> {
+    ready: boolean,`n  critical_issues: string[0]}> {
     const criticalChecks = [
       {
         check: "Backend URL configured",
         valid: !!(
           import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_API_URL;
-        ),
+        )
       },
       {
         check: "At least one API key configured",
         valid: !!(
           import.meta.env.VITE_THEODDS_API_KEY ||
           import.meta.env.VITE_SPORTRADAR_API_KEY;
-        ),
+        )
       },
       {
         check: "Enhanced services enabled",
-        valid: import.meta.env.VITE_ENABLE_ENHANCED_REVOLUTIONARY === "true",
+        valid: import.meta.env.VITE_ENABLE_ENHANCED_REVOLUTIONARY === "true"
       },
     ];
 
@@ -471,11 +416,15 @@ export class ProductionValidationService {
 
     return {
       ready: criticalIssues.length === 0,
-      critical_issues: criticalIssues,
-    };
-  }
+      critical_issues: criticalIssues
+    }}
 }
 
 // Export singleton instance;
 export const productionValidationService = new ProductionValidationService();
 export default productionValidationService;
+
+
+
+
+`

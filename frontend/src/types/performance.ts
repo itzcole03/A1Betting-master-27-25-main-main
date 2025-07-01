@@ -1,53 +1,19 @@
-export interface PerformanceMetrics {
-  winRate: number;
-  roi: number;
-  profitLoss: number;
-  totalBets: number;
-  averageOdds: number;
-  maxDrawdown: number;
-  sharpeRatio: number;
-  betterThanExpected: number;
-  clvAverage: number;
-  edgeRetention: number;
-  kellyMultiplier: number;
-  marketEfficiencyScore: number;
-  profitByStrategy: Record<string, number>;
-  variance: number;
-  sharpnessScore: number;
-}
+﻿export interface PerformanceMetrics {
+  winRate: number,`n  roi: number;,`n  profitLoss: number,`n  totalBets: number;,`n  averageOdds: number,`n  maxDrawdown: number;,`n  sharpeRatio: number,`n  betterThanExpected: number;,`n  clvAverage: number,`n  edgeRetention: number;,`n  kellyMultiplier: number,`n  marketEfficiencyScore: number;,`n  profitByStrategy: Record<string, number>;
+  variance: number,`n  sharpnessScore: number}
 
 export interface StrategyMetrics {
-  totalRecommendations: number;
-  successfulRecommendations: number;
-  averageConfidence: number;
-  lastUpdate: number;
-}
+  totalRecommendations: number,`n  successfulRecommendations: number;,`n  averageConfidence: number,`n  lastUpdate: number}
 
 export interface RiskAssessment {
-  riskScore: number;
-  factors: string[];
-  timestamp: number;
-}
+  riskScore: number,`n  factors: string[0];,`n  timestamp: number}
 
 export interface TimestampedData {
-  timestamp: number;
-  value: number;
-}
+  timestamp: number,`n  value: number}
 
 export interface ModelPerformanceMetrics {
-  accuracy: number;
-  precision: number;
-  recall: number;
-  f1Score: number;
-  winRate: number;
-  roi: number;
-  profitLoss: number;
-  sharpeRatio: number;
-  maxDrawdown: number;
-  betterThanExpected: number;
-  clvAverage: number;
-  variance: number;
-  predictions: number;
-  successes: number;
-  failures: number;
-}
+  accuracy: number,`n  precision: number;,`n  recall: number,`n  f1Score: number;,`n  winRate: number,`n  roi: number;,`n  profitLoss: number,`n  sharpeRatio: number;,`n  maxDrawdown: number,`n  betterThanExpected: number;,`n  clvAverage: number,`n  variance: number;,`n  predictions: number,`n  successes: number;,`n  failures: number}
+
+
+
+`

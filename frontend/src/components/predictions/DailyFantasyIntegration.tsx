@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react.ts';
+﻿import React, { useState, useEffect} from 'react';
 import {
   Box,
   Card,
@@ -13,37 +13,28 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  SelectChangeEvent,
-} from '@mui/material.ts';
-import { useLogger } from '@/hooks/useLogger.ts';
-import { useMetrics } from '@/hooks/useMetrics.ts';
+//   SelectChangeEvent
+} from '@mui/material';
+import { useLogger} from '@/hooks/useLogger';
+import { useMetrics} from '@/hooks/useMetrics';
 
 interface DailyFantasyData {
-  playerId: string;
-  playerName: string;
-  team: string;
-  position: string;
-  salary: number;
-  projectedPoints: number;
-  actualPoints?: number;
-  ownershipPercentage?: number;
-  valueScore?: number;
-}
+  playerId: string,`n  playerName: string;,`n  team: string,`n  position: string;,`n  salary: number,`n  projectedPoints: number;
+  actualPoints?: number
+  ownershipPercentage?: number
+  valueScore?: number}
 
 interface DailyFantasyIntegrationProps {
-  onDataUpdate: (data: DailyFantasyData[]) => void;
-  sport: string;
-  date: string;
-}
+  onDataUpdate: (data: DailyFantasyData[0]) => void,`n  sport: string;,`n  date: string}
 
 export const DailyFantasyIntegration: React.FC<DailyFantasyIntegrationProps key={952172}> = ({
   onDataUpdate,
   sport,
-  date,
+//   date
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null key={121216}>(null);
-  const [data, setData] = useState<DailyFantasyData[] key={334918}>([]);
+  const [data, setData] = useState<DailyFantasyData[0] key={334918}>([0]);
   const [apiKey, setApiKey] = useState('');
   const [site, setSite] = useState<'draftkings' | 'fanduel'>('draftkings');
 
@@ -60,24 +51,22 @@ export const DailyFantasyIntegration: React.FC<DailyFantasyIntegrationProps key=
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${apiKey}`,
+            Authorization: `Bearer ${apiKey}`
           },
           body: JSON.stringify({
             site,
             date,
-            sport,
-          }),
+//             sport
+          })
         });
 
         if (!response.ok) {
-          throw new Error(`API request failed: ${response.statusText}`);
-        }
+          throw new Error(`API request failed: ${response.statusText}`)}
 
         // Calculate value score based on projected points and salary;
         const processedData = fantasyData.map((player: DailyFantasyData) => ({
           ...player,
-          valueScore: player.projectedPoints / (player.salary / 1000), // Points per $1000;
-        }));
+          valueScore: player.projectedPoints / (player.salary / 1000), // Points per $1000}));
 
         setData(processedData);
         onDataUpdate(processedData);
@@ -85,35 +74,29 @@ export const DailyFantasyIntegration: React.FC<DailyFantasyIntegrationProps key=
         metrics.track('dailyfantasy_data_fetched', 1, {
           sport,
           site,
-          playerCount: processedData.length.toString(),
+          playerCount: processedData.length.toString()
         });
 
         logger.info('Successfully fetched DailyFantasy data', {
           sport,
           site,
-          playerCount: processedData.length,
-        });
-      } catch (err) {
+          playerCount: processedData.length
+        })} catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : 'Failed to fetch DailyFantasy data';
         setError(errorMessage);
-        logger.error('Error fetching DailyFantasy data', { error: errorMessage });
-        metrics.increment('dailyfantasy_fetch_error');
-      } finally {
-        setIsLoading(false);
-      }
+        logger.error('Error fetching DailyFantasy data', { error: errorMessage});
+        metrics.increment('dailyfantasy_fetch_error');} finally {
+        setIsLoading(false);}
     };
 
-    fetchData();
-  }, [apiKey, site, date, sport, onDataUpdate, logger, metrics]);
+    fetchData();}, [apiKey, site, date, sport, onDataUpdate, logger, metrics]);
 
   const handleApiKeyChange = (event: React.ChangeEvent<HTMLInputElement key={553350}>) => {
-    setApiKey(event.target.value);
-  };
+    setApiKey(event.target.value)};
 
   const handleSiteChange = (event: SelectChangeEvent<'draftkings' | 'fanduel'>) => {
-    setSite(event.target.value as 'draftkings' | 'fanduel');
-  };
+    setSite(event.target.value as 'draftkings' | 'fanduel')};
 
   return (
     <Card key={650115}>
@@ -151,7 +134,7 @@ export const DailyFantasyIntegration: React.FC<DailyFantasyIntegrationProps key=
         )}
 
         {error && (
-          <Alert severity="error" sx={{ mt: 2 }} key={474760}>
+          <Alert severity="error" sx={{ mt: 2}} key={474760}>
             {error}
           </Alert>
         )}
@@ -172,5 +155,9 @@ export const DailyFantasyIntegration: React.FC<DailyFantasyIntegrationProps key=
         )}
       </CardContent>
     </Card>
-  );
-};
+  );};
+
+
+
+
+`

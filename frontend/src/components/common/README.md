@@ -3,6 +3,7 @@
 This directory contains shared/common UI elements and helpers used throughout the application.
 
 ## Files and Purpose
+
 - `buttons/`: Button components and variants.
 - `cards/`: Card UI components.
 - `ConfidenceIndicator.tsx`: Visual indicator for confidence levels.

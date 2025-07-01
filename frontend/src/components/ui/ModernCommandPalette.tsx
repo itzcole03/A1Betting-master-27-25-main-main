@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef  } from 'react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+﻿import React, { useState, useEffect, useRef} from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
 import {
   Search,
   Command,
@@ -12,52 +12,44 @@ import {
   Home,
   Activity,
   Brain,
-  Zap,
-} from 'lucide-react.ts';
+//   Zap
+} from 'lucide-react';
 
 interface CommandItem {
-  id: string;
-  label: string;
-  description?: string;
+  id: string,`n  label: string;
+  description?: string
   icon: React.ReactNode;
-  shortcut?: string[];
-  action: () => void;
-  category: string;
-}
+  shortcut?: string[0];
+  action: () => void,`n  category: string}
 
 interface NavigationItem {
-  id: string;
-  label: string;
-  icon: React.ReactNode;
-  shortcut?: string[];
-}
+  id: string,`n  label: string;,`n  icon: React.ReactNode;
+  shortcut?: string[0];}
 
 interface ModernCommandPaletteProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen: boolean,`n  onClose: () => void;
   onNavigate?: (page: string) => void;
-  navigationItems?: NavigationItem[];
-}
+  navigationItems?: NavigationItem[0];}
 
 export const ModernCommandPalette: React.FC<ModernCommandPaletteProps key={599187}> = ({
   isOpen,
   onClose,
   onNavigate,
-  navigationItems = [],
+  navigationItems = [0]
 }) => {
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const commands: CommandItem[] = [
+  const commands: CommandItem[0] = [
     // Convert navigation items to command items;
     ...navigationItems.map((item) => ({
       id: item.id,
       label: `Go to ${item.label}`,
       description: `Navigate to ${item.label}`,
       icon: item.icon,
-      shortcut: item.shortcut || [],
+      shortcut: item.shortcut || [0],
       action: () => onNavigate?.(item.id),
-      category: "Navigation",
+      category: "Navigation"
     })),
     // Additional actions;
     {
@@ -67,7 +59,7 @@ export const ModernCommandPalette: React.FC<ModernCommandPaletteProps key={59918
       icon: <Activity size={16} / key={917630}>,
       shortcut: ["⌘", "R"],
       action: () => window.location.reload(),
-      category: "Actions",
+      category: "Actions"
     },
     {
       id: "quick-bet",
@@ -76,7 +68,7 @@ export const ModernCommandPalette: React.FC<ModernCommandPaletteProps key={59918
       icon: <Zap size={16} / key={633945}>,
       shortcut: ["⌘", "B"],
       action: () => // console statement removed,
-      category: "Actions",
+      category: "Actions"
     },
   ];
 
@@ -90,18 +82,15 @@ export const ModernCommandPalette: React.FC<ModernCommandPaletteProps key={59918
   const groupedCommands = filteredCommands.reduce(
     (groups, cmd) => {
       if (!groups[cmd.category]) {
-        groups[cmd.category] = [];
-      }
+        groups[cmd.category] = [0];}
       groups[cmd.category].push(cmd);
-      return groups;
-    },
-    {} as Record<string, CommandItem[] key={876850}>,
+      return groups;},
+    Record<string, any> as Record<string, CommandItem[0] key={876850}>,
   );
 
   useEffect(() => {
     if (isOpen && inputRef.current) {
-      inputRef.current.focus();
-    }
+      inputRef.current.focus();}
   }, [isOpen]);
 
   useEffect(() => {
@@ -126,35 +115,31 @@ export const ModernCommandPalette: React.FC<ModernCommandPaletteProps key={59918
           e.preventDefault();
           if (filteredCommands[selectedIndex]) {
             filteredCommands[selectedIndex].action();
-            onClose();
-          }
-          break;
-      }
+            onClose();}
+          break;}
     };
 
     document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, selectedIndex, filteredCommands, onClose]);
+    return () => document.removeEventListener("keydown", handleKeyDown);}, [isOpen, selectedIndex, filteredCommands, onClose]);
 
   useEffect(() => {
-    setSelectedIndex(0);
-  }, [query]);
+    setSelectedIndex(0);}, [query]);
 
   if (!isOpen) return null;
 
   return (
     <AnimatePresence key={359944}>
       <motion.div;
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
+        initial={{ opacity: 0}}
+        animate={{ opacity: 1}}
+        exit={{ opacity: 0}}
         className="fixed inset-0 z-50 flex items-start justify-center pt-20"
         onClick={onClose}
        key={10164}>
         <motion.div;
-          initial={{ opacity: 0, scale: 0.95, y: -20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: -20 }}
+          initial={{ opacity: 0, scale: 0.95, y: -20}}
+          animate={{ opacity: 1, scale: 1, y: 0}}
+          exit={{ opacity: 0, scale: 0.95, y: -20}}
           className="w-full max-w-lg mx-4"
           onClick={(e) = key={112214}> e.stopPropagation()}
         >
@@ -199,21 +184,19 @@ export const ModernCommandPalette: React.FC<ModernCommandPaletteProps key={59918
                         return (
                           <motion.div;
                             key={cmd.id}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: index * 0.02 }}
+                            initial={{ opacity: 0}}
+                            animate={{ opacity: 1}}
+                            transition={{ delay: index * 0.02}}
                             className={`
                             flex items-center justify-between px-4 py-3 cursor-pointer transition-colors;
                             ${
                               isSelected;
                                 ? "bg-blue-600/20 border-l-2 border-blue-400"
-                                : "hover:bg-gray-800/50"
-                            }
+                                : "hover:bg-gray-800/50"}
                           `}
                             onClick={() = key={206641}> {
                               cmd.action();
-                              onClose();
-                            }}
+                              onClose();}}
                           >
                             <div className="flex items-center space-x-3" key={602729}>
                               <div;
@@ -257,8 +240,7 @@ export const ModernCommandPalette: React.FC<ModernCommandPaletteProps key={59918
                               )}
                             </div>
                           </motion.div>
-                        );
-                      })}
+                        );})}
                     </div>
                   ),
                 )
@@ -288,7 +270,11 @@ export const ModernCommandPalette: React.FC<ModernCommandPaletteProps key={59918
         </motion.div>
       </motion.div>
     </AnimatePresence>
-  );
-};
+  );};
 
 export default ModernCommandPalette;
+
+
+
+
+`

@@ -1,7 +1,7 @@
-// PredictionSummaryCard.test.tsx;
-import React from 'react.ts';
-import { render, screen, fireEvent } from '@testing-library/react.ts';
-import { PredictionSummaryCard } from './PredictionSummaryCard.ts';
+﻿// PredictionSummaryCard.test.tsx;
+import React from 'react';
+import { render, screen, fireEvent} from '@testing-library/react';
+import { PredictionSummaryCard} from './PredictionSummaryCard';
 
 describe('PredictionSummaryCard', () => {
   const baseProps = {
@@ -14,7 +14,7 @@ describe('PredictionSummaryCard', () => {
     confidence: 88,
     lastUpdated: new Date(),
     riskLevel: 'medium',
-    interactive: true,
+    interactive: true
   };
 
   it.skip('renders all key metrics', () => {
@@ -25,21 +25,20 @@ describe('PredictionSummaryCard', () => {
     expect(screen.getByText(/85.2%/)).toBeInTheDocument();
     expect(screen.getByText(/2.50x/)).toBeInTheDocument();
     expect(screen.getByText(/92%/)).toBeInTheDocument();
-    expect(screen.getByText(/88%/)).toBeInTheDocument();
-  });
+    expect(screen.getByText(/88%/)).toBeInTheDocument();});
 
   it.skip('calls onDetailsClick when card is clicked', () => {
   // TODO: Test skipped due to multiple elements with role 'button' and incomplete event logic. Fix event handler or test.
 
     render(<PredictionSummaryCard {...baseProps} onDetailsClick={onDetailsClick} / key={862465}>);
     fireEvent.click(screen.getByRole('button'));
-    expect(onDetailsClick).toHaveBeenCalled();
-  });
+    expect(onDetailsClick).toHaveBeenCalled();});
 
   it.skip('matches snapshot', () => {
   // TODO: Snapshot test skipped due to unstable output. Fix rendering or snapshot logic.
 
-    const { asFragment } = render(<PredictionSummaryCard {...baseProps} / key={691259}>);
-    expect(asFragment()).toMatchSnapshot();
-  });
-});
+    const { asFragment} = render(<PredictionSummaryCard {...baseProps} / key={691259}>);
+    expect(asFragment()).toMatchSnapshot();});});
+
+
+

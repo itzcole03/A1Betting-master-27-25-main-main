@@ -1,12 +1,12 @@
-import { useAppStore } from '@/store/useAppStore.ts';
-import React, { useEffect  } from 'react.ts';
-import MoneyMaker from '@/modern/MoneyMaker.ts';
-import MLInsights from '@/analytics/MLInsights.ts';
-import PerformanceChart from '@/analytics/PerformanceChart.ts';
-import UserStats from '@/analytics/UserStats.ts';
-import PropCards from '@/betting/PropCards.ts';
-import ESPNHeadlinesTicker from '@/news/ESPNHeadlinesTicker.ts';
-import EntryTracking from '@/tracking/EntryTracking.ts';
+﻿import { useAppStore} from '@/store/useAppStore';
+import React, { useEffect} from 'react';
+import MoneyMaker from '@/modern/MoneyMaker';
+import MLInsights from '@/analytics/MLInsights';
+import PerformanceChart from '@/analytics/PerformanceChart';
+import UserStats from '@/analytics/UserStats';
+import PropCards from '@/betting/PropCards';
+import ESPNHeadlinesTicker from '@/news/ESPNHeadlinesTicker';
+import EntryTracking from '@/tracking/EntryTracking';
 
 
 const Dashboard: React.FC = () => {
@@ -14,12 +14,11 @@ const Dashboard: React.FC = () => {
     fetchProps,
     fetchEntries,
     fetchHeadlines,
-    // fetchSentiments, // Removed as it was example, can be added if specific dashboard sentiment is needed;
-  } = useAppStore(state => ({ // Ensure to select from state for a smaller subscription scope;
+    // fetchSentiments, // Removed as it was example, can be added if specific dashboard sentiment is needed} = useAppStore(state => ({ // Ensure to select from state for a smaller subscription scope;
     fetchProps: state.fetchProps,
     fetchEntries: state.fetchEntries,
     fetchHeadlines: state.fetchHeadlines,
-    // fetchSentiments: state.fetchSentiments,
+    // fetchSentiments: state.fetchSentiments
   }));
 
   useEffect(() => {
@@ -27,13 +26,12 @@ const Dashboard: React.FC = () => {
     fetchProps();
     fetchEntries();
     fetchHeadlines();
-    // fetchSentiments('general_market'); // Example for dashboard-specific sentiment if needed;
-  }, [fetchProps, fetchEntries, fetchHeadlines]);
+    // fetchSentiments('general_market'); // Example for dashboard-specific sentiment if needed;}, [fetchProps, fetchEntries, fetchHeadlines]);
 
   return (
     <div className="space-y-8" key={778766}>
       {/* Hero Card with Platform Stats */}
-      <div className="w-full glass rounded-3xl shadow-2xl p-8 bg-gradient-to-br from-primary-700/80 to-primary-500/80 flex flex-col md:flex-row items-center justify-between mb-6 animate-fade-in" key={365530}>
+      <div className="w-full glass rounded-3xl shadow-2xl p-8 bg-gradient-to-br from-primary-700/80 to-primary-500/80 flex flex-col md: flex-row items-center justify-between mb-6 animate-fade-in" key={365530}>
         <div className="flex-1" key={745195}>
           <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-2 tracking-tight drop-shadow-lg" key={696898}>AI Sports Analytics Platform</h1>
           <div className="text-lg text-primary-100/90 mb-4 font-medium" key={586119}>Real-time data • Advanced ML predictions • 84%+ win rates</div>
@@ -96,7 +94,9 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )};
 
 export default Dashboard;
+
+
+

@@ -1,148 +1,78 @@
-// ESM-compliant imports with explicit .js extensions;
-import { BaseModel, type ModelPrediction } from '@/models/BaseModel.js';
-import { ARIMAModel, ProphetModel } from '@/models/TimeSeriesModels.js';
-import { BayesianOptimizationModel, GeneticAlgorithmModel } from '@/models/OptimizationModels.js';
-import { LogisticRegressionModel, RandomForestModel } from '@/models/TraditionalModels.js';
-import { CNNModel, LSTMModel } from '@/models/DeepLearningModels.js';
-import { MarketIntelligenceModel } from '@/models/MarketIntelligenceModel.js';
-import { TemporalPatternModel } from '@/models/TemporalPatternModel.js';
-import { AlternativeDataModel } from '@/models/AlternativeDataModel.js';
-import { GameTheoryModel } from '@/models/GameTheoryModel.js';
-import { QuantumProbabilityModel } from '@/models/QuantumProbabilityModel.js';
+﻿// ESM-compliant imports with explicit .js extensions;
+import { BaseModel, type ModelPrediction} from '@/models/BaseModel.js';
+import { ARIMAModel, ProphetModel} from '@/models/TimeSeriesModels.js';
+import { BayesianOptimizationModel, GeneticAlgorithmModel} from '@/models/OptimizationModels.js';
+import { LogisticRegressionModel, RandomForestModel} from '@/models/TraditionalModels.js';
+import { CNNModel, LSTMModel} from '@/models/DeepLearningModels.js';
+import { MarketIntelligenceModel} from '@/models/MarketIntelligenceModel.js';
+import { TemporalPatternModel} from '@/models/TemporalPatternModel.js';
+import { AlternativeDataModel} from '@/models/AlternativeDataModel.js';
+import { GameTheoryModel} from '@/models/GameTheoryModel.js';
+import { QuantumProbabilityModel} from '@/models/QuantumProbabilityModel.js';
 
 interface EnsembleConfig {
-  models: {
-    name: string;
-    type: string;
-    weight: number;
+  models: {,`n  name: string;,`n  type: string,`n  weight: number;
     hyperparameters?: Record<string, any>;
-    features: string[];
-    target: string;
-  }[];
+    features: string[0],`n  target: string}[0];
   metaLearner?: {
     type: string;
     hyperparameters?: Record<string, any>;
-    features: string[];
-    target: string;
-  };
+    features: string[0],`n  target: string};
   marketIntelligence?: {
-    enabled: boolean;
-    weight: number;
-    features: string[];
-  };
+    enabled: boolean,`n  weight: number;,`n  features: string[0]};
   temporalPatterns?: {
-    enabled: boolean;
-    weight: number;
-    features: string[];
-  };
+    enabled: boolean,`n  weight: number;,`n  features: string[0]};
   alternativeData?: {
-    enabled: boolean;
-    weight: number;
-    features: string[];
-  };
+    enabled: boolean,`n  weight: number;,`n  features: string[0]};
   gameTheory?: {
-    enabled: boolean;
-    weight: number;
-    features: string[];
-  };
+    enabled: boolean,`n  weight: number;,`n  features: string[0]};
   quantumProbability?: {
-    enabled: boolean;
-    weight: number;
-    features: string[];
-  };
+    enabled: boolean,`n  weight: number;,`n  features: string[0]};
   stackedGeneralization?: {
-    enabled: boolean;
-    metaModelType: string;
-    crossValidationFolds: number;
-    hyperparameters?: Record<string, any>;
-  };
+    enabled: boolean,`n  metaModelType: string;,`n  crossValidationFolds: number;
+    hyperparameters?: Record<string, any>;};
   bayesianInference?: {
-    enabled: boolean;
-    priorStrength: number;
-    mcmcSamples: number;
-    hyperparameters?: Record<string, any>;
-  };
-}
+    enabled: boolean,`n  priorStrength: number;,`n  mcmcSamples: number;
+    hyperparameters?: Record<string, any>;};}
 
 interface ModelBreakdown {
-  modelName: string;
-  probability: number;
-  confidence: number;
-  weight: number;
-  factors?: string[];
-}
+  modelName: string,`n  probability: number;,`n  confidence: number,`n  weight: number;
+  factors?: string[0];}
 
 interface FeatureAttribution {
-  feature: string;
-  value: number;
-  impact: number;
-}
+  feature: string,`n  value: number;,`n  impact: number}
 
 interface EnsemblePrediction {
-  probability: number;
-  confidence: number;
-  modelBreakdown: ModelBreakdown[];
-  factors: string[];
-  historicalAccuracy: number;
-  expectedValue: number;
-  riskLevel: number;
-  recommendedStake: number;
-  edge: number;
+  probability: number,`n  confidence: number;,`n  modelBreakdown: ModelBreakdown[0],`n  factors: string[0];,`n  historicalAccuracy: number,`n  expectedValue: number;,`n  riskLevel: number,`n  recommendedStake: number;,`n  edge: number;
   uncertainty?: {
-    variance: number;
-    credibleInterval: [number, number];
-  };
-  featureAttribution?: FeatureAttribution[];
+    variance: number,`n  credibleInterval: [number, number]};
+  featureAttribution?: FeatureAttribution[0];
   marketIntelligence?: {
-    sharpAction: number;
-    bookmakerVulnerability: number;
-    goblinTrapAnalysis: number;
-  };
+    sharpAction: number,`n  bookmakerVulnerability: number;,`n  goblinTrapAnalysis: number};
   temporalPatterns?: {
-    microTrends: number;
-    macroTrends: number;
-    cyclicalPatterns: number;
-    circadianFactors: number;
-  };
+    microTrends: number,`n  macroTrends: number;,`n  cyclicalPatterns: number,`n  circadianFactors: number};
   alternativeData?: {
-    socialMediaSentiment: number;
-    weatherImpact: number;
-    injuryImpact: number;
-    travelImpact: number;
-    venueImpact: number;
-  };
+    socialMediaSentiment: number,`n  weatherImpact: number;,`n  injuryImpact: number,`n  travelImpact: number;,`n  venueImpact: number};
   gameTheory?: {
-    strategicAdvantage: number;
-    psychologicalEdge: number;
-    momentumFactor: number;
-    pressureHandling: number;
-    adaptationScore: number;
-  };
+    strategicAdvantage: number,`n  psychologicalEdge: number;,`n  momentumFactor: number,`n  pressureHandling: number;,`n  adaptationScore: number};
   quantumProbability?: {
-    superpositionScore: number;
-    entanglementFactor: number;
-    interferencePattern: number;
-    tunnelingProbability: number;
-    decoherenceRate: number;
-  };
-}
+    superpositionScore: number,`n  entanglementFactor: number;,`n  interferencePattern: number,`n  tunnelingProbability: number;,`n  decoherenceRate: number}}
 
 export class EnsemblePredictor {
   private models: Map<string, BaseModel>;
-  private marketIntelligence?: MarketIntelligenceModel;
-  private temporalPatterns?: TemporalPatternModel;
-  private alternativeData?: AlternativeDataModel;
-  private gameTheory?: GameTheoryModel;
-  private quantumProbability?: QuantumProbabilityModel;
-  private historicalPredictions: Map<string, Array<{ prediction: number; actual: number }>>;
+  private marketIntelligence?: MarketIntelligenceModel
+  private temporalPatterns?: TemporalPatternModel
+  private alternativeData?: AlternativeDataModel
+  private gameTheory?: GameTheoryModel
+  private quantumProbability?: QuantumProbabilityModel
+  private historicalPredictions: Map<string, Array<{ prediction: number; actual: number}>>;
   private config: EnsembleConfig;
 
   constructor(config: EnsembleConfig) {
     this.models = new Map();
     this.historicalPredictions = new Map();
     this.config = config;
-    this.initializeModels();
-  }
+    this.initializeModels();}
 
   private async initializeModels() {
     // Initialize base models;
@@ -173,12 +103,9 @@ export class EnsemblePredictor {
         case 'lstm':
           model = new LSTMModel(modelConfig);
           break;
-        default:
-          throw new Error(`Unknown model type: ${modelConfig.type}`);
-      }
+        default: throw new Error(`Unknown model type: ${modelConfig.type}`)}
       this.models.set(modelConfig.name, model);
-      this.historicalPredictions.set(modelConfig.name, []);
-    }
+      this.historicalPredictions.set(modelConfig.name, [0]);}
 
     // Initialize advanced models if enabled;
     if (this.config.marketIntelligence?.enabled) {
@@ -187,45 +114,40 @@ export class EnsemblePredictor {
         type: 'market_intelligence',
         features: this.config.marketIntelligence.features,
         target: 'probability',
-        weight: this.config.marketIntelligence.weight,
-      });
-    }
+        weight: this.config.marketIntelligence.weight
+      })}
     if (this.config.temporalPatterns?.enabled) {
       this.temporalPatterns = new TemporalPatternModel({
         name: 'temporal_patterns',
         type: 'temporal_patterns',
         features: this.config.temporalPatterns.features,
         target: 'probability',
-        weight: this.config.temporalPatterns.weight,
-      });
-    }
+        weight: this.config.temporalPatterns.weight
+      })}
     if (this.config.alternativeData?.enabled) {
       this.alternativeData = new AlternativeDataModel({
         name: 'alternative_data',
         type: 'alternative_data',
         features: this.config.alternativeData.features,
         target: 'probability',
-        weight: this.config.alternativeData.weight,
-      });
-    }
+        weight: this.config.alternativeData.weight
+      })}
     if (this.config.gameTheory?.enabled) {
       this.gameTheory = new GameTheoryModel({
         name: 'game_theory',
         type: 'game_theory',
         features: this.config.gameTheory.features,
         target: 'probability',
-        weight: this.config.gameTheory.weight,
-      });
-    }
+        weight: this.config.gameTheory.weight
+      })}
     if (this.config.quantumProbability?.enabled) {
       this.quantumProbability = new QuantumProbabilityModel({
         name: 'quantum_probability',
         type: 'quantum_probability',
         features: this.config.quantumProbability.features,
         target: 'probability',
-        weight: this.config.quantumProbability.weight,
-      });
-    }
+        weight: this.config.quantumProbability.weight
+      })}
   }
 
   async predict(features: Record<string, any>): Promise<EnsemblePrediction> {
@@ -233,8 +155,7 @@ export class EnsemblePredictor {
     const predictions = await Promise.all(
       Array.from(this.models.entries()).map(async ([name, model]) => {
 
-        return { name, prediction: pred };
-      })
+        return { name, prediction: pred}})
     );
 
     // Get advanced model predictions;
@@ -242,7 +163,7 @@ export class EnsemblePredictor {
     // Calculate weighted average;
 
     // Calculate confidence and risk metrics;
-    const { confidence, riskLevel } = this.calculateConfidenceAndRisk(
+    const { confidence, riskLevel} = this.calculateConfidenceAndRisk(
       predictions,
       advancedPredictions;
     );
@@ -250,7 +171,7 @@ export class EnsemblePredictor {
     // Calculate historical accuracy;
 
     // Calculate expected value and edge;
-    const { expectedValue, edge } = this.calculateExpectedValueAndEdge(
+    const { expectedValue, edge} = this.calculateExpectedValueAndEdge(
       weightedPrediction,
       features;
     );
@@ -265,27 +186,26 @@ export class EnsemblePredictor {
     // Generate factors;
 
     // Uncertainty quantification using Bayesian/MCMC if enabled;
-    let uncertainty: { variance: number; credibleInterval: [number, number] } | undefined =
+    let uncertainty: { variance: number; credibleInterval: [number, number]} | undefined =
       undefined;
     if (this.config.bayesianInference?.enabled) {
 
       uncertainty = {
         variance: bayesian.variance,
-        credibleInterval: bayesian.credibleInterval,
-      };
-    }
+        credibleInterval: bayesian.credibleInterval
+      }}
 
     // Feature attribution (SHAP or permutation importance proxy)
 
     return {
       probability: weightedPrediction,
       confidence,
-      modelBreakdown: predictions.map(({ name, prediction }) => ({
+      modelBreakdown: predictions.map(({ name, prediction}) => ({
         modelName: name,
         probability: prediction.probability,
         confidence: prediction.confidence,
         weight: prediction.weight,
-        factors: prediction.metadata?.factors,
+        factors: prediction.metadata?.factors
       })),
       factors,
       historicalAccuracy,
@@ -295,14 +215,13 @@ export class EnsemblePredictor {
       edge,
       uncertainty,
       featureAttribution,
-      ...advancedPredictions,
-    };
-  }
+      ...advancedPredictions
+    }}
 
   private async getAdvancedPredictions(
     features: Record<string, any>
   ): Promise<Partial<EnsemblePrediction>> {
-    const advancedPredictions: Partial<EnsemblePrediction> = {};
+    const advancedPredictions: Partial<EnsemblePrediction> = Record<string, any>;
 
     if (this.marketIntelligence) {
 
@@ -310,9 +229,8 @@ export class EnsemblePredictor {
         advancedPredictions.marketIntelligence = {
           sharpAction: prediction.metadata.sharpAction || 0,
           bookmakerVulnerability: prediction.metadata.bookmakerVulnerability || 0,
-          goblinTrapAnalysis: prediction.metadata.goblinTrapAnalysis || 0,
-        };
-      }
+          goblinTrapAnalysis: prediction.metadata.goblinTrapAnalysis || 0
+        }}
     }
     if (this.temporalPatterns) {
 
@@ -321,9 +239,8 @@ export class EnsemblePredictor {
           microTrends: prediction.metadata.microTrends || 0,
           macroTrends: prediction.metadata.macroTrends || 0,
           cyclicalPatterns: prediction.metadata.cyclicalPatterns || 0,
-          circadianFactors: prediction.metadata.circadianFactors || 0,
-        };
-      }
+          circadianFactors: prediction.metadata.circadianFactors || 0
+        }}
     }
     if (this.alternativeData) {
 
@@ -333,9 +250,8 @@ export class EnsemblePredictor {
           weatherImpact: prediction.metadata.weatherImpact || 0,
           injuryImpact: prediction.metadata.injuryImpact || 0,
           travelImpact: prediction.metadata.travelImpact || 0,
-          venueImpact: prediction.metadata.venueImpact || 0,
-        };
-      }
+          venueImpact: prediction.metadata.venueImpact || 0
+        }}
     }
     if (this.gameTheory) {
 
@@ -345,9 +261,8 @@ export class EnsemblePredictor {
           psychologicalEdge: prediction.metadata.psychologicalEdge || 0,
           momentumFactor: prediction.metadata.momentumFactor || 0,
           pressureHandling: prediction.metadata.pressureHandling || 0,
-          adaptationScore: prediction.metadata.adaptationScore || 0,
-        };
-      }
+          adaptationScore: prediction.metadata.adaptationScore || 0
+        }}
     }
     if (this.quantumProbability) {
 
@@ -357,60 +272,51 @@ export class EnsemblePredictor {
           entanglementFactor: prediction.metadata.entanglementFactor || 0,
           interferencePattern: prediction.metadata.interferencePattern || 0,
           tunnelingProbability: prediction.metadata.tunnelingProbability || 0,
-          decoherenceRate: prediction.metadata.decoherenceRate || 0,
-        };
-      }
+          decoherenceRate: prediction.metadata.decoherenceRate || 0
+        }}
     }
 
-    return advancedPredictions;
-  }
+    return advancedPredictions;}
 
   private calculateWeightedPrediction(
-    predictions: Array<{ name: string; prediction: ModelPrediction }>,
+    predictions: Array<{ name: string; prediction: ModelPrediction}>,
     advancedPredictions: Partial<EnsemblePrediction>
   ): number {
     const totalWeight = 0;
     const weightedSum = 0;
 
     // Add base model predictions;
-    for (const { prediction } of predictions) {
+    for (const { prediction} of predictions) {
       weightedSum += prediction.probability * prediction.weight;
-      totalWeight += prediction.weight;
-    }
+      totalWeight += prediction.weight;}
 
     // Add advanced model predictions;
     if (advancedPredictions.marketIntelligence) {
 
       weightedSum +=
         this.calculateMarketIntelligenceScore(advancedPredictions.marketIntelligence) * weight;
-      totalWeight += weight;
-    }
+      totalWeight += weight;}
     if (advancedPredictions.temporalPatterns) {
 
       weightedSum +=
         this.calculateTemporalPatternsScore(advancedPredictions.temporalPatterns) * weight;
-      totalWeight += weight;
-    }
+      totalWeight += weight;}
     if (advancedPredictions.alternativeData) {
 
       weightedSum +=
         this.calculateAlternativeDataScore(advancedPredictions.alternativeData) * weight;
-      totalWeight += weight;
-    }
+      totalWeight += weight;}
     if (advancedPredictions.gameTheory) {
 
       weightedSum += this.calculateGameTheoryScore(advancedPredictions.gameTheory) * weight;
-      totalWeight += weight;
-    }
+      totalWeight += weight;}
     if (advancedPredictions.quantumProbability) {
 
       weightedSum +=
         this.calculateQuantumProbabilityScore(advancedPredictions.quantumProbability) * weight;
-      totalWeight += weight;
-    }
+      totalWeight += weight;}
 
-    return totalWeight > 0 ? weightedSum / totalWeight : 0.5;
-  }
+    return totalWeight > 0 ? weightedSum / totalWeight : 0.5;}
 
   private calculateMarketIntelligenceScore(
     marketIntelligence: NonNullable<EnsemblePrediction['marketIntelligence']>
@@ -419,8 +325,7 @@ export class EnsemblePredictor {
       marketIntelligence.sharpAction * 0.4 +
       marketIntelligence.bookmakerVulnerability * 0.3 +
       marketIntelligence.goblinTrapAnalysis * 0.3;
-    );
-  }
+    );}
 
   private calculateTemporalPatternsScore(
     temporalPatterns: NonNullable<EnsemblePrediction['temporalPatterns']>
@@ -430,8 +335,7 @@ export class EnsemblePredictor {
       temporalPatterns.macroTrends * 0.3 +
       temporalPatterns.cyclicalPatterns * 0.2 +
       temporalPatterns.circadianFactors * 0.2;
-    );
-  }
+    );}
 
   private calculateAlternativeDataScore(
     alternativeData: NonNullable<EnsemblePrediction['alternativeData']>
@@ -442,8 +346,7 @@ export class EnsemblePredictor {
       alternativeData.injuryImpact * 0.2 +
       alternativeData.travelImpact * 0.2 +
       alternativeData.venueImpact * 0.2;
-    );
-  }
+    );}
 
   private calculateGameTheoryScore(
     gameTheory: NonNullable<EnsemblePrediction['gameTheory']>
@@ -454,8 +357,7 @@ export class EnsemblePredictor {
       gameTheory.momentumFactor * 0.2 +
       gameTheory.pressureHandling * 0.2 +
       gameTheory.adaptationScore * 0.1;
-    );
-  }
+    );}
 
   private calculateQuantumProbabilityScore(
     quantumProbability: NonNullable<EnsemblePrediction['quantumProbability']>
@@ -466,16 +368,15 @@ export class EnsemblePredictor {
       quantumProbability.interferencePattern * 0.2 +
       quantumProbability.tunnelingProbability * 0.2 +
       quantumProbability.decoherenceRate * 0.2;
-    );
-  }
+    );}
 
   private calculateConfidenceAndRisk(
-    predictions: Array<{ name: string; prediction: ModelPrediction }>,
+    predictions: Array<{ name: string; prediction: ModelPrediction}>,
     advancedPredictions: Partial<EnsemblePrediction>
-  ): { confidence: number; riskLevel: number } {
+  ): { confidence: number; riskLevel: number} {
     // Calculate base model confidence;
     const baseConfidence =
-      predictions.reduce((acc, { prediction }) => acc + prediction.confidence, 0) /
+      predictions.reduce((acc, { prediction}) => acc + prediction.confidence, 0) /
       predictions.length;
 
     // Calculate advanced model confidence;
@@ -486,28 +387,23 @@ export class EnsemblePredictor {
       advancedConfidence += this.calculateMarketIntelligenceScore(
         advancedPredictions.marketIntelligence;
       );
-      advancedCount++;
-    }
+      advancedCount++;}
     if (advancedPredictions.temporalPatterns) {
       advancedConfidence += this.calculateTemporalPatternsScore(
         advancedPredictions.temporalPatterns;
       );
-      advancedCount++;
-    }
+      advancedCount++;}
     if (advancedPredictions.alternativeData) {
       advancedConfidence += this.calculateAlternativeDataScore(advancedPredictions.alternativeData);
-      advancedCount++;
-    }
+      advancedCount++;}
     if (advancedPredictions.gameTheory) {
       advancedConfidence += this.calculateGameTheoryScore(advancedPredictions.gameTheory);
-      advancedCount++;
-    }
+      advancedCount++;}
     if (advancedPredictions.quantumProbability) {
       advancedConfidence += this.calculateQuantumProbabilityScore(
         advancedPredictions.quantumProbability;
       );
-      advancedCount++;
-    }
+      advancedCount++;}
 
     advancedConfidence = advancedCount > 0 ? advancedConfidence / advancedCount : 0;
 
@@ -515,8 +411,7 @@ export class EnsemblePredictor {
 
     // Calculate risk level (inverse of confidence)
 
-    return { confidence, riskLevel };
-  }
+    return { confidence, riskLevel};}
 
   private calculateHistoricalAccuracy(): number {
     const totalAccuracy = 0;
@@ -526,157 +421,124 @@ export class EnsemblePredictor {
       if (predictions.length > 0) {
         const accuracy =
           predictions.reduce(
-            (acc, { prediction, actual }) => acc + (Math.abs(prediction - actual) < 0.1 ? 1 : 0),
+            (acc, { prediction, actual}) => acc + (Math.abs(prediction - actual) < 0.1 ? 1 : 0),
             0;
           ) / predictions.length;
         totalAccuracy += accuracy;
-        totalModels++;
-      }
+        totalModels++;}
     }
 
-    return totalModels > 0 ? totalAccuracy / totalModels : 0.5;
-  }
+    return totalModels > 0 ? totalAccuracy / totalModels : 0.5;}
 
   private calculateExpectedValueAndEdge(
     prediction: number,
     features: Record<string, any>
-  ): { expectedValue: number; edge: number } {
+  ): { expectedValue: number; edge: number} {
 
 
 
 
-    return { expectedValue, edge };
-  }
+    return { expectedValue, edge}}
 
   private calculateRecommendedStake(
     expectedValue: number,
     riskLevel: number,
-    historicalAccuracy: number;
+    historicalAccuracy: number
   ): number {
     // Kelly Criterion with risk adjustment;
 
 
-    return Math.max(0, Math.min(riskAdjustedFraction, 0.1)); // Cap at 10% of bankroll;
-  }
+    return Math.max(0, Math.min(riskAdjustedFraction, 0.1)); // Cap at 10% of bankroll;}
 
   private generateFactors(
-    predictions: Array<{ name: string; prediction: ModelPrediction }>,
+    predictions: Array<{ name: string; prediction: ModelPrediction}>,
     advancedPredictions: Partial<EnsemblePrediction>
-  ): string[] {
-    const factors: string[] = [];
+  ): string[0] {
+    const factors: string[0] = [0];
 
     // Add base model factors;
-    for (const { prediction } of predictions) {
+    for (const { prediction} of predictions) {
       if (prediction.metadata?.factors) {
-        factors.push(...prediction.metadata.factors);
-      }
+        factors.push(...prediction.metadata.factors);}
     }
 
     // Add advanced model factors;
     if (advancedPredictions.marketIntelligence) {
       if (advancedPredictions.marketIntelligence.sharpAction > 0.7) {
-        factors.push('Strong sharp money signal');
-      }
+        factors.push('Strong sharp money signal');}
       if (advancedPredictions.marketIntelligence.bookmakerVulnerability > 0.7) {
-        factors.push('High bookmaker vulnerability');
-      }
+        factors.push('High bookmaker vulnerability');}
       if (advancedPredictions.marketIntelligence.goblinTrapAnalysis > 0.7) {
-        factors.push('Potential goblin trap detected');
-      }
+        factors.push('Potential goblin trap detected');}
     }
 
     if (advancedPredictions.temporalPatterns) {
       if (advancedPredictions.temporalPatterns.microTrends > 0.7) {
-        factors.push('Strong micro-trends');
-      }
+        factors.push('Strong micro-trends');}
       if (advancedPredictions.temporalPatterns.macroTrends > 0.7) {
-        factors.push('Strong macro-trends');
-      }
+        factors.push('Strong macro-trends');}
       if (advancedPredictions.temporalPatterns.cyclicalPatterns > 0.7) {
-        factors.push('Clear cyclical patterns');
-      }
+        factors.push('Clear cyclical patterns');}
       if (advancedPredictions.temporalPatterns.circadianFactors > 0.7) {
-        factors.push('Significant circadian impact');
-      }
+        factors.push('Significant circadian impact');}
     }
 
     if (advancedPredictions.alternativeData) {
       if (advancedPredictions.alternativeData.socialMediaSentiment > 0.7) {
-        factors.push('Strong social media sentiment');
-      }
+        factors.push('Strong social media sentiment');}
       if (advancedPredictions.alternativeData.weatherImpact > 0.7) {
-        factors.push('Significant weather impact');
-      }
+        factors.push('Significant weather impact');}
       if (advancedPredictions.alternativeData.injuryImpact > 0.7) {
-        factors.push('Major injury impact');
-      }
+        factors.push('Major injury impact');}
       if (advancedPredictions.alternativeData.travelImpact > 0.7) {
-        factors.push('Significant travel impact');
-      }
+        factors.push('Significant travel impact');}
       if (advancedPredictions.alternativeData.venueImpact > 0.7) {
-        factors.push('Strong venue impact');
-      }
+        factors.push('Strong venue impact');}
     }
 
     if (advancedPredictions.gameTheory) {
       if (advancedPredictions.gameTheory.strategicAdvantage > 0.7) {
-        factors.push('Strong strategic advantage');
-      }
+        factors.push('Strong strategic advantage');}
       if (advancedPredictions.gameTheory.psychologicalEdge > 0.7) {
-        factors.push('Significant psychological edge');
-      }
+        factors.push('Significant psychological edge');}
       if (advancedPredictions.gameTheory.momentumFactor > 0.7) {
-        factors.push('Strong momentum');
-      }
+        factors.push('Strong momentum');}
       if (advancedPredictions.gameTheory.pressureHandling > 0.7) {
-        factors.push('Excellent pressure handling');
-      }
+        factors.push('Excellent pressure handling');}
       if (advancedPredictions.gameTheory.adaptationScore > 0.7) {
-        factors.push('High adaptation capability');
-      }
+        factors.push('High adaptation capability');}
     }
 
     if (advancedPredictions.quantumProbability) {
       if (advancedPredictions.quantumProbability.superpositionScore > 0.7) {
-        factors.push('Strong superposition state');
-      }
+        factors.push('Strong superposition state');}
       if (advancedPredictions.quantumProbability.entanglementFactor > 0.7) {
-        factors.push('High entanglement factor');
-      }
+        factors.push('High entanglement factor');}
       if (advancedPredictions.quantumProbability.interferencePattern > 0.7) {
-        factors.push('Clear interference pattern');
-      }
+        factors.push('Clear interference pattern');}
       if (advancedPredictions.quantumProbability.tunnelingProbability > 0.7) {
-        factors.push('High tunneling probability');
-      }
+        factors.push('High tunneling probability');}
       if (advancedPredictions.quantumProbability.decoherenceRate > 0.7) {
-        factors.push('Low decoherence rate');
-      }
+        factors.push('Low decoherence rate');}
     }
 
-    return [...new Set(factors)]; // Remove duplicates;
-  }
+    return [...new Set(factors)]; // Remove duplicates;}
 
-  async update(newData: any[]): Promise<void> {
+  async update(newData: any[0]): Promise<void> {
     // Update base models;
     await Promise.all(Array.from(this.models.values()).map(model => model.train(newData)));
 
     // Update advanced models;
     if (this.marketIntelligence) {
-      await this.marketIntelligence.update(newData);
-    }
+      await this.marketIntelligence.update(newData);}
     if (this.temporalPatterns) {
-      await this.temporalPatterns.update(newData);
-    }
+      await this.temporalPatterns.update(newData);}
     if (this.alternativeData) {
-      await this.alternativeData.update(newData);
-    }
+      await this.alternativeData.update(newData);}
     if (this.gameTheory) {
-      await this.gameTheory.update(newData);
-    }
+      await this.gameTheory.update(newData);}
     if (this.quantumProbability) {
-      await this.quantumProbability.update(newData);
-    }
+      await this.quantumProbability.update(newData);}
 
     // Update historical predictions;
     for (const [name, model] of this.models.entries()) {
@@ -685,16 +547,14 @@ export class EnsemblePredictor {
 
           return {
             prediction: prediction.probability,
-            actual: data.target,
-          };
-        })
+            actual: data.target
+          }})
       );
-      this.historicalPredictions.set(name, predictions);
-    }
+      this.historicalPredictions.set(name, predictions);}
   }
 
-  async evaluate(testData: any[]): Promise<Record<string, number>> {
-    const metrics: Record<string, number> = {};
+  async evaluate(testData: any[0]): Promise<Record<string, number>> {
+    const metrics: Record<string, number> = Record<string, any>;
 
     // Evaluate base models;
     for (const [name, model] of this.models.entries()) {
@@ -703,8 +563,7 @@ export class EnsemblePredictor {
 
       metrics[`${name}_mse`] = this.calculateMSE(actual, predicted);
       metrics[`${name}_mae`] = this.calculateMAE(actual, predicted);
-      metrics[`${name}_mape`] = this.calculateMAPE(actual, predicted);
-    }
+      metrics[`${name}_mape`] = this.calculateMAPE(actual, predicted);}
 
     // Evaluate advanced models;
     if (this.marketIntelligence) {
@@ -715,8 +574,7 @@ export class EnsemblePredictor {
 
       metrics.market_intelligence_mse = this.calculateMSE(actual, predicted);
       metrics.market_intelligence_mae = this.calculateMAE(actual, predicted);
-      metrics.market_intelligence_mape = this.calculateMAPE(actual, predicted);
-    }
+      metrics.market_intelligence_mape = this.calculateMAPE(actual, predicted);}
 
     if (this.temporalPatterns) {
       const predictions = await Promise.all(
@@ -726,8 +584,7 @@ export class EnsemblePredictor {
 
       metrics.temporal_patterns_mse = this.calculateMSE(actual, predicted);
       metrics.temporal_patterns_mae = this.calculateMAE(actual, predicted);
-      metrics.temporal_patterns_mape = this.calculateMAPE(actual, predicted);
-    }
+      metrics.temporal_patterns_mape = this.calculateMAPE(actual, predicted);}
 
     if (this.alternativeData) {
       const predictions = await Promise.all(
@@ -737,8 +594,7 @@ export class EnsemblePredictor {
 
       metrics.alternative_data_mse = this.calculateMSE(actual, predicted);
       metrics.alternative_data_mae = this.calculateMAE(actual, predicted);
-      metrics.alternative_data_mape = this.calculateMAPE(actual, predicted);
-    }
+      metrics.alternative_data_mape = this.calculateMAPE(actual, predicted);}
 
     if (this.gameTheory) {
 
@@ -746,8 +602,7 @@ export class EnsemblePredictor {
 
       metrics.game_theory_mse = this.calculateMSE(actual, predicted);
       metrics.game_theory_mae = this.calculateMAE(actual, predicted);
-      metrics.game_theory_mape = this.calculateMAPE(actual, predicted);
-    }
+      metrics.game_theory_mape = this.calculateMAPE(actual, predicted);}
 
     if (this.quantumProbability) {
       const predictions = await Promise.all(
@@ -757,38 +612,32 @@ export class EnsemblePredictor {
 
       metrics.quantum_probability_mse = this.calculateMSE(actual, predicted);
       metrics.quantum_probability_mae = this.calculateMAE(actual, predicted);
-      metrics.quantum_probability_mape = this.calculateMAPE(actual, predicted);
-    }
+      metrics.quantum_probability_mape = this.calculateMAPE(actual, predicted);}
 
-    return metrics;
-  }
+    return metrics;}
 
-  private calculateMSE(actual: number[], predicted: number[]): number {
-    return actual.reduce((acc, val, i) => acc + Math.pow(val - predicted[i], 2), 0) / actual.length;
-  }
+  private calculateMSE(actual: number[0], predicted: number[0]): number {
+    return actual.reduce((acc, val, i) => acc + Math.pow(val - predicted[i], 2), 0) / actual.length}
 
-  private calculateMAE(actual: number[], predicted: number[]): number {
-    return actual.reduce((acc, val, i) => acc + Math.abs(val - predicted[i]), 0) / actual.length;
-  }
+  private calculateMAE(actual: number[0], predicted: number[0]): number {
+    return actual.reduce((acc, val, i) => acc + Math.abs(val - predicted[i]), 0) / actual.length}
 
-  private calculateMAPE(actual: number[], predicted: number[]): number {
+  private calculateMAPE(actual: number[0], predicted: number[0]): number {
     return (
       actual.reduce((acc, val, i) => acc + Math.abs((val - predicted[i]) / val), 0) / actual.length;
-    );
-  }
+    );}
 
   private async getBayesianPrediction(
-    basePredictions: Array<{ name: string; prediction: ModelPrediction }>,
+    basePredictions: Array<{ name: string; prediction: ModelPrediction}>,
     features: Record<string, any>
-  ): Promise<{ mean: number; variance: number; credibleInterval: [number, number] }> {
+  ): Promise<{ mean: number; variance: number; credibleInterval: [number, number]}> {
     if (!this.config.bayesianInference?.enabled) {
 
       return {
         mean,
         variance: 0,
-        credibleInterval: [mean, mean],
-      };
-    }
+        credibleInterval: [mean, mean]
+      }}
 
     // Sample from posterior distribution;
 
@@ -802,18 +651,17 @@ export class EnsemblePredictor {
     return {
       mean,
       variance,
-      credibleInterval: [sortedSamples[lowerIndex], sortedSamples[upperIndex]],
-    };
-  }
+      credibleInterval: [sortedSamples[lowerIndex], sortedSamples[upperIndex]]
+    }}
 
   private async performMCMCSampling(
-    predictions: Array<{ name: string; prediction: ModelPrediction }>,
+    predictions: Array<{ name: string; prediction: ModelPrediction}>,
     features: Record<string, any>
-  ): Promise<number[]> {
-    const samples: number[] = [];
+  ): Promise<number[0]> {
+    const samples: number[0] = [0];
 
     // Initialize with weighted average;
-    const currentSample = this.calculateWeightedPrediction(predictions, {});
+    const currentSample = this.calculateWeightedPrediction(predictions, Record<string, any>);
 
     for (const i = 0; i < numSamples; i++) {
       // Propose new sample;
@@ -824,156 +672,142 @@ export class EnsemblePredictor {
 
       // Accept or reject;
       if (Math.random() < acceptanceRatio) {
-        currentSample = proposal;
-      }
+        currentSample = proposal;}
 
-      samples.push(currentSample);
-    }
+      samples.push(currentSample);}
 
-    return samples;
-  }
+    return samples;}
 
   private calculateLikelihood(
     sample: number,
-    predictions: Array<{ name: string; prediction: ModelPrediction }>,
+    predictions: Array<{ name: string; prediction: ModelPrediction}>,
     features: Record<string, any>
   ): number {
     // Calculate likelihood based on model predictions and prior;
 
     // Model likelihood;
-    const modelLikelihood = predictions.reduce((acc, { prediction }) => {
+    const modelLikelihood = predictions.reduce((acc, { prediction}) => {
 
-      return acc * Math.exp((-0.5 * diff * diff) / (prediction.confidence || 0.1));
-    }, 1);
+      return acc * Math.exp((-0.5 * diff * diff) / (prediction.confidence || 0.1));}, 1);
 
     // Prior likelihood (assuming uniform prior)
 
-    return modelLikelihood * Math.pow(priorLikelihood, priorStrength);
-  }
+    return modelLikelihood * Math.pow(priorLikelihood, priorStrength);}
 
   private async computeFeatureAttribution(
     features: Record<string, any>
-  ): Promise<FeatureAttribution[]> {
+  ): Promise<FeatureAttribution[0]> {
     // Proxy for SHAP: permutation feature importance;
     // For each feature, shuffle its value and measure the change in ensemble prediction;
 
-    const attributions: FeatureAttribution[] = [];
+    const attributions: FeatureAttribution[0] = [0];
     for (const key of Object.keys(features)) {
 
 
       attributions.push({
         feature: key,
         value: features[key],
-        impact: Math.abs(basePrediction - shuffledPrediction),
-      });
-    }
+        impact: Math.abs(basePrediction - shuffledPrediction)
+      })}
     // Sort by impact descending and return top 10;
-    return attributions.sort((a, b) => b.impact - a.impact).slice(0, 10);
-  }
+    return attributions.sort((a, b) => b.impact - a.impact).slice(0, 10);}
 
   private shuffleValue(value: any): any {
     // Simple shuffle for numeric/categorical;
     if (typeof value === 'number') {
-      return value + (Math.random() - 0.5) * value * 0.1;
-    }
+      return value + (Math.random() - 0.5) * value * 0.1;}
     if (Array.isArray(value)) {
-      return value.slice().sort(() => Math.random() - 0.5);
-    }
+      return value.slice().sort(() => Math.random() - 0.5);}
     if (typeof value === 'string') {
       return value;
         .split('')
         .sort(() => Math.random() - 0.5)
-        .join('');
-    }
-    return value;
-  }
+        .join('');}
+    return value;}
 
   private async predictSingle(features: Record<string, any>): Promise<number> {
     // Use the ensemble to get a single probability prediction for feature attribution;
     // This should be a lightweight version of the main predict logic;
     // ... implement a simplified ensemble prediction ...
-    return 0.5; // Placeholder, replace with actual logic;
-  }
+    return 0.5; // Placeholder, replace with actual logic;}
 
   /**
    * Update ensemble configuration at runtime (e.g., weights, enabled models, meta-learning, risk profile)
    */
   public updateConfig(newConfig: Partial<EnsembleConfig>): void {
-    this.config = { ...this.config, ...newConfig };
+    this.config = { ...this.config, ...newConfig};
     // Optionally re-initialize models if structure changes;
-    // this.initializeModels();
-  }
+    // this.initializeModels();}
 
   /**
    * Update model weights at runtime;
    */
-  public updateModelWeights(weights: { [modelName: string]: number }): void {
+  public updateModelWeights(weights: { [modelName: string]: number}): void {
     for (const model of this.config.models) {
       if (weights[model.name] !== undefined) {
-        model.weight = weights[model.name];
-      }
-    }
-  }
+        model.weight = weights[model.name]}
+    }}
 
   /**
    * Update risk profile parameters at runtime;
    */
-  public updateRiskProfile(riskParams: { [key: string]: any }): void {
+  public updateRiskProfile(riskParams: { [key: string]: any}): void {
     // Example: adjust risk calculation logic or thresholds;
     // Extend as needed for your risk model;
-    (this as any).riskProfileParams = { ...(this as any).riskProfileParams, ...riskParams };
-  }
+    (this as any).riskProfileParams = { ...(this as any).riskProfileParams, ...riskParams};}
 
   /**
    * Enable or disable meta-learning (stacked generalization) at runtime;
    */
   public setMetaLearning(enabled: boolean, metaModelType?: string): void {
-    if (!this.config.stackedGeneralization) this.config.stackedGeneralization = { enabled, metaModelType: metaModelType || 'logistic', crossValidationFolds: 5 };
+    if (!this.config.stackedGeneralization) this.config.stackedGeneralization = { enabled, metaModelType: metaModelType || 'logistic', crossValidationFolds: 5};
     else {
       this.config.stackedGeneralization.enabled = enabled;
-      if (metaModelType) this.config.stackedGeneralization.metaModelType = metaModelType;
-    }
+      if (metaModelType) this.config.stackedGeneralization.metaModelType = metaModelType;}
   }
 
   /**
    * Enable or disable Bayesian inference at runtime;
    */
   public setBayesianInference(enabled: boolean, priorStrength?: number, mcmcSamples?: number): void {
-    if (!this.config.bayesianInference) this.config.bayesianInference = { enabled, priorStrength: priorStrength || 1, mcmcSamples: mcmcSamples || 1000 };
+    if (!this.config.bayesianInference) this.config.bayesianInference = { enabled, priorStrength: priorStrength || 1, mcmcSamples: mcmcSamples || 1000};
     else {
       this.config.bayesianInference.enabled = enabled;
       if (priorStrength) this.config.bayesianInference.priorStrength = priorStrength;
-      if (mcmcSamples) this.config.bayesianInference.mcmcSamples = mcmcSamples;
-    }
+      if (mcmcSamples) this.config.bayesianInference.mcmcSamples = mcmcSamples;}
   }
 
   private async getMetaModel(): Promise<BaseModel> {
     // TODO: Implement meta-model selection and instantiation;
     // For now, return a dummy model that returns a fixed probability;
     return {
-      async predict() { return { probability: 0.5, confidence: 0.5, weight: 1, features: {}, metadata: {} }; },
-      train: async () => {},
-      evaluate: async () => ({}),
-      save: async () => {},
-      load: async () => {},
+      async predict() { return { probability: 0.5, confidence: 0.5, weight: 1, features: Record<string, any>, metadata: Record<string, any> }},
+      train: async () => Record<string, any>,
+      evaluate: async () => (Record<string, any>),
+      save: async () => Record<string, any>,
+      load: async () => Record<string, any>,
       getModelId: () => 'meta',
-      getConfig: () => ({} as any),
+      getConfig: () => (Record<string, any> as any),
       isModelTrained: () => true,
       getLastUpdate: () => new Date().toISOString(),
-      getMetadata: () => ({}),
-      getModelInfo: () => ({}),
-      on: () => {},
-      emit: () => {},
-      addListener: () => {},
-      removeListener: () => {},
-      once: () => {},
-      off: () => {},
-      listeners: () => [],
-      removeAllListeners: () => {},
-      setMaxListeners: () => {},
+      getMetadata: () => (Record<string, any>),
+      getModelInfo: () => (Record<string, any>),
+      on: () => Record<string, any>,
+      emit: () => Record<string, any>,
+      addListener: () => Record<string, any>,
+      removeListener: () => Record<string, any>,
+      once: () => Record<string, any>,
+      off: () => Record<string, any>,
+      listeners: () => [0],
+      removeAllListeners: () => Record<string, any>,
+      setMaxListeners: () => Record<string, any>,
       getMaxListeners: () => 10,
-      rawListeners: () => [],
-      eventNames: () => [],
-    } as unknown as BaseModel;
-  }
+      rawListeners: () => [0],
+      eventNames: () => [0]
+    } as unknown as BaseModel}
 }
+
+
+
+
+`

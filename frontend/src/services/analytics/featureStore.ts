@@ -1,7 +1,7 @@
-import { FeatureConfig, EngineeredFeatures, FeatureStoreConfig } from '@/types.ts';
-import { FeatureLogger } from './featureLogging.ts';
-import * as fs from 'fs.ts';
-import * as path from 'path.ts';
+﻿import { FeatureConfig, EngineeredFeatures, FeatureStoreConfig} from '@/types';
+import { FeatureLogger} from './featureLogging';
+import * as fs from 'fs';
+import * as path from 'path';
 
 export class FeatureStore {
   private readonly config: FeatureStoreConfig;
@@ -12,15 +12,13 @@ export class FeatureStore {
     this.config = config;
     this.logger = new FeatureLogger();
     this.storePath = this.config.path || path.join(process.cwd(), 'feature-store');
-    this.initializeStore();
-  }
+    this.initializeStore();}
 
   private initializeStore(): void {
     try {
       if (!fs.existsSync(this.storePath)) {
-        fs.mkdirSync(this.storePath, { recursive: true });
-        this.logger.info(`Created feature store directory at ${this.storePath}`);
-      }
+        fs.mkdirSync(this.storePath, { recursive: true});
+        this.logger.info(`Created feature store directory at ${this.storePath}`);}
 
       // Create subdirectories for different feature types;
 
@@ -28,13 +26,10 @@ export class FeatureStore {
 
         if (!fs.existsSync(dirPath)) {
           fs.mkdirSync(dirPath);
-          this.logger.info(`Created subdirectory for ${dir} features`);
-        }
-      }
-    } catch (error) {
+          this.logger.info(`Created subdirectory for ${dir} features`);}
+      }} catch (error) {
       this.logger.error('Failed to initialize feature store', error);
-      throw error;
-    }
+      throw error;}
   }
 
   public async saveFeatures(features: EngineeredFeatures, version: string): Promise<void> {
@@ -43,8 +38,7 @@ export class FeatureStore {
 
       // Create version directory;
       if (!fs.existsSync(versionDir)) {
-        fs.mkdirSync(versionDir, { recursive: true });
-      }
+        fs.mkdirSync(versionDir, { recursive: true})}
 
       // Save numerical features;
       await this.saveFeatureType(
@@ -73,12 +67,11 @@ export class FeatureStore {
       const versionInfo = {
         version,
         timestamp,
-        featureCounts: {
-          numerical: Object.keys(features.numerical).length,
+        featureCounts: {,`n  numerical: Object.keys(features.numerical).length,
           categorical: Object.keys(features.categorical).length,
           temporal: Object.keys(features.temporal).length,
-          derived: Object.keys(features.derived).length,
-        },
+          derived: Object.keys(features.derived).length
+        }
       };
 
       fs.writeFileSync(
@@ -86,68 +79,57 @@ export class FeatureStore {
         JSON.stringify(versionInfo, null, 2)
       );
 
-      this.logger.info(`Saved features version ${version}`, versionInfo);
-    } catch (error) {
+      this.logger.info(`Saved features version ${version}`, versionInfo);} catch (error) {
       this.logger.error('Failed to save features', error);
-      throw error;
-    }
+      throw error;}
   }
 
   private async saveFeatureType(
-    features: Record<string, any[]>,
+    features: Record<string, any[0]>,
     dirPath: string,
-    type: string;
+    type: string
   ): Promise<void> {
     try {
       if (!fs.existsSync(dirPath)) {
-        fs.mkdirSync(dirPath, { recursive: true });
-      }
+        fs.mkdirSync(dirPath, { recursive: true})}
 
       for (const [feature, values] of Object.entries(features)) {
 
-        fs.writeFileSync(filePath, JSON.stringify(values, null, 2));
-      }
+        fs.writeFileSync(filePath, JSON.stringify(values, null, 2));}
 
-      this.logger.debug(`Saved ${type} features to ${dirPath}`);
-    } catch (error) {
+      this.logger.debug(`Saved ${type} features to ${dirPath}`);} catch (error) {
       this.logger.error(`Failed to save ${type} features`, error);
-      throw error;
-    }
+      throw error;}
   }
 
   private async saveMetadata(
     metadata: EngineeredFeatures['metadata'],
-    versionDir: string;
+    versionDir: string
   ): Promise<void> {
     try {
 
       fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2));
-      this.logger.debug('Saved feature metadata');
-    } catch (error) {
+      this.logger.debug('Saved feature metadata');} catch (error) {
       this.logger.error('Failed to save feature metadata', error);
-      throw error;
-    }
+      throw error;}
   }
 
   public async loadFeatures(version: string): Promise<EngineeredFeatures> {
     try {
 
       if (!fs.existsSync(versionDir)) {
-        throw new Error(`Feature version ${version} not found`);
-      }
+        throw new Error(`Feature version ${version} not found`)}
 
-      const features: EngineeredFeatures = {
-        numerical: {},
-        categorical: {},
-        temporal: {},
-        derived: {},
-        metadata: {
-          featureNames: [],
-          featureTypes: {},
-          scalingParams: {},
-          encodingMaps: {},
-          lastUpdated: new Date().toISOString(),
-        },
+      const features: EngineeredFeatures = {,`n  numerical: Record<string, any>,
+        categorical: Record<string, any>,
+        temporal: Record<string, any>,
+        derived: Record<string, any>,
+        metadata: {,`n  featureNames: [0],
+          featureTypes: Record<string, any>,
+          scalingParams: Record<string, any>,
+          encodingMaps: Record<string, any>,
+          lastUpdated: new Date().toISOString()
+        }
       };
 
       // Load numerical features;
@@ -172,100 +154,84 @@ export class FeatureStore {
       features.metadata = await this.loadMetadata(versionDir);
 
       this.logger.info(`Loaded features version ${version}`);
-      return features;
-    } catch (error) {
+      return features;} catch (error) {
       this.logger.error('Failed to load features', error);
-      throw error;
-    }
+      throw error;}
   }
 
-  private async loadFeatureType(dirPath: string, type: string): Promise<Record<string, any[]>> {
+  private async loadFeatureType(dirPath: string, type: string): Promise<Record<string, any[0]>> {
     try {
-      const features: Record<string, any[]> = {};
+      const features: Record<string, any[0]> = Record<string, any>;
 
       for (const file of files) {
         if (file.endsWith('.json')) {
 
 
 
-          features[feature] = JSON.parse(content);
-        }
+          features[feature] = JSON.parse(content);}
       }
 
       this.logger.debug(`Loaded ${type} features from ${dirPath}`);
-      return features;
-    } catch (error) {
+      return features;} catch (error) {
       this.logger.error(`Failed to load ${type} features`, error);
-      throw error;
-    }
+      throw error;}
   }
 
   private async loadMetadata(versionDir: string): Promise<EngineeredFeatures['metadata']> {
     try {
 
 
-      return JSON.parse(content);
-    } catch (error) {
+      return JSON.parse(content)} catch (error) {
       this.logger.error('Failed to load feature metadata', error);
-      throw error;
-    }
+      throw error;}
   }
 
-  public async listVersions(): Promise<string[]> {
+  public async listVersions(): Promise<string[0]> {
     try {
       const versions = fs;
         .readdirSync(this.storePath)
         .filter(dir => fs.statSync(path.join(this.storePath, dir)).isDirectory())
         .filter(dir => fs.existsSync(path.join(this.storePath, dir, 'version-info.json')));
 
-      return versions;
-    } catch (error) {
+      return versions;} catch (error) {
       this.logger.error('Failed to list feature versions', error);
-      throw error;
-    }
+      throw error;}
   }
 
   public async getVersionInfo(version: string): Promise<any> {
     try {
 
       if (!fs.existsSync(versionInfoPath)) {
-        throw new Error(`Version info for ${version} not found`);
-      }
+        throw new Error(`Version info for ${version} not found`)}
 
-      return JSON.parse(content);
-    } catch (error) {
+      return JSON.parse(content);} catch (error) {
       this.logger.error('Failed to get version info', error);
-      throw error;
-    }
+      throw error;}
   }
 
   public async deleteVersion(version: string): Promise<void> {
     try {
 
       if (!fs.existsSync(versionDir)) {
-        throw new Error(`Feature version ${version} not found`);
-      }
+        throw new Error(`Feature version ${version} not found`)}
 
-      fs.rmSync(versionDir, { recursive: true, force: true });
-      this.logger.info(`Deleted feature version ${version}`);
-    } catch (error) {
+      fs.rmSync(versionDir, { recursive: true, force: true});
+      this.logger.info(`Deleted feature version ${version}`);} catch (error) {
       this.logger.error('Failed to delete feature version', error);
-      throw error;
-    }
+      throw error;}
   }
 
   public async cleanupOldVersions(maxVersions: number): Promise<void> {
     try {
 
       if (versions.length <= maxVersions) {
-        return;
-      }
+        return}
 
       // Sort versions by timestamp;
       const versionInfos = await Promise.all(
         versions.map(async version => ({
           version,
-          info: await this.getVersionInfo(version),
+          info: await this.getVersionInfo(version)
         }))
       );
 
@@ -275,14 +241,14 @@ export class FeatureStore {
 
       // Delete oldest versions;
 
-      for (const { version } of versionsToDelete) {
-        await this.deleteVersion(version);
-      }
+      for (const { version} of versionsToDelete) {
+        await this.deleteVersion(version);}
 
-      this.logger.info(`Cleaned up ${versionsToDelete.length} old feature versions`);
-    } catch (error) {
+      this.logger.info(`Cleaned up ${versionsToDelete.length} old feature versions`);} catch (error) {
       this.logger.error('Failed to cleanup old versions', error);
-      throw error;
-    }
-  }
-}
+      throw error;}
+  }}
+
+
+
+`

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo, useCallback  } from 'react.ts';
-import { AnimatePresence, motion } from 'framer-motion.ts';
+﻿import React, { useState, useEffect, useMemo, useCallback} from 'react';
+import { AnimatePresence, motion} from 'framer-motion';
 import {
   BarChart3,
   Bell,
@@ -17,65 +17,51 @@ import {
   Gamepad2,
   Activity,
   Shield,
-  BarChart,
-} from 'lucide-react.ts';
+//   BarChart
+} from 'lucide-react';
 
 // Enhanced imports for consolidated money-making interface;
-import { useQueryClient } from '@tanstack/react-query.ts';
-import { useWebSocket } from '@/hooks/useWebSocket.ts';
-import useUserStats from '@/hooks/useUserStats.ts';
+import { useQueryClient} from '@tanstack/react-query';
+import { useWebSocket} from '@/hooks/useWebSocket';
+import useUserStats from '@/hooks/useUserStats';
 import { 
   initializeSettings, 
   getUserDisplayName, 
-  getUserEmail; 
-} from '@/utils/userSettings.ts';
+  getUserEmail} from '@/utils/userSettings';
 
 // Money-making service imports;
-import RealTimeMoneyMakingService from '@/services/RealTimeMoneyMakingService.ts';
-import { analytics } from '@/utils/analytics.ts';
+import RealTimeMoneyMakingService from '@/services/RealTimeMoneyMakingService';
+import { analytics} from '@/utils/analytics';
 
 // Core components;
-import OfflineIndicator from '@/ui/OfflineIndicator.ts';
-import ApiErrorBoundary from '@/ApiErrorBoundary.ts';
-import toast from 'react-hot-toast.ts';
+import OfflineIndicator from '@/ui/OfflineIndicator';
+import ApiErrorBoundary from '@/ApiErrorBoundary';
+import toast from 'react-hot-toast';
 
 // Enhanced money-making components;
-import UltimateOpportunityScanner from './UltimateOpportunityScanner.ts';
-import ArbitrageHunter from './ArbitrageHunter.ts';
-import EsportsMoneyMaker from './EsportsMoneyMaker.ts';
-import PortfolioCommander from './PortfolioCommander.ts';
-import RiskEngineInterface from './RiskEngineInterface.ts';
-import AnalyticsCommandCenter from './AnalyticsCommandCenter.ts';
+import UltimateOpportunityScanner from './UltimateOpportunityScanner';
+import ArbitrageHunter from './ArbitrageHunter';
+import EsportsMoneyMaker from './EsportsMoneyMaker';
+import PortfolioCommander from './PortfolioCommander';
+import RiskEngineInterface from './RiskEngineInterface';
+import AnalyticsCommandCenter from './AnalyticsCommandCenter';
 
 // Existing user-friendly components;
-import MoneyMakerPro from './MoneyMakerPro.ts';
-import PrizePicksProNew from './PrizePicksProNew.ts';
-import PropOllama from './PropOllama.ts';
-import UserFriendlyDashboard from './UserFriendlyDashboard.ts';
-import SimpleSettings from './SimpleSettings.ts';
-import UserProfile from './UserProfile.ts';
-import CleanAdvancedIntelligenceHub from '@/intelligence/CleanAdvancedIntelligenceHub.ts';
+import MoneyMakerPro from './MoneyMakerPro';
+import PrizePicksProNew from './PrizePicksProNew';
+import PropOllama from './PropOllama';
+import UserFriendlyDashboard from './UserFriendlyDashboard';
+import SimpleSettings from './SimpleSettings';
+import UserProfile from './UserProfile';
+import CleanAdvancedIntelligenceHub from '@/intelligence/CleanAdvancedIntelligenceHub';
 
 interface NavigationItem {
-  id: string;
-  label: string;
-  icon: React.ReactNode;
-  component: React.ComponentType<any key={295429}>;
-  badge?: string;
-  description: string;
-  category: 'primary' | 'advanced' | 'tools' | 'settings';
-}
+  id: string,`n  label: string;,`n  icon: React.ReactNode,`n  component: React.ComponentType<any key={295429}>;
+  badge?: string
+  description: string,`n  category: 'primary' | 'advanced' | 'tools' | 'settings'}
 
 interface UserData {
-  name: string;
-  email: string;
-  balance: number;
-  tier: string;
-  winRate: number;
-  totalProfit: number;
-  activeOpportunities: number;
-  todayProfit: number;
-}
+  name: string,`n  email: string;,`n  balance: number,`n  tier: string;,`n  winRate: number,`n  totalProfit: number;,`n  activeOpportunities: number,`n  todayProfit: number}
 
 // Enhanced health check with money-making metrics;
 const useEnhancedHealthCheck = () => {
@@ -100,27 +86,22 @@ const useEnhancedHealthCheck = () => {
           isOnline,
           accuracy,
           opportunities: opportunitiesFound,
-          systemLoad;
-        });
-      } catch (error) {
+          systemLoad});} catch (error) {
         setIsOnline(false);
-        // console statement removed
-      }
+        // console statement removed}
     }, 30000);
 
-    return () => clearInterval(healthTimer);
-  }, [isOnline, accuracy, opportunitiesFound, systemLoad]);
+    return () => clearInterval(healthTimer);}, [isOnline, accuracy, opportunitiesFound, systemLoad]);
 
-  return { isOnline, accuracy, opportunitiesFound, systemLoad };
-};
+  return { isOnline, accuracy, opportunitiesFound, systemLoad};};
 
 const EnhancedUserFriendlyApp: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string key={278855}>("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
 
-  const { isOnline, accuracy, opportunitiesFound, systemLoad } = useEnhancedHealthCheck();
-  const { userStats, backendHealth, isLoading, error } = useUserStats();
+  const { isOnline, accuracy, opportunitiesFound, systemLoad} = useEnhancedHealthCheck();
+  const { userStats, backendHealth, isLoading, error} = useUserStats();
 
   // Enhanced user data with money-making metrics;
   const userData: UserData = useMemo(
@@ -132,7 +113,7 @@ const EnhancedUserFriendlyApp: React.FC = () => {
       winRate: userStats.winRate,
       totalProfit: userStats.totalProfit,
       activeOpportunities: opportunitiesFound,
-      todayProfit: userStats.todayProfit || 0,
+      todayProfit: userStats.todayProfit || 0
     }),
     [userStats, opportunitiesFound],
   );
@@ -149,26 +130,22 @@ const EnhancedUserFriendlyApp: React.FC = () => {
         minConfidence: 0.7,
         maxExposure: 1000,
         scanIntervalMs: 30000,
-        strategies: ['prizepicks', 'arbitrage', 'value_bet']
-      });
+        strategies: ['prizepicks', 'arbitrage', 'value_bet']});
 
       toast.success("🚀 Ultimate Money Making System Activated!", {
         duration: 3000,
-        icon: "💰",
+        icon: "💰"
       });
       
       analytics.track('app_initialized', {
         user: userData.name,
-        tier: userData.tier;
-      });
-    } catch (error) {
+        tier: userData.tier})} catch (error) {
       toast.error("⚠️ System initialization failed");
-      // console statement removed
-    }
+      // console statement removed}
   }, [userData.name, userData.tier]);
 
   // Enhanced navigation with all money-making tools;
-  const navigationItems: NavigationItem[] = useMemo(
+  const navigationItems: NavigationItem[0] = useMemo(
     () => [
       // Primary money-making tools;
       {
@@ -178,8 +155,7 @@ const EnhancedUserFriendlyApp: React.FC = () => {
         component: UserFriendlyDashboard,
         badge: isOnline ? "🎯" : "⚡",
         description: "Real-time profit overview",
-        category: 'primary'
-      },
+        category: 'primary'},
       {
         id: "opportunities",
         label: "Opportunity Scanner",
@@ -187,8 +163,7 @@ const EnhancedUserFriendlyApp: React.FC = () => {
         component: UltimateOpportunityScanner,
         badge: opportunitiesFound > 0 ? `${opportunitiesFound}` : "🔍",
         description: "Live profit opportunities",
-        category: 'primary'
-      },
+        category: 'primary'},
       {
         id: "arbitrage",
         label: "Arbitrage Hunter",
@@ -196,8 +171,7 @@ const EnhancedUserFriendlyApp: React.FC = () => {
         component: ArbitrageHunter,
         badge: "⚡",
         description: "Guaranteed profit detection",
-        category: 'primary'
-      },
+        category: 'primary'},
       {
         id: "prizepicks",
         label: "PrizePicks Pro",
@@ -205,8 +179,7 @@ const EnhancedUserFriendlyApp: React.FC = () => {
         component: PrizePicksProNew,
         badge: accuracy > 80 ? "🎯" : "📊",
         description: "Daily fantasy optimization",
-        category: 'primary'
-      },
+        category: 'primary'},
       
       // Advanced tools;
       {
@@ -216,8 +189,7 @@ const EnhancedUserFriendlyApp: React.FC = () => {
         component: EsportsMoneyMaker,
         badge: "🎮",
         description: "Esports betting opportunities",
-        category: 'advanced'
-      },
+        category: 'advanced'},
       {
         id: "moneymaker",
         label: "Money Maker Pro",
@@ -225,8 +197,7 @@ const EnhancedUserFriendlyApp: React.FC = () => {
         component: MoneyMakerPro,
         badge: "💰",
         description: "Advanced money making",
-        category: 'advanced'
-      },
+        category: 'advanced'},
       {
         id: "portfolio",
         label: "Portfolio Manager",
@@ -234,8 +205,7 @@ const EnhancedUserFriendlyApp: React.FC = () => {
         component: PortfolioCommander,
         badge: "📈",
         description: "Portfolio optimization",
-        category: 'advanced'
-      },
+        category: 'advanced'},
       {
         id: "risk",
         label: "Risk Engine",
@@ -243,8 +213,7 @@ const EnhancedUserFriendlyApp: React.FC = () => {
         component: RiskEngineInterface,
         badge: "🛡️",
         description: "Risk management tools",
-        category: 'advanced'
-      },
+        category: 'advanced'},
       
       // Tools and analytics;
       {
@@ -254,8 +223,7 @@ const EnhancedUserFriendlyApp: React.FC = () => {
         component: PropOllama,
         badge: "🤖",
         description: "AI prediction engine",
-        category: 'tools'
-      },
+        category: 'tools'},
       {
         id: "analytics",
         label: "Analytics Center",
@@ -263,8 +231,7 @@ const EnhancedUserFriendlyApp: React.FC = () => {
         component: AnalyticsCommandCenter,
         badge: "📊",
         description: "Performance analytics",
-        category: 'tools'
-      },
+        category: 'tools'},
       {
         id: "intelligence",
         label: "Intelligence Hub",
@@ -272,8 +239,7 @@ const EnhancedUserFriendlyApp: React.FC = () => {
         component: CleanAdvancedIntelligenceHub,
         badge: isOnline ? "🧠" : "⚡",
         description: "Advanced intelligence",
-        category: 'tools'
-      },
+        category: 'tools'},
       
       // Settings;
       {
@@ -283,8 +249,7 @@ const EnhancedUserFriendlyApp: React.FC = () => {
         component: SimpleSettings,
         badge: undefined,
         description: "System configuration",
-        category: 'settings'
-      },
+        category: 'settings'},
       {
         id: "profile",
         label: "Profile",
@@ -292,8 +257,7 @@ const EnhancedUserFriendlyApp: React.FC = () => {
         component: UserProfile,
         badge: "👤",
         description: "Account management",
-        category: 'settings'
-      },
+        category: 'settings'},
     ],
     [isOnline, accuracy, opportunitiesFound],
   );
@@ -312,15 +276,13 @@ const EnhancedUserFriendlyApp: React.FC = () => {
 
       toast.success(`Switched to ${item?.label || page}`, {
         duration: 2000,
-        icon: "🎯",
+        icon: "🎯"
       });
       
       analytics.track('navigation', { 
         from: activeTab, 
         to: page,
-        category: item?.category; 
-      });
-    },
+        category: item?.category})},
     [navigationItems, activeTab],
   );
 
@@ -330,8 +292,7 @@ const EnhancedUserFriendlyApp: React.FC = () => {
     if (showAdvanced) return navigationItems;
     return navigationItems.filter(item => 
       item.category === 'primary' || item.category === 'settings'
-    );
-  }, [navigationItems, showAdvanced]);
+    );}, [navigationItems, showAdvanced]);
 
   return (
     <ApiErrorBoundary key={860757}>
@@ -400,8 +361,7 @@ const EnhancedUserFriendlyApp: React.FC = () => {
                 className={`px-3 py-1 rounded-lg text-sm transition-colors ${
                   showAdvanced; 
                     ? "bg-cyan-500/20 text-cyan-400" 
-                    : "bg-gray-800/40 text-gray-300 hover:bg-gray-700/40"
-                }`}
+                    : "bg-gray-800/40 text-gray-300 hover:bg-gray-700/40"}`}
                key={325898}>
                 {showAdvanced ? "Simple" : "Advanced"}
               </button>
@@ -419,9 +379,9 @@ const EnhancedUserFriendlyApp: React.FC = () => {
           <AnimatePresence key={359944}>
             {(sidebarOpen || window.innerWidth >= 1024) && (
               <motion.aside;
-                initial={{ x: -300 }}
-                animate={{ x: 0 }}
-                exit={{ x: -300 }}
+                initial={{ x: -300}}
+                animate={{ x: 0}}
+                exit={{ x: -300}}
                 className="fixed lg:relative z-40 w-80 h-full bg-black/30 backdrop-blur-xl border-r border-cyan-500/20 overflow-y-auto"
                key={887805}>
                 <div className="p-6" key={935494}>
@@ -442,10 +402,9 @@ const EnhancedUserFriendlyApp: React.FC = () => {
                         className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
                           activeTab === item.id;
                             ? "bg-cyan-500/20 text-cyan-400 shadow-lg shadow-cyan-500/20"
-                            : "text-gray-300 hover:bg-gray-800/40 hover:text-white"
-                        }`}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
+                            : "text-gray-300 hover:bg-gray-800/40 hover:text-white"}`}
+                        whileHover={{ scale: 1.02}}
+                        whileTap={{ scale: 0.98}}
                       >
                         <div className="flex-shrink-0" key={11962}>{item.icon}</div>
                         <div className="flex-1 text-left" key={210416}>
@@ -470,10 +429,10 @@ const EnhancedUserFriendlyApp: React.FC = () => {
             <div className="p-6" key={935494}>
               <motion.div;
                 key={activeTab}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, y: 20}}
+                animate={{ opacity: 1, y: 0}}
+                exit={{ opacity: 0, y: -20}}
+                transition={{ duration: 0.3}}
                key={950698}>
                 <ActiveComponent / key={227587}>
               </motion.div>
@@ -485,7 +444,11 @@ const EnhancedUserFriendlyApp: React.FC = () => {
         {!isOnline && <OfflineIndicator show={!isOnline} service="Network Connection" / key={438819}>}
       </div>
     </ApiErrorBoundary>
-  );
-};
+  )};
 
 export default EnhancedUserFriendlyApp;
+
+
+
+
+`

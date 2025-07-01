@@ -1,23 +1,15 @@
-import React from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React from 'react';
+import { motion} from 'framer-motion';
 
 export interface PerformanceAlert {
-  id: string;
-  metric: string;
-  value: number;
-  threshold: number;
-  severity: 'critical' | 'warning' | 'info';
-  timestamp: number;
-  message: string;
-}
+  id: string,`n  metric: string;,`n  value: number,`n  threshold: number;,`n  severity: 'critical' | 'warning' | 'info',`n  timestamp: number;,`n  message: string}
 
 interface PerformanceAlertProps {
   alert: PerformanceAlert;
   onDismiss?: (id: string) => void;
-  onAcknowledge?: (id: string) => void;
-}
+  onAcknowledge?: (id: string) => void}
 
-const PerformanceAlert: React.FC<PerformanceAlertProps key={394969}> = ({ alert, onDismiss, onAcknowledge }) => {
+const PerformanceAlert: React.FC<PerformanceAlertProps key={394969}> = ({ alert, onDismiss, onAcknowledge}) => {
   const getSeverityColor = (severity: PerformanceAlert['severity']) => {
     switch (severity) {
       case 'critical':
@@ -26,9 +18,7 @@ const PerformanceAlert: React.FC<PerformanceAlertProps key={394969}> = ({ alert,
         return 'bg-yellow-100 border-yellow-500 text-yellow-700';
       case 'info':
         return 'bg-blue-100 border-blue-500 text-blue-700';
-      default:
-        return 'bg-gray-100 border-gray-500 text-gray-700';
-    }
+      default: return 'bg-gray-100 border-gray-500 text-gray-700'}
   };
 
   const getSeverityIcon = (severity: PerformanceAlert['severity']) => {
@@ -63,17 +53,15 @@ const PerformanceAlert: React.FC<PerformanceAlertProps key={394969}> = ({ alert,
             / key={276387}>
           </svg>
         );
-      default:
-        return null;
-    }
+      default: return null}
   };
 
   return (
     <motion.div;
-      animate={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 0}}
       className={`rounded-lg border-l-4 p-4 ${getSeverityColor(alert.severity)}`}
-      exit={{ opacity: 0, y: 20 }}
-      initial={{ opacity: 0, y: -20 }}
+      exit={{ opacity: 0, y: 20}}
+      initial={{ opacity: 0, y: -20}}
      key={360280}>
       <div className="flex items-start" key={170970}>
         <div className="flex-shrink-0" key={11962}>{getSeverityIcon(alert.severity)}</div>
@@ -111,7 +99,10 @@ const PerformanceAlert: React.FC<PerformanceAlertProps key={394969}> = ({ alert,
         </div>
       </div>
     </motion.div>
-  );
-};
+  );};
 
 export default React.memo(PerformanceAlert);
+
+
+
+`

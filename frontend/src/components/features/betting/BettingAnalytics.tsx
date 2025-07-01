@@ -1,44 +1,40 @@
-import { AnimatePresence, motion } from 'framer-motion.ts';
-import React, { useCallback, useMemo, useState  } from 'react.ts';
-import { useBettingAnalytics } from '@/../hooks/useBettingAnalytics.ts';
-import { useSmartAlerts } from '@/../hooks/useSmartAlerts.ts';
-import { BettingOpportunity } from '@/../services/bettingStrategy.ts';
-import { Alert } from '@/base/Alert.ts';
-import { Badge } from '@/base/Badge.ts';
-import { Card } from '@/base/Card.ts';
-import { Progress } from '@/base/Progress.ts';
-import { Skeleton } from '@/base/Skeleton.ts';
-import { Table } from '@/base/Table.ts';
+﻿import { AnimatePresence, motion} from 'framer-motion';
+import React, { useCallback, useMemo, useState} from 'react';
+import { useBettingAnalytics} from '@/../hooks/useBettingAnalytics';
+import { useSmartAlerts} from '@/../hooks/useSmartAlerts';
+import { BettingOpportunity} from '@/../services/bettingStrategy';
+import { Alert} from '@/base/Alert';
+import { Badge} from '@/base/Badge';
+import { Card} from '@/base/Card';
+import { Progress} from '@/base/Progress';
+import { Skeleton} from '@/base/Skeleton';
+import { Table} from '@/base/Table';
 
 interface BettingAnalyticsProps {
-  onOpportunitySelect?: (opportunity: BettingOpportunity) => void;
-}
+  onOpportunitySelect?: (opportunity: BettingOpportunity) => void}
 
 interface PredictionFactor {
-  name: string;
-  impact: number;
-  description: string;
-}
+  name: string,`n  impact: number;,`n  description: string}
 
 export const BettingAnalytics: React.FC<BettingAnalyticsProps key={232088}> = ({
-  onOpportunitySelect,
+//   onOpportunitySelect
 }) => {
   const [selectedSport, setSelectedSport] = useState<string key={278855}>("all");
   const [confidenceThreshold, setConfidenceThreshold] = useState(0.7);
   const [sortField, setSortField] = useState<string key={278855}>("confidence");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
 
-  const { opportunities, predictions, performance, isLoading, error } =
+  const { opportunities, predictions, performance, isLoading, error} =
     useBettingAnalytics({
       minConfidence: confidenceThreshold,
       autoRefresh: true,
-      refreshInterval: 30000,
+      refreshInterval: 30000
     });
 
-  const { alerts } = useSmartAlerts({
+  const { alerts} = useSmartAlerts({
     wsEndpoint: import.meta.env.VITE_WS_ENDPOINT || "",
     enabledTypes: ["LINE_MOVEMENT", "INJURY", "WEATHER"],
-    minSeverity: "medium",
+    minSeverity: "medium"
   });
 
   const filteredOpportunities = useMemo(() => {
@@ -53,14 +49,11 @@ export const BettingAnalytics: React.FC<BettingAnalyticsProps key={232088}> = ({
             : -1;
           : bValue > aValue;
             ? 1;
-            : -1;
-      });
-  }, [opportunities, selectedSport, sortField, sortDirection]);
+            : -1;});}, [opportunities, selectedSport, sortField, sortDirection]);
 
   const handleOpportunityClick = useCallback(
     (opportunity: BettingOpportunity) => {
-      onOpportunitySelect?.(opportunity);
-    },
+      onOpportunitySelect?.(opportunity)},
     [onOpportunitySelect],
   );
 
@@ -144,8 +137,7 @@ export const BettingAnalytics: React.FC<BettingAnalyticsProps key={232088}> = ({
         title="Error Loading Analytics"
         message={error.message}
       / key={465628}>
-    );
-  }
+    );}
 
   return (
     <div className="space-y-6" key={501869}>
@@ -191,9 +183,9 @@ export const BettingAnalytics: React.FC<BettingAnalyticsProps key={232088}> = ({
           <AnimatePresence key={359944}>
             {alerts.length > 0 && (
               <motion.div;
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
+                initial={{ opacity: 0, height: 0}}
+                animate={{ opacity: 1, height: "auto"}}
+                exit={{ opacity: 0, height: 0}}
                 className="mb-4"
                key={373022}>
                 <Alert;
@@ -211,7 +203,7 @@ export const BettingAnalytics: React.FC<BettingAnalyticsProps key={232088}> = ({
               {
                 key: "sport",
                 title: "Sport",
-                render: (value) = key={13753}> <Badge variant="default" key={826106}>{value}</Badge>,
+                render: (value) = key={13753}> <Badge variant="default" key={826106}>{value}</Badge>
               },
               {
                 key: "description",
@@ -227,7 +219,7 @@ export const BettingAnalytics: React.FC<BettingAnalyticsProps key={232088}> = ({
                         </Badge>
                       )}
                   </div>
-                ),
+                )
               },
               {
                 key: "confidence",
@@ -242,7 +234,7 @@ export const BettingAnalytics: React.FC<BettingAnalyticsProps key={232088}> = ({
                       size="sm"
                     />
                   </div>
-                ),
+                )
               },
               {
                 key: "expectedValue",
@@ -254,7 +246,7 @@ export const BettingAnalytics: React.FC<BettingAnalyticsProps key={232088}> = ({
                     {value > 0 ? "+" : ""}
                     {(value * 100).toFixed(1)}%
                   </span>
-                ),
+                )
               },
             ]}
             onRowClick={handleOpportunityClick}
@@ -263,15 +255,16 @@ export const BettingAnalytics: React.FC<BettingAnalyticsProps key={232088}> = ({
             sortDirection={sortDirection}
             onSort={(key) => {
               if (key === sortField) {
-                setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));
-              } else {
+                setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));} else {
                 setSortField(key);
-                setSortDirection("desc");
-              }
+                setSortDirection("desc");}
             }}
           />
         </div>
       </Card>
     </div>
-  );
-};
+  );};
+
+
+
+`

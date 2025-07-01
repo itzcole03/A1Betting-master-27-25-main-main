@@ -1,4 +1,4 @@
-import React, { useEffect, useState  } from 'react.ts';
+﻿import React, { useEffect, useState} from 'react';
 
 const SERVICE_KEYS = [
   'analytics', 'espn', 'odds', 'news', 'weather', 'injuries', 'realtime'
@@ -13,19 +13,15 @@ export const ServiceStatusIndicators: React.FC = () => {
  * Service status object keyed by service name.
  */
 type ServiceStatus = {
-  connected: boolean;
-  quality: number;
-  timestamp: number;
-};
+  connected: boolean,`n  quality: number;,`n  timestamp: number};
 
-const [status, setStatus] = useState<Record<string, ServiceStatus | undefined key={364113}>>({});
+const [status, setStatus] = useState<Record<string, ServiceStatus | undefined key={364113}>>(Record<string, any>);
 
   useEffect(() => {
 
     updateStatus();
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval);}, [0]);
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8" key={154924}>
@@ -39,8 +35,7 @@ const [status, setStatus] = useState<Record<string, ServiceStatus | undefined ke
                   className={
                     status[key].connected;
                       ? 'text-green-600'
-                      : 'text-red-600'
-                  }
+                      : 'text-red-600'}
                  key={101874}>
                   {status[key].connected ? 'Online' : 'Offline'}
                 </span>
@@ -58,5 +53,8 @@ const [status, setStatus] = useState<Record<string, ServiceStatus | undefined ke
         </div>
       ))}
     </div>
-  );
-};
+  )};
+
+
+
+`

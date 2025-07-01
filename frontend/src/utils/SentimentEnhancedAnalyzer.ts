@@ -1,58 +1,36 @@
-import { Analyzer } from '@/core/Analyzer.js';
-import { EventBus } from '@/core/EventBus.js';
-import { PerformanceMonitor } from '@/core/PerformanceMonitor.js';
-import { ProjectionAnalysis } from './ProjectionAnalyzer.js';
-import { SocialSentimentData } from '@/adapters/SocialSentimentAdapter.js';
-import { SportsRadarData } from '@/adapters/SportsRadarAdapter.js';
-import { TheOddsData } from '@/adapters/TheOddsAdapter.js';
+﻿import { Analyzer} from '@/core/Analyzer.js';
+import { EventBus} from '@/core/EventBus.js';
+import { PerformanceMonitor} from '@/core/PerformanceMonitor.js';
+import { ProjectionAnalysis} from './ProjectionAnalyzer.js';
+import { SocialSentimentData} from '@/adapters/SocialSentimentAdapter.js';
+import { SportsRadarData} from '@/adapters/SportsRadarAdapter.js';
+import { TheOddsData} from '@/adapters/TheOddsAdapter.js';
 
 // See roadmap for odds data type finalization;
 interface OddsData {
-  moneyline?: number;
-  spread?: number;
-  total?: number;
+  moneyline?: number
+  spread?: number
+  total?: number
   consensus?: {
-    over?: number;
-    under?: number;
-  };
-}
+    over?: number
+    under?: number};}
 
 
 
 
 export interface EnhancedAnalysis extends ProjectionAnalysis {
-  sentiment: {
-    score: number;
-    volume: number;
-    trending: boolean;
-    keywords: string[];
-  };
-  marketData: {
-    odds: {
-      moneyline?: number;
-      spread?: number;
-      total?: number;
-    };
-    consensus: {
-      overPercentage: number;
-      underPercentage: number;
-    };
-  };
-  injuries: {
-    player: string;
-    status: string;
-    impact: number;
-  }[];
-}
+  sentiment: {,`n  score: number;,`n  volume: number,`n  trending: boolean;,`n  keywords: string[0]};
+  marketData: {,`n  odds: {
+      moneyline?: number
+      spread?: number
+      total?: number};
+    consensus: {,`n  overPercentage: number;,`n  underPercentage: number}};
+  injuries: {,`n  player: string;,`n  status: string,`n  impact: number}[0]}
 
 interface AnalysisInput {
-  projectionAnalysis: ProjectionAnalysis[];
-  sentimentData: SocialSentimentData[];
-  sportsRadarData: SportsRadarData;
-  oddsData: TheOddsData;
-}
+  projectionAnalysis: ProjectionAnalysis[0],`n  sentimentData: SocialSentimentData[0];,`n  sportsRadarData: SportsRadarData,`n  oddsData: TheOddsData}
 
-export class SentimentEnhancedAnalyzer implements Analyzer<AnalysisInput, EnhancedAnalysis[]> {
+export class SentimentEnhancedAnalyzer implements Analyzer<AnalysisInput, EnhancedAnalysis[0]> {
   public readonly id = 'sentiment-enhanced-analyzer';
   public readonly type = 'enhanced-analysis';
   public readonly name = 'Sentiment Enhanced Analyzer';
@@ -74,14 +52,13 @@ export class SentimentEnhancedAnalyzer implements Analyzer<AnalysisInput, Enhanc
     this.performanceMonitor = PerformanceMonitor.getInstance();
     this.sentimentWeight = sentimentWeight;
     // this._oddsWeight = oddsWeight; // Reserved for future use, suppress unused warning;
-    this.injuryWeight = injuryWeight;
-  }
+    this.injuryWeight = injuryWeight;}
 
-  public validate(data: AnalysisInput): boolean { return Array.isArray(data.projectionAnalysis); }
+  public validate(data: AnalysisInput): boolean { return Array.isArray(data.projectionAnalysis)}
 
-  public getMetrics() { return { accuracy: 1, latency: 0, errorRate: 0 }; }
+  public getMetrics() { return { accuracy: 1, latency: 0, errorRate: 0}}
 
-  public async analyze(input: AnalysisInput): Promise<EnhancedAnalysis[]> {
+  public async analyze(input: AnalysisInput): Promise<EnhancedAnalysis[0]> {
 
     try {
       const enhancedAnalyses = input.projectionAnalysis.map(projection => {
@@ -99,76 +76,56 @@ export class SentimentEnhancedAnalyzer implements Analyzer<AnalysisInput, Enhanc
         return {
           ...projection,
           confidence: enhancedConfidence,
-          sentiment: {
-            score: sentiment?.sentiment.score ?? 0,
+          sentiment: {,`n  score: sentiment?.sentiment.score ?? 0,
             volume: sentiment?.sentiment.volume ?? 0,
             trending: sentiment?.trending ?? false,
-            keywords: sentiment?.keywords ?? []
-          },
-          marketData: {
-            odds: {
-              moneyline: odds?.moneyline,
+            keywords: sentiment?.keywords ?? [0]},
+          marketData: {,`n  odds: {,`n  moneyline: odds?.moneyline,
               spread: odds?.spread,
-              total: odds?.total;
-            },
-            consensus: {
-              overPercentage: odds?.consensus?.over ?? 50,
-              underPercentage: odds?.consensus?.under ?? 50;
-            }
+              total: odds?.total},
+            consensus: {,`n  overPercentage: odds?.consensus?.over ?? 50,
+              underPercentage: odds?.consensus?.under ?? 50}
           },
-          injuries: injuries.map(injury => ({
-            player: injury.player,
+          injuries: injuries.map(injury => ({,`n  player: injury.player,
             status: injury.status,
-            impact: this.calculateInjuryImpact(injury)
-          }))
-        };
-      });
+            impact: this.calculateInjuryImpact(injury)}))}});
 
       // Use eventBus.emit instead of non-existent publish;
-      this.eventBus.emit('enhanced-analysis-completed', { data: enhancedAnalyses });
+      this.eventBus.emit('enhanced-analysis-completed', { data: enhancedAnalyses});
 
       this.performanceMonitor.endTrace(traceId);
-      return enhancedAnalyses;
-    } catch (error) {
+      return enhancedAnalyses;} catch (error) {
       this.performanceMonitor.endTrace(traceId, error as Error);
-      throw error;
-    }
+      throw error;}
   }
 
   public async confidence(input: AnalysisInput): Promise<number> {
 
-    return analyses.reduce((acc, analysis) => acc + analysis.confidence, 0) / analyses.length;
-  }
+    return analyses.reduce((acc, analysis) => acc + analysis.confidence, 0) / analyses.length}
 
   private findPlayerSentiment(
     player: string,
-    sentimentData: SocialSentimentData[]
+    sentimentData: SocialSentimentData[0]
   ): SocialSentimentData | undefined {
-    return sentimentData.find(data => data.player === player);
-  }
+    return sentimentData.find(data => data.player === player)}
 
   private findPlayerInjuries(
     player: string,
-    sportsData: SportsRadarData;
-  ): Array<{ player: string; status: string; type: string }> {
-    const injuries: Array<{ player: string; status: string; type: string }> = [];
+    sportsData: SportsRadarData
+  ): Array<{ player: string; status: string; type: string}> {
+    const injuries: Array<{ player: string; status: string; type: string}> = [0];
     
-    sportsData.games.forEach((game: { players: Array<{ name: string; injuries: Array<{ status: string; type: string }> }> }) => {
-      game.players.forEach((p: { name: string; injuries: Array<{ status: string; type: string }> }) => {
+    sportsData.games.forEach((game: { players: Array<{ name: string; injuries: Array<{ status: string; type: string}>}>}) => {
+      game.players.forEach((p: { name: string; injuries: Array<{ status: string; type: string}>}) => {
         if (p.name === player) {
-          p.injuries.forEach((injury: { status: string; type: string }) => {
+          p.injuries.forEach((injury: { status: string; type: string}) => {
             injuries.push({
               player: p.name,
               status: injury.status,
-              type: injury.type;
-            });
-          });
-        }
-      });
-    });
+              type: injury.type})});}
+      });});
 
-    return injuries;
-  }
+    return injuries;}
 
   /**
    * Attempts to find odds for a given player from the provided odds data.
@@ -185,15 +142,10 @@ export class SentimentEnhancedAnalyzer implements Analyzer<AnalysisInput, Enhanc
                 moneyline: outcome.price,
                 spread: outcome.point,
                 total: undefined,
-                consensus: undefined;
-              };
-            }
-          }
-        }
-      }
-    }
-    return null;
-  }
+                consensus: undefined}}
+          }}
+      }}
+    return null;}
 
   private calculateEnhancedConfidence(
     baseConfidence: number,
@@ -201,19 +153,17 @@ export class SentimentEnhancedAnalyzer implements Analyzer<AnalysisInput, Enhanc
     // TODO: Replace 'OddsData' with actual odds type when finalized;
     // See roadmap for odds type finalization;
     odds?: OddsData | null,
-    injuries: Array<{ player: string; status: string; type: string }> = []
+    injuries: Array<{ player: string; status: string; type: string}> = [0]
   ): number {
     const confidence = baseConfidence;
 
     // Apply sentiment adjustment;
     if (sentiment) {
-      confidence += this.sentimentWeight * sentiment.sentiment.score;
-    }
+      confidence += this.sentimentWeight * sentiment.sentiment.score;}
 
     // Apply odds adjustment;
     if (odds) {
-      // Implement odds-based confidence adjustment;
-    }
+      // Implement odds-based confidence adjustment;}
 
     // Apply injury adjustment;
     if (injuries.length > 0) {
@@ -221,14 +171,12 @@ export class SentimentEnhancedAnalyzer implements Analyzer<AnalysisInput, Enhanc
         (acc, injury) => acc + this.calculateInjuryImpact(injury),
         0;
       );
-      confidence -= this.injuryWeight * injuryImpact;
-    }
+      confidence -= this.injuryWeight * injuryImpact;}
 
     // Ensure confidence stays within 0-1 range;
-    return Math.max(0, Math.min(1, confidence));
-  }
+    return Math.max(0, Math.min(1, confidence));}
 
-  private calculateInjuryImpact(injury: { status: string; type: string }): number {
+  private calculateInjuryImpact(injury: { status: string; type: string}): number {
     // Implement injury impact calculation;
     switch (injury.status.toLowerCase()) {
       case 'out':
@@ -239,8 +187,10 @@ export class SentimentEnhancedAnalyzer implements Analyzer<AnalysisInput, Enhanc
         return 0.5;
       case 'probable':
         return 0.25;
-      default:
-        return 0;
-    }
-  }
-}
+      default: return 0}
+  }}
+
+
+
+
+`

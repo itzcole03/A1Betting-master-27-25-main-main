@@ -1,202 +1,36 @@
-/**
+﻿/**
  * Complete Frontend-Backend Integration Test;
  * Tests all enhanced mathematical services end-to-end;
  */
-declare const mockPredictionRequest: {
-    event_id: string;
-    sport: string;
-    features: {
-        player_performance: number;
-        team_strength: number;
-        matchup_difficulty: number;
-        historical_performance: number;
-        injury_impact: number;
-        weather_effect: number;
-        venue_advantage: number;
-        rest_factor: number;
-        momentum: number;
-        public_sentiment: number;
-    };
-    enable_neuromorphic: boolean;
-    neuromorphic_timesteps: number;
-    enable_mamba: boolean;
-    mamba_sequence_length: number;
-    enable_causal_inference: boolean;
-    causal_significance_level: number;
-    enable_topological: boolean;
-    topological_max_dimension: number;
-    enable_riemannian: boolean;
-    riemannian_manifold_dim: number;
-    use_gpu: boolean;
-    numerical_precision: "float32";
-    convergence_tolerance: number;
-    context: {};
-};
-declare const mockPredictionResponse: {
-    event_id: string;
-    strategy_used: string;
-    base_prediction: number;
-    neuromorphic_enhancement: number;
-    mamba_temporal_refinement: number;
-    causal_adjustment: number;
-    topological_smoothing: number;
-    riemannian_projection: number;
-    final_prediction: number;
-    neuromorphic_metrics: {
-        spike_rate: number;
-        isi_statistics: {
-            mean_isi: number;
-            cv_isi: number;
-        };
-        network_criticality: number;
-    };
-    mamba_metrics: {
-        eigenvalue_spectrum: number[];
-        spectral_radius: number;
-        temporal_coherence: number;
-    };
-    causal_metrics: {
-        causal_strength: number;
-        causal_graph: {
-            X1: string[];
-            X2: string[];
-        };
-        pc_algorithm_applied: boolean;
-    };
-    topological_metrics: {
-        betti_numbers: {
-            H0: number;
-            H1: number;
-            H2: number;
-        };
-        persistence_barcode: number[][];
-    };
-    riemannian_metrics: {
-        curvature: number;
-        manifold_dimension: number;
-        geodesic_computations: boolean;
-    };
-    riemannian_curvature: number;
-    persistent_betti_numbers: {
-        H0: number;
-        H1: number;
-        H2: number;
-    };
-    causal_graph_structure: {
-        X1: string[];
-        X2: string[];
-    };
-    mamba_eigenvalue_spectrum: number[];
-    neuromorphic_spike_statistics: {
-        mean_isi: number;
-        cv_isi: number;
-    };
-    topological_persistence_barcode: number[][];
-    convergence_rate: number;
-    stability_margin: number;
-    lyapunov_exponent: number;
-    mathematical_guarantees: {
-        neuromorphic_stability: boolean;
-        mamba_convergence: boolean;
-        causal_identifiability: boolean;
-        topological_persistence: boolean;
-        riemannian_completeness: boolean;
-    };
-    actual_complexity: {
-        neuromorphic: string;
-        mamba: string;
-        causal: string;
-        topological: string;
-        riemannian: string;
-    };
-    runtime_analysis: {
-        neuromorphic: number;
-        mamba: number;
-        causal: number;
-        topological: number;
-        riemannian: number;
-    };
-    memory_usage: {
-        neuromorphic: number;
-        mamba: number;
-        causal: number;
-        topological: number;
-        riemannian: number;
-    };
-    prediction_confidence: number;
-    uncertainty_bounds: number[];
-    confidence_intervals: {
-        "90%": number[];
-        "95%": number[];
-        "99%": number[];
-    };
-    total_processing_time: number;
-    component_processing_times: {
-        neuromorphic: number;
-        mamba: number;
-        causal: number;
-        topological: number;
-        riemannian: number;
-        total_prediction: number;
-    };
-    timestamp: string;
-    numerical_stability: {
-        no_nan_values: boolean;
-        no_infinite_values: boolean;
-        bounded_outputs: boolean;
-        convergence_achieved: boolean;
-        eigenvalues_stable: boolean;
-    };
-    convergence_diagnostics: {
-        convergence_rate: number;
-        lyapunov_exponent: number;
-        stability_margin: number;
-        iterations_to_convergence: number;
-        convergence_tolerance_met: boolean;
-    };
-    theoretical_bounds_satisfied: boolean;
-};
-declare const mockSystemHealth: {
-    overall_status: "healthy";
-    component_status: {
-        prediction_engine: string;
-        feature_engineering: string;
-        risk_management: string;
-        data_pipeline: string;
-        neuromorphic_engine: string;
-        mamba_engine: string;
-        causal_engine: string;
-        topological_engine: string;
-        riemannian_engine: string;
-    };
-    error_rate: number;
-    average_response_time: number;
-    throughput: number;
-    cpu_usage: number;
-    memory_usage: number;
-    gpu_usage: number;
-    cache_efficiency: number;
-    prediction_accuracy: number;
-    mathematical_rigor_score: number;
-};
-declare const mockModelMetrics: {
-    model_id: string;
-    model_name: string;
-    accuracy: number;
-    precision: number;
-    recall: number;
-    f1_score: number;
-    auc_roc: number;
-    calibration_score: number;
-    prediction_speed: number;
-    memory_usage: number;
-    last_update: string;
-    training_data_size: number;
-    feature_count: number;
-    mathematical_properties: {
-        convergence_verified: boolean;
-        stability_guaranteed: boolean;
-        theoretical_bounds_satisfied: boolean;
-    };
-}[];
-export { mockPredictionRequest, mockPredictionResponse, mockSystemHealth, mockModelMetrics, };
+declare const mockPredictionRequest: {,`n  event_id: string;,`n  sport: string,`n  features: {,`n  player_performance: number,`n  team_strength: number;,`n  matchup_difficulty: number,`n  historical_performance: number;,`n  injury_impact: number,`n  weather_effect: number;,`n  venue_advantage: number,`n  rest_factor: number;,`n  momentum: number,`n  public_sentiment: number};
+  enable_neuromorphic: boolean,`n  neuromorphic_timesteps: number;,`n  enable_mamba: boolean,`n  mamba_sequence_length: number;,`n  enable_causal_inference: boolean,`n  causal_significance_level: number;,`n  enable_topological: boolean,`n  topological_max_dimension: number;,`n  enable_riemannian: boolean,`n  riemannian_manifold_dim: number;,`n  use_gpu: boolean,`n  numerical_precision: 'float32';,`n  convergence_tolerance: number,`n  context: Record<string, any>};
+declare const mockPredictionResponse: {,`n  event_id: string;,`n  strategy_used: string,`n  base_prediction: number;,`n  neuromorphic_enhancement: number,`n  mamba_temporal_refinement: number;,`n  causal_adjustment: number,`n  topological_smoothing: number;,`n  riemannian_projection: number,`n  final_prediction: number;,`n  neuromorphic_metrics: {,`n  spike_rate: number;,`n  isi_statistics: {,`n  mean_isi: number;,`n  cv_isi: number};
+    network_criticality: number};
+  mamba_metrics: {,`n  eigenvalue_spectrum: number[0];,`n  spectral_radius: number,`n  temporal_coherence: number};
+  causal_metrics: {,`n  causal_strength: number;,`n  causal_graph: {,`n  X1: string[0];,`n  X2: string[0]};
+    pc_algorithm_applied: boolean};
+  topological_metrics: {,`n  betti_numbers: {,`n  H0: number,`n  H1: number;,`n  H2: number};
+    persistence_barcode: number[0][0]};
+  riemannian_metrics: {,`n  curvature: number;,`n  manifold_dimension: number,`n  geodesic_computations: boolean};
+  riemannian_curvature: number,`n  persistent_betti_numbers: {,`n  H0: number,`n  H1: number;,`n  H2: number};
+  causal_graph_structure: {,`n  X1: string[0];,`n  X2: string[0]};
+  mamba_eigenvalue_spectrum: number[0],`n  neuromorphic_spike_statistics: {,`n  mean_isi: number,`n  cv_isi: number};
+  topological_persistence_barcode: number[0][0],`n  convergence_rate: number;,`n  stability_margin: number,`n  lyapunov_exponent: number;,`n  mathematical_guarantees: {,`n  neuromorphic_stability: boolean;,`n  mamba_convergence: boolean,`n  causal_identifiability: boolean;,`n  topological_persistence: boolean,`n  riemannian_completeness: boolean};
+  actual_complexity: {,`n  neuromorphic: string;,`n  mamba: string,`n  causal: string;,`n  topological: string,`n  riemannian: string};
+  runtime_analysis: {,`n  neuromorphic: number;,`n  mamba: number,`n  causal: number;,`n  topological: number,`n  riemannian: number};
+  memory_usage: {,`n  neuromorphic: number;,`n  mamba: number,`n  causal: number;,`n  topological: number,`n  riemannian: number};
+  prediction_confidence: number,`n  uncertainty_bounds: number[0];,`n  confidence_intervals: {
+    '90%': number[0];
+    '95%': number[0];
+    '99%': number[0];};
+  total_processing_time: number,`n  component_processing_times: {,`n  neuromorphic: number,`n  mamba: number;,`n  causal: number,`n  topological: number;,`n  riemannian: number,`n  total_prediction: number};
+  timestamp: string,`n  numerical_stability: {,`n  no_nan_values: boolean,`n  no_infinite_values: boolean;,`n  bounded_outputs: boolean,`n  convergence_achieved: boolean;,`n  eigenvalues_stable: boolean};
+  convergence_diagnostics: {,`n  convergence_rate: number;,`n  lyapunov_exponent: number,`n  stability_margin: number;,`n  iterations_to_convergence: number,`n  convergence_tolerance_met: boolean};
+  theoretical_bounds_satisfied: boolean};
+declare const mockSystemHealth: {,`n  overall_status: 'healthy';,`n  component_status: {,`n  prediction_engine: string;,`n  feature_engineering: string,`n  risk_management: string;,`n  data_pipeline: string,`n  neuromorphic_engine: string;,`n  mamba_engine: string,`n  causal_engine: string;,`n  topological_engine: string,`n  riemannian_engine: string};
+  error_rate: number,`n  average_response_time: number;,`n  throughput: number,`n  cpu_usage: number;,`n  memory_usage: number,`n  gpu_usage: number;,`n  cache_efficiency: number,`n  prediction_accuracy: number;,`n  mathematical_rigor_score: number};
+declare const mockModelMetrics: {,`n  model_id: string;,`n  model_name: string,`n  accuracy: number;,`n  precision: number,`n  recall: number;,`n  f1_score: number,`n  auc_roc: number;,`n  calibration_score: number,`n  prediction_speed: number;,`n  memory_usage: number,`n  last_update: string;,`n  training_data_size: number,`n  feature_count: number;,`n  mathematical_properties: {,`n  convergence_verified: boolean;,`n  stability_guaranteed: boolean,`n  theoretical_bounds_satisfied: boolean};}[0];
+export { mockPredictionRequest, mockPredictionResponse, mockSystemHealth, mockModelMetrics};
+
+
+`

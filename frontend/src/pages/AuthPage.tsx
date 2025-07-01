@@ -1,15 +1,14 @@
-import React, { useState, FormEvent  } from 'react.ts';
-import { Button } from '@mui/material.ts';
-import { useAppStore, AppStore } from '@/store/useAppStore.ts';
-import { useNavigate } from 'react-router-dom.ts';
+﻿import React, { useState, FormEvent} from 'react';
+import { Button} from '@mui/material';
+import { useAppStore, AppStore} from '@/store/useAppStore';
+import { useNavigate} from 'react-router-dom';
 
 
 const AuthPage: React.FC = () => {
 
-  const { login, isLoading, isAuthenticated } = useAppStore((state: AppStore) => ({
-    login: state.login,
+  const { login, isLoading, isAuthenticated} = useAppStore((state: AppStore) => ({,`n  login: state.login,
     isLoading: state.isLoading,
-    isAuthenticated: state.isAuthenticated,
+    isAuthenticated: state.isAuthenticated
   }));
 
   const [email, setEmail] = useState('testuser@example.com'); // Default for easier testing;
@@ -22,15 +21,12 @@ const AuthPage: React.FC = () => {
     if (!email || !password) {
         useAppStore.getState().addToast({message: 'Email and password are required.', type: 'error'});
         setLocalError('Email and password are required.');
-        return;
-    }
+        return;}
     try {
-      await login({ email, password });
-    } catch (err: any) {
+      await login({ email, password});} catch (err: any) {
 
       useAppStore.getState().addToast({message: msg, type: 'error'});
-      setLocalError(msg);
-    }
+      setLocalError(msg);}
   };
 
   // DEV BYPASS BUTTON (development only)
@@ -38,22 +34,19 @@ const AuthPage: React.FC = () => {
 
     if (token && token.length > 10) {
       localStorage.setItem('authToken', token); // Use the correct key for the auth system;
-      window.location.reload();
-    }
+      window.location.reload();}
   };
 
   React.useEffect(() => {
     if (isAuthenticated) {
-      navigate('/'); // Redirect to dashboard or main app page after login;
-    }
+      navigate('/'); // Redirect to dashboard or main app page after login;}
   }, [isAuthenticated, navigate]);
 
   React.useEffect(() => {
 
     if (typeof err === 'string' && err.length > 0) {
       setLocalError(err);
-      useAppStore.getState().addToast({message: err, type: 'error'});
-    }
+      useAppStore.getState().addToast({message: err, type: 'error'})}
   }, [isLoading]);
 
   return (
@@ -121,7 +114,7 @@ const AuthPage: React.FC = () => {
               variant="outlined"
               color="secondary"
               fullWidth;
-              sx={{ mt: 2, border: '2px dashed #1976d2', color: '#1976d2' }}
+              sx={{ mt: 2, border: '2px dashed #1976d2', color: '#1976d2'}}
               onClick={handleDevBypass}
              key={299776}>
               DEV BYPASS (Paste JWT)
@@ -134,7 +127,10 @@ const AuthPage: React.FC = () => {
         </p>
       </div>
     </div>
-  );
-};
+  )};
 
 export default AuthPage; 
+
+
+
+`

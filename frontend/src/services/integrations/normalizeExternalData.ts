@@ -1,27 +1,13 @@
-// Utility to normalize external API data to Alpha1 internal schema;
+﻿// Utility to normalize external API data to Alpha1 internal schema;
 
-import type { PlayerProp } from '@/types/core.js';
-import type { PropType } from '@/types/common.js';
+import type { PlayerProp} from '@/types/core.js';
+import type { PropType} from '@/types/common.js';
 
 interface GameState {
-  id: string;
-  homeTeam: string;
-  awayTeam: string;
-  score: unknown;
-  status: string;
-  startTime: number | string;
-  league: string;
-  updated: number;
-}
+  id: string,`n  homeTeam: string;,`n  awayTeam: string,`n  score: unknown;,`n  status: string,`n  startTime: number | string;,`n  league: string,`n  updated: number}
 
 interface SentimentSnapshot {
-  id: string;
-  entity: string;
-  score: number;
-  volume: number;
-  source: string;
-  timestamp: number;
-}
+  id: string,`n  entity: string;,`n  score: number,`n  volume: number;,`n  source: string,`n  timestamp: number}
 
 export function normalizePlayerProp(raw: unknown): PlayerProp | undefined {
   // Map raw API fields to PlayerProp;
@@ -34,9 +20,8 @@ export function normalizePlayerProp(raw: unknown): PlayerProp | undefined {
     line: Number(obj.value),
     odds: Number(obj.odds),
     confidence: typeof obj.confidence === 'number' ? obj.confidence : 1,
-    timestamp: typeof obj.timestamp === 'number' ? obj.timestamp : Date.now(),
-  } as PlayerProp;
-}
+    timestamp: typeof obj.timestamp === 'number' ? obj.timestamp : Date.now()
+  } as PlayerProp}
 
 export function normalizeGameState(raw: unknown): GameState | undefined {
   if (!raw || typeof raw !== 'object') return undefined;
@@ -53,9 +38,8 @@ export function normalizeGameState(raw: unknown): GameState | undefined {
         ? obj.startTime;
         : Date.now(),
     league: String(obj.league ?? ''),
-    updated: typeof obj.updated === 'number' ? obj.updated : Date.now(),
-  };
-}
+    updated: typeof obj.updated === 'number' ? obj.updated : Date.now()
+  }}
 
 export function normalizeSentiment(raw: unknown): SentimentSnapshot | undefined {
   if (!raw || typeof raw !== 'object') return undefined;
@@ -66,8 +50,11 @@ export function normalizeSentiment(raw: unknown): SentimentSnapshot | undefined 
     score: Number(obj.score ?? 0),
     volume: Number(obj.volume ?? 0),
     source: String(obj.source ?? ''),
-    timestamp: typeof obj.timestamp === 'number' ? obj.timestamp : Date.now(),
-  };
-}
+    timestamp: typeof obj.timestamp === 'number' ? obj.timestamp : Date.now()
+  }}
 
 // Add more normalization utilities as needed;
+
+
+
+`

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Utility functions for custom performance and metric tracking using Sentry.
  * Provides tracing, custom metrics, and tagging for frontend observability.
  */
@@ -6,7 +6,7 @@
  * Utility functions for custom performance and metric tracking using Sentry.
  * Provides tracing, custom metrics, and tagging for frontend observability.
  */
-import * as Sentry from '@sentry/react.ts';
+import * as Sentry from '@sentry/react';
 
 /**
  * Type for Sentry Span (compatible with Sentry v7+).
@@ -43,18 +43,15 @@ class PerformanceTrackingService {
       const transaction = Sentry.startTransaction({
         name,
         op,
-        description,
+//         description
       });
 
       if (transaction) {
-        this.activeSpans.set(name, transaction);
-      }
+        this.activeSpans.set(name, transaction);}
 
-      return transaction;
-    } catch (error) {
+      return transaction;} catch (error) {
       // console statement removed
-      return undefined;
-    }
+      return undefined;}
   }
 
   /**
@@ -74,21 +71,18 @@ class PerformanceTrackingService {
   ): Sentry.Span | undefined {
     if (!parentSpan) {
       // console statement removed
-      return undefined;
-    }
+      return undefined}
 
     try {
       const childSpan = parentSpan.startChild({
         op,
         description,
-        data,
+//         data
       });
 
-      return childSpan;
-    } catch (error) {
+      return childSpan;} catch (error) {
       // console statement removed
-      return undefined;
-    }
+      return undefined;}
   }
 
   /**
@@ -103,15 +97,11 @@ class PerformanceTrackingService {
         for (const [name, storedSpan] of this.activeSpans.entries()) {
           if (storedSpan === span) {
             this.activeSpans.delete(name);
-            break;
-          }
-        }
-      } catch (error) {
-        // console statement removed
-      }
+            break;}
+        }} catch (error) {
+        // console statement removed}
     } else {
-      // console statement removed
-    }
+      // console statement removed}
   }
 
   /**
@@ -119,8 +109,7 @@ class PerformanceTrackingService {
    * @param span The Sentry Span object to finish.
    */
   public endSpan(span: Sentry.Span | undefined): void {
-    this.endTrace(span);
-  }
+    this.endTrace(span)}
 
   /**
    * Records a custom metric using Sentry's custom measurement API.
@@ -137,32 +126,26 @@ class PerformanceTrackingService {
     tags,
     type = 'increment'
   }: {
-    name: string;
-    value: number;
-    unit?: string;
-    tags?: { [key: string]: string | number | boolean };
-    type?: 'increment' | 'distribution' | 'gauge' | 'set';
-  }): void {
+    name: string,`n  value: number;
+    unit?: string
+    tags?: { [key: string]: string | number | boolean};
+    type?: 'increment' | 'distribution' | 'gauge' | 'set';}): void {
     try {
       // Sentry v7+ does not have a public metrics API in the browser SDK as of 2024.
       // Instead, record as a custom measurement on the current active span/transaction.
 
       if (activeSpan) {
-        if (!activeSpan.data) activeSpan.data = {};
+        if (!activeSpan.data) activeSpan.data = Record<string, any>;
         activeSpan.setMeasurement?.(name, value, unit);
         // Attach tags as extra data if provided;
         if (tags) {
           Object.entries(tags).forEach(([tagKey, tagValue]) => {
-            activeSpan.setTag?.(tagKey, String(tagValue));
-          });
-        }
+            activeSpan.setTag?.(tagKey, String(tagValue));});}
       } else {
         // Fallback: Attach to the current scope (not as a metric, but as extra context)
-        Sentry.setContext('metric', { name, value, unit, tags, type });
-      }
+        Sentry.setContext('metric', { name, value, unit, tags, type})}
     } catch (error) {
-      // console statement removed
-    }
+      // console statement removed}
   }
 
   /**
@@ -172,10 +155,8 @@ class PerformanceTrackingService {
    */
   public setTag(key: string, value: string | number | boolean): void {
     try {
-      Sentry.setTag(key, String(value));
-    } catch (error) {
-      // console statement removed
-    }
+      Sentry.setTag(key, String(value))} catch (error) {
+      // console statement removed}
   }
 
   /**
@@ -185,12 +166,9 @@ class PerformanceTrackingService {
    */
   public setExtra(key: string, data: unknown): void {
     try {
-      Sentry.setExtra(key, data);
-    } catch (error) {
-      // console statement removed
-    }
-  }
-}
+      Sentry.setExtra(key, data)} catch (error) {
+      // console statement removed}
+  }}
 
 /**
  * Singleton instance of PerformanceTrackingService.
@@ -201,12 +179,17 @@ export const performanceTrackingService = new PerformanceTrackingService();
 /**
  * Example Usage (conceptual):
  *     // ... await Promise.all([...]) ...
- *     performanceTrackingService.recordMetric({ name: 'dashboard.data.items_loaded', value: 100 });
- *   } catch (e) {
+ *     performanceTrackingService.recordMetric({ name: 'dashboard.data.items_loaded', value: 100});
+ *} catch (e) {
  *     Sentry.captureException(e); // Capture error if something goes wrong;
- *   } finally {
+ *} finally {
  *     if(fetchDataSpan) performanceTrackingService.endSpan(fetchDataSpan);
  *     if(trace) performanceTrackingService.endTrace(trace);
- *   }
- * }
+ *}
+ *}
  */
+
+
+
+
+`

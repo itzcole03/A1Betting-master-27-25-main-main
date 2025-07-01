@@ -1,15 +1,15 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 export interface AlertProps {
-    type?: 'info' | 'success' | 'warning' | 'error';
-    title?: string;
-    message: string;
-    onClose?: () => void;
-    className?: string;
-    closable?: boolean;
-    icon?: React.ReactNode;
-    action?: {
-        label: string;
-        onClick: () => void;
-    };
-}
+  type?: 'info' | 'success' | 'warning' | 'error';
+  title?: string;
+  message: string;
+  onClose?: () => void;
+  className?: string;
+  closable?: boolean;
+  icon?: React.ReactNode;
+  action?: {
+    label: string,`n  onClick: () => void};}
 export declare const Alert: React.FC<AlertProps>;
+
+
+`

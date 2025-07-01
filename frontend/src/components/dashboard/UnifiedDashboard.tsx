@@ -1,78 +1,58 @@
-import { AnimatePresence, motion } from 'framer-motion.ts';
-import { Menu, X } from 'lucide-react.ts';
-import * as React from 'react.ts';
-import { useState, useCallback, Suspense } from 'react.ts';
-import { useAnimatedValue } from '@/hooks/useAnimatedValue.ts';
-import { usePrizePicksLiveData } from '@/hooks/usePrizePicksLiveData.ts';
-import { useStrategyEngineData } from '@/hooks/useStrategyEngineData.ts';
-import { PerformanceAnalyticsDashboard } from '@/analytics/PerformanceAnalyticsDashboard.ts';
-import { MarketAnalysisDashboard } from '@/MarketAnalysisDashboard.ts';
-import { ArbitrageOpportunities } from '@/ArbitrageOpportunities.ts';
-import { PrizePicksEdgeDisplay } from '@/betting/PrizePicksEdgeDisplay.ts';
-import { SmartLineupBuilder } from '@/lineup/SmartLineupBuilder.ts';
-import MLFactorViz from '@/MLFactorViz.ts';
-import { UnifiedMoneyMaker } from '@/money-maker/UnifiedMoneyMaker.ts';
-import { QuantumPredictionsInterface } from '@/prediction/QuantumPredictionsInterface.ts';
-import { UnifiedProfile } from '@/profile/UnifiedProfile.ts';
-import { UnifiedSettingsInterface } from '@/settings/UnifiedSettingsInterface.ts';
-import UnifiedStrategyEngineDisplay from '@/strategy/UnifiedStrategyEngineDisplay.ts';
-import { Badge } from '@/ui/badge.ts';
-import { BetSimulationTool } from '@/ui/BetSimulationTool.ts';
-import { Card } from '@/ui/card.ts';
-import { FeatureFlagIndicators } from '@/ui/FeatureFlagIndicators.ts';
-import { ServiceStatusIndicators } from '@/ui/ServiceStatusIndicators.ts';
-import { Skeleton } from '@/ui/Skeleton.ts';
-import { Toast } from '@/ui/UnifiedUI.ts';
-import { HeroSection } from './HeroSection.ts';
-import { LiveGamesDisplay } from './LiveGamesDisplay.ts';
-import { RealTimePredictions } from './RealTimePredictions.ts';
-import { DataSourcesPanel } from './DataSourcesPanel.ts';
+import { AnimatePresence, motion} from 'framer-motion';
+import { Menu, X} from 'lucide-react';
+import * as React from 'react';
+import { useState, useCallback, Suspense} from 'react';
+import { useAnimatedValue} from '@/hooks/useAnimatedValue';
+import { usePrizePicksLiveData} from '@/hooks/usePrizePicksLiveData';
+import { useStrategyEngineData} from '@/hooks/useStrategyEngineData';
+import { PerformanceAnalyticsDashboard} from '@/analytics/PerformanceAnalyticsDashboard';
+import { MarketAnalysisDashboard} from '@/MarketAnalysisDashboard';
+import { ArbitrageOpportunities} from '@/ArbitrageOpportunities';
+import { PrizePicksEdgeDisplay} from '@/betting/PrizePicksEdgeDisplay';
+import { SmartLineupBuilder} from '@/lineup/SmartLineupBuilder';
+import MLFactorViz from '@/MLFactorViz';
+import { UnifiedMoneyMaker} from '@/money-maker/UnifiedMoneyMaker';
+import { QuantumPredictionsInterface} from '@/prediction/QuantumPredictionsInterface';
+import { UnifiedProfile} from '@/profile/UnifiedProfile';
+import { UnifiedSettingsInterface} from '@/settings/UnifiedSettingsInterface';
+import UnifiedStrategyEngineDisplay from '@/strategy/UnifiedStrategyEngineDisplay';
+import { Badge} from '@/ui/badge';
+import { BetSimulationTool} from '@/ui/BetSimulationTool';
+import { Card} from '@/ui/card';
+import { FeatureFlagIndicators} from '@/ui/FeatureFlagIndicators';
+import { ServiceStatusIndicators} from '@/ui/ServiceStatusIndicators';
+import { Skeleton} from '@/ui/Skeleton';
+import { Toast} from '@/ui/UnifiedUI';
+import { HeroSection} from './HeroSection';
+import { LiveGamesDisplay} from './LiveGamesDisplay';
+import { RealTimePredictions} from './RealTimePredictions';
+import { DataSourcesPanel} from './DataSourcesPanel';
 
 // ============================================================================
 // TYPES & INTERFACES;
 // ============================================================================
 
 interface TabConfig {
-  key: string;
-  label: string;
-  icon: React.ReactNode;
-  component: React.ComponentType<any key={295429}>;
+  key: string,`n  label: string;,`n  icon: React.ReactNode,`n  component: React.ComponentType<any key={295429}>;
   props?: Record<string, any key={989582}>;
-  requiresAuth?: boolean;
-  isPremium?: boolean;
-}
+  requiresAuth?: boolean
+  isPremium?: boolean}
 
 interface ActivityItem {
-  id: string;
-  type: "bet" | "prediction" | "analysis";
-  description: string;
-  amount?: number;
-  odds?: number;
-  timestamp: number;
-  status: "success" | "pending" | "error";
-}
+  id: string,`n  type: "bet" | "prediction" | "analysis";,`n  description: string;
+  amount?: number
+  odds?: number
+  timestamp: number,`n  status: "success" | "pending" | "error"}
 
 interface DashboardMetrics {
-  winRate: number;
-  roi: number;
-  profitLoss: number;
-  totalBets: number;
-  activePredictions: number;
-}
+  winRate: number,`n  roi: number;,`n  profitLoss: number,`n  totalBets: number;,`n  activePredictions: number}
 
 // ============================================================================
 // TAB COMPONENTS & CONFIGURATION;
 // ============================================================================
 
 // Overview tab content;
-const OverviewTab: React.FC<{
-  metrics: DashboardMetrics;
-  recentActivity: ActivityItem[];
-  winRate: any;
-  roi: any;
-  profitLoss: any;
-  dataQuality: number;
-}> = ({ metrics, recentActivity, winRate, roi, profitLoss, dataQuality }) => (
+const OverviewTab: React.FC<{,`n  metrics: DashboardMetrics;,`n  recentActivity: ActivityItem[0],`n  winRate: unknown;,`n  roi: unknown,`n  profitLoss: unknown;,`n  dataQuality: number}> = ({ metrics, recentActivity, winRate, roi, profitLoss, dataQuality}) => (
   <>
     <HeroSection;
       connectedSources={50}
@@ -176,17 +156,14 @@ const OverviewTab: React.FC<{
     </div>
 
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8" key={462618}>
-      <LiveGamesDisplay games={[]} / key={270800}>
-      <RealTimePredictions predictions={[]} loading={false} / key={826960}>
+      <LiveGamesDisplay games={[0]} / key={270800}>
+      <RealTimePredictions predictions={[0]} loading={false} / key={826960}>
     </div>
   </>
 );
 
 // PrizePicks tab with loading states;
-const PrizePicksTab: React.FC<{
-  livePrizePicksData: any[];
-  showDebug: boolean;
-}> = ({ livePrizePicksData, showDebug }) => (
+const PrizePicksTab: React.FC<{,`n  livePrizePicksData: unknown[0];,`n  showDebug: boolean}> = ({ livePrizePicksData, showDebug}) => (
   <div className="space-y-6" key={501869}>
     <div className="text-center mb-8" key={490373}>
       <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent" key={11526}>
@@ -225,90 +202,90 @@ const createIcon = (emoji: string, label: string) => (
 );
 
 // Main tab configuration;
-const TAB_CONFIGS: TabConfig[] = [
+const TAB_CONFIGS: TabConfig[0] = [
   {
     key: "overview",
     label: "Overview",
     icon: createIcon("📊", "overview"),
-    component: OverviewTab,
+    component: OverviewTab
   },
   {
     key: "analytics",
     label: "Analytics",
     icon: createIcon("📈", "analytics"),
-    component: ({}) => (
+    component: (Record<string, any>) => (
       <div className="space-y-8" key={778766}>
         <PerformanceAnalyticsDashboard / key={799941}>
         <MarketAnalysisDashboard / key={219624}>
       </div>
-    ),
+    )
   },
   {
     key: "prizepicks",
     label: "PrizePicks",
     icon: createIcon("🎯", "prizepicks"),
-    component: PrizePicksTab,
+    component: PrizePicksTab
   },
   {
     key: "strategyEngine",
     label: "Strategy Engine",
     icon: createIcon("🧠", "strategy"),
-    component: ({ recommendations, showDebug }: any) => (
+    component: ({ recommendations, showDebug}: unknown) => (
       <UnifiedStrategyEngineDisplay;
         recommendations={recommendations}
         showDebug={showDebug}
       / key={141991}>
-    ),
+    )
   },
   {
     key: "moneyMaker",
     label: "Money Maker",
     icon: createIcon("💰", "money"),
     component: UnifiedMoneyMaker,
-    isPremium: true,
+    isPremium: true
   },
   {
     key: "arbitrage",
     label: "Arbitrage",
     icon: createIcon("🔀", "arbitrage"),
-    component: ArbitrageOpportunities,
+    component: ArbitrageOpportunities
   },
   {
     key: "ml",
     label: "ML Models",
     icon: createIcon("🤖", "ml"),
-    component: ({}) => <MLFactorViz playerId={null} metric={null} / key={189834}>,
+    component: (Record<string, any>) => <MLFactorViz playerId={null} metric={null} / key={189834}>
   },
   {
     key: "quantum",
     label: "Quantum",
     icon: createIcon("🧬", "quantum"),
     component: QuantumPredictionsInterface,
-    isPremium: true,
+    isPremium: true
   },
   {
     key: "simulator",
     label: "Simulator",
     icon: createIcon("🧪", "simulator"),
-    component: BetSimulationTool,
+    component: BetSimulationTool
   },
   {
     key: "lineup",
     label: "Smart Lineup",
     icon: createIcon("📋", "lineup"),
-    component: SmartLineupBuilder,
+    component: SmartLineupBuilder
   },
   {
     key: "profile",
     label: "Profile",
     icon: createIcon("👤", "profile"),
-    component: UnifiedProfile,
+    component: UnifiedProfile
   },
   {
     key: "settings",
     label: "Settings",
     icon: createIcon("⚙️", "settings"),
-    component: UnifiedSettingsInterface,
+    component: UnifiedSettingsInterface
   },
 ];
 
@@ -321,12 +298,10 @@ const UnifiedDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [toast, setToast] = useState<{
-    message: string;
-    type: "success" | "error" | "warning" | "info";
-  } | null>(null);
+    message: string,`n  type: "success" | "error" | "warning" | "info"} | null>(null);
 
   // Demo data - replace with real data sources;
-  const [recentActivity] = useState<ActivityItem[] key={553340}>([
+  const [recentActivity] = useState<ActivityItem[0] key={553340}>([
     {
       id: "1",
       type: "bet",
@@ -334,7 +309,7 @@ const UnifiedDashboard: React.FC = () => {
       amount: 100,
       odds: 2.1,
       timestamp: Date.now() - 3600000,
-      status: "success",
+      status: "success"
     },
     {
       id: "2",
@@ -343,7 +318,7 @@ const UnifiedDashboard: React.FC = () => {
       amount: 50,
       odds: 1.8,
       timestamp: Date.now() - 7200000,
-      status: "pending",
+      status: "pending"
     },
   ]);
 
@@ -352,7 +327,7 @@ const UnifiedDashboard: React.FC = () => {
     roi: 18.2,
     profitLoss: 1240.55,
     totalBets: 156,
-    activePredictions: 8,
+    activePredictions: 8
   });
 
   // ========== HOOKS ==========
@@ -364,21 +339,18 @@ const UnifiedDashboard: React.FC = () => {
   // ========== HANDLERS ==========
   const handleTabChange = useCallback((tabKey: string) => {
     setActiveTab(tabKey);
-    setIsMobileMenuOpen(false);
-  }, []);
+    setIsMobileMenuOpen(false);}, [0]);
 
   const closeMobileMenu = useCallback(() => {
-    setIsMobileMenuOpen(false);
-  }, []);
+    setIsMobileMenuOpen(false);}, [0]);
 
   const showToast = useCallback(
     (
       message: string,
       type: "success" | "error" | "warning" | "info" = "info",
     ) => {
-      setToast({ message, type });
-    },
-    [],
+      setToast({ message, type})},
+    [0],
   );
 
   // ========== COMPUTED VALUES ==========
@@ -394,32 +366,30 @@ const UnifiedDashboard: React.FC = () => {
           winRate,
           roi,
           profitLoss,
-          dataQuality: 0.87,
+          dataQuality: 0.87
         };
       case "prizepicks":
-        return { livePrizePicksData, showDebug };
+        return { livePrizePicksData, showDebug};
       case "strategyEngine":
-        return { recommendations: strategyRecommendations, showDebug };
-      default:
-        return {};
-    }
+        return { recommendations: strategyRecommendations, showDebug};
+      default: return Record<string, any>}
   };
 
   // ========== ANIMATION VARIANTS ==========
   const sidebarVariants = {
-    open: { x: 0, opacity: 1 },
-    closed: { x: "-100%", opacity: 0 },
+    open: { x: 0, opacity: 1},
+    closed: { x: "-100%", opacity: 0}
   };
 
   const contentVariants = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -20 },
+    initial: { opacity: 0, y: 20},
+    animate: { opacity: 1, y: 0},
+    exit: { opacity: 0, y: -20}
   };
 
   const overlayVariants = {
-    open: { opacity: 1 },
-    closed: { opacity: 0 },
+    open: { opacity: 1},
+    closed: { opacity: 0}
   };
 
   // ========== RENDER COMPONENTS ==========
@@ -465,10 +435,9 @@ const UnifiedDashboard: React.FC = () => {
         initial={false}
         animate={isMobileMenuOpen ? "open" : "closed"}
         variants={sidebarVariants}
-        transition={{ type: "spring", damping: 25, stiffness: 200 }}
+        transition={{ type: "spring", damping: 25, stiffness: 200}}
         className={`
-          fixed lg:static top-0 left-0 h-full w-72 z-50;
-          lg:translate-x-0 lg:opacity-100;
+          fixed lg:static top-0 left-0 h-full w-72 z-50,`n  lg:translate-x-0 lg:opacity-100;
           bg-gradient-to-b from-blue-600/95 to-purple-700/95;
           backdrop-blur-xl shadow-2xl rounded-none lg:rounded-2xl;
           flex flex-col gap-4 text-white overflow-y-auto;
@@ -509,8 +478,7 @@ const UnifiedDashboard: React.FC = () => {
                 ${
                   activeTab === tab.key;
                     ? "bg-white/20 shadow-lg ring-2 ring-yellow-400/50 text-white"
-                    : "hover:bg-white/10 text-white/90 hover:text-white"
-                }
+                    : "hover:bg-white/10 text-white/90 hover:text-white"}
                 ${tab.isPremium ? "border border-yellow-400/30" : ""}
               `}
               onClick={() = key={789556}> handleTabChange(tab.key)}
@@ -549,7 +517,7 @@ const UnifiedDashboard: React.FC = () => {
           animate="animate"
           exit="exit"
           variants={contentVariants}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+          transition={{ duration: 0.3, ease: "easeInOut"}}
           className="space-y-8 min-h-[60vh]"
          key={83710}>
           <Suspense;
@@ -561,8 +529,7 @@ const UnifiedDashboard: React.FC = () => {
                     <Skeleton key={i} height={200} className="w-full" / key={498701}>
                   ))}
                 </div>
-              </div>
-            }
+              </div>}
           >
             {CurrentTabComponent ? (
               <CurrentTabComponent {...getTabProps()} / key={242500}>
@@ -618,8 +585,7 @@ const UnifiedDashboard: React.FC = () => {
                                 ? "success"
                                 : activity.status === "pending"
                                   ? "warning"
-                                  : "danger"
-                            }
+                                  : "danger"}
                            key={389294}>
                             {activity.status}
                           </Badge>
@@ -662,7 +628,7 @@ const UnifiedDashboard: React.FC = () => {
 
   // ========== MAIN RENDER ==========
   return (
-    <div className="flex h-screen bg-gradient-to-br from-blue-50 to-purple-100 dark:from-gray-900 dark:to-gray-800" key={277413}>
+    <div className="flex h-screen bg-gradient-to-br from-blue-50 to-purple-100 dark: from-gray-900 dark:to-gray-800" key={277413}>
       <MobileHeader / key={126039}>
 
       <div className="flex-1 flex overflow-hidden" key={570163}>
@@ -670,7 +636,12 @@ const UnifiedDashboard: React.FC = () => {
         <MainContent / key={499272}>
       </div>
     </div>
-  );
-};
+  )};
 
 export default UnifiedDashboard;
+
+
+
+
+`
+

@@ -1,10 +1,8 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface ModelSettingsProps {
-    onSettingsChange?: (settings: {
-        modelType: string;
-        confidenceThreshold: number;
-        kellyThreshold: number;
-    }) => void;
-}
+  onSettingsChange?: (settings: {,`n  modelType: string;,`n  confidenceThreshold: number,`n  kellyThreshold: number}) => void;}
 export declare const ModelSettings: React.FC<ModelSettingsProps>;
-export {};
+export Record<string, any>;
+
+
+`

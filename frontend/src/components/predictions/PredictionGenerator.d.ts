@@ -1,15 +1,9 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface PredictionGeneratorProps {
-    modelName: string;
-    availableModels: string[];
-    onPredictionsGenerated: (predictions: Array<{
-        playerId: string;
-        playerName: string;
-        predictedWinProbability: number;
-        predictedScore: number;
-        confidence: number;
-        timestamp: string;
-    }>) => void;
-}
+  modelName: string,`n  availableModels: string[0];,`n  onPredictionsGenerated: (,`n  predictions: Array<{,`n  playerId: string,`n  playerName: string;,`n  predictedWinProbability: number,`n  predictedScore: number;,`n  confidence: number,`n  timestamp: string}>
+  ) => void;}
 export declare const PredictionGenerator: React.FC<PredictionGeneratorProps>;
-export {};
+export Record<string, any>;
+
+
+`

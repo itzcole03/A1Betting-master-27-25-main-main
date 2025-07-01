@@ -1,25 +1,20 @@
-import ESPNHeadlinesTicker from './ESPNHeadlinesTicker.ts';
-import React, { useMemo  } from 'react.ts';
-import useStore from '@/store/useStore.ts';
+﻿import ESPNHeadlinesTicker from './ESPNHeadlinesTicker';
+import React, { useMemo} from 'react';
+import useStore from '@/store/useStore';
 
 export interface HeaderProps {
-  onToggleSidebar: () => void;
-  isSidebarOpen: boolean;
-}
+  onToggleSidebar: () => void,`n  isSidebarOpen: boolean}
 
 // TODO: Integrate real trending games from state or API;
 interface TrendingGame {
-  id?: string;
-  homeTeam: string;
-  awayTeam: string;
-  startTime: string | number;
-}
+  id?: string
+  homeTeam: string,`n  awayTeam: string;,`n  startTime: string | number}
 
-const Header: React.FC<HeaderProps key={261313}> = ({ onToggleSidebar, isSidebarOpen }) => {
-  const { darkMode, toggleDarkMode } = useStore();
+const Header: React.FC<HeaderProps key={261313}> = ({ onToggleSidebar, isSidebarOpen}) => {
+  const { darkMode, toggleDarkMode} = useStore();
 
   // Placeholder trending games;
-  const trendingGames: TrendingGame[] = useMemo(() => [], []); // TODO: Replace with real data;
+  const trendingGames: TrendingGame[0] = useMemo(() => [0], [0]); // TODO: Replace with real data;
 
   return (
     <header className="h-16 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700" key={819948}>
@@ -57,7 +52,7 @@ const Header: React.FC<HeaderProps key={261313}> = ({ onToggleSidebar, isSidebar
               <div className="w-8 h-8 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full flex items-center justify-center text-white" key={492405}>
                 U;
               </div>
-              <div className="hidden lg:block text-left" key={590608}>
+              <div className="hidden lg: block text-left" key={590608}>
                 <div className="text-sm font-medium" key={243722}>User</div>
                 <div className="text-xs text-gray-500 dark:text-gray-400" key={849702}>Pro Plan</div>
               </div>
@@ -66,7 +61,11 @@ const Header: React.FC<HeaderProps key={261313}> = ({ onToggleSidebar, isSidebar
         </div>
       </div>
     </header>
-  );
-};
+  )};
 
 export default Header;
+
+
+
+
+`

@@ -3,24 +3,22 @@
  * Tests and displays data from all enhanced provider integrations;
  */
 
-import React, { useState, useEffect  } from 'react.ts';
-import { enhancedDailyFantasyService } from '@/services/enhanced/DailyFantasyService.ts';
-import { enhancedTheOddsService } from '@/services/enhanced/TheOddsService.ts';
-import { sportsbookDataService } from '@/services/enhanced/SportsbookDataService.ts';
-import { unifiedDataIntegrationService } from '@/services/enhanced/UnifiedDataIntegrationService.ts';
-import { productionValidationService } from '@/services/enhanced/ProductionValidationService.ts';
-import { prizePicksProjectionsService } from '@/services/enhanced/PrizePicksProjectionsService.ts';
+import React, { useState, useEffect} from 'react';
+import { enhancedDailyFantasyService} from '@/services/enhanced/DailyFantasyService';
+import { enhancedTheOddsService} from '@/services/enhanced/TheOddsService';
+import { sportsbookDataService} from '@/services/enhanced/SportsbookDataService';
+import { unifiedDataIntegrationService} from '@/services/enhanced/UnifiedDataIntegrationService';
+import { productionValidationService} from '@/services/enhanced/ProductionValidationService';
+import { prizePicksProjectionsService} from '@/services/enhanced/PrizePicksProjectionsService';
 
 interface TestResult {
-  service: string;
-  status: "testing" | "success" | "error";
-  data?: any;
-  error?: string;
-  responseTime?: number;
-}
+  service: string,`n  status: "testing" | "success" | "error";
+  data?: unknown
+  error?: string
+  responseTime?: number}
 
 const EnhancedAPITestDashboard: React.FC = () => {
-  const [testResults, setTestResults] = useState<TestResult[] key={393269}>([]);
+  const [testResults, setTestResults] = useState<TestResult[0] key={393269}>([0]);
   const [isRunning, setIsRunning] = useState(false);
   const [healthStatus, setHealthStatus] = useState<any key={295429}>(null);
   const [productionReport, setProductionReport] = useState<any key={295429}>(null);
@@ -31,69 +29,66 @@ const EnhancedAPITestDashboard: React.FC = () => {
 
       if (existing) {
         return prev.map((r) =>
-          r.service === service ? { ...r, ...result } : r,
-        );
-      } else {
-        return [...prev, { service, status: "testing", ...result }];
-      }
-    });
-  };
+          r.service === service ? { ...r, ...result} : r,
+        )} else {
+        return [...prev, { service, status: "testing", ...result}]}
+    });};
 
   const runAPITests = async () => {
     setIsRunning(true);
-    setTestResults([]);
+    setTestResults([0]);
 
     const tests = [
       {
         service: "PrizePicks - Free Projections (NBA)",
-        test: () => prizePicksProjectionsService.getNBAProjections(),
+        test: () => prizePicksProjectionsService.getNBAProjections()
       },
       {
         service: "PrizePicks - All Projections",
-        test: () => prizePicksProjectionsService.getProjections(),
+        test: () => prizePicksProjectionsService.getProjections()
       },
       {
         service: "PrizePicks - High Value Props",
-        test: () => prizePicksProjectionsService.getHighValueProjections(0.7),
+        test: () => prizePicksProjectionsService.getHighValueProjections(0.7)
       },
       {
         service: "DailyFantasy - DraftKings Contests",
-        test: () => enhancedDailyFantasyService.getDraftKingsContests("NBA"),
+        test: () => enhancedDailyFantasyService.getDraftKingsContests("NBA")
       },
       {
         service: "DailyFantasy - Comprehensive Data",
-        test: () => enhancedDailyFantasyService.getComprehensiveDFSData("NBA"),
+        test: () => enhancedDailyFantasyService.getComprehensiveDFSData("NBA")
       },
       {
         service: "TheOdds - Sports List",
-        test: () => enhancedTheOddsService.getSportsFromTheOddsAPI(),
+        test: () => enhancedTheOddsService.getSportsFromTheOddsAPI()
       },
       {
         service: "TheOdds - Aggregated Odds",
-        test: () => enhancedTheOddsService.getAggregatedOdds("basketball_nba"),
+        test: () => enhancedTheOddsService.getAggregatedOdds("basketball_nba")
       },
       {
         service: "Sportsbook - Aggregated Odds",
-        test: () => sportsbookDataService.getAggregatedOdds("basketball_nba"),
+        test: () => sportsbookDataService.getAggregatedOdds("basketball_nba")
       },
       {
         service: "Sportsbook - Arbitrage Opportunities",
         test: () =>
-          sportsbookDataService.getArbitrageOpportunities("basketball_nba"),
+          sportsbookDataService.getArbitrageOpportunities("basketball_nba")
       },
       {
         service: "Unified - Complete Sports Data",
         test: () =>
-          unifiedDataIntegrationService.getUnifiedSportsData("basketball_nba"),
+          unifiedDataIntegrationService.getUnifiedSportsData("basketball_nba")
       },
       {
         service: "Unified - Optimal DFS Lineup",
-        test: () => unifiedDataIntegrationService.getOptimalDFSLineups("NBA"),
+        test: () => unifiedDataIntegrationService.getOptimalDFSLineups("NBA")
       },
     ];
 
-    for (const { service, test } of tests) {
-      updateTestResult(service, { status: "testing" });
+    for (const { service, test} of tests) {
+      updateTestResult(service, { status: "testing"});
 
       try {
 
@@ -101,28 +96,23 @@ const EnhancedAPITestDashboard: React.FC = () => {
         updateTestResult(service, {
           status: "success",
           data,
-          responseTime,
-        });
-      } catch (error) {
+//           responseTime
+        })} catch (error) {
 
         updateTestResult(service, {
           status: "error",
           error: error instanceof Error ? error.message : "Unknown error",
-          responseTime,
-        });
-      }
+//           responseTime
+        })}
     }
 
-    setIsRunning(false);
-  };
+    setIsRunning(false);};
 
   const checkHealthStatus = async () => {
     try {
 
-      setHealthStatus(health);
-    } catch (error) {
-      // console statement removed
-    }
+      setHealthStatus(health);} catch (error) {
+      // console statement removed}
   };
 
   const runProductionValidation = async () => {
@@ -131,20 +121,16 @@ const EnhancedAPITestDashboard: React.FC = () => {
       const report =
         await productionValidationService.validateProductionReadiness();
       setProductionReport(report);
-      // console statement removed
-    } catch (error) {
-      // console statement removed
-    } finally {
-      setIsValidating(false);
-    }
+      // console statement removed} catch (error) {
+      // console statement removed} finally {
+      setIsValidating(false);}
   };
 
   useEffect(() => {
     checkHealthStatus();
     runProductionValidation(); // Run initial production validation;
     const interval = setInterval(checkHealthStatus, 30000); // Every 30 seconds;
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval);}, [0]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -154,9 +140,7 @@ const EnhancedAPITestDashboard: React.FC = () => {
         return "bg-green-500";
       case "error":
         return "bg-red-500";
-      default:
-        return "bg-gray-500";
-    }
+      default: return "bg-gray-500"}
   };
 
   const getStatusIcon = (status: string) => {
@@ -167,9 +151,7 @@ const EnhancedAPITestDashboard: React.FC = () => {
         return "✅";
       case "error":
         return "❌";
-      default:
-        return "❓";
-    }
+      default: return "❓"}
   };
 
   return (
@@ -191,8 +173,7 @@ const EnhancedAPITestDashboard: React.FC = () => {
               className={`px-6 py-2 rounded-lg font-semibold ${
                 isRunning;
                   ? "bg-gray-600 cursor-not-allowed"
-                  : "bg-blue-600 hover:bg-blue-700"
-              }`}
+                  : "bg-blue-600 hover:bg-blue-700"}`}
              key={63841}>
               {isRunning ? "Running Tests..." : "Run API Tests"}
             </button>
@@ -210,8 +191,7 @@ const EnhancedAPITestDashboard: React.FC = () => {
               className={`px-6 py-2 rounded-lg font-semibold ${
                 isValidating;
                   ? "bg-gray-600 cursor-not-allowed"
-                  : "bg-purple-600 hover:bg-purple-700"
-              }`}
+                  : "bg-purple-600 hover:bg-purple-700"}`}
              key={749303}>
               {isValidating ? "Validating..." : "Production Validation"}
             </button>
@@ -235,8 +215,7 @@ const EnhancedAPITestDashboard: React.FC = () => {
                         : productionReport.overall_status ===
                             "ready_with_warnings"
                           ? "bg-yellow-600"
-                          : "bg-red-600"
-                    }`}
+                          : "bg-red-600"}`}
                    key={860071}>
                     {productionReport.overall_status;
                       .replace("_", " ")
@@ -254,9 +233,8 @@ const EnhancedAPITestDashboard: React.FC = () => {
                   <p key={161203}>
                     {
                       productionReport.validations.filter(
-                        (v: any) => v.status === "pass",
-                      ).length;
-                    }{" "}
+                        (v: unknown) => v.status === "pass",
+                      ).length}{" "}
                     validations passed;
                   </p>
                 </div>
@@ -322,7 +300,7 @@ const EnhancedAPITestDashboard: React.FC = () => {
                 </summary>
                 <div className="space-y-2 mt-2" key={624305}>
                   {productionReport.validations.map(
-                    (validation: any, index: number) => (
+                    (validation: unknown, index: number) => (
                       <div;
                         key={index}
                         className="flex items-center justify-between py-1 border-b border-gray-600"
@@ -335,8 +313,7 @@ const EnhancedAPITestDashboard: React.FC = () => {
                                 ? "bg-green-600"
                                 : validation.status === "warning"
                                   ? "bg-yellow-600"
-                                  : "bg-red-600"
-                            }`}
+                                  : "bg-red-600"}`}
                            key={512101}>
                             {validation.status.toUpperCase()}
                           </span>
@@ -359,7 +336,7 @@ const EnhancedAPITestDashboard: React.FC = () => {
             <h2 className="text-xl font-bold mb-4" key={939378}>Provider Health Status</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6" key={718576}>
-              {healthStatus.providers.map((provider: any) => (
+              {healthStatus.providers.map((provider: unknown) => (
                 <div;
                   key={provider.provider}
                   className="bg-gray-700 rounded-lg p-4"
@@ -372,8 +349,7 @@ const EnhancedAPITestDashboard: React.FC = () => {
                           ? "bg-green-600"
                           : provider.status === "degraded"
                             ? "bg-yellow-600"
-                            : "bg-red-600"
-                      }`}
+                            : "bg-red-600"}`}
                      key={411630}>
                       {provider.status.toUpperCase()}
                     </span>
@@ -559,7 +535,12 @@ const EnhancedAPITestDashboard: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  );};
 
 export default EnhancedAPITestDashboard;
+
+
+
+
+`
+

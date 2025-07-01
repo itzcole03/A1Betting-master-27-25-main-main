@@ -1,35 +1,27 @@
-interface MatchPrediction {
-    homeWinProbability: number;
-    awayWinProbability: number;
-    drawProbability: number;
-    recommendedBet: {
-        type: 'home' | 'away' | 'draw' | 'none';
-        stake: number;
-        odds: number;
-        expectedValue: number;
-        confidence: number;
-    };
-    insights: {
-        keyFactors: string[];
-        riskLevel: 'low' | 'medium' | 'high';
-        valueAssessment: string;
-        modelConsensus: number;
-    };
-}
+﻿interface MatchPrediction {
+  homeWinProbability: number,`n  awayWinProbability: number;,`n  drawProbability: number,`n  recommendedBet: {,`n  type: 'home' | 'away' | 'draw' | 'none',`n  stake: number;,`n  odds: number,`n  expectedValue: number;,`n  confidence: number};
+  insights: {,`n  keyFactors: string[0];,`n  riskLevel: 'low' | 'medium' | 'high',`n  valueAssessment: string;,`n  modelConsensus: number};}
 declare class SportsBettingService {
-    private readonly API_ENDPOINTS;
-    private readonly API_KEYS;
-    constructor();
-    private validateApiConfig;
-    getMatchPrediction(homeTeam: string, awayTeam: string, league: string, date: string): Promise<MatchPrediction>;
-    private fetchOdds;
-    private fetchTeamStats;
-    private fetchHistoricalMatches;
-    private calculateProbabilities;
-    private determineOptimalBet;
-    private calculateKellyStake;
-    private determineRiskLevel;
-    private assessValue;
-}
+  private readonly API_ENDPOINTS;
+  private readonly API_KEYS;
+  constructor();
+  private validateApiConfig;
+  getMatchPrediction(
+    homeTeam: string,
+    awayTeam: string,
+    league: string,
+    date: string
+  ): Promise<MatchPrediction>;
+  private fetchOdds;
+  private fetchTeamStats;
+  private fetchHistoricalMatches;
+  private calculateProbabilities;
+  private determineOptimalBet;
+  private calculateKellyStake;
+  private determineRiskLevel;
+  private assessValue;}
 export declare const sportsBettingService: SportsBettingService;
-export {};
+export Record<string, any>;
+
+
+`

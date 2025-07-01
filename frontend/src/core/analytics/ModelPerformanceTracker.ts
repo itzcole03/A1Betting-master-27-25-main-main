@@ -1,34 +1,17 @@
-import { ModelOutput, BetRecommendation } from '@/types/prediction.ts';
-import { UnifiedLogger } from '@/logging/types.ts';
-import { UnifiedMetrics } from '@/metrics/types.ts';
+﻿import { ModelOutput, BetRecommendation} from '@/types/prediction';
+import { UnifiedLogger} from '@/logging/types';
+import { UnifiedMetrics} from '@/metrics/types';
 
 export interface ModelPerformanceMetrics {
-  totalPredictions: number;
-  correctPredictions: number;
-  totalStake: number;
-  totalPayout: number;
-  roi: number;
-  winRate: number;
-  averageConfidence: number;
-  averageOdds: number;
-  profitFactor: number;
-  sharpeRatio: number;
-  maxDrawdown: number;
-  kellyCriterion: number;
-  expectedValue: number;
-  calibrationScore: number;
-  lastUpdated: Date;
-}
+  totalPredictions: number,`n  correctPredictions: number;,`n  totalStake: number,`n  totalPayout: number;,`n  roi: number,`n  winRate: number;,`n  averageConfidence: number,`n  averageOdds: number;,`n  profitFactor: number,`n  sharpeRatio: number;,`n  maxDrawdown: number,`n  kellyCriterion: number;,`n  expectedValue: number,`n  calibrationScore: number;,`n  lastUpdated: Date}
 
 interface PerformanceSnapshot {
-  timestamp: Date;
-  metrics: ModelPerformanceMetrics;
-}
+  timestamp: Date,`n  metrics: ModelPerformanceMetrics}
 
 export class ModelPerformanceTracker {
-  private performanceHistory: Map<string, PerformanceSnapshot[]>;
+  private performanceHistory: Map<string, PerformanceSnapshot[0]>;
   private currentMetrics: Map<string, ModelPerformanceMetrics>;
-  private calibrationData: Map<string, { predicted: number[]; actual: number[] }>;
+  private calibrationData: Map<string, { predicted: number[0]; actual: number[0]}>;
 
   constructor(
     private logger: UnifiedLogger,
@@ -37,13 +20,12 @@ export class ModelPerformanceTracker {
   ) {
     this.performanceHistory = new Map();
     this.currentMetrics = new Map();
-    this.calibrationData = new Map();
-  }
+    this.calibrationData = new Map();}
 
   public trackPrediction(
     modelName: string,
     prediction: ModelOutput,
-    recommendation: BetRecommendation;
+    recommendation: BetRecommendation
   ): void {
 
     current.totalPredictions++;
@@ -58,8 +40,7 @@ export class ModelPerformanceTracker {
     this.updateCalibrationData(modelName, prediction.confidence);
 
     this.currentMetrics.set(modelName, current);
-    this.trackMetrics(modelName, current);
-  }
+    this.trackMetrics(modelName, current);}
 
   public recordOutcome(modelName: string, stake: number, payout: number, odds: number): void {
 
@@ -83,36 +64,31 @@ export class ModelPerformanceTracker {
     // Update history;
     this.updateHistory(modelName, current);
     this.currentMetrics.set(modelName, current);
-    this.trackMetrics(modelName, current);
-  }
+    this.trackMetrics(modelName, current);}
 
   public getModelPerformance(modelName: string): ModelPerformanceMetrics | undefined {
-    return this.currentMetrics.get(modelName);
-  }
+    return this.currentMetrics.get(modelName)}
 
   public getPerformanceHistory(
     modelName: string,
     timeframe: 'day' | 'week' | 'month' | 'all' = 'all'
-  ): PerformanceSnapshot[] {
+  ): PerformanceSnapshot[0] {
 
 
 
-    return history.filter(snapshot => snapshot.timestamp >= cutoff);
-  }
+    return history.filter(snapshot => snapshot.timestamp >= cutoff)}
 
   public getTopPerformingModels(
     metric: keyof ModelPerformanceMetrics = 'roi',
     limit: number = 5;
-  ): Array<{ modelName: string; metrics: ModelPerformanceMetrics }> {
+  ): Array<{ modelName: string; metrics: ModelPerformanceMetrics}> {
     return Array.from(this.currentMetrics.entries())
-      .map(([modelName, metrics]) => ({ modelName, metrics }))
+      .map(([modelName, metrics]) => ({ modelName, metrics}))
       .sort((a, b) => {
 
 
-        return bValue - aValue;
-      })
-      .slice(0, limit);
-  }
+        return bValue - aValue})
+      .slice(0, limit);}
 
   private getOrCreateMetrics(modelName: string): ModelPerformanceMetrics {
     return (
@@ -131,20 +107,17 @@ export class ModelPerformanceTracker {
         kellyCriterion: 0,
         expectedValue: 0,
         calibrationScore: 0,
-        lastUpdated: new Date(),
+        lastUpdated: new Date()
       }
-    );
-  }
+    )}
 
   private updateAverage(currentAverage: number, newValue: number, totalCount: number): number {
-    return (currentAverage * (totalCount - 1) + newValue) / totalCount;
-  }
+    return (currentAverage * (totalCount - 1) + newValue) / totalCount}
 
   private calculateProfitFactor(metrics: ModelPerformanceMetrics): number {
 
 
-    return grossLoss === 0 ? 0 : Number(grossProfit) / Number(grossLoss);
-  }
+    return grossLoss === 0 ? 0 : Number(grossProfit) / Number(grossLoss)}
 
   private calculateSharpeRatio(modelName: string): number {
 
@@ -153,15 +126,13 @@ export class ModelPerformanceTracker {
     const returns = history.map((snapshot, i) => {
       if (i === 0) return 0;
 
-      return snapshot.metrics.roi - prevRoi;
-    });
+      return snapshot.metrics.roi - prevRoi;});
 
     const stdDev = Math.sqrt(
       returns.reduce((sum, ret) => sum + Math.pow(ret - avgReturn, 2), 0) / returns.length;
     );
 
-    return stdDev === 0 ? 0 : avgReturn / stdDev;
-  }
+    return stdDev === 0 ? 0 : avgReturn / stdDev;}
 
   private calculateMaxDrawdown(modelName: string): number {
 
@@ -173,36 +144,30 @@ export class ModelPerformanceTracker {
     for (const snapshot of history) {
 
       if (roi > peak) {
-        peak = roi;
-      }
+        peak = roi;}
 
-      maxDrawdown = Math.max(maxDrawdown, drawdown);
-    }
+      maxDrawdown = Math.max(maxDrawdown, drawdown);}
 
-    return maxDrawdown;
-  }
+    return maxDrawdown;}
 
   private calculateKellyCriterion(metrics: ModelPerformanceMetrics): number {
 
 
 
 
-    return Math.max(0, Math.min(kelly, 0.5)); // Cap at 50% of bankroll;
-  }
+    return Math.max(0, Math.min(kelly, 0.5)); // Cap at 50% of bankroll;}
 
   private calculateExpectedValue(metrics: ModelPerformanceMetrics, odds: number): number {
 
 
 
 
-    return winProb * winAmount - (1 - winProb) * lossAmount;
-  }
+    return winProb * winAmount - (1 - winProb) * lossAmount}
 
   private updateCalibrationData(modelName: string, predictedConfidence: number): void {
 
     data.predicted.push(predictedConfidence);
-    this.calibrationData.set(modelName, data);
-  }
+    this.calibrationData.set(modelName, data);}
 
   private calculateCalibrationScore(modelName: string): number {
 
@@ -216,8 +181,7 @@ export class ModelPerformanceTracker {
     data.predicted.forEach((pred, i) => {
 
       binCounts[bin]++;
-      if (data.actual[i]) binCorrect[bin]++;
-    });
+      if (data.actual[i]) binCorrect[bin]++;});
 
     // Calculate calibration error;
     const calibrationError = 0;
@@ -225,27 +189,23 @@ export class ModelPerformanceTracker {
       if (binCounts[i] > 0) {
 
 
-        calibrationError += Math.pow(expectedProb - actualProb, 2);
-      }
+        calibrationError += Math.pow(expectedProb - actualProb, 2);}
     }
 
-    return 1 - Math.sqrt(calibrationError / bins);
-  }
+    return 1 - Math.sqrt(calibrationError / bins);}
 
   private updateHistory(modelName: string, metrics: ModelPerformanceMetrics): void {
 
     history.push({
       timestamp: new Date(),
-      metrics: { ...metrics },
+      metrics: { ...metrics}
     });
 
     // Maintain history length limit;
     if (history.length > this.maxHistoryLength) {
-      history.shift();
-    }
+      history.shift();}
 
-    this.performanceHistory.set(modelName, history);
-  }
+    this.performanceHistory.set(modelName, history);}
 
   private getCutoffDate(timeframe: 'day' | 'week' | 'month' | 'all'): Date {
 
@@ -256,9 +216,7 @@ export class ModelPerformanceTracker {
         return new Date(now.setDate(now.getDate() - 7));
       case 'month':
         return new Date(now.setMonth(now.getMonth() - 1));
-      default:
-        return new Date(0);
-    }
+      default: return new Date(0)}
   }
 
   private trackMetrics(modelName: string, metrics: ModelPerformanceMetrics): void {
@@ -271,6 +229,9 @@ export class ModelPerformanceTracker {
     this.metrics.gauge(`model.${modelName}.expected_value`, metrics.expectedValue);
     this.metrics.gauge(`model.${modelName}.calibration_score`, metrics.calibrationScore);
     this.metrics.gauge(`model.${modelName}.average_confidence`, metrics.averageConfidence);
-    this.metrics.gauge(`model.${modelName}.average_odds`, metrics.averageOdds);
-  }
+    this.metrics.gauge(`model.${modelName}.average_odds`, metrics.averageOdds);}
 }
+
+
+
+`

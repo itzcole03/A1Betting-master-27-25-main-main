@@ -1,50 +1,42 @@
-import { BettingOdds, LineShoppingResult, Sportsbook } from '@/types/betting.ts';
-import { EventEmitter } from 'events.ts';
+﻿import { BettingOdds, LineShoppingResult, Sportsbook} from '@/types/betting';
+import { EventEmitter} from 'events';
 
 export class LineShoppingService extends EventEmitter {
   private sportsbooks: Map<string, Sportsbook> = new Map();
-  private oddsCache: Map<string, Map<string, BettingOdds[]>> = new Map();
+  private oddsCache: Map<string, Map<string, BettingOdds[0]>> = new Map();
   private readonly CACHE_TTL = 5 * 60 * 1000; // 5 minutes;
 
   constructor() {
-    super();
-  }
+    super();}
 
   /**
    * Register a sportsbook for line shopping;
    */
   public registerSportsbook(sportsbook: Sportsbook): void {
-    this.sportsbooks.set(sportsbook.id, sportsbook);
-  }
+    this.sportsbooks.set(sportsbook.id, sportsbook)}
 
   /**
    * Update odds for a specific sportsbook;
    */
-  public updateOdds(bookmakerId: string, odds: BettingOdds[]): void {
+  public updateOdds(bookmakerId: string, odds: BettingOdds[0]): void {
     if (!this.sportsbooks.has(bookmakerId)) {
-      throw new Error(`Sportsbook ${bookmakerId} not registered`);
-    }
+      throw new Error(`Sportsbook ${bookmakerId} not registered`)}
 
     odds.forEach(odd => {
 
       if (!this.oddsCache.has(eventKey)) {
-        this.oddsCache.set(eventKey, new Map());
-      }
+        this.oddsCache.set(eventKey, new Map());}
 
       if (!marketOdds.has(odd.selection)) {
-        marketOdds.set(odd.selection, []);
-      }
+        marketOdds.set(odd.selection, [0]);}
 
 
       if (existingIndex >= 0) {
-        selectionOdds[existingIndex] = odd;
-      } else {
-        selectionOdds.push(odd);
-      }
+        selectionOdds[existingIndex] = odd;} else {
+        selectionOdds.push(odd);}
     });
 
-    this.emit('oddsUpdated', { bookmakerId, odds });
-  }
+    this.emit('oddsUpdated', { bookmakerId, odds});}
 
   /**
    * Find the best odds for a specific selection;
@@ -52,24 +44,21 @@ export class LineShoppingService extends EventEmitter {
   public findBestOdds(
     eventId: string,
     market: string,
-    selection: string;
+    selection: string
   ): LineShoppingResult | null {
 
 
     if (!marketOdds) {
-      return null;
-    }
+      return null}
 
     if (!selectionOdds || selectionOdds.length === 0) {
-      return null;
-    }
+      return null}
 
     // Filter out expired odds;
 
 
     if (validOdds.length === 0) {
-      return null;
-    }
+      return null;}
 
     // Find best odds;
     const bestOdd = validOdds.reduce((prev, current) =>
@@ -88,54 +77,47 @@ export class LineShoppingService extends EventEmitter {
       eventId,
       market,
       selection,
-      bestOdds: {
-        bookmaker: bestOdd.bookmaker,
+      bestOdds: {,`n  bookmaker: bestOdd.bookmaker,
         odds: bestOdd.odds,
-        timestamp: bestOdd.timestamp,
+        timestamp: bestOdd.timestamp
       },
-      allOdds: validOdds.map(odd => ({
-        bookmaker: odd.bookmaker,
+      allOdds: validOdds.map(odd => ({,`n  bookmaker: odd.bookmaker,
         odds: odd.odds,
-        timestamp: odd.timestamp,
+        timestamp: odd.timestamp
       })),
       priceImprovement,
-      confidence,
-    };
-  }
+//       confidence
+    }}
 
   /**
    * Calculate confidence score for odds;
    */
-  private calculateConfidence(odds: BettingOdds[]): number {
+  private calculateConfidence(odds: BettingOdds[0]): number {
 
     // Time factor (0-1)
     const timeFactor =
       odds.reduce((sum, odd) => {
 
-        return sum + Math.max(0, 1 - age / this.CACHE_TTL);
-      }, 0) / odds.length;
+        return sum + Math.max(0, 1 - age / this.CACHE_TTL)}, 0) / odds.length;
 
     // Consistency factor (0-1)
 
     const variance =
       odds.reduce((sum, odd) => {
 
-        return sum + diff * diff;
-      }, 0) / odds.length;
+        return sum + diff * diff;}, 0) / odds.length;
 
     // Coverage factor (0-1)
 
     // Weighted combination;
-    return timeFactor * 0.4 + consistencyFactor * 0.3 + coverageFactor * 0.3;
-  }
+    return timeFactor * 0.4 + consistencyFactor * 0.3 + coverageFactor * 0.3;}
 
   /**
    * Get all available odds for a specific event and market;
    */
-  public getMarketOdds(eventId: string, market: string): Map<string, BettingOdds[]> | null {
+  public getMarketOdds(eventId: string, market: string): Map<string, BettingOdds[0]> | null {
 
-    return this.oddsCache.get(eventKey) || null;
-  }
+    return this.oddsCache.get(eventKey) || null}
 
   /**
    * Clear expired odds from cache;
@@ -146,15 +128,15 @@ export class LineShoppingService extends EventEmitter {
       marketOdds.forEach((selectionOdds, selection) => {
 
         if (validOdds.length === 0) {
-          marketOdds.delete(selection);
-        } else {
-          marketOdds.set(selection, validOdds);
-        }
+          marketOdds.delete(selection);} else {
+          marketOdds.set(selection, validOdds);}
       });
 
       if (marketOdds.size === 0) {
-        this.oddsCache.delete(eventKey);
-      }
-    });
-  }
+        this.oddsCache.delete(eventKey);}
+    });}
 }
+
+
+
+`

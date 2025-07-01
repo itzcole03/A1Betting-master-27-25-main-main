@@ -1,100 +1,36 @@
-import { EventEmitter } from 'eventemitter3.ts';
-import { storeEventBus } from '@/store/unified/UnifiedStoreManager.ts';
+﻿import { EventEmitter} from 'eventemitter3';
+import { storeEventBus} from '@/store/unified/UnifiedStoreManager';
 import {
   API_ENDPOINTS,
   FEATURE_FLAGS,
-  VALIDATION_RULES,
-} from '@/config/unifiedApiConfig.ts';
+//   VALIDATION_RULES
+} from '@/config/unifiedApiConfig';
 
 // Core Types;
 export interface MLModelConfig {
-  name: string;
-  type: "xgboost" | "lightgbm" | "randomforest" | "neural_network" | "ensemble";
-  version: string;
-  weight: number;
-  features: string[];
-  hyperparameters: Record<string, any>;
-  performance: {
-    accuracy: number;
-    precision: number;
-    recall: number;
-    f1Score: number;
-    roc_auc: number;
-    logLoss: number;
-  };
-  lastTrained: number;
-  isActive: boolean;
-}
+  name: string,`n  type: "xgboost" | "lightgbm" | "randomforest" | "neural_network" | "ensemble";,`n  version: string,`n  weight: number;,`n  features: string[0],`n  hyperparameters: Record<string, any>;
+  performance: {,`n  accuracy: number;,`n  precision: number,`n  recall: number;,`n  f1Score: number,`n  roc_auc: number;,`n  logLoss: number};
+  lastTrained: number,`n  isActive: boolean}
 
 export interface FeatureVector {
-  [featureName: string]: number;
-}
+  [featureName: string]: number}
 
 export interface PredictionInput {
-  eventId: string;
-  sport: string;
-  homeTeam: string;
-  awayTeam: string;
-  features: FeatureVector;
-  market: string;
-  timestamp: number;
-}
+  eventId: string,`n  sport: string;,`n  homeTeam: string,`n  awayTeam: string;,`n  features: FeatureVector,`n  market: string;,`n  timestamp: number}
 
 export interface ModelPrediction {
-  modelName: string;
-  prediction: number;
-  confidence: number;
-  features: FeatureVector;
-  shapValues: Record<string, number>;
-  processingTime: number;
-  modelVersion: string;
-}
+  modelName: string,`n  prediction: number;,`n  confidence: number,`n  features: FeatureVector;,`n  shapValues: Record<string, number>;
+  processingTime: number,`n  modelVersion: string}
 
 export interface EnsemblePrediction {
-  finalPrediction: number;
-  confidence: number;
-  models: ModelPrediction[];
-  consensusScore: number;
-  valueEdge: number;
-  kellyFraction: number;
-  recommendedStake: number;
-  riskLevel: "low" | "medium" | "high";
-  factors: Array<{
-    name: string;
-    impact: number;
-    weight: number;
-    direction: "positive" | "negative";
-  }>;
-  metadata: {
-    processingTime: number;
-    dataFreshness: number;
-    signalQuality: number;
-    modelAgreement: number;
-  };
-}
+  finalPrediction: number,`n  confidence: number;,`n  models: ModelPrediction[0],`n  consensusScore: number;,`n  valueEdge: number,`n  kellyFraction: number;,`n  recommendedStake: number,`n  riskLevel: "low" | "medium" | "high";,`n  factors: Array<{,`n  name: string;,`n  impact: number,`n  weight: number;,`n  direction: "positive" | "negative"}>;
+  metadata: {,`n  processingTime: number;,`n  dataFreshness: number,`n  signalQuality: number;,`n  modelAgreement: number}}
 
 export interface FeatureImportance {
-  name: string;
-  importance: number;
-  category: "player" | "team" | "game" | "market" | "environmental";
-  description: string;
-}
+  name: string,`n  importance: number;,`n  category: "player" | "team" | "game" | "market" | "environmental",`n  description: string}
 
 export interface ModelPerformanceMetrics {
-  accuracy: number;
-  precision: number;
-  recall: number;
-  f1Score: number;
-  rocAuc: number;
-  logLoss: number;
-  calibrationError: number;
-  profitability: number;
-  sharpeRatio: number;
-  winRate: number;
-  averageOdds: number;
-  totalPredictions: number;
-  lastUpdated: number;
-}
+  accuracy: number,`n  precision: number;,`n  recall: number,`n  f1Score: number;,`n  rocAuc: number,`n  logLoss: number;,`n  calibrationError: number,`n  profitability: number;,`n  sharpeRatio: number,`n  winRate: number;,`n  averageOdds: number,`n  totalPredictions: number;,`n  lastUpdated: number}
 
 // Feature Engineering Classes;
 class FeatureEngineer {
@@ -117,11 +53,11 @@ class FeatureEngineer {
     ],
     GAME: ["rest_days", "back_to_back", "travel_distance", "altitude"],
     MARKET: ["line_movement", "volume", "sharp_money", "public_betting"],
-    ENVIRONMENTAL: ["weather", "venue", "referees", "motivation"],
+    ENVIRONMENTAL: ["weather", "venue", "referees", "motivation"]
   };
 
   static engineerFeatures(rawData: any): FeatureVector {
-    const features: FeatureVector = {};
+    const features: FeatureVector = Record<string, any>;
 
     // Player features;
     if (rawData.playerStats) {
@@ -135,8 +71,7 @@ class FeatureEngineer {
       features.player_rest_impact = this.calculateRestImpact(
         rawData.playerStats,
         rawData.restDays,
-      );
-    }
+      );}
 
     // Team features;
     if (rawData.teamStats) {
@@ -145,8 +80,7 @@ class FeatureEngineer {
       features.team_pace = rawData.teamStats.pace || 0;
       features.home_court_advantage = rawData.isHome;
         ? rawData.teamStats.homeAdvantage || 2.5;
-        : 0;
-    }
+        : 0;}
 
     // Game context features;
     features.rest_days = Math.min(rawData.restDays || 0, 7);
@@ -160,16 +94,14 @@ class FeatureEngineer {
         rawData.market.history,
       );
       features.betting_volume = this.normalizeVolume(rawData.market.volume);
-      features.sharp_money_indicator = rawData.market.sharpMoney || 0;
-    }
+      features.sharp_money_indicator = rawData.market.sharpMoney || 0;}
 
     // Environmental features;
     if (rawData.environmental) {
       features.weather_impact = this.calculateWeatherImpact(
         rawData.environmental.weather,
       );
-      features.venue_advantage = rawData.environmental.venue?.advantage || 0;
-    }
+      features.venue_advantage = rawData.environmental.venue?.advantage || 0;}
 
     // ELO ratings;
     features.elo_rating_home = rawData.eloRatings?.home || 1500;
@@ -180,10 +112,9 @@ class FeatureEngineer {
     // Injury impact;
     features.injury_impact = this.calculateInjuryImpact(rawData.injuries);
 
-    return features;
-  }
+    return features;}
 
-  private static calculateRecentForm(playerStats: any[]): number {
+  private static calculateRecentForm(playerStats: any[0]): number {
     if (!playerStats?.length) return 0;
 
     const weights = [0.4, 0.3, 0.2, 0.1, 0.05]; // More weight on recent games;
@@ -195,14 +126,12 @@ class FeatureEngineer {
 
       const performance = (game.points + game.rebounds + game.assists) / 30; // Normalized;
       weightedPerformance += performance * weight;
-      totalWeight += weight;
-    });
+      totalWeight += weight;});
 
-    return totalWeight > 0 ? weightedPerformance / totalWeight : 0;
-  }
+    return totalWeight > 0 ? weightedPerformance / totalWeight : 0;}
 
   private static calculateHeadToHead(
-    playerStats: any[],
+    playerStats: any[0],
     opponent: string,
   ): number {
 
@@ -210,30 +139,25 @@ class FeatureEngineer {
 
     return (
       h2hGames.reduce((acc, game) => {
-        return acc + (game.points + game.rebounds + game.assists) / 30;
-      }, 0) / h2hGames.length;
-    );
-  }
+        return acc + (game.points + game.rebounds + game.assists) / 30;}, 0) / h2hGames.length;
+    );}
 
   private static calculateRestImpact(
-    playerStats: any[],
+    playerStats: any[0],
     restDays: number,
   ): number {
     if (restDays <= 1) return -0.1; // Back-to-back penalty;
     if (restDays >= 4) return -0.05; // Rust factor;
-    return Math.min(restDays * 0.02, 0.1); // Optimal rest boost;
-  }
+    return Math.min(restDays * 0.02, 0.1); // Optimal rest boost;}
 
-  private static calculateLineMovement(marketHistory: any[]): number {
+  private static calculateLineMovement(marketHistory: any[0]): number {
     if (!marketHistory?.length) return 0;
 
 
-    return (current - initial) / (initial || 1);
-  }
+    return (current - initial) / (initial || 1);}
 
   private static normalizeVolume(volume: number): number {
-    return Math.min(volume / 1000000, 1); // Normalize to 0-1 scale;
-  }
+    return Math.min(volume / 1000000, 1); // Normalize to 0-1 scale;}
 
   private static calculateWeatherImpact(weather: any): number {
     if (!weather) return 0;
@@ -241,21 +165,17 @@ class FeatureEngineer {
     const impact = 0;
     if (weather.temperature) {
       const tempImpact = Math.abs(weather.temperature - 70) / 100; // Ideal temp ~70F;
-      impact += tempImpact;
-    }
+      impact += tempImpact;}
 
     if (weather.windSpeed) {
-      impact += Math.min(weather.windSpeed / 30, 0.2);
-    }
+      impact += Math.min(weather.windSpeed / 30, 0.2);}
 
     if (weather.precipitation) {
-      impact += weather.precipitation * 0.3;
-    }
+      impact += weather.precipitation * 0.3;}
 
-    return Math.min(impact, 1);
-  }
+    return Math.min(impact, 1);}
 
-  private static calculateInjuryImpact(injuries: any[]): number {
+  private static calculateInjuryImpact(injuries: any[0]): number {
     if (!injuries?.length) return 0;
 
     return injuries.reduce((impact, injury) => {
@@ -265,9 +185,7 @@ class FeatureEngineer {
       if (severity === "major") injuryMultiplier = 0.5;
       else if (severity === "moderate") injuryMultiplier = 0.3;
 
-      return impact + playerImportance * injuryMultiplier;
-    }, 0);
-  }
+      return impact + playerImportance * injuryMultiplier;}, 0);}
 }
 
 // SHAP (SHapley Additive exPlanations) Implementation;
@@ -277,7 +195,7 @@ class SHAPExplainer {
     features: FeatureVector,
     prediction: number,
   ): Record<string, number> {
-    const shapValues: Record<string, number> = {};
+    const shapValues: Record<string, number> = Record<string, any>;
     const baseValue = 0.5; // Baseline prediction;
 
     // Calculate feature contributions using approximate SHAP;
@@ -292,8 +210,7 @@ class SHAPExplainer {
       // Calculate SHAP value as importance * normalized_value * total_contribution;
 
       shapValues[feature] = shapValue;
-      remainingContribution -= shapValue;
-    });
+      remainingContribution -= shapValue;});
 
     // Distribute remaining contribution to top features;
     if (Math.abs(remainingContribution) > 0.001) {
@@ -303,12 +220,9 @@ class SHAPExplainer {
 
       topFeatures.forEach(([feature], index) => {
 
-        shapValues[feature] += adjustment;
-      });
-    }
+        shapValues[feature] += adjustment;});}
 
-    return shapValues;
-  }
+    return shapValues;}
 
   private static getFeatureImportances(
     model: MLModelConfig,
@@ -324,11 +238,10 @@ class SHAPExplainer {
       line_movement: 0.05,
       player_vs_opponent: 0.05,
       weather_impact: 0.03,
-      betting_volume: 0.02,
+      betting_volume: 0.02
     };
 
-    return importances;
-  }
+    return importances;}
 
   private static normalizeFeatureValue(feature: string, value: number): number {
     // Normalize feature values to [-1, 1] range for SHAP calculation;
@@ -339,12 +252,11 @@ class SHAPExplainer {
       rest_days: [0, 7],
       home_court_advantage: [0, 5],
       injury_impact: [0, 1],
-      line_movement: [-0.5, 0.5],
+      line_movement: [-0.5, 0.5]
     };
 
     const [min, max] = ranges[feature] || [0, 1];
-    return Math.max(-1, Math.min(1, ((value - min) / (max - min)) * 2 - 1));
-  }
+    return Math.max(-1, Math.min(1, ((value - min) / (max - min)) * 2 - 1));}
 }
 
 // Main ML Engine;
@@ -353,7 +265,7 @@ export class UnifiedMLEngine extends EventEmitter {
   private models: Map<string, MLModelConfig>;
   private cache: Map<string, any>;
   private performanceMetrics: Map<string, ModelPerformanceMetrics>;
-  private featureImportances: Map<string, FeatureImportance[]>;
+  private featureImportances: Map<string, FeatureImportance[0]>;
   private isTraining: boolean = false;
 
   private constructor() {
@@ -362,19 +274,16 @@ export class UnifiedMLEngine extends EventEmitter {
     this.cache = new Map();
     this.performanceMetrics = new Map();
     this.featureImportances = new Map();
-    this.initializeModels();
-  }
+    this.initializeModels();}
 
   public static getInstance(): UnifiedMLEngine {
     if (!UnifiedMLEngine.instance) {
-      UnifiedMLEngine.instance = new UnifiedMLEngine();
-    }
-    return UnifiedMLEngine.instance;
-  }
+      UnifiedMLEngine.instance = new UnifiedMLEngine();}
+    return UnifiedMLEngine.instance;}
 
   private initializeModels(): void {
     // Initialize ensemble models with realistic configurations;
-    const models: MLModelConfig[] = [
+    const models: MLModelConfig[0] = [
       {
         name: "XGBoost_Primary",
         type: "xgboost",
@@ -387,22 +296,20 @@ export class UnifiedMLEngine extends EventEmitter {
           "rest_days",
           "home_court_advantage",
         ],
-        hyperparameters: {
-          max_depth: 6,
+        hyperparameters: {,`n  max_depth: 6,
           learning_rate: 0.1,
           n_estimators: 100,
-          subsample: 0.8,
+          subsample: 0.8
         },
-        performance: {
-          accuracy: 0.687,
+        performance: {,`n  accuracy: 0.687,
           precision: 0.692,
           recall: 0.681,
           f1Score: 0.686,
           roc_auc: 0.751,
-          logLoss: 0.635,
+          logLoss: 0.635
         },
         lastTrained: Date.now() - 86400000, // 24 hours ago;
-        isActive: true,
+        isActive: true
       },
       {
         name: "LightGBM_Secondary",
@@ -416,22 +323,20 @@ export class UnifiedMLEngine extends EventEmitter {
           "injury_impact",
           "weather_impact",
         ],
-        hyperparameters: {
-          num_leaves: 31,
+        hyperparameters: {,`n  num_leaves: 31,
           learning_rate: 0.05,
           feature_fraction: 0.9,
-          bagging_fraction: 0.8,
+          bagging_fraction: 0.8
         },
-        performance: {
-          accuracy: 0.673,
+        performance: {,`n  accuracy: 0.673,
           precision: 0.678,
           recall: 0.668,
           f1Score: 0.673,
           roc_auc: 0.742,
-          logLoss: 0.648,
+          logLoss: 0.648
         },
         lastTrained: Date.now() - 86400000,
-        isActive: true,
+        isActive: true
       },
       {
         name: "RandomForest_Tertiary",
@@ -445,22 +350,20 @@ export class UnifiedMLEngine extends EventEmitter {
           "travel_distance",
           "venue_advantage",
         ],
-        hyperparameters: {
-          n_estimators: 200,
+        hyperparameters: {,`n  n_estimators: 200,
           max_depth: 10,
           min_samples_split: 5,
-          min_samples_leaf: 2,
+          min_samples_leaf: 2
         },
-        performance: {
-          accuracy: 0.659,
+        performance: {,`n  accuracy: 0.659,
           precision: 0.664,
           recall: 0.654,
           f1Score: 0.659,
           roc_auc: 0.728,
-          logLoss: 0.661,
+          logLoss: 0.661
         },
         lastTrained: Date.now() - 86400000,
-        isActive: true,
+        isActive: true
       },
       {
         name: "Neural_Network_Advanced",
@@ -468,29 +371,25 @@ export class UnifiedMLEngine extends EventEmitter {
         version: "1.0.0",
         weight: 0.1,
         features: ["all"], // Uses all available features;
-        hyperparameters: {
-          hidden_layers: [128, 64, 32],
+        hyperparameters: {,`n  hidden_layers: [128, 64, 32],
           dropout_rate: 0.3,
           learning_rate: 0.001,
-          batch_size: 32,
+          batch_size: 32
         },
-        performance: {
-          accuracy: 0.695,
+        performance: {,`n  accuracy: 0.695,
           precision: 0.701,
           recall: 0.689,
           f1Score: 0.695,
           roc_auc: 0.763,
-          logLoss: 0.621,
+          logLoss: 0.621
         },
         lastTrained: Date.now() - 86400000,
-        isActive: FEATURE_FLAGS.ADVANCED_ANALYTICS,
+        isActive: FEATURE_FLAGS.ADVANCED_ANALYTICS
       },
     ];
 
     models.forEach((model) => {
-      this.models.set(model.name, model);
-    });
-  }
+      this.models.set(model.name, model);});}
 
   public async generatePrediction(
     input: PredictionInput,
@@ -503,7 +402,7 @@ export class UnifiedMLEngine extends EventEmitter {
       this.validateInput(input, features);
 
       // Generate predictions from each active model;
-      const modelPredictions: ModelPrediction[] = [];
+      const modelPredictions: ModelPrediction[0] = [0];
       const activeModels = Array.from(this.models.values()).filter(
         (m) => m.isActive,
       );
@@ -514,8 +413,7 @@ export class UnifiedMLEngine extends EventEmitter {
           features,
           input,
         );
-        modelPredictions.push(prediction);
-      }
+        modelPredictions.push(prediction);}
 
       // Combine predictions using weighted ensemble;
       const ensemblePrediction = this.combineModelPredictions(
@@ -542,34 +440,30 @@ export class UnifiedMLEngine extends EventEmitter {
       // Emit prediction event;
       this.emit("prediction:generated", {
         eventId: input.eventId,
-        prediction: ensemblePrediction,
+        prediction: ensemblePrediction
       });
 
       // Update store;
       storeEventBus.emit("prediction:updated", {
         eventId: input.eventId,
-        prediction: {
-          id: `${input.eventId}:${input.market}`,
+        prediction: {,`n  id: `${input.eventId}:${input.market}`,
           confidence: ensemblePrediction.confidence,
           predictedValue: ensemblePrediction.finalPrediction,
           factors: ensemblePrediction.factors,
           timestamp: Date.now(),
-          metadata: {
-            modelVersion: "ensemble_v1.0",
+          metadata: {,`n  modelVersion: "ensemble_v1.0",
             features,
             shapValues: this.aggregateShapValues(modelPredictions),
-            performanceMetrics: ensemblePrediction.metadata,
-          },
-        },
+            performanceMetrics: ensemblePrediction.metadata
+          }
+        }
       });
 
-      return ensemblePrediction;
-    } catch (error) {
-      this.emit("prediction:error", { eventId: input.eventId, error });
+      return ensemblePrediction;} catch (error) {
+      this.emit("prediction:error", { eventId: input.eventId, error});
       throw new Error(
         `Prediction generation failed: ${error instanceof Error ? error.message : "Unknown error"}`,
-      );
-    }
+      )}
   }
 
   private async generateModelPrediction(
@@ -599,9 +493,8 @@ export class UnifiedMLEngine extends EventEmitter {
       features,
       shapValues,
       processingTime: performance.now() - startTime,
-      modelVersion: model.version,
-    };
-  }
+      modelVersion: model.version
+    }}
 
   private simulateModelPrediction(
     model: MLModelConfig,
@@ -614,23 +507,19 @@ export class UnifiedMLEngine extends EventEmitter {
     if (model.type === "xgboost") {
       prediction += (features.elo_difference || 0) * 0.0005;
       prediction += (features.player_recent_form || 0) * 0.1;
-      prediction += (features.home_court_advantage || 0) * 0.02;
-    } else if (model.type === "lightgbm") {
+      prediction += (features.home_court_advantage || 0) * 0.02;} else if (model.type === "lightgbm") {
       prediction += (features.line_movement || 0) * 0.2;
       prediction += (features.injury_impact || 0) * -0.1;
-      prediction += (features.player_vs_opponent || 0) * 0.05;
-    } else if (model.type === "randomforest") {
+      prediction += (features.player_vs_opponent || 0) * 0.05;} else if (model.type === "randomforest") {
       prediction += (features.rest_days || 0) * 0.01;
       prediction += (features.team_offensive_rating || 0) * 0.005;
-      prediction += (features.back_to_back || 0) * -0.05;
-    }
+      prediction += (features.back_to_back || 0) * -0.05;}
 
     // Add some model-specific noise and ensure bounds;
 
     prediction = Math.max(0.05, Math.min(0.95, prediction + noise));
 
-    return prediction;
-  }
+    return prediction;}
 
   private calculateModelConfidence(
     model: MLModelConfig,
@@ -650,11 +539,10 @@ export class UnifiedMLEngine extends EventEmitter {
 
     confidence *= featureCompleteness;
 
-    return Math.max(0.1, Math.min(1.0, confidence));
-  }
+    return Math.max(0.1, Math.min(1.0, confidence));}
 
   private combineModelPredictions(
-    predictions: ModelPrediction[],
+    predictions: ModelPrediction[0],
     features: FeatureVector,
   ): EnsemblePrediction {
     // Weighted ensemble prediction;
@@ -668,8 +556,7 @@ export class UnifiedMLEngine extends EventEmitter {
 
       weightedSum += pred.prediction * weight;
       totalWeight += weight;
-      confidenceSum += pred.confidence;
-    });
+      confidenceSum += pred.confidence;});
 
     const avgConfidence =
       predictions.length > 0 ? confidenceSum / predictions.length : 0;
@@ -708,16 +595,14 @@ export class UnifiedMLEngine extends EventEmitter {
       recommendedStake,
       riskLevel,
       factors,
-      metadata: {
-        processingTime: 0, // Will be set by caller;
+      metadata: {,`n  processingTime: 0, // Will be set by caller;
         dataFreshness: 0, // Will be set by caller;
         signalQuality: 0, // Will be set by caller;
-        modelAgreement: consensusScore,
-      },
-    };
-  }
+        modelAgreement: consensusScore
+      }
+    }}
 
-  private calculateConsensusScore(predictions: ModelPrediction[]): number {
+  private calculateConsensusScore(predictions: ModelPrediction[0]): number {
     if (predictions.length < 2) return 1;
 
     const avgPrediction =
@@ -730,8 +615,7 @@ export class UnifiedMLEngine extends EventEmitter {
       ) / predictions.length;
 
     // Convert variance to consensus score (lower variance = higher consensus)
-    return Math.max(0, 1 - variance * 10);
-  }
+    return Math.max(0, 1 - variance * 10);}
 
   private calculateValueEdge(
     prediction: number,
@@ -740,8 +624,7 @@ export class UnifiedMLEngine extends EventEmitter {
     // Simplified value edge calculation;
     // In real implementation, this would compare against actual market odds;
     const impliedMarketProb = 0.5; // Mock market probability;
-    return prediction - impliedMarketProb;
-  }
+    return prediction - impliedMarketProb;}
 
   private calculateKellyFraction(
     prediction: number,
@@ -753,8 +636,7 @@ export class UnifiedMLEngine extends EventEmitter {
 
 
 
-    return Math.max(0, (b * p - q) / b);
-  }
+    return Math.max(0, (b * p - q) / b);}
 
   private determineRiskLevel(
     confidence: number,
@@ -764,8 +646,7 @@ export class UnifiedMLEngine extends EventEmitter {
 
     if (riskScore < 0.5) return "low";
     if (riskScore < 1.0) return "medium";
-    return "high";
-  }
+    return "high";}
 
   private calculateRecommendedStake(kelly: number, riskLevel: string): number {
     const maxStake = 0.05; // Maximum 5% of bankroll;
@@ -774,20 +655,15 @@ export class UnifiedMLEngine extends EventEmitter {
     if (riskLevel === "low") kellyMultiplier = 0.5;
     else if (riskLevel === "high") kellyMultiplier = 0.1;
 
-    return Math.min(kelly * kellyMultiplier, maxStake);
-  }
+    return Math.min(kelly * kellyMultiplier, maxStake);}
 
   private extractKeyFactors(
-    predictions: ModelPrediction[],
+    predictions: ModelPrediction[0],
     features: FeatureVector,
   ): Array<{
-    name: string;
-    impact: number;
-    weight: number;
-    direction: "positive" | "negative";
-  }> {
-    const factorImpacts: Record<string, { impact: number; weight: number }> =
-      {};
+    name: string,`n  impact: number;,`n  weight: number,`n  direction: "positive" | "negative"}> {
+    const factorImpacts: Record<string, { impact: number; weight: number}> =
+      Record<string, any>;
 
     // Aggregate SHAP values across models;
     predictions.forEach((pred) => {
@@ -796,12 +672,9 @@ export class UnifiedMLEngine extends EventEmitter {
 
       Object.entries(pred.shapValues).forEach(([feature, shap]) => {
         if (!factorImpacts[feature]) {
-          factorImpacts[feature] = { impact: 0, weight: 0 };
-        }
+          factorImpacts[feature] = { impact: 0, weight: 0}}
         factorImpacts[feature].impact += shap * model.weight;
-        factorImpacts[feature].weight += model.weight;
-      });
-    });
+        factorImpacts[feature].weight += model.weight;});});
 
     // Normalize and sort factors;
     return Object.entries(factorImpacts)
@@ -810,32 +683,27 @@ export class UnifiedMLEngine extends EventEmitter {
         impact: data.weight > 0 ? data.impact / data.weight : 0,
         weight: data.weight,
         direction:
-          data.impact > 0 ? ("positive" as const) : ("negative" as const),
+          data.impact > 0 ? ("positive" as const) : ("negative" as const)
       }))
       .sort((a, b) => Math.abs(b.impact) - Math.abs(a.impact))
-      .slice(0, 10); // Top 10 factors;
-  }
+      .slice(0, 10); // Top 10 factors;}
 
   private calculateDataFreshness(input: PredictionInput): number {
     const maxAge = 24 * 60 * 60 * 1000; // 24 hours;
 
-    return Math.max(0, 1 - age / maxAge);
-  }
+    return Math.max(0, 1 - age / maxAge);}
 
-  private calculateSignalQuality(predictions: ModelPrediction[]): number {
+  private calculateSignalQuality(predictions: ModelPrediction[0]): number {
     return predictions.reduce((quality, pred) => {
-      return quality * pred.confidence;
-    }, 1);
-  }
+      return quality * pred.confidence}, 1);}
 
-  private calculateModelAgreement(predictions: ModelPrediction[]): number {
-    return this.calculateConsensusScore(predictions);
-  }
+  private calculateModelAgreement(predictions: ModelPrediction[0]): number {
+    return this.calculateConsensusScore(predictions)}
 
   private aggregateShapValues(
-    predictions: ModelPrediction[],
+    predictions: ModelPrediction[0],
   ): Record<string, number> {
-    const aggregated: Record<string, number> = {};
+    const aggregated: Record<string, number> = Record<string, any>;
     const totalWeight = 0;
 
     predictions.forEach((pred) => {
@@ -844,89 +712,73 @@ export class UnifiedMLEngine extends EventEmitter {
 
       Object.entries(pred.shapValues).forEach(([feature, value]) => {
         if (!aggregated[feature]) aggregated[feature] = 0;
-        aggregated[feature] += value * model.weight;
-      });
+        aggregated[feature] += value * model.weight;});
 
-      totalWeight += model.weight;
-    });
+      totalWeight += model.weight;});
 
     // Normalize by total weight;
     Object.keys(aggregated).forEach((feature) => {
-      aggregated[feature] /= totalWeight;
-    });
+      aggregated[feature] /= totalWeight;});
 
-    return aggregated;
-  }
+    return aggregated;}
 
   private validateInput(input: PredictionInput, features: FeatureVector): void {
     if (!input.eventId || !input.sport) {
-      throw new Error("Missing required input fields");
-    }
+      throw new Error("Missing required input fields")}
 
     if (Object.keys(features).length < 5) {
-      throw new Error("Insufficient features for prediction");
-    }
+      throw new Error("Insufficient features for prediction")}
 
     if (dataAge > VALIDATION_RULES.MAX_PREDICTION_AGE) {
-      throw new Error("Input data is too old");
-    }
+      throw new Error("Input data is too old");}
   }
 
   // Public API methods;
-  public getActiveModels(): MLModelConfig[] {
-    return Array.from(this.models.values()).filter((m) => m.isActive);
-  }
+  public getActiveModels(): MLModelConfig[0] {
+    return Array.from(this.models.values()).filter((m) => m.isActive);}
 
   public getModelPerformance(
     modelName: string,
   ): ModelPerformanceMetrics | undefined {
-    return this.performanceMetrics.get(modelName);
-  }
+    return this.performanceMetrics.get(modelName)}
 
   public updateModelPerformance(
     modelName: string,
     metrics: Partial<ModelPerformanceMetrics>,
   ): void {
     const existing =
-      this.performanceMetrics.get(modelName) || ({} as ModelPerformanceMetrics);
+      this.performanceMetrics.get(modelName) || (Record<string, any> as ModelPerformanceMetrics);
     this.performanceMetrics.set(modelName, {
       ...existing,
       ...metrics,
-      lastUpdated: Date.now(),
-    });
-  }
+      lastUpdated: Date.now()
+    })}
 
   public async retrain(modelName?: string): Promise<void> {
     if (this.isTraining) {
-      throw new Error("Training already in progress");
-    }
+      throw new Error("Training already in progress");}
 
     this.isTraining = true;
-    this.emit("training:started", { modelName });
+    this.emit("training:started", { modelName});
 
     try {
       // In real implementation, this would trigger actual model retraining;
       await new Promise((resolve) => setTimeout(resolve, 5000)); // Simulate training;
 
-      this.emit("training:completed", { modelName });
-    } catch (error) {
-      this.emit("training:failed", { modelName, error });
-      throw error;
-    } finally {
-      this.isTraining = false;
-    }
+      this.emit("training: completed", { modelName})} catch (error) {
+      this.emit("training:failed", { modelName, error});
+      throw error;} finally {
+      this.isTraining = false;}
   }
 
   public getCachedPrediction(
     eventId: string,
     market: string,
   ): EnsemblePrediction | undefined {
-    return this.cache.get(`prediction:${eventId}:${market}`);
-  }
+    return this.cache.get(`prediction:${eventId}:${market}`)}
 
   public clearCache(): void {
-    this.cache.clear();
-  }
+    this.cache.clear();}
 }
 
 // Export singleton instance;
@@ -940,5 +792,9 @@ export type {
   ModelPrediction,
   EnsemblePrediction,
   FeatureImportance,
-  ModelPerformanceMetrics,
+//   ModelPerformanceMetrics
 };
+
+
+
+`

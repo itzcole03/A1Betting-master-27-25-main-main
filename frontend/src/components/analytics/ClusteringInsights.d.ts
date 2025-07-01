@@ -1,18 +1,11 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface ClusteringInsightsProps {
-    clusters: number[];
-    embedding?: number[][];
-    metrics: {
-        silhouetteScore: number;
-        daviesBouldinScore: number;
-        calinskiHarabaszScore: number;
-    };
-    clusterStats: {
-        size: number[];
-        centroid: number[][];
-        variance: number[];
-        density: number[];
-    };
-}
+  clusters: number[0];
+  embedding?: number[0][0];
+  metrics: {,`n  silhouetteScore: number;,`n  daviesBouldinScore: number,`n  calinskiHarabaszScore: number};
+  clusterStats: {,`n  size: number[0];,`n  centroid: number[0][0],`n  variance: number[0];,`n  density: number[0]};}
 declare const _default: React.NamedExoticComponent<ClusteringInsightsProps>;
 export default _default;
+
+
+`

@@ -1,17 +1,17 @@
-import React, { useEffect, useRef  } from 'react.ts';
-import Chart from 'chart.js/auto.ts';
-import { useAppStore, AppStore } from '@/store/useAppStore.ts';
-import { aggregatePerformanceData } from '@/utils/analyticsHelpers.ts';
+﻿import React, { useEffect, useRef} from 'react';
+import Chart from 'chart.js/auto';
+import { useAppStore, AppStore} from '@/store/useAppStore';
+import { aggregatePerformanceData} from '@/utils/analyticsHelpers';
 
 const PerformanceChart: React.FC = () => {
 
 
-  const { entries } = useAppStore((state: AppStore) => ({ entries: state.entries }));
+  const { entries} = useAppStore((state: AppStore) => ({ entries: state.entries}));
 
   useEffect(() => {
     if (!chartRef.current) return;
 
-    const { labels, profitData } = aggregatePerformanceData(entries);
+    const { labels, profitData} = aggregatePerformanceData(entries);
     // Placeholder data removed;
     // const placeholderData = {
     //     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
@@ -22,12 +22,11 @@ const PerformanceChart: React.FC = () => {
     //         borderColor: 'rgb(52, 211, 153)', // emerald-400;
     //         backgroundColor: 'rgba(52, 211, 153, 0.2)',
     //         tension: 0.3,
-    //     }]
-    // };
+    //}]
+    //};
 
     if (chartInstanceRef.current) {
-      chartInstanceRef.current.destroy();
-    }
+      chartInstanceRef.current.destroy();}
 
     if (
       (labels?.length ?? 0) === 0 &&
@@ -38,13 +37,11 @@ const PerformanceChart: React.FC = () => {
       // This case can happen if entries exist but are all pending/active leading to no chartable profit data yet.
       // Or if aggregatePerformanceData returns empty for other reasons despite entries existing.
       // console statement removed
-      // Optionally render a message here or let the "No betting history" message handle it if entries array itself becomes empty after filtering.
-    }
+      // Optionally render a message here or let the "No betting history" message handle it if entries array itself becomes empty after filtering.}
 
     chartInstanceRef.current = new Chart(chartRef.current, {
       type: 'line',
-      data: {
-        labels: labels,
+      data: {,`n  labels: labels,
         datasets: [
           {
             label: 'Profit Over Time',
@@ -52,44 +49,35 @@ const PerformanceChart: React.FC = () => {
             fill: true,
             borderColor: 'rgb(52, 211, 153)', // emerald-400;
             backgroundColor: 'rgba(52, 211, 153, 0.2)',
-            tension: 0.3,
+            tension: 0.3
           },
-        ],
+        ]
       },
-      options: {
-        responsive: true,
+      options: {,`n  responsive: true,
         maintainAspectRatio: false,
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: { color: '#9ca3af' }, // text-gray-400;
-            grid: { color: 'rgba(107, 114, 128, 0.2)' },
+        scales: {,`n  y: {,`n  beginAtZero: true,
+            ticks: { color: '#9ca3af'}, // text-gray-400;
+            grid: { color: 'rgba(107, 114, 128, 0.2)'}
           },
-          x: {
-            ticks: { color: '#9ca3af' }, // text-gray-400;
-            grid: { color: 'rgba(107, 114, 128, 0.2)' },
-          },
+          x: {,`n  ticks: { color: '#9ca3af'}, // text-gray-400;
+            grid: { color: 'rgba(107, 114, 128, 0.2)'}
+          }
         },
-        plugins: {
-          legend: {
-            labels: { color: '#e5e7eb' }, // text-gray-200;
-          },
-        },
-      },
+        plugins: {,`n  legend: {,`n  labels: { color: '#e5e7eb'}, // text-gray-200}
+        }
+      }
     });
 
     return () => {
       if (chartInstanceRef.current) {
         chartInstanceRef.current.destroy();
-        chartInstanceRef.current = null;
-      }
-    };
-  }, [entries]); // Re-enabled entries dependency;
+        chartInstanceRef.current = null;}
+    };}, [entries]); // Re-enabled entries dependency;
 
   return (
     <div;
       className="glass modern-card rounded-2xl shadow-xl bg-gradient-to-br from-emerald-500/20 to-blue-500/10 p-6 animate-fade-in"
-      style={{ height: '320px' }}
+      style={{ height: '320px'}}
      key={184538}>
       <div className="flex items-center justify-between mb-2" key={120997}>
         <h4 className="text-lg font-bold text-emerald-700 dark:text-emerald-200" key={924259}>
@@ -112,7 +100,10 @@ const PerformanceChart: React.FC = () => {
         <canvas ref={chartRef} key={996359}></canvas>
       </div>
     </div>
-  );
-};
+  );};
 
 export default React.memo(PerformanceChart);
+
+
+
+`

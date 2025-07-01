@@ -1,1 +1,4 @@
-export declare const dataIntegrationService: {};
+﻿export declare const dataIntegrationService: Record<string, any>;
+
+
+

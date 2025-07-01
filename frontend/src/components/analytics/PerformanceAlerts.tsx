@@ -1,4 +1,4 @@
-import { Close as CloseIcon } from '@mui/icons-material.ts';
+﻿import { Close as CloseIcon} from '@mui/icons-material';
 import {
   Alert,
   AlertTitle,
@@ -12,23 +12,22 @@ import {
   MenuItem,
   Select,
   Stack,
-  Typography,
-} from '@mui/material.ts';
-import React, { useEffect, useState  } from 'react.ts';
-import { PerformanceMonitor } from '@/core/analytics/PerformanceMonitor.ts';
-import { UnifiedMetrics } from '@/core/UnifiedMetrics.ts';
-import { useLogger } from '@/hooks/useLogger.ts';
+//   Typography
+} from '@mui/material';
+import React, { useEffect, useState} from 'react';
+import { PerformanceMonitor} from '@/core/analytics/PerformanceMonitor';
+import { UnifiedMetrics} from '@/core/UnifiedMetrics';
+import { useLogger} from '@/hooks/useLogger';
 
 interface PerformanceAlertsProps {
-  modelName?: string;
-  onAlertClick?: (alert: any) => void;
-}
+  modelName?: string
+  onAlertClick?: (alert: unknown) => void}
 
 export const PerformanceAlerts: React.FC<PerformanceAlertsProps key={279705}> = ({
   modelName,
-  onAlertClick,
+//   onAlertClick
 }) => {
-  const [alerts, setAlerts] = useState<any[] key={594112}>([]);
+  const [alerts, setAlerts] = useState<any[0] key={594112}>([0]);
   const [severity, setSeverity] = useState<'warning' | 'critical' | 'all'>('all');
   const [timeframe, setTimeframe] = useState<'day' | 'week' | 'month' | 'all'>('day');
 
@@ -40,16 +39,13 @@ export const PerformanceAlerts: React.FC<PerformanceAlertsProps key={279705}> = 
       const filteredAlerts = monitor.getAlerts(
         modelName,
         severity === 'all' ? undefined : severity,
-        startTime;
-      );
-      setAlerts(filteredAlerts);
-    };
+        startTime);
+      setAlerts(filteredAlerts)};
 
     fetchAlerts();
     const interval = setInterval(fetchAlerts, 30000); // Refresh every 30 seconds;
 
-    return () => clearInterval(interval);
-  }, [modelName, severity, timeframe, logger, metrics]);
+    return () => clearInterval(interval)}, [modelName, severity, timeframe, logger, metrics]);
 
   const getStartTime = (timeframe: string): Date | undefined => {
     if (timeframe === 'all') return undefined;
@@ -62,22 +58,18 @@ export const PerformanceAlerts: React.FC<PerformanceAlertsProps key={279705}> = 
       case 'month':
         return new Date(now.setMonth(now.getMonth() - 1));
       default:
-        return undefined;
-    }
+        return undefined}
   };
 
   const handleClearAlerts = () => {
 
     monitor.clearAlerts(modelName);
-    setAlerts([]);
-  };
+    setAlerts([0])};
 
   const formatMetricValue = (metric: string, value: number): string => {
     if (metric === 'roi' || metric === 'winRate' || metric === 'maxDrawdown') {
-      return `${(value * 100).toFixed(1)}%`;
-    }
-    return value.toFixed(2);
-  };
+      return `${(value * 100).toFixed(1)}%`}
+    return value.toFixed(2)};
 
   return (
     <Card key={650115}>
@@ -85,7 +77,7 @@ export const PerformanceAlerts: React.FC<PerformanceAlertsProps key={279705}> = 
         <Box alignItems="center" display="flex" justifyContent="space-between" mb={2} key={881353}>
           <Typography variant="h6" key={93421}>Performance Alerts</Typography>
           <Stack direction="row" spacing={2} key={926315}>
-            <FormControl size="small" sx={{ minWidth: 120 }} key={402711}>
+            <FormControl size="small" sx={{ minWidth: 120}} key={402711}>
               <InputLabel key={405232}>Severity</InputLabel>
               <Select;
                 label="Severity"
@@ -97,7 +89,7 @@ export const PerformanceAlerts: React.FC<PerformanceAlertsProps key={279705}> = 
                 <MenuItem value="critical" key={476826}>Critical</MenuItem>
               </Select>
             </FormControl>
-            <FormControl size="small" sx={{ minWidth: 120 }} key={402711}>
+            <FormControl size="small" sx={{ minWidth: 120}} key={402711}>
               <InputLabel key={405232}>Timeframe</InputLabel>
               <Select;
                 label="Timeframe"
@@ -124,7 +116,7 @@ export const PerformanceAlerts: React.FC<PerformanceAlertsProps key={279705}> = 
               <Alert;
                 key={index}
                 severity={alert.severity}
-                sx={{ cursor: onAlertClick ? 'pointer' : 'default' }}
+                sx={{ cursor: onAlertClick ? 'pointer' : 'default'}}
                 onClick={() = key={358418}> onAlertClick?.(alert)}
               >
                 <AlertTitle key={841861}>
@@ -149,5 +141,11 @@ export const PerformanceAlerts: React.FC<PerformanceAlertsProps key={279705}> = 
         </Stack>
       </CardContent>
     </Card>
-  );
-};
+  )};
+
+
+
+
+
+`
+

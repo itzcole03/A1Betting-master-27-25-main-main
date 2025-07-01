@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+import React from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
 import {
   Activity,
   BarChart3,
@@ -59,20 +59,19 @@ import {
   Scan,
   Bluetooth,
   Satellite,
-  Globe,
-} from 'lucide-react.ts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.ts';
-import { Button } from '@/components/ui/button.ts';
-import { Badge } from '@/components/ui/badge.ts';
-import { Progress } from '@/components/ui/progress.ts';
+//   Globe
+} from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+import { Button} from '@/components/ui/button';
+import { Badge} from '@/components/ui/badge';
+import { Progress} from '@/components/ui/progress';
 
 // Enhanced Orchestrator View;
 export const EnhancedOrchestratorView: React.FC<{
-  intelligenceMetrics?: any;
-  activeModules: Set<string key={278855}>;
-  isQuantumMode?: boolean;
-  quantumState?: any;
-}> = ({
+  intelligenceMetrics?: unknown
+  activeModules: Set<string key={278855}>
+  isQuantumMode?: boolean
+  quantumState?: unknown}> = ({
   intelligenceMetrics,
   activeModules,
   isQuantumMode = false,
@@ -80,20 +79,20 @@ export const EnhancedOrchestratorView: React.FC<{
     coherence: 0.95,
     entanglement: 0.88,
     fidelity: 0.92,
-    stability: 0.96,
-  },
+    stability: 0.96
+  }
 }) => (
   <div className="space-y-8" key={778766}>
     {/* Enhanced Header with Animated Elements */}
     <motion.div;
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 20}}
+      animate={{ opacity: 1, y: 0}}
       className="text-center space-y-6 mb-8"
      key={497640}>
       <div className="flex items-center justify-center space-x-4" key={50426}>
         <motion.div;
-          animate={{ rotate: 360 }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          animate={{ rotate: 360}}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear"}}
           className="relative"
          key={947309}>
           <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 rounded-full blur-2xl opacity-30 animate-pulse" / key={608500}>
@@ -127,7 +126,7 @@ export const EnhancedOrchestratorView: React.FC<{
           color: "green",
           gradient: "from-green-500/10 via-emerald-500/20 to-teal-500/10",
           border: "border-green-500/30",
-          delay: 0.1,
+          delay: 0.1
         },
         {
           title: "Ensemble Accuracy",
@@ -136,7 +135,7 @@ export const EnhancedOrchestratorView: React.FC<{
           color: "blue",
           gradient: "from-blue-500/10 via-cyan-500/20 to-indigo-500/10",
           border: "border-blue-500/30",
-          delay: 0.2,
+          delay: 0.2
         },
         {
           title: "Active Modules",
@@ -145,7 +144,7 @@ export const EnhancedOrchestratorView: React.FC<{
           color: "purple",
           gradient: "from-purple-500/10 via-violet-500/20 to-fuchsia-500/10",
           border: "border-purple-500/30",
-          delay: 0.3,
+          delay: 0.3
         },
         {
           title: isQuantumMode ? "Quantum Coherence" : "Automation Level",
@@ -158,19 +157,19 @@ export const EnhancedOrchestratorView: React.FC<{
             ? "from-pink-500/10 via-cyan-500/20 to-purple-500/10"
             : "from-orange-500/10 via-red-500/20 to-yellow-500/10",
           border: isQuantumMode ? "border-pink-500/30" : "border-orange-500/30",
-          delay: 0.4,
+          delay: 0.4
         },
       ].map((metric, index) => (
         <motion.div;
           key={metric.title}
-          initial={{ opacity: 0, scale: 0.8, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.8, y: 20}}
+          animate={{ opacity: 1, scale: 1, y: 0}}
           transition={{
             delay: metric.delay,
             duration: 0.6,
-            ease: "easeOutCubic",
+            ease: "easeOutCubic"
           }}
-          whileHover={{ scale: 1.02, y: -5 }}
+          whileHover={{ scale: 1.02, y: -5}}
           className="group"
          key={248117}>
           <Card;
@@ -195,8 +194,8 @@ export const EnhancedOrchestratorView: React.FC<{
                     className={`w-14 h-14 text-${metric.color}-400 drop-shadow-2xl ${isQuantumMode && metric.icon === Atom ? "animate-spin" : ""}`}
                     style={
                       isQuantumMode && metric.icon === Atom;
-                        ? { animationDuration: "3s" }
-                        : {}
+                        ? { animationDuration: "3s"}
+                        : Record<string, any>
                     }
                   / key={12592}>
                   <div;
@@ -210,12 +209,12 @@ export const EnhancedOrchestratorView: React.FC<{
                 className={`w-full bg-${metric.color}-500/20 rounded-full h-3 mb-2`}
                key={363806}>
                 <motion.div;
-                  initial={{ width: 0 }}
-                  animate={{ width: `${parseFloat(metric.value)}%` }}
+                  initial={{ width: 0}}
+                  animate={{ width: `${parseFloat(metric.value)}%`}}
                   transition={{
                     delay: metric.delay + 0.5,
                     duration: 1.5,
-                    ease: "easeOutCubic",
+                    ease: "easeOutCubic"
                   }}
                   className={`bg-gradient-to-r from-${metric.color}-400 to-${metric.color}-300 h-3 rounded-full shadow-lg shadow-${metric.color}-500/50`}
                 / key={3365}>
@@ -231,7 +230,7 @@ export const EnhancedOrchestratorView: React.FC<{
                     <div;
                       key={i}
                       className={`w-1.5 h-1.5 rounded-full bg-${metric.color}-400 opacity-${i < 2 ? "100" : "30"} animate-pulse`}
-                      style={{ animationDelay: `${i * 200}ms` }}
+                      style={{ animationDelay: `${i * 200}ms`}}
                     / key={373733}>
                   ))}
                 </div>
@@ -244,7 +243,7 @@ export const EnhancedOrchestratorView: React.FC<{
               <div;
                 className={`absolute -inset-0.5 bg-gradient-to-r from-${metric.color}-500 to-${metric.color}-300 rounded-lg blur opacity-0 group-hover:opacity-20 transition-opacity duration-700`}
               / key={606578}>
-            </CardContent>
+            </div>
           </Card>
         </motion.div>
       ))}
@@ -253,9 +252,9 @@ export const EnhancedOrchestratorView: React.FC<{
     {/* Enhanced Quantum Controls */}
     {isQuantumMode && (
       <motion.div;
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 0.8 }}
+        initial={{ opacity: 0, y: 30}}
+        animate={{ opacity: 1, y: 0}}
+        transition={{ delay: 0.6, duration: 0.8}}
         className="space-y-6"
        key={358097}>
         <div className="text-center" key={120206}>
@@ -271,10 +270,10 @@ export const EnhancedOrchestratorView: React.FC<{
           {Object.entries(quantumState).map(([key, value], index) => (
             <motion.div;
               key={key}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.8 + index * 0.1, duration: 0.6 }}
-              whileHover={{ scale: 1.05 }}
+              initial={{ opacity: 0, scale: 0.8}}
+              animate={{ opacity: 1, scale: 1}}
+              transition={{ delay: 0.8 + index * 0.1, duration: 0.6}}
+              whileHover={{ scale: 1.05}}
              key={417363}>
               <Card className="bg-gradient-to-br from-pink-500/10 to-cyan-500/10 border-pink-500/30 hover:border-pink-400/50 transition-all duration-500" key={216815}>
                 <CardContent className="p-6" key={184394}>
@@ -289,9 +288,9 @@ export const EnhancedOrchestratorView: React.FC<{
                   </p>
                   <div className="w-full bg-pink-500/20 rounded-full h-2" key={464576}>
                     <motion.div;
-                      initial={{ width: 0 }}
-                      animate={{ width: `${value * 100}%` }}
-                      transition={{ delay: 1 + index * 0.1, duration: 1 }}
+                      initial={{ width: 0}}
+                      animate={{ width: `${value * 100}%`}}
+                      transition={{ delay: 1 + index * 0.1, duration: 1}}
                       className="bg-gradient-to-r from-pink-400 to-cyan-400 h-2 rounded-full shadow-lg shadow-pink-500/50"
                     / key={143660}>
                   </div>
@@ -305,9 +304,9 @@ export const EnhancedOrchestratorView: React.FC<{
 
     {/* Enhanced Control Panel */}
     <motion.div;
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.8, duration: 0.8 }}
+      initial={{ opacity: 0, y: 30}}
+      animate={{ opacity: 1, y: 0}}
+      transition={{ delay: 0.8, duration: 0.8}}
      key={187567}>
       <Card className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-lg border border-slate-700/50 hover:border-slate-600/50 transition-all duration-500" key={713911}>
         <CardHeader key={236869}>
@@ -352,9 +351,9 @@ export const EnhancedOrchestratorView: React.FC<{
               </h4>
               <div className="space-y-3" key={186520}>
                 {[
-                  { label: "CPU Usage", value: 78, color: "blue" },
-                  { label: "Memory", value: 62, color: "green" },
-                  { label: "Network I/O", value: 45, color: "purple" },
+                  { label: "CPU Usage", value: 78, color: "blue"},
+                  { label: "Memory", value: 62, color: "green"},
+                  { label: "Network I/O", value: 45, color: "purple"},
                 ].map((metric, index) => (
                   <div key={metric.label} className="space-y-2" key={739961}>
                     <div className="flex justify-between text-sm" key={353204}>
@@ -369,9 +368,9 @@ export const EnhancedOrchestratorView: React.FC<{
                       className={`w-full bg-${metric.color}-500/20 rounded-full h-2`}
                      key={705093}>
                       <motion.div;
-                        initial={{ width: 0 }}
-                        animate={{ width: `${metric.value}%` }}
-                        transition={{ delay: 1.2 + index * 0.2, duration: 1 }}
+                        initial={{ width: 0}}
+                        animate={{ width: `${metric.value}%`}}
+                        transition={{ delay: 1.2 + index * 0.2, duration: 1}}
                         className={`bg-gradient-to-r from-${metric.color}-400 to-${metric.color}-300 h-2 rounded-full`}
                       / key={628627}>
                     </div>
@@ -385,9 +384,9 @@ export const EnhancedOrchestratorView: React.FC<{
               </h4>
               <div className="space-y-2" key={725977}>
                 {[
-                  { label: "Restart Services", icon: RotateCcw, color: "blue" },
-                  { label: "Optimize Models", icon: Zap, color: "yellow" },
-                  { label: "Generate Report", icon: BarChart3, color: "green" },
+                  { label: "Restart Services", icon: RotateCcw, color: "blue"},
+                  { label: "Optimize Models", icon: Zap, color: "yellow"},
+                  { label: "Generate Report", icon: BarChart3, color: "green"},
                 ].map((action, index) => (
                   <Button;
                     key={action.label}
@@ -408,16 +407,14 @@ export const EnhancedOrchestratorView: React.FC<{
 );
 
 // Enhanced Module Selection View;
-export const EnhancedModuleView: React.FC<{
-  activeModules: Set<string key={278855}>;
+export const EnhancedModuleView: React.FC<{,`n  activeModules: Set<string key={278855}>
   toggleModule: (id: string) => void;
-  moduleLayout?: string;
-  setModuleLayout?: (layout: string) => void;
-}> = ({
+  moduleLayout?: string
+  setModuleLayout?: (layout: string) => void}> = ({
   activeModules,
   toggleModule,
   moduleLayout = "grid",
-  setModuleLayout = () => {},
+  setModuleLayout = () => Record<string, any>
 }) => {
   const moduleConfigs = [
     {
@@ -426,7 +423,7 @@ export const EnhancedModuleView: React.FC<{
       icon: <Brain className="w-5 h-5" / key={358560}>,
       category: "Core",
       status: "active",
-      accuracy: 96.8,
+      accuracy: 96.8
     },
     {
       id: "analytics",
@@ -434,7 +431,7 @@ export const EnhancedModuleView: React.FC<{
       icon: <BarChart3 className="w-5 h-5" / key={878433}>,
       category: "Analysis",
       status: "active",
-      accuracy: 94.2,
+      accuracy: 94.2
     },
     {
       id: "automation",
@@ -442,7 +439,7 @@ export const EnhancedModuleView: React.FC<{
       icon: <Settings className="w-5 h-5" / key={735275}>,
       category: "Control",
       status: "active",
-      accuracy: 98.1,
+      accuracy: 98.1
     },
     {
       id: "monitoring",
@@ -450,7 +447,7 @@ export const EnhancedModuleView: React.FC<{
       icon: <Monitor className="w-5 h-5" / key={759285}>,
       category: "Core",
       status: "active",
-      accuracy: 99.3,
+      accuracy: 99.3
     },
     {
       id: "optimization",
@@ -458,7 +455,7 @@ export const EnhancedModuleView: React.FC<{
       icon: <Zap className="w-5 h-5" / key={683575}>,
       category: "Enhancement",
       status: "standby",
-      accuracy: 91.7,
+      accuracy: 91.7
     },
     {
       id: "security",
@@ -466,7 +463,7 @@ export const EnhancedModuleView: React.FC<{
       icon: <Shield className="w-5 h-5" / key={812583}>,
       category: "Protection",
       status: "active",
-      accuracy: 99.9,
+      accuracy: 99.9
     },
     {
       id: "quantum",
@@ -474,7 +471,7 @@ export const EnhancedModuleView: React.FC<{
       icon: <Atom className="w-5 h-5" / key={648238}>,
       category: "Advanced",
       status: "experimental",
-      accuracy: 87.4,
+      accuracy: 87.4
     },
     {
       id: "network",
@@ -482,7 +479,7 @@ export const EnhancedModuleView: React.FC<{
       icon: <Network className="w-5 h-5" / key={766227}>,
       category: "Core",
       status: "active",
-      accuracy: 95.6,
+      accuracy: 95.6
     },
   ];
 
@@ -490,8 +487,8 @@ export const EnhancedModuleView: React.FC<{
     <div className="space-y-8" key={778766}>
       {/* Enhanced Header */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
         className="text-center space-y-4"
        key={754375}>
         <div className="flex items-center justify-center space-x-3" key={174290}>
@@ -520,9 +517,9 @@ export const EnhancedModuleView: React.FC<{
               </div>
               <div className="flex items-center gap-1 bg-slate-700/50 rounded-lg p-1" key={35606}>
                 {[
-                  { id: "grid", icon: Grid, label: "Grid" },
-                  { id: "list", icon: List, label: "List" },
-                  { id: "compact", icon: Layers2, label: "Compact" },
+                  { id: "grid", icon: Grid, label: "Grid"},
+                  { id: "list", icon: List, label: "List"},
+                  { id: "compact", icon: Layers2, label: "Compact"},
                 ].map((layout) => (
                   <Button;
                     key={layout.id}
@@ -545,24 +542,22 @@ export const EnhancedModuleView: React.FC<{
                 ? "grid-cols-1"
                 : moduleLayout === "compact"
                   ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
-                  : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-            }`}
+                  : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"}`}
            key={497820}>
             {moduleConfigs.map((module, index) => (
               <motion.div;
                 key={module.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
+                initial={{ opacity: 0, scale: 0.9}}
+                animate={{ opacity: 1, scale: 1}}
+                transition={{ delay: index * 0.1, duration: 0.5}}
+                whileHover={{ scale: 1.02, y: -2}}
+                whileTap={{ scale: 0.98}}
                key={382278}>
                 <Card;
                   className={`cursor-pointer transition-all duration-500 relative overflow-hidden group ${
                     activeModules.has(module.id)
                       ? "bg-gradient-to-br from-blue-500/20 to-purple-500/20 border-blue-500/50 shadow-lg shadow-blue-500/25"
-                      : "bg-gradient-to-br from-slate-700/30 to-slate-800/30 border-slate-600/50 hover:border-slate-500 hover:shadow-lg"
-                  }`}
+                      : "bg-gradient-to-br from-slate-700/30 to-slate-800/30 border-slate-600/50 hover:border-slate-500 hover:shadow-lg"}`}
                   onClick={() = key={886666}> toggleModule(module.id)}
                 >
                   <CardContent className="p-6" key={184394}>
@@ -572,8 +567,7 @@ export const EnhancedModuleView: React.FC<{
                           className={`p-2 rounded-lg ${
                             activeModules.has(module.id)
                               ? "bg-blue-500/20 text-blue-400"
-                              : "bg-slate-600/30 text-slate-400"
-                          }`}
+                              : "bg-slate-600/30 text-slate-400"}`}
                          key={798282}>
                           {module.icon}
                         </div>
@@ -598,8 +592,7 @@ export const EnhancedModuleView: React.FC<{
                               ? "bg-green-500/20 text-green-400"
                               : module.status === "standby"
                                 ? "bg-yellow-500/20 text-yellow-400"
-                                : "bg-purple-500/20 text-purple-400"
-                          }`}
+                                : "bg-purple-500/20 text-purple-400"}`}
                          key={619888}>
                           {module.status}
                         </div>
@@ -613,8 +606,7 @@ export const EnhancedModuleView: React.FC<{
                           className={`font-semibold ${
                             activeModules.has(module.id)
                               ? "text-blue-400"
-                              : "text-gray-400"
-                          }`}
+                              : "text-gray-400"}`}
                          key={633999}>
                           {module.accuracy}%
                         </span>
@@ -623,25 +615,23 @@ export const EnhancedModuleView: React.FC<{
                         className={`w-full rounded-full h-2 ${
                           activeModules.has(module.id)
                             ? "bg-blue-500/20"
-                            : "bg-slate-600/30"
-                        }`}
+                            : "bg-slate-600/30"}`}
                        key={989080}>
                         <div;
                           className={`h-2 rounded-full transition-all duration-1000 ${
                             activeModules.has(module.id)
                               ? "bg-gradient-to-r from-blue-400 to-cyan-500"
-                              : "bg-slate-500"
-                          }`}
-                          style={{ width: `${module.accuracy}%` }}
+                              : "bg-slate-500"}`}
+                          style={{ width: `${module.accuracy}%`}}
                         / key={503991}>
                       </div>
                     </div>
 
                     {/* Hover Effect */}
                     <div;
-                      className={`absolute inset-0 bg-gradient-to-r from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                      className={`absolute inset-0 bg-gradient-to-r from-blue-500/5 to-transparent opacity-0 group-hover: opacity-100 transition-opacity duration-500`}
                     / key={957841}>
-                  </CardContent>
+                  </div>
                 </Card>
               </motion.div>
             ))}
@@ -649,15 +639,14 @@ export const EnhancedModuleView: React.FC<{
         </CardContent>
       </Card>
     </div>
-  );
-};
+  )};
 
 // Enhanced Analytics View (simplified for space)
 export const EnhancedAnalyticsView: React.FC = () => (
   <div className="space-y-8" key={778766}>
     <motion.div;
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 20}}
+      animate={{ opacity: 1, y: 0}}
       className="text-center space-y-4"
      key={169943}>
       <div className="flex items-center justify-center space-x-3" key={174290}>
@@ -682,9 +671,9 @@ export const EnhancedAnalyticsView: React.FC = () => (
         <CardContent key={452065}>
           <div className="space-y-4" key={160407}>
             {[
-              { label: "Prediction Accuracy", value: 96.8, trend: "up" },
-              { label: "Model Efficiency", value: 94.2, trend: "up" },
-              { label: "Response Time", value: 87.3, trend: "down" },
+              { label: "Prediction Accuracy", value: 96.8, trend: "up"},
+              { label: "Model Efficiency", value: 94.2, trend: "up"},
+              { label: "Response Time", value: 87.3, trend: "down"},
             ].map((metric, index) => (
               <div key={metric.label} className="space-y-2" key={739961}>
                 <div className="flex justify-between" key={588832}>
@@ -702,9 +691,9 @@ export const EnhancedAnalyticsView: React.FC = () => (
                 </div>
                 <div className="w-full bg-green-500/20 rounded-full h-2" key={907731}>
                   <motion.div;
-                    initial={{ width: 0 }}
-                    animate={{ width: `${metric.value}%` }}
-                    transition={{ delay: index * 0.2, duration: 1 }}
+                    initial={{ width: 0}}
+                    animate={{ width: `${metric.value}%`}}
+                    transition={{ delay: index * 0.2, duration: 1}}
                     className="bg-gradient-to-r from-green-400 to-emerald-500 h-2 rounded-full"
                   / key={53331}>
                 </div>
@@ -746,8 +735,8 @@ export const EnhancedAnalyticsView: React.FC = () => (
 export const EnhancedAutomationView: React.FC = () => (
   <div className="space-y-8" key={778766}>
     <motion.div;
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 20}}
+      animate={{ opacity: 1, y: 0}}
       className="text-center space-y-4"
      key={169943}>
       <div className="flex items-center justify-center space-x-3" key={174290}>
@@ -772,15 +761,15 @@ export const EnhancedAutomationView: React.FC = () => (
       <CardContent key={452065}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6" key={852085}>
           {[
-            { title: "Active Workflows", value: "12", icon: Workflow },
-            { title: "Tasks Completed", value: "1,247", icon: CheckCircle },
-            { title: "Efficiency Score", value: "98.1%", icon: TrendingUp },
+            { title: "Active Workflows", value: "12", icon: Workflow},
+            { title: "Tasks Completed", value: "1,247", icon: CheckCircle},
+            { title: "Efficiency Score", value: "98.1%", icon: TrendingUp},
           ].map((stat, index) => (
             <motion.div;
               key={stat.title}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.2, duration: 0.6 }}
+              initial={{ opacity: 0, scale: 0.8}}
+              animate={{ opacity: 1, scale: 1}}
+              transition={{ delay: index * 0.2, duration: 0.6}}
               className="text-center space-y-2"
              key={712983}>
               <stat.icon className="w-8 h-8 text-orange-400 mx-auto" / key={363097}>
@@ -800,14 +789,14 @@ export const EnhancedAutomationView: React.FC = () => (
 export const EnhancedQuantumView: React.FC = () => (
   <div className="space-y-8" key={778766}>
     <motion.div;
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 20}}
+      animate={{ opacity: 1, y: 0}}
       className="text-center space-y-4"
      key={169943}>
       <div className="flex items-center justify-center space-x-3" key={174290}>
         <motion.div;
-          animate={{ rotate: 360 }}
-          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+          animate={{ rotate: 360}}
+          transition={{ duration: 10, repeat: Infinity, ease: "linear"}}
          key={148744}>
           <Atom className="w-12 h-12 text-pink-400" / key={55688}>
         </motion.div>
@@ -825,7 +814,7 @@ export const EnhancedQuantumView: React.FC = () => (
         <CardTitle className="flex items-center gap-2" key={587456}>
           <Atom;
             className="w-5 h-5 text-pink-400 animate-spin"
-            style={{ animationDuration: "3s" }}
+            style={{ animationDuration: "3s"}}
           / key={769623}>
           Quantum State Monitor;
           <Badge variant="outline" className="border-pink-500/50 text-pink-400" key={54936}>
@@ -856,3 +845,10 @@ export const EnhancedQuantumView: React.FC = () => (
     </Card>
   </div>
 );
+
+
+
+
+
+`
+

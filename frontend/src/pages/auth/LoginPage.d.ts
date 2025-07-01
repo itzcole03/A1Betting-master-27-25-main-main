@@ -1,1 +1,1 @@
-export default function LoginPage(): import("react/jsx-runtime").JSX.Element;
+export default function LoginPage(): import('react/jsx-runtime').JSX.Element;

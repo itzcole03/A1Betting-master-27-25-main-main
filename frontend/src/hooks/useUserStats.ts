@@ -1,33 +1,14 @@
-/**
+﻿/**
  * Hook for fetching real user statistics from backend;
  */
 
-import { useState, useEffect } from 'react.ts';
+import { useState, useEffect} from 'react';
 
 export interface UserStats {
-  balance: number;
-  winRate: number;
-  totalProfit: number;
-  totalBets: number;
-  activeBets: number;
-  todayProfit: number;
-  weeklyProfit: number;
-  monthlyProfit: number;
-  accuracy: number;
-  lastUpdated: string;
-}
+  balance: number,`n  winRate: number;,`n  totalProfit: number,`n  totalBets: number;,`n  activeBets: number,`n  todayProfit: number;,`n  weeklyProfit: number,`n  monthlyProfit: number;,`n  accuracy: number,`n  lastUpdated: string}
 
 export interface BackendHealth {
-  status: "healthy" | "degraded" | "offline";
-  uptime: number;
-  accuracy: number;
-  activePredictions: number;
-  apis: {
-    sportsradar: "healthy" | "degraded" | "offline";
-    dailyfantasy: "healthy" | "degraded" | "offline";
-    theodds: "healthy" | "degraded" | "offline";
-  };
-}
+  status: "healthy" | "degraded" | "offline",`n  uptime: number;,`n  accuracy: number,`n  activePredictions: number;,`n  apis: {,`n  sportsradar: "healthy" | "degraded" | "offline";,`n  dailyfantasy: "healthy" | "degraded" | "offline",`n  theodds: "healthy" | "degraded" | "offline"}}
 
 const useUserStats = () => {
   const [userStats, setUserStats] = useState<UserStats>({
@@ -40,7 +21,7 @@ const useUserStats = () => {
     weeklyProfit: 8750,
     monthlyProfit: 28350,
     accuracy: 85.0,
-    lastUpdated: new Date().toISOString(),
+    lastUpdated: new Date().toISOString()
   });
 
   const [backendHealth, setBackendHealth] = useState<BackendHealth>({
@@ -48,11 +29,10 @@ const useUserStats = () => {
     uptime: 99.8,
     accuracy: 85.0,
     activePredictions: 12,
-    apis: {
-      sportsradar: "healthy",
+    apis: {,`n  sportsradar: "healthy",
       dailyfantasy: "healthy",
-      theodds: "healthy",
-    },
+      theodds: "healthy"
+    }
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -66,14 +46,12 @@ const useUserStats = () => {
     try {
       const response = await fetch(testUrl, {
         method: "GET",
-        signal: AbortSignal.timeout(5000),
+        signal: AbortSignal.timeout(5000)
       });
       // console statement removed
-      return response.ok;
-    } catch (error) {
+      return response.ok;} catch (error) {
       // console statement removed
-      return false;
-    }
+      return false;}
   };
 
   // Get the API base URL from environment or use relative path;
@@ -85,26 +63,22 @@ const useUserStats = () => {
       import.meta.env.VITE_API_BASE_URL;
 
     if (envApiUrl) {
-      return `${envApiUrl}${path.startsWith("/") ? path : `/${path}`}`;
-    }
+      return `${envApiUrl}${path.startsWith("/") ? path : `/${path}`}`;}
 
     // Auto-detect based on current environment;
     if (typeof window !== "undefined") {
-      const { protocol, hostname, port } = window.location;
+      const { protocol, hostname, port} = window.location;
 
       // In development (localhost), proxy is handled by Vite;
       if (hostname === "localhost" || hostname === "127.0.0.1") {
-        return `/api${path.startsWith("/") ? path : `/${path}`}`;
-      }
+        return `/api${path.startsWith("/") ? path : `/${path}`}`;}
 
       // In production, try to construct the backend URL;
       // This might need adjustment based on actual deployment setup;
-      return `/api${path.startsWith("/") ? path : `/${path}`}`;
-    }
+      return `/api${path.startsWith("/") ? path : `/${path}`}`;}
 
     // Fallback to relative paths;
-    return `/api${path.startsWith("/") ? path : `/${path}`}`;
-  };
+    return `/api${path.startsWith("/") ? path : `/${path}`}`;};
 
   // Fetch user statistics from backend;
   const fetchUserStats = async () => {
@@ -128,12 +102,11 @@ const useUserStats = () => {
         weeklyProfit: 420,
         monthlyProfit: 1150,
         accuracy: 96.5,
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: new Date().toISOString()
       });
 
       setIsLoading(false);
-      return;
-    }
+      return;}
 
     try {
       // Try to fetch from multiple endpoints for comprehensive data;
@@ -149,21 +122,17 @@ const useUserStats = () => {
         fetch(endpoint, {
           method: "GET",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           },
-          signal: AbortSignal.timeout(10000), // 10 second timeout;
-        })
+          signal: AbortSignal.timeout(10000), // 10 second timeout})
           .then((res) => {
             if (res.ok) {
-              return res.json();
-            }
+              return res.json();}
             // console statement removed
-            return null;
-          })
+            return null;})
           .catch((error) => {
             // console statement removed
-            return null;
-          }),
+            return null;}),
       );
 
       const [analyticsData, activeBetsData, transactionsData] =
@@ -184,31 +153,26 @@ const useUserStats = () => {
           accuracy: roiData?.overall_roi;
             ? roiData.overall_roi + 70;
             : prev.accuracy, // Convert ROI to accuracy estimate;
-          lastUpdated: new Date().toISOString(),
-        }));
-      }
+          lastUpdated: new Date().toISOString()
+        }))}
 
       // Process active bets data;
       if (activeBetsData?.active_bets) {
         setUserStats((prev) => ({
           ...prev,
-          activeBets:
-            activeBetsData.total_count ||
+          activeBets: activeBetsData.total_count ||
             activeBetsData.active_bets.length ||
-            prev.activeBets,
-        }));
-      }
+            prev.activeBets
+        }))}
 
       // Process transactions data;
       if (transactionsData?.transactions) {
         setUserStats((prev) => ({
           ...prev,
-          totalBets:
-            transactionsData.total_count ||
+          totalBets: transactionsData.total_count ||
             transactionsData.transactions.length ||
-            prev.totalBets,
-        }));
-      }
+            prev.totalBets
+        }))}
     } catch (error) {
       // console statement removed
       setError("Using offline mode - live data unavailable");
@@ -224,11 +188,9 @@ const useUserStats = () => {
         weeklyProfit: 420,
         monthlyProfit: 1150,
         accuracy: 96.5,
-        lastUpdated: new Date().toISOString(),
-      });
-    } finally {
-      setIsLoading(false);
-    }
+        lastUpdated: new Date().toISOString()
+      })} finally {
+      setIsLoading(false);}
   };
 
   // Fetch backend health information;
@@ -237,18 +199,16 @@ const useUserStats = () => {
       const response = await fetch(getApiUrl("/health/all"), {
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        signal: AbortSignal.timeout(8000), // 8 second timeout;
-      });
+        signal: AbortSignal.timeout(8000), // 8 second timeout});
 
       if (response.ok) {
 
         setBackendHealth((prev) => ({
           ...prev,
           status: "healthy",
-          apis: {
-            sportsradar:
+          apis: {,`n  sportsradar:
               healthData.services?.sportsradar?.status === "healthy"
                 ? "healthy"
                 : "degraded",
@@ -259,13 +219,11 @@ const useUserStats = () => {
             theodds:
               healthData.services?.theodds?.status === "healthy"
                 ? "healthy"
-                : "degraded",
-          },
-        }));
-      } else {
+                : "degraded"
+          }
+        }))} else {
         // console statement removed
-        setBackendHealth((prev) => ({ ...prev, status: "degraded" }));
-      }
+        setBackendHealth((prev) => ({ ...prev, status: "degraded"}))}
     } catch (error) {
       // console statement removed
       setBackendHealth({
@@ -273,13 +231,11 @@ const useUserStats = () => {
         uptime: 0,
         accuracy: 96.5,
         activePredictions: 12,
-        apis: {
-          sportsradar: "offline",
+        apis: {,`n  sportsradar: "offline",
           dailyfantasy: "offline",
-          theodds: "offline",
-        },
-      });
-    }
+          theodds: "offline"
+        }
+      })}
   };
 
   // Get system accuracy from the Ultimate Brain system;
@@ -290,10 +246,9 @@ const useUserStats = () => {
         {
           method: "GET",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           },
-          signal: AbortSignal.timeout(8000), // 8 second timeout;
-        },
+          signal: AbortSignal.timeout(8000), // 8 second timeout},
       );
 
       if (response.ok) {
@@ -303,30 +258,27 @@ const useUserStats = () => {
 
         setBackendHealth((prev) => ({
           ...prev,
-          accuracy,
+//           accuracy
         }));
 
         setUserStats((prev) => ({
           ...prev,
-          accuracy,
-        }));
-      } else {
-        // console statement removed
-      }
+//           accuracy
+        }));} else {
+        // console statement removed}
     } catch (error) {
       // console statement removed
       // Set fallback accuracy data;
 
       setBackendHealth((prev) => ({
         ...prev,
-        accuracy: fallbackAccuracy,
+        accuracy: fallbackAccuracy
       }));
 
       setUserStats((prev) => ({
         ...prev,
-        accuracy: fallbackAccuracy,
-      }));
-    }
+        accuracy: fallbackAccuracy
+      }))}
   };
 
   // Auto-refresh data;
@@ -344,9 +296,7 @@ const useUserStats = () => {
     return () => {
       clearInterval(statsInterval);
       clearInterval(healthInterval);
-      clearInterval(accuracyInterval);
-    };
-  }, []);
+      clearInterval(accuracyInterval);};}, [0]);
 
   return {
     userStats,
@@ -354,8 +304,11 @@ const useUserStats = () => {
     isLoading,
     error,
     refreshStats: fetchUserStats,
-    refreshHealth: fetchBackendHealth,
-  };
-};
+    refreshHealth: fetchBackendHealth
+  }};
 
 export default useUserStats;
+
+
+
+`

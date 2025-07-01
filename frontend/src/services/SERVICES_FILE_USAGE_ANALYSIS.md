@@ -22,12 +22,14 @@ This directory contains service modules and adapters used throughout the fronten
 ## Adapters
 
 ### index.ts
+
 - **Purpose:** Central export and registry for all service adapters in the `adapters/` subdirectory.
 - **Usage:** Used to aggregate and re-export all available adapters for easy import elsewhere in the codebase. Ensures a single entry point for adapter access.
 - **Notes:** Should be updated whenever new adapters are added or removed from the directory.
 - **Status:** Actively used; not a candidate for removal.
 
 ### prizepicks.ts
+
 - **Purpose:** Implements the PrizePicks betting provider adapter, encapsulating API integration, data transformation, and provider-specific logic.
 - **Usage:** Used by the unified betting system and opportunity analysis modules to interact with PrizePicks, fetch props, submit entries, and normalize provider data.
 - **Notes:** Handles provider-specific quirks, error handling, and data mapping. Should be reviewed if PrizePicks API changes.
@@ -44,6 +46,7 @@ This directory contains all frontend service modules for the application. Each f
 ## adapters/
 
 ### index.ts
+
 - **Purpose/Usage:**
   - Central manager for all service adapters (e.g., PrizePicks, SportsRadar, ESPN). Provides a singleton `AdapterManager` for registering, retrieving, and enabling/disabling adapters. Used to abstract and unify access to various external data sources/APIs.
 - **Status:**
@@ -52,6 +55,7 @@ This directory contains all frontend service modules for the application. Each f
   - Exports `adapterManager` singleton. Integrates with `prizepicks.ts` and expects additional adapters to be registered as needed.
 
 ### prizepicks.ts
+
 - **Purpose/Usage:**
   - Implements the PrizePicks adapter for fetching props, players, and lines from the PrizePicks API. Handles caching and error logging. Used by the adapter manager and possibly other services for PrizePicks data integration.
 - **Status:**
@@ -60,4 +64,3 @@ This directory contains all frontend service modules for the application. Each f
   - Uses environment variables for API URL and key. Integrates with local cache and logger utilities. Exports `prizePicksAdapter` singleton.
 
 ---
-

@@ -1,42 +1,34 @@
-import React from 'react.ts';
-import type { Entry } from '@/types.ts';
-import { EntryStatus } from '@/types.ts';
-import { FaChartLine, FaCheckCircle, FaTimesCircle, FaSpinner } from 'react-icons/fa.ts';
-import { motion, Variants } from 'framer-motion.ts';
+﻿import React from 'react'
+import type { Entry} from '@/types'
+import { EntryStatus} from '@/types'
+import { FaChartLine, FaCheckCircle, FaTimesCircle, FaSpinner} from 'react-icons/fa'
+import { motion, Variants} from 'framer-motion'
 
 interface EntryCardProps {
   entry: Entry;
-  onClick?: () => void;
-}
+  onClick?: () => void}
 
-const cardVariants: Variants = {
-  initial: { opacity: 0, scale: 0.95 },
-  animate: { opacity: 1, scale: 1 },
-  exit: { opacity: 0, scale: 0.95 },
+const cardVariants: Variants = {,`n  initial: { opacity: 0, scale: 0.95},
+  animate: { opacity: 1, scale: 1},
+  exit: { opacity: 0, scale: 0.95}
 };
 
-const progressVariants: Variants = {
-  initial: { width: 0 },
-  animate: (percentage: number) => ({
-    width: `${percentage}%`,
-    transition: { duration: 1, ease: 'easeOut' },
-  }),
+const progressVariants: Variants = {,`n  initial: { width: 0},
+  animate: (percentage: number) => ({,`n  width: `${percentage}%`,
+    transition: { duration: 1, ease: 'easeOut'}
+  })
 };
 
-export const EntryCard: React.FC<EntryCardProps key={196782}> = ({ entry, onClick }) => {
+export const EntryCard: React.FC<EntryCardProps key={196782}> = ({ entry, onClick}) => {
   const handleClick = () => {
-    if (onClick) onClick();
-  };
+    if (onClick) onClick()};
 
   const getStatusColor = (status: Entry['status']) => {
     switch (status) {
       case EntryStatus.WON:
         return 'text-green-500';
-      case EntryStatus.LOST:
-        return 'text-red-500';
-      default:
-        return 'text-amber-500';
-    }
+      case EntryStatus.LOST: return 'text-red-500',`n  default:
+        return 'text-amber-500'}
   };
 
   const getStatusIcon = (status: Entry['status']) => {
@@ -46,8 +38,7 @@ export const EntryCard: React.FC<EntryCardProps key={196782}> = ({ entry, onClic
       case EntryStatus.LOST:
         return <FaTimesCircle className="w-5 h-5" / key={137702}>;
       default:
-        return <FaSpinner className="w-5 h-5 animate-spin" / key={186700}>;
-    }
+        return <FaSpinner className="w-5 h-5 animate-spin" / key={186700}>}
   };
 
   return (
@@ -106,5 +97,9 @@ export const EntryCard: React.FC<EntryCardProps key={196782}> = ({ entry, onClic
         </div>
       </div>
     </motion.div>
-  );
-};
+  )};
+
+
+
+
+`

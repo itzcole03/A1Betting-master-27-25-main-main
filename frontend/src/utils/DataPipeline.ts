@@ -1,44 +1,34 @@
-import { DataSource } from './PredictionEngine.ts';
-import { EventBus } from '@/core/EventBus.ts';
-import { PerformanceMonitor } from './PerformanceMonitor.ts';
+﻿import { DataSource} from './PredictionEngine';
+import { EventBus} from '@/core/EventBus';
+import { PerformanceMonitor} from './PerformanceMonitor';
 
 
 
 export interface PipelineMetrics {
-  processedCount: number;
-  errorCount: number;
-  averageLatency: number;
-  lastProcessed: number;
-  throughput: number;
-}
+  processedCount: number,`n  errorCount: number;,`n  averageLatency: number,`n  lastProcessed: number;,`n  throughput: number}
 
 export interface PipelineStage<T, U> {
   id: string;
   transform(data: T): Promise<U>;
   validate?(data: T): Promise<boolean>;
-  cleanup?(data: T): Promise<void>;
-}
+  cleanup?(data: T): Promise<void>}
 
 export interface DataSink<T> {
   id: string;
   write(data: T): Promise<void>;
-  flush?(): Promise<void>;
-}
+  flush?(): Promise<void>;}
 
 export class DataCache<T> {
-  private cache: Map<string, { data: T; timestamp: number; ttl: number }>;
+  private cache: Map<string, { data: T; timestamp: number; ttl: number}>;
 
   constructor(private defaultTtl: number = 5 * 60 * 1000) {
-    this.cache = new Map();
-  }
+    this.cache = new Map()}
 
   set(key: string, data: T, ttl?: number): void {
     this.cache.set(key, {
       data,
       timestamp: Date.now(),
-      ttl: ttl ?? this.defaultTtl;
-    });
-  }
+      ttl: ttl ?? this.defaultTtl})}
 
   get(key: string): T | undefined {
 
@@ -46,15 +36,12 @@ export class DataCache<T> {
 
     if (Date.now() - entry.timestamp > entry.ttl) {
       this.cache.delete(key);
-      return undefined;
-    }
+      return undefined;}
 
-    return entry.data;
-  }
+    return entry.data;}
 
   clear(): void {
-    this.cache.clear();
-  }
+    this.cache.clear();}
 }
 
 export class StreamingDataPipeline<T, U> {
@@ -67,33 +54,28 @@ export class StreamingDataPipeline<T, U> {
 
   constructor(
     private readonly source: DataSource,
-    private readonly stages: PipelineStage<any, any>[],
+    private readonly stages: PipelineStage<any, any>[0],
     private readonly sink: DataSink<U>,
-    private readonly options: {
-      cacheEnabled: boolean;
-      cacheTtl?: number;
-      processingInterval?: number;
-      retryAttempts?: number;
-      batchSize?: number;
-    } = {
+    private readonly options: {,`n  cacheEnabled: boolean;
+      cacheTtl?: number
+      processingInterval?: number
+      retryAttempts?: number
+      batchSize?: number} = {
       cacheEnabled: true,
       cacheTtl: 5 * 60 * 1000,
       processingInterval: 1000,
       retryAttempts: 3,
-      batchSize: 100;
-    }
+      batchSize: 100}
   ) {
     this.metrics = {
       processedCount: 0,
       errorCount: 0,
       averageLatency: 0,
       lastProcessed: 0,
-      throughput: 0;
-    };
+      throughput: 0};
     this.cache = new DataCache<T>(options.cacheTtl);
     this.eventBus = EventBus.getInstance();
-    this.performanceMonitor = PerformanceMonitor.getInstance();
-  }
+    this.performanceMonitor = PerformanceMonitor.getInstance();}
 
   async start(): Promise<void> {
     if (this.isRunning) return;
@@ -106,13 +88,10 @@ export class StreamingDataPipeline<T, U> {
 
     this.eventBus.publish({
       type: 'pipeline:started',
-      payload: {
-        sourceId: this.source.id,
+      payload: {,`n  sourceId: this.source.id,
         sinkId: this.sink.id,
-        timestamp: Date.now()
-      }
-    });
-  }
+        timestamp: Date.now()}
+    })}
 
   async stop(): Promise<void> {
     if (!this.isRunning) return;
@@ -120,29 +99,23 @@ export class StreamingDataPipeline<T, U> {
 
     if (this.processInterval) {
       clearInterval(this.processInterval);
-      this.processInterval = null;
-    }
+      this.processInterval = null;}
 
     if (this.sink.flush) {
-      await this.sink.flush();
-    }
+      await this.sink.flush();}
 
     this.eventBus.publish({
       type: 'pipeline:stopped',
-      payload: {
-        sourceId: this.source.id,
+      payload: {,`n  sourceId: this.source.id,
         sinkId: this.sink.id,
         timestamp: Date.now(),
-        metrics: this.metrics;
-      }
-    });
-  }
+        metrics: this.metrics}
+    })}
 
   private async process(): Promise<void> {
     const traceId = this.performanceMonitor.startTrace('pipeline-processing', {
       sourceId: this.source.id,
-      sinkId: this.sink.id;
-    });
+      sinkId: this.sink.id});
 
     try {
 
@@ -152,10 +125,8 @@ export class StreamingDataPipeline<T, U> {
 
         if (cached) {
           this.performanceMonitor.endTrace(traceId);
-          return;
-        }
-        this.cache.set(cacheKey, data as T);
-      }
+          return;}
+        this.cache.set(cacheKey, data as T);}
 
       const transformed = data;
       for (const stage of this.stages) {
@@ -164,16 +135,13 @@ export class StreamingDataPipeline<T, U> {
           if (stage.validate) {
 
             if (!isValid) {
-              throw new Error(`Validation failed at stage ${stage.id}`);
-            }
+              throw new Error(`Validation failed at stage ${stage.id}`);}
           }
 
           transformed = await stage.transform(transformed);
-          this.performanceMonitor.endTrace(stageTraceId);
-        } catch (error) {
+          this.performanceMonitor.endTrace(stageTraceId);} catch (error) {
           this.performanceMonitor.endTrace(stageTraceId, error as Error);
-          throw error;
-        }
+          throw error;}
       }
 
       await this.sink.write(transformed as U);
@@ -182,34 +150,27 @@ export class StreamingDataPipeline<T, U> {
 
       this.eventBus.publish({
         type: 'pipeline:processed',
-        payload: {
-          sourceId: this.source.id,
+        payload: {,`n  sourceId: this.source.id,
           sinkId: this.sink.id,
           duration,
-          timestamp: Date.now()
-        }
+          timestamp: Date.now()}
       });
 
-      this.performanceMonitor.endTrace(traceId);
-    } catch (error) {
+      this.performanceMonitor.endTrace(traceId);} catch (error) {
       this.metrics.errorCount++;
       this.performanceMonitor.endTrace(traceId, error as Error);
 
       this.eventBus.publish({
         type: 'pipeline:error',
-        payload: {
-          sourceId: this.source.id,
+        payload: {,`n  sourceId: this.source.id,
           sinkId: this.sink.id,
           error: error as Error,
-          timestamp: Date.now()
-        }
-      });
-    }
+          timestamp: Date.now()}
+      })}
   }
 
   private generateCacheKey(data: T): string {
-    return `${this.source.id}-${JSON.stringify(data)}`;
-  }
+    return `${this.source.id}-${JSON.stringify(data)}`}
 
   private updateMetrics(duration: number): void {
     this.metrics.processedCount++;
@@ -218,10 +179,13 @@ export class StreamingDataPipeline<T, U> {
       (this.metrics.averageLatency * (this.metrics.processedCount - 1) + duration) / 
       this.metrics.processedCount;
     this.metrics.throughput = this.metrics.processedCount / 
-      ((Date.now() - this.metrics.lastProcessed) / 1000);
-  }
+      ((Date.now() - this.metrics.lastProcessed) / 1000);}
 
   getMetrics(): PipelineMetrics {
-    return { ...this.metrics };
-  }
+    return { ...this.metrics};}
 } 
+
+
+
+
+`

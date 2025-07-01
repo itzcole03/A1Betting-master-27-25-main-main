@@ -1,12 +1,10 @@
-export declare const useDataFetching: () => {
-    props: unknown;
-    stats: unknown;
-    performance: unknown;
-    headlines: unknown;
-    isLoadingProps: false;
-    isLoadingStats: false;
-    isLoadingPerformance: false;
-    isLoadingHeadlines: false;
-    placeBet: import("@tanstack/react-query").UseMutateFunction<any, Error, Omit<Bet, "id" | "createdAt" | "updatedAt">, unknown>;
-    isPlacingBet: boolean;
-};
+﻿export declare const useDataFetching: () => {,`n  props: unknown;,`n  stats: unknown,`n  performance: unknown;,`n  headlines: unknown,`n  isLoadingProps: false;,`n  isLoadingStats: false,`n  isLoadingPerformance: false;,`n  isLoadingHeadlines: false,`n  placeBet: import('@tanstack/react-query').UseMutateFunction<
+    any,
+    Error,
+    Omit<Bet, 'id' | 'createdAt' | 'updatedAt'>,
+//     unknown
+  >;
+  isPlacingBet: boolean};
+
+
+`

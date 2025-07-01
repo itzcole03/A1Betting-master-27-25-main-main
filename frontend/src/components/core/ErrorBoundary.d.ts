@@ -1,15 +1,21 @@
-import React, { Component, ErrorInfo, ReactNode  } from 'react.ts';
+﻿import React, { Component, ErrorInfo, ReactNode} from 'react.ts';
 interface Props {
-    children: ReactNode;
-}
+  children: ReactNode}
 interface State {
-    hasError: boolean;
-    error: Error | null;
-}
+  hasError: boolean,`n  error: Error | null}
 declare class ErrorBoundary extends Component<Props, State> {
-    state: State;
-    static getDerivedStateFromError(error: Error): State;
-    componentDidCatch(error: Error, errorInfo: ErrorInfo): void;
-    render(): string | number | boolean | import("react/jsx-runtime").JSX.Element | Iterable<React.ReactNode> | null | undefined;
-}
+  state: State;
+  static getDerivedStateFromError(error: Error): State;
+  componentDidCatch(error: Error, errorInfo: ErrorInfo): void;
+  render():
+    | string
+    | number
+    | boolean
+    | import('react/jsx-runtime').JSX.Element
+    | Iterable<React.ReactNode>
+    | null
+    | undefined;}
 export default ErrorBoundary;
+
+
+`

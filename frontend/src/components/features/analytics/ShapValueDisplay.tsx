@@ -1,26 +1,23 @@
-import React from 'react.ts';
-import { useState } from 'react.ts';
-import { ShapValue } from '@/../types/explainability.ts';
-import { ShapBreakdownModal } from './ShapBreakdownModal.ts';
+﻿import React from 'react';
+import { useState} from 'react';
+import { ShapValue} from '@/../types/explainability';
+import { ShapBreakdownModal} from './ShapBreakdownModal';
 
 interface ShapValueDisplayProps {
-  feature: ShapValue;
-}
+  feature: ShapValue}
 
-export function ShapValueDisplay({ feature }: ShapValueDisplayProps) {
+export function ShapValueDisplay({ feature}: ShapValueDisplayProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getColor = (value: number) => {
     if (value > 0) return 'bg-green-500';
     if (value < 0) return 'bg-red-500';
-    return 'bg-gray-500';
-  };
+    return 'bg-gray-500';};
 
   const getBarWidth = (value: number) => {
     // Normalize the value to a percentage between 0 and 100;
 
-    return Math.min(normalizedValue, 100);
-  };
+    return Math.min(normalizedValue, 100);};
 
   return (
     <>
@@ -37,7 +34,7 @@ export function ShapValueDisplay({ feature }: ShapValueDisplayProps) {
             className={`${getColor(feature.value)} h-full transition-all duration-300 ease-in-out`}
             style={{
               width: `${getBarWidth(feature.value)}%`,
-              marginLeft: feature.value < 0 ? 'auto' : '0',
+              marginLeft: feature.value < 0 ? 'auto' : '0'
             }}
           / key={973181}>
         </div>
@@ -59,5 +56,8 @@ export function ShapValueDisplay({ feature }: ShapValueDisplayProps) {
         onClose={() = key={417397}> setIsModalOpen(false)}
       />
     </>
-  );
-}
+  );}
+
+
+
+`

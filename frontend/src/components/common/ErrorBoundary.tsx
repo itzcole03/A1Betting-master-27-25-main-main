@@ -1,32 +1,27 @@
-import React from 'react.ts';
-import * as Sentry from '@sentry/react.ts';
-import { Component, ErrorInfo, ReactNode } from 'react.ts';
+﻿import React from 'react';
+import * as Sentry from '@sentry/react';
+import { Component, ErrorInfo, ReactNode} from 'react';
 
 
 interface Props {
-  children: ReactNode;
-}
+  children: ReactNode}
 
 interface State {
   hasError: boolean;
-  error?: Error;
-  errorInfo?: ErrorInfo;
-}
+  error?: Error
+  errorInfo?: ErrorInfo}
 
 class GlobalErrorBoundary extends Component<Props, State key={458171}> {
-  public state: State = {
-    hasError: false,
+  public state: State = {,`n  hasError: false
   };
 
   public static getDerivedStateFromError(_: Error): State {
-    return { hasError: true };
-  }
+    return { hasError: true}}
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    this.setState({ error, errorInfo });
+    this.setState({ error, errorInfo});
     Sentry.captureException(error);
-    // console statement removed
-  }
+    // console statement removed}
 
   public render() {
     if (this.state.hasError) {
@@ -54,11 +49,15 @@ class GlobalErrorBoundary extends Component<Props, State key={458171}> {
             </button>
           </div>
         </div>
-      );
-    }
+      );}
 
-    return this.props.children;
-  }
+    return this.props.children;}
 }
 
-export { GlobalErrorBoundary }; 
+export { GlobalErrorBoundary}; 
+
+
+
+
+
+`

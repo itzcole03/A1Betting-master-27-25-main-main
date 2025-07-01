@@ -119,12 +119,8 @@ const {
 
 ```typescript
 // Enhanced betting engine with ML models
-const {
-  generateEnhancedPortfolio,
-  currentOpportunities,
-  isGenerating,
-  realTimeData,
-} = useEnhancedBettingEngine();
+const { generateEnhancedPortfolio, currentOpportunities, isGenerating, realTimeData } =
+  useEnhancedBettingEngine();
 ```
 
 ### 3. **PrizePicks Integration**
@@ -174,14 +170,12 @@ This integration ensures that:
 The main frontend application now includes:
 
 1. **Enhanced Money Maker** with 4 tabs:
-
    - PrizePicks (complete prototype functionality)
    - Scanner (opportunity detection)
    - Portfolio (portfolio management)
    - Analytics (performance tracking)
 
 2. **Real-Time Data Integration**:
-
    - Live connection to 8+ data sources
    - Real-time data quality monitoring
    - Automatic refresh and updates

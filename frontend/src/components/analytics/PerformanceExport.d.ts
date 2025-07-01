@@ -1,7 +1,8 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface PerformanceExportProps {
-    modelName: string;
-    onClose: () => void;
-}
+  modelName: string,`n  onClose: () => void}
 export declare const PerformanceExport: React.FC<PerformanceExportProps>;
-export {};
+export Record<string, any>;
+
+
+`

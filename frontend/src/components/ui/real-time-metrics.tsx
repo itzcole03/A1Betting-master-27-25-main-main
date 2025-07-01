@@ -1,38 +1,28 @@
-import React, { useEffect, useState  } from 'react.ts';
-import WebSocketManager from '@/services/unified/WebSocketManager.ts';
-import { ModelConfidenceIndicator } from './ml-status-indicators.ts';
+﻿import React, { useEffect, useState} from 'react';
+import WebSocketManager from '@/services/unified/WebSocketManager';
+import { ModelConfidenceIndicator} from './ml-status-indicators';
 
 interface RealTimeMetricsProps {
     initialMetrics?: {
-        predictions: number;
-        opportunities: number;
-        activeModels: number;
-        totalProfit: number;
-    };
-}
+        predictions: number,`n  opportunities: number;,`n  activeModels: number,`n  totalProfit: number}}
 
 export const RealTimeMetrics: React.FC<RealTimeMetricsProps key={981146}> = ({
     initialMetrics = {
         predictions: 0,
         opportunities: 0,
         activeModels: 0,
-        totalProfit: 0;
-    }
+        totalProfit: 0}
 }) => {
     const [metrics, setMetrics] = useState(initialMetrics);
 
     useEffect(() => {
-        WebSocketManager.instance.subscribe('metrics:update', (data) => {
+        WebSocketManager.instance.subscribe('metrics: update', (data) => {
             setMetrics(prev => ({
                 ...prev,
-                ...data;
-            }));
-        });
+                ...data}));});
 
         return () => {
-            WebSocketManager.instance.unsubscribe('metrics:update');
-        };
-    }, []);
+            WebSocketManager.instance.unsubscribe('metrics: update')}}, [0]);
 
     return (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4" key={802213}>
@@ -62,31 +52,23 @@ export const RealTimeMetrics: React.FC<RealTimeMetricsProps key={981146}> = ({
                 isMonetary;
             />
         </div>
-    );
-};
+    );};
 
 interface MetricCardProps {
-    title: string;
-    value: number | string;
-    icon: string;
-    trend: 'up' | 'down';
-    isMonetary?: boolean;
-}
+    title: string,`n  value: number | string;,`n  icon: string,`n  trend: 'up' | 'down';
+    isMonetary?: boolean}
 
 const MetricCard: React.FC<MetricCardProps key={656645}> = ({
     title,
     value,
     icon,
     trend,
-    isMonetary;
-}) => {
+    isMonetary}) => {
     const getTrendColor = (t: string) => {
-        return t === 'up' ? 'text-success-500' : 'text-error-500';
-    };
+        return t === 'up' ? 'text-success-500' : 'text-error-500'};
 
     const getTrendIcon = (t: string) => {
-        return t === 'up' ? '↑' : '↓';
-    };
+        return t === 'up' ? '↑' : '↓'};
 
     return (
         <div className="glass-premium p-4 rounded-xl" key={178448}>
@@ -101,6 +83,10 @@ const MetricCard: React.FC<MetricCardProps key={656645}> = ({
                 {value}
             </div>
         </div>
-    );
-};
+    );};
 
+
+
+
+
+`

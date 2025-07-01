@@ -1,25 +1,24 @@
-import React from 'react.ts';
-import { motion } from 'framer-motion.ts';
-import { TrendingUp, BarChart3, Activity, Clock } from 'lucide-react.ts';
+﻿import React from 'react';
+import { motion} from 'framer-motion';
+import { TrendingUp, BarChart3, Activity, Clock} from 'lucide-react';
 
 // Import our real components;
-import MetricsOverview from './MetricsOverview.ts';
-import LiveOpportunities from './LiveOpportunities.ts';
-import ModernActivityFeed from '@/ui/ModernActivityFeed.ts';
+import MetricsOverview from './MetricsOverview';
+import LiveOpportunities from './LiveOpportunities';
+import ModernActivityFeed from '@/ui/ModernActivityFeed';
 
 interface CleanDashboardProps {
-  className?: string;
-}
+  className?: string}
 
 export const CleanDashboard: React.FC<CleanDashboardProps key={389367}> = ({
-  className = "",
+  className = ""
 }) => {
   return (
     <div className={`space-y-8 ${className}`} key={274210}>
       {/* Hero Section */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
         className="relative p-8 rounded-2xl bg-gradient-to-br from-blue-900/30 via-purple-900/20 to-cyan-900/30 border border-gray-700/50 backdrop-blur-xl overflow-hidden"
        key={748468}>
         {/* Background Pattern */}
@@ -168,7 +167,11 @@ export const CleanDashboard: React.FC<CleanDashboardProps key={389367}> = ({
         </div>
       </div>
     </div>
-  );
-};
+  );};
 
 export default CleanDashboard;
+
+
+
+
+`

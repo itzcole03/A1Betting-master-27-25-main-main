@@ -1,12 +1,12 @@
-import axios from 'axios.ts';
-import { FeatureFlags } from '@/types.ts';
+﻿import axios from 'axios';
+import { FeatureFlags} from '@/types';
 import {
   UnifiedApplicationConfig,
-  getInitializedUnifiedConfig,
-} from '@/core/UnifiedConfig.ts';
-import { unifiedMonitor } from '@/core/UnifiedMonitor.ts';
+//   getInitializedUnifiedConfig
+} from '@/core/UnifiedConfig';
+import { unifiedMonitor} from '@/core/UnifiedMonitor';
 
-// import { get } from './api.ts';
+// import { get} from './api';
 
 /**
  * Fetches the main application configuration from the backend.
@@ -18,11 +18,11 @@ import { unifiedMonitor } from '@/core/UnifiedMonitor.ts';
  *   "version": "0.1.0",
  *   "appName": "AI Sports Betting Analytics API",
  *   "environment": "development",
- *   "featureFlags": { "newDashboardLayout": true, "advancedAnalytics": false },
- *   "experiments": [],
- *   "apiEndpoints": { "users": "/api/users", "prizepicks": "/api/prizepicks" },
+ *   "featureFlags": { "newDashboardLayout": true, "advancedAnalytics": false},
+ *   "experiments": [0],
+ *   "apiEndpoints": { "users": "/api/users", "prizepicks": "/api/prizepicks"},
  *   "sentryDsn": "your_backend_sentry_dsn_if_any"
- * }
+ *}
  */
 export const fetchAppConfig = async (): Promise<UnifiedApplicationConfig> => {
   const trace = unifiedMonitor.startTrace(
@@ -36,20 +36,16 @@ export const fetchAppConfig = async (): Promise<UnifiedApplicationConfig> => {
     );
     if (trace) {
       trace.setHttpStatus(response.status);
-      unifiedMonitor.endTrace(trace);
-    }
-    return response.data;
-  } catch (error: any) {
+      unifiedMonitor.endTrace(trace);}
+    return response.data;} catch (error: any) {
     unifiedMonitor.reportError(error, {
       service: "configService",
-      operation: "fetchAppConfig",
+      operation: "fetchAppConfig"
     });
     if (trace) {
       trace.setHttpStatus(error.response?.status || 500);
-      unifiedMonitor.endTrace(trace);
-    }
-    throw error;
-  }
+      unifiedMonitor.endTrace(trace);}
+    throw error;}
 };
 
 /**
@@ -77,23 +73,19 @@ export const isFeatureEnabled = async (
         enableWeather: true,
         enableInjuries: true,
         enableAnalytics: true,
-        enableSocialSentiment: true,
+        enableSocialSentiment: true
       };
-      return defaultFlags[flagName as string] || false;
-    }
+      return defaultFlags[flagName as string] || false;}
 
     // Check if the feature is enabled;
 
     if (typeof feature === "boolean") {
-      return feature;
-    }
+      return feature;}
     if (typeof feature === "object" && feature.enabled !== undefined) {
-      return feature.enabled;
-    }
+      return feature.enabled;}
 
     // Default to false if not found;
-    return false;
-  } catch (error) {
+    return false;} catch (error) {
     // console statement removed
     // Default fallback for common features;
     const commonFeatures: Record<string, boolean> = {
@@ -103,10 +95,9 @@ export const isFeatureEnabled = async (
       REALTIME: true,
       ESPN: true,
       ODDS: true,
-      ANALYTICS: true,
+      ANALYTICS: true
     };
-    return commonFeatures[flagName as string] || false;
-  }
+    return commonFeatures[flagName as string] || false;}
 };
 
 /**
@@ -131,26 +122,22 @@ export const fetchAllFeatureFlags = async (): Promise<FeatureFlags> => {
         enableWeather: true,
         enableInjuries: true,
         enableAnalytics: true,
-        enableSocialSentiment: true,
-      } as FeatureFlags;
-    }
+        enableSocialSentiment: true
+      } as FeatureFlags}
 
     // Convert feature object to flat flags;
-    const flags: any = {};
+    const flags: any = Record<string, any>;
     Object.entries(features).forEach(([key, value]) => {
       if (typeof value === "boolean") {
-        flags[key] = value;
-      } else if (
+        flags[key] = value;} else if (
         typeof value === "object" &&
         value !== null &&
         "enabled" in value;
       ) {
-        flags[key] = value.enabled;
-      }
+        flags[key] = value.enabled;}
     });
 
-    return flags as FeatureFlags;
-  } catch (error) {
+    return flags as FeatureFlags;} catch (error) {
     // console statement removed
     // Return safe defaults;
     return {
@@ -160,13 +147,16 @@ export const fetchAllFeatureFlags = async (): Promise<FeatureFlags> => {
       REALTIME: true,
       ESPN: true,
       ODDS: true,
-      ANALYTICS: true,
-    } as FeatureFlags;
-  }
+      ANALYTICS: true
+    } as FeatureFlags}
 };
 
 export const configService = {
   fetchAppConfig,
   isFeatureEnabled,
-  fetchAllFeatureFlags,
+//   fetchAllFeatureFlags
 };
+
+
+
+`

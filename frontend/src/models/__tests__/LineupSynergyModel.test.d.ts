@@ -1,1 +1,4 @@
-export {};
+﻿export Record<string, any>;
+
+
+

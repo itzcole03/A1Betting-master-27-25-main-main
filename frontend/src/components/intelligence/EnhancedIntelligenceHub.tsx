@@ -1,5 +1,5 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+import React, { useState, useEffect} from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
 import {
   BarChart3,
   Brain,
@@ -15,37 +15,36 @@ import {
   AlertCircle,
   CheckCircle,
   Eye,
-  Gauge,
-} from 'lucide-react.ts';
-import { useQuery } from '@tanstack/react-query.ts';
-import { api } from '@/services/integrationService.ts';
+//   Gauge
+} from 'lucide-react';
+import { useQuery} from '@tanstack/react-query';
+import { api} from '@/services/integrationService';
 
 // Import existing components to integrate;
-import { AdvancedIntelligenceHub } from './AdvancedIntelligenceHub.ts';
-import { UltraAccuracyDashboard } from '@/overview/UltraAccuracyOverview.ts';
-import { AdminSettings } from '@/admin/AdminSettings.ts';
+import { AdvancedIntelligenceHub} from './AdvancedIntelligenceHub';
+import { UltraAccuracyDashboard} from '@/overview/UltraAccuracyOverview';
+import { AdminSettings} from '@/admin/AdminSettings';
 
 interface IntelligenceHubProps {
-  onNavigate?: (page: string) => void;
-}
+  onNavigate?: (page: string) => void}
 
 export const EnhancedIntelligenceHub: React.FC<IntelligenceHubProps key={281724}> = ({
-  onNavigate,
+//   onNavigate
 }) => {
   const [activeSection, setActiveSection] = useState("overview");
   const [systemMetrics, setSystemMetrics] = useState<any key={295429}>(null);
 
   // Real-time system monitoring;
-  const { data: healthData } = useQuery({
+  const { data: healthData} = useQuery({
     queryKey: ["intelligence-health"],
     queryFn: () => api.getHealthStatus(),
-    refetchInterval: 5000,
+    refetchInterval: 5000
   });
 
-  const { data: accuracyData } = useQuery({
+  const { data: accuracyData} = useQuery({
     queryKey: ["intelligence-accuracy"],
     queryFn: () => api.getAccuracyMetrics(),
-    refetchInterval: 10000,
+    refetchInterval: 10000
   });
 
   // Intelligence Hub sections;
@@ -54,25 +53,25 @@ export const EnhancedIntelligenceHub: React.FC<IntelligenceHubProps key={281724}
       id: "overview",
       label: "System Overview",
       icon: <Eye className="w-5 h-5" / key={765143}>,
-      description: "Real-time system status and performance",
+      description: "Real-time system status and performance"
     },
     {
       id: "accuracy",
       label: "Ultra Accuracy",
       icon: <Target className="w-5 h-5" / key={201057}>,
-      description: "Advanced accuracy monitoring and optimization",
+      description: "Advanced accuracy monitoring and optimization"
     },
     {
       id: "intelligence",
       label: "AI Intelligence",
       icon: <Brain className="w-5 h-5" / key={358560}>,
-      description: "AI models, predictions, and neural networks",
+      description: "AI models, predictions, and neural networks"
     },
     {
       id: "admin",
       label: "Admin Control",
       icon: <Settings className="w-5 h-5" / key={735275}>,
-      description: "System administration and configuration",
+      description: "System administration and configuration"
     },
   ];
 
@@ -88,19 +87,17 @@ export const EnhancedIntelligenceHub: React.FC<IntelligenceHubProps key={281724}
         return <AdvancedIntelligenceHub onNavigate={onNavigate} / key={254916}>;
       case "admin":
         return <AdminSettings onNavigate={onNavigate} / key={266560}>;
-      default:
-        return (
+      default: return (
           <SystemOverview healthData={healthData} accuracyData={accuracyData} / key={398293}>
-        );
-    }
+        )}
   };
 
   return (
     <div className="space-y-6" key={501869}>
       {/* Header */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
         className="text-center"
        key={472940}>
         <div className="text-6xl mb-4" key={671434}>🧠</div>
@@ -114,9 +111,9 @@ export const EnhancedIntelligenceHub: React.FC<IntelligenceHubProps key={281724}
 
       {/* Quick Stats */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
+        transition={{ delay: 0.1}}
         className="grid grid-cols-1 md:grid-cols-4 gap-6"
        key={479540}>
         <div className="glass-card rounded-xl p-6 text-center" key={797123}>
@@ -146,7 +143,7 @@ export const EnhancedIntelligenceHub: React.FC<IntelligenceHubProps key={281724}
             <Brain className="w-8 h-8 mx-auto" / key={863121}>
           </div>
           <div className="text-xl font-bold text-white" key={280014}>
-            {Object.keys(healthData?.services || {}).length}
+            {Object.keys(healthData?.services || Record<string, any>).length}
           </div>
           <div className="text-sm text-gray-400" key={372957}>Active Models</div>
         </div>
@@ -166,23 +163,22 @@ export const EnhancedIntelligenceHub: React.FC<IntelligenceHubProps key={281724}
 
       {/* Section Navigation */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
+        transition={{ delay: 0.2}}
         className="glass-card rounded-xl p-6"
        key={800622}>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4" key={426410}>
           {sections.map((section) => (
             <motion.button;
               key={section.id}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{ scale: 1.02}}
+              whileTap={{ scale: 0.98}}
               onClick={() = key={759548}> setActiveSection(section.id)}
               className={`p-4 rounded-lg text-left transition-all ${
                 activeSection === section.id;
                   ? "bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/50"
-                  : "hover:bg-gray-800/40"
-              }`}
+                  : "hover:bg-gray-800/40"}`}
             >
               <div className="flex items-center gap-3 mb-2" key={283743}>
                 {section.icon}
@@ -196,31 +192,30 @@ export const EnhancedIntelligenceHub: React.FC<IntelligenceHubProps key={281724}
 
       {/* Active Section */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
+        transition={{ delay: 0.3}}
         className="glass-card rounded-xl p-6"
        key={262248}>
         <AnimatePresence mode="wait" key={725119}>
           <motion.div;
             key={activeSection}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, x: 20}}
+            animate={{ opacity: 1, x: 0}}
+            exit={{ opacity: 0, x: -20}}
+            transition={{ duration: 0.3}}
            key={21572}>
             {renderActiveSection()}
           </motion.div>
         </AnimatePresence>
       </motion.div>
     </div>
-  );
-};
+  )};
 
 // System Overview Component;
-const SystemOverview: React.FC<{ healthData: any; accuracyData: any }> = ({
+const SystemOverview: React.FC<{ healthData: unknown; accuracyData: unknown}> = ({
   healthData,
-  accuracyData,
+//   accuracyData
 }) => {
   return (
     <div className="space-y-6" key={501869}>
@@ -250,8 +245,7 @@ const SystemOverview: React.FC<{ healthData: any; accuracyData: any }> = ({
                       className={
                         status === "operational"
                           ? "text-green-400"
-                          : "text-red-400"
-                      }
+                          : "text-red-400"}
                      key={945064}>
                       {status}
                     </span>
@@ -277,7 +271,7 @@ const SystemOverview: React.FC<{ healthData: any; accuracyData: any }> = ({
                     <div className="w-full bg-gray-700 rounded-full h-2" key={811414}>
                       <div;
                         className="bg-gradient-to-r from-cyan-400 to-purple-400 h-2 rounded-full transition-all duration-500"
-                        style={{ width: `${data.accuracy * 100}%` }}
+                        style={{ width: `${data.accuracy * 100}%`}}
                       / key={672858}>
                     </div>
                     <div className="text-xs text-gray-500 mt-1" key={777441}>
@@ -296,7 +290,7 @@ const SystemOverview: React.FC<{ healthData: any; accuracyData: any }> = ({
           <Brain className="w-5 h-5" / key={358560}>
           Autonomous Intelligence Status;
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4" key={223180}>
+        <div className="grid grid-cols-1 md: grid-cols-3 gap-4" key={223180}>
           <div className="text-center" key={120206}>
             <div className="text-2xl text-green-400 mb-2" key={69712}>✅</div>
             <div className="text-sm font-semibold" key={957731}>Background Processing</div>
@@ -315,7 +309,11 @@ const SystemOverview: React.FC<{ healthData: any; accuracyData: any }> = ({
         </div>
       </div>
     </div>
-  );
-};
+  )};
 
 export default EnhancedIntelligenceHub;
+
+
+
+`
+

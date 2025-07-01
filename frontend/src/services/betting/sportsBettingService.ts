@@ -1,4 +1,4 @@
-import { MatchPrediction } from '../../types/match';
+﻿import { MatchPrediction} from '../../types/match';
 import ApiService from '../api/ApiService';
 
 class SportsBettingService {
@@ -10,14 +10,13 @@ class SportsBettingService {
   ): Promise<MatchPrediction> {
     try {
       const prediction = await ApiService.get<MatchPrediction>('/api/v1/match-prediction', {
-        params: { homeTeam, awayTeam, league, date },
+        params: { homeTeam, awayTeam, league, date}
       });
-      return prediction;
-    } catch (error) {
+      return prediction;} catch (error) {
       console.error('Error getting match prediction:', error);
-      throw error;
-    }
-  }
-}
+      throw error;}
+  }}
 
 export const sportsBettingService = new SportsBettingService();
+
+

@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   Box,
   Typography,
@@ -8,18 +8,16 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
-} from '@mui/material.ts';
-import { OptimalLineup } from '@/types.ts';
+//   Paper
+} from '@mui/material';
+import { OptimalLineup} from '@/types';
 
 interface MoneyMakerResultsProps {
-  lineup: OptimalLineup;
-}
+  lineup: OptimalLineup}
 
-export const MoneyMakerResults: React.FC<MoneyMakerResultsProps key={445336}> = ({ lineup }) => {
+export const MoneyMakerResults: React.FC<MoneyMakerResultsProps key={445336}> = ({ lineup}) => {
   const formatNumber = (num: number) => {
-    return num.toFixed(1);
-  };
+    return num.toFixed(1)};
 
   return (
     <Box className="results-section" key={459900}>
@@ -87,10 +85,13 @@ export const MoneyMakerResults: React.FC<MoneyMakerResultsProps key={445336}> = 
         <Typography className="mb-2" color="textSecondary" variant="subtitle2" key={6733}>
           Analysis;
         </Typography>
-        <Typography className="text-gray-600 dark:text-gray-300" variant="body2" key={221027}>
+        <Typography className="text-gray-600 dark: text-gray-300" variant="body2" key={221027}>
           {lineup.analysis}
         </Typography>
       </Box>
     </Box>
-  );
-};
+  )};
+
+
+
+

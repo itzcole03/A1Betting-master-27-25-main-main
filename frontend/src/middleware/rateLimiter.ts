@@ -1,6 +1,6 @@
-import rateLimit from 'express-rate-limit.ts';
-import { Request, Response } from 'express.ts';
-import { UnifiedLogger } from '@/services/core/UnifiedLogger.ts';
+﻿import rateLimit from 'express-rate-limit';
+import { Request, Response} from 'express';
+import { UnifiedLogger} from '@/services/core/UnifiedLogger';
 
 // Create different limiters for different endpoints;
 export const apiLimiter = rateLimit({
@@ -10,9 +10,8 @@ export const apiLimiter = rateLimit({
   handler: (req: Request, res: Response) => {
     logger.warn('Rate limit exceeded', `IP: ${req.ip}, Path: ${req.path}, Method: ${req.method}`);
     res.status(429).json({
-      error: 'Too many requests, please try again later',
-    });
-  },
+      error: 'Too many requests, please try again later'
+    })}
 });
 
 // Stricter limits for authentication endpoints;
@@ -26,9 +25,8 @@ export const authLimiter = rateLimit({
       `IP: ${req.ip}, Path: ${req.path}, Method: ${req.method}`
     );
     res.status(429).json({
-      error: 'Too many authentication attempts, please try again later',
-    });
-  },
+      error: 'Too many authentication attempts, please try again later'
+    })}
 });
 
 // Stricter limits for betting endpoints;
@@ -42,7 +40,10 @@ export const bettingLimiter = rateLimit({
       `IP: ${req.ip}, Path: ${req.path}, Method: ${req.method}`
     );
     res.status(429).json({
-      error: 'Too many betting requests, please try again later',
-    });
-  },
+      error: 'Too many betting requests, please try again later'
+    })}
 });
+
+
+
+`

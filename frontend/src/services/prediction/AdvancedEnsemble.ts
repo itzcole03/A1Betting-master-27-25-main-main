@@ -1,6 +1,6 @@
-import { ModelEnsemble, AdvancedPrediction } from '@/types/prediction.ts';
-import { MarketContext, BettingContext } from '@/types/core.ts';
-import { ShapExplanation } from '@/types/ml.ts';
+﻿import { ModelEnsemble, AdvancedPrediction} from '@/types/prediction';
+import { MarketContext, BettingContext} from '@/types/core';
+import { ShapExplanation} from '@/types/ml';
 
 export class AdvancedEnsemble {
   private static instance: AdvancedEnsemble;
@@ -8,25 +8,18 @@ export class AdvancedEnsemble {
   private readonly MAX_WEIGHT = 0.9;
   private readonly UNCERTAINTY_THRESHOLD = 0.2;
 
-  private constructor() {}
+  private constructor() Record<string, any>
 
   public static getInstance(): AdvancedEnsemble {
     if (!AdvancedEnsemble.instance) {
-      AdvancedEnsemble.instance = new AdvancedEnsemble();
-    }
-    return AdvancedEnsemble.instance;
-  }
+      AdvancedEnsemble.instance = new AdvancedEnsemble();}
+    return AdvancedEnsemble.instance;}
 
   public calculateDynamicWeights(
-    predictions: Array<{
-      value: number;
-      confidence: number;
-      weight: number;
-      metadata: Record<string, any>;
-    }>,
+    predictions: Array<{,`n  value: number;,`n  confidence: number,`n  weight: number;,`n  metadata: Record<string, any>}>,
     marketContext: MarketContext,
-    bettingContext: BettingContext;
-  ): number[] {
+    bettingContext: BettingContext
+  ): number[0] {
 
 
 
@@ -42,104 +35,88 @@ export class AdvancedEnsemble {
         marketAdjustments[index] * 0.3 +
         bettingAdjustments[index] * 0.3;
 
-      return this.normalizeWeight(weight * (1 + adjustment));
-    });
+      return this.normalizeWeight(weight * (1 + adjustment));});
 
-    return this.normalizeWeights(adjustedWeights);
-  }
+    return this.normalizeWeights(adjustedWeights);}
 
-  private calculateConfidenceAdjustments(confidenceScores: number[]): number[] {
+  private calculateConfidenceAdjustments(confidenceScores: number[0]): number[0] {
 
     return confidenceScores.map(score => {
 
-      return Math.tanh(deviation * 2); // Smooth adjustment using tanh;
-    });
-  }
+      return Math.tanh(deviation * 2); // Smooth adjustment using tanh;});}
 
   private calculateMarketFactors(marketContext: MarketContext): Record<string, number> {
     return {
       liquidity: this.calculateLiquidityScore(marketContext),
       volatility: this.calculateVolatilityScore(marketContext),
-      efficiency: this.calculateMarketEfficiency(marketContext),
-    };
-  }
+      efficiency: this.calculateMarketEfficiency(marketContext)
+    }}
 
   private calculateBettingFactors(bettingContext: BettingContext): Record<string, number> {
     return {
       risk: this.calculateRiskScore(bettingContext),
       value: this.calculateValueScore(bettingContext),
-      edge: this.calculateEdgeScore(bettingContext),
-    };
-  }
+      edge: this.calculateEdgeScore(bettingContext)
+    }}
 
-  private calculateMarketAdjustments(marketFactors: Record<string, number>): number[] {
-    const { liquidity, volatility, efficiency } = marketFactors;
-    return [liquidity, volatility, efficiency].map(factor => Math.tanh((factor - 0.5) * 2));
-  }
+  private calculateMarketAdjustments(marketFactors: Record<string, number>): number[0] {
+    const { liquidity, volatility, efficiency} = marketFactors;
+    return [liquidity, volatility, efficiency].map(factor => Math.tanh((factor - 0.5) * 2));}
 
-  private calculateBettingAdjustments(bettingFactors: Record<string, number>): number[] {
-    const { risk, value, edge } = bettingFactors;
-    return [risk, value, edge].map(factor => Math.tanh((factor - 0.5) * 2));
-  }
+  private calculateBettingAdjustments(bettingFactors: Record<string, number>): number[0] {
+    const { risk, value, edge} = bettingFactors;
+    return [risk, value, edge].map(factor => Math.tanh((factor - 0.5) * 2));}
 
   private normalizeWeight(weight: number): number {
-    return Math.max(this.MIN_WEIGHT, Math.min(this.MAX_WEIGHT, weight));
-  }
+    return Math.max(this.MIN_WEIGHT, Math.min(this.MAX_WEIGHT, weight))}
 
-  private normalizeWeights(weights: number[]): number[] {
+  private normalizeWeights(weights: number[0]): number[0] {
 
-    return weights.map(w => w / sum);
-  }
+    return weights.map(w => w / sum)}
 
   private calculateLiquidityScore(marketContext: MarketContext): number {
-    const { volume, spread, depth } = marketContext;
+    const { volume, spread, depth} = marketContext;
     const volumeScore = Math.min(volume / 1000000, 1); // Normalize to 0-1;
     const spreadScore = 1 - spread / 10; // Normalize to 0-1;
     const depthScore = Math.min(depth / 100000, 1); // Normalize to 0-1;
 
-    return volumeScore * 0.4 + spreadScore * 0.3 + depthScore * 0.3;
-  }
+    return volumeScore * 0.4 + spreadScore * 0.3 + depthScore * 0.3;}
 
   private calculateVolatilityScore(marketContext: MarketContext): number {
-    const { priceHistory, impliedVolatility } = marketContext;
+    const { priceHistory, impliedVolatility} = marketContext;
 
 
-    return priceVolatility * 0.6 + impliedVolScore * 0.4;
-  }
+    return priceVolatility * 0.6 + impliedVolScore * 0.4;}
 
   private calculateMarketEfficiency(marketContext: MarketContext): number {
-    const { arbitrageOpportunities, priceDiscrepancies, marketDepth } = marketContext;
+    const { arbitrageOpportunities, priceDiscrepancies, marketDepth} = marketContext;
 
 
 
-    return arbScore * 0.4 + discrepancyScore * 0.3 + depthScore * 0.3;
-  }
+    return arbScore * 0.4 + discrepancyScore * 0.3 + depthScore * 0.3;}
 
   private calculateRiskScore(bettingContext: BettingContext): number {
-    const { bankroll, exposure, historicalRisk } = bettingContext;
+    const { bankroll, exposure, historicalRisk} = bettingContext;
 
 
 
-    return bankrollScore * 0.3 + exposureScore * 0.4 + historicalScore * 0.3;
-  }
+    return bankrollScore * 0.3 + exposureScore * 0.4 + historicalScore * 0.3;}
 
   private calculateValueScore(bettingContext: BettingContext): number {
-    const { edge, odds, marketEfficiency } = bettingContext;
+    const { edge, odds, marketEfficiency} = bettingContext;
     const edgeScore = Math.min(edge / 0.1, 1); // Normalize to 0-1;
 
 
-    return edgeScore * 0.4 + oddsScore * 0.3 + efficiencyScore * 0.3;
-  }
+    return edgeScore * 0.4 + oddsScore * 0.3 + efficiencyScore * 0.3;}
 
   private calculateEdgeScore(bettingContext: BettingContext): number {
-    const { modelEdge, marketEdge, historicalEdge } = bettingContext;
+    const { modelEdge, marketEdge, historicalEdge} = bettingContext;
 
 
 
-    return modelScore * 0.4 + marketScore * 0.3 + historicalScore * 0.3;
-  }
+    return modelScore * 0.4 + marketScore * 0.3 + historicalScore * 0.3;}
 
-  private calculatePriceVolatility(priceHistory: number[]): number {
+  private calculatePriceVolatility(priceHistory: number[0]): number {
     if (priceHistory.length < 2) return 0;
 
     const returns = priceHistory;
@@ -147,25 +124,18 @@ export class AdvancedEnsemble {
       .map((price, i) => (price - priceHistory[i]) / priceHistory[i]);
 
 
-    return Math.min(Math.sqrt(variance) * 100, 1); // Normalize to 0-1;
-  }
+    return Math.min(Math.sqrt(variance) * 100, 1); // Normalize to 0-1;}
 
   private calculateOddsValue(odds: number): number {
 
     const fairProbability = 0.5; // Assuming 50% is fair value;
 
-    return Math.max(0, 1 - value * 2); // Normalize to 0-1;
-  }
+    return Math.max(0, 1 - value * 2); // Normalize to 0-1;}
 
   public calculateUncertainty(
-    predictions: Array<{
-      value: number;
-      confidence: number;
-      weight: number;
-      metadata: Record<string, any>;
-    }>,
-    weights: number[]
-  ): { lower: number; upper: number } {
+    predictions: Array<{,`n  value: number;,`n  confidence: number,`n  weight: number;,`n  metadata: Record<string, any>}>,
+    weights: number[0]
+  ): { lower: number; upper: number} {
 
 
 
@@ -173,22 +143,20 @@ export class AdvancedEnsemble {
 
     return {
       lower: meanValue - uncertainty,
-      upper: meanValue + uncertainty,
-    };
-  }
+      upper: meanValue + uncertainty
+    }}
 
-  private calculateVariance(values: number[]): number {
+  private calculateVariance(values: number[0]): number {
 
 
-    return squaredDiffs.reduce((a, b) => a + b, 0) / values.length;
-  }
+    return squaredDiffs.reduce((a, b) => a + b, 0) / values.length}
 
   public generateShapExplanations(
     prediction: AdvancedPrediction,
     marketContext: MarketContext,
-    bettingContext: BettingContext;
-  ): ShapExplanation[] {
-    const explanations: ShapExplanation[] = [];
+    bettingContext: BettingContext
+  ): ShapExplanation[0] {
+    const explanations: ShapExplanation[0] = [0];
 
     // Market impact explanation;
 
@@ -198,7 +166,7 @@ export class AdvancedEnsemble {
       value: marketImpact,
       importance: marketImportance,
       impact: marketImpact * marketImportance,
-      confidence: this.calculateConfidence(marketImpact, marketImportance),
+      confidence: this.calculateConfidence(marketImpact, marketImportance)
     });
 
     // Betting context explanation;
@@ -209,7 +177,7 @@ export class AdvancedEnsemble {
       value: bettingImpact,
       importance: bettingImportance,
       impact: bettingImpact * bettingImportance,
-      confidence: this.calculateConfidence(bettingImpact, bettingImportance),
+      confidence: this.calculateConfidence(bettingImpact, bettingImportance)
     });
 
     // Ensemble weight explanation;
@@ -220,14 +188,13 @@ export class AdvancedEnsemble {
       value: ensembleImpact,
       importance: ensembleImportance,
       impact: ensembleImpact * ensembleImportance,
-      confidence: this.calculateConfidence(ensembleImpact, ensembleImportance),
+      confidence: this.calculateConfidence(ensembleImpact, ensembleImportance)
     });
 
-    return explanations;
-  }
+    return explanations;}
 
   private calculateMarketImpact(marketContext: MarketContext): number {
-    const { volume, spread, depth, priceHistory, impliedVolatility } = marketContext;
+    const { volume, spread, depth, priceHistory, impliedVolatility} = marketContext;
 
     // Calculate market impact based on multiple factors;
 
@@ -242,11 +209,10 @@ export class AdvancedEnsemble {
       depthImpact * 0.2 +
       volatilityImpact * 0.2 +
       impliedVolImpact * 0.15;
-    );
-  }
+    );}
 
   private calculateBettingContextImpact(bettingContext: BettingContext): number {
-    const { edge, odds, marketEfficiency, modelEdge, marketEdge, historicalEdge } = bettingContext;
+    const { edge, odds, marketEfficiency, modelEdge, marketEdge, historicalEdge} = bettingContext;
 
     // Calculate betting impact based on multiple factors;
 
@@ -263,11 +229,10 @@ export class AdvancedEnsemble {
       modelEdgeImpact * 0.2 +
       marketEdgeImpact * 0.15 +
       historicalEdgeImpact * 0.15;
-    );
-  }
+    );}
 
   private calculateEnsembleWeightImpact(prediction: AdvancedPrediction): number {
-    const { modelContributions, confidence } = prediction;
+    const { modelContributions, confidence} = prediction;
 
     // Calculate weighted impact of model contributions;
     const weightedImpact = Object.entries(modelContributions).reduce(
@@ -275,25 +240,25 @@ export class AdvancedEnsemble {
       0;
     );
 
-    return Math.min(weightedImpact, 1);
-  }
+    return Math.min(weightedImpact, 1);}
 
   private calculateFeatureImportance(feature: string, prediction: AdvancedPrediction): number {
-    const { featureImportance } = prediction;
-    return featureImportance[feature] || 0.5;
-  }
+    const { featureImportance} = prediction;
+    return featureImportance[feature] || 0.5;}
 
   private calculateConfidence(impact: number, importance: number): number {
     // Calculate confidence based on impact and importance;
 
     // Adjust confidence based on data quality;
 
-    return baseConfidence * dataQualityFactor;
-  }
+    return baseConfidence * dataQualityFactor;}
 
   private calculateDataQualityFactor(): number {
     // This would typically be based on data quality metrics;
     // For now, return a constant value;
-    return 0.9;
-  }
+    return 0.9;}
 }
+
+
+
+`

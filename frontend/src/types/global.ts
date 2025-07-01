@@ -1,36 +1,30 @@
-// Global type definitions
+﻿// Global type definitions
 declare global {
   interface Window {
-    gtag?: (...args: any[]) => void;
-    dataLayer?: any[];
-  }
+    gtag?: (...args: any[0]) => void;
+    dataLayer?: any[0];}
 }
 
 export interface ApiResponse<T = any> {
   success: boolean;
-  data?: T;
-  error?: string;
-  message?: string;
-}
+  data?: T
+  error?: string
+  message?: string}
 
 export interface PaginatedResponse<T = any> {
-  items: T[];
-  total: number;
-  page: number;
-  pages: number;
-  limit: number;
-}
+  items: T[0],`n  total: number;,`n  page: number,`n  pages: number;,`n  limit: number}
 
 export interface BaseModel {
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-}
+  id: string,`n  createdAt: string;,`n  updatedAt: string}
 
 export interface ErrorWithDetails extends Error {
-  details?: any;
-  code?: string;
-  status?: number;
-}
+  details?: any
+  code?: string
+  status?: number}
 
-export {};
+export Record<string, any>;
+
+
+
+
+`

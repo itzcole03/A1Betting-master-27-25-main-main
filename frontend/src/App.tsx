@@ -1,14 +1,14 @@
-import React, { Suspense } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ThemeProvider } from './components/common/theme/ThemeProvider';
-import ErrorBoundary from './components/ViteErrorBoundary';
+﻿import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import React, { Suspense } from 'react'
+import ErrorBoundary from './components/ViteErrorBoundary'
+import { ThemeProvider } from './components/common/theme/ThemeProvider'
 
 // Import the quantum platform that matches poe-preview (8).html exactly
-import QuantumSportsPlatform from './components/QuantumSportsPlatform';
+import QuantumSportsPlatform from './components/QuantumSportsPlatform'
 
 // Import essential styles
-import './App.css';
-import './index.css';
+import './App.css'
+import './index.css'
 
 // Optimized query client for high-performance data management
 const queryClient = new QueryClient({
@@ -17,12 +17,12 @@ const queryClient = new QueryClient({
       retry: 2,
       staleTime: 5 * 60 * 1000, // 5 minutes
       refetchOnWindowFocus: false,
-      refetchOnMount: false,
+      refetchOnMount: false
     },
     mutations: {
-      retry: 1,
-    },
-  },
+      retry: 1
+    }
+  }
 });
 
 /**
@@ -56,28 +56,26 @@ const App: React.FC = () => {
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider defaultTheme='dark'>
-          <Suspense
-            fallback={
-              <div className='min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center'>
-                <div className='text-center'>
-                  <div className='w-20 h-20 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-6'></div>
-                  <h2 className='text-3xl font-bold text-yellow-400 mb-2'>A1 Betting Platform</h2>
-                  <p className='text-xl text-gray-400 mb-4'>Enterprise Sports Intelligence</p>
-                  <div className='flex items-center justify-center space-x-4 text-sm text-gray-500'>
-                    <span>• 73.8% Win Rate</span>
-                    <span>• 47+ ML Models</span>
-                    <span>• Real-time APIs</span>
-                  </div>
+          <Suspense fallback={
+            <div className='min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center'>
+              <div className='text-center'>
+                <div className='w-20 h-20 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-6'></div>
+                <h2 className='text-3xl font-bold text-yellow-400 mb-2'>A1 Betting Platform</h2>
+                <p className='text-xl text-gray-400 mb-4'>Enterprise Sports Intelligence</p>
+                <div className='flex items-center justify-center space-x-4 text-sm text-gray-500'>
+                  <span>• 73.8% Win Rate</span>
+                  <span>• 47+ ML Models</span>
+                  <span>• Real-time APIs</span>
                 </div>
               </div>
-            }
-          >
+            </div>
+          }>
             <QuantumSportsPlatform />
           </Suspense>
         </ThemeProvider>
       </QueryClientProvider>
     </ErrorBoundary>
-  );
+  )
 };
 
 export default App;

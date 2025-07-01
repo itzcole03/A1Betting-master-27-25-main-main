@@ -1,7 +1,7 @@
-import React from 'react.ts';
-import { Card, CardContent, Typography, Grid } from '@mui/material.ts';
-import { strategyService } from '@/services/strategy.ts';
-import { StrategyAutomationToggle } from '@/components/StrategyAutomationToggle.ts';
+﻿import React from 'react';
+import { Card, CardContent, Typography, Grid} from '@mui/material';
+import { strategyService} from '@/services/strategy';
+import { StrategyAutomationToggle} from '@/components/StrategyAutomationToggle';
 
 export const StrategiesPage: React.FC = () => {
 
@@ -21,5 +21,7 @@ export const StrategiesPage: React.FC = () => {
         </Grid>
       ))}
     </Grid>
-  );
-};
+  )};
+
+
+

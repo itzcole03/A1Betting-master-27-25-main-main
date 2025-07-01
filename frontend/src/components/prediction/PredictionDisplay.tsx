@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useMemo, useCallback  } from 'react.ts';
-import { useUnifiedAnalytics } from '@/hooks/useUnifiedAnalytics.js';
-import { UnifiedServiceRegistry } from '@/services/unified/UnifiedServiceRegistry.js';
+﻿import React, { useEffect, useState, useMemo, useCallback} from 'react';
+import { useUnifiedAnalytics} from '@/hooks/useUnifiedAnalytics.js';
+import { UnifiedServiceRegistry} from '@/services/unified/UnifiedServiceRegistry.js';
 import {
   Box,
   Typography,
@@ -15,10 +15,10 @@ import {
   Chip,
   Card,
   CardContent,
-  CardHeader,
-} from '@mui/material.ts';
-import Grid from '@mui/material/Grid.ts';
-import { styled } from '@mui/material/styles.ts';
+//   CardHeader
+} from '@mui/material';
+import Grid from '@mui/material/Grid';
+import { styled} from '@mui/material/styles';
 import {
   BarChart,
   Bar,
@@ -28,79 +28,78 @@ import {
   ResponsiveContainer,
   Cell,
   LineChart,
-  Line,
-} from 'recharts.ts';
-import FilterListIcon from '@mui/icons-material/FilterList.ts';
-import SortIcon from '@mui/icons-material/Sort.ts';
-import InfoIcon from '@mui/icons-material/Info.ts';
-import { NoResultsFallback } from './NoResultsFallback.js';
-import { motion, AnimatePresence } from 'framer-motion.ts';
-import type { PredictionStreamPayload } from '@/types/webSocket.js';
-import { usePredictionService } from '@/hooks/usePredictionService.js';
-import { useRiskProfile } from '@/hooks/useRiskProfile.js';
-import { EventBus } from '@/unified/EventBus.js';
-import { ErrorHandler } from '@/unified/ErrorHandler.js';
-import { PerformanceMonitor } from '@/unified/PerformanceMonitor.js';
-import { ModelVersioning } from '@/unified/ModelVersioning.js';
-import { Prediction, RiskProfile, ErrorCategory, ErrorSeverity } from '@/types/core.js';
-import MoreVertIcon from '@mui/icons-material/MoreVert.ts';
-import { useFilterStore } from '@/stores/filterStore.js';
+//   Line
+} from 'recharts';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import SortIcon from '@mui/icons-material/Sort';
+import InfoIcon from '@mui/icons-material/Info';
+import { NoResultsFallback} from './NoResultsFallback.js';
+import { motion, AnimatePresence} from 'framer-motion';
+import type { PredictionStreamPayload} from '@/types/webSocket.js';
+import { usePredictionService} from '@/hooks/usePredictionService.js';
+import { useRiskProfile} from '@/hooks/useRiskProfile.js';
+import { EventBus} from '@/unified/EventBus.js';
+import { ErrorHandler} from '@/unified/ErrorHandler.js';
+import { PerformanceMonitor} from '@/unified/PerformanceMonitor.js';
+import { ModelVersioning} from '@/unified/ModelVersioning.js';
+import { Prediction, RiskProfile, ErrorCategory, ErrorSeverity} from '@/types/core.js';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { useFilterStore} from '@/stores/filterStore.js';
 
-const PredictionContainer = styled(Paper)(({ theme }) => ({
+const PredictionContainer = styled(Paper)(({ theme}) => ({
   padding: theme.spacing(2),
   backgroundColor: theme.palette.background.paper,
   borderRadius: theme.shape.borderRadius,
-  boxShadow: theme.shadows[2],
+  boxShadow: theme.shadows[2]
 }));
 
-const ConfidenceBar = styled(LinearProgress)(({ theme }) => ({
+const ConfidenceBar = styled(LinearProgress)(({ theme}) => ({
   height: 8,
   borderRadius: 4,
   backgroundColor: theme.palette.grey[200],
   '& .MuiLinearProgress-bar': {
-    borderRadius: 4,
-  },
+    borderRadius: 4
+  }
 }));
 
-const ShapContainer = styled(Box)(({ theme }) => ({
+const ShapContainer = styled(Box)(({ theme}) => ({
   marginTop: theme.spacing(2),
   height: 300,
-  position: 'relative',
+  position: 'relative'
 }));
 
-const ControlsContainer = styled(Box)(({ theme }) => ({
+const ControlsContainer = styled(Box)(({ theme}) => ({
   display: 'flex',
   justifyContent: 'flex-end',
   gap: theme.spacing(1),
-  marginBottom: theme.spacing(1),
+  marginBottom: theme.spacing(1)
 }));
 
-const ValueDisplay = styled(Box)<{ changed?: boolean }>(({ theme, changed }) => ({
+const ValueDisplay = styled(Box)<{ changed?: boolean}>(({ theme, changed}) => ({
   padding: theme.spacing(1),
   borderRadius: theme.shape.borderRadius,
   backgroundColor: changed ? theme.palette.primary.light : 'transparent',
-  transition: `background-color 0.3s`,
+  transition: `background-color 0.3s`
 }));
 
-const PredictionCard = styled(Card)(({ theme }) => ({
+const PredictionCard = styled(Card)(({ theme}) => ({
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
   transition: 'transform 0.2s ease-in-out',
   '&:hover': {
     transform: 'translateY(-4px)',
-    boxShadow: theme.shadows[4],
-  },
+    boxShadow: theme.shadows[4]
+  }
 }));
 
 interface PredictionDisplayProps {
   eventId: string;
-  marketId?: string;
-  selectionId?: string;
-  className?: string;
-  showAdvancedMetrics?: boolean;
-  onPredictionUpdate?: (prediction: any) => void;
-}
+  marketId?: string
+  selectionId?: string
+  className?: string
+  showAdvancedMetrics?: boolean
+  onPredictionUpdate?: (prediction: any) => void}
 
 type SortOrder = 'asc' | 'desc';
 type FilterType = 'all' | 'high-confidence' | 'recent' | 'profitable';
@@ -111,11 +110,11 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
   selectionId,
   className = '',
   showAdvancedMetrics = false,
-  onPredictionUpdate,
+//   onPredictionUpdate
 }) => {
-  const { ml } = useUnifiedAnalytics({ ml: { autoUpdate: false } });
+  const { ml} = useUnifiedAnalytics({ ml: { autoUpdate: false} });
 
-  const { riskProfile } = useRiskProfile();
+  const { riskProfile} = useRiskProfile();
 
 
 
@@ -131,9 +130,9 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
     'Disconnected'
   );
   const [error, setError] = useState<string | null key={121216}>(null);
-  const [predictionHistory, setPredictionHistory] = useState<any[] key={594112}>([]);
+  const [predictionHistory, setPredictionHistory] = useState<any[0] key={594112}>([0]);
   const [optimalStake, setOptimalStake] = useState<number | null key={564007}>(null);
-  const [predictions, setPredictions] = useState<Prediction[] key={925811}>([]);
+  const [predictions, setPredictions] = useState<Prediction[0] key={925811}>([0]);
   const [isLoading, setIsLoading] = useState(true);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement key={178068}>(null);
   const [selectedPrediction, setSelectedPrediction] = useState<Prediction | null key={547963}>(null);
@@ -143,10 +142,8 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
   const prediction = useMemo(() => {
     if (!ml || !ml.mlResult) return null;
     if (Array.isArray(ml.mlResult.predictions)) {
-      return ml.mlResult.predictions.find((p: any) => p.eventId === eventId) || null;
-    }
-    return null;
-  }, [ml, eventId]);
+      return ml.mlResult.predictions.find((p: any) => p.eventId === eventId) || null}
+    return null}, [ml, eventId]);
 
   // Calculate optimal stake when prediction or risk profile changes;
   useEffect(() => {
@@ -154,8 +151,7 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
       predictionService;
         .calculateOptimalStake(prediction, prediction.odds, riskProfile.level)
         .then(setOptimalStake)
-        .catch(console.error);
-    }
+        .catch(console.error);}
   }, [prediction, riskProfile, predictionService]);
 
   // WebSocket connection for real-time updates;
@@ -172,8 +168,7 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
         if (data.eventId === eventId) {
           setPredictionHistory(prev => [...prev, data].slice(-10)); // Keep last 10 predictions;
           onPredictionUpdate?.(data);
-          setConnectionStatus('Connected');
-        }
+          setConnectionStatus('Connected');}
       },
       [eventId, onPredictionUpdate]
     );
@@ -183,17 +178,13 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
         await webSocketService.connect();
         unsub = webSocketService.subscribe('predictions', handlePredictionUpdate);
         setConnectionStatus('Connected');
-        reconnectAttempts = 0;
-      } catch (error) {
+        reconnectAttempts = 0;} catch (error) {
         if (reconnectAttempts < maxReconnectAttempts) {
           reconnectTimeout = setTimeout(connectAndSubscribe, reconnectInterval);
-          reconnectAttempts++;
-        } else {
+          reconnectAttempts++;} else {
           setError('WebSocket connection failed. Please refresh.');
-          setConnectionStatus('Disconnected');
-        }
-      }
-    };
+          setConnectionStatus('Disconnected');}
+      }};
 
     connectAndSubscribe();
 
@@ -201,9 +192,7 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
       isMounted = false;
       if (unsub) unsub();
       webSocketService.disconnect();
-      if (reconnectTimeout) clearTimeout(reconnectTimeout);
-    };
-  }, [eventId, webSocketService, onPredictionUpdate]);
+      if (reconnectTimeout) clearTimeout(reconnectTimeout);};}, [eventId, webSocketService, onPredictionUpdate]);
 
   // Handle prediction updates;
   useEffect(() => {
@@ -213,8 +202,7 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
       if (prediction.recommended_stake) newChangedValues.add('stake');
       setChangedValues(newChangedValues);
 
-      return () => clearTimeout(timeout);
-    }
+      return () => clearTimeout(timeout);}
   }, [prediction]);
 
   useEffect(() => {
@@ -230,8 +218,7 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
           minConfidence: filterStore.minConfidence,
           maxConfidence: filterStore.maxConfidence,
           projectedReturn: filterStore.projectedReturn,
-          // add any other filters as needed;
-        });
+          // add any other filters as needed});
         setPredictions(data);
         setError(null);
 
@@ -240,9 +227,8 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
           renderTime: performance.now() - startTime,
           memoryUsage: JSON.stringify(data).length,
           errorCount: 0,
-          lastUpdate: Date.now(),
-        });
-      } catch (err) {
+          lastUpdate: Date.now()
+        })} catch (err) {
 
         setError(error.message);
 
@@ -252,11 +238,10 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
           severity: 'HIGH',
           component: componentId,
           retryable: true,
-          recoveryStrategy: {
-            type: 'retry',
+          recoveryStrategy: {,`n  type: 'retry',
             maxRetries: 3,
-            timeout: 1000,
-          },
+            timeout: 1000
+          }
         });
 
         performanceMonitor.updateComponentMetrics(componentId, {
@@ -264,11 +249,9 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
           renderTime: 0,
           memoryUsage: 0,
           errorCount: 1,
-          lastUpdate: Date.now(),
-        });
-      } finally {
-        setIsLoading(false);
-      }
+          lastUpdate: Date.now()
+        })} finally {
+        setIsLoading(false);}
     };
 
     const handlePredictionUpdate = (update: Prediction) => {
@@ -279,12 +262,10 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
           renderTime: performance.now() - startTime,
           memoryUsage: JSON.stringify(newPredictions).length,
           errorCount: 0,
-          lastUpdate: Date.now(),
+          lastUpdate: Date.now()
         });
 
-        return newPredictions;
-      });
-    };
+        return newPredictions;});};
 
     const handleError = (error: Error) => {
       errorHandler.handleError(error, {
@@ -292,7 +273,7 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
         category: 'BUSINESS',
         severity: 'MEDIUM',
         component: componentId,
-        retryable: true,
+        retryable: true
       });
 
       performanceMonitor.updateComponentMetrics(componentId, {
@@ -300,9 +281,8 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
         renderTime: 0,
         memoryUsage: 0,
         errorCount: 1,
-        lastUpdate: Date.now(),
-      });
-    };
+        lastUpdate: Date.now()
+      })};
 
     // Subscribe to real-time updates;
 
@@ -317,20 +297,16 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
         renderTime: 0,
         memoryUsage: 0,
         errorCount: 0,
-        lastUpdate: Date.now(),
-      });
-    };
-  }, [predictionService, filterStore]);
+        lastUpdate: Date.now()
+      })};}, [predictionService, filterStore]);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement key={9296}>, prediction: Prediction) => {
     setAnchorEl(event.currentTarget);
-    setSelectedPrediction(prediction);
-  };
+    setSelectedPrediction(prediction);};
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-    setSelectedPrediction(null);
-  };
+    setSelectedPrediction(null);};
 
   if (ml?.isLoading) {
     return (
@@ -339,20 +315,17 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
           <CircularProgress / key={730118}>
         </Box>
       </PredictionContainer>
-    );
-  }
+    );}
 
   if (ml?.error) {
     return (
       <PredictionContainer className={className} key={262990}>
         <Alert severity="error" key={896627}>Failed to load prediction data: {ml.error.message}</Alert>
       </PredictionContainer>
-    );
-  }
+    )}
 
   if (!prediction) {
-    return <NoResultsFallback / key={711153}>;
-  }
+    return <NoResultsFallback / key={711153}>;}
 
   const {
     prediction: value,
@@ -362,7 +335,7 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
     model_predictions,
     shap_values,
     feature_importance,
-    timestamp,
+//     timestamp
   } = prediction;
 
   return (
@@ -410,8 +383,8 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
                           ? 'success.main'
                           : confidence > 0.5;
                             ? 'warning.main'
-                            : 'error.main',
-                    },
+                            : 'error.main'
+                    }
                   }}
                   value={confidence * 100}
                   variant="determinate"
@@ -477,7 +450,7 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
                   <BarChart;
                     data={Object.entries(model_predictions).map(([model, value]) = key={910543}> ({
                       model,
-                      value: value * 100,
+                      value: value * 100
                     }))}
                   >
                     <XAxis dataKey="model" / key={483844}>
@@ -519,32 +492,28 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
         <MenuItem;
           onClick={() = key={90983}> {
             setFilterType('all');
-            setFilterAnchorEl(null);
-          }}
+            setFilterAnchorEl(null);}}
         >
           All Predictions;
         </MenuItem>
         <MenuItem;
           onClick={() = key={90983}> {
             setFilterType('high-confidence');
-            setFilterAnchorEl(null);
-          }}
+            setFilterAnchorEl(null);}}
         >
           High Confidence;
         </MenuItem>
         <MenuItem;
           onClick={() = key={90983}> {
             setFilterType('recent');
-            setFilterAnchorEl(null);
-          }}
+            setFilterAnchorEl(null);}}
         >
           Recent;
         </MenuItem>
         <MenuItem;
           onClick={() = key={90983}> {
             setFilterType('profitable');
-            setFilterAnchorEl(null);
-          }}
+            setFilterAnchorEl(null);}}
         >
           Profitable;
         </MenuItem>
@@ -558,16 +527,14 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
         <MenuItem;
           onClick={() = key={90983}> {
             setSortOrder('desc');
-            setSortAnchorEl(null);
-          }}
+            setSortAnchorEl(null);}}
         >
           Highest Confidence;
         </MenuItem>
         <MenuItem;
           onClick={() = key={90983}> {
             setSortOrder('asc');
-            setSortAnchorEl(null);
-          }}
+            setSortAnchorEl(null);}}
         >
           Lowest Confidence;
         </MenuItem>
@@ -581,8 +548,7 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
                 action={
                   <IconButton onClick={e = key={357523}> handleMenuOpen(e, prediction)}>
                     <MoreVertIcon / key={870847}>
-                  </IconButton>
-                }
+                  </IconButton>}
                 subheader={new Date(prediction.timestamp).toLocaleString()}
                 title={prediction.event}
               />
@@ -608,5 +574,9 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
         <MenuItem onClick={handleMenuClose} key={370397}>Export Data</MenuItem>
       </Menu>
     </PredictionContainer>
-  );
-};
+  )};
+
+
+
+
+`

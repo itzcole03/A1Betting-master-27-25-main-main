@@ -1,1 +1,1 @@
-export default function ResetPasswordPage(): import("react/jsx-runtime").JSX.Element;
+export default function ResetPasswordPage(): import('react/jsx-runtime').JSX.Element;

@@ -1,5 +1,5 @@
-import { BettingOpportunity } from '@/types/betting';
-import { motion } from 'framer-motion';
+﻿import { BettingOpportunity} from '@/types/betting';
+import { motion} from 'framer-motion';
 import {
   Atom,
   BarChart3,
@@ -12,28 +12,16 @@ import {
   TrendingUp,
   Trophy,
   Users,
-  Zap,
+//   Zap
 } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
-import { BettingDataSource } from './betting/BettingDataSource';
+import React, { useEffect, useState} from 'react';
+import { BettingDataSource} from './betting/BettingDataSource';
 
 interface WorkingDashboardProps {
-  onNavigate: (page: string) => void;
-}
+  onNavigate: (page: string) => void}
 
 interface RealTimeData {
-  liveGames: number;
-  predictions: number;
-  accuracy: number;
-  profit: number;
-  neuralActivity: number;
-  quantumCoherence: number;
-  dataPoints: number;
-  processingSpeed: number;
-  confidence: number;
-  activeBots: number;
-  winStreak: number;
-}
+  liveGames: number,`n  predictions: number;,`n  accuracy: number,`n  profit: number;,`n  neuralActivity: number,`n  quantumCoherence: number;,`n  dataPoints: number,`n  processingSpeed: number;,`n  confidence: number,`n  activeBots: number;,`n  winStreak: number}
 
 // Enhanced UI Components - Exact matches from poe-preview(8).html
 const Button = ({
@@ -44,17 +32,15 @@ const Button = ({
   icon = null,
   size = 'md',
   disabled = false,
-  loading = false,
+  loading = false
 }: {
-  label: string;
-  onClick: () => void;
+  label: string,`n  onClick: () => void;
   variant?: 'primary' | 'secondary' | 'success' | 'danger' | 'ghost' | 'neural';
-  className?: string;
+  className?: string
   icon?: React.ReactNode;
   size?: 'sm' | 'md' | 'lg' | 'xl';
-  disabled?: boolean;
-  loading?: boolean;
-}) => {
+  disabled?: boolean
+  loading?: boolean}) => {
   const variants = {
     primary: 'quantum-btn',
     secondary:
@@ -65,50 +51,46 @@ const Button = ({
     ghost:
       'bg-transparent border-2 border-electric-500 text-electric-500 hover:bg-electric-500 hover:text-black backdrop-blur-20',
     neural:
-      'bg-purple-600/50 hover:bg-purple-700/50 text-white border-2 border-purple-500 backdrop-blur-20',
+      'bg-purple-600/50 hover:bg-purple-700/50 text-white border-2 border-purple-500 backdrop-blur-20'
   };
 
   const sizes = {
     sm: 'px-4 py-2 text-sm',
     md: 'px-6 py-3',
     lg: 'px-8 py-4 text-lg',
-    xl: 'px-10 py-5 text-xl',
+    xl: 'px-10 py-5 text-xl'
   };
 
   return (
-    <button
-      onClick={onClick}
+    <button onClick={onClick}
       disabled={disabled || loading}
-      className={`${sizes[size]} rounded-2xl font-bold transition-all duration-300 flex items-center justify-center space-x-2 ${variants[variant]} ${disabled || loading ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}
-    >
+      className={`${sizes[size]} rounded-2xl font-bold transition-all duration-300 flex items-center justify-center space-x-2 ${variants[variant]} ${disabled || loading ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}>`n    >
       {loading && (
         <div className='w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin' />
       )}
       {!loading && icon && icon}
       <span>{label}</span>
     </button>
-  );
-};
+  )};
 
 const Card = ({
   title,
   children,
   className = '',
   glowing = false,
-  variant = 'default',
+  variant = 'default'
 }: {
-  title?: string;
+  title?: string
   children: React.ReactNode;
-  className?: string;
-  glowing?: boolean;
-  variant?: 'default' | 'glass' | 'neural' | 'success' | 'warning';
-}) => {
+  className?: string
+  glowing?: boolean
+  variant?: 'default' | 'glass' | 'neural' | 'success' | 'warning'}) => {
   const variants = {
     default: 'quantum-card',
     glass: 'ultra-glass',
     neural: 'quantum-card border-purple-500/30',
     success: 'quantum-card border-green-500/30',
-    warning: 'quantum-card border-yellow-500/30',
+    warning: 'quantum-card border-yellow-500/30'
   };
 
   const glowClass = glowing ? 'shadow-neon' : '';
@@ -123,8 +105,7 @@ const Card = ({
       )}
       <div>{children}</div>
     </div>
-  );
-};
+  )};
 
 const MetricCard = ({
   label,
@@ -133,16 +114,13 @@ const MetricCard = ({
   change,
   trend = 'up',
   live = false,
-  variant = 'default',
+  variant = 'default'
 }: {
-  label: string;
-  value: string | number;
-  icon: React.ReactNode;
-  change?: string;
+  label: string,`n  value: string | number;,`n  icon: React.ReactNode;
+  change?: string
   trend?: 'up' | 'down' | 'stable';
-  live?: boolean;
-  variant?: 'default' | 'neural' | 'quantum' | 'profit';
-}) => {
+  live?: boolean
+  variant?: 'default' | 'neural' | 'quantum' | 'profit'}) => {
   const trendColor =
     trend === 'up' ? 'text-green-400' : trend === 'down' ? 'text-red-400' : 'text-gray-400';
   const trendIcon =
@@ -158,22 +136,18 @@ const MetricCard = ({
     default: 'quantum-card',
     neural: 'quantum-card border-purple-500/20',
     quantum: 'quantum-card border-blue-500/20',
-    profit: 'quantum-card border-green-500/20',
+    profit: 'quantum-card border-green-500/20'
   };
 
   return (
-    <div
-      className={`${variants[variant]} rounded-2xl p-6 text-center hover:shadow-neon transition-all duration-500 transform hover:scale-105 hover:rotate-1`}
-    >
+    <div className={`${variants[variant]} rounded-2xl p-6 text-center hover:shadow-neon transition-all duration-500 transform hover:scale-105 hover:rotate-1`}>`n    >
       <div className='relative mb-4'>
         <div className='absolute inset-0 bg-electric-400/20 rounded-full blur-xl' />
         <div className={`relative text-4xl text-electric-400 ${live ? 'brain-pulse' : ''}`}>
           {icon}
         </div>
       </div>
-      <div
-        className={`text-3xl font-black mb-2 text-white font-cyber ${live ? 'animate-cyber-pulse' : ''}`}
-      >
+      <div className={`text-3xl font-black mb-2 text-white font-cyber ${live ? 'animate-cyber-pulse' : ''}`}>`n      >
         {value}
       </div>
       <div className='text-gray-400 text-sm mb-3 uppercase tracking-wider'>{label}</div>
@@ -184,10 +158,9 @@ const MetricCard = ({
         </div>
       )}
     </div>
-  );
-};
+  )};
 
-const WorkingDashboard: React.FC<WorkingDashboardProps> = ({ onNavigate }) => {
+const WorkingDashboard: React.FC<WorkingDashboardProps> = ({ onNavigate}) => {
   const [realTimeData, setRealTimeData] = useState<RealTimeData>({
     liveGames: 0,
     predictions: 0,
@@ -199,7 +172,7 @@ const WorkingDashboard: React.FC<WorkingDashboardProps> = ({ onNavigate }) => {
     processingSpeed: 0,
     confidence: 0,
     activeBots: 0,
-    winStreak: 0,
+    winStreak: 0
   });
   const [loading, setLoading] = useState(true);
 
@@ -219,7 +192,6 @@ const WorkingDashboard: React.FC<WorkingDashboardProps> = ({ onNavigate }) => {
 
         for (const baseUrl of backendUrls) {
           try {
-            console.log(`🔄 Dashboard: Trying backend: ${baseUrl}`);
             const [healthResponse, analyticsResponse] = await Promise.all([
               fetch(`${baseUrl}/api/health/all`),
               fetch(`${baseUrl}/api/analytics/advanced`),
@@ -228,18 +200,13 @@ const WorkingDashboard: React.FC<WorkingDashboardProps> = ({ onNavigate }) => {
             if (healthResponse.ok && analyticsResponse.ok) {
               healthData = await healthResponse.json();
               analyticsData = await analyticsResponse.json();
-              console.log(`✅ Dashboard: Connected to ${baseUrl}`);
-              break;
-            }
+              break}
           } catch (error) {
-            console.log(`❌ Dashboard: Failed ${baseUrl}:`, error.message);
-            continue;
-          }
+            continue}
         }
 
         if (!healthData || !analyticsData) {
-          throw new Error('All backend URLs failed');
-        }
+          throw new Error('All backend URLs failed')}
 
         // healthData and analyticsData are already set above
 
@@ -249,7 +216,7 @@ const WorkingDashboard: React.FC<WorkingDashboardProps> = ({ onNavigate }) => {
           accuracy: healthData.models?.model_accuracy || 0,
           profit: Math.round(
             (analyticsData.performance_analytics?.model_performance?.roi_trend?.slice(-1)[0] || 0) *
-              100000
+//               100000
           ),
           neuralActivity: healthData.performance?.cpu_usage || 0,
           quantumCoherence:
@@ -261,33 +228,28 @@ const WorkingDashboard: React.FC<WorkingDashboardProps> = ({ onNavigate }) => {
               (analyticsData.machine_learning_insights?.model_confidence || 0) * 100 * 100
             ) / 100,
           activeBots: healthData.models?.active_models || 0,
-          winStreak: analyticsData.performance_analytics?.sport_breakdown?.NBA?.volume || 0,
+          winStreak: analyticsData.performance_analytics?.sport_breakdown?.NBA?.volume || 0
         });
-        setLoading(false);
-      } catch (error) {
+        setLoading(false)} catch (error) {
         console.error('Failed to fetch real-time data:', error);
-        setLoading(false);
-      }
+        setLoading(false)}
     };
 
     fetchRealTimeData();
 
     // Refresh data every 30 seconds
     const interval = setInterval(fetchRealTimeData, 30000);
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)}, [0]);
 
   const handleBetPlaced = (opportunity: BettingOpportunity) => {
-    console.log('Bet placed on:', opportunity);
-    // Here you could add logic to show a notification or update state
-  };
+    // Here you could add logic to show a notification or update state};
 
   return (
     <motion.div
       className='p-8 space-y-8 animate-slide-in-up'
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      initial={{ opacity: 0, y: 20}}
+      animate={{ opacity: 1, y: 0}}
+      transition={{ duration: 0.5}}
     >
       {/* Header */}
       <div className='flex items-center justify-between pb-8 border-b-2 border-gray-800/50'>
@@ -298,15 +260,11 @@ const WorkingDashboard: React.FC<WorkingDashboardProps> = ({ onNavigate }) => {
           </p>
         </div>
         <div className='flex space-x-4'>
-          <Button
-            label='System Status'
-            icon={<Shield size={18} />}
+          <Button label='System Status'>`n            icon={<Shield size={18} />}
             variant='secondary'
             onClick={() => onNavigate('monitor')}
           />
-          <Button
-            label='Analytics'
-            icon={<BarChart3 size={18} />}
+          <Button label='Analytics'>`n            icon={<BarChart3 size={18} />}
             onClick={() => onNavigate('analytics')}
           />
         </div>
@@ -314,44 +272,32 @@ const WorkingDashboard: React.FC<WorkingDashboardProps> = ({ onNavigate }) => {
 
       {/* Key Metrics */}
       <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6'>
-        <MetricCard
-          label='Neural Activity'
-          value={`${realTimeData.neuralActivity.toFixed(1)}%`}
-          icon={<Brain size={28} />}
+        <MetricCard label='Neural Activity'
+          value={`${isNaN(Number(realTimeData?.neuralActivity)) ? 'N/A' : Number(realTimeData?.neuralActivity).toFixed(1)}%`}>`n          icon={<Brain size={28} />}
           variant='neural'
-          live
+//           live
         />
-        <MetricCard
-          label='Quantum Coherence'
-          value={`${realTimeData.quantumCoherence.toFixed(2)}%`}
-          icon={<Atom size={28} />}
+        <MetricCard label='Quantum Coherence'
+          value={`${isNaN(Number(realTimeData?.quantumCoherence)) ? 'N/A' : Number(realTimeData?.quantumCoherence).toFixed(2)}%`}>`n          icon={<Atom size={28} />}
           variant='quantum'
-          live
+//           live
         />
-        <MetricCard
-          label='Profit'
-          value={`$${(realTimeData.profit / 1000).toFixed(1)}k`}
-          icon={<DollarSign size={28} />}
+        <MetricCard label='Profit'
+          value={`$${isNaN(Number(realTimeData?.profit)) ? 'N/A' : (Number(realTimeData?.profit) / 1000).toFixed(1)}k`}>`n          icon={<DollarSign size={28} />}
           change='+2.4% DoD'
           variant='profit'
         />
-        <MetricCard
-          label='Win Rate'
-          value={`${realTimeData.accuracy.toFixed(1)}%`}
-          icon={<Trophy size={28} />}
+        <MetricCard label='Win Rate'
+          value={`${isNaN(Number(realTimeData?.accuracy)) ? 'N/A' : Number(realTimeData?.accuracy).toFixed(1)}%`}>`n          icon={<Trophy size={28} />}
           change='+0.2% WoW'
         />
-        <MetricCard
-          label='Active Bots'
-          value={realTimeData.activeBots}
-          icon={<Cpu size={28} />}
+        <MetricCard label='Active Bots'
+          value={realTimeData?.activeBots || 0}>`n          icon={<Cpu size={28} />}
           change='Stable'
           trend='stable'
         />
-        <MetricCard
-          label='Live Predictions'
-          value={realTimeData.predictions.toLocaleString()}
-          icon={<Zap size={28} />}
+        <MetricCard label='Live Predictions'
+          value={(realTimeData?.predictions || 0).toLocaleString()}>`n          icon={<Zap size={28} />}
           change='+12% DoD'
         />
       </div>
@@ -375,27 +321,19 @@ const WorkingDashboard: React.FC<WorkingDashboardProps> = ({ onNavigate }) => {
         <div className='space-y-8'>
           <Card title='Quick Actions' variant='neural'>
             <div className='grid grid-cols-2 gap-4'>
-              <Button
-                label='PrizePicks Pro'
-                onClick={() => onNavigate('prizepicks')}
+              <Button label='PrizePicks Pro'>`n                onClick={() => onNavigate('prizepicks')}
                 variant='ghost'
                 icon={<Trophy size={16} />}
               />
-              <Button
-                label='Money Maker'
-                onClick={() => onNavigate('moneymaker')}
+              <Button label='Money Maker'>`n                onClick={() => onNavigate('moneymaker')}
                 variant='ghost'
                 icon={<DollarSign size={16} />}
               />
-              <Button
-                label='Prop Ollama'
-                onClick={() => onNavigate('propollama')}
+              <Button label='Prop Ollama'>`n                onClick={() => onNavigate('propollama')}
                 variant='ghost'
                 icon={<Brain size={16} />}
               />
-              <Button
-                label='Lineups'
-                onClick={() => onNavigate('lineups')}
+              <Button label='Lineups'>`n                onClick={() => onNavigate('lineups')}
                 variant='ghost'
                 icon={<Users size={16} />}
               />
@@ -409,7 +347,7 @@ const WorkingDashboard: React.FC<WorkingDashboardProps> = ({ onNavigate }) => {
                 <span className='text-green-400 font-bold'>+1.8%</span>
               </div>
               <div className='w-full bg-gray-700 rounded-full h-2.5'>
-                <div className='bg-green-500 h-2.5 rounded-full' style={{ width: '75%' }}></div>
+                <div className='bg-green-500 h-2.5 rounded-full' style={{ width: '75%'}}></div>
               </div>
             </div>
             <div className='space-y-4 mt-4'>
@@ -418,14 +356,18 @@ const WorkingDashboard: React.FC<WorkingDashboardProps> = ({ onNavigate }) => {
                 <span className='text-blue-400 font-bold'>1.42</span>
               </div>
               <div className='w-full bg-gray-700 rounded-full h-2.5'>
-                <div className='bg-blue-500 h-2.5 rounded-full' style={{ width: '85%' }}></div>
+                <div className='bg-blue-500 h-2.5 rounded-full' style={{ width: '85%'}}></div>
               </div>
             </div>
           </Card>
         </div>
       </div>
     </motion.div>
-  );
-};
+  )};
 
 export default WorkingDashboard;
+
+
+
+
+`

@@ -1,51 +1,31 @@
-import { RiskProfileType } from './betting.ts';
-import { SHAPExplanation, ShapFeature } from './betting.ts';
-import { BetRecommendation } from './betting.ts';
+﻿import { RiskProfileType} from './betting';
+import { SHAPExplanation, ShapFeature} from './betting';
+import { BetRecommendation} from './betting';
 
 export interface RiskProfileSelectorProps {
-  currentProfile: RiskProfileType;
-  onProfileChange: (profile: RiskProfileType) => void;
-}
+  currentProfile: RiskProfileType,`n  onProfileChange: (profile: RiskProfileType) => void}
 
 export interface ShapVisualizationProps {
-  features: ShapFeature[];
-  title: string;
-  maxFeatures?: number;
-  isLoading?: boolean;
-}
+  features: ShapFeature[0],`n  title: string;
+  maxFeatures?: number
+  isLoading?: boolean}
 
 export interface BettingOpportunitiesProps {
-  opportunities: BetRecommendation[];
-  onBetPlacement: (recommendation: BetRecommendation) => void;
-  alerts: Array<{
-    type: string;
-    severity: string;
-    message: string;
-    metadata: any;
-  }>;
-  isLoading: boolean;
-}
+  opportunities: BetRecommendation[0],`n  onBetPlacement: (recommendation: BetRecommendation) => void,`n  alerts: Array<{,`n  type: string,`n  severity: string;,`n  message: string,`n  metadata: any}>;
+  isLoading: boolean}
 
 export interface PerformanceMetricsProps {
-  performance: {
-    winRate: number;
-    roi: number;
-    totalBets: number;
-    confidence: number;
-  };
-  isLoading: boolean;
-}
+  performance: {,`n  winRate: number;,`n  roi: number,`n  totalBets: number;,`n  confidence: number};
+  isLoading: boolean}
 
 export interface LiveOddsTickerProps {
   eventId: string;
   data?: {
-    event_id: string;
-    markets: Array<{
-      market_type: string;
-      selection: string;
-      odds: number;
-    }>;
-    timestamp: string;
-  };
-  className?: string;
-}
+    event_id: string,`n  markets: Array<{,`n  market_type: string,`n  selection: string;,`n  odds: number}>;
+    timestamp: string};
+  className?: string}
+
+
+
+
+`

@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   BarChart,
   Bar,
@@ -7,23 +7,20 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer,
-} from 'recharts.ts';
-import { useUnifiedAnalytics } from '@/hooks/useUnifiedAnalytics.ts';
+//   ResponsiveContainer
+} from 'recharts';
+import { useUnifiedAnalytics} from '@/hooks/useUnifiedAnalytics';
 
 const EnsembleInsights: React.FC = () => {
   // Use unified analytics for model performance;
-  const { performance } = useUnifiedAnalytics({ performance: true });
+  const { performance} = useUnifiedAnalytics({ performance: true});
 
   if (performance.loading) {
-    return <div className="p-4" key={916123}>Loading model performance...</div>;
-  }
+    return <div className="p-4" key={916123}>Loading model performance...</div>}
   if (performance.error) {
-    return <div className="p-4 text-red-600" key={168758}>Error: {performance.error}</div>;
-  }
+    return <div className="p-4 text-red-600" key={168758}>Error: {performance.error}</div>}
   if (!performance.data) {
-    return <div className="p-4 text-gray-500" key={72742}>No model performance data available.</div>;
-  }
+    return <div className="p-4 text-gray-500" key={72742}>No model performance data available.</div>}
 
   // Example: Show a bar chart of model performance metrics;
   const data = performance.data.map(item => ({
@@ -34,7 +31,7 @@ const EnsembleInsights: React.FC = () => {
     f1: item.metrics.f1,
     roc_auc: item.metrics.roc_auc,
     mae: item.metrics.mae,
-    rmse: item.metrics.rmse,
+    rmse: item.metrics.rmse
   }));
 
   return (
@@ -55,7 +52,11 @@ const EnsembleInsights: React.FC = () => {
         </ResponsiveContainer>
       </section>
     </div>
-  );
-};
+  )};
 
 export default React.memo(EnsembleInsights);
+
+
+
+
+

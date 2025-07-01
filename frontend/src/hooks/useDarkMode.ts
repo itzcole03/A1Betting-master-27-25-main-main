@@ -1,5 +1,5 @@
-import useStore from '@/store/useStore.ts';
-import { useEffect } from 'react.ts';
+﻿import useStore from '@/store/useStore';
+import { useEffect} from 'react';
 
 
 
@@ -10,27 +10,24 @@ export const useDarkMode = () => {
 
     if (isDarkMode) {
       root.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
+      localStorage.setItem('theme', 'dark');} else {
       root.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
+      localStorage.setItem('theme', 'light');}
   }, [isDarkMode]);
 
   useEffect(() => {
 
     const handleChange = (e: MediaQueryListEvent) => {
       if (!localStorage.getItem('theme')) {
-        toggleDarkMode();
-      }
+        toggleDarkMode()}
     };
 
     mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, [toggleDarkMode]);
+    return () => mediaQuery.removeEventListener('change', handleChange);}, [toggleDarkMode]);
 
   return {
     isDarkMode,
-    toggleDarkMode;
-  };
-}; 
+    toggleDarkMode;};}; 
+
+
+

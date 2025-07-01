@@ -1,8 +1,9 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface SidebarProps {
-    open: boolean;
-    onClose: () => void;
-    width?: number;
-}
+  open: boolean,`n  onClose: () => void;
+  width?: number;}
 declare const _default: React.NamedExoticComponent<SidebarProps>;
 export default _default;
+
+
+`

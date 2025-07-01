@@ -1,9 +1,9 @@
-import React from 'react.ts';
-import { EngineStatus } from '@/types.ts';
+﻿import React from 'react.ts';
+import { EngineStatus} from '@/types.ts';
 interface MoneyMakerStatusProps {
-    status: EngineStatus;
-    lastUpdate: string;
-    isConnected: boolean;
-}
+  status: EngineStatus,`n  lastUpdate: string;,`n  isConnected: boolean}
 export declare const MoneyMakerStatus: React.FC<MoneyMakerStatusProps>;
-export {};
+export Record<string, any>;
+
+
+`

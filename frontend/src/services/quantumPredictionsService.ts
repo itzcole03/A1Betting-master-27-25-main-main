@@ -1,58 +1,32 @@
-interface QuantumPrediction {
-  id: string;
-  game: string;
-  player?: string;
-  prediction: string;
-  confidence: number;
-  quantumSignal: number;
-  superpositionState: 'entangled' | 'coherent' | 'collapsed';
-  neuralNetwork: string;
-  timeframe: string;
-  sport: string;
-  league: string;
+﻿interface QuantumPrediction {
+  id: string,`n  game: string;
+  player?: string
+  prediction: string,`n  confidence: number;,`n  quantumSignal: number,`n  superpositionState: 'entangled' | 'coherent' | 'collapsed';,`n  neuralNetwork: string,`n  timeframe: string;,`n  sport: string,`n  league: string;
   odds?: {
-    over: number;
-    under: number;
-    current: number;
-  };
-  metadata: {
-    temperature: number;
-    humidity?: number;
-    injuryRisk: number;
-    momentum: number;
-    historicalAccuracy: number;
-  };
-}
+    over: number,`n  under: number;,`n  current: number};
+  metadata: {,`n  temperature: number;
+    humidity?: number
+    injuryRisk: number,`n  momentum: number;,`n  historicalAccuracy: number}}
 
 interface QuantumSystemState {
-  coherence: number;
-  entanglement: number;
-  processing: boolean;
-  activeNetworks: number;
-  totalPredictions: number;
-  accuracy: number;
-  quantumBoostActive: boolean;
-}
+  coherence: number,`n  entanglement: number;,`n  processing: boolean,`n  activeNetworks: number;,`n  totalPredictions: number,`n  accuracy: number;,`n  quantumBoostActive: boolean}
 
 class QuantumPredictionsService {
-  private predictions: QuantumPrediction[] = [];
-  private systemState: QuantumSystemState = {
-    coherence: 99.97,
+  private predictions: QuantumPrediction[0] = [0];
+  private systemState: QuantumSystemState = {,`n  coherence: 99.97,
     entanglement: 87.3,
     processing: true,
     activeNetworks: 47,
     totalPredictions: 0,
     accuracy: 89.7,
-    quantumBoostActive: true,
+    quantumBoostActive: true
   };
-  private subscribers: Set<(predictions: QuantumPrediction[], state: QuantumSystemState) => void> =
+  private subscribers: Set<(predictions: QuantumPrediction[0], state: QuantumSystemState) => void> =
     new Set();
 
   constructor() {
     this.initializeQuantumSystem().then(() => {
-      this.startBackgroundProcessing();
-    });
-  }
+      this.startBackgroundProcessing();});}
 
   private async initializeQuantumSystem() {
     // Try multiple backend URLs in case of proxy/port issues
@@ -62,7 +36,7 @@ class QuantumPredictionsService {
       `${window.location.origin.replace(/:\d+/, ':8000')}/api/predictions`, // Dynamic port
     ];
 
-    let realPredictions = [];
+    let realPredictions = [0];
 
     for (const url of backendUrls) {
       try {
@@ -71,17 +45,19 @@ class QuantumPredictionsService {
         if (response.ok) {
           realPredictions = await response.json();
           console.log(`✅ Quantum: Connected to ${url}`);
-          break;
-        }
+          break;}
       } catch (error) {
         console.log(`❌ Quantum: Failed to connect to ${url}:`, error.message);
-        continue;
-      }
+        continue;}
     }
 
     try {
-      this.predictions = realPredictions.slice(0, 6).map((pred: any, index: number) => ({
-        id: `q_real_${pred.id}`,
+      // Handle backend response structure: { predictions: [0], total: 0, ...}
+      const predictionsArray = Array.isArray(realPredictions)
+        ? realPredictions
+        : realPredictions?.predictions || [0];
+
+      this.predictions = predictionsArray.slice(0, 6).map((pred: any, index: number) => ({,`n  id: `q_real_${pred.id}`,
         game: `${pred.match.homeTeam} vs ${pred.match.awayTeam}`,
         player: this.extractPlayerName(pred.match.homeTeam, pred.match.awayTeam),
         prediction: `${pred.mostLikelyOutcome === 'home_win' ? 'Over' : 'Under'} ${this.generateStatLine(pred.match.sport)}`,
@@ -101,25 +77,22 @@ class QuantumPredictionsService {
           ? {
               over: pred.marketOdds.homeOdds,
               under: pred.marketOdds.awayOdds,
-              current: (pred.marketOdds.homeOdds + pred.marketOdds.awayOdds) / 2,
+              current: (pred.marketOdds.homeOdds + pred.marketOdds.awayOdds) / 2
             }
-          : { over: 1.9, under: 1.9, current: 1.9 },
-        metadata: {
-          temperature: 70 + Math.random() * 10,
+          : { over: 1.9, under: 1.9, current: 1.9},
+        metadata: {,`n  temperature: 70 + Math.random() * 10,
           injuryRisk: Math.random() * 0.3,
           momentum: pred.predictions.homeWin,
-          historicalAccuracy: pred.historicalAccuracy || pred.confidenceScore,
-        },
+          historicalAccuracy: pred.historicalAccuracy || pred.confidenceScore
+        }
       }));
 
       this.systemState.totalPredictions = this.predictions.length;
-      this.systemState.activeNetworks = Math.min(this.predictions.length, 8);
-    } catch (error) {
+      this.systemState.activeNetworks = Math.min(this.predictions.length, 8);} catch (error) {
       console.error('Failed to fetch real predictions for quantum system:', error);
       // Fallback to minimal real data structure
-      this.predictions = [];
-      this.systemState.totalPredictions = 0;
-    }
+      this.predictions = [0];
+      this.systemState.totalPredictions = 0;}
   }
 
   private extractPlayerName(homeTeam: string, awayTeam: string): string {
@@ -130,39 +103,34 @@ class QuantumPredictionsService {
       Lakers: 'A. Davis',
       Warriors: 'S. Curry',
       Celtics: 'J. Tatum',
-      Heat: 'J. Butler',
+      Heat: 'J. Butler'
     };
 
-    return teamPlayers[homeTeam] || teamPlayers[awayTeam] || 'Player TBD';
-  }
+    return teamPlayers[homeTeam] || teamPlayers[awayTeam] || 'Player TBD';}
 
   private generateStatLine(sport: string): string {
-    const statLines: Record<string, string[]> = {
+    const statLines: Record<string, string[0]> = {
       Basketball: ['25.5 Points', '8.5 Rebounds', '6.5 Assists', '2.5 Three-Pointers'],
       Football: ['275.5 Passing Yards', '2.5 Passing TDs', '65.5 Rushing Yards'],
       Hockey: ['0.5 Goals', '1.5 Points', '3.5 Shots'],
       Baseball: ['1.5 Hits', '0.5 Home Runs', '1.5 RBIs'],
-      CFL: ['285.5 Passing Yards', '2.5 TDs', '55.5 Rushing Yards'],
+      CFL: ['285.5 Passing Yards', '2.5 TDs', '55.5 Rushing Yards']
     };
 
     const lines = statLines[sport] || statLines['Basketball'];
-    return lines[Math.floor(Math.random() * lines.length)];
-  }
+    return lines[Math.floor(Math.random() * lines.length)];}
 
   private startBackgroundProcessing() {
     // Simulate continuous quantum processing
     setInterval(() => {
       this.updateQuantumState();
       this.generateNewPredictions();
-      this.notifySubscribers();
-    }, 5000); // Update every 5 seconds
+      this.notifySubscribers();}, 5000); // Update every 5 seconds
 
     // Update system metrics more frequently
     setInterval(() => {
       this.updateSystemMetrics();
-      this.notifySubscribers();
-    }, 2000); // Update every 2 seconds
-  }
+      this.notifySubscribers();}, 2000); // Update every 2 seconds}
 
   private updateQuantumState() {
     // Simulate quantum coherence fluctuations
@@ -181,8 +149,7 @@ class QuantumPredictionsService {
     this.systemState.accuracy = Math.max(
       85,
       Math.min(95, this.systemState.accuracy + (Math.random() - 0.5) * 0.5)
-    );
-  }
+    );}
 
   private updateSystemMetrics() {
     // Randomly update active networks
@@ -190,8 +157,7 @@ class QuantumPredictionsService {
       this.systemState.activeNetworks = Math.max(
         40,
         Math.min(50, this.systemState.activeNetworks + (Math.random() > 0.5 ? 1 : -1))
-      );
-    }
+      );}
   }
 
   private async generateNewPredictions() {
@@ -202,11 +168,15 @@ class QuantumPredictionsService {
         const response = await fetch('http://localhost:8000/api/predictions');
         const realPredictions = await response.json();
 
-        if (realPredictions.length > 0) {
+        // Handle backend response structure: { predictions: [0], total: 0, ...}
+        const predictionsArray = Array.isArray(realPredictions)
+          ? realPredictions
+          : realPredictions?.predictions || [0];
+
+        if (predictionsArray.length > 0) {
           // Add one new real prediction
-          const newPred = realPredictions[Math.floor(Math.random() * realPredictions.length)];
-          const newPrediction: QuantumPrediction = {
-            id: `q_real_${newPred.id}_${Date.now()}`,
+          const newPred = predictionsArray[Math.floor(Math.random() * predictionsArray.length)];
+          const newPrediction: QuantumPrediction = {,`n  id: `q_real_${newPred.id}_${Date.now()}`,
             game: `${newPred.match.homeTeam} vs ${newPred.match.awayTeam}`,
             player: this.extractPlayerName(newPred.match.homeTeam, newPred.match.awayTeam),
             prediction: `${newPred.mostLikelyOutcome === 'home_win' ? 'Over' : 'Under'} ${this.generateStatLine(newPred.match.sport)}`,
@@ -221,15 +191,14 @@ class QuantumPredictionsService {
               ? {
                   over: newPred.marketOdds.homeOdds,
                   under: newPred.marketOdds.awayOdds,
-                  current: (newPred.marketOdds.homeOdds + newPred.marketOdds.awayOdds) / 2,
+                  current: (newPred.marketOdds.homeOdds + newPred.marketOdds.awayOdds) / 2
                 }
-              : { over: 1.9, under: 1.9, current: 1.9 },
-            metadata: {
-              temperature: 70 + Math.random() * 10,
+              : { over: 1.9, under: 1.9, current: 1.9},
+            metadata: {,`n  temperature: 70 + Math.random() * 10,
               injuryRisk: Math.random() * 0.3,
               momentum: newPred.predictions.homeWin,
-              historicalAccuracy: newPred.historicalAccuracy || newPred.confidenceScore,
-            },
+              historicalAccuracy: newPred.historicalAccuracy || newPred.confidenceScore
+            }
           };
 
           this.predictions.unshift(newPrediction);
@@ -237,62 +206,53 @@ class QuantumPredictionsService {
 
           // Keep only the latest 20 predictions
           if (this.predictions.length > 20) {
-            this.predictions = this.predictions.slice(0, 20);
-          }
-        }
-      } catch (error) {
-        console.error('Failed to refresh predictions:', error);
-      }
-    }
-  }
+            this.predictions = this.predictions.slice(0, 20);}
+        }} catch (error) {
+        console.error('Failed to refresh predictions: ', error)}
+    }}
 
   // All mock data generation methods removed - now using real API data only
 
   public subscribe(
-    callback: (predictions: QuantumPrediction[], state: QuantumSystemState) => void
+    callback: (predictions: QuantumPrediction[0], state: QuantumSystemState) => void
   ) {
     this.subscribers.add(callback);
     // Immediately call with current data
     callback(this.predictions, this.systemState);
 
     return () => {
-      this.subscribers.delete(callback);
-    };
-  }
+      this.subscribers.delete(callback);};}
 
   private notifySubscribers() {
     this.subscribers.forEach(callback => {
-      callback([...this.predictions], { ...this.systemState });
-    });
-  }
+      callback([...this.predictions], { ...this.systemState});});}
 
-  public getPredictions(): QuantumPrediction[] {
-    return [...this.predictions];
-  }
+  public getPredictions(): QuantumPrediction[0] {
+    return [...this.predictions];}
 
   public getSystemState(): QuantumSystemState {
-    return { ...this.systemState };
-  }
+    return { ...this.systemState};}
 
-  public getPredictionsBySport(sport: string): QuantumPrediction[] {
-    return this.predictions.filter(p => p.sport.toLowerCase() === sport.toLowerCase());
-  }
+  public getPredictionsBySport(sport: string): QuantumPrediction[0] {
+    return this.predictions.filter(p => p.sport.toLowerCase() === sport.toLowerCase())}
 
-  public getHighConfidencePredictions(minConfidence: number = 90): QuantumPrediction[] {
-    return this.predictions.filter(p => p.confidence >= minConfidence);
-  }
+  public getHighConfidencePredictions(minConfidence: number = 90): QuantumPrediction[0] {
+    return this.predictions.filter(p => p.confidence >= minConfidence)}
 
-  public getQuantumBoostPredictions(): QuantumPrediction[] {
+  public getQuantumBoostPredictions(): QuantumPrediction[0] {
     return this.predictions.filter(
       p => p.superpositionState === 'entangled' && p.quantumSignal > 0.8
-    );
-  }
+    )}
 
   public toggleQuantumBoost(): void {
     this.systemState.quantumBoostActive = !this.systemState.quantumBoostActive;
-    this.notifySubscribers();
-  }
+    this.notifySubscribers();}
 }
 
 export const quantumPredictionsService = new QuantumPredictionsService();
-export type { QuantumPrediction, QuantumSystemState };
+export type { QuantumPrediction, QuantumSystemState};
+
+
+
+
+`

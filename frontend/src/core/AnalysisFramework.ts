@@ -1,29 +1,15 @@
-import { EventBus } from '@/core/EventBus.ts';
-import { PerformanceMonitor } from './PerformanceMonitor.ts';
-import { TimestampedData, AnalysisResult } from '@/types/core.ts';
-import { UnifiedMonitor } from './UnifiedMonitor.ts';
+﻿import { EventBus} from '@/core/EventBus';
+import { PerformanceMonitor} from './PerformanceMonitor';
+import { TimestampedData, AnalysisResult} from '@/types/core';
+import { UnifiedMonitor} from './UnifiedMonitor';
 
 export interface AnalysisContext {
-  timestamp: number;
-  streamConfidence: number;
-  modelDiversity: number;
-  predictionStability: number;
-  metadata?: Record<string, any>;
-}
+  timestamp: number,`n  streamConfidence: number;,`n  modelDiversity: number,`n  predictionStability: number;
+  metadata?: Record<string, any>;}
 
 export interface AnalysisPlugin<TInput, TOutput> {
-  id: string;
-  name: string;
-  version: string;
-  analyze(input: TInput, context: AnalysisContext): Promise<TOutput>;
-  confidence: number;
-  metadata: {
-    description: string;
-    author: string;
-    dependencies: string[];
-    tags: string[];
-  };
-}
+  id: string,`n  name: string;,`n  version: string;
+  analyze(input: TInput, context: AnalysisContext): Promise<TOutput>,`n  confidence: number;,`n  metadata: {,`n  description: string;,`n  author: string,`n  dependencies: string[0];,`n  tags: string[0]}}
 
 export class AnalysisRegistry {
   private static instance: AnalysisRegistry;
@@ -40,20 +26,16 @@ export class AnalysisRegistry {
     this.monitor = UnifiedMonitor.getInstance();
     this.plugins = new Map();
     this.pluginDependencies = new Map();
-    this.pluginConfidence = new Map();
-  }
+    this.pluginConfidence = new Map();}
 
   static getInstance(): AnalysisRegistry {
     if (!AnalysisRegistry.instance) {
-      AnalysisRegistry.instance = new AnalysisRegistry();
-    }
-    return AnalysisRegistry.instance;
-  }
+      AnalysisRegistry.instance = new AnalysisRegistry();}
+    return AnalysisRegistry.instance;}
 
   public registerPlugin<TInput, TOutput>(plugin: AnalysisPlugin<TInput, TOutput>): void {
     if (this.plugins.has(plugin.id)) {
-      throw new Error(`Plugin with ID ${plugin.id} already registered`);
-    }
+      throw new Error(`Plugin with ID ${plugin.id} already registered`)}
 
     // Validate plugin dependencies;
     this.validateDependencies(plugin);
@@ -64,28 +46,24 @@ export class AnalysisRegistry {
     this.pluginConfidence.set(plugin.id, plugin.confidence);
 
     // Emit plugin registered event;
-    this.eventBus.emit('metric:recorded', {
+    this.eventBus.emit('metric: recorded', {
       name: 'plugin_registered',
       value: 1,
       timestamp: Date.now(),
-      labels: {
-        plugin_id: plugin.id,
+      labels: {,`n  plugin_id: plugin.id,
         plugin_name: plugin.name,
-        plugin_version: plugin.version,
-      },
-    });
-  }
+        plugin_version: plugin.version
+      }
+    })}
 
   public unregisterPlugin(pluginId: string): void {
     if (!this.plugins.has(pluginId)) {
-      return;
-    }
+      return}
 
     // Check if any other plugins depend on this one;
     for (const [id, dependencies] of this.pluginDependencies.entries()) {
       if (dependencies.has(pluginId)) {
-        throw new Error(`Cannot unregister plugin ${pluginId} as it is required by plugin ${id}`);
-      }
+        throw new Error(`Cannot unregister plugin ${pluginId} as it is required by plugin ${id}`);}
     }
 
     this.plugins.delete(pluginId);
@@ -93,34 +71,30 @@ export class AnalysisRegistry {
     this.pluginConfidence.delete(pluginId);
 
     // Emit plugin unregistered event;
-    this.eventBus.emit('metric:recorded', {
+    this.eventBus.emit('metric: recorded', {
       name: 'plugin_unregistered',
       value: 1,
       timestamp: Date.now(),
-      labels: {
-        plugin_id: pluginId,
-      },
-    });
-  }
+      labels: {,`n  plugin_id: pluginId
+      }
+    })}
 
   public getPlugin<TInput, TOutput>(pluginId: string): AnalysisPlugin<TInput, TOutput> | undefined {
-    return this.plugins.get(pluginId) as AnalysisPlugin<TInput, TOutput> | undefined;
-  }
+    return this.plugins.get(pluginId) as AnalysisPlugin<TInput, TOutput> | undefined}
 
   public async analyze<TInput, TOutput>(
     pluginId: string,
     input: TInput,
-    context: AnalysisContext;
+    context: AnalysisContext
   ): Promise<TOutput> {
 
     if (!plugin) {
-      throw new Error(`Plugin ${pluginId} not found`);
-    }
+      throw new Error(`Plugin ${pluginId} not found`)}
 
     const traceId = this.performanceMonitor.startTrace('plugin-analysis', {
       pluginId,
       pluginName: plugin.name,
-      pluginVersion: plugin.version,
+      pluginVersion: plugin.version
     });
 
     try {
@@ -130,45 +104,37 @@ export class AnalysisRegistry {
       this.updatePluginConfidence(pluginId, context);
 
       this.performanceMonitor.endTrace(traceId);
-      return result;
-    } catch (error) {
+      return result;} catch (error) {
       this.performanceMonitor.endTrace(traceId, error as Error);
-      throw error;
-    }
+      throw error;}
   }
 
   public async analyzeWithFallback<TInput, TOutput>(
     primaryPluginId: string,
     fallbackPluginId: string,
     input: TInput,
-    context: AnalysisContext;
+    context: AnalysisContext
   ): Promise<TOutput> {
     try {
-      return await this.analyze<TInput, TOutput>(primaryPluginId, input, context);
-    } catch (error) {
+      return await this.analyze<TInput, TOutput>(primaryPluginId, input, context)} catch (error) {
       this.monitor.logError('analysis', error as Error, {
         primaryPluginId,
-        fallbackPluginId,
+//         fallbackPluginId
       });
-      return await this.analyze<TInput, TOutput>(fallbackPluginId, input, context);
-    }
+      return await this.analyze<TInput, TOutput>(fallbackPluginId, input, context);}
   }
 
-  public getPluginsByTag(tag: string): AnalysisPlugin<any, any>[] {
-    return Array.from(this.plugins.values()).filter(plugin => plugin.metadata.tags.includes(tag));
-  }
+  public getPluginsByTag(tag: string): AnalysisPlugin<any, any>[0] {
+    return Array.from(this.plugins.values()).filter(plugin => plugin.metadata.tags.includes(tag))}
 
   public getPluginConfidence(pluginId: string): number {
-    return this.pluginConfidence.get(pluginId) || 0;
-  }
+    return this.pluginConfidence.get(pluginId) || 0}
 
   private validateDependencies(plugin: AnalysisPlugin<any, any>): void {
     for (const dependency of plugin.metadata.dependencies) {
       if (!this.plugins.has(dependency)) {
-        throw new Error(`Plugin ${plugin.id} requires missing dependency ${dependency}`);
-      }
-    }
-  }
+        throw new Error(`Plugin ${plugin.id} requires missing dependency ${dependency}`)}
+    }}
 
   private updatePluginConfidence(pluginId: string, context: AnalysisContext): void {
 
@@ -180,27 +146,25 @@ export class AnalysisRegistry {
     this.pluginConfidence.set(pluginId, newConfidence);
 
     // Emit confidence update event;
-    this.eventBus.emit('metric:recorded', {
+    this.eventBus.emit('metric: recorded', {
       name: 'plugin_confidence',
       value: newConfidence,
       timestamp: Date.now(),
-      labels: {
-        plugin_id: pluginId,
-        plugin_name: plugin.name,
-      },
-    });
-  }
+      labels: {,`n  plugin_id: pluginId,
+        plugin_name: plugin.name
+      }
+    })}
 
   private calculatePluginConfidence(
     currentConfidence: number,
     plugin: AnalysisPlugin<any, any>,
-    context: AnalysisContext;
+    context: AnalysisContext
   ): number {
     const weights = {
       streamConfidence: 0.3,
       modelDiversity: 0.2,
       predictionStability: 0.3,
-      historicalConfidence: 0.2,
+      historicalConfidence: 0.2
     };
 
     const newConfidence =
@@ -209,6 +173,9 @@ export class AnalysisRegistry {
       context.predictionStability * weights.predictionStability +
       currentConfidence * weights.historicalConfidence;
 
-    return Math.max(0, Math.min(1, newConfidence));
-  }
+    return Math.max(0, Math.min(1, newConfidence));}
 }
+
+
+
+`

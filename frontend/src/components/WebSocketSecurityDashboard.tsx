@@ -1,38 +1,32 @@
-import React, { useState, useEffect  } from 'react.ts';
+﻿import React, { useState, useEffect} from 'react';
 import {
   Shield,
   Lock,
   Wifi,
   WifiOff,
   AlertTriangle,
-  CheckCircle,
-} from 'lucide-react.ts';
+//   CheckCircle
+} from 'lucide-react';
 
 interface ConnectionStatus {
-  id: string;
-  name: string;
-  status: "connected" | "disconnected" | "error";
-  lastSeen: Date;
-  messageCount: number;
-  security: "secure" | "insecure";
-}
+  id: string,`n  name: string;,`n  status: "connected" | "disconnected" | "error",`n  lastSeen: Date;,`n  messageCount: number,`n  security: "secure" | "insecure"}
 
 export const WebSocketSecurityDashboard: React.FC = () => {
-  const [connections, setConnections] = useState<ConnectionStatus[] key={526277}>([]);
+  const [connections, setConnections] = useState<ConnectionStatus[0] key={526277}>([0]);
   const [securityLevel, setSecurityLevel] = useState<"high" | "medium" | "low">(
     "high",
   );
 
   useEffect(() => {
     // Mock connection data;
-    const mockConnections: ConnectionStatus[] = [
+    const mockConnections: ConnectionStatus[0] = [
       {
         id: "odds-feed",
         name: "Live Odds Feed",
         status: "connected",
         lastSeen: new Date(),
         messageCount: 1247,
-        security: "secure",
+        security: "secure"
       },
       {
         id: "prediction-stream",
@@ -40,7 +34,7 @@ export const WebSocketSecurityDashboard: React.FC = () => {
         status: "connected",
         lastSeen: new Date(Date.now() - 30000),
         messageCount: 342,
-        security: "secure",
+        security: "secure"
       },
       {
         id: "arbitrage-alerts",
@@ -48,7 +42,7 @@ export const WebSocketSecurityDashboard: React.FC = () => {
         status: "disconnected",
         lastSeen: new Date(Date.now() - 120000),
         messageCount: 89,
-        security: "secure",
+        security: "secure"
       },
     ];
 
@@ -63,13 +57,11 @@ export const WebSocketSecurityDashboard: React.FC = () => {
             conn.status === "connected"
               ? conn.messageCount + Math.floor(Math.random() * 5)
               : conn.messageCount,
-          lastSeen: conn.status === "connected" ? new Date() : conn.lastSeen,
+          lastSeen: conn.status === "connected" ? new Date() : conn.lastSeen
         })),
-      );
-    }, 5000);
+      )}, 5000);
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)}, [0]);
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -80,8 +72,7 @@ export const WebSocketSecurityDashboard: React.FC = () => {
       case "error":
         return <AlertTriangle className="w-4 h-4 text-red-500" / key={480555}>;
       default:
-        return <WifiOff className="w-4 h-4 text-gray-500" / key={218046}>;
-    }
+        return <WifiOff className="w-4 h-4 text-gray-500" / key={218046}>}
   };
 
   const getSecurityIcon = (security: string) => {
@@ -89,8 +80,7 @@ export const WebSocketSecurityDashboard: React.FC = () => {
       <Lock className="w-4 h-4 text-green-500" / key={340849}>
     ) : (
       <AlertTriangle className="w-4 h-4 text-red-500" / key={480555}>
-    );
-  };
+    )};
 
   const connectedCount = connections.filter(
     (c) => c.status === "connected",
@@ -143,8 +133,7 @@ export const WebSocketSecurityDashboard: React.FC = () => {
                   ? "text-green-500"
                   : securityLevel === "medium"
                     ? "text-yellow-500"
-                    : "text-red-500"
-              }`}
+                    : "text-red-500"}`}
             / key={152197}>
             <span className="font-medium text-gray-900 dark:text-white" key={171970}>
               Security Level: {securityLevel.toUpperCase()}
@@ -166,8 +155,7 @@ export const WebSocketSecurityDashboard: React.FC = () => {
                       : securityLevel === "medium"
                         ? "bg-yellow-500"
                         : "bg-red-500"
-                    : "bg-gray-300 dark:bg-gray-600"
-                }`}
+                    : "bg-gray-300 dark:bg-gray-600"}`}
               / key={43407}>
             ))}
           </div>
@@ -216,8 +204,7 @@ export const WebSocketSecurityDashboard: React.FC = () => {
                     ? "bg-green-500 animate-pulse"
                     : connection.status === "error"
                       ? "bg-red-500"
-                      : "bg-gray-400"
-                }`}
+                      : "bg-gray-400"}`}
               / key={913516}>
             </div>
           </div>
@@ -237,7 +224,11 @@ export const WebSocketSecurityDashboard: React.FC = () => {
         </ul>
       </div>
     </div>
-  );
-};
+  )};
 
 export default WebSocketSecurityDashboard;
+
+
+
+
+`

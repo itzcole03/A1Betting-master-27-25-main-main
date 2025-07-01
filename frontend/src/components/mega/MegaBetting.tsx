@@ -1,12 +1,12 @@
-import React, { useState, useEffect  } from 'react.ts';
+﻿import React, { useState, useEffect} from 'react';
 import {
   CYBER_COLORS,
   CYBER_GRADIENTS,
   CYBER_GLASS,
   CyberContainer,
   CyberText,
-  CyberButton,
-} from './CyberTheme.ts';
+//   CyberButton
+} from './CyberTheme';
 import {
   DollarSign,
   Target,
@@ -23,20 +23,19 @@ import {
   CheckCircle,
   XCircle,
   Clock,
-  Percent,
-} from 'lucide-react.ts';
+//   Percent
+} from 'lucide-react';
 
 // MEGA BETTING COMPONENT - Consolidates UltimateMoneyMaker, BettingInterface, Arbitrage, etc.
 const MegaBetting: React.FC<{
-  userBalance?: number;
+  userBalance?: number
   riskProfile?: "conservative" | "moderate" | "aggressive";
-  autoMode?: boolean;
-  className?: string;
-}> = ({
+  autoMode?: boolean
+  className?: string}> = ({
   userBalance = 127430.5,
   riskProfile = "moderate",
   autoMode = true,
-  className = "",
+  className = ""
 }) => {
   const [activeTab, setActiveTab] = useState("opportunities");
   const [scanning, setScanning] = useState(autoMode);
@@ -53,7 +52,7 @@ const MegaBetting: React.FC<{
       timeLeft: "2h 34m",
       bookmakers: ["DraftKings", "FanDuel"],
       risk: "low",
-      status: "active",
+      status: "active"
     },
     {
       id: 2,
@@ -67,7 +66,7 @@ const MegaBetting: React.FC<{
       timeLeft: "4h 12m",
       bookmakers: ["BetMGM", "Caesars"],
       risk: "medium",
-      status: "active",
+      status: "active"
     },
     {
       id: 3,
@@ -81,7 +80,7 @@ const MegaBetting: React.FC<{
       timeLeft: "6h 45m",
       bookmakers: ["Bet365", "PointsBet"],
       risk: "low",
-      status: "pending",
+      status: "pending"
     },
   ]);
 
@@ -93,7 +92,7 @@ const MegaBetting: React.FC<{
     activeBets: 23,
     pendingBets: 8,
     weeklyProfit: 1247,
-    weeklyROI: 8.7,
+    weeklyROI: 8.7
   });
 
   // Auto-scan for opportunities every 30 seconds;
@@ -114,25 +113,23 @@ const MegaBetting: React.FC<{
         timeLeft: `${Math.floor(Math.random() * 8)}h ${Math.floor(Math.random() * 60)}m`,
         bookmakers: ["DraftKings", "FanDuel"],
         risk: ["low", "medium", "high"][Math.floor(Math.random() * 3)],
-        status: "active",
+        status: "active"
       };
 
       setOpportunities((prev) => [newOpportunity, ...prev.slice(0, 4)]);
       setBettingStats((prev) => ({
         ...prev,
         totalOpportunities: prev.totalOpportunities + 1,
-        totalProfit: prev.totalProfit + (Math.random() - 0.5) * 50,
-      }));
-    }, 30000);
+        totalProfit: prev.totalProfit + (Math.random() - 0.5) * 50
+      }))}, 30000);
 
-    return () => clearInterval(interval);
-  }, [scanning]);
+    return () => clearInterval(interval);}, [scanning]);
 
   const tabs = [
-    { key: "opportunities", label: "Opportunities", icon: Target },
-    { key: "active", label: "Active Bets", icon: Activity },
-    { key: "kelly", label: "Kelly Calculator", icon: Calculator },
-    { key: "arbitrage", label: "Arbitrage Scanner", icon: Shield },
+    { key: "opportunities", label: "Opportunities", icon: Target},
+    { key: "active", label: "Active Bets", icon: Activity},
+    { key: "kelly", label: "Kelly Calculator", icon: Calculator},
+    { key: "arbitrage", label: "Arbitrage Scanner", icon: Shield},
   ];
 
   const getRiskColor = (risk: string) => {
@@ -143,9 +140,7 @@ const MegaBetting: React.FC<{
         return CYBER_COLORS.accent;
       case "high":
         return "#ff4757";
-      default:
-        return CYBER_COLORS.text.muted;
-    }
+      default: return CYBER_COLORS.text.muted}
   };
 
   const getTypeColor = (type: string) => {
@@ -156,20 +151,18 @@ const MegaBetting: React.FC<{
         return CYBER_COLORS.secondary;
       case "kelly":
         return CYBER_COLORS.accent;
-      default:
-        return CYBER_COLORS.text.muted;
-    }
+      default: return CYBER_COLORS.text.muted}
   };
 
   const renderOpportunitiesTab = () => (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "16px" }} key={500002}>
+    <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "16px"}} key={500002}>
       {/* Stats Overview */}
       <div;
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
           gap: "16px",
-          marginBottom: "24px",
+          marginBottom: "24px"
         }}
        key={964164}>
         {[
@@ -177,25 +170,25 @@ const MegaBetting: React.FC<{
             label: "Active Opportunities",
             value: bettingStats.totalOpportunities,
             icon: Target,
-            color: CYBER_COLORS.primary,
+            color: CYBER_COLORS.primary
           },
           {
             label: "Average ROI",
             value: `${bettingStats.avgROI}%`,
             icon: TrendingUp,
-            color: CYBER_COLORS.secondary,
+            color: CYBER_COLORS.secondary
           },
           {
             label: "Success Rate",
             value: `${bettingStats.successRate}%`,
             icon: CheckCircle,
-            color: CYBER_COLORS.accent,
+            color: CYBER_COLORS.accent
           },
           {
             label: "Weekly Profit",
             value: `$${bettingStats.weeklyProfit}`,
             icon: DollarSign,
-            color: CYBER_COLORS.purple,
+            color: CYBER_COLORS.purple
           },
         ].map((stat, index) => {
 
@@ -203,19 +196,19 @@ const MegaBetting: React.FC<{
             <CyberContainer;
               key={index}
               variant="card"
-              style={{ padding: "16px", textAlign: "center" }}
+              style={{ padding: "16px", textAlign: "center"}}
              key={636730}>
               <Icon;
                 size={24}
                 color={stat.color}
-                style={{ marginBottom: "8px", margin: "0 auto" }}
+                style={{ marginBottom: "8px", margin: "0 auto"}}
               / key={270263}>
               <CyberText;
                 variant="title"
                 style={{
                   color: stat.color,
                   fontSize: "20px",
-                  marginBottom: "4px",
+                  marginBottom: "4px"
                 }}
                key={65247}>
                 {stat.value}
@@ -224,28 +217,27 @@ const MegaBetting: React.FC<{
                 {stat.label}
               </CyberText>
             </CyberContainer>
-          );
-        })}
+          )})}
       </div>
 
       {/* Opportunities List */}
       {opportunities.map((opp) => (
-        <CyberContainer key={opp.id} variant="card" style={{ padding: "20px" }} key={857384}>
+        <CyberContainer key={opp.id} variant="card" style={{ padding: "20px"}} key={857384}>
           <div;
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "flex-start",
-              marginBottom: "16px",
+              marginBottom: "16px"
             }}
            key={973725}>
-            <div style={{ flex: 1 }} key={130883}>
+            <div style={{ flex: 1}} key={130883}>
               <div;
                 style={{
                   display: "flex",
                   alignItems: "center",
                   gap: "12px",
-                  marginBottom: "8px",
+                  marginBottom: "8px"
                 }}
                key={633263}>
                 <span;
@@ -257,7 +249,7 @@ const MegaBetting: React.FC<{
                     textTransform: "uppercase",
                     backgroundColor: `${getTypeColor(opp.type)}20`,
                     color: getTypeColor(opp.type),
-                    border: `1px solid ${getTypeColor(opp.type)}40`,
+                    border: `1px solid ${getTypeColor(opp.type)}40`
                   }}
                  key={144567}>
                   {opp.type}
@@ -270,30 +262,30 @@ const MegaBetting: React.FC<{
                     fontWeight: "600",
                     backgroundColor: `${getRiskColor(opp.risk)}20`,
                     color: getRiskColor(opp.risk),
-                    border: `1px solid ${getRiskColor(opp.risk)}40`,
+                    border: `1px solid ${getRiskColor(opp.risk)}40`
                   }}
                  key={69479}>
                   {opp.risk.toUpperCase()} RISK;
                 </span>
               </div>
-              <CyberText variant="title" style={{ marginBottom: "4px" }} key={602281}>
+              <CyberText variant="title" style={{ marginBottom: "4px"}} key={602281}>
                 {opp.game} - {opp.market}
               </CyberText>
               <CyberText;
                 variant="body"
                 color="muted"
-                style={{ marginBottom: "8px" }}
+                style={{ marginBottom: "8px"}}
                key={774431}>
                 {opp.sport} • {opp.bookmakers.join(" vs ")}
               </CyberText>
-              <div style={{ display: "flex", gap: "24px" }} key={454253}>
+              <div style={{ display: "flex", gap: "24px"}} key={454253}>
                 <div key={241917}>
                   <CyberText variant="caption" color="muted" key={505352}>
                     Expected Value;
                   </CyberText>
                   <CyberText;
                     variant="body"
-                    style={{ color: CYBER_COLORS.primary, fontWeight: "600" }}
+                    style={{ color: CYBER_COLORS.primary, fontWeight: "600"}}
                    key={913089}>
                     ${opp.value.toFixed(2)}
                   </CyberText>
@@ -304,7 +296,7 @@ const MegaBetting: React.FC<{
                   </CyberText>
                   <CyberText;
                     variant="body"
-                    style={{ color: CYBER_COLORS.secondary, fontWeight: "600" }}
+                    style={{ color: CYBER_COLORS.secondary, fontWeight: "600"}}
                    key={519700}>
                     {opp.roi.toFixed(1)}%
                   </CyberText>
@@ -315,20 +307,20 @@ const MegaBetting: React.FC<{
                   </CyberText>
                   <CyberText;
                     variant="body"
-                    style={{ color: CYBER_COLORS.accent, fontWeight: "600" }}
+                    style={{ color: CYBER_COLORS.accent, fontWeight: "600"}}
                    key={2557}>
                     {opp.confidence.toFixed(1)}%
                   </CyberText>
                 </div>
               </div>
             </div>
-            <div style={{ textAlign: "right" }} key={520160}>
+            <div style={{ textAlign: "right"}} key={520160}>
               <div;
                 style={{
                   display: "flex",
                   alignItems: "center",
                   gap: "4px",
-                  marginBottom: "12px",
+                  marginBottom: "12px"
                 }}
                key={303217}>
                 <Clock size={14} color={CYBER_COLORS.text.muted} / key={530890}>
@@ -339,7 +331,7 @@ const MegaBetting: React.FC<{
               <CyberButton;
                 variant="primary"
                 onClick={() = key={889774}> // console statement removed}
-                style={{ width: "auto", padding: "8px 16px", marginBottom: 0 }}
+                style={{ width: "auto", padding: "8px 16px", marginBottom: 0}}
               >
                 Place Bet;
               </CyberButton>
@@ -353,7 +345,7 @@ const MegaBetting: React.FC<{
               height: "4px",
               backgroundColor: "rgba(255, 255, 255, 0.1)",
               borderRadius: "2px",
-              overflow: "hidden",
+              overflow: "hidden"
             }}
            key={839523}>
             <div;
@@ -361,7 +353,7 @@ const MegaBetting: React.FC<{
                 width: `${opp.confidence}%`,
                 height: "100%",
                 backgroundImage: CYBER_GRADIENTS.button,
-                transition: "width 0.3s ease",
+                transition: "width 0.3s ease"
               }}
             / key={720583}>
           </div>
@@ -371,14 +363,14 @@ const MegaBetting: React.FC<{
   );
 
   const renderKellyTab = () => (
-    <CyberContainer variant="card" style={{ padding: "20px" }} key={24342}>
+    <CyberContainer variant="card" style={{ padding: "20px"}} key={24342}>
       <CyberText;
         variant="title"
-        style={{ marginBottom: "16px", display: "flex", alignItems: "center" }}
+        style={{ marginBottom: "16px", display: "flex", alignItems: "center"}}
        key={346107}>
         <Calculator;
           size={20}
-          style={{ marginRight: "8px", color: CYBER_COLORS.primary }}
+          style={{ marginRight: "8px", color: CYBER_COLORS.primary}}
         / key={378262}>
         Kelly Criterion Calculator;
       </CyberText>
@@ -386,14 +378,14 @@ const MegaBetting: React.FC<{
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: "24px",
+          gap: "24px"
         }}
        key={337548}>
         <div key={241917}>
           <CyberText;
             variant="body"
             color="muted"
-            style={{ marginBottom: "8px" }}
+            style={{ marginBottom: "8px"}}
            key={841778}>
             The Kelly Criterion calculates optimal bet sizing based on your edge;
             and bankroll.
@@ -403,16 +395,16 @@ const MegaBetting: React.FC<{
               padding: "16px",
               backgroundColor: "rgba(6, 255, 165, 0.1)",
               border: `1px solid ${CYBER_COLORS.primary}30`,
-              borderRadius: "8px",
+              borderRadius: "8px"
             }}
            key={472047}>
-            <CyberText variant="body" style={{ color: CYBER_COLORS.primary }} key={380646}>
+            <CyberText variant="body" style={{ color: CYBER_COLORS.primary}} key={380646}>
               Current Bankroll: ${userBalance.toLocaleString()}
             </CyberText>
           </div>
         </div>
         <div key={241917}>
-          <CyberText variant="body" style={{ marginBottom: "8px" }} key={116235}>
+          <CyberText variant="body" style={{ marginBottom: "8px"}} key={116235}>
             Kelly Formula:
           </CyberText>
           <div;
@@ -421,7 +413,7 @@ const MegaBetting: React.FC<{
               backgroundColor: "rgba(255, 255, 255, 0.05)",
               borderRadius: "8px",
               fontFamily: "monospace",
-              fontSize: "14px",
+              fontSize: "14px"
             }}
            key={515919}>
             f = (bp - q) / b;
@@ -429,7 +421,7 @@ const MegaBetting: React.FC<{
           <CyberText;
             variant="caption"
             color="muted"
-            style={{ marginTop: "8px" }}
+            style={{ marginTop: "8px"}}
            key={310368}>
             Where: f = fraction to bet, b = odds, p = win probability, q = lose;
             probability;
@@ -446,26 +438,26 @@ const MegaBetting: React.FC<{
         minHeight: "100vh",
         background: CYBER_GRADIENTS.background,
         padding: "24px",
-        color: CYBER_COLORS.text.primary,
+        color: CYBER_COLORS.text.primary
       }}
      key={714844}>
       {/* Header */}
       <CyberContainer;
         variant="panel"
-        style={{ marginBottom: "24px", padding: "20px" }}
+        style={{ marginBottom: "24px", padding: "20px"}}
        key={555499}>
         <div;
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            marginBottom: "16px",
+            marginBottom: "16px"
           }}
          key={580818}>
           <div key={241917}>
             <CyberText;
               variant="title"
-              style={{ fontSize: "28px", marginBottom: "4px" }}
+              style={{ fontSize: "28px", marginBottom: "4px"}}
              key={851908}>
               Ultimate Money Maker;
             </CyberText>
@@ -473,13 +465,13 @@ const MegaBetting: React.FC<{
               AI-powered betting opportunities with quantum edge detection;
             </CyberText>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }} key={333019}>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }} key={537788}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px"}} key={333019}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px"}} key={537788}>
               {scanning ? (
                 <Zap;
                   size={16}
                   color={CYBER_COLORS.primary}
-                  style={{ animation: "cyber-pulse 1s infinite" }}
+                  style={{ animation: "cyber-pulse 1s infinite"}}
                 / key={541758}>
               ) : (
                 <Timer size={16} color={CYBER_COLORS.text.muted} / key={106900}>
@@ -501,7 +493,7 @@ const MegaBetting: React.FC<{
         </div>
 
         {/* Tab Navigation */}
-        <div style={{ display: "flex", gap: "8px" }} key={772482}>
+        <div style={{ display: "flex", gap: "8px"}} key={772482}>
           {tabs.map((tab) => {
 
             return (
@@ -511,30 +503,29 @@ const MegaBetting: React.FC<{
                 active={activeTab === tab.key}
                 onClick={() = key={287146}> setActiveTab(tab.key)}
                 icon={<Icon size={16} / key={856509}>}
-                style={{ marginBottom: 0, width: "auto", padding: "8px 16px" }}
+                style={{ marginBottom: 0, width: "auto", padding: "8px 16px"}}
               >
                 {tab.label}
               </CyberButton>
-            );
-          })}
+            )})}
         </div>
       </CyberContainer>
 
       {/* Content */}
-      <div style={{ minHeight: "500px" }} key={298126}>
+      <div style={{ minHeight: "500px"}} key={298126}>
         {activeTab === "opportunities" && renderOpportunitiesTab()}
         {activeTab === "kelly" && renderKellyTab()}
         {activeTab === "active" && (
           <CyberContainer;
             variant="card"
-            style={{ padding: "40px", textAlign: "center" }}
+            style={{ padding: "40px", textAlign: "center"}}
            key={933437}>
             <Activity;
               size={48}
               color={CYBER_COLORS.secondary}
-              style={{ marginBottom: "16px", margin: "0 auto" }}
+              style={{ marginBottom: "16px", margin: "0 auto"}}
             / key={514996}>
-            <CyberText variant="title" style={{ marginBottom: "8px" }} key={813364}>
+            <CyberText variant="title" style={{ marginBottom: "8px"}} key={813364}>
               Active Bets Dashboard;
             </CyberText>
             <CyberText variant="body" color="muted" key={892775}>
@@ -545,14 +536,14 @@ const MegaBetting: React.FC<{
         {activeTab === "arbitrage" && (
           <CyberContainer;
             variant="card"
-            style={{ padding: "40px", textAlign: "center" }}
+            style={{ padding: "40px", textAlign: "center"}}
            key={933437}>
             <Shield;
               size={48}
               color={CYBER_COLORS.accent}
-              style={{ marginBottom: "16px", margin: "0 auto" }}
+              style={{ marginBottom: "16px", margin: "0 auto"}}
             / key={254475}>
-            <CyberText variant="title" style={{ marginBottom: "8px" }} key={813364}>
+            <CyberText variant="title" style={{ marginBottom: "8px"}} key={813364}>
               Arbitrage Scanner;
             </CyberText>
             <CyberText variant="body" color="muted" key={892775}>
@@ -562,7 +553,11 @@ const MegaBetting: React.FC<{
         )}
       </div>
     </div>
-  );
-};
+  );};
 
 export default MegaBetting;
+
+
+
+
+`

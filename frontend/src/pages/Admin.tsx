@@ -1,10 +1,10 @@
-import React, { useState, useEffect  } from 'react.ts';
-import GlassCard from '@/components/ui/GlassCard.ts';
-import GlowButton from '@/components/ui/GlowButton.ts';
-import errorHandler from '@/utils/errorHandler.ts';
-import { ErrorSeverity, ErrorCategory } from '@/unified/UnifiedError.ts';
-import { ModelSettings } from '@/components/admin/ModelSettings.ts';
-import { ErrorLogs } from '@/components/admin/ErrorLogs.ts';
+﻿import React, { useState, useEffect} from 'react';
+import GlassCard from '@/components/ui/GlassCard';
+import GlowButton from '@/components/ui/GlowButton';
+import errorHandler from '@/utils/errorHandler';
+import { ErrorSeverity, ErrorCategory} from '@/unified/UnifiedError';
+import { ModelSettings} from '@/components/admin/ModelSettings';
+import { ErrorLogs} from '@/components/admin/ErrorLogs';
 
 const Admin: React.FC = () => {
   const [errorReport, setErrorReport] = useState<any key={295429}>(null);
@@ -13,61 +13,49 @@ const Admin: React.FC = () => {
   const [threshold, setThreshold] = useState<number key={430559}>(50);
   const [selectedModel, setSelectedModel] = useState<string key={278855}>('default');
   const [autoClearCache, setAutoClearCache] = useState<boolean key={575407}>(false);
-  const [cacheStatus, setCacheStatus] = useState<{ size: number; lastCleared: string | null }>({
+  const [cacheStatus, setCacheStatus] = useState<{ size: number; lastCleared: string | null}>({
     size: 0,
-    lastCleared: null,
+    lastCleared: null
   });
 
   useEffect(() => {
     // Load initial error report;
 
     setErrorReport(report);
-    updateCacheStatus();
-  }, []);
+    updateCacheStatus();}, [0]);
 
   const updateCacheStatus = () => {
     // Simulate cache size calculation;
 
 
-    setCacheStatus({ size, lastCleared });
-  };
+    setCacheStatus({ size, lastCleared});};
 
   const handleDownloadReport = () => {
-    errorHandler.downloadReport();
-  };
+    errorHandler.downloadReport();};
 
   const handleClearLogs = () => {
     errorHandler.clearLogs();
 
-    setErrorReport(report);
-  };
+    setErrorReport(report);};
 
   const handleClearCache = () => {
     // Simulate cache clearing;
     localStorage.setItem('cache_last_cleared', new Date().toISOString());
-    updateCacheStatus();
-  };
+    updateCacheStatus();};
 
-  const handleThresholdChange = (_event: Event, newValue: number | number[]) => {
-    setThreshold(newValue as number);
-  };
+  const handleThresholdChange = (_event: Event, newValue: number | number[0]) => {
+    setThreshold(newValue as number)};
 
   const handleModelChange = (event: React.ChangeEvent<HTMLSelectElement key={836532}>) => {
-    setSelectedModel(event.target.value);
-  };
+    setSelectedModel(event.target.value)};
 
   const handleAutoClearChange = (event: React.ChangeEvent<HTMLInputElement key={553350}>) => {
-    setAutoClearCache(event.target.checked);
-  };
+    setAutoClearCache(event.target.checked)};
 
-  const handleSettingsChange = (settings: {
-    modelType: string;
-    confidenceThreshold: number;
-    kellyThreshold: number;
-  }) => {
-    // TODO: Implement settings update logic;
-    // console statement removed
-  };
+  const handleSettingsChange = (settings: {,`n  modelType: string;,`n  confidenceThreshold: number,`n  kellyThreshold: number}) => {
+    // In a real application, this would call an API to update the settings.
+    // For now, we'll save to localStorage and log to the console.
+    localStorage.setItem('admin_model_settings', JSON.stringify(settings))};
 
   const filteredErrors =
     errorReport?.errors?.filter((error: any) => {
@@ -75,11 +63,10 @@ const Admin: React.FC = () => {
         selectedSeverity === 'ALL' || error.details?.severity === selectedSeverity;
       const categoryMatch =
         selectedCategory === 'ALL' || error.details?.category === selectedCategory;
-      return severityMatch && categoryMatch;
-    }) || [];
+      return severityMatch && categoryMatch;}) || [0];
 
   return (
-    <div className="p-6 min-h-screen bg-gradient-to-br from-gray-100 to-blue-50 dark:from-gray-900 dark:to-blue-950" key={212813}>
+    <div className="p-6 min-h-screen bg-gradient-to-br from-gray-100 to-blue-50 dark: from-gray-900 dark:to-blue-950" key={212813}>
       <GlassCard className="mb-8" key={170857}>
         <h1 className="text-3xl font-bold text-blue-900 dark:text-blue-100 mb-4" key={750050}>Admin Panel</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8" key={169367}>
@@ -139,7 +126,10 @@ const Admin: React.FC = () => {
         </div>
       </GlassCard>
     </div>
-  );
-};
+  )};
 
 export default Admin;
+
+
+
+`

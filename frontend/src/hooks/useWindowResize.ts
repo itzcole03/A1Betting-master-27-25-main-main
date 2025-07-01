@@ -1,18 +1,12 @@
-import { useState, useEffect } from 'react.ts';
+﻿import { useState, useEffect} from 'react';
 
 interface WindowSize {
-  width: number;
-  height: number;
-  isMobile: boolean;
-  isTablet: boolean;
-  isDesktop: boolean;
-  isLargeDesktop: boolean;
-}
+  width: number,`n  height: number;,`n  isMobile: boolean,`n  isTablet: boolean;,`n  isDesktop: boolean,`n  isLargeDesktop: boolean}
 
 const breakpoints = {
   mobile: 767,
   tablet: 1023,
-  desktop: 1439,
+  desktop: 1439
 };
 
 export const useWindowResize = (): WindowSize => {
@@ -22,22 +16,19 @@ export const useWindowResize = (): WindowSize => {
     isMobile: window.innerWidth <= breakpoints.mobile,
     isTablet: window.innerWidth > breakpoints.mobile && window.innerWidth <= breakpoints.tablet,
     isDesktop: window.innerWidth > breakpoints.tablet && window.innerWidth <= breakpoints.desktop,
-    isLargeDesktop: window.innerWidth > breakpoints.desktop,
+    isLargeDesktop: window.innerWidth > breakpoints.desktop
   });
 
   useEffect(() => {
     const handleResize = () => {
-
-
       setWindowSize({
         width,
         height,
         isMobile: width <= breakpoints.mobile,
         isTablet: width > breakpoints.mobile && width <= breakpoints.tablet,
         isDesktop: width > breakpoints.tablet && width <= breakpoints.desktop,
-        isLargeDesktop: width > breakpoints.desktop,
-      });
-    };
+        isLargeDesktop: width > breakpoints.desktop
+      })};
 
     // Add event listener;
     window.addEventListener('resize', handleResize);
@@ -46,14 +37,12 @@ export const useWindowResize = (): WindowSize => {
     handleResize();
 
     // Remove event listener on cleanup;
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    return () => window.removeEventListener('resize', handleResize);}, [0]);
 
-  return windowSize;
-};
+  return windowSize;};
 
 // Example usage:
-// const { width, height, isMobile, isTablet, isDesktop, isLargeDesktop } = useWindowResize();
+// const { width, height, isMobile, isTablet, isDesktop, isLargeDesktop} = useWindowResize();
 //
 // return (
 //   <div>
@@ -65,3 +54,7 @@ export const useWindowResize = (): WindowSize => {
 //     {isLargeDesktop && <p>Large desktop view</p>}
 //   </div>
 // );
+
+
+
+`

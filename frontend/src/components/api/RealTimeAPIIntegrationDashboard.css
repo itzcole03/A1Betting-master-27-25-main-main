@@ -46,7 +46,8 @@
   gap: 10px;
 }
 
-.refresh-button, .test-button {
+.refresh-button,
+.test-button {
   padding: 8px 16px;
   color: white;
   border: none;
@@ -62,7 +63,8 @@
   background-color: #10b981;
 }
 
-.refresh-button:disabled, .test-button:disabled {
+.refresh-button:disabled,
+.test-button:disabled {
   cursor: not-allowed;
   opacity: 0.6;
 }
@@ -78,7 +80,7 @@
   background-color: white;
   padding: 16px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .api-card-header {
@@ -143,11 +145,13 @@
   border-radius: 4px;
 }
 
-.config-item-sportradar, .config-item-theodds {
+.config-item-sportradar,
+.config-item-theodds {
   background-color: #f0f9ff;
 }
 
-.config-item-prizepicks, .config-item-espn {
+.config-item-prizepicks,
+.config-item-espn {
   background-color: #f0fdf4;
 }
 
@@ -205,33 +209,33 @@
 
 /* Status Color Classes */
 .status-operational {
-  color: #10B981;
+  color: #10b981;
 }
 
 .status-degraded {
-  color: #F59E0B;
+  color: #f59e0b;
 }
 
 .status-down {
-  color: #EF4444;
+  color: #ef4444;
 }
 
 .status-unknown {
-  color: #6B7280;
+  color: #6b7280;
 }
 
 .border-operational {
-  border-color: #10B981;
+  border-color: #10b981;
 }
 
 .border-degraded {
-  border-color: #F59E0B;
+  border-color: #f59e0b;
 }
 
 .border-down {
-  border-color: #EF4444;
+  border-color: #ef4444;
 }
 
 .border-unknown {
-  border-color: #6B7280;
+  border-color: #6b7280;
 }

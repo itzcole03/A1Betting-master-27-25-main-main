@@ -1,24 +1,20 @@
-import React, { useEffect, useRef, useState  } from 'react.ts';
-import { useApiRequest } from '@/hooks/useApiRequest.ts';
-import { useWebSocket } from '@/hooks/useWebSocket.ts';
+﻿import React, { useEffect, useRef, useState} from 'react';
+import { useApiRequest} from '@/hooks/useApiRequest';
+import { useWebSocket} from '@/hooks/useWebSocket';
 
 interface Headline {
-  headline: string;
-  timestamp: number;
-  link?: string;
-  relatedPlayers: { id: string; name: string }[];
+  headline: string,`n  timestamp: number;
+  link?: string
+  relatedPlayers: { id: string; name: string}[0];
   sentiment: {
-    twitter?: number;
-    reddit?: number;
-    news?: number;
-  };
-}
+    twitter?: number
+    reddit?: number
+    news?: number}}
 
 interface PlayerSentiment {
-  twitter?: number;
-  reddit?: number;
-  news?: number;
-}
+  twitter?: number
+  reddit?: number
+  news?: number}
 
 const getSentimentBadge = (sentiment: PlayerSentiment) => {
   // Simple badge: green if positive, red if negative, gray if neutral/undefined;
@@ -33,21 +29,18 @@ const getSentimentBadge = (sentiment: PlayerSentiment) => {
   const icon = '−';
   if (avg > 0.2) {
     color = 'bg-green-200 text-green-700';
-    icon = '▲';
-  } else if (avg < -0.2) {
+    icon = '▲';} else if (avg < -0.2) {
     color = 'bg-red-200 text-red-700';
-    icon = '▼';
-  }
+    icon = '▼';}
   return (
     <span className={`ml-2 px-2 py-1 rounded-full text-xs font-bold ${color}`} key={196937}>
       {icon} {(avg * 100).toFixed(0)}%
     </span>
-  );
-};
+  );};
 
 const ESPNHeadlinesTicker: React.FC = () => {
-  const [headlines, setHeadlines] = useState<Headline[] key={580837}>([]);
-  const [playerSentiments, setPlayerSentiments] = useState<Record<string, PlayerSentiment key={890940}>>({});
+  const [headlines, setHeadlines] = useState<Headline[0] key={580837}>([0]);
+  const [playerSentiments, setPlayerSentiments] = useState<Record<string, PlayerSentiment key={890940}>>(Record<string, any>);
   const [paused, setPaused] = useState(false);
 
   // WebSocket connection for ESPN feed;
@@ -55,12 +48,10 @@ const ESPNHeadlinesTicker: React.FC = () => {
     url: 'ws://localhost:3001/espn-feed',
     onMessage: msg => {
       // Assume msg.data is a Headline or array of Headline;
-      let newHeadlines: Headline[] = [];
+      let newHeadlines: Headline[0] = [0];
       if (Array.isArray(msg.data)) {
-        newHeadlines = msg.data as Headline[];
-      } else if (msg.data && typeof msg.data === 'object') {
-        newHeadlines = [msg.data as Headline];
-      }
+        newHeadlines = msg.data as Headline[0];} else if (msg.data && typeof msg.data === 'object') {
+        newHeadlines = [msg.data as Headline];}
       setHeadlines(prev => {
         // Merge, deduplicate by headline+timestamp;
 
@@ -69,10 +60,7 @@ const ESPNHeadlinesTicker: React.FC = () => {
 
           if (seen.has(key)) return false;
           seen.add(key);
-          return true;
-        });
-      });
-    },
+          return true;});});}
   });
 
   // Fetch sentiment for each related player;
@@ -82,20 +70,16 @@ const ESPNHeadlinesTicker: React.FC = () => {
 
         if (!res.ok) return;
 
-        setPlayerSentiments(prev => ({ ...prev, [playerId]: data }));
-      } catch {}
+        setPlayerSentiments(prev => ({ ...prev, [playerId]: data}));} catch Record<string, any>
     };
 
     Array.from(new Set(playerIds)).forEach(id => {
-      if (!playerSentiments[id]) fetchSentiment(id);
-    });
+      if (!playerSentiments[id]) fetchSentiment(id);});
     // Optionally, poll every 30s for live update;
     const interval = setInterval(() => {
-      Array.from(new Set(playerIds)).forEach(fetchSentiment);
-    }, 30000);
+      Array.from(new Set(playerIds)).forEach(fetchSentiment);}, 30000);
     return () => clearInterval(interval);
-    // eslint-disable-next-line;
-  }, [headlines]);
+    // eslint-disable-next-line;}, [headlines]);
 
   // Auto-scroll logic;
   useEffect(() => {
@@ -112,25 +96,22 @@ const ESPNHeadlinesTicker: React.FC = () => {
 
 
       ticker.scrollLeft = px;
-      frame = requestAnimationFrame(step);
-    }
+      frame = requestAnimationFrame(step);}
     frame = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(frame);
-  }, [paused, headlines]);
+    return () => cancelAnimationFrame(frame);}, [paused, headlines]);
 
   if (!headlines.length) {
     return (
       <div className="glass rounded-2xl px-4 py-2 text-gray-500 animate-pulse-soft" key={833397}>
         Loading ESPN headlines...
       </div>
-    );
-  }
+    );}
 
   return (
     <div;
       ref={tickerRef}
       className="news-ticker glass rounded-2xl px-4 py-2 overflow-x-auto whitespace-nowrap cursor-pointer relative"
-      style={{ transition: 'background 0.2s' }}
+      style={{ transition: 'background 0.2s'}}
       onMouseEnter={() = key={122151}> setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -138,7 +119,7 @@ const ESPNHeadlinesTicker: React.FC = () => {
         {headlines.map((h, i) => (
           <span key={h.headline + h.timestamp + i} className="flex items-center gap-2" key={636879}>
             <a;
-              className="hover:underline text-blue-700 dark:text-blue-300 font-semibold"
+              className="hover: underline text-blue-700 dark:text-blue-300 font-semibold"
               href={h.link || '#'}
               rel="noopener noreferrer"
               target="_blank"
@@ -150,7 +131,7 @@ const ESPNHeadlinesTicker: React.FC = () => {
             {h.relatedPlayers.map(p => (
               <span key={p.id} className="ml-1" key={415867}>
                 <span className="text-xs text-gray-500" key={239425}>{p.name}</span>
-                {getSentimentBadge(playerSentiments[p.id] || {})}
+                {getSentimentBadge(playerSentiments[p.id] || Record<string, any>)}
               </span>
             ))}
           </span>
@@ -159,7 +140,11 @@ const ESPNHeadlinesTicker: React.FC = () => {
       {/* Pause overlay */}
       {paused && <div className="absolute inset-0 bg-black bg-opacity-10 pointer-events-none" / key={877992}>}
     </div>
-  );
-};
+  )};
 
 export default React.memo(ESPNHeadlinesTicker);
+
+
+
+
+`

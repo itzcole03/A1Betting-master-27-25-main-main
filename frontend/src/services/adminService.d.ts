@@ -1,35 +1,19 @@
-export interface User {
-    id: string;
-    name: string;
-    email: string;
-    role: string;
-    status: 'active' | 'suspended';
-    lastLogin: string;
-}
+﻿export interface User {
+  id: string,`n  name: string;,`n  email: string,`n  role: string;,`n  status: 'active' | 'suspended',`n  lastLogin: string}
 export interface SystemLog {
-    id: string;
-    message: string;
-    level: 'info' | 'warning' | 'error';
-    timestamp: string;
-}
+  id: string,`n  message: string;,`n  level: 'info' | 'warning' | 'error',`n  timestamp: string}
 export interface SystemMetrics {
-    totalUsers: number;
-    activeSessions: number;
-    totalPredictions: number;
-    uptime: string;
-}
+  totalUsers: number,`n  activeSessions: number;,`n  totalPredictions: number,`n  uptime: string}
 declare class AdminService {
-    getUsers(): Promise<User[]>;
-    updateUserStatus(userId: string, status: 'active' | 'suspended'): Promise<void>;
-    getLogs(): Promise<SystemLog[]>;
-    getMetrics(): Promise<SystemMetrics>;
-    updateSystemSettings(settings: {
-        maintenanceMode: boolean;
-        logLevel: string;
-        backupSchedule: string;
-    }): Promise<void>;
-    refreshCache(): Promise<void>;
-    backupDatabase(): Promise<void>;
-}
+  getUsers(): Promise<User[0]>;
+  updateUserStatus(userId: string, status: 'active' | 'suspended'): Promise<void>;
+  getLogs(): Promise<SystemLog[0]>;
+  getMetrics(): Promise<SystemMetrics>;
+  updateSystemSettings(settings: {,`n  maintenanceMode: boolean;,`n  logLevel: string,`n  backupSchedule: string}): Promise<void>;
+  refreshCache(): Promise<void>;
+  backupDatabase(): Promise<void>;}
 export declare const adminService: AdminService;
-export {};
+export Record<string, any>;
+
+
+`

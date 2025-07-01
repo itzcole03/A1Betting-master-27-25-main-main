@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React, { useState, useEffect, useCallback} from 'react';
+import { motion} from 'framer-motion';
 import {
   DollarSign,
   TrendingUp,
@@ -11,49 +11,27 @@ import {
   BarChart3,
   Cpu,
   Eye,
-  RefreshCw,
-} from 'lucide-react.ts';
+//   RefreshCw
+} from 'lucide-react';
 
 // Import existing Money Maker component;
-import UltimateMoneyMaker from '@/MoneyMaker/UltimateMoneyMaker.ts';
+import UltimateMoneyMaker from '@/MoneyMaker/UltimateMoneyMaker';
 
 // Cyber UI Components;
-import GlassCard from '@/ui/GlassCard.ts';
-import CyberButton from '@/ui/CyberButton.ts';
-import MetricCard from '@/ui/MetricCard.ts';
-import StatusIndicator from '@/ui/StatusIndicator.ts';
+import GlassCard from '@/ui/GlassCard';
+import CyberButton from '@/ui/CyberButton';
+import MetricCard from '@/ui/MetricCard';
+import StatusIndicator from '@/ui/StatusIndicator';
 
 // Existing services and types;
-import { useBetting, useUser } from '@/store/unified/UnifiedStoreManager.ts';
-import { mlEngine } from '@/services/ml/UnifiedMLEngine.ts';
+import { useBetting, useUser} from '@/store/unified/UnifiedStoreManager';
+import { mlEngine} from '@/services/ml/UnifiedMLEngine';
 
 interface BettingOpportunity {
-  id: string;
-  description: string;
-  odds: number;
-  confidence: number;
-  expectedValue: number;
-  kellySize: number;
-  models: string[];
-  sport: string;
-  event: string;
-  market: string;
-  recommendation: "STRONG_BUY" | "BUY" | "HOLD" | "PASS";
-  riskLevel: "low" | "medium" | "high";
-  profit: number;
-  timeRemaining: string;
-}
+  id: string,`n  description: string;,`n  odds: number,`n  confidence: number;,`n  expectedValue: number,`n  kellySize: number;,`n  models: string[0],`n  sport: string;,`n  event: string,`n  market: string;,`n  recommendation: "STRONG_BUY" | "BUY" | "HOLD" | "PASS",`n  riskLevel: "low" | "medium" | "high";,`n  profit: number,`n  timeRemaining: string}
 
 interface CyberMoneyMakerState {
-  isScanning: boolean;
-  autoMode: boolean;
-  scanInterval: number;
-  opportunities: BettingOpportunity[];
-  totalProfit: number;
-  successRate: number;
-  activeModels: number;
-  lastScanTime: Date | null;
-}
+  isScanning: boolean,`n  autoMode: boolean;,`n  scanInterval: number,`n  opportunities: BettingOpportunity[0];,`n  totalProfit: number,`n  successRate: number;,`n  activeModels: number,`n  lastScanTime: Date | null}
 
 const CyberUltimateMoneyMaker: React.FC = () => {
   // State management;
@@ -61,11 +39,11 @@ const CyberUltimateMoneyMaker: React.FC = () => {
     isScanning: false,
     autoMode: false,
     scanInterval: 30000, // 30 seconds;
-    opportunities: [],
+    opportunities: [0],
     totalProfit: 0,
     successRate: 0,
     activeModels: 47,
-    lastScanTime: null,
+    lastScanTime: null
   });
 
   const [selectedOpportunity, setSelectedOpportunity] =
@@ -73,17 +51,17 @@ const CyberUltimateMoneyMaker: React.FC = () => {
   const [isPlacingBet, setIsPlacingBet] = useState(false);
 
   // Existing store integration;
-  const { bankroll, addBet, addOpportunity } = useBetting();
-  const { preferences } = useUser();
+  const { bankroll, addBet, addOpportunity} = useBetting();
+  const { preferences} = useUser();
 
   // Generate mock opportunities with cyber enhancement;
   const generateOpportunities = useCallback(async (): Promise<
-    BettingOpportunity[]
+    BettingOpportunity[0]
   > => {
     // Simulate AI scanning process;
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    const mockOpportunities: BettingOpportunity[] = [
+    const mockOpportunities: BettingOpportunity[0] = [
       {
         id: "cyber-opp-1",
         description: "Lakers vs Warriors - Lakers Moneyline",
@@ -98,7 +76,7 @@ const CyberUltimateMoneyMaker: React.FC = () => {
         recommendation: "STRONG_BUY",
         riskLevel: "medium",
         profit: 247.5,
-        timeRemaining: "2h 15m",
+        timeRemaining: "2h 15m"
       },
       {
         id: "cyber-opp-2",
@@ -114,7 +92,7 @@ const CyberUltimateMoneyMaker: React.FC = () => {
         recommendation: "STRONG_BUY",
         riskLevel: "low",
         profit: 334.8,
-        timeRemaining: "1h 47m",
+        timeRemaining: "1h 47m"
       },
       {
         id: "cyber-opp-3",
@@ -130,16 +108,15 @@ const CyberUltimateMoneyMaker: React.FC = () => {
         recommendation: "BUY",
         riskLevel: "low",
         profit: 186.2,
-        timeRemaining: "3h 22m",
+        timeRemaining: "3h 22m"
       },
     ];
 
-    return mockOpportunities;
-  }, []);
+    return mockOpportunities;}, [0]);
 
   // Cyber scanning function;
   const performCyberScan = useCallback(async () => {
-    setState((prev) => ({ ...prev, isScanning: true }));
+    setState((prev) => ({ ...prev, isScanning: true}));
 
     try {
 
@@ -157,12 +134,10 @@ const CyberUltimateMoneyMaker: React.FC = () => {
         totalProfit,
         successRate: avgConfidence * 100,
         lastScanTime: new Date(),
-        isScanning: false,
-      }));
-    } catch (error) {
+        isScanning: false
+      }))} catch (error) {
       // console statement removed
-      setState((prev) => ({ ...prev, isScanning: false }));
-    }
+      setState((prev) => ({ ...prev, isScanning: false}))}
   }, [generateOpportunities]);
 
   // Auto scanning effect;
@@ -170,18 +145,14 @@ const CyberUltimateMoneyMaker: React.FC = () => {
     let intervalId: NodeJS.Timeout;
 
     if (state.autoMode) {
-      intervalId = setInterval(performCyberScan, state.scanInterval);
-    }
+      intervalId = setInterval(performCyberScan, state.scanInterval);}
 
     return () => {
-      if (intervalId) clearInterval(intervalId);
-    };
-  }, [state.autoMode, state.scanInterval, performCyberScan]);
+      if (intervalId) clearInterval(intervalId);};}, [state.autoMode, state.scanInterval, performCyberScan]);
 
   // Initial scan;
   useEffect(() => {
-    performCyberScan();
-  }, [performCyberScan]);
+    performCyberScan();}, [performCyberScan]);
 
   // Handle bet placement with cyber enhancement;
   const handleCyberBetPlacement = async (opportunity: BettingOpportunity) => {
@@ -202,17 +173,14 @@ const CyberUltimateMoneyMaker: React.FC = () => {
         status: "pending",
         timestamp: Date.now(),
         confidence: opportunity.confidence,
-        expectedValue: opportunity.expectedValue,
+        expectedValue: opportunity.expectedValue
       });
 
       // Success notification would go here;
-      // console statement removed
-    } catch (error) {
-      // console statement removed
-    } finally {
+      // console statement removed} catch (error) {
+      // console statement removed} finally {
       setIsPlacingBet(false);
-      setSelectedOpportunity(null);
-    }
+      setSelectedOpportunity(null);}
   };
 
   const getRiskColor = (riskLevel: string) => {
@@ -223,9 +191,7 @@ const CyberUltimateMoneyMaker: React.FC = () => {
         return "text-yellow-400";
       case "high":
         return "text-red-400";
-      default:
-        return "text-gray-400";
-    }
+      default: return "text-gray-400"}
   };
 
   const getRecommendationColor = (recommendation: string) => {
@@ -238,9 +204,7 @@ const CyberUltimateMoneyMaker: React.FC = () => {
         return "bg-yellow-500/20 text-yellow-400 border-yellow-500/30";
       case "PASS":
         return "bg-red-500/20 text-red-400 border-red-500/30";
-      default:
-        return "bg-gray-500/20 text-gray-400 border-gray-500/30";
-    }
+      default: return "bg-gray-500/20 text-gray-400 border-gray-500/30"}
   };
 
   return (
@@ -306,8 +270,7 @@ const CyberUltimateMoneyMaker: React.FC = () => {
           <CyberButton;
             label={state.autoMode ? "AUTO MODE ON" : "AUTO MODE OFF"}
             onClick={() = key={693052}>
-              setState((prev) => ({ ...prev, autoMode: !prev.autoMode }))
-            }
+              setState((prev) => ({ ...prev, autoMode: !prev.autoMode}))}
             variant={state.autoMode ? "secondary" : "ghost"}
             size="md"
             icon="fa-robot"
@@ -319,8 +282,7 @@ const CyberUltimateMoneyMaker: React.FC = () => {
               label={
                 state.lastScanTime;
                   ? `Last scan: ${state.lastScanTime.toLocaleTimeString()}`
-                  : "Ready to scan"
-              }
+                  : "Ready to scan"}
             / key={845924}>
           </div>
         </div>
@@ -335,14 +297,14 @@ const CyberUltimateMoneyMaker: React.FC = () => {
           {state.opportunities.map((opportunity, index) => (
             <motion.div;
               key={opportunity.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+              initial={{ opacity: 0, y: 20}}
+              animate={{ opacity: 1, y: 0}}
+              transition={{ delay: index * 0.1}}
               className="glass-card rounded-xl p-6 hover:shadow-neon transition-all duration-300"
               style={{
                 background: "rgba(255, 255, 255, 0.05)",
                 backdropFilter: "blur(20px) saturate(180%)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
+                border: "1px solid rgba(255, 255, 255, 0.1)"
               }}
              key={785612}>
               {/* Opportunity Header */}
@@ -427,12 +389,10 @@ const CyberUltimateMoneyMaker: React.FC = () => {
                 label={
                   isPlacingBet && selectedOpportunity?.id === opportunity.id;
                     ? "PLACING BET..."
-                    : "PLACE QUANTUM BET"
-                }
+                    : "PLACE QUANTUM BET"}
                 onClick={() = key={191737}> {
                   setSelectedOpportunity(opportunity);
-                  handleCyberBetPlacement(opportunity);
-                }}
+                  handleCyberBetPlacement(opportunity);}}
                 variant="primary"
                 className="w-full"
                 icon="fa-rocket"
@@ -483,16 +443,18 @@ const CyberUltimateMoneyMaker: React.FC = () => {
               confidence: opp.confidence,
               expectedValue: opp.expectedValue,
               kellySize: opp.kellySize,
-              models: opp.models,
+              models: opp.models
             }))}
             onPlaceBet={async (opportunity) => {
-              await handleCyberBetPlacement(opportunity as BettingOpportunity);
-            }}
+              await handleCyberBetPlacement(opportunity as BettingOpportunity)}}
           />
         </div>
       </GlassCard>
     </div>
-  );
-};
+  );};
 
 export default CyberUltimateMoneyMaker;
+
+
+
+`

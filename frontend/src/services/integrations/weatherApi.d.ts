@@ -1,5 +1,6 @@
-import { ApiBase } from './apiBase.ts';
+﻿import { ApiBase} from './apiBase.ts';
 export declare class WeatherApi extends ApiBase {
-    constructor();
-    getWeather(params?: Record<string, any>): Promise<unknown>;
-}
+  constructor();
+  getWeather(params?: Record<string, any>): Promise<unknown>;}
+
+

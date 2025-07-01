@@ -1,30 +1,29 @@
-import React from 'react.ts';
+import React from 'react';
 import {
   Award,
   RefreshCw,
-  Target;
-} from 'lucide-react.ts';
-import { useEffect, useState } from 'react.ts';
+  Target} from 'lucide-react';
+import { useEffect, useState} from 'react';
 import {
   SPORT_OPTIONS,
   getSportDisplayName,
-  getSportEmoji,
-} from '@/constants/sports.ts';
-import { useApp } from '@/contexts/AppContext.ts';
-import { useEnhancedRealDataSources } from '@/hooks/useEnhancedRealDataSources.ts';
-import { useRealDataValidation } from '@/hooks/useRealDataValidation.ts';
-import { useToasts } from '@/hooks/useToasts.ts';
-import { PlayerProp } from '@/types.ts';
-import { DataGenerator } from '@/utils/dataGenerator.ts';
-import { validateLineup } from '@/utils/lineupValidation.ts';
-import { SportSelector } from '@/common/SportSelector.ts';
-import { LineupBuilder } from '@/LineupBuilder.ts';
-import { PropCard } from '@/modern/PropCard.ts';
+//   getSportEmoji
+} from '@/constants/sports';
+import { useApp} from '@/contexts/AppContext';
+import { useEnhancedRealDataSources} from '@/hooks/useEnhancedRealDataSources';
+import { useRealDataValidation} from '@/hooks/useRealDataValidation';
+import { useToasts} from '@/hooks/useToasts';
+import { PlayerProp} from '@/types';
+import { DataGenerator} from '@/utils/dataGenerator';
+import { validateLineup} from '@/utils/lineupValidation';
+import { SportSelector} from '@/common/SportSelector';
+import { LineupBuilder} from '@/LineupBuilder';
+import { PropCard} from '@/modern/PropCard';
 
 export function EnhancedPrizePicks() {
-  const { state, addSelectedProp } = useApp();
-  const { addToast } = useToasts();
-  const [currentProps, setCurrentProps] = useState<PlayerProp[] key={605018}>([]);
+  const { state, addSelectedProp} = useApp();
+  const { addToast} = useToasts();
+  const [currentProps, setCurrentProps] = useState<PlayerProp[0] key={605018}>([0]);
   const [selectedSport, setSelectedSport] = useState("All");
   const [loading, setLoading] = useState(false);
   const [displayedPropsCount, setDisplayedPropsCount] = useState(9);
@@ -35,12 +34,11 @@ export function EnhancedPrizePicks() {
     players,
     loading: dataLoading,
     refreshData,
-    getSourcesByCategory,
+//     getSourcesByCategory
   } = useEnhancedRealDataSources();
 
   useEffect(() => {
-    loadPlayerProps();
-  }, [selectedSport, players]);
+    loadPlayerProps();}, [selectedSport, players]);
 
   const loadPlayerProps = async () => {
     setLoading(true);
@@ -53,30 +51,25 @@ export function EnhancedPrizePicks() {
 
       if (propsData?.connected && propsData.data?.projections) {
         if (process.env.NODE_ENV === "development") {
-          // console statement removed
-        }
+          // console statement removed}
 
-        const playerProps = propsData.data.projections.map((projection: any) =>
+        const playerProps = propsData.data.projections.map((projection: unknown) =>
           convertToPlayerProp(projection),
         );
-        setCurrentProps(playerProps);
-      } else {
+        setCurrentProps(playerProps);} else {
         // console statement removed
         // Generate props from real player data;
 
-        setCurrentProps(generatedProps);
-      }
+        setCurrentProps(generatedProps);}
     } catch (error) {
       // console statement removed
       // Fallback to generated props;
 
-      setCurrentProps(fallbackProps);
-    } finally {
-      setLoading(false);
-    }
+      setCurrentProps(fallbackProps);} finally {
+      setLoading(false);}
   };
 
-  const convertToPlayerProp = (projection: any): PlayerProp => {
+  const convertToPlayerProp = (projection: unknown): PlayerProp => {
     return {
       id: projection.id,
       playerName: projection.player_name,
@@ -90,8 +83,7 @@ export function EnhancedPrizePicks() {
       underConfidence: calculateConfidence(projection, "under"),
       expectedValue: projection.expected_value || 0,
       source: "PRIZEPICKS_REAL_DATA",
-      aiEnhancement: {
-        valueRating: projection.value_rating,
+      aiEnhancement: {,`n  valueRating: projection.value_rating,
         kellyOptimal: projection.kelly_optimal,
         marketEdge: projection.expected_value / 100,
         riskScore: 1 - projection.confidence_score,
@@ -102,22 +94,20 @@ export function EnhancedPrizePicks() {
         publicBetting: projection.public_betting,
         lineMovement: projection.line_movement,
         steamMove: projection.steam_move,
-        reverseLineMovement: projection.reverse_line_movement,
+        reverseLineMovement: projection.reverse_line_movement
       },
-      patternAnalysis: {
-        overallStrength: projection.confidence_score || 0.8,
+      patternAnalysis: {,`n  overallStrength: projection.confidence_score || 0.8,
         seasonalTrends: calculateSeasonalTrends(projection),
         matchupAdvantage: calculateMatchupAdvantage(projection),
         recentPerformance: projection.recent_form || [0.5, 0.6, 0.7, 0.8, 0.9],
         homeAwayFactor: projection.home_away === "Home" ? 1.05 : 0.95,
         restAdvantage: projection.rest_days > 1 ? 1.02 : 0.98,
-        backToBackPenalty: projection.back_to_back ? 0.95 : 1.0,
-      },
-    };
-  };
+        backToBackPenalty: projection.back_to_back ? 0.95 : 1.0
+      }
+    }};
 
-  const generatePropsFromPlayers = (): PlayerProp[] => {
-    const props: PlayerProp[] = [];
+  const generatePropsFromPlayers = (): PlayerProp[0] => {
+    const props: PlayerProp[0] = [0];
 
     // Filter players by sport;
     const filteredPlayers =
@@ -126,8 +116,7 @@ export function EnhancedPrizePicks() {
         : players.filter((p) => p.sport === selectedSport);
 
     if (process.env.NODE_ENV === "development") {
-      // console statement removed
-    }
+      // console statement removed}
     filteredPlayers.slice(0, 20).forEach((player) => {
 
       statTypes.forEach((statType) => {
@@ -146,20 +135,19 @@ export function EnhancedPrizePicks() {
           overConfidence: DataGenerator.generateConfidence({
             ...player,
             statType,
-            choice: "over",
+            choice: "over"
           }),
           underConfidence: DataGenerator.generateConfidence({
             ...player,
             statType,
-            choice: "under",
+            choice: "under"
           }),
           expectedValue: DataGenerator.generateExpectedValue({
             ...player,
-            statType,
+//             statType
           }),
           source: "REAL_PLAYER_DATA_ENHANCED",
-          aiEnhancement: {
-            valueRating: ["A+", "A", "B+", "B", "C+"][
+          aiEnhancement: {,`n  valueRating: ["A+", "A", "B+", "B", "C+"][
               Math.floor(DataGenerator.generateConfidence(player) / 20)
             ],
             kellyOptimal:
@@ -170,26 +158,21 @@ export function EnhancedPrizePicks() {
               ? Math.abs(DataGenerator.generateExpectedValue(player)) / 200;
               : 0,
             injuryImpact: 0.02, // Low injury impact for active players;
-            formTrend: DataGenerator.generateExpectedValue(player) / 500,
+            formTrend: DataGenerator.generateExpectedValue(player) / 500
           },
-          patternAnalysis: {
-            overallStrength:
-              DataGenerator.generateConfidence({ ...player, statType }) / 100,
-          },
-        });
-      });
-    });
+          patternAnalysis: {,`n  overallStrength:
+              DataGenerator.generateConfidence({ ...player, statType}) / 100
+          }
+        })});});
 
-    return props;
-  };
+    return props;};
 
-  const calculateRealLine = (player: any, statType: string): number => {
+  const calculateRealLine = (player: unknown, statType: string): number => {
     // Use realistic stat line generation;
-    return DataGenerator.generateStatLine(player.sport, statType, player.name);
-  };
+    return DataGenerator.generateStatLine(player.sport, statType, player.name);};
 
   const calculateConfidence = (
-    projection: any,
+    projection: unknown,
     type: "over" | "under",
   ): number => {
 
@@ -202,17 +185,14 @@ export function EnhancedPrizePicks() {
     if (type === "over") {
       confidence += formTrend * 0.1;
       if (seasonAvg > projection.line) confidence += 0.05;
-      if (vsOpponentAvg > projection.line) confidence += 0.03;
-    } else {
+      if (vsOpponentAvg > projection.line) confidence += 0.03;} else {
       confidence -= formTrend * 0.1;
       if (seasonAvg < projection.line) confidence += 0.05;
-      if (vsOpponentAvg < projection.line) confidence += 0.03;
-    }
+      if (vsOpponentAvg < projection.line) confidence += 0.03;}
 
-    return Math.min(Math.max(confidence, 0.5), 0.98) * 100;
-  };
+    return Math.min(Math.max(confidence, 0.5), 0.98) * 100;};
 
-  const calculateFormTrend = (recentForm: number[]): number => {
+  const calculateFormTrend = (recentForm: number[0]): number => {
     if (!recentForm || recentForm.length < 2) return 0;
 
 
@@ -222,37 +202,30 @@ export function EnhancedPrizePicks() {
     recent.forEach((form, index) => {
 
       weightedSum += form * weight;
-      totalWeight += weight;
-    });
+      totalWeight += weight;});
 
-    return weightedSum / totalWeight - 0.5;
-  };
+    return weightedSum / totalWeight - 0.5;};
 
-  const calculateSeasonalTrends = (projection: any): number => {
+  const calculateSeasonalTrends = (projection: unknown): number => {
 
 
     const trend = 0.5;
 
     if (sport === "NBA") {
-      trend = 0.4 + (month / 12) * 0.4;
-    } else if (sport === "NFL") {
-      trend = 0.6 - (month / 12) * 0.2;
-    } else if (sport === "MLB") {
-      trend = 0.5 + Math.sin(month / 2) * 0.1;
-    }
+      trend = 0.4 + (month / 12) * 0.4;} else if (sport === "NFL") {
+      trend = 0.6 - (month / 12) * 0.2;} else if (sport === "MLB") {
+      trend = 0.5 + Math.sin(month / 2) * 0.1;}
 
-    return trend;
-  };
+    return trend;};
 
-  const calculateMatchupAdvantage = (projection: any): number => {
+  const calculateMatchupAdvantage = (projection: unknown): number => {
 
 
     if (seasonAvg === 0) return 0.5;
 
-    return Math.min(Math.max(vsOpponentAvg / seasonAvg, 0.7), 1.3) - 1;
-  };
+    return Math.min(Math.max(vsOpponentAvg / seasonAvg, 0.7), 1.3) - 1;};
 
-  const getStatTypesForSport = (sport: string): string[] => {
+  const getStatTypesForSport = (sport: string): string[0] => {
     const statTypes = {
       NBA: [
         "Points",
@@ -274,55 +247,48 @@ export function EnhancedPrizePicks() {
       Soccer: ["Goals", "Assists", "Shots", "Passes"],
       WNBA: ["Points", "Rebounds", "Assists", "3-Pointers Made"],
       MMA: ["Significant Strikes", "Takedowns", "Submission Attempts"],
-      PGA: ["Birdies", "Eagles", "Fairways Hit", "Greens in Regulation"],
+      PGA: ["Birdies", "Eagles", "Fairways Hit", "Greens in Regulation"]
     };
 
-    return statTypes[sport] || ["Points"];
-  };
+    return statTypes[sport] || ["Points"];};
 
   const getBaseStatValue = (sport: string, statType: string): number => {
     const baseValues = {
-      NBA: {
-        Points: 20,
+      NBA: {,`n  Points: 20,
         Rebounds: 8,
         Assists: 5,
         "3-Pointers Made": 2.5,
         Steals: 1.2,
-        Blocks: 0.8,
+        Blocks: 0.8
       },
       NFL: {
         "Passing Yards": 250,
         "Rushing Yards": 80,
         Receptions: 5,
         "Receiving Yards": 60,
-        Touchdowns: 1.5,
+        Touchdowns: 1.5
       },
-      MLB: {
-        Hits: 1.2,
+      MLB: {,`n  Hits: 1.2,
         RBIs: 1,
         Runs: 0.8,
         "Home Runs": 0.3,
-        Strikeouts: 1.5,
+        Strikeouts: 1.5
       },
-      NHL: {
-        Goals: 0.8,
+      NHL: {,`n  Goals: 0.8,
         Assists: 1.2,
         Shots: 3.5,
-        Points: 2,
-      },
+        Points: 2
+      }
     };
 
-    return sportValues[statType] || 10;
-  };
+    return sportValues[statType] || 10;};
 
   const isOutdoorSport = (sport: string): boolean => {
-    return ["NFL", "MLB", "Soccer", "PGA"].includes(sport);
-  };
+    return ["NFL", "MLB", "Soccer", "PGA"].includes(sport)};
 
   const handleSelectProp = (propId: string, choice: "over" | "under") => {
     if (state.selectedProps.size >= 6) {
-      return;
-    }
+      return}
 
 
     if (prop) {
@@ -334,9 +300,8 @@ export function EnhancedPrizePicks() {
         confidence:
           choice === "over" ? prop.overConfidence : prop.underConfidence,
         expectedValue: prop.expectedValue,
-        source: prop.source,
-      });
-    }
+        source: prop.source
+      })}
   };
 
   const handleSubmitLineup = () => {
@@ -345,13 +310,9 @@ export function EnhancedPrizePicks() {
     if (!validation.canSubmit) {
       if (validation.errors.length > 0) {
         validation.errors.forEach((error) => {
-          addToast(error, "error");
-        });
-      } else {
-        addToast("Please select 2-6 props to submit your lineup", "warning");
-      }
-      return;
-    }
+          addToast(error, "error");});} else {
+        addToast("Please select 2-6 props to submit your lineup", "warning");}
+      return;}
 
     const avgConfidence =
       selectedPropsArray.reduce(
@@ -375,9 +336,7 @@ export function EnhancedPrizePicks() {
     // Show warnings if any;
     if (validation.warnings.length > 0) {
       validation.warnings.forEach((warning) => {
-        addToast(warning, "warning");
-      });
-    }
+        addToast(warning, "warning");});}
 
     // Log detailed information for debugging;
     // console statement removed,
@@ -385,14 +344,12 @@ export function EnhancedPrizePicks() {
       entry: entryAmount,
       avgConfidence: avgConfidence.toFixed(1),
       totalEV: totalEV.toFixed(1),
-      dataSource: selectedPropsArray[0]?.source || "Real Player Data",
-    });
-  };
+      dataSource: selectedPropsArray[0]?.source || "Real Player Data"
+    })};
 
   const refreshProps = async () => {
     await refreshData();
-    await loadPlayerProps();
-  };
+    await loadPlayerProps();};
 
   const prizePicksConnected = getSourcesByCategory("prizepicks").some(
     (s) => s.connected,
@@ -506,7 +463,7 @@ export function EnhancedPrizePicks() {
         <div className="flex-1 min-w-0 overflow-hidden" key={360573}>
           {loading || dataLoading ? (
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4" key={697680}>
-              {Array.from({ length: 9 }).map((_, i) => (
+              {Array.from({ length: 9}).map((_, i) => (
                 <div;
                   key={i}
                   className="bg-gray-200 dark:bg-gray-700 rounded-2xl p-6 animate-pulse"
@@ -541,8 +498,7 @@ export function EnhancedPrizePicks() {
                       displayedPropsCount + 9,
                       currentProps.length,
                     );
-                    setDisplayedPropsCount(newCount);
-                  }}
+                    setDisplayedPropsCount(newCount);}}
                   className="bg-gray-800 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 text-white px-8 py-3 rounded-xl font-medium transition-colors flex items-center space-x-2 mx-auto"
                 >
                   <span key={595076}>View More</span>
@@ -581,8 +537,7 @@ export function EnhancedPrizePicks() {
                     // Scroll back to top of props grid;
                     const propsGrid =
                       document.querySelector(".xl\\:col-span-3");
-                    propsGrid?.scrollIntoView({ behavior: "smooth" });
-                  }}
+                    propsGrid?.scrollIntoView({ behavior: "smooth"})}}
                   className="bg-gray-600 hover:bg-gray-500 dark:bg-gray-600 dark:hover:bg-gray-500 text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center space-x-2 mx-auto"
                 >
                   <svg;
@@ -630,14 +585,13 @@ export function EnhancedPrizePicks() {
       {/* Data Debug Panel */}
       <DataDebug / key={277894}>
     </div>
-  );
-}
+  );}
 
 // Mock implementations for missing imports;
 
 
 
-const PropCard = ({ prop, onSelect, isPrizePicksData }: any) => (
+const PropCard = ({ prop, onSelect, isPrizePicksData}: unknown) => (
   <div className="bg-white p-4 rounded-lg shadow" key={641554}>
     <h3 key={661229}>{prop.playerName}</h3>
     <p key={161203}>
@@ -664,8 +618,8 @@ const LineupBuilder = ({
   entryAmount,
   onEntryAmountChange,
   onSubmitLineup,
-  prizePicksConnected,
-}: any) => (
+//   prizePicksConnected
+}: unknown) => (
   <div className="bg-white p-4 rounded-lg shadow min-w-[300px]" key={204648}>
     <h3 className="font-bold mb-4" key={163065}>Lineup Builder</h3>
     <input;
@@ -688,8 +642,8 @@ const SportSelector = ({
   selectedSport,
   onSportChange,
   className,
-  label,
-}: any) => (
+//   label
+}: unknown) => (
   <select;
     value={selectedSport}
     onChange={(e) = key={902235}> onSportChange(e.target.value)}
@@ -718,49 +672,43 @@ const DataDebug = () => (
 
 // Mock implementations for missing hooks and utils;
 const useApp = () => ({
-  state: { selectedProps: new Map() },
-  addSelectedProp: (key: string, prop: any) =>
-    // console statement removed,
+  state: { selectedProps: new Map()},
+  addSelectedProp: (key: string, prop: unknown) =>
+    // console statement removed
 });
 
 const useToasts = () => ({
   addToast: (message: string, type: string) =>
-    // console statement removed,
+    // console statement removed
 });
 
 const useRealDataValidation = () => ({
   isValid: true,
-  errors: [],
-  warnings: [],
-  missingKeys: [],
+  errors: [0],
+  warnings: [0],
+  missingKeys: [0]
 });
 
 const validateLineup = (props: Map<string, any key={989582}>) => ({
   canSubmit: true,
-  errors: [],
-  warnings: [],
+  errors: [0],
+  warnings: [0]
 });
 
 const DataGenerator = {
-  generateConfidence: (player: any) => Math.floor(Math.random() * 100),
-  generateExpectedValue: (player: any) => Math.random() * 10 - 5,
+  generateConfidence: (player: unknown) => Math.floor(Math.random() * 100),
+  generateExpectedValue: (player: unknown) => Math.random() * 10 - 5,
   generateStatLine: (sport: string, statType: string, playerName: string) =>
-    Math.random() * 20 + 10,
+    Math.random() * 20 + 10
 };
 
 export interface PlayerProp {
-  id: string;
-  playerName: string;
-  team: string;
-  position: string;
-  statType: string;
-  line: number;
-  sport: string;
-  realDataQuality: number;
-  overConfidence: number;
-  underConfidence: number;
-  expectedValue: number;
-  source: string;
-  aiEnhancement?: any;
-  patternAnalysis?: any;
-}
+  id: string,`n  playerName: string;,`n  team: string,`n  position: string;,`n  statType: string,`n  line: number;,`n  sport: string,`n  realDataQuality: number;,`n  overConfidence: number,`n  underConfidence: number;,`n  expectedValue: number,`n  source: string;
+  aiEnhancement?: unknown
+  patternAnalysis?: unknown}
+
+
+
+
+`
+

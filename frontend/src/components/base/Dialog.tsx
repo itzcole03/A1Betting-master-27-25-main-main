@@ -1,28 +1,26 @@
-import React, { Fragment  } from 'react.ts';
-import { Dialog as HeadlessDialog, Transition } from '@headlessui/react.ts';
-import { cn } from '@/utils/classNames.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React, { Fragment} from 'react';
+import { Dialog as HeadlessDialog, Transition} from '@headlessui/react';
+import { cn} from '@/utils/classNames';
+import { motion} from 'framer-motion';
 
 export interface DialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title?: string;
-  description?: string;
+  isOpen: boolean,`n  onClose: () => void;
+  title?: string
+  description?: string
   children: React.ReactNode;
   footer?: React.ReactNode;
   size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
-  className?: string;
-  showClose?: boolean;
-  closeOnOverlayClick?: boolean;
-  preventClose?: boolean;
-}
+  className?: string
+  showClose?: boolean
+  closeOnOverlayClick?: boolean
+  preventClose?: boolean}
 
 const sizes = {
   sm: 'max-w-sm',
   md: 'max-w-md',
   lg: 'max-w-lg',
   xl: 'max-w-xl',
-  full: 'max-w-full mx-4',
+  full: 'max-w-full mx-4'
 };
 
 export const Dialog: React.FC<DialogProps key={857102}> = ({
@@ -36,12 +34,11 @@ export const Dialog: React.FC<DialogProps key={857102}> = ({
   className,
   showClose = true,
   closeOnOverlayClick = true,
-  preventClose = false,
+  preventClose = false
 }) => {
   const handleClose = () => {
     if (!preventClose) {
-      onClose();
-    }
+      onClose()}
   };
 
   return (
@@ -49,7 +46,7 @@ export const Dialog: React.FC<DialogProps key={857102}> = ({
       <HeadlessDialog;
         as="div"
         className="fixed inset-0 z-50 overflow-y-auto"
-        onClose={closeOnOverlayClick ? handleClose : () = key={512797}> {}}
+        onClose={closeOnOverlayClick ? handleClose : () = key={512797}> Record<string, any>}
       >
         <div className="min-h-screen px-4 text-center" key={763353}>
           <Transition.Child;
@@ -79,14 +76,14 @@ export const Dialog: React.FC<DialogProps key={857102}> = ({
             leaveTo="opacity-0 scale-95"
            key={999427}>
             <motion.div;
-              animate={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0}}
               className={cn(
                 'inline-block w-full p-6 my-8 overflow-hidden text-left align-middle bg-white dark:bg-gray-800 rounded-2xl shadow-xl transition-all',
                 sizes[size],
                 className;
               )}
-              exit={{ opacity: 0, y: 20 }}
-              initial={{ opacity: 0, y: 20 }}
+              exit={{ opacity: 0, y: 20}}
+              initial={{ opacity: 0, y: 20}}
              key={746633}>
               {(title || showClose) && (
                 <div className="flex items-start justify-between mb-4" key={886571}>
@@ -136,5 +133,9 @@ export const Dialog: React.FC<DialogProps key={857102}> = ({
         </div>
       </HeadlessDialog>
     </Transition>
-  );
-};
+  );};
+
+
+
+
+`

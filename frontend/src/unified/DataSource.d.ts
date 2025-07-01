@@ -1,3 +1,4 @@
-export interface DataSource<T = unknown> {
-    fetchData(): Promise<T>;
-}
+﻿export interface DataSource<T = unknown> {
+  fetchData(): Promise<T>;}
+
+

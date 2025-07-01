@@ -1,11 +1,11 @@
-import React, { useState,
+﻿import React, { useState,
   useEffect,
   Suspense,
   lazy,
   useMemo,
-  useCallback,
- } from 'react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+//   useCallback
+ } from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
 import {
   Home,
   TrendingUp,
@@ -39,58 +39,29 @@ import {
   Share,
   Bookmark,
   MoreHorizontal,
-  LucideIcon,
-} from 'lucide-react.ts';
+//   LucideIcon
+} from 'lucide-react';
 
 // TypeScript interfaces for better type safety;
 interface DashboardTab {
-  id: string;
-  name: string;
-  icon: LucideIcon;
-  color: ColorTheme;
-  description: string;
-}
+  id: string,`n  name: string;,`n  icon: LucideIcon,`n  color: ColorTheme;,`n  description: string}
 
 interface DashboardMetrics {
-  totalProfit: number;
-  profitChange: number;
-  winRate: number;
-  winRateChange: number;
-  totalBets: number;
-  betsChange: number;
-  avgOdds: number;
-  oddsChange: number;
-  activeModels: number;
-  modelsChange: number;
-  confidenceScore: number;
-  confidenceChange: number;
-}
+  totalProfit: number,`n  profitChange: number;,`n  winRate: number,`n  winRateChange: number;,`n  totalBets: number,`n  betsChange: number;,`n  avgOdds: number,`n  oddsChange: number;,`n  activeModels: number,`n  modelsChange: number;,`n  confidenceScore: number,`n  confidenceChange: number}
 
 interface MetricCardProps {
-  title: string;
-  value: number | string;
-  change?: number;
-  prefix?: string;
-  suffix?: string;
-  icon?: LucideIcon;
-  color?: ColorTheme;
-}
+  title: string,`n  value: number | string;
+  change?: number
+  prefix?: string
+  suffix?: string
+  icon?: LucideIcon
+  color?: ColorTheme}
 
 interface QuickActionProps {
-  title: string;
-  description: string;
-  icon: LucideIcon;
-  color: ColorTheme;
-  onClick: () => void;
-}
+  title: string,`n  description: string;,`n  icon: LucideIcon,`n  color: ColorTheme;,`n  onClick: () => void}
 
 interface ActivityItem {
-  type: "bet" | "model" | "arb";
-  desc: string;
-  amount: string;
-  time: string;
-  status: "won" | "lost" | "info" | "pending";
-}
+  type: "bet" | "model" | "arb",`n  desc: string;,`n  amount: string,`n  time: string;,`n  status: "won" | "lost" | "info" | "pending"}
 
 type ColorTheme = "brand" | "success" | "warning" | "error" | "info" | "purple";
 
@@ -112,68 +83,67 @@ const MobileOptimizedInterface = lazy(
 );
 
 // Dashboard tab configuration with proper typing;
-const dashboardTabs: DashboardTab[] = [
+const dashboardTabs: DashboardTab[0] = [
   {
     id: "overview",
     name: "Overview",
     icon: Home,
     color: "brand",
-    description: "Complete performance overview",
+    description: "Complete performance overview"
   },
   {
     id: "trading",
     name: "Trading",
     icon: TrendingUp,
     color: "success",
-    description: "Advanced betting interface",
+    description: "Advanced betting interface"
   },
   {
     id: "ml-center",
     name: "ML Center",
     icon: Brain,
     color: "purple",
-    description: "AI model management",
+    description: "AI model management"
   },
   {
     id: "arbitrage",
     name: "Arbitrage",
     icon: Target,
     color: "warning",
-    description: "Risk-free opportunities",
+    description: "Risk-free opportunities"
   },
   {
     id: "analytics",
     name: "Analytics",
     icon: BarChart3,
     color: "info",
-    description: "Deep insights & charts",
+    description: "Deep insights & charts"
   },
   {
     id: "performance",
     name: "Performance",
     icon: Activity,
     color: "success",
-    description: "Track your results",
+    description: "Track your results"
   },
   {
     id: "live",
     name: "Live Data",
     icon: Eye,
     color: "error",
-    description: "Real-time monitoring",
+    description: "Real-time monitoring"
   },
   {
     id: "mobile",
     name: "Mobile",
     icon: Smartphone,
     color: "purple",
-    description: "Mobile experience",
+    description: "Mobile experience"
   },
 ];
 
 // Mock dashboard metrics with proper typing;
-const mockMetrics: DashboardMetrics = {
-  totalProfit: 12450.8,
+const mockMetrics: DashboardMetrics = {,`n  totalProfit: 12450.8,
   profitChange: 8.2,
   winRate: 73.5,
   winRateChange: 2.1,
@@ -184,7 +154,7 @@ const mockMetrics: DashboardMetrics = {
   activeModels: 8,
   modelsChange: 2,
   confidenceScore: 87.3,
-  confidenceChange: 3.2,
+  confidenceChange: 3.2
 };
 
 const PremiumDashboard: React.FC = () => {
@@ -196,63 +166,55 @@ const PremiumDashboard: React.FC = () => {
   // Update time every minute;
   useEffect(() => {
 
-    return () => clearInterval(timer);
-  }, []);
+    return () => clearInterval(timer);}, [0]);
 
   // Memoized color mapping for better performance;
   const colorClasses = useMemo(
     () =>
       ({
-        brand: {
-          gradient: "from-brand-500 to-brand-600",
+        brand: {,`n  gradient: "from-brand-500 to-brand-600",
           text: "text-brand-600",
           background: "bg-brand-50",
           border: "border-brand-200",
-          full: "from-brand-500 to-brand-600 text-brand-600 bg-brand-50 border-brand-200",
+          full: "from-brand-500 to-brand-600 text-brand-600 bg-brand-50 border-brand-200"
         },
-        success: {
-          gradient: "from-success-500 to-success-600",
+        success: {,`n  gradient: "from-success-500 to-success-600",
           text: "text-success-600",
           background: "bg-success-50",
           border: "border-success-200",
-          full: "from-success-500 to-success-600 text-success-600 bg-success-50 border-success-200",
+          full: "from-success-500 to-success-600 text-success-600 bg-success-50 border-success-200"
         },
-        warning: {
-          gradient: "from-warning-500 to-warning-600",
+        warning: {,`n  gradient: "from-warning-500 to-warning-600",
           text: "text-warning-600",
           background: "bg-warning-50",
           border: "border-warning-200",
-          full: "from-warning-500 to-warning-600 text-warning-600 bg-warning-50 border-warning-200",
+          full: "from-warning-500 to-warning-600 text-warning-600 bg-warning-50 border-warning-200"
         },
-        error: {
-          gradient: "from-error-500 to-error-600",
+        error: {,`n  gradient: "from-error-500 to-error-600",
           text: "text-error-600",
           background: "bg-error-50",
           border: "border-error-200",
-          full: "from-error-500 to-error-600 text-error-600 bg-error-50 border-error-200",
+          full: "from-error-500 to-error-600 text-error-600 bg-error-50 border-error-200"
         },
-        info: {
-          gradient: "from-blue-500 to-blue-600",
+        info: {,`n  gradient: "from-blue-500 to-blue-600",
           text: "text-blue-600",
           background: "bg-blue-50",
           border: "border-blue-200",
-          full: "from-blue-500 to-blue-600 text-blue-600 bg-blue-50 border-blue-200",
+          full: "from-blue-500 to-blue-600 text-blue-600 bg-blue-50 border-blue-200"
         },
-        purple: {
-          gradient: "from-purple-500 to-purple-600",
+        purple: {,`n  gradient: "from-purple-500 to-purple-600",
           text: "text-purple-600",
           background: "bg-purple-50",
           border: "border-purple-200",
-          full: "from-purple-500 to-purple-600 text-purple-600 bg-purple-50 border-purple-200",
-        },
+          full: "from-purple-500 to-purple-600 text-purple-600 bg-purple-50 border-purple-200"
+        }
       }) as const,
-    [],
+    [0],
   );
 
   const getColorClasses = useCallback(
     (color: ColorTheme) => {
-      return colorClasses[color] || colorClasses.brand;
-    },
+      return colorClasses[color] || colorClasses.brand},
     [colorClasses],
   );
 
@@ -264,11 +226,11 @@ const PremiumDashboard: React.FC = () => {
       prefix = "",
       suffix = "",
       icon: Icon,
-      color = "brand",
+      color = "brand"
     }) => (
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
         className="premium-card p-6 hover:scale-105 transition-transform duration-300"
        key={365498}>
         <div className="flex items-start justify-between" key={653478}>
@@ -282,8 +244,7 @@ const PremiumDashboard: React.FC = () => {
             {change !== undefined && (
               <div;
                 className={`flex items-center text-sm ${
-                  change  key={835615}>= 0 ? "text-success-600" : "text-error-600"
-                }`}
+                  change  key={835615}>= 0 ? "text-success-600" : "text-error-600"}`}
               >
                 {change >= 0 ? (
                   <ArrowUpRight className="w-4 h-4 mr-1" / key={113398}>
@@ -307,10 +268,10 @@ const PremiumDashboard: React.FC = () => {
   );
 
   const QuickAction = React.memo<QuickActionProps key={580938}>(
-    ({ title, description, icon: Icon, color, onClick }) => (
+    ({ title, description, icon: Icon, color, onClick}) => (
       <motion.button;
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
+        whileHover={{ scale: 1.02}}
+        whileTap={{ scale: 0.98}}
         onClick={onClick}
         className="premium-card p-4 text-left w-full hover:shadow-lg transition-all duration-300"
        key={32483}>
@@ -346,8 +307,7 @@ const PremiumDashboard: React.FC = () => {
             <p className="text-gray-600 font-medium" key={25695}>Loading {tabName}...</p>
           </div>
         </div>
-      );
-    }, [activeTab]);
+      );}, [activeTab]);
 
     switch (activeTab) {
       case "overview":
@@ -450,38 +410,37 @@ const PremiumDashboard: React.FC = () => {
               </div>
               <div className="space-y-4" key={160407}>
                 {useMemo(() => {
-                  const activities: ActivityItem[] = [
+                  const activities: ActivityItem[0] = [
                     {
                       type: "bet",
                       desc: "NBA: Lakers vs Warriors OVER 220.5",
                       amount: "+$250",
                       time: "2 hours ago",
-                      status: "won",
+                      status: "won"
                     },
                     {
                       type: "model",
                       desc: "ML Model updated: NBA Points Predictor",
                       amount: "v2.1.3",
                       time: "4 hours ago",
-                      status: "info",
+                      status: "info"
                     },
                     {
                       type: "arb",
                       desc: "Arbitrage opportunity detected",
                       amount: "2.3% ROI",
                       time: "6 hours ago",
-                      status: "pending",
+                      status: "pending"
                     },
                     {
                       type: "bet",
                       desc: "NFL: Chiefs vs Bills UNDER 48.5",
                       amount: "-$100",
                       time: "1 day ago",
-                      status: "lost",
+                      status: "lost"
                     },
                   ];
-                  return activities;
-                }, []).map((activity, idx) => (
+                  return activities;}, [0]).map((activity, idx) => (
                   <div;
                     key={idx}
                     className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
@@ -495,8 +454,7 @@ const PremiumDashboard: React.FC = () => {
                               ? "bg-error-100 text-error-600"
                               : activity.status === "info"
                                 ? "bg-blue-100 text-blue-600"
-                                : "bg-warning-100 text-warning-600"
-                        }`}
+                                : "bg-warning-100 text-warning-600"}`}
                        key={953771}>
                         {activity.type === "bet" ? (
                           <Target className="w-4 h-4" / key={184202}>
@@ -519,8 +477,7 @@ const PremiumDashboard: React.FC = () => {
                           ? "text-success-600"
                           : activity.status === "lost"
                             ? "text-error-600"
-                            : "text-gray-900"
-                      }`}
+                            : "text-gray-900"}`}
                      key={262812}>
                       {activity.amount}
                     </span>
@@ -580,13 +537,11 @@ const PremiumDashboard: React.FC = () => {
           </Suspense>
         );
 
-      default:
-        return (
+      default: return (
           <div className="text-center py-12" key={752807}>
             <p className="text-gray-500" key={992645}>Select a tab to view content</p>
           </div>
-        );
-    }
+        )}
   }, [activeTab]);
 
   return (
@@ -607,9 +562,9 @@ const PremiumDashboard: React.FC = () => {
                   </h1>
                   <p className="text-sm text-gray-600" key={656535}>
                     {currentTime.toLocaleDateString()} •{" "}
-                    {currentTime.toLocaleTimeString([], {
+                    {currentTime.toLocaleTimeString([0], {
                       hour: "2-digit",
-                      minute: "2-digit",
+                      minute: "2-digit"
                     })}
                   </p>
                 </div>
@@ -622,8 +577,7 @@ const PremiumDashboard: React.FC = () => {
                   className={`flex items-center space-x-2 px-3 py-1.5 rounded-full transition-all duration-300 ${
                     isLive;
                       ? "bg-success-100 text-success-700 hover:bg-success-200"
-                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                  }`}
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}
                 >
                   {isLive ? (
                     <Play className="w-3 h-3" / key={535123}>
@@ -636,7 +590,7 @@ const PremiumDashboard: React.FC = () => {
                   {isLive && (
                     <div className="w-2 h-2 bg-success-500 rounded-full animate-pulse" / key={821763}>
                   )}
-                </button>
+                </div>
               </div>
             </div>
 
@@ -694,10 +648,9 @@ const PremiumDashboard: React.FC = () => {
                   className={`flex items-center space-x-2 px-4 py-3 rounded-xl font-medium transition-all duration-300 whitespace-nowrap relative ${
                     isActive;
                       ? `${colors.background} ${colors.text} ${colors.border} shadow-sm`
-                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                  }`}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"}`}
+                  whileHover={{ scale: 1.02}}
+                  whileTap={{ scale: 0.98}}
                   role="tab"
                   aria-selected={isActive}
                   aria-controls={`tabpanel-${tab.id}`}
@@ -717,8 +670,7 @@ const PremiumDashboard: React.FC = () => {
                     / key={48618}>
                   )}
                 </motion.button>
-              );
-            })}
+              );})}
           </div>
         </div>
       </div>
@@ -728,10 +680,10 @@ const PremiumDashboard: React.FC = () => {
         <AnimatePresence mode="wait" key={725119}>
           <motion.div;
             key={activeTab}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, y: 20}}
+            animate={{ opacity: 1, y: 0}}
+            exit={{ opacity: 0, y: -20}}
+            transition={{ duration: 0.3}}
             role="tabpanel"
             id={`tabpanel-${activeTab}`}
             aria-labelledby={`tab-${activeTab}`}
@@ -741,7 +693,12 @@ const PremiumDashboard: React.FC = () => {
         </AnimatePresence>
       </div>
     </div>
-  );
-};
+  )};
 
 export default PremiumDashboard;
+
+
+
+
+
+`

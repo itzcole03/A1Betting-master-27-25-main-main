@@ -1,5 +1,5 @@
-import React, { useEffect, useState  } from 'react.ts';
-import SafeChart from './ui/SafeChart.ts';
+﻿import React, { useEffect, useState} from 'react';
+import SafeChart from './ui/SafeChart';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,10 +8,10 @@ import {
   LineElement,
   Title,
   Tooltip,
-  Legend,
+//   Legend
 } from "chart.js";
-import { webSocketLoadBalancer } from '@/services/WebSocketLoadBalancer.ts';
-import { EventBus } from '@/unified/EventBus.ts';
+import { webSocketLoadBalancer} from '@/services/WebSocketLoadBalancer';
+import { EventBus} from '@/unified/EventBus';
 
 ChartJS.register(
   CategoryScale,
@@ -24,84 +24,70 @@ ChartJS.register(
 );
 
 interface ServerMetrics {
-  connections: number;
-  latency: number;
-  errorRate: number;
-  lastUpdate: number;
-}
+  connections: number,`n  latency: number;,`n  errorRate: number,`n  lastUpdate: number}
 
 interface LoadBalancerMetrics {
-  totalConnections: number;
-  activeServers: number;
-  serverMetrics: Map<string, ServerMetrics key={896826}>;
-  lastHealthCheck: number;
-}
+  totalConnections: number,`n  activeServers: number;,`n  serverMetrics: Map<string, ServerMetrics key={896826}>;
+  lastHealthCheck: number}
 
 export const WebSocketLoadBalancerAnalytics: React.FC = () => {
   const [metrics, setMetrics] = useState<LoadBalancerMetrics key={274416}>({
     totalConnections: 0,
     activeServers: 0,
     serverMetrics: new Map(),
-    lastHealthCheck: 0,
+    lastHealthCheck: 0
   });
 
-  const [serverLatencies, setServerLatencies] = useState<Map<string, number[] key={815621}>>(
+  const [serverLatencies, setServerLatencies] = useState<Map<string, number[0] key={815621}>>(
     new Map(),
   );
   const [serverErrorRates, setServerErrorRates] = useState<
-    Map<string, number[] key={90749}>
+    Map<string, number[0] key={90749}>
   >(new Map());
-  const [timestamps, setTimestamps] = useState<number[] key={753439}>([]);
+  const [timestamps, setTimestamps] = useState<number[0] key={753439}>([0]);
 
   useEffect(() => {
     const updateMetrics = () => {
 
-      setMetrics(currentMetrics);
-    };
+      setMetrics(currentMetrics)};
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)}, [0]);
 
   useEffect(() => {
     const handleServerHealth = (event: any) => {
-      const { server, metrics, timestamp } = event;
+      const { server, metrics, timestamp} = event;
 
       setServerLatencies((prev) => {
 
         return new Map(prev).set(server, [
           ...latencies.slice(-20),
           metrics.latency,
-        ]);
-      });
+        ])});
 
       setServerErrorRates((prev) => {
 
         return new Map(prev).set(server, [
           ...rates.slice(-20),
           metrics.errorRate,
-        ]);
-      });
+        ])});
 
-      setTimestamps((prev) => [...prev.slice(-20), timestamp]);
-    };
+      setTimestamps((prev) => [...prev.slice(-20), timestamp])};
 
     eventBus.subscribe("websocket:server:health", handleServerHealth);
 
     return () => {
-      eventBus.unsubscribe("websocket:server:health", handleServerHealth);
-    };
-  }, []);
+      eventBus.unsubscribe("websocket:server:health", handleServerHealth)}}, [0]);
 
   const chartData = {
     labels: timestamps.map((t) => new Date(t).toLocaleTimeString()),
     datasets: Array.from(metrics.serverMetrics.entries()).map(
       ([server, _]) => ({
         label: `Server ${server} Latency`,
-        data: serverLatencies.get(server) || [],
+        data: serverLatencies.get(server) || [0],
         borderColor: `hsl(${Math.random() * 360}, 70%, 50%)`,
-        tension: 0.1,
+        tension: 0.1
       }),
-    ),
+    )
   };
 
   const errorRateData = {
@@ -109,40 +95,34 @@ export const WebSocketLoadBalancerAnalytics: React.FC = () => {
     datasets: Array.from(metrics.serverMetrics.entries()).map(
       ([server, _]) => ({
         label: `Server ${server} Error Rate`,
-        data: serverErrorRates.get(server) || [],
+        data: serverErrorRates.get(server) || [0],
         borderColor: `hsl(${Math.random() * 360}, 70%, 50%)`,
-        tension: 0.1,
+        tension: 0.1
       }),
-    ),
+    )
   };
 
   const chartOptions = {
     responsive: true,
-    plugins: {
-      legend: {
-        position: "top" as const,
+    plugins: {,`n  legend: {,`n  position: "top" as const
       },
-      title: {
-        display: true,
-        text: "Server Latency",
-      },
+      title: {,`n  display: true,
+        text: "Server Latency"
+      }
     },
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
+    scales: {,`n  y: {,`n  beginAtZero: true
+      }
+    }
   };
 
   const errorRateOptions = {
     ...chartOptions,
     plugins: {
       ...chartOptions.plugins,
-      title: {
-        display: true,
-        text: "Server Error Rates",
-      },
-    },
+      title: {,`n  display: true,
+        text: "Server Error Rates"
+      }
+    }
   };
 
   return (
@@ -200,5 +180,9 @@ export const WebSocketLoadBalancerAnalytics: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )};
+
+
+
+
+`

@@ -1,12 +1,11 @@
-import React from 'react.ts';
-import { Box, CircularProgress, Typography } from '@mui/material.ts';
+﻿import React from 'react';
+import { Box, CircularProgress, Typography} from '@mui/material';
 
 interface LoadingStateProps {
-  message?: string;
-  size?: number;
-}
+  message?: string
+  size?: number}
 
-const LoadingState: React.FC<LoadingStateProps key={494341}> = ({ message = 'Loading...', size = 40 }) => {
+const LoadingState: React.FC<LoadingStateProps key={494341}> = ({ message = 'Loading...', size = 40}) => {
   return (
     <Box;
       sx={{
@@ -15,7 +14,7 @@ const LoadingState: React.FC<LoadingStateProps key={494341}> = ({ message = 'Loa
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '200px',
-        gap: 2,
+        gap: 2
       }}
      key={712093}>
       <CircularProgress size={size} / key={740715}>
@@ -23,7 +22,10 @@ const LoadingState: React.FC<LoadingStateProps key={494341}> = ({ message = 'Loa
         {message}
       </Typography>
     </Box>
-  );
-};
+  )};
 
 export default React.memo(LoadingState);
+
+
+
+

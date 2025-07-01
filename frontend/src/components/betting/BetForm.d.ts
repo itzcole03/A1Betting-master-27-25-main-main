@@ -1,16 +1,8 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface BetFormProps {
-    eventId: string;
-    marketType: string;
-    selection: string;
-    odds: number;
-    metadata: {
-        sport: string;
-        league: string;
-        homeTeam: string;
-        awayTeam: string;
-        startTime: Date;
-    };
-}
+  eventId: string,`n  marketType: string;,`n  selection: string,`n  odds: number;,`n  metadata: {,`n  sport: string;,`n  league: string,`n  homeTeam: string;,`n  awayTeam: string,`n  startTime: Date};}
 export declare const BetForm: React.FC<BetFormProps>;
-export {};
+export Record<string, any>;
+
+
+`

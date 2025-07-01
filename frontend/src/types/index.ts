@@ -1,4 +1,5 @@
-export * from './auth.ts';
-export * from './global.ts';
-export * from './betting.ts';
-export * from './user.ts';
+export * from './auth';
+export * from './global';
+export * from './betting';
+export * from './user';
+

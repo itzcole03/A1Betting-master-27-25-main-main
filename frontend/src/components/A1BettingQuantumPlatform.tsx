@@ -1,13 +1,12 @@
-import React, {
-  createContext,
-  FC,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState
-} from 'react';
-import { productionApiService } from '../services/productionApiServiceNew';
-import PropOllama from './user-friendly/PropOllama';
+﻿import React, {
+    createContext,
+    FC,
+    ReactNode,
+    useContext,
+    useEffect,
+    useState} from 'react';
+import { productionApiService} from '../services/productionApiServiceNew'
+import PropOllama from './user-friendly/PropOllama'
 
 /**
  * A1Betting Quantum Platform - Exact Clone of poe-preview (8).html
@@ -22,55 +21,28 @@ import PropOllama from './user-friendly/PropOllama';
 // ============================================
 
 interface Opportunity {
-  id: number;
-  game: string;
-  market: string;
-  pick: string;
-  odds: number;
-  confidence: number;
-  ev: number;
-  source: string;
-  time: string;
-}
+  id: number,`n  game: string;,`n  market: string,`n  pick: string;,`n  odds: number,`n  confidence: number;,`n  ev: number,`n  source: string;,`n  time: string}
 
 interface OpportunitiesData {
-  live: Opportunity[];
-  upcoming: Opportunity[];
-  value: Opportunity[];
-  arbitrage: Opportunity[];
-}
+  live: Opportunity[0],`n  upcoming: Opportunity[0];,`n  value: Opportunity[0],`n  arbitrage: Opportunity[0]}
 
 // ============================================
 // CONTEXT & STATE MANAGEMENT
 // ============================================
 
 interface AppContextType {
-  currentPage: string;
-  setCurrentPage: (page: string) => void;
-  realTimeData: any;
-  setRealTimeData: (data: any) => void;
-  user: any;
-  sidebarCollapsed: boolean;
-  setSidebarCollapsed: (collapsed: boolean) => void;
-  notifications: any[];
-  setNotifications: (notifications: any[]) => void;
-  theme: string;
-  setTheme: (theme: string) => void;
-  loading: Record<string, boolean>;
+  currentPage: string,`n  setCurrentPage: (page: string) => void,`n  realTimeData: any;,`n  setRealTimeData: (data: any) => void,`n  user: any;,`n  sidebarCollapsed: boolean,`n  setSidebarCollapsed: (collapsed: boolean) => void,`n  notifications: any[0];,`n  setNotifications: (notifications: any[0]) => void,`n  theme: string;,`n  setTheme: (theme: string) => void,`n  loading: Record<string, boolean>;
   setLoading: (loading: Record<string, boolean>) => void;
-  predictionEngine: any;
-  marketData: any;
-  setMarketData: (data: any) => void;
-}
+  predictionEngine: any,`n  marketData: any;,`n  setMarketData: (data: any) => void}
 
-const AppContext = createContext<AppContextType>({} as AppContextType);
+const AppContext = createContext<AppContextType>(Record<string, any> as AppContextType);
 
-const AppContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
+const AppContextProvider: FC<{ children: ReactNode}> = ({ children}) => {
   const [currentPage, setCurrentPage] = useState('dashboard');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [notifications, setNotifications] = useState<any[]>([]);
+  const [notifications, setNotifications] = useState<any[0]>([0]);
   const [theme, setTheme] = useState('quantum-dark');
-  const [loading, setLoading] = useState({});
+  const [loading, setLoading] = useState(Record<string, any>);
 
   // Real-time data from backend APIs with live fetching
   const [realTimeData, setRealTimeData] = useState({
@@ -85,7 +57,7 @@ const AppContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
     activeBots: 0,
     winStreak: 0,
     confidence: 0,
-    marketAnalysis: 'Loading...',
+    marketAnalysis: 'Loading...'
   });
 
   // Fetch real-time data from backend
@@ -112,19 +84,16 @@ const AppContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
           confidence: Math.round((analyticsData.machine_learning_insights?.model_confidence || 0) * 100 * 100) / 100,
           activeBots: healthData.models?.active_models || 0,
           winStreak: analyticsData.performance_analytics?.sport_breakdown?.NBA?.volume || 0,
-          marketAnalysis: analyticsData.market_analysis?.market_sentiment || 'Active',
-        });
-      } catch (error) {
-        console.error('Failed to fetch real-time data:', error);
-      }
+          marketAnalysis: analyticsData.market_analysis?.market_sentiment || 'Active'
+        })} catch (error) {
+        console.error('Failed to fetch real-time data: ', error)}
     };
 
     fetchRealTimeData();
 
     // Refresh data every 30 seconds
     const interval = setInterval(fetchRealTimeData, 30000);
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval);}, [0]);
 
   // User data (will be connected to real auth)
   const [user] = useState({
@@ -138,7 +107,7 @@ const AppContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
     level: 47,
     experience: 0,
     achievements: ['Neural Master', 'Quantum Sage', 'Profit Prophet'],
-    joinDate: '2023-01-15',
+    joinDate: '2023-01-15'
   });
 
   // Prediction engine data from backend
@@ -154,13 +123,13 @@ const AppContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
     dataStreams: 18,
     algorithmVersion: '4.7.3',
     uptime: '99.99%',
-    nextUpdate: '3min 47sec',
+    nextUpdate: '3min 47sec'
   });
 
   // Market data from backend APIs
   const [marketData, setMarketData] = useState({
-    trends: [],
-    hotGames: [],
+    trends: [0],
+    hotGames: [0]
   });
 
   // Fetch real data from backend APIs
@@ -182,7 +151,7 @@ const AppContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
         // Calculate real-time metrics from backend data
         const totalProfit = bettingData.reduce(
           (sum: number, bet: any) => sum + bet.expected_value * 1000,
-          0
+//           0
         );
         const avgConfidence =
           predictionsData.reduce((sum: number, pred: any) => sum + pred.confidenceScore, 0) /
@@ -201,7 +170,7 @@ const AppContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
           activeBots: 47,
           winStreak: Math.floor(Math.random() * 20) + 5,
           confidence: avgConfidence * 100,
-          marketAnalysis: totalProfit > 0 ? 'Bullish' : 'Neutral',
+          marketAnalysis: totalProfit > 0 ? 'Bullish' : 'Neutral'
         });
 
         // Update market trends from real data
@@ -210,28 +179,24 @@ const AppContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
           sport,
           movement: `+${(Math.random() * 3).toFixed(1)}%`,
           volume: Math.random() > 0.5 ? 'High' : 'Medium',
-          sentiment: 'Bullish',
+          sentiment: 'Bullish'
         }));
 
-        const hotGames = bettingData.slice(0, 3).map((bet: any) => ({
-          game: bet.event,
+        const hotGames = bettingData.slice(0, 3).map((bet: any) => ({,`n  game: bet.event,
           odds: bet.odds.toFixed(2),
           confidence: (bet.confidence * 100).toFixed(1),
-          volume: bet.expected_value > 0.06 ? 'Massive' : 'High',
+          volume: bet.expected_value > 0.06 ? 'Massive' : 'High'
         }));
 
-        setMarketData({ trends, hotGames });
-      } catch (error) {
+        setMarketData({ trends, hotGames});} catch (error) {
         console.error('Error fetching real-time data:', error);
-        // Keep default loading state if backend is unavailable
-      }
+        // Keep default loading state if backend is unavailable}
     };
 
     fetchRealTimeData();
     const interval = setInterval(fetchRealTimeData, 30000); // Update every 30 seconds
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval);}, [0]);
 
   const value = {
     currentPage,
@@ -249,11 +214,10 @@ const AppContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setLoading,
     predictionEngine,
     marketData,
-    setMarketData,
+//     setMarketData
   };
 
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
-};
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;};
 
 // ============================================
 // UI COMPONENTS
@@ -263,12 +227,11 @@ interface ButtonProps {
   label: string;
   onClick?: () => void;
   variant?: 'primary' | 'secondary' | 'success' | 'danger' | 'ghost' | 'neural';
-  className?: string;
-  icon?: string;
+  className?: string
+  icon?: string
   size?: 'sm' | 'md' | 'lg' | 'xl';
-  disabled?: boolean;
-  loading?: boolean;
-}
+  disabled?: boolean
+  loading?: boolean}
 
 const Button: FC<ButtonProps> = ({
   label,
@@ -278,9 +241,9 @@ const Button: FC<ButtonProps> = ({
   icon,
   size = 'md',
   disabled = false,
-  loading = false,
+  loading = false
 }) => {
-  const variants: { [key: string]: string } = {
+  const variants: { [key: string]: string} = {
     primary:
       'bg-gradient-to-r from-green-400 via-electric-400 to-cyan-400 text-black font-black shadow-neon hover:shadow-neon-pink',
     secondary:
@@ -291,53 +254,49 @@ const Button: FC<ButtonProps> = ({
     ghost:
       'bg-transparent border-2 border-electric-400 text-electric-400 hover:bg-electric-400 hover:text-black backdrop-blur-20',
     neural:
-      'bg-purple-600/50 hover:bg-purple-700/50 text-white border-2 border-purple-500 backdrop-blur-20',
+      'bg-purple-600/50 hover:bg-purple-700/50 text-white border-2 border-purple-500 backdrop-blur-20'
   };
 
-  const sizes: { [key: string]: string } = {
+  const sizes: { [key: string]: string} = {
     sm: 'px-4 py-2 text-sm',
     md: 'px-6 py-3',
     lg: 'px-8 py-4 text-lg',
-    xl: 'px-10 py-5 text-xl',
+    xl: 'px-10 py-5 text-xl'
   };
 
   return (
-    <button
-      onClick={onClick}
+    <button onClick={onClick}
       disabled={disabled || loading}
-      className={`${sizes[size]} rounded-2xl font-bold transition-all duration-300 flex items-center justify-center space-x-2 ${variants[variant]} ${disabled || loading ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}
-    >
+      className={`${sizes[size]} rounded-2xl font-bold transition-all duration-300 flex items-center justify-center space-x-2 ${variants[variant]} ${disabled || loading ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}>`n    >
       {loading && (
         <div className='w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin' />
       )}
       {!loading && icon && <i className={`fas ${icon}`} />}
       <span>{label}</span>
     </button>
-  );
-};
+  );};
 
 interface CardProps {
-  title?: string;
+  title?: string
   children: ReactNode;
-  className?: string;
-  glowing?: boolean;
-  variant?: 'default' | 'glass' | 'neural' | 'success' | 'warning' | 'quantum';
-}
+  className?: string
+  glowing?: boolean
+  variant?: 'default' | 'glass' | 'neural' | 'success' | 'warning' | 'quantum';}
 
 const Card: FC<CardProps> = ({
   title,
   children,
   className = '',
   glowing = false,
-  variant = 'default',
+  variant = 'default'
 }) => {
-  const variants: { [key: string]: string } = {
+  const variants: { [key: string]: string} = {
     default: 'quantum-card',
     glass: 'ultra-glass',
     neural: 'quantum-card border-purple-500/30',
     success: 'quantum-card border-green-500/30',
     warning: 'quantum-card border-yellow-500/30',
-    quantum: 'quantum-card border-blue-500/30',
+    quantum: 'quantum-card border-blue-500/30'
   };
 
   const glowClass = glowing ? 'shadow-neon' : '';
@@ -352,18 +311,14 @@ const Card: FC<CardProps> = ({
       )}
       <div>{children}</div>
     </div>
-  );
-};
+  );};
 
 interface MetricCardProps {
-  label: string;
-  value: string;
-  icon: string;
-  change?: string;
+  label: string,`n  value: string;,`n  icon: string;
+  change?: string
   trend?: 'up' | 'down' | 'neutral';
-  live?: boolean;
-  variant?: 'default' | 'neural' | 'quantum' | 'profit';
-}
+  live?: boolean
+  variant?: 'default' | 'neural' | 'quantum' | 'profit';}
 
 const MetricCard: FC<MetricCardProps> = ({
   label,
@@ -372,33 +327,29 @@ const MetricCard: FC<MetricCardProps> = ({
   change,
   trend = 'up',
   live = false,
-  variant = 'default',
+  variant = 'default'
 }) => {
   const trendColor =
     trend === 'up' ? 'text-green-400' : trend === 'down' ? 'text-red-400' : 'text-gray-400';
   const trendIcon =
     trend === 'up' ? 'fa-arrow-up' : trend === 'down' ? 'fa-arrow-down' : 'fa-minus';
 
-  const variants: { [key: string]: string } = {
+  const variants: { [key: string]: string} = {
     default: 'quantum-card',
     neural: 'quantum-card border-purple-500/20',
     quantum: 'quantum-card border-blue-500/20',
-    profit: 'quantum-card border-green-500/20',
+    profit: 'quantum-card border-green-500/20'
   };
 
   return (
-    <div
-      className={`${variants[variant]} rounded-2xl p-6 text-center hover:shadow-neon transition-all duration-500 transform hover:scale-105 hover:rotate-1`}
-    >
+    <div className={`${variants[variant]} rounded-2xl p-6 text-center hover: shadow-neon transition-all duration-500 transform hover:scale-105 hover:rotate-1`}>`n    >
       <div className='relative mb-4'>
         <div className='absolute inset-0 bg-electric-400/20 rounded-full blur-xl' />
         <div className={`relative text-4xl text-electric-400 ${live ? 'brain-pulse' : ''}`}>
           <i className={icon} />
         </div>
       </div>
-      <div
-        className={`text-3xl font-black mb-2 text-white font-cyber ${live ? 'animate-cyber-pulse' : ''}`}
-      >
+      <div className={`text-3xl font-black mb-2 text-white font-cyber ${live ? 'animate-cyber-pulse' : ''}`}>`n      >
         {value}
       </div>
       <div className='text-gray-400 text-sm mb-3 uppercase tracking-wider'>{label}</div>
@@ -409,8 +360,7 @@ const MetricCard: FC<MetricCardProps> = ({
         </div>
       )}
     </div>
-  );
-};
+  )};
 
 // ============================================
 // HEADER COMPONENT
@@ -424,7 +374,7 @@ const Header: React.FC = () => {
     realTimeData,
     sidebarCollapsed,
     setSidebarCollapsed,
-    notifications,
+//     notifications
   } = useContext(AppContext);
   const [showNotifications, setShowNotifications] = useState(false);
 
@@ -433,21 +383,18 @@ const Header: React.FC = () => {
     const currentIndex = themes.indexOf(theme);
     const nextTheme = themes[(currentIndex + 1) % themes.length];
     setTheme(nextTheme);
-    // applyTheme(nextTheme); // This function needs to be implemented in the context
-  };
+    // applyTheme(nextTheme); // This function needs to be implemented in the context};
 
   return (
     <header className='ultra-glass border-b border-white/10 sticky top-0 z-50 backdrop-blur-30'>
       <div className='max-w-full mx-auto px-6 py-4'>
         <div className='flex justify-between items-center'>
           <div className='flex items-center space-x-6'>
-            <button
-              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              className='lg:hidden p-3 rounded-xl hover:bg-gray-100/10 transition-all duration-300'
+            <button onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+              className='lg: hidden p-3 rounded-xl hover:bg-gray-100/10 transition-all duration-300'
               aria-label='Toggle sidebar'
             >
-              <svg
-                width='24'
+              <svg width='24'
                 height='24'
                 viewBox='0 0 24 24'
                 fill='none'
@@ -455,8 +402,7 @@ const Header: React.FC = () => {
                 strokeWidth='2'
                 strokeLinecap='round'
                 strokeLinejoin='round'
-                className='text-gray-300'
-              >
+                className='text-gray-300'>`n              >
                 <path d='M4 12h16' />
                 <path d='M4 6h16' />
                 <path d='M4 18h16' />
@@ -471,7 +417,7 @@ const Header: React.FC = () => {
               </div>
               <div>
                 <div className='holographic text-2xl font-black tracking-tight font-cyber'>
-                  A1BETTING
+//                   A1BETTING
                 </div>
                 <div className='text-xs text-gray-400 uppercase tracking-widest font-mono'>
                   Ultimate Brain 🧠 QUANTUM ACTIVE
@@ -499,19 +445,14 @@ const Header: React.FC = () => {
                 <span className='text-purple-400 font-mono font-bold'>{`${realTimeData.activeBots}/47`}</span>
               </div>
             </div>
-            <button
-              onClick={toggleTheme}
+            <button onClick={toggleTheme}
               className='p-3 rounded-xl hover:bg-gray-100/10 transition-all duration-300 hover:shadow-neon'
-              aria-label='Toggle theme'
-            >
+              aria-label='Toggle theme'>`n            >
               <i className='fas fa-palette text-electric-400 text-lg'></i>
             </button>
-            <button
-              className='p-3 rounded-xl hover:bg-gray-100/10 transition-all duration-300 hover:shadow-neon'
-              aria-label='Search'
-            >
-              <svg
-                width='20'
+            <button className='p-3 rounded-xl hover:bg-gray-100/10 transition-all duration-300 hover:shadow-neon'
+              aria-label='Search'>`n            >
+              <svg width='20'
                 height='20'
                 viewBox='0 0 24 24'
                 fill='none'
@@ -519,20 +460,17 @@ const Header: React.FC = () => {
                 strokeWidth='2'
                 strokeLinecap='round'
                 strokeLinejoin='round'
-                className='text-gray-400'
-              >
+                className='text-gray-400'>`n              >
                 <circle cx='11' cy='11' r='8' />
                 <path d='m21 21-4.35-4.35' />
               </svg>
             </button>
             <div className='relative'>
-              <button
-                onClick={() => setShowNotifications(!showNotifications)}
+              <button onClick={() => setShowNotifications(!showNotifications)}
                 className='relative p-3 rounded-xl hover:bg-gray-100/10 transition-all duration-300 hover:shadow-neon'
                 aria-label='Notifications'
               >
-                <svg
-                  width='20'
+                <svg width='20'
                   height='20'
                   viewBox='0 0 24 24'
                   fill='none'
@@ -540,8 +478,7 @@ const Header: React.FC = () => {
                   strokeWidth='2'
                   strokeLinecap='round'
                   strokeLinejoin='round'
-                  className='text-gray-400'
-                >
+                  className='text-gray-400'>`n                >
                   <path d='M6 8A6 6 0 0 1 18 8c0 7 3 9 3 9H3s3-2 3-9' />
                   <path d='M13.73 21a2 2 0 0 1-3.46 0' />
                 </svg>
@@ -573,10 +510,8 @@ const Header: React.FC = () => {
                 <div className='font-bold text-white text-sm'>{user.name}</div>
                 <div className='text-xs text-electric-400 font-mono'>{`${user.tier} • LVL ${user.level}`}</div>
               </div>
-              <button
-                className='relative w-12 h-12 bg-gradient-to-br from-electric-400 via-neon-blue to-neon-purple rounded-xl flex items-center justify-center hover:shadow-neon transition-all duration-300 transform hover:scale-105 hover:rotate-3'
-                aria-label='Profile'
-              >
+              <button className='relative w-12 h-12 bg-gradient-to-br from-electric-400 via-neon-blue to-neon-purple rounded-xl flex items-center justify-center hover:shadow-neon transition-all duration-300 transform hover:scale-105 hover:rotate-3'
+                aria-label='Profile'>`n              >
                 <span className='text-black font-black text-lg font-cyber'>
                   {user.name.charAt(0)}
                 </span>
@@ -586,15 +521,14 @@ const Header: React.FC = () => {
           </div>
         </div>
     </header>
-  );
-};
+  )};
 
 // ============================================
 // SIDEBAR COMPONENT
 // ============================================
 
 const Sidebar: React.FC = () => {
-  const { currentPage, setCurrentPage, realTimeData, sidebarCollapsed } =
+  const { currentPage, setCurrentPage, realTimeData, sidebarCollapsed} =
     useContext(AppContext);
 
   const navigation = [
@@ -604,7 +538,7 @@ const Sidebar: React.FC = () => {
       icon: 'fa-home',
       category: 'main',
       indicator: '🧠',
-      color: 'text-electric-400',
+      color: 'text-electric-400'
     },
     {
       name: 'Money Maker',
@@ -612,7 +546,7 @@ const Sidebar: React.FC = () => {
       icon: 'fa-dollar-sign',
       category: 'main',
       indicator: '💰',
-      color: 'text-green-400',
+      color: 'text-green-400'
     },
     {
       name: 'PrizePicks Pro',
@@ -620,7 +554,7 @@ const Sidebar: React.FC = () => {
       icon: 'fa-trophy',
       category: 'main',
       indicator: '🏆',
-      color: 'text-yellow-400',
+      color: 'text-yellow-400'
     },
     {
       name: 'PropOllama',
@@ -628,7 +562,7 @@ const Sidebar: React.FC = () => {
       icon: 'fa-comments',
       category: 'ai',
       indicator: '🤖',
-      color: 'text-blue-400',
+      color: 'text-blue-400'
     },
     {
       name: 'ML Center',
@@ -636,7 +570,7 @@ const Sidebar: React.FC = () => {
       icon: 'fa-brain',
       category: 'ai',
       indicator: '🧠',
-      color: 'text-purple-400',
+      color: 'text-purple-400'
     },
     {
       name: 'Quantum Predictions',
@@ -644,7 +578,7 @@ const Sidebar: React.FC = () => {
       icon: 'fa-atom',
       category: 'ai',
       indicator: '⚛️',
-      color: 'text-cyan-400',
+      color: 'text-cyan-400'
     },
     {
       name: 'Neural Analytics',
@@ -652,7 +586,7 @@ const Sidebar: React.FC = () => {
       icon: 'fa-chart-line',
       category: 'insights',
       indicator: '📊',
-      color: 'text-indigo-400',
+      color: 'text-indigo-400'
     },
     {
       name: 'Real-time Monitor',
@@ -660,7 +594,7 @@ const Sidebar: React.FC = () => {
       icon: 'fa-eye',
       category: 'insights',
       indicator: '👁️',
-      color: 'text-orange-400',
+      color: 'text-orange-400'
     },
     {
       name: 'Market Intelligence',
@@ -668,14 +602,14 @@ const Sidebar: React.FC = () => {
       icon: 'fa-chart-bar',
       category: 'insights',
       indicator: '📈',
-      color: 'text-pink-400',
+      color: 'text-pink-400'
     },
     {
       name: 'Settings',
       key: 'settings',
       icon: 'fa-cog',
       category: 'account',
-      color: 'text-gray-400',
+      color: 'text-gray-400'
     },
     {
       name: 'Admin Quantum',
@@ -683,30 +617,27 @@ const Sidebar: React.FC = () => {
       icon: 'fa-shield-alt',
       category: 'account',
       indicator: '🛡️',
-      color: 'text-red-400',
+      color: 'text-red-400'
     },
   ];
 
-  const categories: { [key: string]: string } = {
+  const categories: { [key: string]: string} = {
     main: 'Core Quantum Features',
     ai: 'AI & Neural Networks',
     insights: 'Intelligence & Analytics',
-    account: 'System Control',
+    account: 'System Control'
   };
 
   const groupedNav = navigation.reduce(
     (acc, item) => {
-      if (!acc[item.category]) acc[item.category] = [];
+      if (!acc[item.category]) acc[item.category] = [0];
       acc[item.category].push(item);
-      return acc;
-    },
-    {} as Record<string, typeof navigation>
+      return acc;},
+    Record<string, any> as Record<string, typeof navigation>
   );
 
   return (
-    <div
-      className={`${sidebarCollapsed ? 'w-20' : 'w-96'} ultra-glass h-screen border-r border-white/10 flex flex-col transition-all duration-500 ease-in-out`}
-    >
+    <div className={`${sidebarCollapsed ? 'w-20' : 'w-96'} ultra-glass h-screen border-r border-white/10 flex flex-col transition-all duration-500 ease-in-out`}>`n    >
       <div className='p-6 border-b border-white/10'>
         {!sidebarCollapsed && (
           <div className='flex items-center space-x-4 mb-8'>
@@ -721,12 +652,10 @@ const Sidebar: React.FC = () => {
         )}
 
         <nav className='space-y-3'>
-          <button
-            onClick={() => setCurrentPage('dashboard')}
+          <button onClick={() => setCurrentPage('dashboard')}
             className={`w-full flex items-center ${sidebarCollapsed ? 'justify-center' : 'justify-between'} px-4 py-4 rounded-2xl transition-all duration-300 ${currentPage === 'dashboard'
               ? 'bg-electric-500/20 border-2 border-electric-500/40 text-electric-400 shadow-neon'
-              : 'bg-gray-800/30 hover:bg-gray-800/50 text-gray-300 border-2 border-transparent hover:border-gray-600'
-              }`}
+              : 'bg-gray-800/30 hover: bg-gray-800/50 text-gray-300 border-2 border-transparent hover:border-gray-600'}`}
           >
             <div className={`flex items-center ${sidebarCollapsed ? '' : 'space-x-4'}`}>
               <i className='fas fa-home text-xl' />
@@ -749,12 +678,10 @@ const Sidebar: React.FC = () => {
               <ul className='space-y-2'>
                 {items.map((item) => (
                   <li key={item.key}>
-                    <button
-                      onClick={() => setCurrentPage(item.key)}
+                    <button onClick={() => setCurrentPage(item.key)}
                       className={`w-full flex items-center ${sidebarCollapsed ? 'justify-center' : ''} space-x-4 px-4 py-3 rounded-2xl transition-all duration-300 ${currentPage === item.key
                         ? 'bg-electric-500/20 text-electric-400 shadow-neon'
-                        : 'hover:bg-gray-800/50 text-gray-300'
-                        }`}
+                        : 'hover:bg-gray-800/50 text-gray-300'}`}
                     >
                       <i className={`fas ${item.icon} ${item.color} text-lg w-6 text-center`} />
                       {!sidebarCollapsed && (
@@ -797,15 +724,14 @@ const Sidebar: React.FC = () => {
         </div>
       )}
     </div>
-  );
-};
+  )};
 
 // ============================================
 // DASHBOARD COMPONENT
 // ============================================
 
 const Dashboard: FC = () => {
-  const { realTimeData, marketData, setCurrentPage } = useContext(AppContext);
+  const { realTimeData, marketData, setCurrentPage} = useContext(AppContext);
 
   const gameCardStyles = [
     {
@@ -814,7 +740,7 @@ const Dashboard: FC = () => {
       liveTracker: 'text-green-400',
       pulseBg: 'bg-green-400',
       confidenceText: 'text-green-400',
-      confidenceBar: 'bg-gradient-to-r from-green-400 to-green-500',
+      confidenceBar: 'bg-gradient-to-r from-green-400 to-green-500'
     },
     {
       container: 'from-blue-500/10 to-blue-600/5 border-blue-500/30',
@@ -822,7 +748,7 @@ const Dashboard: FC = () => {
       liveTracker: 'text-blue-400',
       pulseBg: 'bg-blue-400',
       confidenceText: 'text-blue-400',
-      confidenceBar: 'bg-gradient-to-r from-blue-400 to-blue-500',
+      confidenceBar: 'bg-gradient-to-r from-blue-400 to-blue-500'
     },
     {
       container: 'from-purple-500/10 to-purple-600/5 border-purple-500/30',
@@ -830,7 +756,7 @@ const Dashboard: FC = () => {
       liveTracker: 'text-purple-400',
       pulseBg: 'bg-purple-400',
       confidenceText: 'text-purple-400',
-      confidenceBar: 'bg-gradient-to-r from-purple-400 to-purple-500',
+      confidenceBar: 'bg-gradient-to-r from-purple-400 to-purple-500'
     },
   ];
 
@@ -852,42 +778,34 @@ const Dashboard: FC = () => {
       </div>
 
       {/* Enhanced Real-Time Metrics Grid */}
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>
-        <MetricCard
-          label='Neural Activity'
-          value={`${realTimeData.neuralActivity.toFixed(1)}%`}
+      <div className='grid grid-cols-1 md: grid-cols-2 lg:grid-cols-4 gap-8'>
+        <MetricCard label='Neural Activity'
+          value={`${isNaN(Number(realTimeData?.neuralActivity)) ? "N/A" : Number(realTimeData?.neuralActivity).toFixed(1)}%`}
           icon='fa-brain'
           change='+2.1%'
           trend='up'
           live={true}
-          variant='neural'
-        />
-        <MetricCard
-          label='Quantum Coherence'
-          value={`${realTimeData.quantumCoherence.toFixed(2)}%`}
+          variant='neural'>`n        />
+        <MetricCard label='Quantum Coherence'
+          value={`${isNaN(Number(realTimeData?.quantumCoherence)) ? "N/A" : Number(realTimeData?.quantumCoherence).toFixed(2)}%`}
           icon='fa-atom'
           change='+0.03%'
           trend='up'
           live={true}
-          variant='quantum'
-        />
-        <MetricCard
-          label='Real-Time Accuracy'
-          value={`${realTimeData.accuracy.toFixed(1)}%`}
+          variant='quantum'>`n        />
+        <MetricCard label='Real-Time Accuracy'
+          value={`${isNaN(Number(realTimeData?.accuracy)) ? "N/A" : Number(realTimeData?.accuracy).toFixed(1)}%`}
           icon='fa-target'
           change='+0.4%'
           trend='up'
-          live={true}
-        />
-        <MetricCard
-          label='Live Profit Stream'
+          live={true}>`n        />
+        <MetricCard label='Live Profit Stream'
           value={`$${realTimeData.profit.toLocaleString()}`}
           icon='fa-chart-line'
           change='+$2.7K'
           trend='up'
           live={true}
-          variant='profit'
-        />
+          variant='profit'>`n        />
       </div>
 
       {/* Enhanced Status Bar */}
@@ -909,10 +827,8 @@ const Dashboard: FC = () => {
       {marketData.hotGames && marketData.hotGames.length > 0 && (
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
           {marketData.hotGames.map((game: any, index: number) => (
-            <div
-              key={index}
-              className={`quantum-card rounded-3xl p-6 bg-gradient-to-br ${gameCardStyles[index % 3].container} transform hover:scale-105 transition-transform duration-300`}
-            >
+            <div key={index}
+              className={`quantum-card rounded-3xl p-6 bg-gradient-to-br ${gameCardStyles[index % 3].container} transform hover:scale-105 transition-transform duration-300`}>`n            >
               <div className='flex justify-between items-start mb-4'>
                 <div>
                   <h4 className={`text-lg font-bold ${gameCardStyles[index % 3].title}`}>{game.game}</h4>
@@ -921,7 +837,7 @@ const Dashboard: FC = () => {
                 <div className='relative'>
                   <div className={`absolute -inset-1 ${gameCardStyles[index % 3].pulseBg}/30 rounded-full animate-pulse`}></div>
                   <div className={`relative w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg ${gameCardStyles[index % 3].liveTracker}`}>
-                    LIVE
+//                     LIVE
                   </div>
                 </div>
               </div>
@@ -930,10 +846,8 @@ const Dashboard: FC = () => {
                 <p className={`text-3xl font-black ${gameCardStyles[index % 3].confidenceText}`}>{game.confidence}%</p>
               </div>
               <div className='w-full bg-gray-700/50 rounded-full h-2.5'>
-                <div
-                  className={`h-2.5 rounded-full ${gameCardStyles[index % 3].confidenceBar}`}
-                  style={{ width: `${game.confidence}%` }}
-                ></div>
+                <div className={`h-2.5 rounded-full ${gameCardStyles[index % 3].confidenceBar}`}
+                  style={{ width: `${game.confidence}%`}}>`n                ></div>
               </div>
               <div className='text-center mt-4'>
                 <p className='text-sm text-gray-400'>Market Volume</p>
@@ -970,22 +884,20 @@ const Dashboard: FC = () => {
         </div>
       </Card>
     </div>
-  );
-};
+  )};
 
 // ============================================
 // MONEY MAKER COMPONENT
 // ============================================
 
 const MoneyMaker: React.FC = () => {
-  const { realTimeData, setRealTimeData } = useContext(AppContext);
+  const { realTimeData, setRealTimeData} = useContext(AppContext);
   const [activeTab, setActiveTab] = useState('live');
   const [opportunities, setOpportunities] = useState<OpportunitiesData>({
-    live: [],
-    upcoming: [],
-    value: [],
-    arbitrage: []
-  });
+    live: [0],
+    upcoming: [0],
+    value: [0],
+    arbitrage: [0]});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -1004,8 +916,7 @@ const MoneyMaker: React.FC = () => {
         ]);
 
         // Transform backend data to frontend format
-        const liveOpportunities = bettingData.map((bet: any, index: number) => ({
-          id: index + 1,
+        const liveOpportunities = bettingData.map((bet: any, index: number) => ({,`n  id: index + 1,
           game: bet.event || `${bet.home_team} vs ${bet.away_team}`,
           market: bet.market || 'Spread',
           pick: bet.recommendation || bet.selection,
@@ -1013,11 +924,10 @@ const MoneyMaker: React.FC = () => {
           confidence: (bet.confidence * 100) || 85,
           ev: (bet.expected_value * 100) || 5,
           source: bet.model || 'Quantum AI',
-          time: bet.start_time || 'Live',
+          time: bet.start_time || 'Live'
         }));
 
-        const arbitrageOpportunities = arbitrageData.map((arb: any, index: number) => ({
-          id: index + 100,
+        const arbitrageOpportunities = arbitrageData.map((arb: any, index: number) => ({,`n  id: index + 100,
           game: arb.event || `${arb.team1} vs ${arb.team2}`,
           market: 'Arbitrage',
           pick: arb.strategy || 'Multi-book',
@@ -1025,11 +935,10 @@ const MoneyMaker: React.FC = () => {
           confidence: 99.5, // Arbitrage is guaranteed profit
           ev: (arb.profit_margin * 100) || 3,
           source: 'Arbitrage Engine',
-          time: arb.start_time || 'Live',
+          time: arb.start_time || 'Live'
         }));
 
-        const valueOpportunities = valueBets.map((value: any, index: number) => ({
-          id: index + 200,
+        const valueOpportunities = valueBets.map((value: any, index: number) => ({,`n  id: index + 200,
           game: value.event || `${value.home_team} vs ${value.away_team}`,
           market: value.market || 'Value Bet',
           pick: value.selection || value.recommendation,
@@ -1037,36 +946,29 @@ const MoneyMaker: React.FC = () => {
           confidence: (value.confidence * 100) || 80,
           ev: (value.expected_value * 100) || 8,
           source: 'Value Engine',
-          time: value.start_time || 'Upcoming',
+          time: value.start_time || 'Upcoming'
         }));
 
         setOpportunities({
           live: liveOpportunities.filter((_, i) => i % 2 === 0), // Live games
           upcoming: liveOpportunities.filter((_, i) => i % 2 === 1), // Upcoming games
           value: valueOpportunities,
-          arbitrage: arbitrageOpportunities
-        });
-
-      } catch (err) {
+          arbitrage: arbitrageOpportunities})} catch (err) {
         console.error('Error fetching opportunities:', err);
         setError('Failed to load opportunities. Please try again.');
         // Fallback to empty state
         setOpportunities({
-          live: [],
-          upcoming: [],
-          value: [],
-          arbitrage: []
-        });
-      } finally {
-        setLoading(false);
-      }
+          live: [0],
+          upcoming: [0],
+          value: [0],
+          arbitrage: [0]})} finally {
+        setLoading(false);}
     };
 
     fetchOpportunities();
     const interval = setInterval(fetchOpportunities, 30000); // Update every 30 seconds
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval);}, [0]);
 
   return (
     <div className='space-y-8 animate-slide-in-up'>
@@ -1077,27 +979,23 @@ const MoneyMaker: React.FC = () => {
         </p>
       </div>
 
-      <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
+      <div className='grid grid-cols-1 lg: grid-cols-3 gap-8'>
         <div className='lg:col-span-1 space-y-8'>
           <Card title='Configuration Matrix' variant='neural'>
             <div className='space-y-6'>
               <div>
                 <label className='text-sm font-bold text-gray-400 font-mono'>Risk Appetite</label>
-                <input
-                  type='range'
+                <input type='range'
                   min='1'
                   max='100'
                   defaultValue='75'
-                  className='w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer range-lg'
-                />
+                  className='w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer range-lg'>`n                />
               </div>
               <div>
                 <label className='text-sm font-bold text-gray-400 font-mono'>Minimum EV</label>
-                <input
-                  type='number'
+                <input type='number'
                   defaultValue='5'
-                  className='w-full p-3 rounded-lg bg-gray-800/50 border-2 border-gray-700'
-                />
+                  className='w-full p-3 rounded-lg bg-gray-800/50 border-2 border-gray-700'>`n                />
               </div>
               <div>
                 <label className='text-sm font-bold text-gray-400 font-mono'>AI Models</label>
@@ -1106,12 +1004,10 @@ const MoneyMaker: React.FC = () => {
                   <Button label='Neural Net' variant='secondary' size='sm' />
                 </div>
               </div>
-              <Button
-                label='Apply & Recalculate'
+              <Button label='Apply & Recalculate'
                 variant='ghost'
                 className='w-full'
-                icon='fas fa-cogs'
-              />
+                icon='fas fa-cogs'>`n              />
             </div>
           </Card>
           <Card title='Business Rules & Overrides' variant='quantum'>
@@ -1120,11 +1016,9 @@ const MoneyMaker: React.FC = () => {
                 <label className='text-sm font-bold text-gray-400 font-mono'>
                   Max Bet Size ($)
                 </label>
-                <input
-                  type='number'
+                <input type='number'
                   defaultValue='1000'
-                  className='w-full p-3 rounded-lg bg-gray-800/50 border-2 border-gray-700'
-                />
+                  className='w-full p-3 rounded-lg bg-gray-800/50 border-2 border-gray-700'>`n                />
               </div>
               <div>
                 <label className='text-sm font-bold text-gray-400 font-mono'>Allowed Sports</label>
@@ -1164,10 +1058,8 @@ const MoneyMaker: React.FC = () => {
           <Card title='Live Bet Radar' variant='success'>
             <div className='space-y-4'>
               {opportunities.live.map(opp => (
-                <div
-                  key={opp.id}
-                  className='p-4 bg-green-500/10 rounded-xl border border-green-500/20'
-                >
+                <div key={opp.id}
+                  className='p-4 bg-green-500/10 rounded-xl border border-green-500/20'>`n                >
                   <div className='flex justify-between items-center'>
                     <div>
                       <p className='font-bold text-white'>{opp.game}</p>
@@ -1186,32 +1078,23 @@ const MoneyMaker: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )};
 
 interface PrizePicksProp {
-  id: number;
-  player: string;
-  stat: string;
-  line: number;
-  position: string;
-  team: string;
-  game: string;
-  odds?: number;
-  confidence?: number;
-}
+  id: number,`n  player: string;,`n  stat: string,`n  line: number;,`n  position: string,`n  team: string;,`n  game: string;
+  odds?: number
+  confidence?: number}
 
 interface LineupProp extends PrizePicksProp {
-  overUnder: 'over' | 'under';
-}
+  overUnder: 'over' | 'under'}
 
 // ============================================
 // PRIZEPICKS COMPONENT
 // ============================================
 
 const PrizePicks: React.FC = () => {
-  const [props, setProps] = useState<PrizePicksProp[]>([]);
-  const [lineup, setLineup] = useState<LineupProp[]>([]);
+  const [props, setProps] = useState<PrizePicksProp[0]>([0]);
+  const [lineup, setLineup] = useState<LineupProp[0]>([0]);
   const [entryAmount, setEntryAmount] = useState<number>(10);
   const [payout, setPayout] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
@@ -1226,8 +1109,7 @@ const PrizePicks: React.FC = () => {
         const data = await productionApiService.getPrizePicksProps();
 
         // Transform backend data to frontend format
-        const formattedProps = data.map((prop: any, index: number) => ({
-          id: prop.id || index,
+        const formattedProps = data.map((prop: any, index: number) => ({,`n  id: prop.id || index,
           player: prop.player_name || prop.player,
           stat: prop.stat_type || prop.market,
           line: prop.line || prop.threshold,
@@ -1235,50 +1117,39 @@ const PrizePicks: React.FC = () => {
           team: prop.team || prop.team_name,
           game: prop.game || `${prop.home_team} vs ${prop.away_team}`,
           odds: prop.odds || 1.9,
-          confidence: (prop.confidence * 100) || 75
-        }));
+          confidence: (prop.confidence * 100) || 75}));
 
-        setProps(formattedProps);
-      } catch (err) {
+        setProps(formattedProps);} catch (err) {
         console.error('Error fetching PrizePicks props:', err);
         setError('Failed to fetch props. Please try again later.');
-        setProps([]); // Set empty array on error
-      } finally {
-        setLoading(false);
-      }
+        setProps([0]); // Set empty array on error} finally {
+        setLoading(false);}
     };
-    fetchProps();
-  }, []);
+    fetchProps();}, [0]);
 
   const handleSelectProp = (prop: PrizePicksProp, overUnder: 'over' | 'under') => {
     setError(null);
     if (lineup.length >= 6) {
       setError('Maximum of 6 picks allowed.');
-      return;
-    }
+      return;}
     if (lineup.find(p => p.player === prop.player)) {
       setError('Only one prop per player is allowed.');
-      return;
-    }
-    setLineup([...lineup, { ...prop, overUnder }]);
-  };
+      return;}
+    setLineup([...lineup, { ...prop, overUnder}]);};
 
   const handleRemoveProp = (propId: number) => {
-    setLineup(lineup.filter(p => p.id !== propId));
-  };
+    setLineup(lineup.filter(p => p.id !== propId))};
 
   const handleEntryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const amount = parseInt(e.target.value, 10);
     if (amount >= 5 && amount <= 100) {
-      setEntryAmount(amount);
-    }
+      setEntryAmount(amount);}
   };
 
   useEffect(() => {
-    const multipliers: { [key: number]: number } = { 2: 3, 3: 5, 4: 10, 5: 20, 6: 35 };
+    const multipliers: { [key: number]: number} = { 2: 3, 3: 5, 4: 10, 5: 20, 6: 35};
     const multiplier = multipliers[lineup.length] || 0;
-    setPayout(entryAmount * multiplier);
-  }, [lineup, entryAmount]);
+    setPayout(entryAmount * multiplier);}, [lineup, entryAmount]);
 
   return (
     <div className='space-y-8 animate-slide-in-up'>
@@ -1289,16 +1160,14 @@ const PrizePicks: React.FC = () => {
         </p>
       </div>
 
-      <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
+      <div className='grid grid-cols-1 lg: grid-cols-3 gap-8'>
         <div className='lg:col-span-2 space-y-8'>
           <Card title='Available Player Props' variant='neural'>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
               {error && <p className='text-red-500 col-span-full'>{error}</p>}
               {props.map(prop => (
-                <div
-                  key={prop.id}
-                  className='p-6 bg-blue-500/10 rounded-2xl border border-blue-500/20 transition-all duration-300 hover:shadow-neon'
-                >
+                <div key={prop.id}
+                  className='p-6 bg-blue-500/10 rounded-2xl border border-blue-500/20 transition-all duration-300 hover:shadow-neon'>`n                >
                   <div className='flex justify-between items-center mb-4'>
                     <div>
                       <p className='font-bold text-xl text-white font-cyber'>{prop.player}</p>
@@ -1307,15 +1176,11 @@ const PrizePicks: React.FC = () => {
                     <div className='text-lg font-bold text-electric-400'>{prop.line}</div>
                   </div>
                   <div className='grid grid-cols-2 gap-4'>
-                    <Button
-                      label='Over'
-                      variant='success'
-                      onClick={() => handleSelectProp(prop, 'over')}
+                    <Button label='Over'
+                      variant='success'>`n                      onClick={() => handleSelectProp(prop, 'over')}
                     />
-                    <Button
-                      label='Under'
-                      variant='danger'
-                      onClick={() => handleSelectProp(prop, 'under')}
+                    <Button label='Under'
+                      variant='danger'>`n                      onClick={() => handleSelectProp(prop, 'under')}
                     />
                   </div>
                 </div>
@@ -1328,16 +1193,13 @@ const PrizePicks: React.FC = () => {
           <Card title='Your Lineup' variant='success'>
             <div className='space-y-4'>
               {lineup.map(prop => (
-                <div
-                  key={prop.id}
-                  className='flex items-center justify-between p-3 bg-green-500/10 rounded-lg'
-                >
+                <div key={prop.id}
+                  className='flex items-center justify-between p-3 bg-green-500/10 rounded-lg'>`n                >
                   <div>
                     <p className='font-bold text-white'>{prop.player}</p>
                     <p className='text-sm text-gray-300'>{`${prop.stat} ${prop.overUnder === 'over' ? 'Over' : 'Under'} ${prop.line}`}</p>
                   </div>
-                  <button
-                    onClick={() => handleRemoveProp(prop.id)}
+                  <button onClick={() => handleRemoveProp(prop.id)}
                     className='text-red-500 hover:text-red-400'
                   >
                     <i className='fas fa-times-circle'></i>
@@ -1355,34 +1217,29 @@ const PrizePicks: React.FC = () => {
                 <label className='text-sm font-bold text-gray-400 font-mono'>
                   Entry Amount ($5 - $100)
                 </label>
-                <input
-                  type='number'
+                <input type='number'
                   value={entryAmount}
                   onChange={handleEntryChange}
                   min='5'
                   max='100'
-                  className='w-full p-3 rounded-lg bg-gray-800/50 border-2 border-gray-700 mt-2'
-                />
+                  className='w-full p-3 rounded-lg bg-gray-800/50 border-2 border-gray-700 mt-2'>`n                />
               </div>
               <div className='text-center'>
                 <p className='text-gray-400 font-mono'>Potential Payout</p>
                 <p className='text-4xl font-black text-green-400 font-cyber'>{`$${payout.toFixed(2)}`}</p>
                 <p className='text-sm text-gray-400'>{`(${lineup.length} picks x${payout / entryAmount || 0})`}</p>
               </div>
-              <Button
-                label='Submit Entry'
+              <Button label='Submit Entry'
                 variant='primary'
                 size='lg'
                 className='w-full'
-                disabled={lineup.length < 2}
-              />
+                disabled={lineup.length < 2}>`n              />
             </div>
           </Card>
         </div>
       </div>
     </div>
-  );
-};
+  )};
 
 // ============================================
 // MAIN APP COMPONENT
@@ -1403,11 +1260,10 @@ const A1BettingQuantumPlatform: React.FC = () => {
         </div>
       </div>
     </AppContextProvider>
-  );
-};
+  )};
 
 const PageContent: FC = () => {
-  const { currentPage } = useContext(AppContext);
+  const { currentPage} = useContext(AppContext);
 
   switch (currentPage) {
     case 'dashboard':
@@ -1418,9 +1274,13 @@ const PageContent: FC = () => {
       return <MoneyMaker />;
     case 'propollama':
       return <PropOllama />;
-    default:
-      return <Dashboard />;
-  }
+    default: return <Dashboard />}
 };
 
 export default A1BettingQuantumPlatform;
+
+
+
+
+
+`

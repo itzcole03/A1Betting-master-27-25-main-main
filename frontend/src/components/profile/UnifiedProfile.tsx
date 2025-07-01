@@ -1,15 +1,15 @@
-import React, { useState  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React, { useState} from 'react';
+import { motion} from 'framer-motion';
 import {
   User,
   Settings,
   TrendingUp,
   DollarSign,
   Award,
-  Target,
-} from 'lucide-react.ts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card.ts';
-import { Badge } from '@/ui/badge.ts';
+//   Target
+} from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle} from '@/ui/card';
+import { Badge} from '@/ui/badge';
 
 export const UnifiedProfile: React.FC = () => {
   const [user] = useState({
@@ -18,40 +18,39 @@ export const UnifiedProfile: React.FC = () => {
     memberSince: "2023-01-15",
     tier: "Premium",
     avatar: null,
-    stats: {
-      totalProfit: 15420.75,
+    stats: {,`n  totalProfit: 15420.75,
       winRate: 68.5,
       totalBets: 234,
-      avgROI: 12.3,
+      avgROI: 12.3
     },
     achievements: [
       {
         id: 1,
         title: "High Roller",
         description: "Placed $10k+ in bets",
-        icon: "💰",
+        icon: "💰"
       },
       {
         id: 2,
         title: "Accuracy Expert",
         description: "70%+ win rate for 30 days",
-        icon: "🎯",
+        icon: "🎯"
       },
       {
         id: 3,
         title: "Streak Master",
         description: "10+ win streak achieved",
-        icon: "🔥",
+        icon: "🔥"
       },
-    ],
+    ]
   });
 
   return (
     <div className="space-y-6" key={501869}>
       {/* Header */}
       <motion.div;
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: -20}}
+        animate={{ opacity: 1, y: 0}}
         className="text-center mb-8"
        key={951381}>
         <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent" key={11526}>
@@ -196,5 +195,8 @@ export const UnifiedProfile: React.FC = () => {
         </CardContent>
       </Card>
     </div>
-  );
-};
+  );};
+
+
+
+`

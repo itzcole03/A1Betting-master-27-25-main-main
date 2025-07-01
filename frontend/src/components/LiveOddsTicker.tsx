@@ -1,11 +1,10 @@
-import React from 'react.ts';
-import { LiveOddsTickerProps, BookOdds } from '@/types/betting.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+﻿import React from 'react'
+import { LiveOddsTickerProps, BookOdds} from '@/types/betting'
+import { motion, AnimatePresence} from 'framer-motion'
 
-const LiveOddsTicker: React.FC<LiveOddsTickerProps key={15618}> = ({ data, className = '' }) => {
+const LiveOddsTicker: React.FC<LiveOddsTickerProps key={15618}> = ({ data, className = ''}) => {
   if (!data || Object.keys(data).length === 0) {
-    return <div className={`p-4 text-gray-500 ${className}`} key={905983}>No live odds available</div>;
-  }
+    return <div className={`p-4 text-gray-500 ${className}`} key={905983}>No live odds available</div>}
 
   return (
     <div className={`space-y-4 ${className}`} key={838349}>
@@ -14,10 +13,10 @@ const LiveOddsTicker: React.FC<LiveOddsTickerProps key={15618}> = ({ data, class
         {Object.entries(data as Record<string, BookOdds key={202611}>).map(([market, bookOdds], index) => (
           <motion.div;
             key={market}
-            animate={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0}}
             className="bg-white rounded-lg p-4 shadow-sm"
-            initial={{ opacity: 0, y: 20 }}
-            transition={{ delay: index * 0.1 }}
+            initial={{ opacity: 0, y: 20}}
+            transition={{ delay: index * 0.1}}
            key={610651}>
             <div className="flex justify-between items-center mb-2" key={88839}>
               <span className="font-medium" key={514486}>{market}</span>
@@ -34,7 +33,11 @@ const LiveOddsTicker: React.FC<LiveOddsTickerProps key={15618}> = ({ data, class
         ))}
       </div>
     </div>
-  );
-};
+  )};
 
 export default React.memo(LiveOddsTicker);
+
+
+
+
+`

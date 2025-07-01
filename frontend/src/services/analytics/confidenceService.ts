@@ -1,43 +1,44 @@
-// confidenceService.ts;
+﻿// confidenceService.ts;
 // Singleton service for prediction confidence bands and win probability analytics;
 
-import type { ConfidenceBand, WinProbability, PredictionWithConfidence } from '@/types/confidence.ts';
+import type {
+  ConfidenceBand,
+  WinProbability,
+//   PredictionWithConfidence
+} from '@/types/confidence';
 
 class ConfidenceService {
   private static _instance: ConfidenceService;
   private cache: Map<string, PredictionWithConfidence> = new Map();
 
-  private constructor() {}
+  private constructor() Record<string, any>
 
   public static getInstance(): ConfidenceService {
     if (!ConfidenceService._instance) {
-      ConfidenceService._instance = new ConfidenceService();
-    }
-    return ConfidenceService._instance;
-  }
+      ConfidenceService._instance = new ConfidenceService();}
+    return ConfidenceService._instance;}
 
   // Simulate or fetch prediction with confidence;
-  public getPredictionWithConfidence(eventId: string, player: string, market: string): PredictionWithConfidence {
-
+  public getPredictionWithConfidence(
+    eventId: string,
+    player: string,
+    market: string
+  ): PredictionWithConfidence {
     if (this.cache.has(cacheKey)) {
-      return this.cache.get(cacheKey)!;
-    }
+      return this.cache.get(cacheKey)!}
     // Simulate (replace with real logic or API call)
 
-    const confidenceBand: ConfidenceBand = {
-      lower: Math.random() * 10 + 10,
+    const confidenceBand: ConfidenceBand = {,`n  lower: Math.random() * 10 + 10,
       upper: Math.random() * 10 + 20,
       mean: Math.random() * 5 + 15,
-      confidenceLevel: 0.95,
+      confidenceLevel: 0.95
     };
-    const winProbability: WinProbability = {
-      probability: Math.random() * 0.5 + 0.25,
+    const winProbability: WinProbability = {,`n  probability: Math.random() * 0.5 + 0.25,
       impliedOdds: 1 / (Math.random() * 0.5 + 0.25),
       modelOdds: 1 / (Math.random() * 0.5 + 0.25),
-      updatedAt: now,
+      updatedAt: now
     };
-    const prediction: PredictionWithConfidence = {
-      predictionId: cacheKey,
+    const prediction: PredictionWithConfidence = {,`n  predictionId: cacheKey,
       eventId,
       predictedValue: confidenceBand.mean,
       confidenceBand,
@@ -46,15 +47,17 @@ class ConfidenceService {
       market,
       player,
       team: 'TBD',
-      context: 'Simulated',
+      context: 'Simulated'
     };
     this.cache.set(cacheKey, prediction);
-    return prediction;
-  }
+    return prediction;}
 
   public clearCache() {
-    this.cache.clear();
-  }
+    this.cache.clear();}
 }
 
 export const confidenceService = ConfidenceService.getInstance();
+
+
+
+`

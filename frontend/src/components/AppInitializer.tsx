@@ -1,16 +1,15 @@
-import React, { useEffect, useState  } from 'react.ts';
-import { useUnifiedStore } from '@/store/unified/UnifiedStoreManager.ts';
-import { dataPipeline } from '@/services/data/UnifiedDataPipeline.ts';
-import { mlEngine } from '@/services/ml/UnifiedMLEngine.ts';
+﻿import React, { useEffect, useState} from 'react'
+import { useUnifiedStore} from '@/store/unified/UnifiedStoreManager'
+import { dataPipeline} from '@/services/data/UnifiedDataPipeline'
+import { mlEngine} from '@/services/ml/UnifiedMLEngine'
 
 interface AppInitializerProps {
-  children: React.ReactNode;
-}
+  children: React.ReactNode}
 
-export const AppInitializer: React.FC<AppInitializerProps key={419560}> = ({ children }) => {
+export const AppInitializer: React.FC<AppInitializerProps key={419560}> = ({ children}) => {
   const [isInitialized, setIsInitialized] = useState(false);
   const [error, setError] = useState<string | null key={121216}>(null);
-  const { actions } = useUnifiedStore();
+  const { actions} = useUnifiedStore();
 
   useEffect(() => {
     const isMounted = true;
@@ -37,9 +36,8 @@ export const AppInitializer: React.FC<AppInitializerProps key={419560}> = ({ chi
             type: "success",
             title: "System Ready",
             message: `A1Betting initialized with ${activeModels.length} active models`,
-            duration: 3000,
-          });
-        }
+            duration: 3000
+          })}
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : "Unknown initialization error";
@@ -52,18 +50,14 @@ export const AppInitializer: React.FC<AppInitializerProps key={419560}> = ({ chi
             type: "error",
             title: "Initialization Error",
             message: errorMessage,
-            duration: 5000,
-          });
-        }
-      }
-    };
+            duration: 5000
+          })}
+      }};
 
     initializeApp();
 
     return () => {
-      isMounted = false;
-    };
-  }, [actions]);
+      isMounted = false}}, [actions]);
 
   if (error) {
     return (
@@ -82,8 +76,7 @@ export const AppInitializer: React.FC<AppInitializerProps key={419560}> = ({ chi
           </button>
         </div>
       </div>
-    );
-  }
+    )}
 
   if (!isInitialized) {
     return (
@@ -98,10 +91,13 @@ export const AppInitializer: React.FC<AppInitializerProps key={419560}> = ({ chi
           </p>
         </div>
       </div>
-    );
-  }
+    )}
 
-  return <>{children}</>;
-};
+  return <>{children}</>};
 
 export default AppInitializer;
+
+
+
+
+`

@@ -1,6 +1,4 @@
-import { useState, useEffect, useCallback } from 'react.ts';
-
-
+﻿import { useState, useEffect, useCallback} from 'react';
 
 export function useLocalStorage<T>(key: string, initialValue: T) {
   // Get from local storage then;
@@ -8,16 +6,12 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
   const readValue = useCallback((): T => {
     // Prevent build error "window is undefined" but keep working;
     if (typeof window === 'undefined') {
-      return initialValue;
-    }
+      return initialValue;}
 
     try {
-
-      return item ? (JSON.parse(item) as T) : initialValue;
-    } catch (error) {
+      return item ? (JSON.parse(item) as T) : initialValue;} catch (error) {
       // console statement removed
-      return initialValue;
-    }
+      return initialValue;}
   }, [initialValue, key]);
 
   // State to store our value;
@@ -30,8 +24,7 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
     (value: T | ((val: T) => T)) => {
       // Prevent build error "window is undefined" but keep working;
       if (typeof window === 'undefined') {
-        // console statement removed
-      }
+        // console statement removed}
 
       try {
         // Allow value to be a function so we have the same API as useState;
@@ -43,23 +36,19 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
         setStoredValue(newValue);
 
         // We dispatch a custom event so every useLocalStorage hook are notified;
-        window.dispatchEvent(new Event('local-storage'));
-      } catch (error) {
-        // console statement removed
-      }
+        window.dispatchEvent(new Event('local-storage'));} catch (error) {
+        // console statement removed}
     },
     [key, storedValue]
   );
 
   useEffect(() => {
-    setStoredValue(readValue());
-  }, [readValue]);
+    setStoredValue(readValue());}, [readValue]);
 
   // Listen for changes to this localStorage key from other windows/tabs;
   useEffect(() => {
     const handleStorageChange = () => {
-      setStoredValue(readValue());
-    };
+      setStoredValue(readValue());};
 
     // this only works for other documents, not the current one;
     window.addEventListener('storage', handleStorageChange);
@@ -68,26 +57,17 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
 
     return () => {
       window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('local-storage', handleStorageChange);
-    };
-  }, [readValue]);
+      window.removeEventListener('local-storage', handleStorageChange);};}, [readValue]);
 
-  return [storedValue, setValue] as const;
-}
+  return [storedValue, setValue] as const;}
 
-// Example usage:
-/*
+// Example usage: /*
 interface UserPreferences {
-  theme: 'light' | 'dark';
-  fontSize: number;
-  notifications: boolean;
-}
+  theme: 'light' | 'dark',`n  fontSize: number;,`n  notifications: boolean}
 
-const defaultPreferences: UserPreferences = {
-  theme: 'light',
+const defaultPreferences: UserPreferences = {,`n  theme: 'light',
   fontSize: 16,
-  notifications: true;
-};
+  notifications: true};
 
 function App() {
   const [preferences, setPreferences] = useLocalStorage<UserPreferences>(
@@ -99,11 +79,13 @@ function App() {
     <div>
       <button onClick={() => setPreferences(prev => ({
         ...prev,
-        theme: prev.theme === 'light' ? 'dark' : 'light'
-      }))}>
+        theme: prev.theme === 'light' ? 'dark' : 'light'}))}>
         Toggle Theme;
       </button>
     </div>
-  );
-}
-*/ 
+  );}
+*/
+
+
+
+`

@@ -1,21 +1,13 @@
-import React, { memo, useState  } from 'react.ts';
-import { useFilterStore } from '@/../stores/filterStore.ts';
-import { ConfidenceIndicator } from '@/../components/ConfidenceIndicator.ts';
+﻿import React, { memo, useState} from 'react';
+import { useFilterStore} from '@/../stores/filterStore';
+import { ConfidenceIndicator} from '@/../components/ConfidenceIndicator';
 
-// Define the filter props interface locally;
+// Define the filter props interface locally
 interface BettingFiltersProps {
-  selectedSport: string;
-  minConfidence: number;
-  sortBy: 'confidence' | 'value' | 'odds';
-  onFilterChange: (filters: {
-    selectedSport: string;
-    minConfidence: number;
-    sortBy: 'confidence' | 'value' | 'odds';
-  }) => void;
-}
+  selectedSport: string,`n  minConfidence: number;,`n  sortBy: 'confidence' | 'value' | 'odds',`n  onFilterChange: (filters: {,`n  selectedSport: string;,`n  minConfidence: number,`n  sortBy: 'confidence' | 'value' | 'odds'}) => void}
 
 export const BettingFilters = memo<BettingFiltersProps key={917863}>(
-  ({ selectedSport, minConfidence, sortBy, onFilterChange }) => {
+  ({ selectedSport, minConfidence, sortBy, onFilterChange}) => {
     // Preset management state/hooks;
     const [presetName, setPresetName] = useState('');
     const [selectedPreset, setSelectedPreset] = useState<string key={278855}>('');
@@ -25,33 +17,27 @@ export const BettingFilters = memo<BettingFiltersProps key={917863}>(
 
 
     const handleSportChange = (sport: string) => {
-      onFilterChange({ selectedSport: sport, minConfidence, sortBy });
-    };
+      onFilterChange({ selectedSport: sport, minConfidence, sortBy})};
 
     const handleConfidenceChange = (confidence: number) => {
-      onFilterChange({ selectedSport, minConfidence: confidence, sortBy });
-    };
+      onFilterChange({ selectedSport, minConfidence: confidence, sortBy})};
 
     const handleSortChange = (sort: 'confidence' | 'value' | 'odds') => {
-      onFilterChange({ selectedSport, minConfidence, sortBy: sort });
-    };
+      onFilterChange({ selectedSport, minConfidence, sortBy: sort})};
 
     // Preset handlers;
     const handleSavePreset = () => {
       if (presetName.trim()) {
         savePreset(presetName.trim());
-        setPresetName('');
-      }
+        setPresetName('');}
     };
     const handleLoadPreset = (name: string) => {
       setSelectedPreset(name);
-      loadPreset(name);
-    };
+      loadPreset(name);};
     const handleRemovePreset = () => {
       if (selectedPreset) {
         removePreset(selectedPreset);
-        setSelectedPreset('');
-      }
+        setSelectedPreset('');}
     };
 
     return (
@@ -138,8 +124,12 @@ export const BettingFilters = memo<BettingFiltersProps key={917863}>(
           </button>
         </div>
       </div>
-    );
-  }
+    );}
 );
 
 BettingFilters.displayName = 'BettingFilters';
+
+
+
+
+`

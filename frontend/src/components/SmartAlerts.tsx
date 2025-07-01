@@ -1,15 +1,14 @@
-import React from 'react.ts';
-import { Alert, useSmartAlerts } from '@/hooks/useSmartAlerts.ts';
+﻿import React from 'react';
+import { Alert, useSmartAlerts} from '@/hooks/useSmartAlerts';
 
 interface SmartAlertsProps {
   wsEndpoint: string;
-  onAlertClick?: (alert: Alert) => void;
-}
+  onAlertClick?: (alert: Alert) => void}
 
 const severityColors = {
   low: 'bg-blue-100 border-blue-500 text-blue-800',
   medium: 'bg-yellow-100 border-yellow-500 text-yellow-800',
-  high: 'bg-red-100 border-red-500 text-red-800',
+  high: 'bg-red-100 border-red-500 text-red-800'
 };
 
 const typeIcons = {
@@ -17,11 +16,11 @@ const typeIcons = {
   LINEUP: '👥',
   WEATHER: '🌤️',
   LINE_MOVEMENT: '📈',
-  ARBITRAGE: '💰',
+  ARBITRAGE: '💰'
 };
 
-export const SmartAlerts: React.FC<SmartAlertsProps key={426115}> = ({ wsEndpoint, onAlertClick }) => {
-  const { alerts, unreadCount, markAsRead, markAllAsRead, clearAlerts, isConnected } =
+export const SmartAlerts: React.FC<SmartAlertsProps key={426115}> = ({ wsEndpoint, onAlertClick}) => {
+  const { alerts, unreadCount, markAsRead, markAllAsRead, clearAlerts, isConnected} =
     useSmartAlerts({
       wsEndpoint,
       onNewAlert: alert => {
@@ -29,16 +28,14 @@ export const SmartAlerts: React.FC<SmartAlertsProps key={426115}> = ({ wsEndpoin
         if (alert.severity === 'high' && Notification.permission === 'granted') {
           new Notification(`${typeIcons[alert.type]} ${alert.title}`, {
             body: alert.message,
-            icon: '/favicon.ico',
-          });
-        }
-      },
+            icon: '/favicon.ico'
+          })}
+      }
     });
 
   const handleAlertClick = (alert: Alert) => {
     markAsRead(alert.id);
-    onAlertClick?.(alert);
-  };
+    onAlertClick?.(alert)};
 
   return (
     <div className="w-full max-w-md bg-white rounded-lg shadow-lg overflow-hidden" key={640958}>
@@ -84,8 +81,7 @@ export const SmartAlerts: React.FC<SmartAlertsProps key={426115}> = ({ wsEndpoin
             <div;
               key={alert.id}
               className={`p-4 cursor-pointer transition-colors hover:bg-gray-50 ${
-                !alert.read ? 'bg-opacity-50' : ''
-              } ${severityColors[alert.severity]}`}
+                !alert.read ? 'bg-opacity-50' : ''} ${severityColors[alert.severity]}`}
               onClick={() = key={243238}> handleAlertClick(alert)}
             >
               <div className="flex items-start space-x-3" key={717969}>
@@ -120,5 +116,9 @@ export const SmartAlerts: React.FC<SmartAlertsProps key={426115}> = ({ wsEndpoin
         )}
       </div>
     </div>
-  );
-};
+  )};
+
+
+
+
+`

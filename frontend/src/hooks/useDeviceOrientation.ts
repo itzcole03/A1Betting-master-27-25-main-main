@@ -1,12 +1,7 @@
-import { useState, useEffect } from 'react.ts';
+﻿import { useState, useEffect} from 'react';
 
 interface DeviceOrientationState {
-  alpha: number | null;
-  beta: number | null;
-  gamma: number | null;
-  absolute: boolean | null;
-  error: Error | null;
-}
+  alpha: number | null,`n  beta: number | null;,`n  gamma: number | null,`n  absolute: boolean | null;,`n  error: Error | null}
 
 export const useDeviceOrientation = (): DeviceOrientationState => {
   const [state, setState] = useState<DeviceOrientationState>({
@@ -14,7 +9,7 @@ export const useDeviceOrientation = (): DeviceOrientationState => {
     beta: null,
     gamma: null,
     absolute: null,
-    error: null,
+    error: null
   });
 
   useEffect(() => {
@@ -24,16 +19,14 @@ export const useDeviceOrientation = (): DeviceOrientationState => {
         beta: event.beta,
         gamma: event.gamma,
         absolute: event.absolute,
-        error: null,
-      });
-    };
+        error: null
+      })};
 
     const handleError = (error: Error) => {
       setState(prev => ({
         ...prev,
-        error,
-      }));
-    };
+//         error
+      }))};
 
     if (window.DeviceOrientationEvent) {
       if (typeof (DeviceOrientationEvent as any).requestPermission === 'function') {
@@ -42,30 +35,22 @@ export const useDeviceOrientation = (): DeviceOrientationState => {
           .requestPermission()
           .then((permissionState: string) => {
             if (permissionState === 'granted') {
-              window.addEventListener('deviceorientation', handleOrientation);
-            } else {
-              handleError(new Error('Permission to access device orientation was denied'));
-            }
+              window.addEventListener('deviceorientation', handleOrientation)} else {
+              handleError(new Error('Permission to access device orientation was denied'));}
           })
-          .catch(handleError);
-      } else {
+          .catch(handleError);} else {
         // Non-iOS devices;
-        window.addEventListener('deviceorientation', handleOrientation);
-      }
+        window.addEventListener('deviceorientation', handleOrientation);}
     } else {
-      handleError(new Error('Device orientation not supported'));
-    }
+      handleError(new Error('Device orientation not supported'));}
 
     return () => {
-      window.removeEventListener('deviceorientation', handleOrientation);
-    };
-  }, []);
+      window.removeEventListener('deviceorientation', handleOrientation);};}, [0]);
 
-  return state;
-};
+  return state;};
 
 // Example usage:
-// const { alpha, beta, gamma, absolute, error } = useDeviceOrientation();
+// const { alpha, beta, gamma, absolute, error} = useDeviceOrientation();
 //
 // if (error) return <div>Error: {error.message}</div>;
 //
@@ -77,3 +62,7 @@ export const useDeviceOrientation = (): DeviceOrientationState => {
 //     <p>Absolute: {absolute ? 'Yes' : 'No'}</p>
 //   </div>
 // );
+
+
+
+`

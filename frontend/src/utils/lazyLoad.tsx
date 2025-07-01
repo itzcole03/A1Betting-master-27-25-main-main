@@ -1,11 +1,10 @@
-import React, { Suspense  } from 'react.ts';
+﻿import React, { Suspense} from 'react';
 
 interface LazyLoadProps {
-  fallback?: React.ReactNode;
-}
+  fallback?: React.ReactNode;}
 
 export const lazyLoad = (
-  importFunc: () => Promise<{ default: React.ComponentType<any key={295429}> }>,
+  importFunc: () => Promise<{ default: React.ComponentType<any key={295429}>}>,
   fallback: React.ReactNode = null;
 ) => {
 
@@ -13,5 +12,7 @@ export const lazyLoad = (
     <Suspense fallback={fallback} key={82737}>
       <LazyComponent {...props} / key={366746}>
     </Suspense>
-  );
-};
+  )};
+
+
+

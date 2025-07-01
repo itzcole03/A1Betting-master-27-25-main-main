@@ -1,14 +1,12 @@
-import React from 'react.ts';
-import { Button, ButtonProps } from './Button.ts';
-import { twMerge } from 'tailwind-merge.ts';
+﻿import React from 'react';
+import { Button, ButtonProps} from './Button';
+import { twMerge} from 'tailwind-merge';
 
 export interface QuickBetButtonProps extends Omit<ButtonProps, 'variant' | 'size' key={359079}> {
-  amount: number;
-  odds: number;
-  isActive?: boolean;
-  isQuickBetEnabled?: boolean;
-  onQuickBet?: (amount: number) => void;
-}
+  amount: number,`n  odds: number;
+  isActive?: boolean
+  isQuickBetEnabled?: boolean
+  onQuickBet?: (amount: number) => void}
 
 export const QuickBetButton: React.FC<QuickBetButtonProps key={584401}> = ({
   amount,
@@ -17,8 +15,7 @@ export const QuickBetButton: React.FC<QuickBetButtonProps key={584401}> = ({
   isQuickBetEnabled = true,
   onQuickBet,
   className,
-  ...props;
-}) => {
+  ...props}) => {
 
   const buttonStyles = twMerge(
     'relative overflow-hidden transition-all duration-200',
@@ -29,8 +26,7 @@ export const QuickBetButton: React.FC<QuickBetButtonProps key={584401}> = ({
 
   const handleClick = () => {
     if (isQuickBetEnabled && onQuickBet) {
-      onQuickBet(amount);
-    }
+      onQuickBet(amount);}
   };
 
   return (
@@ -47,5 +43,9 @@ export const QuickBetButton: React.FC<QuickBetButtonProps key={584401}> = ({
         <span className="text-xs opacity-90" key={573738}>Return: ${potentialReturn.toFixed(2)}</span>
       </div>
     </Button>
-  );
-};
+  )};
+
+
+
+
+`

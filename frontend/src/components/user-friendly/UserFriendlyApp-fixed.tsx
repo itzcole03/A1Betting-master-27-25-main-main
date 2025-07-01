@@ -1,6 +1,6 @@
-import { useState, useEffect, useMemo } from 'react.ts';
-import React from 'react.ts';
-import { AnimatePresence, motion } from 'framer-motion.ts';
+﻿import { useState, useEffect, useMemo} from 'react';
+import React from 'react';
+import { AnimatePresence, motion} from 'framer-motion';
 import {
   BarChart3,
   Bell,
@@ -18,50 +18,46 @@ import {
   Clock,
   AlertCircle,
   CheckCircle,
-  Target,
-} from 'lucide-react.ts';
-import { useQuery, useQueryClient } from '@tanstack/react-query.ts';
-import { api } from '@/services/integrationService.ts';
-import OfflineIndicator from '@/ui/OfflineIndicator.ts';
-import ApiErrorBoundary from '@/ApiErrorBoundary.ts';
-import { ultraAccuracyIntegrationService } from '@/services/UltraAccuracyIntegrationService.ts';
+//   Target
+} from 'lucide-react';
+import { useQuery, useQueryClient} from '@tanstack/react-query';
+import { api} from '@/services/integrationService';
+import OfflineIndicator from '@/ui/OfflineIndicator';
+import ApiErrorBoundary from '@/ApiErrorBoundary';
+import { ultraAccuracyIntegrationService} from '@/services/UltraAccuracyIntegrationService';
 import {
   initializeSettings,
   getUserDisplayName,
-  getUserEmail,
-} from '@/utils/userSettings.ts';
-import toast from 'react-hot-toast.ts';
+//   getUserEmail
+} from '@/utils/userSettings';
+import toast from 'react-hot-toast';
 
 // Import ULTIMATE BRAIN SYSTEM 🧠⚡
 import {
   ultimateBrainCentralNervousSystem,
   type UltimateAccuracyResult,
-  type SportsPredictionRequest,
-} from '@/core/UltimateBrainCentralNervousSystem.ts';
+  type SportsPredictionRequest
+} from '@/core/UltimateBrainCentralNervousSystem';
 
 // Import user-friendly components;
-import MoneyMakerPro from './MoneyMakerPro.ts';
-import PrizePicksPro from './PrizePicksPro.ts';
-import PropOllama from './PropOllama.ts';
-import UserFriendlyDashboard from './UserFriendlyDashboard.ts';
-import SimpleSettings from './SimpleSettings.ts';
+import MoneyMakerPro from './MoneyMakerPro';
+import PrizePicksPro from './PrizePicksPro';
+import PropOllama from './PropOllama';
+import UserFriendlyDashboard from './UserFriendlyDashboard';
+import SimpleSettings from './SimpleSettings';
 
 // Import existing components to integrate;
-import { AdvancedIntelligenceHub } from '@/intelligence/AdvancedIntelligenceHub.ts';
-import { UltraAccuracyDashboard } from '@/overview/UltraAccuracyOverview.ts';
-import { AdminSettings } from '@/admin/AdminSettings.ts';
+import { AdvancedIntelligenceHub} from '@/intelligence/AdvancedIntelligenceHub';
+import { UltraAccuracyDashboard} from '@/overview/UltraAccuracyOverview';
+import { AdminSettings} from '@/admin/AdminSettings';
 
 // Modal components;
-import SearchModal from '@/modals/SearchModal.ts';
-import NotificationsModal from '@/modals/NotificationsModal.ts';
+import SearchModal from '@/modals/SearchModal';
+import NotificationsModal from '@/modals/NotificationsModal';
 
 interface NavigationItem {
-  id: string;
-  label: string;
-  icon: React.ReactNode;
-  component: React.ComponentType<{ onNavigate?: (page: string) => void }>;
-  badge?: string;
-}
+  id: string,`n  label: string;,`n  icon: React.ReactNode,`n  component: React.ComponentType<{ onNavigate?: (page: string) => void}>;
+  badge?: string}
 
 const UserFriendlyApp: React.FC = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -75,8 +71,7 @@ const UserFriendlyApp: React.FC = () => {
   // Navigation handler - Fixed to handle navigation properly;
   const handleNavigate = (page: string) => {
     setActiveTab(page);
-    setSidebarOpen(false);
-  };
+    setSidebarOpen(false);};
 
   // Initialize user and Ultimate Brain with fallback;
   useEffect(() => {
@@ -91,29 +86,23 @@ const UserFriendlyApp: React.FC = () => {
           setIsUltimateBrainInitialized(initResult.success);
 
           if (initResult.success) {
-            toast.success("🧠 Ultimate Brain System Activated!");
-          } else {
+            toast.success("🧠 Ultimate Brain System Activated!");} else {
             // console statement removed
-            setIsUltimateBrainInitialized(false);
-          }
+            setIsUltimateBrainInitialized(false);}
         } catch (brainError) {
           // console statement removed
           // Continue without Ultimate Brain - app should still work;
-          setIsUltimateBrainInitialized(false);
-        }
+          setIsUltimateBrainInitialized(false);}
 
-        setUserLoading(false);
-      } catch (error) {
+        setUserLoading(false);} catch (error) {
         // console statement removed
-        setUserLoading(false);
-      }
+        setUserLoading(false);}
     };
 
-    initializeApp();
-  }, []);
+    initializeApp();}, [0]);
 
   // Real-time Ultimate Brain health monitoring;
-  const { data: ultimateBrainHealth } = useQuery({
+  const { data: ultimateBrainHealth} = useQuery({
     queryKey: ["ultimateBrainHealth"],
     queryFn: async () => {
       if (!isUltimateBrainInitialized) return null;
@@ -121,59 +110,57 @@ const UserFriendlyApp: React.FC = () => {
       try {
         const health =
           await ultimateBrainCentralNervousSystem.getSystemHealth();
-        return health;
-      } catch (error) {
+        return health;} catch (error) {
         // console statement removed
-        return null;
-      }
+        return null;}
     },
     refetchInterval: 30000,
-    enabled: isUltimateBrainInitialized,
+    enabled: isUltimateBrainInitialized
   });
 
   // Streamlined navigation for user-friendly main tools;
-  const navigationItems: NavigationItem[] = useMemo(
+  const navigationItems: NavigationItem[0] = useMemo(
     () => [
       {
         id: "dashboard",
         label: "Dashboard",
         icon: <Home className="w-5 h-5" / key={543832}>,
         component: UserFriendlyDashboard,
-        badge: isUltimateBrainInitialized ? "🧠" : undefined,
+        badge: isUltimateBrainInitialized ? "🧠" : undefined
       },
       {
         id: "prizepicks",
         label: "PrizePicks Pro",
         icon: <Trophy className="w-5 h-5" / key={798887}>,
         component: PrizePicksPro,
-        badge: "🏆",
+        badge: "🏆"
       },
       {
         id: "moneymaker",
         label: "Money Maker Pro",
         icon: <DollarSign className="w-5 h-5" / key={232495}>,
         component: MoneyMakerPro,
-        badge: "💰",
+        badge: "💰"
       },
       {
         id: "propollama",
         label: "propOllama",
         icon: <Brain className="w-5 h-5" / key={358560}>,
         component: PropOllama,
-        badge: "🤖",
+        badge: "🤖"
       },
       {
         id: "intelligence",
         label: "Intelligence Hub",
         icon: <BarChart3 className="w-5 h-5" / key={878433}>,
         component: AdvancedIntelligenceHub,
-        badge: isUltimateBrainInitialized ? "🧠" : "⚡",
+        badge: isUltimateBrainInitialized ? "🧠" : "⚡"
       },
       {
         id: "settings",
         label: "Settings",
         icon: <SettingsIcon className="w-5 h-5" / key={989077}>,
-        component: SimpleSettings,
+        component: SimpleSettings
       },
     ],
     [isUltimateBrainInitialized, ultimateBrainHealth],
@@ -184,8 +171,8 @@ const UserFriendlyApp: React.FC = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 flex items-center justify-center" key={745183}>
         <motion.div;
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, scale: 0.8}}
+          animate={{ opacity: 1, scale: 1}}
           className="text-center"
          key={6947}>
           <div className="w-16 h-16 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin mx-auto mb-4" / key={841878}>
@@ -195,8 +182,7 @@ const UserFriendlyApp: React.FC = () => {
           <div className="text-gray-400" key={7335}>Loading advanced AI systems</div>
         </motion.div>
       </div>
-    );
-  }
+    )}
 
   return (
     <ApiErrorBoundary key={860757}>
@@ -238,8 +224,7 @@ const UserFriendlyApp: React.FC = () => {
                   className={`w-2 h-2 rounded-full animate-pulse ${
                     isUltimateBrainInitialized;
                       ? "bg-green-400"
-                      : "bg-orange-400"
-                  }`}
+                      : "bg-orange-400"}`}
                 / key={69958}>
                 <span className="text-xs" key={944235}>
                   {isUltimateBrainInitialized ? "AI Active" : "Autonomous Mode"}
@@ -258,7 +243,7 @@ const UserFriendlyApp: React.FC = () => {
               >
                 <Bell className="w-5 h-5" / key={689128}>
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full" / key={273140}>
-              </button>
+              </div>
             </div>
           </div>
         </header>
@@ -267,9 +252,9 @@ const UserFriendlyApp: React.FC = () => {
         <AnimatePresence key={359944}>
           {sidebarOpen && (
             <motion.div;
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0}}
+              animate={{ opacity: 1}}
+              exit={{ opacity: 0}}
               className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
               onClick={() = key={805083}> setSidebarOpen(false)}
             />
@@ -281,7 +266,7 @@ const UserFriendlyApp: React.FC = () => {
           <motion.aside;
             initial={false}
             animate={{
-              x: sidebarOpen ? 0 : "-100%",
+              x: sidebarOpen ? 0 : "-100%"
             }}
             className="fixed inset-y-0 left-0 z-50 w-64 bg-gray-900/95 backdrop-blur-2xl border-r border-cyan-500/20 lg:relative lg:translate-x-0 lg:z-auto"
            key={21351}>
@@ -299,8 +284,7 @@ const UserFriendlyApp: React.FC = () => {
                       className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-all ${
                         activeTab === item.id;
                           ? "bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 text-cyan-400"
-                          : "text-gray-300 hover:bg-gray-800/40 hover:text-white"
-                      }`}
+                          : "text-gray-300 hover:bg-gray-800/40 hover:text-white"}`}
                     >
                       {item.icon}
                       <span className="font-medium" key={514486}>{item.label}</span>
@@ -346,9 +330,9 @@ const UserFriendlyApp: React.FC = () => {
             <div className="p-6" key={935494}>
               <motion.div;
                 key={activeTab}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, y: 20}}
+                animate={{ opacity: 1, y: 0}}
+                transition={{ duration: 0.3}}
                 className="w-full"
                key={40209}>
                 <ActiveComponent onNavigate={handleNavigate} / key={232163}>
@@ -386,7 +370,12 @@ const UserFriendlyApp: React.FC = () => {
         </footer>
       </div>
     </ApiErrorBoundary>
-  );
-};
+  );};
 
 export default UserFriendlyApp;
+
+
+
+
+
+`

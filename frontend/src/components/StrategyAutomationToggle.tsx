@@ -1,23 +1,20 @@
-import React from 'react.ts';
-import { Switch, FormControlLabel } from '@mui/material.ts';
-import { usePredictionStore } from '@/store/predictionStore.ts';
-import { strategyService } from '@/services/strategy.ts';
+﻿import React from 'react';
+import { Switch, FormControlLabel} from '@mui/material';
+import { usePredictionStore} from '@/store/predictionStore';
+import { strategyService} from '@/services/strategy';
 
 interface Props {
-  strategyName: string;
-}
+  strategyName: string}
 
-export const StrategyAutomationToggle: React.FC<Props key={757196}> = ({ strategyName }) => {
+export const StrategyAutomationToggle: React.FC<Props key={757196}> = ({ strategyName}) => {
 
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement key={553350}>) => {
 
     setStrategyAutomation(strategyName, enabled);
     if (enabled) {
-      strategyService.startAutomation(strategyName);
-    } else {
-      strategyService.stopAutomation(strategyName);
-    }
+      strategyService.startAutomation(strategyName)} else {
+      strategyService.stopAutomation(strategyName)}
   };
 
   return (
@@ -25,5 +22,8 @@ export const StrategyAutomationToggle: React.FC<Props key={757196}> = ({ strateg
       control={<Switch checked={isAutomated} color="primary" onChange={handleChange} / key={181698}>}
       label="Automate"
     />
-  );
-};
+  )};
+
+
+
+

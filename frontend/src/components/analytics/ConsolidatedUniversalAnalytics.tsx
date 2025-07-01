@@ -1,6 +1,6 @@
-import React from 'react.ts';
-import ErrorBoundary from '@/ErrorBoundary.ts';
-import UniversalAnalytics from './UniversalAnalytics.ts';
+﻿import React from 'react';
+import ErrorBoundary from '@/ErrorBoundary';
+import UniversalAnalytics from './UniversalAnalytics';
 
 // ============================================================================
 // TYPES & INTERFACES;
@@ -9,21 +9,19 @@ import UniversalAnalytics from './UniversalAnalytics.ts';
 export interface ConsolidatedAnalyticsProps {
   variant?: "standard" | "cyber" | "advanced" | "real-time";
   features?: {
-    realTime?: boolean;
-    models?: boolean;
-    performance?: boolean;
-    risk?: boolean;
-    betting?: boolean;
-    system?: boolean;
-    predictions?: boolean;
-    comparison?: boolean;
-    alerts?: boolean;
-    export?: boolean;
-  };
+    realTime?: boolean
+    models?: boolean
+    performance?: boolean
+    risk?: boolean
+    betting?: boolean
+    system?: boolean
+    predictions?: boolean
+    comparison?: boolean
+    alerts?: boolean
+    export?: boolean};
   timeRange?: "1h" | "1d" | "1w" | "1m" | "3m" | "1y";
-  refreshInterval?: number;
-  className?: string;
-}
+  refreshInterval?: number
+  className?: string}
 
 // ============================================================================
 // MAIN CONSOLIDATED ANALYTICS COMPONENT;
@@ -68,8 +66,7 @@ export interface ConsolidatedAnalyticsProps {
  * ✅ Time range filtering and model comparison tools;
  */
 export const ConsolidatedUniversalAnalytics: React.FC<
-  ConsolidatedAnalyticsProps;
-> = ({
+  ConsolidatedAnalyticsProps> = ({
   variant = "advanced",
   features = {
     realTime: true,
@@ -81,11 +78,11 @@ export const ConsolidatedUniversalAnalytics: React.FC<
     predictions: true,
     comparison: true,
     alerts: true,
-    export: true,
+    export: true
   },
   timeRange = "1w",
   refreshInterval = 30000,
-  className = "",
+  className = ""
 }) => {
   // Return the clean analytics without nested navigation;
   // All features are now integrated into the main app navigation;
@@ -95,7 +92,11 @@ export const ConsolidatedUniversalAnalytics: React.FC<
         <UniversalAnalytics / key={703902}>
       </div>
     </ErrorBoundary>
-  );
-};
+  )};
 
 export default ConsolidatedUniversalAnalytics;
+
+
+
+
+

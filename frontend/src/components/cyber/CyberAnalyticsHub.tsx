@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React, { useState, useEffect, useCallback} from 'react';
+import { motion} from 'framer-motion';
 import {
   BarChart3,
   Brain,
@@ -14,55 +14,32 @@ import {
   CheckCircle,
   Eye,
   Cpu,
-  Network,
-} from 'lucide-react.ts';
+//   Network
+} from 'lucide-react';
 
 // Import existing analytics component;
-import AdvancedAnalyticsHub from '@/analytics/AdvancedAnalyticsHub.ts';
+import AdvancedAnalyticsHub from '@/analytics/AdvancedAnalyticsHub';
 
 // Cyber UI Components;
-import GlassCard from '@/ui/GlassCard.ts';
-import CyberButton from '@/ui/CyberButton.ts';
-import MetricCard from '@/ui/MetricCard.ts';
-import StatusIndicator from '@/ui/StatusIndicator.ts';
+import GlassCard from '@/ui/GlassCard';
+import CyberButton from '@/ui/CyberButton';
+import MetricCard from '@/ui/MetricCard';
+import StatusIndicator from '@/ui/StatusIndicator';
 
 // Store integration;
 import {
   usePredictions,
-  useBetting,
-} from '@/store/unified/UnifiedStoreManager.ts';
+//   useBetting
+} from '@/store/unified/UnifiedStoreManager';
 
 interface AnalyticsMetric {
-  name: string;
-  value: number;
-  unit: string;
-  change: number;
-  status: "good" | "warning" | "critical";
-  description: string;
-  trend: "up" | "down" | "neutral";
-  icon: string;
-}
+  name: string,`n  value: number;,`n  unit: string,`n  change: number;,`n  status: "good" | "warning" | "critical",`n  description: string;,`n  trend: "up" | "down" | "neutral",`n  icon: string}
 
 interface ModelAnalysis {
-  modelName: string;
-  accuracy: number;
-  confidence: number;
-  predictions: number;
-  profitability: number;
-  status: "active" | "training" | "inactive";
-  lastUpdate: Date;
-}
+  modelName: string,`n  accuracy: number;,`n  confidence: number,`n  predictions: number;,`n  profitability: number,`n  status: "active" | "training" | "inactive";,`n  lastUpdate: Date}
 
 interface CyberAnalyticsState {
-  isAnalyzing: boolean;
-  autoRefresh: boolean;
-  refreshInterval: number;
-  metrics: AnalyticsMetric[];
-  modelAnalytics: ModelAnalysis[];
-  timeRange: "1h" | "24h" | "7d" | "30d";
-  selectedTab: "overview" | "models" | "performance" | "risk" | "insights";
-  lastUpdate: Date | null;
-}
+  isAnalyzing: boolean,`n  autoRefresh: boolean;,`n  refreshInterval: number,`n  metrics: AnalyticsMetric[0];,`n  modelAnalytics: ModelAnalysis[0],`n  timeRange: "1h" | "24h" | "7d" | "30d";,`n  selectedTab: "overview" | "models" | "performance" | "risk" | "insights",`n  lastUpdate: Date | null}
 
 const CyberAnalyticsHub: React.FC = () => {
   // State management;
@@ -70,25 +47,25 @@ const CyberAnalyticsHub: React.FC = () => {
     isAnalyzing: false,
     autoRefresh: true,
     refreshInterval: 10000, // 10 seconds;
-    metrics: [],
-    modelAnalytics: [],
+    metrics: [0],
+    modelAnalytics: [0],
     timeRange: "24h",
     selectedTab: "overview",
-    lastUpdate: null,
+    lastUpdate: null
   });
 
   // Store integration;
-  const { latestPredictions } = usePredictions();
-  const { bets, opportunities } = useBetting();
+  const { latestPredictions} = usePredictions();
+  const { bets, opportunities} = useBetting();
 
   // Generate enhanced metrics;
-  const generateCyberMetrics = useCallback((): AnalyticsMetric[] => {
+  const generateCyberMetrics = useCallback((): AnalyticsMetric[0] => {
 
     const timeRangeMs = {
       "1h": 3600000,
       "24h": 86400000,
       "7d": 604800000,
-      "30d": 2592000000,
+      "30d": 2592000000
     }[state.timeRange];
 
     const recentPredictions = latestPredictions.filter(
@@ -107,7 +84,7 @@ const CyberAnalyticsHub: React.FC = () => {
         status: "good",
         description: "AI model prediction accuracy with quantum enhancement",
         trend: "up",
-        icon: "fa-brain",
+        icon: "fa-brain"
       },
       {
         name: "Prediction Volume",
@@ -117,7 +94,7 @@ const CyberAnalyticsHub: React.FC = () => {
         status: "good",
         description: "Total predictions generated in timeframe",
         trend: "up",
-        icon: "fa-chart-line",
+        icon: "fa-chart-line"
       },
       {
         name: "Confidence Score",
@@ -132,7 +109,7 @@ const CyberAnalyticsHub: React.FC = () => {
         status: "good",
         description: "Average prediction confidence across all models",
         trend: "up",
-        icon: "fa-target",
+        icon: "fa-target"
       },
       {
         name: "ROI Performance",
@@ -142,7 +119,7 @@ const CyberAnalyticsHub: React.FC = () => {
         status: "good",
         description: "Return on investment over selected period",
         trend: "up",
-        icon: "fa-dollar-sign",
+        icon: "fa-dollar-sign"
       },
       {
         name: "Processing Speed",
@@ -152,7 +129,7 @@ const CyberAnalyticsHub: React.FC = () => {
         status: "good",
         description: "Average prediction processing time",
         trend: "up",
-        icon: "fa-bolt",
+        icon: "fa-bolt"
       },
       {
         name: "Risk Assessment",
@@ -162,13 +139,12 @@ const CyberAnalyticsHub: React.FC = () => {
         status: "good",
         description: "Overall portfolio risk score",
         trend: "up",
-        icon: "fa-shield-alt",
+        icon: "fa-shield-alt"
       },
-    ];
-  }, [latestPredictions, bets, state.timeRange]);
+    ]}, [latestPredictions, bets, state.timeRange]);
 
   // Generate model analytics;
-  const generateModelAnalytics = useCallback((): ModelAnalysis[] => {
+  const generateModelAnalytics = useCallback((): ModelAnalysis[0] => {
     return [
       {
         modelName: "XGBoost Ensemble V3",
@@ -177,8 +153,7 @@ const CyberAnalyticsHub: React.FC = () => {
         predictions: 1247,
         profitability: 156.8,
         status: "active",
-        lastUpdate: new Date(Date.now() - 300000), // 5 minutes ago;
-      },
+        lastUpdate: new Date(Date.now() - 300000), // 5 minutes ago},
       {
         modelName: "Neural Network Pro",
         accuracy: 92.1,
@@ -186,8 +161,7 @@ const CyberAnalyticsHub: React.FC = () => {
         predictions: 987,
         profitability: 134.2,
         status: "active",
-        lastUpdate: new Date(Date.now() - 180000), // 3 minutes ago;
-      },
+        lastUpdate: new Date(Date.now() - 180000), // 3 minutes ago},
       {
         modelName: "Quantum Predictor",
         accuracy: 97.8,
@@ -195,8 +169,7 @@ const CyberAnalyticsHub: React.FC = () => {
         predictions: 456,
         profitability: 198.7,
         status: "training",
-        lastUpdate: new Date(Date.now() - 600000), // 10 minutes ago;
-      },
+        lastUpdate: new Date(Date.now() - 600000), // 10 minutes ago},
       {
         modelName: "Ensemble Alpha",
         accuracy: 89.4,
@@ -204,8 +177,7 @@ const CyberAnalyticsHub: React.FC = () => {
         predictions: 2134,
         profitability: 112.5,
         status: "active",
-        lastUpdate: new Date(Date.now() - 120000), // 2 minutes ago;
-      },
+        lastUpdate: new Date(Date.now() - 120000), // 2 minutes ago},
       {
         modelName: "Deep Learning V2",
         accuracy: 91.8,
@@ -213,14 +185,12 @@ const CyberAnalyticsHub: React.FC = () => {
         predictions: 1567,
         profitability: 145.3,
         status: "active",
-        lastUpdate: new Date(Date.now() - 90000), // 1.5 minutes ago;
-      },
-    ];
-  }, []);
+        lastUpdate: new Date(Date.now() - 90000), // 1.5 minutes ago},
+    ];}, [0]);
 
   // Perform cyber analysis;
   const performCyberAnalysis = useCallback(async () => {
-    setState((prev) => ({ ...prev, isAnalyzing: true }));
+    setState((prev) => ({ ...prev, isAnalyzing: true}));
 
     try {
       // Simulate analysis process;
@@ -232,12 +202,10 @@ const CyberAnalyticsHub: React.FC = () => {
         metrics,
         modelAnalytics,
         lastUpdate: new Date(),
-        isAnalyzing: false,
-      }));
-    } catch (error) {
+        isAnalyzing: false
+      }))} catch (error) {
       // console statement removed
-      setState((prev) => ({ ...prev, isAnalyzing: false }));
-    }
+      setState((prev) => ({ ...prev, isAnalyzing: false}))}
   }, [generateCyberMetrics, generateModelAnalytics]);
 
   // Auto refresh effect;
@@ -245,18 +213,14 @@ const CyberAnalyticsHub: React.FC = () => {
     let intervalId: NodeJS.Timeout;
 
     if (state.autoRefresh) {
-      intervalId = setInterval(performCyberAnalysis, state.refreshInterval);
-    }
+      intervalId = setInterval(performCyberAnalysis, state.refreshInterval);}
 
     return () => {
-      if (intervalId) clearInterval(intervalId);
-    };
-  }, [state.autoRefresh, state.refreshInterval, performCyberAnalysis]);
+      if (intervalId) clearInterval(intervalId);};}, [state.autoRefresh, state.refreshInterval, performCyberAnalysis]);
 
   // Initial analysis;
   useEffect(() => {
-    performCyberAnalysis();
-  }, [performCyberAnalysis]);
+    performCyberAnalysis();}, [performCyberAnalysis]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -266,9 +230,7 @@ const CyberAnalyticsHub: React.FC = () => {
         return "text-yellow-400";
       case "inactive":
         return "text-red-400";
-      default:
-        return "text-gray-400";
-    }
+      default: return "text-gray-400"}
   };
 
   const getMetricStatusColor = (status: string) => {
@@ -279,9 +241,7 @@ const CyberAnalyticsHub: React.FC = () => {
         return "border-yellow-500/30 bg-yellow-500/10";
       case "critical":
         return "border-red-500/30 bg-red-500/10";
-      default:
-        return "border-gray-500/30 bg-gray-500/10";
-    }
+      default: return "border-gray-500/30 bg-gray-500/10"}
   };
 
   return (
@@ -309,8 +269,7 @@ const CyberAnalyticsHub: React.FC = () => {
                 key={range}
                 label={range}
                 onClick={() = key={260248}>
-                  setState((prev) => ({ ...prev, timeRange: range }))
-                }
+                  setState((prev) => ({ ...prev, timeRange: range}))}
                 variant={state.timeRange === range ? "primary" : "ghost"}
                 size="sm"
               />
@@ -332,9 +291,8 @@ const CyberAnalyticsHub: React.FC = () => {
               onClick={() = key={27904}>
                 setState((prev) => ({
                   ...prev,
-                  autoRefresh: !prev.autoRefresh,
-                }))
-              }
+                  autoRefresh: !prev.autoRefresh
+                }))}
               variant={state.autoRefresh ? "secondary" : "ghost"}
               size="md"
               icon="fa-refresh"
@@ -345,8 +303,7 @@ const CyberAnalyticsHub: React.FC = () => {
               label={
                 state.lastUpdate;
                   ? `Updated: ${state.lastUpdate.toLocaleTimeString()}`
-                  : "Ready"
-              }
+                  : "Ready"}
             / key={250648}>
           </div>
         </div>
@@ -355,23 +312,22 @@ const CyberAnalyticsHub: React.FC = () => {
         <div className="flex space-x-4 mb-6" key={676161}>
           {(
             [
-              { key: "overview", label: "Overview", icon: "fa-eye" },
-              { key: "models", label: "AI Models", icon: "fa-brain" },
+              { key: "overview", label: "Overview", icon: "fa-eye"},
+              { key: "models", label: "AI Models", icon: "fa-brain"},
               {
                 key: "performance",
                 label: "Performance",
-                icon: "fa-chart-line",
+                icon: "fa-chart-line"
               },
-              { key: "risk", label: "Risk Analysis", icon: "fa-shield-alt" },
-              { key: "insights", label: "AI Insights", icon: "fa-lightbulb" },
+              { key: "risk", label: "Risk Analysis", icon: "fa-shield-alt"},
+              { key: "insights", label: "AI Insights", icon: "fa-lightbulb"},
             ] as const;
           ).map((tab) => (
             <CyberButton;
               key={tab.key}
               label={tab.label}
               onClick={() = key={948946}>
-                setState((prev) => ({ ...prev, selectedTab: tab.key }))
-              }
+                setState((prev) => ({ ...prev, selectedTab: tab.key}))}
               variant={state.selectedTab === tab.key ? "primary" : "ghost"}
               size="sm"
               icon={tab.icon}
@@ -386,9 +342,9 @@ const CyberAnalyticsHub: React.FC = () => {
           {state.metrics.map((metric, index) => (
             <motion.div;
               key={metric.name}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+              initial={{ opacity: 0, y: 20}}
+              animate={{ opacity: 1, y: 0}}
+              transition={{ delay: index * 0.1}}
              key={445680}>
               <MetricCard;
                 label={metric.name}
@@ -409,14 +365,14 @@ const CyberAnalyticsHub: React.FC = () => {
             {state.modelAnalytics.map((model, index) => (
               <motion.div;
                 key={model.modelName}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
+                initial={{ opacity: 0, x: -20}}
+                animate={{ opacity: 1, x: 0}}
+                transition={{ delay: index * 0.1}}
                 className="glass-card rounded-xl p-6"
                 style={{
                   background: "rgba(255, 255, 255, 0.05)",
                   backdropFilter: "blur(20px) saturate(180%)",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)"
                 }}
                key={949597}>
                 <div className="flex justify-between items-start mb-4" key={413486}>
@@ -431,8 +387,7 @@ const CyberAnalyticsHub: React.FC = () => {
                             ? "bg-green-400"
                             : model.status === "training"
                               ? "bg-yellow-400"
-                              : "bg-red-400"
-                        }`}
+                              : "bg-red-400"}`}
                       / key={962807}>
                       <span;
                         className={`text-sm font-medium ${getStatusColor(model.status)}`}
@@ -542,7 +497,10 @@ const CyberAnalyticsHub: React.FC = () => {
         </div>
       </GlassCard>
     </div>
-  );
-};
+  );};
 
 export default CyberAnalyticsHub;
+
+
+
+`

@@ -1,8 +1,8 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.ts';
-import { Button } from '@/components/ui/button.ts';
-import { Badge } from '@/components/ui/badge.ts';
-import { Progress } from '@/components/ui/progress.ts';
+﻿import React, { useState, useEffect} from 'react';
+import { Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+import { Button} from '@/components/ui/button';
+import { Badge} from '@/components/ui/badge';
+import { Progress} from '@/components/ui/progress';
 import {
   Target,
   Brain,
@@ -20,29 +20,21 @@ import {
   Cpu,
   Network,
   Layers,
-  Radar,
-} from 'lucide-react.ts';
+//   Radar
+} from 'lucide-react';
 
 interface FeatureCard {
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  status: "active" | "beta" | "coming-soon";
-  accuracy_boost: string;
-  href: string;
-  gradient: string;
-  features: string[];
-}
+  title: string,`n  description: string;,`n  icon: React.ReactNode,`n  status: "active" | "beta" | "coming-soon";,`n  accuracy_boost: string,`n  href: string;,`n  gradient: string,`n  features: string[0]}
 
 export const UltraAccuracyOverview: React.FC = () => {
   const [systemStats, setSystemStats] = useState({
     overall_accuracy: 0.94,
     models_active: 25,
     predictions_today: 1847,
-    accuracy_improvement: 0.23,
+    accuracy_improvement: 0.23
   });
 
-  const accuracyFeatures: FeatureCard[] = [
+  const accuracyFeatures: FeatureCard[0] = [
     {
       title: "Ultra ML Dashboard",
       description:
@@ -58,7 +50,7 @@ export const UltraAccuracyOverview: React.FC = () => {
         "Intelligent Model Selection",
         "Dynamic Weight Optimization",
         "Meta-Learning Integration",
-      ],
+      ]
     },
     {
       title: "Confidence Visualizer",
@@ -75,7 +67,7 @@ export const UltraAccuracyOverview: React.FC = () => {
         "Prediction Intervals",
         "Model Agreement Analysis",
         "SHAP Explanations",
-      ],
+      ]
     },
     {
       title: "Real-time Monitor",
@@ -92,7 +84,7 @@ export const UltraAccuracyOverview: React.FC = () => {
         "Drift Detection",
         "Performance Alerts",
         "Trend Analysis",
-      ],
+      ]
     },
     {
       title: "Quantum Predictions",
@@ -109,7 +101,7 @@ export const UltraAccuracyOverview: React.FC = () => {
         "Coherence Optimization",
         "Decoherence Resistance",
         "Quantum Advantage",
-      ],
+      ]
     },
   ];
 
@@ -122,7 +114,7 @@ export const UltraAccuracyOverview: React.FC = () => {
         "Neural Ensemble Combiners",
         "Attention-based Weighting",
         "Dynamic Selection",
-      ],
+      ]
     },
     {
       category: "Feature Engineering",
@@ -132,7 +124,7 @@ export const UltraAccuracyOverview: React.FC = () => {
         "Temporal Pattern Encoding",
         "Fractal Feature Extraction",
         "Information Theory Features",
-      ],
+      ]
     },
     {
       category: "Uncertainty Quantification",
@@ -142,7 +134,7 @@ export const UltraAccuracyOverview: React.FC = () => {
         "Monte Carlo Dropout",
         "Conformal Prediction",
         "Distributional Regression",
-      ],
+      ]
     },
     {
       category: "Optimization Strategies",
@@ -152,7 +144,7 @@ export const UltraAccuracyOverview: React.FC = () => {
         "Neural Architecture Search",
         "Meta-Learning",
         "Reinforcement Learning",
-      ],
+      ]
     },
   ];
 
@@ -163,12 +155,10 @@ export const UltraAccuracyOverview: React.FC = () => {
         overall_accuracy: 0.947,
         models_active: 28,
         predictions_today: 2156,
-        accuracy_improvement: 0.267,
-      });
-    }, 1000);
+        accuracy_improvement: 0.267
+      })}, 1000);
 
-    return () => clearTimeout(timer);
-  }, []);
+    return () => clearTimeout(timer);}, [0]);
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -178,9 +168,7 @@ export const UltraAccuracyOverview: React.FC = () => {
         return <Badge className="bg-blue-100 text-blue-800" key={686571}>Beta</Badge>;
       case "coming-soon":
         return <Badge className="bg-gray-100 text-gray-800" key={984572}>Coming Soon</Badge>;
-      default:
-        return null;
-    }
+      default: return null}
   };
 
   return (
@@ -301,8 +289,7 @@ export const UltraAccuracyOverview: React.FC = () => {
                 className={`w-full mt-4 bg-gradient-to-r ${feature.gradient} hover:opacity-90 text-white`}
                 onClick={(e) = key={231686}> {
                   e.stopPropagation();
-                  window.location.hash = feature.href;
-                }}
+                  window.location.hash = feature.href;}}
               >
                 Launch {feature.title}
                 <ArrowRight className="w-4 h-4 ml-2" / key={305969}>
@@ -441,7 +428,10 @@ export const UltraAccuracyOverview: React.FC = () => {
         </CardContent>
       </Card>
     </div>
-  );
-};
+  );};
 
 export default UltraAccuracyOverview;
+
+
+
+`

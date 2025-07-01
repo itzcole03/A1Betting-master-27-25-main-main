@@ -5,18 +5,28 @@ const ApiHealthIndicator = () => {
   const [status, setStatus] = useState('checking');
 
   useEffect(() => {
-    axios.get('/api/health')
+    axios
+      .get('/api/health')
       .then(() => setStatus('ok'))
       .catch(() => setStatus('down'));
   }, []);
 
   const color = 'gray';
   const text = 'Checking...';
-  if (status === 'ok') { color = 'green'; text = 'API Online'; }
-  if (status === 'down') { color = 'red'; text = 'API Down'; }
+  if (status === 'ok') {
+    color = 'green';
+    text = 'API Online';
+  }
+  if (status === 'down') {
+    color = 'red';
+    text = 'API Down';
+  }
 
   return (
-    <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-semibold bg-${color}-100 text-${color}-700`} title="Backend API health">
+    <span
+      className={`inline-flex items-center px-2 py-1 rounded text-xs font-semibold bg-${color}-100 text-${color}-700`}
+      title='Backend API health'
+    >
       <span className={`w-2 h-2 rounded-full bg-${color}-500 mr-2 inline-block`}></span>
       {text}
     </span>

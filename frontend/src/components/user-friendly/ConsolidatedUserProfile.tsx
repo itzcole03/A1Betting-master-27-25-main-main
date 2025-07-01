@@ -1,5 +1,5 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React, { useState, useEffect} from 'react';
+import { motion} from 'framer-motion';
 import {
   User,
   Settings,
@@ -28,82 +28,50 @@ import {
   BarChart3,
   Clock,
   Zap,
-  Brain,
-} from 'lucide-react.ts';
-import toast from 'react-hot-toast.ts';
+//   Brain
+} from 'lucide-react';
+import toast from 'react-hot-toast';
 import {
   getUserSettings,
   saveUserSettings,
   getUserDisplayName,
   getUserEmail,
-  type UserSettings,
-} from '@/utils/userSettings.ts';
+  type UserSettings
+} from '@/utils/userSettings';
 
 interface ExtendedUserProfile {
   // Basic Profile;
-  name: string;
-  email: string;
-  phone?: string;
-  location?: string;
-  avatar?: string;
-  joinDate: string;
-  tier: string;
-  verified: boolean;
-  twoFactorEnabled: boolean;
-  bio?: string;
+  name: string,`n  email: string;
+  phone?: string
+  location?: string
+  avatar?: string
+  joinDate: string,`n  tier: string;,`n  verified: boolean,`n  twoFactorEnabled: boolean;
+  bio?: string
 
   // Betting Stats;
-  stats: {
-    totalProfit: number;
-    winRate: number;
-    totalBets: number;
-    avgROI: number;
-    currentStreak: number;
-    bestStreak: number;
-    totalVolume: number;
-  };
+  stats: {,`n  totalProfit: number;,`n  winRate: number,`n  totalBets: number;,`n  avgROI: number,`n  currentStreak: number;,`n  bestStreak: number,`n  totalVolume: number};
 
   // Risk Profile;
-  riskProfile: {
-    type: "conservative" | "moderate" | "aggressive";
-    maxStake: number;
-    minStake: number;
-    confidenceThreshold: number;
-    maxExposure: number;
-    stopLossPercentage: number;
-    takeProfitPercentage: number;
-  };
+  riskProfile: {,`n  type: "conservative" | "moderate" | "aggressive";,`n  maxStake: number,`n  minStake: number;,`n  confidenceThreshold: number,`n  maxExposure: number;,`n  stopLossPercentage: number,`n  takeProfitPercentage: number};
 
   // Achievements;
-  achievements: Array<{
-    id: number;
-    title: string;
-    description: string;
-    icon: string;
-    unlockedAt?: string;
-    progress?: number;
-    target?: number;
-  }>;
+  achievements: Array<{,`n  id: number;,`n  title: string,`n  description: string;,`n  icon: string;
+    unlockedAt?: string
+    progress?: number
+    target?: number}>;
 
   // Recent Activity;
-  recentActivity: Array<{
-    id: number;
-    type: "bet_won" | "bet_lost" | "bet_pending" | "milestone" | "achievement";
-    title: string;
-    description: string;
-    amount?: number;
+  recentActivity: Array<{,`n  id: number;,`n  type: "bet_won" | "bet_lost" | "bet_pending" | "milestone" | "achievement",`n  title: string;,`n  description: string;
+    amount?: number
     timestamp: string;
-    confidence?: number;
-  }>;
-}
+    confidence?: number}>;}
 
 interface ConsolidatedUserProfileProps {
-  onNavigate: (page: string) => void;
-}
+  onNavigate: (page: string) => void}
 
 export const ConsolidatedUserProfile: React.FC<
   ConsolidatedUserProfileProps;
-> = ({ onNavigate }) => {
+> = ({ onNavigate}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [userSettings, setUserSettings] =
     useState<UserSettings key={207290}>(getUserSettings());
@@ -122,23 +90,21 @@ export const ConsolidatedUserProfile: React.FC<
     verified: true,
     twoFactorEnabled: true,
     bio: "Professional sports bettor leveraging AI and machine learning for data-driven betting strategies. Focused on maximizing ROI through systematic analysis.",
-    stats: {
-      totalProfit: 47350.75,
+    stats: {,`n  totalProfit: 47350.75,
       winRate: 84.7,
       totalBets: 234,
       avgROI: 23.8,
       currentStreak: 7,
       bestStreak: 15,
-      totalVolume: 125000,
+      totalVolume: 125000
     },
-    riskProfile: {
-      type: "moderate",
+    riskProfile: {,`n  type: "moderate",
       maxStake: 500,
       minStake: 25,
       confidenceThreshold: 0.75,
       maxExposure: 2500,
       stopLossPercentage: 0.15,
-      takeProfitPercentage: 0.3,
+      takeProfitPercentage: 0.3
     },
     achievements: [
       {
@@ -146,21 +112,21 @@ export const ConsolidatedUserProfile: React.FC<
         title: "High Roller",
         description: "Placed $50k+ in total bets",
         icon: "💰",
-        unlockedAt: "2024-01-15",
+        unlockedAt: "2024-01-15"
       },
       {
         id: 2,
         title: "Accuracy Expert",
         description: "Maintain 80%+ win rate for 30 days",
         icon: "🎯",
-        unlockedAt: "2024-02-20",
+        unlockedAt: "2024-02-20"
       },
       {
         id: 3,
         title: "Streak Master",
         description: "Achieve 15+ win streak",
         icon: "🔥",
-        unlockedAt: "2024-03-10",
+        unlockedAt: "2024-03-10"
       },
       {
         id: 4,
@@ -168,7 +134,7 @@ export const ConsolidatedUserProfile: React.FC<
         description: "Complete 100 AI-assisted bets",
         icon: "🧠",
         progress: 87,
-        target: 100,
+        target: 100
       },
       {
         id: 5,
@@ -176,7 +142,7 @@ export const ConsolidatedUserProfile: React.FC<
         description: "Earn $50k+ total profit",
         icon: "👑",
         progress: 47350,
-        target: 50000,
+        target: 50000
       },
     ],
     recentActivity: [
@@ -187,7 +153,7 @@ export const ConsolidatedUserProfile: React.FC<
         description: "AI prediction confidence: 89%",
         amount: 275,
         timestamp: "2 hours ago",
-        confidence: 89,
+        confidence: 89
       },
       {
         id: 2,
@@ -196,14 +162,14 @@ export const ConsolidatedUserProfile: React.FC<
         description: "Ultimate Brain recommendation",
         amount: 150,
         timestamp: "1 day ago",
-        confidence: 82,
+        confidence: 82
       },
       {
         id: 3,
         type: "achievement",
         title: "Earned 'Accuracy Expert' achievement",
         description: "Maintained 80%+ win rate for 30 days",
-        timestamp: "2 days ago",
+        timestamp: "2 days ago"
       },
       {
         id: 4,
@@ -212,16 +178,16 @@ export const ConsolidatedUserProfile: React.FC<
         description: "3-leg parlay hit perfectly",
         amount: 425,
         timestamp: "3 days ago",
-        confidence: 76,
+        confidence: 76
       },
       {
         id: 5,
         type: "milestone",
         title: "Reached $45k total profit",
         description: "Approaching profit milestone",
-        timestamp: "5 days ago",
+        timestamp: "5 days ago"
       },
-    ],
+    ]
   });
 
   const [editedProfile, setEditedProfile] =
@@ -232,14 +198,12 @@ export const ConsolidatedUserProfile: React.FC<
     setIsEditing(false);
     toast.success("Profile updated successfully!", {
       icon: "✅",
-      duration: 3000,
-    });
-  };
+      duration: 3000
+    })};
 
   const handleCancel = () => {
     setEditedProfile(profile);
-    setIsEditing(false);
-  };
+    setIsEditing(false);};
 
   const handleSettingChange = (
     category: keyof UserSettings,
@@ -250,13 +214,12 @@ export const ConsolidatedUserProfile: React.FC<
       ...userSettings,
       [category]: {
         ...userSettings[category],
-        [setting]: value,
-      },
+        [setting]: value
+      }
     };
     setUserSettings(newSettings);
     saveUserSettings(newSettings);
-    toast.success("Settings updated!", { icon: "⚙️" });
-  };
+    toast.success("Settings updated!", { icon: "⚙️"})};
 
   const getRiskProfileColor = (type: string) => {
     switch (type) {
@@ -266,32 +229,22 @@ export const ConsolidatedUserProfile: React.FC<
         return "text-yellow-600 bg-yellow-100";
       case "aggressive":
         return "text-red-600 bg-red-100";
-      default:
-        return "text-gray-600 bg-gray-100";
-    }
+      default: return "text-gray-600 bg-gray-100"}
   };
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "USD",
-    }).format(amount);
-  };
+      currency: "USD"
+    }).format(amount)};
 
-  const TabButton: React.FC<{
-    id: string;
-    label: string;
-    icon: React.ReactNode;
-    active: boolean;
-    onClick: () => void;
-  }> = ({ id, label, icon, active, onClick }) => (
+  const TabButton: React.FC<{,`n  id: string;,`n  label: string,`n  icon: React.ReactNode;,`n  active: boolean,`n  onClick: () => void}> = ({ id, label, icon, active, onClick}) => (
     <button;
       onClick={onClick}
       className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
         active;
           ? "bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 text-cyan-400"
-          : "text-gray-400 hover:text-white hover:bg-gray-800/40"
-      }`}
+          : "text-gray-400 hover:text-white hover:bg-gray-800/40"}`}
      key={479404}>
       {icon}
       <span className="font-medium" key={514486}>{label}</span>
@@ -302,8 +255,8 @@ export const ConsolidatedUserProfile: React.FC<
     <div className="space-y-6" key={501869}>
       {/* Header */}
       <motion.div;
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: -20}}
+        animate={{ opacity: 1, y: 0}}
         className="text-center mb-8"
        key={951381}>
         <h2 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent" key={865246}>
@@ -316,8 +269,8 @@ export const ConsolidatedUserProfile: React.FC<
 
       {/* Profile Header Card */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
         className="bg-gray-800/40 backdrop-blur-sm rounded-2xl border border-cyan-500/20 p-6"
        key={98520}>
         <div className="flex flex-col md:flex-row items-start md:items-center gap-6" key={910389}>
@@ -353,9 +306,8 @@ export const ConsolidatedUserProfile: React.FC<
                     onChange={(e) = key={226223}>
                       setEditedProfile((prev) => ({
                         ...prev,
-                        name: e.target.value,
-                      }))
-                    }
+                        name: e.target.value
+                      }))}
                     className="bg-transparent border-b-2 border-cyan-500 outline-none text-white"
                   />
                 ) : (
@@ -366,8 +318,7 @@ export const ConsolidatedUserProfile: React.FC<
                 className={`px-2 py-1 rounded-full text-xs font-medium ${
                   profile.verified;
                     ? "bg-green-500/20 text-green-400"
-                    : "bg-gray-500/20 text-gray-400"
-                }`}
+                    : "bg-gray-500/20 text-gray-400"}`}
                key={248677}>
                 {profile.verified ? "✓ Verified" : "Unverified"}
               </span>
@@ -387,9 +338,8 @@ export const ConsolidatedUserProfile: React.FC<
                 onChange={(e) = key={681406}>
                   setEditedProfile((prev) => ({
                     ...prev,
-                    bio: e.target.value,
-                  }))
-                }
+                    bio: e.target.value
+                  }))}
                 className="w-full p-3 border border-gray-600 rounded-lg bg-gray-800/60 text-white resize-none"
                 rows={3}
                 placeholder="Tell us about yourself..."
@@ -480,9 +430,9 @@ export const ConsolidatedUserProfile: React.FC<
       {/* Tab Content */}
       <motion.div;
         key={activeTab}
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.3 }}
+        initial={{ opacity: 0, x: 20}}
+        animate={{ opacity: 1, x: 0}}
+        transition={{ duration: 0.3}}
        key={604097}>
         {/* Overview Tab */}
         {activeTab === "overview" && (
@@ -584,8 +534,7 @@ export const ConsolidatedUserProfile: React.FC<
                     type="email"
                     value={userSettings.profile.email}
                     onChange={(e) = key={573727}>
-                      handleSettingChange("profile", "email", e.target.value)
-                    }
+                      handleSettingChange("profile", "email", e.target.value)}
                     className="w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-800/60 text-white"
                   />
                 </div>
@@ -597,8 +546,7 @@ export const ConsolidatedUserProfile: React.FC<
                     type="text"
                     value={userSettings.profile.name}
                     onChange={(e) = key={451580}>
-                      handleSettingChange("profile", "name", e.target.value)
-                    }
+                      handleSettingChange("profile", "name", e.target.value)}
                     className="w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-800/60 text-white"
                   />
                 </div>
@@ -630,8 +578,7 @@ export const ConsolidatedUserProfile: React.FC<
                           "display",
                           "darkMode",
                           e.target.checked,
-                        )
-                      }
+                        )}
                       className="sr-only peer"
                     />
                     <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-cyan-600" key={332784}></div>
@@ -654,8 +601,7 @@ export const ConsolidatedUserProfile: React.FC<
                           "display",
                           "compactView",
                           e.target.checked,
-                        )
-                      }
+                        )}
                       className="sr-only peer"
                     />
                     <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-cyan-600" key={332784}></div>
@@ -691,8 +637,7 @@ export const ConsolidatedUserProfile: React.FC<
                           "notifications",
                           "email",
                           e.target.checked,
-                        )
-                      }
+                        )}
                       className="sr-only peer"
                     />
                     <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-cyan-600" key={332784}></div>
@@ -717,8 +662,7 @@ export const ConsolidatedUserProfile: React.FC<
                           "notifications",
                           "push",
                           e.target.checked,
-                        )
-                      }
+                        )}
                       className="sr-only peer"
                     />
                     <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-cyan-600" key={332784}></div>
@@ -757,8 +701,7 @@ export const ConsolidatedUserProfile: React.FC<
                     className={`px-3 py-1 rounded-full text-xs font-medium ${
                       profile.twoFactorEnabled;
                         ? "bg-green-500/20 text-green-400"
-                        : "bg-gray-500/20 text-gray-400"
-                    }`}
+                        : "bg-gray-500/20 text-gray-400"}`}
                    key={535904}>
                     {profile.twoFactorEnabled ? "Enabled" : "Disabled"}
                   </span>
@@ -887,21 +830,19 @@ export const ConsolidatedUserProfile: React.FC<
               {profile.achievements.map((achievement) => (
                 <motion.div;
                   key={achievement.id}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, scale: 0.9}}
+                  animate={{ opacity: 1, scale: 1}}
                   className={`p-6 rounded-xl border-2 ${
                     achievement.unlockedAt;
                       ? "bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border-yellow-500/30"
-                      : "bg-gray-800/40 border-gray-600/30"
-                  }`}
+                      : "bg-gray-800/40 border-gray-600/30"}`}
                  key={940650}>
                   <div className="text-3xl mb-3" key={309441}>{achievement.icon}</div>
                   <h4;
                     className={`font-bold mb-2 ${
                       achievement.unlockedAt;
                         ? "text-yellow-400"
-                        : "text-gray-400"
-                    }`}
+                        : "text-gray-400"}`}
                    key={47475}>
                     {achievement.title}
                   </h4>
@@ -909,8 +850,7 @@ export const ConsolidatedUserProfile: React.FC<
                     className={`text-sm mb-3 ${
                       achievement.unlockedAt;
                         ? "text-yellow-300"
-                        : "text-gray-500"
-                    }`}
+                        : "text-gray-500"}`}
                    key={627118}>
                     {achievement.description}
                   </p>
@@ -930,7 +870,7 @@ export const ConsolidatedUserProfile: React.FC<
                             width: `${Math.min(
                               (achievement.progress / achievement.target) * 100,
                               100,
-                            )}%`,
+                            )}%`
                           }}
                          key={355416}></div>
                       </div>
@@ -963,8 +903,8 @@ export const ConsolidatedUserProfile: React.FC<
                 {profile.recentActivity.map((activity) => (
                   <motion.div;
                     key={activity.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, x: -20}}
+                    animate={{ opacity: 1, x: 0}}
                     className={`p-4 rounded-lg border ${
                       activity.type === "bet_won"
                         ? "bg-green-500/10 border-green-500/20"
@@ -974,8 +914,7 @@ export const ConsolidatedUserProfile: React.FC<
                             ? "bg-blue-500/10 border-blue-500/20"
                             : activity.type === "achievement"
                               ? "bg-yellow-500/10 border-yellow-500/20"
-                              : "bg-gray-700/40 border-gray-600/20"
-                    }`}
+                              : "bg-gray-700/40 border-gray-600/20"}`}
                    key={241904}>
                     <div className="flex items-start justify-between" key={653478}>
                       <div className="flex-1" key={745195}>
@@ -1004,8 +943,7 @@ export const ConsolidatedUserProfile: React.FC<
                               ? "text-green-400"
                               : activity.type === "bet_lost"
                                 ? "text-red-400"
-                                : "text-blue-400"
-                          }`}
+                                : "text-blue-400"}`}
                          key={797787}>
                           {activity.type === "bet_won" ? "+" : ""}
                           {formatCurrency(activity.amount)}
@@ -1026,7 +964,11 @@ export const ConsolidatedUserProfile: React.FC<
         )}
       </motion.div>
     </div>
-  );
-};
+  );};
 
 export default ConsolidatedUserProfile;
+
+
+
+
+`

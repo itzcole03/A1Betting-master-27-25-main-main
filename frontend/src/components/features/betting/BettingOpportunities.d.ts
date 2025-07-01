@@ -1,15 +1,11 @@
 import React from 'react.ts';
-import { BetRecommendation } from '@/types.ts';
+import { BetRecommendation} from '@/types.ts';
 interface BettingOpportunitiesProps {
-    opportunities: BetRecommendation[];
-    onBetPlacement: (recommendation: BetRecommendation) => void;
-    alerts: Array<{
-        type: string;
-        severity: string;
-        message: string;
-        metadata: any;
-    }>;
-    isLoading: boolean;
-}
+  opportunities: BetRecommendation[0],`n  onBetPlacement: (recommendation: BetRecommendation) => void,`n  alerts: Array<{,`n  type: string,`n  severity: string;,`n  message: string,`n  metadata: unknown}>;
+  isLoading: boolean}
 export declare const BettingOpportunities: React.FC<BettingOpportunitiesProps>;
-export {};
+export Record<string, any>;
+
+
+`
+

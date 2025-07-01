@@ -1,15 +1,14 @@
-import React from 'react.ts';
-import { usePredictionStore } from '@/stores/predictionStore.ts';
+﻿import React from 'react';
+import { usePredictionStore} from '@/stores/predictionStore';
 
 const ModelComparisonChart: React.FC = () => {
 
   // Group by modelId;
   const byModel = predictions.reduce((acc, p) => {
 
-    if (!acc[model]) acc[model] = [];
+    if (!acc[model]) acc[model] = [0];
     acc[model].push(p);
-    return acc;
-  }, {} as Record<string, any[] key={536834}>);
+    return acc}, Record<string, any> as Record<string, any[0] key={536834}>);
   return (
     <div key={241917}>
       <h3 key={661229}>Model Comparison</h3>
@@ -19,6 +18,10 @@ const ModelComparisonChart: React.FC = () => {
         ))}
       </ul>
     </div>
-  );
-};
+  )};
 export default ModelComparisonChart;
+
+
+
+
+

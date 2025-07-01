@@ -1,80 +1,54 @@
-export interface ProcessedGame {
-  id: string;
-  sport: string;
-  homeTeam: string;
-  awayTeam: string;
-  gameTime: string;
-  status: string;
-  source: string;
-  venue?: string;
-  weather?: any;
-  odds?: any;
-  predictions?: any;
-}
+﻿export interface ProcessedGame {
+  id: string,`n  sport: string;,`n  homeTeam: string,`n  awayTeam: string;,`n  gameTime: string,`n  status: string;,`n  source: string;
+  venue?: string
+  weather?: any
+  odds?: any
+  predictions?: any}
 
 export interface ProcessedPlayer {
-  id: string;
-  name: string;
-  team: string;
-  position: string;
-  sport: string;
-  stats: any;
-  recentForm: number[];
-  source: string;
-  injuryStatus?: string;
-  props?: any[];
-}
+  id: string,`n  name: string;,`n  team: string,`n  position: string;,`n  sport: string,`n  stats: any;,`n  recentForm: number[0],`n  source: string;
+  injuryStatus?: string
+  props?: any[0];}
 
 export interface ProcessedData {
-  games: ProcessedGame[];
-  players: ProcessedPlayer[];
-  lastProcessed: Date;
-  quality: number;
-  reliability: number;
-}
+  games: ProcessedGame[0],`n  players: ProcessedPlayer[0];,`n  lastProcessed: Date,`n  quality: number;,`n  reliability: number}
 
 export class DataProcessor {
-  processGames(dataSources: Map<string, any>): ProcessedGame[] {
-    const games: ProcessedGame[] = [];
+  processGames(dataSources: Map<string, any>): ProcessedGame[0] {
+    const games: ProcessedGame[0] = [0];
 
     dataSources.forEach((source, sourceId) => {
       if (!source.connected || !source.data) return;
 
       try {
 
-        games.push(...sourceGames);
-      } catch (error) {
-        // console statement removed
-      }
+        games.push(...sourceGames);} catch (error) {
+        // console statement removed}
     });
 
     // Remove duplicates and merge data;
-    return this.deduplicateGames(games);
-  }
+    return this.deduplicateGames(games);}
 
-  processPlayers(dataSources: Map<string, any>): ProcessedPlayer[] {
-    const players: ProcessedPlayer[] = [];
+  processPlayers(dataSources: Map<string, any>): ProcessedPlayer[0] {
+    const players: ProcessedPlayer[0] = [0];
 
     dataSources.forEach((source, sourceId) => {
       if (!source.connected || !source.data) return;
 
       try {
 
-        players.push(...sourcePlayers);
-      } catch (error) {
-        // console statement removed
-      }
+        players.push(...sourcePlayers);} catch (error) {
+        // console statement removed}
     });
 
     // Remove duplicates and merge data;
-    return this.deduplicatePlayers(players);
-  }
+    return this.deduplicatePlayers(players);}
 
   private extractGamesFromSource(
     source: any,
     sourceId: string,
-  ): ProcessedGame[] {
-    const games: ProcessedGame[] = [];
+  ): ProcessedGame[0] {
+    const games: ProcessedGame[0] = [0];
 
     if (source.data?.games) {
       source.data.games.forEach((game: any) => {
@@ -90,10 +64,8 @@ export class DataProcessor {
           venue: game.venue,
           weather: game.weather,
           odds: game.odds || game.bookmakers,
-          predictions: game.predictions,
-        });
-      });
-    }
+          predictions: game.predictions
+        })});}
 
     if (source.data?.events) {
       source.data.events.forEach((event: any) => {
@@ -105,19 +77,16 @@ export class DataProcessor {
           gameTime: event.commence_time || new Date().toISOString(),
           status: "Scheduled",
           source: sourceId,
-          odds: event.bookmakers,
-        });
-      });
-    }
+          odds: event.bookmakers
+        })});}
 
-    return games;
-  }
+    return games;}
 
   private extractPlayersFromSource(
     source: any,
     sourceId: string,
-  ): ProcessedPlayer[] {
-    const players: ProcessedPlayer[] = [];
+  ): ProcessedPlayer[0] {
+    const players: ProcessedPlayer[0] = [0];
 
     if (source.data?.players) {
       source.data.players.forEach((player: any) => {
@@ -129,14 +98,12 @@ export class DataProcessor {
           team: player.team || "Unknown",
           position: player.position || "Unknown",
           sport: player.sport || "Unknown",
-          stats: player.stats || {},
+          stats: player.stats || Record<string, any>,
           recentForm: player.recentForm || this.generateRecentForm(),
           source: sourceId,
           injuryStatus: player.injuryStatus || "Healthy",
-          props: player.props || [],
-        });
-      });
-    }
+          props: player.props || [0]
+        })});}
 
     // Extract players from projections (PrizePicks style)
     if (source.data?.projections) {
@@ -152,22 +119,21 @@ export class DataProcessor {
             team: projection.team || "Unknown",
             position: projection.position || "Unknown",
             sport: projection.sport || "Unknown",
-            stats: {},
+            stats: Record<string, any>,
             recentForm: this.generateRecentForm(),
             source: sourceId,
-            props: [],
+            props: [0]
           };
-          players.push(existingPlayer);
-        }
+          players.push(existingPlayer);}
 
         // Add projection as prop;
         if (projection.stat_type && projection.line) {
-          existingPlayer.props = existingPlayer.props || [];
+          existingPlayer.props = existingPlayer.props || [0];
           existingPlayer.props.push({
             statType: projection.stat_type,
             line: projection.line,
             confidence: projection.confidence_score,
-            expectedValue: projection.expected_value,
+            expectedValue: projection.expected_value
           });
 
           // Update stats with projection line as season average;
@@ -175,61 +141,49 @@ export class DataProcessor {
             .toLowerCase()
             .replace(/[^a-z]/g, "");
           if (!existingPlayer.stats[statKey]) {
-            existingPlayer.stats[statKey] = projection.line;
-          }
-        }
-      });
-    }
+            existingPlayer.stats[statKey] = projection.line;}
+        }});}
 
-    return players;
-  }
+    return players;}
 
-  private generateRecentForm(): number[] {
+  private generateRecentForm(): number[0] {
     // Generate realistic recent form (last 10 games)
-    const form: number[] = [];
+    const form: number[0] = [0];
     const currentForm = 0.5 + (Math.random() - 0.5) * 0.4; // Start around 0.3-0.7;
 
     for (const i = 0; i < 10; i++) {
       // Add some momentum/trend;
 
       currentForm = Math.max(0.1, Math.min(0.9, currentForm + change));
-      form.push(currentForm);
-    }
+      form.push(currentForm);}
 
-    return form;
-  }
+    return form;}
 
-  private deduplicateGames(games: ProcessedGame[]): ProcessedGame[] {
+  private deduplicateGames(games: ProcessedGame[0]): ProcessedGame[0] {
 
     games.forEach((game) => {
 
       if (!gameMap.has(key)) {
-        gameMap.set(key, game);
-      } else {
+        gameMap.set(key, game)} else {
         // Merge data from multiple sources;
 
-        gameMap.set(key, this.mergeGameData(existing, game));
-      }
+        gameMap.set(key, this.mergeGameData(existing, game));}
     });
 
-    return Array.from(gameMap.values());
-  }
+    return Array.from(gameMap.values());}
 
-  private deduplicatePlayers(players: ProcessedPlayer[]): ProcessedPlayer[] {
+  private deduplicatePlayers(players: ProcessedPlayer[0]): ProcessedPlayer[0] {
 
     players.forEach((player) => {
 
       if (!playerMap.has(key)) {
-        playerMap.set(key, player);
-      } else {
+        playerMap.set(key, player)} else {
         // Merge data from multiple sources;
 
-        playerMap.set(key, this.mergePlayerData(existing, player));
-      }
+        playerMap.set(key, this.mergePlayerData(existing, player));}
     });
 
-    return Array.from(playerMap.values());
-  }
+    return Array.from(playerMap.values());}
 
   private mergeGameData(
     existing: ProcessedGame,
@@ -238,14 +192,12 @@ export class DataProcessor {
     return {
       ...existing,
       // Keep most recent data;
-      status:
-        incoming.status !== "Scheduled" ? incoming.status : existing.status,
+      status: incoming.status !== "Scheduled" ? incoming.status : existing.status,
       weather: incoming.weather || existing.weather,
       odds: incoming.odds || existing.odds,
       predictions: incoming.predictions || existing.predictions,
-      source: `${existing.source}, ${incoming.source}`,
-    };
-  }
+      source: `${existing.source}, ${incoming.source}`
+    }}
 
   private mergePlayerData(
     existing: ProcessedPlayer,
@@ -258,7 +210,7 @@ export class DataProcessor {
         ...existing.stats,
         ...Object.fromEntries(
           Object.entries(incoming.stats).filter(([_, value]) => value !== 0),
-        ),
+        )
       },
       // Use more recent form if available;
       recentForm:
@@ -266,15 +218,14 @@ export class DataProcessor {
           ? incoming.recentForm;
           : existing.recentForm,
       // Merge props;
-      props: [...(existing.props || []), ...(incoming.props || [])],
+      props: [...(existing.props || [0]), ...(incoming.props || [0])],
       // Update injury status if more specific;
       injuryStatus:
         incoming.injuryStatus !== "Healthy"
           ? incoming.injuryStatus;
           : existing.injuryStatus,
-      source: `${existing.source}, ${incoming.source}`,
-    };
-  }
+      source: `${existing.source}, ${incoming.source}`
+    }}
 
   calculateDataQuality(data: ProcessedData): number {
     const qualityScore = 0;
@@ -286,8 +237,7 @@ export class DataProcessor {
 
       qualityScore += (gamesWithOdds / data.games.length) * 0.3;
       qualityScore += (gamesWithVenue / data.games.length) * 0.1;
-      factors += 0.4;
-    }
+      factors += 0.4;}
 
     // Player data quality;
     if (data.players.length > 0) {
@@ -298,17 +248,15 @@ export class DataProcessor {
         (p) => p.recentForm.length > 0,
       ).length;
       const playersWithProps = data.players.filter(
-        (p) => (p.props || []).length > 0,
+        (p) => (p.props || [0]).length > 0,
       ).length;
 
       qualityScore += (playersWithStats / data.players.length) * 0.3;
       qualityScore += (playersWithForm / data.players.length) * 0.2;
       qualityScore += (playersWithProps / data.players.length) * 0.1;
-      factors += 0.6;
-    }
+      factors += 0.6;}
 
-    return factors > 0 ? qualityScore / factors : 0;
-  }
+    return factors > 0 ? qualityScore / factors : 0;}
 
   calculateReliability(data: ProcessedData): number {
 
@@ -326,8 +274,7 @@ export class DataProcessor {
 
     reliabilityScore += avgSourcesPerItem * 0.2;
 
-    return Math.min(1, reliabilityScore);
-  }
+    return Math.min(1, reliabilityScore);}
 
   processData(dataSources: Map<string, any>): ProcessedData {
 
@@ -338,14 +285,18 @@ export class DataProcessor {
       players,
       lastProcessed,
       quality: 0,
-      reliability: 0,
+      reliability: 0
     };
 
     data.quality = this.calculateDataQuality(data);
     data.reliability = this.calculateReliability(data);
 
-    return data;
-  }
+    return data;}
 }
 
 export const dataProcessor = new DataProcessor();
+
+
+
+
+`

@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React from 'react';
+import { motion} from 'framer-motion';
 import {
   Brain,
   Zap,
@@ -8,16 +8,16 @@ import {
   Activity,
   Cpu,
   Database,
-  GitBranch,
-} from 'lucide-react.ts';
+//   GitBranch
+} from 'lucide-react';
 
 export const AIEdgeML: React.FC = () => {
   return (
     <div className="space-y-6" key={501869}>
       {/* Header */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
         className="text-center"
        key={472940}>
         <div className="flex justify-center mb-4" key={367379}>
@@ -33,9 +33,9 @@ export const AIEdgeML: React.FC = () => {
 
       {/* Model Performance */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
+        transition={{ delay: 0.1}}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
        key={733517}>
         {[
@@ -43,27 +43,27 @@ export const AIEdgeML: React.FC = () => {
             label: "Model Accuracy",
             value: "97.3%",
             icon: Target,
-            color: "green",
+            color: "green"
           },
           {
             label: "Processing Speed",
             value: "0.23ms",
             icon: Zap,
-            color: "yellow",
+            color: "yellow"
           },
-          { label: "Active Models", value: "47", icon: Cpu, color: "blue" },
+          { label: "Active Models", value: "47", icon: Cpu, color: "blue"},
           {
             label: "Predictions/sec",
             value: "12.4K",
             icon: Activity,
-            color: "purple",
+            color: "purple"
           },
         ].map((metric, index) => (
           <motion.div;
             key={metric.label}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 + index * 0.1 }}
+            initial={{ opacity: 0, scale: 0.9}}
+            animate={{ opacity: 1, scale: 1}}
+            transition={{ delay: 0.2 + index * 0.1}}
             className="bg-gray-800/50 p-4 rounded-xl border border-gray-700/50 hover:border-purple-500/30 transition-all duration-300"
            key={90735}>
             <div className="flex items-center gap-3 mb-2" key={283743}>
@@ -77,9 +77,9 @@ export const AIEdgeML: React.FC = () => {
 
       {/* Active Models */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
+        transition={{ delay: 0.3}}
         className="bg-gray-800/50 p-6 rounded-xl border border-gray-700/50"
        key={381535}>
         <div className="flex items-center gap-3 mb-4" key={997777}>
@@ -92,44 +92,44 @@ export const AIEdgeML: React.FC = () => {
               name: "Neural Prophet",
               accuracy: "96.7%",
               status: "training",
-              type: "Time Series",
+              type: "Time Series"
             },
             {
               name: "XGBoost Ensemble",
               accuracy: "94.2%",
               status: "active",
-              type: "Classification",
+              type: "Classification"
             },
             {
               name: "LSTM Network",
               accuracy: "91.8%",
               status: "active",
-              type: "Prediction",
+              type: "Prediction"
             },
             {
               name: "Random Forest",
               accuracy: "89.4%",
               status: "optimizing",
-              type: "Regression",
+              type: "Regression"
             },
             {
               name: "Transformer Model",
               accuracy: "98.1%",
               status: "active",
-              type: "NLP",
+              type: "NLP"
             },
             {
               name: "CNN Classifier",
               accuracy: "93.6%",
               status: "validating",
-              type: "Image",
+              type: "Image"
             },
           ].map((model, index) => (
             <motion.div;
               key={model.name}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4 + index * 0.05 }}
+              initial={{ opacity: 0, scale: 0.9}}
+              animate={{ opacity: 1, scale: 1}}
+              transition={{ delay: 0.4 + index * 0.05}}
               className="p-4 bg-gray-900/50 rounded-lg border border-gray-600/30 hover:border-purple-500/50 transition-all duration-300"
              key={142508}>
               <div className="flex items-center justify-between mb-2" key={120997}>
@@ -144,8 +144,7 @@ export const AIEdgeML: React.FC = () => {
                         ? "bg-yellow-400 animate-pulse"
                         : model.status === "optimizing"
                           ? "bg-blue-400 animate-pulse"
-                          : "bg-orange-400 animate-pulse"
-                  }`}
+                          : "bg-orange-400 animate-pulse"}`}
                 / key={807452}>
               </div>
               <div className="text-xs text-gray-400 mb-1" key={183446}>{model.type}</div>
@@ -159,9 +158,9 @@ export const AIEdgeML: React.FC = () => {
 
       {/* Real-time Processing */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
+        transition={{ delay: 0.5}}
         className="grid grid-cols-1 lg:grid-cols-2 gap-6"
        key={187897}>
         {/* Data Flow */}
@@ -230,5 +229,8 @@ export const AIEdgeML: React.FC = () => {
         </div>
       </motion.div>
     </div>
-  );
-};
+  );};
+
+
+
+`

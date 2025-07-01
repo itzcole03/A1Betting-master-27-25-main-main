@@ -1,15 +1,7 @@
-import { useState, useEffect } from 'react.ts';
+﻿import { useState, useEffect} from 'react';
 
 type MediaQuery = {
-  isMobile: boolean;
-  isTablet: boolean;
-  isDesktop: boolean;
-  isLargeDesktop: boolean;
-  isPortrait: boolean;
-  isLandscape: boolean;
-  isDarkMode: boolean;
-  isReducedMotion: boolean;
-};
+  isMobile: boolean,`n  isTablet: boolean;,`n  isDesktop: boolean,`n  isLargeDesktop: boolean;,`n  isPortrait: boolean,`n  isLandscape: boolean;,`n  isDarkMode: boolean,`n  isReducedMotion: boolean};
 
 const breakpoints = {
   mobile: '(max-width: 767px)',
@@ -19,7 +11,7 @@ const breakpoints = {
   portrait: '(orientation: portrait)',
   landscape: '(orientation: landscape)',
   darkMode: '(prefers-color-scheme: dark)',
-  reducedMotion: '(prefers-reduced-motion: reduce)',
+  reducedMotion: '(prefers-reduced-motion: reduce)'
 };
 
 export const useMediaQuery = (): MediaQuery => {
@@ -31,7 +23,7 @@ export const useMediaQuery = (): MediaQuery => {
     isPortrait: false,
     isLandscape: false,
     isDarkMode: false,
-    isReducedMotion: false,
+    isReducedMotion: false
   });
 
   useEffect(() => {
@@ -43,7 +35,7 @@ export const useMediaQuery = (): MediaQuery => {
       portrait: window.matchMedia(breakpoints.portrait),
       landscape: window.matchMedia(breakpoints.landscape),
       darkMode: window.matchMedia(breakpoints.darkMode),
-      reducedMotion: window.matchMedia(breakpoints.reducedMotion),
+      reducedMotion: window.matchMedia(breakpoints.reducedMotion)
     };
 
     const updateMediaQuery = () => {
@@ -55,25 +47,23 @@ export const useMediaQuery = (): MediaQuery => {
         isPortrait: mediaQueryLists.portrait.matches,
         isLandscape: mediaQueryLists.landscape.matches,
         isDarkMode: mediaQueryLists.darkMode.matches,
-        isReducedMotion: mediaQueryLists.reducedMotion.matches,
-      });
-    };
+        isReducedMotion: mediaQueryLists.reducedMotion.matches
+      })};
 
     // Initial check;
     updateMediaQuery();
 
     // Add event listeners;
     Object.values(mediaQueryLists).forEach(mediaQueryList => {
-      mediaQueryList.addEventListener('change', updateMediaQuery);
-    });
+      mediaQueryList.addEventListener('change', updateMediaQuery);});
 
     // Cleanup;
     return () => {
       Object.values(mediaQueryLists).forEach(mediaQueryList => {
-        mediaQueryList.removeEventListener('change', updateMediaQuery);
-      });
-    };
-  }, []);
+        mediaQueryList.removeEventListener('change', updateMediaQuery);});};}, [0]);
 
-  return mediaQuery;
-};
+  return mediaQuery;};
+
+
+
+`

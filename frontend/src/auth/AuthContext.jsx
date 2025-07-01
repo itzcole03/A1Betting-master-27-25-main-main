@@ -20,27 +20,27 @@ export const AuthProvider = ({ children }) => {
       // Verify token and get user info
       fetch('/auth/me', {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            logout();
+            throw new Error('Token validation failed');
+          }
+        })
+        .then(userData => {
+          setUser(userData);
+        })
+        .catch(error => {
+          console.error('Auth verification failed:', error);
           logout();
-          throw new Error('Token validation failed');
-        }
-      })
-      .then(userData => {
-        setUser(userData);
-      })
-      .catch(error => {
-        console.error('Auth verification failed:', error);
-        logout();
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     } else {
       setLoading(false);
     }
@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async (userData) => {
+  const register = async userData => {
     try {
       const response = await fetch('/auth/register', {
         method: 'POST',
@@ -112,9 +112,5 @@ export const AuthProvider = ({ children }) => {
     isAuthenticated: !!user,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

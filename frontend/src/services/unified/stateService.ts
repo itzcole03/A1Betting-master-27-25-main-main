@@ -1,48 +1,28 @@
-import {
+﻿import {
   BetRecommendation,
   BettingEvent,
   BettingAlert,
   RiskProfileType,
   UserConstraints,
   BettingMetrics,
-  BettingOpportunity,
-} from '@/types/betting.ts';
-import UnifiedLoggingService from './loggingService.ts';
-import UnifiedErrorService from './errorService.ts';
-import UnifiedSettingsService from './settingsService.ts';
+//   BettingOpportunity
+} from '@/types/betting';
+import UnifiedLoggingService from './loggingService';
+import UnifiedErrorService from './errorService';
+import UnifiedSettingsService from './settingsService';
 
 interface StateConfig {
-  persistToStorage: boolean;
-  autoSave: boolean;
-  saveInterval: number;
-  maxHistory: number;
-  enableTimeTravel: boolean;
-}
+  persistToStorage: boolean,`n  autoSave: boolean;,`n  saveInterval: number,`n  maxHistory: number;,`n  enableTimeTravel: boolean}
 
 interface StateChange<T> {
-  timestamp: number;
-  previousState: T;
-  newState: T;
-  source: string;
-  action: string;
-}
+  timestamp: number,`n  previousState: T;,`n  newState: T,`n  source: string;,`n  action: string}
 
 interface BettingInterfaceState {
-  bankroll: number;
-  profit: number;
-  riskProfile: RiskProfileType;
-  userConstraints: UserConstraints;
-  selectedEvent: BettingEvent | null;
-  recommendations: BetRecommendation[];
-  bettingOpportunities: BettingOpportunity[];
-  alerts: BettingAlert[];
-  performance?: BettingMetrics;
-}
+  bankroll: number,`n  profit: number;,`n  riskProfile: RiskProfileType,`n  userConstraints: UserConstraints;,`n  selectedEvent: BettingEvent | null,`n  recommendations: BetRecommendation[0];,`n  bettingOpportunities: BettingOpportunity[0],`n  alerts: BettingAlert[0];
+  performance?: BettingMetrics}
 
 interface StateServiceConfig {
-  initialState: BettingInterfaceState;
-  storageKey: string;
-}
+  initialState: BettingInterfaceState,`n  storageKey: string}
 
 class UnifiedStateService {
   private static instance: UnifiedStateService | null = null;
@@ -50,17 +30,16 @@ class UnifiedStateService {
   private readonly errorService: UnifiedErrorService;
   private readonly settingsService: UnifiedSettingsService;
   private state: BettingInterfaceState;
-  private history: StateChange<BettingInterfaceState>[] = [];
+  private history: StateChange<BettingInterfaceState>[0] = [0];
   private readonly STORAGE_KEY: string;
-  private saveIntervalId?: number;
+  private saveIntervalId?: number
   private subscribers: Set<(state: BettingInterfaceState) => void> = new Set();
 
-  private config: StateConfig = {
-    persistToStorage: true,
+  private config: StateConfig = {,`n  persistToStorage: true,
     autoSave: true,
     saveInterval: 5000,
     maxHistory: 100,
-    enableTimeTravel: true,
+    enableTimeTravel: true
   };
 
   private constructor(config: StateServiceConfig) {
@@ -70,15 +49,12 @@ class UnifiedStateService {
     this.state = config.initialState;
     this.STORAGE_KEY = config.storageKey;
     this.setupAutoSave();
-    this.loadState();
-  }
+    this.loadState();}
 
   public static getInstance(config: StateServiceConfig): UnifiedStateService {
     if (!UnifiedStateService.instance) {
-      UnifiedStateService.instance = new UnifiedStateService(config);
-    }
-    return UnifiedStateService.instance;
-  }
+      UnifiedStateService.instance = new UnifiedStateService(config)}
+    return UnifiedStateService.instance}
 
   private loadState(): void {
     if (!this.config.persistToStorage) return;
@@ -86,85 +62,73 @@ class UnifiedStateService {
     try {
 
       if (savedState) {
-        this.state = JSON.parse(savedState);
-      }
+        this.state = JSON.parse(savedState);}
     } catch (error: unknown) {
       this.errorService.handleError(
         error instanceof Error ? error : new Error('Failed to load state'),
         'StateService',
         'low',
-        { action: 'loadState' }
-      );
-    }
+        { action: 'loadState'}
+      )}
   }
 
   private saveState(): void {
     if (!this.config.persistToStorage) return;
 
     try {
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.state));
-    } catch (error: unknown) {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.state));} catch (error: unknown) {
       this.errorService.handleError(
         error instanceof Error ? error : new Error('Failed to save state'),
         'StateService',
         'low',
-        { action: 'saveState' }
-      );
-    }
+        { action: 'saveState'}
+      )}
   }
 
   private setupAutoSave(): void {
     if (this.config.autoSave) {
       this.saveIntervalId = window.setInterval(() => {
-        this.saveState();
-      }, this.config.saveInterval);
-    }
+        this.saveState();}, this.config.saveInterval);}
   }
 
   private recordStateChange(
     previousState: BettingInterfaceState,
     newState: BettingInterfaceState,
     source: string,
-    action: string;
+    action: string
   ): void {
-    const change: StateChange<BettingInterfaceState> = {
-      timestamp: Date.now(),
+    const change: StateChange<BettingInterfaceState> = {,`n  timestamp: Date.now(),
       previousState,
       newState,
       source,
-      action,
+//       action
     };
 
     this.history.unshift(change);
     if (this.history.length > this.config.maxHistory) {
-      this.history = this.history.slice(0, this.config.maxHistory);
-    }
+      this.history = this.history.slice(0, this.config.maxHistory);}
   }
 
   public getState(): BettingInterfaceState {
-    return { ...this.state };
-  }
+    return { ...this.state};}
 
   public setState(updates: Partial<BettingInterfaceState>, source: string, action: string): void {
 
     this.state = {
       ...this.state,
-      ...updates,
+      ...updates
     };
 
     this.recordStateChange(previousState, this.state, source, action);
     this.saveState();
-    this.notifySubscribers();
-  }
+    this.notifySubscribers();}
 
   public subscribe(callback: (state: BettingInterfaceState) => void): () => void {
     this.subscribers.add(callback);
-    return () => this.subscribers.delete(callback);
-  }
+    return () => this.subscribers.delete(callback);}
 
   private notifySubscribers(): void {
-    this.subscribers.forEach(callback => callback(this.state));
-  }
+    this.subscribers.forEach(callback => callback(this.state));}
 
   public updateState(
     updater: (state: BettingInterfaceState) => Partial<BettingInterfaceState>,
@@ -173,18 +137,17 @@ class UnifiedStateService {
   ): void {
 
 
-    this.state = { ...this.state, ...updates };
+    this.state = { ...this.state, ...updates};
 
     this.recordStateChange(previousState, this.state, source, action);
     this.saveState();
-    this.notifySubscribers();
-  }
+    this.notifySubscribers();}
 
   private dispatchStateChange(
     previousState: BettingInterfaceState,
     newState: BettingInterfaceState,
     source: string,
-    action: string;
+    action: string
   ): void {
     const event = new CustomEvent('stateChange', {
       detail: {
@@ -192,76 +155,68 @@ class UnifiedStateService {
         newState,
         source,
         action,
-        timestamp: Date.now(),
-      },
+        timestamp: Date.now()
+      }
     });
-    window.dispatchEvent(event);
-  }
+    window.dispatchEvent(event);}
 
-  public getHistory(): StateChange<BettingInterfaceState>[] {
-    return [...this.history];
-  }
+  public getHistory(): StateChange<BettingInterfaceState>[0] {
+    return [...this.history];}
 
   public timeTravel(index: number): void {
     if (!this.config.enableTimeTravel) {
       this.errorService.handleError(new Error('Time travel is disabled'), 'StateService', 'low');
-      return;
-    }
+      return;}
 
     if (index < 0 || index >= this.history.length) {
       this.errorService.handleError(new Error('Invalid history index'), 'StateService', 'low');
-      return;
-    }
+      return;}
 
-    this.state = { ...targetState };
+    this.state = { ...targetState};
     this.saveState();
-    this.dispatchStateChange(this.state, targetState, 'StateService', 'timeTravel');
-  }
+    this.dispatchStateChange(this.state, targetState, 'StateService', 'timeTravel');}
 
   public clearHistory(): void {
-    this.history = [];
-  }
+    this.history = [0];}
 
   public updateConfig(config: Partial<StateConfig>): void {
-    this.config = { ...this.config, ...config };
+    this.config = { ...this.config, ...config};
 
     if (this.config.autoSave) {
-      this.setupAutoSave();
-    } else if (this.saveIntervalId) {
-      clearInterval(this.saveIntervalId);
-    }
+      this.setupAutoSave();} else if (this.saveIntervalId) {
+      clearInterval(this.saveIntervalId);}
   }
 
   public getConfig(): StateConfig {
-    return { ...this.config };
-  }
+    return { ...this.config};}
 
   public destroy(): void {
     if (this.saveIntervalId) {
-      clearInterval(this.saveIntervalId);
-    }
-    UnifiedStateService.instance = null;
-  }
+      clearInterval(this.saveIntervalId);}
+    UnifiedStateService.instance = null;}
 
   public resetState(): void {
     this.state = {
       bankroll: 0,
       profit: 0,
       riskProfile: RiskProfileType.MODERATE,
-      userConstraints: {
-        max_bankroll_stake: 0.1,
+      userConstraints: {,`n  max_bankroll_stake: 0.1,
         time_window_hours: 24,
-        preferred_sports: [],
-        preferred_markets: [],
+        preferred_sports: [0],
+        preferred_markets: [0]
       },
       selectedEvent: null,
-      recommendations: [],
-      bettingOpportunities: [],
-      alerts: [],
+      recommendations: [0],
+      bettingOpportunities: [0],
+      alerts: [0]
     };
     this.saveState();
-    this.notifySubscribers();
-  }
+    this.notifySubscribers();}
 }
 
 export default UnifiedStateService;
+
+
+
+
+`

@@ -1,35 +1,12 @@
-import { BaseService } from './BaseService.ts';
-import { UnifiedServiceRegistry } from './UnifiedServiceRegistry.ts';
-import { UnifiedErrorService } from './UnifiedErrorService.ts';
+﻿import { BaseService} from './BaseService';
+import { UnifiedServiceRegistry} from './UnifiedServiceRegistry';
+import { UnifiedErrorService} from './UnifiedErrorService';
 
 export interface AppSettings {
-  theme: 'light' | 'dark' | 'system';
-  language: string;
-  timezone: string;
-  dateFormat: string;
-  numberFormat: string;
-  currency: string;
-  notifications: {
-    enabled: boolean;
-    sound: boolean;
-    vibration: boolean;
-  };
-  display: {
-    compactMode: boolean;
-    showAnimations: boolean;
-    fontSize: number;
-  };
-  performance: {
-    cacheEnabled: boolean;
-    cacheDuration: number;
-    maxConcurrentRequests: number;
-  };
-  security: {
-    twoFactorEnabled: boolean;
-    sessionTimeout: number;
-    passwordExpiry: number;
-  };
-}
+  theme: 'light' | 'dark' | 'system',`n  language: string;,`n  timezone: string,`n  dateFormat: string;,`n  numberFormat: string,`n  currency: string;,`n  notifications: {,`n  enabled: boolean;,`n  sound: boolean,`n  vibration: boolean};
+  display: {,`n  compactMode: boolean;,`n  showAnimations: boolean,`n  fontSize: number};
+  performance: {,`n  cacheEnabled: boolean;,`n  cacheDuration: number,`n  maxConcurrentRequests: number};
+  security: {,`n  twoFactorEnabled: boolean;,`n  sessionTimeout: number,`n  passwordExpiry: number}}
 
 export class UnifiedSettingsService extends BaseService {
   private static instance: UnifiedSettingsService;
@@ -39,97 +16,79 @@ export class UnifiedSettingsService extends BaseService {
   private constructor(registry: UnifiedServiceRegistry) {
     super('settings', registry);
     this.errorService = UnifiedErrorService.getInstance(registry);
-    this.settings = this.loadSettings();
-  }
+    this.settings = this.loadSettings();}
 
   public static getInstance(registry: UnifiedServiceRegistry): UnifiedSettingsService {
     if (!UnifiedSettingsService.instance) {
-      UnifiedSettingsService.instance = new UnifiedSettingsService(registry);
-    }
-    return UnifiedSettingsService.instance;
-  }
+      UnifiedSettingsService.instance = new UnifiedSettingsService(registry)}
+    return UnifiedSettingsService.instance}
 
   public getSettings(): AppSettings {
-    return { ...this.settings };
-  }
+    return { ...this.settings};}
 
   public updateSettings(updates: Partial<AppSettings>): void {
     try {
-
-      this.settings = { ...this.settings, ...updates };
+      this.settings = { ...this.settings, ...updates};
 
       this.saveSettings();
-      this.serviceRegistry.emit('settings:updated', {
+      this.serviceRegistry.emit('settings: updated', {
         previousSettings,
         currentSettings: this.settings,
-        updates,
-      });
-    } catch (error) {
+//         updates
+      })} catch (error) {
       this.errorService.handleError(error, {
         code: 'SETTINGS_ERROR',
         source: 'UnifiedSettingsService',
-        details: { method: 'updateSettings', updates },
+        details: { method: 'updateSettings', updates}
       });
-      throw error;
-    }
+      throw error;}
   }
 
   public resetSettings(): void {
     try {
-
       this.settings = this.getDefaultSettings();
 
       this.saveSettings();
-      this.serviceRegistry.emit('settings:reset', {
+      this.serviceRegistry.emit('settings: reset', {
         previousSettings,
-        currentSettings: this.settings,
-      });
-    } catch (error) {
+        currentSettings: this.settings
+      })} catch (error) {
       this.errorService.handleError(error, {
         code: 'SETTINGS_ERROR',
         source: 'UnifiedSettingsService',
-        details: { method: 'resetSettings' },
+        details: { method: 'resetSettings'}
       });
-      throw error;
-    }
+      throw error;}
   }
 
   public subscribe(callback: (settings: AppSettings) => void): () => void {
-    const handler = (event: { currentSettings: AppSettings }) => {
-      callback(event.currentSettings);
-    };
+    const handler = (event: { currentSettings: AppSettings}) => {
+      callback(event.currentSettings)};
 
     this.serviceRegistry.on('settings:updated', handler);
-    return () => this.serviceRegistry.off('settings:updated', handler);
-  }
+    return () => this.serviceRegistry.off('settings: updated', handler)}
 
   private loadSettings(): AppSettings {
     try {
-
       if (savedSettings) {
-        return JSON.parse(savedSettings);
-      }
+        return JSON.parse(savedSettings);}
     } catch (error) {
       this.errorService.handleError(error, {
         code: 'SETTINGS_ERROR',
         source: 'UnifiedSettingsService',
-        details: { method: 'loadSettings' },
-      });
-    }
+        details: { method: 'loadSettings'}
+      })}
 
-    return this.getDefaultSettings();
-  }
+    return this.getDefaultSettings();}
 
   private saveSettings(): void {
     try {
-      localStorage.setItem('app_settings', JSON.stringify(this.settings));
-    } catch (error) {
+      localStorage.setItem('app_settings', JSON.stringify(this.settings));} catch (error) {
       this.errorService.handleError(error, {
         code: 'SETTINGS_ERROR',
         source: 'UnifiedSettingsService',
-        details: { method: 'saveSettings' },
-      });
-    }
+        details: { method: 'saveSettings'}
+      })}
   }
 
   private getDefaultSettings(): AppSettings {
@@ -140,89 +99,81 @@ export class UnifiedSettingsService extends BaseService {
       dateFormat: 'MM/DD/YYYY',
       numberFormat: 'en-US',
       currency: 'USD',
-      notifications: {
-        enabled: true,
+      notifications: {,`n  enabled: true,
         sound: true,
-        vibration: true,
+        vibration: true
       },
-      display: {
-        compactMode: false,
+      display: {,`n  compactMode: false,
         showAnimations: true,
-        fontSize: 16,
+        fontSize: 16
       },
-      performance: {
-        cacheEnabled: true,
+      performance: {,`n  cacheEnabled: true,
         cacheDuration: 300,
-        maxConcurrentRequests: 5,
+        maxConcurrentRequests: 5
       },
-      security: {
-        twoFactorEnabled: false,
+      security: {,`n  twoFactorEnabled: false,
         sessionTimeout: 3600,
-        passwordExpiry: 90,
-      },
-    };
-  }
+        passwordExpiry: 90
+      }
+    }}
 
   public getSettingValue<T>(key: string): T | undefined {
-    return this.getNestedValue(this.settings, key) as T | undefined;
-  }
+    return this.getNestedValue(this.settings, key) as T | undefined}
 
   public setSettingValue<T>(key: string, value: T): void {
     try {
-
       this.setNestedValue(this.settings, key, value);
 
       this.saveSettings();
-      this.serviceRegistry.emit('settings:updated', {
-        previousSettings: { ...this.settings, [key]: previousValue },
+      this.serviceRegistry.emit('settings: updated', {
+        previousSettings: { ...this.settings, [key]: previousValue},
         currentSettings: this.settings,
-        updates: { [key]: value },
-      });
-    } catch (error) {
+        updates: { [key]: value}
+      })} catch (error) {
       this.errorService.handleError(error, {
         code: 'SETTINGS_ERROR',
         source: 'UnifiedSettingsService',
-        details: { method: 'setSettingValue', key, value },
+        details: { method: 'setSettingValue', key, value}
       });
-      throw error;
-    }
+      throw error;}
   }
 
   /**
    * Safely get a nested value from an object using a dot-separated path.
    */
   private getNestedValue<T = unknown>(obj: Record<string, unknown>, path: string): T | undefined {
-    return path.split('.').reduce<unknown>((current, key) =>
-      typeof current === 'object' && current !== null && key in current ? (current as Record<string, unknown>)[key] : undefined,
-    obj) as T | undefined;
-  }
+    return path
+      .split('.')
+      .reduce<unknown>(
+        (current, key) =>
+          typeof current === 'object' && current !== null && key in current
+            ? (current as Record<string, unknown>)[key]
+            : undefined,
+//         obj
+      ) as T | undefined}
 
   /**
    * Safely set a nested value in an object using a dot-separated path.
    */
   private setNestedValue<T = unknown>(obj: Record<string, unknown>, path: string, value: T): void {
-
-
     let target: Record<string, unknown> = obj;
     for (const key of keys) {
       if (!(key in target) || typeof target[key] !== 'object' || target[key] === null) {
-        target[key] = {};
-      }
-      target = target[key] as Record<string, unknown>;
-    }
-    target[lastKey] = value;
-  }
+        target[key] = Record<string, any>;}
+      target = target[key] as Record<string, unknown>;}
+    target[lastKey] = value;}
 
   public exportSettings(): string {
     try {
-      return JSON.stringify(this.settings, null, 2);
-    } catch (error) {
+      return JSON.stringify(this.settings, null, 2);} catch (error) {
       this.errorService.handleError(error, {
         code: 'SETTINGS_ERROR',
         source: 'UnifiedSettingsService',
-        details: { method: 'exportSettings' },
+        details: { method: 'exportSettings'}
       });
-      throw error;
-    }
-  }
-}
+      throw error;}
+  }}
+
+
+
+`

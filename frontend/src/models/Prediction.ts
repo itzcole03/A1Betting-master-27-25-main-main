@@ -1,35 +1,18 @@
-export interface Prediction {
-  id: string;
-  eventId: string;
-  modelType: string;
-  probability: number;
-  confidence: number;
-  timestamp: Date;
-  recommendedStake?: number;
+﻿export interface Prediction {
+  id: string,`n  eventId: string;,`n  modelType: string,`n  probability: number;,`n  confidence: number,`n  timestamp: Date;
+  recommendedStake?: number
   marketFactors?: {
-    odds: number;
-    volume: number;
-    movement: number;
-  };
+    odds: number,`n  volume: number;,`n  movement: number};
   temporalFactors?: {
-    timeToEvent: number;
-    restDays: number;
-    travelDistance: number;
-  };
+    timeToEvent: number,`n  restDays: number;,`n  travelDistance: number};
   environmentalFactors?: {
-    weather: number;
-    venue: number;
-    crowd: number;
-  };
-  metadata: {
-    modelVersion: string;
-    features: string[];
+    weather: number,`n  venue: number;,`n  crowd: number};
+  metadata: {,`n  modelVersion: string;,`n  features: string[0];
     shapValues?: Record<string, number>;
     predictionBreakdown?: {
-      market: number;
-      temporal: number;
-      environmental: number;
-      base: number;
-    };
-  };
-}
+      market: number,`n  temporal: number;,`n  environmental: number,`n  base: number}};}
+
+
+
+
+`

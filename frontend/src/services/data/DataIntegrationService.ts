@@ -1,4 +1,4 @@
-import type { ESPNHeadline } from '../../types/news';
+﻿import type { ESPNHeadline} from '../../types/news';
 import ApiService from '../api/ApiService';
 
 // Define interfaces for the data we expect from the backend.
@@ -6,40 +6,31 @@ import ApiService from '../api/ApiService';
 
 export interface PlayerStats {
   // Define structure based on backend response
-  playerId: string;
-  stats: Record<string, any>;
-}
+  playerId: string,`n  stats: Record<string, any>}
 
 export interface GameOdds {
   // Define structure based on backend response
-  gameId: string;
-  odds: any[];
-}
+  gameId: string,`n  odds: any[0]}
 
 export interface InjuryReport {
   // Define structure based on backend response
-  playerId: string;
-  report: any;
-}
+  playerId: string,`n  report: any}
 
 class DataIntegrationService {
-
   /**
    * Fetches news headlines from the backend.
    * @param source - The source of the news (e.g., 'espn').
    * @param limit - The number of headlines to fetch.
    * @returns A promise that resolves with an array of news headlines.
    */
-  public async getNews(source: string, limit: number): Promise<ESPNHeadline[]> {
+  public async getNews(source: string, limit: number): Promise<ESPNHeadline[0]> {
     try {
-      const headlines = await ApiService.get<ESPNHeadline[]>('/api/v1/data/news', {
-        params: { source, limit },
+      const headlines = await ApiService.get<ESPNHeadline[0]>('/api/v1/data/news', {
+        params: { source, limit}
       });
-      return headlines;
-    } catch (error) {
+      return headlines;} catch (error) {
       console.error('Error fetching news headlines:', error);
-      return []; // Return empty array on error
-    }
+      return [0]; // Return empty array on error}
   }
 
   /**
@@ -50,11 +41,9 @@ class DataIntegrationService {
   public async getPlayerStats(playerId: string): Promise<PlayerStats | null> {
     try {
       const stats = await ApiService.get<PlayerStats>(`/api/v1/data/stats/player/${playerId}`);
-      return stats;
-    } catch (error) {
+      return stats;} catch (error) {
       console.error(`Error fetching stats for player ${playerId}:`, error);
-      return null;
-    }
+      return null;}
   }
 
   /**
@@ -65,11 +54,9 @@ class DataIntegrationService {
   public async getGameOdds(gameId: string): Promise<GameOdds | null> {
     try {
       const odds = await ApiService.get<GameOdds>(`/api/v1/data/odds/game/${gameId}`);
-      return odds;
-    } catch (error) {
+      return odds;} catch (error) {
       console.error(`Error fetching odds for game ${gameId}:`, error);
-      return null;
-    }
+      return null;}
   }
 
   /**
@@ -77,15 +64,16 @@ class DataIntegrationService {
    * @param team - The team to get injury reports for (optional).
    * @returns A promise that resolves with an array of injury reports.
    */
-  public async getInjuryReports(team?: string): Promise<InjuryReport[]> {
+  public async getInjuryReports(team?: string): Promise<InjuryReport[0]> {
     try {
-      const reports = await ApiService.get<InjuryReport[]>('/api/v1/data/injuries', { team });
-      return reports;
-    } catch (error) {
+      const reports = await ApiService.get<InjuryReport[0]>('/api/v1/data/injuries', { team});
+      return reports;} catch (error) {
       console.error('Error fetching injury reports:', error);
-      return [];
-    }
-  }
-}
+      return [0];}
+  }}
 
 export const dataIntegrationService = new DataIntegrationService();
+
+
+
+`

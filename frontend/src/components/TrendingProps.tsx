@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   Box,
   Card,
@@ -9,8 +9,8 @@ import {
   Avatar,
   IconButton,
   Tooltip,
-  LinearProgress,
-} from '@mui/material.ts';
+//   LinearProgress
+} from '@mui/material';
 import {
   TrendingUp as TrendingUpIcon,
   TrendingDown as TrendingDownIcon,
@@ -18,62 +18,45 @@ import {
   EmojiEvents as TrophyIcon,
   ThumbUp as ThumbUpIcon,
   Comment as CommentIcon,
-  Share as ShareIcon,
-} from '@mui/icons-material.ts';
-import { styled } from '@mui/material/styles.ts';
+  Share as ShareIcon
+} from '@mui/icons-material';
+import { styled} from '@mui/material/styles';
 
 interface TrendingProp {
-  id: string;
-  playerName: string;
-  team: string;
-  propType: string;
-  value: number;
-  direction: 'over' | 'under';
+  id: string,`n  playerName: string;,`n  team: string,`n  propType: string;,`n  value: number,`n  direction: 'over' | 'under';
   modifier?: 'goblin' | 'devil';
-  confidence: number;
-  fireCount: number;
-  communityStats: {
-    likes: number;
-    comments: number;
-    shares: number;
-  };
+  confidence: number,`n  fireCount: number;,`n  communityStats: {,`n  likes: number;,`n  comments: number,`n  shares: number};
   topComment?: {
     user: string;
-    avatar?: string;
-    text: string;
-    likes: number;
-  };
-}
+    avatar?: string
+    text: string,`n  likes: number}}
 
 interface TrendingPropsProps {
-  props: TrendingProp[];
-  onPropSelect: (propId: string) => void;
-}
+  props: TrendingProp[0],`n  onPropSelect: (propId: string) => void}
 
-const TrendingCard = styled(Card)(({ theme }) => ({
+const TrendingCard = styled(Card)(({ theme}) => ({
   background: 'rgba(255, 255, 255, 0.9)',
   backdropFilter: 'blur(10px)',
   border: '1px solid rgba(255, 255, 255, 0.2)',
   transition: 'all 0.3s ease',
   '&:hover': {
     transform: 'translateY(-2px)',
-    boxShadow: theme.shadows[4],
-  },
+    boxShadow: theme.shadows[4]
+  }
 }));
 
-const ConfidenceBar = styled(LinearProgress)(({ theme }) => ({
+const ConfidenceBar = styled(LinearProgress)(({ theme}) => ({
   height: 4,
   borderRadius: 2,
-  marginTop: theme.spacing(0.5),
+  marginTop: theme.spacing(0.5)
 }));
 
-export const TrendingProps: React.FC<TrendingPropsProps key={571331}> = ({ props, onPropSelect }) => {
+export const TrendingProps: React.FC<TrendingPropsProps key={571331}> = ({ props, onPropSelect}) => {
   const getConfidenceColor = (confidence: number) => {
     if (confidence >= 80) return 'success.main';
     if (confidence >= 60) return 'primary.main';
     if (confidence >= 40) return 'warning.main';
-    return 'error.main';
-  };
+    return 'error.main'};
 
   return (
     <Box key={485947}>
@@ -110,7 +93,7 @@ export const TrendingProps: React.FC<TrendingPropsProps key={571331}> = ({ props
                         bgcolor: 'action.hover',
                         borderRadius: 1,
                         border: '1px solid',
-                        borderColor: 'divider',
+                        borderColor: 'divider'
                       }}
                      key={79886}>
                       <Grid container spacing={2} key={272161}>
@@ -163,8 +146,8 @@ export const TrendingProps: React.FC<TrendingPropsProps key={571331}> = ({ props
                       sx={{
                         bgcolor: 'grey.200',
                         '& .MuiLinearProgress-bar': {
-                          bgcolor: getConfidenceColor(prop.confidence),
-                        },
+                          bgcolor: getConfidenceColor(prop.confidence)
+                        }
                       }}
                       value={prop.confidence}
                       variant="determinate"
@@ -204,14 +187,14 @@ export const TrendingProps: React.FC<TrendingPropsProps key={571331}> = ({ props
                           bgcolor: 'background.paper',
                           borderRadius: 1,
                           border: '1px solid',
-                          borderColor: 'divider',
+                          borderColor: 'divider'
                         }}
                        key={587776}>
                         <Box alignItems="center" display="flex" gap={1} mb={1} key={873504}>
                           <Avatar;
                             alt={prop.topComment.user}
                             src={prop.topComment.avatar}
-                            sx={{ width: 24, height: 24 }}
+                            sx={{ width: 24, height: 24}}
                           / key={753448}>
                           <Typography fontWeight="bold" variant="body2" key={982928}>
                             {prop.topComment.user}
@@ -234,5 +217,10 @@ export const TrendingProps: React.FC<TrendingPropsProps key={571331}> = ({ props
         ))}
       </Grid>
     </Box>
-  );
-};
+  )};
+
+
+
+
+
+`

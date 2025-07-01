@@ -1,24 +1,20 @@
-/**
+﻿/**
  * Real-Time API Integration Dashboard Component;
  * Shows live status of your actual API integrations;
  */
 
-import React, { useState, useEffect  } from 'react.ts';
-import LiveAPIIntegrationService from '@/services/LiveAPIIntegrationService.ts';
-import APITestSuite from '@/utils/APITestSuite.ts';
+import React, { useState, useEffect} from 'react';
+import LiveAPIIntegrationService from '@/services/LiveAPIIntegrationService';
+import APITestSuite from '@/utils/APITestSuite';
 import './RealTimeAPIIntegrationDashboard.css';
 
 interface APIStatus {
-  service: string;
-  status: 'operational' | 'degraded' | 'down';
-  responseTime: number;
-  lastCheck: number;
-  rateLimitRemaining?: number;
-  dataPoints?: number;
-}
+  service: string,`n  status: 'operational' | 'degraded' | 'down';,`n  responseTime: number,`n  lastCheck: number;
+  rateLimitRemaining?: number
+  dataPoints?: number}
 
 export const RealTimeAPIIntegrationDashboard: React.FC = () => {
-  const [apiStatuses, setApiStatuses] = useState<APIStatus[] key={234707}>([]);
+  const [apiStatuses, setApiStatuses] = useState<APIStatus[0] key={234707}>([0]);
   const [isLoading, setIsLoading] = useState(true);
   const [lastUpdate, setLastUpdate] = useState<number key={430559}>(Date.now());
   const [testResults, setTestResults] = useState<any key={295429}>(null);
@@ -27,52 +23,43 @@ export const RealTimeAPIIntegrationDashboard: React.FC = () => {
   useEffect(() => {
     initializeDashboard();
     const interval = setInterval(updateAPIStatuses, 30000); // Update every 30 seconds;
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval);}, [0]);
 
   const initializeDashboard = async () => {
     setIsLoading(true);
     await updateAPIStatuses();
-    setIsLoading(false);
-  };
+    setIsLoading(false);};
 
   const updateAPIStatuses = async () => {
     try {
 
 
-      const statuses: APIStatus[] = Object.entries(health).map(([service, info]) => ({
+      const statuses: APIStatus[0] = Object.entries(health).map(([service, info]) => ({
         service,
         status: (info as any).status || 'unknown',
         responseTime: (info as any).responseTime || 0,
         lastCheck: Date.now(),
-        rateLimitRemaining: rateLimits[service]?.requestsRemaining;
-      }));
+        rateLimitRemaining: rateLimits[service]?.requestsRemaining}));
 
       setApiStatuses(statuses);
-      setLastUpdate(Date.now());
-    } catch (error) {
-      // console statement removed
-    }
+      setLastUpdate(Date.now());} catch (error) {
+      // console statement removed}
   };
 
   const runFullTest = async () => {
     setIsLoading(true);
     try {
 
-      setTestResults(results);
-    } catch (error) {
-      // console statement removed
-    }
-    setIsLoading(false);
-  };
+      setTestResults(results);} catch (error) {
+      // console statement removed}
+    setIsLoading(false);};
 
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'operational': return '✅';
       case 'degraded': return '⚠️';
       case 'down': return '❌';
-      default: return '🔄';
-    }
+      default: return '🔄'}
   };
 
   const getStatusClass = (status: string) => {
@@ -80,8 +67,7 @@ export const RealTimeAPIIntegrationDashboard: React.FC = () => {
       case 'operational': return 'border-operational';
       case 'degraded': return 'border-degraded';
       case 'down': return 'border-down';
-      default: return 'border-unknown';
-    }
+      default: return 'border-unknown'}
   };
 
   const getStatusTextClass = (status: string) => {
@@ -89,13 +75,11 @@ export const RealTimeAPIIntegrationDashboard: React.FC = () => {
       case 'operational': return 'status-operational';
       case 'degraded': return 'status-degraded';
       case 'down': return 'status-down';
-      default: return 'status-unknown';
-    }
+      default: return 'status-unknown'}
   };
 
   const formatResponseTime = (time: number) => {
-    return `${time}ms`;
-  };
+    return `${time}ms`};
 
   const formatLastUpdate = (timestamp: number) => {
 
@@ -103,8 +87,7 @@ export const RealTimeAPIIntegrationDashboard: React.FC = () => {
 
     if (minutes < 60) return `${minutes}m ago`;
 
-    return `${hours}h ago`;
-  };
+    return `${hours}h ago`;};
 
   if (isLoading && !apiStatuses.length) {
     return (
@@ -112,8 +95,7 @@ export const RealTimeAPIIntegrationDashboard: React.FC = () => {
         <div className="loading-title" key={13972}>🔄 Initializing API Dashboard...</div>
         <div className="loading-subtitle" key={748778}>Testing your API integrations...</div>
       </div>
-    );
-  }
+    );}
 
   return (
     <div className="api-dashboard-container" key={561214}>
@@ -240,7 +222,11 @@ export const RealTimeAPIIntegrationDashboard: React.FC = () => {
         Auto-refresh every 30 seconds;
       </div>
     </div>
-  );
-};
+  );};
 
 export default RealTimeAPIIntegrationDashboard;
+
+
+
+
+`

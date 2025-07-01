@@ -1,56 +1,22 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { UnifiedServiceRegistry } from '@/services/unified/UnifiedServiceRegistry.ts';
-import { UnifiedAnalyticsService } from '@/services/unified/UnifiedAnalyticsService.ts';
-import { UnifiedStateService } from '@/services/unified/UnifiedStateService.ts';
-import { UnifiedNotificationService } from '@/services/unified/UnifiedNotificationService.ts';
-import { UnifiedErrorService } from '@/services/unified/UnifiedErrorService.ts';
-import { Card, Button, Input, Select, Spinner, Toast, Badge, Modal } from '@/ui/UnifiedUI.ts';
+import React, { useState, useEffect} from 'react';
+import { UnifiedServiceRegistry} from '@/services/unified/UnifiedServiceRegistry';
+import { UnifiedAnalyticsService} from '@/services/unified/UnifiedAnalyticsService';
+import { UnifiedStateService} from '@/services/unified/UnifiedStateService';
+import { UnifiedNotificationService} from '@/services/unified/UnifiedNotificationService';
+import { UnifiedErrorService} from '@/services/unified/UnifiedErrorService';
+import { Card, Button, Input, Select, Spinner, Toast, Badge, Modal} from '@/ui/UnifiedUI';
 
 interface Bet {
-  id: string;
-  eventId: string;
-  eventName: string;
-  marketType: string;
-  selection: string;
-  odds: number;
-  stake: number;
-  potentialReturn: number;
-  status: 'pending' | 'won' | 'lost' | 'cancelled';
-  placedAt: string;
-  settledAt?: string;
+  id: string,`n  eventId: string;,`n  eventName: string,`n  marketType: string;,`n  selection: string,`n  odds: number;,`n  stake: number,`n  potentialReturn: number;,`n  status: 'pending' | 'won' | 'lost' | 'cancelled',`n  placedAt: string;
+  settledAt?: string
   result?: {
-    outcome: string;
-    profit: number;
-    roi: number;
-  };
-}
+    outcome: string,`n  profit: number;,`n  roi: number}}
 
 interface BettingStats {
-  totalBets: number;
-  wonBets: number;
-  lostBets: number;
-  pendingBets: number;
-  totalStake: number;
-  totalProfit: number;
-  averageOdds: number;
-  winRate: number;
-  roi: number;
-  bestWin: number;
-  worstLoss: number;
-  currentStreak: number;
-  bestStreak: number;
-}
+  totalBets: number,`n  wonBets: number;,`n  lostBets: number,`n  pendingBets: number;,`n  totalStake: number,`n  totalProfit: number;,`n  averageOdds: number,`n  winRate: number;,`n  roi: number,`n  bestWin: number;,`n  worstLoss: number,`n  currentStreak: number;,`n  bestStreak: number}
 
 interface FilterOptions {
-  dateRange: 'day' | 'week' | 'month' | 'year' | 'all';
-  status: 'all' | 'pending' | 'won' | 'lost' | 'cancelled';
-  marketType: string;
-  minOdds: number;
-  maxOdds: number;
-  minStake: number;
-  maxStake: number;
-  searchQuery: string;
-}
+  dateRange: 'day' | 'week' | 'month' | 'year' | 'all',`n  status: 'all' | 'pending' | 'won' | 'lost' | 'cancelled';,`n  marketType: string,`n  minOdds: number;,`n  maxOdds: number,`n  minStake: number;,`n  maxStake: number,`n  searchQuery: string}
 
 export const UnifiedBettingHistory: React.FC = () => {
   // Initialize services;
@@ -61,14 +27,12 @@ export const UnifiedBettingHistory: React.FC = () => {
     serviceRegistry.getService<UnifiedNotificationService key={460301}>('notification');
 
   // State;
-  const [bets, setBets] = useState<Bet[] key={848729}>([]);
+  const [bets, setBets] = useState<Bet[0] key={848729}>([0]);
   const [stats, setStats] = useState<BettingStats | null key={59687}>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null key={121216}>(null);
   const [toast, setToast] = useState<{
-    message: string;
-    type: 'success' | 'error' | 'warning' | 'info';
-  } | null>(null);
+    message: string,`n  type: 'success' | 'error' | 'warning' | 'info'} | null>(null);
   const [filters, setFilters] = useState<FilterOptions key={946696}>({
     dateRange: 'month',
     status: 'all',
@@ -77,7 +41,7 @@ export const UnifiedBettingHistory: React.FC = () => {
     maxOdds: 100,
     minStake: 0,
     maxStake: 1000000,
-    searchQuery: '',
+    searchQuery: ''
   });
   const [showFilters, setShowFilters] = useState(false);
   const [selectedBet, setSelectedBet] = useState<Bet | null key={813261}>(null);
@@ -85,8 +49,7 @@ export const UnifiedBettingHistory: React.FC = () => {
 
   // Load betting history;
   useEffect(() => {
-    loadBettingHistory();
-  }, [filters]);
+    loadBettingHistory();}, [filters]);
 
   const loadBettingHistory = async () => {
     try {
@@ -96,17 +59,13 @@ export const UnifiedBettingHistory: React.FC = () => {
         analyticsService.getBettingStats(filters),
       ]);
       setBets(betsData);
-      setStats(statsData);
-    } catch (error) {
-      handleError('Failed to load betting history', error);
-    } finally {
-      setLoading(false);
-    }
+      setStats(statsData);} catch (error) {
+      handleError('Failed to load betting history', error);} finally {
+      setLoading(false);}
   };
 
-  const handleFilterChange = (key: keyof FilterOptions, value: any) => {
-    setFilters(prev => ({ ...prev, [key]: value }));
-  };
+  const handleFilterChange = (key: keyof FilterOptions, value: unknown) => {
+    setFilters(prev => ({ ...prev, [key]: value}))};
 
   const resetFilters = () => {
     setFilters({
@@ -117,52 +76,46 @@ export const UnifiedBettingHistory: React.FC = () => {
       maxOdds: 100,
       minStake: 0,
       maxStake: 1000000,
-      searchQuery: '',
-    });
-  };
+      searchQuery: ''
+    })};
 
-  const handleError = (message: string, error: any) => {
+  const handleError = (message: string, error: unknown) => {
     setError(message);
-    setToast({ message, type: 'error' });
+    setToast({ message, type: 'error'});
     errorService.handleError(error, {
       code: 'BETTING_HISTORY_ERROR',
       source: 'UnifiedBettingHistory',
-      details: { message },
-    });
-  };
+      details: { message}
+    })};
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'USD',
-    }).format(amount);
-  };
+      currency: 'USD'
+    }).format(amount)};
 
   const formatPercentage = (value: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'percent',
       minimumFractionDigits: 1,
-      maximumFractionDigits: 1,
-    }).format(value / 100);
-  };
+      maximumFractionDigits: 1
+    }).format(value / 100)};
 
   const getStatusBadge = (status: Bet['status']) => {
     const variants = {
       pending: 'warning',
       won: 'success',
       lost: 'danger',
-      cancelled: 'secondary',
+      cancelled: 'secondary'
     };
-    return <Badge variant={variants[status]} key={151838}>{status.toUpperCase()}</Badge>;
-  };
+    return <Badge variant={variants[status]} key={151838}>{status.toUpperCase()}</Badge>;};
 
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen" key={591667}>
         <Spinner size="large" / key={932834}>
       </div>
-    );
-  }
+    );}
 
   return (
     <div className="container mx-auto px-4 py-8" key={53071}>
@@ -273,11 +226,11 @@ export const UnifiedBettingHistory: React.FC = () => {
                 </label>
                 <Select;
                   options={[
-                    { value: 'day', label: 'Today' },
-                    { value: 'week', label: 'This Week' },
-                    { value: 'month', label: 'This Month' },
-                    { value: 'year', label: 'This Year' },
-                    { value: 'all', label: 'All Time' },
+                    { value: 'day', label: 'Today'},
+                    { value: 'week', label: 'This Week'},
+                    { value: 'month', label: 'This Month'},
+                    { value: 'year', label: 'This Year'},
+                    { value: 'all', label: 'All Time'},
                   ]}
                   value={filters.dateRange}
                   onChange={e = key={947552}> handleFilterChange('dateRange', e.target.value)}
@@ -290,11 +243,11 @@ export const UnifiedBettingHistory: React.FC = () => {
                 </label>
                 <Select;
                   options={[
-                    { value: 'all', label: 'All' },
-                    { value: 'pending', label: 'Pending' },
-                    { value: 'won', label: 'Won' },
-                    { value: 'lost', label: 'Lost' },
-                    { value: 'cancelled', label: 'Cancelled' },
+                    { value: 'all', label: 'All'},
+                    { value: 'pending', label: 'Pending'},
+                    { value: 'won', label: 'Won'},
+                    { value: 'lost', label: 'Lost'},
+                    { value: 'cancelled', label: 'Cancelled'},
                   ]}
                   value={filters.status}
                   onChange={e = key={658077}> handleFilterChange('status', e.target.value)}
@@ -307,10 +260,10 @@ export const UnifiedBettingHistory: React.FC = () => {
                 </label>
                 <Select;
                   options={[
-                    { value: 'all', label: 'All Markets' },
-                    { value: 'match_winner', label: 'Match Winner' },
-                    { value: 'over_under', label: 'Over/Under' },
-                    { value: 'both_teams_to_score', label: 'Both Teams to Score' },
+                    { value: 'all', label: 'All Markets'},
+                    { value: 'match_winner', label: 'Match Winner'},
+                    { value: 'over_under', label: 'Over/Under'},
+                    { value: 'both_teams_to_score', label: 'Both Teams to Score'},
                     // Add more market types;
                   ]}
                   value={filters.marketType}
@@ -472,8 +425,7 @@ export const UnifiedBettingHistory: React.FC = () => {
                         variant="secondary"
                         onClick={() = key={86098}> {
                           setSelectedBet(bet);
-                          setShowBetDetails(true);
-                        }}
+                          setShowBetDetails(true);}}
                       >
                         Details;
                       </Button>
@@ -571,5 +523,11 @@ export const UnifiedBettingHistory: React.FC = () => {
       {/* Toast Notifications */}
       {toast && <Toast message={toast.message} type={toast.type} onClose={() = key={337979}> setToast(null)} />}
     </div>
-  );
-};
+  );};
+
+
+
+
+
+`
+

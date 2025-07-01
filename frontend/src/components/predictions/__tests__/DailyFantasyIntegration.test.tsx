@@ -1,8 +1,8 @@
-import React from 'react.ts';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react.ts';
-import { DailyFantasyIntegration } from '@/DailyFantasyIntegration.ts';
-import { useLogger } from '@/../hooks/useLogger.ts';
-import { useMetrics } from '@/../hooks/useMetrics.ts';
+﻿import React from 'react';
+import { render, screen, fireEvent, waitFor} from '@testing-library/react';
+import { DailyFantasyIntegration} from '@/DailyFantasyIntegration';
+import { useLogger} from '@/../hooks/useLogger';
+import { useMetrics} from '@/../hooks/useMetrics';
 
 // Mock the hooks;
 jest.mock('../../../hooks/useLogger');
@@ -13,7 +13,7 @@ const mockLogger = {
   error: jest.fn(),
   warn: jest.fn(),
   debug: jest.fn(),
-  trace: jest.fn(),
+  trace: jest.fn()
 };
 
 const mockMetrics = {
@@ -21,7 +21,7 @@ const mockMetrics = {
   increment: jest.fn(),
   gauge: jest.fn(),
   timing: jest.fn(),
-  histogram: jest.fn(),
+  histogram: jest.fn()
 };
 
 // TODO: Skipped all tests in this file due to incomplete or broken DailyFantasyIntegration logic or outdated mocks. Fix and re-enable.
@@ -37,8 +37,7 @@ describe.skip('DailyFantasyIntegration', () => {
     mockLogger.info.mockClear();
     mockLogger.error.mockClear();
     mockMetrics.track.mockClear();
-    mockMetrics.increment.mockClear();
-  });
+    mockMetrics.increment.mockClear();});
 
   const mockFantasyData = [
     {
@@ -48,7 +47,7 @@ describe.skip('DailyFantasyIntegration', () => {
       position: 'QB',
       salary: 8000,
       projectedPoints: 20,
-      ownershipPercentage: 15,
+      ownershipPercentage: 15
     },
     {
       playerId: '2',
@@ -57,7 +56,7 @@ describe.skip('DailyFantasyIntegration', () => {
       position: 'RB',
       salary: 7000,
       projectedPoints: 18,
-      ownershipPercentage: 12,
+      ownershipPercentage: 12
     },
   ];
 
@@ -68,51 +67,46 @@ describe.skip('DailyFantasyIntegration', () => {
 
     expect(screen.getByText('Daily Fantasy Integration')).toBeInTheDocument();
     expect(screen.getByLabelText('API Key')).toBeInTheDocument();
-    expect(screen.getByLabelText('Site')).toBeInTheDocument();
-  });
+    expect(screen.getByLabelText('Site')).toBeInTheDocument();});
 
   it('fetches data when API key is provided', async () => {
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: () => Promise.resolve(mockFantasyData),
+      json: () => Promise.resolve(mockFantasyData)
     });
 
     render(
       <DailyFantasyIntegration date="2024-01-01" sport="nfl" onDataUpdate={mockOnDataUpdate} / key={650139}>
     );
 
-    fireEvent.change(apiKeyInput, { target: { value: 'test-api-key' } });
+    fireEvent.change(apiKeyInput, { target: { value: 'test-api-key'} });
 
     await waitFor(() => {
       expect(mockFetch).toHaveBeenCalledWith(
         '/api/dailyfantasy/nfl',
         expect.objectContaining({
           method: 'POST',
-          headers: expect.objectContaining({
-            Authorization: 'Bearer test-api-key',
+          headers: expect.objectContaining({,`n  Authorization: 'Bearer test-api-key'
           }),
-          body: JSON.stringify({
-            site: 'draftkings',
+          body: JSON.stringify({,`n  site: 'draftkings',
             date: '2024-01-01',
-            sport: 'nfl',
-          }),
+            sport: 'nfl'
+          })
         })
-      );
-    });
+      )});
 
     expect(mockOnDataUpdate).toHaveBeenCalledWith(
       expect.arrayContaining([
         expect.objectContaining({
           playerId: '1',
-          valueScore: expect.any(Number),
+          valueScore: expect.any(Number)
         }),
         expect.objectContaining({
           playerId: '2',
-          valueScore: expect.any(Number),
+          valueScore: expect.any(Number)
         }),
       ])
-    );
-  });
+    )});
 
   it('handles API errors gracefully', async () => {
     mockFetch.mockRejectedValueOnce(new Error('API Error'));
@@ -121,23 +115,21 @@ describe.skip('DailyFantasyIntegration', () => {
       <DailyFantasyIntegration date="2024-01-01" sport="nfl" onDataUpdate={mockOnDataUpdate} / key={650139}>
     );
 
-    fireEvent.change(apiKeyInput, { target: { value: 'test-api-key' } });
+    fireEvent.change(apiKeyInput, { target: { value: 'test-api-key'} });
 
     await waitFor(() => {
-      expect(screen.getByText('API Error')).toBeInTheDocument();
-    });
+      expect(screen.getByText('API Error')).toBeInTheDocument();});
 
     expect(mockLogger.error).toHaveBeenCalledWith(
       'Error fetching DailyFantasy data',
       expect.any(Object)
     );
-    expect(mockMetrics.increment).toHaveBeenCalledWith('dailyfantasy_fetch_error');
-  });
+    expect(mockMetrics.increment).toHaveBeenCalledWith('dailyfantasy_fetch_error');});
 
   it('switches between DraftKings and FanDuel', async () => {
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: () => Promise.resolve(mockFantasyData),
+      json: () => Promise.resolve(mockFantasyData)
     });
 
     render(
@@ -147,7 +139,7 @@ describe.skip('DailyFantasyIntegration', () => {
     fireEvent.mouseDown(siteSelect);
     fireEvent.click(screen.getByText('FanDuel'));
 
-    fireEvent.change(apiKeyInput, { target: { value: 'test-api-key' } });
+    fireEvent.change(apiKeyInput, { target: { value: 'test-api-key'} });
 
     await waitFor(() => {
       expect(mockFetch).toHaveBeenCalledWith(
@@ -155,29 +147,28 @@ describe.skip('DailyFantasyIntegration', () => {
         expect.objectContaining({
           body: JSON.stringify(
             expect.objectContaining({
-              site: 'fanduel',
+              site: 'fanduel'
             })
-          ),
+          )
         })
-      );
-    });
-  });
+      )});});
 
   it('displays data summary when data is loaded', async () => {
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: () => Promise.resolve(mockFantasyData),
+      json: () => Promise.resolve(mockFantasyData)
     });
 
     render(
       <DailyFantasyIntegration date="2024-01-01" sport="nfl" onDataUpdate={mockOnDataUpdate} / key={650139}>
     );
 
-    fireEvent.change(apiKeyInput, { target: { value: 'test-api-key' } });
+    fireEvent.change(apiKeyInput, { target: { value: 'test-api-key'} });
 
     await waitFor(() => {
       expect(screen.getByText('2 players loaded')).toBeInTheDocument();
-      expect(screen.getByText(/Average Value Score:/)).toBeInTheDocument();
-    });
-  });
-});
+      expect(screen.getByText(/Average Value Score: /)).toBeInTheDocument()})});});
+
+
+
+`

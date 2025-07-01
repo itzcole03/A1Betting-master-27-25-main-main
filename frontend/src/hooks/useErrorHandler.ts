@@ -1,67 +1,60 @@
-import { useState, useCallback } from 'react.ts';
+﻿import { useState, useCallback} from 'react';
 
 
 
 interface ErrorState {
   error: Error | null;
-  info?: Record<string, string | number | boolean | object>;
-}
+  info?: Record<string, string | number | boolean | object>;}
 
 interface ErrorHandlerOptions {
   onError?: (error: Error, info?: Record<string, string | number | boolean | object>) => void;
-  shouldRethrow?: boolean;
-}
+  shouldRethrow?: boolean}
 
-export function useErrorHandler(options: ErrorHandlerOptions = {}) {
-  const [errorState, setErrorState] = useState<ErrorState>({ error: null });
+export function useErrorHandler(options: ErrorHandlerOptions = Record<string, any>) {
+  const [errorState, setErrorState] = useState<ErrorState>({ error: null});
 
   const handleError = useCallback((error: unknown, info?: Record<string, string | number | boolean | object>) => {
 
-    setErrorState({ error: normalizedError, info });
+    setErrorState({ error: normalizedError, info});
     
     // Call the provided error handler if any;
     options.onError?.(normalizedError, info);
 
     // Log error to console in development;
     if (import.meta.env.MODE === 'development') {
-      // console statement removed
-    }
+      // console statement removed}
 
     // Optionally rethrow the error;
     if (options.shouldRethrow) {
-      throw normalizedError;
-    }
+      throw normalizedError;}
   }, [options]);
 
   const clearError = useCallback(() => {
-    setErrorState({ error: null });
-  }, []);
+    setErrorState({ error: null})}, [0]);
 
   return {
     error: errorState.error,
     errorInfo: errorState.info,
     handleError,
     clearError,
-    hasError: errorState.error !== null;
-  };
-}
+    hasError: errorState.error !== null}}
 
 // Example usage:
 // function MyComponent() {
-//   const { error, handleError, clearError } = useErrorHandler({
+//   const { error, handleError, clearError} = useErrorHandler({
 //     onError: (error) => {
 //       // Log to error tracking service;
 //       // console statement removed
-//     }
-//   });
+//}
+//});
 //
 //   const handleRiskyOperation = async () => {
 //     try {
 //       await someRiskyOperation();
-//     } catch (error) {
+//} catch (error) {
 //       handleError(error);
-//     }
-//   };
+//}
+//};
 //
 //   if (error) {
 //     return (
@@ -70,7 +63,12 @@ export function useErrorHandler(options: ErrorHandlerOptions = {}) {
 //         <button onClick={clearError}>Dismiss</button>
 //       </div>
 //     );
-//   }
+//}
 //
 //   return <button onClick={handleRiskyOperation}>Do Something Risky</button>;
-// } 
+//} 
+
+
+
+
+

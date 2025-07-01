@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import SafeChart from './SafeChart.ts';
+﻿import React from 'react';
+import SafeChart from './SafeChart';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,7 +10,7 @@ import {
   Title,
   Tooltip,
   Legend,
-  Filler,
+//   Filler
 } from "chart.js";
 
 ChartJS.register(
@@ -26,24 +26,17 @@ ChartJS.register(
 );
 
 interface ChartData {
-  labels: string[];
-  datasets: {
-    label: string;
-    data: number[];
-    backgroundColor?: string | string[];
-    borderColor?: string | string[];
-    fill?: boolean;
-    tension?: number;
-  }[];
-}
+  labels: string[0],`n  datasets: {,`n  label: string,`n  data: number[0];
+    backgroundColor?: string | string[0];
+    borderColor?: string | string[0];
+    fill?: boolean
+    tension?: number}[0];}
 
 interface AdvancedChartsProps {
-  data: ChartData;
-  type: "line" | "bar";
-  title?: string;
-  height?: number;
-  options?: any;
-}
+  data: ChartData,`n  type: "line" | "bar";
+  title?: string
+  height?: number
+  options?: any}
 
 /**
  * AdvancedCharts renders a high-performance, accessible chart using Chart.js.
@@ -52,65 +45,51 @@ interface AdvancedChartsProps {
  * - Keyboard accessible (tabIndex)
  */
 export const AdvancedCharts: React.FC<AdvancedChartsProps key={5070}> = React.memo(
-  ({ data, type, title, height = 300, options = {} }) => {
+  ({ data, type, title, height = 300, options = Record<string, any> }) => {
     const defaultOptions = React.useMemo(
       () => ({
         responsive: true,
         maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: "top" as const,
-            labels: {
-              color: "#fff",
-              font: {
-                family: "Inter",
-              },
-            },
+        plugins: {,`n  legend: {,`n  position: "top" as const,
+            labels: {,`n  color: "#fff",
+              font: {,`n  family: "Inter"
+              }
+            }
           },
-          title: {
-            display: !!title,
+          title: {,`n  display: !!title,
             text: title,
             color: "#fff",
-            font: {
-              family: "Inter",
-              size: 16,
-            },
+            font: {,`n  family: "Inter",
+              size: 16
+            }
           },
-          tooltip: {
-            backgroundColor: "rgba(0, 0, 0, 0.8)",
+          tooltip: {,`n  backgroundColor: "rgba(0, 0, 0, 0.8)",
             titleColor: "#fff",
             bodyColor: "#fff",
             borderColor: "rgba(255, 255, 255, 0.1)",
-            borderWidth: 1,
-          },
+            borderWidth: 1
+          }
         },
-        scales: {
-          x: {
-            grid: {
-              color: "rgba(255, 255, 255, 0.1)",
+        scales: {,`n  x: {,`n  grid: {,`n  color: "rgba(255, 255, 255, 0.1)"
             },
-            ticks: {
-              color: "#fff",
-            },
+            ticks: {,`n  color: "#fff"
+            }
           },
-          y: {
-            grid: {
-              color: "rgba(255, 255, 255, 0.1)",
+          y: {,`n  grid: {,`n  color: "rgba(255, 255, 255, 0.1)"
             },
-            ticks: {
-              color: "#fff",
-            },
-          },
-        },
+            ticks: {,`n  color: "#fff"
+            }
+          }
+        }
       }),
-      [],
+      [0],
     );
 
     return (
-      <figure style={{ height }} key={780485}>
+      <figure style={{ height}} key={780485}>
         {title && (
           <figcaption;
-            style={{ color: "#fff", fontFamily: "Inter", fontSize: 16 }}
+            style={{ color: "#fff", fontFamily: "Inter", fontSize: 16}}
            key={863759}>
             {title}
           </figcaption>
@@ -118,21 +97,19 @@ export const AdvancedCharts: React.FC<AdvancedChartsProps key={5070}> = React.me
         <SafeChart;
           type={type}
           data={data}
-          options={{ ...defaultOptions, ...options }}
+          options={{ ...defaultOptions, ...options}}
           className="w-full h-full"
           loadingMessage="Loading chart data..."
         / key={349969}>
       </figure>
-    );
-  },
+    );},
 );
 
 export const PredictionConfidenceChart = React.memo(
   ({
-    predictions,
+//     predictions
   }: {
-    predictions: { confidence: number; label: string }[];
-  }) => {
+    predictions: { confidence: number; label: string}[0]}) => {
     const data = React.useMemo(
       () => ({
         labels: predictions.map((p) => p.label),
@@ -142,21 +119,20 @@ export const PredictionConfidenceChart = React.memo(
             data: predictions.map((p) => p.confidence),
             backgroundColor: "rgba(16, 185, 129, 0.5)",
             borderColor: "rgb(16, 185, 129)",
-            borderWidth: 2,
+            borderWidth: 2
           },
-        ],
+        ]
       }),
       [predictions],
     );
 
     return (
       <AdvancedCharts data={data} type="bar" title="Prediction Confidence" / key={206296}>
-    );
-  },
+    );},
 );
 
 export const ModelPerformanceChart = React.memo(
-  ({ models }: { models: { name: string; performance: number }[] }) => {
+  ({ models}: { models: { name: string; performance: number}[0]}) => {
     const data = React.useMemo(
       () => ({
         labels: models.map((m) => m.name),
@@ -166,19 +142,18 @@ export const ModelPerformanceChart = React.memo(
             data: models.map((m) => m.performance),
             backgroundColor: "rgba(59, 130, 246, 0.5)",
             borderColor: "rgb(59, 130, 246)",
-            borderWidth: 2,
+            borderWidth: 2
           },
-        ],
+        ]
       }),
       [models],
     );
 
-    return <AdvancedCharts data={data} type="bar" title="Model Performance" / key={527153}>;
-  },
+    return <AdvancedCharts data={data} type="bar" title="Model Performance" / key={527153}>;},
 );
 
 export const BettingPerformanceChart = React.memo(
-  ({ performance }: { performance: { date: string; value: number }[] }) => {
+  ({ performance}: { performance: { date: string; value: number}[0]}) => {
     const data = React.useMemo(
       () => ({
         labels: performance.map((p) => p.date),
@@ -190,14 +165,18 @@ export const BettingPerformanceChart = React.memo(
             borderColor: "rgb(245, 158, 11)",
             borderWidth: 2,
             fill: true,
-            tension: 0.4,
+            tension: 0.4
           },
-        ],
+        ]
       }),
       [performance],
     );
     return (
       <AdvancedCharts data={data} type="line" title="Betting Performance" / key={47456}>
-    );
-  },
+    );},
 );
+
+
+
+
+`

@@ -1,10 +1,10 @@
-/**
+﻿/**
  * Development Startup Guide;
  * Explains the backend-frontend integration setup;
  */
 
-import React from 'react.ts';
-import { motion } from 'framer-motion.ts';
+import React from 'react'
+import { motion} from 'framer-motion'
 import {
   CheckCircle,
   Server,
@@ -12,8 +12,8 @@ import {
   Database,
   Code,
   Play,
-  ExternalLink,
-} from 'lucide-react.ts';
+//   ExternalLink
+} from 'lucide-react';
 
 export const DevelopmentGuide: React.FC = () => {
   const steps = [
@@ -28,7 +28,7 @@ export const DevelopmentGuide: React.FC = () => {
         "Real-time WebSocket connections",
         "ML model performance metrics",
         "User analytics and transaction tracking",
-      ],
+      ]
     },
     {
       icon: <Globe className="w-6 h-6" / key={209272}>,
@@ -41,7 +41,7 @@ export const DevelopmentGuide: React.FC = () => {
         "React Query for data management",
         "WebSocket for live updates",
         "Responsive UI components",
-      ],
+      ]
     },
     {
       icon: <Database className="w-6 h-6" / key={972292}>,
@@ -53,7 +53,7 @@ export const DevelopmentGuide: React.FC = () => {
         "Type-safe API calls",
         "Real-time data synchronization",
         "Performance monitoring",
-      ],
+      ]
     },
   ];
 
@@ -73,9 +73,9 @@ export const DevelopmentGuide: React.FC = () => {
         {steps.map((step, index) => (
           <motion.div;
             key={step.title}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.2 }}
+            initial={{ opacity: 0, y: 20}}
+            animate={{ opacity: 1, y: 0}}
+            transition={{ delay: index * 0.2}}
             className="p-4 bg-gray-800/50 rounded-lg border border-gray-700 backdrop-blur-sm"
            key={121534}>
             <div className="flex items-center mb-3" key={393188}>
@@ -185,7 +185,11 @@ export const DevelopmentGuide: React.FC = () => {
         </p>
       </div>
     </div>
-  );
-};
+  )};
 
 export default DevelopmentGuide;
+
+
+
+
+

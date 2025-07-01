@@ -7,6 +7,7 @@ This directory contains all TypeScript type definitions and interfaces for the a
 - All types are used throughout the frontend and services for type safety.
 
 ## Example Type Files
+
 - `betting.ts`: Types for betting opportunities and configs.
 - `ml.ts`: Types for machine learning models and results.
 - `prediction.ts`: Types for prediction results and payloads.

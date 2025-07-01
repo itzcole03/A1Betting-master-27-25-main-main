@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 
 // ============================================================================
 // CYBER THEME SYSTEM - ENHANCED WITH LIGHT & DARK MODE;
@@ -11,45 +11,40 @@ export const CYBER_COLORS = {
   purple: "#7c3aed", // Purple accent;
 
   // Light mode colors;
-  light: {
-    background:
+  light: {,`n  background:
       "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 50%, #e2e8f0 75%, #f8fafc 100%)",
     surface: "rgba(255, 255, 255, 0.8)",
     glass: "rgba(255, 255, 255, 0.8)",
     border: "rgba(15, 23, 42, 0.1)",
-    text: {
-      primary: "#0f172a",
+    text: {,`n  primary: "#0f172a",
       secondary: "#334155",
-      muted: "#64748b",
+      muted: "#64748b"
     },
     shadow: "0 8px 32px rgba(15, 23, 42, 0.1)",
-    glow: "0 0 20px rgba(6, 255, 165, 0.3)",
+    glow: "0 0 20px rgba(6, 255, 165, 0.3)"
   },
 
   // Dark mode colors;
-  dark: {
-    background:
+  dark: {,`n  background:
       "linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f172a 100%)",
     surface: "rgba(255, 255, 255, 0.05)",
     glass: "rgba(255, 255, 255, 0.05)",
     border: "rgba(255, 255, 255, 0.1)",
-    text: {
-      primary: "#ffffff",
+    text: {,`n  primary: "#ffffff",
       secondary: "#e2e8f0",
-      muted: "#94a3b8",
+      muted: "#94a3b8"
     },
     shadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
-    glow: "0 0 20px rgba(6, 255, 165, 0.6)",
+    glow: "0 0 20px rgba(6, 255, 165, 0.6)"
   },
 
   // Legacy support - defaults to dark;
   glass: "rgba(255, 255, 255, 0.05)",
   border: "rgba(255, 255, 255, 0.1)",
-  text: {
-    primary: "#ffffff",
+  text: {,`n  primary: "#ffffff",
     secondary: "#e2e8f0",
-    muted: "#94a3b8",
-  },
+    muted: "#94a3b8"
+  }
 } as const;
 
 export const CYBER_GRADIENTS = {
@@ -59,165 +54,140 @@ export const CYBER_GRADIENTS = {
     "linear-gradient(135deg, rgba(6, 255, 165, 0.8), rgba(0, 255, 136, 0.6))",
 
   // Light mode gradients;
-  light: {
-    background:
+  light: {,`n  background:
       "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 50%, #e2e8f0 75%, #f8fafc 100%)",
     button:
       "linear-gradient(135deg, rgba(6, 255, 165, 0.9), rgba(0, 255, 136, 0.8))",
-    card: "linear-gradient(45deg, rgba(6, 255, 165, 0.1), rgba(0, 212, 255, 0.1))",
+    card: "linear-gradient(45deg, rgba(6, 255, 165, 0.1), rgba(0, 212, 255, 0.1))"
   },
 
   // Dark mode gradients;
-  dark: {
-    background:
+  dark: {,`n  background:
       "linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f172a 100%)",
     button:
       "linear-gradient(135deg, rgba(6, 255, 165, 0.8), rgba(0, 255, 136, 0.6))",
-    card: "linear-gradient(45deg, rgba(6, 255, 165, 0.1), rgba(0, 212, 255, 0.1))",
+    card: "linear-gradient(45deg, rgba(6, 255, 165, 0.1), rgba(0, 212, 255, 0.1))"
   },
 
   // Legacy support;
   background: "linear-gradient(135deg, #0f172a 0%, #7c3aed 50%, #0f172a 100%)",
   button:
     "linear-gradient(135deg, rgba(6, 255, 165, 0.8), rgba(0, 255, 136, 0.6))",
-  card: "linear-gradient(45deg, #00ff88, #00d4ff)",
+  card: "linear-gradient(45deg, #00ff88, #00d4ff)"
 } as const;
 
 export const CYBER_GLASS = {
   // Light mode glass effects;
-  light: {
-    panel: {
-      backdropFilter: "blur(40px) saturate(2)",
+  light: {,`n  panel: {,`n  backdropFilter: "blur(40px) saturate(2)",
       backgroundColor: "rgba(255, 255, 255, 0.8)",
       border: "1px solid rgba(15, 23, 42, 0.1)",
       boxShadow:
-        "0 8px 32px rgba(15, 23, 42, 0.1), 0 1px 0 rgba(255, 255, 255, 0.5) inset",
+        "0 8px 32px rgba(15, 23, 42, 0.1), 0 1px 0 rgba(255, 255, 255, 0.5) inset"
     },
-    card: {
-      backdropFilter: "blur(20px) saturate(1.8)",
+    card: {,`n  backdropFilter: "blur(20px) saturate(1.8)",
       backgroundColor: "rgba(255, 255, 255, 0.8)",
       border: "1px solid rgba(15, 23, 42, 0.1)",
-      boxShadow: "0 8px 32px rgba(15, 23, 42, 0.1)",
+      boxShadow: "0 8px 32px rgba(15, 23, 42, 0.1)"
     },
-    button: {
-      active: {
-        backdropFilter: "blur(10px)",
+    button: {,`n  active: {,`n  backdropFilter: "blur(10px)",
         backgroundImage:
           "linear-gradient(135deg, rgba(6, 255, 165, 0.9), rgba(0, 255, 136, 0.8))",
         border: "1px solid rgba(6, 255, 165, 0.5)",
         boxShadow:
           "0 4px 20px rgba(6, 255, 165, 0.4), 0 1px 0 rgba(255, 255, 255, 0.1) inset",
-        color: "#000",
+        color: "#000"
       },
-      inactive: {
-        backdropFilter: "blur(20px) saturate(1.8)",
+      inactive: {,`n  backdropFilter: "blur(20px) saturate(1.8)",
         backgroundColor: "rgba(255, 255, 255, 0.6)",
         border: "1px solid rgba(15, 23, 42, 0.1)",
         boxShadow: "0 8px 32px rgba(15, 23, 42, 0.1)",
-        color: "#0f172a",
-      },
-    },
+        color: "#0f172a"
+      }
+    }
   },
 
   // Dark mode glass effects;
-  dark: {
-    panel: {
-      backdropFilter: "blur(40px) saturate(2)",
+  dark: {,`n  panel: {,`n  backdropFilter: "blur(40px) saturate(2)",
       backgroundColor: "rgba(255, 255, 255, 0.02)",
       border: "1px solid rgba(255, 255, 255, 0.05)",
       boxShadow:
-        "0 8px 32px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.05) inset",
+        "0 8px 32px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.05) inset"
     },
-    card: {
-      backdropFilter: "blur(20px) saturate(1.8)",
+    card: {,`n  backdropFilter: "blur(20px) saturate(1.8)",
       backgroundColor: "rgba(255, 255, 255, 0.05)",
       border: "1px solid rgba(255, 255, 255, 0.1)",
-      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
+      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)"
     },
-    button: {
-      active: {
-        backdropFilter: "blur(10px)",
+    button: {,`n  active: {,`n  backdropFilter: "blur(10px)",
         backgroundImage:
           "linear-gradient(135deg, rgba(6, 255, 165, 0.9), rgba(0, 255, 136, 0.8))",
         border: "1px solid rgba(6, 255, 165, 0.5)",
         boxShadow:
           "0 4px 20px rgba(6, 255, 165, 0.4), 0 1px 0 rgba(255, 255, 255, 0.1) inset",
-        color: "#000",
+        color: "#000"
       },
-      inactive: {
-        backdropFilter: "blur(20px) saturate(1.8)",
+      inactive: {,`n  backdropFilter: "blur(20px) saturate(1.8)",
         backgroundColor: "rgba(255, 255, 255, 0.05)",
         border: "1px solid rgba(255, 255, 255, 0.1)",
         boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
-        color: "#ffffff",
-      },
-    },
+        color: "#ffffff"
+      }
+    }
   },
 
   // Legacy support - defaults to dark;
-  panel: {
-    backdropFilter: "blur(40px) saturate(2)",
+  panel: {,`n  backdropFilter: "blur(40px) saturate(2)",
     backgroundColor: "rgba(255, 255, 255, 0.02)",
     border: "1px solid rgba(255, 255, 255, 0.05)",
     boxShadow:
-      "0 8px 32px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.05) inset",
+      "0 8px 32px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.05) inset"
   },
-  card: {
-    backdropFilter: "blur(20px) saturate(1.8)",
+  card: {,`n  backdropFilter: "blur(20px) saturate(1.8)",
     backgroundColor: "rgba(255, 255, 255, 0.05)",
     border: "1px solid rgba(255, 255, 255, 0.1)",
-    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
+    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)"
   },
-  button: {
-    active: {
-      backdropFilter: "blur(10px)",
+  button: {,`n  active: {,`n  backdropFilter: "blur(10px)",
       backgroundImage:
         "linear-gradient(135deg, rgba(6, 255, 165, 0.9), rgba(0, 255, 136, 0.8))",
       border: "1px solid rgba(6, 255, 165, 0.5)",
       boxShadow:
         "0 4px 20px rgba(6, 255, 165, 0.4), 0 1px 0 rgba(255, 255, 255, 0.1) inset",
-      color: "#000",
+      color: "#000"
     },
-    inactive: {
-      backdropFilter: "blur(20px) saturate(1.8)",
+    inactive: {,`n  backdropFilter: "blur(20px) saturate(1.8)",
       backgroundColor: "rgba(255, 255, 255, 0.05)",
       border: "1px solid rgba(255, 255, 255, 0.1)",
-      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
-    },
-  },
+      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)"
+    }
+  }
 } as const;
 
 export const CYBER_ANIMATIONS = {
-  glow: {
-    animation: "cyber-glow 2s ease-in-out infinite alternate",
+  glow: {,`n  animation: "cyber-glow 2s ease-in-out infinite alternate",
     "@keyframes cyber-glow": {
-      from: {
-        boxShadow:
-          "0 0 20px rgba(6, 255, 165, 0.6), 0 0 40px rgba(6, 255, 165, 0.4)",
+      from: {,`n  boxShadow:
+          "0 0 20px rgba(6, 255, 165, 0.6), 0 0 40px rgba(6, 255, 165, 0.4)"
       },
-      to: {
-        boxShadow:
-          "0 0 30px rgba(6, 255, 165, 0.8), 0 0 60px rgba(6, 255, 165, 0.6)",
-      },
-    },
+      to: {,`n  boxShadow:
+          "0 0 30px rgba(6, 255, 165, 0.8), 0 0 60px rgba(6, 255, 165, 0.6)"
+      }
+    }
   },
-  pulse: {
-    animation: "cyber-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+  pulse: {,`n  animation: "cyber-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
     "@keyframes cyber-pulse": {
-      "0%, 100%": { opacity: 1 },
-      "50%": { opacity: 0.7 },
-    },
+      "0%, 100%": { opacity: 1},
+      "50%": { opacity: 0.7}
+    }
   },
-  slide: {
-    transition: "all 0.3s ease",
+  slide: {,`n  transition: "all 0.3s ease"
   },
-  float: {
-    animation: "float 4s ease-in-out infinite",
+  float: {,`n  animation: "float 4s ease-in-out infinite",
     "@keyframes float": {
-      "0%, 100%": { transform: "translateY(0px)" },
-      "50%": { transform: "translateY(-6px)" },
-    },
-  },
+      "0%, 100%": { transform: "translateY(0px)"},
+      "50%": { transform: "translateY(-6px)"}
+    }
+  }
 } as const;
 
 // ============================================================================
@@ -225,25 +195,23 @@ export const CYBER_ANIMATIONS = {
 // ============================================================================
 
 interface CyberComponentProps {
-  isDark?: boolean;
+  isDark?: boolean
   children: React.ReactNode;
-  className?: string;
-  style?: React.CSSProperties;
-}
+  className?: string
+  style?: React.CSSProperties;}
 
 // Base cyber container with theme support;
 export const CyberContainer: React.FC<
   CyberComponentProps & {
     variant?: "panel" | "card" | "button";
-    glowing?: boolean;
-  }
+    glowing?: boolean}
 > = ({
   children,
   className = "",
   variant = "card",
   glowing = false,
   isDark = true,
-  style = {},
+  style = Record<string, any>
 }) => {
 
 
@@ -257,44 +225,41 @@ export const CyberContainer: React.FC<
         transition: "all 0.3s ease",
         ...baseStyle,
         ...glowStyle,
-        ...style,
+        ...style
       }}
      key={399386}>
       {children}
     </div>
-  );
-};
+  )};
 
 // Cyber typography with theme support;
 export const CyberText: React.FC<
   CyberComponentProps & {
     variant?: "title" | "subtitle" | "body" | "caption";
-    color?: "primary" | "secondary" | "muted" | "accent";
-  }
+    color?: "primary" | "secondary" | "muted" | "accent";}
 > = ({
   children,
   variant = "body",
   color = "primary",
   className = "",
-  isDark = true,
+  isDark = true
 }) => {
   const styles = {
-    title: {
-      fontSize: "18px",
+    title: {,`n  fontSize: "18px",
       fontWeight: "700",
       lineHeight: "28px",
-      marginBottom: "8px",
+      marginBottom: "8px"
     },
-    subtitle: { fontSize: "16px", fontWeight: "600", lineHeight: "24px" },
-    body: { fontSize: "14px", fontWeight: "400", lineHeight: "20px" },
-    caption: { fontSize: "12px", fontWeight: "400", lineHeight: "16px" },
+    subtitle: { fontSize: "16px", fontWeight: "600", lineHeight: "24px"},
+    body: { fontSize: "14px", fontWeight: "400", lineHeight: "20px"},
+    caption: { fontSize: "12px", fontWeight: "400", lineHeight: "16px"}
   };
 
   const colors = {
     primary: themeColors.text.primary,
     secondary: themeColors.text.secondary,
     muted: themeColors.text.muted,
-    accent: CYBER_COLORS.primary,
+    accent: CYBER_COLORS.primary
   };
 
   return (
@@ -302,23 +267,21 @@ export const CyberText: React.FC<
       className={`cyber-text cyber-text-${variant} ${className}`}
       style={{
         color: colors[color],
-        ...styles[variant],
+        ...styles[variant]
       }}
      key={388673}>
       {children}
     </div>
-  );
-};
+  )};
 
 // Enhanced cyber button with theme support;
 export const CyberButton: React.FC<
   CyberComponentProps & {
     onClick?: () => void;
     variant?: "primary" | "secondary" | "ghost";
-    active?: boolean;
-    disabled?: boolean;
-    icon?: React.ReactNode;
-  }
+    active?: boolean
+    disabled?: boolean
+    icon?: React.ReactNode;}
 > = ({
   children,
   onClick,
@@ -327,15 +290,13 @@ export const CyberButton: React.FC<
   disabled = false,
   className = "",
   icon,
-  isDark = true,
+  isDark = true
 }) => {
 
   const getButtonStyle = () => {
     if (active || variant === "primary") {
-      return themeGlass.button.active;
-    }
-    return themeGlass.button.inactive;
-  };
+      return themeGlass.button.active;}
+    return themeGlass.button.inactive;};
 
   return (
     <button;
@@ -354,7 +315,7 @@ export const CyberButton: React.FC<
         cursor: disabled ? "not-allowed" : "pointer",
         opacity: disabled ? 0.5 : 1,
         transition: "all 0.3s ease",
-        ...getButtonStyle(),
+        ...getButtonStyle()
       }}
      key={559126}>
       {icon && (
@@ -367,7 +328,7 @@ export const CyberButton: React.FC<
                 ? "#000"
                 : isDark;
                   ? CYBER_COLORS.dark.text.muted;
-                  : CYBER_COLORS.light.text.muted,
+                  : CYBER_COLORS.light.text.muted
           }}
          key={819360}>
           {icon}
@@ -375,14 +336,12 @@ export const CyberButton: React.FC<
       )}
       <span key={595076}>{children}</span>
     </button>
-  );
-};
+  );};
 
 // Theme aware utility function;
-export const getCyberTheme = (isDark: boolean) => ({
-  colors: isDark ? CYBER_COLORS.dark : CYBER_COLORS.light,
+export const getCyberTheme = (isDark: boolean) => ({,`n  colors: isDark ? CYBER_COLORS.dark : CYBER_COLORS.light,
   gradients: isDark ? CYBER_GRADIENTS.dark : CYBER_GRADIENTS.light,
-  glass: isDark ? CYBER_GLASS.dark : CYBER_GLASS.light,
+  glass: isDark ? CYBER_GLASS.dark : CYBER_GLASS.light
 });
 
 export default {
@@ -393,5 +352,10 @@ export default {
   CyberContainer,
   CyberText,
   CyberButton,
-  getCyberTheme,
+//   getCyberTheme
 };
+
+
+
+
+`

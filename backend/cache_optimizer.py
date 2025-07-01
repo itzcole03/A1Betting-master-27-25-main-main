@@ -7,7 +7,6 @@ import gzip
 import hashlib
 import json
 import logging
-import pickle
 import time
 from collections import defaultdict, deque
 from dataclasses import dataclass, field
@@ -19,6 +18,7 @@ from typing import Any, Callable, Dict, List, Optional
 import numpy as np
 import redis.asyncio as redis
 from config import config_manager
+from backend.utils.serialization_utils import safe_dumps, safe_loads
 
 logger = logging.getLogger(__name__)
 
@@ -49,7 +49,6 @@ class CompressionType(str, Enum):
     NONE = "none"
     GZIP = "gzip"
     ZLIB = "zlib"
-    PICKLE = "pickle"
 
 
 @dataclass
@@ -323,7 +322,7 @@ class RedisCache:
         try:
             self.redis_client = redis.from_url(
                 self.redis_url,
-                decode_responses=False,  # Handle binary data
+                decode_responses=True,  # Handle JSON strings
                 socket_keepalive=True,
                 socket_keepalive_options={},
                 health_check_interval=30,
@@ -331,7 +330,7 @@ class RedisCache:
             await self.redis_client.ping()
             logger.info("Redis cache connection established")
         except Exception as e:  # pylint: disable=broad-exception-caught
-            logger.error("Failed to connect to Redis cache: {e!s}")
+            logger.error(f"Failed to connect to Redis cache: {e!s}")
             raise
 
     def _make_key(self, key: str) -> str:
@@ -351,8 +350,8 @@ class RedisCache:
 
             if data:
                 try:
-                    # Try to deserialize
-                    value = pickle.loads(data)
+                    # Try to deserialize using safe JSON
+                    value = safe_loads(data)
                     self.metrics.hits += 1
                     self._update_access_time(time.time() - start_time)
                     return value
@@ -368,7 +367,7 @@ class RedisCache:
 
         except Exception as e:  # pylint: disable=broad-exception-caught
             self.metrics.errors += 1
-            logger.error("Redis cache get error for key {key}: {e!s}")
+            logger.error(f"Redis cache get error for key {key}: {e!s}")
             return None
 
     async def set(self, key: str, value: Any, ttl: Optional[int] = None) -> bool:
@@ -379,11 +378,11 @@ class RedisCache:
 
             redis_key = self._make_key(key)
 
-            # Serialize value
+            # Serialize value using safe JSON
             try:
-                data = pickle.dumps(value)
+                data = safe_dumps(value)
             except Exception as e:  # pylint: disable=broad-exception-caught
-                logger.error("Failed to serialize value for key {key}: {e!s}")
+                logger.error(f"Failed to serialize value for key {key}: {e!s}")
                 self.metrics.errors += 1
                 return False
 
@@ -401,7 +400,7 @@ class RedisCache:
 
         except Exception as e:  # pylint: disable=broad-exception-caught
             self.metrics.errors += 1
-            logger.error("Redis cache set error for key {key}: {e!s}")
+            logger.error(f"Redis cache set error for key {key}: {e!s}")
             return False
 
     async def delete(self, key: str) -> bool:
@@ -436,7 +435,7 @@ class RedisCache:
 
         except Exception as e:  # pylint: disable=broad-exception-caught
             self.metrics.errors += 1
-            logger.error("Redis cache clear error for pattern {pattern}: {e!s}")
+            logger.error(f"Redis cache clear error for pattern {pattern}: {e!s}")
             return 0
 
     async def get_stats(self) -> Dict[str, Any]:
@@ -510,7 +509,7 @@ class MultiTierCache:
             # Consider promoting to L1 if frequently accessed
             if self.access_patterns[key] >= self.promotion_threshold:
                 self.l1_cache.set(key, value, ttl=3600)  # 1 hour in L1
-                logger.debug("Promoted key {key} to L1 cache")
+                
 
             return value
 

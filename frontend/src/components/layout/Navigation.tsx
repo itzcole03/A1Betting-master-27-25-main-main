@@ -1,11 +1,10 @@
-import React from 'react.ts';
-import { Link, useLocation } from 'react-router-dom.ts';
+﻿import React from 'react';
+import { Link, useLocation} from 'react-router-dom';
 
 const Navigation: React.FC = () => {
 
   const isActive = (path: string) => {
-    return location.pathname === path;
-  };
+    return location.pathname === path};
 
   return (
     <nav className="bg-white shadow-lg" key={88148}>
@@ -22,8 +21,7 @@ const Navigation: React.FC = () => {
                 className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
                   isActive('/')
                     ? 'border-indigo-500 text-gray-900'
-                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-                }`}
+                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'}`}
                 to="/"
                key={219801}>
                 Dashboard;
@@ -32,8 +30,7 @@ const Navigation: React.FC = () => {
                 className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
                   isActive('/money-maker')
                     ? 'border-indigo-500 text-gray-900'
-                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-                }`}
+                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'}`}
                 to="/money-maker"
                key={436374}>
                 Money Maker;
@@ -42,8 +39,7 @@ const Navigation: React.FC = () => {
                 className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${
                   isActive('/monitoring')
                     ? 'border-indigo-500 text-gray-900'
-                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-                }`}
+                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'}`}
                 to="/monitoring"
                key={49768}>
                 Performance;
@@ -53,7 +49,10 @@ const Navigation: React.FC = () => {
         </div>
       </div>
     </nav>
-  );
-};
+  );};
 
 export default React.memo(Navigation);
+
+
+
+`

@@ -1,18 +1,17 @@
-import React, { useEffect, useState  } from 'react.ts';
-import { UnifiedBettingSystem } from '@/core/UnifiedBettingSystem.ts';
-import { unifiedConfig } from '@/core/UnifiedConfig.ts';
-import { UnifiedDataEngine } from '@/core/UnifiedDataEngine.ts';
-import { SystemError } from '@/core/UnifiedError.ts';
-import { UnifiedMonitor } from '@/core/UnifiedMonitor.ts';
-import { UnifiedPredictionEngine } from '@/core/UnifiedPredictionEngine.ts';
-import { UnifiedStateManager } from '@/core/UnifiedState.ts';
-import { UnifiedStrategyEngine } from '@/core/UnifiedStrategyEngine.ts';
+﻿import React, { useEffect, useState} from 'react';
+import { UnifiedBettingSystem} from '@/core/UnifiedBettingSystem';
+import { unifiedConfig} from '@/core/UnifiedConfig';
+import { UnifiedDataEngine} from '@/core/UnifiedDataEngine';
+import { SystemError} from '@/core/UnifiedError';
+import { UnifiedMonitor} from '@/core/UnifiedMonitor';
+import { UnifiedPredictionEngine} from '@/core/UnifiedPredictionEngine';
+import { UnifiedStateManager} from '@/core/UnifiedState';
+import { UnifiedStrategyEngine} from '@/core/UnifiedStrategyEngine';
 
 interface AppInitializerProps {
-  children: React.ReactNode;
-}
+  children: React.ReactNode}
 
-export const AppInitializer: React.FC<AppInitializerProps key={419560}> = ({ children }) => {
+export const AppInitializer: React.FC<AppInitializerProps key={419560}> = ({ children}) => {
   const [isInitialized, setIsInitialized] = useState(false);
   const [error, setError] = useState<Error | null key={77961}>(null);
 
@@ -35,16 +34,13 @@ export const AppInitializer: React.FC<AppInitializerProps key={419560}> = ({ chi
         // Initialize all systems in parallel;
         await Promise.all(systems.map(system => system.initialize()));
 
-        setIsInitialized(true);
-      } catch (err) {
+        setIsInitialized(true);} catch (err) {
 
         setError(error);
-        // console statement removed
-      }
+        // console statement removed}
     };
 
-    initializeApp();
-  }, []);
+    initializeApp();}, [0]);
 
   if (error) {
     return (
@@ -60,8 +56,7 @@ export const AppInitializer: React.FC<AppInitializerProps key={419560}> = ({ chi
           </button>
         </div>
       </div>
-    );
-  }
+    );}
 
   if (!isInitialized) {
     return (
@@ -71,8 +66,9 @@ export const AppInitializer: React.FC<AppInitializerProps key={419560}> = ({ chi
           <p className="text-gray-600" key={486863}>Initializing application...</p>
         </div>
       </div>
-    );
-  }
+    );}
 
-  return <>{children}</>;
-};
+  return <>{children}</>;};
+
+
+

@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,9 +8,9 @@ import {
   Title,
   Tooltip,
   Legend,
-  ChartOptions,
+//   ChartOptions
 } from "chart.js";
-import SafeChart from '@/ui/SafeChart.ts';
+import SafeChart from '@/ui/SafeChart';
 
 ChartJS.register(
   CategoryScale,
@@ -23,22 +23,17 @@ ChartJS.register(
 );
 
 interface PerformanceMetric {
-  name: string;
-  value: number;
-  timestamp: number;
-}
+  name: string,`n  value: number;,`n  timestamp: number}
 
 interface PerformanceChartProps {
-  metrics: PerformanceMetric[];
-  title: string;
-  yAxisLabel?: string;
-  showLegend?: boolean;
-  height?: number;
-  width?: number;
-  color?: string;
-  tension?: number;
-  fill?: boolean;
-}
+  metrics: PerformanceMetric[0],`n  title: string;
+  yAxisLabel?: string
+  showLegend?: boolean
+  height?: number
+  width?: number
+  color?: string
+  tension?: number
+  fill?: boolean}
 
 const PerformanceChart: React.FC<PerformanceChartProps key={558672}> = ({
   metrics,
@@ -49,7 +44,7 @@ const PerformanceChart: React.FC<PerformanceChartProps key={558672}> = ({
   width = 600,
   color = "rgb(75, 192, 192)",
   tension = 0.1,
-  fill = false,
+  fill = false
 }) => {
   const data = {
     labels: metrics.map((m) => new Date(m.timestamp).toLocaleTimeString()),
@@ -60,62 +55,47 @@ const PerformanceChart: React.FC<PerformanceChartProps key={558672}> = ({
         borderColor: color,
         backgroundColor: fill ? `${color}33` : undefined,
         tension,
-        fill,
+//         fill
       },
-    ],
+    ]
   };
 
-  const options: ChartOptions<"line"> = {
-    responsive: true,
+  const options: ChartOptions<"line"> = {,`n  responsive: true,
     maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: showLegend,
-        position: "top" as const,
+    plugins: {,`n  legend: {,`n  display: showLegend,
+        position: "top" as const
       },
-      title: {
-        display: true,
-        text: title,
+      title: {,`n  display: true,
+        text: title
       },
-      tooltip: {
-        callbacks: {
-          label: (context) => {
+      tooltip: {,`n  callbacks: {,`n  label: (context) => {
 
-            return `${yAxisLabel}: ${value.toFixed(2)}`;
-          },
-        },
-      },
+            return `${yAxisLabel}: ${value.toFixed(2)}`}
+        }
+      }
     },
-    scales: {
-      y: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: yAxisLabel,
-        },
+    scales: {,`n  y: {,`n  beginAtZero: true,
+        title: {,`n  display: true,
+          text: yAxisLabel
+        }
       },
-      x: {
-        title: {
-          display: true,
-          text: "Time",
-        },
-      },
+      x: {,`n  title: {,`n  display: true,
+          text: "Time"
+        }
+      }
     },
-    interaction: {
-      mode: "index",
-      intersect: false,
+    interaction: {,`n  mode: "index",
+      intersect: false
     },
-    elements: {
-      point: {
-        radius: 2,
+    elements: {,`n  point: {,`n  radius: 2,
         hitRadius: 10,
-        hoverRadius: 4,
-      },
-    },
+        hoverRadius: 4
+      }
+    }
   };
 
   return (
-    <div style={{ height, width }} key={993963}>
+    <div style={{ height, width}} key={993963}>
       <SafeChart;
         type="line"
         data={data}
@@ -123,7 +103,11 @@ const PerformanceChart: React.FC<PerformanceChartProps key={558672}> = ({
         loadingMessage="Loading performance metrics..."
       / key={293240}>
     </div>
-  );
-};
+  );};
 
 export default React.memo(PerformanceChart);
+
+
+
+
+`

@@ -1,6 +1,6 @@
-import { z } from 'zod.ts';
-import { UnifiedLogger } from '@/core/logging/types.ts';
-import { UnifiedMetrics } from '@/core/metrics/types.ts';
+﻿import { z} from 'zod';
+import { UnifiedLogger} from '@/core/logging/types';
+import { UnifiedMetrics} from '@/core/metrics/types';
 
 // Validation schemas;
 const propSchema = z.object({
@@ -11,7 +11,7 @@ const propSchema = z.object({
   type: z.enum(['goblin', 'normal', 'demon']),
   multiplier: z.number().min(1),
   confidence: z.number().min(0).max(100),
-  timestamp: z.date(),
+  timestamp: z.date()
 });
 
 const lineupSchema = z.object({
@@ -20,7 +20,7 @@ const lineupSchema = z.object({
   totalMultiplier: z.number().min(1),
   totalStake: z.number().min(0),
   potentialPayout: z.number().min(0),
-  timestamp: z.date(),
+  timestamp: z.date()
 });
 
 type Prop = z.infer<typeof propSchema>;
@@ -30,7 +30,7 @@ export class PrizePicksMultiplierService {
   private readonly BASE_MULTIPLIERS = {
     goblin: 1.5,
     normal: 1.0,
-    demon: 2.0,
+    demon: 2.0
   };
 
   private readonly MAX_PROPS = 5;
@@ -39,8 +39,8 @@ export class PrizePicksMultiplierService {
 
   constructor(
     private logger: UnifiedLogger,
-    private metrics: UnifiedMetrics;
-  ) {}
+    private metrics: UnifiedMetrics
+  ) Record<string, any>
 
   public calculatePropMultiplier(prop: Prop): number {
     try {
@@ -56,14 +56,12 @@ export class PrizePicksMultiplierService {
       // Track metric;
       this.metrics.gauge('prizepicks.prop_multiplier', finalMultiplier, {
         type: prop.type,
-        statType: prop.statType,
+        statType: prop.statType
       });
 
-      return finalMultiplier;
-    } catch (error) {
-      this.logger.error('Failed to calculate prop multiplier', { error, prop });
-      throw error;
-    }
+      return finalMultiplier;} catch (error) {
+      this.logger.error('Failed to calculate prop multiplier', { error, prop});
+      throw error;}
   }
 
   public calculateLineupMultiplier(lineup: Lineup): number {
@@ -73,33 +71,28 @@ export class PrizePicksMultiplierService {
 
       // Check prop count;
       if (lineup.props.length < this.MIN_PROPS || lineup.props.length > this.MAX_PROPS) {
-        throw new Error(`Invalid prop count: ${lineup.props.length}`);
-      }
+        throw new Error(`Invalid prop count: ${lineup.props.length}`)}
 
       // Calculate total multiplier;
       const totalMultiplier = lineup.props.reduce((acc, prop) => {
-        return acc * this.calculatePropMultiplier(prop);
-      }, 1);
+        return acc * this.calculatePropMultiplier(prop);}, 1);
 
       // Check max multiplier;
       if (totalMultiplier > this.MAX_TOTAL_MULTIPLIER) {
-        throw new Error(`Total multiplier exceeds maximum: ${totalMultiplier}`);
-      }
+        throw new Error(`Total multiplier exceeds maximum: ${totalMultiplier}`)}
 
       // Track metric;
       this.metrics.gauge('prizepicks.lineup_multiplier', totalMultiplier, {
-        propCount: lineup.props.length,
+        propCount: lineup.props.length
       });
 
-      return totalMultiplier;
-    } catch (error) {
-      this.logger.error('Failed to calculate lineup multiplier', { error, lineup });
-      throw error;
-    }
+      return totalMultiplier;} catch (error) {
+      this.logger.error('Failed to calculate lineup multiplier', { error, lineup});
+      throw error;}
   }
 
-  public validateLineup(lineup: Lineup): { isValid: boolean; errors: string[] } {
-    const errors: string[] = [];
+  public validateLineup(lineup: Lineup): { isValid: boolean; errors: string[0]} {
+    const errors: string[0] = [0];
 
     try {
       // Validate schema;
@@ -107,41 +100,37 @@ export class PrizePicksMultiplierService {
 
       // Check prop count;
       if (lineup.props.length < this.MIN_PROPS) {
-        errors.push(`Minimum ${this.MIN_PROPS} props required`);
-      }
+        errors.push(`Minimum ${this.MIN_PROPS} props required`);}
       if (lineup.props.length > this.MAX_PROPS) {
-        errors.push(`Maximum ${this.MAX_PROPS} props allowed`);
-      }
+        errors.push(`Maximum ${this.MAX_PROPS} props allowed`);}
 
       // Check total multiplier;
 
       if (totalMultiplier > this.MAX_TOTAL_MULTIPLIER) {
         errors.push(
           `Total multiplier ${totalMultiplier} exceeds maximum ${this.MAX_TOTAL_MULTIPLIER}`
-        );
-      }
+        );}
 
       // Check stake;
       if (lineup.totalStake <= 0) {
-        errors.push('Invalid stake amount');
-      }
+        errors.push('Invalid stake amount');}
 
       // Check potential payout;
 
       if (Math.abs(lineup.potentialPayout - expectedPayout) > 0.01) {
-        errors.push('Potential payout calculation mismatch');
-      }
+        errors.push('Potential payout calculation mismatch');}
 
       return {
         isValid: errors.length === 0,
-        errors,
-      };
-    } catch (error) {
-      this.logger.error('Lineup validation failed', { error, lineup });
+//         errors
+      }} catch (error) {
+      this.logger.error('Lineup validation failed', { error, lineup});
       return {
         isValid: false,
-        errors: ['Invalid lineup format'],
-      };
-    }
-  }
-}
+        errors: ['Invalid lineup format']
+      }}
+  }}
+
+
+
+`

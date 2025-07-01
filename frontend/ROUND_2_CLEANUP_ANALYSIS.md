@@ -179,12 +179,12 @@ components/common/ → Merge with MegaUI where applicable
 ### Before (Multiple scattered imports):
 
 ```typescript
-import Button from "./base/Button";
-import Card from "./ui/card";
-import Modal from "./shared/ui/Modal";
-import Input from "./common/UnifiedInput";
-import Sidebar from "./layout/CyberSidebar";
-import Header from "./navigation/Navbar";
+import Button from './base/Button';
+import Card from './ui/card';
+import Modal from './shared/ui/Modal';
+import Input from './common/UnifiedInput';
+import Sidebar from './layout/CyberSidebar';
+import Header from './navigation/Navbar';
 // ... 50+ more imports
 ```
 
@@ -203,7 +203,7 @@ import {
   MegaSidebar,
   MegaHeader,
   MegaAppShell,
-} from "./components/mega";
+} from './components/mega';
 ```
 
 ## **QUALITY ASSURANCE**
@@ -231,13 +231,11 @@ import {
 ## **NEXT ACTIONS - ROUND 3**
 
 1. **Features Consolidation** (Round 3)
-
    - Consolidate `features/betting/` + `betting/` → MegaBettingFeatures
    - Consolidate `features/analytics/` + `analytics/` → MegaAnalyticsFeatures
    - Consolidate prediction directories → MegaPredictionEngine
 
 2. **Legacy Migration**
-
    - Move duplicate directories to `_legacy/`
    - Update any remaining imports
    - Remove unused files

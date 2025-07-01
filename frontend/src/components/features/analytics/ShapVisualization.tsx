@@ -1,43 +1,36 @@
-import {
+﻿import {
   Box,
   LinearProgress,
   Skeleton,
-  Typography;
-} from '@mui/material.ts';
-import React from 'react.ts';
+  Typography} from '@mui/material';
+import React from 'react';
 
 interface ShapFeature {
-  name: string;
-  value: number;
-  impact: number;
-}
+  name: string,`n  value: number;,`n  impact: number}
 
 interface ShapVisualizationProps {
-  features: ShapFeature[];
-  title: string;
-  maxFeatures?: number;
-  isLoading?: boolean;
-}
+  features: ShapFeature[0],`n  title: string;
+  maxFeatures?: number
+  isLoading?: boolean}
 
 const ShapVisualization: React.FC<ShapVisualizationProps key={351760}> = ({
   features,
   title,
   maxFeatures = 8,
-  isLoading = false,
+  isLoading = false
 }) => {
   if (isLoading) {
     return (
       <Box key={485947}>
         <Skeleton variant="text" width="60%" / key={884479}>
         {[...Array(3)].map((_, index) => (
-          <Box key={index} sx={{ mt: 2 }} key={321062}>
+          <Box key={index} sx={{ mt: 2}} key={321062}>
             <Skeleton variant="text" width="40%" / key={868871}>
-            <Skeleton height={24} sx={{ mt: 1 }} variant="rectangular" / key={581066}>
+            <Skeleton height={24} sx={{ mt: 1}} variant="rectangular" / key={581066}>
           </Box>
         ))}
       </Box>
-    );
-  }
+    )}
 
   const sortedFeatures = [...features]
     .sort((a, b) => Math.abs(b.impact) - Math.abs(a.impact))
@@ -49,8 +42,8 @@ const ShapVisualization: React.FC<ShapVisualizationProps key={351760}> = ({
         {title}
       </Typography>
       {sortedFeatures.map((feature, index) => (
-        <Box key={index} sx={{ mb: 2 }} key={233396}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }} key={792765}>
+        <Box key={index} sx={{ mb: 2}} key={233396}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5}} key={792765}>
             <Typography color="text.secondary" variant="body2" key={497604}>
               {feature.name}
             </Typography>
@@ -66,8 +59,8 @@ const ShapVisualization: React.FC<ShapVisualizationProps key={351760}> = ({
               borderRadius: 4,
               backgroundColor: 'action.hover',
               '& .MuiLinearProgress-bar': {
-                transform: feature.impact < 0 ? 'scaleX(-1)' : 'none',
-              },
+                transform: feature.impact < 0 ? 'scaleX(-1)' : 'none'
+              }
             }}
             value={(Math.abs(feature.impact) / maxImpact) * 100}
             variant="determinate"
@@ -75,7 +68,11 @@ const ShapVisualization: React.FC<ShapVisualizationProps key={351760}> = ({
         </Box>
       ))}
     </Box>
-  );
-};
+  )};
 
 export default React.memo(ShapVisualization);
+
+
+
+
+`

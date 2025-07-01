@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React from 'react';
+import { motion} from 'framer-motion';
 import {
   TrendingUp,
   DollarSign,
@@ -8,16 +8,16 @@ import {
   Zap,
   Activity,
   Brain,
-  Eye,
-} from 'lucide-react.ts';
+//   Eye
+} from 'lucide-react';
 
 export const BusinessAnalysis: React.FC = () => {
   return (
     <div className="space-y-6" key={501869}>
       {/* Header */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
         className="text-center"
        key={472940}>
         <div className="flex justify-center mb-4" key={367379}>
@@ -35,9 +35,9 @@ export const BusinessAnalysis: React.FC = () => {
 
       {/* Key Metrics */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
+        transition={{ delay: 0.1}}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
        key={733517}>
         {[
@@ -45,27 +45,27 @@ export const BusinessAnalysis: React.FC = () => {
             label: "Revenue Growth",
             value: "+127%",
             icon: TrendingUp,
-            color: "green",
+            color: "green"
           },
           {
             label: "Market Share",
             value: "23.4%",
             icon: Target,
-            color: "blue",
+            color: "blue"
           },
           {
             label: "ROI Analysis",
             value: "341%",
             icon: DollarSign,
-            color: "yellow",
+            color: "yellow"
           },
-          { label: "Efficiency", value: "94.2%", icon: Zap, color: "purple" },
+          { label: "Efficiency", value: "94.2%", icon: Zap, color: "purple"},
         ].map((metric, index) => (
           <motion.div;
             key={metric.label}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 + index * 0.1 }}
+            initial={{ opacity: 0, scale: 0.9}}
+            animate={{ opacity: 1, scale: 1}}
+            transition={{ delay: 0.2 + index * 0.1}}
             className="bg-gray-800/50 p-4 rounded-xl border border-gray-700/50 hover:border-cyan-500/30 transition-all duration-300"
            key={99391}>
             <div className="flex items-center gap-3 mb-2" key={283743}>
@@ -79,9 +79,9 @@ export const BusinessAnalysis: React.FC = () => {
 
       {/* Analysis Panels */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
+        transition={{ delay: 0.3}}
         className="grid grid-cols-1 lg:grid-cols-2 gap-6"
        key={888563}>
         {/* Market Analysis */}
@@ -139,9 +139,9 @@ export const BusinessAnalysis: React.FC = () => {
 
       {/* Real-time Analytics */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
+        transition={{ delay: 0.4}}
         className="bg-gray-800/50 p-6 rounded-xl border border-gray-700/50"
        key={394103}>
         <div className="flex items-center gap-3 mb-4" key={997777}>
@@ -151,7 +151,7 @@ export const BusinessAnalysis: React.FC = () => {
           </h3>
           <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse ml-auto" / key={746290}>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4" key={223180}>
+        <div className="grid grid-cols-1 md: grid-cols-3 gap-4" key={223180}>
           <div className="text-center" key={120206}>
             <div className="text-2xl font-bold text-cyan-400" key={312838}>$47,293</div>
             <div className="text-sm text-gray-400" key={372957}>Daily Revenue</div>
@@ -167,5 +167,8 @@ export const BusinessAnalysis: React.FC = () => {
         </div>
       </motion.div>
     </div>
-  );
-};
+  )};
+
+
+
+`

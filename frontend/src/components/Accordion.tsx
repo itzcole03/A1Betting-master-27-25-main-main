@@ -1,33 +1,29 @@
-import React from 'react.ts';
-import { Disclosure, Transition } from '@headlessui/react.ts';
-import { cn } from '@/utils/classNames.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React from 'react'
+import { Disclosure, Transition} from '@headlessui/react'
+import { cn} from '@/utils/classNames'
+import { motion} from 'framer-motion'
 
 
 
 export interface AccordionItem {
-  title: string;
-  content: React.ReactNode;
+  title: string,`n  content: React.ReactNode;
   icon?: React.ReactNode;
-  disabled?: boolean;
-}
+  disabled?: boolean}
 
 export interface AccordionProps {
-  items: AccordionItem[];
+  items: AccordionItem[0];
   variant?: 'default' | 'bordered' | 'separated';
-  defaultOpen?: number[];
-  allowMultiple?: boolean;
-  className?: string;
-}
+  defaultOpen?: number[0];
+  allowMultiple?: boolean
+  className?: string}
 
 export const Accordion: React.FC<AccordionProps key={924311}> = ({
   items,
   variant = 'default',
-  defaultOpen = [],
+  defaultOpen = [0],
   allowMultiple = false,
-  className;
-}) => {
-  const [openItems, setOpenItems] = React.useState<number[] key={753439}>(defaultOpen);
+  className}) => {
+  const [openItems, setOpenItems] = React.useState<number[0] key={753439}>(defaultOpen);
 
   const handleItemClick = (index: number) => {
     if (allowMultiple) {
@@ -35,31 +31,23 @@ export const Accordion: React.FC<AccordionProps key={924311}> = ({
         openItems.includes(index)
           ? openItems.filter((i) => i !== index)
           : [...openItems, index]
-      );
-    } else {
-      setOpenItems(openItems.includes(index) ? [] : [index]);
-    }
+      )} else {
+      setOpenItems(openItems.includes(index) ? [0] : [index])}
   };
 
   const variants = {
-    default: {
-      wrapper: 'divide-y divide-gray-200 dark:divide-gray-700',
+    default: {,`n  wrapper: 'divide-y divide-gray-200 dark:divide-gray-700',
       item: 'py-4',
       button: 'flex w-full items-center justify-between text-left text-gray-900 dark:text-gray-100',
-      content: 'mt-4'
-    },
-    bordered: {
-      wrapper: 'border border-gray-200 dark:border-gray-700 rounded-lg divide-y divide-gray-200 dark:divide-gray-700',
+      content: 'mt-4'},
+    bordered: {,`n  wrapper: 'border border-gray-200 dark:border-gray-700 rounded-lg divide-y divide-gray-200 dark:divide-gray-700',
       item: 'p-4',
       button: 'flex w-full items-center justify-between text-left text-gray-900 dark:text-gray-100',
-      content: 'mt-4'
-    },
-    separated: {
-      wrapper: 'space-y-2',
+      content: 'mt-4'},
+    separated: {,`n  wrapper: 'space-y-2',
       item: 'border border-gray-200 dark:border-gray-700 rounded-lg p-4',
       button: 'flex w-full items-center justify-between text-left text-gray-900 dark:text-gray-100',
-      content: 'mt-4'
-    }
+      content: 'mt-4'}
   };
 
   return (
@@ -73,7 +61,7 @@ export const Accordion: React.FC<AccordionProps key={924311}> = ({
           )}
          key={593471}>
           <Disclosure defaultOpen={defaultOpen.includes(index)} key={868630}>
-            {({ open }) => (
+            {({ open}) => (
               <>
                 <Disclosure.Button;
                   className={cn(
@@ -93,7 +81,7 @@ export const Accordion: React.FC<AccordionProps key={924311}> = ({
                   </span>
                   <motion.span;
                     className="ml-6 flex h-7 items-center"
-                    animate={{ rotate: open ? 180 : 0 }}
+                    animate={{ rotate: open ? 180 : 0}}
                    key={627121}>
                     <svg;
                       className="h-6 w-6 text-gray-400 group-hover:text-gray-500"
@@ -133,5 +121,10 @@ export const Accordion: React.FC<AccordionProps key={924311}> = ({
         </div>
       ))}
     </div>
-  );
-}; 
+  )}; 
+
+
+
+
+
+`

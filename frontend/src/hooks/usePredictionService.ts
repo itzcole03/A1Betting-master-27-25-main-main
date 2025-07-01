@@ -1,17 +1,12 @@
-import { useState, useCallback } from 'react.ts';
-import { Prediction, RiskProfile } from '@/types/core.ts';
-import { EventBus } from '@/unified/EventBus.ts';
-import { ErrorHandler } from '@/core/ErrorHandler.ts';
-import { PerformanceMonitor } from '@/unified/PerformanceMonitor.ts';
-import { ModelVersioning } from '@/unified/ModelVersioning.ts';
+﻿import { useState, useCallback} from 'react';
+import { Prediction, RiskProfile} from '@/types/core';
+import { EventBus} from '@/unified/EventBus';
+import { ErrorHandler} from '@/core/ErrorHandler';
+import { PerformanceMonitor} from '@/unified/PerformanceMonitor';
+import { ModelVersioning} from '@/unified/ModelVersioning';
 
 export const usePredictionService = () => {
-
-
-
-
-  const getPredictions = useCallback(async (riskProfile: RiskProfile): Promise<Prediction[]> => {
-
+  const getPredictions = useCallback(async (riskProfile: RiskProfile): Promise<Prediction[0]> => {
     try {
       // Get current model version;
 
@@ -19,46 +14,40 @@ export const usePredictionService = () => {
       eventBus.emit('prediction:request', {
         riskProfile,
         modelVersion: currentModel.version,
-        timestamp: Date.now(),
+        timestamp: Date.now()
       });
 
       // Wait for predictions response;
-      const response = await new Promise<Prediction[]>((resolve, reject) => {
+      const response = await new Promise<Prediction[0]>((resolve, reject) => {
         const timeout = setTimeout(() => {
-          reject(new Error('Prediction request timed out'));
-        }, 5000);
+          reject(new Error('Prediction request timed out'));}, 5000);
 
-        const handler = (predictions: Prediction[]) => {
+        const handler = (predictions: Prediction[0]) => {
           clearTimeout(timeout);
           eventBus.off('prediction:response', handler);
-          resolve(predictions);
-        };
+          resolve(predictions);};
 
-        eventBus.on('prediction:response', handler);
-      });
+        eventBus.on('prediction: response', handler)});
 
       performanceMonitor.updateComponentMetrics('prediction-service', {
         renderCount: 1,
         renderTime: performance.now() - startTime,
         memoryUsage: JSON.stringify(response).length,
         errorCount: 0,
-        lastUpdate: Date.now(),
+        lastUpdate: Date.now()
       });
 
-      return response;
-    } catch (error) {
-
+      return response;} catch (error) {
       errorHandler.handleError(err, {
         code: 'PREDICTION_REQUEST_ERROR',
         category: 'BUSINESS',
         severity: 'HIGH',
         component: 'PredictionService',
         retryable: true,
-        recoveryStrategy: {
-          type: 'retry',
+        recoveryStrategy: {,`n  type: 'retry',
           maxRetries: 3,
-          timeout: 1000,
-        },
+          timeout: 1000
+        }
       });
 
       performanceMonitor.updateComponentMetrics('prediction-service', {
@@ -66,16 +55,14 @@ export const usePredictionService = () => {
         renderTime: 0,
         memoryUsage: 0,
         errorCount: 1,
-        lastUpdate: Date.now(),
+        lastUpdate: Date.now()
       });
 
-      throw err;
-    }
-  }, []);
+      throw err;}
+  }, [0]);
 
   const subscribeToUpdates = useCallback(
     (onUpdate: (prediction: Prediction) => void, onError: (error: Error) => void) => {
-
       const handleUpdate = (prediction: Prediction) => {
         try {
           onUpdate(prediction);
@@ -84,19 +71,16 @@ export const usePredictionService = () => {
             renderTime: performance.now() - startTime,
             memoryUsage: JSON.stringify(prediction).length,
             errorCount: 0,
-            lastUpdate: Date.now(),
-          });
-        } catch (error) {
-
+            lastUpdate: Date.now()
+          })} catch (error) {
           onError(err);
           errorHandler.handleError(err, {
             code: 'PREDICTION_UPDATE_ERROR',
             category: 'BUSINESS',
             severity: 'MEDIUM',
             component: 'PredictionService',
-            retryable: true,
-          });
-        }
+            retryable: true
+          })}
       };
 
       const handleError = (error: Error) => {
@@ -106,23 +90,23 @@ export const usePredictionService = () => {
           category: 'BUSINESS',
           severity: 'MEDIUM',
           component: 'PredictionService',
-          retryable: true,
-        });
-      };
+          retryable: true
+        })};
 
       eventBus.on('prediction:update', handleUpdate);
       eventBus.on('prediction:error', handleError);
 
       return () => {
         eventBus.off('prediction:update', handleUpdate);
-        eventBus.off('prediction:error', handleError);
-      };
-    },
-    []
+        eventBus.off('prediction: error', handleError)};},
+    [0]
   );
 
   return {
     getPredictions,
-    subscribeToUpdates,
-  };
-};
+//     subscribeToUpdates
+  };};
+
+
+
+`

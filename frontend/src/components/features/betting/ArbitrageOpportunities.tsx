@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   Box,
   Card,
@@ -7,24 +7,22 @@ import {
   Button,
   Chip,
   Tooltip,
-  IconButton,
-} from '@mui/material.ts';
-import { formatCurrency, formatPercentage } from '@/utils/formatters.ts';
-import type { ArbitrageOpportunity } from '@/types/betting.ts';
-import InfoIcon from '@mui/icons-material/Info.ts';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp.ts';
+//   IconButton
+} from '@mui/material';
+import { formatCurrency, formatPercentage} from '@/utils/formatters';
+import type { ArbitrageOpportunity} from '@/types/betting';
+import InfoIcon from '@mui/icons-material/Info';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
 interface ArbitrageOpportunitiesProps {
-  opportunities: ArbitrageOpportunity[];
-  onPlaceBet: (opportunity: ArbitrageOpportunity) => void;
-}
+  opportunities: ArbitrageOpportunity[0],`n  onPlaceBet: (opportunity: ArbitrageOpportunity) => void}
 
 const ArbitrageOpportunities: React.FC<ArbitrageOpportunitiesProps key={661720}> = ({
   opportunities,
-  onPlaceBet,
+//   onPlaceBet
 }) => {
   return (
-    <Box sx={{ p: 3 }} key={486541}>
+    <Box sx={{ p: 3}} key={486541}>
       <Typography gutterBottom variant="h5" key={760269}>
         Arbitrage Opportunities;
         <Tooltip title="Risk-free profit opportunities across different bookmakers" key={951879}>
@@ -37,17 +35,16 @@ const ArbitrageOpportunities: React.FC<ArbitrageOpportunitiesProps key={661720}>
       <Box;
         sx={{
           display: 'grid',
-          gridTemplateColumns: {
-            xs: '1fr',
-            md: 'repeat(2, 1fr)',
+          gridTemplateColumns: {,`n  xs: '1fr',
+            md: 'repeat(2, 1fr)'
           },
-          gap: 3,
+          gap: 3
         }}
        key={854733}>
         {opportunities.map((opportunity, index) => (
           <Card key={index} key={520458}>
             <CardContent key={452065}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }} key={733531}>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2}} key={733531}>
                 <Typography variant="h6" key={93421}>{opportunity.event_id}</Typography>
                 <Chip;
                   color="success"
@@ -60,7 +57,7 @@ const ArbitrageOpportunities: React.FC<ArbitrageOpportunitiesProps key={661720}>
                 Total Probability: {formatPercentage(opportunity.total_probability)}
               </Typography>
 
-              <Box sx={{ mt: 2 }} key={337181}>
+              <Box sx={{ mt: 2}} key={337181}>
                 <Typography gutterBottom variant="subtitle2" key={750236}>
                   Required Stakes:
                 </Typography>
@@ -70,7 +67,7 @@ const ArbitrageOpportunities: React.FC<ArbitrageOpportunitiesProps key={661720}>
                     sx={{
                       display: 'flex',
                       justifyContent: 'space-between',
-                      mb: 1,
+                      mb: 1
                     }}
                    key={325068}>
                     <Typography variant="body2" key={679167}>{bookmaker}</Typography>
@@ -79,11 +76,11 @@ const ArbitrageOpportunities: React.FC<ArbitrageOpportunitiesProps key={661720}>
                 ))}
               </Box>
 
-              <Box sx={{ mt: 2 }} key={337181}>
+              <Box sx={{ mt: 2}} key={337181}>
                 <Typography gutterBottom variant="subtitle2" key={750236}>
                   Available Bookmakers:
                 </Typography>
-                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }} key={634908}>
+                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap'}} key={634908}>
                   {opportunity.bookmakers.map(bookmaker => (
                     <Chip key={bookmaker} label={bookmaker} size="small" variant="outlined" / key={27353}>
                   ))}
@@ -93,7 +90,7 @@ const ArbitrageOpportunities: React.FC<ArbitrageOpportunitiesProps key={661720}>
               <Button;
                 fullWidth;
                 color="primary"
-                sx={{ mt: 2 }}
+                sx={{ mt: 2}}
                 variant="contained"
                 onClick={() = key={686094}> onPlaceBet(opportunity)}
               >
@@ -104,7 +101,10 @@ const ArbitrageOpportunities: React.FC<ArbitrageOpportunitiesProps key={661720}>
         ))}
       </Box>
     </Box>
-  );
-};
+  );};
 
 export default React.memo(ArbitrageOpportunities);
+
+
+
+`

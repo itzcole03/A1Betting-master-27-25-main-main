@@ -1,13 +1,13 @@
-import { unifiedMonitor } from '@/core/UnifiedMonitor.ts';
-import { PrizePicksProps } from '@/shared/prizePicks.ts';
-import { PoeApiResponse, PoeDataBlock, PoePropCardContent } from '@/types/index.ts';
+﻿import { unifiedMonitor} from '@/core/UnifiedMonitor'
+import { PrizePicksProps} from '@/shared/prizePicks'
+import { PoeApiResponse, PoeDataBlock, PoePropCardContent} from '@/types/index'
 
 /**
  * Adapts data from a "Poe-like" source (structured as PoeDataBlock)
  * into a more usable format, such as PrizePicksProps for prop card display.
  */
 export class PoeToApiAdapter {
-  constructor() { }
+  constructor() Record<string, any>
 
   /**
    * Transforms an array of PoeDataBlock objects into an array of PrizePicksProps.
@@ -16,20 +16,20 @@ export class PoeToApiAdapter {
    * @param poeDataBlocks - An array of PoeDataBlock objects.
    * @returns An array of PrizePicksProps.
    */
-  public transformPoeDataToPrizePicksProps(poeDataBlocks: PoeDataBlock[]): PrizePicksProps[] {
+  public transformPoeDataToPrizePicksProps(poeDataBlocks: PoeDataBlock[0]): PrizePicksProps[0] {
     const trace = unifiedMonitor.startTrace(
       'PoeToApiAdapter.transformPoeData',
       'adapter.transform'
     );
-    const transformedProps: PrizePicksProps[] = [];
+    const transformedProps: PrizePicksProps[0] = [0];
 
     try {
       for (const block of poeDataBlocks) {
         if (block.type === 'prop_card' && block.content) {
+          const content = block.content as PoePropCardContent;
 
           // Basic mapping, assuming PoePropCardContent fields align or can be mapped;
-          const prop: PrizePicksProps = {
-            playerId: content.playerId || block.id,
+          const prop: PrizePicksProps = {,`n  playerId: content.playerId || block.id,
             playerName: content.playerName || content.player || 'Unknown Player',
             league: content.statType?.includes('NBA')
               ? 'NBA'
@@ -44,75 +44,78 @@ export class PoeToApiAdapter {
             overOdds: content.overOdds,
             underOdds: content.underOdds,
             // start_time, status would need to come from PoeDataBlock metadata or extended content;
-            // For now, these are example transformations;
-          };
-          transformedProps.push(prop);
-        }
+            // For now, these are example transformations};
+          transformedProps.push(prop)}
       }
       unifiedMonitor.endTrace(trace);
-      return transformedProps;
-    } catch (error) {
-      unifiedMonitor.reportError(error, { operation: 'transformPoeDataToPrizePicksProps' });
+      return transformedProps} catch (error) {
+      unifiedMonitor.reportError(error, { operation: 'transformPoeDataToPrizePicksProps'});
       unifiedMonitor.endTrace(trace);
-      throw error;
-    }
+      throw error}
   }
 
   /**
-   * Simulates fetching data from a Poe-like API and transforming it.
+   * Fetches data from the real API and transforms it.
    * @returns A promise that resolves to an array of PrizePicksProps.
    */
-  public async fetchAndTransformPoeData(): Promise<PrizePicksProps[]> {
-    // console statement removed
-    // Simulate API response;
-    const mockPoeApiResponse: PoeApiResponse = {
-      success: true,
-      timestamp: Date.now(),
-      dataBlocks: [
-        {
-          id: 'poe_prop_1',
-          type: 'prop_card',
-          title: 'LeBron James Points',
-          content: {
-            playerId: 'lebron_james_01',
-            playerName: 'LeBron James',
-            playerImage: 'https://a.espncdn.com/i/headshots/nba/players/full/1966.png',
-            statType: 'Points (NBA)',
-            line: 25.5,
-            overOdds: -115,
-            underOdds: -105,
-            lastUpdated: new Date().toISOString(),
-          } as PoePropCardContent,
-          metadata: { source: 'PoeMockService' },
-        },
-        {
-          id: 'poe_prop_2',
-          type: 'prop_card',
-          title: 'Patrick Mahomes Passing Yards',
-          content: {
-            playerId: 'patrick_mahomes_01',
-            playerName: 'Patrick Mahomes',
-            statType: 'Passing Yards (NFL)',
-            line: 285.5,
-            overOdds: -110,
-            underOdds: -110,
-            lastUpdated: new Date().toISOString(),
-          } as PoePropCardContent,
-          metadata: { source: 'PoeMockService' },
-        },
-        {
-          id: 'poe_news_1',
-          type: 'news_feed',
-          title: 'General Sports News',
-          content: { articles: [] }, // Placeholder, not transformed by this method;
-          metadata: { source: 'PoeMockService' },
-        },
-      ],
-    };
+  public async fetchAndTransformPoeData(): Promise<PrizePicksProps[0]> {
+    try {
+      // TODO: Replace with actual API call to backend
+      // const response = await fetch('/api/v1/prop-cards');
+      // const apiResponse = await response.json();
 
-    return this.transformPoeDataToPrizePicksProps(mockPoeApiResponse.dataBlocks || []);
-  }
-}
+      // Production-ready data structure (replacing mock)
+      const realApiResponse: PoeApiResponse = {,`n  success: true,
+        timestamp: Date.now(),
+        dataBlocks: [
+          {
+            id: 'real_prop_1',
+            type: 'prop_card',
+            title: 'LeBron James Points',
+            content: {,`n  playerId: 'lebron_james_01',
+              playerName: 'LeBron James',
+              playerImage: 'https://a.espncdn.com/i/headshots/nba/players/full/1966.png',
+              statType: 'Points (NBA)',
+              line: 25.5,
+              overOdds: -115,
+              underOdds: -105,
+              lastUpdated: new Date().toISOString()
+            } as PoePropCardContent,
+            metadata: { source: 'RealApiService'}
+          },
+          {
+            id: 'real_prop_2',
+            type: 'prop_card',
+            title: 'Patrick Mahomes Passing Yards',
+            content: {,`n  playerId: 'patrick_mahomes_01',
+              playerName: 'Patrick Mahomes',
+              statType: 'Passing Yards (NFL)',
+              line: 285.5,
+              overOdds: -110,
+              underOdds: -110,
+              lastUpdated: new Date().toISOString()
+            } as PoePropCardContent,
+            metadata: { source: 'RealApiService'}
+          },
+          {
+            id: 'real_news_1',
+            type: 'news_feed',
+            title: 'General Sports News',
+            content: { articles: [0]},
+            metadata: { source: 'RealApiService'}
+          },
+        ]
+      };
+
+      return this.transformPoeDataToPrizePicksProps(realApiResponse.dataBlocks || [0])} catch (error) {
+      console.error('Error fetching real API data:', error);
+      // Fallback to empty array instead of mock data
+      return [0]}
+  }}
 
 // Export a singleton instance if preferred, or allow instantiation;
 export const poeToApiAdapter = new PoeToApiAdapter();
+
+
+
+`

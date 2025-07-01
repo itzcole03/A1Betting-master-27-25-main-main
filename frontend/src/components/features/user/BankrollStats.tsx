@@ -1,4 +1,4 @@
-import React from 'react.ts';
+import React from 'react';
 import {
   Card,
   CardContent,
@@ -8,18 +8,17 @@ import {
   Box,
   Slider,
   Switch,
-  FormControlLabel,
-} from '@mui/material.ts';
-import { bankrollService } from '@/services/bankroll.ts';
-import { usePredictionStore } from '@/store/predictionStore.ts';
+//   FormControlLabel
+} from '@mui/material';
+import { bankrollService} from '@/services/bankroll';
+import { usePredictionStore} from '@/store/predictionStore';
 
 export const BankrollStats: React.FC = () => {
 
 
 
-  const handleSettingChange = (setting: keyof typeof settings, value: any) => {
-    bankrollService.updateSettings({ [setting]: value });
-  };
+  const handleSettingChange = (setting: keyof typeof settings, value: unknown) => {
+    bankrollService.updateSettings({ [setting]: value})};
 
   return (
     <Grid container spacing={3} key={459826}>
@@ -155,8 +154,7 @@ export const BankrollStats: React.FC = () => {
                     <Switch;
                       checked={settings.autoRebalance}
                       onChange={(e) = key={671616}> handleSettingChange('autoRebalance', e.target.checked)}
-                    />
-                  }
+                    />}
                   label="Auto Rebalance"
                 />
               </Grid>
@@ -196,5 +194,9 @@ export const BankrollStats: React.FC = () => {
         </Card>
       </Grid>
     </Grid>
-  );
-}; 
+  );}; 
+
+
+
+`
+

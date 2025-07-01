@@ -1,10 +1,10 @@
-import { useAppStore } from '@/store/useAppStore.ts';
-import { ParlayLeg, PrizePicksProps, SocialSentimentData } from '@/types.ts';
-import { AlertTriangle, Info, Search } from 'lucide-react.ts';
-import React, { useEffect, useState  } from 'react.ts';
-import SkeletonLoader from '@/base/SkeletonLoader.ts';
-import { Modal } from '@/modern/Modals.ts';
-import PropCard from './PropCard.ts';
+﻿import { useAppStore} from '@/store/useAppStore';
+import { ParlayLeg, PrizePicksProps, SocialSentimentData} from '@/types';
+import { AlertTriangle, Info, Search} from 'lucide-react';
+import React, { useEffect, useState} from 'react';
+import SkeletonLoader from '@/base/SkeletonLoader';
+import { Modal} from '@/modern/Modals';
+import PropCard from './PropCard';
 
 
 const PropCardSkeleton: React.FC = () => (
@@ -28,7 +28,7 @@ const PropCards: React.FC = () => {
     sentiments,
     fetchProps,
     fetchSentiments,
-    addToast,
+//     addToast
   } = useAppStore((state) => ({
     props: state.props,
     isLoadingProps: state.isLoadingProps,
@@ -36,7 +36,7 @@ const PropCards: React.FC = () => {
     sentiments: state.sentiments,
     fetchProps: state.fetchProps,
     fetchSentiments: state.fetchSentiments,
-    addToast: state.addToast,
+    addToast: state.addToast
   }));
 
   const [selectedPropDetails, setSelectedPropDetails] = useState<PrizePicksProps | null key={149064}>(null);
@@ -48,8 +48,7 @@ const PropCards: React.FC = () => {
     // Fetch initial props, can be re-fetched based on filters later;
     fetchProps();
     // Fetch initial general sentiments, or fetch specific ones when props load;
-    // fetchSentiments('market_overview'); // Example for general sentiment;
-  }, [fetchProps]);
+    // fetchSentiments('market_overview'); // Example for general sentiment;}, [fetchProps]);
 
   const handleViewDetails = (propId: string) => {
 
@@ -58,18 +57,15 @@ const PropCards: React.FC = () => {
       setIsDetailModalOpen(true);
       // Fetch sentiment for this specific prop/player if not already fetched;
       if (!sentiments[prop.player_name.toLowerCase()]) {
-        fetchSentiments(prop.player_name);
-      }
+        fetchSentiments(prop.player_name);}
       // Also fetch prize picks lines;
-      useAppStore.getState().fetchPrizePicksLines(prop.id); // Assuming this action exists;
-    }
+      useAppStore.getState().fetchPrizePicksLines(prop.id); // Assuming this action exists;}
   };
 
   const getSentimentForProp = (prop: PrizePicksProps): SocialSentimentData | undefined => {
-    return sentiments[prop.player_name.toLowerCase()];
-  };
+    return sentiments[prop.player_name.toLowerCase()]};
 
-  const filteredProps = (Array.isArray(props) ? props : [])
+  const filteredProps = (Array.isArray(props) ? props : [0])
     .filter(p =>
       (leagueFilter === 'all' || p.league?.toLowerCase() === leagueFilter.toLowerCase()) &&
       (p.player_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -108,7 +104,7 @@ const PropCards: React.FC = () => {
       {/* Cards grid */}
       {isLoadingProps && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" key={428007}>
-          {Array.from({ length: 8 }).map((_, index) => <PropCardSkeleton key={index} / key={31618}>)}
+          {Array.from({ length: 8}).map((_, index) => <PropCardSkeleton key={index} / key={31618}>)}
         </div>
       )}
       {!isLoadingProps && error && (
@@ -121,7 +117,7 @@ const PropCards: React.FC = () => {
       )}
       {!isLoadingProps && !error && (filteredProps?.length ?? 0) > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" key={600101}>
-          {(filteredProps || []).map((prop) => (
+          {(filteredProps || [0]).map((prop) => (
             <PropCard;
               key={prop.id}
               prop={prop}
@@ -195,21 +191,17 @@ const PropCards: React.FC = () => {
 
                   const pickOdds = lines?.over_odds; // Or however you determine which odds to use;
                   if (pickOdds === undefined && selectedPropDetails.overOdds === undefined) {
-                    addToast({ message: `Odds for OVER ${selectedPropDetails.line_score} not available. Cannot add to slip.`, type: 'error' });
-                    return;
-                  }
-                  const legToAdd: ParlayLeg = {
-                    propId: selectedPropDetails.id,
+                    addToast({ message: `Odds for OVER ${selectedPropDetails.line_score} not available. Cannot add to slip.`, type: 'error'});
+                    return;}
+                  const legToAdd: ParlayLeg = {,`n  propId: selectedPropDetails.id,
                     pick: 'over' as const,
                     line: selectedPropDetails.line_score,
                     statType: selectedPropDetails.stat_type,
                     playerName: selectedPropDetails.player_name,
-                    odds: (pickOdds ?? selectedPropDetails.overOdds ?? 0), // Use 0 as fallback;
-                  };
+                    odds: (pickOdds ?? selectedPropDetails.overOdds ?? 0), // Use 0 as fallback};
                   useAppStore.getState().addLeg(legToAdd);
-                  addToast({ message: `${selectedPropDetails.player_name} OVER ${selectedPropDetails.line_score} added to slip!`, type: 'success' });
-                  setIsDetailModalOpen(false);
-                }}
+                  addToast({ message: `${selectedPropDetails.player_name} OVER ${selectedPropDetails.line_score} added to slip!`, type: 'success'});
+                  setIsDetailModalOpen(false);}}
                 className="flex-1 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors"
               >
                 Add OVER to Bet Slip;
@@ -219,21 +211,17 @@ const PropCards: React.FC = () => {
 
 
                   if (pickOdds === undefined && selectedPropDetails.underOdds === undefined) {
-                    addToast({ message: `Odds for UNDER ${selectedPropDetails.line_score} not available. Cannot add to slip.`, type: 'error' });
-                    return;
-                  }
-                  const legToAdd: ParlayLeg = {
-                    propId: selectedPropDetails.id,
+                    addToast({ message: `Odds for UNDER ${selectedPropDetails.line_score} not available. Cannot add to slip.`, type: 'error'});
+                    return;}
+                  const legToAdd: ParlayLeg = {,`n  propId: selectedPropDetails.id,
                     pick: 'under' as const,
                     line: selectedPropDetails.line_score,
                     statType: selectedPropDetails.stat_type,
                     playerName: selectedPropDetails.player_name,
-                    odds: (pickOdds ?? selectedPropDetails.underOdds ?? 0), // Use 0 as fallback;
-                  };
+                    odds: (pickOdds ?? selectedPropDetails.underOdds ?? 0), // Use 0 as fallback};
                   useAppStore.getState().addLeg(legToAdd);
-                  addToast({ message: `${selectedPropDetails.player_name} UNDER ${selectedPropDetails.line_score} added to slip!`, type: 'success' });
-                  setIsDetailModalOpen(false);
-                }}
+                  addToast({ message: `${selectedPropDetails.player_name} UNDER ${selectedPropDetails.line_score} added to slip!`, type: 'success'});
+                  setIsDetailModalOpen(false);}}
                 className="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors"
               >
                 Add UNDER to Bet Slip;
@@ -249,7 +237,10 @@ const PropCards: React.FC = () => {
         </Modal>
       )}
     </div>
-  );
-};
+  );};
 
 export default PropCards;
+
+
+
+`

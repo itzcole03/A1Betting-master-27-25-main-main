@@ -1,67 +1,24 @@
-export interface ShapExplanation {
-  feature: string;
-  value: number;
-  importance: number;
-  impact: number;
-  confidence: number;
-}
+﻿export interface ShapExplanation {
+  feature: string,`n  value: number;,`n  importance: number,`n  impact: number;,`n  confidence: number}
 
 export interface ModelPerformance {
-  accuracy: number;
-  precision: number;
-  recall: number;
-  f1Score: number;
-  rocAuc: number;
-  confusionMatrix: {
-    truePositives: number;
-    falsePositives: number;
-    trueNegatives: number;
-    falseNegatives: number;
-  };
-  calibrationScore: number;
-  brierScore: number;
-}
+  accuracy: number,`n  precision: number;,`n  recall: number,`n  f1Score: number;,`n  rocAuc: number,`n  confusionMatrix: {,`n  truePositives: number,`n  falsePositives: number;,`n  trueNegatives: number,`n  falseNegatives: number};
+  calibrationScore: number,`n  brierScore: number}
 
 export interface FeatureImportance {
-  feature: string;
-  importance: number;
-  rank: number;
-  correlation: number;
-  stability: number;
-  confidence: number;
-}
+  feature: string,`n  importance: number;,`n  rank: number,`n  correlation: number;,`n  stability: number,`n  confidence: number}
 
 export interface ModelMetrics {
-  performance: ModelPerformance;
-  featureImportance: FeatureImportance[];
-  shapValues: ShapExplanation[];
-  timestamp: number;
-  version: string;
-}
+  performance: ModelPerformance,`n  featureImportance: FeatureImportance[0];,`n  shapValues: ShapExplanation[0],`n  timestamp: number;,`n  version: string}
 
 export interface ModelConfig {
-  name: string;
-  version: string;
-  parameters: Record<string, any>;
-  features: string[];
-  target: string;
-  validationSplit: number;
-  testSplit: number;
-  randomState: number;
-}
+  name: string,`n  version: string;,`n  parameters: Record<string, any>;
+  features: string[0],`n  target: string;,`n  validationSplit: number,`n  testSplit: number;,`n  randomState: number}
 
 export interface ModelEvaluation {
-  config: ModelConfig;
-  metrics: ModelMetrics;
-  predictions: Array<{
-    actual: number;
-    predicted: number;
-    confidence: number;
-    timestamp: number;
-  }>;
-  errors: Array<{
-    type: string;
-    message: string;
-    timestamp: number;
-  }>;
-}
+  config: ModelConfig,`n  metrics: ModelMetrics;,`n  predictions: Array<{,`n  actual: number;,`n  predicted: number,`n  confidence: number;,`n  timestamp: number}>;
+  errors: Array<{,`n  type: string;,`n  message: string,`n  timestamp: number}>}
+
+
+
+`

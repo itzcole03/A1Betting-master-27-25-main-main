@@ -1,52 +1,44 @@
-import { Component, ErrorInfo, ReactNode } from 'react';
+﻿import { Component, ErrorInfo, ReactNode} from 'react'
 
 interface Props {
   children: ReactNode;
-  fallback?: ReactNode;
-}
+  fallback?: ReactNode}
 
 interface State {
   hasError: boolean;
-  error?: Error;
-}
+  error?: Error}
 
 class ErrorBoundary extends Component<Props, State> {
-  public state: State = {
-    hasError: false,
+  public state: State = {,`n  hasError: false
   };
 
   public static getDerivedStateFromError(error: Error): State {
-    return { hasError: true, error };
-  }
+    return { hasError: true, error}}
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error("Uncaught error:", error, errorInfo);
-  }
+    console.error('Uncaught error:', error, errorInfo)}
 
   public render() {
     if (this.state.hasError) {
       return (
         this.props.fallback || (
-          <div
-            style={{
+          <div style={{
               padding: '20px',
               margin: '20px',
               border: '1px solid #ff4757',
               borderRadius: '8px',
               backgroundColor: '#fff5f5',
-              color: '#dc2626',
-            }}
-          >
+              color: '#dc2626'
+            }}>`n          >
             <h2>Theme Error</h2>
             <p>Something went wrong with the theme system.</p>
-            <details style={{ marginTop: '10px' }}>
+            <details style={{ marginTop: '10px'}}>
               <summary>Error details:</summary>
-              <pre style={{ marginTop: '10px', fontSize: '12px' }}>
+              <pre style={{ marginTop: '10px', fontSize: '12px'}}>
                 {this.state.error?.toString()}
               </pre>
             </details>
-            <button
-              onClick={() => window.location.reload()}
+            <button onClick={() => window.location.reload()}
               style={{
                 marginTop: '10px',
                 padding: '8px 16px',
@@ -54,18 +46,20 @@ class ErrorBoundary extends Component<Props, State> {
                 color: 'white',
                 border: 'none',
                 borderRadius: '4px',
-                cursor: 'pointer',
+                cursor: 'pointer'
               }}
             >
               Reload Page
             </button>
           </div>
         )
-      );
-    }
+      )}
 
-    return this.props.children;
-  }
+    return this.props.children}
 }
 
 export default ErrorBoundary;
+
+
+
+`

@@ -65,3 +65,6 @@ pip-selfcheck.json
 # Database
 a1betting.db
 *.sqlite3
+
+# Cursor AI IDE local config
+.cursor/

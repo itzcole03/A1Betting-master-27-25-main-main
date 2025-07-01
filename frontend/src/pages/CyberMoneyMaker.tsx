@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import CyberButton from '@/components/ui/CyberButton.ts';
+﻿import React from 'react';
+import CyberButton from '@/components/ui/CyberButton';
 
 const CyberMoneyMaker: React.FC = () => {
   return (
@@ -37,7 +37,9 @@ const CyberMoneyMaker: React.FC = () => {
         / key={798396}>
       </div>
     </div>
-  );
-};
+  );};
 
 export default CyberMoneyMaker;
+
+
+

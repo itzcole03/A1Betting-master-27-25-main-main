@@ -1,28 +1,14 @@
-export interface Transaction {
-  id: string;
-  amount: number;
-  type: 'deposit' | 'withdraw' | 'win' | 'loss' | 'bet';
-  timestamp: Date;
-  status: 'pending' | 'completed' | 'failed';
-  description?: string;
-}
+﻿export interface Transaction {
+  id: string,`n  amount: number;,`n  type: 'deposit' | 'withdraw' | 'win' | 'loss' | 'bet',`n  timestamp: Date;,`n  status: 'pending' | 'completed' | 'failed';
+  description?: string}
 
 export interface BankrollSettings {
-  maxBetPercentage: number;
-  stopLossPercentage: number;
-  takeProfitPercentage: number;
-  kellyFraction: number;
-}
+  maxBetPercentage: number,`n  stopLossPercentage: number;,`n  takeProfitPercentage: number,`n  kellyFraction: number}
 
 export interface BankrollStats {
-  currentBalance: number;
-  startingBalance: number;
-  totalWins: number;
-  totalLosses: number;
-  winRate: number;
-  averageBetSize: number;
-  largestWin: number;
-  largestLoss: number;
-  netProfit: number;
-  roi: number;
-}
+  currentBalance: number,`n  startingBalance: number;,`n  totalWins: number,`n  totalLosses: number;,`n  winRate: number,`n  averageBetSize: number;,`n  largestWin: number,`n  largestLoss: number;,`n  netProfit: number,`n  roi: number}
+
+
+
+
+`

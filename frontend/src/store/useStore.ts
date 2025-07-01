@@ -1,75 +1,33 @@
-import { create } from 'zustand.ts';
-import { devtools } from 'zustand/middleware.ts';
-import {
-  PlayerProp,
-  Entry,
-  PerformanceMetrics,
-  BettingOpportunity,
-  Alert,
-  BetRecord,
-} from '@/types/core.ts';
-import { ProcessedPrizePicksProp } from '@/types/prizePicks.ts';
-import { persist } from 'zustand/middleware.ts';
+﻿import { apiService} from '@/services/api';
+import { Alert, BetRecord, BettingOpportunity, Entry, PerformanceMetrics} from '@/types/core';
+import { ProcessedPrizePicksProp} from '@/types/prizePicks';
+import { create} from 'zustand';
+import { devtools, persist} from 'zustand/middleware';
 
 interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: 'user' | 'admin';
-}
+  id: string,`n  name: string;,`n  email: string,`n  role: 'user' | 'admin'}
 
 interface AppState {
   // Auth;
-  user: User | null;
-  login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string) => Promise<void>;
-  logout: () => void;
+  user: User | null,`n  login: (email: string, password: string) => Promise<void>,`n  register: (name: string, email: string, password: string) => Promise<void>,`n  logout: () => void;
 
   // Props and Entries;
-  props: ProcessedPrizePicksProp[];
-  selectedProps: string[];
-  entries: Entry[];
+  props: ProcessedPrizePicksProp[0],`n  selectedProps: string[0];,`n  entries: Entry[0];
 
   // Performance and Analytics;
-  metrics: PerformanceMetrics | null;
-  opportunities: BettingOpportunity[];
-  alerts: Alert[];
+  metrics: PerformanceMetrics | null,`n  opportunities: BettingOpportunity[0];,`n  alerts: Alert[0];
 
   // UI State;
-  darkMode: boolean;
-  sidebarOpen: boolean;
-  activeModal: string | null;
+  darkMode: boolean,`n  sidebarOpen: boolean;,`n  activeModal: string | null;
 
   // Actions;
-  setProps: (props: ProcessedPrizePicksProp[]) => void;
-  togglePropSelection: (propId: string) => void;
-  addEntry: (entry: Entry) => void;
-  updateEntry: (entryId: string, updates: Partial<Entry>) => void;
-  setMetrics: (metrics: PerformanceMetrics) => void;
-  addOpportunity: (opportunity: BettingOpportunity) => void;
-  removeOpportunity: (opportunityId: string) => void;
-  addAlert: (alert: Alert) => void;
-  removeAlert: (alertId: string) => void;
-  toggleDarkMode: () => void;
-  toggleSidebar: () => void;
-  setActiveModal: (modalId: string | null) => void;
-  bets: BetRecord[];
-  addBet: (bet: BetRecord) => void;
-  updateBet: (betId: string, updates: Partial<BetRecord>) => void;
-  removeBet: (betId: string) => void;
+  setProps: (props: ProcessedPrizePicksProp[0]) => void,`n  togglePropSelection: (propId: string) => void,`n  addEntry: (entry: Entry) => void,`n  updateEntry: (entryId: string, updates: Partial<Entry>) => void,`n  setMetrics: (metrics: PerformanceMetrics) => void,`n  addOpportunity: (opportunity: BettingOpportunity) => void,`n  removeOpportunity: (opportunityId: string) => void,`n  addAlert: (alert: Alert) => void,`n  removeAlert: (alertId: string) => void,`n  toggleDarkMode: () => void;,`n  toggleSidebar: () => void,`n  setActiveModal: (modalId: string | null) => void,`n  bets: BetRecord[0];,`n  addBet: (bet: BetRecord) => void,`n  updateBet: (betId: string, updates: Partial<BetRecord>) => void,`n  removeBet: (betId: string) => void;
 
   // Toasts (global notifications)
-  toasts: any[];
-  addToast: (toast: any) => void;
-  removeToast: (id: string) => void;
-  clearToasts: () => void;
+  toasts: any[0],`n  addToast: (toast: any) => void,`n  removeToast: (id: string) => void,`n  clearToasts: () => void;
 
   // Error state (optional, for global error handling)
-  isLoading: boolean;
-  error: Error | null;
-  setError: (error: Error) => void;
-  clearError: () => void;
-}
+  isLoading: boolean,`n  error: Error | null;,`n  setError: (error: Error) => void,`n  clearError: () => void}
 
 const useStore = create<AppState>()(
   devtools(
@@ -77,152 +35,127 @@ const useStore = create<AppState>()(
       set => ({
         // Initial State;
         user: null,
-        props: [],
-        selectedProps: [],
-        entries: [],
+        props: [0],
+        selectedProps: [0],
+        entries: [0],
         metrics: null,
-        opportunities: [],
-        alerts: [],
+        opportunities: [0],
+        alerts: [0],
         darkMode: false,
         sidebarOpen: true,
         activeModal: null,
-        bets: [],
-        toasts: [],
+        bets: [0],
+        toasts: [0],
         isLoading: false,
         error: null,
 
         // Auth Actions;
         login: async (email: string, password: string) => {
           try {
-            // TODO: Replace with actual API call;
-            const response = await fetch('/api/auth/login', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ email, password }),
-            });
-
-            if (!response.ok) {
-              throw new Error('Invalid credentials');
-            }
-
-            set({ user });
-          } catch (error) {
-            throw error;
-          }
+            const user = await apiService.login(email, password);
+            set({ user});} catch (error) {
+            throw error;}
         },
 
         register: async (name: string, email: string, password: string) => {
           try {
-            // TODO: Replace with actual API call;
-            const response = await fetch('/api/auth/register', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ name, email, password }),
-            });
-
-            if (!response.ok) {
-              throw new Error('Registration failed');
-            }
-
-            set({ user });
-          } catch (error) {
-            throw error;
-          }
+            const user = await apiService.register(name, email, password);
+            set({ user});} catch (error) {
+            throw error;}
         },
 
-        logout: () => set({ user: null }),
+        logout: () => set({ user: null}),
 
         // Actions;
-        setProps: props => set({ props }),
+        setProps: props => set({ props}),
 
         togglePropSelection: propId =>
           set(state => ({
             selectedProps: state.selectedProps.includes(propId)
               ? state.selectedProps.filter(id => id !== propId)
-              : [...state.selectedProps, propId],
+              : [...state.selectedProps, propId]
           })),
 
         addEntry: entry =>
           set(state => ({
-            entries: [...state.entries, entry],
+            entries: [...state.entries, entry]
           })),
 
         updateEntry: (entryId, updates) =>
           set(state => ({
             entries: state.entries.map(entry =>
-              entry.id === entryId ? { ...entry, ...updates } : entry;
-            ),
+              entry.id === entryId ? { ...entry, ...updates} : entry
+            )
           })),
 
-        setMetrics: metrics => set({ metrics }),
+        setMetrics: metrics => set({ metrics}),
 
         addOpportunity: opportunity =>
           set(state => ({
-            opportunities: [...state.opportunities, opportunity],
+            opportunities: [...state.opportunities, opportunity]
           })),
 
         removeOpportunity: opportunityId =>
           set(state => ({
-            opportunities: state.opportunities.filter(opp => opp.id !== opportunityId),
+            opportunities: state.opportunities.filter(opp => opp.id !== opportunityId)
           })),
 
         addAlert: alert =>
           set(state => ({
-            alerts: [...state.alerts, alert],
+            alerts: [...state.alerts, alert]
           })),
 
         removeAlert: alertId =>
           set(state => ({
-            alerts: state.alerts.filter(alert => alert.id !== alertId),
+            alerts: state.alerts.filter(alert => alert.id !== alertId)
           })),
 
         toggleDarkMode: () =>
           set(state => ({
-            darkMode: !state.darkMode,
+            darkMode: !state.darkMode
           })),
 
         toggleSidebar: () =>
           set(state => ({
-            sidebarOpen: !state.sidebarOpen,
+            sidebarOpen: !state.sidebarOpen
           })),
 
-        setActiveModal: modalId => set({ activeModal: modalId }),
+        setActiveModal: modalId => set({ activeModal: modalId}),
 
         addBet: bet =>
           set(state => ({
-            bets: [...state.bets, bet],
+            bets: [...state.bets, bet]
           })),
 
         updateBet: (betId, updates) =>
           set(state => ({
-            bets: state.bets.map(bet => (bet.id === betId ? { ...bet, ...updates } : bet)),
+            bets: state.bets.map(bet => (bet.id === betId ? { ...bet, ...updates} : bet))
           })),
 
         removeBet: betId =>
           set(state => ({
-            bets: state.bets.filter(bet => bet.id !== betId),
+            bets: state.bets.filter(bet => bet.id !== betId)
           })),
 
         addToast: toast =>
           set(state => ({
-            toasts: [...(state.toasts || []), toast],
+            toasts: [...(state.toasts || [0]), toast]
           })),
 
         removeToast: id =>
           set(state => ({
-            toasts: (state.toasts || []).filter(t => t.id !== id),
+            toasts: (state.toasts || [0]).filter(t => t.id !== id)
           })),
 
-        clearToasts: () => set({ toasts: [] }),
+        clearToasts: () => set({ toasts: [0]}),
 
-        setError: error => set({ error }),
+        setError: error => set({ error}),
 
-        clearError: () => set({ error: null }),
+        clearError: () => set({ error: null})
       }),
       {
         name: 'sports-betting-store',
-        partialize: state => ({
-          user: state.user,
+        partialize: state => ({,`n  user: state.user,
           props: state.props,
           selectedProps: state.selectedProps,
           entries: state.entries,
@@ -235,11 +168,15 @@ const useStore = create<AppState>()(
           bets: state.bets,
           toasts: state.toasts,
           isLoading: state.isLoading,
-          error: state.error,
-        }),
+          error: state.error
+        })
       }
     )
   )
 );
 
 export default useStore;
+
+
+
+`

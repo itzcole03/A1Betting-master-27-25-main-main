@@ -1,13 +1,12 @@
-import React from 'react.ts';
-import { motion } from 'framer-motion.ts';
-import { formatPercentage, formatCurrency } from '@/utils/formatters.ts';
-import type { Prediction } from '@/services/predictionService.ts';
+﻿import React from 'react';
+import { motion} from 'framer-motion';
+import { formatPercentage, formatCurrency} from '@/utils/formatters';
+import type { Prediction} from '@/services/predictionService';
 
 interface BettingOpportunitiesProps {
-  predictions: Prediction[];
-}
+  predictions: Prediction[0]}
 
-export const BettingOpportunities: React.FC<BettingOpportunitiesProps key={990600}> = ({ predictions }) => {
+export const BettingOpportunities: React.FC<BettingOpportunitiesProps key={990600}> = ({ predictions}) => {
   // Sort predictions by market edge;
   const sortedPredictions = [...predictions].sort(
     (a, b) => (b.marketEdge ?? 0) - (a.marketEdge ?? 0)
@@ -18,9 +17,9 @@ export const BettingOpportunities: React.FC<BettingOpportunitiesProps key={99060
       {sortedPredictions.map(prediction => (
         <motion.div;
           key={prediction.id}
-          animate={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0}}
           className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 20}}
          key={436136}>
           <div className="flex justify-between items-start" key={678391}>
             <div key={241917}>
@@ -55,5 +54,7 @@ export const BettingOpportunities: React.FC<BettingOpportunitiesProps key={99060
         </motion.div>
       ))}
     </div>
-  );
-};
+  );};
+
+
+

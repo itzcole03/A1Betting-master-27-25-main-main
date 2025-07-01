@@ -1,1 +1,1 @@
-export default function LoadingScreen(): import("react/jsx-runtime").JSX.Element;
+export default function LoadingScreen(): import('react/jsx-runtime').JSX.Element;

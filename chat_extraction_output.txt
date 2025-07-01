@@ -1,0 +1,162 @@
+Cursor Chat Data Extractor
+========================================
+Processing global storage: C:\Users\bcmad\AppData\Roaming\Cursor\User\globalStorage\state.vscdb
+  Found 11761 chat-related entries out of 15277 total records
+
+Processing workspace storage databases...
+Processing: state.vscdb
+  Found 20 chat-related entries
+Processing: state.vscdb
+  Found 14 chat-related entries
+Processing: state.vscdb
+  Found 12 chat-related entries
+Processing: state.vscdb
+  Found 14 chat-related entries
+Processing: state.vscdb
+  Found 19 chat-related entries
+Processing: state.vscdb
+  Found 24 chat-related entries
+Processing: state.vscdb
+  Found 17 chat-related entries
+Processing: state.vscdb
+  Found 26 chat-related entries
+Processing: state.vscdb
+  Found 11 chat-related entries
+Processing: state.vscdb
+  Found 17 chat-related entries
+Processing: state.vscdb
+  Found 23 chat-related entries
+Processing: state.vscdb
+  Found 20 chat-related entries
+Processing: state.vscdb
+  Found 7 chat-related entries
+Processing: state.vscdb
+  Found 20 chat-related entries
+Processing: state.vscdb
+  Found 15 chat-related entries
+Processing: state.vscdb
+  Found 20 chat-related entries
+Processing: state.vscdb
+  Found 18 chat-related entries
+Processing: state.vscdb
+  Found 14 chat-related entries
+
+Total chat-related entries found: 12072
+Raw chat data saved to: extracted_chat_data_20250701_140405.json
+
+Analyzing chat data...
+
+Data distribution by table:
+  ItemTable: 367 entries
+  cursorDiskKV: 11705 entries
+
+Data distribution by key pattern:
+  telemetry.firstSessionDate: 1 entries
+  aiCodeTrackingStartTime: 1 entries
+  workbench.services.onFirstStartupService.hasNotResetJetBrainsMonoFont: 1 entries
+  tooltipServicePipelines: 1 entries
+  workbench.contrib.onboarding.browser.changeRemainingCmdBackspaceKeybindings.04012025.shown: 1 entries
+  ~remote.forwardedPortsContainer.hidden: 1 entries
+  chat.participantNameRegistry: 1 entries
+  interactive.sessions: 13 entries
+  anysphere.cursor-always-local: 1 entries
+  cursor.featureStatus.dataPrivacyOnboarding: 1 entries
+  colorThemeData: 1 entries
+  GitHub.copilot: 1 entries
+  workbench.view.extension.containersView.state.hidden: 1 entries
+  cursorAuth/onboardingDate: 1 entries
+  chat.workspaceTransfer: 1 entries
+  workbench.panel.composerChatViewPane.UUID.hidden: 4 entries
+  cursorai/donotchange/privacyMode: 1 entries
+  github.copilot-github: 3 entries
+  github.copilot-github-user:email: 2 entries
+  vscode.github-authentication: 1 entries
+  cursorAuth/cachedEmail: 1 entries
+  cursorAuth/cachedSignUpType: 1 entries
+  cursorAuth/refreshToken: 1 entries
+  cursorAuth/accessToken: 1 entries
+  cursorAuth/stripeMembershipType: 1 entries
+  vscode.typescript-language-features: 1 entries
+  cursorai/donotchange/newPrivacyModeHoursRemainingInGracePeriod: 1 entries
+  cursorai/donotchange/newPrivacyMode2: 1 entries
+  cursorai/donotchange/hasReconciledNewPrivacyModeWithServerOnUpgrade: 1 entries
+  vscode.github-github-repo workflow user:email read:user: 2 entries
+  memento/mainThreadCustomEditors.origins: 1 entries
+  GitHub.vscode-pull-request-github: 1 entries
+  workbench.view.extension.github-pull-request.state.hidden: 1 entries
+  anysphere.cursorpyright: 11 entries
+  ms-toolsai.jupyter: 9 entries
+  memento/mainThreadWebviewPanel.origins: 1 entries
+  GitHub.copilot-chat: 5 entries
+  iconThemeData: 1 entries
+  ms-azuretools.vscode-containers: 5 entries
+  telemetry.lastSessionDate: 1 entries
+  telemetry.currentSessionDate: 1 entries
+  cursorupdate.lastUpdatedAndShown.version: 1 entries
+  WallabyJs.console-ninja: 1 entries
+  history.recentlyOpenedPathsList: 1 entries
+  ms-python.python: 1 entries
+  extensionsAssistant/recommendations: 1 entries
+  terminal.history.entries.dirs: 1 entries
+  aiCodeTrackingLines: 1 entries
+  src.vs.platform.reactivestorage.browser.reactiveStorageServiceImpl.persistentStorage.applicationUser: 1 entries
+  cursorai/serverConfig: 1 entries
+  terminal.history.timestamp.dirs: 1 entries
+  terminal.history.entries.commands: 1 entries
+  terminal.history.timestamp.commands: 1 entries
+  composerData:UUID: 77 entries
+  inlineDiffs-HASH: 1 entries
+  checkpointId:UUID:UUID: 3766 entries
+  codeBlockDiff:UUID:UUID: 1266 entries
+  messageRequestContext:UUID:UUID: 719 entries
+  bubbleId:UUID:UUID: 5863 entries
+  bubbleId:UUID:undefined: 1 entries
+  inlineDiffUndoRedo-UUID-UUID: 12 entries
+  cursorAuth/workspaceOpenedDate: 15 entries
+  workbench.auxiliarybar.initialViewContainers: 14 entries
+  workbench.auxiliarybar.viewContainersWorkspaceState: 17 entries
+  workbench.view.extension.containersView.state: 15 entries
+  ~remote.forwardedPortsContainer: 17 entries
+  workbench.panel.aichat.UUID.numberOfVisibleViews: 15 entries
+  workbench.panel.composerChatViewPane.UUID: 18 entries
+  aiService.prompts: 15 entries
+  aiService.generations: 15 entries
+  chat.editing.autosaveDisabled: 13 entries
+  history.entries: 17 entries
+  composer.composerData: 15 entries
+  workbench.panel.viewContainersWorkspaceState: 18 entries
+  workbench.view.extension.github-pull-request.state: 3 entries
+  anysphere.cursor-retrieval: 14 entries
+  src.vs.platform.reactivestorage.browser.reactiveStorageServiceImpl.persistentStorage.workspaceUser: 15 entries
+  ~remote.forwardedPortsContainer.numberOfVisibleViews: 1 entries
+  workbench.search.history: 1 entries
+  workbench.find.history: 2 entries
+  scm.history: 3 entries
+  memento/webviewView.gitlens.views.graphDetails: 1 entries
+  workbench.panel.chat.numberOfVisibleViews: 3 entries
+  workbench.panel.chat: 4 entries
+  memento/interactive-session-view-copilot: 3 entries
+  memento/interactive-session: 3 entries
+  chat.ChatSessionStore.index: 4 entries
+  terminal.integrated.bufferState: 3 entries
+  memento/workbench.parts.editor: 2 entries
+  workbench.explorer.treeViewState: 1 entries
+  memento/workbench.editors.files.textFileEditor: 1 entries
+  github.copilot-chat-github-read:user user:email repo workflow: 1 entries
+
+Parsed conversations: 2366
+Organized data saved to: organized_chat_data_20250701_140405.json
+
+Sample conversations (showing first 3):
+
+--- Conversation 1 ---
+Source: ItemTable / iconThemeData
+Content preview: {'styleSheetContent': "@font-face { src: url('vscode-file://vscode-app/c:/Users/bcmad/AppData/Local/Programs/cursor/resources/app/extensions/theme-seti/icons/seti.woff') format('woff'); font-family: '...
+
+--- Conversation 2 ---
+Source: cursorDiskKV / bubbleId:c666f737-0da2-4ab5-8316-f4389c1a78bb:f15cbe7b-99bb-43db-9719-fed9c7421083
+Content preview: {'richText': '{"root":{"children":[{"children":[{"type":"linebreak","version":1},{"detail":0,"format":0,"mode":"normal","style":"","text":"**Project Context:**  ","type":"text","version":1},{"type":"l...
+
+--- Conversation 3 ---
+Source: cursorDiskKV / bubbleId:c666f737-0da2-4ab5-8316-f4389c1a78bb:c9897d52-64ae-4abe-ac67-fcd4635362e5
+Content preview: {'text': "\n\nAll major frontend components that previously caused `TypeError: Cannot read properties of undefined (reading 'length')` have now been updated to safely handle missing or undefined data....

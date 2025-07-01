@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 
 // Temporary static UserStats component to prevent infinite loop issues;
 // TODO: Restore dynamic functionality once store subscription issues are resolved;
@@ -8,7 +8,7 @@ const UserStats: React.FC = () => {
     totalBets: 12,
     winRate: 83.3,
     totalProfitLoss: 1247.5,
-    roi: 15.2,
+    roi: 15.2
   };
 
   return (
@@ -42,7 +42,11 @@ const UserStats: React.FC = () => {
         </p>
       </div>
     </div>
-  );
-};
+  )};
 
 export default React.memo(UserStats);
+
+
+
+
+`

@@ -1,20 +1,20 @@
-import Box from '@mui/material/Box.ts';
-import Card from '@mui/material/Card.ts';
-import CardContent from '@mui/material/CardContent.ts';
-import Chip from '@mui/material/Chip.ts';
-import CircularProgress from '@mui/material/CircularProgress.ts';
-// import Grid from '@mui/material/Grid.ts'; // Removed due to v7 compatibility issues;
+﻿import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Chip from '@mui/material/Chip';
+import CircularProgress from '@mui/material/CircularProgress';
+// import Grid from '@mui/material/Grid'; // Removed due to v7 compatibility issues;
 
-import Typography from '@mui/material/Typography.ts';
-import { ArcElement, BarElement, CategoryScale, Chart, Tooltip as ChartTooltip, Legend, LinearScale } from 'chart.js';
-import React from 'react.ts';
-import { Bar } from 'react-chartjs-2.ts';
-import { useTheme } from '@/hooks/useTheme.js';
-import { useUnifiedAnalytics } from '@/hooks/useUnifiedAnalytics.js'; // Add .js extension if required by tsconfig;
+import Typography from '@mui/material/Typography';
+import { ArcElement, BarElement, CategoryScale, Chart, Tooltip as ChartTooltip, Legend, LinearScale} from 'chart.js';
+import React from 'react';
+import { Bar} from 'react-chartjs-2';
+import { useTheme} from '@/hooks/useTheme.js';
+import { useUnifiedAnalytics} from '@/hooks/useUnifiedAnalytics.js'; // Add .js extension if required by tsconfig;
 // If the following import fails, see the comment below for a dynamic workaround;
 // If you see TypeScript errors for icon imports below, ensure your react-icons version is >=5.5.0 and your tsconfig.json includes "esModuleInterop": true and "allowSyntheticDefaultImports": true. If problems persist, use a dynamic import workaround (see comment below).
 // Example dynamic icon usage: const Icon = require('react-icons/fa').FaRobot;
-import { FaArrowDown, FaArrowUp, FaBolt, FaExclamationTriangle, FaHeartbeat, FaRobot } from 'react-icons/fa.ts';
+import { FaArrowDown, FaArrowUp, FaBolt, FaExclamationTriangle, FaHeartbeat, FaRobot} from 'react-icons/fa';
 
 
 
@@ -22,18 +22,16 @@ Chart.register(ArcElement, BarElement, CategoryScale, LinearScale, ChartTooltip,
 
 // Helper: Status chip;
 interface StatusChipProps {
-  label: string;
-  color: 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
-  icon?: React.ReactElement;
-}
-const StatusChip: React.FC<StatusChipProps key={639518}> = ({ label, color, icon }) => (
-  <Chip icon={icon} label={label} color={color} size="small" sx={{ mr: 1, mb: 1 }} / key={432764}>
+  label: string,`n  color: 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
+  icon?: React.ReactElement}
+const StatusChip: React.FC<StatusChipProps key={639518}> = ({ label, color, icon}) => (
+  <Chip icon={icon} label={label} color={color} size="small" sx={{ mr: 1, mb: 1}} / key={432764}>
 );
 
 const AdvancedAnalytics: React.FC = () => {
 
   // Use the unified analytics hook;
-  const { ml, performance } = useUnifiedAnalytics();
+  const { ml, performance} = useUnifiedAnalytics();
 
   // --- Types removed for build robustness. If you want to restore strict typing, define interfaces for your analytics slices. ---
 
@@ -62,8 +60,7 @@ const AdvancedAnalytics: React.FC = () => {
         <CircularProgress / key={730118}>
         <Typography variant="body2" className="mt-2 text-gray-400" key={460148}>Loading advanced analytics...</Typography>
       </Box>
-    );
-  }
+    )}
 
   // Sentiment, Odds/Consensus, Injuries, Patterns, Explainability, and Model status are all defined above and should not be redeclared here.
   // (Removed duplicate declarations)
@@ -113,7 +110,7 @@ const AdvancedAnalytics: React.FC = () => {
               <Typography variant="h6" gutterBottom key={90207}><FaArrowUp className="inline mr-2" / key={322916}>Pattern Recognition & Injuries</Typography>
               {patterns.length > 0 ? (
                 <Box key={485947}>
-                  {patterns.map((p: any, idx: number) => (
+                  {patterns.map((p: unknown, idx: number) => (
                     <StatusChip key={idx} label={p.label} color={p.positive ? 'success' : 'default'} icon={p.positive ? <FaArrowUp / key={725203}> : <FaArrowDown / key={758822}>} />
                   ))}
                 </Box>
@@ -122,7 +119,7 @@ const AdvancedAnalytics: React.FC = () => {
               )}
               <Box className="mt-2" key={784736}>
                 <Typography variant="body2" key={679167}>Injuries:</Typography>
-                {injuries.length > 0 ? injuries.map((inj: any, idx: number) => (
+                {injuries.length > 0 ? injuries.map((inj: unknown, idx: number) => (
                   <Typography key={idx} variant="caption" key={424411}>{inj.player}: {inj.status} (Impact: {inj.impact})</Typography>
                 )) : <Typography variant="caption" key={472228}>No major injuries reported.</Typography>}
               </Box>
@@ -141,16 +138,15 @@ const AdvancedAnalytics: React.FC = () => {
                 <Bar;
                   data={{
                     labels: Object.keys(explainability.featureImportances),
-                    datasets: [{
-                      label: 'Feature Importance',
+                    datasets: [{,`n  label: 'Feature Importance',
                       data: Object.values(explainability.featureImportances),
-                      backgroundColor: primaryColor,
-                    }],
+                      backgroundColor: primaryColor
+                    }]
                   }}
                   options={{
-                    plugins: { legend: { display: false } },
+                    plugins: { legend: { display: false} },
                     responsive: true,
-                    scales: { x: { ticks: { color: textColor } }, y: { ticks: { color: textColor } } },
+                    scales: { x: { ticks: { color: textColor} }, y: { ticks: { color: textColor} }}
                   }}
                 / key={341033}>
               ) : <Typography variant="body2" key={679167}>No explainability data available.</Typography>}
@@ -171,7 +167,12 @@ const AdvancedAnalytics: React.FC = () => {
         </div>
       </div>
     </Box>
-  );
-};
+  )};
 
-export { AdvancedAnalytics };
+export { AdvancedAnalytics};
+
+
+
+
+`
+

@@ -1,16 +1,13 @@
-
-export class UnifiedConfig {
+﻿export class UnifiedConfig {
   private static instance: UnifiedConfig;
-  private config: Record<string, unknown> = {};
+  private config: Record<string, unknown> = Record<string, any>;
 
-  private constructor() {}
+  private constructor() Record<string, any>
 
   static getInstance(): UnifiedConfig {
     if (!UnifiedConfig.instance) {
-      UnifiedConfig.instance = new UnifiedConfig();
-    }
-    return UnifiedConfig.instance;
-  }
+      UnifiedConfig.instance = new UnifiedConfig();}
+    return UnifiedConfig.instance;}
 
   /**
    * Returns the API base URL from Vite env or config, with fallback.
@@ -19,34 +16,30 @@ export class UnifiedConfig {
     return (
       (this.config['api.baseUrl'] as string | undefined) ||
       (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_URL) ||
-      'http://localhost:8000'
-    );
-  }
+      'http: //localhost:8000'
+    )}
 
   get<T>(key: string, defaultValue?: T): T {
-
     if (value !== undefined) return value as T;
     if (defaultValue !== undefined) return defaultValue;
-    throw new Error(`Configuration key "${key}" not found`);
-  }
+    throw new Error(`Configuration key "${key}" not found`);}
 
   set<T>(key: string, value: T): void {
-    this.config[key] = value;
-  }
+    this.config[key] = value}
 
   has(key: string): boolean {
-    return key in this.config;
-  }
+    return key in this.config}
 
   delete(key: string): void {
-    delete this.config[key];
-  }
+    delete this.config[key]}
 
   clear(): void {
-    this.config = {};
-  }
+    this.config = Record<string, any>}
 
   getAll(): Record<string, unknown> {
-    return { ...this.config };
-  }
+    return { ...this.config};}
 }
+
+
+
+`

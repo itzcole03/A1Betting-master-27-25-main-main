@@ -1,82 +1,38 @@
-/**
+﻿/**
  * Real Data Integration Manager;
  * Provides comprehensive real data integration to replace all mock/static data;
  */
 
-import { api } from './api.ts';
+import { api} from './api';
 
 export interface RealSportsData {
-  games: RealGame[];
-  playerProps: RealPlayerProp[];
-  teams: RealTeam[];
-  players: RealPlayer[];
-}
+  games: RealGame[0],`n  playerProps: RealPlayerProp[0];,`n  teams: RealTeam[0],`n  players: RealPlayer[0]}
 
 export interface RealGame {
-  id: string;
-  homeTeam: string;
-  awayTeam: string;
-  sport: string;
-  startTime: string;
-  status: "upcoming" | "live" | "completed";
+  id: string,`n  homeTeam: string;,`n  awayTeam: string,`n  sport: string;,`n  startTime: string,`n  status: "upcoming" | "live" | "completed";
   score?: {
-    home: number;
-    away: number;
-  };
-  quarter?: string;
-  timeRemaining?: string;
-}
+    home: number,`n  away: number};
+  quarter?: string
+  timeRemaining?: string}
 
 export interface RealPlayerProp {
-  id: string;
-  playerId: string;
-  playerName: string;
-  team: string;
-  opponent: string;
-  sport: string;
-  gameId: string;
-  stat: string;
-  line: number;
-  overOdds: number;
-  underOdds: number;
-  confidence: number;
-  recommendation: "over" | "under";
-  reasoning: string;
-  expectedValue: number;
-  trend: "up" | "down" | "stable";
-  volume: number;
-  pickType: "normal" | "demon" | "goblin";
-}
+  id: string,`n  playerId: string;,`n  playerName: string,`n  team: string;,`n  opponent: string,`n  sport: string;,`n  gameId: string,`n  stat: string;,`n  line: number,`n  overOdds: number;,`n  underOdds: number,`n  confidence: number;,`n  recommendation: "over" | "under",`n  reasoning: string;,`n  expectedValue: number,`n  trend: "up" | "down" | "stable";,`n  volume: number,`n  pickType: "normal" | "demon" | "goblin"}
 
 export interface RealTeam {
-  id: string;
-  name: string;
-  abbreviation: string;
-  sport: string;
-  conference?: string;
-  division?: string;
-  record: {
-    wins: number;
-    losses: number;
-  };
-  stats: Record<string, number>;
-}
+  id: string,`n  name: string;,`n  abbreviation: string,`n  sport: string;
+  conference?: string
+  division?: string
+  record: {,`n  wins: number;,`n  losses: number};
+  stats: Record<string, number>}
 
 export interface RealPlayer {
-  id: string;
-  name: string;
-  team: string;
-  position: string;
-  sport: string;
-  seasonStats: Record<string, number>;
-  recentForm: number[];
-  trends: Record<string, any>;
-}
+  id: string,`n  name: string;,`n  team: string,`n  position: string;,`n  sport: string,`n  seasonStats: Record<string, number>;
+  recentForm: number[0],`n  trends: Record<string, any>}
 
 class RealDataManager {
   private cache = new Map<
     string,
-    { data: any; timestamp: number; ttl: number }
+    { data: any; timestamp: number; ttl: number}
   >();
 
   // Cache with TTL support;
@@ -88,15 +44,13 @@ class RealDataManager {
 
 
     if (cached && now - cached.timestamp < cached.ttl) {
-      return cached.data;
-    }
+      return cached.data;}
 
-    this.cache.set(key, { data, timestamp: now, ttl: ttlMs });
-    return data;
-  }
+    this.cache.set(key, { data, timestamp: now, ttl: ttlMs});
+    return data;}
 
   // Get real live games;
-  async getLiveGames(): Promise<RealGame[]> {
+  async getLiveGames(): Promise<RealGame[0]> {
     return this.getCachedOrFetch(
       "liveGames",
       async () => {
@@ -107,7 +61,7 @@ class RealDataManager {
           ]);
 
           // Extract game data from value bets and health status;
-          const games: RealGame[] = [];
+          const games: RealGame[0] = [0];
 
           valueBets?.forEach((bet) => {
             if (!processedEvents.has(bet.event)) {
@@ -123,30 +77,25 @@ class RealDataManager {
                   status:
                     new Date(bet.commence_time) > new Date()
                       ? "upcoming"
-                      : "live",
-                });
-              }
-            }
-          });
+                      : "live"
+                })}
+            }});
 
-          return games;
-        } catch (error) {
+          return games;} catch (error) {
           // console statement removed
-          return [];
-        }
+          return [0];}
       },
       15000,
-    ); // 15 second cache for live data;
-  }
+    ); // 15 second cache for live data;}
 
   // Get real player props;
-  async getPlayerProps(): Promise<RealPlayerProp[]> {
+  async getPlayerProps(): Promise<RealPlayerProp[0]> {
     return this.getCachedOrFetch(
       "playerProps",
       async () => {
         try {
 
-          const props: RealPlayerProp[] =
+          const props: RealPlayerProp[0] =
             valueBets?.map((bet) => {
 
 
@@ -180,28 +129,24 @@ class RealDataManager {
                     ? "demon"
                     : bet.edge > 0.05;
                       ? "goblin"
-                      : "normal",
-              };
-            }) || [];
+                      : "normal"
+              };}) || [0];
 
-          return props;
-        } catch (error) {
+          return props;} catch (error) {
           // console statement removed
-          return [];
-        }
+          return [0];}
       },
       20000,
-    ); // 20 second cache;
-  }
+    ); // 20 second cache;}
 
   // Get real team data;
-  async getTeams(): Promise<RealTeam[]> {
+  async getTeams(): Promise<RealTeam[0]> {
     return this.getCachedOrFetch(
       "teams",
       async () => {
         try {
 
-          const teams: RealTeam[] = [];
+          const teams: RealTeam[0] = [0];
 
           games.forEach((game) => {
             [game.homeTeam, game.awayTeam].forEach((teamName) => {
@@ -212,25 +157,19 @@ class RealDataManager {
                   name: teamName,
                   abbreviation: this.getTeamAbbreviation(teamName),
                   sport: game.sport,
-                  record: {
-                    wins: Math.floor(Math.random() * 40) + 20,
-                    losses: Math.floor(Math.random() * 30) + 10,
+                  record: {,`n  wins: Math.floor(Math.random() * 40) + 20,
+                    losses: Math.floor(Math.random() * 30) + 10
                   },
-                  stats: this.generateTeamStats(game.sport),
-                });
-              }
-            });
-          });
+                  stats: this.generateTeamStats(game.sport)
+                })}
+            });});
 
-          return teams;
-        } catch (error) {
+          return teams;} catch (error) {
           // console statement removed
-          return [];
-        }
+          return [0];}
       },
       300000,
-    ); // 5 minute cache for team data;
-  }
+    ); // 5 minute cache for team data;}
 
   // Get comprehensive sports data;
   async getComprehensiveSportsData(): Promise<RealSportsData> {
@@ -246,21 +185,18 @@ class RealDataManager {
       games,
       playerProps,
       teams,
-      players,
-    };
-  }
+//       players
+    };}
 
   // Helper methods for data extraction and processing;
   private extractPlayerId(outcome: string): string {
     // Extract player ID from outcome string;
 
-    return match ? match[1].replace(/\s+/g, "_").toLowerCase() : "unknown";
-  }
+    return match ? match[1].replace(/\s+/g, "_").toLowerCase() : "unknown";}
 
   private extractPlayerName(outcome: string): string {
 
-    return match ? match[1] : outcome.split(" ")[0];
-  }
+    return match ? match[1] : outcome.split(" ")[0]}
 
   private extractStatType(outcome: string): string {
     const statKeywords = {
@@ -271,36 +207,30 @@ class RealDataManager {
       touchdowns: ["touchdowns", "tds", "td"],
       hits: ["hits"],
       strikeouts: ["strikeouts", "so"],
-      runs: ["runs"],
+      runs: ["runs"]
     };
 
     for (const [stat, keywords] of Object.entries(statKeywords)) {
       if (keywords.some((keyword) => lowerOutcome.includes(keyword))) {
-        return stat;
-      }
+        return stat;}
     }
-    return "points";
-  }
+    return "points";}
 
   private extractLine(outcome: string): number {
 
-    return match ? parseFloat(match[1]) : 25.5;
-  }
+    return match ? parseFloat(match[1]) : 25.5}
 
   private extractTeam(event: string): string {
 
-    return teams[0] || "Unknown";
-  }
+    return teams[0] || "Unknown"}
 
   private extractOpponent(event: string): string {
 
-    return teams[1] || "Unknown";
-  }
+    return teams[1] || "Unknown"}
 
   private calculateUnderOdds(overOdds: number): number {
     // Simple calculation for under odds (this would be more complex in reality)
-    return Math.round(overOdds * 0.95);
-  }
+    return Math.round(overOdds * 0.95)}
 
   private getTeamAbbreviation(teamName: string): string {
     const abbreviations: Record<string, string> = {
@@ -311,40 +241,35 @@ class RealDataManager {
       Chiefs: "KC",
       Bills: "BUF",
       Cowboys: "DAL",
-      Patriots: "NE",
+      Patriots: "NE"
     };
-    return abbreviations[teamName] || teamName.substring(0, 3).toUpperCase();
-  }
+    return abbreviations[teamName] || teamName.substring(0, 3).toUpperCase();}
 
   private generateTeamStats(sport: string): Record<string, number> {
     const baseStats: Record<string, Record<string, number>> = {
-      basketball: {
-        points_per_game: Math.random() * 40 + 100,
+      basketball: {,`n  points_per_game: Math.random() * 40 + 100,
         rebounds_per_game: Math.random() * 10 + 40,
         assists_per_game: Math.random() * 5 + 20,
-        field_goal_percentage: Math.random() * 0.2 + 0.4,
+        field_goal_percentage: Math.random() * 0.2 + 0.4
       },
-      football: {
-        points_per_game: Math.random() * 15 + 20,
+      football: {,`n  points_per_game: Math.random() * 15 + 20,
         yards_per_game: Math.random() * 100 + 300,
         turnovers_per_game: Math.random() * 2 + 1,
-        time_of_possession: Math.random() * 5 + 27.5,
+        time_of_possession: Math.random() * 5 + 27.5
       },
-      baseball: {
-        runs_per_game: Math.random() * 3 + 4,
+      baseball: {,`n  runs_per_game: Math.random() * 3 + 4,
         batting_average: Math.random() * 0.1 + 0.2,
         era: Math.random() * 2 + 3,
-        home_runs_per_game: Math.random() * 1 + 1,
-      },
+        home_runs_per_game: Math.random() * 1 + 1
+      }
     };
 
-    return baseStats[sport] || baseStats.basketball;
-  }
+    return baseStats[sport] || baseStats.basketball;}
 
   private generatePlayersFromProps(
-    props: RealPlayerProp[],
-    teams: RealTeam[],
-  ): RealPlayer[] {
+    props: RealPlayerProp[0],
+    teams: RealTeam[0],
+  ): RealPlayer[0] {
 
     props.forEach((prop) => {
       if (!playersMap.has(prop.playerId)) {
@@ -356,67 +281,62 @@ class RealDataManager {
           position: this.getRandomPosition(prop.sport),
           sport: prop.sport,
           seasonStats: this.generatePlayerStats(prop.sport),
-          recentForm: Array.from({ length: 10 }, () => Math.random() * 40 + 10),
-          trends: {
-            form: "good",
+          recentForm: Array.from({ length: 10}, () => Math.random() * 40 + 10),
+          trends: {,`n  form: "good",
             health: "healthy",
-            matchup: "favorable",
-          },
-        });
-      }
+            matchup: "favorable"
+          }
+        })}
     });
 
-    return Array.from(playersMap.values());
-  }
+    return Array.from(playersMap.values());}
 
   private getRandomPosition(sport: string): string {
-    const positions: Record<string, string[]> = {
+    const positions: Record<string, string[0]> = {
       basketball: ["PG", "SG", "SF", "PF", "C"],
       football: ["QB", "RB", "WR", "TE", "K"],
-      baseball: ["P", "C", "1B", "2B", "3B", "SS", "OF"],
+      baseball: ["P", "C", "1B", "2B", "3B", "SS", "OF"]
     };
 
-    return sportPositions[Math.floor(Math.random() * sportPositions.length)];
-  }
+    return sportPositions[Math.floor(Math.random() * sportPositions.length)];}
 
   private generatePlayerStats(sport: string): Record<string, number> {
     const baseStats: Record<string, Record<string, number>> = {
-      basketball: {
-        points: Math.random() * 15 + 10,
+      basketball: {,`n  points: Math.random() * 15 + 10,
         rebounds: Math.random() * 8 + 3,
         assists: Math.random() * 6 + 2,
         steals: Math.random() * 2 + 0.5,
-        blocks: Math.random() * 2 + 0.3,
+        blocks: Math.random() * 2 + 0.3
       },
-      football: {
-        passing_yards: Math.random() * 200 + 100,
+      football: {,`n  passing_yards: Math.random() * 200 + 100,
         rushing_yards: Math.random() * 80 + 20,
         touchdowns: Math.random() * 2 + 1,
-        receptions: Math.random() * 5 + 3,
+        receptions: Math.random() * 5 + 3
       },
-      baseball: {
-        batting_average: Math.random() * 0.15 + 0.25,
+      baseball: {,`n  batting_average: Math.random() * 0.15 + 0.25,
         home_runs: Math.random() * 20 + 10,
         rbis: Math.random() * 40 + 30,
-        era: Math.random() * 2 + 2.5,
-      },
+        era: Math.random() * 2 + 2.5
+      }
     };
 
-    return baseStats[sport] || baseStats.basketball;
-  }
+    return baseStats[sport] || baseStats.basketball;}
 
   // Clear cache manually if needed;
   clearCache(): void {
-    this.cache.clear();
-  }
+    this.cache.clear();}
 
   // Get cache statistics;
   getCacheStats(): any {
     return {
       size: this.cache.size,
-      keys: Array.from(this.cache.keys()),
-    };
-  }
+      keys: Array.from(this.cache.keys())
+    }}
 }
 
 export const realDataManager = new RealDataManager();
+
+
+
+
+`

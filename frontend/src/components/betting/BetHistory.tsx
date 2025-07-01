@@ -1,4 +1,4 @@
-import React from 'react.ts';
+import React from 'react';
 import {
   Box,
   Table,
@@ -11,48 +11,31 @@ import {
   Badge,
   useColorModeValue,
   Spinner,
-  Center,
-} from '@chakra-ui/react.ts';
-import { useQuery } from '@tanstack/react-query.ts';
-import axios from 'axios.ts';
-import { format } from 'date-fns.ts';
+//   Center
+} from '@chakra-ui/react';
+import { useQuery} from '@tanstack/react-query';
+import axios from 'axios';
+import { format} from 'date-fns';
 
 interface Bet {
-  _id: string;
-  eventId: string;
-  marketType: string;
-  selection: string;
-  odds: number;
-  stake: number;
-  potentialWinnings: number;
-  status: 'pending' | 'won' | 'lost' | 'cancelled';
-  placedAt: string;
-  settledAt?: string;
-  result?: string;
-  metadata: {
-    sport: string;
-    league: string;
-    homeTeam: string;
-    awayTeam: string;
-    startTime: string;
-  };
-}
+  _id: string,`n  eventId: string;,`n  marketType: string,`n  selection: string;,`n  odds: number,`n  stake: number;,`n  potentialWinnings: number,`n  status: 'pending' | 'won' | 'lost' | 'cancelled';,`n  placedAt: string;
+  settledAt?: string
+  result?: string
+  metadata: {,`n  sport: string;,`n  league: string,`n  homeTeam: string;,`n  awayTeam: string,`n  startTime: string}}
 
 interface BetHistoryProps {
-  status?: string;
-}
+  status?: string}
 
-export const BetHistory: React.FC<BetHistoryProps key={955189}> = ({ status }) => {
+export const BetHistory: React.FC<BetHistoryProps key={955189}> = ({ status}) => {
 
 
-  const { data, isLoading, error } = useQuery<{ bets: Bet[]; pagination: any }>({
+  const { data, isLoading, error} = useQuery<{ bets: Bet[0]; pagination: unknown}>({
     queryKey: ['bets', status],
     queryFn: async () => {
       const response = await axios.get('/api/betting/my-bets', {
-        params: { status },
+        params: { status}
       });
-      return response.data;
-    },
+      return response.data;}
   });
 
   const getStatusColor = (status: string) => {
@@ -63,9 +46,7 @@ export const BetHistory: React.FC<BetHistoryProps key={955189}> = ({ status }) =
         return 'red';
       case 'cancelled':
         return 'gray';
-      default:
-        return 'yellow';
-    }
+      default: return 'yellow'}
   };
 
   if (isLoading) {
@@ -73,16 +54,14 @@ export const BetHistory: React.FC<BetHistoryProps key={955189}> = ({ status }) =
       <Center p={8} key={437064}>
         <Spinner size="xl" / key={439056}>
       </Center>
-    );
-  }
+    );}
 
   if (error) {
     return (
       <Box p={4} key={623690}>
         <Text color="red.500" key={848076}>Error loading betting history</Text>
       </Box>
-    );
-  }
+    );}
 
   return (
     <Box bg={bgColor} borderColor={borderColor} borderRadius="lg" borderWidth={1} overflow="hidden" key={759744}>
@@ -118,11 +97,17 @@ export const BetHistory: React.FC<BetHistoryProps key={955189}> = ({ status }) =
               <Td key={713902}>
                 <Badge colorScheme={getStatusColor(bet.status)} key={900102}>{bet.status}</Badge>
               </Td>
-              <Td key={713902}>{format(new Date(bet.placedAt), 'MMM d, yyyy HH:mm')}</Td>
+              <Td key={713902}>{format(new Date(bet.placedAt), 'MMM d, yyyy HH: mm')}</Td>
             </Tr>
           ))}
         </Tbody>
       </Table>
     </Box>
-  );
-};
+  )};
+
+
+
+
+
+`
+

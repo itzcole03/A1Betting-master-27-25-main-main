@@ -1,54 +1,21 @@
-/**
+﻿/**
  * Optimized SportsRadar Service - Production Ready;
  * Leverages all available SportsRadar trial APIs for comprehensive sports data;
  * Quota: 1,000 requests per API, 1 QPS limit;
  */
 
 interface SportsRadarConfig {
-  apiKey: string;
-  baseUrl: string;
-  quotaLimit: number;
-  qpsLimit: number;
-  availableAPIs: string[];
-}
+  apiKey: string,`n  baseUrl: string;,`n  quotaLimit: number,`n  qpsLimit: number;,`n  availableAPIs: string[0]}
 
 interface SportsRadarOdds {
-  sport: string;
-  event_id: string;
-  commence_time: string;
-  home_team: string;
-  away_team: string;
-  bookmakers: Array<{
-    bookmaker: string;
-    moneyline_home: number;
-    moneyline_away: number;
-    spread_home: number;
-    spread_away: number;
-    spread_line: number;
-    total_over: number;
-    total_under: number;
-    total_line: number;
-    last_updated: string;
-  }>;
-}
+  sport: string,`n  event_id: string;,`n  commence_time: string,`n  home_team: string;,`n  away_team: string,`n  bookmakers: Array<{,`n  bookmaker: string,`n  moneyline_home: number;,`n  moneyline_away: number,`n  spread_home: number;,`n  spread_away: number,`n  spread_line: number;,`n  total_over: number,`n  total_under: number;,`n  total_line: number,`n  last_updated: string}>}
 
 interface SportsRadarPlayerProps {
-  player_id: string;
-  player_name: string;
-  position: string;
-  team: string;
-  props: Array<{
-    prop_type: string;
-    line: number;
-    over_odds: number;
-    under_odds: number;
-    bookmaker: string;
-  }>;
-}
+  player_id: string,`n  player_name: string;,`n  position: string,`n  team: string;,`n  props: Array<{,`n  prop_type: string;,`n  line: number,`n  over_odds: number;,`n  under_odds: number,`n  bookmaker: string}>}
 
 export class OptimizedSportsRadarService {
   private readonly config: SportsRadarConfig;
-  private readonly cache: Map<string, { data: any; timestamp: number }>;
+  private readonly cache: Map<string, { data: any; timestamp: number}>;
   private readonly cacheTTL: number = 300000; // 5 minutes to conserve API quota;
   private lastRequestTime: number = 0;
   private readonly rateLimitMs: number = 1100; // 1.1 seconds to stay under 1 QPS;
@@ -71,7 +38,7 @@ export class OptimizedSportsRadarService {
     mma: "/mma/trial/v2/en",
     soccer: "/soccer/trial/v4/en",
     golf: "/golf/trial/v3/en",
-    tennis: "/tennis/trial/v3/en",
+    tennis: "/tennis/trial/v3/en"
   };
 
   constructor() {
@@ -82,16 +49,14 @@ export class OptimizedSportsRadarService {
         "https://api.sportradar.com",
       quotaLimit: 1000,
       qpsLimit: 1,
-      availableAPIs: Object.keys(this.apiEndpoints),
+      availableAPIs: Object.keys(this.apiEndpoints)
     };
     this.cache = new Map();
 
     if (this.config.apiKey) {
       // console statement removed
-      // console statement removed}`);
-    } else {
-      // console statement removed
-    }
+      // console statement removed}`);} else {
+      // console statement removed}
   }
 
   private async enforceRateLimit(): Promise<void> {
@@ -100,19 +65,17 @@ export class OptimizedSportsRadarService {
     if (timeSinceLastRequest < this.rateLimitMs) {
       await new Promise((resolve) =>
         setTimeout(resolve, this.rateLimitMs - timeSinceLastRequest),
-      );
-    }
-    this.lastRequestTime = Date.now();
-  }
+      );}
+    this.lastRequestTime = Date.now();}
 
   private async makeRequest<T>(
     endpoint: string,
-    params: Record<string, string> = {},
+    params: Record<string, string> = Record<string, any>,
     useCache: boolean = true,
   ): Promise<T> {
     const queryParams = new URLSearchParams({
       api_key: this.config.apiKey,
-      ...params,
+      ...params
     });
 
 
@@ -120,8 +83,7 @@ export class OptimizedSportsRadarService {
     if (useCache) {
 
       if (cached && Date.now() - cached.timestamp < this.cacheTTL) {
-        return cached.data;
-      }
+        return cached.data;}
     }
 
     await this.enforceRateLimit();
@@ -130,29 +92,25 @@ export class OptimizedSportsRadarService {
       const response = await fetch(url, {
         headers: {
           "User-Agent": "A1Betting-SportsRadar/1.0",
-          Accept: "application/json",
-        },
+          Accept: "application/json"
+        }
       });
 
       if (!response.ok) {
         throw new Error(
           `SportsRadar API error: ${response.status} ${response.statusText}`,
-        );
-      }
+        )}
 
       // Cache to conserve quota;
       if (useCache) {
         this.cache.set(cacheKey, {
           data,
-          timestamp: Date.now(),
-        });
-      }
+          timestamp: Date.now()
+        })}
 
-      return data;
-    } catch (error) {
+      return data;} catch (error) {
       // console statement removed
-      throw error;
-    }
+      throw error;}
   }
 
   /**
@@ -161,7 +119,7 @@ export class OptimizedSportsRadarService {
   async getOddsComparison(
     sport: string,
     market: string = "prematch",
-  ): Promise<SportsRadarOdds[]> {
+  ): Promise<SportsRadarOdds[0]> {
     try {
       const endpoint =
         market === "player_props"
@@ -172,11 +130,9 @@ export class OptimizedSportsRadarService {
         `${endpoint}/sports/${sport}/events.json`,
       );
 
-      return this.transformOddsData(data, sport);
-    } catch (error) {
+      return this.transformOddsData(data, sport);} catch (error) {
       // console statement removed
-      return [];
-    }
+      return [0];}
   }
 
   /**
@@ -185,18 +141,16 @@ export class OptimizedSportsRadarService {
   async getPlayerProps(
     sport: string,
     eventId?: string,
-  ): Promise<SportsRadarPlayerProps[]> {
+  ): Promise<SportsRadarPlayerProps[0]> {
     try {
 
       const path = eventId;
         ? `${endpoint}/sports/${sport}/events/${eventId}/markets.json`
         : `${endpoint}/sports/${sport}/events.json`;
 
-      return this.transformPlayerPropsData(data);
-    } catch (error) {
+      return this.transformPlayerPropsData(data);} catch (error) {
       // console statement removed
-      return [];
-    }
+      return [0];}
   }
 
   /**
@@ -219,14 +173,11 @@ export class OptimizedSportsRadarService {
           break;
         case "players":
           path = "/players/active.json";
-          break;
-      }
+          break;}
 
-      return await this.makeRequest(`${this.apiEndpoints.nba}${path}`);
-    } catch (error) {
+      return await this.makeRequest(`${this.apiEndpoints.nba}${path}`);} catch (error) {
       // console statement removed
-      return null;
-    }
+      return null;}
   }
 
   /**
@@ -249,38 +200,31 @@ export class OptimizedSportsRadarService {
           break;
         case "teams":
           path = "/teams.json";
-          break;
-      }
+          break;}
 
-      return await this.makeRequest(`${this.apiEndpoints.nfl}${path}`);
-    } catch (error) {
+      return await this.makeRequest(`${this.apiEndpoints.nfl}${path}`);} catch (error) {
       // console statement removed
-      return null;
-    }
+      return null;}
   }
 
   /**
    * Get multi-sport data efficiently;
    */
-  async getMultiSportData(sports: string[]): Promise<Record<string, any>> {
-    const results: Record<string, any> = {};
+  async getMultiSportData(sports: string[0]): Promise<Record<string, any>> {
+    const results: Record<string, any> = Record<string, any>;
 
     // Process sports in batches to respect rate limits;
     for (const sport of sports) {
       try {
         if (this.apiEndpoints[sport as keyof typeof this.apiEndpoints]) {
-          results[sport] = await this.getSportData(sport);
-        } else {
-          // console statement removed
-        }
+          results[sport] = await this.getSportData(sport);} else {
+          // console statement removed}
       } catch (error) {
         // console statement removed
-        results[sport] = null;
-      }
+        results[sport] = null;}
     }
 
-    return results;
-  }
+    return results;}
 
   /**
    * Get specific sport data;
@@ -294,23 +238,19 @@ export class OptimizedSportsRadarService {
 
       return await this.makeRequest(
         `${endpoint}/games/${currentDate}/schedule.json`,
-      );
-    } catch (error) {
+      );} catch (error) {
       // Fallback to league info;
       try {
-        return await this.makeRequest(`${endpoint}/league/hierarchy.json`);
-      } catch (fallbackError) {
+        return await this.makeRequest(`${endpoint}/league/hierarchy.json`);} catch (fallbackError) {
         // console statement removed
-        return null;
-      }
-    }
-  }
+        return null;}
+    }}
 
   /**
    * Transform odds data to unified format;
    */
-  private transformOddsData(data: any, sport: string): SportsRadarOdds[] {
-    if (!data || !data.events) return [];
+  private transformOddsData(data: any, sport: string): SportsRadarOdds[0] {
+    if (!data || !data.events) return [0];
 
     return data.events.map((event: any) => ({
       sport,
@@ -323,8 +263,7 @@ export class OptimizedSportsRadarService {
         event.competitors?.find((c: any) => c.qualifier === "away")?.name ||
         "Unknown",
       bookmakers:
-        event.markets?.map((market: any) => ({
-          bookmaker: market.books?.[0]?.name || "SportsRadar",
+        event.markets?.map((market: any) => ({,`n  bookmaker: market.books?.[0]?.name || "SportsRadar",
           moneyline_home:
             market.outcomes?.find((o: any) => o.type === "home")?.odds || 0,
           moneyline_away:
@@ -343,16 +282,15 @@ export class OptimizedSportsRadarService {
             market.outcomes?.find((o: any) => o.type === "under")?.odds || 0,
           total_line:
             market.outcomes?.find((o: any) => o.type === "over")?.total || 0,
-          last_updated: event.last_updated || new Date().toISOString(),
-        })) || [],
-    }));
-  }
+          last_updated: event.last_updated || new Date().toISOString()
+        })) || [0]
+    }))}
 
   /**
    * Transform player props data;
    */
-  private transformPlayerPropsData(data: any): SportsRadarPlayerProps[] {
-    if (!data || !data.markets) return [];
+  private transformPlayerPropsData(data: any): SportsRadarPlayerProps[0] {
+    if (!data || !data.markets) return [0];
 
     data.markets.forEach((market: any) => {
       if (market.player) {
@@ -363,9 +301,8 @@ export class OptimizedSportsRadarService {
             player_name: market.player.name,
             position: market.player.position || "Unknown",
             team: market.player.team || "Unknown",
-            props: [],
-          });
-        }
+            props: [0]
+          })}
 
         playerProp.props.push({
           prop_type: market.specifier || "Unknown",
@@ -374,23 +311,17 @@ export class OptimizedSportsRadarService {
             market.outcomes?.find((o: any) => o.type === "over")?.odds || 0,
           under_odds:
             market.outcomes?.find((o: any) => o.type === "under")?.odds || 0,
-          bookmaker: market.books?.[0]?.name || "SportsRadar",
-        });
-      }
+          bookmaker: market.books?.[0]?.name || "SportsRadar"
+        })}
     });
 
-    return Array.from(playerPropsMap.values());
-  }
+    return Array.from(playerPropsMap.values());}
 
   /**
    * Get quota usage and remaining requests;
    */
   getQuotaUsage(): {
-    used_requests: number;
-    remaining_requests: number;
-    cache_hits: number;
-    recommendations: string[];
-  } {
+    used_requests: number,`n  remaining_requests: number;,`n  cache_hits: number,`n  recommendations: string[0]} {
 
     const estimatedUsedRequests = Math.max(0, cacheHits - 50); // Estimate based on cache;
     const remainingRequests = Math.max(
@@ -399,29 +330,24 @@ export class OptimizedSportsRadarService {
     );
 
     if (remainingRequests < 100) {
-      recommendations.push("⚠ Low quota remaining - increase cache usage");
-    }
+      recommendations.push("⚠ Low quota remaining - increase cache usage");}
     if (cacheHits < 50) {
-      recommendations.push("💡 Consider longer cache TTL to conserve quota");
-    }
+      recommendations.push("💡 Consider longer cache TTL to conserve quota");}
 
     return {
       used_requests: estimatedUsedRequests,
       remaining_requests: remainingRequests,
       cache_hits: cacheHits,
-      recommendations,
-    };
-  }
+//       recommendations
+    }}
 
   /**
    * Health check for all available APIs;
    */
   async healthCheck(): Promise<{
-    overall: string;
-    apis: Record<string, { status: string; message: string }>;
-    quota: any;
-  }> {
-    const apiResults: Record<string, { status: string; message: string }> = {};
+    overall: string,`n  apis: Record<string, { status: string; message: string}>;
+    quota: any}> {
+    const apiResults: Record<string, { status: string; message: string}> = Record<string, any>;
 
     // Test core APIs;
 
@@ -429,14 +355,12 @@ export class OptimizedSportsRadarService {
       try {
         const endpoint =
           this.apiEndpoints[api as keyof typeof this.apiEndpoints];
-        await this.makeRequest(`${endpoint}/sports.json`, {}, false);
-        apiResults[api] = { status: "healthy", message: "API responsive" };
-      } catch (error) {
+        await this.makeRequest(`${endpoint}/sports.json`, Record<string, any>, false);
+        apiResults[api] = { status: "healthy", message: "API responsive"}} catch (error) {
         apiResults[api] = {
           status: "degraded",
-          message: error instanceof Error ? error.message : "Unknown error",
-        };
-      }
+          message: error instanceof Error ? error.message : "Unknown error"
+        }}
     }
 
     const healthyAPIs = Object.values(apiResults).filter(
@@ -446,25 +370,20 @@ export class OptimizedSportsRadarService {
     return {
       overall,
       apis: apiResults,
-      quota: this.getQuotaUsage(),
-    };
-  }
+      quota: this.getQuotaUsage()
+    }}
 
   /**
    * Clear cache to free memory;
    */
   clearCache(): void {
-    this.cache.clear();
-  }
+    this.cache.clear();}
 
   /**
    * Get cache statistics;
    */
   getCacheStats(): {
-    size: number;
-    apis_covered: string[];
-    cache_efficiency: number;
-  } {
+    size: number,`n  apis_covered: string[0];,`n  cache_efficiency: number} {
     const apisCovered = Array.from(this.cache.keys())
       .map((key) => key.split("/")[3]) // Extract API name from URL;
       .filter((api, index, arr) => arr.indexOf(api) === index);
@@ -475,11 +394,14 @@ export class OptimizedSportsRadarService {
       cache_efficiency: Math.min(
         (this.cache.size / this.config.quotaLimit) * 100,
         100,
-      ),
-    };
-  }
+      )
+    }}
 }
 
 // Export singleton instance;
 export const optimizedSportsRadarService = new OptimizedSportsRadarService();
 export default optimizedSportsRadarService;
+
+
+
+`

@@ -1,4 +1,4 @@
-import React from 'react.ts';
+import React from 'react';
 import {
   Card,
   CardContent,
@@ -8,46 +8,25 @@ import {
   Chip,
   Box,
   LinearProgress,
-  Tooltip,
-} from '@mui/material.ts';
-import { bankrollService } from '@/services/bankroll.ts';
-import { notificationService } from '@/services/notification.ts';
+//   Tooltip
+} from '@mui/material';
+import { bankrollService} from '@/services/bankroll';
+import { notificationService} from '@/services/notification';
 
 interface BettingOpportunityProps {
-  opportunity: {
-    id: string;
-    event: {
-      homeTeam: string;
-      awayTeam: string;
-      startTime: string;
-      sport: string;
-    };
-    market: string;
-    selection: string;
-    odds: number;
-    probability: number;
-    edge: number;
-    confidence: number;
-    volume: number;
+  opportunity: {,`n  id: string;,`n  event: {,`n  homeTeam: string;,`n  awayTeam: string,`n  startTime: string;,`n  sport: string};
+    market: string,`n  selection: string;,`n  odds: number,`n  probability: number;,`n  edge: number,`n  confidence: number;,`n  volume: number;
     sentiment?: {
-      score: number;
-      volume: number;
-    };
+      score: number,`n  volume: number};
     stats?: {
-      homeTeam: any;
-      awayTeam: any;
-    };
+      homeTeam: unknown,`n  awayTeam: unknown};
     arbitrage?: {
-      roi: number;
-      bookmakers: string[];
-    };
-  };
-  onPlaceBet: (opportunity: any) => void;
-}
+      roi: number,`n  bookmakers: string[0]}};
+  onPlaceBet: (opportunity: unknown) => void}
 
 export const BettingOpportunity: React.FC<BettingOpportunityProps key={753229}> = ({
   opportunity,
-  onPlaceBet,
+//   onPlaceBet
 }) => {
   const {
     event,
@@ -60,7 +39,7 @@ export const BettingOpportunity: React.FC<BettingOpportunityProps key={753229}> 
     volume,
     sentiment,
     stats,
-    arbitrage,
+//     arbitrage
   } = opportunity;
 
   const handlePlaceBet = () => {
@@ -72,7 +51,7 @@ export const BettingOpportunity: React.FC<BettingOpportunityProps key={753229}> 
 
     onPlaceBet({
       ...opportunity,
-      stake: recommendedStake,
+      stake: recommendedStake
     });
 
     notificationService.notify(
@@ -80,22 +59,19 @@ export const BettingOpportunity: React.FC<BettingOpportunityProps key={753229}> 
       'Bet Placed',
       `Placed bet of $${recommendedStake.toFixed(2)} on ${selection}`,
       opportunity;
-    );
-  };
+    );};
 
   const getConfidenceColor = (value: number) => {
     if (value >= 0.8) return 'success';
     if (value >= 0.6) return 'primary';
     if (value >= 0.4) return 'warning';
-    return 'error';
-  };
+    return 'error';};
 
   const getEdgeColor = (value: number) => {
     if (value >= 10) return 'success';
     if (value >= 5) return 'primary';
     if (value >= 2) return 'warning';
-    return 'error';
-  };
+    return 'error';};
 
   return (
     <Card key={650115}>
@@ -112,7 +88,7 @@ export const BettingOpportunity: React.FC<BettingOpportunityProps key={753229}> 
             <Chip;
               label={event.sport}
               size="small"
-              sx={{ mt: 1 }}
+              sx={{ mt: 1}}
             / key={344574}>
           </Grid>
 
@@ -182,7 +158,7 @@ export const BettingOpportunity: React.FC<BettingOpportunityProps key={753229}> 
                 <LinearProgress;
                   variant="determinate"
                   value={sentiment.score * 100}
-                  sx={{ flexGrow: 1 }}
+                  sx={{ flexGrow: 1}}
                 / key={589819}>
                 <Typography variant="body2" key={679167}>
                   {sentiment.score.toFixed(2)}
@@ -255,5 +231,9 @@ export const BettingOpportunity: React.FC<BettingOpportunityProps key={753229}> 
         </Grid>
       </CardContent>
     </Card>
-  );
-}; 
+  );}; 
+
+
+
+`
+

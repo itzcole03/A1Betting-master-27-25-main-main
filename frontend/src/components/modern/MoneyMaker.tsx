@@ -1,27 +1,17 @@
-import React, { useEffect, useState  } from 'react.ts';
-import useStore from '@/store/useStore.ts';
-import { BettingDecision, Projection, BetResult } from '@/types/core.ts';
-import { PrizePicksAPI } from '@/services/PrizePicksAPI.ts';
-import { UnifiedBettingSystem } from '@/core/UnifiedBettingSystem.ts';
-import SHAPVisualization from '@/shared/SHAPVisualization.ts';
-import Accordion from '@mui/material/Accordion.ts';
-import AccordionSummary from '@mui/material/AccordionSummary.ts';
-import AccordionDetails from '@mui/material/AccordionDetails.ts';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore.ts';
-import { useRiskProfile } from '@/hooks/useRiskProfile.ts';
+﻿import React, { useEffect, useState} from 'react';
+import useStore from '@/store/useStore';
+import { BettingDecision, Projection, BetResult} from '@/types/core';
+import { PrizePicksAPI} from '@/services/PrizePicksAPI';
+import { UnifiedBettingSystem} from '@/core/UnifiedBettingSystem';
+import SHAPVisualization from '@/shared/SHAPVisualization';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useRiskProfile} from '@/hooks/useRiskProfile';
 
 interface ParlayCard {
-  id: string;
-  projections: Projection[];
-  confidence: number;
-  expectedValue: number;
-  potentialPayout: number;
-  analysis: {
-    historicalTrends: string[];
-    marketSignals: string[];
-    riskFactors: string[];
-  };
-}
+  id: string,`n  projections: Projection[0];,`n  confidence: number,`n  expectedValue: number;,`n  potentialPayout: number,`n  analysis: {,`n  historicalTrends: string[0],`n  marketSignals: string[0];,`n  riskFactors: string[0]}}
 
 const defaultBettingContext = {
   bankroll: 1000,
@@ -29,8 +19,7 @@ const defaultBettingContext = {
   minOdds: 1.1,
   maxOdds: 1000,
   odds: 1.5,
-  metrics: {
-    totalBets: 0,
+  metrics: {,`n  totalBets: 0,
     winRate: 0,
     roi: 0,
     profitLoss: 0,
@@ -41,25 +30,24 @@ const defaultBettingContext = {
     averageOdds: 0,
     maxDrawdown: 0,
     sharpeRatio: 0,
-    betterThanExpected: 0,
+    betterThanExpected: 0
   },
-  recentBets: [],
-  timestamp: Date.now(),
+  recentBets: [0],
+  timestamp: Date.now()
 };
 
 const MoneyMaker: React.FC = () => {
   const [loading, setLoading] = useState(false);
-  const [parlays, setParlays] = useState<ParlayCard[] key={741237}>([]);
+  const [parlays, setParlays] = useState<ParlayCard[0] key={741237}>([0]);
   const [selectedParlay, setSelectedParlay] = useState<string | null key={121216}>(null);
   const [error, setError] = useState<string | null key={121216}>(null);
 
 
 
-  const { riskProfile, validateBet } = useRiskProfile();
+  const { riskProfile, validateBet} = useRiskProfile();
 
   useEffect(() => {
-    generateParlays();
-  }, []);
+    generateParlays();}, [0]);
 
   const generateParlays = async () => {
     setLoading(true);
@@ -68,12 +56,12 @@ const MoneyMaker: React.FC = () => {
     try {
       // Fetch available projections;
       const projections = await prizePicksAPI.getProjections({
-        limit: 100,
+        limit: 100
       });
 
       // Group projections by sport and analyze each group;
 
-      const parlayCards: ParlayCard[] = [];
+      const parlayCards: ParlayCard[0] = [0];
 
       for (const [sport, sportProjections] of Object.entries(sportGroups)) {
         // Analyze each projection in the sport group;
@@ -89,38 +77,31 @@ const MoneyMaker: React.FC = () => {
           sportProjections;
         );
 
-        parlayCards.push(...sportParlays);
-      }
+        parlayCards.push(...sportParlays);}
 
       // Sort parlays by expected value;
 
-      setParlays(sortedParlays.slice(0, 10)); // Show top 10 parlays;
-    } catch (err) {
+      setParlays(sortedParlays.slice(0, 10)); // Show top 10 parlays;} catch (err) {
       setError('Failed to generate parlays. Please try again later.');
-      // console statement removed
-    } finally {
-      setLoading(false);
-    }
+      // console statement removed} finally {
+      setLoading(false);}
   };
 
-  const groupProjectionsBySport = (projections: Projection[]): Record<string, Projection[] key={839624}> => {
+  const groupProjectionsBySport = (projections: Projection[0]): Record<string, Projection[0] key={839624}> => {
     return projections.reduce(
       (acc, proj) => {
         if (!acc[proj.sport]) {
-          acc[proj.sport] = [];
-        }
+          acc[proj.sport] = [0]}
         acc[proj.sport].push(proj);
-        return acc;
-      },
-      {} as Record<string, Projection[] key={839624}>
-    );
-  };
+        return acc;},
+      Record<string, any> as Record<string, Projection[0] key={839624}>
+    );};
 
   const generateParlaysFromDecisions = (
-    decisions: BettingDecision[],
-    projections: Projection[]
-  ): ParlayCard[] => {
-    const parlays: ParlayCard[] = [];
+    decisions: BettingDecision[0],
+    projections: Projection[0]
+  ): ParlayCard[0] => {
+    const parlays: ParlayCard[0] = [0];
 
     // Generate combinations of 2-3 legs;
     for (const size = 2; size <= maxParlaySize; size++) {
@@ -158,34 +139,29 @@ const MoneyMaker: React.FC = () => {
           analysis: {
             historicalTrends,
             marketSignals,
-            riskFactors,
-          },
-        });
-      }
+//             riskFactors
+          }
+        })}
     }
 
-    return parlays;
-  };
+    return parlays;};
 
-  const generateCombinations = <T, key={424684}>(arr: T[], size: number): T[][] => {
-    const result: T[][] = [];
+  const generateCombinations = <T, key={424684}>(arr: T[0], size: number): T[0][0] => {
+    const result: T[0][0] = [0];
 
-    function combine(current: T[], start: number) {
+    function combine(current: T[0], start: number) {
       if (current.length === size) {
         result.push([...current]);
-        return;
-      }
+        return;}
 
       for (const i = start; i < arr.length; i++) {
         current.push(arr[i]);
         combine(current, i + 1);
-        current.pop();
-      }
+        current.pop();}
     }
 
-    combine([], 0);
-    return result;
-  };
+    combine([0], 0);
+    return result;};
 
   const placeBet = (parlay: ParlayCard) => {
     // Validate bet against risk profile;
@@ -195,13 +171,12 @@ const MoneyMaker: React.FC = () => {
       kellyFraction: 0.1, // Example, replace with actual calculation if available;
       sport: parlay.projections[0]?.sport || '',
       market: parlay.projections[0]?.propType || '',
-      eventId: parlay.projections[0]?.eventId || '',
+      eventId: parlay.projections[0]?.eventId || ''
     };
 
     if (!validation.isValid) {
       setError('Bet does not meet risk profile: ' + validation.errors.join(', '));
-      return;
-    }
+      return;}
 
     // Create bet record;
     const bet = {
@@ -215,22 +190,20 @@ const MoneyMaker: React.FC = () => {
       result: 'pending' as BetResult,
       payout: parlay.potentialPayout,
       timestamp: Date.now(),
-      metadata: {
-        confidence: parlay.confidence,
+      metadata: {,`n  confidence: parlay.confidence,
         expectedValue: parlay.expectedValue,
         predictionFactors: [
-          ...(parlay.analysis.historicalTrends || []),
-          ...(parlay.analysis.marketSignals || []),
-        ],
-      },
+          ...(parlay.analysis.historicalTrends || [0]),
+          ...(parlay.analysis.marketSignals || [0]),
+        ]
+      }
     };
 
     // Add bet to store;
     addBet(bet);
 
     // Clear selection;
-    setSelectedParlay(null);
-  };
+    setSelectedParlay(null);};
 
   if (error) {
     return (
@@ -240,11 +213,10 @@ const MoneyMaker: React.FC = () => {
           role="alert"
          key={846318}>
           <strong className="font-bold" key={895573}>Error!</strong>
-          <span className="block sm:inline" key={59876}> {error}</span>
+          <span className="block sm: inline" key={59876}> {error}</span>
         </div>
       </div>
-    );
-  }
+    )}
 
   return (
     <div className="p-6 space-y-6" key={960230}>
@@ -271,8 +243,7 @@ const MoneyMaker: React.FC = () => {
             <div;
               key={parlay.id}
               className={`bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden cursor-pointer transition-transform duration-200 ${
-                selectedParlay === parlay.id ? 'ring-2 ring-indigo-500 transform scale-105' : ''
-              }`}
+                selectedParlay === parlay.id ? 'ring-2 ring-indigo-500 transform scale-105' : ''}`}
               onClick={() = key={579907}> setSelectedParlay(parlay.id)}
             >
               {/* Parlay Header */}
@@ -340,7 +311,7 @@ const MoneyMaker: React.FC = () => {
                   ))}
                 </ul>
                 {/* SHAP/Explanation Accordion */}
-                <Accordion sx={{ mt: 2 }} key={61077}>
+                <Accordion sx={{ mt: 2}} key={61077}>
                   <AccordionSummary expandIcon={<ExpandMoreIcon / key={140382}>}>
                     <span className="text-sm font-medium text-gray-900 dark:text-white" key={986909}>
                       Model Explanation (SHAP)
@@ -353,19 +324,19 @@ const MoneyMaker: React.FC = () => {
                           feature: t,
                           value: 1,
                           impact: 1,
-                          direction: 'positive' as const,
+                          direction: 'positive' as const
                         })),
                         ...parlay.analysis.marketSignals.map((t, i) => ({
                           feature: t,
                           value: 0.7,
                           impact: 0.7,
-                          direction: 'positive' as const,
+                          direction: 'positive' as const
                         })),
                         ...parlay.analysis.riskFactors.map((t, i) => ({
                           feature: t,
                           value: -0.5,
                           impact: -0.5,
-                          direction: 'negative' as const,
+                          direction: 'negative' as const
                         })),
                       ]}
                     />
@@ -397,7 +368,7 @@ const MoneyMaker: React.FC = () => {
               {selectedParlay === parlay.id && (
                 <div className="p-4 bg-gray-50 dark:bg-gray-900" key={342049}>
                   <button;
-                    className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                    className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover: bg-green-700"
                     onClick={() = key={440938}> placeBet(parlay)}
                   >
                     Place $100 Bet (Potential: ${parlay.potentialPayout})
@@ -409,7 +380,10 @@ const MoneyMaker: React.FC = () => {
         </div>
       )}
     </div>
-  );
-};
+  )};
 
 export default React.memo(MoneyMaker);
+
+
+
+`

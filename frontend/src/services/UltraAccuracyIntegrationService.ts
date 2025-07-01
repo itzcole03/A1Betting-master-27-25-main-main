@@ -1,48 +1,36 @@
-/**
+﻿/**
  * Ultra Accuracy Integration Service;
  * Ensures Ultra Accuracy is properly integrated across all components;
  */
 
-import { ultraAccuracyBackgroundService } from './UltraAccuracyBackgroundService.ts';
-import { integrationService } from './integrationService.ts';
+import { ultraAccuracyBackgroundService} from './UltraAccuracyBackgroundService';
+import { integrationService} from './integrationService';
 
 // Simple browser-compatible event emitter;
 class SimpleEventEmitter {
-  private events: { [key: string]: Function[] } = {};
+  private events: { [key: string]: Function[0]} = Record<string, any>;
 
   on(event: string, callback: Function): void {
     if (!this.events[event]) {
-      this.events[event] = [];
-    }
-    this.events[event].push(callback);
-  }
+      this.events[event] = [0]}
+    this.events[event].push(callback)}
 
   off(event: string, callback: Function): void {
     if (this.events[event]) {
-      this.events[event] = this.events[event].filter((cb) => cb !== callback);
-    }
+      this.events[event] = this.events[event].filter(cb => cb !== callback)}
   }
 
-  emit(event: string, ...args: any[]): void {
+  emit(event: string, ...args: any[0]): void {
     if (this.events[event]) {
-      this.events[event].forEach((callback) => callback(...args));
-    }
+      this.events[event].forEach(callback => callback(...args))}
   }
 
   removeAllListeners(): void {
-    this.events = {};
-  }
+    this.events = Record<string, any>}
 }
 
 interface UltraAccuracyStatus {
-  isActive: boolean;
-  accuracyBoost: number;
-  enhancementsCount: number;
-  lastUpdate: string;
-  moneyMakerEnhanced: boolean;
-  prizePicksEnhanced: boolean;
-  predictionQuality: number;
-}
+  isActive: boolean,`n  accuracyBoost: number;,`n  enhancementsCount: number,`n  lastUpdate: string;,`n  moneyMakerEnhanced: boolean,`n  prizePicksEnhanced: boolean;,`n  predictionQuality: number}
 
 class UltraAccuracyIntegrationService extends SimpleEventEmitter {
   private static instance: UltraAccuracyIntegrationService;
@@ -58,19 +46,15 @@ class UltraAccuracyIntegrationService extends SimpleEventEmitter {
       lastUpdate: new Date().toISOString(),
       moneyMakerEnhanced: false,
       prizePicksEnhanced: false,
-      predictionQuality: 0,
+      predictionQuality: 0
     };
 
-    this.initializeIntegration();
-  }
+    this.initializeIntegration();}
 
   public static getInstance(): UltraAccuracyIntegrationService {
     if (!UltraAccuracyIntegrationService.instance) {
-      UltraAccuracyIntegrationService.instance =
-        new UltraAccuracyIntegrationService();
-    }
-    return UltraAccuracyIntegrationService.instance;
-  }
+      UltraAccuracyIntegrationService.instance = new UltraAccuracyIntegrationService();}
+    return UltraAccuracyIntegrationService.instance;}
 
   /**
    * Initialize Ultra Accuracy integration;
@@ -82,7 +66,7 @@ class UltraAccuracyIntegrationService extends SimpleEventEmitter {
       targetAccuracy: 99.5,
       enhanceMoneyMaker: true,
       enhancePrizePicks: true,
-      enhanceArbitrage: true,
+      enhanceArbitrage: true
     });
 
     this.status.isActive = true;
@@ -90,18 +74,15 @@ class UltraAccuracyIntegrationService extends SimpleEventEmitter {
 
     // Set up periodic integration checks;
     this.integrationCheckInterval = setInterval(() => {
-      this.performIntegrationCheck();
-    }, 30000); // Check every 30 seconds;
+      this.performIntegrationCheck();}, 30000); // Check every 30 seconds;
 
     // Listen to background service events;
-    ultraAccuracyBackgroundService.on("configUpdated", (config) => {
+    ultraAccuracyBackgroundService.on('configUpdated', config => {
       this.status.moneyMakerEnhanced = config.enhanceMoneyMaker;
       this.status.prizePicksEnhanced = config.enhancePrizePicks;
-      this.emit("statusUpdated", this.status);
-    });
+      this.emit('statusUpdated', this.status);});
 
-    // console statement removed
-  }
+    // console statement removed}
 
   /**
    * Perform integration health check;
@@ -115,19 +96,17 @@ class UltraAccuracyIntegrationService extends SimpleEventEmitter {
       // Update status;
       this.status = {
         ...this.status,
-        isActive: healthStatus.status === "online" && bgStats.config.enabled,
+        isActive: healthStatus.status === 'online' && bgStats.config.enabled,
         enhancementsCount: bgStats.cacheSize,
         accuracyBoost: this.calculateAccuracyBoost(),
         predictionQuality: this.calculatePredictionQuality(),
-        lastUpdate: new Date().toISOString(),
+        lastUpdate: new Date().toISOString()
       };
 
-      this.emit("statusUpdated", this.status);
-    } catch (error) {
+      this.emit('statusUpdated', this.status);} catch (error) {
       // console statement removed
       this.status.isActive = false;
-      this.emit("statusUpdated", this.status);
-    }
+      this.emit('statusUpdated', this.status);}
   }
 
   /**
@@ -135,23 +114,20 @@ class UltraAccuracyIntegrationService extends SimpleEventEmitter {
    */
   private calculateAccuracyBoost(): number {
     // Simulate accuracy boost calculation based on recent enhancements;
-    return 8.5 + Math.random() * 3.5; // 8.5% - 12% boost;
-  }
+    return 8.5 + Math.random() * 3.5; // 8.5% - 12% boost;}
 
   /**
    * Calculate prediction quality score;
    */
   private calculatePredictionQuality(): number {
     // Simulate prediction quality score;
-    return 0.985 + Math.random() * 0.014; // 98.5% - 99.9%
-  }
+    return 0.985 + Math.random() * 0.014; // 98.5% - 99.9%}
 
   /**
    * Get current Ultra Accuracy status;
    */
   public getStatus(): UltraAccuracyStatus {
-    return { ...this.status };
-  }
+    return { ...this.status};}
 
   /**
    * Force refresh of all Ultra Accuracy enhanced data;
@@ -162,23 +138,21 @@ class UltraAccuracyIntegrationService extends SimpleEventEmitter {
 
       // Clear background service cache to force fresh enhancements;
       ultraAccuracyBackgroundService.updateConfig({
-        enabled: false,
+        enabled: false
       });
 
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       ultraAccuracyBackgroundService.updateConfig({
-        enabled: true,
+        enabled: true
       });
 
       this.status.enhancementsCount = 0;
       this.status.lastUpdate = new Date().toISOString();
 
-      this.emit("enhancementsRefreshed");
-      // console statement removed
-    } catch (error) {
-      // console statement removed
-    }
+      this.emit('enhancementsRefreshed');
+      // console statement removed} catch (error) {
+      // console statement removed}
   }
 
   /**
@@ -192,154 +166,127 @@ class UltraAccuracyIntegrationService extends SimpleEventEmitter {
       moneyMakerActive: this.status.moneyMakerEnhanced,
       prizePicksActive: this.status.prizePicksEnhanced,
       lastUpdate: this.status.lastUpdate,
-      isOnline: this.status.isActive,
-    };
-  }
+      isOnline: this.status.isActive
+    }}
 
   /**
    * Test Ultra Accuracy functionality;
    */
   public async testIntegration(): Promise<{
-    success: boolean;
-    results: Array<{ component: string; status: string; enhanced: boolean }>;
-  }> {
-
+    success: boolean,`n  results: Array<{ component: string; status: string; enhanced: boolean}>}> {
     try {
       // Test Money Maker enhancement;
       try {
         const mockRecommendations = {
           investment: 100,
           confidence: 85,
-          picks: [{ game: "Test Game", pick: "Test Pick", confidence: 80 }],
+          picks: [{ game: 'Test Game', pick: 'Test Pick', confidence: 80}]
         };
         const enhanced =
           await ultraAccuracyBackgroundService.enhanceMoneyMakerRecommendations(
-            mockRecommendations,
+//             mockRecommendations
           );
         results.push({
-          component: "Money Maker",
-          status: enhanced.ultraAccuracyEnhanced ? "Enhanced" : "Standard",
-          enhanced: !!enhanced.ultraAccuracyEnhanced,
-        });
-      } catch (error) {
+          component: 'Money Maker',
+          status: enhanced.ultraAccuracyEnhanced ? 'Enhanced' : 'Standard',
+          enhanced: !!enhanced.ultraAccuracyEnhanced
+        })} catch (error) {
         results.push({
-          component: "Money Maker",
-          status: "Error",
-          enhanced: false,
-        });
-      }
+          component: 'Money Maker',
+          status: 'Error',
+          enhanced: false
+        })}
 
       // Test PrizePicks enhancement;
       try {
         const mockProps = [
           {
-            id: "test1",
-            player: "Test Player",
-            stat: "Points",
-            confidence: 0.75,
+            id: 'test1',
+            player: 'Test Player',
+            stat: 'Points',
+            confidence: 0.75
           },
         ];
-        const enhanced =
-          await ultraAccuracyBackgroundService.enhancePrizePicksProps(
-            mockProps,
-          );
+        const enhanced = await ultraAccuracyBackgroundService.enhancePrizePicksProps(mockProps);
         results.push({
-          component: "PrizePicks",
-          status: enhanced[0]?.ultraAccuracyEnhanced ? "Enhanced" : "Standard",
-          enhanced: !!enhanced[0]?.ultraAccuracyEnhanced,
-        });
-      } catch (error) {
+          component: 'PrizePicks',
+          status: enhanced[0]?.ultraAccuracyEnhanced ? 'Enhanced' : 'Standard',
+          enhanced: !!enhanced[0]?.ultraAccuracyEnhanced
+        })} catch (error) {
         results.push({
-          component: "PrizePicks",
-          status: "Error",
-          enhanced: false,
-        });
-      }
+          component: 'PrizePicks',
+          status: 'Error',
+          enhanced: false
+        })}
 
       // Test Prediction enhancement;
       try {
         const mockPredictions = [
           {
-            id: "test_pred",
+            id: 'test_pred',
             confidence: 0.8,
-            expected_value: 0.05,
+            expected_value: 0.05
           },
         ];
-        const enhanced =
-          await ultraAccuracyBackgroundService.enhancePredictions(
-            mockPredictions,
-          );
+        const enhanced = await ultraAccuracyBackgroundService.enhancePredictions(mockPredictions);
         results.push({
-          component: "Predictions",
-          status: enhanced[0]?.ultraAccuracyEnhanced ? "Enhanced" : "Standard",
-          enhanced: !!enhanced[0]?.ultraAccuracyEnhanced,
-        });
-      } catch (error) {
+          component: 'Predictions',
+          status: enhanced[0]?.ultraAccuracyEnhanced ? 'Enhanced' : 'Standard',
+          enhanced: !!enhanced[0]?.ultraAccuracyEnhanced
+        })} catch (error) {
         results.push({
-          component: "Predictions",
-          status: "Error",
-          enhanced: false,
-        });
-      }
+          component: 'Predictions',
+          status: 'Error',
+          enhanced: false
+        })}
 
-      const success = results.every(
-        (r) => r.enhanced || r.status === "Standard",
-      );
-      return { success, results };
-    } catch (error) {
+      const success = results.every(r => r.enhanced || r.status === 'Standard');
+      return { success, results};} catch (error) {
       // console statement removed
       return {
         success: false,
         results: [
           {
-            component: "Integration Service",
-            status: "Critical Error",
-            enhanced: false,
+            component: 'Integration Service',
+            status: 'Critical Error',
+            enhanced: false
           },
-        ],
-      };
-    }
+        ]
+      }}
   }
 
   /**
    * Update Ultra Accuracy configuration;
    */
   public updateConfig(config: {
-    enabled?: boolean;
-    targetAccuracy?: number;
-    enhanceMoneyMaker?: boolean;
-    enhancePrizePicks?: boolean;
-  }): void {
+    enabled?: boolean
+    targetAccuracy?: number
+    enhanceMoneyMaker?: boolean
+    enhancePrizePicks?: boolean}): void {
     try {
       // Update background service config;
       ultraAccuracyBackgroundService.updateConfig(config);
 
       // Update local status;
-      if (typeof config.enabled !== "undefined") {
-        this.status.isActive = config.enabled;
-      }
-      if (typeof config.enhanceMoneyMaker !== "undefined") {
-        this.status.moneyMakerEnhanced = config.enhanceMoneyMaker;
-      }
-      if (typeof config.enhancePrizePicks !== "undefined") {
-        this.status.prizePicksEnhanced = config.enhancePrizePicks;
-      }
+      if (typeof config.enabled !== 'undefined') {
+        this.status.isActive = config.enabled;}
+      if (typeof config.enhanceMoneyMaker !== 'undefined') {
+        this.status.moneyMakerEnhanced = config.enhanceMoneyMaker;}
+      if (typeof config.enhancePrizePicks !== 'undefined') {
+        this.status.prizePicksEnhanced = config.enhancePrizePicks;}
 
       this.status.lastUpdate = new Date().toISOString();
-      this.emit("configUpdated", config);
-      this.emit("statusUpdated", this.status);
+      this.emit('configUpdated', config);
+      this.emit('statusUpdated', this.status);
 
-      // console statement removed
-    } catch (error) {
-      // console statement removed
-    }
+      // console statement removed} catch (error) {
+      // console statement removed}
   }
 
   /**
    * Get live Ultra Accuracy stats for dashboard display;
    */
   public getLiveStats(): any {
-
     return {
       isActive: this.status.isActive,
       targetAccuracy: bgStats.config.targetAccuracy,
@@ -349,13 +296,11 @@ class UltraAccuracyIntegrationService extends SimpleEventEmitter {
       processingQueue: bgStats.queueSize,
       cacheSize: bgStats.cacheSize,
       lastUpdate: this.status.lastUpdate,
-      components: {
-        moneyMaker: this.status.moneyMakerEnhanced,
+      components: {,`n  moneyMaker: this.status.moneyMakerEnhanced,
         prizePicks: this.status.prizePicksEnhanced,
-        predictions: bgStats.config.enabled,
-      },
-    };
-  }
+        predictions: bgStats.config.enabled
+      }
+    }}
 
   /**
    * Cleanup resources;
@@ -363,13 +308,15 @@ class UltraAccuracyIntegrationService extends SimpleEventEmitter {
   public destroy(): void {
     if (this.integrationCheckInterval) {
       clearInterval(this.integrationCheckInterval);
-      this.integrationCheckInterval = null;
-    }
-    this.removeAllListeners();
-  }
+      this.integrationCheckInterval = null;}
+    this.removeAllListeners();}
 }
 
 // Export singleton instance;
-export const ultraAccuracyIntegrationService =
-  UltraAccuracyIntegrationService.getInstance();
+export const ultraAccuracyIntegrationService = UltraAccuracyIntegrationService.getInstance();
 export default ultraAccuracyIntegrationService;
+
+
+
+
+`

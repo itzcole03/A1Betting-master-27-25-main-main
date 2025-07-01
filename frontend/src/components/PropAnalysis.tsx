@@ -1,18 +1,11 @@
-import React from 'react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
-import { BookmakerAnalysis } from './BookmakerAnalysis.ts';
-import { useBookmakerAnalysis } from '@/hooks/useBookmakerAnalysis.ts';
+﻿import React from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
+import { BookmakerAnalysis} from './BookmakerAnalysis';
+import { useBookmakerAnalysis} from '@/hooks/useBookmakerAnalysis';
 
 interface PropAnalysisProps {
-  playerId: string;
-  playerName: string;
-  propType: string;
-  projectedValue: number;
-  tag: 'demon' | 'goblin' | 'normal';
-  currentOdds: number;
-  historicalAverage: number;
-  className?: string;
-}
+  playerId: string,`n  playerName: string;,`n  propType: string,`n  projectedValue: number;,`n  tag: 'demon' | 'goblin' | 'normal',`n  currentOdds: number;,`n  historicalAverage: number;
+  className?: string}
 
 export const PropAnalysis: React.FC<PropAnalysisProps key={357133}> = ({
   playerId,
@@ -22,15 +15,15 @@ export const PropAnalysis: React.FC<PropAnalysisProps key={357133}> = ({
   tag,
   currentOdds,
   historicalAverage,
-  className = '',
+  className = ''
 }) => {
-  const { isLoading, error, analysis, refreshAnalysis } = useBookmakerAnalysis({
+  const { isLoading, error, analysis, refreshAnalysis} = useBookmakerAnalysis({
     playerId,
     propType,
     projectedValue,
     tag,
     currentOdds,
-    historicalAverage,
+//     historicalAverage
   });
 
   const getTagIcon = (tag: 'demon' | 'goblin' | 'normal') => {
@@ -64,15 +57,14 @@ export const PropAnalysis: React.FC<PropAnalysisProps key={357133}> = ({
               fillRule="evenodd"
             / key={108367}>
           </svg>
-        );
-    }
+        )}
   };
 
   return (
     <motion.div;
-      animate={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 0}}
       className={`bg-gray-900 rounded-xl p-6 shadow-xl ${className}`}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 20}}
      key={738313}>
       {/* Header */}
       <div className="flex items-center justify-between mb-6" key={530716}>
@@ -91,20 +83,20 @@ export const PropAnalysis: React.FC<PropAnalysisProps key={357133}> = ({
         {isLoading ? (
           <motion.div;
             key="loading"
-            animate={{ opacity: 1 }}
+            animate={{ opacity: 1}}
             className="flex justify-center py-8"
-            exit={{ opacity: 0 }}
-            initial={{ opacity: 0 }}
+            exit={{ opacity: 0}}
+            initial={{ opacity: 0}}
            key={72085}>
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white" / key={38225}>
           </motion.div>
         ) : error ? (
           <motion.div;
             key="error"
-            animate={{ opacity: 1 }}
+            animate={{ opacity: 1}}
             className="bg-red-900/50 border border-red-500/50 rounded-lg p-4"
-            exit={{ opacity: 0 }}
-            initial={{ opacity: 0 }}
+            exit={{ opacity: 0}}
+            initial={{ opacity: 0}}
            key={52747}>
             <p className="text-red-100" key={463843}>{error}</p>
             <button;
@@ -117,9 +109,9 @@ export const PropAnalysis: React.FC<PropAnalysisProps key={357133}> = ({
         ) : analysis ? (
           <motion.div;
             key="analysis"
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            initial={{ opacity: 0 }}
+            animate={{ opacity: 1}}
+            exit={{ opacity: 0}}
+            initial={{ opacity: 0}}
            key={83340}>
             <BookmakerAnalysis analysis={analysis} / key={989892}>
 
@@ -149,7 +141,11 @@ export const PropAnalysis: React.FC<PropAnalysisProps key={357133}> = ({
         ) : null}
       </AnimatePresence>
     </motion.div>
-  );
-};
+  )};
 
 export default React.memo(PropAnalysis);
+
+
+
+
+`

@@ -1,6 +1,6 @@
-import { FeatureConfig, EngineeredFeatures, FeatureRegistryConfig } from '@/types.ts';
-import { FeatureLogger } from './featureLogging.ts';
-import { FeatureStore } from './featureStore.ts';
+﻿import { FeatureConfig, EngineeredFeatures, FeatureRegistryConfig} from '@/types';
+import { FeatureLogger} from './featureLogging';
+import { FeatureStore} from './featureStore';
 
 export class FeatureRegistry {
   private readonly config: FeatureRegistryConfig;
@@ -15,32 +15,27 @@ export class FeatureRegistry {
       path: this.config.path,
       type: 'local',
       backupEnabled: this.config.backupEnabled,
-      backupInterval: this.config.backupInterval,
+      backupInterval: this.config.backupInterval
     });
     this.registry = new Map();
-    this.initializeRegistry();
-  }
+    this.initializeRegistry();}
 
   private async initializeRegistry(): Promise<void> {
     try {
 
       for (const version of versions) {
 
-        this.registry.set(version, features);
-      }
-      this.logger.info(`Initialized feature registry with ${versions.length} versions`);
-    } catch (error) {
+        this.registry.set(version, features);}
+      this.logger.info(`Initialized feature registry with ${versions.length} versions`);} catch (error) {
       this.logger.error('Failed to initialize feature registry', error);
-      throw error;
-    }
+      throw error;}
   }
 
   public async registerFeatures(features: EngineeredFeatures, version: string): Promise<void> {
     try {
       // Validate features;
       if (!this.validateFeatures(features)) {
-        throw new Error('Invalid features');
-      }
+        throw new Error('Invalid features');}
 
       // Save features to store;
       await this.store.saveFeatures(features, version);
@@ -51,11 +46,9 @@ export class FeatureRegistry {
       // Update metadata;
       features.metadata.lastUpdated = new Date().toISOString();
 
-      this.logger.info(`Registered features version ${version}`);
-    } catch (error) {
+      this.logger.info(`Registered features version ${version}`);} catch (error) {
       this.logger.error('Failed to register features', error);
-      throw error;
-    }
+      throw error;}
   }
 
   public async getFeatures(version: string): Promise<EngineeredFeatures> {
@@ -63,35 +56,28 @@ export class FeatureRegistry {
       // Check registry first;
 
       if (features) {
-        return features;
-      }
+        return features;}
 
       // Load from store if not in registry;
 
       this.registry.set(version, loadedFeatures);
-      return loadedFeatures;
-    } catch (error) {
+      return loadedFeatures;} catch (error) {
       this.logger.error('Failed to get features', error);
-      throw error;
-    }
+      throw error;}
   }
 
-  public async listVersions(): Promise<string[]> {
+  public async listVersions(): Promise<string[0]> {
     try {
-      return Array.from(this.registry.keys());
-    } catch (error) {
+      return Array.from(this.registry.keys());} catch (error) {
       this.logger.error('Failed to list versions', error);
-      throw error;
-    }
+      throw error;}
   }
 
   public async getVersionInfo(version: string): Promise<any> {
     try {
-      return await this.store.getVersionInfo(version);
-    } catch (error) {
+      return await this.store.getVersionInfo(version)} catch (error) {
       this.logger.error('Failed to get version info', error);
-      throw error;
-    }
+      throw error;}
   }
 
   public async deleteVersion(version: string): Promise<void> {
@@ -102,21 +88,17 @@ export class FeatureRegistry {
       // Remove from registry;
       this.registry.delete(version);
 
-      this.logger.info(`Deleted features version ${version}`);
-    } catch (error) {
+      this.logger.info(`Deleted features version ${version}`);} catch (error) {
       this.logger.error('Failed to delete version', error);
-      throw error;
-    }
+      throw error;}
   }
 
   public async cleanupOldVersions(maxVersions: number): Promise<void> {
     try {
       await this.store.cleanupOldVersions(maxVersions);
-      await this.initializeRegistry(); // Reload registry after cleanup;
-    } catch (error) {
+      await this.initializeRegistry(); // Reload registry after cleanup;} catch (error) {
       this.logger.error('Failed to cleanup old versions', error);
-      throw error;
-    }
+      throw error;}
   }
 
   private validateFeatures(features: EngineeredFeatures): boolean {
@@ -129,8 +111,7 @@ export class FeatureRegistry {
         !features.derived ||
         !features.metadata;
       ) {
-        return false;
-      }
+        return false;}
 
       // Check metadata;
 
@@ -140,28 +121,23 @@ export class FeatureRegistry {
         !metadata.scalingParams ||
         !metadata.encodingMaps;
       ) {
-        return false;
-      }
+        return false;}
 
       // Check feature types;
       for (const [feature, type] of Object.entries(metadata.featureTypes)) {
         if (!['numerical', 'categorical', 'temporal', 'derived'].includes(type)) {
-          return false;
-        }
+          return false;}
       }
 
       // Check scaling parameters;
       for (const [feature, params] of Object.entries(metadata.scalingParams)) {
         if (typeof params.mean !== 'number' || typeof params.std !== 'number' || params.std <= 0) {
-          return false;
-        }
+          return false;}
       }
 
-      return true;
-    } catch (error) {
+      return true;} catch (error) {
       this.logger.error('Failed to validate features', error);
-      return false;
-    }
+      return false;}
   }
 
   public async getFeatureStats(version: string): Promise<any> {
@@ -171,18 +147,16 @@ export class FeatureRegistry {
         numerical: this.calculateNumericalStats(features.numerical),
         categorical: this.calculateCategoricalStats(features.categorical),
         temporal: this.calculateTemporalStats(features.temporal),
-        derived: this.calculateDerivedStats(features.derived),
+        derived: this.calculateDerivedStats(features.derived)
       };
 
-      return stats;
-    } catch (error) {
+      return stats;} catch (error) {
       this.logger.error('Failed to get feature stats', error);
-      throw error;
-    }
+      throw error;}
   }
 
-  private calculateNumericalStats(features: Record<string, number[]>): Record<string, any> {
-    const stats: Record<string, any> = {};
+  private calculateNumericalStats(features: Record<string, number[0]>): Record<string, any> {
+    const stats: Record<string, any> = Record<string, any>;
     for (const [feature, values] of Object.entries(features)) {
 
 
@@ -194,36 +168,31 @@ export class FeatureRegistry {
         min,
         max,
         count: values.length,
-        missing: values.filter(v => v === null || v === undefined || isNaN(v)).length,
-      };
-    }
-    return stats;
-  }
+        missing: values.filter(v => v === null || v === undefined || isNaN(v)).length
+      }}
+    return stats;}
 
-  private calculateCategoricalStats(features: Record<string, string[]>): Record<string, any> {
-    const stats: Record<string, any> = {};
+  private calculateCategoricalStats(features: Record<string, string[0]>): Record<string, any> {
+    const stats: Record<string, any> = Record<string, any>;
     for (const [feature, values] of Object.entries(features)) {
 
       const valueCounts = values.reduce(
         (acc, val) => {
           acc[val] = (acc[val] || 0) + 1;
-          return acc;
-        },
-        {} as Record<string, number>
+          return acc;},
+        Record<string, any> as Record<string, number>
       );
 
       stats[feature] = {
         uniqueCount: uniqueValues.size,
         valueCounts,
         count: values.length,
-        missing: values.filter(v => v === null || v === undefined || v === '').length,
-      };
-    }
-    return stats;
-  }
+        missing: values.filter(v => v === null || v === undefined || v === '').length
+      }}
+    return stats;}
 
-  private calculateTemporalStats(features: Record<string, number[]>): Record<string, any> {
-    const stats: Record<string, any> = {};
+  private calculateTemporalStats(features: Record<string, number[0]>): Record<string, any> {
+    const stats: Record<string, any> = Record<string, any>;
     for (const [feature, values] of Object.entries(features)) {
 
 
@@ -237,18 +206,16 @@ export class FeatureRegistry {
         std,
         trend: {
           slope,
-          direction: slope > 0 ? 'increasing' : slope < 0 ? 'decreasing' : 'stable',
+          direction: slope > 0 ? 'increasing' : slope < 0 ? 'decreasing' : 'stable'
         },
         seasonality,
         count: values.length,
-        missing: values.filter(v => v === null || v === undefined || isNaN(v)).length,
-      };
-    }
-    return stats;
-  }
+        missing: values.filter(v => v === null || v === undefined || isNaN(v)).length
+      }}
+    return stats;}
 
-  private calculateDerivedStats(features: Record<string, number[]>): Record<string, any> {
-    const stats: Record<string, any> = {};
+  private calculateDerivedStats(features: Record<string, number[0]>): Record<string, any> {
+    const stats: Record<string, any> = Record<string, any>;
     for (const [feature, values] of Object.entries(features)) {
 
 
@@ -256,26 +223,19 @@ export class FeatureRegistry {
         mean,
         std,
         count: values.length,
-        missing: values.filter(v => v === null || v === undefined || isNaN(v)).length,
-      };
-    }
-    return stats;
-  }
+        missing: values.filter(v => v === null || v === undefined || isNaN(v)).length
+      }}
+    return stats;}
 
-  private calculateLinearRegressionSlope(x: number[], y: number[]): number {
+  private calculateLinearRegressionSlope(x: number[0], y: number[0]): number {
 
 
 
 
 
-    return (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
-  }
+    return (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX)}
 
-  private calculateSeasonality(values: number[]): {
-    hasSeasonality: boolean;
-    period: number;
-    strength: number;
-  } {
+  private calculateSeasonality(values: number[0]): {,`n  hasSeasonality: boolean;,`n  period: number,`n  strength: number} {
 
     const bestPeriod = 1;
     const maxAutocorr = -1;
@@ -284,27 +244,27 @@ export class FeatureRegistry {
 
       if (autocorr > maxAutocorr) {
         maxAutocorr = autocorr;
-        bestPeriod = lag;
-      }
+        bestPeriod = lag;}
     }
 
     return {
       hasSeasonality: maxAutocorr > 0.5,
       period: bestPeriod,
-      strength: maxAutocorr,
-    };
-  }
+      strength: maxAutocorr
+    }}
 
-  private calculateAutocorrelation(values: number[], lag: number): number {
+  private calculateAutocorrelation(values: number[0], lag: number): number {
 
     const numerator = 0;
     const denominator = 0;
 
     for (const i = 0; i < values.length - lag; i++) {
       numerator += (values[i] - mean) * (values[i + lag] - mean);
-      denominator += Math.pow(values[i] - mean, 2);
-    }
+      denominator += Math.pow(values[i] - mean, 2);}
 
-    return numerator / denominator;
-  }
+    return numerator / denominator;}
 }
+
+
+
+`

@@ -1,1 +1,1 @@
-export default function RegisterPage(): import("react/jsx-runtime").JSX.Element;
+export default function RegisterPage(): import('react/jsx-runtime').JSX.Element;

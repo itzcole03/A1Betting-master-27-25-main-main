@@ -20,6 +20,7 @@ This directory contains static assets such as images, SVGs, and other media used
 ## File Breakdown
 
 ### react.svg
+
 - **Purpose:** SVG image of the React logo.
 - **Usage:** Used for branding, UI icons, or as a placeholder in the frontend application.
 - **Notes:** Standard React logo in SVG format. Can be referenced in components or HTML for scalable, high-quality rendering.
@@ -27,4 +28,4 @@ This directory contains static assets such as images, SVGs, and other media used
 
 ---
 
-*This documentation is auto-generated and should be updated as files are added, removed, or refactored in the assets directory.*
+_This documentation is auto-generated and should be updated as files are added, removed, or refactored in the assets directory._

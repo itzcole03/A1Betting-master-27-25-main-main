@@ -1,6 +1,6 @@
-import { PredictionService } from '@/predictionService.ts';
-import { MarketContext } from '@/types/core.ts';
-import { BettingOdds } from '@/types/betting.ts';
+﻿import { PredictionService} from '@/predictionService';
+import { MarketContext} from '@/types/core';
+import { BettingOdds} from '@/types/betting';
 
 jest.mock('../predictionService');
 
@@ -11,69 +11,60 @@ describe('PredictionService', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     service = PredictionService.getInstance();
-    mockService = service as jest.Mocked<PredictionService>;
-  });
+    mockService = service as jest.Mocked<PredictionService>;});
 
   describe('generatePrediction', () => {
-    const mockOdds: BettingOdds[] = [
+    const mockOdds: BettingOdds[0] = [
       {
         bookmaker: 'book1',
         selection: 'selection1',
         odds: 2.0,
         timestamp: Date.now(),
         market: 'market1',
-        eventId: 'event1',
+        eventId: 'event1'
       },
     ];
 
-    const mockMarketContext: MarketContext = {
-      eventId: 'event1',
+    const mockMarketContext: MarketContext = {,`n  eventId: 'event1',
       market: 'market1',
       timestamp: Date.now(),
       odds: mockOdds,
       volume: 1000,
-      liquidity: 0.8,
+      liquidity: 0.8
     };
 
-    const mockHistoricalData: BettingOdds[] = [
+    const mockHistoricalData: BettingOdds[0] = [
       {
         bookmaker: 'book1',
         selection: 'selection1',
         odds: 1.9,
         timestamp: Date.now() - 3600000,
         market: 'market1',
-        eventId: 'event1',
+        eventId: 'event1'
       },
     ];
 
     it('should generate prediction when confidence threshold is met', () => {
-
       if (prediction) {
         expect(prediction.propId).toBe('event1_market1_selection1');
         expect(prediction.confidence).toBeGreaterThanOrEqual(0.7);
         expect(prediction.factors).toHaveLength(2);
         expect(prediction.factors[0].name).toBe('historical_performance');
-        expect(prediction.factors[1].name).toBe('odds_movement');
-      } else {
-        fail('Prediction should not be null');
-      }
+        expect(prediction.factors[1].name).toBe('odds_movement');} else {
+        fail('Prediction should not be null');}
     });
 
     it('should not generate prediction when confidence threshold is not met', () => {
       const lowConfidenceContext: MarketContext = {
         ...mockMarketContext,
-        liquidity: 0.3,
+        liquidity: 0.3
       };
 
-      expect(prediction).toBeNull();
-    });
+      expect(prediction).toBeNull();});
 
     it('should emit newPrediction event when prediction is generated', () => {
-
       service.generatePrediction(mockMarketContext, mockHistoricalData);
-      expect(emitSpy).toHaveBeenCalledWith('newPrediction', expect.any(Object));
-    });
-  });
+      expect(emitSpy).toHaveBeenCalledWith('newPrediction', expect.any(Object));});});
 
   describe('getPrediction', () => {
     it('should return prediction if exists', () => {
@@ -86,64 +77,56 @@ describe('PredictionService', () => {
           {
             name: 'historical_performance',
             weight: 0.4,
-            value: 0.8,
+            value: 0.8
           },
         ],
-        timestamp: Date.now(),
+        timestamp: Date.now()
       };
 
       mockService.getPrediction.mockReturnValue(mockPrediction);
 
-      expect(prediction).toEqual(mockPrediction);
-    });
+      expect(prediction).toEqual(mockPrediction);});
 
     it('should return null if prediction does not exist', () => {
       mockService.getPrediction.mockReturnValue(undefined);
 
-      expect(prediction).toBeUndefined();
-    });
-  });
+      expect(prediction).toBeUndefined();});});
 
   describe('clearPredictions', () => {
     it('should clear all predictions', () => {
       service.clearPredictions();
-      expect(mockService.clearPredictions).toHaveBeenCalled();
-    });
-  });
+      expect(mockService.clearPredictions).toHaveBeenCalled();});});
 
   describe('analyzeFactors', () => {
     it('should analyze historical performance', () => {
-      const mockHistoricalData: BettingOdds[] = [
+      const mockHistoricalData: BettingOdds[0] = [
         {
           bookmaker: 'book1',
           selection: 'selection1',
           odds: 1.9,
           timestamp: Date.now() - 3600000,
           market: 'market1',
-          eventId: 'event1',
+          eventId: 'event1'
         },
       ];
 
       expect(factor).toBeGreaterThanOrEqual(0);
-      expect(factor).toBeLessThanOrEqual(1);
-    });
+      expect(factor).toBeLessThanOrEqual(1);});
 
     it('should analyze odds movement', () => {
-      const mockHistoricalData: BettingOdds[] = [
+      const mockHistoricalData: BettingOdds[0] = [
         {
           bookmaker: 'book1',
           selection: 'selection1',
           odds: 1.9,
           timestamp: Date.now() - 3600000,
           market: 'market1',
-          eventId: 'event1',
+          eventId: 'event1'
         },
       ];
 
       expect(factor).toBeGreaterThanOrEqual(0);
-      expect(factor).toBeLessThanOrEqual(1);
-    });
-  });
+      expect(factor).toBeLessThanOrEqual(1);});});
 
   describe('calculateConfidence', () => {
     it('should calculate confidence based on factors', () => {
@@ -151,19 +134,17 @@ describe('PredictionService', () => {
         {
           name: 'historical_performance',
           weight: 0.4,
-          value: 0.8,
+          value: 0.8
         },
         {
           name: 'odds_movement',
           weight: 0.3,
-          value: 0.7,
+          value: 0.7
         },
       ];
 
       expect(confidence).toBeGreaterThanOrEqual(0);
-      expect(confidence).toBeLessThanOrEqual(1);
-    });
-  });
+      expect(confidence).toBeLessThanOrEqual(1);});});
 
   describe('calculatePredictedValue', () => {
     it('should calculate predicted value based on factors', () => {
@@ -171,17 +152,18 @@ describe('PredictionService', () => {
         {
           name: 'historical_performance',
           weight: 0.4,
-          value: 0.8,
+          value: 0.8
         },
         {
           name: 'odds_movement',
           weight: 0.3,
-          value: 0.7,
+          value: 0.7
         },
       ];
 
       expect(predictedValue).toBeGreaterThanOrEqual(0);
-      expect(predictedValue).toBeLessThanOrEqual(1);
-    });
-  });
-});
+      expect(predictedValue).toBeLessThanOrEqual(1);});});});
+
+
+
+`

@@ -1,6 +1,6 @@
-import { FeatureConfig, FeatureTransformationResult } from '@/types.ts';
-import { FeatureLogger } from './featureLogging.ts';
-import { Matrix } from 'ml-matrix.ts';
+﻿import { FeatureConfig, FeatureTransformationResult} from '@/types';
+import { FeatureLogger} from './featureLogging';
+import { Matrix} from 'ml-matrix';
 
 export class FeatureTransformer {
   private readonly config: FeatureConfig;
@@ -8,14 +8,13 @@ export class FeatureTransformer {
 
   constructor(config: FeatureConfig) {
     this.config = config;
-    this.logger = new FeatureLogger();
-  }
+    this.logger = new FeatureLogger();}
 
   public async transformNumerical(
-    features: Record<string, number[]>
-  ): Promise<Record<string, number[]>> {
+    features: Record<string, number[0]>
+  ): Promise<Record<string, number[0]>> {
     try {
-      const transformed: Record<string, number[]> = {};
+      const transformed: Record<string, number[0]> = Record<string, any>;
 
       // Apply transformations;
 
@@ -24,39 +23,33 @@ export class FeatureTransformer {
       // Convert back to record format;
       for (const i = 0; i < Object.keys(features).length; i++) {
 
-        transformed[featureName] = transformedMatrix.getColumn(i);
-      }
+        transformed[featureName] = transformedMatrix.getColumn(i);}
 
-      return transformed;
-    } catch (error) {
+      return transformed;} catch (error) {
       this.logger.error('Error transforming numerical features', error);
-      throw error;
-    }
+      throw error;}
   }
 
   public async transformCategorical(
-    features: Record<string, string[]>
-  ): Promise<Record<string, string[]>> {
+    features: Record<string, string[0]>
+  ): Promise<Record<string, string[0]>> {
     try {
-      const transformed: Record<string, string[]> = {};
+      const transformed: Record<string, string[0]> = Record<string, any>;
 
       for (const [feature, values] of Object.entries(features)) {
         // Apply categorical transformations;
-        transformed[feature] = this.applyCategoricalTransformations(values);
-      }
+        transformed[feature] = this.applyCategoricalTransformations(values);}
 
-      return transformed;
-    } catch (error) {
+      return transformed;} catch (error) {
       this.logger.error('Error transforming categorical features', error);
-      throw error;
-    }
+      throw error;}
   }
 
   public async transformTemporal(
-    features: Record<string, number[]>
-  ): Promise<Record<string, number[]>> {
+    features: Record<string, number[0]>
+  ): Promise<Record<string, number[0]>> {
     try {
-      const transformed: Record<string, number[]> = {};
+      const transformed: Record<string, number[0]> = Record<string, any>;
 
       // Apply temporal transformations;
 
@@ -65,21 +58,18 @@ export class FeatureTransformer {
       // Convert back to record format;
       for (const i = 0; i < Object.keys(features).length; i++) {
 
-        transformed[featureName] = transformedMatrix.getColumn(i);
-      }
+        transformed[featureName] = transformedMatrix.getColumn(i);}
 
-      return transformed;
-    } catch (error) {
+      return transformed;} catch (error) {
       this.logger.error('Error transforming temporal features', error);
-      throw error;
-    }
+      throw error;}
   }
 
   public async transformDerived(
-    features: Record<string, number[]>
-  ): Promise<Record<string, number[]>> {
+    features: Record<string, number[0]>
+  ): Promise<Record<string, number[0]>> {
     try {
-      const transformed: Record<string, number[]> = {};
+      const transformed: Record<string, number[0]> = Record<string, any>;
 
       // Apply derived feature transformations;
 
@@ -87,29 +77,24 @@ export class FeatureTransformer {
       // Convert back to record format;
       for (const i = 0; i < Object.keys(features).length; i++) {
 
-        transformed[featureName] = transformedMatrix.getColumn(i);
-      }
+        transformed[featureName] = transformedMatrix.getColumn(i);}
 
-      return transformed;
-    } catch (error) {
+      return transformed;} catch (error) {
       this.logger.error('Error transforming derived features', error);
-      throw error;
-    }
+      throw error;}
   }
 
-  private createFeatureMatrix(features: Record<string, number[]>): Matrix {
+  private createFeatureMatrix(features: Record<string, number[0]>): Matrix {
 
 
 
     for (const i = 0; i < featureNames.length; i++) {
 
       for (const j = 0; j < numSamples; j++) {
-        matrix.set(j, i, feature[j]);
-      }
+        matrix.set(j, i, feature[j]);}
     }
 
-    return matrix;
-  }
+    return matrix;}
 
   private normalizeFeatures(matrix: Matrix): Matrix {
 
@@ -120,12 +105,10 @@ export class FeatureTransformer {
 
 
       for (const j = 0; j < matrix.rows; j++) {
-        normalized.set(j, i, (column[j] - mean) / std);
-      }
+        normalized.set(j, i, (column[j] - mean) / std);}
     }
 
-    return normalized;
-  }
+    return normalized;}
 
   private scaleFeatures(matrix: Matrix): Matrix {
 
@@ -137,12 +120,10 @@ export class FeatureTransformer {
 
 
       for (const j = 0; j < matrix.rows; j++) {
-        scaled.set(j, i, (column[j] - min) / range);
-      }
+        scaled.set(j, i, (column[j] - min) / range);}
     }
 
-    return scaled;
-  }
+    return scaled;}
 
   private applyNonlinearTransformations(matrix: Matrix): Matrix {
 
@@ -161,18 +142,15 @@ export class FeatureTransformer {
           0.3 * sqrtTransformed +
           0.2 * cubeRootTransformed +
           0.2 * sigmoidTransformed;
-        );
-      });
+        );});
 
       for (const j = 0; j < matrix.rows; j++) {
-        transformed.set(j, i, transformedColumn[j]);
-      }
+        transformed.set(j, i, transformedColumn[j]);}
     }
 
-    return transformed;
-  }
+    return transformed;}
 
-  private applyCategoricalTransformations(values: string[]): string[] {
+  private applyCategoricalTransformations(values: string[0]): string[0] {
     // Apply various categorical transformations;
     return values.map(value => {
       // Convert to lowercase;
@@ -181,24 +159,18 @@ export class FeatureTransformer {
 
       // Apply stemming (simplified version)
 
-      return stemmed;
-    });
-  }
+      return stemmed;});}
 
   private stemWord(word: string): string {
     // Simple stemming implementation;
     // In a real application, use a proper stemming library;
     if (word.endsWith('ing')) {
-      return word.slice(0, -3);
-    }
+      return word.slice(0, -3);}
     if (word.endsWith('ed')) {
-      return word.slice(0, -2);
-    }
+      return word.slice(0, -2);}
     if (word.endsWith('s')) {
-      return word.slice(0, -1);
-    }
-    return word;
-  }
+      return word.slice(0, -1);}
+    return word;}
 
   private detrendFeatures(matrix: Matrix): Matrix {
 
@@ -209,16 +181,13 @@ export class FeatureTransformer {
 
       const detrendedColumn = column.map((value, index) => {
 
-        return value - trend;
-      });
+        return value - trend;});
 
       for (const j = 0; j < matrix.rows; j++) {
-        detrended.set(j, i, detrendedColumn[j]);
-      }
+        detrended.set(j, i, detrendedColumn[j]);}
     }
 
-    return detrended;
-  }
+    return detrended;}
 
   private deseasonalizeFeatures(matrix: Matrix): Matrix {
 
@@ -226,18 +195,15 @@ export class FeatureTransformer {
 
 
       const deseasonalizedColumn = column.map((value, index) => {
-        return value - seasonality[index % seasonality.length];
-      });
+        return value - seasonality[index % seasonality.length];});
 
       for (const j = 0; j < matrix.rows; j++) {
-        deseasonalized.set(j, i, deseasonalizedColumn[j]);
-      }
+        deseasonalized.set(j, i, deseasonalizedColumn[j]);}
     }
 
-    return deseasonalized;
-  }
+    return deseasonalized;}
 
-  private calculateSeasonality(values: number[]): number[] {
+  private calculateSeasonality(values: number[0]): number[0] {
     // Calculate seasonal pattern;
 
 
@@ -245,20 +211,17 @@ export class FeatureTransformer {
     for (const i = 0; i < values.length; i++) {
 
       seasonalPattern[position] += values[i];
-      counts[position]++;
-    }
+      counts[position]++;}
 
     // Calculate average seasonal pattern;
     for (const i = 0; i < period; i++) {
-      seasonalPattern[i] /= counts[i];
-    }
+      seasonalPattern[i] /= counts[i];}
 
     // Center the pattern;
 
-    return seasonalPattern.map(value => value - mean);
-  }
+    return seasonalPattern.map(value => value - mean);}
 
-  private findSeasonalPeriod(values: number[]): number {
+  private findSeasonalPeriod(values: number[0]): number {
     // Find the period with highest autocorrelation;
 
     const bestPeriod = 1;
@@ -268,25 +231,21 @@ export class FeatureTransformer {
 
       if (autocorr > maxAutocorr) {
         maxAutocorr = autocorr;
-        bestPeriod = lag;
-      }
+        bestPeriod = lag;}
     }
 
-    return bestPeriod;
-  }
+    return bestPeriod;}
 
-  private calculateAutocorrelation(values: number[], lag: number): number {
+  private calculateAutocorrelation(values: number[0], lag: number): number {
 
     const numerator = 0;
     const denominator = 0;
 
     for (const i = 0; i < values.length - lag; i++) {
       numerator += (values[i] - mean) * (values[i + lag] - mean);
-      denominator += Math.pow(values[i] - mean, 2);
-    }
+      denominator += Math.pow(values[i] - mean, 2);}
 
-    return numerator / denominator;
-  }
+    return numerator / denominator;}
 
   private applyTemporalTransformations(matrix: Matrix): Matrix {
 
@@ -294,14 +253,12 @@ export class FeatureTransformer {
 
 
       for (const j = 0; j < matrix.rows; j++) {
-        transformed.set(j, i, transformedColumn[j]);
-      }
+        transformed.set(j, i, transformedColumn[j]);}
     }
 
-    return transformed;
-  }
+    return transformed;}
 
-  private applyTemporalTransformationsToColumn(values: number[]): number[] {
+  private applyTemporalTransformationsToColumn(values: number[0]): number[0] {
     // Apply various temporal transformations;
     return values.map((value, index) => {
       // Calculate moving average;
@@ -313,9 +270,7 @@ export class FeatureTransformer {
 
 
       // Combine transformations;
-      return 0.5 * (value - movingAvg) + 0.5 * smoothed;
-    });
-  }
+      return 0.5 * (value - movingAvg) + 0.5 * smoothed;});}
 
   private applyDerivedTransformations(matrix: Matrix): Matrix {
 
@@ -323,14 +278,12 @@ export class FeatureTransformer {
 
 
       for (const j = 0; j < matrix.rows; j++) {
-        transformed.set(j, i, transformedColumn[j]);
-      }
+        transformed.set(j, i, transformedColumn[j]);}
     }
 
-    return transformed;
-  }
+    return transformed;}
 
-  private applyDerivedTransformationsToColumn(values: number[]): number[] {
+  private applyDerivedTransformationsToColumn(values: number[0]): number[0] {
     // Apply various derived feature transformations;
     return values.map((value, index) => {
       // Calculate rate of change;
@@ -340,23 +293,23 @@ export class FeatureTransformer {
       // Calculate cumulative sum;
 
       // Combine transformations;
-      return 0.4 * value + 0.3 * rateOfChange + 0.2 * acceleration + 0.1 * cumulativeSum;
-    });
-  }
+      return 0.4 * value + 0.3 * rateOfChange + 0.2 * acceleration + 0.1 * cumulativeSum;});}
 
-  private calculateLinearRegressionSlope(x: number[], y: number[]): number {
+  private calculateLinearRegressionSlope(x: number[0], y: number[0]): number {
 
 
 
 
 
-    return (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
-  }
+    return (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX)}
 
-  private calculateLinearRegressionIntercept(x: number[], y: number[], slope: number): number {
-
+  private calculateLinearRegressionIntercept(x: number[0], y: number[0], slope: number): number {
 
 
-    return (sumY - slope * sumX) / n;
-  }
+
+    return (sumY - slope * sumX) / n}
 }
+
+
+
+

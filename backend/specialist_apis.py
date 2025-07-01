@@ -576,16 +576,13 @@ class SpecialistDataManager:
         if sportradar_key:
             self.sportradar = SportradarAPI(sportradar_key)
             logger.info("✅ Sportradar API initialized")
-
-        prizepicks_key = os.getenv("PRIZEPICKS_API_KEY")
-        if prizepicks_key:
-            self.prizepicks = PrizePicksAPI(prizepicks_key)
-            logger.info("✅ PrizePicks API initialized")
-
-        # ESPN API is mostly public
+        # PrizePicks API is public; no key required
+        # prizepicks_key = os.getenv("PRIZEPICKS_API_KEY")
+        # if prizepicks_key:
+        #     self.prizepicks = PrizePicksAPI(prizepicks_key)
+        #     logger.info("✅ PrizePicks API initialized")
         self.espn = ESPNAPI()
         logger.info("✅ ESPN API initialized")
-
         theodds_key = os.getenv("THE_ODDS_API_KEY")
         if theodds_key:
             self.theodds = TheOddsAPI(theodds_key)

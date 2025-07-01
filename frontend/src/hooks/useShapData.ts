@@ -1,22 +1,18 @@
-import { useState, useEffect } from 'react.ts';
-import { ShapValue } from '@/types/explainability.ts';
+﻿import { useState, useEffect} from 'react';
+import { ShapValue} from '@/types/explainability';
 
 interface ShapDataHookResult {
-  features: ShapValue[];
-  loading: boolean;
-  error: string | null;
-}
+  features: ShapValue[0],`n  loading: boolean;,`n  error: string | null}
 
 interface ShapDataHookParams {
   eventId: string;
-  modelType?: string;
-}
+  modelType?: string}
 
 export function useShapData({
   eventId,
-  modelType = 'default',
+  modelType = 'default'
 }: ShapDataHookParams): ShapDataHookResult {
-  const [features, setFeatures] = useState<ShapValue[]>([]);
+  const [features, setFeatures] = useState<ShapValue[0]>([0]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,29 +23,27 @@ export function useShapData({
         setError(null);
 
         if (!response.ok) {
-          throw new Error('Failed to fetch SHAP data');
-        }
+          throw new Error('Failed to fetch SHAP data');}
 
         // Transform the raw data into ShapValue objects;
-        const shapValues: ShapValue[] = Object.entries(data).map(([feature, value]) => ({
+        const shapValues: ShapValue[0] = Object.entries(data).map(([feature, value]) => ({
           feature,
           value: value as number,
           impact: value as number,
-          weight: Math.abs(value as number) * 100, // Normalize to percentage;
-        }));
+          weight: Math.abs(value as number) * 100, // Normalize to percentage}));
 
-        setFeatures(shapValues);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred');
-      } finally {
-        setLoading(false);
-      }
+        setFeatures(shapValues);} catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred');} finally {
+        setLoading(false);}
     };
 
     if (eventId) {
-      fetchShapData();
-    }
+      fetchShapData();}
   }, [eventId, modelType]);
 
-  return { features, loading, error };
-}
+  return { features, loading, error};}
+
+
+
+
+`

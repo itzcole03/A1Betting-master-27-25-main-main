@@ -115,10 +115,10 @@ components/mega/
 
 ```typescript
 CYBER_COLORS = {
-  primary: "#06ffa5", // Electric green ✅
-  secondary: "#00ff88", // Bright green ✅
-  accent: "#00d4ff", // Cyan blue ✅
-  purple: "#7c3aed", // Purple accent ✅
+  primary: '#06ffa5', // Electric green ✅
+  secondary: '#00ff88', // Bright green ✅
+  accent: '#00d4ff', // Cyan blue ✅
+  purple: '#7c3aed', // Purple accent ✅
 };
 ```
 
@@ -173,15 +173,15 @@ button: {
 
 ```typescript
 // 50+ different imports needed across components
-import Dashboard from "./dashboard/Dashboard";
-import CyberDashboard from "./dashboard/CyberDashboard";
-import UnifiedDashboard from "./dashboard/UnifiedDashboard";
-import Button from "./base/Button";
-import CyberButton from "./ui/CyberButton";
-import UltimateMoneyMaker from "./betting/UltimateMoneyMaker";
-import MoneyMaker from "./MoneyMaker/MoneyMaker";
-import AdvancedAnalyticsHub from "./analytics/AdvancedAnalyticsHub";
-import MLInsights from "./analytics/MLInsights";
+import Dashboard from './dashboard/Dashboard';
+import CyberDashboard from './dashboard/CyberDashboard';
+import UnifiedDashboard from './dashboard/UnifiedDashboard';
+import Button from './base/Button';
+import CyberButton from './ui/CyberButton';
+import UltimateMoneyMaker from './betting/UltimateMoneyMaker';
+import MoneyMaker from './MoneyMaker/MoneyMaker';
+import AdvancedAnalyticsHub from './analytics/AdvancedAnalyticsHub';
+import MLInsights from './analytics/MLInsights';
 // ... 40+ more scattered imports
 ```
 
@@ -209,7 +209,7 @@ import {
   CYBER_GRADIENTS,
   CyberContainer,
   CyberText,
-} from "./components/mega";
+} from './components/mega';
 ```
 
 ## **LEGACY MIGRATION PLAN**

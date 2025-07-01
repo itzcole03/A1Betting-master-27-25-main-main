@@ -1,6 +1,4 @@
-
-
-/// <reference types="vite/client" />
+﻿/// <reference types="vite/client" />
 
 interface ImportMetaEnv {
   readonly VITE_API_URL: string;
@@ -19,9 +17,9 @@ interface ImportMetaEnv {
   readonly VITE_CACHE_DURATION: string;
   readonly VITE_LOG_LEVEL: string;
   readonly VITE_SENTRY_DSN: string;
-  // add more as needed;
-}
+  // add more as needed;}
 
 interface ImportMeta {
-  readonly env: ImportMetaEnv;
-} 
+  readonly env: ImportMetaEnv}
+
+

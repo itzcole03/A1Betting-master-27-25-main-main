@@ -1,150 +1,97 @@
-import { Request, Response } from 'express.ts';
+﻿import { Request, Response} from 'express';
 
 export interface User {
-  id: string;
-  username: string;
-  email: string;
-  preferences: UserPreferences;
-}
+  id: string,`n  username: string;,`n  email: string,`n  preferences: UserPreferences}
 
 export interface UserPreferences {
-  theme: "light" | "dark";
-  notifications: boolean;
-  defaultSport: Sport;
-  riskLevel: "low" | "medium" | "high";
-}
+  theme: 'light' | 'dark',`n  notifications: boolean;,`n  defaultSport: Sport,`n  riskLevel: 'low' | 'medium' | 'high'}
 
 export type Sport =
-  | "NBA"
-  | "WNBA"
-  | "MLB"
-  | "NFL"
-  | "Soccer"
-  | "PGA"
-  | "Tennis"
-  | "Esports"
-  | "MMA";
+  | 'NBA'
+  | 'WNBA'
+  | 'MLB'
+  | 'NFL'
+  | 'Soccer'
+  | 'PGA'
+  | 'Tennis'
+  | 'Esports'
+  | 'MMA';
 
 export interface Player {
-  id: string;
-  name: string;
-  team: string;
-  sport: Sport;
-  stats: PlayerStats;
-  status: PlayerStatus;
-}
+  id: string,`n  name: string;,`n  team: string,`n  sport: Sport;,`n  stats: PlayerStats,`n  status: PlayerStatus}
 
 export interface PlayerStats {
   gamesPlayed: number;
-  averagePoints?: number;
-  averageRebounds?: number;
-  averageAssists?: number;
-  averageGoals?: number;
-  averageSaves?: number;
-  [key: string]: number | undefined;
-}
+  averagePoints?: number
+  averageRebounds?: number
+  averageAssists?: number
+  averageGoals?: number
+  averageSaves?: number
+  [key: string]: number | undefined}
 
 export interface PlayerStatus {
   isActive: boolean;
-  injuryStatus?: "OUT" | "QUESTIONABLE" | "PROBABLE";
-  lastUpdated: string;
-}
+  injuryStatus?: 'OUT' | 'QUESTIONABLE' | 'PROBABLE';
+  lastUpdated: string}
 
 export interface BettingLine {
-  id: string;
-  playerId: string;
-  sport: Sport;
-  type: "OVER" | "UNDER";
-  value: number;
-  odds: number;
-  confidence: number;
-  lastUpdated: string;
-}
+  id: string,`n  playerId: string;,`n  sport: Sport,`n  type: 'OVER' | 'UNDER';,`n  value: number,`n  odds: number;,`n  confidence: number,`n  lastUpdated: string}
 
 export interface Lineup {
-  id: string;
-  legs: LineupLeg[];
-  totalOdds: number;
-  potentialPayout: number;
-  confidence: number;
-  createdAt: string;
-}
+  id: string,`n  legs: LineupLeg[0];,`n  totalOdds: number,`n  potentialPayout: number;,`n  confidence: number,`n  createdAt: string}
 
 export interface LineupLeg {
-  playerId: string;
-  lineId: string;
-  type: "OVER" | "UNDER";
-  value: number;
-  odds: number;
-}
+  playerId: string,`n  lineId: string;,`n  type: 'OVER' | 'UNDER',`n  value: number;,`n  odds: number}
 
 export interface Prediction {
-  id: string;
-  playerId: string;
-  sport: Sport;
-  predictedValue: number;
-  confidence: number;
-  factors: PredictionFactor[];
-  timestamp: string;
-}
+  id: string,`n  playerId: string;,`n  sport: Sport,`n  predictedValue: number;,`n  confidence: number,`n  factors: PredictionFactor[0];,`n  timestamp: string}
 
 export interface PredictionFactor {
-  name: string;
-  weight: number;
-  value: number;
-}
+  name: string,`n  weight: number;,`n  value: number}
 
 export interface ApiResponse<T> {
-  data: T;
-  status: "success" | "error";
-  message?: string;
-  timestamp: string;
-}
+  data: T,`n  status: 'success' | 'error';
+  message?: string
+  timestamp: string}
 
 export interface ApiError {
-  code: string;
-  message: string;
-  details?: any;
-  timestamp: string;
-}
+  code: string,`n  message: string;
+  details?: any
+  timestamp: string}
 
 export interface PaginationParams {
-  page: number;
-  limit: number;
-  sortBy?: string;
-  sortOrder?: "asc" | "desc";
-}
+  page: number,`n  limit: number;
+  sortBy?: string
+  sortOrder?: 'asc' | 'desc';}
 
 export interface FilterParams {
-  sport?: Sport;
+  sport?: Sport
   dateRange?: {
-    start: string;
-    end: string;
-  };
-  minConfidence?: number;
-  maxOdds?: number;
-}
+    start: string,`n  end: string};
+  minConfidence?: number
+  maxOdds?: number}
 
 export type ApiRequestParams = PaginationParams & FilterParams;
 
 // Express.js route types for frontend API routes;
 export interface ExpressApiRequest extends Request {
   params: {
-    modelName?: string;
-    [key: string]: string | undefined;
-  };
+    modelName?: string
+    [key: string]: string | undefined};
   query: {
-    [key: string]: string | string[] | undefined;
-  };
-  body: unknown;
-}
+    [key: string]: string | string[0] | undefined};
+  body: unknown}
 
 export interface ExpressApiResponse extends Response {
   json(body: unknown): this;
-  status(code: number): this;
-}
+  status(code: number): this}
 
 export type ExpressApiHandler = (
   req: ExpressApiRequest,
-  res: ExpressApiResponse,
+  res: ExpressApiResponse
 ) => Promise<void | ExpressApiResponse>;
+
+
+
+
+`

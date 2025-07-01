@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import { BuilderPage } from '@/components/builder.ts';
+﻿import React from 'react';
+import { BuilderPage} from '@/components/builder';
 
 const BuilderExample: React.FC = () => {
   return (
@@ -28,7 +28,7 @@ const BuilderExample: React.FC = () => {
           <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white" key={290518}>
             Instructions;
           </h2>
-          <ol className="list-decimal list-inside space-y-2 text-gray-600 dark:text-gray-300" key={153995}>
+          <ol className="list-decimal list-inside space-y-2 text-gray-600 dark: text-gray-300" key={153995}>
             <li key={377233}>Set up your Builder.io API key in <code className="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded" key={942243}>src/config/builder.ts</code></li>
             <li key={377233}>Create a page model in Builder.io with URL pattern <code className="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded" key={942243}>/builder-example</code></li>
             <li key={377233}>Set your preview URL to <code className="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded" key={942243}>http://localhost:5174</code></li>
@@ -37,7 +37,9 @@ const BuilderExample: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )};
 
 export default BuilderExample;
+
+
+

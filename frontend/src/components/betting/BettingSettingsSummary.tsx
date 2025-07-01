@@ -1,10 +1,10 @@
-import React from 'react.ts';
-import { Box, Paper, Typography, Chip, Tooltip, LinearProgress } from '@mui/material.ts';
-import { useBettingSettings } from '@/hooks/useBettingSettings.ts';
-import { formatCurrency } from '@/utils/formatters.ts';
+﻿import React from 'react';
+import { Box, Paper, Typography, Chip, Tooltip, LinearProgress} from '@mui/material';
+import { useBettingSettings} from '@/hooks/useBettingSettings';
+import { formatCurrency} from '@/utils/formatters';
 
 export const BettingSettingsSummary: React.FC = () => {
-  const { settings } = useBettingSettings();
+  const { settings} = useBettingSettings();
 
   const getRiskProfileColor = (profile: string) => {
     switch (profile) {
@@ -14,18 +14,16 @@ export const BettingSettingsSummary: React.FC = () => {
         return 'warning';
       case 'aggressive':
         return 'error';
-      default:
-        return 'default';
-    }
+      default: return 'default'}
   };
 
   return (
-    <Paper elevation={2} sx={{ p: 2 }} key={995156}>
+    <Paper elevation={2} sx={{ p: 2}} key={995156}>
       <Typography gutterBottom variant="h6" key={368112}>
         Current Settings;
       </Typography>
 
-      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 2 }} key={492963}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr'}, gap: 2}} key={492963}>
         <Box key={485947}>
           <Typography gutterBottom color="text.secondary" variant="subtitle2" key={771402}>
             Risk Profile;
@@ -49,13 +47,13 @@ export const BettingSettingsSummary: React.FC = () => {
           </Tooltip>
         </Box>
 
-        <Box sx={{ gridColumn: { xs: '1 / -1' } }} key={648123}>
+        <Box sx={{ gridColumn: { xs: '1 / -1'} }} key={648123}>
           <Typography gutterBottom color="text.secondary" variant="subtitle2" key={771402}>
             Confidence Threshold;
           </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }} key={109447}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1}} key={109447}>
             <LinearProgress;
-              sx={{ flex: 1 }}
+              sx={{ flex: 1}}
               value={settings.confidenceThreshold * 100}
               variant="determinate"
             / key={258253}>
@@ -65,7 +63,7 @@ export const BettingSettingsSummary: React.FC = () => {
           </Box>
         </Box>
 
-        <Box sx={{ gridColumn: { xs: '1 / -1' } }} key={648123}>
+        <Box sx={{ gridColumn: { xs: '1 / -1'} }} key={648123}>
           <Typography gutterBottom color="text.secondary" variant="subtitle2" key={771402}>
             Selected Model;
           </Typography>
@@ -75,5 +73,7 @@ export const BettingSettingsSummary: React.FC = () => {
         </Box>
       </Box>
     </Paper>
-  );
-};
+  );};
+
+
+

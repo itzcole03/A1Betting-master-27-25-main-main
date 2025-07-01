@@ -1,37 +1,20 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { UnifiedServiceRegistry } from '@/services/unified/UnifiedServiceRegistry.ts';
-import { UnifiedPredictionService } from '@/services/unified/UnifiedPredictionService.ts';
-import { UnifiedAnalyticsService } from '@/services/unified/UnifiedAnalyticsService.ts';
-import { UnifiedWebSocketService } from '@/services/unified/UnifiedWebSocketService.ts';
-import { UnifiedStateService } from '@/services/unified/UnifiedStateService.ts';
-import { UnifiedSettingsService } from '@/services/unified/UnifiedSettingsService.ts';
-import { UnifiedNotificationService } from '@/services/unified/UnifiedNotificationService.ts';
-import { UnifiedErrorService } from '@/services/unified/UnifiedErrorService.ts';
-import { Card, Button, Spinner, Badge, Modal, Toast } from '@/ui/UnifiedUI.ts';
+﻿import React, { useState, useEffect} from 'react';
+import { UnifiedServiceRegistry} from '@/services/unified/UnifiedServiceRegistry';
+import { UnifiedPredictionService} from '@/services/unified/UnifiedPredictionService';
+import { UnifiedAnalyticsService} from '@/services/unified/UnifiedAnalyticsService';
+import { UnifiedWebSocketService} from '@/services/unified/UnifiedWebSocketService';
+import { UnifiedStateService} from '@/services/unified/UnifiedStateService';
+import { UnifiedSettingsService} from '@/services/unified/UnifiedSettingsService';
+import { UnifiedNotificationService} from '@/services/unified/UnifiedNotificationService';
+import { UnifiedErrorService} from '@/services/unified/UnifiedErrorService';
+import { Card, Button, Spinner, Badge, Modal, Toast} from '@/ui/UnifiedUI';
 
 interface Prediction {
-  id: string;
-  eventId: string;
-  marketType: string;
-  prediction: number;
-  confidence: number;
-  timestamp: number;
-  features: Record<string, number key={817366}>;
-  modelVersion: string;
-  metadata: Record<string, any key={989582}>;
-}
+  id: string,`n  eventId: string;,`n  marketType: string,`n  prediction: number;,`n  confidence: number,`n  timestamp: number;,`n  features: Record<string, number key={817366}>;
+  modelVersion: string,`n  metadata: Record<string, any key={989582}>}
 
 interface PredictionOpportunity {
-  id: string;
-  eventId: string;
-  marketType: string;
-  prediction: number;
-  confidence: number;
-  expectedValue: number;
-  kellyFraction: number;
-  timestamp: number;
-  metadata: Record<string, any key={989582}>;
-}
+  id: string,`n  eventId: string;,`n  marketType: string,`n  prediction: number;,`n  confidence: number,`n  expectedValue: number;,`n  kellyFraction: number,`n  timestamp: number;,`n  metadata: Record<string, any key={989582}>}
 
 export const UnifiedPredictionInterface: React.FC = () => {
   // Initialize services;
@@ -45,25 +28,21 @@ export const UnifiedPredictionInterface: React.FC = () => {
     serviceRegistry.getService<UnifiedNotificationService key={460301}>('notification');
 
   // State;
-  const [predictions, setPredictions] = useState<Prediction[] key={925811}>([]);
-  const [opportunities, setOpportunities] = useState<PredictionOpportunity[] key={190641}>([]);
+  const [predictions, setPredictions] = useState<Prediction[0] key={925811}>([0]);
+  const [opportunities, setOpportunities] = useState<PredictionOpportunity[0] key={190641}>([0]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null key={121216}>(null);
   const [selectedPrediction, setSelectedPrediction] = useState<Prediction | null key={547963}>(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [toast, setToast] = useState<{
-    message: string;
-    type: 'success' | 'error' | 'warning' | 'info';
-  } | null>(null);
+    message: string,`n  type: 'success' | 'error' | 'warning' | 'info'} | null>(null);
 
   // Load data;
   useEffect(() => {
     loadData();
     setupWebSocket();
     return () => {
-      webSocketService.disconnect();
-    };
-  }, []);
+      webSocketService.disconnect();};}, [0]);
 
   const loadData = async () => {
     try {
@@ -73,12 +52,9 @@ export const UnifiedPredictionInterface: React.FC = () => {
         predictionService.getOpportunities(),
       ]);
       setPredictions(predictions);
-      setOpportunities(opportunities);
-    } catch (error) {
-      handleError('Failed to load prediction data', error);
-    } finally {
-      setLoading(false);
-    }
+      setOpportunities(opportunities);} catch (error) {
+      handleError('Failed to load prediction data', error);} finally {
+      setLoading(false);}
   };
 
   const setupWebSocket = () => {
@@ -88,44 +64,37 @@ export const UnifiedPredictionInterface: React.FC = () => {
       notificationService.notifyUser({
         type: 'info',
         message: 'New prediction available',
-        data,
-      });
-    });
+//         data
+      })});
     webSocketService.subscribe('opportunities', data => {
       setOpportunities(prev => [...prev, data]);
       notificationService.notifyUser({
         type: 'info',
         message: 'New opportunity detected',
-        data,
-      });
-    });
-  };
+//         data
+      })});};
 
   const handleError = (message: string, error: any) => {
     setError(message);
-    setToast({ message, type: 'error' });
+    setToast({ message, type: 'error'});
     errorService.handleError(error, {
       code: 'PREDICTION_ERROR',
       source: 'UnifiedPredictionInterface',
-      details: { message },
-    });
-  };
+      details: { message}
+    })};
 
   const handlePredictionClick = (prediction: Prediction) => {
     setSelectedPrediction(prediction);
-    setShowDetailsModal(true);
-  };
+    setShowDetailsModal(true);};
 
   const handleOpportunityClick = async (opportunity: PredictionOpportunity) => {
     try {
       await predictionService.analyzeOpportunity(opportunity);
       setToast({
         message: 'Opportunity analyzed successfully',
-        type: 'success',
-      });
-    } catch (error) {
-      handleError('Failed to analyze opportunity', error);
-    }
+        type: 'success'
+      })} catch (error) {
+      handleError('Failed to analyze opportunity', error);}
   };
 
   if (loading) {
@@ -133,8 +102,7 @@ export const UnifiedPredictionInterface: React.FC = () => {
       <div className="flex items-center justify-center min-h-screen" key={591667}>
         <Spinner size="large" / key={932834}>
       </div>
-    );
-  }
+    );}
 
   if (error) {
     return (
@@ -149,8 +117,7 @@ export const UnifiedPredictionInterface: React.FC = () => {
           </div>
         </Card>
       </div>
-    );
-  }
+    );}
 
   return (
     <div className="container mx-auto px-4 py-8" key={53071}>
@@ -187,8 +154,7 @@ export const UnifiedPredictionInterface: React.FC = () => {
                         ? 'success'
                         : prediction.confidence >= 0.6;
                           ? 'primary'
-                          : 'secondary'
-                    }
+                          : 'secondary'}
                   >
                     {prediction.confidence.toFixed(2)}
                   </Badge>
@@ -225,8 +191,7 @@ export const UnifiedPredictionInterface: React.FC = () => {
                         ? 'success'
                         : opportunity.expectedValue >= 0;
                           ? 'primary'
-                          : 'danger'
-                    }
+                          : 'danger'}
                   >
                     EV: {opportunity.expectedValue.toFixed(2)}
                   </Badge>
@@ -296,5 +261,8 @@ export const UnifiedPredictionInterface: React.FC = () => {
       {/* Toast Notifications */}
       {toast && <Toast message={toast.message} type={toast.type} onClose={() = key={337979}> setToast(null)} />}
     </div>
-  );
-};
+  )};
+
+
+
+`

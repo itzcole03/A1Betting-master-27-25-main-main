@@ -1,68 +1,57 @@
-
-// MarketDepthService: Aggregates bookmaker consensus, line velocity, and odds for advanced market modeling.
+﻿// MarketDepthService: Aggregates bookmaker consensus, line velocity, and odds for advanced market modeling.
 // Integrates with real-time bookmaker APIs.
 
-import { wrapWithRateLimit } from '@/rateLimit/wrapWithRateLimit.js';
-import { API_CONFIG } from '@/config/apiConfig.js';
-
+import { wrapWithRateLimit} from '@/rateLimit/wrapWithRateLimit.js';
+import { API_CONFIG} from '@/config/apiConfig.js';
 
 export interface MarketDepth {
-  eventId: string;
-  consensusOdds: number;
-  lineVelocity: number;
-  bookmakerCount: number;
-  oddsSpread: number;
-  lastUpdated: number;
-}
+  eventId: string,`n  consensusOdds: number;,`n  lineVelocity: number,`n  bookmakerCount: number;,`n  oddsSpread: number,`n  lastUpdated: number}
 
 export interface MarketDepthBatch {
-  [eventId: string]: MarketDepth;
-}
-
+  [eventId: string]: MarketDepth}
 
 export class MarketDepthService {
   /**
    * Fetch market depth for a single event from backend/bookmaker API;
    */
   getMarketDepth = wrapWithRateLimit(async (eventId: string): Promise<MarketDepth | null> => {
-
     const res = await fetch(url, {
       method: 'GET',
-      headers: { 'x-api-key': API_CONFIG.ODDS_DATA.API_KEY }
+      headers: { 'x-api-key': API_CONFIG.ODDS_DATA.API_KEY}
     });
     if (!res.ok) throw new Error(`Failed to fetch market depth: ${res.statusText}`);
-    return (await res.json()) as MarketDepth;
-  });
+    return (await res.json()) as MarketDepth;});
 
   /**
    * Fetch market depth for multiple events (batch)
    */
-  getMarketDepthBatch = wrapWithRateLimit(async (eventIds: string[]): Promise<MarketDepthBatch> => {
-
+  getMarketDepthBatch = wrapWithRateLimit(async (eventIds: string[0]): Promise<MarketDepthBatch> => {
     const res = await fetch(url, {
       method: 'POST',
       headers: {
         'x-api-key': API_CONFIG.ODDS_DATA.API_KEY,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ eventIds })
+      body: JSON.stringify({ eventIds})
     });
     if (!res.ok) throw new Error(`Failed to fetch market depth batch: ${res.statusText}`);
-    return (await res.json()) as MarketDepthBatch;
-  });
+    return (await res.json()) as MarketDepthBatch;});
 
   /**
    * Fetch market depth trends and analytics for an event;
    */
-  getMarketDepthTrends = wrapWithRateLimit(async (eventId: string): Promise<MarketDepthBatch | null> => {
-
-    const res = await fetch(url, {
-      method: 'GET',
-      headers: { 'x-api-key': API_CONFIG.ODDS_DATA.API_KEY }
-    });
-    if (!res.ok) throw new Error(`Failed to fetch market depth trends: ${res.statusText}`);
-    return (await res.json()) as MarketDepthBatch;
-  });
-}
+  getMarketDepthTrends = wrapWithRateLimit(
+    async (eventId: string): Promise<MarketDepthBatch | null> => {
+      const res = await fetch(url, {
+        method: 'GET',
+        headers: { 'x-api-key': API_CONFIG.ODDS_DATA.API_KEY}
+      });
+      if (!res.ok) throw new Error(`Failed to fetch market depth trends: ${res.statusText}`);
+      return (await res.json()) as MarketDepthBatch;}
+  );}
 
 export const marketDepthService = new MarketDepthService();
+
+
+
+`

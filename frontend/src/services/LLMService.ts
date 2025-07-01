@@ -1,23 +1,20 @@
-/**
+﻿/**
  * LLM Service for PropOllama Chat Interface;
  * Provides real AI-powered sports betting analysis and insights;
  */
 
-import { api } from './api.ts';
+import { api} from './api';
 
 export interface LLMRequest {
   prompt: string;
-  context?: any;
-  maxTokens?: number;
-  temperature?: number;
-}
+  context?: any
+  maxTokens?: number
+  temperature?: number}
 
 export interface LLMResponse {
-  content: string;
-  confidence: number;
-  suggestions?: string[];
-  data?: any;
-}
+  content: string,`n  confidence: number;
+  suggestions?: string[0];
+  data?: any}
 
 class LLMService {
   private readonly basePrompt = `You are PropOllama, an expert AI sports betting analyst. You provide accurate, data-driven insights for sports betting, player props, and value betting opportunities. Always include specific reasoning and confidence levels.`;
@@ -27,20 +24,17 @@ class LLMService {
       // For now, we'll generate contextual responses based on the prompt;
       // In production, this would integrate with a real LLM API;
 
-      return response;
-    } catch (error) {
+      return response;} catch (error) {
       // console statement removed
       return {
-        content:
-          "I'm having trouble processing your request right now. Please try again in a moment.",
+        content: "I'm having trouble processing your request right now. Please try again in a moment.",
         confidence: 0,
         suggestions: [
           "Try a different question",
           "Check your connection",
           "Refresh the page",
-        ],
-      };
-    }
+        ]
+      }}
   }
 
   async processChatMessage(
@@ -51,20 +45,17 @@ class LLMService {
       // Process the chat message with context;
       // console statement removed
 
-      return response;
-    } catch (error) {
+      return response;} catch (error) {
       // console statement removed
       return {
-        content:
-          "I'm having trouble processing your message right now. Please try again in a moment.",
+        content: "I'm having trouble processing your message right now. Please try again in a moment.",
         confidence: 0,
         suggestions: [
           "Try asking something else",
           "Refresh the page",
           "Check your connection",
-        ],
-      };
-    }
+        ]
+      }}
   }
 
   private async generateContextualResponse(
@@ -73,29 +64,22 @@ class LLMService {
 
     // Analyze what the user is asking about;
     if (lowerPrompt.includes("prop") || lowerPrompt.includes("player")) {
-      return await this.generatePlayerPropAnalysis();
-    } else if (lowerPrompt.includes("value") || lowerPrompt.includes("bet")) {
-      return await this.generateValueBetAnalysis();
-    } else if (
+      return await this.generatePlayerPropAnalysis();} else if (lowerPrompt.includes("value") || lowerPrompt.includes("bet")) {
+      return await this.generateValueBetAnalysis();} else if (
       lowerPrompt.includes("line") ||
       lowerPrompt.includes("movement")
     ) {
-      return await this.generateLineMovementAnalysis();
-    } else if (
+      return await this.generateLineMovementAnalysis();} else if (
       lowerPrompt.includes("trend") ||
       lowerPrompt.includes("pattern")
     ) {
-      return await this.generateTrendAnalysis();
-    } else if (
+      return await this.generateTrendAnalysis();} else if (
       lowerPrompt.includes("confidence") ||
       lowerPrompt.includes("pick")
     ) {
-      return await this.generateHighConfidencePicks();
-    } else if (lowerPrompt.includes("live") || lowerPrompt.includes("alert")) {
-      return await this.generateLiveAlerts();
-    } else {
-      return await this.generateGeneralResponse();
-    }
+      return await this.generateHighConfidencePicks();} else if (lowerPrompt.includes("live") || lowerPrompt.includes("alert")) {
+      return await this.generateLiveAlerts();} else {
+      return await this.generateGeneralResponse();}
   }
 
   private async generatePlayerPropAnalysis(): Promise<LLMResponse> {
@@ -110,13 +94,11 @@ class LLMService {
               `🎯 **${bet.event}**: ${bet.outcome} @ ${bet.odds}\n` +
               `   📊 Edge: ${(bet.edge * 100).toFixed(1)}% | Confidence: ${(bet.model_prob * 100).toFixed(1)}%\n` +
               `   💡 ${bet.rationale || "Strong analytical support for this pick"}\n`
-            );
-          })
+            )})
           .join("\n");
 
         return {
-          content:
-            `🏀 **Player Prop Analysis - Top Opportunities**\n\n${analysis}\n\n` +
+          content: `🏀 **Player Prop Analysis - Top Opportunities**\n\n${analysis}\n\n` +
             `📈 Analysis complete! Found ${valueBets.length} total opportunities with positive expected value.`,
           confidence: 0.87,
           suggestions: [
@@ -124,23 +106,19 @@ class LLMService {
             "Find props over 90% confidence",
             "Analyze line movements",
             "Show bankroll management for these picks",
-          ],
-        };
-      } else {
+          ]
+        }} else {
         return {
-          content:
-            "🔍 Currently analyzing fresh prop data... No immediate high-value opportunities detected. Market conditions are being monitored for new edges.",
+          content: "🔍 Currently analyzing fresh prop data... No immediate high-value opportunities detected. Market conditions are being monitored for new edges.",
           confidence: 0.65,
           suggestions: [
             "Check back in 15 minutes",
             "Look at arbitrage opportunities instead",
             "Analyze different sports",
-          ],
-        };
-      }
+          ]
+        }}
     } catch (error) {
-      throw new Error("LLM service unavailable for player props analysis");
-    }
+      throw new Error("LLM service unavailable for player props analysis");}
   }
 
   private async generateValueBetAnalysis(): Promise<LLMResponse> {
@@ -157,8 +135,7 @@ class LLMService {
           (valueBets?.length || 1) || 0;
 
       return {
-        content:
-          `💰 **Value Betting Analysis**\n\n` +
+        content: `💰 **Value Betting Analysis**\n\n` +
           `🎯 Found ${totalOpportunities} total opportunities\n` +
           `📊 Average edge: ${(avgEdge * 100).toFixed(1)}%\n` +
           `⚡ ${arbOpportunities?.length || 0} arbitrage opportunities\n` +
@@ -170,11 +147,9 @@ class LLMService {
           "Find arbitrage opportunities",
           "Analyze by sport",
           "Risk management advice",
-        ],
-      };
-    } catch (error) {
-      throw new Error("LLM service unavailable for value betting analysis");
-    }
+        ]
+      }} catch (error) {
+      throw new Error("LLM service unavailable for value betting analysis");}
   }
 
   private async generateLineMovementAnalysis(): Promise<LLMResponse> {
@@ -182,8 +157,7 @@ class LLMService {
 
 
       return {
-        content:
-          `📈 **Line Movement Analysis** - ${currentTime}\n\n` +
+        content: `📈 **Line Movement Analysis** - ${currentTime}\n\n` +
           `⚡ **Active Monitoring**: ${healthData?.metrics?.active_predictions || "Multiple"} live games\n` +
           `📊 **Market Velocity**: Normal trading activity\n` +
           `🎯 **Sharp Movement Detected**:\n` +
@@ -197,17 +171,14 @@ class LLMService {
           "Alert me to steam moves",
           "Track specific games",
           "Explain line movement patterns",
-        ],
-      };
-    } catch (error) {
-      throw new Error("LLM service unavailable for line movement analysis");
-    }
+        ]
+      }} catch (error) {
+      throw new Error("LLM service unavailable for line movement analysis");}
   }
 
   private async generateTrendAnalysis(): Promise<LLMResponse> {
     return {
-      content:
-        `🔥 **Hot Betting Trends**\n\n` +
+      content: `🔥 **Hot Betting Trends**\n\n` +
         `📊 **Current Patterns**:\n` +
         `   • Overs hitting 68% in NBA games\n` +
         `   • Road favorites covering ATS trending\n` +
@@ -224,9 +195,8 @@ class LLMService {
         "Find trend-based picks",
         "Historical trend analysis",
         "Sport-specific trends",
-      ],
-    };
-  }
+      ]
+    }}
 
   private async generateHighConfidencePicks(): Promise<LLMResponse> {
     try {
@@ -236,8 +206,7 @@ class LLMService {
         : "95+";
 
       return {
-        content:
-          `🎯 **High Confidence Picks** (${currentAccuracy}% Model Accuracy)\n\n` +
+        content: `🎯 **High Confidence Picks** (${currentAccuracy}% Model Accuracy)\n\n` +
           `💎 **Premium Selections**:\n` +
           `   • Current model running at ${currentAccuracy}% accuracy\n` +
           `   • 3 picks with 90%+ confidence available\n` +
@@ -252,11 +221,9 @@ class LLMService {
           "Calculate Kelly stakes",
           "Show arbitrage locks",
           "Live betting strategy",
-        ],
-      };
-    } catch (error) {
-      throw new Error("LLM service unavailable for high confidence picks analysis");
-    }
+        ]
+      }} catch (error) {
+      throw new Error("LLM service unavailable for high confidence picks analysis");}
   }
 
   private async generateLiveAlerts(): Promise<LLMResponse> {
@@ -264,8 +231,7 @@ class LLMService {
 
 
       return {
-        content:
-          `⚡ **Live Betting Alerts** - Real-time Monitoring\n\n` +
+        content: `⚡ **Live Betting Alerts** - Real-time Monitoring\n\n` +
           `🔴 **ACTIVE**: ${activeGames} games being monitored\n` +
           `📱 **Live Opportunities**:\n` +
           `   • In-game totals showing value\n` +
@@ -283,17 +249,14 @@ class LLMService {
           "Show current live edges",
           "Explain live betting strategy",
           "Monitor specific games",
-        ],
-      };
-    } catch (error) {
-      throw new Error("LLM service unavailable for live alerts analysis");
-    }
+        ]
+      }} catch (error) {
+      throw new Error("LLM service unavailable for live alerts analysis");}
   }
 
   private async generateGeneralResponse(): Promise<LLMResponse> {
     return {
-      content:
-        `🏀 **PropOllama Ready to Help!**\n\n` +
+      content: `🏀 **PropOllama Ready to Help!**\n\n` +
         `I'm your AI sports betting analyst. Here's what I can do for you:\n\n` +
         `📊 **Analysis**: Player props, team totals, spread analysis\n` +
         `💰 **Value Finding**: Positive EV bets, arbitrage opportunities\n` +
@@ -307,9 +270,13 @@ class LLMService {
         "Find value bets",
         "Show line movements",
         "High confidence picks",
-      ],
-    };
-  }
+      ]
+    }}
 }
 
 export const llmService = new LLMService();
+
+
+
+
+`

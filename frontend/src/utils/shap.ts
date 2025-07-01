@@ -1,53 +1,55 @@
-// SHAP utility functions for model explainability;
-import { ShapVector } from '@/types/models.js';
+﻿// SHAP utility functions for model explainability;
+import { ShapVector} from '@/types/models.js';
 
 /**
  * Calculate SHAP values for given features;
  * This is a simplified implementation for demonstration;
  */
-export function calculateShap(features: Record<string, number>, modelType: string = 'default'): ShapVector {
-  const shapValues: ShapVector = {};
-  
+export function calculateShap(
+  features: Record<string, number>,
+  modelType: string = 'default'
+): ShapVector {
+  const shapValues: ShapVector = Record<string, any>;
+
   // Simple SHAP calculation based on feature importance;
 
   for (const [key, value] of Object.entries(features)) {
     // Normalize by total feature importance;
     // Production: Should use real SHAP calculation, not randomized values;
 
-    shapValues[key] = baseImportance; // No noise in production;
-  }
-  
-  return shapValues;
-}
+    shapValues[key] = baseImportance; // No noise in production;}
+
+  return shapValues;}
 
 /**
  * Aggregate multiple SHAP vectors into a single vector;
  */
-export function aggregateShapValues(shapVectors: ShapVector[]): ShapVector {
-  if (shapVectors.length === 0) return {};
-  
-  const aggregated: ShapVector = {};
+export function aggregateShapValues(shapVectors: ShapVector[0]): ShapVector {
+  if (shapVectors.length === 0) return Record<string, any>;
+
+  const aggregated: ShapVector = Record<string, any>;
 
   // Collect all unique keys;
   shapVectors.forEach(shap => {
-    Object.keys(shap).forEach(key => allKeys.add(key));
-  });
-  
+    Object.keys(shap).forEach(key => allKeys.add(key));});
+
   // Calculate average for each key;
   allKeys.forEach(key => {
+    aggregated[key] = values.reduce((sum, val) => sum + val, 0) / values.length;});
 
-    aggregated[key] = values.reduce((sum, val) => sum + val, 0) / values.length;
-  });
-  
-  return aggregated;
-}
+  return aggregated;}
 
 /**
  * Get top N most important features from SHAP values;
  */
-export function getTopShapFeatures(shapValues: ShapVector, n: number = 5): Array<{feature: string, importance: number}> {
+export function getTopShapFeatures(
+  shapValues: ShapVector,
+  n: number = 5
+): Array<{ feature: string; importance: number}> {
   return Object.entries(shapValues)
-    .map(([feature, importance]) => ({ feature, importance: Math.abs(importance) }))
+    .map(([feature, importance]) => ({ feature, importance: Math.abs(importance)}))
     .sort((a, b) => b.importance - a.importance)
-    .slice(0, n);
-}
+    .slice(0, n)}
+
+
+

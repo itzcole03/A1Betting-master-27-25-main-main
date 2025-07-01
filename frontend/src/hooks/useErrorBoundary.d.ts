@@ -1,3 +1,4 @@
-export declare const useErrorBoundary: () => {
-    showBoundary: (error: Error) => void;
-};
+﻿export declare const useErrorBoundary: () => {,`n  showBoundary: (error: Error) => void};
+
+
+`

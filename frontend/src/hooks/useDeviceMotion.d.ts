@@ -1,21 +1,10 @@
-interface DeviceMotionState {
-    acceleration: {
-        x: number | null;
-        y: number | null;
-        z: number | null;
-    };
-    accelerationIncludingGravity: {
-        x: number | null;
-        y: number | null;
-        z: number | null;
-    };
-    rotationRate: {
-        alpha: number | null;
-        beta: number | null;
-        gamma: number | null;
-    };
-    interval: number | null;
-    error: Error | null;
-}
+﻿interface DeviceMotionState {
+  acceleration: {,`n  x: number | null;,`n  y: number | null,`n  z: number | null};
+  accelerationIncludingGravity: {,`n  x: number | null;,`n  y: number | null,`n  z: number | null};
+  rotationRate: {,`n  alpha: number | null;,`n  beta: number | null,`n  gamma: number | null};
+  interval: number | null,`n  error: Error | null}
 export declare const useDeviceMotion: () => DeviceMotionState;
-export {};
+export Record<string, any>;
+
+
+`

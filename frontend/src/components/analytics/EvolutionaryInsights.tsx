@@ -1,24 +1,22 @@
-import React from 'react.ts';
-import { useUnifiedAnalytics } from '@/hooks/useUnifiedAnalytics.ts';
+﻿import React from 'react';
+import { useUnifiedAnalytics} from '@/hooks/useUnifiedAnalytics';
 
-const exportToJson = (data: any) => {
+const exportToJson = (data: unknown) => {
 
 
 
   a.href = url;
   a.download = 'evolutionary-insights.json';
   a.click();
-  URL.revokeObjectURL(url);
-};
+  URL.revokeObjectURL(url)};
 
 interface EvolutionaryInsightsProps {
-  autoUpdateInterval?: number;
-  showGameTheory?: boolean;
-  showEvolutionaryMetrics?: boolean;
-  showReinforcement?: boolean;
-  showOptimization?: boolean;
-  showRecommendation?: boolean;
-}
+  autoUpdateInterval?: number
+  showGameTheory?: boolean
+  showEvolutionaryMetrics?: boolean
+  showReinforcement?: boolean
+  showOptimization?: boolean
+  showRecommendation?: boolean}
 
 const EvolutionaryInsights: React.FC<EvolutionaryInsightsProps key={694679}> = ({
   autoUpdateInterval = 60000,
@@ -26,11 +24,11 @@ const EvolutionaryInsights: React.FC<EvolutionaryInsightsProps key={694679}> = (
   showEvolutionaryMetrics = true,
   showReinforcement = true,
   showOptimization = true,
-  showRecommendation = true,
+  showRecommendation = true
 }) => {
-  const { ml, betting } = useUnifiedAnalytics({
-    ml: { autoUpdate: true, updateInterval: autoUpdateInterval },
-    betting: true,
+  const { ml, betting} = useUnifiedAnalytics({
+    ml: { autoUpdate: true, updateInterval: autoUpdateInterval},
+    betting: true
   });
 
   if (ml.loading || betting.loading) {
@@ -41,8 +39,7 @@ const EvolutionaryInsights: React.FC<EvolutionaryInsightsProps key={694679}> = (
           className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"
         / key={205544}>
       </div>
-    );
-  }
+    )}
 
   if (ml.error || betting.error) {
     return (
@@ -53,14 +50,12 @@ const EvolutionaryInsights: React.FC<EvolutionaryInsightsProps key={694679}> = (
           className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
           onClick={() = key={602268}> {
             ml.refetch();
-            betting.refetch();
-          }}
+            betting.refetch()}}
         >
           Retry;
         </button>
       </div>
-    );
-  }
+    )}
 
 
   if (!mlResult) {
@@ -68,8 +63,7 @@ const EvolutionaryInsights: React.FC<EvolutionaryInsightsProps key={694679}> = (
       <div className="p-4 text-gray-500" role="status" key={928858}>
         No Evolutionary analytics available.
       </div>
-    );
-  }
+    )}
 
   return (
     <div className="space-y-8" data-testid="evolutionaryinsights-root" key={342355}>
@@ -201,14 +195,13 @@ const EvolutionaryInsights: React.FC<EvolutionaryInsightsProps key={694679}> = (
               className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
               onClick={() = key={299616}> {
                 ml.refetch();
-                betting.refetch();
-              }}
+                betting.refetch()}}
             >
               Refresh Analysis;
             </button>
             <button;
               className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300"
-              onClick={() = key={833748}> exportToJson({ mlResult, bettingResult })}
+              onClick={() = key={833748}> exportToJson({ mlResult, bettingResult})}
             >
               Export JSON;
             </button>
@@ -216,7 +209,12 @@ const EvolutionaryInsights: React.FC<EvolutionaryInsightsProps key={694679}> = (
         </section>
       )}
     </div>
-  );
-};
+  )};
 
 export default React.memo(EvolutionaryInsights);
+
+
+
+
+
+

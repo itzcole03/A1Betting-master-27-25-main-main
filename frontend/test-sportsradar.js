@@ -1,17 +1,19 @@
-#!/usr/bin/env node;
+#!/usr/bin/env node
 
 /**
- * SportsRadar API Integration Test Script;
+ * SportsRadar API Integration Test Script
  * 
  * This script validates the SportsRadar API integration by testing:
- * 1. Environment variable configuration;
- * 2. API health check;
- * 3. Basic API endpoints;
- * 4. Error handling;
+ * 1. Environment variable configuration
+ * 2. API health check
+ * 3. Basic API endpoints
+ * 4. Error handling
  */
 
+const dotenv = require('dotenv');
+const fetch = require('node-fetch');
 
-// Load environment variables;
+// Load environment variables
 dotenv.config({ path: '.env' });
 
 class SportsRadarTester {
@@ -22,22 +24,28 @@ class SportsRadarTester {
   }
 
   log(message, type = 'info') {
-
-
-    // console statement removed
+    const colors = {
+      info: '\x1b[36m',
+      success: '\x1b[32m',
+      error: '\x1b[31m',
+      reset: '\x1b[0m'
+    };
+    console.log(`${colors[type] || colors.info}${message}${colors.reset}`);
   }
 
   async test(name, testFn) {
     this.log(`Testing: ${name}`, 'info');
-
+    
+    const startTime = Date.now();
     try {
-
-
+      const result = await testFn();
+      const duration = Date.now() - startTime;
+      
       this.log(`✅ ${name} - Success (${duration}ms)`, 'success');
       this.results.push({ name, status: 'success', duration, result });
       return result;
     } catch (error) {
-
+      const duration = Date.now() - startTime;
       this.log(`❌ ${name} - Failed: ${error.message} (${duration}ms)`, 'error');
       this.results.push({ name, status: 'error', duration, error: error.message });
       throw error;
@@ -57,15 +65,17 @@ class SportsRadarTester {
       return {
         hasApiKey: !!this.apiKey,
         baseUrl: this.baseUrl,
-        apiKeyLength: this.apiKey.length;
+        apiKeyLength: this.apiKey.length
       };
     });
   }
 
   async checkApiAccess() {
     return this.test('API Basic Access', async () => {
-      // Test a simple NBA endpoint that should be accessible;
-
+      // Test a simple NBA endpoint that should be accessible
+      const url = `${this.baseUrl}/nba/v7/en/league/hierarchy.json?api_key=${this.apiKey}`;
+      const response = await fetch(url);
+      const data = await response.json();
 
       if (!response.ok) {
         throw new Error(`API returned ${response.status}: ${response.statusText}`);
@@ -81,8 +91,10 @@ class SportsRadarTester {
 
   async checkOddsApi() {
     return this.test('Odds Comparison API', async () => {
-      // Test odds comparison endpoint;
-
+      // Test odds comparison endpoint
+      const url = `${this.baseUrl}/nba/odds/v4/en/markets/moneyline/events/schedule.json?api_key=${this.apiKey}`;
+      const response = await fetch(url);
+      const data = await response.json();
 
       if (!response.ok) {
         throw new Error(`Odds API returned ${response.status}: ${response.statusText}`);
@@ -91,23 +103,26 @@ class SportsRadarTester {
       return {
         status: response.status,
         hasEvents: Array.isArray(data.events),
-        eventCount: data.events?.length || 0;
+        eventCount: data.events?.length || 0
       };
     });
   }
 
   async checkRateLimit() {
     return this.test('Rate Limiting', async () => {
-
-      // Make two quick requests to test rate limiting;
-
+      const startTime = Date.now();
+      const url = `${this.baseUrl}/nba/v7/en/league/hierarchy.json?api_key=${this.apiKey}`;
+      
+      // Make two quick requests to test rate limiting
       await fetch(url);
-      await new Promise(resolve => setTimeout(resolve, 1100)); // Wait 1.1 seconds;
+      await new Promise(resolve => setTimeout(resolve, 1100)); // Wait 1.1 seconds
       await fetch(url);
+      
+      const duration = Date.now() - startTime;
 
       return {
         totalDuration: duration,
-        rateLimitRespected: duration >= 1000 // Should take at least 1 second due to rate limiting;
+        rateLimitRespected: duration >= 1000 // Should take at least 1 second due to rate limiting
       };
     });
   }
@@ -138,14 +153,15 @@ class SportsRadarTester {
   }
 
   printSummary() {
-
-
+    const total = this.results.length;
+    const success = this.results.filter(r => r.status === 'success').length;
+    const failed = total - success;
 
     this.log(`📊 Test Summary: ${success}/${total} tests passed`, 'info');
     
     if (failed > 0) {
       this.log(`❌ ${failed} tests failed:`, 'error');
-      this.results;
+      this.results
         .filter(r => r.status === 'error')
         .forEach(r => this.log(`  - ${r.name}: ${r.error}`, 'error'));
     }
@@ -158,9 +174,9 @@ class SportsRadarTester {
   }
 }
 
-// Run the tests;
+// Run the tests
 if (require.main === module) {
-
+  const tester = new SportsRadarTester();
   tester.runAllTests().catch(console.error);
 }
 

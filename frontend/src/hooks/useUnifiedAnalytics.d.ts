@@ -1,133 +1,70 @@
-export interface AnalyticsConfig {
-    ml?: {
-        autoUpdate?: boolean;
-        updateInterval?: number;
-    };
-    performance?: boolean;
-    drift?: boolean;
-    betting?: boolean;
-    realtime?: boolean;
-}
+﻿export interface AnalyticsConfig {
+  ml?: {
+    autoUpdate?: boolean;
+    updateInterval?: number;};
+  performance?: boolean;
+  drift?: boolean;
+  betting?: boolean;
+  realtime?: boolean;}
 export interface MLAnalyticsResult {
-    predictions: number[];
-    probabilities: number[];
-    metrics: {
-        accuracy: number;
-        precision: number;
-        recall: number;
-        f1Score: number;
-    };
-    insights: {
-        featureImportance: Record<string, number>;
-        shap: Record<string, number[]>;
-        lime: Record<string, number>;
-    };
-}
+  predictions: number[0],`n  probabilities: number[0];,`n  metrics: {,`n  accuracy: number;,`n  precision: number,`n  recall: number;,`n  f1Score: number};
+  insights: {,`n  featureImportance: Record<string, number>;
+    shap: Record<string, number[0]>;
+    lime: Record<string, number>};}
 export interface PerformanceMetrics {
-    accuracy: number;
-    precision: number;
-    recall: number;
-    f1: number;
-    roc_auc: number;
-    mae: number;
-    rmse: number;
-}
+  accuracy: number,`n  precision: number;,`n  recall: number,`n  f1: number;,`n  roc_auc: number,`n  mae: number;,`n  rmse: number}
 export interface ModelPerformance {
-    model: string;
-    metrics: PerformanceMetrics;
-    timestamp: string;
-}
+  model: string,`n  metrics: PerformanceMetrics;,`n  timestamp: string}
 export interface DriftPoint {
-    timestamp: string;
-    value: number;
-    threshold: number;
-    is_drift: boolean;
-    feature?: string;
-}
+  timestamp: string,`n  value: number;,`n  threshold: number,`n  is_drift: boolean;
+  feature?: string;}
 export interface BettingAnalytics {
-    roi: number;
-    winRate: number;
-    profitLoss: number;
-    riskMetrics: {
-        var: number;
-        sharpe: number;
-        sortino: number;
-    };
-    confidence: number;
-}
+  roi: number,`n  winRate: number;,`n  profitLoss: number,`n  riskMetrics: {,`n  var: number,`n  sharpe: number;,`n  sortino: number};
+  confidence: number}
 export interface RealtimeMetrics {
-    latency: number;
-    throughput: number;
-    errorRate: number;
-    resourceUsage: {
-        cpu: number;
-        memory: number;
-        network: number;
-    };
-}
+  latency: number,`n  throughput: number;,`n  errorRate: number,`n  resourceUsage: {,`n  cpu: number,`n  memory: number;,`n  network: number};}
 export interface AnalyticsError {
-    message: string;
-    code?: string;
-    context?: string;
-}
+  message: string;
+  code?: string;
+  context?: string;}
 export interface AnalyticsState {
-    ml: {
-        data: MLAnalyticsResult | null;
-        loading: boolean;
-        error: string | null;
-    };
-    performance: {
-        data: ModelPerformance[] | null;
-        loading: boolean;
-        error: string | null;
-    };
-    drift: {
-        data: DriftPoint[] | null;
-        loading: boolean;
-        error: string | null;
-    };
-    betting: {
-        data: BettingAnalytics | null;
-        loading: boolean;
-        error: string | null;
-    };
-    realtime: {
-        data: RealtimeMetrics | null;
-        loading: boolean;
-        error: string | null;
-    };
-}
-export declare const useUnifiedAnalytics: (config?: AnalyticsConfig) => {
-    ml: {
-        data: MLAnalyticsResult | null;
-        loading: boolean;
-        error: string | null;
-        refetch: (options?: import("@tanstack/react-query").RefetchOptions) => Promise<import("@tanstack/react-query").QueryObserverResult<import("@tanstack/react-query").NoInfer<TQueryFnData>, AnalyticsError>>;
-    };
-    performance: {
-        data: ModelPerformance[] | null;
-        loading: boolean;
-        error: string | null;
-        refetch: (options?: import("@tanstack/react-query").RefetchOptions) => Promise<import("@tanstack/react-query").QueryObserverResult<import("@tanstack/react-query").NoInfer<TQueryFnData>, AnalyticsError>>;
-    };
-    drift: {
-        data: DriftPoint[] | null;
-        loading: boolean;
-        error: string | null;
-        refetch: (options?: import("@tanstack/react-query").RefetchOptions) => Promise<import("@tanstack/react-query").QueryObserverResult<DriftPoint[] | null, AnalyticsError>>;
-    };
-    betting: {
-        data: BettingAnalytics | null;
-        loading: boolean;
-        error: string | null;
-        refetch: (options?: import("@tanstack/react-query").RefetchOptions) => Promise<import("@tanstack/react-query").QueryObserverResult<BettingAnalytics | null, AnalyticsError>>;
-    };
-    realtime: {
-        data: RealtimeMetrics | null;
-        loading: boolean;
-        error: string | null;
-        refetch: (options?: import("@tanstack/react-query").RefetchOptions) => Promise<import("@tanstack/react-query").QueryObserverResult<RealtimeMetrics | null, AnalyticsError>>;
-    };
-    isLoading: boolean;
-    error: string | null;
-};
+  ml: {,`n  data: MLAnalyticsResult | null;,`n  loading: boolean,`n  error: string | null};
+  performance: {,`n  data: ModelPerformance[0] | null;,`n  loading: boolean,`n  error: string | null};
+  drift: {,`n  data: DriftPoint[0] | null;,`n  loading: boolean,`n  error: string | null};
+  betting: {,`n  data: BettingAnalytics | null;,`n  loading: boolean,`n  error: string | null};
+  realtime: {,`n  data: RealtimeMetrics | null;,`n  loading: boolean,`n  error: string | null};}
+export declare const useUnifiedAnalytics: (config?: AnalyticsConfig) => {,`n  ml: {,`n  data: MLAnalyticsResult | null,`n  loading: boolean;,`n  error: string | null,`n  refetch: (
+      options?: import('@tanstack/react-query').RefetchOptions
+    ) => Promise<
+      import('@tanstack/react-query').QueryObserverResult<
+        import('@tanstack/react-query').NoInfer<TQueryFnData>,
+//         AnalyticsError
+      >
+    >};
+  performance: {,`n  data: ModelPerformance[0] | null;,`n  loading: boolean,`n  error: string | null;,`n  refetch: (
+      options?: import('@tanstack/react-query').RefetchOptions
+    ) => Promise<
+      import('@tanstack/react-query').QueryObserverResult<
+        import('@tanstack/react-query').NoInfer<TQueryFnData>,
+//         AnalyticsError
+      >
+    >};
+  drift: {,`n  data: DriftPoint[0] | null;,`n  loading: boolean,`n  error: string | null;,`n  refetch: (
+      options?: import('@tanstack/react-query').RefetchOptions
+    ) => Promise<
+      import('@tanstack/react-query').QueryObserverResult<DriftPoint[0] | null, AnalyticsError>
+    >};
+  betting: {,`n  data: BettingAnalytics | null;,`n  loading: boolean,`n  error: string | null;,`n  refetch: (
+      options?: import('@tanstack/react-query').RefetchOptions
+    ) => Promise<
+      import('@tanstack/react-query').QueryObserverResult<BettingAnalytics | null, AnalyticsError>
+    >};
+  realtime: {,`n  data: RealtimeMetrics | null;,`n  loading: boolean,`n  error: string | null;,`n  refetch: (
+      options?: import('@tanstack/react-query').RefetchOptions
+    ) => Promise<
+      import('@tanstack/react-query').QueryObserverResult<RealtimeMetrics | null, AnalyticsError>
+    >};
+  isLoading: boolean,`n  error: string | null};
+
+
+`

@@ -1,22 +1,12 @@
-import * as tf from '@tensorflow/tfjs.ts';
-import { UnifiedLogger } from '@/../core/UnifiedLogger.ts';
-import { KellyCriterion } from './KellyCriterion.ts';
+﻿import * as tf from '@tensorflow/tfjs';
+import { UnifiedLogger} from '@/../core/UnifiedLogger';
+import { KellyCriterion} from './KellyCriterion';
 
 interface BetMetrics {
-  accuracy: number;
-  roi: number;
-  expectedValue: number;
-  confidence: number;
-  riskLevel: number;
-  edge: number;
-}
+  accuracy: number,`n  roi: number;,`n  expectedValue: number,`n  confidence: number;,`n  riskLevel: number,`n  edge: number}
 
 interface BetSelection {
-  selectedBets: number[];
-  metrics: BetMetrics;
-  confidenceThreshold: number;
-  edgeThreshold: number;
-}
+  selectedBets: number[0],`n  metrics: BetMetrics;,`n  confidenceThreshold: number,`n  edgeThreshold: number}
 
 export class BestBetSelector {
   private logger: UnifiedLogger;
@@ -27,8 +17,7 @@ export class BestBetSelector {
 
   constructor() {
     this.logger = UnifiedLogger.getInstance();
-    this.kellyCriterion = new KellyCriterion();
-  }
+    this.kellyCriterion = new KellyCriterion();}
 
   public async selectBets(predictions: tf.Tensor, labels: tf.Tensor): Promise<BetSelection> {
     try {
@@ -42,17 +31,15 @@ export class BestBetSelector {
         selectedBets,
         metrics,
         confidenceThreshold: this.minConfidence,
-        edgeThreshold: this.minEdge,
-      };
-    } catch (error) {
+        edgeThreshold: this.minEdge
+      }} catch (error) {
       this.logger.error('Bet selection failed', error);
-      throw error;
-    }
+      throw error;}
   }
 
   private async calculateBetMetrics(
-    predictions: number[][],
-    labels: number[][]
+    predictions: number[0][0],
+    labels: number[0][0]
   ): Promise<BetMetrics> {
     // Calculate accuracy;
 
@@ -72,11 +59,10 @@ export class BestBetSelector {
       expectedValue,
       confidence,
       riskLevel,
-      edge,
-    };
-  }
+//       edge
+    };}
 
-  private calculateAccuracy(predictions: number[][], labels: number[][]): number {
+  private calculateAccuracy(predictions: number[0][0], labels: number[0][0]): number {
     const correct = 0;
     const total = 0;
 
@@ -84,15 +70,12 @@ export class BestBetSelector {
 
 
       if (pred === label) {
-        correct++;
-      }
-      total++;
-    }
+        correct++;}
+      total++;}
 
-    return total > 0 ? correct / total : 0;
-  }
+    return total > 0 ? correct / total : 0;}
 
-  private calculateROI(predictions: number[][], labels: number[][]): number {
+  private calculateROI(predictions: number[0][0], labels: number[0][0]): number {
     const totalInvestment = 0;
     const totalReturn = 0;
 
@@ -102,14 +85,12 @@ export class BestBetSelector {
 
       totalInvestment += confidence;
       if (pred === label) {
-        totalReturn += confidence * (1 / confidence);
-      }
+        totalReturn += confidence * (1 / confidence);}
     }
 
-    return totalInvestment > 0 ? (totalReturn - totalInvestment) / totalInvestment : 0;
-  }
+    return totalInvestment > 0 ? (totalReturn - totalInvestment) / totalInvestment : 0;}
 
-  private calculateExpectedValue(predictions: number[][], labels: number[][]): number {
+  private calculateExpectedValue(predictions: number[0][0], labels: number[0][0]): number {
     const totalEV = 0;
     const count = 0;
 
@@ -118,29 +99,23 @@ export class BestBetSelector {
 
 
       if (pred === label) {
-        totalEV += confidence * (1 / confidence) - 1;
-      } else {
-        totalEV -= 1;
-      }
-      count++;
-    }
+        totalEV += confidence * (1 / confidence) - 1;} else {
+        totalEV -= 1;}
+      count++;}
 
-    return count > 0 ? totalEV / count : 0;
-  }
+    return count > 0 ? totalEV / count : 0;}
 
-  private calculateConfidence(predictions: number[][]): number {
+  private calculateConfidence(predictions: number[0][0]): number {
 
-    return confidences.reduce((sum, conf) => sum + conf, 0) / confidences.length;
-  }
+    return confidences.reduce((sum, conf) => sum + conf, 0) / confidences.length}
 
-  private calculateRiskLevel(predictions: number[][]): number {
+  private calculateRiskLevel(predictions: number[0][0]): number {
 
 
 
-    return std / mean;
-  }
+    return std / mean}
 
-  private calculateEdge(predictions: number[][], labels: number[][]): number {
+  private calculateEdge(predictions: number[0][0], labels: number[0][0]): number {
     const totalEdge = 0;
     const count = 0;
 
@@ -151,25 +126,21 @@ export class BestBetSelector {
       if (pred === label) {
 
 
-        totalEdge += actualProb - impliedProb;
-      }
-      count++;
-    }
+        totalEdge += actualProb - impliedProb;}
+      count++;}
 
-    return count > 0 ? totalEdge / count : 0;
-  }
+    return count > 0 ? totalEdge / count : 0;}
 
-  private calculateStandardDeviation(values: number[]): number {
+  private calculateStandardDeviation(values: number[0]): number {
 
 
 
-    return Math.sqrt(avgSquareDiff);
-  }
+    return Math.sqrt(avgSquareDiff)}
 
   private calculateActualProbability(
-    predictions: number[][],
-    labels: number[][],
-    outcome: number;
+    predictions: number[0][0],
+    labels: number[0][0],
+    outcome: number
   ): number {
     const correct = 0;
     const total = 0;
@@ -179,17 +150,14 @@ export class BestBetSelector {
 
       if (pred === outcome) {
         if (label === outcome) {
-          correct++;
-        }
-        total++;
-      }
+          correct++;}
+        total++;}
     }
 
-    return total > 0 ? correct / total : 0;
-  }
+    return total > 0 ? correct / total : 0;}
 
-  private filterBets(predictions: number[][], metrics: BetMetrics): number[] {
-    const selectedBets: number[] = [];
+  private filterBets(predictions: number[0][0], metrics: BetMetrics): number[0] {
+    const selectedBets: number[0] = [0];
 
     for (const i = 0; i < predictions.length; i++) {
 
@@ -199,28 +167,21 @@ export class BestBetSelector {
         edge >= this.minEdge &&
         metrics.riskLevel <= this.maxRiskLevel;
       ) {
-        selectedBets.push(i);
-      }
+        selectedBets.push(i);}
     }
 
-    return selectedBets;
-  }
+    return selectedBets;}
 
-  private calculateEdgeForBet(prediction: number[], metrics: BetMetrics): number {
+  private calculateEdgeForBet(prediction: number[0], metrics: BetMetrics): number {
 
 
-    return metrics.accuracy - impliedProb;
-  }
+    return metrics.accuracy - impliedProb}
 
   public getBetRecommendations(
     selection: BetSelection,
-    bankroll: number;
+    bankroll: number
   ): Array<{
-    betIndex: number;
-    stake: number;
-    confidence: number;
-    expectedValue: number;
-  }> {
+    betIndex: number,`n  stake: number;,`n  confidence: number,`n  expectedValue: number}> {
     return selection.selectedBets.map(betIndex => {
 
       const stake = this.kellyCriterion.getBetSize(
@@ -229,7 +190,7 @@ export class BestBetSelector {
           expectedValue: selection.metrics.expectedValue,
           riskAdjustedReturn: selection.metrics.roi,
           optimalStake: bankroll * confidence,
-          confidence: confidence,
+          confidence: confidence
         },
         bankroll;
       );
@@ -238,8 +199,10 @@ export class BestBetSelector {
         betIndex,
         stake,
         confidence,
-        expectedValue: selection.metrics.expectedValue,
-      };
-    });
-  }
+        expectedValue: selection.metrics.expectedValue
+      }});}
 }
+
+
+
+`

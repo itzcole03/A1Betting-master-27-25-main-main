@@ -1,14 +1,6 @@
-export interface ModelPerformance {
-  model: string;
-  accuracy: number;
-  precision: number;
-  recall: number;
-  f1Score: number;
-  timestamp: string;
-  metrics: {
-    f1: number;
-    accuracy: number;
-    precision: number;
-    recall: number;
-  };
-}
+﻿export interface ModelPerformance {
+  model: string,`n  accuracy: number;,`n  precision: number,`n  recall: number;,`n  f1Score: number,`n  timestamp: string;,`n  metrics: {,`n  f1: number;,`n  accuracy: number,`n  precision: number;,`n  recall: number}}
+
+
+
+`

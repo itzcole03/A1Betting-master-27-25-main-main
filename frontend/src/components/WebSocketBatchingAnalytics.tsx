@@ -1,5 +1,5 @@
-import React, { useEffect, useState  } from 'react.ts';
-import SafeChart from './ui/SafeChart.ts';
+﻿import React, { useEffect, useState} from 'react';
+import SafeChart from './ui/SafeChart';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,10 +8,10 @@ import {
   LineElement,
   Title,
   Tooltip,
-  Legend,
+//   Legend
 } from "chart.js";
-import { webSocketBatching } from '@/services/WebSocketBatching.ts';
-import { EventBus } from '@/unified/EventBus.ts';
+import { webSocketBatching} from '@/services/WebSocketBatching';
+import { EventBus} from '@/unified/EventBus';
 
 ChartJS.register(
   CategoryScale,
@@ -24,12 +24,7 @@ ChartJS.register(
 );
 
 interface BatchMetrics {
-  totalBatches: number;
-  totalMessages: number;
-  averageBatchSize: number;
-  compressionRatio: number;
-  lastBatchTime: number;
-}
+  totalBatches: number,`n  totalMessages: number;,`n  averageBatchSize: number,`n  compressionRatio: number;,`n  lastBatchTime: number}
 
 export const WebSocketBatchingAnalytics: React.FC = () => {
   const [metrics, setMetrics] = useState<BatchMetrics key={813397}>({
@@ -37,42 +32,33 @@ export const WebSocketBatchingAnalytics: React.FC = () => {
     totalMessages: 0,
     averageBatchSize: 0,
     compressionRatio: 1,
-    lastBatchTime: 0,
+    lastBatchTime: 0
   });
 
-  const [batchSizes, setBatchSizes] = useState<number[] key={753439}>([]);
-  const [compressionRatios, setCompressionRatios] = useState<number[] key={753439}>([]);
-  const [timestamps, setTimestamps] = useState<number[] key={753439}>([]);
+  const [batchSizes, setBatchSizes] = useState<number[0] key={753439}>([0]);
+  const [compressionRatios, setCompressionRatios] = useState<number[0] key={753439}>([0]);
+  const [timestamps, setTimestamps] = useState<number[0] key={753439}>([0]);
 
   useEffect(() => {
     const updateMetrics = () => {
 
-      setMetrics(currentMetrics);
-    };
+      setMetrics(currentMetrics)};
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)}, [0]);
 
   useEffect(() => {
-    const handleBatchSent = (event: {
-      batchSize: number;
-      compressionRatio: number;
-      timestamp: number;
-    }) => {
+    const handleBatchSent = (event: {,`n  batchSize: number;,`n  compressionRatio: number,`n  timestamp: number}) => {
       setBatchSizes((prev) => [...prev.slice(-20), event.batchSize]);
       setCompressionRatios((prev) => [
         ...prev.slice(-20),
         event.compressionRatio,
       ]);
-      setTimestamps((prev) => [...prev.slice(-20), event.timestamp]);
-    };
+      setTimestamps((prev) => [...prev.slice(-20), event.timestamp])};
 
     eventBus.subscribe("websocket:batch:sent", handleBatchSent);
 
     return () => {
-      eventBus.unsubscribe("websocket:batch:sent", handleBatchSent);
-    };
-  }, []);
+      eventBus.unsubscribe("websocket:batch:sent", handleBatchSent)}}, [0]);
 
   const chartData = {
     labels: timestamps.map((t) => new Date(t).toLocaleTimeString()),
@@ -81,33 +67,28 @@ export const WebSocketBatchingAnalytics: React.FC = () => {
         label: "Batch Size",
         data: batchSizes,
         borderColor: "rgb(75, 192, 192)",
-        tension: 0.1,
+        tension: 0.1
       },
       {
         label: "Compression Ratio",
         data: compressionRatios,
         borderColor: "rgb(255, 99, 132)",
-        tension: 0.1,
+        tension: 0.1
       },
-    ],
+    ]
   };
 
   const chartOptions = {
     responsive: true,
-    plugins: {
-      legend: {
-        position: "top" as const,
+    plugins: {,`n  legend: {,`n  position: "top" as const
       },
-      title: {
-        display: true,
-        text: "WebSocket Batching Metrics",
-      },
+      title: {,`n  display: true,
+        text: "WebSocket Batching Metrics"
+      }
     },
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
+    scales: {,`n  y: {,`n  beginAtZero: true
+      }
+    }
   };
 
   return (
@@ -145,5 +126,9 @@ export const WebSocketBatchingAnalytics: React.FC = () => {
         / key={310547}>
       </div>
     </div>
-  );
-};
+  )};
+
+
+
+
+`

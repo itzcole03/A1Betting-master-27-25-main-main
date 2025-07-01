@@ -5,7 +5,6 @@ Containerized ML model serving with ensemble predictions, model versioning, and 
 import asyncio
 import json
 import logging
-import pickle
 import random
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -18,30 +17,30 @@ logger = logging.getLogger(__name__)
 
 # Optional imports with fallbacks
 try:
-    import joblib  # type: ignore[import]
+    import joblib
 except ImportError:
-    logger.warning("joblib not available, using pickle fallback")
+    logger.critical("joblib is not installed, which is required for loading ML models. Please install it.")
     joblib = None
 
 try:
-    import numpy as np  # type: ignore[import]
+    import numpy as np
 
     # Silence the unused import warning by using it
-    _ = np  # type: ignore[misc]
+    _ = np
 except ImportError:
     logger.warning("numpy not available, using Python fallbacks")
     np = None
 
 try:
-    from config import config_manager  # type: ignore[import]
+    from config import config_manager
 except ImportError:
     logger.warning("config_manager not available, using defaults")
     config_manager = None
 
 try:
-    from database import ModelPerformance  # type: ignore[import]
-    from database import PredictionModel  # type: ignore[name-defined]
-    from database import db_manager  # type: ignore[import]
+    from database import ModelPerformance
+    from database import PredictionModel
+    from database import db_manager
 except ImportError:
     logger.warning("database modules not available, using mock implementations")
     ModelPerformance = None
@@ -49,7 +48,7 @@ except ImportError:
     db_manager = None
 
 try:
-    from feature_engineering import FeatureEngineering  # type: ignore[import]
+    from feature_engineering import FeatureEngineering
 except ImportError:
     logger.warning("feature_engineering not available, using mock implementation")
 
@@ -57,7 +56,7 @@ except ImportError:
         def prepare_features(self, *_args: Any, **_kwargs: Any) -> Dict[str, Any]:
             return {}
 
-    FeatureEngineering = MockFeatureEngineering  # type: ignore[assignment,misc]
+    FeatureEngineering = MockFeatureEngineering
 
 
 @dataclass
@@ -71,10 +70,10 @@ class ModelMetadata:
     features: List[str]
     target: str
     training_date: datetime
-    performance_metrics: Dict[str, float] = field(default_factory=dict)  # type: ignore[misc]
+    performance_metrics: Dict[str, float] = field(default_factory=dict)
     weight: float = 1.0
     is_active: bool = True
-    preprocessing_config: Dict[str, Any] = field(default_factory=dict)  # type: ignore[misc]
+    preprocessing_config: Dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -85,7 +84,7 @@ class PredictionRequest:
     features: Dict[str, Union[float, int]]
     model_names: Optional[List[str]] = None
     require_explanations: bool = False
-    metadata: Dict[str, Any] = field(default_factory=dict)  # type: ignore[misc]
+    metadata: Dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -96,10 +95,10 @@ class ModelPrediction:
     model_version: str
     predicted_value: float
     confidence: float
-    feature_importance: Dict[str, float] = field(default_factory=dict)  # type: ignore[misc]
-    shap_values: Dict[str, float] = field(default_factory=dict)  # type: ignore[misc]
+    feature_importance: Dict[str, float] = field(default_factory=dict)
+    shap_values: Dict[str, float] = field(default_factory=dict)
     processing_time: float = 0.0
-    model_metadata: Dict[str, Any] = field(default_factory=dict)  # type: ignore[misc]
+    model_metadata: Dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -110,7 +109,7 @@ class EnsemblePrediction:
     final_prediction: float
     ensemble_confidence: float
     model_predictions: List[ModelPrediction]
-    feature_engineering_stats: Dict[str, Any] = field(default_factory=dict)  # type: ignore[misc]
+    feature_engineering_stats: Dict[str, Any] = field(default_factory=dict)
     processing_time: float = 0.0
     timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
@@ -127,31 +126,40 @@ class ModelLoader:
     async def load_model(self, metadata: ModelMetadata) -> bool:
         """Load a model into memory"""
         try:
+            if not joblib:
+                logger.error("Cannot load models because joblib is not installed.")
+                return False
+
             model_path = self.models_directory / metadata.file_path
 
             if not model_path.exists():
-                logger.error("Model file not found: {model_path}")
+                logger.error(f"Model file not found: {model_path}")
                 return False
 
             # Load model in thread pool to avoid blocking
             loop = asyncio.get_event_loop()
 
             if metadata.model_type in ["xgboost", "lightgbm", "random_forest"]:
-                model = await loop.run_in_executor(  # type: ignore[misc]
-                    self.executor, joblib.load, str(model_path)  # type: ignore[misc]
+                model = await loop.run_in_executor(
+                    self.executor, joblib.load, str(model_path)
                 )
             elif metadata.model_type == "neural_net":
-                # For neural networks, you might use different loading
-                model = await loop.run_in_executor(
-                    self.executor, pickle.load, open(model_path, "rb")
+                # For neural networks, using pickle is insecure.
+                # A framework-specific safe loading mechanism should be used.
+                logger.critical(
+                    f"Refusing to load neural network model '{metadata.name}' from a pickle file due to security risks. "
+                    f"Please save and load this model using a secure, framework-native format "
+                    f"(e.g., model.save() and tf.keras.models.load_model() for Keras, "
+                    f"or torch.save(model.state_dict(), ...) and model.load_state_dict() for PyTorch)."
                 )
+                return False
             else:
                 raise ValueError(f"Unsupported model type: {metadata.model_type}")
 
             self.loaded_models[metadata.name] = model
             self.model_metadata[metadata.name] = metadata
 
-            logger.info("Loaded model {metadata.name} v{metadata.version}")
+            logger.info(f"Loaded model {metadata.name} v{metadata.version}")
             return True
 
         except Exception as e:  # pylint: disable=broad-exception-caught
@@ -244,8 +252,8 @@ class ModelInferenceEngine:
             processing_time = time.time() - start_time
 
             # Update stats
-            model_usage = self.inference_stats["model_usage"]  # type: ignore[misc]
-            model_usage[model_name] = model_usage.get(model_name, 0) + 1  # type: ignore[misc]
+            model_usage = self.inference_stats["model_usage"]
+            model_usage[model_name] = model_usage.get(model_name, 0) + 1
 
             return ModelPrediction(
                 model_name=model_name,
@@ -276,7 +284,7 @@ class ModelInferenceEngine:
                 name
                 for name in model_names
                 if self.model_loader.get_metadata(name)
-                and getattr(self.model_loader.get_metadata(name), "is_active", True)  # type: ignore[misc]
+                and getattr(self.model_loader.get_metadata(name), "is_active", True)
             ]
 
             if not active_models:
@@ -284,7 +292,7 @@ class ModelInferenceEngine:
 
             # Feature engineering
             fe_start = time.time()
-            engineered_features = self.feature_engineer.preprocess_features(  # type: ignore[misc]
+            engineered_features = self.feature_engineer.preprocess_features(
                 request.features
             )
             fe_time = time.time() - fe_start
@@ -293,7 +301,7 @@ class ModelInferenceEngine:
             prediction_tasks = [
                 self.predict_single_model(
                     model_name,
-                    engineered_features.get("features", request.features),  # type: ignore[misc]
+                    engineered_features.get("features", request.features),
                     request.require_explanations,
                 )
                 for model_name in active_models
@@ -332,39 +340,39 @@ class ModelInferenceEngine:
                 model_predictions=successful_predictions,
                 feature_engineering_stats={
                     "processing_time": fe_time,
-                    "features_count": len(engineered_features.get("features", {})),  # type: ignore[misc]
-                    "anomaly_detected": bool(engineered_features.get("anomaly_scores")),  # type: ignore[misc]
+                    "features_count": len(engineered_features.get("features", {})),
+                    "anomaly_detected": bool(engineered_features.get("anomaly_scores")),
                 },
                 processing_time=processing_time,
             )
 
         except Exception as e:  # pylint: disable=broad-exception-caught
-            self.inference_stats["failed_predictions"] += 1  # type: ignore[misc]
+            self.inference_stats["failed_predictions"] += 1
             logger.error("Error in ensemble prediction: %s", e)
             raise
 
     def _prepare_features(
         self, features: Dict[str, Union[float, int]], expected_features: List[str]
-    ) -> Optional[List[float]]:  # type: ignore[misc]
+    ) -> Optional[List[float]]:
         """Prepare features for model input"""
         try:
             # Ensure all required features are present
             feature_vector = []
             for feature_name in expected_features:
                 if feature_name in features:
-                    feature_vector.append(float(features[feature_name]))  # type: ignore[misc]
+                    feature_vector.append(float(features[feature_name]))
                 else:
                     logger.warning("Missing feature: %s", feature_name)
-                    feature_vector.append(0.0)  # Default value  # type: ignore[misc]
+                    feature_vector.append(0.0)
 
-            return feature_vector  # type: ignore[return-value]
+            return feature_vector
 
         except Exception as e:  # pylint: disable=broad-exception-caught
             logger.error("Error preparing features: %s", e)
             return None
 
     def _predict_with_model(
-        self, model: Any, features: List[float], model_type: str  # type: ignore[misc]
+        self, model: Any, features: List[float], model_type: str
     ) -> float:
         """Make prediction with specific model type"""
         if model_type in ["xgboost", "lightgbm", "random_forest"]:
@@ -377,19 +385,19 @@ class ModelInferenceEngine:
         return float(prediction)
 
     def _calculate_confidence(
-        self, model: Any, features: List[float], model_type: str  # type: ignore[misc]
+        self, model: Any, features: List[float], model_type: str
     ) -> float:
         """Calculate prediction confidence"""
         try:
             if model_type == "random_forest":
                 # Use prediction variance across trees with pure Python
                 predictions = [
-                    tree.predict(features)[0] for tree in getattr(model, "estimators_", [])  # type: ignore[misc]
+                    tree.predict(features)[0] for tree in getattr(model, "estimators_", [])
                 ]
                 if predictions:
                     mean_pred = sum(predictions) / len(predictions)
-                    variance = sum((p - mean_pred) ** 2 for p in predictions) / len(predictions)  # type: ignore[misc]
-                    confidence = max(0.1, 1.0 - min(variance, 1.0))  # type: ignore[misc]
+                    variance = sum((p - mean_pred) ** 2 for p in predictions) / len(predictions)
+                    confidence = max(0.1, 1.0 - min(variance, 1.0))
                 else:
                     confidence = 0.7
             elif model_type in ["xgboost", "lightgbm"]:
@@ -438,7 +446,7 @@ class ModelInferenceEngine:
             # This would require SHAP library integration
             # For now, return mock SHAP values
             return {
-                feature_name: float(random.uniform(-1, 1))  # type: ignore[misc]
+                feature_name: float(random.uniform(-1, 1))
                 for feature_name in metadata.features
             }
         except Exception as e:  # pylint: disable=broad-exception-caught
@@ -465,13 +473,13 @@ class ModelInferenceEngine:
 
         if total_weight == 0:
             # Fallback to simple average
-            final_prediction = sum(p.predicted_value for p in predictions) / len(predictions)  # type: ignore[attr-defined]
-            ensemble_confidence = sum(p.confidence for p in predictions) / len(predictions)  # type: ignore[attr-defined]
+            final_prediction = sum(p.predicted_value for p in predictions) / len(predictions)
+            ensemble_confidence = sum(p.confidence for p in predictions) / len(predictions)
         else:
             final_prediction = weighted_sum / total_weight
             ensemble_confidence = confidence_sum / len(predictions)
 
-        return float(final_prediction), float(ensemble_confidence)  # type: ignore[misc]
+        return float(final_prediction), float(ensemble_confidence)
 
 
 class ModelService:
@@ -479,7 +487,7 @@ class ModelService:
 
     def __init__(self):
         self.config = config_manager
-        self.model_loader = ModelLoader(getattr(self.config, "config", {}).get("model_path", "models/"))  # type: ignore[misc]
+        self.model_loader = ModelLoader(getattr(self.config, "config", {}).get("model_path", "models/"))
         self.inference_engine = ModelInferenceEngine(self.model_loader)
         self._initialized = False
 
@@ -532,7 +540,7 @@ class ModelService:
         for model_name in loaded_models:
             metadata = self.model_loader.get_metadata(model_name)
             if metadata:
-                health_status["models"][model_name] = {  # type: ignore[misc]
+                health_status["models"][model_name] = {
                     "version": metadata.version,
                     "model_type": metadata.model_type,
                     "is_active": metadata.is_active,
@@ -575,7 +583,7 @@ class ModelService:
 
     async def _discover_models(self) -> List[ModelMetadata]:
         """Discover available models from filesystem"""
-        models_dir = Path(getattr(self.config, "config", {}).get("model_path", "models/"))  # type: ignore[misc]
+        models_dir = Path(getattr(self.config, "config", {}).get("model_path", "models/"))
         model_configs = []
 
         if not models_dir.exists():
@@ -602,22 +610,22 @@ class ModelService:
                     preprocessing_config=config_data.get("preprocessing_config", {}),
                 )
 
-                model_configs.append(metadata)  # type: ignore[misc]
+                model_configs.append(metadata)
 
             except Exception as e:  # pylint: disable=broad-exception-caught
                 logger.error("Error loading model config %s: %s", config_file, e)
                 continue
 
-        return model_configs  # type: ignore[return-value]
+        return model_configs
 
     async def _store_prediction(
         self, request: PredictionRequest, prediction: EnsemblePrediction
     ):
         """Store prediction in database"""
         try:
-            async with db_manager.get_session() as session:  # type: ignore[attr-defined]
+            async with db_manager.get_session() as session:
                 for model_pred in prediction.model_predictions:
-                    db_prediction = PredictionModel(  # type: ignore[misc]
+                    db_prediction = PredictionModel(
                         event_id=request.event_id,
                         model_name=model_pred.model_name,
                         prediction_type=request.metadata.get(
@@ -628,9 +636,9 @@ class ModelService:
                         features=request.features,
                         shap_values=model_pred.shap_values,
                     )
-                    session.add(db_prediction)  # type: ignore[attr-defined]
+                    session.add(db_prediction)
 
-                await session.commit()  # type: ignore[attr-defined]
+                await session.commit()
 
         except Exception as e:  # pylint: disable=broad-exception-caught
             logger.error("Error storing prediction: %s", e)
@@ -639,7 +647,7 @@ class ModelService:
         """Background task to check for model updates"""
         while True:
             try:
-                await asyncio.sleep(getattr(self.config, "config", {}).get("model_update_interval", 300))  # type: ignore[misc]
+                await asyncio.sleep(getattr(self.config, "config", {}).get("model_update_interval", 300))
 
                 # Check for new or updated models
                 current_models = set(self.model_loader.list_loaded_models())
@@ -677,9 +685,9 @@ class ModelService:
                 logger.info("Model performance: {stats}")
 
                 # Store performance metrics in database
-                async with db_manager.get_session() as session:  # type: ignore[attr-defined]
+                async with db_manager.get_session() as session:
                     for model_name, usage_count in stats["model_usage"].items():
-                        performance = ModelPerformance(  # type: ignore[misc]
+                        performance = ModelPerformance(
                             model_name=model_name,
                             metric_name="usage_count",
                             metric_value=float(usage_count),
@@ -688,9 +696,9 @@ class ModelService:
                             period_end=datetime.now(timezone.utc),
                             sample_size=usage_count,
                         )
-                        session.add(performance)  # type: ignore[attr-defined]
+                        session.add(performance)
 
-                    await session.commit()  # type: ignore[attr-defined]
+                    await session.commit()
 
             except Exception as e:  # pylint: disable=broad-exception-caught
                 logger.error("Error in performance monitoring: %s", e)
@@ -698,14 +706,14 @@ class ModelService:
     async def _get_system_resources(self) -> Dict[str, Any]:
         """Get system resource usage"""
         try:
-            import psutil  # type: ignore[import]
+            import psutil
         except ImportError:
-            psutil = None  # type: ignore[misc]
+            psutil = None
 
         return {
-            "cpu_percent": psutil.cpu_percent() if psutil else 0.0,  # type: ignore[misc]
-            "memory_percent": psutil.virtual_memory().percent if psutil else 0.0,  # type: ignore[misc]
-            "disk_usage": psutil.disk_usage("/").percent if psutil else 0.0,  # type: ignore[misc]
+            "cpu_percent": psutil.cpu_percent() if psutil else 0.0,
+            "memory_percent": psutil.virtual_memory().percent if psutil else 0.0,
+            "disk_usage": psutil.disk_usage("/").percent if psutil else 0.0,
         }
 
     async def analyze_prop(self, prop_attributes: Dict[str, Any]) -> Dict[str, Any]:
@@ -840,7 +848,7 @@ class ModelService:
         # Calculate standard deviation using pure Python
         if len(confidences) > 1:
             mean_conf = sum(confidences) / len(confidences)
-            confidence_std = (sum((x - mean_conf) ** 2 for x in confidences) / len(confidences)) ** 0.5  # type: ignore[misc]
+            confidence_std = (sum((x - mean_conf) ** 2 for x in confidences) / len(confidences)) ** 0.5
         else:
             confidence_std = 0.0
 

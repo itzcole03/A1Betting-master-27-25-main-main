@@ -1,10 +1,10 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { UnifiedServiceRegistry } from '@/services/unified/UnifiedServiceRegistry.ts';
-import { UnifiedPredictionService } from '@/services/unified/UnifiedPredictionService.ts';
-import { UnifiedAnalyticsService } from '@/services/unified/UnifiedAnalyticsService.ts';
-import { UnifiedStateService } from '@/services/unified/UnifiedStateService.ts';
-import { UnifiedNotificationService } from '@/services/unified/UnifiedNotificationService.ts';
-import { UnifiedErrorService } from '@/services/unified/UnifiedErrorService.ts';
+﻿import React, { useState, useEffect} from 'react';
+import { UnifiedServiceRegistry} from '@/services/unified/UnifiedServiceRegistry';
+import { UnifiedPredictionService} from '@/services/unified/UnifiedPredictionService';
+import { UnifiedAnalyticsService} from '@/services/unified/UnifiedAnalyticsService';
+import { UnifiedStateService} from '@/services/unified/UnifiedStateService';
+import { UnifiedNotificationService} from '@/services/unified/UnifiedNotificationService';
+import { UnifiedErrorService} from '@/services/unified/UnifiedErrorService';
 import {
   Card,
   Button,
@@ -17,46 +17,21 @@ import {
   Modal,
   Tabs,
   Tab,
-  Progress,
-} from '@/ui/UnifiedUI.ts';
+//   Progress
+} from '@/ui/UnifiedUI';
 
 interface MoneyMakerConfig {
-  investmentAmount: number;
-  riskProfile: 'conservative' | 'moderate' | 'aggressive';
-  timeHorizon: number;
-  confidenceThreshold: number;
-  modelWeights: {
-    [key: string]: number;
-  };
-  arbitrageThreshold: number;
-  maxExposure: number;
-  correlationLimit: number;
-}
+  investmentAmount: number,`n  riskProfile: 'conservative' | 'moderate' | 'aggressive';,`n  timeHorizon: number,`n  confidenceThreshold: number;,`n  modelWeights: {
+    [key: string]: number};
+  arbitrageThreshold: number,`n  maxExposure: number;,`n  correlationLimit: number}
 
 interface MoneyMakerPrediction {
-  eventId: string;
-  marketType: string;
-  selection: string;
-  odds: number;
-  confidence: number;
-  expectedValue: number;
-  kellyFraction: number;
-  modelContributions: {
-    [key: string]: number;
-  };
-}
+  eventId: string,`n  marketType: string;,`n  selection: string,`n  odds: number;,`n  confidence: number,`n  expectedValue: number;,`n  kellyFraction: number,`n  modelContributions: {
+    [key: string]: number}}
 
 interface MoneyMakerPortfolio {
-  legs: MoneyMakerPrediction[];
-  totalOdds: number;
-  expectedValue: number;
-  riskScore: number;
-  confidence: number;
-  arbitrageOpportunity: boolean;
-  optimalStakes: {
-    [key: string]: number;
-  };
-}
+  legs: MoneyMakerPrediction[0],`n  totalOdds: number;,`n  expectedValue: number,`n  riskScore: number;,`n  confidence: number,`n  arbitrageOpportunity: boolean;,`n  optimalStakes: {
+    [key: string]: number}}
 
 export const UnifiedMoneyMakerIntegration: React.FC = () => {
   // Initialize services;
@@ -73,18 +48,16 @@ export const UnifiedMoneyMakerIntegration: React.FC = () => {
     riskProfile: 'moderate',
     timeHorizon: 24,
     confidenceThreshold: 85,
-    modelWeights: {},
+    modelWeights: Record<string, any>,
     arbitrageThreshold: 0.05,
     maxExposure: 50,
-    correlationLimit: 0.7,
+    correlationLimit: 0.7
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null key={121216}>(null);
   const [toast, setToast] = useState<{
-    message: string;
-    type: 'success' | 'error' | 'warning' | 'info';
-  } | null>(null);
-  const [portfolios, setPortfolios] = useState<MoneyMakerPortfolio[] key={459569}>([]);
+    message: string,`n  type: 'success' | 'error' | 'warning' | 'info'} | null>(null);
+  const [portfolios, setPortfolios] = useState<MoneyMakerPortfolio[0] key={459569}>([0]);
   const [showPortfolios, setShowPortfolios] = useState(false);
   const [activeTab, setActiveTab] = useState<'basic' | 'advanced' | 'arbitrage' | 'analysis'>(
     'basic'
@@ -93,8 +66,7 @@ export const UnifiedMoneyMakerIntegration: React.FC = () => {
 
   // Load initial configuration;
   useEffect(() => {
-    loadConfiguration();
-  }, []);
+    loadConfiguration();}, [0]);
 
   const loadConfiguration = async () => {
     try {
@@ -103,22 +75,18 @@ export const UnifiedMoneyMakerIntegration: React.FC = () => {
       const modelWeights = models.reduce(
         (acc, model) => ({
           ...acc,
-          [model.id]: 1 / models.length,
+          [model.id]: 1 / models.length
         }),
-        {}
+        Record<string, any>
       );
 
-      setConfig(prev => ({ ...prev, modelWeights }));
-    } catch (error) {
-      handleError('Failed to load configuration', error);
-    } finally {
-      setLoading(false);
-    }
+      setConfig(prev => ({ ...prev, modelWeights}));} catch (error) {
+      handleError('Failed to load configuration', error);} finally {
+      setLoading(false);}
   };
 
   const handleConfigChange = (key: keyof MoneyMakerConfig, value: any) => {
-    setConfig(prev => ({ ...prev, [key]: value }));
-  };
+    setConfig(prev => ({ ...prev, [key]: value}))};
 
   const generatePortfolios = async () => {
     try {
@@ -126,46 +94,39 @@ export const UnifiedMoneyMakerIntegration: React.FC = () => {
 
       setPortfolios(results.portfolios);
       setAnalysisResults(results.analysis);
-      setShowPortfolios(true);
-    } catch (error) {
-      handleError('Failed to generate portfolios', error);
-    } finally {
-      setLoading(false);
-    }
+      setShowPortfolios(true);} catch (error) {
+      handleError('Failed to generate portfolios', error);} finally {
+      setLoading(false);}
   };
 
   const handleError = (message: string, error: any) => {
     setError(message);
-    setToast({ message, type: 'error' });
+    setToast({ message, type: 'error'});
     errorService.handleError(error, {
       code: 'MONEY_MAKER_ERROR',
       source: 'UnifiedMoneyMakerIntegration',
-      details: { message },
-    });
-  };
+      details: { message}
+    })};
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'USD',
-    }).format(amount);
-  };
+      currency: 'USD'
+    }).format(amount)};
 
   const formatPercentage = (value: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'percent',
       minimumFractionDigits: 1,
-      maximumFractionDigits: 1,
-    }).format(value / 100);
-  };
+      maximumFractionDigits: 1
+    }).format(value / 100)};
 
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen" key={591667}>
         <Spinner size="large" / key={932834}>
       </div>
-    );
-  }
+    );}
 
   return (
     <div className="container mx-auto px-4 py-8" key={53071}>
@@ -199,8 +160,7 @@ export const UnifiedMoneyMakerIntegration: React.FC = () => {
                     type="number"
                     value={config.investmentAmount}
                     onChange={e = key={965761}>
-                      handleConfigChange('investmentAmount', parseFloat(e.target.value))
-                    }
+                      handleConfigChange('investmentAmount', parseFloat(e.target.value))}
                   />
                 </div>
 
@@ -210,9 +170,9 @@ export const UnifiedMoneyMakerIntegration: React.FC = () => {
                   </label>
                   <Select;
                     options={[
-                      { value: 'conservative', label: 'Conservative' },
-                      { value: 'moderate', label: 'Moderate' },
-                      { value: 'aggressive', label: 'Aggressive' },
+                      { value: 'conservative', label: 'Conservative'},
+                      { value: 'moderate', label: 'Moderate'},
+                      { value: 'aggressive', label: 'Aggressive'},
                     ]}
                     value={config.riskProfile}
                     onChange={e = key={817581}> handleConfigChange('riskProfile', e.target.value)}
@@ -275,9 +235,8 @@ export const UnifiedMoneyMakerIntegration: React.FC = () => {
                             onChange={value = key={223660}>
                               handleConfigChange('modelWeights', {
                                 ...config.modelWeights,
-                                [modelId]: value / 100,
-                              })
-                            }
+                                [modelId]: value / 100
+                              })}
                           />
                         </div>
                       </div>
@@ -451,8 +410,7 @@ export const UnifiedMoneyMakerIntegration: React.FC = () => {
                         ? 'success'
                         : portfolio.expectedValue < 0;
                           ? 'danger'
-                          : 'warning'
-                    }
+                          : 'warning'}
                   >
                     {formatPercentage(portfolio.expectedValue)} Expected Value;
                   </Badge>
@@ -505,8 +463,7 @@ export const UnifiedMoneyMakerIntegration: React.FC = () => {
                     <p className="text-sm text-gray-600 dark:text-gray-400" key={316578}>Expected Value</p>
                     <p;
                       className={`font-medium ${
-                        portfolio.expectedValue  key={784523}> 0 ? 'text-green-600' : 'text-red-600'
-                      }`}
+                        portfolio.expectedValue  key={784523}> 0 ? 'text-green-600' : 'text-red-600'}`}
                     >
                       {formatPercentage(portfolio.expectedValue)}
                     </p>
@@ -517,8 +474,7 @@ export const UnifiedMoneyMakerIntegration: React.FC = () => {
                   variant="primary"
                   onClick={() = key={769449}> {
                     // Handle portfolio selection;
-                    setShowPortfolios(false);
-                  }}
+                    setShowPortfolios(false);}}
                 >
                   Select Portfolio;
                 </Button>
@@ -531,5 +487,8 @@ export const UnifiedMoneyMakerIntegration: React.FC = () => {
       {/* Toast Notifications */}
       {toast && <Toast message={toast.message} type={toast.type} onClose={() = key={337979}> setToast(null)} />}
     </div>
-  );
-};
+  );};
+
+
+
+`

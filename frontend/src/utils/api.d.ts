@@ -1,2 +1,4 @@
-import { AxiosInstance } from 'axios.ts';
+﻿import { AxiosInstance} from 'axios.ts';
 export declare const api: AxiosInstance;
+
+

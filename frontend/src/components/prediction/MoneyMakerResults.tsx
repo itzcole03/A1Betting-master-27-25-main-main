@@ -1,19 +1,10 @@
-import React from 'react.ts';
-import { Card, Badge, Button, Icon } from '@/ui/UnifiedUI.ts';
-import { PredictionModelOutput } from '@/hooks/usePredictions.ts';
+﻿import React from 'react';
+import { Card, Badge, Button, Icon} from '@/ui/UnifiedUI';
+import { PredictionModelOutput} from '@/hooks/usePredictions';
 
 interface MoneyMakerResultsProps {
-  event: string;
-  market: string;
-  selection: string;
-  odds: number;
-  modelOutput: PredictionModelOutput;
-  kellyFraction: number;
-  expectedValue: number;
-  timestamp: number;
-  onPlaceBet: () => void;
-  className?: string;
-}
+  event: string,`n  market: string;,`n  selection: string,`n  odds: number;,`n  modelOutput: PredictionModelOutput,`n  kellyFraction: number;,`n  expectedValue: number,`n  timestamp: number;,`n  onPlaceBet: () => void;
+  className?: string}
 
 export const MoneyMakerResults: React.FC<MoneyMakerResultsProps key={445336}> = ({
   event,
@@ -25,21 +16,19 @@ export const MoneyMakerResults: React.FC<MoneyMakerResultsProps key={445336}> = 
   expectedValue,
   timestamp,
   onPlaceBet,
-  className = '',
+  className = ''
 }) => {
-  const { confidenceScore, confidenceColor, modelMeta } = modelOutput;
+  const { confidenceScore, confidenceColor, modelMeta} = modelOutput;
 
   const getKellyColor = (fraction: number): 'success' | 'warning' | 'danger' => {
     if (fraction >= 0.1) return 'success';
     if (fraction >= 0.05) return 'warning';
-    return 'danger';
-  };
+    return 'danger';};
 
   const getEVColor = (ev: number): 'success' | 'warning' | 'danger' => {
     if (ev >= 0.1) return 'success';
     if (ev >= 0) return 'warning';
-    return 'danger';
-  };
+    return 'danger';};
 
   return (
     <Card className={`p-4 ${className}`} key={326380}>
@@ -89,5 +78,9 @@ export const MoneyMakerResults: React.FC<MoneyMakerResultsProps key={445336}> = 
         </Button>
       </div>
     </Card>
-  );
-};
+  );};
+
+
+
+
+`

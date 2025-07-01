@@ -48,7 +48,8 @@
             "**/.git/**": true,
             "**/venv/**": true,
             "**/__pycache__/**": true
-        }
+        },
+        "powershell.cwd": "A1Betting Root"
     },
     "extensions": {
         "recommendations": [

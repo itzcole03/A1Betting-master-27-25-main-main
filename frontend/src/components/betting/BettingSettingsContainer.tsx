@@ -1,31 +1,32 @@
-import React, { useEffect  } from 'react.ts';
-import { Box } from '@mui/material.ts';
-import { BettingSettingsPanel } from './BettingSettingsPanel.ts';
-import { BettingSettingsSummary } from './BettingSettingsSummary.ts';
-import { useBettingSettings } from '@/hooks/useBettingSettings.ts';
+﻿import React, { useEffect} from 'react';
+import { Box} from '@mui/material';
+import { BettingSettingsPanel} from './BettingSettingsPanel';
+import { BettingSettingsSummary} from './BettingSettingsSummary';
+import { useBettingSettings} from '@/hooks/useBettingSettings';
 
 export const BettingSettingsContainer: React.FC = () => {
-  const { fetchSettings } = useBettingSettings();
+  const { fetchSettings} = useBettingSettings();
 
   useEffect(() => {
-    fetchSettings();
-  }, [fetchSettings]);
+    fetchSettings();}, [fetchSettings]);
 
   return (
-    <Box sx={{ p: 3 }} key={486541}>
+    <Box sx={{ p: 3}} key={486541}>
       <Box;
         sx={{
           display: 'grid',
-          gridTemplateColumns: {
-            xs: '1fr',
-            md: '2fr 1fr',
+          gridTemplateColumns: {,`n  xs: '1fr',
+            md: '2fr 1fr'
           },
-          gap: 3,
+          gap: 3
         }}
        key={86819}>
         <BettingSettingsPanel / key={982092}>
         <BettingSettingsSummary / key={272268}>
       </Box>
     </Box>
-  );
-};
+  )};
+
+
+
+`

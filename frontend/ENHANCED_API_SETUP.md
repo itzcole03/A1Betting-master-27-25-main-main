@@ -135,7 +135,7 @@ curl "http://localhost:5173/api/theodds/sports"
 // Development
 const API_CONFIG = {
   theodds: {
-    baseUrl: "https://api.the-odds-api.com/v4",
+    baseUrl: 'https://api.the-odds-api.com/v4',
     rateLimit: 1000, // 1 req/sec for free tier
   },
 };
@@ -143,7 +143,7 @@ const API_CONFIG = {
 // Production
 const API_CONFIG = {
   theodds: {
-    baseUrl: "https://api.the-odds-api.com/v4",
+    baseUrl: 'https://api.the-odds-api.com/v4',
     rateLimit: 200, // 5 req/sec for paid tier
   },
 };

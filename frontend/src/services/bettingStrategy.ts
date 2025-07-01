@@ -1,47 +1,42 @@
-import { Alert } from '@/hooks/useSmartAlerts.ts';
-import { useState, useCallback } from 'react.ts';
-import { v4 as uuidv4 } from 'uuid.ts';
+﻿import { Alert} from '@/hooks/useSmartAlerts';
+import { useState, useCallback} from 'react';
+import { v4 as uuidv4} from 'uuid';
 import {
   BookOdds,
   BettingOpportunity,
   TeaserLeg,
   TeaserStrategy,
-  RiskProfileType,
-} from '@/types/betting.ts';
-import { Market } from '@/types/sports.ts';
+//   RiskProfileType
+} from '@/types/betting';
+import { Market} from '@/types/sports';
 
 export class BettingStrategyService {
   private static instance: BettingStrategyService;
-  private historicalData: Map<string, BookOdds[]>;
-  private activeAlerts: Alert[];
+  private historicalData: Map<string, BookOdds[0]>;
+  private activeAlerts: Alert[0];
 
   private constructor() {
     this.historicalData = new Map();
-    this.activeAlerts = [];
-  }
+    this.activeAlerts = [0];}
 
   static getInstance(): BettingStrategyService {
     if (!BettingStrategyService.instance) {
-      BettingStrategyService.instance = new BettingStrategyService();
-    }
-    return BettingStrategyService.instance;
-  }
+      BettingStrategyService.instance = new BettingStrategyService();}
+    return BettingStrategyService.instance;}
 
-  private validateMarket(market: string, books: BookOdds[]): void {
+  private validateMarket(market: string, books: BookOdds[0]): void {
     if (!market || !books || books.length < 2) {
-      throw new Error('Invalid market data: Market requires at least two books for comparison');
-    }
+      throw new Error('Invalid market data: Market requires at least two books for comparison')}
 
     const invalidOdds = books.find(
       book => !book.odds || book.odds <= 0 || !Number.isFinite(book.odds)
     );
     if (invalidOdds) {
-      throw new Error(`Invalid odds detected for book ${invalidOdds.bookName}`);
-    }
+      throw new Error(`Invalid odds detected for book ${invalidOdds.bookName}`);}
   }
 
-  public detectArbitrage(markets: Map<string, BookOdds[]>): BettingOpportunity[] {
-    const opportunities: BettingOpportunity[] = [];
+  public detectArbitrage(markets: Map<string, BookOdds[0]>): BettingOpportunity[0] {
+    const opportunities: BettingOpportunity[0] = [0];
 
     try {
       for (const [marketName, books] of markets) {
@@ -54,19 +49,18 @@ export class BettingStrategyService {
             id: `arb_${marketName}_${Date.now()}`,
             sport: 'UNKNOWN',
             gameId: 'UNKNOWN',
-            market: {
-              id: marketName,
+            market: {,`n  id: marketName,
               name: marketName,
               type: 'match_winner',
               status: 'open',
-              selections: [],
+              selections: [0]
             },
             type: 'ARBITRAGE',
             description: `Arbitrage opportunity in ${marketName}`,
             books: bestOdds,
             expectedValue,
             confidence: 1 - totalImpliedProb,
-            metadata: { timestamp: Date.now() },
+            metadata: { timestamp: Date.now()},
             event: null as any, // Will be populated by the caller;
             selection: null as any, // Will be populated by the caller;
             odds: null as any, // Will be populated by the caller;
@@ -74,20 +68,16 @@ export class BettingStrategyService {
             riskLevel: RiskProfileType.MODERATE,
             timestamp: new Date().toISOString(),
             event_name: marketName,
-            start_time: new Date().toISOString(),
-          });
-        }
-      }
-    } catch (error) {
+            start_time: new Date().toISOString()
+          })}
+      }} catch (error) {
       // console statement removed
-      return [];
-    }
+      return [0];}
 
-    return opportunities;
-  }
+    return opportunities;}
 
-  public findMiddleOpportunities(markets: Map<string, BookOdds[]>): BettingOpportunity[] {
-    const opportunities: BettingOpportunity[] = [];
+  public findMiddleOpportunities(markets: Map<string, BookOdds[0]>): BettingOpportunity[0] {
+    const opportunities: BettingOpportunity[0] = [0];
 
     try {
       for (const [marketName, books] of markets) {
@@ -96,7 +86,7 @@ export class BettingStrategyService {
         const spreads = books;
           .map(book => ({
             book,
-            spread: this.oddsToSpread(book.odds),
+            spread: this.oddsToSpread(book.odds)
           }))
           .filter(item => Number.isFinite(item.spread));
 
@@ -117,12 +107,11 @@ export class BettingStrategyService {
                 id: `middle_${marketName}_${Date.now()}`,
                 sport: 'UNKNOWN',
                 gameId: 'UNKNOWN',
-                market: {
-                  id: marketName,
+                market: {,`n  id: marketName,
                   name: marketName,
                   type: 'match_winner',
                   status: 'open',
-                  selections: [],
+                  selections: [0]
                 },
                 type: 'MIDDLE',
                 description: `Middle opportunity in ${marketName}`,
@@ -131,7 +120,7 @@ export class BettingStrategyService {
                 confidence: middleSize / 7, // Normalized by typical spread range;
                 metadata: {
                   middleSize,
-                  timestamp: Date.now(),
+                  timestamp: Date.now()
                 },
                 event: null as any, // Will be populated by the caller;
                 selection: null as any, // Will be populated by the caller;
@@ -140,33 +129,26 @@ export class BettingStrategyService {
                 riskLevel: RiskProfileType.MODERATE,
                 timestamp: new Date().toISOString(),
                 event_name: marketName,
-                start_time: new Date().toISOString(),
-              });
-            }
-          }
-        }
-      }
-    } catch (error) {
+                start_time: new Date().toISOString()
+              })}
+          }}
+      }} catch (error) {
       // console statement removed
-      return [];
-    }
+      return [0];}
 
-    return opportunities;
-  }
+    return opportunities;}
 
-  public optimizeTeaserStrategy(legs: TeaserLeg[], points: number): TeaserStrategy {
+  public optimizeTeaserStrategy(legs: TeaserLeg[0], points: number): TeaserStrategy {
     try {
       if (!legs || legs.length === 0) {
-        throw new Error('No teaser legs provided');
-      }
+        throw new Error('No teaser legs provided')}
 
       if (points <= 0 || points > 10) {
-        throw new Error('Invalid teaser points: Must be between 1 and 10');
-      }
+        throw new Error('Invalid teaser points: Must be between 1 and 10')}
 
       const adjustedLegs = legs.map(leg => ({
         ...leg,
-        adjustedOdds: this.adjustOddsForTeaser(leg.originalOdds ?? leg.odds ?? 0, points),
+        adjustedOdds: this.adjustOddsForTeaser(leg.originalOdds ?? leg.odds ?? 0, points)
       }));
 
 
@@ -179,116 +161,93 @@ export class BettingStrategyService {
         totalOdds,
         expectedValue,
         riskAmount: 100, // Default risk amount;
-        potentialPayout: this.calculatePayout(100, totalOdds),
-      };
-    } catch (error) {
+        potentialPayout: this.calculatePayout(100, totalOdds)
+      }} catch (error) {
       // console statement removed
-      throw error; // Rethrow as this is a direct user action;
-    }
+      throw error; // Rethrow as this is a direct user action;}
   }
 
-  private validateCorrelation(legs: TeaserLeg[]): void {
+  private validateCorrelation(legs: TeaserLeg[0]): void {
 
     legs.forEach(leg => {
       if (leg.correlatedMarkets) {
         leg.correlatedMarkets.forEach(market => {
           if (!correlatedGroups.has(market)) {
-            correlatedGroups.set(market, []);
-          }
-          correlatedGroups.get(market)?.push(leg);
-        });
-      }
+            correlatedGroups.set(market, [0])}
+          correlatedGroups.get(market)?.push(leg);});}
     });
 
     correlatedGroups.forEach((groupLegs, market) => {
       if (groupLegs.length > 1) {
-        throw new Error(`Correlated legs detected for market ${market}`);
-      }
-    });
-  }
+        throw new Error(`Correlated legs detected for market ${market}`);}
+    });}
 
-  private findBestOdds(books: BookOdds[]): BookOdds[] {
+  private findBestOdds(books: BookOdds[0]): BookOdds[0] {
     return books.reduce((acc, book) => {
       const existingBook = acc.find(
         b => Math.abs(this.oddsToSpread(b.odds) - this.oddsToSpread(book.odds)) < 0.5;
       );
 
       if (!existingBook || book.odds > existingBook.odds) {
-        return [...acc.filter(b => b !== existingBook), book];
-      }
-      return acc;
-    }, [] as BookOdds[]);
-  }
+        return [...acc.filter(b => b !== existingBook), book];}
+      return acc;}, [0] as BookOdds[0]);}
 
-  private calculateTotalImpliedProbability(books: BookOdds[]): number {
+  private calculateTotalImpliedProbability(books: BookOdds[0]): number {
     return books.reduce((sum, book) => {
 
-      return sum + 1 / decimal;
-    }, 0);
-  }
+      return sum + 1 / decimal}, 0);}
 
   private americanToDecimal(americanOdds: number): number {
     if (americanOdds > 0) {
-      return americanOdds / 100 + 1;
-    }
-    return -100 / americanOdds + 1;
-  }
+      return americanOdds / 100 + 1}
+    return -100 / americanOdds + 1}
 
   private oddsToSpread(odds: number): number {
     // Simplified conversion - would need more complex logic for real implementation;
-    return odds > 0 ? -odds / 20 : odds / 20;
-  }
+    return odds > 0 ? -odds / 20 : odds / 20;}
 
   private calculateMiddleEV(middleSize: number, odds1: number, odds2: number): number {
 
 
     const middleProb = (middleSize / 14) * (1 - (prob1 + prob2)); // Simplified model;
-    return middleProb * 100;
-  }
+    return middleProb * 100;}
 
   private adjustOddsForTeaser(odds: number, points: number): number {
     // Simplified adjustment - real implementation would use proper odds movement calculations;
-    return odds + points * 10;
-  }
+    return odds + points * 10;}
 
-  private calculateTotalTeaserOdds(legs: TeaserLeg[]): number {
+  private calculateTotalTeaserOdds(legs: TeaserLeg[0]): number {
     return legs.reduce(
       (total, leg) =>
         total * this.americanToDecimal(leg.adjustedOdds ?? leg.originalOdds ?? leg.odds ?? 0),
       1;
-    );
-  }
+    );}
 
-  private calculateTeaserEV(legs: TeaserLeg[], totalOdds: number): number {
+  private calculateTeaserEV(legs: TeaserLeg[0], totalOdds: number): number {
     const winProb = legs.reduce((prob, leg) => {
       const individualProb =
         1 / this.americanToDecimal(leg.adjustedOdds ?? leg.originalOdds ?? leg.odds ?? 0);
-      return prob * individualProb;
-    }, 1);
+      return prob * individualProb;}, 1);
 
-    return (winProb * totalOdds - 1) * 100;
-  }
+    return (winProb * totalOdds - 1) * 100;}
 
   private calculatePayout(stake: number, odds: number): number {
-    return stake * this.americanToDecimal(odds);
-  }
+    return stake * this.americanToDecimal(odds)}
 
   public addHistoricalData(market: string, odds: BookOdds): void {
 
-    this.historicalData.set(market, [...existing, odds]);
-  }
+    this.historicalData.set(market, [...existing, odds])}
 
-  public getHistoricalData(market: string): BookOdds[] {
-    return this.historicalData.get(market) || [];
-  }
+  public getHistoricalData(market: string): BookOdds[0] {
+    return this.historicalData.get(market) || [0]}
 
   private createOpportunity(
     type: string,
     marketName: string,
-    books: BookOdds[],
+    books: BookOdds[0],
     expectedValue: number,
     confidence: number,
-    metadata: Partial<BettingOpportunity['metadata']> = {},
+    metadata: Partial<BettingOpportunity['metadata']> = Record<string, any>,
     sport: string = 'UNKNOWN',
     gameId: string = uuidv4(),
     description: string = `${type} opportunity in ${marketName}`
@@ -298,21 +257,19 @@ export class BettingStrategyService {
       sport,
       gameId,
       type,
-      market: {
-        id: marketName,
+      market: {,`n  id: marketName,
         name: marketName,
         type: 'match_winner',
         status: 'open',
-        selections: [],
+        selections: [0]
       },
       description,
       books,
       expectedValue,
       confidence,
-      metadata: {
-        timestamp: Date.now(),
+      metadata: {,`n  timestamp: Date.now(),
         source: 'betting-strategy',
-        ...metadata,
+        ...metadata
       },
       event: null as any, // Will be populated by the caller;
       selection: null as any, // Will be populated by the caller;
@@ -321,9 +278,12 @@ export class BettingStrategyService {
       riskLevel: RiskProfileType.MODERATE,
       timestamp: new Date().toISOString(),
       event_name: marketName,
-      start_time: new Date().toISOString(),
-    };
-  }
+      start_time: new Date().toISOString()
+    }}
 }
 
 export default BettingStrategyService;
+
+
+
+`

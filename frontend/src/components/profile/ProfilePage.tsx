@@ -1,5 +1,5 @@
-import React, { useState  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React, { useState} from 'react';
+import { motion} from 'framer-motion';
 import {
   User,
   Settings,
@@ -13,23 +13,18 @@ import {
   Mail,
   Phone,
   MapPin,
-  Calendar,
-} from 'lucide-react.ts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card.ts';
-import { Badge } from '@/ui/badge.ts';
+//   Calendar
+} from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle} from '@/ui/card';
+import { Badge} from '@/ui/badge';
 
 interface UserProfile {
-  name: string;
-  email: string;
-  phone?: string;
-  location?: string;
-  avatar?: string;
-  joinDate: string;
-  tier: string;
-  verified: boolean;
-  twoFactorEnabled: boolean;
-  bio?: string;
-}
+  name: string,`n  email: string;
+  phone?: string
+  location?: string
+  avatar?: string
+  joinDate: string,`n  tier: string;,`n  verified: boolean,`n  twoFactorEnabled: boolean;
+  bio?: string}
 
 export const ProfilePage: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -42,20 +37,18 @@ export const ProfilePage: React.FC = () => {
     tier: "Pro",
     verified: true,
     twoFactorEnabled: true,
-    bio: "Professional sports bettor and analytics enthusiast. Focused on data-driven betting strategies and machine learning applications in sports prediction.",
+    bio: "Professional sports bettor and analytics enthusiast. Focused on data-driven betting strategies and machine learning applications in sports prediction."
   });
 
   const [editedProfile, setEditedProfile] = useState<UserProfile key={623450}>(profile);
 
   const handleSave = () => {
     setProfile(editedProfile);
-    setIsEditing(false);
-  };
+    setIsEditing(false);};
 
   const handleCancel = () => {
     setEditedProfile(profile);
-    setIsEditing(false);
-  };
+    setIsEditing(false);};
 
   const handleAvatarUpload = (event: React.ChangeEvent<HTMLInputElement key={553350}>) => {
 
@@ -64,19 +57,17 @@ export const ProfilePage: React.FC = () => {
       reader.onload = (e) => {
 
         if (isEditing) {
-          setEditedProfile((prev) => ({ ...prev, avatar: result }));
-        }
+          setEditedProfile((prev) => ({ ...prev, avatar: result}))}
       };
-      reader.readAsDataURL(file);
-    }
+      reader.readAsDataURL(file);}
   };
 
   return (
     <div className="space-y-6 max-w-4xl mx-auto" key={662193}>
       {/* Header */}
       <motion.div;
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: -20}}
+        animate={{ opacity: 1, y: 0}}
         className="text-center mb-8"
        key={951381}>
         <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent" key={11526}>
@@ -128,9 +119,8 @@ export const ProfilePage: React.FC = () => {
                       onChange={(e) = key={191124}>
                         setEditedProfile((prev) => ({
                           ...prev,
-                          name: e.target.value,
-                        }))
-                      }
+                          name: e.target.value
+                        }))}
                       className="bg-transparent border-b-2 border-blue-500 outline-none"
                     />
                   ) : (
@@ -154,9 +144,8 @@ export const ProfilePage: React.FC = () => {
                   onChange={(e) = key={870366}>
                     setEditedProfile((prev) => ({
                       ...prev,
-                      bio: e.target.value,
-                    }))
-                  }
+                      bio: e.target.value
+                    }))}
                   className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 resize-none"
                   rows={3}
                   placeholder="Tell us about yourself..."
@@ -222,9 +211,8 @@ export const ProfilePage: React.FC = () => {
                   onChange={(e) = key={422544}>
                     setEditedProfile((prev) => ({
                       ...prev,
-                      email: e.target.value,
-                    }))
-                  }
+                      email: e.target.value
+                    }))}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800"
                 />
               ) : (
@@ -249,9 +237,8 @@ export const ProfilePage: React.FC = () => {
                   onChange={(e) = key={446598}>
                     setEditedProfile((prev) => ({
                       ...prev,
-                      phone: e.target.value,
-                    }))
-                  }
+                      phone: e.target.value
+                    }))}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800"
                 />
               ) : (
@@ -273,9 +260,8 @@ export const ProfilePage: React.FC = () => {
                   onChange={(e) = key={379590}>
                     setEditedProfile((prev) => ({
                       ...prev,
-                      location: e.target.value,
-                    }))
-                  }
+                      location: e.target.value
+                    }))}
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800"
                 />
               ) : (
@@ -363,7 +349,11 @@ export const ProfilePage: React.FC = () => {
         </CardContent>
       </Card>
     </div>
-  );
-};
+  );};
 
 export default ProfilePage;
+
+
+
+
+`

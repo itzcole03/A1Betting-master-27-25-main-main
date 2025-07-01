@@ -1,5 +1,5 @@
-import React, { useState  } from 'react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+﻿import React, { useState} from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
 import {
   Bell,
   X,
@@ -12,38 +12,26 @@ import {
   Clock,
   Star,
   Trash2,
-  MoreHorizontal,
-} from 'lucide-react.ts';
+//   MoreHorizontal
+} from 'lucide-react';
 
 interface Notification {
-  id: string;
-  type: "success" | "warning" | "error" | "info" | "betting";
-  title: string;
-  message: string;
-  timestamp: Date;
-  read: boolean;
-  priority: "low" | "medium" | "high";
+  id: string,`n  type: "success" | "warning" | "error" | "info" | "betting";,`n  title: string,`n  message: string;,`n  timestamp: Date,`n  read: boolean;,`n  priority: "low" | "medium" | "high";
   action?: {
-    label: string;
-    onClick: () => void;
-  };
+    label: string,`n  onClick: () => void};
   metadata?: {
-    amount?: number;
-    odds?: number;
-    game?: string;
-  };
-}
+    amount?: number
+    odds?: number
+    game?: string};}
 
 interface ModernNotificationCenterProps {
-  isOpen: boolean;
-  onClose: () => void;
-  notifications?: Notification[];
+  isOpen: boolean,`n  onClose: () => void;
+  notifications?: Notification[0];
   onMarkAsRead?: (id: string) => void;
   onDelete?: (id: string) => void;
-  onClearAll?: () => void;
-}
+  onClearAll?: () => void;}
 
-const defaultNotifications: Notification[] = [
+const defaultNotifications: Notification[0] = [
   {
     id: "1",
     type: "betting",
@@ -52,14 +40,12 @@ const defaultNotifications: Notification[] = [
     timestamp: new Date(Date.now() - 2 * 60 * 1000),
     read: false,
     priority: "high",
-    metadata: {
-      odds: 1.85,
-      game: "Lakers vs Warriors",
+    metadata: {,`n  odds: 1.85,
+      game: "Lakers vs Warriors"
     },
-    action: {
-      label: "View Bet",
-      onClick: () => // console statement removed,
-    },
+    action: {,`n  label: "View Bet",
+      onClick: () => // console statement removed
+    }
   },
   {
     id: "2",
@@ -69,13 +55,11 @@ const defaultNotifications: Notification[] = [
     timestamp: new Date(Date.now() - 15 * 60 * 1000),
     read: false,
     priority: "medium",
-    metadata: {
-      amount: 247.5,
+    metadata: {,`n  amount: 247.5
     },
-    action: {
-      label: "View Details",
-      onClick: () => // console statement removed,
-    },
+    action: {,`n  label: "View Details",
+      onClick: () => // console statement removed
+    }
   },
   {
     id: "3",
@@ -84,7 +68,7 @@ const defaultNotifications: Notification[] = [
     message: "NBA prediction model updated with new player injury data",
     timestamp: new Date(Date.now() - 30 * 60 * 1000),
     read: true,
-    priority: "low",
+    priority: "low"
   },
   {
     id: "4",
@@ -93,7 +77,7 @@ const defaultNotifications: Notification[] = [
     message: "You've used 75% of your daily betting limit",
     timestamp: new Date(Date.now() - 45 * 60 * 1000),
     read: false,
-    priority: "medium",
+    priority: "medium"
   },
 ];
 
@@ -107,9 +91,7 @@ const getNotificationIcon = (type: Notification["type"]) => {
       return <X size={16} className="text-red-400" / key={2360}>;
     case "betting":
       return <TrendingUp size={16} className="text-blue-400" / key={458054}>;
-    default:
-      return <Info size={16} className="text-gray-400" / key={714485}>;
-  }
+    default: return <Info size={16} className="text-gray-400" / key={714485}>}
 };
 
 const getNotificationColor = (type: Notification["type"]) => {
@@ -122,9 +104,7 @@ const getNotificationColor = (type: Notification["type"]) => {
       return "border-l-red-400 bg-red-500/5";
     case "betting":
       return "border-l-blue-400 bg-blue-500/5";
-    default:
-      return "border-l-gray-400 bg-gray-500/5";
-  }
+    default: return "border-l-gray-400 bg-gray-500/5"}
 };
 
 const getPriorityIndicator = (priority: Notification["priority"]) => {
@@ -133,9 +113,7 @@ const getPriorityIndicator = (priority: Notification["priority"]) => {
       return <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" / key={460724}>;
     case "medium":
       return <div className="w-2 h-2 bg-yellow-400 rounded-full" / key={209834}>;
-    default:
-      return <div className="w-2 h-2 bg-gray-500 rounded-full" / key={837826}>;
-  }
+    default: return <div className="w-2 h-2 bg-gray-500 rounded-full" / key={837826}>}
 };
 
 const formatTimestamp = (timestamp: Date) => {
@@ -147,8 +125,7 @@ const formatTimestamp = (timestamp: Date) => {
   if (minutes < 1) return "Just now";
   if (minutes < 60) return `${minutes}m ago`;
   if (hours < 24) return `${hours}h ago`;
-  return `${days}d ago`;
-};
+  return `${days}d ago`;};
 
 export const ModernNotificationCenter: React.FC<
   ModernNotificationCenterProps;
@@ -158,7 +135,7 @@ export const ModernNotificationCenter: React.FC<
   notifications = defaultNotifications,
   onMarkAsRead,
   onDelete,
-  onClearAll,
+//   onClearAll
 }) => {
   const [selectedNotification, setSelectedNotification] = useState<
     string | null;
@@ -173,16 +150,16 @@ export const ModernNotificationCenter: React.FC<
   return (
     <AnimatePresence key={359944}>
       <motion.div;
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
+        initial={{ opacity: 0}}
+        animate={{ opacity: 1}}
+        exit={{ opacity: 0}}
         className="fixed inset-0 z-50"
         onClick={onClose}
        key={364953}>
         <motion.div;
-          initial={{ opacity: 0, x: 400 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 400 }}
+          initial={{ opacity: 0, x: 400}}
+          animate={{ opacity: 1, x: 0}}
+          exit={{ opacity: 0, x: 400}}
           className="absolute right-0 top-0 h-full w-full max-w-md bg-gray-900/95 backdrop-blur-xl border-l border-gray-700/50 shadow-2xl"
           onClick={(e) = key={519186}> e.stopPropagation()}
         >
@@ -231,9 +208,9 @@ export const ModernNotificationCenter: React.FC<
                 {sortedNotifications.map((notification, index) => (
                   <motion.div;
                     key={notification.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
+                    initial={{ opacity: 0, y: 20}}
+                    animate={{ opacity: 1, y: 0}}
+                    transition={{ delay: index * 0.05}}
                     className={`
                       group relative p-4 rounded-xl border-l-4 cursor-pointer transition-all;
                       ${getNotificationColor(notification.type)}
@@ -243,8 +220,7 @@ export const ModernNotificationCenter: React.FC<
                     onClick={() = key={271834}> {
                       setSelectedNotification(notification.id);
                       if (!notification.read && onMarkAsRead) {
-                        onMarkAsRead(notification.id);
-                      }
+                        onMarkAsRead(notification.id);}
                     }}
                   >
                     <div className="flex items-start space-x-3" key={717969}>
@@ -267,8 +243,7 @@ export const ModernNotificationCenter: React.FC<
                             <button;
                               onClick={(e) = key={434070}> {
                                 e.stopPropagation();
-                                onDelete?.(notification.id);
-                              }}
+                                onDelete?.(notification.id);}}
                               className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 hover:text-red-400 transition-all"
                             >
                               <X size={12} / key={781788}>
@@ -316,8 +291,7 @@ export const ModernNotificationCenter: React.FC<
                             <button;
                               onClick={(e) = key={434070}> {
                                 e.stopPropagation();
-                                notification.action!.onClick();
-                              }}
+                                notification.action!.onClick();}}
                               className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded-lg transition-colors"
                             >
                               {notification.action.label}
@@ -341,10 +315,8 @@ export const ModernNotificationCenter: React.FC<
                   onClick={() = key={887064}> {
                     notifications.forEach((n) => {
                       if (!n.read && onMarkAsRead) {
-                        onMarkAsRead(n.id);
-                      }
-                    });
-                  }}
+                        onMarkAsRead(n.id);}
+                    });}}
                   className="text-blue-400 hover:text-blue-300 transition-colors"
                 >
                   Mark all as read;
@@ -355,7 +327,11 @@ export const ModernNotificationCenter: React.FC<
         </motion.div>
       </motion.div>
     </AnimatePresence>
-  );
-};
+  );};
 
 export default ModernNotificationCenter;
+
+
+
+
+`

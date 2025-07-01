@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   LineChart,
   Line,
@@ -13,30 +13,18 @@ import {
   Legend,
   ResponsiveContainer,
   ScatterChart,
-  Scatter,
-} from 'recharts.ts';
+//   Scatter
+} from 'recharts';
 
 interface RiskInsightsProps {
   riskMetrics: Record<string, number key={817366}>;
-  recommendations: {
-    shouldBet: boolean;
-    confidence: number;
-    maxStake: number;
-    expectedValue: number;
-  };
-  simulation: {
-    distribution: number[];
-    var: number;
-    cvar: number;
-    sharpeRatio: number;
-    maxDrawdown: number;
-  };
-}
+  recommendations: {,`n  shouldBet: boolean;,`n  confidence: number,`n  maxStake: number;,`n  expectedValue: number};
+  simulation: {,`n  distribution: number[0];,`n  var: number,`n  cvar: number;,`n  sharpeRatio: number,`n  maxDrawdown: number}}
 
 const RiskInsights: React.FC<RiskInsightsProps key={334733}> = ({
   riskMetrics,
   recommendations,
-  simulation,
+//   simulation
 }) => {
   return (
     <div className="space-y-8" key={778766}>
@@ -66,8 +54,7 @@ const RiskInsights: React.FC<RiskInsightsProps key={334733}> = ({
               <span className="text-gray-600" key={588716}>Should Bet</span>
               <span;
                 className={`px-3 py-1 rounded-full text-white ${
-                  recommendations.shouldBet ? 'bg-green-500' : 'bg-red-500'
-                }`}
+                  recommendations.shouldBet ? 'bg-green-500' : 'bg-red-500'}`}
                key={693286}>
                 {recommendations.shouldBet ? 'Yes' : 'No'}
               </span>
@@ -84,8 +71,7 @@ const RiskInsights: React.FC<RiskInsightsProps key={334733}> = ({
               <span className="text-gray-600" key={588716}>Expected Value</span>
               <span;
                 className={`font-mono ${
-                  recommendations.expectedValue  key={683458}>= 0 ? 'text-green-600' : 'text-red-600'
-                }`}
+                  recommendations.expectedValue  key={683458}>= 0 ? 'text-green-600' : 'text-red-600'}`}
               >
                 ${recommendations.expectedValue.toFixed(2)}
               </span>
@@ -96,9 +82,9 @@ const RiskInsights: React.FC<RiskInsightsProps key={334733}> = ({
             <ResponsiveContainer height={200} width="100%" key={395144}>
               <AreaChart;
                 data={[
-                  { x: 0, y: 0 },
-                  { x: recommendations.confidence / 100, y: 1 },
-                  { x: 1, y: 0 },
+                  { x: 0, y: 0},
+                  { x: recommendations.confidence / 100, y: 1},
+                  { x: 1, y: 0},
                 ]}
                key={677788}>
                 <CartesianGrid strokeDasharray="3 3" / key={580708}>
@@ -143,7 +129,7 @@ const RiskInsights: React.FC<RiskInsightsProps key={334733}> = ({
               <AreaChart;
                 data={simulation.distribution.map((value, index) = key={793404}> ({
                   x: index,
-                  value,
+//                   value
                 }))}
               >
                 <CartesianGrid strokeDasharray="3 3" / key={580708}>
@@ -168,12 +154,12 @@ const RiskInsights: React.FC<RiskInsightsProps key={334733}> = ({
                 <CartesianGrid strokeDasharray="3 3" / key={580708}>
                 <XAxis dataKey="risk" domain={[0, 100]} name="Risk" unit="%" / key={340359}>
                 <YAxis dataKey="return" domain={[-100, 100]} name="Return" unit="%" / key={426516}>
-                <Tooltip cursor={{ strokeDasharray: '3 3' }} / key={353213}>
+                <Tooltip cursor={{ strokeDasharray: '3 3'}} / key={353213}>
                 <Scatter;
                   data={[
                     {
                       risk: simulation.var,
-                      return: recommendations.expectedValue,
+                      return: recommendations.expectedValue
                     },
                   ]}
                   fill="#3B82F6"
@@ -188,7 +174,7 @@ const RiskInsights: React.FC<RiskInsightsProps key={334733}> = ({
               <BarChart;
                 data={Object.entries(riskMetrics).map(([metric, value]) = key={746876}> ({
                   metric,
-                  value,
+//                   value
                 }))}
               >
                 <CartesianGrid strokeDasharray="3 3" / key={580708}>
@@ -202,7 +188,11 @@ const RiskInsights: React.FC<RiskInsightsProps key={334733}> = ({
         </div>
       </section>
     </div>
-  );
-};
+  )};
 
 export default React.memo(RiskInsights);
+
+
+
+
+`

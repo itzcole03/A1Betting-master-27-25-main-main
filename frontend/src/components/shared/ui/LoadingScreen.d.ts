@@ -1,6 +1,8 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface LoadingScreenProps {
-    message?: string;
-}
+  message?: string;}
 export declare const LoadingScreen: React.FC<LoadingScreenProps>;
-export {};
+export Record<string, any>;
+
+
+

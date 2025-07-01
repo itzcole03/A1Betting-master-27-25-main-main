@@ -1,26 +1,24 @@
-import React, { Fragment  } from 'react.ts';
-import { Dialog, Transition } from '@headlessui/react.ts';
-import { cn } from '@/utils/classNames.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React, { Fragment} from 'react';
+import { Dialog, Transition} from '@headlessui/react';
+import { cn} from '@/utils/classNames';
+import { motion} from 'framer-motion';
 
 export interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title?: string;
-  description?: string;
+  isOpen: boolean,`n  onClose: () => void;
+  title?: string
+  description?: string
   children: React.ReactNode;
   size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
-  className?: string;
-  showClose?: boolean;
-  closeOnOverlayClick?: boolean;
-}
+  className?: string
+  showClose?: boolean
+  closeOnOverlayClick?: boolean}
 
 const sizes = {
   sm: 'max-w-sm',
   md: 'max-w-md',
   lg: 'max-w-lg',
   xl: 'max-w-xl',
-  full: 'max-w-full mx-4',
+  full: 'max-w-full mx-4'
 };
 
 export const Modal: React.FC<ModalProps key={499460}> = ({
@@ -32,14 +30,14 @@ export const Modal: React.FC<ModalProps key={499460}> = ({
   size = 'md',
   className,
   showClose = true,
-  closeOnOverlayClick = true,
+  closeOnOverlayClick = true
 }) => {
   return (
     <Transition appear as={Fragment} show={isOpen} key={169469}>
       <Dialog;
         as="div"
         className="fixed inset-0 z-50 overflow-y-auto"
-        onClose={closeOnOverlayClick ? onClose : () = key={829797}> {}}
+        onClose={closeOnOverlayClick ? onClose : () = key={829797}> Record<string, any>}
       >
         <div className="min-h-screen px-4 text-center" key={763353}>
           <Transition.Child;
@@ -69,14 +67,14 @@ export const Modal: React.FC<ModalProps key={499460}> = ({
             leaveTo="opacity-0 scale-95"
            key={999427}>
             <motion.div;
-              animate={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0}}
               className={cn(
                 'inline-block w-full p-6 my-8 overflow-hidden text-left align-middle bg-white dark:bg-gray-800 rounded-2xl shadow-xl transition-all',
                 sizes[size],
                 className;
               )}
-              exit={{ opacity: 0, y: 20 }}
-              initial={{ opacity: 0, y: 20 }}
+              exit={{ opacity: 0, y: 20}}
+              initial={{ opacity: 0, y: 20}}
              key={746633}>
               {(title || showClose) && (
                 <div className="flex items-start justify-between mb-4" key={886571}>
@@ -125,5 +123,9 @@ export const Modal: React.FC<ModalProps key={499460}> = ({
         </div>
       </Dialog>
     </Transition>
-  );
-};
+  );};
+
+
+
+
+`

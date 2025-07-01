@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   Box,
   Card,
@@ -9,52 +9,45 @@ import {
   Chip,
   IconButton,
   Tooltip,
-  Stack,
-} from '@mui/material.ts';
+//   Stack
+} from '@mui/material';
 import {
   TrendingUp as TrendingUpIcon,
   TrendingDown as TrendingDownIcon,
-  Info as InfoIcon,
-} from '@mui/icons-material.ts';
-import { BettingEvent } from '@/types/betting.ts';
-import { formatOdds, formatDateTime } from '@/utils/formatters.ts';
+  Info as InfoIcon
+} from '@mui/icons-material';
+import { BettingEvent} from '@/types/betting';
+import { formatOdds, formatDateTime} from '@/utils/formatters';
 
 interface LiveOddsTickerProps {
-  events: BettingEvent[];
-  onEventSelect: (event: BettingEvent) => void;
-  loading: boolean;
-  error: Error | null;
-}
+  events: BettingEvent[0],`n  onEventSelect: (event: BettingEvent) => void,`n  loading: boolean;,`n  error: Error | null}
 
 export const LiveOddsTicker: React.FC<LiveOddsTickerProps key={15618}> = ({
   events,
   onEventSelect,
   loading,
-  error,
+//   error
 }) => {
   if (loading) {
     return (
       <Box display="flex" justifyContent="center" p={3} key={1673}>
         <CircularProgress / key={730118}>
       </Box>
-    );
-  }
+    )}
 
   if (error) {
     return (
-      <Alert severity="error" sx={{ m: 2 }} key={545431}>
+      <Alert severity="error" sx={{ m: 2}} key={545431}>
         Error loading live odds: {error.message}
       </Alert>
-    );
-  }
+    )}
 
   if (events.length === 0) {
     return (
-      <Alert severity="info" sx={{ m: 2 }} key={939445}>
+      <Alert severity="info" sx={{ m: 2}} key={939445}>
         No live events available at the moment.
       </Alert>
-    );
-  }
+    )}
 
   return (
     <Box key={485947}>
@@ -70,8 +63,8 @@ export const LiveOddsTicker: React.FC<LiveOddsTickerProps key={15618}> = ({
               cursor: 'pointer',
               transition: 'transform 0.2s',
               '&:hover': {
-                transform: 'translateY(-2px)',
-              },
+                transform: 'translateY(-2px)'
+              }
             }}
             onClick={() = key={669083}> onEventSelect(event)}
           >
@@ -114,5 +107,8 @@ export const LiveOddsTicker: React.FC<LiveOddsTickerProps key={15618}> = ({
         ))}
       </Stack>
     </Box>
-  );
-};
+  )};
+
+
+
+`

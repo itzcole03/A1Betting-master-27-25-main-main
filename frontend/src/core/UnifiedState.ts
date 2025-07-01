@@ -1,4 +1,4 @@
-// src/core/UnifiedState.ts;
+﻿// src/core/UnifiedState.ts;
 
 /**
  * UnifiedState;
@@ -17,41 +17,33 @@
  */
 
 interface CriticalStateStore {
-  [key: string]: any;
-}
+  [key: string]: any}
 
 class UnifiedStateSingleton {
-  private state: CriticalStateStore = {};
+  private state: CriticalStateStore = Record<string, any>;
 
   constructor() {
     // Initialize with any default critical states if necessary;
-    // this.state.INITIAL_LOAD_COMPLETE = false;
-  }
+    // this.state.INITIAL_LOAD_COMPLETE = false;}
 
   public set<T>(key: string, value: T): void {
     //
     this.state[key] = value;
     // Note: This is NOT reactive. UI components will not automatically update.
-    // If reactivity is needed, consider Zustand or an event bus.
-  }
+    // If reactivity is needed, consider Zustand or an event bus.}
 
   public get<T>(key: string, defaultValue?: T): T | undefined {
-
-    return value !== undefined ? value : defaultValue;
-  }
+    return value !== undefined ? value : defaultValue}
 
   public remove(key: string): void {
     //
-    delete this.state[key];
-  }
+    delete this.state[key]}
 
   public getAll(): Readonly<CriticalStateStore> {
-    return Object.freeze({ ...this.state });
-  }
+    return Object.freeze({ ...this.state})}
 
   public clearAll(): void {
-    this.state = {};
-  }
+    this.state = Record<string, any>;}
 }
 
 // Export a singleton instance;
@@ -62,4 +54,8 @@ export const unifiedState = new UnifiedStateSingleton();
 // const isInMaintenance = unifiedState.get<boolean>('SYSTEM_MAINTENANCE_MODE', false);
 // if (isInMaintenance) {
 //   // console statement removed
-// }
+//}
+
+
+
+`

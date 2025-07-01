@@ -136,97 +136,55 @@ async def status():
 
 @app.get("/api/prizepicks/props")
 async def get_prizepicks_props() -> List[Dict[str, Any]]:
-    """Get PrizePicks player props - simplified working version"""
+    """
+    Get PrizePicks player props using REAL API integration
+    
+    PHASE 1: REAL DATA INTEGRATION - ZERO mock data
+    """
     try:
-        import random
-
-        # Use only necessary imports at top of file
-        import httpx
-
-        # Try to get real data from PrizePicks API
-        url = "https://api.prizepicks.com/projections"
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-            "Accept": "application/json",
-        }
-
-        try:
-            async with httpx.AsyncClient(timeout=3) as client:
-                resp = await client.get(url, headers=headers)
-                if resp.status_code == 200:
-                    data = resp.json()
-                    props = data.get("data", []) if isinstance(data, dict) else []  # type: ignore[misc]
-
-                    # Transform to frontend format
-                    transformed_props = []
-                    for prop in props[
-                        :10
-                    ]:  # Limit to 10 for speed  # type: ignore[misc]
-                        if isinstance(prop, dict):
-                            attributes = prop.get("attributes", {})  # type: ignore[misc]
-                            transformed_props.append(  # type: ignore[misc]
-                                {
-                                    "id": prop.get("id"),  # type: ignore[misc]
-                                    "line_score": attributes.get("line_score", 0),  # type: ignore[misc]
-                                    "stat_type": attributes.get("stat_type", ""),  # type: ignore[misc]
-                                    "description": attributes.get("description", ""),  # type: ignore[misc]
-                                    "odds_type": attributes.get(  # type: ignore[misc]
-                                        "odds_type", "standard"
-                                    ),
-                                    "start_time": attributes.get("start_time", ""),  # type: ignore[misc]
-                                    "status": attributes.get("status", ""),  # type: ignore[misc]
-                                    "confidence": 75
-                                    + random.randint(-10, 15),  # Simple confidence
-                                    "edge": round(
-                                        random.uniform(-0.05, 0.08), 3
-                                    ),  # Simple edge
-                                    "projection": attributes.get("line_score", 0),  # type: ignore[misc]
-                                    "line": attributes.get("line_score", 0),  # type: ignore[misc]
-                                }
-                            )
-
-                    if transformed_props:
-                        logger.info(
-                            "✅ Fetched %d PrizePicks props", len(transformed_props)  # type: ignore[misc]
-                        )
-                        return transformed_props  # type: ignore[return-value]
-
-        except (httpx.RequestError, httpx.HTTPStatusError, ValueError) as e:
-            logger.warning("PrizePicks API timeout: %s", str(e))
-
-        # Fallback data if API fails
-        logger.info("🔄 Using fallback data for PrizePicks props")
-        return [
-            {
-                "id": "sample_1",
-                "line_score": 25.5,
-                "stat_type": "points",
-                "description": "LeBron James Points",
+        # Import real PrizePicks service
+        import sys
+        import os
+        sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+        
+        from services.real_prizepicks_service import real_prizepicks_service
+        
+        logger.info("🌐 Using REAL PrizePicks API integration - ZERO mock data")
+        
+        # Get real props from PrizePicks API
+        real_props = await real_prizepicks_service.get_real_projections(limit=50)
+        
+        # Convert to API response format
+        api_response = []
+        for prop in real_props:
+            api_response.append({
+                "id": prop.id,
+                "line_score": prop.line,
+                "stat_type": prop.stat_type.lower(),
+                "description": f"{prop.player_name} {prop.stat_type}",
                 "odds_type": "standard",
-                "start_time": (datetime.now() + timedelta(hours=2)).isoformat(),
-                "status": "open",
-                "confidence": 82,
-                "edge": 0.03,
-                "projection": 26.2,
-                "line": 25.5,
-            },
-            {
-                "id": "sample_2",
-                "line_score": 8.5,
-                "stat_type": "rebounds",
-                "description": "Anthony Davis Rebounds",
-                "odds_type": "standard",
-                "start_time": (datetime.now() + timedelta(hours=2)).isoformat(),
-                "status": "open",
-                "confidence": 78,
-                "edge": 0.05,
-                "projection": 9.1,
-                "line": 8.5,
-            },
-        ]
+                "start_time": prop.game_time.isoformat(),
+                "status": prop.status,
+                "confidence": int(prop.confidence_score * 100),
+                "edge": prop.expected_value,
+                "projection": prop.line + prop.expected_value,
+                "line": prop.line,
+                "player_name": prop.player_name,
+                "team": prop.team,
+                "sport": prop.sport,
+                "league": prop.league,
+                "opponent": prop.opponent,
+                "multiplier": prop.multiplier,
+                "implied_probability": prop.implied_probability
+            })
+        
+        logger.info(f"✅ Returning {len(api_response)} REAL PrizePicks props")
+        return api_response
 
-    except (ValueError, TypeError, AttributeError) as e:
-        logger.error("Error in prizepicks props: %s", str(e))
+    except Exception as e:
+        logger.error(f"❌ Error fetching real PrizePicks data: {e}")
+        # CRITICAL: NO fallback to mock data - return empty list
+        logger.warning("🚨 Real PrizePicks API failed - returning empty data (no mock fallback)")
         return []
 
 

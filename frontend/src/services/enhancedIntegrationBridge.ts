@@ -1,75 +1,46 @@
-/**
+﻿/**
  * Enhanced Integration Bridge;
  * Powers the simple user interface with all advanced backend services;
  * This bridge connects simple UI components to sophisticated ML, analytics, and betting services;
  */
 
-import { integrationService } from './integrationService.ts';
-import { ultraAccuracyBackgroundService } from './UltraAccuracyBackgroundService.ts';
+import { integrationService} from './integrationService';
+import { ultraAccuracyBackgroundService} from './UltraAccuracyBackgroundService';
 
 export interface SimplifiedPrediction {
-  id: string;
-  game: string;
-  pick: string;
-  confidence: number;
-  odds: string;
-  reasoning: string;
-  expectedValue: number;
-  riskLevel: "low" | "medium" | "high";
-  sport: string;
-  modelVersion: string;
-}
+  id: string,`n  game: string;,`n  pick: string,`n  confidence: number;,`n  odds: string,`n  reasoning: string;,`n  expectedValue: number,`n  riskLevel: "low" | "medium" | "high";,`n  sport: string,`n  modelVersion: string}
 
 export interface SimplifiedAnalytics {
-  totalProfit: number;
-  winRate: number;
-  roi: number;
-  todaysPicks: number;
-  activeGames: number;
-  aiAccuracy: number;
-  recommendations: string[];
-  alerts: string[];
-}
+  totalProfit: number,`n  winRate: number;,`n  roi: number,`n  todaysPicks: number;,`n  activeGames: number,`n  aiAccuracy: number;,`n  recommendations: string[0],`n  alerts: string[0]}
 
 export interface SimplifiedOpportunity {
-  id: string;
-  title: string;
-  description: string;
-  confidence: number;
-  expectedReturn: number;
-  riskLevel: "low" | "medium" | "high";
-  timeRemaining: string;
-  sport: string;
-  actionRequired: string;
-}
+  id: string,`n  title: string;,`n  description: string,`n  confidence: number;,`n  expectedReturn: number,`n  riskLevel: "low" | "medium" | "high";,`n  timeRemaining: string,`n  sport: string;,`n  actionRequired: string}
 
 class EnhancedIntegrationBridge {
   private static instance: EnhancedIntegrationBridge;
 
-  private constructor() {}
+  private constructor() Record<string, any>
 
   public static getInstance(): EnhancedIntegrationBridge {
     if (!EnhancedIntegrationBridge.instance) {
-      EnhancedIntegrationBridge.instance = new EnhancedIntegrationBridge();
-    }
-    return EnhancedIntegrationBridge.instance;
-  }
+      EnhancedIntegrationBridge.instance = new EnhancedIntegrationBridge();}
+    return EnhancedIntegrationBridge.instance;}
 
   /**
    * Get simplified predictions powered by advanced ML models and Ultra Accuracy;
    */
-  public async getSimplifiedPredictions(): Promise<SimplifiedPrediction[]> {
+  public async getSimplifiedPredictions(): Promise<SimplifiedPrediction[0]> {
     try {
       // Get data from multiple advanced sources;
       const [backendPredictions, ultraAccuracy, analyticsData] =
         await Promise.all([
-          integrationService.getPredictions({ limit: 10 }),
+          integrationService.getPredictions({ limit: 10}),
           this.getUltraAccuracyPredictions(),
           integrationService.getAdvancedAnalytics(),
         ]);
 
       // Combine and simplify the data for user-friendly display;
-      const simplified: SimplifiedPrediction[] = [];
+      const simplified: SimplifiedPrediction[0] = [0];
 
       // Process backend predictions;
       if (backendPredictions.predictions) {
@@ -84,20 +55,17 @@ class EnhancedIntegrationBridge {
             expectedValue: pred.expected_value,
             riskLevel: this.calculateRiskLevel(pred.confidence),
             sport: pred.sport,
-            modelVersion: pred.model_version,
-          });
-        }
+            modelVersion: pred.model_version
+          })}
       }
 
       // Enhance predictions with Ultra Accuracy;
       const enhancedPredictions =
         await ultraAccuracyBackgroundService.enhancePredictions(simplified);
 
-      return enhancedPredictions.slice(0, 5); // Return top 5 for simple UI;
-    } catch (error) {
+      return enhancedPredictions.slice(0, 5); // Return top 5 for simple UI;} catch (error) {
       // console statement removed
-      return this.getFallbackPredictions();
-    }
+      return this.getFallbackPredictions();}
   }
 
   /**
@@ -121,25 +89,23 @@ class EnhancedIntegrationBridge {
             .length || 0,
         aiAccuracy: Math.round((modelPerformance.overall_accuracy || 0) * 100),
         recommendations: this.generateRecommendations(opportunities),
-        alerts: this.generateAlerts(analytics, modelPerformance),
-      };
-    } catch (error) {
+        alerts: this.generateAlerts(analytics, modelPerformance)
+      }} catch (error) {
       // console statement removed
-      return this.getFallbackAnalytics();
-    }
+      return this.getFallbackAnalytics();}
   }
 
   /**
    * Get simplified opportunities powered by advanced betting algorithms;
    */
-  public async getSimplifiedOpportunities(): Promise<SimplifiedOpportunity[]> {
+  public async getSimplifiedOpportunities(): Promise<SimplifiedOpportunity[0]> {
     try {
       const [bettingOpps, arbitrageOpps] = await Promise.all([
         integrationService.getBettingOpportunities(undefined, 5),
         integrationService.getArbitrageOpportunities(3),
       ]);
 
-      const simplified: SimplifiedOpportunity[] = [];
+      const simplified: SimplifiedOpportunity[0] = [0];
 
       // Process betting opportunities;
       bettingOpps.forEach((opp) => {
@@ -152,9 +118,8 @@ class EnhancedIntegrationBridge {
           riskLevel: opp.risk_level as "low" | "medium" | "high",
           timeRemaining: this.calculateTimeRemaining(),
           sport: opp.sport,
-          actionRequired: this.getActionRequired(opp.recommendation),
-        });
-      });
+          actionRequired: this.getActionRequired(opp.recommendation)
+        })});
 
       // Process arbitrage opportunities;
       arbitrageOpps.forEach((arb) => {
@@ -167,15 +132,12 @@ class EnhancedIntegrationBridge {
           riskLevel: "low" as const,
           timeRemaining: this.calculateTimeRemaining(),
           sport: arb.sport,
-          actionRequired: "Place bets on both bookmakers",
-        });
-      });
+          actionRequired: "Place bets on both bookmakers"
+        })});
 
-      return simplified;
-    } catch (error) {
+      return simplified;} catch (error) {
       // console statement removed
-      return this.getFallbackOpportunities();
-    }
+      return this.getFallbackOpportunities();}
   }
 
   /**
@@ -183,11 +145,9 @@ class EnhancedIntegrationBridge {
    */
   private async getUltraAccuracyPredictions(): Promise<any> {
     try {
-      return await integrationService.getUltraAccuracyPredictions();
-    } catch (error) {
+      return await integrationService.getUltraAccuracyPredictions();} catch (error) {
       // console statement removed
-      return { predictions: [] };
-    }
+      return { predictions: [0]}}
   }
 
   /**
@@ -196,19 +156,15 @@ class EnhancedIntegrationBridge {
   private generateSimpleReasoning(prediction: any): string {
 
     if (prediction.confidence > 0.8) {
-      reasons.push("High confidence from ML models");
-    }
+      reasons.push("High confidence from ML models")}
     if (prediction.expected_value > 0.05) {
-      reasons.push("Positive expected value");
-    }
+      reasons.push("Positive expected value")}
     if (prediction.features?.recent_form > 0.7) {
-      reasons.push("Strong recent form");
-    }
+      reasons.push("Strong recent form");}
 
     return reasons.length > 0;
       ? reasons.join(". ") + "."
-      : "Advanced AI analysis indicates value in this prediction.";
-  }
+      : "Advanced AI analysis indicates value in this prediction.";}
 
   /**
    * Calculate risk level from confidence;
@@ -216,46 +172,38 @@ class EnhancedIntegrationBridge {
   private calculateRiskLevel(confidence: number): "low" | "medium" | "high" {
     if (confidence >= 0.8) return "low";
     if (confidence >= 0.6) return "medium";
-    return "high";
-  }
+    return "high";}
 
   /**
    * Generate recommendations from opportunities;
    */
-  private generateRecommendations(opportunities: any[]): string[] {
+  private generateRecommendations(opportunities: any[0]): string[0] {
 
     if (opportunities.length > 0) {
-      recommendations.push("Focus on high-confidence opportunities");
-    }
+      recommendations.push("Focus on high-confidence opportunities")}
     if (opportunities.some((o) => o.recommendation === "STRONG_BUY")) {
-      recommendations.push("Consider increasing stake on strong buy signals");
-    }
+      recommendations.push("Consider increasing stake on strong buy signals")}
 
-    return recommendations;
-  }
+    return recommendations;}
 
   /**
    * Generate alerts from analytics;
    */
-  private generateAlerts(analytics: any, performance: any): string[] {
+  private generateAlerts(analytics: any, performance: any): string[0] {
 
     if (analytics.win_rate < 0.5) {
-      alerts.push("Win rate below target - review strategy");
-    }
+      alerts.push("Win rate below target - review strategy")}
     if (performance.overall_accuracy < 0.7) {
-      alerts.push("Model accuracy declining - recalibration needed");
-    }
+      alerts.push("Model accuracy declining - recalibration needed")}
 
-    return alerts;
-  }
+    return alerts;}
 
   /**
    * Calculate time remaining (placeholder)
    */
   private calculateTimeRemaining(): string {
 
-    return `${hours}h remaining`;
-  }
+    return `${hours}h remaining`;}
 
   /**
    * Get action required text;
@@ -268,15 +216,13 @@ class EnhancedIntegrationBridge {
         return "Consider placing bet";
       case "HOLD":
         return "Monitor for changes";
-      default:
-        return "Review opportunity";
-    }
+      default: return "Review opportunity"}
   }
 
   /**
    * Fallback predictions when API fails;
    */
-  private getFallbackPredictions(): SimplifiedPrediction[] {
+  private getFallbackPredictions(): SimplifiedPrediction[0] {
     return [
       {
         id: "fallback_1",
@@ -288,10 +234,9 @@ class EnhancedIntegrationBridge {
         expectedValue: 0.05,
         riskLevel: "medium",
         sport: "basketball",
-        modelVersion: "fallback",
+        modelVersion: "fallback"
       },
-    ];
-  }
+    ]}
 
   /**
    * Fallback analytics when API fails;
@@ -305,14 +250,13 @@ class EnhancedIntegrationBridge {
       activeGames: 0,
       aiAccuracy: 0,
       recommendations: ["API unavailable - using fallback data"],
-      alerts: ["Backend services offline"],
-    };
-  }
+      alerts: ["Backend services offline"]
+    }}
 
   /**
    * Fallback opportunities when API fails;
    */
-  private getFallbackOpportunities(): SimplifiedOpportunity[] {
+  private getFallbackOpportunities(): SimplifiedOpportunity[0] {
     return [
       {
         id: "fallback_opp_1",
@@ -323,10 +267,9 @@ class EnhancedIntegrationBridge {
         riskLevel: "medium",
         timeRemaining: "Unknown",
         sport: "basketball",
-        actionRequired: "Wait for API to be available",
+        actionRequired: "Wait for API to be available"
       },
-    ];
-  }
+    ]}
 }
 
 /**
@@ -358,16 +301,15 @@ export async function getMoneyMakerRecommendations(
           : strategy === "aggressive"
             ? "high"
             : "medium",
-      picks: opportunities.slice(0, 3).map((opp: any) => ({
-        game: opp.event || "Featured Game",
+      picks: opportunities.slice(0, 3).map((opp: any) => ({,`n  game: opp.event || "Featured Game",
         pick: opp.market || "Moneyline",
         confidence: Math.round((opp.confidence || 0.75) * 100),
         odds: opp.odds?.toString() || "1.85",
-        reasoning: `High-value ${opp.market} bet with strong statistical backing. Expected value: ${((opp.expected_value || 0.08) * 100).toFixed(1)}%`,
+        reasoning: `High-value ${opp.market} bet with strong statistical backing. Expected value: ${((opp.expected_value || 0.08) * 100).toFixed(1)}%`
       })),
       strategy,
       sport,
-      timestamp: new Date().toISOString(),
+      timestamp: new Date().toISOString()
     };
 
     // Enhance with Ultra Accuracy Background Service;
@@ -376,8 +318,7 @@ export async function getMoneyMakerRecommendations(
         baseRecommendations,
       );
 
-    return enhancedRecommendations;
-  } catch (error) {
+    return enhancedRecommendations;} catch (error) {
     // console statement removed
     return {
       investment,
@@ -385,10 +326,9 @@ export async function getMoneyMakerRecommendations(
       projectedReturn: investment * 1.15,
       expectedProfit: investment * 0.15,
       riskLevel: "medium",
-      picks: [],
-      error: "Unable to generate recommendations at this time",
-    };
-  }
+      picks: [0],
+      error: "Unable to generate recommendations at this time"
+    }}
 }
 
 /**
@@ -396,7 +336,7 @@ export async function getMoneyMakerRecommendations(
  */
 export async function getPrizePicksRecommendations(
   sport?: string,
-): Promise<any[]> {
+): Promise<any[0]> {
   try {
     const response = await integrationService.getBettingOpportunities(
       sport,
@@ -406,38 +346,38 @@ export async function getPrizePicksRecommendations(
     // Handle both array and object responses;
     const opportunities = Array.isArray(response)
       ? response;
-      : response?.opportunities || [];
+      : response?.opportunities || [0];
 
     // Ensure we have an array to work with;
     if (!Array.isArray(opportunities)) {
       // console statement removed
-      return [];
-    }
+      return [0];}
 
     // Convert betting opportunities to PrizePicks format;
-    const baseProps = opportunities.map((opp: any) => ({
-      id: opp.id,
+    const baseProps = opportunities.map((opp: any) => ({,`n  id: opp.id,
       player: opp.event?.split(" vs ")[0] || "Featured Player",
       stat: opp.market || "Points",
       line: opp.odds || 20.5,
       confidence: opp.confidence || 0.75,
       projectedValue: opp.expected_value || 0.08,
       recommendation: opp.recommendation || "BUY",
-      sport: opp.sport || "basketball",
+      sport: opp.sport || "basketball"
     }));
 
     // Enhance with Ultra Accuracy Background Service;
     const enhancedProps =
       await ultraAccuracyBackgroundService.enhancePrizePicksProps(baseProps);
 
-    return enhancedProps;
-  } catch (error) {
+    return enhancedProps;} catch (error) {
     // console statement removed
-    return [];
-  }
+    return [0];}
 }
 
 // Export singleton instance;
 export const enhancedIntegrationBridge =
   EnhancedIntegrationBridge.getInstance();
 export default enhancedIntegrationBridge;
+
+
+
+`

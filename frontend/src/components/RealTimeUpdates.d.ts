@@ -1,5 +1,6 @@
-import React from 'react.ts';
-import { Sport } from '@/services/sportsAnalytics.ts';
-export declare const RealTimeUpdates: React.FC<{
-    sport: Sport;
-}>;
+﻿import React from 'react.ts';
+import { Sport} from '@/services/sportsAnalytics.ts';
+export declare const RealTimeUpdates: React.FC<{,`n  sport: Sport}>;
+
+
+`

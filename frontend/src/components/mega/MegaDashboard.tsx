@@ -1,12 +1,12 @@
-import React, { useState, useEffect  } from 'react.ts';
+﻿import React, { useState, useEffect} from 'react';
 import {
   CYBER_COLORS,
   CYBER_GRADIENTS,
   CYBER_GLASS,
   CyberContainer,
   CyberText,
-  CyberButton,
-} from './CyberTheme.ts';
+//   CyberButton
+} from './CyberTheme';
 import {
   Brain,
   Target,
@@ -19,24 +19,23 @@ import {
   Activity,
   Cpu,
   Database,
-  Wifi,
-} from 'lucide-react.ts';
+//   Wifi
+} from 'lucide-react';
 
 // MEGA DASHBOARD - Consolidates all dashboard components with cyber theme;
 const MegaDashboard: React.FC<{
-  currentSection?: string;
-  connectedSources?: number;
-  dataQuality?: number;
-  userStats?: any;
-  liveMetrics?: any;
-  className?: string;
-}> = ({
+  currentSection?: string
+  connectedSources?: number
+  dataQuality?: number
+  userStats?: any
+  liveMetrics?: any
+  className?: string}> = ({
   currentSection = "dashboard",
   connectedSources = 12,
   dataQuality = 87,
-  userStats = {},
-  liveMetrics = {},
-  className = "",
+  userStats = Record<string, any>,
+  liveMetrics = Record<string, any>,
+  className = ""
 }) => {
   const [activeTab, setActiveTab] = useState("overview");
   const [autoRefresh, setAutoRefresh] = useState(true);
@@ -46,7 +45,7 @@ const MegaDashboard: React.FC<{
     accuracy: 97.3,
     activeBets: 23,
     totalPredictions: 1847,
-    success: 87.6,
+    success: 87.6
   });
 
   // Auto-refresh metrics every 10 seconds;
@@ -59,12 +58,10 @@ const MegaDashboard: React.FC<{
         winRate: 85 + Math.random() * 10,
         totalProfit: prev.totalProfit + (Math.random() - 0.5) * 100,
         accuracy: 95 + Math.random() * 5,
-        activeBets: Math.floor(Math.random() * 50) + 10,
-      }));
-    }, 10000);
+        activeBets: Math.floor(Math.random() * 50) + 10
+      }))}, 10000);
 
-    return () => clearInterval(interval);
-  }, [autoRefresh]);
+    return () => clearInterval(interval);}, [autoRefresh]);
 
   const dashboardCards = [
     {
@@ -72,47 +69,47 @@ const MegaDashboard: React.FC<{
       value: `${metrics.winRate.toFixed(1)}%`,
       icon: TrendingUp,
       trend: "+2.3%",
-      color: CYBER_COLORS.primary,
+      color: CYBER_COLORS.primary
     },
     {
       title: "Total Profit",
       value: `$${metrics.totalProfit.toLocaleString()}`,
       icon: DollarSign,
       trend: "+$1,247",
-      color: CYBER_COLORS.secondary,
+      color: CYBER_COLORS.secondary
     },
     {
       title: "Accuracy",
       value: `${metrics.accuracy.toFixed(1)}%`,
       icon: Target,
       trend: "+0.5%",
-      color: CYBER_COLORS.accent,
+      color: CYBER_COLORS.accent
     },
     {
       title: "Active Bets",
       value: metrics.activeBets.toString(),
       icon: Activity,
       trend: "+3",
-      color: CYBER_COLORS.purple,
+      color: CYBER_COLORS.purple
     },
   ];
 
   const systemStats = [
-    { label: "Neural Networks", value: "47", color: CYBER_COLORS.primary },
+    { label: "Neural Networks", value: "47", color: CYBER_COLORS.primary},
     {
       label: "Data Sources",
       value: connectedSources.toString(),
-      color: CYBER_COLORS.secondary,
+      color: CYBER_COLORS.secondary
     },
-    { label: "Predictions Today", value: "1,234", color: CYBER_COLORS.accent },
-    { label: "Models Running", value: "12", color: CYBER_COLORS.purple },
+    { label: "Predictions Today", value: "1,234", color: CYBER_COLORS.accent},
+    { label: "Models Running", value: "12", color: CYBER_COLORS.purple},
   ];
 
   const tabs = [
-    { key: "overview", label: "Overview", icon: BarChart3 },
-    { key: "realtime", label: "Real-time", icon: Zap },
-    { key: "analytics", label: "Analytics", icon: Brain },
-    { key: "system", label: "System", icon: Cpu },
+    { key: "overview", label: "Overview", icon: BarChart3},
+    { key: "realtime", label: "Real-time", icon: Zap},
+    { key: "analytics", label: "Analytics", icon: Brain},
+    { key: "system", label: "System", icon: Cpu},
   ];
 
   const renderOverviewTab = () => (
@@ -120,7 +117,7 @@ const MegaDashboard: React.FC<{
       style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-        gap: "24px",
+        gap: "24px"
       }}
      key={641337}>
       {/* Metric Cards */}
@@ -130,14 +127,14 @@ const MegaDashboard: React.FC<{
           <CyberContainer;
             key={index}
             variant="card"
-            style={{ padding: "20px" }}
+            style={{ padding: "20px"}}
            key={118299}>
             <div;
               style={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "flex-start",
-                marginBottom: "16px",
+                marginBottom: "16px"
               }}
              key={155985}>
               <div key={241917}>
@@ -149,14 +146,14 @@ const MegaDashboard: React.FC<{
                   style={{
                     fontSize: "24px",
                     color: card.color,
-                    marginBottom: "4px",
+                    marginBottom: "4px"
                   }}
                  key={154727}>
                   {card.value}
                 </CyberText>
                 <CyberText;
                   variant="caption"
-                  style={{ color: CYBER_COLORS.primary }}
+                  style={{ color: CYBER_COLORS.primary}}
                  key={220200}>
                   {card.trend} this week;
                 </CyberText>
@@ -166,60 +163,59 @@ const MegaDashboard: React.FC<{
                   padding: "12px",
                   borderRadius: "8px",
                   backgroundColor: "rgba(255, 255, 255, 0.05)",
-                  border: `1px solid ${card.color}30`,
+                  border: `1px solid ${card.color}30`
                 }}
                key={987001}>
                 <Icon size={20} color={card.color} / key={608812}>
               </div>
             </div>
           </CyberContainer>
-        );
-      })}
+        )})}
 
       {/* Live Activity Feed */}
       <CyberContainer;
         variant="card"
-        style={{ gridColumn: "span 2", padding: "20px" }}
+        style={{ gridColumn: "span 2", padding: "20px"}}
        key={437785}>
         <CyberText;
           variant="title"
           style={{
             marginBottom: "16px",
             display: "flex",
-            alignItems: "center",
+            alignItems: "center"
           }}
          key={738204}>
           <Activity;
             size={20}
-            style={{ marginRight: "8px", color: CYBER_COLORS.primary }}
+            style={{ marginRight: "8px", color: CYBER_COLORS.primary}}
           / key={571017}>
           Live Activity Feed;
         </CyberText>
-        <div style={{ space: "12px" }} key={938776}>
+        <div style={{ space: "12px"}} key={938776}>
           {[
             {
               time: "2:34 PM",
               event: "New arbitrage opportunity detected",
               value: "+$247",
-              color: CYBER_COLORS.primary,
+              color: CYBER_COLORS.primary
             },
             {
               time: "2:31 PM",
               event: "ML model accuracy updated",
               value: "97.3%",
-              color: CYBER_COLORS.secondary,
+              color: CYBER_COLORS.secondary
             },
             {
               time: "2:28 PM",
               event: "Bet placed: Lakers vs Warriors",
               value: "$150",
-              color: CYBER_COLORS.accent,
+              color: CYBER_COLORS.accent
             },
             {
               time: "2:25 PM",
               event: "Neural network retrained",
               value: "Complete",
-              color: CYBER_COLORS.purple,
+              color: CYBER_COLORS.purple
             },
           ].map((activity, index) => (
             <div;
@@ -230,7 +226,7 @@ const MegaDashboard: React.FC<{
                 alignItems: "center",
                 padding: "12px 0",
                 borderBottom:
-                  index < 3 ? "1px solid rgba(255, 255, 255, 0.05)" : "none",
+                  index < 3 ? "1px solid rgba(255, 255, 255, 0.05)" : "none"
               }}
              key={976083}>
               <div key={241917}>
@@ -241,7 +237,7 @@ const MegaDashboard: React.FC<{
               </div>
               <CyberText;
                 variant="body"
-                style={{ color: activity.color, fontWeight: "600" }}
+                style={{ color: activity.color, fontWeight: "600"}}
                key={334620}>
                 {activity.value}
               </CyberText>
@@ -257,22 +253,22 @@ const MegaDashboard: React.FC<{
       style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-        gap: "24px",
+        gap: "24px"
       }}
      key={260114}>
       {/* System Health */}
-      <CyberContainer variant="card" style={{ padding: "20px" }} key={24342}>
+      <CyberContainer variant="card" style={{ padding: "20px"}} key={24342}>
         <CyberText;
           variant="title"
           style={{
             marginBottom: "16px",
             display: "flex",
-            alignItems: "center",
+            alignItems: "center"
           }}
          key={738204}>
           <Cpu;
             size={20}
-            style={{ marginRight: "8px", color: CYBER_COLORS.primary }}
+            style={{ marginRight: "8px", color: CYBER_COLORS.primary}}
           / key={877620}>
           System Health;
         </CyberText>
@@ -287,7 +283,7 @@ const MegaDashboard: React.FC<{
               borderBottom:
                 index < systemStats.length - 1;
                   ? "1px solid rgba(255, 255, 255, 0.05)"
-                  : "none",
+                  : "none"
             }}
            key={315612}>
             <CyberText variant="body" color="secondary" key={196444}>
@@ -295,7 +291,7 @@ const MegaDashboard: React.FC<{
             </CyberText>
             <CyberText;
               variant="body"
-              style={{ color: stat.color, fontWeight: "600" }}
+              style={{ color: stat.color, fontWeight: "600"}}
              key={46982}>
               {stat.value}
             </CyberText>
@@ -304,18 +300,18 @@ const MegaDashboard: React.FC<{
       </CyberContainer>
 
       {/* Data Quality */}
-      <CyberContainer variant="card" style={{ padding: "20px" }} key={24342}>
+      <CyberContainer variant="card" style={{ padding: "20px"}} key={24342}>
         <CyberText;
           variant="title"
           style={{
             marginBottom: "16px",
             display: "flex",
-            alignItems: "center",
+            alignItems: "center"
           }}
          key={738204}>
           <Database;
             size={20}
-            style={{ marginRight: "8px", color: CYBER_COLORS.secondary }}
+            style={{ marginRight: "8px", color: CYBER_COLORS.secondary}}
           / key={455036}>
           Data Quality: {dataQuality}%
         </CyberText>
@@ -326,7 +322,7 @@ const MegaDashboard: React.FC<{
             backgroundColor: "rgba(255, 255, 255, 0.1)",
             borderRadius: "4px",
             overflow: "hidden",
-            marginBottom: "16px",
+            marginBottom: "16px"
           }}
          key={927990}>
           <div;
@@ -334,7 +330,7 @@ const MegaDashboard: React.FC<{
               width: `${dataQuality}%`,
               height: "100%",
               backgroundImage: CYBER_GRADIENTS.button,
-              transition: "width 0.3s ease",
+              transition: "width 0.3s ease"
             }}
           / key={796215}>
         </div>
@@ -352,26 +348,26 @@ const MegaDashboard: React.FC<{
         minHeight: "100vh",
         background: CYBER_GRADIENTS.background,
         padding: "24px",
-        color: CYBER_COLORS.text.primary,
+        color: CYBER_COLORS.text.primary
       }}
      key={686553}>
       {/* Header */}
       <CyberContainer;
         variant="panel"
-        style={{ marginBottom: "24px", padding: "20px" }}
+        style={{ marginBottom: "24px", padding: "20px"}}
        key={555499}>
         <div;
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            marginBottom: "16px",
+            marginBottom: "16px"
           }}
          key={580818}>
           <div key={241917}>
             <CyberText;
               variant="title"
-              style={{ fontSize: "28px", marginBottom: "4px" }}
+              style={{ fontSize: "28px", marginBottom: "4px"}}
              key={851908}>
               A1Betting Dashboard;
             </CyberText>
@@ -379,8 +375,8 @@ const MegaDashboard: React.FC<{
               Quantum-powered sports betting intelligence platform;
             </CyberText>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }} key={333019}>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }} key={537788}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px"}} key={333019}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px"}} key={537788}>
               <Wifi size={16} color={CYBER_COLORS.primary} / key={180682}>
               <CyberText variant="caption" color="accent" key={194784}>
                 Live;
@@ -396,7 +392,7 @@ const MegaDashboard: React.FC<{
         </div>
 
         {/* Tab Navigation */}
-        <div style={{ display: "flex", gap: "8px" }} key={772482}>
+        <div style={{ display: "flex", gap: "8px"}} key={772482}>
           {tabs.map((tab) => {
 
             return (
@@ -406,30 +402,29 @@ const MegaDashboard: React.FC<{
                 active={activeTab === tab.key}
                 onClick={() = key={287146}> setActiveTab(tab.key)}
                 icon={<Icon size={16} / key={856509}>}
-                style={{ marginBottom: 0, width: "auto", padding: "8px 16px" }}
+                style={{ marginBottom: 0, width: "auto", padding: "8px 16px"}}
               >
                 {tab.label}
               </CyberButton>
-            );
-          })}
+            )})}
         </div>
       </CyberContainer>
 
       {/* Content */}
-      <div style={{ minHeight: "500px" }} key={298126}>
+      <div style={{ minHeight: "500px"}} key={298126}>
         {activeTab === "overview" && renderOverviewTab()}
         {activeTab === "system" && renderSystemTab()}
         {activeTab === "realtime" && (
           <CyberContainer;
             variant="card"
-            style={{ padding: "40px", textAlign: "center" }}
+            style={{ padding: "40px", textAlign: "center"}}
            key={933437}>
             <Zap;
               size={48}
               color={CYBER_COLORS.primary}
-              style={{ marginBottom: "16px", margin: "0 auto" }}
+              style={{ marginBottom: "16px", margin: "0 auto"}}
             / key={198184}>
-            <CyberText variant="title" style={{ marginBottom: "8px" }} key={813364}>
+            <CyberText variant="title" style={{ marginBottom: "8px"}} key={813364}>
               Real-time Feed Coming Soon;
             </CyberText>
             <CyberText variant="body" color="muted" key={892775}>
@@ -440,14 +435,14 @@ const MegaDashboard: React.FC<{
         {activeTab === "analytics" && (
           <CyberContainer;
             variant="card"
-            style={{ padding: "40px", textAlign: "center" }}
+            style={{ padding: "40px", textAlign: "center"}}
            key={933437}>
             <Brain;
               size={48}
               color={CYBER_COLORS.secondary}
-              style={{ marginBottom: "16px", margin: "0 auto" }}
+              style={{ marginBottom: "16px", margin: "0 auto"}}
             / key={944476}>
-            <CyberText variant="title" style={{ marginBottom: "8px" }} key={813364}>
+            <CyberText variant="title" style={{ marginBottom: "8px"}} key={813364}>
               Advanced Analytics;
             </CyberText>
             <CyberText variant="body" color="muted" key={892775}>
@@ -457,7 +452,11 @@ const MegaDashboard: React.FC<{
         )}
       </div>
     </div>
-  );
-};
+  );};
 
 export default MegaDashboard;
+
+
+
+
+`

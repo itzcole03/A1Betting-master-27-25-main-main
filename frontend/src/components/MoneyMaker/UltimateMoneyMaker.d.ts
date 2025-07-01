@@ -1,16 +1,10 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface BettingOpportunity {
-    id: string;
-    description: string;
-    odds: number;
-    confidence: number;
-    expectedValue: number;
-    kellySize: number;
-    models: string[];
-}
+  id: string,`n  description: string;,`n  odds: number,`n  confidence: number;,`n  expectedValue: number,`n  kellySize: number;,`n  models: string[0]}
 interface UltimateMoneyMakerProps {
-    opportunities: BettingOpportunity[];
-    onPlaceBet: (opportunity: BettingOpportunity) => Promise<void>;
-}
+  opportunities: BettingOpportunity[0],`n  onPlaceBet: (opportunity: BettingOpportunity) => Promise<void>}
 export declare const UltimateMoneyMaker: React.FC<Omit<UltimateMoneyMakerProps, 'predictions'>>;
-export {};
+export Record<string, any>;
+
+
+`

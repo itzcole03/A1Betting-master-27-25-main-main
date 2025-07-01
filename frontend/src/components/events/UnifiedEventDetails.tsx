@@ -1,137 +1,44 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { useParams } from 'react-router-dom.ts';
-import { UnifiedServiceRegistry } from '@/services/unified/UnifiedServiceRegistry.ts';
-import { UnifiedPredictionService } from '@/services/unified/UnifiedPredictionService.ts';
-import { UnifiedAnalyticsService } from '@/services/unified/UnifiedAnalyticsService.ts';
-import { UnifiedStateService } from '@/services/unified/UnifiedStateService.ts';
-import { UnifiedNotificationService } from '@/services/unified/UnifiedNotificationService.ts';
-import { UnifiedErrorService } from '@/services/unified/UnifiedErrorService.ts';
-import { Card, Button, Spinner, Toast, Badge, Modal, Tabs, Tab } from '@/ui/UnifiedUI.ts';
+import React, { useState, useEffect} from 'react';
+import { useParams} from 'react-router-dom';
+import { UnifiedServiceRegistry} from '@/services/unified/UnifiedServiceRegistry';
+import { UnifiedPredictionService} from '@/services/unified/UnifiedPredictionService';
+import { UnifiedAnalyticsService} from '@/services/unified/UnifiedAnalyticsService';
+import { UnifiedStateService} from '@/services/unified/UnifiedStateService';
+import { UnifiedNotificationService} from '@/services/unified/UnifiedNotificationService';
+import { UnifiedErrorService} from '@/services/unified/UnifiedErrorService';
+import { Card, Button, Spinner, Toast, Badge, Modal, Tabs, Tab} from '@/ui/UnifiedUI';
 
 interface Event {
-  id: string;
-  name: string;
-  sport: string;
-  competition: string;
-  startTime: string;
-  status: 'upcoming' | 'live' | 'ended' | 'cancelled';
-  homeTeam: {
-    id: string;
-    name: string;
-    logo: string;
-    stats: TeamStats;
-  };
-  awayTeam: {
-    id: string;
-    name: string;
-    logo: string;
-    stats: TeamStats;
-  };
-  venue: {
-    name: string;
-    city: string;
-    country: string;
-  };
+  id: string,`n  name: string;,`n  sport: string,`n  competition: string;,`n  startTime: string,`n  status: 'upcoming' | 'live' | 'ended' | 'cancelled';,`n  homeTeam: {,`n  id: string;,`n  name: string,`n  logo: string;,`n  stats: TeamStats};
+  awayTeam: {,`n  id: string;,`n  name: string,`n  logo: string;,`n  stats: TeamStats};
+  venue: {,`n  name: string;,`n  city: string,`n  country: string};
   weather?: {
-    condition: string;
-    temperature: number;
-    windSpeed: number;
-    precipitation: number;
-  };
-  markets: Market[];
-  predictions: Prediction[];
-  statistics: EventStatistics;
-}
+    condition: string,`n  temperature: number;,`n  windSpeed: number,`n  precipitation: number};
+  markets: Market[0],`n  predictions: Prediction[0];,`n  statistics: EventStatistics}
 
 interface TeamStats {
-  form: string[];
-  goalsScored: number;
-  goalsConceded: number;
-  cleanSheets: number;
-  winRate: number;
-  averageGoals: number;
-  homeAdvantage?: number;
-  awayDisadvantage?: number;
-}
+  form: string[0],`n  goalsScored: number;,`n  goalsConceded: number,`n  cleanSheets: number;,`n  winRate: number,`n  averageGoals: number;
+  homeAdvantage?: number
+  awayDisadvantage?: number}
 
 interface Market {
-  id: string;
-  type: string;
-  name: string;
-  selections: Selection[];
-  status: 'open' | 'suspended' | 'closed';
-  lastUpdated: string;
-}
+  id: string,`n  type: string;,`n  name: string,`n  selections: Selection[0];,`n  status: 'open' | 'suspended' | 'closed',`n  lastUpdated: string}
 
 interface Selection {
-  id: string;
-  name: string;
-  odds: number;
-  probability: number;
+  id: string,`n  name: string;,`n  odds: number,`n  probability: number;
   prediction?: {
-    confidence: number;
-    expectedValue: number;
-    kellyFraction: number;
-  };
-}
+    confidence: number,`n  expectedValue: number;,`n  kellyFraction: number}}
 
 interface Prediction {
-  marketType: string;
-  selection: string;
-  confidence: number;
-  expectedValue: number;
-  kellyFraction: number;
-  factors: {
-    name: string;
-    impact: number;
-    description: string;
-  }[];
-}
+  marketType: string,`n  selection: string;,`n  confidence: number,`n  expectedValue: number;,`n  kellyFraction: number,`n  factors: {,`n  name: string,`n  impact: number;,`n  description: string}[0]}
 
 interface EventStatistics {
-  headToHead: {
-    total: number;
-    homeWins: number;
-    awayWins: number;
-    draws: number;
-    lastFive: Array<{
-      date: string;
-      homeTeam: string;
-      awayTeam: string;
-      score: string;
-      winner: string;
-    }>;
-  };
-  form: {
-    home: {
-      lastFive: string[];
-      goalsScored: number;
-      goalsConceded: number;
-    };
-    away: {
-      lastFive: string[];
-      goalsScored: number;
-      goalsConceded: number;
-    };
-  };
-  trends: {
-    overUnder: {
-      over2_5: number;
-      under2_5: number;
-      averageGoals: number;
-    };
-    bothTeamsToScore: {
-      yes: number;
-      no: number;
-      percentage: number;
-    };
-    firstHalf: {
-      homeWins: number;
-      awayWins: number;
-      draws: number;
-    };
-  };
-}
+  headToHead: {,`n  total: number;,`n  homeWins: number,`n  awayWins: number;,`n  draws: number,`n  lastFive: Array<{,`n  date: string,`n  homeTeam: string;,`n  awayTeam: string,`n  score: string;,`n  winner: string}>};
+  form: {,`n  home: {,`n  lastFive: string[0],`n  goalsScored: number;,`n  goalsConceded: number};
+    away: {,`n  lastFive: string[0];,`n  goalsScored: number,`n  goalsConceded: number}};
+  trends: {,`n  overUnder: {,`n  over2_5: number,`n  under2_5: number;,`n  averageGoals: number};
+    bothTeamsToScore: {,`n  yes: number;,`n  no: number,`n  percentage: number};
+    firstHalf: {,`n  homeWins: number;,`n  awayWins: number,`n  draws: number}};}
 
 export const UnifiedEventDetails: React.FC = () => {
   // Initialize services;
@@ -143,16 +50,14 @@ export const UnifiedEventDetails: React.FC = () => {
     serviceRegistry.getService<UnifiedNotificationService key={460301}>('notification');
 
   // Router hooks;
-  const { eventId } = useParams<{ eventId: string }>();
+  const { eventId} = useParams<{ eventId: string}>();
 
   // State;
   const [event, setEvent] = useState<Event | null key={385473}>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null key={121216}>(null);
   const [toast, setToast] = useState<{
-    message: string;
-    type: 'success' | 'error' | 'warning' | 'info';
-  } | null>(null);
+    message: string,`n  type: 'success' | 'error' | 'warning' | 'info'} | null>(null);
   const [selectedMarket, setSelectedMarket] = useState<Market | null key={585252}>(null);
   const [showBetModal, setShowBetModal] = useState(false);
   const [selectedSelection, setSelectedSelection] = useState<Selection | null key={165096}>(null);
@@ -163,8 +68,7 @@ export const UnifiedEventDetails: React.FC = () => {
   // Load event data;
   useEffect(() => {
     if (eventId) {
-      loadEventData(eventId);
-    }
+      loadEventData(eventId);}
   }, [eventId]);
 
   const loadEventData = async (id: string) => {
@@ -174,53 +78,45 @@ export const UnifiedEventDetails: React.FC = () => {
         analyticsService.getEventDetails(id),
         predictionService.getEventPredictions(id),
       ]);
-      setEvent({ ...eventData, predictions });
-    } catch (error) {
-      handleError('Failed to load event data', error);
-    } finally {
-      setLoading(false);
-    }
+      setEvent({ ...eventData, predictions});} catch (error) {
+      handleError('Failed to load event data', error);} finally {
+      setLoading(false);}
   };
 
-  const handleError = (message: string, error: any) => {
+  const handleError = (message: string, error: unknown) => {
     setError(message);
-    setToast({ message, type: 'error' });
+    setToast({ message, type: 'error'});
     errorService.handleError(error, {
       code: 'EVENT_DETAILS_ERROR',
       source: 'UnifiedEventDetails',
-      details: { message },
-    });
-  };
+      details: { message}
+    })};
 
   const formatOdds = (odds: number) => {
-    return odds.toFixed(2);
-  };
+    return odds.toFixed(2)};
 
   const formatPercentage = (value: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'percent',
       minimumFractionDigits: 1,
-      maximumFractionDigits: 1,
-    }).format(value / 100);
-  };
+      maximumFractionDigits: 1
+    }).format(value / 100)};
 
   const getStatusBadge = (status: Event['status']) => {
     const variants = {
       upcoming: 'info',
       live: 'success',
       ended: 'secondary',
-      cancelled: 'danger',
+      cancelled: 'danger'
     };
-    return <Badge variant={variants[status]} key={151838}>{status.toUpperCase()}</Badge>;
-  };
+    return <Badge variant={variants[status]} key={151838}>{status.toUpperCase()}</Badge>;};
 
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen" key={591667}>
         <Spinner size="large" / key={932834}>
       </div>
-    );
-  }
+    );}
 
   if (!event) {
     return (
@@ -232,8 +128,7 @@ export const UnifiedEventDetails: React.FC = () => {
           </div>
         </Card>
       </div>
-    );
-  }
+    );}
 
   return (
     <div className="container mx-auto px-4 py-8" key={53071}>
@@ -412,8 +307,7 @@ export const UnifiedEventDetails: React.FC = () => {
                           <Badge;
                             key={index}
                             variant={
-                              result === 'W' ? 'success' : result === 'D' ? 'warning' : 'danger'
-                            }
+                              result === 'W' ? 'success' : result === 'D' ? 'warning' : 'danger'}
                            key={654642}>
                             {result}
                           </Badge>
@@ -429,8 +323,7 @@ export const UnifiedEventDetails: React.FC = () => {
                           <Badge;
                             key={index}
                             variant={
-                              result === 'W' ? 'success' : result === 'D' ? 'warning' : 'danger'
-                            }
+                              result === 'W' ? 'success' : result === 'D' ? 'warning' : 'danger'}
                            key={654642}>
                             {result}
                           </Badge>
@@ -478,8 +371,7 @@ export const UnifiedEventDetails: React.FC = () => {
                         ? 'success'
                         : market.status === 'suspended'
                           ? 'warning'
-                          : 'secondary'
-                    }
+                          : 'secondary'}
                    key={278703}>
                     {market.status.toUpperCase()}
                   </Badge>
@@ -503,8 +395,7 @@ export const UnifiedEventDetails: React.FC = () => {
                               className={
                                 selection.prediction.expectedValue  key={928754}> 0;
                                   ? 'text-green-600'
-                                  : 'text-red-600'
-                              }
+                                  : 'text-red-600'}
                             >
                               {formatPercentage(selection.prediction.expectedValue)}
                             </span>
@@ -522,8 +413,7 @@ export const UnifiedEventDetails: React.FC = () => {
                         onClick={() = key={852518}> {
                           setSelectedMarket(market);
                           setSelectedSelection(selection);
-                          setShowBetModal(true);
-                        }}
+                          setShowBetModal(true);}}
                       >
                         Place Bet;
                       </Button>
@@ -658,8 +548,7 @@ export const UnifiedEventDetails: React.FC = () => {
                         ? 'success'
                         : prediction.expectedValue < 0;
                           ? 'danger'
-                          : 'warning'
-                    }
+                          : 'warning'}
                   >
                     {formatPercentage(prediction.expectedValue)} Expected Value;
                   </Badge>
@@ -676,8 +565,7 @@ export const UnifiedEventDetails: React.FC = () => {
                         <span key={595076}>Expected Value</span>
                         <span;
                           className={
-                            prediction.expectedValue  key={224536}> 0 ? 'text-green-600' : 'text-red-600'
-                          }
+                            prediction.expectedValue  key={224536}> 0 ? 'text-green-600' : 'text-red-600'}
                         >
                           {formatPercentage(prediction.expectedValue)}
                         </span>
@@ -748,8 +636,7 @@ export const UnifiedEventDetails: React.FC = () => {
                       className={
                         selectedSelection.prediction.expectedValue  key={277860}> 0;
                           ? 'text-green-600'
-                          : 'text-red-600'
-                      }
+                          : 'text-red-600'}
                     >
                       {formatPercentage(selectedSelection.prediction.expectedValue)}
                     </span>
@@ -773,8 +660,7 @@ export const UnifiedEventDetails: React.FC = () => {
                 variant="primary"
                 onClick={() = key={292915}> {
                   // Handle bet placement;
-                  setShowBetModal(false);
-                }}
+                  setShowBetModal(false);}}
               >
                 Place Bet;
               </Button>
@@ -786,5 +672,10 @@ export const UnifiedEventDetails: React.FC = () => {
       {/* Toast Notifications */}
       {toast && <Toast message={toast.message} type={toast.type} onClose={() = key={337979}> setToast(null)} />}
     </div>
-  );
-};
+  );};
+
+
+
+
+`
+

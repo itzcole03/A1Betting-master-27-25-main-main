@@ -23,352 +23,348 @@ This document provides a comprehensive, recursively generated analysis of every 
 ### TypeScript/TSX Utilities
 
 - **AdvancedAnalysisEngine.ts**  
-  *Purpose*: Core engine for advanced player and trend analysis, integrating data and risk/opportunity assessment.  
-  *Status*: Active  
-  *Notes*: Used by prediction and analytics modules.
+  _Purpose_: Core engine for advanced player and trend analysis, integrating data and risk/opportunity assessment.  
+  _Status_: Active  
+  _Notes_: Used by prediction and analytics modules.
 
 - **AnalysisFramework.ts**  
-  *Purpose*: Plugin-based analysis registry and context for extensible analytics.  
-  *Status*: Active  
-  *Notes*: Central to modular analytics.
+  _Purpose_: Plugin-based analysis registry and context for extensible analytics.  
+  _Status_: Active  
+  _Notes_: Central to modular analytics.
 
 - **analyticsHelpers.ts**  
-  *Purpose*: User stats and performance chart calculation helpers.  
-  *Status*: Active  
-  *Notes*: Utility for user-facing analytics.
+  _Purpose_: User stats and performance chart calculation helpers.  
+  _Status_: Active  
+  _Notes_: Utility for user-facing analytics.
 
 - **Analyzer.ts**  
-  *Purpose*: Generic analyzer interface for analytics modules.  
-  *Status*: Active  
-  *Notes*: Used for type safety and extensibility.
+  _Purpose_: Generic analyzer interface for analytics modules.  
+  _Status_: Active  
+  _Notes_: Used for type safety and extensibility.
 
 - **animations.ts**  
-  *Purpose*: Keyframe animation utilities for UI transitions.  
-  *Status*: Active  
-  *Notes*: UI/UX enhancement.
+  _Purpose_: Keyframe animation utilities for UI transitions.  
+  _Status_: Active  
+  _Notes_: UI/UX enhancement.
 
 - **api.ts**  
-  *Purpose*: Axios instance with interceptors for API requests and authentication.  
-  *Status*: Active  
-  *Notes*: Core API utility.
+  _Purpose_: Axios instance with interceptors for API requests and authentication.  
+  _Status_: Active  
+  _Notes_: Core API utility.
 
 - **apiUtils.ts**  
-  *Purpose*: Retry logic and helpers for Axios requests.  
-  *Status*: Active  
-  *Notes*: Used for robust API calls.
+  _Purpose_: Retry logic and helpers for Axios requests.  
+  _Status_: Active  
+  _Notes_: Used for robust API calls.
 
 - **app.ts**  
-  *Purpose*: Application singleton for unified service access and initialization.  
-  *Status*: Active  
-  *Notes*: Central app bootstrapper.
+  _Purpose_: Application singleton for unified service access and initialization.  
+  _Status_: Active  
+  _Notes_: Central app bootstrapper.
 
 - **betting.ts**  
-  *Purpose*: Interfaces for frontend betting strategies and opportunities.  
-  *Status*: Active  
-  *Notes*: Used in strategy modules.
+  _Purpose_: Interfaces for frontend betting strategies and opportunities.  
+  _Status_: Active  
+  _Notes_: Used in strategy modules.
 
 - **browser.ts**  
-  *Purpose*: Mock data and browser utilities for testing and development.  
-  *Status*: Active  
-  *Notes*: Used for MSW and mock APIs.
+  _Purpose_: Mock data and browser utilities for testing and development.  
+  _Status_: Active  
+  _Notes_: Used for MSW and mock APIs.
 
 - **businessRules.ts**  
-  *Purpose*: Centralized business logic and validation for betting rules.  
-  *Status*: Active  
-  *Notes*: Used for enforcing app rules.
+  _Purpose_: Centralized business logic and validation for betting rules.  
+  _Status_: Active  
+  _Notes_: Used for enforcing app rules.
 
 - **cacheUtils.ts**  
-  *Purpose*: Generic cache implementation with TTL and size limits.  
-  *Status*: Active  
-  *Notes*: Used for in-memory caching.
+  _Purpose_: Generic cache implementation with TTL and size limits.  
+  _Status_: Active  
+  _Notes_: Used for in-memory caching.
 
 - **chart.ts**  
-  *Purpose*: Chart.js registration utility.  
-  *Status*: Active  
-  *Notes*: Charting setup.
+  _Purpose_: Chart.js registration utility.  
+  _Status_: Active  
+  _Notes_: Charting setup.
 
 - **classNames.ts**  
-  *Purpose*: Utility for merging and composing class names (Tailwind/clsx).  
-  *Status*: Active  
-  *Notes*: UI utility.
+  _Purpose_: Utility for merging and composing class names (Tailwind/clsx).  
+  _Status_: Active  
+  _Notes_: UI utility.
 
 - **combinationsWorker.ts**  
-  *Purpose*: Web worker for generating prop combinations.  
-  *Status*: Active  
-  *Notes*: Used for performance in prop selection.
+  _Purpose_: Web worker for generating prop combinations.  
+  _Status_: Active  
+  _Notes_: Used for performance in prop selection.
 
 - **common.ts**  
-  *Purpose*: Common types and enums for sports, props, alerts, etc.  
-  *Status*: Active  
-  *Notes*: Shared across modules.
+  _Purpose_: Common types and enums for sports, props, alerts, etc.  
+  _Status_: Active  
+  _Notes_: Shared across modules.
 
 - **constants.ts**  
-  *Purpose*: App-wide constants (app name, theme, max parlay legs, etc.).  
-  *Status*: Active  
-  *Notes*: Central config.
+  _Purpose_: App-wide constants (app name, theme, max parlay legs, etc.).  
+  _Status_: Active  
+  _Notes_: Central config.
 
 - **DailyFantasyAdapter.ts**  
-  *Purpose*: Adapter for daily fantasy data integration.  
-  *Status*: Active  
-  *Notes*: Used by data integration hub.
+  _Purpose_: Adapter for daily fantasy data integration.  
+  _Status_: Active  
+  _Notes_: Used by data integration hub.
 
 - **DataIntegrationHub.ts**  
-  *Purpose*: Aggregates and integrates data from multiple sources.  
-  *Status*: Active  
-  *Notes*: Core to analytics pipeline.
+  _Purpose_: Aggregates and integrates data from multiple sources.  
+  _Status_: Active  
+  _Notes_: Core to analytics pipeline.
 
 - **DataPipeline.ts**  
-  *Purpose*: Data pipeline and caching utilities.  
-  *Status*: Active  
-  *Notes*: Used for streaming and batch data.
+  _Purpose_: Data pipeline and caching utilities.  
+  _Status_: Active  
+  _Notes_: Used for streaming and batch data.
 
 - **DataSource.ts**  
-  *Purpose*: Data source interface and metrics.  
-  *Status*: Active  
-  *Notes*: Used by adapters and integration.
+  _Purpose_: Data source interface and metrics.  
+  _Status_: Active  
+  _Notes_: Used by adapters and integration.
 
 - **encryption.ts**  
-  *Purpose*: AES encryption/decryption helpers.  
-  *Status*: Active  
-  *Notes*: Uses environment key.
+  _Purpose_: AES encryption/decryption helpers.  
+  _Status_: Active  
+  _Notes_: Uses environment key.
 
 - **errorHandler.ts**  
-  *Purpose*: Centralized error handling, logging, and reporting.  
-  *Status*: Active  
-  *Notes*: Integrates with EventBus and monitoring.
+  _Purpose_: Centralized error handling, logging, and reporting.  
+  _Status_: Active  
+  _Notes_: Integrates with EventBus and monitoring.
 
 - **errorLogger.ts**  
-  *Purpose*: Singleton error logger with global error handling.  
-  *Status*: Active  
-  *Notes*: Used for error tracking.
+  _Purpose_: Singleton error logger with global error handling.  
+  _Status_: Active  
+  _Notes_: Used for error tracking.
 
 - **errorUtils.ts**  
-  *Purpose*: Error type guards and custom error classes.  
-  *Status*: Active  
-  *Notes*: Used for robust error handling.
+  _Purpose_: Error type guards and custom error classes.  
+  _Status_: Active  
+  _Notes_: Used for robust error handling.
 
 - **ESPNAdapter.ts**  
-  *Purpose*: Adapter for ESPN data (games, headlines).  
-  *Status*: Active  
-  *Notes*: Used by data integration.
+  _Purpose_: Adapter for ESPN data (games, headlines).  
+  _Status_: Active  
+  _Notes_: Used by data integration.
 
 - **FeatureComposition.ts**  
-  *Purpose*: Composable feature processing and validation.  
-  *Status*: Active  
-  *Notes*: Used for feature engineering.
+  _Purpose_: Composable feature processing and validation.  
+  _Status_: Active  
+  _Notes_: Used for feature engineering.
 
 - **FeatureFlags.ts**  
-  *Purpose*: Feature flag and experiment management.  
-  *Status*: Active  
-  *Notes*: Used for A/B testing and rollout.
+  _Purpose_: Feature flag and experiment management.  
+  _Status_: Active  
+  _Notes_: Used for A/B testing and rollout.
 
 - **formatters.ts**  
-  *Purpose*: Date, currency, and percentage formatting utilities.  
-  *Status*: Active  
-  *Notes*: UI and reporting utility.
+  _Purpose_: Date, currency, and percentage formatting utilities.  
+  _Status_: Active  
+  _Notes_: UI and reporting utility.
 
 - **helpers.ts**  
-  *Purpose*: Generic helper functions (sleep, unique ID, etc.).  
-  *Status*: Active  
-  *Notes*: Utility functions.
+  _Purpose_: Generic helper functions (sleep, unique ID, etc.).  
+  _Status_: Active  
+  _Notes_: Utility functions.
 
 - **index.ts**  
-  *Purpose*: (Node/Express) API and service entrypoint.  
-  *Status*: Active  
-  *Notes*: Not used in browser build; for server-side utilities.
+  _Purpose_: (Node/Express) API and service entrypoint.  
+  _Status_: Active  
+  _Notes_: Not used in browser build; for server-side utilities.
 
 - **lazyLoad.tsx**  
-  *Purpose*: React lazy loading utility with Suspense.  
-  *Status*: Active  
-  *Notes*: UI performance utility.
+  _Purpose_: React lazy loading utility with Suspense.  
+  _Status_: Active  
+  _Notes_: UI performance utility.
 
 - **odds.ts**  
-  *Purpose*: Odds conversion, payout, and win probability calculations.  
-  *Status*: Active  
-  *Notes*: Used in betting modules.
+  _Purpose_: Odds conversion, payout, and win probability calculations.  
+  _Status_: Active  
+  _Notes_: Used in betting modules.
 
 - **PerformanceMonitor.ts**  
-  *Purpose*: Singleton for performance tracing and measurement.  
-  *Status*: Active  
-  *Notes*: Used in analytics and monitoring.
+  _Purpose_: Singleton for performance tracing and measurement.  
+  _Status_: Active  
+  _Notes_: Used in analytics and monitoring.
 
 - **performanceTracking.ts**  
-  *Purpose*: Sentry-based performance and metric tracking utilities.  
-  *Status*: Active  
-  *Notes*: Observability and tracing.
+  _Purpose_: Sentry-based performance and metric tracking utilities.  
+  _Status_: Active  
+  _Notes_: Observability and tracing.
 
 - **PredictionEngine.ts**  
-  *Purpose*: Core prediction engine integrating analytics, strategies, and data.  
-  *Status*: Active  
-  *Notes*: Central to prediction pipeline.
+  _Purpose_: Core prediction engine integrating analytics, strategies, and data.  
+  _Status_: Active  
+  _Notes_: Central to prediction pipeline.
 
 - **ProjectionAnalyzer.ts**  
-  *Purpose*: Analyzer for player projections and confidence.  
-  *Status*: Active  
-  *Notes*: Used in analytics modules.
+  _Purpose_: Analyzer for player projections and confidence.  
+  _Status_: Active  
+  _Notes_: Used in analytics modules.
 
 - **ProjectionBettingStrategy.ts**  
-  *Purpose*: Strategy for betting based on player projections.  
-  *Status*: Active  
-  *Notes*: Used in strategy engine.
+  _Purpose_: Strategy for betting based on player projections.  
+  _Status_: Active  
+  _Notes_: Used in strategy engine.
 
 - **rateLimiter.ts**  
-  *Purpose*: Rate limiter utility for API calls.  
-  *Status*: Active  
-  *Notes*: Used for throttling requests.
+  _Purpose_: Rate limiter utility for API calls.  
+  _Status_: Active  
+  _Notes_: Used for throttling requests.
 
 - **scheduler.ts**  
-  *Purpose*: Job scheduling utility for periodic tasks.  
-  *Status*: Active  
-  *Notes*: Used for background jobs.
+  _Purpose_: Job scheduling utility for periodic tasks.  
+  _Status_: Active  
+  _Notes_: Used for background jobs.
 
 - **security.ts**  
-  *Purpose*: CSRF token management and input sanitization.  
-  *Status*: Active  
-  *Notes*: Security utility.
+  _Purpose_: CSRF token management and input sanitization.  
+  _Status_: Active  
+  _Notes_: Security utility.
 
 - **SentimentEnhancedAnalyzer.ts**  
-  *Purpose*: Analyzer combining projections with sentiment and market data.  
-  *Status*: Active  
-  *Notes*: Used in advanced analytics.
+  _Purpose_: Analyzer combining projections with sentiment and market data.  
+  _Status_: Active  
+  _Notes_: Used in advanced analytics.
 
 - **serviceWorker.ts**  
-  *Purpose*: Service worker for caching and offline support.  
-  *Status*: Active  
-  *Notes*: PWA support.
+  _Purpose_: Service worker for caching and offline support.  
+  _Status_: Active  
+  _Notes_: PWA support.
 
 - **setup.ts**  
-  *Purpose*: Test setup for Vitest and DOM mocks.  
-  *Status*: Active  
-  *Notes*: Test utility.
+  _Purpose_: Test setup for Vitest and DOM mocks.  
+  _Status_: Active  
+  _Notes_: Test utility.
 
 - **setupE2ETests.ts**  
-  *Purpose*: End-to-end test setup and mocks.  
-  *Status*: Active  
-  *Notes*: Test utility.
+  _Purpose_: End-to-end test setup and mocks.  
+  _Status_: Active  
+  _Notes_: Test utility.
 
 - **setupIntegrationTests.ts**  
-  *Purpose*: Integration test setup and mocks.  
-  *Status*: Active  
-  *Notes*: Test utility.
+  _Purpose_: Integration test setup and mocks.  
+  _Status_: Active  
+  _Notes_: Test utility.
 
 - **setupTests.ts**  
-  *Purpose*: Jest test setup and environment mocks.  
-  *Status*: Active  
-  *Notes*: Test utility.
+  _Purpose_: Jest test setup and environment mocks.  
+  _Status_: Active  
+  _Notes_: Test utility.
 
 - **shap.ts**  
-  *Purpose*: SHAP value calculation for model explainability.  
-  *Status*: Active  
-  *Notes*: Used in ML explainability.
+  _Purpose_: SHAP value calculation for model explainability.  
+  _Status_: Active  
+  _Notes_: Used in ML explainability.
 
 - **SocialSentimentAdapter.ts**  
-  *Purpose*: Adapter for social sentiment data.  
-  *Status*: Active  
-  *Notes*: Used in analytics and integration.
+  _Purpose_: Adapter for social sentiment data.  
+  _Status_: Active  
+  _Notes_: Used in analytics and integration.
 
 - **strategy.ts**  
-  *Purpose*: Types and interfaces for betting strategies and recommendations.  
-  *Status*: Active  
-  *Notes*: Used in strategy modules.
+  _Purpose_: Types and interfaces for betting strategies and recommendations.  
+  _Status_: Active  
+  _Notes_: Used in strategy modules.
 
 - **StrategyComposition.ts**  
-  *Purpose*: Composable strategy components and results.  
-  *Status*: Active  
-  *Notes*: Used in strategy engine.
+  _Purpose_: Composable strategy components and results.  
+  _Status_: Active  
+  _Notes_: Used in strategy engine.
 
 - **StrategyEngine.ts**  
-  *Purpose*: Core engine for executing betting strategies.  
-  *Status*: Active  
-  *Notes*: Central to strategy execution.
+  _Purpose_: Core engine for executing betting strategies.  
+  _Status_: Active  
+  _Notes_: Central to strategy execution.
 
 - **theme.ts**  
-  *Purpose*: MUI theme creation and customization.  
-  *Status*: Active  
-  *Notes*: UI theming utility.
+  _Purpose_: MUI theme creation and customization.  
+  _Status_: Active  
+  _Notes_: UI theming utility.
 
 - **TheOddsAdapter.ts**  
-  *Purpose*: Adapter for odds data integration.  
-  *Status*: Active  
-  *Notes*: Used by data integration hub.
+  _Purpose_: Adapter for odds data integration.  
+  _Status_: Active  
+  _Notes_: Used by data integration hub.
 
 - **UnifiedAnalytics.ts**  
-  *Purpose*: Singleton analytics event and metrics manager.  
-  *Status*: Active  
-  *Notes*: Used for analytics and reporting.
+  _Purpose_: Singleton analytics event and metrics manager.  
+  _Status_: Active  
+  _Notes_: Used for analytics and reporting.
 
 - **UnifiedBettingAnalytics-MyPC.ts**  
-  *Purpose*: Local/experimental version of unified betting analytics.  
-  *Status*: Candidate for removal  
-  *Notes*: Redundant with UnifiedBettingAnalytics.ts.
+  _Purpose_: Local/experimental version of unified betting analytics.  
+  _Status_: Candidate for removal  
+  _Notes_: Redundant with UnifiedBettingAnalytics.ts.
 
 - **UnifiedBettingAnalytics.ts**  
-  *Purpose*: Singleton for unified betting analytics and strategy management.  
-  *Status*: Active  
-  *Notes*: Used in analytics and betting modules.
+  _Purpose_: Singleton for unified betting analytics and strategy management.  
+  _Status_: Active  
+  _Notes_: Used in analytics and betting modules.
 
 - **UnifiedBettingCore.ts**  
-  *Purpose*: Singleton for core betting logic and performance metrics.  
-  *Status*: Active  
-  *Notes*: Used in unified betting modules.
+  _Purpose_: Singleton for core betting logic and performance metrics.  
+  _Status_: Active  
+  _Notes_: Used in unified betting modules.
 
 - **UnifiedCache.ts**  
-  *Purpose*: (Empty/placeholder)  
-  *Status*: Candidate for removal  
-  *Notes*: No implementation.
-
+  _Purpose_: (Empty/placeholder)  
+  _Status_: Candidate for removal  
+  _Notes_: No implementation.
 
 ### Test Files
 
 - **APIEndpoints.test.ts**  
-  *Purpose*: Tests for API endpoints and service methods.  
-  *Status*: Active  
-  *Notes*: Jest test file.
+  _Purpose_: Tests for API endpoints and service methods.  
+  _Status_: Active  
+  _Notes_: Jest test file.
 
 - **StateSync.test.ts**  
-  *Purpose*: Tests for state synchronization and context integration.  
-  *Status*: Active  
-  *Notes*: Jest test file.
+  _Purpose_: Tests for state synchronization and context integration.  
+  _Status_: Active  
+  _Notes_: Jest test file.
 
 - **UnifiedBettingCore.test.ts**  
-  *Purpose*: Tests for unified betting core logic and caching.  
-  *Status*: Active  
-  *Notes*: Jest test file.
+  _Purpose_: Tests for unified betting core logic and caching.  
+  _Status_: Active  
+  _Notes_: Jest test file.
 
-- **__tests__/cacheUtils.test.ts**  
-  *Purpose*: Unit tests for cache utility.  
-  *Status*: Active  
-  *Notes*: Jest test file in __tests__ subdirectory.
-
+- ****tests**/cacheUtils.test.ts**  
+  _Purpose_: Unit tests for cache utility.  
+  _Status_: Active  
+  _Notes_: Jest test file in **tests** subdirectory.
 
 ### Python Utilities
 
 - **config.py**  
-  *Purpose*: Loads and manages YAML configuration for the system analysis tool.  
-  *Status*: Active  
-  *Notes*: Used for backend/config integration.
+  _Purpose_: Loads and manages YAML configuration for the system analysis tool.  
+  _Status_: Active  
+  _Notes_: Used for backend/config integration.
 
 - **logging.py**  
-  *Purpose*: Centralized logging configuration and management.  
-  *Status*: Active  
-  *Notes*: Used for backend/config integration.
-
+  _Purpose_: Centralized logging configuration and management.  
+  _Status_: Active  
+  _Notes_: Used for backend/config integration.
 
 ### Type Declarations
 
 - **env.d.ts**  
-  *Purpose*: Type declarations for Vite environment variables.  
-  *Status*: Active  
-  *Notes*: Used for type safety in build and runtime.
-
+  _Purpose_: Type declarations for Vite environment variables.  
+  _Status_: Active  
+  _Notes_: Used for type safety in build and runtime.
 
 ### Subdirectories
 
-- **__tests__/**  
-  *Purpose*: Contains test files for utilities.  
-  *Status*: Active  
-  *Notes*: All files are test-related.
+- ****tests**/**  
+  _Purpose_: Contains test files for utilities.  
+  _Status_: Active  
+  _Notes_: All files are test-related.
 
 ---
 
-*Last updated: June 12, 2025*
+_Last updated: June 12, 2025_

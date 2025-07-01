@@ -1,30 +1,26 @@
-import { apiClient } from '@/api/client.ts';
-import { unifiedMonitor } from '@/core/UnifiedMonitor.ts';
-import { APIError, AppError } from '@/core/UnifiedError.ts';
-import { PrizePicksAdapter } from '@/types.ts';
-import { prizePicksAdapter } from './prizepicks.ts';
+﻿import { apiClient} from '@/api/client';
+import { unifiedMonitor} from '@/core/UnifiedMonitor';
+import { APIError, AppError} from '@/core/UnifiedError';
+import { PrizePicksAdapter} from '@/types';
+import { prizePicksAdapter} from './prizepicks';
 
 // Base adapter interface;
 interface BaseAdapter {
-  name: string;
-  isEnabled: boolean;
+  name: string,`n  isEnabled: boolean;
   initialize(): Promise<void>;
-  validate(): Promise<boolean>;
-}
+  validate(): Promise<boolean>;}
 
 // SportsRadar adapter;
 interface SportsRadarAdapter extends BaseAdapter {
-  fetchLiveScores(): Promise<any[]>;
+  fetchLiveScores(): Promise<any[0]>;
   fetchGameDetails(gameId: string): Promise<any>;
-  fetchPlayerStats(playerId: string): Promise<any>;
-}
+  fetchPlayerStats(playerId: string): Promise<any>}
 
 // ESPN adapter;
 interface ESPNAdapter extends BaseAdapter {
-  fetchHeadlines(): Promise<any[]>;
+  fetchHeadlines(): Promise<any[0]>;
   fetchGameSummary(gameId: string): Promise<any>;
-  fetchPlayerNews(playerId: string): Promise<any[]>;
-}
+  fetchPlayerNews(playerId: string): Promise<any[0]>}
 
 // Unified adapter manager;
 class AdapterManager {
@@ -33,32 +29,29 @@ class AdapterManager {
 
   private constructor() {
     this.adapters = new Map();
-    this.initializeAdapters();
-  }
+    this.initializeAdapters();}
 
   public static getInstance(): AdapterManager {
     if (!AdapterManager.instance) {
-      AdapterManager.instance = new AdapterManager();
-    }
-    return AdapterManager.instance;
-  }
+      AdapterManager.instance = new AdapterManager();}
+    return AdapterManager.instance;}
 
   private initializeAdapters(): void {
-    this.adapters.set('prizepicks', prizePicksAdapter);
-  }
+    this.adapters.set('prizepicks', prizePicksAdapter);}
 
   public getAdapter<T>(name: string): T | undefined {
-    return this.adapters.get(name) as T;
-  }
+    return this.adapters.get(name) as T}
 
   public registerAdapter(name: string, adapter: any): void {
-    this.adapters.set(name, adapter);
-  }
+    this.adapters.set(name, adapter)}
 
   public isAdapterEnabled(name: string): boolean {
-    return this.adapters.has(name);
-  }
+    return this.adapters.has(name)}
 }
 
 export const adapterManager = AdapterManager.getInstance();
 export default adapterManager;
+
+
+
+`

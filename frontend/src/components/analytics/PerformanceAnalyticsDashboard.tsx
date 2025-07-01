@@ -1,4 +1,4 @@
-import {
+﻿import {
   Analytics,
   Assessment,
   Download,
@@ -12,8 +12,7 @@ import {
   Timeline,
   TrendingDown,
   TrendingUp,
-  Warning;
-} from '@mui/icons-material.ts';
+  Warning} from '@mui/icons-material';
 import {
   Alert,
   Avatar,
@@ -45,10 +44,9 @@ import {
   TableRow,
   Tabs,
   Tooltip,
-  Typography;
-} from '@mui/material.ts';
-import { motion } from 'framer-motion.ts';
-import React, { useCallback, useEffect, useMemo, useState  } from 'react.ts';
+  Typography} from '@mui/material';
+import { motion} from 'framer-motion';
+import React, { useCallback, useEffect, useMemo, useState} from 'react';
 import {
   Area,
   AreaChart,
@@ -69,72 +67,28 @@ import {
   Tooltip as RechartsTooltip,
   ResponsiveContainer,
   XAxis,
-  YAxis;
-} from 'recharts.ts';
-import { useUnifiedAnalytics } from '@/hooks/useUnifiedAnalytics.ts';
+  YAxis} from 'recharts';
+import { useUnifiedAnalytics} from '@/hooks/useUnifiedAnalytics';
 import {
   formatCurrency,
-  formatPercentage;
-} from '@/utils/formatters.ts';
+  formatPercentage} from '@/utils/formatters';
 
 interface PerformanceMetrics {
-  totalBets: number;
-  winRate: number;
-  roi: number;
-  profitLoss: number;
-  avgOdds: number;
-  avgStake: number;
-  sharpeRatio: number;
-  maxDrawdown: number;
-  winStreak: number;
-  lossStreak: number;
-  profitFactor: number;
-  kellyOptimal: number;
-  consistencyScore: number;
-  riskAdjustedReturn: number;
-  confidenceAccuracy: number;
-  modelAccuracy: number;
-}
+  totalBets: number,`n  winRate: number;,`n  roi: number,`n  profitLoss: number;,`n  avgOdds: number,`n  avgStake: number;,`n  sharpeRatio: number,`n  maxDrawdown: number;,`n  winStreak: number,`n  lossStreak: number;,`n  profitFactor: number,`n  kellyOptimal: number;,`n  consistencyScore: number,`n  riskAdjustedReturn: number;,`n  confidenceAccuracy: number,`n  modelAccuracy: number}
 
 interface PredictionPerformance {
-  modelName: string;
-  accuracy: number;
-  precision: number;
-  recall: number;
-  f1Score: number;
-  calibration: number;
-  coverage: number;
-  totalPredictions: number;
-  profitContribution: number;
-  avgConfidence: number;
-  riskAdjustedScore: number;
-}
+  modelName: string,`n  accuracy: number;,`n  precision: number,`n  recall: number;,`n  f1Score: number,`n  calibration: number;,`n  coverage: number,`n  totalPredictions: number;,`n  profitContribution: number,`n  avgConfidence: number;,`n  riskAdjustedScore: number}
 
 interface TimeSeriesData {
-  timestamp: string;
-  cumulativeProfit: number;
-  winRate: number;
-  roi: number;
-  confidence: number;
-  volume: number;
-  drawdown: number;
-}
+  timestamp: string,`n  cumulativeProfit: number;,`n  winRate: number,`n  roi: number;,`n  confidence: number,`n  volume: number;,`n  drawdown: number}
 
 interface CategoryPerformance {
-  category: string;
-  bets: number;
-  winRate: number;
-  roi: number;
-  profit: number;
-  avgOdds: number;
-  riskLevel: "low" | "medium" | "high";
-}
+  category: string,`n  bets: number;,`n  winRate: number,`n  roi: number;,`n  profit: number,`n  avgOdds: number;,`n  riskLevel: "low" | "medium" | "high"}
 
 interface PerformanceAnalyticsDashboardProps {
-  userId?: string;
+  userId?: string
   timeRange?: "7d" | "30d" | "90d" | "1y" | "all";
-  showAdvancedMetrics?: boolean;
-}
+  showAdvancedMetrics?: boolean}
 
 const COLORS = {
   primary: "#1976d2",
@@ -142,7 +96,7 @@ const COLORS = {
   success: "#2e7d32",
   warning: "#ed6c02",
   error: "#d32f2f",
-  info: "#0288d1",
+  info: "#0288d1"
 };
 
 const PIE_COLORS = [
@@ -156,7 +110,7 @@ const PIE_COLORS = [
 
 export const PerformanceAnalyticsDashboard: React.FC<
   PerformanceAnalyticsDashboardProps;
-> = ({ userId = "default", timeRange = "30d", showAdvancedMetrics = true }) => {
+> = ({ userId = "default", timeRange = "30d", showAdvancedMetrics = true}) => {
   // State Management;
   const [activeTab, setActiveTab] = useState(0);
   const [selectedTimeRange, setSelectedTimeRange] = useState(timeRange);
@@ -166,11 +120,11 @@ export const PerformanceAnalyticsDashboard: React.FC<
 
   // Performance Data State;
   const [metrics, setMetrics] = useState<PerformanceMetrics | null key={797932}>(null);
-  const [predictions, setPredictions] = useState<PredictionPerformance[] key={182390}>([]);
-  const [timeSeriesData, setTimeSeriesData] = useState<TimeSeriesData[] key={903363}>([]);
+  const [predictions, setPredictions] = useState<PredictionPerformance[0] key={182390}>([0]);
+  const [timeSeriesData, setTimeSeriesData] = useState<TimeSeriesData[0] key={903363}>([0]);
   const [categoryPerformance, setCategoryPerformance] = useState<
-    CategoryPerformance[]
-  >([]);
+    CategoryPerformance[0]
+  >([0]);
 
   // UI State;
   const [isLoading, setIsLoading] = useState(true);
@@ -178,13 +132,11 @@ export const PerformanceAnalyticsDashboard: React.FC<
   const [lastUpdate, setLastUpdate] = useState<Date key={141202}>(new Date());
 
   // Analytics Hook;
-  const { performance, ml, betting } = useUnifiedAnalytics({
+  const { performance, ml, betting} = useUnifiedAnalytics({
     performance: true,
-    ml: {
-      autoUpdate: true,
-      updateInterval: 60000;
-    },
-    betting: true,
+    ml: {,`n  autoUpdate: true,
+      updateInterval: 60000},
+    betting: true
   });
 
   // Load Performance Data;
@@ -194,8 +146,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
 
     try {
       // Simulate loading performance data;
-      const mockMetrics: PerformanceMetrics = {
-        totalBets: 1247,
+      const mockMetrics: PerformanceMetrics = {,`n  totalBets: 1247,
         winRate: 0.624,
         roi: 0.142,
         profitLoss: 8432.5,
@@ -210,10 +161,10 @@ export const PerformanceAnalyticsDashboard: React.FC<
         consistencyScore: 0.78,
         riskAdjustedReturn: 0.196,
         confidenceAccuracy: 0.856,
-        modelAccuracy: 0.681,
+        modelAccuracy: 0.681
       };
 
-      const mockPredictions: PredictionPerformance[] = [
+      const mockPredictions: PredictionPerformance[0] = [
         {
           modelName: "Ensemble ML",
           accuracy: 0.725,
@@ -225,7 +176,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
           totalPredictions: 456,
           profitContribution: 3247.8,
           avgConfidence: 0.724,
-          riskAdjustedScore: 0.832,
+          riskAdjustedScore: 0.832
         },
         {
           modelName: "Deep Learning",
@@ -238,7 +189,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
           totalPredictions: 389,
           profitContribution: 2156.4,
           avgConfidence: 0.689,
-          riskAdjustedScore: 0.756,
+          riskAdjustedScore: 0.756
         },
         {
           modelName: "Random Forest",
@@ -251,20 +202,20 @@ export const PerformanceAnalyticsDashboard: React.FC<
           totalPredictions: 402,
           profitContribution: 1843.3,
           avgConfidence: 0.651,
-          riskAdjustedScore: 0.698,
+          riskAdjustedScore: 0.698
         },
       ];
 
       // Generate time series data;
-      const mockTimeSeriesData: TimeSeriesData[] = [];
+      const mockTimeSeriesData: TimeSeriesData[0] = [0];
 
       startDate.setDate(
         startDate.getDate() - parseInt(selectedTimeRange.replace(/\D/g, "")) ||
         30,
       );
 
-      const cumulativeProfit = 0;
-      for (const i = 0; i < 30; i++) {
+      let cumulativeProfit = 0
+      for (let i = 0 i < 30; i++) {
 
         date.setDate(date.getDate() + i);
 
@@ -282,11 +233,10 @@ export const PerformanceAnalyticsDashboard: React.FC<
             0,
             cumulativeProfit -
             Math.max(...mockTimeSeriesData.map((d) => d.cumulativeProfit), 0),
-          ),
-        });
-      }
+          )
+        })}
 
-      const mockCategoryPerformance: CategoryPerformance[] = [
+      const mockCategoryPerformance: CategoryPerformance[0] = [
         {
           category: "NBA Points",
           bets: 234,
@@ -294,7 +244,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
           roi: 0.178,
           profit: 2341.5,
           avgOdds: 1.95,
-          riskLevel: "medium",
+          riskLevel: "medium"
         },
         {
           category: "NFL Spreads",
@@ -303,7 +253,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
           roi: 0.142,
           profit: 1876.2,
           avgOdds: 1.91,
-          riskLevel: "high",
+          riskLevel: "high"
         },
         {
           category: "MLB Over/Under",
@@ -312,7 +262,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
           roi: 0.203,
           profit: 1987.4,
           avgOdds: 2.08,
-          riskLevel: "low",
+          riskLevel: "low"
         },
         {
           category: "Soccer Goals",
@@ -321,7 +271,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
           roi: 0.089,
           profit: 789.6,
           avgOdds: 2.45,
-          riskLevel: "high",
+          riskLevel: "high"
         },
       ];
 
@@ -329,27 +279,22 @@ export const PerformanceAnalyticsDashboard: React.FC<
       setPredictions(mockPredictions);
       setTimeSeriesData(mockTimeSeriesData);
       setCategoryPerformance(mockCategoryPerformance);
-      setLastUpdate(new Date());
-    } catch (err) {
+      setLastUpdate(new Date());} catch (err) {
       setError("Failed to load performance data");
-      // console statement removed
-    } finally {
-      setIsLoading(false);
-    }
+      // console statement removed} finally {
+      setIsLoading(false);}
   }, [selectedTimeRange, userId]);
 
   // Load data on mount and when dependencies change;
   useEffect(() => {
-    loadPerformanceData();
-  }, [loadPerformanceData]);
+    loadPerformanceData();}, [loadPerformanceData]);
 
   // Computed Values;
   const filteredCategoryData = useMemo(() => {
     if (selectedCategory === "all") return categoryPerformance;
     return categoryPerformance.filter(
       (cat) => cat.category === selectedCategory,
-    );
-  }, [categoryPerformance, selectedCategory]);
+    );}, [categoryPerformance, selectedCategory]);
 
   const performanceGrade = useMemo(() => {
     if (!metrics) return "N/A";
@@ -369,45 +314,43 @@ export const PerformanceAnalyticsDashboard: React.FC<
     if (score >= 70) return "B";
     if (score >= 65) return "C+";
     if (score >= 60) return "C";
-    return "D";
-  }, [metrics]);
+    return "D";}, [metrics]);
 
   const radarChartData = useMemo(() => {
-    if (!metrics) return [];
+    if (!metrics) return [0];
 
     return [
       {
         metric: "Win Rate",
         value: metrics.winRate * 100,
-        fullMark: 100,
+        fullMark: 100
       },
       {
         metric: "ROI",
         value: Math.min(metrics.roi * 500, 100), // Scale to 100;
-        fullMark: 100,
+        fullMark: 100
       },
       {
         metric: "Sharpe Ratio",
         value: Math.min(metrics.sharpeRatio * 33.33, 100),
-        fullMark: 100,
+        fullMark: 100
       },
       {
         metric: "Consistency",
         value: metrics.consistencyScore * 100,
-        fullMark: 100,
+        fullMark: 100
       },
       {
         metric: "Confidence Accuracy",
         value: metrics.confidenceAccuracy * 100,
-        fullMark: 100,
+        fullMark: 100
       },
       {
         metric: "Model Accuracy",
         value: metrics.modelAccuracy * 100,
-        fullMark: 100,
+        fullMark: 100
       },
-    ];
-  }, [metrics]);
+    ]}, [metrics]);
 
   // Export Function;
   const exportPerformanceReport = useCallback(() => {
@@ -419,8 +362,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
       metrics,
       predictions,
       categoryPerformance,
-      summary: {
-        totalProfit: metrics?.profitLoss || 0,
+      summary: {,`n  totalProfit: metrics?.profitLoss || 0,
         winRate: metrics?.winRate || 0,
         roi: metrics?.roi || 0,
         sharpeRatio: metrics?.sharpeRatio || 0,
@@ -437,20 +379,19 @@ export const PerformanceAnalyticsDashboard: React.FC<
               (top, pred) => (pred.accuracy > top.accuracy ? pred : top),
               predictions[0]
             ).modelName;
-            : "N/A",
-      },
+            : "N/A"
+      }
     };
 
     const blob = new Blob([JSON.stringify(exportData, null, 2)], {
-      type: "application/json",
+      type: "application/json"
     });
 
 
     a.href = url;
     a.download = `performance-report-${userId}-${Date.now()}.json`;
     a.click();
-    URL.revokeObjectURL(url);
-  }, [
+    URL.revokeObjectURL(url);}, [
     userId,
     selectedTimeRange,
     performanceGrade,
@@ -469,8 +410,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
        key={219816}>
         <CircularProgress size={60} / key={173336}>
       </Box>
-    );
-  }
+    );}
 
   if (error) {
     return (
@@ -479,22 +419,20 @@ export const PerformanceAnalyticsDashboard: React.FC<
         action={
           <Button color="inherit" size="small" onClick={loadPerformanceData} key={169572}>
             Retry;
-          </Button>
-        }
+          </Button>}
       >
         {error}
       </Alert>
-    );
-  }
+    );}
 
   return (
     <motion.div;
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      initial={{ opacity: 0, y: 20}}
+      animate={{ opacity: 1, y: 0}}
+      transition={{ duration: 0.5}}
       className="w-full"
      key={253890}>
-      <Card sx={{ mb: 3 }} key={857343}>
+      <Card sx={{ mb: 3}} key={857343}>
         <CardContent key={452065}>
           <Box;
             display="flex"
@@ -505,7 +443,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
             <Typography;
               variant="h5"
               component="h2"
-              sx={{ display: "flex", alignItems: "center", gap: 1 }}
+              sx={{ display: "flex", alignItems: "center", gap: 1}}
              key={972323}>
               <Analytics / key={168398}>
               Performance Analytics Dashboard;
@@ -516,15 +454,14 @@ export const PerformanceAnalyticsDashboard: React.FC<
                     ? "success"
                     : performanceGrade.startsWith("B")
                       ? "warning"
-                      : "error"
-                }
-                sx={{ ml: 1 }}
+                      : "error"}
+                sx={{ ml: 1}}
                key={493966}>
                 <EmojiEvents / key={689925}>
               </Badge>
             </Typography>
             <Box display="flex" gap={1} alignItems="center" key={695772}>
-              <FormControl size="small" sx={{ minWidth: 120 }} key={402711}>
+              <FormControl size="small" sx={{ minWidth: 120}} key={402711}>
                 <InputLabel key={405232}>Time Range</InputLabel>
                 <Select;
                   value={selectedTimeRange}
@@ -542,8 +479,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
                   <Switch;
                     checked={showComparison}
                     onChange={(e) = key={411532}> setShowComparison(e.target.checked)}
-                  />
-                }
+                  />}
                 label="Benchmark"
               />
               <Tooltip title="Last updated" key={854868}>
@@ -565,7 +501,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
           {/* Performance Overview Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 mb-6" key={643178}>
             <div key={241917}>
-              <Paper sx={{ p: 2, textAlign: "center" }} key={534920}>
+              <Paper sx={{ p: 2, textAlign: "center"}} key={534920}>
                 <Typography variant="h4" color="primary.main" key={559183}>
                   {formatCurrency(metrics?.profitLoss || 0)}
                 </Typography>
@@ -588,7 +524,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
             </div>
 
             <div key={241917}>
-              <Paper sx={{ p: 2, textAlign: "center" }} key={534920}>
+              <Paper sx={{ p: 2, textAlign: "center"}} key={534920}>
                 <Typography variant="h4" color="secondary.main" key={711142}>
                   {formatPercentage(metrics?.winRate || 0)}
                 </Typography>
@@ -602,15 +538,13 @@ export const PerformanceAnalyticsDashboard: React.FC<
                         ? "Excellent"
                         : (metrics?.winRate || 0) > 0.55;
                           ? "Good"
-                          : "Needs Improvement"
-                    }
+                          : "Needs Improvement"}
                     color={
                       (metrics?.winRate || 0) > 0.6;
                         ? "success"
                         : (metrics?.winRate || 0) > 0.55;
                           ? "warning"
-                          : "error"
-                    }
+                          : "error"}
                     size="small"
                   />
                 </Box>
@@ -618,7 +552,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
             </div>
 
             <div key={241917}>
-              <Paper sx={{ p: 2, textAlign: "center" }} key={534920}>
+              <Paper sx={{ p: 2, textAlign: "center"}} key={534920}>
                 <Typography variant="h4" color="success.main" key={386495}>
                   {formatPercentage(metrics?.roi || 0)}
                 </Typography>
@@ -634,15 +568,14 @@ export const PerformanceAnalyticsDashboard: React.FC<
                         ? "success"
                         : (metrics?.roi || 0) > 0.05;
                           ? "warning"
-                          : "error"
-                    }
+                          : "error"}
                   />
                 </Box>
               </Paper>
             </div>
 
             <div key={241917}>
-              <Paper sx={{ p: 2, textAlign: "center" }} key={534920}>
+              <Paper sx={{ p: 2, textAlign: "center"}} key={534920}>
                 <Typography variant="h4" color="info.main" key={656320}>
                   {(metrics?.sharpeRatio || 0).toFixed(2)}
                 </Typography>
@@ -656,15 +589,13 @@ export const PerformanceAnalyticsDashboard: React.FC<
                         ? "Excellent"
                         : (metrics?.sharpeRatio || 0) > 1.0;
                           ? "Good"
-                          : "Fair"
-                    }
+                          : "Fair"}
                     color={
                       (metrics?.sharpeRatio || 0) > 1.5;
                         ? "success"
                         : (metrics?.sharpeRatio || 0) > 1.0;
                           ? "warning"
-                          : "default"
-                    }
+                          : "default"}
                     size="small"
                   />
                 </Box>
@@ -672,7 +603,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
             </div>
 
             <div key={241917}>
-              <Paper sx={{ p: 2, textAlign: "center" }} key={534920}>
+              <Paper sx={{ p: 2, textAlign: "center"}} key={534920}>
                 <Typography variant="h4" color="warning.main" key={388248}>
                   {formatPercentage(Math.abs(metrics?.maxDrawdown || 0))}
                 </Typography>
@@ -686,8 +617,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
                         ? "error"
                         : Math.abs(metrics?.maxDrawdown || 0) > 0.1;
                           ? "warning"
-                          : "disabled"
-                    }
+                          : "disabled"}
                     fontSize="small"
                   />
                 </Box>
@@ -695,7 +625,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
             </div>
 
             <div key={241917}>
-              <Paper sx={{ p: 2, textAlign: "center" }} key={534920}>
+              <Paper sx={{ p: 2, textAlign: "center"}} key={534920}>
                 <Typography variant="h4" key={720252}>{metrics?.totalBets || 0}</Typography>
                 <Typography variant="caption" color="textSecondary" key={15591}>
                   Total Bets;
@@ -716,7 +646,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
           <Tabs;
             value={activeTab}
             onChange={(_, newValue) = key={995268}> setActiveTab(newValue)}
-            sx={{ borderBottom: 1, borderColor: "divider", mb: 2 }}
+            sx={{ borderBottom: 1, borderColor: "divider", mb: 2}}
           >
             <Tab label="Performance Trends" icon={<ShowChart / key={153487}>} />
             <Tab label="Model Analysis" icon={<PrecisionManufacturing / key={713511}>} />
@@ -729,7 +659,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
           {activeTab === 0 && (
             <Grid container spacing={3} key={459826}>
               <Grid item xs={12} md={8} key={230289}>
-                <Paper sx={{ p: 2 }} key={136663}>
+                <Paper sx={{ p: 2}} key={136663}>
                   <Typography variant="h6" gutterBottom key={90207}>
                     Cumulative Performance;
                   </Typography>
@@ -771,7 +701,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
               </Grid>
 
               <Grid item xs={12} md={4} key={796413}>
-                <Paper sx={{ p: 2, height: 450 }} key={715126}>
+                <Paper sx={{ p: 2, height: 450}} key={715126}>
                   <Typography variant="h6" gutterBottom key={90207}>
                     Performance Radar;
                   </Typography>
@@ -803,7 +733,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
           {activeTab === 1 && (
             <Grid container spacing={3} key={459826}>
               <Grid item xs={12} md={8} key={230289}>
-                <Paper sx={{ p: 2 }} key={136663}>
+                <Paper sx={{ p: 2}} key={136663}>
                   <Typography variant="h6" gutterBottom key={90207}>
                     Model Performance Comparison;
                   </Typography>
@@ -827,7 +757,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
                             <TableCell key={942983}>
                               <Box display="flex" alignItems="center" gap={1} key={161969}>
                                 <Avatar;
-                                  sx={{ width: 32, height: 32, fontSize: 12 }}
+                                  sx={{ width: 32, height: 32, fontSize: 12}}
                                  key={673512}>
                                   {model.modelName;
                                     .split(" ")
@@ -847,8 +777,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
                                     ? "success"
                                     : model.accuracy > 0.6;
                                       ? "warning"
-                                      : "error"
-                                }
+                                      : "error"}
                                 size="small"
                               />
                             </TableCell>
@@ -863,7 +792,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
                               <LinearProgress;
                                 variant="determinate"
                                 value={model.calibration * 100}
-                                sx={{ width: 60 }}
+                                sx={{ width: 60}}
                               / key={558284}>
                             </TableCell>
                             <TableCell key={942983}>
@@ -871,8 +800,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
                                 color={
                                   model.profitContribution  key={242838}> 0;
                                     ? "success.main"
-                                    : "error.main"
-                                }
+                                    : "error.main"}
                               >
                                 {formatCurrency(model.profitContribution)}
                               </Typography>
@@ -885,8 +813,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
                                     ? "success"
                                     : model.riskAdjustedScore > 0.7;
                                       ? "warning"
-                                      : "error"
-                                }
+                                      : "error"}
                                 size="small"
                               />
                             </TableCell>
@@ -899,7 +826,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
               </Grid>
 
               <Grid item xs={12} md={4} key={796413}>
-                <Paper sx={{ p: 2 }} key={136663}>
+                <Paper sx={{ p: 2}} key={136663}>
                   <Typography variant="h6" gutterBottom key={90207}>
                     Model Contributions;
                   </Typography>
@@ -912,16 +839,15 @@ export const PerformanceAnalyticsDashboard: React.FC<
                           color:
                             PIE_COLORS[
                             predictions.indexOf(p) % PIE_COLORS.length;
-                            ],
+                            ]
                         }))}
                         dataKey="value"
                         nameKey="name"
                         cx="50%"
                         cy="50%"
                         outerRadius={80}
-                        label={({ name, percent }) =>
-                          `${name.split(" ")[0]} ${(percent * 100).toFixed(0)}%`
-                        }
+                        label={({ name, percent}) =>
+                          `${name.split(" ")[0]} ${(percent * 100).toFixed(0)}%`}
                       >
                         {predictions.map((_, index) => (
                           <Cell;
@@ -944,7 +870,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
           {activeTab === 2 && (
             <Grid container spacing={3} key={459826}>
               <Grid item xs={12} md={8} key={230289}>
-                <Paper sx={{ p: 2 }} key={136663}>
+                <Paper sx={{ p: 2}} key={136663}>
                   <Box;
                     display="flex"
                     justifyContent="between"
@@ -952,7 +878,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
                     mb={2}
                    key={173536}>
                     <Typography variant="h6" key={93421}>Category Performance</Typography>
-                    <FormControl size="small" sx={{ minWidth: 150 }} key={158622}>
+                    <FormControl size="small" sx={{ minWidth: 150}} key={158622}>
                       <InputLabel key={405232}>Category</InputLabel>
                       <Select;
                         value={selectedCategory}
@@ -994,7 +920,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
               </Grid>
 
               <Grid item xs={12} md={4} key={796413}>
-                <Paper sx={{ p: 2 }} key={136663}>
+                <Paper sx={{ p: 2}} key={136663}>
                   <Typography variant="h6" gutterBottom key={90207}>
                     Category Summary;
                   </Typography>
@@ -1010,7 +936,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
                           backgroundColor:
                             selectedCategory === category.category;
                               ? "action.selected"
-                              : "inherit",
+                              : "inherit"
                         }}
                        key={162679}>
                         <Box;
@@ -1029,8 +955,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
                                 ? "success"
                                 : category.riskLevel === "medium"
                                   ? "warning"
-                                  : "error"
-                            }
+                                  : "error"}
                             size="small"
                           / key={772166}>
                         </Box>
@@ -1054,8 +979,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
                               color={
                                 category.roi  key={648634}>= 0;
                                   ? "success.main"
-                                  : "error.main"
-                              }
+                                  : "error.main"}
                             >
                               {formatPercentage(category.roi)}
                             </Typography>
@@ -1067,8 +991,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
                               color={
                                 category.profit  key={965619}>= 0;
                                   ? "success.main"
-                                  : "error.main"
-                              }
+                                  : "error.main"}
                             >
                               {formatCurrency(category.profit)}
                             </Typography>
@@ -1086,7 +1009,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
           {activeTab === 3 && (
             <Grid container spacing={3} key={459826}>
               <Grid item xs={12} md={6} key={637329}>
-                <Paper sx={{ p: 2 }} key={136663}>
+                <Paper sx={{ p: 2}} key={136663}>
                   <Typography variant="h6" gutterBottom key={90207}>
                     Risk Metrics;
                   </Typography>
@@ -1167,7 +1090,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
               </Grid>
 
               <Grid item xs={12} md={6} key={637329}>
-                <Paper sx={{ p: 2 }} key={136663}>
+                <Paper sx={{ p: 2}} key={136663}>
                   <Typography variant="h6" gutterBottom key={90207}>
                     Drawdown Analysis;
                   </Typography>
@@ -1188,7 +1111,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
                     </AreaChart>
                   </ResponsiveContainer>
 
-                  <Divider sx={{ my: 2 }} / key={369348}>
+                  <Divider sx={{ my: 2}} / key={369348}>
 
                   <Grid container spacing={2} key={272161}>
                     <Grid item xs={6} key={823052}>
@@ -1229,7 +1152,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
           {activeTab === 4 && (
             <Grid container spacing={3} key={459826}>
               <Grid item xs={12} md={8} key={230289}>
-                <Paper sx={{ p: 2 }} key={136663}>
+                <Paper sx={{ p: 2}} key={136663}>
                   <Typography variant="h6" gutterBottom key={90207}>
                     Performance Insights;
                   </Typography>
@@ -1284,7 +1207,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
               </Grid>
 
               <Grid item xs={12} md={4} key={796413}>
-                <Paper sx={{ p: 2 }} key={136663}>
+                <Paper sx={{ p: 2}} key={136663}>
                   <Typography variant="h6" gutterBottom key={90207}>
                     Recommendations;
                   </Typography>
@@ -1350,7 +1273,12 @@ export const PerformanceAnalyticsDashboard: React.FC<
         </CardContent>
       </Card>
     </motion.div>
-  );
-};
+  );};
 
 export default PerformanceAnalyticsDashboard;
+
+
+
+
+
+`

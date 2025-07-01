@@ -1,5 +1,5 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React, { useState, useEffect} from 'react';
+import { motion} from 'framer-motion';
 import {
   BarChart3,
   Brain,
@@ -13,8 +13,8 @@ import {
   AlertTriangle,
   CheckCircle,
   Clock,
-  Database,
-} from 'lucide-react.ts';
+//   Database
+} from 'lucide-react';
 
 // Import Chart.js components;
 import {
@@ -27,9 +27,9 @@ import {
   Title,
   Tooltip,
   Legend,
-  ArcElement,
+//   ArcElement
 } from "chart.js";
-import SafeChart from '@/ui/SafeChart.ts';
+import SafeChart from '@/ui/SafeChart';
 
 ChartJS.register(
   CategoryScale,
@@ -44,38 +44,23 @@ ChartJS.register(
 );
 
 // Core UI Components;
-import GlassCard from '@/ui/GlassCard.ts';
-import MetricCard from '@/ui/MetricCard.ts';
-import StatusIndicator from '@/ui/StatusIndicator.ts';
+import GlassCard from '@/ui/GlassCard';
+import MetricCard from '@/ui/MetricCard';
+import StatusIndicator from '@/ui/StatusIndicator';
 
 interface AnalyticsMetric {
-  name: string;
-  value: number;
-  unit: string;
-  change: number;
-  status: "good" | "warning" | "critical";
-  description: string;
-  trend: "up" | "down" | "neutral";
-}
+  name: string,`n  value: number;,`n  unit: string,`n  change: number;,`n  status: "good" | "warning" | "critical",`n  description: string;,`n  trend: "up" | "down" | "neutral"}
 
 interface ModelPerformance {
-  modelName: string;
-  accuracy: number;
-  precision: number;
-  recall: number;
-  f1Score: number;
-  auc: number;
-  lastUpdated: string;
-}
+  modelName: string,`n  accuracy: number;,`n  precision: number,`n  recall: number;,`n  f1Score: number,`n  auc: number;,`n  lastUpdated: string}
 
 interface AdvancedAnalyticsHubProps {
-  className?: string;
-}
+  className?: string}
 
 const AdvancedAnalyticsHub: React.FC<AdvancedAnalyticsHubProps key={892146}> = ({
-  className = "",
+  className = ""
 }) => {
-  const [metrics, setMetrics] = useState<AnalyticsMetric[] key={172445}>([
+  const [metrics, setMetrics] = useState<AnalyticsMetric[0] key={172445}>([
     {
       name: "Overall Accuracy",
       value: 94.7,
@@ -83,7 +68,7 @@ const AdvancedAnalyticsHub: React.FC<AdvancedAnalyticsHubProps key={892146}> = (
       change: 2.3,
       status: "good",
       description: "Model prediction accuracy",
-      trend: "up",
+      trend: "up"
     },
     {
       name: "Profit Margin",
@@ -92,7 +77,7 @@ const AdvancedAnalyticsHub: React.FC<AdvancedAnalyticsHubProps key={892146}> = (
       change: 1.8,
       status: "good",
       description: "Average profit margin",
-      trend: "up",
+      trend: "up"
     },
     {
       name: "Risk Score",
@@ -101,7 +86,7 @@ const AdvancedAnalyticsHub: React.FC<AdvancedAnalyticsHubProps key={892146}> = (
       change: -5.2,
       status: "good",
       description: "Portfolio risk assessment",
-      trend: "down",
+      trend: "down"
     },
     {
       name: "Win Rate",
@@ -110,11 +95,11 @@ const AdvancedAnalyticsHub: React.FC<AdvancedAnalyticsHubProps key={892146}> = (
       change: 4.1,
       status: "good",
       description: "Successful prediction rate",
-      trend: "up",
+      trend: "up"
     },
   ]);
 
-  const [models, setModels] = useState<ModelPerformance[] key={45592}>([
+  const [models, setModels] = useState<ModelPerformance[0] key={45592}>([
     {
       modelName: "XGBoost Ensemble",
       accuracy: 95.2,
@@ -122,7 +107,7 @@ const AdvancedAnalyticsHub: React.FC<AdvancedAnalyticsHubProps key={892146}> = (
       recall: 93.7,
       f1Score: 94.2,
       auc: 0.97,
-      lastUpdated: "2 minutes ago",
+      lastUpdated: "2 minutes ago"
     },
     {
       modelName: "Neural Network",
@@ -131,7 +116,7 @@ const AdvancedAnalyticsHub: React.FC<AdvancedAnalyticsHubProps key={892146}> = (
       recall: 90.8,
       f1Score: 91.1,
       auc: 0.94,
-      lastUpdated: "5 minutes ago",
+      lastUpdated: "5 minutes ago"
     },
     {
       modelName: "Random Forest",
@@ -140,7 +125,7 @@ const AdvancedAnalyticsHub: React.FC<AdvancedAnalyticsHubProps key={892146}> = (
       recall: 87.3,
       f1Score: 88.1,
       auc: 0.91,
-      lastUpdated: "8 minutes ago",
+      lastUpdated: "8 minutes ago"
     },
   ]);
 
@@ -154,16 +139,16 @@ const AdvancedAnalyticsHub: React.FC<AdvancedAnalyticsHubProps key={892146}> = (
         data: [85, 87, 91, 93, 94, 95],
         borderColor: "rgb(6, 255, 165)",
         backgroundColor: "rgba(6, 255, 165, 0.2)",
-        tension: 0.4,
+        tension: 0.4
       },
       {
         label: "Profit %",
         data: [12, 14, 16, 17, 18, 19],
         borderColor: "rgb(0, 212, 255)",
         backgroundColor: "rgba(0, 212, 255, 0.2)",
-        tension: 0.4,
+        tension: 0.4
       },
-    ],
+    ]
   };
 
   // Ensure models array has data before creating chart data;
@@ -179,9 +164,9 @@ const AdvancedAnalyticsHub: React.FC<AdvancedAnalyticsHubProps key={892146}> = (
                 "rgba(6, 255, 165, 0.8)",
                 "rgba(0, 212, 255, 0.8)",
                 "rgba(124, 58, 237, 0.8)",
-              ],
+              ]
             },
-          ],
+          ]
         }
       : {
           labels: ["Loading..."],
@@ -189,17 +174,16 @@ const AdvancedAnalyticsHub: React.FC<AdvancedAnalyticsHubProps key={892146}> = (
             {
               label: "Accuracy",
               data: [0],
-              backgroundColor: ["rgba(156, 163, 175, 0.3)"],
+              backgroundColor: ["rgba(156, 163, 175, 0.3)"]
             },
-          ],
+          ]
         };
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
     // Simulate API call;
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    setIsRefreshing(false);
-  };
+    setIsRefreshing(false)};
 
   return (
     <div className={`space-y-6 ${className}`} key={468045}>
@@ -214,8 +198,8 @@ const AdvancedAnalyticsHub: React.FC<AdvancedAnalyticsHubProps key={892146}> = (
           </p>
         </div>
         <motion.button;
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.05}}
+          whileTap={{ scale: 0.95}}
           onClick={handleRefresh}
           disabled={isRefreshing}
           className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl hover:from-cyan-400 hover:to-blue-500 disabled:opacity-50 transition-all flex items-center gap-2"
@@ -232,9 +216,9 @@ const AdvancedAnalyticsHub: React.FC<AdvancedAnalyticsHubProps key={892146}> = (
         {metrics.map((metric, index) => (
           <motion.div;
             key={metric.name}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
+            initial={{ opacity: 0, y: 20}}
+            animate={{ opacity: 1, y: 0}}
+            transition={{ delay: index * 0.1}}
            key={467549}>
             <MetricCard;
               label={metric.name}
@@ -255,12 +239,10 @@ const AdvancedAnalyticsHub: React.FC<AdvancedAnalyticsHubProps key={892146}> = (
             data={performanceData}
             loadingMessage="Loading performance trends..."
             options={{
-              plugins: {
-                legend: {
-                  position: "top" as const,
-                  labels: { color: "#e5e7eb" },
-                },
-              },
+              plugins: {,`n  legend: {,`n  position: "top" as const,
+                  labels: { color: "#e5e7eb"}
+                }
+              }
             }}
           / key={94951}>
         </GlassCard>
@@ -271,12 +253,10 @@ const AdvancedAnalyticsHub: React.FC<AdvancedAnalyticsHubProps key={892146}> = (
             data={modelComparisonData}
             loadingMessage="Loading model comparison..."
             options={{
-              plugins: {
-                legend: {
-                  position: "top" as const,
-                  labels: { color: "#e5e7eb" },
-                },
-              },
+              plugins: {,`n  legend: {,`n  position: "top" as const,
+                  labels: { color: "#e5e7eb"}
+                }
+              }
             }}
           / key={786544}>
         </GlassCard>
@@ -301,9 +281,9 @@ const AdvancedAnalyticsHub: React.FC<AdvancedAnalyticsHubProps key={892146}> = (
               {models.map((model, index) => (
                 <motion.tr;
                   key={model.modelName}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  initial={{ opacity: 0, x: -20}}
+                  animate={{ opacity: 1, x: 0}}
+                  transition={{ delay: index * 0.1}}
                   className="border-b border-gray-800 hover:bg-gray-800/30 transition-colors"
                  key={859087}>
                   <td className="py-3 text-white font-semibold" key={178457}>
@@ -349,7 +329,11 @@ const AdvancedAnalyticsHub: React.FC<AdvancedAnalyticsHubProps key={892146}> = (
         </div>
       </GlassCard>
     </div>
-  );
-};
+  )};
 
 export default AdvancedAnalyticsHub;
+
+
+
+
+`

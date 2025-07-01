@@ -1,9 +1,9 @@
-import React from 'react.ts';
-import { Outlet } from 'react-router-dom.ts';
-import BetSlipSidebar from '@/modern/BetSlipSidebar.ts';
-import Sidebar from '@/modern/Sidebar.ts';
+﻿import React from 'react';
+import { Outlet} from 'react-router-dom';
+import BetSlipSidebar from '@/modern/BetSlipSidebar';
+import Sidebar from '@/modern/Sidebar';
 
-// import Navbar from '@/components/navigation/Navbar.ts'; // Optional: if you want a top navbar as well;
+// import Navbar from '@/components/navigation/Navbar'; // Optional: if you want a top navbar as well;
 
 const MainLayout: React.FC = () => {
   return (
@@ -16,7 +16,9 @@ const MainLayout: React.FC = () => {
       {/* Persistent BetSlip Sidebar (desktop), floating/modal on mobile */}
       <BetSlipSidebar / key={251363}>
     </div>
-  );
-};
+  )};
 
 export default MainLayout;
+
+
+

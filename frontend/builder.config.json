@@ -8,9 +8,10 @@
     },
     {
       "name": "section",
-      "type": "section" 
+      "type": "section"
     }
-  ],  "preview": {
+  ],
+  "preview": {
     "host": "http://localhost:5173"
   }
 }

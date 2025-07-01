@@ -212,7 +212,7 @@ function MyComponent() {
 ### 🎨 Accessing Theme
 
 ```typescript
-import { CYBER_COLORS, CYBER_GRADIENTS } from "./quantum";
+import { CYBER_COLORS, CYBER_GRADIENTS } from './quantum';
 
 // Use your preserved cyber colors
 const buttonStyle = {
@@ -224,13 +224,12 @@ const buttonStyle = {
 ### 📊 Using Services
 
 ```typescript
-import { QuantumServices } from "./quantum";
+import { QuantumServices } from './quantum';
 
 // Access any service
 const data = await QuantumServices.data.fetchPrizePicksData();
 const predictions = await QuantumServices.ml.generatePredictions(data);
-const opportunities =
-  await QuantumServices.betting.findArbitrageOpportunities();
+const opportunities = await QuantumServices.betting.findArbitrageOpportunities();
 ```
 
 ## 🎊 RESULT SUMMARY

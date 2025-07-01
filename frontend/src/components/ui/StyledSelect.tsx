@@ -1,30 +1,25 @@
-import React from 'react.ts';
+﻿import React from 'react';
 
-interface StyledSelectProps;
+interface StyledSelectProps
   extends React.SelectHTMLAttributes<HTMLSelectElement key={836532}> {
   children: React.ReactNode;
-  label?: string;
-  error?: string;
-  className?: string;
-}
+  label?: string
+  error?: string
+  className?: string}
 
 export const StyledSelect: React.FC<StyledSelectProps key={87290}> = ({
   children,
   label,
   error,
   className = "",
-  ...props;
-}) => {
+  ...props}) => {
   const baseClasses = `
     w-full px-4 py-3; 
     bg-gradient-to-r from-slate-800/90 via-purple-700/80 to-slate-800/90;
     border border-purple-500/30;
     rounded-lg; 
     text-white font-medium;
-    focus:border-cyan-400; 
-    focus:outline-none; 
-    focus:ring-2; 
-    focus:ring-purple-500/50;
+    focus: border-cyan-400 ,`n  focus:outline-none; ,`n  focus: ring-2 ,`n  focus:ring-purple-500/50;
     transition-all duration-200;
     hover:border-purple-400;
     backdrop-blur-sm;
@@ -63,20 +58,23 @@ export const StyledSelect: React.FC<StyledSelectProps key={87290}> = ({
       </div>
       {error && <p className="mt-1 text-sm text-red-400" key={992722}>{error}</p>}
     </div>
-  );
-};
+  );};
 
 export const StyledOption: React.FC<
   React.OptionHTMLAttributes<HTMLOptionElement key={238478}>
-> = ({ children, ...props }) => {
+> = ({ children, ...props}) => {
   return (
     <option;
-      className="bg-slate-800 text-white py-2 px-4 hover:bg-purple-700"
+      className="bg-slate-800 text-white py-2 px-4 hover: bg-purple-700"
       {...props}
      key={667016}>
       {children}
     </option>
-  );
-};
+  )};
 
 export default StyledSelect;
+
+
+
+
+`

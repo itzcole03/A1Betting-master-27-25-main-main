@@ -35,6 +35,23 @@ This directory contains the backend services for the UltimateSportsBettingApp, p
 - All services are modular and documented with docstrings.
 - See each module for detailed usage and API documentation.
 
+## API Integrations
+
+### PrizePicks
+- **Endpoint:** `https://api.prizepicks.com/projections`
+- **Authentication:** No official API key required or available. This is a public, undocumented endpoint.
+- **Note:** The system may be rate-limited or blocked by PrizePicks. All error handling and fallback logic should account for this.
+
+### Sportradar / TheOdds
+- **API Keys:** Required and stored in `.env` (never committed to version control).
+- **Usage:** [Describe where/how these keys are used in the codebase.]
+
+## Error Handling
+- If PrizePicks API is unavailable or rate-limited, the system will:
+  - Surface a clear user-facing message:  
+    _"Live data unavailable. Displaying sample data. Please try again later."_
+  - Only use mock data in development or as a last-resort fallback, never silently in production.
+
 ---
 
 _This README is auto-generated. Update as modules evolve._

@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import { ToastContainer, toast } from 'react-toastify.ts';
+﻿import React from 'react';
+import { ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const Toaster: React.FC = () => {
@@ -16,8 +16,7 @@ export const Toaster: React.FC = () => {
       rtl={false}
       theme="light"
     / key={566416}>
-  );
-};
+  );};
 
 export const showSuccess = (message: string) => {
   toast.success(message, {
@@ -26,9 +25,8 @@ export const showSuccess = (message: string) => {
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
-    draggable: true,
-  });
-};
+    draggable: true
+  })};
 
 export const showError = (message: string) => {
   toast.error(message, {
@@ -37,9 +35,8 @@ export const showError = (message: string) => {
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
-    draggable: true,
-  });
-};
+    draggable: true
+  })};
 
 export const showInfo = (message: string) => {
   toast.info(message, {
@@ -48,9 +45,8 @@ export const showInfo = (message: string) => {
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
-    draggable: true,
-  });
-};
+    draggable: true
+  })};
 
 export const showWarning = (message: string) => {
   toast.warning(message, {
@@ -59,6 +55,8 @@ export const showWarning = (message: string) => {
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
-    draggable: true,
-  });
-};
+    draggable: true
+  })};
+
+
+

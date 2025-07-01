@@ -1,34 +1,26 @@
-// PvPMatchupModel: Strict ALPHA1-compliant modular model;
-import { EventBus } from '@/core/EventBus.ts';
-import { BaseModel, ModelConfig, ModelMetrics, ModelPrediction } from '@/services/ml/models/BaseModel.ts';
-import type { GameContext, ShapVector } from '@/types/models.ts';
-import { UnifiedConfig } from '@/unified/UnifiedConfig.ts';
-import { calculateShap } from '@/utils/shap.ts';
+﻿// PvPMatchupModel: Strict ALPHA1-compliant modular model;
+import { EventBus} from '@/core/EventBus';
+import { BaseModel, ModelConfig, ModelMetrics, ModelPrediction} from '@/services/ml/models/BaseModel';
+import type { GameContext, ShapVector} from '@/types/models';
+import { UnifiedConfig} from '@/unified/UnifiedConfig';
+import { calculateShap} from '@/utils/shap';
 
 export interface PvPMatchupResult {
-  sport: 'nba' | 'wnba' | 'mlb' | 'soccer' | 'nhl';
-  primaryPlayerId: string;
-  opponentId: string;
-  context: GameContext;
-  features: Record<string, number>;
-  shapInsights: ShapVector[];
-  matchupScore: number; // Scaled [0.0 - 1.0]
-}
+  sport: 'nba' | 'wnba' | 'mlb' | 'soccer' | 'nhl',`n  primaryPlayerId: string;,`n  opponentId: string,`n  context: GameContext;,`n  features: Record<string, number>;
+  shapInsights: ShapVector[0],`n  matchupScore: number; // Scaled [0.0 - 1.0]}
 
 export class PvPMatchupModel extends BaseModel {
   private eventBus: EventBus;
 
   constructor(config: ModelConfig) {
     super(config);
-    this.eventBus = EventBus.getInstance();
-  }
+    this.eventBus = EventBus.getInstance();}
 
   async predict(input: any): Promise<ModelPrediction> {
-    const { playerId1, playerId2, sport, context } = input;
+    const { playerId1, playerId2, sport, context} = input;
 
     if (!config.get('enablePvPModel')) {
-      throw new Error('PvPMatchupModel is disabled by config.');
-    }
+      throw new Error('PvPMatchupModel is disabled by config.');}
 
     let result: PvPMatchupResult;
 
@@ -47,38 +39,29 @@ export class PvPMatchupModel extends BaseModel {
         case 'nhl':
           result = await this.nhlPvP(playerId1, playerId2, context);
           break;
-        default:
-          throw new Error(`Sport "${sport}" not supported by PvPMatchupModel.`);
-      }
+        default: throw new Error(`Sport "${sport}" not supported by PvPMatchupModel.`)}
 
       // Emit SHAP insights;
       this.eventBus.emit('shap:insight', {
         model: 'PvPMatchup',
-        shap: result.shapInsights[0] || {},
-        timestamp: Date.now()
-      });
+        shap: result.shapInsights[0] || Record<string, any>,
+        timestamp: Date.now()});
 
       return {
         timestamp: new Date().toISOString(),
         input: input,
-        output: {
-          matchupScore: result.matchupScore,
+        output: {,`n  matchupScore: result.matchupScore,
           sport: result.sport,
-          confidence: this.calculateConfidence(result)
-        },
+          confidence: this.calculateConfidence(result)},
         confidence: this.calculateConfidence(result),
-        metadata: {
-          sport: result.sport,
+        metadata: {,`n  sport: result.sport,
           primaryPlayerId: result.primaryPlayerId,
           opponentId: result.opponentId,
           shapInsights: result.shapInsights,
-          features: result.features;
-        }
-      };
-    } catch (error) {
+          features: result.features}
+      }} catch (error) {
       this.logger.error('PvPMatchupModel prediction failed', error);
-      throw this.createError('Prediction failed', error as Error);
-    }
+      throw this.createError('Prediction failed', error as Error);}
   }
 
   async train(data: any): Promise<void> {
@@ -91,16 +74,12 @@ export class PvPMatchupModel extends BaseModel {
       this.isTrained = true;
       this.updateLastUpdate();
 
-      this.emit('training:complete', {
+      this.emit('training: complete', {
         modelId: this.modelId,
-        timestamp: new Date().toISOString()
-      });
-    } catch (error) {
+        timestamp: new Date().toISOString()})} catch (error) {
       this.logger.error('PvPMatchupModel training failed', error);
-      throw this.createError('Training failed', error as Error);
-    } finally {
-      this.isTraining = false;
-    }
+      throw this.createError('Training failed', error as Error);} finally {
+      this.isTraining = false;}
   }
 
   async evaluate(data: any): Promise<ModelMetrics> {
@@ -119,12 +98,9 @@ export class PvPMatchupModel extends BaseModel {
         f1Score: 0, // Should come from actual model evaluation;
         auc: 0, // Should come from actual model evaluation;
         testSize,
-        evaluatedAt: new Date().toISOString()
-      };
-    } catch (error) {
+        evaluatedAt: new Date().toISOString()}} catch (error) {
       this.logger.error('PvPMatchupModel evaluation failed', error);
-      throw this.createError('Evaluation failed', error as Error);
-    }
+      throw this.createError('Evaluation failed', error as Error);}
   }
 
   async save(path: string): Promise<void> {
@@ -135,11 +111,9 @@ export class PvPMatchupModel extends BaseModel {
       isTrained: this.isTrained,
       lastUpdate: this.lastUpdate,
       metadata: this.metadata,
-      metrics: this.metrics;
-    };
+      metrics: this.metrics};
     // In a real implementation, this would serialize to file/database;
-    this.logger.info('PvPMatchupModel saved successfully');
-  }
+    this.logger.info('PvPMatchupModel saved successfully');}
 
   async load(path: string): Promise<void> {
     this.logger.info(`Loading PvPMatchupModel from ${path}`);
@@ -147,8 +121,7 @@ export class PvPMatchupModel extends BaseModel {
     // In a real implementation, this would deserialize from file/database;
     this.isTrained = true;
     this.updateLastUpdate();
-    this.logger.info('PvPMatchupModel loaded successfully');
-  }
+    this.logger.info('PvPMatchupModel loaded successfully');}
 
   private async simulateTraining(data: any): Promise<void> {
     // Production: Should implement real ML model training;
@@ -157,19 +130,16 @@ export class PvPMatchupModel extends BaseModel {
 
     for (const i = 0; i < epochs; i++) {
       // No actual training simulation in production;
-      this.emit('training:progress', {
+      this.emit('training: progress', {
         epoch: i + 1,
         totalEpochs: epochs,
-        loss: 0 // Should come from real training metrics;
-      });
-    }
+        loss: 0 // Should come from real training metrics})}
   }
 
   private calculateConfidence(result: PvPMatchupResult): number {
     // Calculate confidence based on feature quality and historical accuracy;
 
-    return Math.min(0.95, 0.7 + (featureQuality * 0.2));
-  }
+    return Math.min(0.95, 0.7 + (featureQuality * 0.2));}
 
   private async mlbPvP(batterId: string, pitcherId: string, context: GameContext): Promise<PvPMatchupResult> {
 
@@ -180,8 +150,7 @@ export class PvPMatchupModel extends BaseModel {
       mlb_k_rate_vs_pitcher: kRate,
       mlb_xwoba_vs_pitcher: xwoba,
       mlb_swing_miss_pct: swingMissPct,
-      mlb_ev_avg: evAvg;
-    };
+      mlb_ev_avg: evAvg};
 
 
     return {
@@ -191,9 +160,7 @@ export class PvPMatchupModel extends BaseModel {
       context,
       features,
       shapInsights: [shap],
-      matchupScore: score;
-    };
-  }
+      matchupScore: score}}
 
   private async basketballPvP(offenseId: string, defenseId: string, context: GameContext): Promise<PvPMatchupResult> {
 
@@ -204,8 +171,7 @@ export class PvPMatchupModel extends BaseModel {
       nba_ppg_vs_defense: ppgVsDef,
       nba_fg3_pct: fg3pct,
       nba_tov_pct: tovPct,
-      nba_pace: pace;
-    };
+      nba_pace: pace};
 
 
     return {
@@ -215,9 +181,7 @@ export class PvPMatchupModel extends BaseModel {
       context,
       features,
       shapInsights: [shap],
-      matchupScore: score;
-    };
-  }
+      matchupScore: score}}
 
   private async soccerPvP(attackerId: string, defenderId: string, context: GameContext): Promise<PvPMatchupResult> {
 
@@ -228,8 +192,7 @@ export class PvPMatchupModel extends BaseModel {
       soccer_goals_vs_defense: goalsVsDef,
       soccer_expected_goals: xg,
       soccer_pass_completion: passCompPct,
-      soccer_tackles_won: tacklesWon;
-    };
+      soccer_tackles_won: tacklesWon};
 
 
     return {
@@ -239,9 +202,7 @@ export class PvPMatchupModel extends BaseModel {
       context,
       features,
       shapInsights: [shap],
-      matchupScore: score;
-    };
-  }
+      matchupScore: score}}
 
   private async nhlPvP(shooterId: string, goalieId: string, context: GameContext): Promise<PvPMatchupResult> {
 
@@ -252,8 +213,7 @@ export class PvPMatchupModel extends BaseModel {
       nhl_goals_vs_goalie: goalsVsGoalie,
       nhl_expected_goals_for: xgf,
       nhl_save_percentage: savePct,
-      nhl_shot_attempts: shotAttempts;
-    };
+      nhl_shot_attempts: shotAttempts};
 
 
     return {
@@ -263,20 +223,16 @@ export class PvPMatchupModel extends BaseModel {
       context,
       features,
       shapInsights: [shap],
-      matchupScore: score;
-    };
-  }
+      matchupScore: score}}
 
   private async fetchStat(playerId1: string, playerId2: string, stat: string): Promise<number> {
     // In production, this should call actual sports data APIs;
     // For now, throw error to indicate data not available;
-    throw new Error(`Player stat data not available for ${stat}. API integration required.`);
-  }
+    throw new Error(`Player stat data not available for ${stat}. API integration required.`);}
 
   private normalize(value: number): number {
     // Normalize values to 0-1 range with sigmoid function;
-    return 1 / (1 + Math.exp(-value));
-  }
+    return 1 / (1 + Math.exp(-value));}
 }
 
 /**
@@ -288,24 +244,21 @@ export async function getPvPMatchupFeatures(
   playerId1: string,
   playerId2: string,
   sport: 'nba' | 'wnba' | 'mlb' | 'soccer' | 'nhl',
-  context: GameContext;
+  context: GameContext
 ): Promise<PvPMatchupResult> {
 
   if (!config.get('enablePvPModel')) {
-    throw new Error('PvPMatchupModel is disabled by config.');
-  }
+    throw new Error('PvPMatchupModel is disabled by config.')}
   // Singleton pattern;
   if (!(globalThis as any)._pvpMatchupModelSingleton) {
-    (globalThis as any)._pvpMatchupModelSingleton = new PvPMatchupModel({}); // Use default config or adjust as needed;
-  }
+    (globalThis as any)._pvpMatchupModelSingleton = new PvPMatchupModel(Record<string, any>); // Use default config or adjust as needed;}
 
   // Use the public predict method to access internal logic;
 
 
   // Extract PvPMatchupResult from prediction metadata;
   if (!prediction?.metadata?.features || !prediction?.metadata?.shapInsights) {
-    throw new Error('PvPMatchupModel did not return expected metadata.');
-  }
+    throw new Error('PvPMatchupModel did not return expected metadata.');}
   return {
     sport: sport,
     primaryPlayerId: playerId1,
@@ -313,6 +266,8 @@ export async function getPvPMatchupFeatures(
     context,
     features: prediction.metadata.features,
     shapInsights: prediction.metadata.shapInsights,
-    matchupScore: prediction.output?.matchupScore ?? 0;
-  };
-}
+    matchupScore: prediction.output?.matchupScore ?? 0}}
+
+
+
+`

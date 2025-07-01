@@ -1,19 +1,15 @@
-import React from 'react.ts';
-import { formatCurrency, formatPercentage } from '@/utils/formatters.ts';
-import { RiskProfileType, BetRecommendation } from '@/types/betting.ts';
+﻿import React from 'react';
+import { formatCurrency, formatPercentage} from '@/utils/formatters';
+import { RiskProfileType, BetRecommendation} from '@/types/betting';
 
 interface PerformanceMetricsProps {
-  bankroll: number;
-  profit: number;
-  riskProfile: RiskProfileType;
-  recommendations: BetRecommendation[];
-}
+  bankroll: number,`n  profit: number;,`n  riskProfile: RiskProfileType,`n  recommendations: BetRecommendation[0]}
 
 export const PerformanceMetrics: React.FC<PerformanceMetricsProps key={355997}> = ({
   bankroll,
   profit,
   riskProfile,
-  recommendations,
+//   recommendations
 }) => {
 
 
@@ -23,27 +19,27 @@ export const PerformanceMetrics: React.FC<PerformanceMetricsProps key={355997}> 
     {
       label: 'Total Bankroll',
       value: formatCurrency(bankroll),
-      trend: profit >= 0 ? 'up' : 'down',
+      trend: profit >= 0 ? 'up' : 'down'
     },
     {
       label: 'Profit/Loss',
       value: formatCurrency(profit),
-      trend: profit >= 0 ? 'up' : 'down',
+      trend: profit >= 0 ? 'up' : 'down'
     },
     {
       label: 'Win Rate',
       value: formatPercentage(winRate),
-      trend: winRate >= 0.5 ? 'up' : 'down',
+      trend: winRate >= 0.5 ? 'up' : 'down'
     },
     {
       label: 'ROI',
       value: formatPercentage(roi / 100),
-      trend: roi >= 0 ? 'up' : 'down',
+      trend: roi >= 0 ? 'up' : 'down'
     },
     {
       label: 'Risk Profile',
       value: riskProfile.charAt(0).toUpperCase() + riskProfile.slice(1),
-      trend: 'neutral' as const,
+      trend: 'neutral' as const
     },
   ];
 
@@ -53,7 +49,7 @@ export const PerformanceMetrics: React.FC<PerformanceMetricsProps key={355997}> 
         <div;
           key={metric.label}
           className={`bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm transition-all duration-300 hover:shadow-md animate-fade-in`}
-          style={{ animationDelay: `${index * 100}ms` }}
+          style={{ animationDelay: `${index * 100}ms`}}
          key={397610}>
           <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1" key={280359}>
             {metric.label}
@@ -73,7 +69,11 @@ export const PerformanceMetrics: React.FC<PerformanceMetricsProps key={355997}> 
         </div>
       ))}
     </div>
-  );
-};
+  )};
 
 export default React.memo(PerformanceMetrics);
+
+
+
+
+`

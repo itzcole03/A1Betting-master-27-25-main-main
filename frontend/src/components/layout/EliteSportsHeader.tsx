@@ -1,36 +1,31 @@
-import React from 'react.ts';
-import { RefreshCw, Moon, Sun, Wifi, WifiOff } from 'lucide-react.ts';
-import { useAppStore } from '@/store/useAppStore.ts';
+﻿import React from 'react';
+import { RefreshCw, Moon, Sun, Wifi, WifiOff} from 'lucide-react';
+import { useAppStore} from '@/store/useAppStore';
 
 interface EliteSportsHeaderProps {
-  connectedSources: number;
-  dataQuality: number;
-  state?: { darkMode?: boolean };
-  toggleDarkMode: () => void;
-  refreshData: () => Promise<void key={132647}>;
-  loading: boolean;
-}
+  connectedSources: number,`n  dataQuality: number;
+  state?: { darkMode?: boolean};
+  toggleDarkMode: () => void,`n  refreshData: () => Promise<void key={132647}>;
+  loading: boolean}
 
 export const EliteSportsHeader: React.FC<EliteSportsHeaderProps key={262387}> = ({
   connectedSources,
   dataQuality,
-  state = { darkMode: false },
+  state = { darkMode: false},
   toggleDarkMode,
   refreshData,
-  loading,
+//   loading
 }) => {
-  const { addToast } = useAppStore();
+  const { addToast} = useAppStore();
   const getDataStatusColor = () => {
     if (connectedSources === 0) return "text-red-600";
     if (dataQuality > 0.7) return "text-green-600";
-    return "text-yellow-600";
-  };
+    return "text-yellow-600";};
 
   const getDataStatusText = () => {
     if (connectedSources === 0) return "No Real Data";
     if (dataQuality > 0.7) return "High Quality Real Data";
-    return "Limited Real Data";
-  };
+    return "Limited Real Data";};
 
   return (
     <header className="bg-white dark:bg-gray-800 shadow-sm p-6 border-b border-gray-200 dark:border-gray-700" key={442569}>
@@ -71,7 +66,7 @@ export const EliteSportsHeader: React.FC<EliteSportsHeaderProps key={262387}> = 
           </button>
           <button;
             onClick={toggleDarkMode}
-            className="p-3 rounded-2xl glass-morphism hover:bg-white/20 transition-all"
+            className="p-3 rounded-2xl glass-morphism hover: bg-white/20 transition-all"
            key={841218}>
             {state.darkMode ? (
               <Sun className="w-5 h-5" / key={164663}>
@@ -82,5 +77,8 @@ export const EliteSportsHeader: React.FC<EliteSportsHeaderProps key={262387}> = 
         </div>
       </div>
     </header>
-  );
-};
+  )};
+
+
+
+`

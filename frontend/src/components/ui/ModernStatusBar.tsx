@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React from 'react';
+import { motion} from 'framer-motion';
 import {
   Wifi,
   WifiOff,
@@ -9,32 +9,27 @@ import {
   Zap,
   CheckCircle,
   AlertCircle,
-  XCircle,
-} from 'lucide-react.ts';
+//   XCircle
+} from 'lucide-react';
 
 interface StatusItem {
-  id: string;
-  label: string;
-  value: string | number;
-  status: "active" | "warning" | "error" | "success";
+  id: string,`n  label: string;,`n  value: string | number,`n  status: "active" | "warning" | "error" | "success";
   icon?: React.ReactNode;
   trend?: "up" | "down" | "neutral";
-  lastUpdated?: Date;
-}
+  lastUpdated?: Date}
 
 interface ModernStatusBarProps {
-  className?: string;
-  items?: StatusItem[];
-}
+  className?: string
+  items?: StatusItem[0];}
 
-const defaultItems: StatusItem[] = [
+const defaultItems: StatusItem[0] = [
   {
     id: "connection",
     label: "Connection",
     value: "Online",
     status: "success",
     icon: <Wifi size={14} / key={523967}>,
-    lastUpdated: new Date(),
+    lastUpdated: new Date()
   },
   {
     id: "api",
@@ -42,21 +37,21 @@ const defaultItems: StatusItem[] = [
     value: "99.9%",
     status: "success",
     icon: <Activity size={14} / key={979433}>,
-    trend: "up",
+    trend: "up"
   },
   {
     id: "latency",
     label: "Latency",
     value: "12ms",
     status: "success",
-    icon: <Zap size={14} / key={964196}>,
+    icon: <Zap size={14} / key={964196}>
   },
   {
     id: "updates",
     label: "Live Updates",
     value: "Active",
     status: "active",
-    icon: <TrendingUp size={14} / key={262025}>,
+    icon: <TrendingUp size={14} / key={262025}>
   },
 ];
 
@@ -70,9 +65,7 @@ const getStatusColor = (status: StatusItem["status"]) => {
       return "text-yellow-400 bg-yellow-500/10 border-yellow-500/20";
     case "error":
       return "text-red-400 bg-red-500/10 border-red-500/20";
-    default:
-      return "text-gray-400 bg-gray-500/10 border-gray-500/20";
-  }
+    default: return "text-gray-400 bg-gray-500/10 border-gray-500/20"}
 };
 
 const getStatusIcon = (status: StatusItem["status"]) => {
@@ -83,9 +76,7 @@ const getStatusIcon = (status: StatusItem["status"]) => {
       return <AlertCircle size={12} className="text-yellow-400" / key={689946}>;
     case "error":
       return <XCircle size={12} className="text-red-400" / key={826454}>;
-    default:
-      return null;
-  }
+    default: return null}
 };
 
 const getTrendIcon = (trend?: "up" | "down" | "neutral") => {
@@ -94,19 +85,17 @@ const getTrendIcon = (trend?: "up" | "down" | "neutral") => {
       return <span className="text-green-400 text-xs" key={681639}>↗</span>;
     case "down":
       return <span className="text-red-400 text-xs" key={344932}>↘</span>;
-    default:
-      return null;
-  }
+    default: return null}
 };
 
 export const ModernStatusBar: React.FC<ModernStatusBarProps key={410599}> = ({
   className = "",
-  items = defaultItems,
+  items = defaultItems
 }) => {
   return (
     <motion.div;
-      initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: -10}}
+      animate={{ opacity: 1, y: 0}}
       className={`
         fixed top-0 left-0 right-0 z-50;
         backdrop-blur-xl bg-black/10 border-b border-white/5;
@@ -120,9 +109,9 @@ export const ModernStatusBar: React.FC<ModernStatusBarProps key={410599}> = ({
             {items.map((item) => (
               <motion.div;
                 key={item.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.1 }}
+                initial={{ opacity: 0, scale: 0.9}}
+                animate={{ opacity: 1, scale: 1}}
+                transition={{ delay: 0.1}}
                 className="flex items-center space-x-2"
                key={508424}>
                 <div className="flex items-center space-x-1" key={468268}>
@@ -155,7 +144,11 @@ export const ModernStatusBar: React.FC<ModernStatusBarProps key={410599}> = ({
         </div>
       </div>
     </motion.div>
-  );
-};
+  )};
 
 export default ModernStatusBar;
+
+
+
+
+`

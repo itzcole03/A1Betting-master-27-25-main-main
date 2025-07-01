@@ -1,24 +1,26 @@
-import React from 'react.ts';
-import { CircularProgress, Box } from '@mui/material.ts';
+﻿import React from 'react';
+import { CircularProgress, Box} from '@mui/material';
 
 interface LoadingSpinnerProps {
-  size?: number;
-  color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
-}
+  size?: number
+  color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';}
 
-const LoadingSpinner: React.FC<LoadingSpinnerProps key={366419}> = ({ size = 24, color = 'primary' }) => {
+const LoadingSpinner: React.FC<LoadingSpinnerProps key={366419}> = ({ size = 24, color = 'primary'}) => {
   return (
     <Box;
       sx={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        p: 1,
+        p: 1
       }}
      key={483172}>
       <CircularProgress color={color} size={size} / key={439750}>
     </Box>
-  );
-};
+  )};
 
 export default React.memo(LoadingSpinner);
+
+
+
+

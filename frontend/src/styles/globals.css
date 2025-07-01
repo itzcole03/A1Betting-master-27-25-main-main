@@ -7,7 +7,7 @@ canvas {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  font-feature-settings: "liga", "kern";
+  font-feature-settings: 'liga', 'kern';
 }
 
 /* ===== SMOOTH DARK MODE TRANSITIONS ===== */
@@ -281,25 +281,13 @@ html {
 
 .shimmer {
   animation: shimmer 2s infinite linear;
-  background: linear-gradient(
-    to right,
-    #f6f7f8 0%,
-    #edeef1 20%,
-    #f6f7f8 40%,
-    #f6f7f8 100%
-  );
+  background: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
   background-size: 1000px 100%;
 }
 
 /* Dark mode shimmer */
 .dark .shimmer {
-  background: linear-gradient(
-    to right,
-    #2d3748 0%,
-    #4a5568 20%,
-    #2d3748 40%,
-    #2d3748 100%
-  );
+  background: linear-gradient(to right, #2d3748 0%, #4a5568 20%, #2d3748 40%, #2d3748 100%);
   background-size: 1000px 100%;
 }
 

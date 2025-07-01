@@ -1,5 +1,5 @@
-import React from 'react.ts';
-import { useNavigate, useLocation } from 'react-router-dom.ts';
+﻿import React from 'react';
+import { useNavigate, useLocation} from 'react-router-dom';
 
 const CyberSidebar: React.FC = () => {
 
@@ -10,63 +10,63 @@ const CyberSidebar: React.FC = () => {
       key: "dashboard",
       icon: "fa-home",
       category: "main",
-      path: "/",
+      path: "/"
     },
     {
       name: "Premium Dashboard",
       key: "premium-dashboard",
       icon: "fa-crown",
       category: "premium",
-      path: "/premium-dashboard",
+      path: "/premium-dashboard"
     },
     {
       name: "Money Maker",
       key: "money-maker",
       icon: "fa-dollar-sign",
       category: "main",
-      path: "/money-maker",
+      path: "/money-maker"
     },
     {
       name: "PrizePicks Pro",
       key: "prizepicks",
       icon: "fa-trophy",
       category: "main",
-      path: "/prizepicks",
+      path: "/prizepicks"
     },
     {
       name: "ML Center",
       key: "ml-center",
       icon: "fa-brain",
       category: "ai",
-      path: "/ml-center",
+      path: "/ml-center"
     },
     {
       name: "Quantum Predictions",
       key: "quantum",
       icon: "fa-atom",
       category: "ai",
-      path: "/quantum",
+      path: "/quantum"
     },
     {
       name: "Analytics",
       key: "analytics",
       icon: "fa-chart-line",
       category: "insights",
-      path: "/analytics",
+      path: "/analytics"
     },
     {
       name: "Real-time Monitor",
       key: "realtime",
       icon: "fa-eye",
       category: "insights",
-      path: "/realtime",
+      path: "/realtime"
     },
     {
       name: "Settings",
       key: "settings",
       icon: "fa-cog",
       category: "account",
-      path: "/settings",
+      path: "/settings"
     },
   ];
 
@@ -75,25 +75,22 @@ const CyberSidebar: React.FC = () => {
     premium: "Premium",
     ai: "AI & ML",
     insights: "Analytics",
-    account: "Account",
+    account: "Account"
   };
 
   const groupedNav = navigation.reduce(
     (acc: Record<string, typeof navigation key={957534}>, item) => {
-      if (!acc[item.category]) acc[item.category] = [];
+      if (!acc[item.category]) acc[item.category] = [0];
       acc[item.category].push(item);
-      return acc;
-    },
-    {},
+      return acc;},
+    Record<string, any>,
   );
 
   const isActive = (path: string) => {
-    return location.pathname === path;
-  };
+    return location.pathname === path};
 
   const handleNavigation = (path: string) => {
-    navigate(path);
-  };
+    navigate(path)};
 
   return (
     <div;
@@ -103,7 +100,7 @@ const CyberSidebar: React.FC = () => {
         backdropFilter: "blur(40px) saturate(200%)",
         borderRight: "1px solid rgba(255, 255, 255, 0.05)",
         boxShadow:
-          "0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.05)",
+          "0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.05)"
       }}
      key={404957}>
       <div className="p-6" key={935494}>
@@ -128,8 +125,7 @@ const CyberSidebar: React.FC = () => {
                       className={`nav-item w-full flex items-center px-4 py-3 text-left text-sm font-medium transition-all duration-300 ${
                         isActive(item.path)
                           ? "active text-electric-400"
-                          : "text-gray-300 hover:text-white"
-                      }`}
+                          : "text-gray-300 hover:text-white"}`}
                       style={{
                         borderRadius: "12px",
                         marginBottom: "4px",
@@ -139,22 +135,22 @@ const CyberSidebar: React.FC = () => {
                               borderLeft: "4px solid #00ff88",
                               paddingLeft: "16px",
                               boxShadow: "0 4px 12px rgba(0,255,136,0.3)",
-                              color: "#06ffa5",
+                              color: "#06ffa5"
                             }
                           : {
                               background: "rgba(255, 255, 255, 0.05)",
                               backdropFilter: "blur(20px) saturate(180%)",
                               border: "1px solid rgba(255, 255, 255, 0.1)",
                               boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
-                              color: "#d1d5db",
-                            }),
+                              color: "#d1d5db"
+                            })
                       }}
                     >
                       <i;
                         className={`fas ${item.icon} mr-3`}
                         style={{
                           width: "16px",
-                          color: isActive(item.path) ? "#06ffa5" : "#9ca3af",
+                          color: isActive(item.path) ? "#06ffa5" : "#9ca3af"
                         }}
                       / key={262615}>
                       <span key={595076}>{item.name}</span>
@@ -167,7 +163,10 @@ const CyberSidebar: React.FC = () => {
         </nav>
       </div>
     </div>
-  );
-};
+  )};
 
 export default CyberSidebar;
+
+
+
+`

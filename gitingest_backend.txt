@@ -1,0 +1,1280 @@
+Directory structure:
+└── backend/
+    ├── auth.py
+    ├── auth/
+    │   ├── __init__.py
+    │   ├── security.py
+    │   └── user_service.py
+    ├── routes/
+    │   └── auth.py
+    └── src/
+        └── auth.py
+
+================================================
+FILE: auth.py
+================================================
+import os
+from typing import Optional
+
+try:
+    from database import get_db  # type: ignore[import]
+except ImportError:
+    get_db = None  # type: ignore[misc]
+
+from fastapi import Depends, HTTPException, status
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+
+try:
+    from models.user import User  # type: ignore[import]
+except ImportError:
+    User = None  # type: ignore[misc]
+
+from sqlalchemy.orm import Session
+
+# Security
+security = HTTPBearer()
+SECRET_KEY = os.getenv("SECRET_KEY", "a1betting-secret-key-change-in-production")
+
+
+class AuthService:
+    """Authentication service for user management."""
+
+    @staticmethod
+    def create_user(
+        db: Session,
+        username: str,
+        email: str,
+        password: str,
+        first_name: Optional[str] = None,
+        last_name: Optional[str] = None,
+    ) -> Optional[object]:  # type: ignore[misc]
+        """Create a new user."""
+        if not User:
+            raise HTTPException(status_code=500, detail="User model not available")
+
+        # Check if user already exists
+        existing_user = (
+            db.query(User)
+            .filter((User.username == username) | (User.email == email))  # type: ignore[misc]
+            .first()
+        )
+
+        if existing_user:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Username or email already registered",
+            )
+
+        # Create new user
+        user = User(
+            username=username, email=email, first_name=first_name, last_name=last_name
+        )
+        user.set_password(password)
+
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+
+        return user
+
+    @staticmethod
+    def authenticate_user(db: Session, username: str, password: str) -> Optional[object]:  # type: ignore[misc]
+        """Authenticate user with username/email and password."""
+        if not User:
+            return None
+
+        user = (
+            db.query(User)
+            .filter((User.username == username) | (User.email == username))  # type: ignore[misc]
+            .first()
+        )
+
+        if not user or not user.check_password(password):  # type: ignore[misc]
+            return None
+
+        if not getattr(user, "is_active", True):  # type: ignore[misc]
+            return None
+
+        return user
+
+    @staticmethod
+    def get_current_user(
+        credentials: HTTPAuthorizationCredentials = Depends(security),
+        db: Optional[Session] = Depends(get_db) if get_db else None,  # type: ignore[misc]
+    ) -> Optional[object]:  # type: ignore[misc]
+        """Get current authenticated user from JWT token."""
+        if not User:
+            raise HTTPException(status_code=500, detail="User model not available")
+
+        token = credentials.credentials
+        payload = getattr(User, "verify_token", lambda t, k: None)(token, SECRET_KEY)  # type: ignore[misc]
+
+        if payload is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid authentication credentials",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+
+        user = db.query(User).filter(getattr(User, "id", None) == payload.get("user_id")).first() if db and User else None  # type: ignore[misc]
+
+        if user is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="User not found",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+
+        if not getattr(user, "is_active", True):  # type: ignore[misc]
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Inactive user",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+
+        return user
+
+    @staticmethod
+    def create_access_token(user: object) -> str:  # type: ignore[misc]
+        """Create access token for user."""
+        return getattr(user, "generate_token", lambda k: "mock-token")(SECRET_KEY)  # type: ignore[misc]
+
+
+
+================================================
+FILE: auth/__init__.py
+================================================
+"""
+Authentication Module
+
+This module provides production-ready authentication functionality including:
+- JWT token management
+- Password hashing with bcrypt  
+- User management and database operations
+- Secure authentication endpoints
+"""
+
+from .security import (
+    SecurityManager,
+    TokenData,
+    security_manager,
+    get_password_hash,
+    verify_password,
+    create_access_token,
+    create_refresh_token,
+    verify_token,
+    extract_user_from_token
+)
+
+from .user_service import (
+    User,
+    UserProfile,
+    UserService,
+    user_service
+)
+
+__all__ = [
+    "SecurityManager",
+    "TokenData", 
+    "security_manager",
+    "get_password_hash",
+    "verify_password",
+    "create_access_token",
+    "create_refresh_token",
+    "verify_token",
+    "extract_user_from_token",
+    "User",
+    "UserProfile",
+    "UserService",
+    "user_service"
+] 
+
+
+================================================
+FILE: auth/security.py
+================================================
+"""
+Real Authentication Security Module
+
+This module provides production-ready authentication components including:
+- JWT token generation and validation
+- Password hashing with bcrypt
+- Secure token management
+- Session handling
+"""
+
+import os
+import logging
+from datetime import datetime, timedelta, timezone
+from typing import Any, Dict, Optional, Union
+
+from jose import JWTError, jwt
+from passlib.context import CryptContext
+from fastapi import HTTPException, status
+from pydantic import BaseModel
+
+logger = logging.getLogger(__name__)
+
+# Password hashing context
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+# JWT Configuration
+SECRET_KEY = os.getenv("JWT_SECRET_KEY", "your-super-secret-jwt-key-change-in-production")
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
+REFRESH_TOKEN_EXPIRE_DAYS = int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", "7"))
+
+
+class TokenData(BaseModel):
+    """Token data structure"""
+    username: Optional[str] = None
+    user_id: Optional[str] = None
+    scopes: list[str] = []
+
+
+class SecurityManager:
+    """Production-ready security manager for authentication"""
+    
+    def __init__(self):
+        self.pwd_context = pwd_context
+        
+    def hash_password(self, password: str) -> str:
+        """Hash a password using bcrypt"""
+        try:
+            return self.pwd_context.hash(password)
+        except Exception as e:
+            logger.error(f"Error hashing password: {e}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Password hashing failed"
+            )
+    
+    def verify_password(self, plain_password: str, hashed_password: str) -> bool:
+        """Verify a password against its hash"""
+        try:
+            return self.pwd_context.verify(plain_password, hashed_password)
+        except Exception as e:
+            logger.error(f"Error verifying password: {e}")
+            return False
+    
+    def create_access_token(
+        self, 
+        data: Dict[str, Any], 
+        expires_delta: Optional[timedelta] = None
+    ) -> str:
+        """Create a JWT access token"""
+        try:
+            to_encode = data.copy()
+            
+            if expires_delta:
+                expire = datetime.now(timezone.utc) + expires_delta
+            else:
+                expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+            
+            to_encode.update({
+                "exp": expire,
+                "iat": datetime.now(timezone.utc),
+                "type": "access"
+            })
+            
+            encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+            return encoded_jwt
+            
+        except Exception as e:
+            logger.error(f"Error creating access token: {e}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Token creation failed"
+            )
+    
+    def create_refresh_token(
+        self, 
+        data: Dict[str, Any], 
+        expires_delta: Optional[timedelta] = None
+    ) -> str:
+        """Create a JWT refresh token"""
+        try:
+            to_encode = data.copy()
+            
+            if expires_delta:
+                expire = datetime.now(timezone.utc) + expires_delta
+            else:
+                expire = datetime.now(timezone.utc) + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
+            
+            to_encode.update({
+                "exp": expire,
+                "iat": datetime.now(timezone.utc),
+                "type": "refresh"
+            })
+            
+            encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+            return encoded_jwt
+            
+        except Exception as e:
+            logger.error(f"Error creating refresh token: {e}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Refresh token creation failed"
+            )
+    
+    def verify_token(self, token: str, token_type: str = "access") -> Dict[str, Any]:
+        """Verify and decode a JWT token"""
+        credentials_exception = HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Could not validate credentials",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+        
+        try:
+            payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+            
+            # Verify token type
+            if payload.get("type") != token_type:
+                logger.warning(f"Invalid token type. Expected: {token_type}, Got: {payload.get('type')}")
+                raise credentials_exception
+            
+            # Check expiration
+            exp_timestamp = payload.get("exp")
+            if exp_timestamp is None:
+                logger.warning("Token missing expiration")
+                raise credentials_exception
+            
+            if datetime.now(timezone.utc) > datetime.fromtimestamp(exp_timestamp, timezone.utc):
+                logger.warning("Token has expired")
+                raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Token has expired",
+                    headers={"WWW-Authenticate": "Bearer"},
+                )
+            
+            return payload
+            
+        except JWTError as e:
+            logger.warning(f"JWT decode error: {e}")
+            raise credentials_exception
+        except Exception as e:
+            logger.error(f"Token verification error: {e}")
+            raise credentials_exception
+    
+    def extract_user_from_token(self, token: str) -> TokenData:
+        """Extract user data from a JWT token"""
+        payload = self.verify_token(token)
+        
+        username: str = payload.get("sub")
+        user_id: str = payload.get("user_id")
+        scopes: list = payload.get("scopes", [])
+        
+        if username is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid token: missing username",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        
+        return TokenData(username=username, user_id=user_id, scopes=scopes)
+    
+    def generate_password_reset_token(self, user_id: str) -> str:
+        """Generate a password reset token"""
+        try:
+            data = {
+                "sub": user_id,
+                "type": "password_reset",
+                "exp": datetime.now(timezone.utc) + timedelta(hours=1)  # 1 hour expiry
+            }
+            
+            return jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
+            
+        except Exception as e:
+            logger.error(f"Error generating password reset token: {e}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Password reset token generation failed"
+            )
+    
+    def verify_password_reset_token(self, token: str) -> str:
+        """Verify a password reset token and return user ID"""
+        try:
+            payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+            
+            if payload.get("type") != "password_reset":
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Invalid token type"
+                )
+            
+            user_id = payload.get("sub")
+            if user_id is None:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Invalid token: missing user ID"
+                )
+            
+            return user_id
+            
+        except JWTError:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Invalid or expired password reset token"
+            )
+
+
+# Global security manager instance
+security_manager = SecurityManager()
+
+
+def get_password_hash(password: str) -> str:
+    """Hash a password"""
+    return security_manager.hash_password(password)
+
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """Verify a password"""
+    return security_manager.verify_password(plain_password, hashed_password)
+
+
+def create_access_token(data: Dict[str, Any], expires_delta: Optional[timedelta] = None) -> str:
+    """Create an access token"""
+    return security_manager.create_access_token(data, expires_delta)
+
+
+def create_refresh_token(data: Dict[str, Any], expires_delta: Optional[timedelta] = None) -> str:
+    """Create a refresh token"""
+    return security_manager.create_refresh_token(data, expires_delta)
+
+
+def verify_token(token: str, token_type: str = "access") -> Dict[str, Any]:
+    """Verify a token"""
+    return security_manager.verify_token(token, token_type)
+
+
+def extract_user_from_token(token: str) -> TokenData:
+    """Extract user data from token"""
+    return security_manager.extract_user_from_token(token) 
+
+
+================================================
+FILE: auth/user_service.py
+================================================
+"""
+User Service Module
+
+This module provides real user management functionality including:
+- User creation and validation
+- Database operations
+- User authentication
+- Profile management
+"""
+
+import logging
+import uuid
+from datetime import datetime, timezone
+from typing import Dict, List, Optional, Any
+from dataclasses import dataclass
+
+from fastapi import HTTPException, status
+from sqlalchemy import Column, String, DateTime, Boolean, Float, JSON, create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker, Session
+
+from auth.security import get_password_hash, verify_password
+from models.api_models import UserRegistration, UserLogin
+
+logger = logging.getLogger(__name__)
+
+# Database setup
+Base = declarative_base()
+
+# In-memory database for development (replace with real database in production)
+SQLALCHEMY_DATABASE_URL = "sqlite:///./users.db"
+engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+
+class User(Base):
+    """User database model"""
+    __tablename__ = "users"
+    
+    id = Column(String, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True, nullable=False)
+    email = Column(String, unique=True, index=True, nullable=False)
+    first_name = Column(String, nullable=False)
+    last_name = Column(String, nullable=False)
+    hashed_password = Column(String, nullable=False)
+    is_active = Column(Boolean, default=True)
+    is_verified = Column(Boolean, default=False)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    last_login = Column(DateTime, nullable=True)
+    
+    # Profile information
+    risk_tolerance = Column(String, default="moderate")  # conservative, moderate, aggressive
+    preferred_stake = Column(Float, default=50.0)
+    bookmakers = Column(JSON, default=list)  # List of preferred bookmakers
+    
+    # Settings
+    settings = Column(JSON, default=dict)  # User preferences and settings
+
+
+@dataclass
+class UserProfile:
+    """User profile data structure"""
+    user_id: str
+    username: str
+    email: str
+    first_name: str
+    last_name: str
+    risk_tolerance: str
+    preferred_stake: float
+    bookmakers: List[str]
+    is_active: bool
+    is_verified: bool
+    created_at: datetime
+    last_login: Optional[datetime]
+
+
+class UserService:
+    """Real user service for managing users"""
+    
+    def __init__(self):
+        # Create tables
+        Base.metadata.create_all(bind=engine)
+        
+    def get_db(self) -> Session:
+        """Get database session"""
+        db = SessionLocal()
+        try:
+            return db
+        finally:
+            pass  # Session will be closed by caller
+    
+    def create_user(self, user_data: UserRegistration) -> UserProfile:
+        """Create a new user"""
+        db = self.get_db()
+        
+        try:
+            # Check if username already exists
+            existing_user = db.query(User).filter(User.username == user_data.username).first()
+            if existing_user:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Username already registered"
+                )
+            
+            # Check if email already exists
+            existing_email = db.query(User).filter(User.email == user_data.email).first()
+            if existing_email:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Email already registered"
+                )
+            
+            # Create new user
+            user_id = str(uuid.uuid4())
+            hashed_password = get_password_hash(user_data.password)
+            
+            db_user = User(
+                id=user_id,
+                username=user_data.username,
+                email=user_data.email,
+                first_name=user_data.first_name,
+                last_name=user_data.last_name,
+                hashed_password=hashed_password,
+                risk_tolerance=getattr(user_data, 'risk_tolerance', 'moderate'),
+                preferred_stake=getattr(user_data, 'preferred_stake', 50.0),
+                bookmakers=getattr(user_data, 'bookmakers', [])
+            )
+            
+            db.add(db_user)
+            db.commit()
+            db.refresh(db_user)
+            
+            logger.info(f"Created new user: {user_data.username}")
+            
+            return self._user_to_profile(db_user)
+            
+        except HTTPException:
+            raise
+        except Exception as e:
+            db.rollback()
+            logger.error(f"Error creating user: {e}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="User creation failed"
+            )
+        finally:
+            db.close()
+    
+    def authenticate_user(self, username: str, password: str) -> Optional[UserProfile]:
+        """Authenticate a user with username and password"""
+        db = self.get_db()
+        
+        try:
+            # Find user by username or email
+            user = db.query(User).filter(
+                (User.username == username) | (User.email == username)
+            ).first()
+            
+            if not user:
+                return None
+            
+            if not verify_password(password, user.hashed_password):
+                return None
+            
+            if not user.is_active:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="User account is deactivated"
+                )
+            
+            # Update last login
+            user.last_login = datetime.now(timezone.utc)
+            db.commit()
+            
+            logger.info(f"User authenticated: {username}")
+            
+            return self._user_to_profile(user)
+            
+        except HTTPException:
+            raise
+        except Exception as e:
+            logger.error(f"Error authenticating user: {e}")
+            return None
+        finally:
+            db.close()
+    
+    def get_user_by_id(self, user_id: str) -> Optional[UserProfile]:
+        """Get user by ID"""
+        db = self.get_db()
+        
+        try:
+            user = db.query(User).filter(User.id == user_id).first()
+            if not user:
+                return None
+            
+            return self._user_to_profile(user)
+            
+        except Exception as e:
+            logger.error(f"Error getting user by ID: {e}")
+            return None
+        finally:
+            db.close()
+    
+    def get_user_by_username(self, username: str) -> Optional[UserProfile]:
+        """Get user by username"""
+        db = self.get_db()
+        
+        try:
+            user = db.query(User).filter(User.username == username).first()
+            if not user:
+                return None
+            
+            return self._user_to_profile(user)
+            
+        except Exception as e:
+            logger.error(f"Error getting user by username: {e}")
+            return None
+        finally:
+            db.close()
+    
+    def update_user_profile(self, user_id: str, profile_data: Dict[str, Any]) -> Optional[UserProfile]:
+        """Update user profile"""
+        db = self.get_db()
+        
+        try:
+            user = db.query(User).filter(User.id == user_id).first()
+            if not user:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="User not found"
+                )
+            
+            # Update allowed fields
+            allowed_fields = [
+                'first_name', 'last_name', 'risk_tolerance', 
+                'preferred_stake', 'bookmakers', 'settings'
+            ]
+            
+            for field, value in profile_data.items():
+                if field in allowed_fields and hasattr(user, field):
+                    setattr(user, field, value)
+            
+            user.updated_at = datetime.now(timezone.utc)
+            
+            db.commit()
+            db.refresh(user)
+            
+            logger.info(f"Updated user profile: {user_id}")
+            
+            return self._user_to_profile(user)
+            
+        except HTTPException:
+            raise
+        except Exception as e:
+            db.rollback()
+            logger.error(f"Error updating user profile: {e}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Profile update failed"
+            )
+        finally:
+            db.close()
+    
+    def change_password(self, user_id: str, old_password: str, new_password: str) -> bool:
+        """Change user password"""
+        db = self.get_db()
+        
+        try:
+            user = db.query(User).filter(User.id == user_id).first()
+            if not user:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="User not found"
+                )
+            
+            if not verify_password(old_password, user.hashed_password):
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Invalid current password"
+                )
+            
+            user.hashed_password = get_password_hash(new_password)
+            user.updated_at = datetime.now(timezone.utc)
+            
+            db.commit()
+            
+            logger.info(f"Password changed for user: {user_id}")
+            
+            return True
+            
+        except HTTPException:
+            raise
+        except Exception as e:
+            db.rollback()
+            logger.error(f"Error changing password: {e}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Password change failed"
+            )
+        finally:
+            db.close()
+    
+    def reset_password(self, user_id: str, new_password: str) -> bool:
+        """Reset user password (for password reset flow)"""
+        db = self.get_db()
+        
+        try:
+            user = db.query(User).filter(User.id == user_id).first()
+            if not user:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="User not found"
+                )
+            
+            user.hashed_password = get_password_hash(new_password)
+            user.updated_at = datetime.now(timezone.utc)
+            
+            db.commit()
+            
+            logger.info(f"Password reset for user: {user_id}")
+            
+            return True
+            
+        except HTTPException:
+            raise
+        except Exception as e:
+            db.rollback()
+            logger.error(f"Error resetting password: {e}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Password reset failed"
+            )
+        finally:
+            db.close()
+    
+    def deactivate_user(self, user_id: str) -> bool:
+        """Deactivate a user account"""
+        db = self.get_db()
+        
+        try:
+            user = db.query(User).filter(User.id == user_id).first()
+            if not user:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="User not found"
+                )
+            
+            user.is_active = False
+            user.updated_at = datetime.now(timezone.utc)
+            
+            db.commit()
+            
+            logger.info(f"Deactivated user: {user_id}")
+            
+            return True
+            
+        except HTTPException:
+            raise
+        except Exception as e:
+            db.rollback()
+            logger.error(f"Error deactivating user: {e}")
+            return False
+        finally:
+            db.close()
+    
+    def _user_to_profile(self, user: User) -> UserProfile:
+        """Convert User model to UserProfile"""
+        return UserProfile(
+            user_id=user.id,
+            username=user.username,
+            email=user.email,
+            first_name=user.first_name,
+            last_name=user.last_name,
+            risk_tolerance=user.risk_tolerance,
+            preferred_stake=user.preferred_stake,
+            bookmakers=user.bookmakers or [],
+            is_active=user.is_active,
+            is_verified=user.is_verified,
+            created_at=user.created_at,
+            last_login=user.last_login
+        )
+
+
+# Global user service instance
+user_service = UserService() 
+
+
+================================================
+FILE: routes/auth.py
+================================================
+"""
+Authentication Routes
+
+This module contains all authentication-related endpoints including login, register, and user profile.
+"""
+
+import logging
+from datetime import timedelta
+from typing import Any, Dict, Optional
+
+from fastapi import APIRouter, Depends, HTTPException, status, Header
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+
+from models.api_models import (
+    UserRegistration,
+    UserLogin,
+    TokenResponse,
+    UserProfileResponse,
+)
+from auth.security import (
+    create_access_token,
+    create_refresh_token,
+    verify_token,
+    extract_user_from_token,
+    security_manager
+)
+from auth.user_service import user_service, UserProfile
+
+logger = logging.getLogger(__name__)
+
+router = APIRouter(prefix="/auth", tags=["Authentication"])
+security = HTTPBearer()
+
+
+async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)) -> UserProfile:
+    """Get current authenticated user"""
+    try:
+        token = credentials.credentials
+        token_data = extract_user_from_token(token)
+        
+        user = user_service.get_user_by_id(token_data.user_id)
+        if user is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="User not found",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        
+        return user
+        
+    except Exception as e:
+        logger.error(f"Error getting current user: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Could not validate credentials",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+
+@router.post("/register", response_model=TokenResponse)
+async def register_user(user_data: UserRegistration) -> TokenResponse:
+    """Register a new user"""
+    try:
+        # Create user in database
+        user_profile = user_service.create_user(user_data)
+        
+        # Create access and refresh tokens
+        token_data = {
+            "sub": user_profile.username,
+            "user_id": user_profile.user_id,
+            "scopes": ["user"]
+        }
+        
+        access_token = create_access_token(token_data)
+        refresh_token = create_refresh_token(token_data)
+        
+        # Convert user profile to response format
+        user_dict = {
+            "id": user_profile.user_id,
+            "username": user_profile.username,
+            "email": user_profile.email,
+            "first_name": user_profile.first_name,
+            "last_name": user_profile.last_name
+        }
+        
+        logger.info(f"User registered successfully: {user_data.username}")
+        
+        return TokenResponse(
+            access_token=access_token,
+            refresh_token=refresh_token,
+            token_type="bearer",
+            user=user_dict
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error registering user: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Registration failed"
+        )
+
+
+@router.post("/login", response_model=TokenResponse)
+async def login_user(login_data: UserLogin) -> TokenResponse:
+    """Authenticate user and return access token"""
+    try:
+        # Authenticate user
+        user_profile = user_service.authenticate_user(login_data.username, login_data.password)
+        
+        if user_profile is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid username or password"
+            )
+        
+        # Create access and refresh tokens
+        token_data = {
+            "sub": user_profile.username,
+            "user_id": user_profile.user_id,
+            "scopes": ["user"]
+        }
+        
+        access_token = create_access_token(token_data)
+        refresh_token = create_refresh_token(token_data)
+        
+        # Convert user profile to response format
+        user_dict = {
+            "id": user_profile.user_id,
+            "username": user_profile.username,
+            "email": user_profile.email,
+            "first_name": user_profile.first_name,
+            "last_name": user_profile.last_name
+        }
+        
+        logger.info(f"User logged in successfully: {login_data.username}")
+        
+        return TokenResponse(
+            access_token=access_token,
+            refresh_token=refresh_token,
+            token_type="bearer",
+            user=user_dict
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error during login: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Login failed"
+        )
+
+
+@router.post("/refresh")
+async def refresh_token(refresh_token: str) -> TokenResponse:
+    """Refresh access token using refresh token"""
+    try:
+        # Verify refresh token
+        payload = verify_token(refresh_token, token_type="refresh")
+        
+        username = payload.get("sub")
+        user_id = payload.get("user_id")
+        
+        if not username or not user_id:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid refresh token"
+            )
+        
+        # Get user to ensure they still exist and are active
+        user_profile = user_service.get_user_by_id(user_id)
+        if user_profile is None or not user_profile.is_active:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="User not found or inactive"
+            )
+        
+        # Create new access token
+        token_data = {
+            "sub": username,
+            "user_id": user_id,
+            "scopes": payload.get("scopes", ["user"])
+        }
+        
+        new_access_token = create_access_token(token_data)
+        
+        # Convert user profile to response format
+        user_dict = {
+            "id": user_profile.user_id,
+            "username": user_profile.username,
+            "email": user_profile.email,
+            "first_name": user_profile.first_name,
+            "last_name": user_profile.last_name
+        }
+        
+        return TokenResponse(
+            access_token=new_access_token,
+            refresh_token=refresh_token,  # Keep the same refresh token
+            token_type="bearer",
+            user=user_dict
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error refreshing token: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token refresh failed"
+        )
+
+
+@router.get("/me")
+async def get_current_user_info(current_user: UserProfile = Depends(get_current_user)) -> Dict[str, Any]:
+    """Get current user information"""
+    try:
+        return {
+            "id": current_user.user_id,
+            "username": current_user.username,
+            "email": current_user.email,
+            "first_name": current_user.first_name,
+            "last_name": current_user.last_name,
+            "is_active": current_user.is_active,
+            "is_verified": current_user.is_verified,
+            "created_at": current_user.created_at.isoformat(),
+            "last_login": current_user.last_login.isoformat() if current_user.last_login else None
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting current user: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to get user information"
+        )
+
+
+@router.get("/api/user/profile", response_model=UserProfileResponse)
+async def get_user_profile(current_user: UserProfile = Depends(get_current_user)) -> UserProfileResponse:
+    """Get user profile information"""
+    try:
+        return UserProfileResponse(
+            user_id=current_user.user_id,
+            risk_tolerance=current_user.risk_tolerance,
+            preferred_stake=current_user.preferred_stake,
+            bookmakers=current_user.bookmakers
+        )
+        
+    except Exception as e:
+        logger.error(f"Error fetching user profile: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to fetch user profile"
+        )
+
+
+@router.put("/api/user/profile", response_model=UserProfileResponse)
+async def update_user_profile(
+    profile_data: UserProfileResponse,
+    current_user: UserProfile = Depends(get_current_user)
+) -> UserProfileResponse:
+    """Update user profile information"""
+    try:
+        # Convert profile data to dict
+        update_data = {
+            "risk_tolerance": profile_data.risk_tolerance,
+            "preferred_stake": profile_data.preferred_stake,
+            "bookmakers": profile_data.bookmakers
+        }
+        
+        # Update user profile
+        updated_profile = user_service.update_user_profile(current_user.user_id, update_data)
+        
+        if updated_profile is None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="User not found"
+            )
+        
+        return UserProfileResponse(
+            user_id=updated_profile.user_id,
+            risk_tolerance=updated_profile.risk_tolerance,
+            preferred_stake=updated_profile.preferred_stake,
+            bookmakers=updated_profile.bookmakers
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating user profile: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to update user profile"
+        )
+
+
+@router.post("/change-password")
+async def change_password(
+    old_password: str,
+    new_password: str,
+    current_user: UserProfile = Depends(get_current_user)
+) -> Dict[str, str]:
+    """Change user password"""
+    try:
+        success = user_service.change_password(current_user.user_id, old_password, new_password)
+        
+        if success:
+            return {"message": "Password changed successfully"}
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Password change failed"
+            )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error changing password: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Password change failed"
+        )
+
+
+@router.post("/logout")
+async def logout_user(current_user: UserProfile = Depends(get_current_user)) -> Dict[str, str]:
+    """Logout user (client should discard tokens)"""
+    try:
+        logger.info(f"User logged out: {current_user.username}")
+        
+        return {"message": "Logged out successfully"}
+        
+    except Exception as e:
+        logger.error(f"Error during logout: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Logout failed"
+        ) 
+
+
+================================================
+FILE: src/auth.py
+================================================
+import os
+from datetime import datetime, timedelta, timezone
+from typing import Any, Dict, Optional
+
+# Optional JWT import
+try:
+    import jwt  # type: ignore
+
+    HAS_JWT = True
+except ImportError:
+    jwt = None  # type: ignore
+    HAS_JWT = False  # type: ignore
+
+from fastapi import APIRouter, Depends, HTTPException
+from fastapi.security import OAuth2PasswordRequestForm
+from pydantic import BaseModel
+
+SECRET_KEY = os.getenv("JWT_SECRET", "fallback-secret-key-change-in-production")
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+auth_router = APIRouter()
+
+# Real database integration
+try:
+    from database import SessionLocal  # type: ignore
+    from models.user import User as UserModel  # type: ignore
+
+    has_real_db = True
+except ImportError:
+    SessionLocal = None
+    UserModel = None
+    has_real_db = False
+
+
+class User(BaseModel):
+    id: str
+    username: str
+    email: str
+
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str
+    user: User
+
+
+def verify_user(username: str, password: str) -> Optional[Dict[str, Any]]:
+    """Verify user credentials using real database."""
+    if has_real_db and SessionLocal is not None and UserModel is not None:
+        db = SessionLocal()
+        try:
+            user = db.query(UserModel).filter(UserModel.username == username).first()
+            if user and user.verify_password(password):
+                return {
+                    "id": str(user.id),
+                    "username": user.username,
+                    "email": user.email,
+                }
+        except (AttributeError, ImportError) as e:
+            print(f"Database error: {e}")
+        finally:
+            db.close()
+    return None
+
+
+@auth_router.post("/login", response_model=TokenResponse)
+def login(form_data: OAuth2PasswordRequestForm = Depends()) -> Dict[str, Any]:
+    if not HAS_JWT or jwt is None:
+        raise HTTPException(status_code=500, detail="JWT not available")
+
+    user = verify_user(form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(status_code=401, detail="Incorrect username or password")
+    expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    to_encode = {"sub": user["username"], "exp": expire}
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)  # type: ignore
+    return {
+        "access_token": encoded_jwt,
+        "token_type": "bearer",
+        "user": {
+            "id": user["id"],
+            "username": user["username"],
+            "email": user["email"],
+        },
+    }
+
+

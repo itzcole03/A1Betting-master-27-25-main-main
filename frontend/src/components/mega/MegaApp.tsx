@@ -1,24 +1,24 @@
-import React, { useState, useEffect  } from 'react.ts';
+﻿import React, { useState, useEffect} from 'react';
 import {
   CYBER_COLORS,
   CYBER_GRADIENTS,
   CyberContainer,
-  CyberText,
-} from './CyberTheme.ts';
+//   CyberText
+} from './CyberTheme';
 import {
   UniversalDashboard,
   UniversalMoneyMaker,
-  UniversalAnalytics,
-} from '@/index.ts';
-import MegaAdminPanel from './MegaAdminPanel.ts';
-import MegaPrizePicks from './MegaPrizePicks.ts';
-import { MegaSidebar, MegaHeader, MegaAppShell } from './MegaLayout.ts';
-import { MegaCard, MegaButton } from './MegaUI.ts';
+//   UniversalAnalytics
+} from '@/index';
+import MegaAdminPanel from './MegaAdminPanel';
+import MegaPrizePicks from './MegaPrizePicks';
+import { MegaSidebar, MegaHeader, MegaAppShell} from './MegaLayout';
+import { MegaCard, MegaButton} from './MegaUI';
 import {
   MegaArbitrageEngine,
   MegaPredictionEngine,
-  MegaRevolutionaryInterface,
-} from './MegaFeatures.ts';
+//   MegaRevolutionaryInterface
+} from './MegaFeatures';
 import {
   Brain,
   Target,
@@ -40,8 +40,8 @@ import {
   Moon,
   Sun,
   Trophy,
-  UserCog,
-} from 'lucide-react.ts';
+//   UserCog
+} from 'lucide-react';
 
 // MASTER MEGA APP - Consolidates all functionality with cyber theme;
 const MegaApp: React.FC = () => {
@@ -59,18 +59,16 @@ const MegaApp: React.FC = () => {
     tier: "Quantum Pro",
     accuracy: 97.3,
     winRate: 89.4,
-    totalProfit: 47230,
+    totalProfit: 47230
   });
 
   // Auto-update system metrics;
   useEffect(() => {
     const interval = setInterval(() => {
       setConnectedSources(Math.floor(Math.random() * 5) + 10);
-      setDataQuality(Math.floor(Math.random() * 20) + 80);
-    }, 30000);
+      setDataQuality(Math.floor(Math.random() * 20) + 80);}, 30000);
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval);}, [0]);
 
   const navigationItems = [
     {
@@ -78,65 +76,62 @@ const MegaApp: React.FC = () => {
       label: "Dashboard",
       icon: Home,
       component: MegaDashboard,
-      description: "Overview and system status",
+      description: "Overview and system status"
     },
     {
       id: "money-maker",
       label: "Money Maker",
       icon: DollarSign,
       component: MegaBetting,
-      description: "AI-powered betting opportunities",
+      description: "AI-powered betting opportunities"
     },
     {
       id: "prizepicks",
       label: "PrizePicks Pro",
       icon: Trophy,
       component: MegaPrizePicks,
-      description: "Professional prop analysis with lineup builder",
+      description: "Professional prop analysis with lineup builder"
     },
     {
       id: "analytics",
       label: "Analytics",
       icon: BarChart3,
       component: MegaAnalytics,
-      description: "Advanced ML insights",
+      description: "Advanced ML insights"
     },
     {
       id: "real-time",
       label: "Real-time Monitor",
       icon: Activity,
-      description: "Live data streams",
+      description: "Live data streams"
     },
     {
       id: "arbitrage",
       label: "Arbitrage Scanner",
       icon: Shield,
-      description: "Cross-platform opportunities",
+      description: "Cross-platform opportunities"
     },
     {
       id: "predictions",
       label: "Quantum Predictions",
       icon: Brain,
-      description: "Advanced ML predictions",
+      description: "Advanced ML predictions"
     },
     {
       id: "admin",
       label: "Admin Panel",
       icon: UserCog,
       component: MegaAdminPanel,
-      description: "System administration and user management",
+      description: "System administration and user management"
     },
   ];
 
   const getConnectionStatus = () => {
     if (connectedSources === 0) {
-      return { icon: WifiOff, text: "No Data", color: "#ff4757" };
-    }
+      return { icon: WifiOff, text: "No Data", color: "#ff4757"}}
     if (connectedSources < 8) {
-      return { icon: Wifi, text: "Limited", color: CYBER_COLORS.accent };
-    }
-    return { icon: Wifi, text: "Connected", color: CYBER_COLORS.primary };
-  };
+      return { icon: Wifi, text: "Limited", color: CYBER_COLORS.accent}}
+    return { icon: Wifi, text: "Connected", color: CYBER_COLORS.primary}};
 
 
   const renderCurrentPage = () => {
@@ -154,31 +149,29 @@ const MegaApp: React.FC = () => {
           autoRefresh={true}
           showAdvanced={true}
         / key={762359}>
-      );
-    }
+      );}
 
     // Use MegaFeatures for enhanced functionality;
     switch (currentPage) {
       case "arbitrage":
         return (
-          <div style={{ padding: "24px" }} key={71406}>
+          <div style={{ padding: "24px"}} key={71406}>
             <MegaArbitrageEngine;
               isScanning={true}
               onToggleScanning={(scanning) = key={49360}>
-                // console statement removed
-              }
+                // console statement removed}
             />
           </div>
         );
       case "predictions":
         return (
-          <div style={{ padding: "24px" }} key={71406}>
+          <div style={{ padding: "24px"}} key={71406}>
             <MegaPredictionEngine isRealTime={true} / key={803739}>
           </div>
         );
       case "real-time":
         return (
-          <div style={{ padding: "24px" }} key={71406}>
+          <div style={{ padding: "24px"}} key={71406}>
             <MegaRevolutionaryInterface / key={913485}>
           </div>
         );
@@ -186,18 +179,18 @@ const MegaApp: React.FC = () => {
         // Fallback for any remaining placeholder pages;
         if (currentItem && !currentItem.component) {
           return (
-            <div style={{ padding: "24px" }} key={71406}>
+            <div style={{ padding: "24px"}} key={71406}>
               <MegaCard;
                 variant="glass"
                 padding="lg"
-                style={{ textAlign: "center" }}
+                style={{ textAlign: "center"}}
                key={856197}>
-                <div style={{ marginBottom: "16px" }} key={864356}>
+                <div style={{ marginBottom: "16px"}} key={864356}>
                   <Activity size={48} color={CYBER_COLORS.primary} / key={687758}>
                 </div>
                 <CyberText;
                   variant="title"
-                  style={{ marginBottom: "8px", fontSize: "24px" }}
+                  style={{ marginBottom: "8px", fontSize: "24px"}}
                  key={351808}>
                   {currentItem.label}
                 </CyberText>
@@ -206,8 +199,7 @@ const MegaApp: React.FC = () => {
                 </CyberText>
               </MegaCard>
             </div>
-          );
-        }
+          );}
 
         // Default to dashboard;
         return (
@@ -216,8 +208,7 @@ const MegaApp: React.FC = () => {
             dataQuality={dataQuality}
             userStats={user}
           / key={861551}>
-        );
-    }
+        );}
   };
 
   return (
@@ -233,30 +224,29 @@ const MegaApp: React.FC = () => {
           systemStatus={{
             connectedSources,
             dataQuality,
-            isOnline: true,
+            isOnline: true
           }}
-        />
-      }
+        />}
       header={
         <MegaHeader;
           title={
             navigationItems.find((item) = key={890690}> item.id === currentPage)?.label ||
-            "Dashboard"
-          }
+            "Dashboard"}
           subtitle={
-            navigationItems.find((item) => item.id === currentPage)?.description;
-          }
+            navigationItems.find((item) => item.id === currentPage)?.description;}
           notifications={notifications}
           onNotificationsClick={() => // console statement removed}
           user={user}
           darkMode={darkMode}
           onDarkModeToggle={() => setDarkMode(!darkMode)}
-        />
-      }
+        />}
     >
       {renderCurrentPage()}
     </MegaAppShell>
-  );
-};
+  );};
 
 export default MegaApp;
+
+
+
+

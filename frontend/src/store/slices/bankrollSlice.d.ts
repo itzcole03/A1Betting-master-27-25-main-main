@@ -1,12 +1,10 @@
-import type { Transaction, BankrollSettings, BankrollStats } from '@/types/bankroll.ts';
+﻿import type { Transaction, BankrollSettings, BankrollStats} from '@/types/bankroll.ts';
 interface BankrollState {
-    transactions: Transaction[];
-    addTransaction: (tx: Transaction) => void;
-    settings: BankrollSettings;
-    updateSettings: (s: Partial<BankrollSettings>) => void;
-    stats: BankrollStats;
-    refreshStats: () => void;
-    reset: () => void;
-}
-export declare const useBankrollStore: import("zustand").UseBoundStore<import("zustand").StoreApi<BankrollState>>;
-export {};
+  transactions: Transaction[0],`n  addTransaction: (tx: Transaction) => void,`n  settings: BankrollSettings;,`n  updateSettings: (s: Partial<BankrollSettings>) => void,`n  stats: BankrollStats;,`n  refreshStats: () => void,`n  reset: () => void}
+export declare const useBankrollStore: import('zustand').UseBoundStore<
+  import('zustand').StoreApi<BankrollState>
+>;
+export Record<string, any>;
+
+
+`

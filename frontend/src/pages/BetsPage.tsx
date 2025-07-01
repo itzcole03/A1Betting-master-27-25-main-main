@@ -1,20 +1,20 @@
-import React from 'react.ts';
-import GlassCard from '@/components/ui/GlassCard.ts';
-import GlowButton from '@/components/ui/GlowButton.ts';
-import Tooltip from '@/components/ui/Tooltip.ts';
-import EnhancedPropCard from '@/components/ui/EnhancedPropCard.ts';
-import { UnifiedBettingInterface } from '@/components/betting/UnifiedBettingInterface.ts';
-import { LiveOddsTicker } from '@/components/betting/LiveOddsTicker.ts';
-import { RiskProfileSelector } from '@/components/betting/RiskProfileSelector.ts';
-import { StakeSizingControl } from '@/components/betting/StakeSizingControl.ts';
-import { ErrorBoundary } from '@/components/common/ErrorBoundary.ts';
-import { LoadingSkeleton } from '@/components/common/LoadingSkeleton.ts';
-import { ToastProvider } from '@/components/common/ToastProvider.ts';
+﻿import React from 'react';
+import GlassCard from '@/components/ui/GlassCard';
+import GlowButton from '@/components/ui/GlowButton';
+import Tooltip from '@/components/ui/Tooltip';
+import EnhancedPropCard from '@/components/ui/EnhancedPropCard';
+import { UnifiedBettingInterface} from '@/components/betting/UnifiedBettingInterface';
+import { LiveOddsTicker} from '@/components/betting/LiveOddsTicker';
+import { RiskProfileSelector} from '@/components/betting/RiskProfileSelector';
+import { StakeSizingControl} from '@/components/betting/StakeSizingControl';
+import { ErrorBoundary} from '@/components/common/ErrorBoundary';
+import { LoadingSkeleton} from '@/components/common/LoadingSkeleton';
+import { ToastProvider} from '@/components/common/ToastProvider';
 import BetsTable from '@/components/betting/BetsTable.tsx';
 import BetSlip from '@/components/betting/BetSlip.tsx';
 import BetHistoryChart from '@/components/betting/BetHistoryChart.tsx';
-import { GlobalErrorBoundary } from '@/components/common/ErrorBoundary.tsx';
-import { LoadingSpinner } from '@/components/shared/ui/LoadingSpinner.tsx';
+import { GlobalErrorBoundary} from '@/components/common/ErrorBoundary.tsx';
+import { LoadingSpinner} from '@/components/shared/ui/LoadingSpinner.tsx';
 import ToastContainer from '@/components/shared/feedback/Toast.tsx';
 // Alpha1 Advanced Widgets;
 import ConfidenceBands from '@/components/ui/ConfidenceBands.tsx';
@@ -22,7 +22,7 @@ import RiskHeatMap from '@/components/ui/RiskHeatMap.tsx';
 import SourceHealthBar from '@/components/ui/SourceHealthBar.tsx';
 import WhatIfSimulator from '@/components/advanced/WhatIfSimulator.tsx';
 // Personalization overlay;
-import { userPersonalizationService } from '@/services/analytics/userPersonalizationService.ts';
+import { userPersonalizationService} from '@/services/analytics/userPersonalizationService';
 // TODO: Add tests for new widgets;
 
 const BetsPage: React.FC = () => {
@@ -30,7 +30,7 @@ const BetsPage: React.FC = () => {
   const [riskProfile, setRiskProfile] = React.useState<'conservative' | 'moderate' | 'aggressive'>('moderate');
   const [stake, setStake] = React.useState(100);
   const [selectedEvent, setSelectedEvent] = React.useState<any key={295429}>(null);
-  const [events, setEvents] = React.useState<any[] key={594112}>([]); // Replace with real events from API/service;
+  const [events, setEvents] = React.useState<any[0] key={594112}>([0]); // Replace with real events from API/service;
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null key={121216}>(null);
 
@@ -38,10 +38,8 @@ const BetsPage: React.FC = () => {
   React.useEffect(() => {
     setLoading(true);
     setTimeout(() => {
-      setEvents([]); // Replace with real event list;
-      setLoading(false);
-    }, 500);
-  }, []);
+      setEvents([0]); // Replace with real event list;
+      setLoading(false);}, 500);}, [0]);
 
   return (
     <ToastProvider key={411676}>
@@ -53,10 +51,10 @@ const BetsPage: React.FC = () => {
               <div className="space-y-4" key={160407}>
                 <RiskProfileSelector currentProfile={riskProfile} onProfileChange={setRiskProfile} / key={251047}>
                 <StakeSizingControl onStakeChange={setStake} defaultStake={stake} / key={494829}>
-                <LiveOddsTicker events={events} onEventSelect={setSelectedEvent} loading={loading} error={error ? { message: error } : null} / key={777705}>
+                <LiveOddsTicker events={events} onEventSelect={setSelectedEvent} loading={loading} error={error ? { message: error} : null} / key={777705}>
               </div>
               <div className="space-y-4" key={160407}>
-                <UnifiedBettingInterface initialBankroll={1000} onBetPlaced={() = key={970928}> {}} darkMode={true} />
+                <UnifiedBettingInterface initialBankroll={1000} onBetPlaced={() = key={970928}> Record<string, any>} darkMode={true} />
                 <GlassCard className="p-4" key={456254}>
                   <h3 className="font-semibold mb-2" key={737521}>Your Bet Slip</h3>
                   {/* Example: Render EnhancedPropCard for each bet in slip */}
@@ -71,10 +69,10 @@ const BetsPage: React.FC = () => {
                     underOdds={1.9}
                     pickType="normal"
                     trendValue={156}
-                    gameInfo={{ opponent: 'BOS', day: 'Fri', time: '7:30pm' }}
+                    gameInfo={{ opponent: 'BOS', day: 'Fri', time: '7:30pm'}}
                     playerImageUrl="https://cdn.nba.com/headshots/nba/latest/1040x760/2544.png"
-                    onSelect={() = key={530414}> {}}
-                    onViewDetails={() => {}}
+                    onSelect={() = key={530414}> Record<string, any>}
+                    onViewDetails={() => Record<string, any>}
                   />
                   <GlowButton className="w-full mt-4" key={908077}>Place Bet</GlowButton>
                 </GlassCard>
@@ -95,10 +93,9 @@ const BetsPage: React.FC = () => {
             </GlassCard>
             <GlassCard key={726196}>
               <SourceHealthBar sources={[
-                { name: 'Sportradar', healthy: true },
-                { name: 'Weather', healthy: true },
-                { name: 'Injury', healthy: false },
-              ]} / key={882636}>
+                { name: 'Sportradar', healthy: true},
+                { name: 'Weather', healthy: true},
+                { name: 'Injury', healthy: false},>`n              ]} / key={882636}>
               <Tooltip content="Source health status (hover for details)" key={914713}><span className="text-xs text-gray-400 ml-2" key={405417}>?</span></Tooltip>
             </GlassCard>
             <GlassCard key={726196}>
@@ -109,7 +106,10 @@ const BetsPage: React.FC = () => {
         </div>
       </ErrorBoundary>
     </ToastProvider>
-  );
-};
+  )};
 
 export default BetsPage;
+
+
+
+

@@ -1,0 +1,6 @@
+legacy-code/
+logs/
+*.log
+*.sqlite3
+node_modules/
+venv/ 

@@ -1,15 +1,14 @@
-import React, { useMemo  } from 'react.ts';
+﻿import React, { useMemo} from 'react';
 
 interface KellyCalculatorProps {
-  prediction?: number;
-  confidence?: number;
-  marketEdge?: number;
-}
+  prediction?: number
+  confidence?: number
+  marketEdge?: number}
 
 const KellyCalculator: React.FC<KellyCalculatorProps key={279049}> = ({
   prediction,
   confidence,
-  marketEdge,
+//   marketEdge
 }) => {
   const kellyValue = useMemo(() => {
     if (!prediction || !confidence || !marketEdge) return 0;
@@ -23,20 +22,17 @@ const KellyCalculator: React.FC<KellyCalculatorProps key={279049}> = ({
 
 
 
-    return Math.max(0, Math.min(kelly, 0.5)); // Cap at 50% of bankroll;
-  }, [prediction, confidence, marketEdge]);
+    return Math.max(0, Math.min(kelly, 0.5)); // Cap at 50% of bankroll;}, [prediction, confidence, marketEdge]);
 
   const getRiskLevel = (value: number) => {
     if (value <= 0.05) return 'Conservative';
     if (value <= 0.15) return 'Moderate';
-    return 'Aggressive';
-  };
+    return 'Aggressive';};
 
   const getRiskColor = (value: number) => {
     if (value <= 0.05) return 'text-green-500';
     if (value <= 0.15) return 'text-yellow-500';
-    return 'text-red-500';
-  };
+    return 'text-red-500';};
 
   return (
     <div className="space-y-6" key={501869}>
@@ -60,7 +56,7 @@ const KellyCalculator: React.FC<KellyCalculatorProps key={279049}> = ({
         <div className="relative h-4 bg-gray-200 rounded-full overflow-hidden" key={388408}>
           <div;
             className="absolute h-full bg-primary-500 transition-all duration-500"
-            style={{ width: `${kellyValue * 100}%` }}
+            style={{ width: `${kellyValue * 100}%`}}
           / key={561859}>
         </div>
         <div className="flex justify-between text-xs text-gray-500" key={262379}>
@@ -81,7 +77,11 @@ const KellyCalculator: React.FC<KellyCalculatorProps key={279049}> = ({
         </p>
       </div>
     </div>
-  );
-};
+  )};
 
 export default React.memo(KellyCalculator);
+
+
+
+
+`

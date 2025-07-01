@@ -20,6 +20,7 @@ This directory contains mock service worker (MSW) setup and mock data for fronte
 ## File Breakdown
 
 ### browser.ts
+
 - **Purpose:** Sets up a mock service worker (MSW) with handlers for various API endpoints and provides mock data for players, entries, and lineups.
 - **Usage:** Used during development and testing to intercept API requests and return mock responses, enabling frontend development without a backend.
 - **Notes:** Includes mock data for NBA players, entries, and lineups. Handlers are defined for props, odds, predictions, players, entries, and lineups endpoints.
@@ -27,4 +28,4 @@ This directory contains mock service worker (MSW) setup and mock data for fronte
 
 ---
 
-*This documentation is auto-generated and should be updated as files are added, removed, or refactored in the mocks directory.*
+_This documentation is auto-generated and should be updated as files are added, removed, or refactored in the mocks directory._

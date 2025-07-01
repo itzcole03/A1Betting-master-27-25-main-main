@@ -1,38 +1,35 @@
-import React from 'react.ts';
-import { Line, Bar, Doughnut, Radar, Scatter } from 'react-chartjs-2.ts';
-import { Activity, BarChart3, PieChart, Zap } from 'lucide-react.ts';
-import { defaultChartOptions, chartTheme } from '@/utils/chartSetup.ts';
-import ChartWrapper from './ChartWrapper.ts';
+﻿import React from 'react';
+import { Line, Bar, Doughnut, Radar, Scatter} from 'react-chartjs-2';
+import { Activity, BarChart3, PieChart, Zap} from 'lucide-react';
+import { defaultChartOptions, chartTheme} from '@/utils/chartSetup';
+import ChartWrapper from './ChartWrapper';
 
 // Ensure Chart.js setup is imported;
 import "../../utils/chartSetup";
 
 interface SafeChartProps {
-  type: "line" | "bar" | "doughnut" | "radar" | "scatter";
-  data: any;
-  options?: any;
-  className?: string;
-  loadingMessage?: string;
+  type: "line" | "bar" | "doughnut" | "radar" | "scatter",`n  data: any;
+  options?: any
+  className?: string
+  loadingMessage?: string
   fallbackIcon?: React.ReactNode;
-  chartId?: string; // Add unique ID to prevent canvas reuse issues;
-}
+  chartId?: string // Add unique ID to prevent canvas reuse issues;}
 
 const SafeChart: React.FC<SafeChartProps key={345369}> = ({
   type,
   data,
-  options = {},
+  options = Record<string, any>,
   className = "",
   loadingMessage = "Loading chart data...",
   fallbackIcon,
-  chartId,
+//   chartId
 }) => {
   // Generate unique ID if not provided to prevent canvas reuse issues;
   const uniqueChartId = React.useMemo(() => {
     return (
       chartId ||
       `chart-${type}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
-    );
-  }, [chartId, type]);
+    );}, [chartId, type]);
 
   // Ref to track chart instance for proper cleanup;
 
@@ -41,13 +38,9 @@ const SafeChart: React.FC<SafeChartProps key={345369}> = ({
     return () => {
       if (chartRef.current) {
         try {
-          chartRef.current.destroy();
-        } catch (error) {
-          // console statement removed
-        }
-      }
-    };
-  }, []);
+          chartRef.current.destroy();} catch (error) {
+          // console statement removed}
+      }};}, [0]);
   // Enhanced validation for chart data structure;
   const isValidData = React.useMemo(() => {
     try {
@@ -61,11 +54,9 @@ const SafeChart: React.FC<SafeChartProps key={345369}> = ({
       return data.datasets.every(
         (dataset) =>
           dataset && typeof dataset === "object" && Array.isArray(dataset.data),
-      );
-    } catch (error) {
+      );} catch (error) {
       // console statement removed
-      return false;
-    }
+      return false;}
   }, [data]);
 
   if (!isValidData) {
@@ -74,7 +65,7 @@ const SafeChart: React.FC<SafeChartProps key={345369}> = ({
       bar: <BarChart3 className="w-8 h-8 mx-auto mb-2 animate-pulse" / key={205772}>,
       doughnut: <PieChart className="w-8 h-8 mx-auto mb-2 animate-pulse" / key={810456}>,
       radar: <Zap className="w-8 h-8 mx-auto mb-2 animate-pulse" / key={625815}>,
-      scatter: <Activity className="w-8 h-8 mx-auto mb-2 animate-pulse" / key={663587}>,
+      scatter: <Activity className="w-8 h-8 mx-auto mb-2 animate-pulse" / key={663587}>
     };
 
     return (
@@ -86,8 +77,7 @@ const SafeChart: React.FC<SafeChartProps key={345369}> = ({
           <p className="text-sm" key={364551}>{loadingMessage}</p>
         </div>
       </div>
-    );
-  }
+    );}
 
   // Default safe options using centralized theme;
   const safeOptions = {
@@ -98,14 +88,13 @@ const SafeChart: React.FC<SafeChartProps key={345369}> = ({
         : undefined,
     ...options,
     // Ensure onDestroy is preserved if provided;
-    onDestroy: options?.onDestroy || (() => {}),
+    onDestroy: options?.onDestroy || (() => Record<string, any>)
   };
 
   try {
     // Add extra validation right before rendering;
     if (!data?.labels || !data?.datasets) {
-      throw new Error("Invalid chart data structure");
-    }
+      throw new Error("Invalid chart data structure");}
 
     const ChartComponent = (() => {
       switch (type) {
@@ -119,9 +108,7 @@ const SafeChart: React.FC<SafeChartProps key={345369}> = ({
           return Radar;
         case "scatter":
           return Scatter;
-        default:
-          return null;
-      }
+        default: return null}
     })();
 
     if (!ChartComponent) {
@@ -134,8 +121,7 @@ const SafeChart: React.FC<SafeChartProps key={345369}> = ({
             <p className="text-sm" key={364551}>Unsupported chart type: {type}</p>
           </div>
         </div>
-      );
-    }
+      )}
 
     return (
       <ChartWrapper;
@@ -151,8 +137,7 @@ const SafeChart: React.FC<SafeChartProps key={345369}> = ({
                 <BarChart3 className="w-8 h-8 mx-auto mb-2 animate-pulse" / key={205772}>
                 <p className="text-sm" key={364551}>Loading chart...</p>
               </div>
-            </div>
-          }
+            </div>}
         >
           <ChartComponent;
             key={uniqueChartId} // Ensure unique rendering;
@@ -163,16 +148,14 @@ const SafeChart: React.FC<SafeChartProps key={345369}> = ({
               // Enhanced error handling and cleanup;
               onDestroy: () = key={462148}> {
                 if (chartRef.current) {
-                  chartRef.current = null;
-                }
-              },
+                  chartRef.current = null}
+              }
             }}
             className={className}
           />
         </React.Suspense>
       </ChartWrapper>
-    );
-  } catch (error) {
+    );} catch (error) {
     // console statement removed
     return (
       <div;
@@ -186,8 +169,12 @@ const SafeChart: React.FC<SafeChartProps key={345369}> = ({
           </p>
         </div>
       </div>
-    );
-  }
+    );}
 };
 
 export default SafeChart;
+
+
+
+
+`

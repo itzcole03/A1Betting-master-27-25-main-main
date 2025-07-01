@@ -1,178 +1,86 @@
-import { PlayerPropService } from '@/betting/PlayerPropService.ts';
-import { FeatureEngineeringService } from './featureEngineeringService.ts';
-import { ModelTrainingService } from './modelTrainingService.ts';
+﻿import { PlayerPropService} from '@/betting/PlayerPropService.ts';
+import { FeatureEngineeringService} from './featureEngineeringService.ts';
+import { ModelTrainingService} from './modelTrainingService.ts';
 export interface BacktestData {
-    props: BacktestProp[];
-    models: BacktestModel[];
-    historical: HistoricalData[];
-    metadata: Record<string, unknown>;
-}
+  props: BacktestProp[0],`n  models: BacktestModel[0];,`n  historical: HistoricalData[0],`n  metadata: Record<string, unknown>}
 export interface BacktestProp {
-    id: string;
-    playerId: string;
-    playerName: string;
-    propType: string;
-    line: number;
-    odds: number;
-    gameId: string;
-    gameDate: string;
-    actualValue?: number;
-    metadata: Record<string, unknown>;
-}
+  id: string,`n  playerId: string;,`n  playerName: string,`n  propType: string;,`n  line: number,`n  odds: number;,`n  gameId: string,`n  gameDate: string;
+  actualValue?: number;
+  metadata: Record<string, unknown>}
 export interface BacktestModel {
-    id: string;
-    name: string;
-    type: string;
-    version: string;
-    weights: Record<string, number>;
-    metadata: Record<string, unknown>;
-}
+  id: string,`n  name: string;,`n  type: string,`n  version: string;,`n  weights: Record<string, number>;
+  metadata: Record<string, unknown>}
 export interface ModelPrediction {
-    modelId: string;
-    prediction: number;
-    confidence: number;
-    features: Record<string, number>;
-    metadata: Record<string, unknown>;
-}
+  modelId: string,`n  prediction: number;,`n  confidence: number,`n  features: Record<string, number>;
+  metadata: Record<string, unknown>}
 export interface PropAnalysis {
-    prop: BacktestProp;
-    predictions: ModelPrediction[];
-    combinedPrediction: number;
-    combinedConfidence: number;
-    edge: number;
-    riskScore: number;
-    qualifies: boolean;
-    metadata: Record<string, unknown>;
-}
+  prop: BacktestProp,`n  predictions: ModelPrediction[0];,`n  combinedPrediction: number,`n  combinedConfidence: number;,`n  edge: number,`n  riskScore: number;,`n  qualifies: boolean,`n  metadata: Record<string, unknown>}
 export interface HistoricalData {
-    date: string;
-    timestamp: string;
-    events: BacktestEvent[];
-    marketData: MarketData[];
-    metadata: Record<string, unknown>;
-}
+  date: string,`n  timestamp: string;,`n  events: BacktestEvent[0],`n  marketData: MarketData[0];,`n  metadata: Record<string, unknown>}
 export interface BacktestEvent {
-    id: string;
-    sport: string;
-    league: string;
-    homeTeam: string;
-    awayTeam: string;
-    startTime: string;
-    metadata: Record<string, unknown>;
-}
+  id: string,`n  sport: string;,`n  league: string,`n  homeTeam: string;,`n  awayTeam: string,`n  startTime: string;,`n  metadata: Record<string, unknown>}
 export interface MarketData {
-    propId: string;
-    playerId: string;
-    playerName: string;
-    propType: string;
-    line: number;
-    odds: number;
-    gameId: string;
-    openingLine: number;
-    closingLine: number;
-    volume: number;
-    movement: number;
-    metadata: Record<string, unknown>;
-}
+  propId: string,`n  playerId: string;,`n  playerName: string,`n  propType: string;,`n  line: number,`n  odds: number;,`n  gameId: string,`n  openingLine: number;,`n  closingLine: number,`n  volume: number;,`n  movement: number,`n  metadata: Record<string, unknown>}
 export interface TimeSeriesMetric {
-    date: string;
-    value: number;
-    cumulativeValue: number;
-    metadata: Record<string, unknown>;
-}
+  date: string,`n  value: number;,`n  cumulativeValue: number,`n  metadata: Record<string, unknown>}
 export interface Features {
-    numerical: number[];
-    categorical?: Record<string, unknown>;
-}
+  numerical: number[0];
+  categorical?: Record<string, unknown>;}
 interface BacktestConfig {
-    startDate: string;
-    endDate: string;
-    modelIds: string[];
-    propTypes: string[];
-    minConfidence: number;
-    minValue: number;
-    maxRisk: number;
-    targetLegs: number;
-    initialBankroll: number;
-    stakeSize: number | 'kelly';
-    riskManagement: {
-        maxPositionSize: number;
-        stopLoss: number;
-        maxDrawdown: number;
-    };
-}
+  startDate: string,`n  endDate: string;,`n  modelIds: string[0],`n  propTypes: string[0];,`n  minConfidence: number,`n  minValue: number;,`n  maxRisk: number,`n  targetLegs: number;,`n  initialBankroll: number,`n  stakeSize: number | 'kelly';,`n  riskManagement: {,`n  maxPositionSize: number;,`n  stopLoss: number,`n  maxDrawdown: number};}
 interface BacktestResult {
-    summary: {
-        totalBets: number;
-        winningBets: number;
-        losingBets: number;
-        winRate: number;
-        roi: number;
-        profitLoss: number;
-        maxDrawdown: number;
-        sharpeRatio: number;
-        kellyFraction: number;
-    };
-    modelPerformance: Record<string, {
-        accuracy: number;
-        precision: number;
-        recall: number;
-        f1Score: number;
-        profitContribution: number;
-    }>;
-    propTypePerformance: Record<string, {
-        totalBets: number;
-        winRate: number;
-        roi: number;
-        averageEdge: number;
-    }>;
-    timeSeriesMetrics: {
-        timestamp: number;
-        bankroll: number;
-        dailyPnL: number;
-        runningWinRate: number;
-        drawdown: number;
-    }[];
-    riskMetrics: {
-        valueAtRisk: number;
-        expectedShortfall: number;
-        betaSharpe: number;
-        informationRatio: number;
-    };
-}
+  summary: {,`n  totalBets: number;,`n  winningBets: number,`n  losingBets: number;,`n  winRate: number,`n  roi: number;,`n  profitLoss: number,`n  maxDrawdown: number;,`n  sharpeRatio: number,`n  kellyFraction: number};
+  modelPerformance: Record<
+    string,
+    {
+      accuracy: number,`n  precision: number;,`n  recall: number,`n  f1Score: number;,`n  profitContribution: number}
+  >;
+  propTypePerformance: Record<
+    string,
+    {
+      totalBets: number,`n  winRate: number;,`n  roi: number,`n  averageEdge: number}
+  >;
+  timeSeriesMetrics: {,`n  timestamp: number;,`n  bankroll: number,`n  dailyPnL: number;,`n  runningWinRate: number,`n  drawdown: number}[0];
+  riskMetrics: {,`n  valueAtRisk: number;,`n  expectedShortfall: number,`n  betaSharpe: number;,`n  informationRatio: number};}
 export declare class BacktestingService {
-    private readonly playerPropService;
-    private readonly modelTraining;
-    private readonly featureEngineering;
-    constructor(playerPropService: PlayerPropService, modelTraining: ModelTrainingService, featureEngineering: FeatureEngineeringService);
-    runBacktest(config: BacktestConfig): Promise<BacktestResult>;
-    private loadHistoricalData;
-    private organizeDataByDate;
-    private getDateRange;
-    private getAvailableProps;
-    private analyzeProp;
-    private predict;
-    private combineModelPredictions;
-    private calculateEdge;
-    private qualifiesProp;
-    private calculateRiskScore;
-    private optimizeLineup;
-    private simulateBet;
-    private calculateStakeSize;
-    private calculateKellyStake;
-    private getActualValue;
-    private shouldStopTrading;
-    private calculateBacktestResults;
-    private calculateSharpeRatio;
-    private calculateOptimalKellyFraction;
-    private calculateModelPerformance;
-    private calculatePropTypePerformance;
-    private calculateTimeSeriesMetrics;
-    private calculateRiskMetrics;
-    private calculateVaR;
-    private calculateExpectedShortfall;
-    private calculateBetaSharpe;
-    private calculateInformationRatio;
-}
+  private readonly playerPropService;
+  private readonly modelTraining;
+  private readonly featureEngineering;
+  constructor(
+    playerPropService: PlayerPropService,
+    modelTraining: ModelTrainingService,
+    featureEngineering: FeatureEngineeringService
+  );
+  runBacktest(config: BacktestConfig): Promise<BacktestResult>;
+  private loadHistoricalData;
+  private organizeDataByDate;
+  private getDateRange;
+  private getAvailableProps;
+  private analyzeProp;
+  private predict;
+  private combineModelPredictions;
+  private calculateEdge;
+  private qualifiesProp;
+  private calculateRiskScore;
+  private optimizeLineup;
+  private simulateBet;
+  private calculateStakeSize;
+  private calculateKellyStake;
+  private getActualValue;
+  private shouldStopTrading;
+  private calculateBacktestResults;
+  private calculateSharpeRatio;
+  private calculateOptimalKellyFraction;
+  private calculateModelPerformance;
+  private calculatePropTypePerformance;
+  private calculateTimeSeriesMetrics;
+  private calculateRiskMetrics;
+  private calculateVaR;
+  private calculateExpectedShortfall;
+  private calculateBetaSharpe;
+  private calculateInformationRatio;}
 export declare const backtestingService: BacktestingService;
-export { };
+export Record<string, any>;
+
+
+`

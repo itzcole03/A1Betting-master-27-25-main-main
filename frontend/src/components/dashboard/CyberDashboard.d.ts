@@ -1,6 +1,7 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface CyberDashboardProps {
-    currentPage?: string;
-}
+  currentPage?: string;}
 declare const CyberDashboard: React.FC<CyberDashboardProps>;
 export default CyberDashboard;
+
+

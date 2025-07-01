@@ -1,25 +1,19 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Clock, Play, Pause, Target, ChevronDown, Activity, Timer } from 'lucide-react';
+﻿import React, { useState} from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
+import { Clock, Play, Pause, Target, ChevronDown, Activity, Timer} from 'lucide-react';
 
 export interface InGameTimeOption {
-  id: string;
-  name: string;
-  description: string;
-  icon: string;
-  sport: string[];
-  remaining?: string;
-  active?: boolean;
-}
+  id: string,`n  name: string;,`n  description: string,`n  icon: string;,`n  sport: string[0];
+  remaining?: string
+  active?: boolean}
 
 interface InGameTimeFilterProps {
-  sport?: string;
+  sport?: string
   onTimeFrameSelect: (timeFrame: string) => void;
-  selectedTimeFrame?: string;
-  className?: string;
-}
+  selectedTimeFrame?: string
+  className?: string}
 
-const IN_GAME_OPTIONS: InGameTimeOption[] = [
+const IN_GAME_OPTIONS: InGameTimeOption[0] = [
   // Basketball (NBA/WNBA)
   {
     id: 'q1-live',
@@ -27,7 +21,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Betting during Q1',
     icon: '1️⃣',
     sport: ['nba', 'wnba'],
-    remaining: '8:45',
+    remaining: '8:45'
   },
   {
     id: 'q1-end',
@@ -35,7 +29,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Q1 ending soon',
     icon: '⏰',
     sport: ['nba', 'wnba'],
-    remaining: '1:30',
+    remaining: '1:30'
   },
   {
     id: 'q2-live',
@@ -43,7 +37,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Betting during Q2',
     icon: '2️⃣',
     sport: ['nba', 'wnba'],
-    remaining: '6:22',
+    remaining: '6:22'
   },
   {
     id: 'halftime',
@@ -51,7 +45,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Halftime break',
     icon: '⏸️',
     sport: ['nba', 'wnba', 'nfl'],
-    remaining: '12:00',
+    remaining: '12:00'
   },
   {
     id: 'q3-live',
@@ -59,7 +53,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Betting during Q3',
     icon: '3️⃣',
     sport: ['nba', 'wnba'],
-    remaining: '4:15',
+    remaining: '4:15'
   },
   {
     id: 'q4-live',
@@ -68,7 +62,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     icon: '4️⃣',
     sport: ['nba', 'wnba'],
     remaining: '2:08',
-    active: true,
+    active: true
   },
   {
     id: 'final-2min',
@@ -76,7 +70,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Crunch time bets',
     icon: '🔥',
     sport: ['nba', 'wnba'],
-    remaining: '1:47',
+    remaining: '1:47'
   },
 
   // Football (NFL)
@@ -86,7 +80,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'First quarter action',
     icon: '1️⃣',
     sport: ['nfl'],
-    remaining: '11:23',
+    remaining: '11:23'
   },
   {
     id: 'q2-nfl',
@@ -94,7 +88,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Second quarter',
     icon: '2️⃣',
     sport: ['nfl'],
-    remaining: '8:45',
+    remaining: '8:45'
   },
   {
     id: 'q3-nfl',
@@ -102,7 +96,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Third quarter',
     icon: '3️⃣',
     sport: ['nfl'],
-    remaining: '13:12',
+    remaining: '13:12'
   },
   {
     id: 'q4-nfl',
@@ -110,7 +104,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Final quarter',
     icon: '4️⃣',
     sport: ['nfl'],
-    remaining: '6:38',
+    remaining: '6:38'
   },
   {
     id: '2min-warning',
@@ -118,7 +112,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Final 2 minutes',
     icon: '⚠️',
     sport: ['nfl'],
-    remaining: '1:58',
+    remaining: '1:58'
   },
 
   // Hockey (NHL)
@@ -128,7 +122,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'First period action',
     icon: '🏒',
     sport: ['nhl'],
-    remaining: '12:34',
+    remaining: '12:34'
   },
   {
     id: 'p2-nhl',
@@ -136,7 +130,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Second period',
     icon: '🏒',
     sport: ['nhl'],
-    remaining: '7:21',
+    remaining: '7:21'
   },
   {
     id: 'p3-nhl',
@@ -144,7 +138,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Final period',
     icon: '🏒',
     sport: ['nhl'],
-    remaining: '15:45',
+    remaining: '15:45'
   },
   {
     id: 'overtime-nhl',
@@ -152,7 +146,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: '3-on-3 overtime',
     icon: '⏱️',
     sport: ['nhl'],
-    remaining: '3:22',
+    remaining: '3:22'
   },
 
   // Baseball (MLB)
@@ -162,7 +156,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'First inning top',
     icon: '⚾',
     sport: ['mlb'],
-    remaining: '2 outs',
+    remaining: '2 outs'
   },
   {
     id: 'bot-1st',
@@ -170,7 +164,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'First inning bottom',
     icon: '⚾',
     sport: ['mlb'],
-    remaining: '1 out',
+    remaining: '1 out'
   },
   {
     id: 'mid-game',
@@ -178,7 +172,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Innings 4-6',
     icon: '⚾',
     sport: ['mlb'],
-    remaining: 'Inn 5',
+    remaining: 'Inn 5'
   },
   {
     id: 'late-innings',
@@ -186,7 +180,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Innings 7-9',
     icon: '⚾',
     sport: ['mlb'],
-    remaining: 'Inn 8',
+    remaining: 'Inn 8'
   },
   {
     id: 'extra-innings',
@@ -194,7 +188,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Beyond 9th',
     icon: '⚾',
     sport: ['mlb'],
-    remaining: 'Inn 10',
+    remaining: 'Inn 10'
   },
 
   // Soccer
@@ -204,7 +198,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'First 45 minutes',
     icon: '⚽',
     sport: ['soccer'],
-    remaining: '28:12',
+    remaining: '28:12'
   },
   {
     id: '2nd-half-soccer',
@@ -212,7 +206,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Second 45 minutes',
     icon: '⚽',
     sport: ['soccer'],
-    remaining: '67:43',
+    remaining: '67:43'
   },
   {
     id: 'stoppage',
@@ -220,7 +214,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Added time',
     icon: '⏱️',
     sport: ['soccer'],
-    remaining: '+3:22',
+    remaining: '+3:22'
   },
 
   // Tennis
@@ -230,7 +224,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'First set in progress',
     icon: '🎾',
     sport: ['tennis'],
-    remaining: '4-3',
+    remaining: '4-3'
   },
   {
     id: 'set2-tennis',
@@ -238,7 +232,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Second set',
     icon: '🎾',
     sport: ['tennis'],
-    remaining: '2-1',
+    remaining: '2-1'
   },
   {
     id: 'set3-tennis',
@@ -246,7 +240,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Deciding set',
     icon: '🎾',
     sport: ['tennis'],
-    remaining: '1-0',
+    remaining: '1-0'
   },
 
   // Combat Sports
@@ -256,7 +250,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'First round action',
     icon: '🥊',
     sport: ['mma', 'boxing'],
-    remaining: '3:45',
+    remaining: '3:45'
   },
   {
     id: 'round2-mma',
@@ -264,7 +258,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Second round',
     icon: '🥊',
     sport: ['mma', 'boxing'],
-    remaining: '2:12',
+    remaining: '2:12'
   },
   {
     id: 'round3-mma',
@@ -272,7 +266,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Final round',
     icon: '🥊',
     sport: ['mma', 'boxing'],
-    remaining: '4:33',
+    remaining: '4:33'
   },
 
   // Golf (PGA)
@@ -282,7 +276,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Holes 1-9',
     icon: '⛳',
     sport: ['pga'],
-    remaining: 'Hole 6',
+    remaining: 'Hole 6'
   },
   {
     id: 'back-nine',
@@ -290,7 +284,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Holes 10-18',
     icon: '⛳',
     sport: ['pga'],
-    remaining: 'Hole 14',
+    remaining: 'Hole 14'
   },
   {
     id: 'final-holes',
@@ -298,7 +292,7 @@ const IN_GAME_OPTIONS: InGameTimeOption[] = [
     description: 'Holes 16-18',
     icon: '⛳',
     sport: ['pga'],
-    remaining: 'Hole 17',
+    remaining: 'Hole 17'
   },
 ];
 
@@ -306,7 +300,7 @@ const InGameTimeFilter: React.FC<InGameTimeFilterProps> = ({
   sport = 'nba',
   onTimeFrameSelect,
   selectedTimeFrame,
-  className = '',
+  className = ''
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -321,15 +315,13 @@ const InGameTimeFilter: React.FC<InGameTimeFilterProps> = ({
 
   const handleSelect = (optionId: string) => {
     onTimeFrameSelect(optionId);
-    setIsExpanded(false);
-  };
+    setIsExpanded(false);};
 
   return (
     <div className={`relative ${className}`}>
       {/* Current Time Display */}
-      <button
-        onClick={() => setIsExpanded(!isExpanded)}
-        className='flex items-center space-x-3 w-full p-4 quantum-card rounded-xl hover:border-electric-500/40 transition-all'
+      <button onClick={() => setIsExpanded(!isExpanded)}
+        className='flex items-center space-x-3 w-full p-4 quantum-card rounded-xl hover: border-electric-500/40 transition-all'
       >
         <div className='flex items-center space-x-2'>
           <Activity className='w-5 h-5 text-red-400 animate-pulse' />
@@ -360,18 +352,16 @@ const InGameTimeFilter: React.FC<InGameTimeFilterProps> = ({
           </div>
         )}
 
-        <ChevronDown
-          className={`w-4 h-4 text-gray-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
-        />
+        <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}>`n        />
       </button>
 
       {/* Expanded Options */}
       <AnimatePresence>
         {isExpanded && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -10}}
+            animate={{ opacity: 1, y: 0}}
+            exit={{ opacity: 0, y: -10}}
             className='absolute top-full left-0 right-0 mt-2 quantum-card rounded-xl border border-white/10 overflow-hidden z-50'
           >
             <div className='p-2 max-h-80 overflow-y-auto custom-scrollbar'>
@@ -389,10 +379,9 @@ const InGameTimeFilter: React.FC<InGameTimeFilterProps> = ({
                         ? 'bg-electric-500/20 text-electric-400 border border-electric-500/40'
                         : option.active
                           ? 'bg-red-500/20 text-red-400 border border-red-500/40'
-                          : 'hover:bg-white/10 text-gray-300'
-                    }`}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                          : 'hover:bg-white/10 text-gray-300'}`}
+                    whileHover={{ scale: 1.02}}
+                    whileTap={{ scale: 0.98}}
                   >
                     <div className='flex items-center space-x-3'>
                       <span className='text-lg'>{option.icon}</span>
@@ -424,7 +413,10 @@ const InGameTimeFilter: React.FC<InGameTimeFilterProps> = ({
       {/* Click outside to close */}
       {isExpanded && <div className='fixed inset-0 z-40' onClick={() => setIsExpanded(false)} />}
     </div>
-  );
-};
+  )};
 
 export default InGameTimeFilter;
+
+
+
+`

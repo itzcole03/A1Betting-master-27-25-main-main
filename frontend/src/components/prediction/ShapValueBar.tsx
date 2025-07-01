@@ -1,13 +1,11 @@
-import React from 'react.ts';
-import { Tooltip } from '@/ui/UnifiedUI.ts';
+﻿import React from 'react';
+import { Tooltip} from '@/ui/UnifiedUI';
 
 interface ShapValueBarProps {
-  name: string;
-  value: number;
-  className?: string;
-}
+  name: string,`n  value: number;
+  className?: string}
 
-export const ShapValueBar: React.FC<ShapValueBarProps key={512768}> = ({ name, value, className = '' }) => {
+export const ShapValueBar: React.FC<ShapValueBarProps key={512768}> = ({ name, value, className = ''}) => {
 
 
 
@@ -24,10 +22,14 @@ export const ShapValueBar: React.FC<ShapValueBarProps key={512768}> = ({ name, v
         <div className="h-2 bg-gray-200 rounded-full overflow-hidden" key={617132}>
           <div;
             className={`h-full ${color} transition-all duration-300`}
-            style={{ width: `${Math.min(absValue * 100, 100)}%` }}
+            style={{ width: `${Math.min(absValue * 100, 100)}%`}}
           / key={290183}>
         </div>
       </div>
     </Tooltip>
-  );
-};
+  )};
+
+
+
+
+`

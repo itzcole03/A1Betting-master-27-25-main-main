@@ -1,6 +1,6 @@
-import React, { useState  } from 'react.ts';
-import { X } from 'lucide-react.ts';
-import { useAppStore } from '@/store/useAppStore.ts';
+﻿import React, { useState} from 'react';
+import { X} from 'lucide-react';
+import { useAppStore} from '@/store/useAppStore';
 
 
 const BetSlipSidebar: React.FC = () => {
@@ -13,7 +13,7 @@ const BetSlipSidebar: React.FC = () => {
     potentialPayout,
     isSubmitting,
     submitSlip,
-    addToast,
+//     addToast
   } = useAppStore(state => ({
     legs: state.legs,
     removeLeg: state.removeLeg,
@@ -23,23 +23,20 @@ const BetSlipSidebar: React.FC = () => {
     potentialPayout: state.potentialPayout,
     isSubmitting: state.isSubmitting,
     submitSlip: state.submitSlip,
-    addToast: state.addToast,
+    addToast: state.addToast
   }));
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const handleSubmit = async () => {
     if (legs.length < 2) {
-      addToast({ message: 'Select at least 2 picks to submit a bet.', type: 'warning' });
-      return;
-    }
+      addToast({ message: 'Select at least 2 picks to submit a bet.', type: 'warning'});
+      return;}
     if (stake <= 0) {
-      addToast({ message: 'Please enter a valid stake amount.', type: 'warning' });
-      return;
-    }
+      addToast({ message: 'Please enter a valid stake amount.', type: 'warning'});
+      return;}
 
     if (result) {
-      setIsMobileOpen(false);
-    }
+      setIsMobileOpen(false);}
   };
 
   // Mobile toggle button;
@@ -129,7 +126,7 @@ const BetSlipSidebar: React.FC = () => {
   // Desktop sidebar;
   return (
     <>
-      <div className="hidden lg:flex flex-col fixed top-0 right-0 h-full w-[380px] z-[100] p-6 bg-gradient-to-br from-primary-900/90 to-primary-700/80 glass shadow-2xl animate-fade-in" key={983239}>
+      <div className="hidden lg: flex flex-col fixed top-0 right-0 h-full w-[380px] z-[100] p-6 bg-gradient-to-br from-primary-900/90 to-primary-700/80 glass shadow-2xl animate-fade-in" key={983239}>
         {BetSlipContent}
       </div>
       {/* Mobile floating button and modal */}
@@ -142,7 +139,10 @@ const BetSlipSidebar: React.FC = () => {
         </div>
       )}
     </>
-  );
-};
+  )};
 
 export default BetSlipSidebar; 
+
+
+
+

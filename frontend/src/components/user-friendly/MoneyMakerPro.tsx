@@ -1,59 +1,20 @@
-import React, { useState, useContext } from 'react';
-import { motion } from 'framer-motion';
-import {
-  DollarSign,
-  Brain,
-  Target,
-  TrendingUp,
-  Zap,
-  RefreshCw,
-  Eye,
-  Save,
-  Filter,
-} from 'lucide-react';
-import { lineupTracker } from '../../services/lineupTrackingService';
+﻿import { motion} from 'framer-motion';
+import { Brain, DollarSign, Filter, RefreshCw, Save, Target, TrendingUp, Zap} from 'lucide-react';
+import React, { useState} from 'react';
 import toast from 'react-hot-toast';
-import QuantumFilters from '../filters/QuantumFilters';
+import { useFilters} from '../../hooks/useFilters';
+import { useFilteredResults, useFluentFilters} from '../../hooks/useFluentFilters';
+import { useQuantumPredictions} from '../../hooks/useQuantumPredictions';
+import { lineupTracker} from '../../services/lineupTrackingService';
 import FluentLiveFilters from '../filters/FluentLiveFilters';
-import { useFilters, ALL_SPORTS, PRIMARY_SPORTS, MISC_SPORTS } from '../../hooks/useFilters';
-import { useFluentFilters, useFilteredResults } from '../../hooks/useFluentFilters';
-import { useQuantumPredictions } from '../../hooks/useQuantumPredictions';
+import QuantumFilters from '../filters/QuantumFilters';
 
 interface BettingConfig {
-  investment: number;
-  strategy: string;
-  confidence: number;
-  portfolio: number;
-  sports: string;
-  riskLevel: string;
-  timeFrame: string;
-  leagues: string[];
-  maxOdds: number;
-  minOdds: number;
-  playerTypes: string;
-  weatherFilter: boolean;
-  injuryFilter: boolean;
-  lineMovement: string;
-}
+  investment: number,`n  strategy: string;,`n  confidence: number,`n  portfolio: number;,`n  sports: string,`n  riskLevel: string;,`n  timeFrame: string,`n  leagues: string[0];,`n  maxOdds: number,`n  minOdds: number;,`n  playerTypes: string,`n  weatherFilter: boolean;,`n  injuryFilter: boolean,`n  lineMovement: string}
 
 interface MoneyMakerResults {
-  investment: number;
-  multiplier: number;
-  payout: number;
-  accuracy: number;
-  picks: Array<{
-    game: string;
-    pick: string;
-    confidence: number;
-    odds: string;
-    neural: string;
-    reason: string;
-  }>;
-  quantumBoost: boolean;
-  processingTime: string;
-  neuralNetworks: number;
-  filters: BettingConfig;
-}
+  investment: number,`n  multiplier: number;,`n  payout: number,`n  accuracy: number;,`n  picks: Array<{,`n  game: string;,`n  pick: string,`n  confidence: number;,`n  odds: string,`n  neural: string;,`n  reason: string}>;
+  quantumBoost: boolean,`n  processingTime: string;,`n  neuralNetworks: number,`n  filters: BettingConfig}
 
 const MoneyMakerPro: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -72,34 +33,34 @@ const MoneyMakerPro: React.FC = () => {
     playerTypes: 'all',
     weatherFilter: true,
     injuryFilter: true,
-    lineMovement: 'any',
+    lineMovement: 'any'
   });
   const [results, setResults] = useState<MoneyMakerResults | null>(null);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [lineupName, setLineupName] = useState('');
   const [showQuantumFilters, setShowQuantumFilters] = useState(false);
-  const { filters: oldFilters, updateFilters: updateOldFilters } = useFilters();
-  const { filters: fluentFilters, updateFilters: updateFluentFilters } = useFluentFilters();
-  const { totalItems: totalOpportunities, filteredItems: filteredOpportunities } =
+  const { filters: oldFilters, updateFilters: updateOldFilters} = useFilters();
+  const { filters: fluentFilters, updateFilters: updateFluentFilters} = useFluentFilters();
+  const { totalItems: totalOpportunities, filteredItems: filteredOpportunities} =
     useFilteredResults(fluentFilters, 89);
+  const quantumOptions = React.useMemo(() => ({ minConfidence: 85}), [0]);
   const {
     predictions: quantumPredictions,
     systemState: quantumState,
     getQuantumInsight,
     getNetworkStatus,
-    highConfidencePredictions,
-  } = useQuantumPredictions({ minConfidence: 85 });
+//     highConfidencePredictions
+  } = useQuantumPredictions(quantumOptions);
 
   const saveLineup = () => {
     if (!results || !lineupName.trim()) {
       toast.error('Please enter a lineup name');
-      return;
-    }
+      return;}
 
     const picks = results.picks.map(pick => ({
       id: `pick_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       description: pick.pick,
-      confidence: pick.confidence,
+      confidence: pick.confidence
     }));
 
     const lineupId = lineupTracker.saveMoneyMakerLineup(
@@ -112,16 +73,14 @@ const MoneyMakerPro: React.FC = () => {
 
     toast.success(`💰 Money Maker lineup "${lineupName}" saved!`, {
       duration: 3000,
-      style: {
-        background: '#1f2937',
+      style: {,`n  background: '#1f2937',
         color: '#10b981',
-        border: '1px solid #10b981',
-      },
+        border: '1px solid #10b981'
+      }
     });
 
     setShowSaveModal(false);
-    setLineupName('');
-  };
+    setLineupName('');};
 
   const activateQuantumAI = async () => {
     setLoading(true);
@@ -157,7 +116,7 @@ const MoneyMakerPro: React.FC = () => {
             : `-${Math.round(100 / (pred.odds.current - 1))}`
           : '-110',
         neural: pred.neuralNetwork,
-        reason: getQuantumInsight(pred),
+        reason: getQuantumInsight(pred)
       }));
 
       setResults({
@@ -169,18 +128,16 @@ const MoneyMakerPro: React.FC = () => {
         quantumBoost: quantumState.quantumBoostActive,
         processingTime: `${Math.floor(500 + Math.random() * 500)}ms`,
         neuralNetworks: quantumState.activeNetworks + (fluentFilters.sport === 'all' ? 36 : 12),
-        filters: config,
+        filters: config
       });
-      setLoading(false);
-    }, 3500);
-  };
+      setLoading(false);}, 3500);};
 
   return (
     <motion.div
       className='space-y-10 animate-slide-in-up'
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      initial={{ opacity: 0, y: 20}}
+      animate={{ opacity: 1, y: 0}}
+      transition={{ duration: 0.5}}
     >
       {/* Enhanced Hero Section */}
       <div className='text-center mb-16 quantum-card rounded-3xl p-16 shadow-neon border-2 border-green-500/30'>
@@ -228,9 +185,9 @@ const MoneyMakerPro: React.FC = () => {
       {/* Unified Quantum Control Center */}
       <motion.div
         className='quantum-card rounded-3xl p-10 border-2 border-electric-500/30 shadow-neon mb-12'
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
+        transition={{ duration: 0.5, delay: 0.3}}
       >
         {/* Control Center Header */}
         <div className='flex items-center space-x-4 mb-10'>
@@ -247,8 +204,8 @@ const MoneyMakerPro: React.FC = () => {
             <motion.button
               onClick={() => setShowQuantumFilters(!showQuantumFilters)}
               className='flex items-center space-x-2 px-4 py-2 rounded-xl bg-electric-500/20 border border-electric-500/40 text-electric-400 hover:bg-electric-500/30 transition-all font-cyber font-bold text-sm'
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05}}
+              whileTap={{ scale: 0.95}}
             >
               <Filter className={`w-4 h-4 ${showQuantumFilters ? 'animate-pulse' : ''}`} />
               <span>FILTERS</span>
@@ -270,23 +227,19 @@ const MoneyMakerPro: React.FC = () => {
                   <label className='block text-sm font-bold mb-2 text-green-400 font-cyber'>
                     AMOUNT ($)
                   </label>
-                  <input
-                    type='number'
+                  <input type='number'
                     min='100'
                     max='10000'
                     step='100'
-                    value={config.investment}
-                    onChange={e => setConfig({ ...config, investment: parseInt(e.target.value) })}
+                    value={config.investment}>`n                    onChange={e => setConfig({ ...config, investment: parseInt(e.target.value)})}
                     className='w-full p-3 rounded-xl text-center font-bold text-lg border-2 border-green-500/30 focus:border-green-500 bg-gray-900/50 text-green-400'
                   />
                 </div>
                 <div>
                   <label className='block text-sm font-bold mb-2 text-green-400 font-cyber'>
-                    STRATEGY
+//                     STRATEGY
                   </label>
-                  <select
-                    value={config.strategy}
-                    onChange={e => setConfig({ ...config, strategy: e.target.value })}
+                  <select value={config.strategy}>`n                    onChange={e => setConfig({ ...config, strategy: e.target.value})}
                     className='w-full p-3 rounded-xl border-2 border-green-500/30 focus:border-green-500 bg-gray-900/50 text-white font-cyber'
                   >
                     <option value='quantum'>Quantum Enhanced</option>
@@ -308,12 +261,10 @@ const MoneyMakerPro: React.FC = () => {
                   <label className='block text-sm font-bold mb-3 text-blue-400 font-cyber'>
                     CONFIDENCE: {config.confidence}%
                   </label>
-                  <input
-                    type='range'
+                  <input type='range'
                     min='80'
                     max='99'
-                    value={config.confidence}
-                    onChange={e => setConfig({ ...config, confidence: parseInt(e.target.value) })}
+                    value={config.confidence}>`n                    onChange={e => setConfig({ ...config, confidence: parseInt(e.target.value)})}
                     className='w-full h-2 bg-gray-700 rounded-lg appearance-none slider-thumb'
                   />
                   <div className='flex justify-between text-xs text-gray-400 mt-1 font-mono'>
@@ -325,9 +276,7 @@ const MoneyMakerPro: React.FC = () => {
                   <label className='block text-sm font-bold mb-2 text-blue-400 font-cyber'>
                     PORTFOLIO SIZE
                   </label>
-                  <select
-                    value={config.portfolio}
-                    onChange={e => setConfig({ ...config, portfolio: parseInt(e.target.value) })}
+                  <select value={config.portfolio}>`n                    onChange={e => setConfig({ ...config, portfolio: parseInt(e.target.value)})}
                     className='w-full p-3 rounded-xl border-2 border-blue-500/30 focus:border-blue-500 bg-gray-900/50 text-white font-cyber'
                   >
                     <option value={2}>2 Picks (Safe)</option>
@@ -364,9 +313,7 @@ const MoneyMakerPro: React.FC = () => {
                 </div>
                 <div className='flex items-center justify-between p-3 bg-gray-800/30 rounded-lg'>
                   <span className='text-gray-300 font-mono text-sm'>Quantum Boost</span>
-                  <span
-                    className={`font-cyber font-bold text-sm ${quantumState.quantumBoostActive ? 'text-green-400' : 'text-gray-400'}`}
-                  >
+                  <span className={`font-cyber font-bold text-sm ${quantumState.quantumBoostActive ? 'text-green-400' : 'text-gray-400'}`}>`n                  >
                     {quantumState.quantumBoostActive ? 'ACTIVE' : 'STANDBY'}
                   </span>
                 </div>
@@ -379,13 +326,11 @@ const MoneyMakerPro: React.FC = () => {
               </div>
             </div>
 
-            <FluentLiveFilters
-              filters={fluentFilters}
+            <FluentLiveFilters filters={fluentFilters}
               onFiltersChange={updateFluentFilters}
               totalGames={totalOpportunities}
               filteredGames={filteredOpportunities}
-              className='border border-electric-500/20 shadow-neon'
-            />
+              className='border border-electric-500/20 shadow-neon'>`n            />
 
             <div className='quantum-card p-6 rounded-2xl border border-purple-500/30'>
               <h3 className='text-lg font-bold text-purple-400 font-cyber mb-4 flex items-center space-x-2'>
@@ -399,9 +344,7 @@ const MoneyMakerPro: React.FC = () => {
                 </div>
                 <div className='flex items-center justify-between p-3 bg-gray-800/30 rounded-lg'>
                   <span className='text-gray-300 font-mono text-sm'>Risk Protocol</span>
-                  <select
-                    value={config.riskLevel}
-                    onChange={e => setConfig({ ...config, riskLevel: e.target.value })}
+                  <select value={config.riskLevel}>`n                    onChange={e => setConfig({ ...config, riskLevel: e.target.value})}
                     className='bg-gray-900/50 text-white text-sm rounded px-2 py-1 border border-gray-600 font-cyber'
                   >
                     <option value='conservative'>Conservative</option>
@@ -424,27 +367,25 @@ const MoneyMakerPro: React.FC = () => {
         {/* Expandable Sections */}
         {showQuantumFilters && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.4 }}
+            initial={{ opacity: 0, height: 0}}
+            animate={{ opacity: 1, height: 'auto'}}
+            exit={{ opacity: 0, height: 0}}
+            transition={{ duration: 0.4}}
             className='border-t border-electric-500/30 pt-8 mt-8'
           >
-            <QuantumFilters
-              filters={oldFilters}
+            <QuantumFilters filters={oldFilters}
               onFiltersChange={updateOldFilters}
               showAdvanced={true}
-              className='border-2 border-electric-500/30 shadow-neon'
-            />
+              className='border-2 border-electric-500/30 shadow-neon'>`n            />
           </motion.div>
         )}
 
         {showAdvancedFilters && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.4 }}
+            initial={{ opacity: 0, height: 0}}
+            animate={{ opacity: 1, height: 'auto'}}
+            exit={{ opacity: 0, height: 0}}
+            transition={{ duration: 0.4}}
             className='border-t border-purple-500/30 pt-8 mt-8'
           >
             <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
@@ -503,12 +444,11 @@ const MoneyMakerPro: React.FC = () => {
             onClick={activateQuantumAI}
             disabled={loading}
             className={`px-16 py-6 rounded-2xl font-bold text-2xl transition-all duration-300 ${
-              loading
+//               loading
                 ? 'bg-gray-600 cursor-not-allowed'
-                : 'bg-gradient-to-r from-green-500 to-electric-500 hover:from-green-400 hover:to-electric-400 text-black shadow-neon'
-            }`}
-            whileHover={!loading ? { scale: 1.05 } : {}}
-            whileTap={!loading ? { scale: 0.95 } : {}}
+                : 'bg-gradient-to-r from-green-500 to-electric-500 hover: from-green-400 hover:to-electric-400 text-black shadow-neon'}`}
+            whileHover={!loading ? { scale: 1.05} : Record<string, any>}
+            whileTap={!loading ? { scale: 0.95} : Record<string, any>}
           >
             {loading ? (
               <div className='flex items-center space-x-4'>
@@ -528,8 +468,8 @@ const MoneyMakerPro: React.FC = () => {
       {/* Results Section */}
       {results && (
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 20}}
+          animate={{ opacity: 1, y: 0}}
           className='quantum-card rounded-3xl p-10 border-2 border-green-500/30'
         >
           <div className='text-center mb-8'>
@@ -591,16 +531,16 @@ const MoneyMakerPro: React.FC = () => {
             <motion.button
               onClick={() => setShowSaveModal(true)}
               className='flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold rounded-xl hover:from-blue-400 hover:to-purple-400 transition-all duration-300'
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05}}
+              whileTap={{ scale: 0.95}}
             >
               <Save className='w-5 h-5' />
               <span>SAVE LINEUP</span>
             </motion.button>
             <motion.button
               className='px-8 py-4 bg-gradient-to-r from-green-500 to-yellow-500 text-black font-bold rounded-xl hover:from-green-400 hover:to-yellow-400 transition-all duration-300'
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05}}
+              whileTap={{ scale: 0.95}}
             >
               EXECUTE NEURAL STRATEGY
             </motion.button>
@@ -611,14 +551,14 @@ const MoneyMakerPro: React.FC = () => {
       {/* Save Lineup Modal */}
       {showSaveModal && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0}}
+          animate={{ opacity: 1}}
           className='fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4'
           onClick={() => setShowSaveModal(false)}
         >
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
+            initial={{ scale: 0.9, opacity: 0}}
+            animate={{ scale: 1, opacity: 1}}
             className='quantum-card rounded-2xl p-8 max-w-md w-full'
             onClick={e => e.stopPropagation()}
           >
@@ -628,26 +568,21 @@ const MoneyMakerPro: React.FC = () => {
             <div className='space-y-4'>
               <div>
                 <label className='block text-sm font-bold mb-2 text-gray-300'>Lineup Name</label>
-                <input
-                  type='text'
-                  value={lineupName}
-                  onChange={e => setLineupName(e.target.value)}
+                <input type='text'
+                  value={lineupName}>`n                  onChange={e => setLineupName(e.target.value)}
                   placeholder='Enter lineup name...'
                   className='w-full p-3 rounded-lg bg-gray-800/50 border border-gray-600 text-white placeholder-gray-400 focus:border-electric-400 focus:outline-none'
                 />
               </div>
               <div className='flex space-x-4 pt-4'>
-                <button
-                  onClick={saveLineup}
-                  className='flex-1 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-400 transition-all'
-                >
+                <button onClick={saveLineup}
+                  className='flex-1 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-400 transition-all'>`n                >
                   Save Lineup
                 </button>
-                <button
-                  onClick={() => setShowSaveModal(false)}
+                <button onClick={() => setShowSaveModal(false)}
                   className='flex-1 py-3 bg-gray-600 text-white font-bold rounded-lg hover:bg-gray-500 transition-all'
                 >
-                  Cancel
+//                   Cancel
                 </button>
               </div>
             </div>
@@ -655,7 +590,10 @@ const MoneyMakerPro: React.FC = () => {
         </motion.div>
       )}
     </motion.div>
-  );
-};
+  )};
 
 export default MoneyMakerPro;
+
+
+
+`

@@ -1,23 +1,22 @@
-import { useSportsFilter } from '@/hooks/useSportsFilter.ts';
-import { useQueryClient } from '@tanstack/react-query.ts';
-import { LINEUP_QUERY_KEY } from '@/hooks/useLineupAPI.ts';
-import { PREDICTIONS_QUERY_KEY } from '@/hooks/usePredictions.ts';
-import { ArrowPathIcon } from '@heroicons/react/24/outline.ts';
-import { useFilterStore, RiskProfile } from '@/stores/filterStore.ts';
-import React from 'react.ts';
+﻿import { useSportsFilter} from '@/hooks/useSportsFilter';
+import { useQueryClient} from '@tanstack/react-query';
+import { LINEUP_QUERY_KEY} from '@/hooks/useLineupAPI';
+import { PREDICTIONS_QUERY_KEY} from '@/hooks/usePredictions';
+import { ArrowPathIcon} from '@heroicons/react/24/outline';
+import { useFilterStore, RiskProfile} from '@/stores/filterStore';
+import React from 'react';
 
 interface SmartControlsBarProps {
-  className?: string;
-}
+  className?: string}
 
 const modelOptions = [
-  { value: 'default', label: 'Default' },
-  { value: 'ensemble', label: 'Ensemble' },
-  { value: 'experimental', label: 'Experimental' },
+  { value: 'default', label: 'Default'},
+  { value: 'ensemble', label: 'Ensemble'},
+  { value: 'experimental', label: 'Experimental'},
 ];
 
-export function SmartControlsBar({ className = '' }: SmartControlsBarProps) {
-  const { sports, activeSport, setActiveSport } = useSportsFilter();
+export function SmartControlsBar({ className = ''}: SmartControlsBarProps) {
+  const { sports, activeSport, setActiveSport} = useSportsFilter();
 
   const {
     riskProfile,
@@ -27,13 +26,12 @@ export function SmartControlsBar({ className = '' }: SmartControlsBarProps) {
     model,
     setModel,
     confidenceThreshold,
-    setConfidenceThreshold,
+//     setConfidenceThreshold
   } = useFilterStore();
 
   const handleRefresh = () => {
-    queryClient.invalidateQueries({ queryKey: [LINEUP_QUERY_KEY] });
-    queryClient.invalidateQueries({ queryKey: [PREDICTIONS_QUERY_KEY] });
-  };
+    queryClient.invalidateQueries({ queryKey: [LINEUP_QUERY_KEY]});
+    queryClient.invalidateQueries({ queryKey: [PREDICTIONS_QUERY_KEY]})};
 
   return (
     <div;
@@ -46,8 +44,7 @@ export function SmartControlsBar({ className = '' }: SmartControlsBarProps) {
             className={`flex items-center space-x-2 rounded-lg px-4 py-2 transition-colors ${
               activeSport?.id === sport.id;
                 ? 'bg-primary-500 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
-            }`}
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'}`}
             onClick={() = key={269882}> setActiveSport(sport)}
           >
             <span className="text-xl" key={674561}>{sport.icon}</span>
@@ -119,7 +116,7 @@ export function SmartControlsBar({ className = '' }: SmartControlsBarProps) {
 
         {/* Refresh Button */}
         <button;
-          className="flex items-center space-x-2 rounded-lg bg-gray-100 px-4 py-2 text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+          className="flex items-center space-x-2 rounded-lg bg-gray-100 px-4 py-2 text-gray-700 transition-colors hover: bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
           onClick={handleRefresh}
          key={542232}>
           <ArrowPathIcon className="h-5 w-5" / key={526499}>
@@ -127,5 +124,9 @@ export function SmartControlsBar({ className = '' }: SmartControlsBarProps) {
         </button>
       </div>
     </div>
-  );
-}
+  )}
+
+
+
+
+`

@@ -20,12 +20,14 @@ This directory contains unified and advanced data services, including analytics,
 ## File Breakdown
 
 ### UnifiedDataService.ts
+
 - **Purpose:** Provides a singleton service for unified data access, caching, and real-time updates from multiple sources (PrizePicks, ESPN, Odds API).
 - **Usage:** Used to fetch, cache, and subscribe to data from various APIs and WebSocket streams. Exposes event-driven interface for data updates.
 - **Notes:** Integrates with axios, socket.io, and zod for schema validation. Supports cache management and WebSocket lifecycle.
 - **Status:** Actively used; not a candidate for removal.
 
 ### README.md
+
 - **Purpose:** Directory-level note indicating this folder contains unified and advanced data services ported from legacy code.
 - **Usage:** Informational only.
 - **Notes:** No functional code.
@@ -33,4 +35,4 @@ This directory contains unified and advanced data services, including analytics,
 
 ---
 
-*This documentation is auto-generated and should be updated as files are added, removed, or refactored in the unified directory.*
+_This documentation is auto-generated and should be updated as files are added, removed, or refactored in the unified directory._

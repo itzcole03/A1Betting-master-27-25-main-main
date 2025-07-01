@@ -1,13 +1,9 @@
-import React from 'react.ts';
-import { useEffect, useState } from 'react.ts';
-import { ModelPerformanceMetrics } from '@/types.ts';
+﻿import React from 'react';
+import { useEffect, useState} from 'react';
+import { ModelPerformanceMetrics} from '@/types';
 
 export interface MetricsData {
-    performance: ModelPerformanceMetrics;
-    isLoading: boolean;
-    error: string | null;
-    refresh: () => void;
-}
+    performance: ModelPerformanceMetrics,`n  isLoading: boolean;,`n  error: string | null,`n  refresh: () => void}
 
 export const useMetrics = (userId?: string): MetricsData => {
     const [performance, setPerformance] = useState<ModelPerformanceMetrics key={938411}>({
@@ -28,8 +24,7 @@ export const useMetrics = (userId?: string): MetricsData => {
         winRate: 0,
         avgOdds: 0,
         totalBets: 0,
-        roi: 0;
-    });
+        roi: 0});
 
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null key={121216}>(null);
@@ -43,8 +38,7 @@ export const useMetrics = (userId?: string): MetricsData => {
             await new Promise(resolve => setTimeout(resolve, 1000));
 
             // Mock data - replace with actual API call;
-            const mockMetrics: ModelPerformanceMetrics = {
-                accuracy: 0.82,
+            const mockMetrics: ModelPerformanceMetrics = {,`n  accuracy: 0.82,
                 precision: 0.78,
                 recall: 0.85,
                 f1Score: 0.81,
@@ -61,27 +55,24 @@ export const useMetrics = (userId?: string): MetricsData => {
                 winRate: 0.64,
                 avgOdds: 2.2,
                 totalBets: 156,
-                roi: 0.25;
-            };
+                roi: 0.25};
 
-            setPerformance(mockMetrics);
-        } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to load metrics');
-        } finally {
-            setIsLoading(false);
-        }
+            setPerformance(mockMetrics);} catch (err) {
+            setError(err instanceof Error ? err.message : 'Failed to load metrics');} finally {
+            setIsLoading(false);}
     };
 
     useEffect(() => {
-        refresh();
-    }, [userId]);
+        refresh();}, [userId]);
 
     return {
         performance,
         isLoading,
         error,
-        refresh;
-    };
-};
+        refresh;};};
 
 export default useMetrics;
+
+
+
+`

@@ -1,11 +1,10 @@
-// Utility functions for integrating existing services with cyber UI;
+﻿// Utility functions for integrating existing services with cyber UI;
 
 export interface CyberServiceConfig {
   serviceName: string;
-  endpoint?: string;
-  retryAttempts?: number;
-  timeout?: number;
-}
+  endpoint?: string
+  retryAttempts?: number
+  timeout?: number}
 
 export class CyberServiceIntegrator {
   private services: Map<string, any> = new Map();
@@ -14,29 +13,25 @@ export class CyberServiceIntegrator {
   registerService(name: string, service: any, config?: CyberServiceConfig) {
     this.services.set(name, {
       service,
-      config: {
-        serviceName: name,
+      config: {,`n  serviceName: name,
         retryAttempts: 3,
         timeout: 5000,
-        ...config,
-      },
+        ...config
+      }
     });
-    // console statement removed
-  }
+    // console statement removed}
 
   // Get service instance;
   getService(name: string) {
-    return this.services.get(name)?.service;
-  }
+    return this.services.get(name)?.service}
 
   // Wrap service calls with cyber styling and error handling;
-  async callService(serviceName: string, method: string, ...args: any[]) {
+  async callService(serviceName: string, method: string, ...args: any[0]) {
 
     if (!serviceEntry) {
-      throw new Error(`Service ${serviceName} not found`);
-    }
+      throw new Error(`Service ${serviceName} not found`)}
 
-    const { service, config } = serviceEntry;
+    const { service, config} = serviceEntry;
     // console statement removed`);
 
     try {
@@ -47,9 +42,8 @@ export class CyberServiceIntegrator {
         data: result,
         service: serviceName,
         method,
-        timestamp: new Date().toISOString(),
-      };
-    } catch (error) {
+        timestamp: new Date().toISOString()
+      }} catch (error) {
       // console statement removed failed:`,
         error,
       );
@@ -58,15 +52,13 @@ export class CyberServiceIntegrator {
         error,
         service: serviceName,
         method,
-        timestamp: new Date().toISOString(),
-      };
-    }
+        timestamp: new Date().toISOString()
+      }}
   }
 
   // Get all registered services;
   getRegisteredServices() {
-    return Array.from(this.services.keys());
-  }
+    return Array.from(this.services.keys());}
 
   // Health check for all services;
   async healthCheck() {
@@ -76,19 +68,15 @@ export class CyberServiceIntegrator {
         // Try to call a health check method if it exists;
 
         if (typeof service.healthCheck === "function") {
-          results[name] = await service.healthCheck();
-        } else {
+          results[name] = await service.healthCheck();} else {
           results[name] = {
             status: "registered",
-            message: "No health check method",
-          };
-        }
+            message: "No health check method"
+          }}
       } catch (error) {
-        results[name] = { status: "error", error: error.message };
-      }
+        results[name] = { status: "error", error: error.message}}
     }
-    return results;
-  }
+    return results;}
 }
 
 // Global cyber service integrator instance;
@@ -104,14 +92,14 @@ export const formatCyberNotification = (
     success: "✅",
     error: "❌",
     warning: "⚠️",
-    info: "💡",
+    info: "💡"
   };
 
   const colors = {
     success: "text-green-400",
     error: "text-red-400",
     warning: "text-yellow-400",
-    info: "text-blue-400",
+    info: "text-blue-400"
   };
 
   return {
@@ -119,9 +107,8 @@ export const formatCyberNotification = (
     title,
     message,
     colorClass: colors[type],
-    timestamp: new Date().toLocaleTimeString(),
-  };
-};
+    timestamp: new Date().toLocaleTimeString()
+  }};
 
 // Helper to generate cyber-styled loading states;
 export const createCyberLoadingState = (message: string = "Processing...") => {
@@ -130,9 +117,8 @@ export const createCyberLoadingState = (message: string = "Processing...") => {
     message,
     animation: "animate-pulse",
     icon: "fa-spinner fa-spin",
-    colorClass: "text-electric-400",
-  };
-};
+    colorClass: "text-electric-400"
+  }};
 
 // Helper to convert existing data to cyber metrics format;
 export const convertToCyberMetrics = (data: any) => {
@@ -147,21 +133,23 @@ export const convertToCyberMetrics = (data: any) => {
       data.trend ||
       (data.change && data.change > 0 ? "up" : "down") ||
       "neutral",
-    timestamp: data.timestamp || new Date().toISOString(),
-  };
-};
+    timestamp: data.timestamp || new Date().toISOString()
+  }};
 
 // Convert existing component props to cyber styling;
 export const applyCyberStyling = (props: any) => {
   return {
     ...props,
     className: `${props.className || ""} glass-card rounded-2xl transition-all duration-300 hover:shadow-neon`,
-    style: {
-      background: "rgba(255, 255, 255, 0.05)",
+    style: {,`n  background: "rgba(255, 255, 255, 0.05)",
       backdropFilter: "blur(20px) saturate(180%)",
       border: "1px solid rgba(255, 255, 255, 0.1)",
       boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
-      ...props.style,
-    },
-  };
-};
+      ...props.style
+    }
+  }};
+
+
+
+
+`

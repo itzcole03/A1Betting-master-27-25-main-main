@@ -1,40 +1,33 @@
-/**
+﻿/**
  * Comprehensive tests for UserFriendlyApp component;
  * Tests main functionality, admin toggle, navigation, and responsive behavior;
  */
 
-import React from 'react.ts';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react.ts';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query.ts';
-import userEvent from '@testing-library/user-event.ts';
-import { BrowserRouter } from 'react-router-dom.ts';
-import UserFriendlyApp from '@/UserFriendlyApp.ts';
+import React from 'react';
+import { render, screen, fireEvent, waitFor} from '@testing-library/react';
+import { QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import userEvent from '@testing-library/user-event';
+import { BrowserRouter} from 'react-router-dom';
+import UserFriendlyApp from '@/UserFriendlyApp';
 
 // Mock components that might not be available in test environment;
 jest.mock("../MoneyMakerPro", () => {
   return function MockMoneyMakerPro() {
-    return <div data-testid="money-maker-pro" key={413754}>MoneyMaker Pro Component</div>;
-  };
-});
+    return <div data-testid="money-maker-pro" key={413754}>MoneyMaker Pro Component</div>;};});
 
 jest.mock("../PrizePicksPro", () => {
   return function MockPrizePicksPro() {
-    return <div data-testid="prizepicks-pro" key={43784}>PrizePicks Pro Component</div>;
-  };
-});
+    return <div data-testid="prizepicks-pro" key={43784}>PrizePicks Pro Component</div>;};});
 
 jest.mock("../PropOllama", () => {
   return function MockPropOllama() {
-    return <div data-testid="prop-ollama" key={722872}>PropOllama Component</div>;
-  };
-});
+    return <div data-testid="prop-ollama" key={722872}>PropOllama Component</div>;};});
 
 jest.mock("../UserFriendlyDashboard", () => {
   return function MockUserFriendlyDashboard({
-    onNavigate,
+//     onNavigate
   }: {
-    onNavigate?: (page: string) => void;
-  }) {
+    onNavigate?: (page: string) => void}) {
     return (
       <div data-testid="user-friendly-dashboard" key={800582}>
         <button onClick={() = key={965186}> onNavigate?.("test-navigation")}>
@@ -42,9 +35,7 @@ jest.mock("../UserFriendlyDashboard", () => {
         </button>
         User Friendly Dashboard Component;
       </div>
-    );
-  };
-});
+    );};});
 
 jest.mock("../../ml/UltraAdvancedMLDashboard", () => {
   return function MockUltraAdvancedMLDashboard() {
@@ -52,35 +43,28 @@ jest.mock("../../ml/UltraAdvancedMLDashboard", () => {
       <div data-testid="ultra-advanced-ml-dashboard" key={328833}>
         Ultra Advanced ML Dashboard;
       </div>
-    );
-  };
-});
+    );};});
 
 jest.mock("../../prediction/UltraAccuracyDashboard", () => {
   return function MockUltraAccuracyDashboard() {
     return (
       <div data-testid="ultra-accuracy-dashboard" key={420367}>Ultra Accuracy Dashboard</div>
-    );
-  };
-});
+    );};});
 
 // Test wrapper component;
-const TestWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const TestWrapper: React.FC<{ children: React.ReactNode}> = ({ children}) => {
   const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-        cacheTime: 0,
-      },
-    },
+    defaultOptions: {,`n  queries: {,`n  retry: false,
+        cacheTime: 0
+      }
+    }
   });
 
   return (
     <BrowserRouter key={966846}>
       <QueryClientProvider client={queryClient} key={826303}>{children}</QueryClientProvider>
     </BrowserRouter>
-  );
-};
+  );};
 
 describe("UserFriendlyApp", () => {
   let user: ReturnType<typeof userEvent.setup key={900912}>;
@@ -88,12 +72,10 @@ describe("UserFriendlyApp", () => {
   beforeEach(() => {
     user = userEvent.setup();
     // Mock console.log to avoid cluttering test output;
-    jest.spyOn(console, "log").mockImplementation(() => {});
-  });
+    jest.spyOn(console, "log").mockImplementation(() => Record<string, any>);});
 
   afterEach(() => {
-    jest.restoreAllMocks();
-  });
+    jest.restoreAllMocks();});
 
   describe("Component Rendering", () => {
     it("renders the main application layout", () => {
@@ -107,8 +89,7 @@ describe("UserFriendlyApp", () => {
       expect(screen.getByText("A1BETTING")).toBeInTheDocument();
       expect(
         screen.getByText("Quantum Intelligence Platform"),
-      ).toBeInTheDocument();
-    });
+      ).toBeInTheDocument();});
 
     it("displays user information in header", () => {
       render(
@@ -119,8 +100,7 @@ describe("UserFriendlyApp", () => {
 
       // Check for user info;
       expect(screen.getByText("Alex Chen")).toBeInTheDocument();
-      expect(screen.getByText("alex@a1betting.com")).toBeInTheDocument();
-    });
+      expect(screen.getByText("alex@a1betting.com")).toBeInTheDocument();});
 
     it("shows live stats in header", () => {
       render(
@@ -131,8 +111,7 @@ describe("UserFriendlyApp", () => {
 
       // Check for live stats elements;
       expect(screen.getByText(/Live Games/)).toBeInTheDocument();
-      expect(screen.getByText(/AI Accuracy/)).toBeInTheDocument();
-    });
+      expect(screen.getByText(/AI Accuracy/)).toBeInTheDocument();});
 
     it("renders navigation sidebar with all menu items", () => {
       render(
@@ -147,9 +126,7 @@ describe("UserFriendlyApp", () => {
       expect(screen.getByText("PrizePicks Pro")).toBeInTheDocument();
       expect(screen.getByText("PropOllama")).toBeInTheDocument();
       expect(screen.getByText("Analytics")).toBeInTheDocument();
-      expect(screen.getByText("Ultra Accuracy")).toBeInTheDocument();
-    });
-  });
+      expect(screen.getByText("Ultra Accuracy")).toBeInTheDocument();});});
 
   describe("Navigation Functionality", () => {
     it("starts with dashboard as default page", () => {
@@ -159,8 +136,7 @@ describe("UserFriendlyApp", () => {
         </TestWrapper>,
       );
 
-      expect(screen.getByTestId("user-friendly-dashboard")).toBeInTheDocument();
-    });
+      expect(screen.getByTestId("user-friendly-dashboard")).toBeInTheDocument();});
 
     it("navigates to different pages when menu items are clicked", async () => {
       render(
@@ -172,23 +148,19 @@ describe("UserFriendlyApp", () => {
       // Navigate to Money Maker Pro;
       await user.click(screen.getByText("Money Maker Pro"));
       await waitFor(() => {
-        expect(screen.getByTestId("money-maker-pro")).toBeInTheDocument();
-      });
+        expect(screen.getByTestId("money-maker-pro")).toBeInTheDocument();});
 
       // Navigate to PrizePicks Pro;
       await user.click(screen.getByText("PrizePicks Pro"));
       await waitFor(() => {
-        expect(screen.getByTestId("prizepicks-pro")).toBeInTheDocument();
-      });
+        expect(screen.getByTestId("prizepicks-pro")).toBeInTheDocument();});
 
       // Navigate to Ultra Accuracy;
       await user.click(screen.getByText("Ultra Accuracy"));
       await waitFor(() => {
         expect(
           screen.getByTestId("ultra-accuracy-dashboard"),
-        ).toBeInTheDocument();
-      });
-    });
+        ).toBeInTheDocument();});});
 
     it("handles programmatic navigation through onNavigate prop", async () => {
       render(
@@ -201,9 +173,7 @@ describe("UserFriendlyApp", () => {
       await user.click(screen.getByText("Test Navigation"));
 
       // Should navigate to the test page (which would default to dashboard)
-      expect(screen.getByTestId("user-friendly-dashboard")).toBeInTheDocument();
-    });
-  });
+      expect(screen.getByTestId("user-friendly-dashboard")).toBeInTheDocument();});});
 
   describe("Admin Mode Toggle", () => {
     it("renders admin mode toggle button", () => {
@@ -214,8 +184,7 @@ describe("UserFriendlyApp", () => {
       );
 
       expect(toggleButton).toBeInTheDocument();
-      expect(toggleButton).toHaveTextContent("🔄");
-    });
+      expect(toggleButton).toHaveTextContent("🔄");});
 
     it("switches to advanced mode when toggle is clicked", async () => {
       render(
@@ -230,14 +199,12 @@ describe("UserFriendlyApp", () => {
       await waitFor(() => {
         expect(
           screen.getByTestId("ultra-advanced-ml-dashboard"),
-        ).toBeInTheDocument();
-      });
+        ).toBeInTheDocument();});
 
       // Button title should change;
       expect(
         screen.getByTitle(/Switch to User-Friendly Mode/),
-      ).toBeInTheDocument();
-    });
+      ).toBeInTheDocument();});
 
     it("switches back to user-friendly mode from advanced mode", async () => {
       render(
@@ -251,8 +218,7 @@ describe("UserFriendlyApp", () => {
       await waitFor(() => {
         expect(
           screen.getByTestId("ultra-advanced-ml-dashboard"),
-        ).toBeInTheDocument();
-      });
+        ).toBeInTheDocument();});
 
       // Switch back to user-friendly mode;
       const backToggleButton = screen.getByTitle(
@@ -263,10 +229,7 @@ describe("UserFriendlyApp", () => {
       await waitFor(() => {
         expect(
           screen.getByTestId("user-friendly-dashboard"),
-        ).toBeInTheDocument();
-      });
-    });
-  });
+        ).toBeInTheDocument();});});});
 
   describe("Mobile Navigation", () => {
     it("shows mobile menu button on mobile screens", () => {
@@ -274,7 +237,7 @@ describe("UserFriendlyApp", () => {
       Object.defineProperty(window, "innerWidth", {
         writable: true,
         configurable: true,
-        value: 768,
+        value: 768
       });
 
       render(
@@ -285,8 +248,7 @@ describe("UserFriendlyApp", () => {
 
       // Mobile menu button should be present (though hidden by CSS)
 
-      expect(mobileMenuButton).toBeInTheDocument();
-    });
+      expect(mobileMenuButton).toBeInTheDocument();});
 
     it("opens mobile menu when mobile menu button is clicked", async () => {
       render(
@@ -300,9 +262,7 @@ describe("UserFriendlyApp", () => {
       // Check if mobile menu overlay is rendered;
       // Note: This is a simplified test as the actual mobile menu rendering;
       // depends on CSS classes and responsive design;
-      expect(mobileMenuButton).toBeInTheDocument();
-    });
-  });
+      expect(mobileMenuButton).toBeInTheDocument();});});
 
   describe("AI Status Display", () => {
     it("shows AI status information in sidebar", () => {
@@ -316,9 +276,7 @@ describe("UserFriendlyApp", () => {
       expect(screen.getByText("AI Status")).toBeInTheDocument();
       expect(screen.getByText(/Neural Networks/)).toBeInTheDocument();
       expect(screen.getByText(/Processing Speed/)).toBeInTheDocument();
-      expect(screen.getByText(/Quantum Qubits/)).toBeInTheDocument();
-    });
-  });
+      expect(screen.getByText(/Quantum Qubits/)).toBeInTheDocument();});});
 
   describe("Real-time Updates", () => {
     it("displays live statistics that update", async () => {
@@ -332,9 +290,7 @@ describe("UserFriendlyApp", () => {
 
       // The component has a 5-second interval for updates;
       // In a real test, you might want to mock timers;
-      expect(screen.getByText(/AI Accuracy/)).toBeInTheDocument();
-    });
-  });
+      expect(screen.getByText(/AI Accuracy/)).toBeInTheDocument();});});
 
   describe("Footer", () => {
     it("renders footer with brand information", () => {
@@ -349,9 +305,7 @@ describe("UserFriendlyApp", () => {
       ).toBeInTheDocument();
       expect(
         screen.getByText(/Advanced Sports Intelligence Platform/),
-      ).toBeInTheDocument();
-    });
-  });
+      ).toBeInTheDocument();});});
 
   describe("Accessibility", () => {
     it("has proper heading structure", () => {
@@ -363,8 +317,7 @@ describe("UserFriendlyApp", () => {
 
       // Check for proper heading hierarchy;
 
-      expect(mainHeading).toHaveTextContent("A1BETTING");
-    });
+      expect(mainHeading).toHaveTextContent("A1BETTING");});
 
     it("provides button labels and titles", () => {
       render(
@@ -374,8 +327,7 @@ describe("UserFriendlyApp", () => {
       );
 
       // Check that toggle button has proper title;
-      expect(screen.getByTitle(/Switch to Advanced Mode/)).toBeInTheDocument();
-    });
+      expect(screen.getByTitle(/Switch to Advanced Mode/)).toBeInTheDocument();});
 
     it("has proper ARIA labels for interactive elements", () => {
       render(
@@ -386,14 +338,12 @@ describe("UserFriendlyApp", () => {
 
       // Navigation buttons should be accessible;
 
-      expect(navigationButtons.length).toBeGreaterThan(0);
-    });
-  });
+      expect(navigationButtons.length).toBeGreaterThan(0);});});
 
   describe("Error Handling", () => {
     it("handles component errors gracefully", () => {
       // Mock console.error to prevent error output in tests;
-      jest.spyOn(console, "error").mockImplementation(() => {});
+      jest.spyOn(console, "error").mockImplementation(() => Record<string, any>);
 
       render(
         <TestWrapper key={681370}>
@@ -404,9 +354,7 @@ describe("UserFriendlyApp", () => {
       // The component should render without throwing;
       expect(screen.getByText("A1BETTING")).toBeInTheDocument();
 
-      jest.restoreAllMocks();
-    });
-  });
+      jest.restoreAllMocks();});});
 
   describe("Performance", () => {
     it("renders within reasonable time", () => {
@@ -419,7 +367,8 @@ describe("UserFriendlyApp", () => {
 
 
       // Should render within 100ms (adjust threshold as needed)
-      expect(renderTime).toBeLessThan(100);
-    });
-  });
-});
+      expect(renderTime).toBeLessThan(100);});});});
+
+
+
+`

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+﻿import React, { useState, useEffect} from 'react';
+import { motion} from 'framer-motion';
 import {
   Brain,
   Activity,
@@ -54,45 +54,15 @@ import {
   Filter,
   Download,
   Share,
-  MoreVertical,
+//   MoreVertical
 } from 'lucide-react';
 
 interface ModelPerformanceMetrics {
-  accuracy: number;
-  precision: number;
-  recall: number;
-  f1Score: number;
-  roc: number;
-  predictionCount: number;
-  successRate: number;
-  averageConfidence: number;
-  modelStatus: string;
-  lastUpdated: string;
-  trainingTime: number;
-  inferenceTime: number;
-  memoryUsage: number;
-  cpuUsage: number;
-  modelVersion: string;
-  datasetSize: number;
-  featureCount: number;
-  hyperparameters: Record<string, any>;
-}
+  accuracy: number,`n  precision: number;,`n  recall: number,`n  f1Score: number;,`n  roc: number,`n  predictionCount: number;,`n  successRate: number,`n  averageConfidence: number;,`n  modelStatus: string,`n  lastUpdated: string;,`n  trainingTime: number,`n  inferenceTime: number;,`n  memoryUsage: number,`n  cpuUsage: number;,`n  modelVersion: string,`n  datasetSize: number;,`n  featureCount: number,`n  hyperparameters: Record<string, any>}
 
 interface SystemHealthMetrics {
-  overallHealth: number;
-  cpuUsage: number;
-  memoryUsage: number;
-  diskUsage: number;
-  networkLatency: number;
-  activeConnections: number;
-  errorRate: number;
-  uptime: number;
-  responseTime: number;
-  throughput: number;
-  lastHealthCheck: string;
-  services: Record<string, string>;
-  alerts: Array<{ level: string; message: string; timestamp: string }>;
-}
+  overallHealth: number,`n  cpuUsage: number;,`n  memoryUsage: number,`n  diskUsage: number;,`n  networkLatency: number,`n  activeConnections: number;,`n  errorRate: number,`n  uptime: number;,`n  responseTime: number,`n  throughput: number;,`n  lastHealthCheck: string,`n  services: Record<string, string>;
+  alerts: Array<{ level: string; message: string; timestamp: string}>}
 
 const UltraAdvancedMLDashboard: React.FC = () => {
   const [selectedView, setSelectedView] = useState('overview');
@@ -114,12 +84,12 @@ const UltraAdvancedMLDashboard: React.FC = () => {
       'neural-engine': 'healthy',
       'data-pipeline': 'healthy',
       'model-registry': 'healthy',
-      'api-gateway': 'healthy',
+      'api-gateway': 'healthy'
     },
-    alerts: [],
+    alerts: [0]
   });
 
-  const [modelMetrics, setModelMetrics] = useState<ModelPerformanceMetrics[]>([
+  const [modelMetrics, setModelMetrics] = useState<ModelPerformanceMetrics[0]>([
     {
       accuracy: 94.7,
       precision: 92.1,
@@ -138,11 +108,10 @@ const UltraAdvancedMLDashboard: React.FC = () => {
       modelVersion: 'v2.1.3',
       datasetSize: 250000,
       featureCount: 47,
-      hyperparameters: {
-        learning_rate: 0.001,
+      hyperparameters: {,`n  learning_rate: 0.001,
         batch_size: 128,
-        epochs: 100,
-      },
+        epochs: 100
+      }
     },
     {
       accuracy: 91.2,
@@ -162,11 +131,10 @@ const UltraAdvancedMLDashboard: React.FC = () => {
       modelVersion: 'v2.2.0-beta',
       datasetSize: 400000,
       featureCount: 52,
-      hyperparameters: {
-        learning_rate: 0.0005,
+      hyperparameters: {,`n  learning_rate: 0.0005,
         batch_size: 256,
-        epochs: 150,
-      },
+        epochs: 150
+      }
     },
   ]);
 
@@ -186,7 +154,7 @@ const UltraAdvancedMLDashboard: React.FC = () => {
             100,
             Math.min(500, prev.activeConnections + Math.floor((Math.random() - 0.5) * 20))
           ),
-          lastHealthCheck: new Date().toISOString(),
+          lastHealthCheck: new Date().toISOString()
         }));
 
         setModelMetrics(prev =>
@@ -194,13 +162,11 @@ const UltraAdvancedMLDashboard: React.FC = () => {
             ...model,
             accuracy: Math.max(85, Math.min(99, model.accuracy + (Math.random() - 0.5) * 2)),
             predictionCount: model.predictionCount + Math.floor(Math.random() * 100),
-            cpuUsage: Math.max(10, Math.min(80, model.cpuUsage + (Math.random() - 0.5) * 10)),
+            cpuUsage: Math.max(10, Math.min(80, model.cpuUsage + (Math.random() - 0.5) * 10))
           }))
-        );
-      }, 3000);
+        )}, 3000);
 
-      return () => clearInterval(interval);
-    }
+      return () => clearInterval(interval);}
   }, [autoRefresh]);
 
   const getStatusColor = (status: string) => {
@@ -213,9 +179,7 @@ const UltraAdvancedMLDashboard: React.FC = () => {
         return 'text-gray-400';
       case 'error':
         return 'text-red-400';
-      default:
-        return 'text-gray-400';
-    }
+      default: return 'text-gray-400'}
   };
 
   const renderOverview = () => (
@@ -233,10 +197,8 @@ const UltraAdvancedMLDashboard: React.FC = () => {
             </div>
             <div className='text-gray-400 font-mono'>Overall Health</div>
             <div className='w-full bg-gray-700 rounded-full h-2 mt-2'>
-              <div
-                className='bg-green-400 h-2 rounded-full'
-                style={{ width: `${systemHealth.overallHealth}%` }}
-              ></div>
+              <div className='bg-green-400 h-2 rounded-full'
+                style={{ width: `${systemHealth.overallHealth}%`}}>`n              ></div>
             </div>
           </div>
           <div className='text-center'>
@@ -245,10 +207,8 @@ const UltraAdvancedMLDashboard: React.FC = () => {
             </div>
             <div className='text-gray-400 font-mono'>CPU Usage</div>
             <div className='w-full bg-gray-700 rounded-full h-2 mt-2'>
-              <div
-                className='bg-electric-400 h-2 rounded-full'
-                style={{ width: `${systemHealth.cpuUsage}%` }}
-              ></div>
+              <div className='bg-electric-400 h-2 rounded-full'
+                style={{ width: `${systemHealth.cpuUsage}%`}}>`n              ></div>
             </div>
           </div>
           <div className='text-center'>
@@ -257,10 +217,8 @@ const UltraAdvancedMLDashboard: React.FC = () => {
             </div>
             <div className='text-gray-400 font-mono'>Memory Usage</div>
             <div className='w-full bg-gray-700 rounded-full h-2 mt-2'>
-              <div
-                className='bg-purple-400 h-2 rounded-full'
-                style={{ width: `${systemHealth.memoryUsage}%` }}
-              ></div>
+              <div className='bg-purple-400 h-2 rounded-full'
+                style={{ width: `${systemHealth.memoryUsage}%`}}>`n              ></div>
             </div>
           </div>
           <div className='text-center'>
@@ -269,10 +227,8 @@ const UltraAdvancedMLDashboard: React.FC = () => {
             </div>
             <div className='text-gray-400 font-mono'>Network Latency</div>
             <div className='w-full bg-gray-700 rounded-full h-2 mt-2'>
-              <div
-                className='bg-cyan-400 h-2 rounded-full'
-                style={{ width: `${Math.min(100, systemHealth.networkLatency * 2)}%` }}
-              ></div>
+              <div className='bg-cyan-400 h-2 rounded-full'
+                style={{ width: `${Math.min(100, systemHealth.networkLatency * 2)}%`}}>`n              ></div>
             </div>
           </div>
         </div>
@@ -284,16 +240,14 @@ const UltraAdvancedMLDashboard: React.FC = () => {
           <motion.div
             key={idx}
             className='quantum-card p-6 rounded-2xl border border-purple-500/20 hover:shadow-neon transition-all cursor-pointer'
-            whileHover={{ scale: 1.02 }}
+            whileHover={{ scale: 1.02}}
             onClick={() => setSelectedModel(`model-${idx}`)}
           >
             <div className='flex items-center justify-between mb-4'>
               <h4 className='text-lg font-bold text-purple-400 font-cyber'>
                 Neural Model {idx + 1}
               </h4>
-              <div
-                className={`px-3 py-1 rounded-full text-xs font-bold ${getStatusColor(model.modelStatus)} bg-gray-800`}
-              >
+              <div className={`px-3 py-1 rounded-full text-xs font-bold ${getStatusColor(model.modelStatus)} bg-gray-800`}>`n              >
                 {model.modelStatus.toUpperCase()}
               </div>
             </div>
@@ -345,9 +299,7 @@ const UltraAdvancedMLDashboard: React.FC = () => {
                 <span className='font-bold text-white font-mono capitalize'>
                   {service.replace('-', ' ')}
                 </span>
-                <div
-                  className={`w-3 h-3 rounded-full ${status === 'healthy' ? 'bg-green-400 animate-pulse' : 'bg-red-400'}`}
-                ></div>
+                <div className={`w-3 h-3 rounded-full ${status === 'healthy' ? 'bg-green-400 animate-pulse' : 'bg-red-400'}`}>`n                ></div>
               </div>
               <div className='text-xs text-gray-400 font-mono'>{status}</div>
             </div>
@@ -440,9 +392,9 @@ const UltraAdvancedMLDashboard: React.FC = () => {
   return (
     <motion.div
       className='space-y-8 animate-slide-in-up p-8'
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      initial={{ opacity: 0, y: 20}}
+      animate={{ opacity: 1, y: 0}}
+      transition={{ duration: 0.5}}
     >
       {/* Header */}
       <div className='text-center'>
@@ -463,10 +415,9 @@ const UltraAdvancedMLDashboard: React.FC = () => {
           className={`flex items-center space-x-2 px-6 py-3 rounded-xl border transition-all ${
             selectedView === 'overview'
               ? 'bg-purple-500/20 border-purple-500/40 text-purple-400'
-              : 'bg-gray-800/40 border-gray-600/40 text-gray-300 hover:border-gray-500/60'
-          }`}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+              : 'bg-gray-800/40 border-gray-600/40 text-gray-300 hover:border-gray-500/60'}`}
+          whileHover={{ scale: 1.02}}
+          whileTap={{ scale: 0.98}}
         >
           <BarChart3 className='w-4 h-4' />
           <span className='font-mono'>Overview</span>
@@ -477,10 +428,9 @@ const UltraAdvancedMLDashboard: React.FC = () => {
           className={`flex items-center space-x-2 px-6 py-3 rounded-xl border transition-all ${
             selectedView === 'models'
               ? 'bg-purple-500/20 border-purple-500/40 text-purple-400'
-              : 'bg-gray-800/40 border-gray-600/40 text-gray-300 hover:border-gray-500/60'
-          }`}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+              : 'bg-gray-800/40 border-gray-600/40 text-gray-300 hover:border-gray-500/60'}`}
+          whileHover={{ scale: 1.02}}
+          whileTap={{ scale: 0.98}}
         >
           <Brain className='w-4 h-4' />
           <span className='font-mono'>Models</span>
@@ -489,12 +439,11 @@ const UltraAdvancedMLDashboard: React.FC = () => {
         <motion.button
           onClick={() => setAutoRefresh(!autoRefresh)}
           className={`flex items-center space-x-2 px-6 py-3 rounded-xl border transition-all ${
-            autoRefresh
+//             autoRefresh
               ? 'bg-green-500/20 border-green-500/40 text-green-400'
-              : 'bg-gray-800/40 border-gray-600/40 text-gray-300'
-          }`}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+              : 'bg-gray-800/40 border-gray-600/40 text-gray-300'}`}
+          whileHover={{ scale: 1.02}}
+          whileTap={{ scale: 0.98}}
         >
           <RefreshCw className={`w-4 h-4 ${autoRefresh ? 'animate-spin' : ''}`} />
           <span className='font-mono'>Auto Refresh</span>
@@ -504,7 +453,10 @@ const UltraAdvancedMLDashboard: React.FC = () => {
       {/* Content */}
       {selectedView === 'overview' ? renderOverview() : renderModels()}
     </motion.div>
-  );
-};
+  )};
 
 export default UltraAdvancedMLDashboard;
+
+
+
+`

@@ -5,7 +5,6 @@ High-performance task queue system with priority scheduling, distributed process
 import asyncio
 import logging
 import multiprocessing as mp
-import pickle
 import time
 import traceback
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
@@ -16,10 +15,16 @@ from typing import Any, Callable, Dict, List, Optional
 
 import redis.asyncio as redis
 from config import config_manager
+from backend.utils.serialization_utils import (
+    register_serializable,
+    safe_dumps,
+    safe_loads,
+)
 
 logger = logging.getLogger(__name__)
 
 
+@register_serializable
 class TaskPriority(IntEnum):
     """Task priority levels (higher number = higher priority)"""
 
@@ -30,6 +35,7 @@ class TaskPriority(IntEnum):
     BACKGROUND = 20  # Maintenance, optimization
 
 
+@register_serializable
 class TaskStatus(str, Enum):
     """Task execution status"""
 
@@ -42,6 +48,7 @@ class TaskStatus(str, Enum):
     TIMEOUT = "timeout"
 
 
+@register_serializable
 class TaskType(str, Enum):
     """Types of background tasks"""
 
@@ -59,6 +66,7 @@ class TaskType(str, Enum):
     ANALYTICS_COMPUTATION = "analytics_computation"
 
 
+@register_serializable
 @dataclass
 class TaskDefinition:
     """Comprehensive task definition"""
@@ -98,6 +106,7 @@ class TaskDefinition:
     metadata: Dict[str, Any] = field(default_factory=dict)
 
 
+@register_serializable
 @dataclass
 class TaskResult:
     """Task execution result"""
@@ -146,12 +155,12 @@ class TaskQueue:
         try:
             self.redis_client = redis.from_url(
                 config_manager.get_redis_url(),
-                decode_responses=False,  # We'll handle encoding ourselves for pickle
+                decode_responses=True,  # We are using JSON strings now
             )
             await self.redis_client.ping()
             logger.info("Task queue Redis connection established")
         except Exception as e:  # pylint: disable=broad-exception-caught
-            logger.error("Failed to connect to Redis: {e!s}")
+            logger.error(f"Failed to connect to Redis: {e!s}")
             raise
 
     async def enqueue(self, task: TaskDefinition) -> bool:
@@ -160,8 +169,8 @@ class TaskQueue:
             if not self.redis_client:
                 await self.initialize()
 
-            # Serialize task
-            task_data = pickle.dumps(task)
+            # Serialize task using safe JSON
+            task_data = safe_dumps(task)
 
             # Add to priority queue
             queue_key = self.priority_queues[task.priority]
@@ -186,11 +195,11 @@ class TaskQueue:
                     "expired",
                 )
 
-            logger.debug("Enqueued task {task.id} with priority {task.priority}")
+            
             return True
 
         except Exception as e:  # pylint: disable=broad-exception-caught
-            logger.error("Failed to enqueue task {task.id}: {e!s}")
+            logger.error(f"Failed to enqueue task {task.id}: {e!s}")
             return False
 
     async def dequeue(self, worker_id: str) -> Optional[TaskDefinition]:
@@ -211,7 +220,7 @@ class TaskQueue:
 
                 if result:
                     task_id, score = result[0]
-                    task_id = task_id.decode("utf-8")
+                    # task_id is already a string with decode_responses=True
 
                     # Try to acquire lock on this task
                     lock_key = f"{self.lock_prefix}:{task_id}"
@@ -228,7 +237,7 @@ class TaskQueue:
                         task_data = await self.redis_client.get(task_key)
 
                         if task_data:
-                            task = pickle.loads(task_data)
+                            task = safe_loads(task_data)
                             logger.debug(
                                 f"Dequeued task {task_id} by worker {worker_id}"
                             )
@@ -240,7 +249,7 @@ class TaskQueue:
             return None
 
         except Exception as e:  # pylint: disable=broad-exception-caught
-            logger.error("Failed to dequeue task: {e!s}")
+            logger.error(f"Failed to dequeue task: {e!s}")
             return None
 
     async def store_result(self, result: TaskResult):
@@ -249,7 +258,7 @@ class TaskQueue:
             if not self.redis_client:
                 await self.initialize()
 
-            result_data = pickle.dumps(result)
+            result_data = safe_dumps(result)
             result_key = f"{self.result_store}:{result.task_id}"
 
             # Store result with 7 days TTL
@@ -265,7 +274,7 @@ class TaskQueue:
                 await self.redis_client.delete(task_key)
 
         except Exception as e:  # pylint: disable=broad-exception-caught
-            logger.error("Failed to store result for task {result.task_id}: {e!s}")
+            logger.error(f"Failed to store result for task {result.task_id}: {e!s}")
 
     async def get_result(self, task_id: str) -> Optional[TaskResult]:
         """Get task execution result"""
@@ -277,11 +286,11 @@ class TaskQueue:
             result_data = await self.redis_client.get(result_key)
 
             if result_data:
-                return pickle.loads(result_data)
+                return safe_loads(result_data)
             return None
 
         except Exception as e:  # pylint: disable=broad-exception-caught
-            logger.error("Failed to get result for task {task_id}: {e!s}")
+            logger.error(f"Failed to get result for task {task_id}: {e!s}")
             return None
 
     async def get_queue_stats(self) -> Dict[str, Any]:

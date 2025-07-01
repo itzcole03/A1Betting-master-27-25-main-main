@@ -1,2 +1,4 @@
-declare const ConfigurationMatrix: () => import("react/jsx-runtime").JSX.Element;
-export { ConfigurationMatrix };
+﻿declare const ConfigurationMatrix: () => import('react/jsx-runtime').JSX.Element;
+export { ConfigurationMatrix};
+
+

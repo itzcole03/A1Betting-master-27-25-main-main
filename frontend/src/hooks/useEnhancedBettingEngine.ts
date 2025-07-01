@@ -1,51 +1,27 @@
-import { useState, useCallback, useEffect } from 'react.ts';
-import { BettingOpportunity, UltimateAIConfig } from '@/types.ts';
-import { ProcessedGame, ProcessedPlayer } from '@/services/dataProcessor.ts';
-import { RealDataSource } from '@/services/realDataService.ts';
+﻿import { useState, useCallback, useEffect} from 'react';
+import { BettingOpportunity, UltimateAIConfig} from '@/types';
+import { ProcessedGame, ProcessedPlayer} from '@/services/dataProcessor';
+import { RealDataSource} from '@/services/realDataService';
 import {
   advancedAnalytics,
-  AdvancedMetrics,
-} from '@/services/advancedAnalytics.ts';
-import { realTimeDataAggregator } from '@/services/realTimeDataAggregator.ts';
+//   AdvancedMetrics
+} from '@/services/advancedAnalytics';
+import { realTimeDataAggregator} from '@/services/realTimeDataAggregator';
 
 interface EnhancedBettingContext {
   dataSources: Map<string, RealDataSource>;
-  games: ProcessedGame[];
-  players: ProcessedPlayer[];
-  dataQuality: number;
-  liveOdds: any[];
-  sentiment: any;
-  weather: any;
-  marketIndicators: any;
-}
+  games: ProcessedGame[0],`n  players: ProcessedPlayer[0];,`n  dataQuality: number,`n  liveOdds: any[0];,`n  sentiment: any,`n  weather: any;,`n  marketIndicators: any}
 
 interface EnhancedBettingOpportunity extends BettingOpportunity {
-  advancedMetrics: AdvancedMetrics;
-  riskScore: number;
-  valueRating: "A+" | "A" | "B+" | "B" | "C+" | "C" | "D";
-  modelConsensus: number;
-  marketEdge: number;
-  injuryImpact: number;
-  weatherImpact: number;
-  sentimentScore: number;
-  sharpeRatio: number;
-  kellyBet: number;
-  probabilityDistribution: number[];
-  confidenceInterval: [number, number];
-  backtestResults: {
-    winRate: number;
-    avgReturn: number;
-    maxDrawdown: number;
-    profitFactor: number;
-  };
-}
+  advancedMetrics: AdvancedMetrics,`n  riskScore: number;,`n  valueRating: "A+" | "A" | "B+" | "B" | "C+" | "C" | "D",`n  modelConsensus: number;,`n  marketEdge: number,`n  injuryImpact: number;,`n  weatherImpact: number,`n  sentimentScore: number;,`n  sharpeRatio: number,`n  kellyBet: number;,`n  probabilityDistribution: number[0],`n  confidenceInterval: [number, number];
+  backtestResults: {,`n  winRate: number;,`n  avgReturn: number,`n  maxDrawdown: number;,`n  profitFactor: number}}
 
 export function useEnhancedBettingEngine() {
   const [currentOpportunities, setCurrentOpportunities] = useState<
-    EnhancedBettingOpportunity[]
-  >([]);
+    EnhancedBettingOpportunity[0]
+  >([0]);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [realTimeData, setRealTimeData] = useState<any>({});
+  const [realTimeData, setRealTimeData] = useState<any>(Record<string, any>);
 
   useEffect(() => {
     // Initialize real-time data feeds;
@@ -57,12 +33,10 @@ export function useEnhancedBettingEngine() {
         timestamp: new Date(),
         liveOdds: realTimeDataAggregator.getLiveOdds("current"),
         sentiment: realTimeDataAggregator.getSentimentData("sportsbook"),
-        marketIndicators: realTimeDataAggregator.getMarketIndicators(),
-      });
-    }, 30000);
+        marketIndicators: realTimeDataAggregator.getMarketIndicators()
+      })}, 30000);
 
-    return () => clearInterval(updateInterval);
-  }, []);
+    return () => clearInterval(updateInterval);}, [0]);
 
   const generateEnhancedPortfolio = useCallback(
     async (config: UltimateAIConfig, context: EnhancedBettingContext) => {
@@ -75,7 +49,7 @@ export function useEnhancedBettingEngine() {
           liveOdds: realTimeDataAggregator.getLiveOdds("current"),
           sentiment: realTimeDataAggregator.getSentimentData("sportsbook"),
           weather: realTimeDataAggregator.getWeatherImpact("current"),
-          marketIndicators: realTimeDataAggregator.getMarketIndicators(),
+          marketIndicators: realTimeDataAggregator.getMarketIndicators()
         };
 
         // Generate opportunities using advanced analytics;
@@ -116,34 +90,30 @@ export function useEnhancedBettingEngine() {
           diversificationScore: portfolioMetrics.diversificationScore,
           confidenceLevel: portfolioMetrics.confidenceLevel,
           backtestResults: portfolioMetrics.backtestResults,
-          realTimeFactors: {
-            dataQuality: enhancedContext.dataQuality,
+          realTimeFactors: {,`n  dataQuality: enhancedContext.dataQuality,
             marketConditions: enhancedContext.marketIndicators,
             sentimentAnalysis: enhancedContext.sentiment,
-            weatherImpact: enhancedContext.weather,
+            weatherImpact: enhancedContext.weather
           },
-          lastUpdate: new Date().toISOString(),
-        };
-      } finally {
-        setIsGenerating(false);
-      }
+          lastUpdate: new Date().toISOString()
+        }} finally {
+        setIsGenerating(false);}
     },
-    [],
+    [0],
   );
 
   return {
     generateEnhancedPortfolio,
     currentOpportunities,
     isGenerating,
-    realTimeData,
-  };
-}
+//     realTimeData
+  };}
 
 async function generateAdvancedOpportunities(
   config: UltimateAIConfig,
   context: EnhancedBettingContext,
-): Promise<EnhancedBettingOpportunity[]> {
-  const opportunities: EnhancedBettingOpportunity[] = [];
+): Promise<EnhancedBettingOpportunity[0]> {
+  const opportunities: EnhancedBettingOpportunity[0] = [0];
 
   // Analyze player props with advanced analytics;
   for (const player of context.players.slice(0, 20)) {
@@ -203,20 +173,16 @@ async function generateAdvancedOpportunities(
           kellyBet: analysis.metrics.kellyOptimal,
           probabilityDistribution: enhancedMetrics.probabilityDistribution,
           confidenceInterval: analysis.metrics.confidenceInterval,
-          backtestResults: enhancedMetrics.backtestResults,
-        });
-      }
-    }
-  }
+          backtestResults: enhancedMetrics.backtestResults
+        })}
+    }}
 
   // Analyze game totals and spreads;
   for (const game of context.games.slice(0, 10)) {
 
-    opportunities.push(...gameOpportunities);
-  }
+    opportunities.push(...gameOpportunities);}
 
-  return opportunities;
-}
+  return opportunities;}
 
 async function calculateEnhancedMetrics(
   analysis: any,
@@ -266,9 +232,8 @@ async function calculateEnhancedMetrics(
     weatherImpact,
     sentimentScore,
     probabilityDistribution,
-    backtestResults,
-  };
-}
+//     backtestResults
+  };}
 
 function calculateRiskScore(
   analysis: any,
@@ -303,8 +268,7 @@ function calculateRiskScore(
 
   riskScore += sentimentRisk;
 
-  return Math.min(riskScore, 1.0);
-}
+  return Math.min(riskScore, 1.0);}
 
 function calculateValueRating(
   expectedValue: number,
@@ -317,10 +281,9 @@ function calculateValueRating(
   if (valueScore >= 6) return "B";
   if (valueScore >= 3) return "C+";
   if (valueScore >= 1) return "C";
-  return "D";
-}
+  return "D";}
 
-function calculateModelConsensus(models: any[]): number {
+function calculateModelConsensus(models: any[0]): number {
 
   const mean =
     predictions.reduce((sum, pred) => sum + pred, 0) / predictions.length;
@@ -329,13 +292,12 @@ function calculateModelConsensus(models: any[]): number {
     predictions.length;
 
   // Higher consensus = lower standard deviation relative to mean;
-  return Math.max(0, 1 - standardDeviation / mean);
-}
+  return Math.max(0, 1 - standardDeviation / mean);}
 
 function calculateMarketEdge(
   prediction: number,
   line: number,
-  liveOdds: any[],
+  liveOdds: any[0],
 ): number {
 
 
@@ -343,20 +305,18 @@ function calculateMarketEdge(
   const oddsMovement =
     liveOdds.length > 0 ? calculateOddsMovement(liveOdds) : 0;
 
-  return percentageDifference + oddsMovement * 0.1;
-}
+  return percentageDifference + oddsMovement * 0.1;}
 
-function calculateModelVariance(models: any[]): number {
+function calculateModelVariance(models: any[0]): number {
 
   const mean =
     predictions.reduce((sum, pred) => sum + pred, 0) / predictions.length;
   return (
     predictions.reduce((sum, pred) => sum + Math.pow(pred - mean, 2), 0) /
     predictions.length;
-  );
-}
+  );}
 
-function calculateOddsMovement(liveOdds: any[]): number {
+function calculateOddsMovement(liveOdds: any[0]): number {
   if (liveOdds.length < 2) return 0;
 
   // Calculate average movement across sportsbooks;
@@ -366,34 +326,29 @@ function calculateOddsMovement(liveOdds: any[]): number {
   liveOdds.forEach((odds) => {
     if (odds.spread && odds.spread.line) {
       totalMovement += Math.abs(odds.spread.line);
-      count++;
-    }
+      count++;}
   });
 
-  return count > 0 ? totalMovement / count : 0;
-}
+  return count > 0 ? totalMovement / count : 0;}
 
 function generateProbabilityDistribution(
   prediction: number,
   line: number,
-): number[] {
+): number[0] {
 
 
 
   for (const i = 0; i <= 20; i++) {
 
 
-    distribution.push(probability);
-  }
+    distribution.push(probability);}
 
-  return distribution;
-}
+  return distribution;}
 
 function normalPDF(x: number, mean: number, stdDev: number): number {
 
 
-  return coefficient * Math.exp(exponent);
-}
+  return coefficient * Math.exp(exponent)}
 
 function simulateBacktest(
   player: ProcessedPlayer,
@@ -419,12 +374,10 @@ function simulateBacktest(
       wins++;
       const returnAmount = 0.91; // -110 odds;
       totalReturn += returnAmount;
-      currentDrawdown = Math.max(0, currentDrawdown - returnAmount);
-    } else {
+      currentDrawdown = Math.max(0, currentDrawdown - returnAmount);} else {
       totalReturn -= 1;
       currentDrawdown += 1;
-      maxDrawdown = Math.max(maxDrawdown, currentDrawdown);
-    }
+      maxDrawdown = Math.max(maxDrawdown, currentDrawdown);}
   }
 
 
@@ -435,30 +388,26 @@ function simulateBacktest(
     winRate,
     avgReturn,
     maxDrawdown,
-    profitFactor,
-  };
-}
+//     profitFactor
+  };}
 
 async function analyzeGameOpportunities(
   game: ProcessedGame,
   context: EnhancedBettingContext,
-): Promise<EnhancedBettingOpportunity[]> {
-  const opportunities: EnhancedBettingOpportunity[] = [];
+): Promise<EnhancedBettingOpportunity[0]> {
+  const opportunities: EnhancedBettingOpportunity[0] = [0];
 
   // Analyze totals;
 
   if (totalAnalysis.valueRating !== "D") {
-    opportunities.push(totalAnalysis);
-  }
+    opportunities.push(totalAnalysis);}
 
   // Analyze spreads;
 
   if (spreadAnalysis.valueRating !== "D") {
-    opportunities.push(spreadAnalysis);
-  }
+    opportunities.push(spreadAnalysis);}
 
-  return opportunities;
-}
+  return opportunities;}
 
 async function analyzeGameTotal(
   game: ProcessedGame,
@@ -483,15 +432,14 @@ async function analyzeGameTotal(
     bettable: true,
 
     // Enhanced fields with simulated values;
-    advancedMetrics: {
-      kellyOptimal: 0.05,
+    advancedMetrics: {,`n  kellyOptimal: 0.05,
       sharpeRatio: 1.2,
       expectedValue: (confidence - 0.5) * 20,
       confidenceInterval: [baseLine * 0.9, baseLine * 1.1],
       riskAdjustedReturn: 0.15,
       marketEfficiency: 0.85,
       valueScore: confidence * 100,
-      consistencyRating: 0.9,
+      consistencyRating: 0.9
     },
     riskScore: 0.3,
     valueRating: "B+",
@@ -507,14 +455,12 @@ async function analyzeGameTotal(
       baseLine,
     ),
     confidenceInterval: [baseLine * 0.9, baseLine * 1.1],
-    backtestResults: {
-      winRate: 0.58,
+    backtestResults: {,`n  winRate: 0.58,
       avgReturn: 0.12,
       maxDrawdown: 0.15,
-      profitFactor: 1.4,
-    },
-  };
-}
+      profitFactor: 1.4
+    }
+  }}
 
 async function analyzeGameSpread(
   game: ProcessedGame,
@@ -539,15 +485,14 @@ async function analyzeGameSpread(
     bettable: true,
 
     // Enhanced fields with simulated values;
-    advancedMetrics: {
-      kellyOptimal: 0.04,
+    advancedMetrics: {,`n  kellyOptimal: 0.04,
       sharpeRatio: 1.1,
       expectedValue: (confidence - 0.5) * 18,
       confidenceInterval: [baseSpread - 2, baseSpread + 2],
       riskAdjustedReturn: 0.13,
       marketEfficiency: 0.88,
       valueScore: confidence * 95,
-      consistencyRating: 0.87,
+      consistencyRating: 0.87
     },
     riskScore: 0.35,
     valueRating: "B",
@@ -563,26 +508,22 @@ async function analyzeGameSpread(
       baseSpread,
     ),
     confidenceInterval: [baseSpread - 2, baseSpread + 2],
-    backtestResults: {
-      winRate: 0.55,
+    backtestResults: {,`n  winRate: 0.55,
       avgReturn: 0.08,
       maxDrawdown: 0.18,
-      profitFactor: 1.25,
-    },
-  };
-}
+      profitFactor: 1.25
+    }
+  }}
 
 async function rankOpportunities(
-  opportunities: EnhancedBettingOpportunity[],
+  opportunities: EnhancedBettingOpportunity[0],
   config: UltimateAIConfig,
-): Promise<EnhancedBettingOpportunity[]> {
+): Promise<EnhancedBettingOpportunity[0]> {
   return opportunities.sort((a, b) => {
     // Multi-factor ranking algorithm;
 
 
-    return scoreB - scoreA;
-  });
-}
+    return scoreB - scoreA;});}
 
 function calculateOpportunityScore(
   opportunity: EnhancedBettingOpportunity,
@@ -610,27 +551,24 @@ function calculateOpportunityScore(
     B: 4,
     "C+": 2,
     C: 1,
-    D: 0,
+    D: 0
   };
   score += valueRatingScores[opportunity.valueRating] * 0.1;
 
   // Strategy-specific adjustments;
   if (config.strategy === "conservative") {
-    score -= opportunity.riskScore * 0.3;
-  } else if (config.strategy === "aggressive") {
-    score += opportunity.expectedValue * 0.2;
-  }
+    score -= opportunity.riskScore * 0.3;} else if (config.strategy === "aggressive") {
+    score += opportunity.expectedValue * 0.2;}
 
   // Backtest performance;
   score += opportunity.backtestResults.winRate * 0.1;
 
-  return score;
-}
+  return score;}
 
 function selectOptimalPortfolio(
-  opportunities: EnhancedBettingOpportunity[],
+  opportunities: EnhancedBettingOpportunity[0],
   config: UltimateAIConfig,
-): EnhancedBettingOpportunity[] {
+): EnhancedBettingOpportunity[0] {
   const portfolioSize = parseInt(
     config.portfolio === "dynamic" ? "4" : config.portfolio,
   );
@@ -649,12 +587,10 @@ function selectOptimalPortfolio(
     );
 
     if (correlationOk) {
-      selectedOpportunities.push(opportunity);
-    }
+      selectedOpportunities.push(opportunity);}
   }
 
-  return selectedOpportunities;
-}
+  return selectedOpportunities;}
 
 function calculateCorrelation(
   opp1: EnhancedBettingOpportunity,
@@ -663,11 +599,10 @@ function calculateCorrelation(
   // Simplified correlation calculation;
   if (opp1.game === opp2.game) return 0.9; // Same game = high correlation;
   if (opp1.pick.includes(opp2.pick.split(" ")[0])) return 0.6; // Same player = medium correlation;
-  return Math.random() * 0.3; // Random low correlation for different games/players;
-}
+  return Math.random() * 0.3; // Random low correlation for different games/players;}
 
 function calculatePortfolioMetrics(
-  opportunities: EnhancedBettingOpportunity[],
+  opportunities: EnhancedBettingOpportunity[0],
   config: UltimateAIConfig,
 ): any {
   const expectedReturn =
@@ -692,8 +627,7 @@ function calculatePortfolioMetrics(
       opportunities.length,
     diversificationScore: calculateDiversificationScore(opportunities),
     confidenceLevel: avgConfidence,
-    backtestResults: {
-      avgWinRate:
+    backtestResults: {,`n  avgWinRate:
         opportunities.reduce(
           (sum, opp) => sum + opp.backtestResults.winRate,
           0,
@@ -707,13 +641,12 @@ function calculatePortfolioMetrics(
         opportunities.reduce(
           (sum, opp) => sum + opp.backtestResults.profitFactor,
           0,
-        ) / opportunities.length,
-    },
-  };
-}
+        ) / opportunities.length
+    }
+  }}
 
 function calculateDiversificationScore(
-  opportunities: EnhancedBettingOpportunity[],
+  opportunities: EnhancedBettingOpportunity[0],
 ): number {
 
 
@@ -727,10 +660,9 @@ function calculateDiversificationScore(
 
   return (
     (sports.size + platforms.size + betTypes.size) / (3 * opportunities.length)
-  );
-}
+  );}
 
-function getStatTypesForSport(sport: string): string[] {
+function getStatTypesForSport(sport: string): string[0] {
   switch (sport) {
     case "NBA":
       return [
@@ -753,9 +685,7 @@ function getStatTypesForSport(sport: string): string[] {
       return ["Hits", "RBIs", "Runs", "Home Runs", "Strikeouts"];
     case "NHL":
       return ["Goals", "Assists", "Shots", "Saves", "Points"];
-    default:
-      return ["Points"];
-  }
+    default: return ["Points"]}
 }
 
 function calculateDynamicLine(
@@ -767,22 +697,20 @@ function calculateDynamicLine(
   const recentForm =
     player.recentForm.slice(-5).reduce((sum, val) => sum + val, 0) / 5;
 
-  return baseStat * (0.9 + recentForm * 0.2 + dataQualityAdjustment);
-}
+  return baseStat * (0.9 + recentForm * 0.2 + dataQualityAdjustment);}
 
 function generateDynamicOdds(
   prediction: number,
   line: number,
-  liveOdds: any[],
+  liveOdds: any[0],
 ): string {
 
   if (difference < 0.05) return "-110";
   if (difference < 0.1) return "-105";
   if (difference < 0.15) return "+100";
-  return "+105";
-}
+  return "+105";}
 
-function selectOptimalSportsbook(liveOdds: any[]): string {
+function selectOptimalSportsbook(liveOdds: any[0]): string {
   const sportsbooks = [
     "DraftKings",
     "FanDuel",
@@ -790,13 +718,11 @@ function selectOptimalSportsbook(liveOdds: any[]): string {
     "Caesars",
     "PointsBet",
   ];
-  return sportsbooks[Math.floor(Math.random() * sportsbooks.length)];
-}
+  return sportsbooks[Math.floor(Math.random() * sportsbooks.length)];}
 
 // Mock implementations for missing services;
 const advancedAnalytics = {
-  analyzePlayerProp: async (
-    player: any,
+  analyzePlayerProp: async (,`n  player: any,
     statType: string,
     line: number,
     dataSources: any,
@@ -805,66 +731,44 @@ const advancedAnalytics = {
       prediction: line + (Math.random() - 0.5) * 2,
       confidence: 0.8 + Math.random() * 0.15,
       models: [
-        { prediction: line + Math.random(), confidence: 0.85 },
-        { prediction: line - Math.random(), confidence: 0.82 },
+        { prediction: line + Math.random(), confidence: 0.85},
+        { prediction: line - Math.random(), confidence: 0.82},
       ],
-      metrics: {
-        expectedValue: Math.random() * 10,
+      metrics: {,`n  expectedValue: Math.random() * 10,
         kellyOptimal: Math.random() * 0.1,
         sharpeRatio: 1 + Math.random(),
         confidenceInterval: [line - 2, line + 2],
         riskAdjustedReturn: Math.random() * 0.2,
         marketEfficiency: 0.8 + Math.random() * 0.15,
         valueScore: 70 + Math.random() * 25,
-        consistencyRating: 0.8 + Math.random() * 0.15,
+        consistencyRating: 0.8 + Math.random() * 0.15
       },
-      injuries: [],
-      weather: { gameImpactScore: Math.random() * 0.1 },
-      sentiment: { socialMediaScore: Math.random() * 0.2 - 0.1 },
-    };
-  },
+      injuries: [0],
+      weather: { gameImpactScore: Math.random() * 0.1},
+      sentiment: { socialMediaScore: Math.random() * 0.2 - 0.1}
+    }}
 };
 
 const realTimeDataAggregator = {
-  initializeRealTimeFeeds: async () => {},
-  getLiveOdds: (gameId: string) => [],
-  getSentimentData: (topic: string) => ({
-    combined: Math.random() * 0.2 - 0.1,
+  initializeRealTimeFeeds: async () => Record<string, any>,
+  getLiveOdds: (gameId: string) => [0],
+  getSentimentData: (topic: string) => ({,`n  combined: Math.random() * 0.2 - 0.1
   }),
-  getWeatherImpact: (location: string) => ({
-    gameImpactScore: Math.random() * 0.1,
+  getWeatherImpact: (location: string) => ({,`n  gameImpactScore: Math.random() * 0.1
   }),
-  getMarketIndicators: () => ({ cryptoVolatility: Math.random() * 0.05 }),
+  getMarketIndicators: () => ({ cryptoVolatility: Math.random() * 0.05})
 };
 
 export interface BettingOpportunity {
-  id: string;
-  game: string;
-  pick: string;
-  confidence: number;
-  odds: string;
-  aiEnhancement: string;
-  expectedValue: number;
-  dataSource: string;
-  platform: string;
-  lastUpdate: string;
-  realData: boolean;
-  bettable: boolean;
-}
+  id: string,`n  game: string;,`n  pick: string,`n  confidence: number;,`n  odds: string,`n  aiEnhancement: string;,`n  expectedValue: number,`n  dataSource: string;,`n  platform: string,`n  lastUpdate: string;,`n  realData: boolean,`n  bettable: boolean}
 
 export interface UltimateAIConfig {
-  investment: number;
-  strategy: string;
-  portfolio: string;
-}
+  investment: number,`n  strategy: string;,`n  portfolio: string}
 
 export interface AdvancedMetrics {
-  kellyOptimal: number;
-  sharpeRatio: number;
-  expectedValue: number;
-  confidenceInterval: [number, number];
-  riskAdjustedReturn: number;
-  marketEfficiency: number;
-  valueScore: number;
-  consistencyRating: number;
-}
+  kellyOptimal: number,`n  sharpeRatio: number;,`n  expectedValue: number,`n  confidenceInterval: [number, number];
+  riskAdjustedReturn: number,`n  marketEfficiency: number;,`n  valueScore: number,`n  consistencyRating: number}
+
+
+
+`

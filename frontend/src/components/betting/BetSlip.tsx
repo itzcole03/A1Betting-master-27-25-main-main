@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   Box,
   Typography,
@@ -10,24 +10,22 @@ import {
   TextField,
   Button,
   Divider,
-  Paper,
-} from '@mui/material.ts';
-import DeleteIcon from '@mui/icons-material/Delete.ts';
-import { useBettingStore } from '@/stores/bettingStore.ts';
-import { Bet } from '@/types/betting.ts';
+//   Paper
+} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useBettingStore} from '@/stores/bettingStore';
+import { Bet} from '@/types/betting';
 
 interface BetSlipProps {
-  onPlaceBet: (bet: Omit<Bet, 'id' | 'status' | 'timestamp' key={629680}>) => void;
-}
+  onPlaceBet: (bet: Omit<Bet, 'id' | 'status' | 'timestamp' key={629680}>) => void}
 
-const BetSlip: React.FC<BetSlipProps key={167092}> = ({ onPlaceBet }) => {
-  const { betSlip, removeBet, updateBetAmount, clearBetSlip } = useBettingStore();
+const BetSlip: React.FC<BetSlipProps key={167092}> = ({ onPlaceBet}) => {
+  const { betSlip, removeBet, updateBetAmount, clearBetSlip} = useBettingStore();
 
   const handleStakeChange = (betId: string, amount: string) => {
 
     if (!isNaN(numAmount) && numAmount >= 0) {
-      updateBetAmount(betId, numAmount);
-    }
+      updateBetAmount(betId, numAmount)}
   };
 
   const handlePlaceBets = () => {
@@ -38,11 +36,9 @@ const BetSlip: React.FC<BetSlipProps key={167092}> = ({ onPlaceBet }) => {
         selection: bet.selection,
         odds: bet.odds,
         stake: bet.stake,
-        potentialWinnings: bet.potentialWinnings,
-      });
-    });
-    clearBetSlip();
-  };
+        potentialWinnings: bet.potentialWinnings
+      })});
+    clearBetSlip();};
 
   if (betSlip.bets.length === 0) {
     return (
@@ -54,8 +50,7 @@ const BetSlip: React.FC<BetSlipProps key={167092}> = ({ onPlaceBet }) => {
           Add selections to your bet slip;
         </Typography>
       </Box>
-    );
-  }
+    );}
 
   return (
     <Box key={485947}>
@@ -84,15 +79,14 @@ const BetSlip: React.FC<BetSlipProps key={167092}> = ({ onPlaceBet }) => {
                   <Typography color="text.secondary" variant="body2" key={497604}>
                     Odds: {bet.odds}
                   </Typography>
-                </Box>
-              }
+                </Box>}
             />
             <ListItemSecondaryAction key={932522}>
               <Box alignItems="center" display="flex" gap={1} key={110385}>
                 <TextField;
-                  inputProps={{ min: 0, step: 0.01 }}
+                  inputProps={{ min: 0, step: 0.01}}
                   size="small"
-                  sx={{ width: '100px' }}
+                  sx={{ width: '100px'}}
                   type="number"
                   value={bet.stake}
                   onChange={e = key={903825}> handleStakeChange(bet.id, e.target.value)}
@@ -126,7 +120,10 @@ const BetSlip: React.FC<BetSlipProps key={167092}> = ({ onPlaceBet }) => {
         </Button>
       </Box>
     </Box>
-  );
-};
+  );};
 
 export default React.memo(BetSlip);
+
+
+
+

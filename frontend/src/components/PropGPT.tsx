@@ -1,21 +1,17 @@
-import React, { useState } from 'react';
+﻿import React, { useState} from 'react';
 
 // Fixed: Target import issue resolved
 interface ChatMessage {
-  id: string;
-  type: 'user' | 'assistant';
-  content: string;
-  timestamp: Date;
-}
+  id: string,`n  type: 'user' | 'assistant';,`n  content: string,`n  timestamp: Date}
 
 const PropOllama: React.FC = () => {
-  const [messages, setMessages] = useState<ChatMessage[]>([
+  const [messages, setMessages] = useState<ChatMessage[0]>([
     {
       id: '1',
       type: 'assistant',
       content:
         "Welcome to PropOllama Quantum Neural Interface! I'm powered by 47 neural networks and quantum processing. I can analyze props, predict outcomes, and provide real-time market insights. How can I assist your betting strategy today?",
-      timestamp: new Date(),
+      timestamp: new Date()
     },
   ]);
   const [input, setInput] = useState('');
@@ -24,11 +20,10 @@ const PropOllama: React.FC = () => {
   const handleSendMessage = async () => {
     if (!input.trim()) return;
 
-    const userMessage: ChatMessage = {
-      id: Date.now().toString(),
+    const userMessage: ChatMessage = {,`n  id: Date.now().toString(),
       type: 'user',
       content: input,
-      timestamp: new Date(),
+      timestamp: new Date()
     };
 
     setMessages(prev => [...prev, userMessage]);
@@ -46,31 +41,25 @@ const PropOllama: React.FC = () => {
         'Real-time odds arbitrage detected across 6 sportsbooks.',
       ];
 
-      const aiResponse: ChatMessage = {
-        id: (Date.now() + 1).toString(),
+      const aiResponse: ChatMessage = {,`n  id: (Date.now() + 1).toString(),
         type: 'assistant',
         content: responses[Math.floor(Math.random() * responses.length)],
-        timestamp: new Date(),
+        timestamp: new Date()
       };
 
       setMessages(prev => [...prev, aiResponse]);
-      setIsTyping(false);
-    }, 2500);
-  };
+      setIsTyping(false)}, 2500)};
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  };
+    setInput(e.target.value)};
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      handleSendMessage();
-    }
+      handleSendMessage()}
   };
 
   const handleQuickAction = (prompt: string) => {
-    setInput(prompt);
-  };
+    setInput(prompt)};
 
   return (
     <div className='space-y-8 animate-slide-in-up h-full flex flex-col'>
@@ -104,13 +93,9 @@ const PropOllama: React.FC = () => {
       <div className='flex-1 quantum-card rounded-3xl p-8 flex flex-col border border-electric-500/30'>
         <div className='flex-1 space-y-6 mb-8 overflow-y-auto max-h-96'>
           {messages.map(message => (
-            <div
-              key={message.id}
-              className={`chat-message flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
-            >
-              <div
-                className={`${message.type === 'user' ? 'order-2 ml-4' : 'order-1 mr-4'} flex-shrink-0`}
-              >
+            <div key={message.id}
+              className={`chat-message flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>`n            >
+              <div className={`${message.type === 'user' ? 'order-2 ml-4' : 'order-1 mr-4'} flex-shrink-0`}>`n              >
                 {message.type === 'user' ? (
                   <div className='w-10 h-10 bg-gradient-to-br from-electric-400 to-neon-blue rounded-xl flex items-center justify-center'>
                     <span className='text-black font-bold text-sm'>U</span>
@@ -122,13 +107,10 @@ const PropOllama: React.FC = () => {
                 )}
               </div>
               <div className={`${message.type === 'user' ? 'order-1' : 'order-2'} max-w-2xl`}>
-                <div
-                  className={`px-6 py-4 rounded-2xl ${
+                <div className={`px-6 py-4 rounded-2xl ${
                     message.type === 'user'
                       ? 'bg-electric-500 text-black font-semibold'
-                      : 'quantum-card border border-purple-500/30 text-white'
-                  }`}
-                >
+                      : 'quantum-card border border-purple-500/30 text-white'}`}>`n                >
                   {message.content}
                 </div>
                 <div className='text-xs text-gray-500 mt-2 font-mono'>
@@ -150,52 +132,43 @@ const PropOllama: React.FC = () => {
         </div>
 
         <div className='flex space-x-4'>
-          <input
-            type='text'
+          <input type='text'
             value={input}
             onChange={handleInputChange}
             onKeyPress={handleKeyPress}
             placeholder='Ask about props, odds, strategies, or market analysis...'
-            className='flex-1 p-4 rounded-2xl border-2 border-electric-500/30 focus:border-electric-500 bg-gray-800/50 text-white font-mono'
-          />
-          <button
-            onClick={handleSendMessage}
+            className='flex-1 p-4 rounded-2xl border-2 border-electric-500/30 focus:border-electric-500 bg-gray-800/50 text-white font-mono'>`n          />
+          <button onClick={handleSendMessage}
             disabled={!input.trim() || isTyping}
-            className='px-6 py-3 bg-electric-500 text-black font-bold rounded-2xl hover:bg-electric-400 transition-colors disabled:opacity-50'
-          >
+            className='px-6 py-3 bg-electric-500 text-black font-bold rounded-2xl hover:bg-electric-400 transition-colors disabled:opacity-50'>`n          >
             <i className='fas fa-paper-plane mr-2'></i>
-            SEND
+//             SEND
           </button>
         </div>
       </div>
 
       {/* Quick Actions */}
       <div className='grid grid-cols-2 md:grid-cols-4 gap-6'>
-        <button
-          onClick={() => handleQuickAction("Analyze tonight's NBA props with neural networks")}
+        <button onClick={() => handleQuickAction("Analyze tonight's NBA props with neural networks")}
           className='p-6 quantum-card rounded-2xl hover:shadow-neon transition-all text-center border border-green-500/30 hover:border-green-500/50'
         >
           <div className='text-4xl mb-3 text-green-400'>📊</div>
           <div className='text-sm font-bold font-cyber'>NEURAL ANALYSIS</div>
         </button>
-        <button
-          onClick={() => handleQuickAction('Show live line movements and market intelligence')}
+        <button onClick={() => handleQuickAction('Show live line movements and market intelligence')}
           className='p-6 quantum-card rounded-2xl hover:shadow-neon transition-all text-center border border-blue-500/30 hover:border-blue-500/50'
         >
           <div className='text-4xl mb-3 text-blue-400'>📈</div>
           <div className='text-sm font-bold font-cyber'>LIVE MARKETS</div>
         </button>
-        <button
-          onClick={() => handleQuickAction('Find quantum value bets with highest EV')}
+        <button onClick={() => handleQuickAction('Find quantum value bets with highest EV')}
           className='p-6 quantum-card rounded-2xl hover:shadow-neon transition-all text-center border border-yellow-500/30 hover:border-yellow-500/50'
         >
           <div className='text-4xl mb-3 text-yellow-400'>💰</div>
           <div className='text-sm font-bold font-cyber'>VALUE DETECTION</div>
         </button>
-        <button
-          onClick={() =>
-            handleQuickAction('Create advanced betting strategy with correlation analysis')
-          }
+        <button onClick={() =>
+            handleQuickAction('Create advanced betting strategy with correlation analysis')}
           className='p-6 quantum-card rounded-2xl hover:shadow-neon transition-all text-center border border-purple-500/30 hover:border-purple-500/50'
         >
           <div className='text-4xl mb-3 text-purple-400'>🧠</div>
@@ -203,7 +176,10 @@ const PropOllama: React.FC = () => {
         </button>
       </div>
     </div>
-  );
-};
+  )};
 
 export default PropOllama;
+
+
+
+`

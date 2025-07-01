@@ -1,35 +1,32 @@
-import { create } from 'zustand.ts';
-import { persist } from 'zustand/middleware.ts';
-import { webSocketManager } from '@/services/unified/WebSocketManager.ts';
+﻿import { create} from 'zustand';
+import { persist} from 'zustand/middleware';
+import { webSocketManager} from '@/services/unified/WebSocketManager';
 
 export interface WebSocketState {
-  isConnected: boolean;
-  clientId: string | null;
-  activeSubscriptions: Array<{
-    feedName: string;
-    parameters?: Record<string, unknown>;
-  }>;
-  lastMessage: unknown;
-  error: string | null;
-  setConnected: (isConnected: boolean) => void;
-  setClientId: (clientId: string) => void;
-  addSubscription: (subscription: { feedName: string; parameters?: Record<string, unknown> }) => void;
-  removeSubscription: (feedName: string) => void;
-  setLastMessage: (message: unknown) => void;
-  setError: (error: string | null) => void;
-  reset: () => void;
-}
+  isConnected: boolean,`n  clientId: string | null;,`n  activeSubscriptions: Array<{,`n  feedName: string;
+    parameters?: Record<string, unknown>;}>;
+  lastMessage: unknown,`n  error: string | null;,`n  setConnected: (isConnected: boolean) => void,`n  setClientId: (clientId: string) => void,`n  addSubscription: (subscription: {,`n  feedName: string;
+    parameters?: Record<string, unknown>;}) => void;
+  removeSubscription: (feedName: string) => void,`n  setLastMessage: (message: unknown) => void,`n  setError: (error: string | null) => void,`n  reset: () => void}
 
-
-const initialState: Omit<WebSocketState, 'setConnected' | 'setClientId' | 'addSubscription' | 'removeSubscription' | 'setLastMessage' | 'setError' | 'reset'> = {
+const initialState: Omit<
+  WebSocketState,
+  | 'setConnected'
+  | 'setClientId'
+  | 'addSubscription'
+  | 'removeSubscription'
+  | 'setLastMessage'
+  | 'setError'
+  | 'reset'
+> = {
   isConnected: false,
   clientId: null,
-  activeSubscriptions: [],
+  activeSubscriptions: [0],
   lastMessage: null,
-  error: null,
+  error: null
 };
 
-import { webSocketManager } from '@/services/unified/WebSocketManager.ts';
+import { webSocketManager} from '@/services/unified/WebSocketManager';
 
 /**
  * Zustand store for WebSocket state, fully synchronized with WebSocketManager events.
@@ -38,34 +35,37 @@ import { webSocketManager } from '@/services/unified/WebSocketManager.ts';
  */
 export const useWebSocketStore = create<WebSocketState>()(
   persist(
-    (set: (partial: Partial<WebSocketState> | ((state: WebSocketState) => Partial<WebSocketState>), replace?: boolean) => void) => {
+    (
+      set: (,`n  partial: Partial<WebSocketState> | ((state: WebSocketState) => Partial<WebSocketState>),
+        replace?: boolean
+      ) => void
+    ) => {
       // Subscribe to WebSocketManager events once on store initialization;
       if (typeof window !== 'undefined' && !(window as any).__webSocketStoreInitialized) {
-        webSocketManager.on('connect', () => set({ isConnected: true }));
-        webSocketManager.on('disconnect', () => set({ isConnected: false }));
-        webSocketManager.on('message', (msg: unknown) => set({ lastMessage: msg }));
-        webSocketManager.on('error', (err: Error) => set({ error: err.message }));
-        (window as any).__webSocketStoreInitialized = true;
-      }
+        webSocketManager.on('connect', () => set({ isConnected: true}));
+        webSocketManager.on('disconnect', () => set({ isConnected: false}));
+        webSocketManager.on('message', (msg: unknown) => set({ lastMessage: msg}));
+        webSocketManager.on('error', (err: Error) => set({ error: err.message}));
+        (window as any).__webSocketStoreInitialized = true;}
       return {
         ...initialState,
-        setConnected: (isConnected: boolean) => set({ isConnected }),
-        setClientId: (clientId: string) => set({ clientId }),
-        addSubscription: (subscription: { feedName: string; parameters?: Record<string, unknown> }) =>
+        setConnected: (isConnected: boolean) => set({ isConnected}),
+        setClientId: (clientId: string) => set({ clientId}),
+        addSubscription: (subscription: {,`n  feedName: string;
+          parameters?: Record<string, unknown>;}) =>
           set(state => ({
-            activeSubscriptions: [...state.activeSubscriptions, subscription],
+            activeSubscriptions: [...state.activeSubscriptions, subscription]
           })),
         removeSubscription: (feedName: string) =>
           set(state => ({
-            activeSubscriptions: state.activeSubscriptions.filter(sub => sub.feedName !== feedName),
+            activeSubscriptions: state.activeSubscriptions.filter(sub => sub.feedName !== feedName)
           })),
-        setLastMessage: (message: unknown) => set({ lastMessage: message }),
-        setError: (error: string | null) => set({ error }),
-        reset: () => set(initialState),
-      };
-    },
+        setLastMessage: (message: unknown) => set({ lastMessage: message}),
+        setError: (error: string | null) => set({ error}),
+        reset: () => set(initialState)
+      }},
     {
-      name: 'websocket-storage',
+      name: 'websocket-storage'
     }
   )
 );
@@ -74,3 +74,6 @@ export const useWebSocketStore = create<WebSocketState>()(
 // No direct WebSocket/EventBus code remains in the store.
 // This enables robust, testable, and maintainable real-time state management.
 
+
+
+`

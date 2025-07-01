@@ -1,6 +1,7 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface LoadingScreenProps {
-    message?: string;
-}
+  message?: string;}
 declare const _default: React.NamedExoticComponent<LoadingScreenProps>;
 export default _default;
+
+

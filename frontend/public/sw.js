@@ -1,8 +1,11 @@
 // A1Betting Progressive Web App Service Worker;
 // Phase 4: Advanced PWA with offline capabilities and native app experience;
 
-
-
+// Cache names;
+const CACHE_NAME = "a1betting-v1";
+const STATIC_CACHE = `${CACHE_NAME}-static`;
+const DYNAMIC_CACHE = `${CACHE_NAME}-dynamic`;
+const API_CACHE = `${CACHE_NAME}-api`;
 
 // Cache strategies for different resource types;
 const CACHE_STRATEGIES = {
@@ -76,13 +79,13 @@ self.addEventListener("activate", (event) => {
       // Clean up old caches;
       caches.keys().then((cacheNames) => {
         return Promise.all(
-          cacheNames;
+          cacheNames
             .filter((cacheName) => {
               return (
                 cacheName.startsWith("a1betting-") &&
                 cacheName !== STATIC_CACHE &&
                 cacheName !== DYNAMIC_CACHE &&
-                cacheName !== API_CACHE;
+                cacheName !== API_CACHE
               );
             })
             .map((cacheName) => {
@@ -105,6 +108,7 @@ self.addEventListener("fetch", (event) => {
   const { request } = event;
 
   // Skip cross-origin requests;
+  const url = new URL(request.url);
   if (url.origin !== location.origin) {
     return;
   }
@@ -162,7 +166,7 @@ self.addEventListener("push", (event) => {
   };
 
   if (event.data) {
-
+    const data = event.data.json();
     options.body = data.message || options.body;
     options.data = { ...options.data, ...data };
   }
@@ -224,7 +228,8 @@ function isPageRequest(request) {
 // Cache-first strategy for static assets;
 async function handleStaticAsset(request) {
   try {
-
+    const cache = await caches.open(STATIC_CACHE);
+    const cachedResponse = await cache.match(request);
 
     if (cachedResponse) {
       // Return cached version and update in background;
@@ -233,7 +238,7 @@ async function handleStaticAsset(request) {
     }
 
     // If not in cache, fetch and cache;
-
+    const response = await fetch(request);
     if (response.ok) {
       cache.put(request, response.clone());
     }
@@ -247,10 +252,10 @@ async function handleStaticAsset(request) {
 // Network-first strategy for API requests with offline fallback;
 async function handleAPIRequest(request) {
   try {
-
+    const response = await fetch(request);
     if (response.ok) {
       // Cache successful API responses;
-
+      const cache = await caches.open(API_CACHE);
       cache.put(request, response.clone());
     }
 
@@ -273,7 +278,8 @@ async function handleAPIRequest(request) {
 // Stale-while-revalidate for pages;
 async function handlePageRequest(request) {
   try {
-
+    const cache = await caches.open(DYNAMIC_CACHE);
+    const cachedResponse = await cache.match(request);
 
     // Return cached version immediately;
     if (cachedResponse) {
@@ -283,7 +289,7 @@ async function handlePageRequest(request) {
     }
 
     // If not cached, fetch and cache;
-
+    const response = await fetch(request);
     if (response.ok) {
       cache.put(request, response.clone());
     }
@@ -306,15 +312,16 @@ async function handlePageRequest(request) {
 // Generic dynamic content handler;
 async function handleDynamicRequest(request) {
   try {
-
+    const response = await fetch(request);
     if (response.ok) {
-
+      const cache = await caches.open(DYNAMIC_CACHE);
       cache.put(request, response.clone());
     }
 
     return response;
   } catch (error) {
 
+    const cache = await caches.open(DYNAMIC_CACHE);
     return cache.match(request) || caches.match("/offline.html");
   }
 }
@@ -322,7 +329,7 @@ async function handleDynamicRequest(request) {
 // Background cache update;
 async function updateCacheInBackground(request, cache) {
   try {
-
+    const response = await fetch(request);
     if (response.ok) {
       cache.put(request, response.clone());
     }
@@ -333,6 +340,7 @@ async function updateCacheInBackground(request, cache) {
 
 // Generate offline API responses;
 function generateOfflineAPIResponse(request) {
+  const url = new URL(request.url);
 
   // Mock data for different endpoints;
   const offlineData = {
@@ -375,6 +383,7 @@ async function syncOfflineBets() {
     // console statement removed
 
     // Get offline bets from IndexedDB;
+    const offlineBets = await getOfflineBets();
 
     for (const bet of offlineBets) {
       try {
@@ -444,7 +453,7 @@ self.addEventListener("message", (event) => {
 // Cache analytics data for offline viewing;
 async function cacheAnalyticsData(data) {
   try {
-
+    const cache = await caches.open(API_CACHE);
     const response = new Response(JSON.stringify(data), {
       headers: { "Content-Type": "application/json" },
     });

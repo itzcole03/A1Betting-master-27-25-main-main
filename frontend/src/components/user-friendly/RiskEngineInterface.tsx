@@ -1,5 +1,5 @@
-import React, { useState  } from 'react.ts';
-import { Shield, AlertTriangle, TrendingDown, BarChart3, Settings, Target } from 'lucide-react.ts';
+﻿import React, { useState} from 'react';
+import { Shield, AlertTriangle, TrendingDown, BarChart3, Settings, Target} from 'lucide-react';
 
 const RiskEngineInterface: React.FC = () => {
   const [riskLevel, setRiskLevel] = useState<'low' | 'medium' | 'high'>('medium');
@@ -58,24 +58,21 @@ const RiskEngineInterface: React.FC = () => {
                 <button;
                   onClick={() = key={887064}> setRiskLevel('low')}
                   className={`px-3 py-1 rounded text-sm ${
-                    riskLevel === 'low' ? 'bg-green-600 text-white' : 'bg-gray-700 text-gray-300'
-                  }`}
+                    riskLevel === 'low' ? 'bg-green-600 text-white' : 'bg-gray-700 text-gray-300'}`}
                 >
                   Low;
                 </button>
                 <button;
                   onClick={() = key={887064}> setRiskLevel('medium')}
                   className={`px-3 py-1 rounded text-sm ${
-                    riskLevel === 'medium' ? 'bg-yellow-600 text-white' : 'bg-gray-700 text-gray-300'
-                  }`}
+                    riskLevel === 'medium' ? 'bg-yellow-600 text-white' : 'bg-gray-700 text-gray-300'}`}
                 >
                   Medium;
                 </button>
                 <button;
                   onClick={() = key={887064}> setRiskLevel('high')}
                   className={`px-3 py-1 rounded text-sm ${
-                    riskLevel === 'high' ? 'bg-red-600 text-white' : 'bg-gray-700 text-gray-300'
-                  }`}
+                    riskLevel === 'high' ? 'bg-red-600 text-white' : 'bg-gray-700 text-gray-300'}`}
                 >
                   High;
                 </button>
@@ -187,7 +184,10 @@ const RiskEngineInterface: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  );};
 
 export default RiskEngineInterface;
+
+
+
+`

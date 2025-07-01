@@ -20,18 +20,21 @@ This directory contains Python modules for system analysis, including performanc
 ## File Breakdown
 
 ### performance.py
+
 - **Purpose:** Implements the PerformanceAnalyzer class for analyzing system performance metrics (CPU, memory, disk, network, processes) and providing health insights.
 - **Usage:** Used to process collected metrics, compare them to configurable thresholds, and generate warnings or critical alerts.
 - **Notes:** Integrates with a Config object for dynamic thresholds. Calculates overall system health score.
 - **Status:** Actively used; not a candidate for removal.
 
 ### resources.py
+
 - **Purpose:** Implements the ResourceAnalyzer class for analyzing system resource utilization (disk, memory, swap, file system, processes) and providing health insights.
 - **Usage:** Used to process collected resource metrics, compare them to configurable thresholds, and generate warnings or critical alerts.
 - **Notes:** Integrates with a Config object for dynamic thresholds. Calculates overall resource health score.
 - **Status:** Actively used; not a candidate for removal.
 
 ### security.py
+
 - **Purpose:** Implements the SecurityAnalyzer class for analyzing system security metrics (ports, services, updates, firewall, antivirus, SSL certificates) and providing security scores.
 - **Usage:** Used to process collected security metrics, check for vulnerabilities, and generate warnings or critical alerts.
 - **Notes:** Integrates with a Config object for dynamic checks. Calculates overall security score.
@@ -39,4 +42,4 @@ This directory contains Python modules for system analysis, including performanc
 
 ---
 
-*This documentation is auto-generated and should be updated as files are added, removed, or refactored in the analysis directory.*
+_This documentation is auto-generated and should be updated as files are added, removed, or refactored in the analysis directory._

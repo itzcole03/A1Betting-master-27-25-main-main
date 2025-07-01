@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Unified Data Integration Service;
  * Orchestrates data from multiple real providers:
  * - DailyFantasy: DraftKings, SportsDataIO, FairPlay;
@@ -6,89 +6,48 @@
  * - Sportsbooks: DraftKings, FanDuel, BetMGM, Caesars;
  */
 
-import { enhancedDailyFantasyService } from './DailyFantasyService.ts';
-import { enhancedTheOddsService } from './TheOddsService.ts';
-import { sportsbookDataService } from './SportsbookDataService.ts';
-import { optimizedSportsRadarService } from './OptimizedSportsRadarService.ts';
-import { autonomousSportsbookService } from './AutonomousSportsbookService.ts';
-import { prizePicksProjectionsService } from './PrizePicksProjectionsService.ts';
+import { enhancedDailyFantasyService} from './DailyFantasyService';
+import { enhancedTheOddsService} from './TheOddsService';
+import { sportsbookDataService} from './SportsbookDataService';
+import { optimizedSportsRadarService} from './OptimizedSportsRadarService';
+import { autonomousSportsbookService} from './AutonomousSportsbookService';
+import { prizePicksProjectionsService} from './PrizePicksProjectionsService';
 
 interface UnifiedSportsData {
   sport: string;
-  league?: string;
-  events: Array<{
-    event_id: string;
-    home_team: string;
-    away_team: string;
-    commence_time: string;
-    odds: {
-      moneyline_home: number;
-      moneyline_away: number;
-      spread_line: number;
-      total_line: number;
-      best_sportsbook: string;
-    };
+  league?: string
+  events: Array<{,`n  event_id: string;,`n  home_team: string,`n  away_team: string;,`n  commence_time: string,`n  odds: {,`n  moneyline_home: number,`n  moneyline_away: number;,`n  spread_line: number,`n  total_line: number;,`n  best_sportsbook: string};
     dfs_data?: {
-      contests: number;
-      avg_entry_fee: number;
-      top_players: Array<{
-        name: string;
-        position: string;
-        salary: number;
-        projected_points: number;
-      }>;
-    };
+      contests: number,`n  avg_entry_fee: number;,`n  top_players: Array<{,`n  name: string;,`n  position: string,`n  salary: number;,`n  projected_points: number}>};
     arbitrage_opportunities?: Array<{
-      type: string;
-      profit_margin: number;
-    }>;
-  }>;
-  sources: {
-    odds_providers: string[];
-    dfs_providers: string[];
-    sportsbooks: string[];
-  };
-  last_updated: string;
-}
+      type: string,`n  profit_margin: number}>}>;
+  sources: {,`n  odds_providers: string[0];,`n  dfs_providers: string[0],`n  sportsbooks: string[0]};
+  last_updated: string}
 
 interface DataSourceHealth {
-  provider: string;
-  status: "healthy" | "degraded" | "offline";
-  response_time: number;
-  last_updated: string;
-  availability_percentage: number;
-}
+  provider: string,`n  status: "healthy" | "degraded" | "offline";,`n  response_time: number,`n  last_updated: string;,`n  availability_percentage: number}
 
 interface IntegrationMetrics {
-  total_requests: number;
-  successful_requests: number;
-  failed_requests: number;
-  average_response_time: number;
-  cache_hit_rate: number;
-  uptime_percentage: number;
-  data_freshness_score: number;
-}
+  total_requests: number,`n  successful_requests: number;,`n  failed_requests: number,`n  average_response_time: number;,`n  cache_hit_rate: number,`n  uptime_percentage: number;,`n  data_freshness_score: number}
 
 export class UnifiedDataIntegrationService {
-  private readonly cache: Map<string, { data: any; timestamp: number }>;
+  private readonly cache: Map<string, { data: any; timestamp: number}>;
   private readonly cacheTTL: number = 60000; // 1 minute for unified data;
   private readonly healthCheckInterval: number = 300000; // 5 minutes;
 
   private healthStatus: Map<string, DataSourceHealth> = new Map();
-  private metrics: IntegrationMetrics = {
-    total_requests: 0,
+  private metrics: IntegrationMetrics = {,`n  total_requests: 0,
     successful_requests: 0,
     failed_requests: 0,
     average_response_time: 0,
     cache_hit_rate: 0,
     uptime_percentage: 100,
-    data_freshness_score: 100,
+    data_freshness_score: 100
   };
 
   constructor() {
     this.cache = new Map();
-    this.startHealthMonitoring();
-  }
+    this.startHealthMonitoring();}
 
   /**
    * Get unified sports data combining all providers;
@@ -107,8 +66,7 @@ export class UnifiedDataIntegrationService {
       if (cached && Date.now() - cached.timestamp < this.cacheTTL) {
         this.metrics.cache_hit_rate =
           this.metrics.cache_hit_rate * 0.9 + 0.1 * 1;
-        return cached.data;
-      }
+        return cached.data;}
 
       // Fetch data from all sources in parallel - prioritizing configured APIs;
       const [theOddsData, sportsRadarData, dfsData, autonomousSportsbookData] =
@@ -132,7 +90,7 @@ export class UnifiedDataIntegrationService {
       // Cache the result;
       this.cache.set(cacheKey, {
         data: unifiedData,
-        timestamp: Date.now(),
+        timestamp: Date.now()
       });
 
       this.metrics.successful_requests++;
@@ -141,14 +99,12 @@ export class UnifiedDataIntegrationService {
         0.1 * (Date.now() - startTime);
       this.metrics.cache_hit_rate = this.metrics.cache_hit_rate * 0.9 + 0.1 * 0;
 
-      return unifiedData;
-    } catch (error) {
+      return unifiedData;} catch (error) {
       this.metrics.failed_requests++;
       // console statement removed
 
       // Return fallback data;
-      return this.getFallbackData(sport, league);
-    }
+      return this.getFallbackData(sport, league);}
   }
 
   /**
@@ -163,26 +119,24 @@ export class UnifiedDataIntegrationService {
     autonomousResult: PromiseSettledResult<any>,
   ): Promise<UnifiedSportsData> {
     const sources = {
-      odds_providers: [] as string[],
-      dfs_providers: [] as string[],
-      sportsbooks: [] as string[],
+      odds_providers: [0] as string[0],
+      dfs_providers: [0] as string[0],
+      sportsbooks: [0] as string[0]
     };
 
-    const events: any[] = [];
+    const events: any[0] = [0];
 
     // Process The-Odds-API data (Primary)
-    let theOddsEvents: any[] = [];
+    let theOddsEvents: any[0] = [0];
     if (theOddsResult.status === "fulfilled" && theOddsResult.value) {
       theOddsEvents = theOddsResult.value;
-      sources.odds_providers.push("The-Odds-API");
-    }
+      sources.odds_providers.push("The-Odds-API");}
 
     // Process SportsRadar data (Primary)
-    let sportsRadarEvents: any[] = [];
+    let sportsRadarEvents: any[0] = [0];
     if (sportsRadarResult.status === "fulfilled" && sportsRadarResult.value) {
       sportsRadarEvents = sportsRadarResult.value;
-      sources.odds_providers.push("SportsRadar");
-    }
+      sources.odds_providers.push("SportsRadar");}
 
     // Process DFS data;
     let dfsData: any = null;
@@ -190,15 +144,13 @@ export class UnifiedDataIntegrationService {
       dfsData = dfsResult.value;
       sources.dfs_providers = dfsData.sources;
         ? Object.values(dfsData.sources)
-        : ["DraftKings", "SportsDataIO"];
-    }
+        : ["DraftKings", "SportsDataIO"];}
 
     // Process autonomous sportsbook data;
-    let autonomousEvents: any[] = [];
+    let autonomousEvents: any[0] = [0];
     if (autonomousResult.status === "fulfilled" && autonomousResult.value) {
       autonomousEvents = autonomousResult.value;
-      sources.sportsbooks.push("DraftKings", "FanDuel", "BetMGM", "Caesars");
-    }
+      sources.sportsbooks.push("DraftKings", "FanDuel", "BetMGM", "Caesars");}
 
     // Merge events data;
 
@@ -210,16 +162,14 @@ export class UnifiedDataIntegrationService {
         home_team: event.home_team,
         away_team: event.away_team,
         commence_time: event.commence_time,
-        odds: {
-          moneyline_home: event.best_odds?.home_ml?.odds || 0,
+        odds: {,`n  moneyline_home: event.best_odds?.home_ml?.odds || 0,
           moneyline_away: event.best_odds?.away_ml?.odds || 0,
           spread_line: event.best_odds?.home_spread?.line || 0,
           total_line: event.best_odds?.over?.line || 0,
           best_sportsbook:
-            event.best_odds?.home_ml?.sportsbook || "The-Odds-API",
-        },
-      });
-    }
+            event.best_odds?.home_ml?.sportsbook || "The-Odds-API"
+        }
+      })}
 
     // Add SportsRadar events;
     for (const event of sportsRadarEvents) {
@@ -230,15 +180,13 @@ export class UnifiedDataIntegrationService {
           home_team: event.home_team,
           away_team: event.away_team,
           commence_time: event.commence_time,
-          odds: {
-            moneyline_home: event.bookmakers?.[0]?.moneyline_home || 0,
+          odds: {,`n  moneyline_home: event.bookmakers?.[0]?.moneyline_home || 0,
             moneyline_away: event.bookmakers?.[0]?.moneyline_away || 0,
             spread_line: event.bookmakers?.[0]?.spread_line || 0,
             total_line: event.bookmakers?.[0]?.total_line || 0,
-            best_sportsbook: "SportsRadar",
-          },
-        });
-      }
+            best_sportsbook: "SportsRadar"
+          }
+        })}
     }
 
     // Add autonomous sportsbook data;
@@ -250,15 +198,13 @@ export class UnifiedDataIntegrationService {
           home_team: event.event.split(" vs ")[0] || "Home",
           away_team: event.event.split(" vs ")[1] || "Away",
           commence_time: event.last_updated,
-          odds: {
-            moneyline_home: event.odds.moneyline_home || 0,
+          odds: {,`n  moneyline_home: event.odds.moneyline_home || 0,
             moneyline_away: event.odds.moneyline_away || 0,
             spread_line: event.odds.spread_line || 0,
             total_line: event.odds.total_line || 0,
-            best_sportsbook: event.sportsbook,
-          },
-        });
-      }
+            best_sportsbook: event.sportsbook
+          }
+        })}
     }
 
     // Add DFS data to events;
@@ -271,19 +217,16 @@ export class UnifiedDataIntegrationService {
             0,
           ) / dfsData.contests.length,
         top_players:
-          dfsData.players?.slice(0, 5).map((p: any) => ({
-            name: p.name,
+          dfsData.players?.slice(0, 5).map((p: any) => ({,`n  name: p.name,
             position: p.position,
             salary: p.salary,
-            projected_points: p.projected_fantasy_points || p.projectedPoints,
-          })) || [],
+            projected_points: p.projected_fantasy_points || p.projectedPoints
+          })) || [0]
       };
 
       // Add DFS data to all events;
       eventMap.forEach((event) => {
-        event.dfs_data = dfsInfo;
-      });
-    }
+        event.dfs_data = dfsInfo;});}
 
     // Get arbitrage opportunities;
     try {
@@ -302,23 +245,19 @@ export class UnifiedDataIntegrationService {
           event.arbitrage_opportunities = [
             {
               type: "Moneyline",
-              profit_margin: matchingArb.profit_margin,
+              profit_margin: matchingArb.profit_margin
             },
-          ];
-        }
-      });
-    } catch (error) {
-      // console statement removed
-    }
+          ]}
+      });} catch (error) {
+      // console statement removed}
 
     return {
       sport,
       league,
       events: Array.from(eventMap.values()),
       sources,
-      last_updated: new Date().toISOString(),
-    };
-  }
+      last_updated: new Date().toISOString()
+    }}
 
   /**
    * Get fallback data when all providers fail;
@@ -333,61 +272,45 @@ export class UnifiedDataIntegrationService {
           home_team: "Lakers",
           away_team: "Warriors",
           commence_time: new Date(Date.now() + 3600000).toISOString(),
-          odds: {
-            moneyline_home: -110,
+          odds: {,`n  moneyline_home: -110,
             moneyline_away: +105,
             spread_line: -3.5,
             total_line: 225.5,
-            best_sportsbook: "Mock Data",
+            best_sportsbook: "Mock Data"
           },
-          dfs_data: {
-            contests: 2,
+          dfs_data: {,`n  contests: 2,
             avg_entry_fee: 25,
             top_players: [
               {
                 name: "LeBron James",
                 position: "SF",
                 salary: 11500,
-                projected_points: 58.2,
+                projected_points: 58.2
               },
               {
                 name: "Stephen Curry",
                 position: "PG",
                 salary: 10800,
-                projected_points: 54.7,
+                projected_points: 54.7
               },
-            ],
-          },
+            ]
+          }
         },
       ],
-      sources: {
-        odds_providers: ["Fallback"],
+      sources: {,`n  odds_providers: ["Fallback"],
         dfs_providers: ["Fallback"],
-        sportsbooks: ["Fallback"],
+        sportsbooks: ["Fallback"]
       },
-      last_updated: new Date().toISOString(),
-    };
-  }
+      last_updated: new Date().toISOString()
+    }}
 
   /**
    * Get real-time arbitrage opportunities across all providers;
    */
   async getArbitrageOpportunities(sport: string): Promise<
     Array<{
-      event: string;
-      opportunity_type: string;
-      profit_margin: number;
-      required_capital: number;
-      bets: Array<{
-        sportsbook: string;
-        market: string;
-        odds: number;
-        stake: number;
-        potential_return: number;
-      }>;
-      confidence_score: number;
-      time_sensitivity: "high" | "medium" | "low";
-    }>
+      event: string,`n  opportunity_type: string;,`n  profit_margin: number,`n  required_capital: number;,`n  bets: Array<{,`n  sportsbook: string;,`n  market: string,`n  odds: number;,`n  stake: number,`n  potential_return: number}>;
+      confidence_score: number,`n  time_sensitivity: "high" | "medium" | "low"}>
   > {
     try {
       const [theOddsArb, sportsbookArb] = await Promise.allSettled([
@@ -395,7 +318,7 @@ export class UnifiedDataIntegrationService {
         sportsbookDataService.getArbitrageOpportunities(sport),
       ]);
 
-      const opportunities: any[] = [];
+      const opportunities: any[0] = [0];
 
       // Process The-Odds-API arbitrage;
       if (theOddsArb.status === "fulfilled") {
@@ -405,12 +328,11 @@ export class UnifiedDataIntegrationService {
             opportunity_type: arb.type,
             profit_margin: arb.profit_margin,
             required_capital: arb.total_stake,
-            bets: arb.bets.map((bet: any) => ({
-              sportsbook: bet.sportsbook,
+            bets: arb.bets.map((bet: any) => ({,`n  sportsbook: bet.sportsbook,
               market: bet.outcome,
               odds: bet.odds,
               stake: bet.stake,
-              potential_return: bet.stake * bet.odds,
+              potential_return: bet.stake * bet.odds
             })),
             confidence_score: Math.min(arb.profit_margin * 10, 100),
             time_sensitivity:
@@ -418,9 +340,8 @@ export class UnifiedDataIntegrationService {
                 ? "high"
                 : arb.profit_margin > 1;
                   ? "medium"
-                  : "low",
-          });
-        }
+                  : "low"
+          });}
       }
 
       // Process sportsbook arbitrage;
@@ -438,12 +359,11 @@ export class UnifiedDataIntegrationService {
               opportunity_type: "Moneyline",
               profit_margin: arb.profit_margin,
               required_capital: arb.total_stake,
-              bets: arb.bets.map((bet: any) => ({
-                sportsbook: bet.sportsbook,
+              bets: arb.bets.map((bet: any) => ({,`n  sportsbook: bet.sportsbook,
                 market: bet.market,
                 odds: bet.odds,
                 stake: bet.stake,
-                potential_return: bet.stake * bet.odds,
+                potential_return: bet.stake * bet.odds
               })),
               confidence_score: Math.min(arb.profit_margin * 10, 100),
               time_sensitivity:
@@ -451,18 +371,14 @@ export class UnifiedDataIntegrationService {
                   ? "high"
                   : arb.profit_margin > 1;
                     ? "medium"
-                    : "low",
-            });
-          }
-        }
-      }
+                    : "low"
+            });}
+        }}
 
       // Sort by profit margin;
-      return opportunities.sort((a, b) => b.profit_margin - a.profit_margin);
-    } catch (error) {
+      return opportunities.sort((a, b) => b.profit_margin - a.profit_margin);} catch (error) {
       // console statement removed
-      return [];
-    }
+      return [0];}
   }
 
   /**
@@ -473,28 +389,11 @@ export class UnifiedDataIntegrationService {
     strategy: "cash" | "gpp" | "balanced" = "balanced",
     site: "draftkings" | "fanduel" = "draftkings",
   ): Promise<{
-    lineup: Array<{
-      player: string;
-      position: string;
-      salary: number;
-      projected_points: number;
-      ownership_projection: number;
-      value_score: number;
-    }>;
-    total_salary: number;
-    projected_points: number;
-    optimization_score: number;
-    confidence: number;
+    lineup: Array<{,`n  player: string;,`n  position: string,`n  salary: number;,`n  projected_points: number,`n  ownership_projection: number;,`n  value_score: number}>;
+    total_salary: number,`n  projected_points: number;,`n  optimization_score: number,`n  confidence: number;
     stack_info?: {
-      primary_stack: string;
-      correlation_bonus: number;
-    };
-    meta: {
-      generated_at: string;
-      strategy_used: string;
-      data_sources: string[];
-    };
-  }> {
+      primary_stack: string,`n  correlation_bonus: number};
+    meta: {,`n  generated_at: string;,`n  strategy_used: string,`n  data_sources: string[0]}}> {
     try {
       const [dfsData, optimalLineup] = await Promise.allSettled([
         enhancedDailyFantasyService.getComprehensiveDFSData(sport),
@@ -506,7 +405,7 @@ export class UnifiedDataIntegrationService {
         ),
       ]);
 
-      let lineup: any[] = [];
+      let lineup: any[0] = [0];
       const totalSalary = 0;
       const projectedPoints = 0;
       const optimizationScore = 0;
@@ -514,23 +413,20 @@ export class UnifiedDataIntegrationService {
 
       if (optimalLineup.status === "fulfilled" && optimalLineup.value) {
 
-        lineup = optimal.players.map((player: any) => ({
-          player: player.name,
+        lineup = optimal.players.map((player: any) => ({,`n  player: player.name,
           position: player.position,
           salary: player.salary,
           projected_points: player.projectedPoints,
           ownership_projection: Math.random() * 30, // Mock ownership;
-          value_score: (player.projectedPoints / player.salary) * 1000,
+          value_score: (player.projectedPoints / player.salary) * 1000
         }));
         totalSalary = optimal.totalSalary;
         projectedPoints = optimal.projectedPoints;
         optimizationScore = optimal.optimization_score;
-        stackInfo = optimal.stack_info;
-      } else if (dfsData.status === "fulfilled" && dfsData.value?.players) {
+        stackInfo = optimal.stack_info;} else if (dfsData.status === "fulfilled" && dfsData.value?.players) {
         // Fallback to simple optimization;
         const players = dfsData.value.players.slice(0, 8); // Typical lineup size;
-        lineup = players.map((player: any) => ({
-          player: player.name,
+        lineup = players.map((player: any) => ({,`n  player: player.name,
           position: player.position,
           salary: player.salary,
           projected_points:
@@ -539,7 +435,7 @@ export class UnifiedDataIntegrationService {
           value_score:
             ((player.projected_fantasy_points || player.projectedPoints) /
               player.salary) *
-            1000,
+//             1000
         }));
         totalSalary = players.reduce(
           (sum: number, p: any) => sum + p.salary,
@@ -550,8 +446,7 @@ export class UnifiedDataIntegrationService {
             sum + (p.projected_fantasy_points || p.projectedPoints),
           0,
         );
-        optimizationScore = 0.85;
-      }
+        optimizationScore = 0.85;}
 
       return {
         lineup,
@@ -560,19 +455,16 @@ export class UnifiedDataIntegrationService {
         optimization_score: optimizationScore,
         confidence: optimizationScore * 100,
         stack_info: stackInfo,
-        meta: {
-          generated_at: new Date().toISOString(),
+        meta: {,`n  generated_at: new Date().toISOString(),
           strategy_used: strategy,
           data_sources:
             dfsData.status === "fulfilled"
-              ? Object.values(dfsData.value?.sources || {})
-              : ["Fallback"],
-        },
-      };
-    } catch (error) {
+              ? Object.values(dfsData.value?.sources || Record<string, any>)
+              : ["Fallback"]
+        }
+      }} catch (error) {
       // console statement removed
-      throw error;
-    }
+      throw error;}
   }
 
   /**
@@ -580,23 +472,21 @@ export class UnifiedDataIntegrationService {
    */
   private startHealthMonitoring(): void {
     setInterval(async () => {
-      await this.updateHealthStatus();
-    }, this.healthCheckInterval);
+      await this.updateHealthStatus();}, this.healthCheckInterval);
 
     // Initial health check;
-    this.updateHealthStatus();
-  }
+    this.updateHealthStatus();}
 
   /**
    * Update health status for all providers;
    */
   private async updateHealthStatus(): Promise<void> {
     const providers = [
-      { name: "TheOdds-API", service: enhancedTheOddsService },
-      { name: "SportsRadar", service: optimizedSportsRadarService },
-      { name: "PrizePicks-Free", service: prizePicksProjectionsService },
-      { name: "DailyFantasy", service: enhancedDailyFantasyService },
-      { name: "AutonomousSportsbooks", service: autonomousSportsbookService },
+      { name: "TheOdds-API", service: enhancedTheOddsService},
+      { name: "SportsRadar", service: optimizedSportsRadarService},
+      { name: "PrizePicks-Free", service: prizePicksProjectionsService},
+      { name: "DailyFantasy", service: enhancedDailyFantasyService},
+      { name: "AutonomousSportsbooks", service: autonomousSportsbookService},
     ];
 
     for (const provider of providers) {
@@ -609,9 +499,8 @@ export class UnifiedDataIntegrationService {
           status: health.overall === "healthy" ? "healthy" : "degraded",
           response_time: responseTime,
           last_updated: new Date().toISOString(),
-          availability_percentage: this.calculateAvailability(provider.name),
-        });
-      } catch (error) {
+          availability_percentage: this.calculateAvailability(provider.name)
+        })} catch (error) {
         this.healthStatus.set(provider.name, {
           provider: provider.name,
           status: "offline",
@@ -620,13 +509,11 @@ export class UnifiedDataIntegrationService {
           availability_percentage: this.calculateAvailability(
             provider.name,
             false,
-          ),
-        });
-      }
+          )
+        })}
     }
 
-    this.updateMetrics();
-  }
+    this.updateMetrics();}
 
   /**
    * Calculate availability percentage for a provider;
@@ -639,8 +526,7 @@ export class UnifiedDataIntegrationService {
     if (!current) return isHealthy ? 100 : 0;
 
     // Simple moving average;
-    return current.availability_percentage * 0.9 + (isHealthy ? 10 : 0);
-  }
+    return current.availability_percentage * 0.9 + (isHealthy ? 10 : 0);}
 
   /**
    * Update overall metrics;
@@ -658,54 +544,43 @@ export class UnifiedDataIntegrationService {
       Date.now() -
       Math.max(...Array.from(this.cache.values()).map((c) => c.timestamp));
 
-    this.metrics.data_freshness_score = Math.max(0, 100 - cacheAge / 60000); // Decrease by age in minutes;
-  }
+    this.metrics.data_freshness_score = Math.max(0, 100 - cacheAge / 60000); // Decrease by age in minutes;}
 
   /**
    * Get comprehensive health status;
    */
   getHealthStatus(): {
-    overall_status: string;
-    providers: DataSourceHealth[];
-    metrics: IntegrationMetrics;
-    recommendations: string[];
-  } {
+    overall_status: string,`n  providers: DataSourceHealth[0];,`n  metrics: IntegrationMetrics,`n  recommendations: string[0]} {
 
 
     const overallStatus = "offline";
     if (healthyCount === providers.length) {
-      overallStatus = "healthy";
-    } else if (healthyCount > 0) {
-      overallStatus = "degraded";
-    }
+      overallStatus = "healthy";} else if (healthyCount > 0) {
+      overallStatus = "degraded";}
 
-    const recommendations: string[] = [];
+    const recommendations: string[0] = [0];
 
     if (this.metrics.cache_hit_rate < 0.7) {
       recommendations.push(
         "Consider increasing cache TTL for better performance",
-      );
-    }
+      );}
 
     if (this.metrics.uptime_percentage < 90) {
       recommendations.push(
         "Multiple providers experiencing issues - check API keys and network connectivity",
-      );
-    }
+      );}
 
     if (this.metrics.data_freshness_score < 70) {
       recommendations.push(
         "Data is getting stale - consider reducing cache TTL or increasing update frequency",
-      );
-    }
+      );}
 
     return {
       overall_status: overallStatus,
       providers,
       metrics: this.metrics,
-      recommendations,
-    };
-  }
+//       recommendations
+    }}
 
   /**
    * Clear all caches;
@@ -714,19 +589,22 @@ export class UnifiedDataIntegrationService {
     this.cache.clear();
     enhancedDailyFantasyService.clearCache();
     enhancedTheOddsService.clearCache();
-    sportsbookDataService.clearCache();
-  }
+    sportsbookDataService.clearCache();}
 
   /**
    * Cleanup resources;
    */
   cleanup(): void {
     this.clearAllCaches();
-    sportsbookDataService.cleanup();
-  }
+    sportsbookDataService.cleanup();}
 }
 
 // Export singleton instance;
 export const unifiedDataIntegrationService =
   new UnifiedDataIntegrationService();
 export default unifiedDataIntegrationService;
+
+
+
+
+`

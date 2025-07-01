@@ -1,4 +1,4 @@
-import React, { ReactNode  } from 'react.ts';
+﻿import React, { ReactNode} from 'react.ts';
 
 interface GlassCardProps {
   title?: string;
@@ -6,8 +6,9 @@ interface GlassCardProps {
   className?: string;
   glowing?: boolean;
   animated?: boolean;
-  neonColor?: string;
-}
+  neonColor?: string;}
 
 declare const GlassCard: React.FC<GlassCardProps>;
 export default GlassCard;
+
+

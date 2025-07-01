@@ -1,37 +1,30 @@
-import React, { Component, ErrorInfo, ReactNode  } from 'react.ts';
+﻿import React, { Component, ErrorInfo, ReactNode} from 'react';
 
 interface Props {
-  children: ReactNode;
-}
+  children: ReactNode}
 
 interface State {
-  hasError: boolean;
-  error: Error | null;
-  errorInfo: ErrorInfo | null;
-}
+  hasError: boolean,`n  error: Error | null;,`n  errorInfo: ErrorInfo | null}
 
 class ErrorBoundary extends Component<Props, State key={458171}> {
-  public state: State = {
-    hasError: false,
+  public state: State = {,`n  hasError: false,
     error: null,
-    errorInfo: null,
+    errorInfo: null
   };
 
   public static getDerivedStateFromError(error: Error): State {
     return {
       hasError: true,
       error,
-      errorInfo: null,
-    };
-  }
+      errorInfo: null
+    }}
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // console statement removed
     this.setState({
       error,
-      errorInfo,
-    });
-  }
+//       errorInfo
+    })}
 
   public render() {
     if (this.state.hasError) {
@@ -50,7 +43,7 @@ class ErrorBoundary extends Component<Props, State key={458171}> {
               </button>
               <button;
                 className="modern-button bg-gray-500 hover:bg-gray-600"
-                onClick={() = key={410110}> this.setState({ hasError: false })}
+                onClick={() = key={410110}> this.setState({ hasError: false})}
               >
                 Try Again;
               </button>
@@ -61,7 +54,7 @@ class ErrorBoundary extends Component<Props, State key={458171}> {
                   <summary className="text-red-600 dark:text-red-400 font-medium cursor-pointer" key={787084}>
                     Error Details;
                   </summary>
-                  <pre className="mt-4 text-sm text-red-800 dark:text-red-200 overflow-auto" key={587482}>
+                  <pre className="mt-4 text-sm text-red-800 dark: text-red-200 overflow-auto" key={587482}>
                     {this.state.error.toString()}
                     {this.state.errorInfo?.componentStack}
                   </pre>
@@ -70,11 +63,13 @@ class ErrorBoundary extends Component<Props, State key={458171}> {
             )}
           </div>
         </div>
-      );
-    }
+      )}
 
-    return this.props.children;
-  }
+    return this.props.children;}
 }
 
 export default ErrorBoundary;
+
+
+
+`

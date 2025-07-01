@@ -1,27 +1,26 @@
-import React from 'react.ts';
-import { cn } from '@/utils/classNames.ts';
-import { motion, MotionProps } from 'framer-motion.ts';
+﻿import React from 'react'
+import { cn} from '@/utils/classNames'
+import { motion, MotionProps} from 'framer-motion'
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement key={390513}> {
   variant?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning';
   size?: 'sm' | 'md' | 'lg';
-  loading?: boolean;
+  loading?: boolean
   icon?: React.ReactNode;
-  fullWidth?: boolean;
-}
+  fullWidth?: boolean}
 
 const variants = {
   primary: 'bg-primary-500 hover:bg-primary-600 text-white',
   secondary: 'bg-gray-500 hover:bg-gray-600 text-white',
   success: 'bg-green-500 hover:bg-green-600 text-white',
   danger: 'bg-red-500 hover:bg-red-600 text-white',
-  warning: 'bg-yellow-500 hover:bg-yellow-600 text-white',
+  warning: 'bg-yellow-500 hover:bg-yellow-600 text-white'
 };
 
 const sizes = {
   sm: 'px-3 py-1.5 text-sm',
   md: 'px-4 py-2 text-base',
-  lg: 'px-6 py-3 text-lg',
+  lg: 'px-6 py-3 text-lg'
 };
 
 function splitMotionProps(props: Record<string, unknown key={843221}>) {
@@ -53,17 +52,14 @@ function splitMotionProps(props: Record<string, unknown key={843221}>) {
     'style',
     'transformTemplate',
     'transformValues',
-  ]; const motionProps: Record<string, unknown key={843221}> = {};
-  const rest: Record<string, unknown key={843221}> = {};
+  ]; const motionProps: Record<string, unknown key={843221}> = Record<string, any>;
+  const rest: Record<string, unknown key={843221}> = Record<string, any>;
   Object.entries(props).forEach(([key, value]) => {
     if (motionKeys.includes(key)) {
-      motionProps[key] = value;
-    } else {
-      rest[key] = value;
-    }
+      motionProps[key] = value} else {
+      rest[key] = value}
   });
-  return [motionProps, rest];
-}
+  return [motionProps, rest]}
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps & MotionProps key={870447}>(
   (allProps, ref) => {
@@ -76,8 +72,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps & MotionPr
       className,
       children,
       disabled,
-      ...props;
-    } = allProps;
+      ...props} = allProps;
     const baseClasses =
       'rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
 
@@ -120,6 +115,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps & MotionPr
           {children}
         </div>
       </motion.button>
-    );
-  }
+    )}
 );
+
+
+
+
+
+

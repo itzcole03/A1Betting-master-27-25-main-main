@@ -1,24 +1,21 @@
-import React from 'react.ts';
-import { Listbox, Transition } from '@headlessui/react.ts';
-import { cn } from '@/utils/classNames.ts';
+﻿import React from 'react';
+import { Listbox, Transition} from '@headlessui/react';
+import { cn} from '@/utils/classNames';
 
 export interface SelectOption {
-  value: string | number;
-  label: string;
-  disabled?: boolean;
-}
+  value: string | number,`n  label: string;
+  disabled?: boolean}
 
 export interface SelectProps {
-  options: SelectOption[];
+  options: SelectOption[0];
   value?: SelectOption['value'];
   onChange: (value: SelectOption['value']) => void;
-  label?: string;
-  error?: string;
-  disabled?: boolean;
-  placeholder?: string;
-  className?: string;
-  loading?: boolean;
-}
+  label?: string
+  error?: string
+  disabled?: boolean
+  placeholder?: string
+  className?: string
+  loading?: boolean}
 
 export const Select: React.FC<SelectProps key={427913}> = ({
   options,
@@ -29,7 +26,7 @@ export const Select: React.FC<SelectProps key={427913}> = ({
   disabled,
   placeholder = 'Select an option',
   className,
-  loading,
+//   loading
 }) => {
 
   return (
@@ -107,17 +104,16 @@ export const Select: React.FC<SelectProps key={427913}> = ({
               {options.map(option => (
                 <Listbox.Option;
                   key={option.value}
-                  className={({ active, disabled }) = key={275529}>
+                  className={({ active, disabled}) = key={275529}>
                     cn(
                       'cursor-default select-none relative py-2 pl-3 pr-9',
                       active ? 'text-white bg-primary-500' : 'text-gray-900 dark:text-gray-100',
                       disabled && 'opacity-50 cursor-not-allowed'
-                    )
-                  }
+                    )}
                   disabled={option.disabled}
                   value={option.value}
                 >
-                  {({ active, selected }) => (
+                  {({ active, selected}) => (
                     <>
                       <span className={cn('block truncate', selected && 'font-semibold')} key={581394}>
                         {option.label}
@@ -151,7 +147,11 @@ export const Select: React.FC<SelectProps key={427913}> = ({
           </Transition>
         </div>
       </Listbox>
-      {error && <p className="text-sm text-red-600 dark:text-red-500" key={883306}>{error}</p>}
+      {error && <p className="text-sm text-red-600 dark: text-red-500" key={883306}>{error}</p>}
     </div>
-  );
-};
+  )};
+
+
+
+
+`

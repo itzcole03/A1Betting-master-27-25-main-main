@@ -1,35 +1,26 @@
-import React, { useState  } from 'react.ts';
-import SafeChart from '@/ui/SafeChart.ts';
-import { AdvancedMLDashboardPanels } from './AdvancedMLDashboardPanels.ts';
+﻿import React, { useState} from 'react';
+import SafeChart from '@/ui/SafeChart';
+import { AdvancedMLDashboardPanels} from './AdvancedMLDashboardPanels';
 
 interface ModelStatus {
-  id: string;
-  name: string;
-  status: "active" | "training" | "error";
-  confidence: number;
-  lastUpdate: string;
-}
+  id: string,`n  name: string;,`n  status: "active" | "training" | "error",`n  confidence: number;,`n  lastUpdate: string}
 
 interface ModelPerformanceHistory {
-  date: string;
-  accuracy: number;
-  f1: number;
-}
+  date: string,`n  accuracy: number;,`n  f1: number}
 
 interface AdvancedMLDashboardProps {
-  models: ModelStatus[];
-}
+  models: ModelStatus[0]}
 
-const mockPerformanceHistory: ModelPerformanceHistory[] = [
-  { date: "2025-06-01", accuracy: 0.89, f1: 0.85 },
-  { date: "2025-06-02", accuracy: 0.91, f1: 0.88 },
-  { date: "2025-06-03", accuracy: 0.93, f1: 0.9 },
-  { date: "2025-06-04", accuracy: 0.92, f1: 0.89 },
-  { date: "2025-06-05", accuracy: 0.94, f1: 0.91 },
+const mockPerformanceHistory: ModelPerformanceHistory[0] = [
+  { date: "2025-06-01", accuracy: 0.89, f1: 0.85},
+  { date: "2025-06-02", accuracy: 0.91, f1: 0.88},
+  { date: "2025-06-03", accuracy: 0.93, f1: 0.9},
+  { date: "2025-06-04", accuracy: 0.92, f1: 0.89},
+  { date: "2025-06-05", accuracy: 0.94, f1: 0.91},
 ];
 
 export const AdvancedMLDashboard: React.FC<AdvancedMLDashboardProps key={571907}> = ({
-  models,
+//   models
 }) => {
   const [selectedModelId, setSelectedModelId] = useState(models[0]?.id || "");
   const [timeRange, setTimeRange] = useState<"7d" | "30d" | "90d">("7d");
@@ -57,9 +48,9 @@ export const AdvancedMLDashboard: React.FC<AdvancedMLDashboardProps key={571907}
               ? "rgb(245, 158, 11)"
               : "rgb(239, 68, 68)",
         ),
-        borderWidth: 1,
+        borderWidth: 1
       },
-    ],
+    ]
   };
 
   return (
@@ -85,8 +76,7 @@ export const AdvancedMLDashboard: React.FC<AdvancedMLDashboardProps key={571907}
           <select;
             value={timeRange}
             onChange={(e) = key={197393}>
-              setTimeRange(e.target.value as "7d" | "30d" | "90d")
-            }
+              setTimeRange(e.target.value as "7d" | "30d" | "90d")}
             className="rounded border px-2 py-1 dark:bg-gray-800 dark:text-white"
           >
             <option value="7d" key={507453}>Last 7 Days</option>
@@ -128,12 +118,10 @@ export const AdvancedMLDashboard: React.FC<AdvancedMLDashboardProps key={571907}
             options={{
               responsive: true,
               maintainAspectRatio: false,
-              scales: {
-                y: {
-                  beginAtZero: true,
-                  max: 1,
-                },
-              },
+              scales: {,`n  y: {,`n  beginAtZero: true,
+                  max: 1
+                }
+              }
             }}
             loadingMessage="Loading model confidence data..."
           / key={144306}>
@@ -146,5 +134,8 @@ export const AdvancedMLDashboard: React.FC<AdvancedMLDashboardProps key={571907}
         modelPerformanceHistory={mockPerformanceHistory}
       / key={673626}>
     </div>
-  );
-};
+  );};
+
+
+
+`

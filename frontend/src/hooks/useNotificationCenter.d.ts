@@ -1,12 +1,8 @@
-export type NotificationType = 'success' | 'error' | 'info';
+﻿export type NotificationType = 'success' | 'error' | 'info';
 export interface Notification {
-    id: string;
-    type: NotificationType;
-    message: string;
-    timestamp: number;
-}
+  id: string,`n  type: NotificationType;,`n  message: string,`n  timestamp: number}
 export declare function useNotificationCenter(): {
-    notifications: Notification[];
-    addNotification: (type: NotificationType, message: string) => void;
-    removeNotification: (id: string) => void;
-};
+  notifications: Notification[0],`n  addNotification: (type: NotificationType, message: string) => void,`n  removeNotification: (id: string) => void};
+
+
+`

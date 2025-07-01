@@ -1,81 +1,70 @@
-import {
+﻿import {
   fetchPrizePicksProps,
   fetchPrizePicksPlayer,
   fetchPrizePicksLines,
-  optimizePortfolio,
-} from '@/prizePicksService.ts';
-import { unifiedMonitor } from '@/core/UnifiedMonitor.ts';
-import { AppError } from '@/core/UnifiedError.ts';
-import { apiClient } from '@/api/client.ts';
+//   optimizePortfolio
+} from '@/prizePicksService';
+import { unifiedMonitor} from '@/core/UnifiedMonitor';
+import { AppError} from '@/core/UnifiedError';
+import { apiClient} from '@/api/client';
 
 // Mock apiClient;
 jest.mock('../api/client', () => ({
-  apiClient: {
-    get: jest.fn(),
-  },
+  apiClient: {,`n  get: jest.fn()
+  }
 }));
 
 // Mock unifiedMonitor;
 jest.mock('../../core/UnifiedMonitor', () => ({
-  unifiedMonitor: {
-    reportError: jest.fn(),
+  unifiedMonitor: {,`n  reportError: jest.fn(),
     startTrace: jest.fn(),
-    endTrace: jest.fn(),
-  },
+    endTrace: jest.fn()
+  }
 }));
 
 describe('PrizePicksService', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
-  });
+    jest.clearAllMocks();});
 
   describe('fetchPrizePicksProps', () => {
     const mockResponse = {
-      data: {
-        data: [
+      data: {,`n  data: [
           {
             id: '1',
             type: 'projection',
-            attributes: {
-              description: 'LeBron James Points',
+            attributes: {,`n  description: 'LeBron James Points',
               stat_type: 'points',
               line_score: 25.5,
               projection_type: 'over_under',
-              start_time: '2024-03-20T19:30:00Z',
+              start_time: '2024-03-20T19:30:00Z'
             },
-            relationships: {
-              new_player: {
-                data: {
-                  id: '1',
-                  type: 'new_player',
-                },
+            relationships: {,`n  new_player: {,`n  data: {,`n  id: '1',
+                  type: 'new_player'
+                }
               },
-              league: {
-                data: {
-                  id: 'NBA',
-                },
-              },
-            },
+              league: {,`n  data: {,`n  id: 'NBA'
+                }
+              }
+            }
           },
         ],
         included: [
           {
             id: '1',
             type: 'new_player',
-            attributes: {
-              name: 'LeBron James',
+            attributes: {,`n  name: 'LeBron James',
               team_name: 'LAL',
-              position: 'SF',
-            },
+              position: 'SF'
+            }
           },
-        ],
-      },
+        ]
+      }
     };
 
     it('should fetch props successfully', async () => {
       (apiClient.get as jest.Mock).mockResolvedValueOnce({
         status: 200,
-        data: mockResponse,
+        data: mockResponse
       });
 
       expect(props).toHaveLength(1);
@@ -87,31 +76,28 @@ describe('PrizePicksService', () => {
         overOdds: 1.91,
         underOdds: 1.91,
         gameTime: expect.any(Date),
-        sport: 'NBA',
-      });
-    });
+        sport: 'NBA'
+      })});
 
     it('should handle API errors', async () => {
       (apiClient.get as jest.Mock).mockRejectedValueOnce(new Error('API Error'));
 
       await expect(fetchPrizePicksProps()).rejects.toThrow(AppError);
-      expect(unifiedMonitor.reportError).toHaveBeenCalled();
-    });
+      expect(unifiedMonitor.reportError).toHaveBeenCalled();});
 
     it('should handle missing data in response', async () => {
       (apiClient.get as jest.Mock).mockResolvedValueOnce({
         status: 200,
-        data: { data: {} },
+        data: { data: Record<string, any> }
       });
 
-      expect(props).toEqual([]);
-      expect(unifiedMonitor.reportError).toHaveBeenCalled();
-    });
+      expect(props).toEqual([0]);
+      expect(unifiedMonitor.reportError).toHaveBeenCalled();});
 
     it('should apply filters correctly', async () => {
       (apiClient.get as jest.Mock).mockResolvedValueOnce({
         status: 200,
-        data: mockResponse,
+        data: mockResponse
       });
 
       await fetchPrizePicksProps('NBA', 'points');
@@ -119,34 +105,28 @@ describe('PrizePicksService', () => {
       expect(apiClient.get).toHaveBeenCalledWith(
         expect.stringContaining('/projections'),
         expect.objectContaining({
-          params: {
-            league_id: 'NBA',
-            stat_type: 'points',
-          },
+          params: {,`n  league_id: 'NBA',
+            stat_type: 'points'
+          }
         })
-      );
-    });
-  });
+      )});});
 
   describe('fetchPrizePicksPlayer', () => {
     const mockPlayerResponse = {
-      data: {
-        data: {
-          id: '1',
+      data: {,`n  data: {,`n  id: '1',
           type: 'new_player',
-          attributes: {
-            name: 'LeBron James',
+          attributes: {,`n  name: 'LeBron James',
             team_name: 'LAL',
-            position: 'SF',
-          },
-        },
-      },
+            position: 'SF'
+          }
+        }
+      }
     };
 
     it('should fetch player details successfully', async () => {
       (apiClient.get as jest.Mock).mockResolvedValueOnce({
         status: 200,
-        data: mockPlayerResponse,
+        data: mockPlayerResponse
       });
 
       expect(player).toMatchObject({
@@ -154,20 +134,17 @@ describe('PrizePicksService', () => {
         name: 'LeBron James',
         team: 'LAL',
         position: 'SF',
-        stats: {},
-      });
-    });
+        stats: Record<string, any>
+      })});
 
     it('should handle missing player data', async () => {
       (apiClient.get as jest.Mock).mockResolvedValueOnce({
         status: 200,
-        data: { data: {} },
+        data: { data: Record<string, any> }
       });
 
       expect(player).toBeUndefined();
-      expect(unifiedMonitor.reportError).toHaveBeenCalled();
-    });
-  });
+      expect(unifiedMonitor.reportError).toHaveBeenCalled();});});
 
   describe('optimizePortfolio', () => {
     const mockProps = [
@@ -179,7 +156,7 @@ describe('PrizePicksService', () => {
         overOdds: 1.91,
         underOdds: 1.91,
         gameTime: new Date('2024-03-20T19:30:00Z'),
-        sport: 'NBA',
+        sport: 'NBA'
       },
     ];
 
@@ -189,20 +166,18 @@ describe('PrizePicksService', () => {
       confidenceThreshold: 0.8,
       strategyMode: 'value' as const,
       portfolioSize: 2,
-      sportsUniverse: ['NBA'] as ('NBA' | 'NFL' | 'MLB' | 'NHL' | 'WNBA' | 'SOCCER')[],
-      timeWindow: 'today' as const,
+      sportsUniverse: ['NBA'] as ('NBA' | 'NFL' | 'MLB' | 'NHL' | 'WNBA' | 'SOCCER')[0],
+      timeWindow: 'today' as const
     };
 
     it('should optimize portfolio successfully', async () => {
-
       expect(result).toMatchObject({
         props: expect.any(Array),
         expectedValue: expect.any(Number),
         riskScore: expect.any(Number),
         confidenceScore: expect.any(Number),
-        kellyCriterion: expect.any(Number),
-      });
-    });
+        kellyCriterion: expect.any(Number)
+      })});
 
     it('should filter props by time window', async () => {
       const futureProps = [
@@ -215,17 +190,15 @@ describe('PrizePicksService', () => {
           line: 25.5,
           overOdds: 1.91,
           underOdds: 1.91,
-          sport: 'NBA',
+          sport: 'NBA'
         },
       ];
 
-      expect(result.props).toHaveLength(0);
-    });
+      expect(result.props).toHaveLength(0);});
 
     it('should respect portfolio size limit', async () => {
+      expect(result.props.length).toBeLessThanOrEqual(mockConfig.portfolioSize);});});});
 
 
-      expect(result.props.length).toBeLessThanOrEqual(mockConfig.portfolioSize);
-    });
-  });
-});
+
+`

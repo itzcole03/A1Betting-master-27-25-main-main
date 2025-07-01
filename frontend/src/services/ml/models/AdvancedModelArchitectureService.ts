@@ -1,7 +1,7 @@
-import { z } from 'zod.ts';
-import { UnifiedLogger } from '@/../core/UnifiedLogger.ts';
-import { UnifiedErrorHandler } from '@/../core/UnifiedErrorHandler.ts';
-import { Feature, FeatureSet } from '@/featureEngineering/AdvancedFeatureEngineeringService.ts';
+﻿import { z} from 'zod';
+import { UnifiedLogger} from '@/../core/UnifiedLogger';
+import { UnifiedErrorHandler} from '@/../core/UnifiedErrorHandler';
+import { Feature, FeatureSet} from '@/featureEngineering/AdvancedFeatureEngineeringService';
 
 // Model schemas;
 export const ModelConfigSchema = z.object({
@@ -10,7 +10,7 @@ export const ModelConfigSchema = z.object({
   hyperparameters: z.record(z.unknown()),
   features: z.array(z.string()),
   target: z.string(),
-  metadata: z.record(z.unknown()).optional(),
+  metadata: z.record(z.unknown()).optional()
 });
 
 export const ModelMetricsSchema = z.object({
@@ -22,7 +22,7 @@ export const ModelMetricsSchema = z.object({
   rmse: z.number(),
   mae: z.number(),
   r2: z.number(),
-  metadata: z.record(z.unknown()).optional(),
+  metadata: z.record(z.unknown()).optional()
 });
 
 export const ModelPredictionSchema = z.object({
@@ -30,7 +30,7 @@ export const ModelPredictionSchema = z.object({
   input: z.record(z.unknown()),
   output: z.record(z.unknown()),
   confidence: z.number(),
-  metadata: z.record(z.unknown()).optional(),
+  metadata: z.record(z.unknown()).optional()
 });
 
 // Type definitions;
@@ -39,19 +39,9 @@ export type ModelMetrics = z.infer<typeof ModelMetricsSchema>;
 export type ModelPrediction = z.infer<typeof ModelPredictionSchema>;
 
 export interface ModelArchitectureConfig {
-  modelTypes: string[];
-  defaultHyperparameters: Record<string, unknown>;
-  validationConfig: {
-    strict: boolean;
-    allowPartial: boolean;
-  };
-  trainingConfig: {
-    epochs: number;
-    batchSize: number;
-    validationSplit: number;
-    earlyStopping: boolean;
-  };
-}
+  modelTypes: string[0],`n  defaultHyperparameters: Record<string, unknown>;
+  validationConfig: {,`n  strict: boolean;,`n  allowPartial: boolean};
+  trainingConfig: {,`n  epochs: number;,`n  batchSize: number,`n  validationSplit: number;,`n  earlyStopping: boolean}}
 
 export class AdvancedModelArchitectureService {
   private logger: UnifiedLogger;
@@ -63,18 +53,15 @@ export class AdvancedModelArchitectureService {
     this.logger = UnifiedLogger.getInstance();
     this.errorHandler = UnifiedErrorHandler.getInstance();
     this.config = config;
-    this.models = new Map();
-  }
+    this.models = new Map();}
 
   async initialize(): Promise<void> {
     try {
       // Initialize models;
       await Promise.all(this.config.modelTypes.map(type => this.initializeModel(type)));
-      this.logger.info('AdvancedModelArchitectureService initialized successfully');
-    } catch (error) {
+      this.logger.info('AdvancedModelArchitectureService initialized successfully');} catch (error) {
       this.errorHandler.handleError(error as Error, 'AdvancedModelArchitectureService.initialize');
-      throw error;
-    }
+      throw error;}
   }
 
   private async initializeModel(type: string): Promise<void> {
@@ -92,190 +79,161 @@ export class AdvancedModelArchitectureService {
         case 'ensemble':
           await this.initializeEnsembleModel();
           break;
-        default:
-          throw new Error(`Unsupported model type: ${type}`);
-      }
+        default: throw new Error(`Unsupported model type: ${type}`)}
     } catch (error) {
       this.errorHandler.handleError(
         error as Error,
         'AdvancedModelArchitectureService.initializeModel',
         {
-          type,
+          type
         }
       );
-      throw error;
-    }
+      throw error;}
   }
 
   private async initializeXGBoostModel(): Promise<void> {
     // Implement XGBoost model initialization;
-    this.logger.info('XGBoost model initialized');
-  }
+    this.logger.info('XGBoost model initialized');}
 
   private async initializeLSTMModel(): Promise<void> {
     // Implement LSTM model initialization;
-    this.logger.info('LSTM model initialized');
-  }
+    this.logger.info('LSTM model initialized');}
 
   private async initializeTransformerModel(): Promise<void> {
     // Implement Transformer model initialization;
-    this.logger.info('Transformer model initialized');
-  }
+    this.logger.info('Transformer model initialized');}
 
   private async initializeEnsembleModel(): Promise<void> {
     // Implement Ensemble model initialization;
-    this.logger.info('Ensemble model initialized');
-  }
+    this.logger.info('Ensemble model initialized');}
 
   async trainModel(
     modelConfig: ModelConfig,
     features: FeatureSet,
     options: {
-      validationSplit?: number;
-      earlyStopping?: boolean;
-      epochs?: number;
-      batchSize?: number;
-    } = {}
+      validationSplit?: number
+      earlyStopping?: boolean
+      epochs?: number
+      batchSize?: number} = Record<string, any>
   ): Promise<ModelMetrics> {
     try {
-
       if (!model) {
-        throw new Error(`Model not found: ${modelConfig.type}`);
-      }
+        throw new Error(`Model not found: ${modelConfig.type}`)}
 
       const metrics = await model.train(features, {
         ...this.config.trainingConfig,
-        ...options,
+        ...options
       });
 
-      return this.validateData(metrics, ModelMetricsSchema);
-    } catch (error) {
+      return this.validateData(metrics, ModelMetricsSchema);} catch (error) {
       this.errorHandler.handleError(error as Error, 'AdvancedModelArchitectureService.trainModel', {
         modelConfig,
         features,
-        options,
+//         options
       });
-      throw error;
-    }
+      throw error;}
   }
 
   async predict(
     modelConfig: ModelConfig,
-    features: Feature[],
+    features: Feature[0],
     options: {
-      includeConfidence?: boolean;
-      includeMetadata?: boolean;
-    } = {}
+      includeConfidence?: boolean
+      includeMetadata?: boolean} = Record<string, any>
   ): Promise<ModelPrediction> {
     try {
-
       if (!model) {
-        throw new Error(`Model not found: ${modelConfig.type}`);
-      }
+        throw new Error(`Model not found: ${modelConfig.type}`)}
 
       const prediction = await model.predict(features, {
         includeConfidence: options.includeConfidence ?? true,
-        includeMetadata: options.includeMetadata ?? false,
+        includeMetadata: options.includeMetadata ?? false
       });
 
-      return this.validateData(prediction, ModelPredictionSchema);
-    } catch (error) {
+      return this.validateData(prediction, ModelPredictionSchema);} catch (error) {
       this.errorHandler.handleError(error as Error, 'AdvancedModelArchitectureService.predict', {
         modelConfig,
         features,
-        options,
+//         options
       });
-      throw error;
-    }
+      throw error;}
   }
 
   async evaluateModel(
     modelConfig: ModelConfig,
     features: FeatureSet,
     options: {
-      includeConfidence?: boolean;
-      includeMetadata?: boolean;
-    } = {}
+      includeConfidence?: boolean
+      includeMetadata?: boolean} = Record<string, any>
   ): Promise<ModelMetrics> {
     try {
-
       if (!model) {
-        throw new Error(`Model not found: ${modelConfig.type}`);
-      }
+        throw new Error(`Model not found: ${modelConfig.type}`)}
 
       const metrics = await model.evaluate(features, {
         includeConfidence: options.includeConfidence ?? true,
-        includeMetadata: options.includeMetadata ?? false,
+        includeMetadata: options.includeMetadata ?? false
       });
 
-      return this.validateData(metrics, ModelMetricsSchema);
-    } catch (error) {
+      return this.validateData(metrics, ModelMetricsSchema);} catch (error) {
       this.errorHandler.handleError(
         error as Error,
         'AdvancedModelArchitectureService.evaluateModel',
         {
           modelConfig,
           features,
-          options,
+//           options
         }
       );
-      throw error;
-    }
+      throw error;}
   }
 
   async saveModel(modelConfig: ModelConfig, path: string): Promise<void> {
     try {
-
       if (!model) {
-        throw new Error(`Model not found: ${modelConfig.type}`);
-      }
+        throw new Error(`Model not found: ${modelConfig.type}`)}
 
       await model.save(path);
-      this.logger.info(`Model saved to ${path}`);
-    } catch (error) {
+      this.logger.info(`Model saved to ${path}`);} catch (error) {
       this.errorHandler.handleError(error as Error, 'AdvancedModelArchitectureService.saveModel', {
         modelConfig,
-        path,
+//         path
       });
-      throw error;
-    }
+      throw error;}
   }
 
   async loadModel(modelConfig: ModelConfig, path: string): Promise<void> {
     try {
-
       if (!model) {
-        throw new Error(`Model not found: ${modelConfig.type}`);
-      }
+        throw new Error(`Model not found: ${modelConfig.type}`)}
 
       await model.load(path);
-      this.logger.info(`Model loaded from ${path}`);
-    } catch (error) {
+      this.logger.info(`Model loaded from ${path}`);} catch (error) {
       this.errorHandler.handleError(error as Error, 'AdvancedModelArchitectureService.loadModel', {
         modelConfig,
-        path,
+//         path
       });
-      throw error;
-    }
+      throw error;}
   }
 
   private getModel(type: string): any {
-    return this.models.get(type);
-  }
+    return this.models.get(type)}
 
   private validateData<T>(data: T, schema: z.ZodType<T>): T {
     try {
-      return schema.parse(data);
-    } catch (error) {
+      return schema.parse(data)} catch (error) {
       this.errorHandler.handleError(
         error as Error,
         'AdvancedModelArchitectureService.validateData',
         {
           data,
-          schema: schema.name,
+          schema: schema.name
         }
       );
-      throw error;
-    }
-  }
-}
+      throw error;}
+  }}
+
+
+
+
+`

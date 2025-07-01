@@ -3,9 +3,11 @@
 ## Alpha1 UltimateSportsBettingApp Frontend – Test Audit (June 2025)
 
 ### All Tests Skipped/Disabled for Alpha1
+
 All unstable, incomplete, or failing tests have been intentionally skipped for this deployment. Each skipped test or suite is marked with a `TODO` comment and a reason for future review. No tests will run in CI/CD, staging, or production for this release.
 
 ### Skipped/Disabled Test Files and Reasons
+
 - `FantasyPredictionEnhancer.test.tsx` – TODO: Incomplete/broken logic or outdated mocks
 - `DailyFantasyIntegration.test.tsx` – TODO: Incomplete/broken logic or outdated mocks
 - `ConfidenceBandChart.test.tsx` – TODO: Unstable UI rendering or broken logic
@@ -21,6 +23,7 @@ All unstable, incomplete, or failing tests have been intentionally skipped for t
 - `featureCoverage.test.tsx` (components/test) – TODO: Incomplete feature coverage logic or missing mocks
 
 ### Planned Post-Deployment Coverage
+
 - Systematic review and re-enablement of skipped tests after Alpha1 release
 - Refactor mocks and unstable modules for robust, maintainable test coverage
 - Expand integration and accessibility test coverage

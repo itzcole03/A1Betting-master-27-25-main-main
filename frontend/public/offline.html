@@ -13,8 +13,8 @@
 
       body {
         font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-          "Ubuntu", "Cantarell", sans-serif;
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+          sans-serif;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
         min-height: 100vh;
@@ -249,14 +249,11 @@
 
       <h1>You're Offline</h1>
       <p class="subtitle">
-        No internet connection detected. Don't worry - A1Betting works offline
-        too!
+        No internet connection detected. Don't worry - A1Betting works offline too!
       </p>
 
       <div class="offline-features">
-        <h3 style="margin-bottom: 20px; text-align: center">
-          Available Offline Features
-        </h3>
+        <h3 style="margin-bottom: 20px; text-align: center">Available Offline Features</h3>
         <ul class="feature-list">
           <li class="feature-item">
             <span class="feature-icon">📊</span>
@@ -282,9 +279,7 @@
       </div>
 
       <div class="cached-data">
-        <h3 style="text-align: center; margin-bottom: 15px">
-          Cached Data Summary
-        </h3>
+        <h3 style="text-align: center; margin-bottom: 15px">Cached Data Summary</h3>
         <div class="data-grid">
           <div class="data-card">
             <div class="data-value" id="cachedOpportunities">12</div>
@@ -306,12 +301,8 @@
       </div>
 
       <div class="button-group">
-        <a href="/" class="btn btn-primary" onclick="retryConnection()">
-          🔄 Retry Connection
-        </a>
-        <a href="/dashboard" class="btn btn-secondary">
-          📊 View Offline Dashboard
-        </a>
+        <a href="/" class="btn btn-primary" onclick="retryConnection()"> 🔄 Retry Connection </a>
+        <a href="/dashboard" class="btn btn-secondary"> 📊 View Offline Dashboard </a>
       </div>
 
       <div class="status-indicator">
@@ -323,38 +314,32 @@
     <script>
       // Check connection status
       function updateConnectionStatus() {
-        const statusIndicator = document.querySelector(
-          ".status-indicator span",
-        );
-        const statusDot = document.querySelector(".status-dot");
+        const statusIndicator = document.querySelector('.status-indicator span');
+        const statusDot = document.querySelector('.status-dot');
 
         if (navigator.onLine) {
-          statusIndicator.textContent = "Connection restored! Redirecting...";
-          statusDot.style.background = "#44ff44";
-          statusDot.style.animation = "none";
+          statusIndicator.textContent = 'Connection restored! Redirecting...';
+          statusDot.style.background = '#44ff44';
+          statusDot.style.animation = 'none';
 
           setTimeout(() => {
-            window.location.href = "/";
+            window.location.href = '/';
           }, 2000);
         } else {
-          statusIndicator.textContent =
-            "Still offline - monitoring connection...";
+          statusIndicator.textContent = 'Still offline - monitoring connection...';
         }
       }
 
       function retryConnection() {
         updateConnectionStatus();
         if (navigator.onLine) {
-          window.location.href = "/";
+          window.location.href = '/';
         } else {
-          const statusIndicator = document.querySelector(
-            ".status-indicator span",
-          );
-          statusIndicator.textContent =
-            "Still no connection. Please check your network.";
+          const statusIndicator = document.querySelector('.status-indicator span');
+          statusIndicator.textContent = 'Still no connection. Please check your network.';
 
           setTimeout(() => {
-            statusIndicator.textContent = "Checking connection...";
+            statusIndicator.textContent = 'Checking connection...';
           }, 3000);
         }
       }
@@ -362,31 +347,27 @@
       // Load cached data summary
       function loadCachedDataSummary() {
         // Try to get data from localStorage or IndexedDB
-        const cachedData = localStorage.getItem("a1betting-offline-summary");
+        const cachedData = localStorage.getItem('a1betting-offline-summary');
 
         if (cachedData) {
           try {
             const data = JSON.parse(cachedData);
-            document.getElementById("cachedOpportunities").textContent =
-              data.opportunities || "0";
-            document.getElementById("cachedPredictions").textContent =
-              data.predictions || "0";
-            document.getElementById("lastSync").textContent =
-              data.lastSync || "Unknown";
-            document.getElementById("cacheSize").textContent =
-              data.cacheSize || "Unknown";
+            document.getElementById('cachedOpportunities').textContent = data.opportunities || '0';
+            document.getElementById('cachedPredictions').textContent = data.predictions || '0';
+            document.getElementById('lastSync').textContent = data.lastSync || 'Unknown';
+            document.getElementById('cacheSize').textContent = data.cacheSize || 'Unknown';
           } catch (e) {
-            console.log("Error loading cached data summary:", e);
+            console.log('Error loading cached data summary:', e);
           }
         }
       }
 
       // Event listeners
-      window.addEventListener("online", updateConnectionStatus);
-      window.addEventListener("offline", updateConnectionStatus);
+      window.addEventListener('online', updateConnectionStatus);
+      window.addEventListener('offline', updateConnectionStatus);
 
       // Initial setup
-      document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener('DOMContentLoaded', () => {
         updateConnectionStatus();
         loadCachedDataSummary();
 
@@ -395,14 +376,14 @@
       });
 
       // Save current page for when connection returns
-      if (document.referrer && !document.referrer.includes("offline.html")) {
-        sessionStorage.setItem("a1betting-return-url", document.referrer);
+      if (document.referrer && !document.referrer.includes('offline.html')) {
+        sessionStorage.setItem('a1betting-return-url', document.referrer);
       }
 
       // Service worker communication
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.addEventListener("message", (event) => {
-          if (event.data.type === "CACHE_UPDATED") {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.addEventListener('message', event => {
+          if (event.data.type === 'CACHE_UPDATED') {
             loadCachedDataSummary();
           }
         });

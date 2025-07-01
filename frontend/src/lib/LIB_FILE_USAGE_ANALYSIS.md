@@ -20,6 +20,7 @@ This directory contains utility modules and helper functions for the frontend ap
 ## File Breakdown
 
 ### utils.ts
+
 - **Purpose:** Exports the `cn` function, which merges Tailwind CSS class names using `clsx` and `tailwind-merge` for conditional and deduplicated class composition.
 - **Usage:** Used throughout the frontend to combine and deduplicate class names for React components, especially when using Tailwind CSS.
 - **Notes:** Leverages `clsx` for conditional class logic and `tailwind-merge` for resolving Tailwind class conflicts.
@@ -27,4 +28,4 @@ This directory contains utility modules and helper functions for the frontend ap
 
 ---
 
-*This documentation is auto-generated and should be updated as files are added, removed, or refactored in the lib directory.*
+_This documentation is auto-generated and should be updated as files are added, removed, or refactored in the lib directory._

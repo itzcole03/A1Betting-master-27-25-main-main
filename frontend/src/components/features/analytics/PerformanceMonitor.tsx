@@ -1,12 +1,11 @@
-import React, { useEffect  } from 'react.ts';
-import { performanceService } from '@/../services/performanceService.ts';
-import { errorLogger } from '@/../utils/errorLogger.ts';
+﻿import React, { useEffect} from 'react';
+import { performanceService} from '@/../services/performanceService';
+import { errorLogger} from '@/../utils/errorLogger';
 
 interface PerformanceMonitorProps {
-  children: React.ReactNode;
-}
+  children: React.ReactNode}
 
-export const PerformanceMonitor: React.FC<PerformanceMonitorProps key={51871}> = ({ children }) => {
+export const PerformanceMonitor: React.FC<PerformanceMonitorProps key={51871}> = ({ children}) => {
   useEffect(() => {
     const startMonitoring = async () => {
       try {
@@ -16,13 +15,12 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps key={51871}> =
         // Set up performance observers;
         const observer = new PerformanceObserver(list => {
           for (const entry of list.getEntries()) {
-            performanceService.trackMetric(entry);
-          }
+            performanceService.trackMetric(entry);}
         });
 
         // Observe various performance metrics;
         observer.observe({
-          entryTypes: ['navigation', 'resource', 'paint', 'largest-contentful-paint'],
+          entryTypes: ['navigation', 'resource', 'paint', 'largest-contentful-paint']
         });
 
         // Track React component render times;
@@ -32,21 +30,18 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps key={51871}> =
 
 
           performanceService.trackComponentRender(this.constructor.name, end - start);
-          return result;
-        };
+          return result;};
 
         // Cleanup function;
         return () => {
           observer.disconnect();
-          React.Component.prototype.render = originalRender;
-        };
-      } catch (error) {
-        errorLogger.logError(error as Error, { context: 'PerformanceMonitor' });
-      }
+          React.Component.prototype.render = originalRender;};} catch (error) {
+        errorLogger.logError(error as Error, { context: 'PerformanceMonitor'})}
     };
 
-    startMonitoring();
-  }, []);
+    startMonitoring();}, [0]);
 
-  return <>{children}</>;
-};
+  return <>{children}</>;};
+
+
+

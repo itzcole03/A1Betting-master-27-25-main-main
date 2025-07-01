@@ -1,49 +1,38 @@
-import { useMemo } from 'react.ts';
-import { usePredictions } from '@/hooks/usePredictions.ts';
+﻿import { useMemo} from 'react';
+import { usePredictions} from '@/hooks/usePredictions';
 
 // Type definition;
 interface Player {
-  id: string;
-  name: string;
-  position: string;
-  team: string;
-  salary: number;
-  confidence: number;
-  projectedPoints?: number;
-}
+  id: string,`n  name: string;,`n  position: string,`n  team: string;,`n  salary: number,`n  confidence: number;
+  projectedPoints?: number}
 
 interface PayoutPreviewProps {
-  selectedPlayers: Player[];
-  entryFee: number;
-  className?: string;
-}
+  selectedPlayers: Player[0],`n  entryFee: number;
+  className?: string}
 
 export function PayoutPreview({
   selectedPlayers,
   entryFee,
-  className = "",
+  className = ""
 }: PayoutPreviewProps) {
-  const { getPlayerPrediction } = usePredictions();
+  const { getPlayerPrediction} = usePredictions();
 
   const projectedStats = useMemo(() => {
     const totalProjectedPoints = selectedPlayers.reduce((sum, player) => {
 
-      return sum + (prediction?.projectedPoints || 0);
-    }, 0);
+      return sum + (prediction?.projectedPoints || 0);}, 0);
 
     const averageConfidence =
       selectedPlayers.reduce((sum, player) => {
-        return sum + player.confidence;
-      }, 0) / selectedPlayers.length;
+        return sum + player.confidence;}, 0) / selectedPlayers.length;
 
     return {
       totalProjectedPoints,
-      averageConfidence,
-    };
-  }, [selectedPlayers, getPlayerPrediction]);
+//       averageConfidence
+    };}, [selectedPlayers, getPlayerPrediction]);
 
   const payoutEstimates = useMemo(() => {
-    const { totalProjectedPoints, averageConfidence } = projectedStats;
+    const { totalProjectedPoints, averageConfidence} = projectedStats;
 
     // These are example payout calculations - adjust based on actual contest rules;
     const estimatedRank =
@@ -55,23 +44,20 @@ export function PayoutPreview({
     return {
       estimatedRank,
       potentialWinnings: Math.round(potentialWinnings * 100) / 100,
-      roi: ((potentialWinnings - entryFee) / entryFee) * 100,
-    };
-  }, [projectedStats, entryFee]);
+      roi: ((potentialWinnings - entryFee) / entryFee) * 100
+    }}, [projectedStats, entryFee]);
 
   const getRankColor = (rank: number) => {
     if (rank <= 10) return "text-success-500";
     if (rank <= 50) return "text-primary-500";
     if (rank <= 100) return "text-yellow-500";
-    return "text-red-500";
-  };
+    return "text-red-500";};
 
   const getROIColor = (roi: number) => {
     if (roi >= 100) return "text-success-500";
     if (roi >= 50) return "text-primary-500";
     if (roi >= 0) return "text-yellow-500";
-    return "text-red-500";
-  };
+    return "text-red-500";};
 
   return (
     <div;
@@ -129,5 +115,9 @@ export function PayoutPreview({
         projections;
       </div>
     </div>
-  );
-}
+  );}
+
+
+
+
+`

@@ -1,4 +1,7 @@
-// Placeholder for ConfigurationMatrix component;
-import React from 'react.ts';
+﻿// Placeholder for ConfigurationMatrix component;
+import React from 'react';
 
-export { ConfigurationMatrix };
+export { ConfigurationMatrix};
+
+
+

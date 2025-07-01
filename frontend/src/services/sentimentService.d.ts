@@ -1,4 +1,4 @@
-import { SocialSentimentData } from '@/types.ts';
+﻿import { SocialSentimentData} from '@/types.ts';
 /**
  * Fetches social sentiment data for a given topic (e.g., player name, team).
  * The backend /api/sentiment/{topic} endpoint is currently mocked.
@@ -9,12 +9,13 @@ import { SocialSentimentData } from '@/types.ts';
  *   "sentiment_label": "string", // e.g., "positive", "negative", "neutral"
  *   "confidence": number, // e.g., 0 to 1 (optional)
  *   "related_articles_count": number // (optional)
- * }
+ *}
  *
  * NOTE: The current frontend mapping in this service approximates positive/negative/neutral mentions;
  * based on sentiment_label and related_articles_count. A production backend should ideally provide these counts directly.
  */
 export declare const fetchSocialSentiment: (topic: string) => Promise<SocialSentimentData>;
-export declare const sentimentService: {
-    fetchSocialSentiment: (topic: string) => Promise<SocialSentimentData>;
-};
+export declare const sentimentService: {,`n  fetchSocialSentiment: (topic: string) => Promise<SocialSentimentData>};
+
+
+`

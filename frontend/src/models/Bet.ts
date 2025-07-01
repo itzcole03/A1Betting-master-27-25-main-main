@@ -1,19 +1,6 @@
-export interface Bet {
-  id: string;
-  userId: string;
-  eventId: string;
-  amount: number;
-  odds: number;
-  type: 'win' | 'lose' | 'draw';
-  status: 'pending' | 'won' | 'lost' | 'cancelled';
-  prediction: {
-    probability: number;
-    confidence: number;
-    modelType: string;
-    factors: {
-      market: number;
-      temporal: number;
-      environmental: number;
-    };
-  };
-}
+﻿export interface Bet {
+  id: string,`n  userId: string;,`n  eventId: string,`n  amount: number;,`n  odds: number,`n  type: 'win' | 'lose' | 'draw';,`n  status: 'pending' | 'won' | 'lost' | 'cancelled',`n  prediction: {,`n  probability: number,`n  confidence: number;,`n  modelType: string,`n  factors: {,`n  market: number,`n  temporal: number;,`n  environmental: number}};}
+
+
+
+`

@@ -1,70 +1,65 @@
-import { useQuery } from '@tanstack/react-query.ts';
-import React from 'react.ts';
-import { Line } from 'react-chartjs-2.ts';
-import { predictionService } from '@/services/predictionService.ts';
-import useStore from '@/store/useStore.ts';
-import { UnifiedStrategyConfig } from '@/strategy/UnifiedStrategyConfig.ts';
-import EnhancedPropCard from '@/ui/EnhancedPropCard.ts';
-import GlassCard from '@/ui/GlassCard.ts';
-import GlowButton from '@/ui/GlowButton.ts';
-import { NotificationCenter } from '@/ui/NotificationCenter.ts';
-import Tooltip from '@/ui/Tooltip.ts';
+﻿import { useQuery} from '@tanstack/react-query';
+import React from 'react';
+import { Line} from 'react-chartjs-2';
+import { predictionService} from '@/services/predictionService';
+import useStore from '@/store/useStore';
+import { UnifiedStrategyConfig} from '@/strategy/UnifiedStrategyConfig';
+import EnhancedPropCard from '@/ui/EnhancedPropCard';
+import GlassCard from '@/ui/GlassCard';
+import GlowButton from '@/ui/GlowButton';
+import { NotificationCenter} from '@/ui/NotificationCenter';
+import Tooltip from '@/ui/Tooltip';
 
 const Dashboard: React.FC = () => {
-  const { darkMode } = useStore();
+  const { darkMode} = useStore();
 
   // Fetch recent predictions;
-  const { data: predictions, isLoading: predictionsLoading } = useQuery({
+  const { data: predictions, isLoading: predictionsLoading} = useQuery({
     queryKey: ['predictions'],
     queryFn: () => predictionService.getRecentPredictions(),
-    staleTime: 30000,
+    staleTime: 30000
   });
 
   // Fetch engine metrics;
-  const { data: metrics, isLoading: metricsLoading } = useQuery({
+  const { data: metrics, isLoading: metricsLoading} = useQuery({
     queryKey: ['metrics'],
     queryFn: () => predictionService.getEngineMetrics(),
-    staleTime: 30000,
+    staleTime: 30000
   });
 
   // Performance chart data;
   const chartData = {
-    labels: predictions?.map(p => new Date(p.timestamp).toLocaleTimeString()) || [],
+    labels: predictions?.map(p => new Date(p.timestamp).toLocaleTimeString()) || [0],
     datasets: [
       {
         label: 'Prediction Accuracy',
-        data: predictions?.map(p => p.prediction) || [],
+        data: predictions?.map(p => p.prediction) || [0],
         borderColor: '#5D5CDE',
         backgroundColor: 'rgba(93, 92, 222, 0.1)',
-        tension: 0.4,
+        tension: 0.4
       },
       {
         label: 'Confidence',
-        data: predictions?.map(p => p.confidence) || [],
+        data: predictions?.map(p => p.confidence) || [0],
         borderColor: '#FFD700',
         backgroundColor: 'rgba(255, 215, 0, 0.1)',
-        tension: 0.4,
+        tension: 0.4
       },
-    ],
+    ]
   };
 
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'top' as const,
+    plugins: {,`n  legend: {,`n  position: 'top' as const
       },
-      tooltip: {
-        enabled: true,
-      },
+      tooltip: {,`n  enabled: true
+      }
     },
-    scales: {
-      y: {
-        beginAtZero: true,
-        max: 1,
-      },
-    },
+    scales: {,`n  y: {,`n  beginAtZero: true,
+        max: 1
+      }
+    }
   };
 
   return (
@@ -135,7 +130,7 @@ const Dashboard: React.FC = () => {
         <h2 className="text-xl font-semibold mb-4" key={626401}>Recent Predictions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4" key={583338}>
           {predictionsLoading;
-            ? Array.from({ length: 3 }).map((_, i) => (
+            ? Array.from({ length: 3}).map((_, i) => (
               <div key={i} className="animate-pulse h-32 bg-gray-200 dark:bg-gray-700 rounded-2xl" / key={478346}>
             ))
             : predictions?.slice(0, 6).map(prediction => (
@@ -151,8 +146,8 @@ const Dashboard: React.FC = () => {
                 patternStrength={prediction.patternStrength}
                 bonusPercent={prediction.bonusPercent}
                 enhancementPercent={prediction.enhancementPercent}
-                onSelect={() = key={77260}> { }}
-                onViewDetails={() => { }}
+                onSelect={() = key={77260}> Record<string, any>}
+                onViewDetails={() => Record<string, any>}
               />
             ))}
         </div>
@@ -163,9 +158,12 @@ const Dashboard: React.FC = () => {
         <UnifiedStrategyConfig / key={921723}>
       </GlassCard>
     </div>
-  );
-};
+  );};
 
 // DEPRECATED: Use UnifiedDashboard.tsx instead. This file is no longer used.
 
 export default Dashboard;
+
+
+
+`

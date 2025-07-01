@@ -1,7 +1,7 @@
 # 🏆 A1Betting - AI-Powered Sports Betting Platform
 
 > **🚀 Ready for Builder.io Fusion Autonomous Development**
-> 
+>
 > This comprehensive guide enables autonomous agents (Builder.io Fusion, Cursor AI, GitHub Copilot, etc.) to complete the A1Betting application within hours. All necessary code, architecture, and automation systems are included.
 
 **Live API Integrations • Real-Time Money Making • Advanced Analytics**
@@ -9,16 +9,38 @@
 ## 🎯 LIVE & OPERATIONAL WITH YOUR REAL API KEYS
 
 ### ✅ Active API Integrations
+
 - **SportsRadar API**: `R10yQbjTO5fZF6BPkfxjOaftsyN9X4ImAJv95H7s` ✅
 - **TheOdds API**: `8684be37505fc5ce63b0337d472af0ee` ✅
 - **PrizePicks API**: Public access configured ✅
 - **ESPN API**: Public access configured ✅
+
+## API Integrations
+
+### PrizePicks
+
+- **Endpoint:** `https://api.prizepicks.com/projections`
+- **Authentication:** No official API key required or available. This is a public, undocumented endpoint.
+- **Note:** The system may be rate-limited or blocked by PrizePicks. All error handling and fallback logic should account for this.
+
+### Sportradar / TheOdds
+
+- **API Keys:** Required and stored in `.env` (never committed to version control).
+- **Usage:** [Describe where/how these keys are used in the codebase.]
+
+## Error Handling
+
+- If PrizePicks API is unavailable or rate-limited, the system will:
+  - Surface a clear user-facing message:  
+    _"Live data unavailable. Displaying sample data. Please try again later."_
+  - Only use mock data in development or as a last-resort fallback, never silently in production.
 
 ---
 
 ## 🤖 FOR BUILDER.IO FUSION AGENTS
 
 ### 🎯 IMMEDIATE TASKS (Complete these first)
+
 - [ ] **Fix Jest configuration** in `frontend/jest.config.js` (module.exports → ES6)
 - [ ] **Complete missing React components** in `frontend/src/components/`:
   - [ ] `Dashboard.tsx` - Main user dashboard with live stats
@@ -35,6 +57,7 @@
   - [ ] `match.py` - Sports match data
 
 ### 🎨 Design System (Use these exact specifications)
+
 ```css
 /* Primary Colors - Use consistently */
 --gold: #FFD700;
@@ -49,6 +72,7 @@
 ```
 
 ### 🏗️ Component Architecture
+
 ```typescript
 // Dashboard Component Requirements
 interface DashboardProps {
@@ -73,6 +97,7 @@ interface BettingInterfaceProps {
 ## 🚀 MASTER FEATURES CONSOLIDATED
 
 ### **Real-Time Money Making Engine**
+
 - ✅ **Live Arbitrage Detection** across TheOdds and PrizePicks
 - ✅ **Value Betting Analysis** using SportsRadar advanced stats
 - ✅ **Player Prop Optimization** with ML-driven predictions
@@ -80,6 +105,7 @@ interface BettingInterfaceProps {
 - ✅ **Risk Assessment** with SHAP value explanations
 
 ### **Advanced Analytics Dashboard**
+
 - ✅ **Performance Tracking** (ROI, Sharpe Ratio, Win Rate)
 - ✅ **API Usage Monitoring** with quota management
 - ✅ **Real-Time Health Checks** for all data sources
@@ -87,6 +113,7 @@ interface BettingInterfaceProps {
 - ✅ **Market Signal Analysis** with trend detection
 
 ### **Professional User Interface**
+
 - ✅ **Master Dashboard** - Consolidated best features from all components
 - ✅ **Live Opportunity Scanner** - Real-time money-making opportunities
 - ✅ **Arbitrage Hunter** - Cross-platform arbitrage detection
@@ -182,7 +209,7 @@ npm run test
 A1Betting-app/
 ├── frontend/
 │   ├── src/
-│   │   ├��─ components/
+│   │   ├── components/
 │   │   │   ├── user-friendly/          # Main UI components
 │   │   │   ├── intelligence/           # Intelligence Hub
 │   │   │   ├── analytics/              # Analytics components
@@ -342,3 +369,22 @@ For support and questions:
 ---
 
 **Built with ❤️ for the ultimate sports betting experience**
+
+## Troubleshooting: Windows Startup Script
+
+- The `start.bat` script must be run in Windows Command Prompt (`cmd.exe`), not PowerShell.
+- If you see errors like `'elayedexpansion' is not recognized as an internal or external command`, convert the file to Windows (CRLF) line endings using VS Code, Notepad++, or a similar editor.
+- To run from PowerShell, use: `cmd /c start.bat`
+- The backend will start on port 8000, and the frontend (Vite) on port 5173.
+
+## Console Ninja Compatibility Notice
+
+> **Console Ninja Community Edition does not support Node v22+ and Vite v6+ as of July 2025.**
+> Use a standard terminal (cmd.exe, PowerShell, or Windows Terminal) for frontend development until support is added.
+> 
+> To start the frontend:
+> 1. Open a standard terminal (not Console Ninja)
+> 2. Navigate to the `frontend` directory
+> 3. Run: `npm run dev`
+> 
+> This will start the Vite dev server on the correct port (5173).

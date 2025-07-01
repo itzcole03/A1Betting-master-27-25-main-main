@@ -19,11 +19,7 @@
 
 /* Performance dashboard cards */
 .performance-card {
-  background: linear-gradient(
-    135deg,
-    rgba(30, 41, 59, 0.6) 0%,
-    rgba(51, 65, 85, 0.4) 100%
-  );
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(51, 65, 85, 0.4) 100%);
   border: 1px solid rgba(71, 85, 105, 0.3);
   border-radius: 16px;
   padding: 1.5rem;
@@ -34,18 +30,13 @@
 }
 
 .performance-card::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(34, 197, 94, 0.5) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg, transparent 0%, rgba(34, 197, 94, 0.5) 50%, transparent 100%);
 }
 
 .performance-card:hover {
@@ -56,11 +47,7 @@
 
 /* Enhanced module cards */
 .module-card-enhanced {
-  background: linear-gradient(
-    135deg,
-    rgba(30, 41, 59, 0.4) 0%,
-    rgba(51, 65, 85, 0.3) 100%
-  );
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.4) 0%, rgba(51, 65, 85, 0.3) 100%);
   border: 2px solid rgba(71, 85, 105, 0.3);
   border-radius: 20px;
   padding: 1.75rem;
@@ -71,7 +58,7 @@
 }
 
 .module-card-enhanced::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -123,11 +110,7 @@
 }
 
 .module-card-enhanced.active .module-icon-container {
-  background: linear-gradient(
-    135deg,
-    rgba(34, 197, 94, 0.25) 0%,
-    rgba(59, 130, 246, 0.25) 100%
-  );
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(59, 130, 246, 0.25) 100%);
   box-shadow: 0 8px 16px -4px rgba(34, 197, 94, 0.3);
 }
 
@@ -198,7 +181,7 @@
 }
 
 .progress-bar-fill::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: -100%;
@@ -263,7 +246,7 @@
 }
 
 .action-button-enhanced::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: -100%;
@@ -359,11 +342,7 @@
   position: absolute;
   inset: 0;
   border-radius: 20px;
-  background: linear-gradient(
-    135deg,
-    rgba(34, 197, 94, 0.05) 0%,
-    rgba(59, 130, 246, 0.05) 100%
-  );
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
   animation: active-pulse 3s ease-in-out infinite;
   pointer-events: none;
 }

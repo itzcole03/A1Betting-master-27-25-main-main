@@ -1,12 +1,11 @@
-import { ShapValue } from '@/types/explainability.ts';
+﻿import { ShapValue} from '@/types/explainability.ts';
 interface ShapDataHookResult {
-    features: ShapValue[];
-    loading: boolean;
-    error: string | null;
-}
+  features: ShapValue[0],`n  loading: boolean;,`n  error: string | null}
 interface ShapDataHookParams {
-    eventId: string;
-    modelType?: string;
-}
-export declare function useShapData({ eventId, modelType, }: ShapDataHookParams): ShapDataHookResult;
-export {};
+  eventId: string;
+  modelType?: string;}
+export declare function useShapData({ eventId, modelType}: ShapDataHookParams): ShapDataHookResult;
+export Record<string, any>;
+
+
+`

@@ -1,7 +1,8 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface SHAPInsightProps {
-    modelName: string;
-    shapData: Record<string, number>;
-}
+  modelName: string,`n  shapData: Record<string, number>}
 export declare const SHAPInsight: React.FC<SHAPInsightProps>;
-export {};
+export Record<string, any>;
+
+
+`

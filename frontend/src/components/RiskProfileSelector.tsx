@@ -1,31 +1,29 @@
-import React from 'react.ts';
-import { Box, Typography, Button, ButtonGroup, Tooltip } from '@mui/material.ts';
-import { RiskProfileType } from '@/types/betting.ts';
+﻿import React from 'react';
+import { Box, Typography, Button, ButtonGroup, Tooltip} from '@mui/material';
+import { RiskProfileType} from '@/types/betting';
 
 interface RiskProfileSelectorProps {
-  currentProfile: RiskProfileType;
-  onProfileChange: (profile: RiskProfileType) => void;
-}
+  currentProfile: RiskProfileType,`n  onProfileChange: (profile: RiskProfileType) => void}
 
 export const RiskProfileSelector: React.FC<RiskProfileSelectorProps key={861929}> = ({
   currentProfile,
-  onProfileChange,
+//   onProfileChange
 }) => {
   const profiles = [
     {
       type: RiskProfileType.CONSERVATIVE,
       label: 'Conservative',
-      description: 'Lower risk, higher confidence required',
+      description: 'Lower risk, higher confidence required'
     },
     {
       type: RiskProfileType.MODERATE,
       label: 'Moderate',
-      description: 'Balanced risk and reward',
+      description: 'Balanced risk and reward'
     },
     {
       type: RiskProfileType.AGGRESSIVE,
       label: 'Aggressive',
-      description: 'Higher risk tolerance, more opportunities',
+      description: 'Higher risk tolerance, more opportunities'
     },
   ];
 
@@ -37,7 +35,7 @@ export const RiskProfileSelector: React.FC<RiskProfileSelectorProps key={861929}
       <Typography gutterBottom color="text.secondary" variant="body2" key={760822}>
         Select your risk tolerance level;
       </Typography>
-      <ButtonGroup aria-label="risk profile selection" sx={{ mt: 2 }} variant="contained" key={109842}>
+      <ButtonGroup aria-label="risk profile selection" sx={{ mt: 2}} variant="contained" key={109842}>
         {profiles.map(profile => (
           <Tooltip key={profile.type} placement="top" title={profile.description} key={850726}>
             <Button;
@@ -51,5 +49,9 @@ export const RiskProfileSelector: React.FC<RiskProfileSelectorProps key={861929}
         ))}
       </ButtonGroup>
     </Box>
-  );
-};
+  )};
+
+
+
+
+`

@@ -1,6 +1,8 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface PredictionDisplayProps {
-    eventId: string;
-}
+  eventId: string}
 export declare const PredictionDisplay: React.FC<PredictionDisplayProps>;
-export {};
+export Record<string, any>;
+
+
+

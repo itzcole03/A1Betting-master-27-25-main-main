@@ -20,6 +20,7 @@ This directory contains type definitions and validation utilities for use across
 ## File Breakdown
 
 ### validation.ts
+
 - **Purpose:** Defines interfaces and classes for data validation, including rules, results, errors, and warnings.
 - **Usage:** Used throughout services to validate data, enforce constraints, and report validation errors/warnings. Provides reusable rule classes for common validation patterns (required, range, date, enum, pattern, custom).
 - **Notes:** Extensible for new validation types. Central to data integrity and input validation across the app.
@@ -27,4 +28,4 @@ This directory contains type definitions and validation utilities for use across
 
 ---
 
-*This documentation is auto-generated and should be updated as files are added, removed, or refactored in the types directory.*
+_This documentation is auto-generated and should be updated as files are added, removed, or refactored in the types directory._

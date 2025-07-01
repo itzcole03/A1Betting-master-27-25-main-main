@@ -1,8 +1,8 @@
-import Header from './Header.ts';
-import React from 'react.ts';
-import Sidebar from './Sidebar.ts';
-import useStore from '@/store/useStore.ts';
-import { Outlet, useLocation } from 'react-router-dom.ts';
+﻿import Header from './Header'
+import React from 'react'
+import Sidebar from './Sidebar'
+import useStore from '@/store/useStore'
+import { Outlet, useLocation} from 'react-router-dom'
 
 const AppShell: React.FC = () => {
 
@@ -22,8 +22,7 @@ const AppShell: React.FC = () => {
         {/* Main Content */}
         <div;
           className={`flex-1 flex flex-col transition-all duration-300 ${
-            sidebarOpen ? 'lg:ml-64' : 'lg:ml-20'
-          }`}
+            sidebarOpen ? 'lg:ml-64' : 'lg:ml-20'}`}
          key={907263}>
           {/* Header */}
           <Header isSidebarOpen={sidebarOpen} onToggleSidebar={() = key={478841}> toggleSidebar()} />
@@ -66,7 +65,11 @@ const AppShell: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )};
 
 export default React.memo(AppShell);
+
+
+
+
+`

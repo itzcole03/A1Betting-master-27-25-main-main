@@ -1,12 +1,12 @@
-import React from 'react.ts';
-import { calculateUserStats } from '@/utils/analyticsHelpers.ts'; 
-import { useAppStore } from '@/store/useAppStore.ts';
+﻿import React from 'react';
+import { calculateUserStats} from '@/utils/analyticsHelpers'; 
+import { useAppStore} from '@/store/useAppStore';
 
 
 const UserStats: React.FC = () => {
-  const { entries, user } = useAppStore(state => ({ 
+  const { entries, user} = useAppStore(state => ({ 
     entries: state.entries,
-    user: state.user,
+    user: state.user
   }));
 
   // Placeholder data removed;
@@ -15,18 +15,16 @@ const UserStats: React.FC = () => {
   //   winRate: 0,
   //   totalProfitLoss: 0,
   //   roi: 0,
-  // };
+  //};
 
   if (!user) {
-    return <p className="text-text-muted" key={342783}>Please log in to see your stats.</p>;
-  }
+    return <p className="text-text-muted" key={342783}>Please log in to see your stats.</p>;}
   
   if (!Array.isArray(entries) || entries.length === 0) {
-    return <p className="text-text-muted" key={342783}>No betting history to calculate stats.</p>;
-  }
+    return <p className="text-text-muted" key={342783}>No betting history to calculate stats.</p>;}
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-6" key={428867}>
+    <div className="grid grid-cols-2 md: grid-cols-4 gap-6" key={428867}>
       <div className="p-4 glass rounded-2xl bg-gradient-to-br from-blue-100/60 to-blue-300/30 shadow-md animate-fade-in" key={162411}>
         <p className="text-xs text-blue-700 font-semibold mb-1" key={434603}>Total Bets</p>
         <p className="text-2xl font-extrabold text-blue-900" key={110560}>{stats.totalBets}</p>
@@ -44,7 +42,10 @@ const UserStats: React.FC = () => {
         <p className="text-2xl font-extrabold text-purple-700" key={301915}>{stats.roi.toFixed(1)}%</p>
       </div>
     </div>
-  );
-};
+  )};
 
 export default UserStats; 
+
+
+
+`

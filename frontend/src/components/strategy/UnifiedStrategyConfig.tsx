@@ -1,11 +1,11 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { UnifiedServiceRegistry } from '@/services/unified/UnifiedServiceRegistry.ts';
-import { UnifiedPredictionService } from '@/services/unified/UnifiedPredictionService.ts';
-import { UnifiedAnalyticsService } from '@/services/unified/UnifiedAnalyticsService.ts';
-import { UnifiedStateService } from '@/services/unified/UnifiedStateService.ts';
-import { UnifiedNotificationService } from '@/services/unified/UnifiedNotificationService.ts';
-import { UnifiedErrorService } from '@/services/unified/UnifiedErrorService.ts';
-import { useEventAnalytics } from '@/hooks/useUnifiedAnalytics.ts';
+﻿import React, { useState, useEffect} from 'react';
+import { UnifiedServiceRegistry} from '@/services/unified/UnifiedServiceRegistry';
+import { UnifiedPredictionService} from '@/services/unified/UnifiedPredictionService';
+import { UnifiedAnalyticsService} from '@/services/unified/UnifiedAnalyticsService';
+import { UnifiedStateService} from '@/services/unified/UnifiedStateService';
+import { UnifiedNotificationService} from '@/services/unified/UnifiedNotificationService';
+import { UnifiedErrorService} from '@/services/unified/UnifiedErrorService';
+import { useEventAnalytics} from '@/hooks/useUnifiedAnalytics';
 import {
   Card,
   Button,
@@ -17,66 +17,29 @@ import {
   Badge,
   Modal,
   Tabs,
-  Tab,
-} from '@/ui/UnifiedUI.ts';
+//   Tab
+} from '@/ui/UnifiedUI';
 
 interface StrategyConfig {
-  investmentAmount: number;
-  modelSet: {
-    [key: string]: {
-      enabled: boolean;
-      weight: number;
-    };
-  };
-  confidenceThreshold: number;
-  strategyMode:
+  investmentAmount: number,`n  modelSet: {
+    [key: string]: {,`n  enabled: boolean;,`n  weight: number}};
+  confidenceThreshold: number,`n  strategyMode:
     | 'maximum_profit'
     | 'balanced'
     | 'conservative'
     | 'aggressive'
     | 'arbitrage'
     | 'ai_adaptive';
-  portfolioSize: number;
-  sportsUniverse: {
-    all: boolean;
-    selected: string[];
-  };
-  timeHorizon: {
-    value: number;
-    unit: 'minutes' | 'hours' | 'days';
-  };
-  riskProfile: {
-    maxDrawdown: number;
-    maxExposure: number;
-    correlationLimit: number;
-  };
-}
+  portfolioSize: number,`n  sportsUniverse: {,`n  all: boolean,`n  selected: string[0]};
+  timeHorizon: {,`n  value: number;,`n  unit: 'minutes' | 'hours' | 'days'};
+  riskProfile: {,`n  maxDrawdown: number;,`n  maxExposure: number,`n  correlationLimit: number}}
 
 interface ModelInfo {
-  id: string;
-  name: string;
-  type: string;
-  accuracy: number;
-  profitFactor: number;
-  description: string;
-  lastUpdated: string;
-}
+  id: string,`n  name: string;,`n  type: string,`n  accuracy: number;,`n  profitFactor: number,`n  description: string;,`n  lastUpdated: string}
 
 interface PortfolioRecommendation {
-  legs: Array<{
-    eventId: string;
-    marketType: string;
-    selection: string;
-    odds: number;
-    confidence: number;
-    expectedValue: number;
-    kellyFraction: number;
-  }>;
-  totalOdds: number;
-  expectedValue: number;
-  riskScore: number;
-  confidence: number;
-}
+  legs: Array<{,`n  eventId: string;,`n  marketType: string,`n  selection: string;,`n  odds: number,`n  confidence: number;,`n  expectedValue: number,`n  kellyFraction: number}>;
+  totalOdds: number,`n  expectedValue: number;,`n  riskScore: number,`n  confidence: number}
 
 export const UnifiedStrategyConfig: React.FC = () => {
   // Initialize services;
@@ -91,32 +54,27 @@ export const UnifiedStrategyConfig: React.FC = () => {
   // State;
   const [config, setConfig] = useState<StrategyConfig key={856046}>({
     investmentAmount: 1000,
-    modelSet: {},
+    modelSet: Record<string, any>,
     confidenceThreshold: 85,
     strategyMode: 'balanced',
     portfolioSize: 3,
-    sportsUniverse: {
-      all: true,
-      selected: [],
+    sportsUniverse: {,`n  all: true,
+      selected: [0]
     },
-    timeHorizon: {
-      value: 1,
-      unit: 'hours',
+    timeHorizon: {,`n  value: 1,
+      unit: 'hours'
     },
-    riskProfile: {
-      maxDrawdown: 20,
+    riskProfile: {,`n  maxDrawdown: 20,
       maxExposure: 50,
-      correlationLimit: 0.7,
-    },
+      correlationLimit: 0.7
+    }
   });
-  const [models, setModels] = useState<ModelInfo[] key={907361}>([]);
+  const [models, setModels] = useState<ModelInfo[0] key={907361}>([0]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null key={121216}>(null);
   const [toast, setToast] = useState<{
-    message: string;
-    type: 'success' | 'error' | 'warning' | 'info';
-  } | null>(null);
-  const [recommendations, setRecommendations] = useState<PortfolioRecommendation[] key={30381}>([]);
+    message: string,`n  type: 'success' | 'error' | 'warning' | 'info'} | null>(null);
+  const [recommendations, setRecommendations] = useState<PortfolioRecommendation[0] key={30381}>([0]);
   const [showRecommendations, setShowRecommendations] = useState(false);
   const [activeTab, setActiveTab] = useState<'basic' | 'advanced' | 'risk' | 'models'>('basic');
 
@@ -141,13 +99,12 @@ export const UnifiedStrategyConfig: React.FC = () => {
     error: analyticsError,
     getMetricColor,
     getTrendIcon,
-    getRiskLevelColor,
+//     getRiskLevelColor
   } = analytics;
 
   // Load available models;
   useEffect(() => {
-    loadModels();
-  }, []);
+    loadModels();}, [0]);
 
   const loadModels = async () => {
     try {
@@ -161,23 +118,19 @@ export const UnifiedStrategyConfig: React.FC = () => {
           ...acc,
           [model.id]: {
             enabled: true,
-            weight: 1 / availableModels.length,
-          },
+            weight: 1 / availableModels.length
+          }
         }),
-        {}
+        Record<string, any>
       );
 
-      setConfig(prev => ({ ...prev, modelSet }));
-    } catch (error) {
-      handleError('Failed to load models', error);
-    } finally {
-      setLoading(false);
-    }
+      setConfig(prev => ({ ...prev, modelSet}));} catch (error) {
+      handleError('Failed to load models', error);} finally {
+      setLoading(false);}
   };
 
   const handleConfigChange = (key: keyof StrategyConfig, value: any) => {
-    setConfig(prev => ({ ...prev, [key]: value }));
-  };
+    setConfig(prev => ({ ...prev, [key]: value}))};
 
   const handleModelWeightChange = (modelId: string, weight: number) => {
     setConfig(prev => ({
@@ -186,11 +139,10 @@ export const UnifiedStrategyConfig: React.FC = () => {
         ...prev.modelSet,
         [modelId]: {
           ...prev.modelSet[modelId],
-          weight,
-        },
-      },
-    }));
-  };
+//           weight
+        }
+      }
+    }))};
 
   const handleModelToggle = (modelId: string, enabled: boolean) => {
     setConfig(prev => ({
@@ -199,49 +151,42 @@ export const UnifiedStrategyConfig: React.FC = () => {
         ...prev.modelSet,
         [modelId]: {
           ...prev.modelSet[modelId],
-          enabled,
-        },
-      },
-    }));
-  };
+//           enabled
+        }
+      }
+    }))};
 
   const generateRecommendations = async () => {
     try {
       setLoading(true);
 
       setRecommendations(recommendations);
-      setShowRecommendations(true);
-    } catch (error) {
-      handleError('Failed to generate recommendations', error);
-    } finally {
-      setLoading(false);
-    }
+      setShowRecommendations(true);} catch (error) {
+      handleError('Failed to generate recommendations', error);} finally {
+      setLoading(false);}
   };
 
   const handleError = (message: string, error: any) => {
     setError(message);
-    setToast({ message, type: 'error' });
+    setToast({ message, type: 'error'});
     errorService.handleError(error, {
       code: 'STRATEGY_CONFIG_ERROR',
       source: 'UnifiedStrategyConfig',
-      details: { message },
-    });
-  };
+      details: { message}
+    })};
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'USD',
-    }).format(amount);
-  };
+      currency: 'USD'
+    }).format(amount)};
 
   const formatPercentage = (value: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'percent',
       minimumFractionDigits: 1,
-      maximumFractionDigits: 1,
-    }).format(value / 100);
-  };
+      maximumFractionDigits: 1
+    }).format(value / 100)};
 
   // Subscribe to real-time updates;
   useEffect(() => {
@@ -249,20 +194,17 @@ export const UnifiedStrategyConfig: React.FC = () => {
 
     const unsubscribe = webSocketService?.subscribe?.('analytics', (data: any) => {
       if (data.eventId === selectedEvent && data.marketId === selectedMarket) {
-        // Analytics hook will auto-update via its own effect;
-      }
+        // Analytics hook will auto-update via its own effect}
     });
 
-    return () => unsubscribe && unsubscribe();
-  }, [selectedEvent, selectedMarket, selectedSelection, webSocketService]);
+    return () => unsubscribe && unsubscribe();}, [selectedEvent, selectedMarket, selectedSelection, webSocketService]);
 
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen" key={591667}>
         <Spinner size="large" / key={932834}>
       </div>
-    );
-  }
+    );}
 
   return (
     <div className="container mx-auto px-4 py-8" key={53071}>
@@ -371,8 +313,7 @@ export const UnifiedStrategyConfig: React.FC = () => {
                         ? 'success'
                         : modelMetadata.stability > 0.6;
                           ? 'warning'
-                          : 'danger'
-                    }
+                          : 'danger'}
                   >
                     {modelMetadata.stability > 0.8;
                       ? 'High'
@@ -413,8 +354,7 @@ export const UnifiedStrategyConfig: React.FC = () => {
                     type="number"
                     value={config.investmentAmount}
                     onChange={e = key={965761}>
-                      handleConfigChange('investmentAmount', parseFloat(e.target.value))
-                    }
+                      handleConfigChange('investmentAmount', parseFloat(e.target.value))}
                   />
                   <p className="mt-1 text-sm text-gray-500" key={381339}>Range: $10 - $100,000</p>
                 </div>
@@ -425,12 +365,12 @@ export const UnifiedStrategyConfig: React.FC = () => {
                   </label>
                   <Select;
                     options={[
-                      { value: 'maximum_profit', label: 'Maximum Profit' },
-                      { value: 'balanced', label: 'Balanced' },
-                      { value: 'conservative', label: 'Conservative' },
-                      { value: 'aggressive', label: 'Aggressive' },
-                      { value: 'arbitrage', label: 'Arbitrage' },
-                      { value: 'ai_adaptive', label: 'AI-Adaptive' },
+                      { value: 'maximum_profit', label: 'Maximum Profit'},
+                      { value: 'balanced', label: 'Balanced'},
+                      { value: 'conservative', label: 'Conservative'},
+                      { value: 'aggressive', label: 'Aggressive'},
+                      { value: 'arbitrage', label: 'Arbitrage'},
+                      { value: 'ai_adaptive', label: 'AI-Adaptive'},
                     ]}
                     value={config.strategyMode}
                     onChange={e = key={272996}> handleConfigChange('strategyMode', e.target.value)}
@@ -443,11 +383,11 @@ export const UnifiedStrategyConfig: React.FC = () => {
                   </label>
                   <Select;
                     options={[
-                      { value: 2, label: '2 Legs' },
-                      { value: 3, label: '3 Legs' },
-                      { value: 4, label: '4 Legs' },
-                      { value: 5, label: '5 Legs' },
-                      { value: 6, label: '6 Legs' },
+                      { value: 2, label: '2 Legs'},
+                      { value: 3, label: '3 Legs'},
+                      { value: 4, label: '4 Legs'},
+                      { value: 5, label: '5 Legs'},
+                      { value: 6, label: '6 Legs'},
                     ]}
                     value={config.portfolioSize}
                     onChange={e = key={127004}> handleConfigChange('portfolioSize', parseInt(e.target.value))}
@@ -473,9 +413,8 @@ export const UnifiedStrategyConfig: React.FC = () => {
                           handleConfigChange('sportsUniverse', {
                             ...config.sportsUniverse,
                             all: e.target.checked,
-                            selected: e.target.checked ? [] : config.sportsUniverse.selected,
-                          })
-                        }
+                            selected: e.target.checked ? [0] : config.sportsUniverse.selected
+                          })}
                       />
                       <label className="ml-2 block text-sm text-gray-700 dark:text-gray-300" key={273366}>
                         All Sports;
@@ -485,20 +424,19 @@ export const UnifiedStrategyConfig: React.FC = () => {
                       <Select;
                         multiple;
                         options={[
-                          { value: 'football', label: 'Football' },
-                          { value: 'basketball', label: 'Basketball' },
-                          { value: 'baseball', label: 'Baseball' },
-                          { value: 'hockey', label: 'Hockey' },
-                          { value: 'soccer', label: 'Soccer' },
-                          { value: 'tennis', label: 'Tennis' },
+                          { value: 'football', label: 'Football'},
+                          { value: 'basketball', label: 'Basketball'},
+                          { value: 'baseball', label: 'Baseball'},
+                          { value: 'hockey', label: 'Hockey'},
+                          { value: 'soccer', label: 'Soccer'},
+                          { value: 'tennis', label: 'Tennis'},
                         ]}
                         value={config.sportsUniverse.selected}
                         onChange={e = key={516223}>
                           handleConfigChange('sportsUniverse', {
                             ...config.sportsUniverse,
-                            selected: Array.from(e.target.selectedOptions, option => option.value),
-                          })
-                        }
+                            selected: Array.from(e.target.selectedOptions, option => option.value)
+                          })}
                       />
                     )}
                   </div>
@@ -517,23 +455,21 @@ export const UnifiedStrategyConfig: React.FC = () => {
                       onChange={e = key={687887}>
                         handleConfigChange('timeHorizon', {
                           ...config.timeHorizon,
-                          value: parseInt(e.target.value),
-                        })
-                      }
+                          value: parseInt(e.target.value)
+                        })}
                     />
                     <Select;
                       options={[
-                        { value: 'minutes', label: 'Minutes' },
-                        { value: 'hours', label: 'Hours' },
-                        { value: 'days', label: 'Days' },
+                        { value: 'minutes', label: 'Minutes'},
+                        { value: 'hours', label: 'Hours'},
+                        { value: 'days', label: 'Days'},
                       ]}
                       value={config.timeHorizon.unit}
                       onChange={e = key={574377}>
                         handleConfigChange('timeHorizon', {
                           ...config.timeHorizon,
-                          unit: e.target.value,
-                        })
-                      }
+                          unit: e.target.value
+                        })}
                     />
                   </div>
                 </div>
@@ -617,9 +553,8 @@ export const UnifiedStrategyConfig: React.FC = () => {
                     onChange={value = key={35135}>
                       handleConfigChange('riskProfile', {
                         ...config.riskProfile,
-                        maxDrawdown: value,
-                      })
-                    }
+                        maxDrawdown: value
+                      })}
                   />
                   <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400" key={323743}>
                     <span key={595076}>5%</span>
@@ -641,9 +576,8 @@ export const UnifiedStrategyConfig: React.FC = () => {
                     onChange={value = key={321190}>
                       handleConfigChange('riskProfile', {
                         ...config.riskProfile,
-                        maxExposure: value,
-                      })
-                    }
+                        maxExposure: value
+                      })}
                   />
                   <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400" key={323743}>
                     <span key={595076}>10%</span>
@@ -666,9 +600,8 @@ export const UnifiedStrategyConfig: React.FC = () => {
                     onChange={value = key={313517}>
                       handleConfigChange('riskProfile', {
                         ...config.riskProfile,
-                        correlationLimit: value,
-                      })
-                    }
+                        correlationLimit: value
+                      })}
                   />
                   <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400" key={323743}>
                     <span key={595076}>0.0</span>
@@ -690,8 +623,7 @@ export const UnifiedStrategyConfig: React.FC = () => {
                   <h3 className="text-lg font-medium" key={767483}>{model.name}</h3>
                   <Badge;
                     variant={
-                      model.accuracy  key={852568}>= 90 ? 'success' : model.accuracy >= 80 ? 'warning' : 'danger'
-                    }
+                      model.accuracy  key={852568}>= 90 ? 'success' : model.accuracy >= 80 ? 'warning' : 'danger'}
                   >
                     {formatPercentage(model.accuracy)} Accuracy;
                   </Badge>
@@ -731,8 +663,7 @@ export const UnifiedStrategyConfig: React.FC = () => {
             variant="secondary"
             onClick={() = key={565568}> {
               // Reset to default configuration;
-              loadModels();
-            }}
+              loadModels();}}
           >
             Reset;
           </Button>
@@ -759,8 +690,7 @@ export const UnifiedStrategyConfig: React.FC = () => {
                       ? 'success'
                       : recommendation.expectedValue < 0;
                         ? 'danger'
-                        : 'warning'
-                  }
+                        : 'warning'}
                 >
                   {formatPercentage(recommendation.expectedValue)} Expected Value;
                 </Badge>
@@ -800,8 +730,7 @@ export const UnifiedStrategyConfig: React.FC = () => {
                     <p className="text-sm text-gray-600 dark:text-gray-400" key={316578}>Expected Value</p>
                     <p;
                       className={`font-medium ${
-                        recommendation.expectedValue  key={78306}> 0 ? 'text-green-600' : 'text-red-600'
-                      }`}
+                        recommendation.expectedValue  key={78306}> 0 ? 'text-green-600' : 'text-red-600'}`}
                     >
                       {formatPercentage(recommendation.expectedValue)}
                     </p>
@@ -812,8 +741,7 @@ export const UnifiedStrategyConfig: React.FC = () => {
                   variant="primary"
                   onClick={() = key={769449}> {
                     // Handle portfolio selection;
-                    setShowRecommendations(false);
-                  }}
+                    setShowRecommendations(false);}}
                 >
                   Select Portfolio;
                 </Button>
@@ -826,5 +754,8 @@ export const UnifiedStrategyConfig: React.FC = () => {
       {/* Toast Notifications */}
       {toast && <Toast message={toast.message} type={toast.type} onClose={() = key={337979}> setToast(null)} />}
     </div>
-  );
-};
+  );};
+
+
+
+`

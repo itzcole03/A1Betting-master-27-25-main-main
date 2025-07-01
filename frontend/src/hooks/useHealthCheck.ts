@@ -1,33 +1,27 @@
-import { useState, useEffect } from 'react.ts';
+﻿import { useState, useEffect} from 'react';
 
 interface HealthStatus {
-  healthy: boolean;
-  lastChecked: number;
-  error?: string;
-}
+  healthy: boolean,`n  lastChecked: number;
+  error?: string}
 
 export const useHealthCheck = () => {
   const [healthStatus, setHealthStatus] = useState<HealthStatus>({
     healthy: true,
-    lastChecked: Date.now(),
+    lastChecked: Date.now()
   });
 
   useEffect(() => {
     const checkHealth = async () => {
       try {
-
-
         setHealthStatus({
           healthy: data.status === 'ok',
-          lastChecked: Date.now(),
-        });
-      } catch (error) {
+          lastChecked: Date.now()
+        })} catch (error) {
         setHealthStatus({
           healthy: false,
           lastChecked: Date.now(),
-          error: error instanceof Error ? error.message : 'Unknown error',
-        });
-      }
+          error: error instanceof Error ? error.message : 'Unknown error'
+        })}
     };
 
     // Initial check;
@@ -36,8 +30,11 @@ export const useHealthCheck = () => {
     // Set up interval for regular checks;
     const interval = setInterval(checkHealth, 30000); // Check every 30 seconds;
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval);}, [0]);
 
-  return { healthStatus };
-};
+  return { healthStatus};};
+
+
+
+
+`

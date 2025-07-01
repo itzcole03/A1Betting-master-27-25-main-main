@@ -20,6 +20,7 @@ This directory contains services related to user bet tracking and analytics. It 
 ## File Breakdown
 
 ### BetTrackingService.ts
+
 - **Purpose:** Tracks user bets, calculates ROI, win/loss streaks, and provides analytics for user betting performance.
 - **Usage:** Used to fetch user bet records and analytics from backend persistent storage. Exports a singleton `betTrackingService` for use in user dashboards and analytics features.
 - **Notes:** Integrates with backend APIs and rate limiting. Returns detailed analytics including streaks and profit.
@@ -27,4 +28,4 @@ This directory contains services related to user bet tracking and analytics. It 
 
 ---
 
-*This documentation is auto-generated and should be updated as files are added, removed, or refactored in the user directory.*
+_This documentation is auto-generated and should be updated as files are added, removed, or refactored in the user directory._

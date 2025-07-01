@@ -1,5 +1,5 @@
-import { BestBetSelector } from '@/BestBetSelector.ts';
-import { ModelOutput, RiskProfile } from '@/types/prediction.ts';
+﻿import { BestBetSelector} from '@/BestBetSelector';
+import { ModelOutput, RiskProfile} from '@/types/prediction';
 
 // Mock logger and metrics;
 const mockLogger = {
@@ -7,7 +7,7 @@ const mockLogger = {
   error: jest.fn(),
   warn: jest.fn(),
   debug: jest.fn(),
-  trace: jest.fn(),
+  trace: jest.fn()
 };
 
 const mockMetrics = {
@@ -15,12 +15,12 @@ const mockMetrics = {
   increment: jest.fn(),
   gauge: jest.fn(),
   timing: jest.fn(),
-  histogram: jest.fn(),
+  histogram: jest.fn()
 };
 
 describe('BestBetSelector', () => {
   let selector: BestBetSelector;
-  let mockPredictions: ModelOutput[];
+  let mockPredictions: ModelOutput[0];
   let mockRiskProfile: RiskProfile;
 
   beforeEach(() => {
@@ -30,13 +30,13 @@ describe('BestBetSelector', () => {
         type: 'model1',
         prediction: 0.8,
         confidence: 0.9,
-        features: { feature1: 1, feature2: 2 },
+        features: { feature1: 1, feature2: 2}
       },
       {
         type: 'model2',
         prediction: 0.75,
         confidence: 0.85,
-        features: { feature1: 1, feature2: 2 },
+        features: { feature1: 1, feature2: 2}
       },
     ];
     mockRiskProfile = {
@@ -46,13 +46,11 @@ describe('BestBetSelector', () => {
       minConfidence: 0.7,
       maxRiskScore: 0.8,
       preferredSports: ['NBA'],
-      preferredMarkets: ['moneyline'],
-    };
-  });
+      preferredMarkets: ['moneyline']
+    }});
 
   afterEach(() => {
-    jest.clearAllMocks();
-  });
+    jest.clearAllMocks();});
 
   describe('selectBestBets', () => {
     it('should filter out predictions below confidence threshold', async () => {
@@ -60,12 +58,11 @@ describe('BestBetSelector', () => {
         type: 'model3',
         prediction: 0.6,
         confidence: 0.5,
-        features: { feature1: 1, feature2: 2 },
+        features: { feature1: 1, feature2: 2}
       };
 
       expect(recommendations).toHaveLength(2);
-      expect(recommendations.every(r => r.confidence >= 0.7)).toBe(true);
-    });
+      expect(recommendations.every(r => r.confidence >= 0.7)).toBe(true);});
 
     it('should calculate correct stake amounts', async () => {
       const recommendations = await selector.selectBestBets(
@@ -76,9 +73,7 @@ describe('BestBetSelector', () => {
 
       recommendations.forEach(recommendation => {
         expect(recommendation.stake).toBeLessThanOrEqual(mockRiskProfile.maxStake);
-        expect(recommendation.stake).toBeGreaterThan(0);
-      });
-    });
+        expect(recommendation.stake).toBeGreaterThan(0);});});
 
     it('should include model agreement in metadata', async () => {
       const recommendations = await selector.selectBestBets(
@@ -90,9 +85,7 @@ describe('BestBetSelector', () => {
       recommendations.forEach(recommendation => {
         expect(recommendation.metadata.modelAgreement).toBeDefined();
         expect(recommendation.metadata.modelAgreement).toBeGreaterThanOrEqual(0);
-        expect(recommendation.metadata.modelAgreement).toBeLessThanOrEqual(1);
-      });
-    });
+        expect(recommendation.metadata.modelAgreement).toBeLessThanOrEqual(1);});});
 
     it('should track metrics for recommendations', async () => {
       await selector.selectBestBets(mockPredictions, mockRiskProfile, 10000);
@@ -102,11 +95,9 @@ describe('BestBetSelector', () => {
         expect.objectContaining({
           count: expect.any(Number),
           averageConfidence: expect.any(Number),
-          totalStake: expect.any(Number),
+          totalStake: expect.any(Number)
         })
-      );
-    });
-  });
+      )});});
 
   describe('updateModelPerformance', () => {
     it('should update model performance metrics correctly', () => {
@@ -117,31 +108,27 @@ describe('BestBetSelector', () => {
       expect(performance).toBeDefined();
       expect(performance?.wins).toBe(1);
       expect(performance?.losses).toBe(0);
-      expect(performance?.roi).toBe(1); // (200 - 100) / 100;
-    });
+      expect(performance?.roi).toBe(1); // (200 - 100) / 100;});
 
     it('should handle multiple updates correctly', () => {
 
       const results = [
-        { won: true, stake: 100, payout: 200 },
-        { won: false, stake: 100, payout: 0 },
+        { won: true, stake: 100, payout: 200},
+        { won: false, stake: 100, payout: 0},
       ];
 
       results.forEach(result => {
-        selector.updateModelPerformance(modelName, result);
-      });
+        selector.updateModelPerformance(modelName, result);});
 
       expect(performance?.wins).toBe(1);
       expect(performance?.losses).toBe(1);
-      expect(performance?.roi).toBe(0); // (200 - 100 - 100) / 200;
-    });
-  });
+      expect(performance?.roi).toBe(0); // (200 - 100 - 100) / 200;});});
 
   describe('updateConfig', () => {
     it('should update configuration correctly', async () => {
       const newConfig = {
         minConfidence: 0.8,
-        maxStakePercentage: 0.2,
+        maxStakePercentage: 0.2
       };
 
       selector.updateConfig(newConfig);
@@ -152,7 +139,7 @@ describe('BestBetSelector', () => {
         10000;
       );
 
-      expect(recommendations.every(r => r.confidence >= 0.8)).toBe(true);
-    });
-  });
-});
+      expect(recommendations.every(r => r.confidence >= 0.8)).toBe(true);});});});
+
+
+

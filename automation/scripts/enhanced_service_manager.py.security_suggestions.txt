@@ -1,0 +1,8 @@
+Security Improvement Suggestions for .\automation\scripts\enhanced_service_manager.py
+==================================================
+
+1. Move hardcoded credentials to environment variables
+2. Use secure credential management systems
+3. Implement proper secret rotation
+4. Add credential validation and sanitization
+5. Consider using encrypted configuration files

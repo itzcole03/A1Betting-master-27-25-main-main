@@ -1,4 +1,4 @@
-import React, { useEffect  } from 'react.ts';
+﻿import React, { useEffect} from 'react';
 import {
   Box,
   Paper,
@@ -7,12 +7,12 @@ import {
   Alert,
   CircularProgress,
   Stack,
-  Button,
-} from '@mui/material.ts';
-import { RiskProfileSelector } from './RiskProfileSelector.ts';
-import { StakeSizingControl } from './StakeSizingControl.ts';
-import { ModelSelector } from './ModelSelector.ts';
-import { useBettingSettings } from '@/hooks/useBettingSettings.ts';
+//   Button
+} from '@mui/material';
+import { RiskProfileSelector} from './RiskProfileSelector';
+import { StakeSizingControl} from './StakeSizingControl';
+import { ModelSelector} from './ModelSelector';
+import { useBettingSettings} from '@/hooks/useBettingSettings';
 
 export const BettingSettingsPanel: React.FC = () => {
   const {
@@ -22,7 +22,7 @@ export const BettingSettingsPanel: React.FC = () => {
     handleRiskProfileChange,
     handleStakeChange,
     handleModelChange,
-    resetSettings,
+//     resetSettings
   } = useBettingSettings();
 
   if (isLoading) {
@@ -30,20 +30,18 @@ export const BettingSettingsPanel: React.FC = () => {
       <Box display="flex" justifyContent="center" p={3} key={1673}>
         <CircularProgress / key={730118}>
       </Box>
-    );
-  }
+    );}
 
   if (error) {
     return (
-      <Alert severity="error" sx={{ m: 2 }} key={545431}>
+      <Alert severity="error" sx={{ m: 2}} key={545431}>
         {error}
       </Alert>
-    );
-  }
+    )}
 
   return (
-    <Paper elevation={3} sx={{ p: 3 }} key={678742}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }} key={244704}>
+    <Paper elevation={3} sx={{ p: 3}} key={678742}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3}} key={244704}>
         <Typography variant="h6" key={93421}>Betting Settings</Typography>
         <Button color="primary" variant="outlined" onClick={resetSettings} key={96872}>
           Reset to Default;
@@ -85,5 +83,8 @@ export const BettingSettingsPanel: React.FC = () => {
         </Box>
       </Stack>
     </Paper>
-  );
-};
+  );};
+
+
+
+

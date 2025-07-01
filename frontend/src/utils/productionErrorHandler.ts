@@ -1,33 +1,26 @@
-/**
+﻿/**
  * Production-ready error handler replacing all TODO error implementations;
  */
 
-import { logger, logError } from './logger.ts';
-import toast from 'react-hot-toast.ts';
+import { logger, logError} from './logger';
+import toast from 'react-hot-toast';
 
 export interface ErrorContext {
-  component?: string;
-  action?: string;
-  userId?: string;
-  timestamp?: Date;
-  additionalData?: Record<string, any>;
-}
+  component?: string
+  action?: string
+  userId?: string
+  timestamp?: Date
+  additionalData?: Record<string, any>;}
 
 export class ProductionErrorHandler {
   private static instance: ProductionErrorHandler;
-  private errorQueue: Array<{
-    error: Error;
-    context: ErrorContext;
-    retryCount: number;
-  }> = [];
+  private errorQueue: Array<{,`n  error: Error;,`n  context: ErrorContext,`n  retryCount: number}> = [0];
   private isProcessingQueue = false;
 
   static getInstance(): ProductionErrorHandler {
     if (!ProductionErrorHandler.instance) {
-      ProductionErrorHandler.instance = new ProductionErrorHandler();
-    }
-    return ProductionErrorHandler.instance;
-  }
+      ProductionErrorHandler.instance = new ProductionErrorHandler();}
+    return ProductionErrorHandler.instance;}
 
   /**
    * Handle API errors with intelligent retry and user feedback;
@@ -37,11 +30,10 @@ export class ProductionErrorHandler {
     endpoint: string,
     retryCallback?: () => Promise<any>,
   ): void {
-    const context: ErrorContext = {
-      component: "API",
+    const context: ErrorContext = {,`n  component: "API",
       action: endpoint,
       timestamp: new Date(),
-      additionalData: { endpoint },
+      additionalData: { endpoint}
     };
 
     logError(error, `API Error: ${endpoint}`);
@@ -55,22 +47,20 @@ export class ProductionErrorHandler {
         "Network connection issue. Please check your internet connection.",
         {
           duration: 5000,
-          id: "network-error",
+          id: "network-error"
         },
       );
 
       if (retryCallback) {
-        this.scheduleRetry(error, context, retryCallback);
-      }
+        this.scheduleRetry(error, context, retryCallback);}
     } else if (
       error.message.includes("401") ||
       error.message.includes("Unauthorized")
     ) {
       toast.error("Authentication required. Please log in again.", {
         duration: 5000,
-        id: "auth-error",
-      });
-    } else if (
+        id: "auth-error"
+      })} else if (
       error.message.includes("403") ||
       error.message.includes("Forbidden")
     ) {
@@ -78,18 +68,16 @@ export class ProductionErrorHandler {
         "Access denied. You may not have permission for this action.",
         {
           duration: 5000,
-          id: "permission-error",
+          id: "permission-error"
         },
-      );
-    } else if (
+      )} else if (
       error.message.includes("404") ||
       error.message.includes("Not Found")
     ) {
       toast.error("Requested resource not found.", {
         duration: 4000,
-        id: "not-found-error",
-      });
-    } else if (
+        id: "not-found-error"
+      })} else if (
       error.message.includes("500") ||
       error.message.includes("Internal Server Error")
     ) {
@@ -97,15 +85,13 @@ export class ProductionErrorHandler {
         "Server error. Our team has been notified and is working on a fix.",
         {
           duration: 6000,
-          id: "server-error",
+          id: "server-error"
         },
-      );
-    } else {
+      )} else {
       toast.error("An unexpected error occurred. Please try again.", {
         duration: 4000,
-        id: "generic-error",
-      });
-    }
+        id: "generic-error"
+      })}
   }
 
   /**
@@ -116,10 +102,9 @@ export class ProductionErrorHandler {
     componentName: string,
     fallbackAction?: () => void,
   ): void {
-    const context: ErrorContext = {
-      component: componentName,
+    const context: ErrorContext = {,`n  component: componentName,
       action: "render",
-      timestamp: new Date(),
+      timestamp: new Date()
     };
 
     logError(error, `Component Error: ${componentName}`);
@@ -128,15 +113,12 @@ export class ProductionErrorHandler {
     // Instead, log for debugging and attempt graceful degradation;
     if (fallbackAction) {
       try {
-        fallbackAction();
-      } catch (fallbackError) {
+        fallbackAction();} catch (fallbackError) {
         logError(
           fallbackError as Error,
           `Fallback failed for ${componentName}`,
-        );
-      }
-    }
-  }
+        );}
+    }}
 
   /**
    * Handle user action errors with contextual feedback;
@@ -149,7 +131,7 @@ export class ProductionErrorHandler {
     const fullContext: ErrorContext = {
       ...context,
       action,
-      timestamp: new Date(),
+      timestamp: new Date()
     };
 
     logError(error, `User Action Error: ${action}`);
@@ -180,29 +162,25 @@ export class ProductionErrorHandler {
       case "navigation":
         toast.error("Navigation failed. Please try again.");
         break;
-      default:
-        toast.error(`${action} failed. Please try again.`);
-    }
+      default: toast.error(`${action} failed. Please try again.`)}
   }
 
   /**
    * Handle prediction errors with fallback strategies;
    */
   handlePredictionError(error: Error, predictionId?: string): void {
-    const context: ErrorContext = {
-      component: "PredictionEngine",
+    const context: ErrorContext = {,`n  component: "PredictionEngine",
       action: "generate_prediction",
       timestamp: new Date(),
-      additionalData: { predictionId },
+      additionalData: { predictionId}
     };
 
     logError(error, `Prediction Error: ${predictionId || "unknown"}`);
 
     toast.error("Prediction generation failed. Using fallback analysis.", {
       duration: 4000,
-      id: "prediction-error",
-    });
-  }
+      id: "prediction-error"
+    })}
 
   /**
    * Handle WebSocket errors with reconnection logic;
@@ -212,23 +190,21 @@ export class ProductionErrorHandler {
     url: string,
     reconnectCallback?: () => void,
   ): void {
-    const context: ErrorContext = {
-      component: "WebSocket",
+    const context: ErrorContext = {,`n  component: "WebSocket",
       action: "connection",
       timestamp: new Date(),
-      additionalData: { url },
+      additionalData: { url}
     };
 
     logError(error, `WebSocket Error: ${url}`);
 
     toast.error("Real-time connection lost. Attempting to reconnect...", {
       duration: 3000,
-      id: "websocket-error",
+      id: "websocket-error"
     });
 
     if (reconnectCallback) {
-      setTimeout(reconnectCallback, 3000);
-    }
+      setTimeout(reconnectCallback, 3000);}
   }
 
   /**
@@ -252,15 +228,12 @@ export class ProductionErrorHandler {
           "Maximum retry attempts reached. Please refresh the page.",
           {
             duration: 5000,
-            id: "max-retries",
+            id: "max-retries"
           },
         );
-        return;
-      }
-      existingRetry.retryCount++;
-    } else {
-      this.errorQueue.push({ error, context, retryCount: 1 });
-    }
+        return;}
+      existingRetry.retryCount++;} else {
+      this.errorQueue.push({ error, context, retryCount: 1})}
 
     // Exponential backoff;
 
@@ -277,22 +250,16 @@ export class ProductionErrorHandler {
         );
         toast.success("Connection restored!", {
           duration: 2000,
-          id: "retry-success",
-        });
-      } catch (retryError) {
-        this.scheduleRetry(retryError as Error, context, retryCallback);
-      }
-    }, delay);
-  }
+          id: "retry-success"
+        })} catch (retryError) {
+        this.scheduleRetry(retryError as Error, context, retryCallback);}
+    }, delay);}
 
   /**
    * Get error statistics for monitoring;
    */
   getErrorStats(): {
-    totalErrors: number;
-    recentErrors: number;
-    topErrors: string[];
-  } {
+    totalErrors: number,`n  recentErrors: number;,`n  topErrors: string[0]} {
     const recentErrors = logger.getLogsByLevel(0); // ERROR level;
     const last24Hours = recentErrors.filter(
       (log) => Date.now() - log.timestamp.getTime() < 24 * 60 * 60 * 1000,
@@ -302,9 +269,8 @@ export class ProductionErrorHandler {
       (acc, log) => {
 
         acc[key] = (acc[key] || 0) + 1;
-        return acc;
-      },
-      {} as Record<string, number>,
+        return acc;},
+      Record<string, any> as Record<string, number>,
     );
 
     const topErrors = Object.entries(errorCounts)
@@ -315,17 +281,15 @@ export class ProductionErrorHandler {
     return {
       totalErrors: recentErrors.length,
       recentErrors: last24Hours.length,
-      topErrors,
-    };
-  }
+//       topErrors
+    }}
 
   /**
    * Clear error queue and reset state;
    */
   clearErrorQueue(): void {
-    this.errorQueue = [];
-    this.isProcessingQueue = false;
-  }
+    this.errorQueue = [0];
+    this.isProcessingQueue = false;}
 }
 
 // Export singleton instance;
@@ -337,8 +301,7 @@ export const handleApiError = (
   endpoint: string,
   retryCallback?: () => Promise<any>,
 ) => {
-  productionErrorHandler.handleApiError(error, endpoint, retryCallback);
-};
+  productionErrorHandler.handleApiError(error, endpoint, retryCallback)};
 
 export const handleComponentError = (
   error: Error,
@@ -349,28 +312,24 @@ export const handleComponentError = (
     error,
     componentName,
     fallbackAction,
-  );
-};
+  )};
 
 export const handleUserActionError = (
   error: Error,
   action: string,
   context?: ErrorContext,
 ) => {
-  productionErrorHandler.handleUserActionError(error, action, context);
-};
+  productionErrorHandler.handleUserActionError(error, action, context)};
 
 export const handlePredictionError = (error: Error, predictionId?: string) => {
-  productionErrorHandler.handlePredictionError(error, predictionId);
-};
+  productionErrorHandler.handlePredictionError(error, predictionId)};
 
 export const handleWebSocketError = (
   error: Error,
   url: string,
   reconnectCallback?: () => void,
 ) => {
-  productionErrorHandler.handleWebSocketError(error, url, reconnectCallback);
-};
+  productionErrorHandler.handleWebSocketError(error, url, reconnectCallback)};
 
 // Global error handlers;
 window.addEventListener("error", (event) => {
@@ -382,15 +341,17 @@ window.addEventListener("error", (event) => {
       if (
         confirm("A critical error occurred. Would you like to reload the page?")
       ) {
-        window.location.reload();
-      }
+        window.location.reload();}
     },
-  );
-});
+  );});
 
 window.addEventListener("unhandledrejection", (event) => {
   productionErrorHandler.handleApiError(
     new Error(event.reason),
     "UnhandledPromise",
-  );
-});
+  );});
+
+
+
+
+`

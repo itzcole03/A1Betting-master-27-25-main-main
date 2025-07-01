@@ -20,12 +20,14 @@ This directory contains modules for betting strategy logic and implementations. 
 ## File Breakdown
 
 ### bettingStrategy.ts
+
 - **Purpose:** Implements functions for calculating betting strategies and placing bets by interacting with backend endpoints. Maps frontend requests and responses to backend models and handles error reporting and monitoring.
 - **Usage:** Used to calculate betting opportunities and place bets based on user input and backend responses.
 - **Notes:** Integrates with unifiedMonitor for tracing and error reporting. Handles mapping between frontend and backend data structures.
 - **Status:** Actively used; not a candidate for removal.
 
 ### ProjectionBettingStrategy.ts
+
 - **Purpose:** Implements the ProjectionBettingStrategy class, which analyzes player projections and other integrated data to generate betting recommendations and decisions.
 - **Usage:** Used to evaluate projections, calculate confidence and edge, and generate recommendations for betting opportunities.
 - **Notes:** Integrates with EventBus, PerformanceMonitor, and FeatureManager. Includes advanced logic for data quality, risk, and confidence calculations.
@@ -33,4 +35,4 @@ This directory contains modules for betting strategy logic and implementations. 
 
 ---
 
-*This documentation is auto-generated and should be updated as files are added, removed, or refactored in the strategies directory.*
+_This documentation is auto-generated and should be updated as files are added, removed, or refactored in the strategies directory._

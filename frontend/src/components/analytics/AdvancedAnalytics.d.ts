@@ -1,3 +1,5 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 declare const AdvancedAnalytics: React.FC;
-export { AdvancedAnalytics };
+export { AdvancedAnalytics};
+
+

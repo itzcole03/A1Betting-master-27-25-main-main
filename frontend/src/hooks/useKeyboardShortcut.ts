@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react.ts';
+﻿import { useEffect, useCallback} from 'react';
 
 
 
@@ -6,24 +6,22 @@ type KeyHandler = (event: KeyboardEvent) => void;
 
 interface ShortcutConfig {
   key: string;
-  ctrlKey?: boolean;
-  altKey?: boolean;
-  shiftKey?: boolean;
-  metaKey?: boolean;
-  preventDefault?: boolean;
-  handler: KeyHandler;
-}
+  ctrlKey?: boolean
+  altKey?: boolean
+  shiftKey?: boolean
+  metaKey?: boolean
+  preventDefault?: boolean
+  handler: KeyHandler}
 
 interface Options {
-  enabled?: boolean;
-  targetKey?: string;
-}
+  enabled?: boolean
+  targetKey?: string}
 
 export const useKeyboardShortcut = (
-  shortcuts: ShortcutConfig | ShortcutConfig[],
-  options: Options = {}
+  shortcuts: ShortcutConfig | ShortcutConfig[0],
+  options: Options = Record<string, any>
 ) => {
-  const { enabled = true } = options;
+  const { enabled = true} = options;
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -37,8 +35,7 @@ export const useKeyboardShortcut = (
           shiftKey = false,
           metaKey = false,
           preventDefault = true,
-          handler;
-        } = shortcut;
+          handler;} = shortcut;
 
 
 
@@ -46,44 +43,40 @@ export const useKeyboardShortcut = (
 
         if (matchesKey && matchesCtrl && matchesAlt && matchesShift && matchesMeta) {
           if (preventDefault) {
-            event.preventDefault();
-          }
+            event.preventDefault();}
           handler(event);
-          break;
-        }
-      }
-    },
+          break;}
+      }},
     [enabled, shortcuts]
   );
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [handleKeyDown]);
-};
+    return () => document.removeEventListener('keydown', handleKeyDown);}, [handleKeyDown]);};
 
 // Predefined shortcuts for common actions;
 export const useEscapeKey = (handler: KeyHandler, enabled = true) => {
-  useKeyboardShortcut({ key: 'Escape', handler }, { enabled });
-};
+  useKeyboardShortcut({ key: 'Escape', handler}, { enabled})};
 
 export const useSaveShortcut = (handler: KeyHandler, enabled = true) => {
   useKeyboardShortcut(
-    { key: 's', ctrlKey: true, handler },
-    { enabled }
-  );
-};
+    { key: 's', ctrlKey: true, handler},
+    { enabled}
+  )};
 
 export const useUndoShortcut = (handler: KeyHandler, enabled = true) => {
   useKeyboardShortcut(
-    { key: 'z', ctrlKey: true, handler },
-    { enabled }
-  );
-};
+    { key: 'z', ctrlKey: true, handler},
+    { enabled}
+  )};
 
 export const useRedoShortcut = (handler: KeyHandler, enabled = true) => {
   useKeyboardShortcut(
-    { key: 'y', ctrlKey: true, handler },
-    { enabled }
-  );
-}; 
+    { key: 'y', ctrlKey: true, handler},
+    { enabled}
+  )}; 
+
+
+
+
+

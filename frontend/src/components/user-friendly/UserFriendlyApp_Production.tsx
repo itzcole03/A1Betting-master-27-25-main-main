@@ -1,6 +1,6 @@
-import { useState, useEffect, useMemo, useCallback } from 'react.ts';
-import React from 'react.ts';
-import { AnimatePresence, motion } from 'framer-motion.ts';
+﻿import { useState, useEffect, useMemo, useCallback} from 'react';
+import React from 'react';
+import { AnimatePresence, motion} from 'framer-motion';
 import {
   BarChart3,
   Bell,
@@ -12,62 +12,52 @@ import {
   Settings as SettingsIcon,
   Trophy,
   TrendingUp,
-  User,
-} from 'lucide-react.ts';
-import { useQueryClient } from '@tanstack/react-query.ts';
-import OfflineIndicator from '@/ui/OfflineIndicator.ts';
-import ApiErrorBoundary from '@/ApiErrorBoundary.ts';
+//   User
+} from 'lucide-react';
+import { useQueryClient} from '@tanstack/react-query';
+import OfflineIndicator from '@/ui/OfflineIndicator';
+import ApiErrorBoundary from '@/ApiErrorBoundary';
 import {
   initializeSettings,
   getUserDisplayName,
-  getUserEmail,
-} from '@/utils/userSettings.ts';
-import toast from 'react-hot-toast.ts';
+//   getUserEmail
+} from '@/utils/userSettings';
+import toast from 'react-hot-toast';
 import {
   logger,
   logNavigation,
   logUserAction,
-  logError,
-} from '@/utils/logger.ts';
+//   logError
+} from '@/utils/logger';
 import {
   api,
   SystemHealth,
-  User as ApiUser,
-} from '@/services/api/ProductionApiService.ts';
+  User as ApiUser
+} from '@/services/api/ProductionApiService';
 
 // Import user-friendly components with enhanced AI;
-import MoneyMakerPro from './MoneyMakerPro.ts';
-import PrizePicksPro from './PrizePicksPro.ts';
-import PropOllama from './PropOllama.ts';
-import UserFriendlyDashboard from './UserFriendlyDashboard.ts';
-import SimpleSettings from './SimpleSettings.ts';
+import MoneyMakerPro from './MoneyMakerPro';
+import PrizePicksPro from './PrizePicksPro';
+import PropOllama from './PropOllama';
+import UserFriendlyDashboard from './UserFriendlyDashboard';
+import SimpleSettings from './SimpleSettings';
 
 // Import existing components to integrate;
-import { AdvancedIntelligenceHub } from '@/intelligence/AdvancedIntelligenceHub.ts';
+import { AdvancedIntelligenceHub} from '@/intelligence/AdvancedIntelligenceHub';
 
 // Import user profile and handlers;
-import UserProfile from './UserProfile.ts';
+import UserProfile from './UserProfile';
 import {
   handleSearchClick,
-  handleNotificationClick,
-} from './SearchNotificationHandlers.ts';
+//   handleNotificationClick
+} from './SearchNotificationHandlers';
 
 interface NavigationItem {
-  id: string;
-  label: string;
-  icon: React.ReactNode;
-  component: React.ComponentType<any key={295429}>;
-  badge?: string;
-}
+  id: string,`n  label: string;,`n  icon: React.ReactNode,`n  component: React.ComponentType<any key={295429}>;
+  badge?: string}
 
 interface UserData {
-  name: string;
-  email: string;
-  balance: number;
-  tier: string;
-  winRate: number;
-  totalProfit: number;
-}
+  name: string,`n  email: string;,`n  balance: number,`n  tier: string;,`n  winRate: number,`n  totalProfit: number}
 
 // Production health check hook with real API integration and intelligent fallbacks;
 const useHealthCheck = () => {
@@ -103,8 +93,7 @@ const useHealthCheck = () => {
           setSystemHealth(healthData);
           currentOnlineStatus = healthData.status === "online";
           currentAccuracy = healthData.accuracy;
-          setLastSuccessfulCheck(new Date());
-        }
+          setLastSuccessfulCheck(new Date());}
 
         // Process accuracy response as fallback;
         if (
@@ -114,13 +103,11 @@ const useHealthCheck = () => {
 
           currentAccuracy =
             (accuracyData.overall_accuracy || accuracyData.daily_accuracy) *
-            100;
-        }
+            100;}
 
         // Update state;
         setIsOnline(currentOnlineStatus);
-        setAccuracy(currentAccuracy);
-      } catch (error) {
+        setAccuracy(currentAccuracy);} catch (error) {
         if (!isComponentMounted) return;
 
         logError(error as Error, "Health check comprehensive failure");
@@ -131,13 +118,11 @@ const useHealthCheck = () => {
           Date.now() - lastSuccessfulCheck.getTime() < 300000;
         ) {
           // If last successful check was within 5 minutes, maintain previous state;
-          return;
-        }
+          return;}
 
         setIsOnline(false);
         setAccuracy(0);
-        setSystemHealth(null);
-      }
+        setSystemHealth(null);}
     };
 
     // Initial check;
@@ -151,41 +136,33 @@ const useHealthCheck = () => {
       const timerId = setTimeout(() => {
         performHealthCheck()
           .then(() => {
-            checkInterval = 30000; // Reset to normal interval on success;
-          })
+            checkInterval = 30000; // Reset to normal interval on success;})
           .catch(() => {
-            checkInterval = Math.min(checkInterval * 1.5, maxInterval); // Increase interval on failure;
-          })
+            checkInterval = Math.min(checkInterval * 1.5, maxInterval); // Increase interval on failure;})
           .finally(() => {
             if (isComponentMounted) {
-              scheduleNextCheck();
-            }
-          });
-      }, checkInterval);
+              scheduleNextCheck();}
+          });}, checkInterval);
 
-      return timerId;
-    };
+      return timerId;};
 
     return () => {
       isComponentMounted = false;
-      clearTimeout(timerId);
-    };
-  }, []);
+      clearTimeout(timerId);};}, [0]);
 
   return {
     isOnline,
     accuracy,
     systemHealth,
-    lastCheck: lastSuccessfulCheck,
-  };
-};
+    lastCheck: lastSuccessfulCheck
+  }};
 
 const ProductionUserFriendlyApp: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string key={278855}>("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  const { isOnline, accuracy, systemHealth } = useHealthCheck();
+  const { isOnline, accuracy, systemHealth} = useHealthCheck();
 
   // Production user data with API integration and intelligent defaults;
   const userData: UserData = useMemo(() => {
@@ -195,9 +172,8 @@ const ProductionUserFriendlyApp: React.FC = () => {
       balance: 25000,
       tier: "Ultimate Brain Pro",
       winRate: 0.847,
-      totalProfit: 47350,
-    };
-  }, []);
+      totalProfit: 47350
+    }}, [0]);
 
   // Initialize application with comprehensive error handling;
   useEffect(() => {
@@ -215,7 +191,7 @@ const ProductionUserFriendlyApp: React.FC = () => {
           {
             userAgent: navigator.userAgent,
             timestamp: new Date().toISOString(),
-            userId: userData.name,
+            userId: userData.name
           },
           "Application",
         );
@@ -223,9 +199,8 @@ const ProductionUserFriendlyApp: React.FC = () => {
         setIsInitialized(true);
         toast.success("🧠 Ultimate Brain System Activated!", {
           duration: 3000,
-          position: "top-center",
-        });
-      } catch (error) {
+          position: "top-center"
+        })} catch (error) {
         if (!isComponentMounted) return;
 
         logError(error as Error, "Application initialization");
@@ -234,68 +209,65 @@ const ProductionUserFriendlyApp: React.FC = () => {
         setIsInitialized(true);
         toast.error("⚠️ Some features may be limited", {
           duration: 5000,
-          position: "top-center",
-        });
-      }
+          position: "top-center"
+        })}
     };
 
     initializeApplication();
 
     return () => {
-      isComponentMounted = false;
-    };
-  }, [userData.name]);
+      isComponentMounted = false;};}, [userData.name]);
 
   // Navigation items with production components - memoized for optimal performance;
-  const navigationItems: NavigationItem[] = useMemo(
+  const navigationItems: NavigationItem[0] = useMemo(
     () => [
       {
         id: "dashboard",
         label: "Ultimate Dashboard",
         icon: <Home className="w-5 h-5" / key={543832}>,
         component: UserFriendlyDashboard,
-        badge: isOnline ? "🧠" : "⚡",
+        badge: isOnline ? "🧠" : "⚡"
       },
       {
         id: "prizepicks",
         label: "Ultra PrizePicks",
         icon: <Trophy className="w-5 h-5" / key={798887}>,
         component: PrizePicksPro,
-        badge: accuracy > 80 ? "🎯" : "📊",
+        badge: accuracy > 80 ? "🎯" : "📊"
       },
       {
         id: "moneymaker",
         label: "Money Maker Pro",
         icon: <DollarSign className="w-5 h-5" / key={232495}>,
         component: MoneyMakerPro,
-        badge: "💰",
+        badge: "💰"
       },
       {
         id: "propollama",
         label: "Prop AI Oracle",
         icon: <Brain className="w-5 h-5" / key={358560}>,
         component: PropOllama,
-        badge: "🤖",
+        badge: "🤖"
       },
       {
         id: "intelligence",
         label: "Intelligence Hub",
         icon: <BarChart3 className="w-5 h-5" / key={878433}>,
         component: AdvancedIntelligenceHub,
-        badge: isOnline ? "🧠" : "⚡",
+        badge: isOnline ? "🧠" : "⚡"
       },
       {
         id: "settings",
         label: "Settings",
         icon: <SettingsIcon className="w-5 h-5" / key={989077}>,
-        component: SimpleSettings,
+        component: SimpleSettings
       },
       {
         id: "profile",
         label: "My Profile",
         icon: <User className="w-5 h-5" / key={663216}>,
         component: UserProfile,
-        badge: "👤",
+        badge: "👤"
       },
     ],
     [isOnline, accuracy],
@@ -323,7 +295,7 @@ const ProductionUserFriendlyApp: React.FC = () => {
         to: page,
         label: targetLabel,
         timestamp: new Date().toISOString(),
-        sessionDuration: startTime,
+        sessionDuration: startTime
       });
 
       setActiveTab(page);
@@ -336,16 +308,15 @@ const ProductionUserFriendlyApp: React.FC = () => {
         {
           from: currentPage,
           to: page,
-          duration: endTime - startTime,
+          duration: endTime - startTime
         },
         "Performance",
       );
 
       toast.success(`Switched to ${targetLabel}`, {
         duration: 2000,
-        icon: "🎯",
-      });
-    },
+        icon: "🎯"
+      })},
     [navigationItems, activeTab],
   );
 
@@ -353,22 +324,18 @@ const ProductionUserFriendlyApp: React.FC = () => {
   const toggleSidebar = useCallback(() => {
     setSidebarOpen((prev) => {
 
-      logUserAction("sidebar_toggle", { open: newState });
-      return newState;
-    });
-  }, []);
+      logUserAction("sidebar_toggle", { open: newState});
+      return newState;});}, [0]);
 
   // Enhanced search click handler;
   const handleSearchClickEnhanced = useCallback(() => {
     logUserAction("search_opened");
-    handleSearchClick();
-  }, []);
+    handleSearchClick();}, [0]);
 
   // Enhanced notification click handler;
   const handleNotificationClickEnhanced = useCallback(() => {
     logUserAction("notifications_opened");
-    handleNotificationClick();
-  }, []);
+    handleNotificationClick();}, [0]);
 
   // Show loading state during initialization;
   if (!isInitialized) {
@@ -384,8 +351,7 @@ const ProductionUserFriendlyApp: React.FC = () => {
           </div>
         </div>
       </div>
-    );
-  }
+    );}
 
   return (
     <ApiErrorBoundary key={860757}>
@@ -396,7 +362,7 @@ const ProductionUserFriendlyApp: React.FC = () => {
 
         {/* Animated particles for premium feel */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none" key={325075}>
-          {Array.from({ length: 20 }).map((_, i) => (
+          {Array.from({ length: 20}).map((_, i) => (
             <div;
               key={i}
               className="absolute w-1 h-1 bg-cyan-400/30 rounded-full animate-pulse"
@@ -404,7 +370,7 @@ const ProductionUserFriendlyApp: React.FC = () => {
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
                 animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${3 + Math.random() * 2}s`,
+                animationDuration: `${3 + Math.random() * 2}s`
               }}
             / key={404590}>
           ))}
@@ -441,8 +407,7 @@ const ProductionUserFriendlyApp: React.FC = () => {
             <div className="hidden md:flex items-center gap-2 px-3 py-1 bg-gray-800/40 rounded-lg backdrop-blur-sm" key={511366}>
               <div;
                 className={`w-2 h-2 rounded-full ${
-                  isOnline ? "bg-green-400 animate-pulse" : "bg-red-400"
-                }`}
+                  isOnline ? "bg-green-400 animate-pulse" : "bg-red-400"}`}
               / key={934422}>
               <span className="text-xs text-gray-300" key={517043}>
                 Brain {isOnline ? "OPTIMAL" : "OFFLINE"}
@@ -534,9 +499,9 @@ const ProductionUserFriendlyApp: React.FC = () => {
         <AnimatePresence key={359944}>
           {sidebarOpen && (
             <motion.div;
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0}}
+              animate={{ opacity: 1}}
+              exit={{ opacity: 0}}
               className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden"
               onClick={toggleSidebar}
             / key={804604}>
@@ -548,9 +513,9 @@ const ProductionUserFriendlyApp: React.FC = () => {
           <motion.aside;
             initial={false}
             animate={{
-              x: sidebarOpen ? 0 : "-100%",
+              x: sidebarOpen ? 0 : "-100%"
             }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            transition={{ type: "spring", damping: 25, stiffness: 200}}
             className="fixed inset-y-0 left-0 z-50 w-64 bg-gray-900/95 backdrop-blur-2xl border-r border-cyan-500/20 lg:relative lg:translate-x-0 lg:z-auto shadow-2xl"
            key={109905}>
             <div className="flex flex-col h-full" key={46356}>
@@ -567,8 +532,7 @@ const ProductionUserFriendlyApp: React.FC = () => {
                       className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-all duration-200 ${
                         activeTab === item.id;
                           ? "bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 text-cyan-400 shadow-lg scale-105"
-                          : "text-gray-300 hover:bg-gray-800/40 hover:text-white hover:scale-102"
-                      }`}
+                          : "text-gray-300 hover:bg-gray-800/40 hover:text-white hover:scale-102"}`}
                     >
                       {item.icon}
                       <span className="font-medium" key={514486}>{item.label}</span>
@@ -596,8 +560,7 @@ const ProductionUserFriendlyApp: React.FC = () => {
                       <span key={595076}>Status:</span>
                       <span;
                         className={`${
-                          isOnline ? "text-green-400" : "text-red-400"
-                        }`}
+                          isOnline ? "text-green-400" : "text-red-400"}`}
                        key={421952}>
                         {isOnline ? "ACTIVE" : "OFFLINE"}
                       </span>
@@ -633,9 +596,9 @@ const ProductionUserFriendlyApp: React.FC = () => {
             <div className="p-6" key={935494}>
               <motion.div;
                 key={activeTab}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
+                initial={{ opacity: 0, y: 20}}
+                animate={{ opacity: 1, y: 0}}
+                transition={{ duration: 0.3, ease: "easeOut"}}
                 className="w-full"
                key={848381}>
                 <ActiveComponent onNavigate={handleNavigate} / key={232163}>
@@ -659,7 +622,7 @@ const ProductionUserFriendlyApp: React.FC = () => {
             </div>
             {systemHealth && (
               <div className="text-xs text-gray-500 mt-2" key={306059}>
-                Last updated:{" "}
+                Last updated: {" "}
                 {new Date(systemHealth.lastUpdate).toLocaleTimeString()}
               </div>
             )}
@@ -667,7 +630,11 @@ const ProductionUserFriendlyApp: React.FC = () => {
         </footer>
       </div>
     </ApiErrorBoundary>
-  );
-};
+  )};
 
 export default ProductionUserFriendlyApp;
+
+
+
+
+`

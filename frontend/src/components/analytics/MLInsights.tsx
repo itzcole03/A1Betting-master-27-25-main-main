@@ -1,30 +1,28 @@
-import React, { useState  } from 'react.ts';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts.ts';
-import { useUnifiedAnalytics } from '@/hooks/useUnifiedAnalytics.ts';
+﻿import React, { useState} from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip} from 'recharts';
+import { useUnifiedAnalytics} from '@/hooks/useUnifiedAnalytics';
 
-const exportToJson = (data: any) => {
+const exportToJson = (data: unknown) => {
 
 
 
   a.href = url;
   a.download = 'ml-insights.json';
   a.click();
-  URL.revokeObjectURL(url);
-};
+  URL.revokeObjectURL(url)};
 
 interface MLInsightsProps {
-  autoUpdateInterval?: number;
-  showFeatureImportance?: boolean;
-  showPerformance?: boolean;
-}
+  autoUpdateInterval?: number
+  showFeatureImportance?: boolean
+  showPerformance?: boolean}
 
 const MLInsights: React.FC<MLInsightsProps key={573554}> = ({
   autoUpdateInterval = 60000,
   showFeatureImportance = true,
-  showPerformance = true,
+  showPerformance = true
 }) => {
-  const { ml } = useUnifiedAnalytics({
-    ml: { autoUpdate: true, updateInterval: autoUpdateInterval },
+  const { ml} = useUnifiedAnalytics({
+    ml: { autoUpdate: true, updateInterval: autoUpdateInterval}
   });
   const [showInfo, setShowInfo] = useState(false);
 
@@ -36,8 +34,7 @@ const MLInsights: React.FC<MLInsightsProps key={573554}> = ({
           className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"
         / key={205544}>
       </div>
-    );
-  }
+    )}
 
   if (ml.error) {
     return (
@@ -52,16 +49,14 @@ const MLInsights: React.FC<MLInsightsProps key={573554}> = ({
           Retry;
         </button>
       </div>
-    );
-  }
+    )}
 
   if (!mlResult) {
     return (
       <div className="p-4 text-gray-500" role="status" key={928858}>
         No ML analytics available.
       </div>
-    );
-  }
+    )}
 
   return (
     <div className="space-y-8" data-testid="mlinsights-root" key={41207}>
@@ -126,10 +121,10 @@ const MLInsights: React.FC<MLInsightsProps key={573554}> = ({
                     </span>
                   )}
                 </div>
-                <div style={{ width: 300, height: 200 }} key={818894}>
+                <div style={{ width: 300, height: 200}} key={818894}>
                   <BarChart;
-                    data={Object.entries(mlResult.insights?.featureImportance || {}).map(
-                      ([key, value]) = key={326024}> ({ name: key, value: safeNumber(value) })
+                    data={Object.entries(mlResult.insights?.featureImportance || Record<string, any>).map(
+                      ([key, value]) = key={326024}> ({ name: key, value: safeNumber(value)})
                     )}
                   >
                     <CartesianGrid strokeDasharray="3 3" / key={580708}>
@@ -161,7 +156,13 @@ const MLInsights: React.FC<MLInsightsProps key={573554}> = ({
         </section>
       )}
     </div>
-  );
-};
+  )};
 
 export default React.memo(MLInsights);
+
+
+
+
+
+
+

@@ -1,6 +1,6 @@
-import { BetRecord, BettingOpportunity, RiskAssessment } from '@/types/core.js';
-import { UnifiedConfig } from '@/core/UnifiedConfig.js';
-import { EventBus } from '@/core/EventBus.js';
+﻿import { BetRecord, BettingOpportunity, RiskAssessment} from '@/types/core.js';
+import { UnifiedConfig} from '@/core/UnifiedConfig.js';
+import { EventBus} from '@/core/EventBus.js';
 
 
 /**
@@ -8,67 +8,19 @@ import { EventBus } from '@/core/EventBus.js';
  */
 
 export interface AnalyticsConfig {
-  retentionPeriod: number;
-  aggregationIntervals: string[];
-  metrics: string[];
-  dimensions: string[];
-  filters: Record<string, unknown>;
-}
+  retentionPeriod: number,`n  aggregationIntervals: string[0];,`n  metrics: string[0],`n  dimensions: string[0];,`n  filters: Record<string, unknown>}
 
 export interface PerformanceMetrics {
-  totalBets: number;
-  winningBets: number;
-  losingBets: number;
-  pushBets: number;
-  pendingBets: number;
-  totalStake: number;
-  totalReturn: number;
-  profitLoss: number;
-  roi: number;
-  winRate: number;
-  averageOdds: number;
-  averageStake: number;
-  maxDrawdown: number;
-  sharpeRatio: number;
-  kellyMultiplier: number;
-  clvAverage: number;
-  edgeRetention: number;
-  timeInMarket: number;
-}
+  totalBets: number,`n  winningBets: number;,`n  losingBets: number,`n  pushBets: number;,`n  pendingBets: number,`n  totalStake: number;,`n  totalReturn: number,`n  profitLoss: number;,`n  roi: number,`n  winRate: number;,`n  averageOdds: number,`n  averageStake: number;,`n  maxDrawdown: number,`n  sharpeRatio: number;,`n  kellyMultiplier: number,`n  clvAverage: number;,`n  edgeRetention: number,`n  timeInMarket: number}
 
 export interface MetricBreakdown {
-  metric: string;
-  bets: number;
-  stake: number;
-  profitLoss: number;
-  roi: number;
-  winRate: number;
-  averageOdds: number;
-  clv: number;
-}
+  metric: string,`n  bets: number;,`n  stake: number,`n  profitLoss: number;,`n  roi: number,`n  winRate: number;,`n  averageOdds: number,`n  clv: number}
 
 export interface PlayerBreakdown {
-  playerId: string;
-  bets: number;
-  stake: number;
-  profitLoss: number;
-  roi: number;
-  winRate: number;
-  averageOdds: number;
-  metrics: string[];
-}
+  playerId: string,`n  bets: number;,`n  stake: number,`n  profitLoss: number;,`n  roi: number,`n  winRate: number;,`n  averageOdds: number,`n  metrics: string[0]}
 
 export interface TimeSeriesData {
-  timestamp: number;
-  metrics: {
-    bets: number;
-    stake: number;
-    profitLoss: number;
-    roi: number;
-    winRate: number;
-    clv: number;
-  };
-}
+  timestamp: number,`n  metrics: {,`n  bets: number,`n  stake: number;,`n  profitLoss: number,`n  roi: number;,`n  winRate: number,`n  clv: number}}
 
 /**
  * Analytics service for tracking performance metrics.
@@ -86,7 +38,7 @@ export class AnalyticsService {
   private readonly bets: Map<string, BetRecord>;
   private readonly opportunities: Map<string, BettingOpportunity>;
   private readonly riskAssessments: Map<string, RiskAssessment>;
-  private readonly timeSeriesData: TimeSeriesData[];
+  private readonly timeSeriesData: TimeSeriesData[0];
   private metrics: PerformanceMetrics;
 
   /**
@@ -101,8 +53,7 @@ export class AnalyticsService {
    * Returns true if analytics is enabled via feature flag.
    */
   public static isEnabled(): boolean {
-    return UnifiedConfig.getInstance().get('enableAnalytics') === true;
-  }
+    return UnifiedConfig.getInstance().get('enableAnalytics') === true}
 
   private constructor() {
     this.eventBus = EventBus.getInstance();
@@ -110,11 +61,10 @@ export class AnalyticsService {
     this.bets = new Map();
     this.opportunities = new Map();
     this.riskAssessments = new Map();
-    this.timeSeriesData = [];
+    this.timeSeriesData = [0];
     this.metrics = this.initializeMetrics();
     this.setupEventListeners();
-    this.startPeriodicUpdates();
-  }
+    this.startPeriodicUpdates();}
 
   // Feature flag is now handled by UnifiedConfig. No window/appStatus or legacy status logic.
 
@@ -125,10 +75,8 @@ export class AnalyticsService {
    */
   public static getInstance(): AnalyticsService {
     if (!AnalyticsService.instance) {
-      AnalyticsService.instance = new AnalyticsService();
-    }
-    return AnalyticsService.instance;
-  }
+      AnalyticsService.instance = new AnalyticsService();}
+    return AnalyticsService.instance;}
 
   private initializeConfig(): AnalyticsConfig {
     return {
@@ -149,13 +97,10 @@ export class AnalyticsService {
         'risk_level',
         'confidence'
       ],
-      filters: {
-        minBets: 10,
+      filters: {,`n  minBets: 10,
         minStake: 100,
-        minConfidence: 0.6;
-      }
-    };
-  }
+        minConfidence: 0.6}
+    }}
 
   private initializeMetrics(): PerformanceMetrics {
     return {
@@ -176,51 +121,42 @@ export class AnalyticsService {
       kellyMultiplier: 1,
       clvAverage: 0,
       edgeRetention: 0,
-      timeInMarket: 0;
-    };
-  }
+      timeInMarket: 0}}
 
   private setupEventListeners(): void {
     // Listen for new betting opportunities;
-    this.eventBus.on('prediction:update', (data: unknown) => {
+    this.eventBus.on('prediction: update', (data: unknown) => {
 
 
-      this.opportunities.set(opportunity.id, opportunity);
-    });
+      this.opportunities.set(opportunity.id, opportunity)});
 
     // Listen for risk assessments;
-    this.eventBus.on('data:updated', (data: unknown) => {
+    this.eventBus.on('data: updated', (data: unknown) => {
 
       if (event.sourceId === 'risk-manager') {
 
-        this.riskAssessments.set(assessment.id, assessment);
-      }
+        this.riskAssessments.set(assessment.id, assessment)}
     });
 
     // Listen for placed bets;
     this.eventBus.on('bet:placed', (data: unknown) => {
 
-      const { bet } = event.data;
+      const { bet} = event.data;
       this.bets.set(bet.id, bet);
-      this.updateMetrics();
-    });
+      this.updateMetrics();});
 
     // Listen for settled bets;
     this.eventBus.on('bet:settled', (data: unknown) => {
 
-      const { bet, result } = event.data;
+      const { bet, result} = event.data;
       this.handleBetSettlement(bet.id, result);
-      this.updateMetrics();
-    });
-  }
+      this.updateMetrics();});}
 
   private startPeriodicUpdates(): void {
     // Update time series data every hour;
     setInterval(() => {
       this.updateTimeSeriesData();
-      this.cleanupOldData();
-    }, 3600000); // 1 hour;
-  }
+      this.cleanupOldData();}, 3600000); // 1 hour;}
 
   private updateTimeSeriesData(): void {
     const currentMetrics = {
@@ -229,26 +165,21 @@ export class AnalyticsService {
       profitLoss: this.metrics.profitLoss,
       roi: this.metrics.roi,
       winRate: this.metrics.winRate,
-      clv: this.metrics.clvAverage;
-    };
+      clv: this.metrics.clvAverage};
 
     this.timeSeriesData.push({
       timestamp: Date.now(),
-      metrics: currentMetrics;
-    });
+      metrics: currentMetrics});
 
     // Emit metrics update;
-    this.eventBus.emit('metric:recorded', {
+    this.eventBus.emit('metric: recorded', {
       name: 'performance_metrics',
       value: this.metrics.profitLoss,
       timestamp: Date.now(),
-      labels: {
-        win_rate: this.metrics.winRate.toFixed(2),
+      labels: {,`n  win_rate: this.metrics.winRate.toFixed(2),
         roi: this.metrics.roi.toFixed(2),
-        clv: this.metrics.clvAverage.toFixed(2)
-      }
-    });
-  }
+        clv: this.metrics.clvAverage.toFixed(2)}
+    })}
 
   private cleanupOldData(): void {
 
@@ -257,32 +188,27 @@ export class AnalyticsService {
       this.timeSeriesData.length > 0 && 
       this.timeSeriesData[0].timestamp < cutoffTime;
     ) {
-      this.timeSeriesData.shift();
-    }
+      this.timeSeriesData.shift();}
 
     // Clean up bets;
     for (const [id, bet] of this.bets) {
       if (bet.placedAt < cutoffTime) {
-        this.bets.delete(id);
-      }
+        this.bets.delete(id);}
     }
 
     // Clean up opportunities;
     for (const [id, opportunity] of this.opportunities) {
       if (opportunity.timestamp < cutoffTime) {
-        this.opportunities.delete(id);
-      }
+        this.opportunities.delete(id);}
     }
 
     // Clean up risk assessments;
     for (const [id, assessment] of this.riskAssessments) {
       if (assessment.timestamp < cutoffTime) {
-        this.riskAssessments.delete(id);
-      }
-    }
-  }
+        this.riskAssessments.delete(id);}
+    }}
 
-  private handleBetSettlement(betId: string, result: { won: boolean; profitLoss: number }): void {
+  private handleBetSettlement(betId: string, result: { won: boolean; profitLoss: number}): void {
 
     if (!bet) return;
 
@@ -295,8 +221,7 @@ export class AnalyticsService {
 
 
 
-      bet.metadata.clv = clv;
-    }
+      bet.metadata.clv = clv;}
   }
 
   private updateMetrics(): void {
@@ -340,8 +265,7 @@ export class AnalyticsService {
     // Calculate edge retention;
     const predictedEdge = bets.reduce((sum, bet) => {
 
-      return sum + (opportunity?.edge || 0);
-    }, 0);
+      return sum + (opportunity?.edge || 0);}, 0);
 
     metrics.edgeRetention = predictedEdge > 0; 
       ? realizedEdge / predictedEdge; 
@@ -353,10 +277,9 @@ export class AnalyticsService {
     metrics.kellyMultiplier = this.calculateKellyMultiplier(metrics);
     metrics.timeInMarket = this.calculateTimeInMarket(bets);
 
-    this.metrics = metrics;
-  }
+    this.metrics = metrics;}
 
-  private calculateMaxDrawdown(bets: BetRecord[]): number {
+  private calculateMaxDrawdown(bets: BetRecord[0]): number {
     const peak = 0;
     const maxDrawdown = 0;
     const currentBalance = 0;
@@ -365,13 +288,11 @@ export class AnalyticsService {
       if (bet.result === 'PENDING') continue;
       currentBalance += bet.profitLoss || 0;
       peak = Math.max(peak, currentBalance);
-      maxDrawdown = Math.max(maxDrawdown, peak - currentBalance);
-    }
+      maxDrawdown = Math.max(maxDrawdown, peak - currentBalance);}
 
-    return maxDrawdown;
-  }
+    return maxDrawdown;}
 
-  private calculateSharpeRatio(bets: BetRecord[]): number {
+  private calculateSharpeRatio(bets: BetRecord[0]): number {
     const returns = bets;
       .filter(bet => bet.result !== 'PENDING')
       .map(bet => bet.profitLoss || 0);
@@ -380,34 +301,29 @@ export class AnalyticsService {
 
 
 
-    return stdDev > 0 ? averageReturn / stdDev : 0;
-  }
+    return stdDev > 0 ? averageReturn / stdDev : 0;}
 
   private calculateKellyMultiplier(metrics: PerformanceMetrics): number {
-    const { winRate, averageOdds } = metrics;
+    const { winRate, averageOdds} = metrics;
     if (winRate <= 0 || averageOdds <= 1) return 0;
 
 
 
     // Return a conservative fraction of Kelly;
-    return Math.max(0, Math.min(kelly * 0.5, 1));
-  }
+    return Math.max(0, Math.min(kelly * 0.5, 1));}
 
-  private calculateTimeInMarket(bets: BetRecord[]): number {
+  private calculateTimeInMarket(bets: BetRecord[0]): number {
     return bets.reduce((total, bet) => {
 
 
-      return total + (endTime - startTime);
-    }, 0);
-  }
+      return total + (endTime - startTime)}, 0);}
 
   /**
    * Returns a breakdown of metrics by metric type. If analytics is disabled, returns an empty array.
    */
-  public getMetricBreakdown(): MetricBreakdown[] {
+  public getMetricBreakdown(): MetricBreakdown[0] {
     if (!UnifiedConfig.getInstance().get('enableAnalytics')) {
-      return [];
-    }
+      return [0];}
     const breakdown: Map<string, MetricBreakdown> = new Map();
 
     for (const bet of this.bets.values()) {
@@ -421,17 +337,14 @@ export class AnalyticsService {
           roi: 0,
           winRate: 0,
           averageOdds: 0,
-          clv: 0;
-        });
-      }
+          clv: 0})}
 
       stats.bets++;
       stats.stake += bet.stake;
       stats.profitLoss += bet.profitLoss || 0;
       stats.averageOdds += bet.odds;
       if (bet.result === 'WIN') stats.winRate++;
-      if (bet.metadata?.clv) stats.clv += bet.metadata.clv;
-    }
+      if (bet.metadata?.clv) stats.clv += bet.metadata.clv;}
 
     // Calculate final metrics;
     return Array.from(breakdown.values()).map(stats => ({
@@ -439,17 +352,14 @@ export class AnalyticsService {
       roi: stats.stake > 0 ? stats.profitLoss / stats.stake : 0,
       winRate: stats.bets > 0 ? stats.winRate / stats.bets : 0,
       averageOdds: stats.bets > 0 ? stats.averageOdds / stats.bets : 0,
-      clv: stats.bets > 0 ? stats.clv / stats.bets : 0;
-    }));
-  }
+      clv: stats.bets > 0 ? stats.clv / stats.bets : 0}))}
 
   /**
    * Returns a breakdown of metrics by player. If analytics is disabled, returns an empty array.
    */
-  public getPlayerBreakdown(): PlayerBreakdown[] {
+  public getPlayerBreakdown(): PlayerBreakdown[0] {
     if (!UnifiedConfig.getInstance().get('enableAnalytics')) {
-      return [];
-    }
+      return [0];}
     const breakdown: Map<string, PlayerBreakdown> = new Map();
     for (const bet of this.bets.values()) {
 
@@ -462,9 +372,7 @@ export class AnalyticsService {
           roi: 0,
           winRate: 0,
           averageOdds: 0,
-          metrics: []
-        });
-      }
+          metrics: [0]})}
 
       stats.bets += 1;
       stats.stake += bet.stake;
@@ -472,41 +380,37 @@ export class AnalyticsService {
       if (bet.result === 'WIN') stats.winRate += 1;
       stats.averageOdds += bet.odds;
       if (bet.metric) {
-        stats.metrics.push(bet.metric);
-      }
+        stats.metrics.push(bet.metric);}
     }
     return Array.from(breakdown.values()).map(stats => ({
       ...stats,
       roi: stats.stake > 0 ? stats.profitLoss / stats.stake : 0,
       winRate: stats.bets > 0 ? stats.winRate / stats.bets : 0,
-      averageOdds: stats.bets > 0 ? stats.averageOdds / stats.bets : 0;
-    }));
-  }
+      averageOdds: stats.bets > 0 ? stats.averageOdds / stats.bets : 0}))}
 
-  public getTimeSeriesData(interval: '1d' | '7d' | '30d'): TimeSeriesData[] {
+  public getTimeSeriesData(interval: '1d' | '7d' | '30d'): TimeSeriesData[0] {
 
     let intervalMs: number;
     switch (interval) {
       case '7d': intervalMs = 604800000; break;
       case '30d': intervalMs = 2592000000; break;
       case '1d':
-      default: intervalMs = 86400000; break;
-    }
-    return this.timeSeriesData.filter(point => now - point.timestamp <= intervalMs);
-  }
+      default: intervalMs = 86400000; break;}
+    return this.timeSeriesData.filter(point => now - point.timestamp <= intervalMs);}
 
   public getMetrics(): PerformanceMetrics {
-    return { ...this.metrics };
-  }
+    return { ...this.metrics};}
 
-  public getBets(): BetRecord[] {
-    return Array.from(this.bets.values());
-  }
+  public getBets(): BetRecord[0] {
+    return Array.from(this.bets.values());}
 
   public getConfig(): AnalyticsConfig {
-    return { ...this.config };
-  }
+    return { ...this.config};}
 }
 
 // Export a default instance for convenience;
 export const analyticsService = AnalyticsService.getInstance();
+
+
+
+`

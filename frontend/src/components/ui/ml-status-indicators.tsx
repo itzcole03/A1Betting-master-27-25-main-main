@@ -1,18 +1,12 @@
-import React from 'react.ts';
+﻿import React from 'react';
 
 interface ModelStatus {
-    id: string;
-    name: string;
-    status: 'active' | 'training' | 'error';
-    confidence: number;
-    lastUpdate: string;
-}
+    id: string,`n  name: string;,`n  status: 'active' | 'training' | 'error',`n  confidence: number;,`n  lastUpdate: string}
 
 interface MLStatusIndicatorsProps {
-    models: ModelStatus[];
-}
+    models: ModelStatus[0]}
 
-export const MLStatusIndicators: React.FC<MLStatusIndicatorsProps key={665708}> = ({ models }) => {
+export const MLStatusIndicators: React.FC<MLStatusIndicatorsProps key={665708}> = ({ models}) => {
 
 
 
@@ -24,9 +18,7 @@ export const MLStatusIndicators: React.FC<MLStatusIndicatorsProps key={665708}> 
                 return 'bg-warning-500';
             case 'error':
                 return 'bg-error-500';
-            default:
-                return 'bg-gray-500';
-        }
+            default: return 'bg-gray-500'}
     };
 
     const getStatusIcon = (status: string) => {
@@ -37,9 +29,7 @@ export const MLStatusIndicators: React.FC<MLStatusIndicatorsProps key={665708}> 
                 return '\u27f3';
             case 'error':
                 return '\u26a0';
-            default:
-                return '?';
-        }
+            default: return '?'}
     };
 
     return (
@@ -89,8 +79,7 @@ export const MLStatusIndicators: React.FC<MLStatusIndicatorsProps key={665708}> 
                         className={`glass-premium p-4 rounded-xl model-status ${
                             model.status === 'active' ? 'model-active' :
                             model.status === 'training' ? 'model-training' :
-                            'model-error'
-                        }`}
+                            'model-error'}`}
                      key={469340}>
                         <div className="flex items-center justify-between" key={96335}>
                             <div key={241917}>
@@ -108,32 +97,30 @@ export const MLStatusIndicators: React.FC<MLStatusIndicatorsProps key={665708}> 
                 ))}
             </div>
         </div>
-    );
-};
+    )};
 
-export const ModelConfidenceIndicator = ({ confidence, size = 'md' }: { confidence: number; size?: 'sm' | 'md' | 'lg'; }) => {
+export const ModelConfidenceIndicator = ({ confidence, size = 'md'}: { confidence: number; size?: 'sm' | 'md' | 'lg';}) => {
     const getColor = (c: number) => {
         if (c >= 0.8) return 'bg-success-500';
         if (c >= 0.6) return 'bg-warning-500';
-        return 'bg-error-500';
-    };
+        return 'bg-error-500';};
     const sizeMap = {
         sm: 'h-2 w-16',
         md: 'h-3 w-24',
-        lg: 'h-4 w-32'
-    };
+        lg: 'h-4 w-32'};
     return (
         <div className={`rounded-full ${getColor(confidence)} ${sizeMap[size]}`} key={439961}></div>
-    );
-};
+    );};
 
-export const ModelStatusBadge = ({ status }: { status: 'active' | 'training' | 'error'; }) => {
+export const ModelStatusBadge = ({ status}: { status: 'active' | 'training' | 'error'}) => {
     const colorMap = {
         active: 'bg-success-500',
         training: 'bg-warning-500',
-        error: 'bg-error-500'
-    };
+        error: 'bg-error-500'};
     return (
         <span className={`px-2 py-1 rounded text-xs font-semibold text-white ${colorMap[status]}`} key={521933}>{status}</span>
-    );
-};
+    );};
+
+
+
+`

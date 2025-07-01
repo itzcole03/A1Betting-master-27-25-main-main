@@ -1,21 +1,21 @@
-import { motion } from 'framer-motion.ts';
-import React, { useEffect, useState  } from 'react.ts';
-import { FaCalculator, FaChartLine, FaClock, FaExchangeAlt } from 'react-icons/fa.ts';
-import { useBettingOpportunities } from '@/hooks/UniversalHooks.ts';
-import { ArbitrageOpportunity } from '@/types/index.ts';
-import { calculateArbitrage, formatCurrency, formatPercentage } from '@/utils/odds.ts';
-import { UnifiedInput } from './base/UnifiedInput.ts';
+﻿import { motion} from 'framer-motion'
+import React, { useEffect, useState} from 'react'
+import { FaCalculator, FaChartLine, FaClock, FaExchangeAlt} from 'react-icons/fa'
+import { useBettingOpportunities} from '@/hooks/UniversalHooks'
+import { ArbitrageOpportunity} from '@/types/index'
+import { calculateArbitrage, formatCurrency, formatPercentage} from '@/utils/odds'
+import { UnifiedInput} from './base/UnifiedInput'
 
 const Arbitrage: React.FC = () => {
-  const [opportunities, setOpportunities] = useState<ArbitrageOpportunity[] key={128378}>([]);
+  const [opportunities, setOpportunities] = useState<ArbitrageOpportunity[0] key={128378}>([0]);
   const [stake, setStake] = useState(1000);
   const [calculatorOdds, setCalculatorOdds] = useState({
     book1: -110,
-    book2: +100,
+    book2: +100
   });
 
   // Fetch real arbitrage opportunities from backend;
-  const { data: bettingData, isLoading: _isLoading, error: _error } = useBettingOpportunities();
+  const { data: bettingData, isLoading: _isLoading, error: _error} = useBettingOpportunities();
 
   useEffect(() => {
     // Use real data from backend if available, otherwise fall back to empty array;
@@ -25,65 +25,56 @@ const Arbitrage: React.FC = () => {
         return {
           id: (opportunity.id as string) || index.toString(),
           sport: (opportunity.sport as string) || 'NBA',
-          player: opportunity.player || {
-            id: '1',
+          player: opportunity.player || {,`n  id: '1',
             name: (opportunity.playerName as string) || 'Unknown Player',
-            team: {
-              id: '1',
+            team: {,`n  id: '1',
               name: (opportunity.team as string) || 'Unknown Team',
               abbreviation: (opportunity.teamAbbr as string) || 'UNK',
               sport: (opportunity.sport as string) || 'NBA',
-              colors: {
-                primary: '#552583',
-                secondary: '#FDB927',
-              },
+              colors: {,`n  primary: '#552583',
+                secondary: '#FDB927'
+              }
             },
             position: (opportunity.position as string) || 'Unknown',
             imageUrl: (opportunity.imageUrl as string) || 'https://example.com/player.jpg',
-            stats: (opportunity.stats as Record<string, unknown key={843221}>) || {},
-            form: (opportunity.form as number) || 85,
+            stats: (opportunity.stats as Record<string, unknown key={843221}>) || Record<string, any>,
+            form: (opportunity.form as number) || 85
           },
           propType: (opportunity.propType as string) || 'points',
-          books: (opportunity.books as Array<{ name: string; odds: number; line: number }>) || [
-            { name: 'DraftKings', odds: -110, line: 26.5 },
-            { name: 'FanDuel', odds: +120, line: 26.5 },
+          books: (opportunity.books as Array<{ name: string; odds: number; line: number}>) || [
+            { name: 'DraftKings', odds: -110, line: 26.5},
+            { name: 'FanDuel', odds: +120, line: 26.5},
           ],
           potentialProfit: (opportunity.potentialProfit as number) || 0,
-          expiresAt: (opportunity.expiresAt as string) || new Date(Date.now() + 30 * 60000).toISOString(),
-        };
-      });
-      setOpportunities(mappedOpportunities);
-    } else {
+          expiresAt: (opportunity.expiresAt as string) || new Date(Date.now() + 30 * 60000).toISOString()
+        }});
+      setOpportunities(mappedOpportunities)} else {
       // Set empty array if no data;
-      setOpportunities([]);
-    }
+      setOpportunities([0])}
   }, [bettingData]);
 
   const handleCalculatorChange = (book: 'book1' | 'book2', value: string) => {
     setCalculatorOdds(prev => ({
       ...prev,
-      [book]: parseInt(value) || 0,
-    }));
-  };
+      [book]: parseInt(value) || 0
+    }))};
 
   const calculateOptimalStakes = () => {
 
-    return result;
-  };
+    return result};
 
   const getTimeRemaining = (expiresAt: string): string => {
 
 
-    return `${minutes}m`;
-  };
+    return `${minutes}m`};
 
   return (
     <div className="space-y-6" key={501869}>
       {/* Arbitrage Calculator */}
       <motion.div;
-        animate={{ opacity: 1, y: 0 }}
+        animate={{ opacity: 1, y: 0}}
         className="glass-morphism p-6 rounded-xl"
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 20}}
        key={501823}>
         <h3 className="text-lg font-semibold mb-4 flex items-center" key={729357}>
           <FaCalculator className="w-5 h-5 mr-2 text-primary-500" / key={326227}>
@@ -143,21 +134,19 @@ const Arbitrage: React.FC = () => {
                     </p>
                   </div>
                 </div>
-              );
-            }
+              )}
             return (
               <p className="text-sm text-red-500" key={56109}>No arbitrage opportunity found with these odds</p>
-            );
-          })()}
+            )})()}
         </div>
       </motion.div>
 
       {/* Live Opportunities */}
       <motion.div;
-        animate={{ opacity: 1, y: 0 }}
+        animate={{ opacity: 1, y: 0}}
         className="glass-morphism p-6 rounded-xl"
-        initial={{ opacity: 0, y: 20 }}
-        transition={{ delay: 0.2 }}
+        initial={{ opacity: 0, y: 20}}
+        transition={{ delay: 0.2}}
        key={572647}>
         <h3 className="text-lg font-semibold mb-4 flex items-center" key={729357}>
           <FaExchangeAlt className="w-5 h-5 mr-2 text-primary-500" / key={843735}>
@@ -167,9 +156,9 @@ const Arbitrage: React.FC = () => {
           {opportunities.map(opp => (
             <motion.div;
               key={opp.id}
-              animate={{ opacity: 1, x: 0 }}
+              animate={{ opacity: 1, x: 0}}
               className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: -20}}
              key={166636}>
               <div className="flex items-start justify-between" key={653478}>
                 <div key={241917}>
@@ -183,7 +172,7 @@ const Arbitrage: React.FC = () => {
                     </span>
                   </div>
                   <div className="mt-2 grid grid-cols-2 gap-4" key={987904}>
-                    {opp.books.map((book: { name: string; odds: number; line: number }) => (
+                    {opp.books.map((book: { name: string; odds: number; line: number}) => (
                       <div key={book.name} className="text-sm" key={796291}>
                         <span className="text-gray-600 dark:text-gray-400" key={517223}>{book.name}:</span>
                         <span className="ml-1 font-medium" key={561754}>
@@ -215,8 +204,7 @@ const Arbitrage: React.FC = () => {
                 <button;
                   className="px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition"
                   onClick={() = key={468845}> {
-                    // Handle execution;
-                  }}
+                    // Handle execution}}
                 >
                   Execute Trade;
                 </button>
@@ -228,10 +216,10 @@ const Arbitrage: React.FC = () => {
 
       {/* Performance Stats */}
       <motion.div;
-        animate={{ opacity: 1, y: 0 }}
+        animate={{ opacity: 1, y: 0}}
         className="grid grid-cols-1 md:grid-cols-3 gap-6"
-        initial={{ opacity: 0, y: 20 }}
-        transition={{ delay: 0.4 }}
+        initial={{ opacity: 0, y: 20}}
+        transition={{ delay: 0.4}}
        key={338485}>
         <div className="glass-morphism p-6 rounded-xl" key={515845}>
           <div className="flex items-center justify-between" key={96335}>
@@ -261,7 +249,11 @@ const Arbitrage: React.FC = () => {
         </div>
       </motion.div>
     </div>
-  );
-};
+  )};
 
 export default React.memo(Arbitrage);
+
+
+
+
+`

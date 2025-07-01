@@ -1,6 +1,8 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface AppInitializerProps {
-    children: React.ReactNode;
-}
+  children: React.ReactNode}
 export declare const AppInitializer: React.FC<AppInitializerProps>;
-export {};
+export Record<string, any>;
+
+
+

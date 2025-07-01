@@ -1,19 +1,19 @@
-import useStore from '@/store/useStore.ts';
-import { Alert, MarketUpdate } from '@/types/core.ts';
-import { beforeEach, describe, expect, it, jest } from '@jest/globals.ts';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query.ts';
-import '@testing-library/jest-dom';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react.ts';
-import { setupServer } from 'msw/node.ts';
-import React from 'react.ts';
-import { BrowserRouter } from 'react-router-dom.ts';
-import App from '@/App.ts';
-import { EventBus } from '@/core/EventBus.ts';
-import { UnifiedDataEngine } from '@/core/UnifiedDataEngine.ts';
-import { UnifiedPredictionEngine } from '@/core/UnifiedPredictionEngine.ts';
-import { UnifiedStateManager } from '@/core/UnifiedState.ts';
-import { UnifiedStrategyEngine } from '@/core/UnifiedStrategyEngine.ts';
-import { AlertType } from '@/types/common.ts';
+﻿import useStore from '@/store/useStore'
+import { Alert, MarketUpdate} from '@/types/core'
+import { beforeEach, describe, expect, it, jest} from '@jest/globals'
+import { QueryClient, QueryClientProvider} from '@tanstack/react-query'
+import '@testing-library/jest-dom'
+import { fireEvent, render, screen, waitFor} from '@testing-library/react'
+import { setupServer} from 'msw/node'
+import React from 'react'
+import { BrowserRouter} from 'react-router-dom'
+import App from '@/App'
+import { EventBus} from '@/core/EventBus'
+import { UnifiedDataEngine} from '@/core/UnifiedDataEngine'
+import { UnifiedPredictionEngine} from '@/core/UnifiedPredictionEngine'
+import { UnifiedStateManager} from '@/core/UnifiedState'
+import { UnifiedStrategyEngine} from '@/core/UnifiedStrategyEngine'
+import { AlertType} from '@/types/common'
 
 
 // Set up MSW server;
@@ -22,22 +22,17 @@ import { AlertType } from '@/types/common.ts';
 
 // Mock react-query;
 jest.mock('@tanstack/react-query', () => ({
-  QueryClient: jest.fn(() => ({
-    defaultOptions: {
-      queries: {
-        retry: false,
-      },
-    },
+  QueryClient: jest.fn(() => ({,`n  defaultOptions: {,`n  queries: {,`n  retry: false
+      }
+    }
   })),
-  QueryClientProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  QueryClientProvider: ({ children}: { children: React.ReactNode}) => <>{children}</>
 }));
 
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-    },
-  },
+  defaultOptions: {,`n  queries: {,`n  retry: false
+    }
+  }
 });
 
 const renderApp = () => {
@@ -47,8 +42,7 @@ const renderApp = () => {
         <App / key={103343}>
       </BrowserRouter>
     </QueryClientProvider>
-  );
-};
+  )};
 
 describe('Integration Tests', () => {
   let store: ReturnType<typeof useStore key={200278}>;
@@ -64,8 +58,7 @@ describe('Integration Tests', () => {
     predictionEngine = UnifiedPredictionEngine.getInstance();
     strategyEngine = UnifiedStrategyEngine.getInstance();
     dataEngine = UnifiedDataEngine.getInstance();
-    eventBus = EventBus.getInstance();
-  });
+    eventBus = EventBus.getInstance()});
 
   describe('End-to-End Betting Flow', () => {
     it('should handle complete betting flow from prop selection to bet placement', async () => {
@@ -73,8 +66,7 @@ describe('Integration Tests', () => {
 
       // Wait for initial data load;
       await waitFor(() => {
-        expect(screen.getByTestId('dashboard')).toBeInTheDocument();
-      });
+        expect(screen.getByTestId('dashboard')).toBeInTheDocument()});
 
       // Select a prop;
 
@@ -89,8 +81,7 @@ describe('Integration Tests', () => {
 
       // Wait for analysis;
       await waitFor(() => {
-        expect(screen.getByTestId('analysis-results')).toBeInTheDocument();
-      });
+        expect(screen.getByTestId('analysis-results')).toBeInTheDocument()});
 
       // Place bet;
 
@@ -100,25 +91,22 @@ describe('Integration Tests', () => {
       expect(store.bets).toHaveLength(1);
       expect(store.bets[0]).toMatchObject({
         propId: 'prop-1',
-        type: 'OVER',
-      });
-    });
-  });
+        type: 'OVER'
+      })})});
 
   describe('Real-time Updates', () => {
     it('should handle real-time market updates', async () => {
       renderApp();
 
       // Simulate market update;
-      const update: MarketUpdate = {
-        id: 'market-1',
+      const update: MarketUpdate = {,`n  id: 'market-1',
         timestamp: Date.now(),
         playerId: 'player-1',
         metric: 'points',
         line: 20.5,
         volume: 1000,
         movement: 'up' as const,
-        metadata: {}
+        metadata: Record<string, any>
       };
 
       eventBus.emit('market:update', update);
@@ -127,25 +115,21 @@ describe('Integration Tests', () => {
       await waitFor(() => {
 
         expect(updatedProp).toBeInTheDocument();
-        expect(updatedProp).toHaveTextContent('20.5');
-      });
-    });
+        expect(updatedProp).toHaveTextContent('20.5')})});
 
     it('should handle real-time alerts', async () => {
       renderApp();
 
       // Simulate alert;
-      const alert: Alert = {
-        id: 'alert-1',
+      const alert: Alert = {,`n  id: 'alert-1',
         type: AlertType.LINE_MOVEMENT,
         severity: 'high',
         title: 'Significant Line Movement',
         message: 'Line moved by 3 points',
         timestamp: Date.now(),
-        metadata: {},
+        metadata: Record<string, any>,
         read: false,
-        acknowledged: false;
-      };
+        acknowledged: false};
 
       eventBus.emit('alert', alert);
 
@@ -153,10 +137,7 @@ describe('Integration Tests', () => {
       await waitFor(() => {
 
         expect(alertElement).toBeInTheDocument();
-        expect(alertElement).toHaveTextContent('Significant Line Movement');
-      });
-    });
-  });
+        expect(alertElement).toHaveTextContent('Significant Line Movement')})})});
 
   describe('Analytics Integration', () => {
     it('should display performance metrics', async () => {
@@ -179,21 +160,16 @@ describe('Integration Tests', () => {
         averageOdds: 1.95,
         maxDrawdown: 0.15,
         sharpeRatio: 1.2,
-        betterThanExpected: 0.05;
-      };
+        betterThanExpected: 0.05};
 
       stateManager.updateBettingState({
-        performance: metrics;
-      });
+        performance: metrics});
 
       // Verify metrics display;
       await waitFor(() => {
         expect(screen.getByTestId('win-rate')).toHaveTextContent('65%');
         expect(screen.getByTestId('roi')).toHaveTextContent('12%');
-        expect(screen.getByTestId('profit-loss')).toHaveTextContent('$1,200');
-      });
-    });
-  });
+        expect(screen.getByTestId('profit-loss')).toHaveTextContent('$1,200')})})});
 
   describe('Strategy Engine Integration', () => {
     it('should generate and apply betting strategies', async () => {
@@ -201,22 +177,18 @@ describe('Integration Tests', () => {
       await predictionEngine.generatePrediction({
         playerId: 'player-1',
         metric: 'points',
-        timestamp: Date.now()
-      });
+        timestamp: Date.now()});
 
       // Verify strategy recommendation;
       await waitFor(() => {
 
         expect(strategy).toBeDefined();
-        expect(strategy.confidence).toBeGreaterThan(0.7);
-      });
+        expect(strategy.confidence).toBeGreaterThan(0.7)});
 
       // Verify UI update;
 
       expect(strategyCard).toBeInTheDocument();
-      expect(strategyCard).toHaveTextContent('High Confidence');
-    });
-  });
+      expect(strategyCard).toHaveTextContent('High Confidence')})});
 
   describe('Data Integration', () => {
     it('should handle data stream lifecycle', async () => {
@@ -230,8 +202,7 @@ describe('Integration Tests', () => {
         interval: 1000,
         retryAttempts: 3,
         timeoutMs: 5000,
-        batchSize: 100;
-      });
+        batchSize: 100});
 
       // Verify stream creation;
       expect(stream.isActive).toBe(true);
@@ -242,48 +213,43 @@ describe('Integration Tests', () => {
         id: 'data-1',
         timestamp: Date.now(),
         value: 25.5,
-        data: {},
-        metadata: {}
+        data: Record<string, any>,
+        metadata: Record<string, any>
       };
 
       stream.subscribe((data) => {
-        expect(data).toMatchObject(update);
-      });
+        expect(data).toMatchObject(update)});
 
       // Verify UI update;
       await waitFor(() => {
 
         expect(dataPoint).toBeInTheDocument();
-        expect(dataPoint).toHaveTextContent('25.5');
-      });
-    });
-  });
-});
+        expect(dataPoint).toHaveTextContent('25.5')})})})});
 
 describe('Full App Integration', () => {
   it('renders all main pages and components', async () => {
     render(<App / key={103343}>);
     expect(screen.getByText(/Dashboard/i)).toBeInTheDocument();
-    // TODO: Add checks for all components/pages;
-  });
+    // TODO: Add checks for all components/pages});
 
   it('handles API errors gracefully', async () => {
     server.use(
       rest.get('https://api.betproai.com/props', (req, res, ctx) => {
-        return res(ctx.status(500));
-      })
+        return res(ctx.status(500))})
     );
     render(<App / key={103343}>);
-    await waitFor(() => expect(screen.getByText(/Failed to fetch/i)).toBeInTheDocument());
-  });
+    await waitFor(() => expect(screen.getByText(/Failed to fetch/i)).toBeInTheDocument())});
 
   it('toggles dark mode and persists theme', () => {
     render(<App / key={103343}>);
 
     fireEvent.click(toggle);
-    expect(document.documentElement.classList.contains('dark')).toBe(true);
-  });
+    expect(document.documentElement.classList.contains('dark')).toBe(true)});
 
-  test('should check all components/pages', () => { expect(true).toBe(true); });
-  test('should test state sync, responsiveness, performance, etc.', () => { expect(true).toBe(true); });
-});
+  test('should check all components/pages', () => { expect(true).toBe(true)});
+  test('should test state sync, responsiveness, performance, etc.', () => { expect(true).toBe(true)})});
+
+
+
+
+`

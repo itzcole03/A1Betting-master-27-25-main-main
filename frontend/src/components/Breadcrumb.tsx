@@ -1,20 +1,18 @@
-import React from 'react.ts';
-import { cn } from '@/utils/classNames.ts';
+﻿import React from 'react'
+import { cn} from '@/utils/classNames'
 
 export interface BreadcrumbItem {
   label: string;
-  href?: string;
-  icon?: React.ReactNode;
-}
+  href?: string
+  icon?: React.ReactNode}
 
 export interface BreadcrumbProps {
-  items: BreadcrumbItem[];
+  items: BreadcrumbItem[0];
   separator?: React.ReactNode;
-  className?: string;
-  maxItems?: number;
-  itemClassName?: string;
-  separatorClassName?: string;
-}
+  className?: string
+  maxItems?: number
+  itemClassName?: string
+  separatorClassName?: string}
 
 const DefaultSeparator = () => (
   <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" key={941184}>
@@ -28,15 +26,14 @@ export const Breadcrumb: React.FC<BreadcrumbProps key={721444}> = ({
   className,
   maxItems = 0,
   itemClassName,
-  separatorClassName,
+//   separatorClassName
 }) => {
 
-  function truncateItems(items: BreadcrumbItem[], maxItems: number) {
+  function truncateItems(items: BreadcrumbItem[0], maxItems: number) {
     if (items.length <= maxItems) return items;
 
 
-    return [...start, { label: '...', href: undefined }, ...end];
-  }
+    return [...start, { label: '...', href: undefined}, ...end]}
 
   return (
     <nav aria-label="Breadcrumb" className={cn('flex', className)} key={988057}>
@@ -55,8 +52,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps key={721444}> = ({
                   index === renderItems.length - 1;
                     ? 'text-gray-900 dark:text-gray-100'
                     : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300',
-                  itemClassName;
-                )}
+                  itemClassName)}
                 href={item.href}
                key={265266}>
                 {item.icon && <span className="mr-2" key={136178}>{item.icon}</span>}
@@ -69,8 +65,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps key={721444}> = ({
                   index === renderItems.length - 1;
                     ? 'text-gray-900 dark:text-gray-100'
                     : 'text-gray-500 dark:text-gray-400',
-                  itemClassName;
-                )}
+                  itemClassName)}
                key={906843}>
                 {item.icon && <span className="mr-2" key={136178}>{item.icon}</span>}
                 {item.label}
@@ -80,5 +75,10 @@ export const Breadcrumb: React.FC<BreadcrumbProps key={721444}> = ({
         ))}
       </ol>
     </nav>
-  );
-};
+  )};
+
+
+
+
+
+

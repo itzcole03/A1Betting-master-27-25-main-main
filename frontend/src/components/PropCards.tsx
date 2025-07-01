@@ -1,25 +1,16 @@
-import React from 'react.ts';
-import { Grid, Card, CardContent, Typography, Button, Box, Chip, Skeleton } from '@mui/material.ts';
-import { TrendingUp as TrendingUpIcon } from '@mui/icons-material.ts';
-import { useAppStore } from '@/stores/useAppStore.ts';
+﻿import React from 'react';
+import { Grid, Card, CardContent, Typography, Button, Box, Chip, Skeleton} from '@mui/material';
+import { TrendingUp as TrendingUpIcon} from '@mui/icons-material';
+import { useAppStore} from '@/stores/useAppStore';
 
 interface Prop {
-  id: string;
-  title: string;
-  description: string;
-  odds: number;
-  category: string;
-  confidence: number;
-  prediction: string;
-}
+  id: string,`n  title: string;,`n  description: string,`n  odds: number;,`n  category: string,`n  confidence: number;,`n  prediction: string}
 
 interface PropCardsProps {
-  data: Prop[];
-  isLoading: boolean;
-}
+  data: Prop[0],`n  isLoading: boolean}
 
-export const PropCards: React.FC<PropCardsProps key={962906}> = ({ data, isLoading }) => {
-  const { addToBetSlip } = useAppStore();
+export const PropCards: React.FC<PropCardsProps key={962906}> = ({ data, isLoading}) => {
+  const { addToBetSlip} = useAppStore();
 
   if (isLoading) {
     return (
@@ -31,7 +22,7 @@ export const PropCards: React.FC<PropCardsProps key={962906}> = ({ data, isLoadi
                 <Skeleton variant="text" width="60%" / key={884479}>
                 <Skeleton variant="text" width="40%" / key={868871}>
                 <Skeleton variant="text" width="80%" / key={759876}>
-                <Box sx={{ mt: 2 }} key={337181}>
+                <Box sx={{ mt: 2}} key={337181}>
                   <Skeleton height={36} variant="rectangular" / key={543911}>
                 </Box>
               </CardContent>
@@ -39,8 +30,7 @@ export const PropCards: React.FC<PropCardsProps key={962906}> = ({ data, isLoadi
           </Grid>
         ))}
       </Grid>
-    );
-  }
+    )}
 
   return (
     <Grid container spacing={2} key={272161}>
@@ -48,7 +38,7 @@ export const PropCards: React.FC<PropCardsProps key={962906}> = ({ data, isLoadi
         <Grid key={prop.id} item md={4} sm={6} xs={12} key={370235}>
           <Card key={650115}>
             <CardContent key={452065}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }} key={386900}>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1}} key={386900}>
                 <Typography component="div" variant="h6" key={277111}>
                   {prop.title}
                 </Typography>
@@ -59,14 +49,14 @@ export const PropCards: React.FC<PropCardsProps key={962906}> = ({ data, isLoadi
                 {prop.description}
               </Typography>
 
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }} key={838256}>
-                <TrendingUpIcon color="success" sx={{ mr: 1 }} / key={138070}>
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2}} key={838256}>
+                <TrendingUpIcon color="success" sx={{ mr: 1}} / key={138070}>
                 <Typography color="success.main" variant="body2" key={412211}>
                   {prop.prediction}
                 </Typography>
               </Box>
 
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} key={875362}>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}} key={875362}>
                 <Typography color="primary" variant="h6" key={397198}>
                   {prop.odds.toFixed(2)}
                 </Typography>
@@ -78,9 +68,8 @@ export const PropCards: React.FC<PropCardsProps key={962906}> = ({ data, isLoadi
                       id: prop.id,
                       selection: prop.title,
                       odds: prop.odds,
-                      stake: 0,
-                    })
-                  }
+                      stake: 0
+                    })}
                 >
                   Add to Bet Slip;
                 </Button>
@@ -90,7 +79,11 @@ export const PropCards: React.FC<PropCardsProps key={962906}> = ({ data, isLoadi
         </Grid>
       ))}
     </Grid>
-  );
-};
+  )};
 
 export default React.memo(PropCards);
+
+
+
+
+`

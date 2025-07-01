@@ -1,66 +1,60 @@
-import React from 'react.ts';
-import { CheckCircle, XCircle, Clock, AlertTriangle, Wifi } from 'lucide-react.ts';
+﻿import React from 'react';
+import { CheckCircle, XCircle, Clock, AlertTriangle, Wifi} from 'lucide-react';
 
 interface DataSource {
-  name: string;
-  status: "connected" | "disconnected" | "connecting" | "error";
-  lastUpdate: string;
-  dataQuality: number;
-  endpoint: string;
-}
+  name: string,`n  status: "connected" | "disconnected" | "connecting" | "error";,`n  lastUpdate: string,`n  dataQuality: number;,`n  endpoint: string}
 
 interface DataSourcesPanelProps {
-  connectedSources?: number;
-  totalSources?: number;
-}
+  connectedSources?: number
+  totalSources?: number}
 
 export function DataSourcesPanel({
   connectedSources = 12,
-  totalSources = 15,
+  totalSources = 15
 }: DataSourcesPanelProps) {
   // Mock data sources - in a real app, this would come from your data service;
-  const dataSources: DataSource[] = [
+  const dataSources: DataSource[0] = [
     {
       name: "PrizePicks API",
       status: "connected",
       lastUpdate: "2s ago",
       dataQuality: 0.95,
-      endpoint: "api.prizepicks.com",
+      endpoint: "api.prizepicks.com"
     },
     {
       name: "ESPN API",
       status: "connected",
       lastUpdate: "5s ago",
       dataQuality: 0.88,
-      endpoint: "api.espn.com",
+      endpoint: "api.espn.com"
     },
     {
       name: "SportsRadar",
       status: "connected",
       lastUpdate: "3s ago",
       dataQuality: 0.92,
-      endpoint: "api.sportsradar.com",
+      endpoint: "api.sportsradar.com"
     },
     {
       name: "DraftKings",
       status: "connecting",
       lastUpdate: "30s ago",
       dataQuality: 0.0,
-      endpoint: "api.draftkings.com",
+      endpoint: "api.draftkings.com"
     },
     {
       name: "FanDuel",
       status: "error",
       lastUpdate: "2m ago",
       dataQuality: 0.0,
-      endpoint: "api.fanduel.com",
+      endpoint: "api.fanduel.com"
     },
     {
       name: "Injury Reports",
       status: "connected",
       lastUpdate: "1m ago",
       dataQuality: 0.85,
-      endpoint: "injuries.api.com",
+      endpoint: "injuries.api.com"
     },
   ];
 
@@ -72,9 +66,7 @@ export function DataSourcesPanel({
         return <Clock className="w-4 h-4 text-yellow-500 animate-pulse" / key={899645}>;
       case "error":
         return <XCircle className="w-4 h-4 text-red-500" / key={661472}>;
-      default:
-        return <AlertTriangle className="w-4 h-4 text-gray-400" / key={242173}>;
-    }
+      default: return <AlertTriangle className="w-4 h-4 text-gray-400" / key={242173}>}
   };
 
   const getStatusColor = (status: string) => {
@@ -84,10 +76,7 @@ export function DataSourcesPanel({
       case "connecting":
         return "text-yellow-600 bg-yellow-50 dark:bg-yellow-900/20 dark:text-yellow-400";
       case "error":
-        return "text-red-600 bg-red-50 dark:bg-red-900/20 dark:text-red-400";
-      default:
-        return "text-gray-600 bg-gray-50 dark:bg-gray-900/20 dark:text-gray-400";
-    }
+        return "text-red-600 bg-red-50 dark: bg-red-900/20 dark:text-red-400",`n  default: return "text-gray-600 bg-gray-50 dark:bg-gray-900/20 dark:text-gray-400"}
   };
 
   const connectionPercentage =
@@ -127,9 +116,8 @@ export function DataSourcesPanel({
                 ? "bg-gradient-to-r from-green-500 to-green-600"
                 : connectionPercentage >= 60;
                   ? "bg-gradient-to-r from-yellow-500 to-yellow-600"
-                  : "bg-gradient-to-r from-red-500 to-red-600"
-            }`}
-            style={{ width: `${connectionPercentage}%` }}
+                  : "bg-gradient-to-r from-red-500 to-red-600"}`}
+            style={{ width: `${connectionPercentage}%`}}
           ></div>
         </div>
       </div>
@@ -202,5 +190,9 @@ export function DataSourcesPanel({
         </div>
       </div>
     </div>
-  );
-}
+  );}
+
+
+
+
+`

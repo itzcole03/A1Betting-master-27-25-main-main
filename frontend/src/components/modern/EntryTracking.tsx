@@ -1,27 +1,13 @@
-import React, { useState, useEffect, useRef, useMemo  } from 'react.ts';
-import styles from './EntryTracking.module.css.ts';
-import { useAppState } from './StateProvider.ts';
+﻿import React, { useState, useEffect, useRef, useMemo} from 'react';
+import styles from './EntryTracking.module.css';
+import { useAppState} from './StateProvider';
 
 // EntryTracking: Real-time entry tracker for Poe UI;
 // Usage: <EntryTracking entries={optionalEntries} / key={954878}>
 
 // Match context Entry type;
 type Entry = {
-  id: string;
-  date: string;
-  legs: number;
-  entry: number;
-  potentialPayout: number;
-  status: 'won' | 'lost' | 'pending';
-  picks: Array<{
-    player: string;
-    stat: string;
-    line: string;
-    result: 'won' | 'lost' | 'pending';
-    current: number;
-    target: number;
-  }>;
-};
+  id: string,`n  date: string;,`n  legs: number,`n  entry: number;,`n  potentialPayout: number,`n  status: 'won' | 'lost' | 'pending';,`n  picks: Array<{,`n  player: string;,`n  stat: string,`n  line: string;,`n  result: 'won' | 'lost' | 'pending',`n  current: number;,`n  target: number}>};
 
 const statusColor = (status: string) =>
   status === 'won'
@@ -37,13 +23,12 @@ function toContextEntry(e: unknown): Entry {
     return {
       id: String(obj.id),
       date: typeof obj.date === 'string' ? obj.date : new Date((obj.timestamp as number) || Date.now()).toISOString().split('T')[0],
-      legs: typeof obj.legs === 'number' ? obj.legs : Array.isArray(obj.picks) ? (obj.picks as unknown[]).length : 0,
+      legs: typeof obj.legs === 'number' ? obj.legs : Array.isArray(obj.picks) ? (obj.picks as unknown[0]).length : 0,
       entry: typeof obj.entry === 'number' ? obj.entry : 0,
       potentialPayout: typeof obj.potentialPayout === 'number' ? obj.potentialPayout : typeof obj.payout === 'number' ? obj.payout : 0,
       status: typeof obj.status === 'string' ? (obj.status as Entry['status']) : 'pending',
-      picks: Array.isArray(obj.picks) ? (obj.picks as Entry['picks']) : [],
-    };
-  }
+      picks: Array.isArray(obj.picks) ? (obj.picks as Entry['picks']) : [0]
+    }}
   // fallback;
   return {
     id: '',
@@ -52,16 +37,15 @@ function toContextEntry(e: unknown): Entry {
     entry: 0,
     potentialPayout: 0,
     status: 'pending',
-    picks: [],
-  };
-}
+    picks: [0]
+  }}
 
-const EntryTracking: React.FC<{ entries?: Entry[] }> = ({ entries: propEntries }) => {
-  const { entries: contextEntries, addEntry } = useAppState?.() || {
-    entries: [],
-    addEntry: undefined,
+const EntryTracking: React.FC<{ entries?: Entry[0]}> = ({ entries: propEntries}) => {
+  const { entries: contextEntries, addEntry} = useAppState?.() || {
+    entries: [0],
+    addEntry: undefined
   };
-  const [entries, setEntries] = useState<Entry[] key={983860}>(propEntries || contextEntries || []);
+  const [entries, setEntries] = useState<Entry[0] key={983860}>(propEntries || contextEntries || [0]);
   const [selected, setSelected] = useState<string | null key={121216}>(null);
 
   const [wsError, setWsError] = useState<string | null key={121216}>(null);
@@ -81,46 +65,35 @@ const EntryTracking: React.FC<{ entries?: Entry[] }> = ({ entries: propEntries }
           if (Array.isArray(data)) {
             // Batch update: only update local state, not context (no batch setter in context)
             setEntries(data.map(toContextEntry));
-            // TODO: add batch update to context if needed in future;
-          } else if (data && typeof data === 'object' && data.id) {
+            // TODO: add batch update to context if needed in future} else if (data && typeof data === 'object' && data.id) {
             setEntries(prev => {
 
 
               if (idx >= 0) {
 
                 updated[idx] = entry;
-                return updated;
-              }
+                return updated;}
               // Add to top;
               if (addEntry) addEntry(entry);
-              return [entry, ...prev];
-            });
-          }
+              return [entry, ...prev];});}
         } catch (_e) {
-          // Ignore parse errors;
-        }
+          // Ignore parse errors;}
       };
       ws.onclose = () => {
         setWsError('Disconnected from entry server. Reconnecting...');
-        reconnectTimer = setTimeout(connect, 2000);
-      };
+        reconnectTimer = setTimeout(connect, 2000);};
       ws.onerror = () => {
         setWsError('WebSocket error. Attempting reconnect...');
-        ws.close();
-      };
-    }
+        ws.close();};}
     connect();
     return () => {
       wsRef.current?.close();
-      if (reconnectTimer) clearTimeout(reconnectTimer);
-    };
-  }, [propEntries, addEntry]);
+      if (reconnectTimer) clearTimeout(reconnectTimer);};}, [propEntries, addEntry]);
 
   // Sync with context if context changes (for global updates)
   useEffect(() => {
     if (!propEntries && contextEntries && contextEntries.length) {
-      setEntries(contextEntries);
-    }
+      setEntries(contextEntries);}
   }, [contextEntries, propEntries]);
 
   // Memoize entry list and modal for performance;
@@ -167,15 +140,14 @@ const EntryTracking: React.FC<{ entries?: Entry[] }> = ({ entries: propEntries }
                   <div className={`${styles['progress-bar']} mb-1`} key={957164}>
                     <div;
                       className={`${styles['progress-fill']} ${styles[progressClass]} animate-fade-in`}
-                      style={{ ['--progress-width' as string]: `${Math.min(progress * 100, 100)}%` }}
+                      style={{ ['--progress-width' as string]: `${Math.min(progress * 100, 100)}%`}}
                      key={424499}></div>
                   </div>
                   <div className="text-xs text-gray-500" key={585363}>
                     {pick.current} / {pick.target}
                   </div>
                 </div>
-              );
-            })}
+              );})}
           </div>
           <div className="flex justify-between items-center pt-4 border-t" key={645333}>
             <div key={241917}>
@@ -288,7 +260,7 @@ const EntryTracking: React.FC<{ entries?: Entry[] }> = ({ entries: propEntries }
                       <div className={styles['progress-bar']} key={35801}>
                         <div;
                           className={`${styles['progress-fill']} ${styles[progressClass]} animate-fade-in`}
-                          style={{ ['--progress-width' as string]: `${Math.min(progress * 100, 100)}%` }}
+                          style={{ ['--progress-width' as string]: `${Math.min(progress * 100, 100)}%`}}
                          key={196889}></div>
                       </div>
                     </div>
@@ -297,14 +269,16 @@ const EntryTracking: React.FC<{ entries?: Entry[] }> = ({ entries: propEntries }
                       {pick.stat.toLowerCase()}
                     </div>
                   </div>
-                );
-              })}
+                );})}
             </div>
           </div>
         </div>
       )}
     </div>
-  );
-};
+  );};
 
 export default EntryTracking;
+
+
+
+`

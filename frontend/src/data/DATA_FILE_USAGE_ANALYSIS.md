@@ -20,6 +20,7 @@ This directory contains data integration modules for the frontend application. T
 ## File Breakdown
 
 ### dataIntegrationService.ts
+
 - **Purpose:** Minimal stub for the dataIntegrationService object, intended to provide data integration logic for the frontend.
 - **Usage:** Currently exports an empty object for build success.
 - **Notes:** No functional implementation yet; serves as a scaffold for future data integration features.
@@ -27,4 +28,4 @@ This directory contains data integration modules for the frontend application. T
 
 ---
 
-*This documentation is auto-generated and should be updated as files are added, removed, or refactored in the data directory.*
+_This documentation is auto-generated and should be updated as files are added, removed, or refactored in the data directory._

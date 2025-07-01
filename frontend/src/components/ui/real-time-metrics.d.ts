@@ -1,11 +1,9 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface RealTimeMetricsProps {
-    initialMetrics?: {
-        predictions: number;
-        opportunities: number;
-        activeModels: number;
-        totalProfit: number;
-    };
-}
+  initialMetrics?: {
+    predictions: number,`n  opportunities: number;,`n  activeModels: number,`n  totalProfit: number};}
 export declare const RealTimeMetrics: React.FC<RealTimeMetricsProps>;
-export {};
+export Record<string, any>;
+
+
+`

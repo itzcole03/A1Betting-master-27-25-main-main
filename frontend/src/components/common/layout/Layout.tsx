@@ -1,17 +1,16 @@
-import React from 'react.ts';
-import Navbar from './Navbar.ts'
-import Sidebar from './Sidebar.ts'
-import { Box, Container } from '@mui/material.ts'
-import { ReactNode } from 'react.ts'
+﻿import React from 'react';
+import Navbar from './Navbar'
+import Sidebar from './Sidebar'
+import { Box, Container} from '@mui/material'
+import { ReactNode} from 'react'
 
 
 interface LayoutProps {
-  children: ReactNode;
-}
+  children: ReactNode}
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children}: LayoutProps) => {
   return (
-    <Box sx={{ display: 'flex' }} key={680838}>
+    <Box sx={{ display: 'flex'}} key={680838}>
       <Navbar / key={593897}>
       <Sidebar / key={403360}>
       <Box;
@@ -21,7 +20,7 @@ const Layout = ({ children }: LayoutProps) => {
           height: '100vh',
           overflow: 'auto',
           pt: 8,
-          px: 3,
+          px: 3
         }}
        key={666200}>
         <Container maxWidth="lg" key={108807}>
@@ -29,7 +28,10 @@ const Layout = ({ children }: LayoutProps) => {
         </Container>
       </Box>
     </Box>
-  )
-}
+  )}
 
 export default Layout;
+
+
+
+

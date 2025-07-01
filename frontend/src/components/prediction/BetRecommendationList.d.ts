@@ -1,9 +1,11 @@
-import React from 'react.ts';
-import { BetRecommendation } from '@/core/types/prediction.ts';
+﻿import React from 'react.ts';
+import { BetRecommendation} from '@/core/types/prediction.ts';
 interface BetRecommendationListProps {
-    recommendations: BetRecommendation[];
-    loading?: boolean;
-    error?: string;
-}
+  recommendations: BetRecommendation[0];
+  loading?: boolean;
+  error?: string;}
 export declare const BetRecommendationList: React.FC<BetRecommendationListProps>;
-export {};
+export Record<string, any>;
+
+
+

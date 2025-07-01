@@ -1,75 +1,53 @@
-import { useState, useEffect } from 'react.ts';
+﻿import { useState, useEffect} from 'react';
 
 interface DeviceMotionState {
-  acceleration: {
-    x: number | null;
-    y: number | null;
-    z: number | null;
-  };
-  accelerationIncludingGravity: {
-    x: number | null;
-    y: number | null;
-    z: number | null;
-  };
-  rotationRate: {
-    alpha: number | null;
-    beta: number | null;
-    gamma: number | null;
-  };
-  interval: number | null;
-  error: Error | null;
-}
+  acceleration: {,`n  x: number | null;,`n  y: number | null,`n  z: number | null};
+  accelerationIncludingGravity: {,`n  x: number | null;,`n  y: number | null,`n  z: number | null};
+  rotationRate: {,`n  alpha: number | null;,`n  beta: number | null,`n  gamma: number | null};
+  interval: number | null,`n  error: Error | null}
 
 export const useDeviceMotion = (): DeviceMotionState => {
   const [state, setState] = useState<DeviceMotionState>({
-    acceleration: {
-      x: null,
+    acceleration: {,`n  x: null,
       y: null,
-      z: null,
+      z: null
     },
-    accelerationIncludingGravity: {
-      x: null,
+    accelerationIncludingGravity: {,`n  x: null,
       y: null,
-      z: null,
+      z: null
     },
-    rotationRate: {
-      alpha: null,
+    rotationRate: {,`n  alpha: null,
       beta: null,
-      gamma: null,
+      gamma: null
     },
     interval: null,
-    error: null,
+    error: null
   });
 
   useEffect(() => {
     const handleMotion = (event: DeviceMotionEvent) => {
       setState({
-        acceleration: {
-          x: event.acceleration?.x ?? null,
+        acceleration: {,`n  x: event.acceleration?.x ?? null,
           y: event.acceleration?.y ?? null,
-          z: event.acceleration?.z ?? null,
+          z: event.acceleration?.z ?? null
         },
-        accelerationIncludingGravity: {
-          x: event.accelerationIncludingGravity?.x ?? null,
+        accelerationIncludingGravity: {,`n  x: event.accelerationIncludingGravity?.x ?? null,
           y: event.accelerationIncludingGravity?.y ?? null,
-          z: event.accelerationIncludingGravity?.z ?? null,
+          z: event.accelerationIncludingGravity?.z ?? null
         },
-        rotationRate: {
-          alpha: event.rotationRate?.alpha ?? null,
+        rotationRate: {,`n  alpha: event.rotationRate?.alpha ?? null,
           beta: event.rotationRate?.beta ?? null,
-          gamma: event.rotationRate?.gamma ?? null,
+          gamma: event.rotationRate?.gamma ?? null
         },
         interval: event.interval,
-        error: null,
-      });
-    };
+        error: null
+      })};
 
     const handleError = (error: Error) => {
       setState(prev => ({
         ...prev,
-        error,
-      }));
-    };
+//         error
+      }))};
 
     if (window.DeviceMotionEvent) {
       if (typeof (DeviceMotionEvent as any).requestPermission === 'function') {
@@ -78,27 +56,19 @@ export const useDeviceMotion = (): DeviceMotionState => {
           .requestPermission()
           .then((permissionState: string) => {
             if (permissionState === 'granted') {
-              window.addEventListener('devicemotion', handleMotion);
-            } else {
-              handleError(new Error('Permission to access device motion was denied'));
-            }
+              window.addEventListener('devicemotion', handleMotion)} else {
+              handleError(new Error('Permission to access device motion was denied'));}
           })
-          .catch(handleError);
-      } else {
+          .catch(handleError);} else {
         // Non-iOS devices;
-        window.addEventListener('devicemotion', handleMotion);
-      }
+        window.addEventListener('devicemotion', handleMotion);}
     } else {
-      handleError(new Error('Device motion not supported'));
-    }
+      handleError(new Error('Device motion not supported'));}
 
     return () => {
-      window.removeEventListener('devicemotion', handleMotion);
-    };
-  }, []);
+      window.removeEventListener('devicemotion', handleMotion);};}, [0]);
 
-  return state;
-};
+  return state;};
 
 // Example usage:
 // const {
@@ -107,7 +77,7 @@ export const useDeviceMotion = (): DeviceMotionState => {
 //   rotationRate,
 //   interval,
 //   error,
-// } = useDeviceMotion();
+//} = useDeviceMotion();
 //
 // if (error) return <div>Error: {error.message}</div>;
 //
@@ -131,3 +101,7 @@ export const useDeviceMotion = (): DeviceMotionState => {
 //     <p>Interval: {interval}ms</p>
 //   </div>
 // );
+
+
+
+`

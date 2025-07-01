@@ -1,28 +1,22 @@
-import React, { Component, ErrorInfo, ReactNode  } from 'react.ts';
-import { Box, Typography, Button } from '@mui/material.ts';
+﻿import React, { Component, ErrorInfo, ReactNode} from 'react';
+import { Box, Typography, Button} from '@mui/material';
 
 interface Props {
-  children: ReactNode;
-}
+  children: ReactNode}
 
 interface State {
-  hasError: boolean;
-  error: Error | null;
-}
+  hasError: boolean,`n  error: Error | null}
 
 class ErrorBoundary extends Component<Props, State key={458171}> {
-  public state: State = {
-    hasError: false,
-    error: null,
+  public state: State = {,`n  hasError: false,
+    error: null
   };
 
   public static getDerivedStateFromError(error: Error): State {
-    return { hasError: true, error };
-  }
+    return { hasError: true, error}}
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // console statement removed
-  }
+    // console statement removed}
 
   public render() {
     if (this.state.hasError) {
@@ -35,7 +29,7 @@ class ErrorBoundary extends Component<Props, State key={458171}> {
             justifyContent: 'center',
             minHeight: '100vh',
             p: 3,
-            textAlign: 'center',
+            textAlign: 'center'
           }}
          key={264330}>
           <Typography gutterBottom color="error" variant="h4" key={88565}>
@@ -48,11 +42,13 @@ class ErrorBoundary extends Component<Props, State key={458171}> {
             Reload Page;
           </Button>
         </Box>
-      );
-    }
+      );}
 
-    return this.props.children;
-  }
+    return this.props.children;}
 }
 
 export default ErrorBoundary;
+
+
+
+`

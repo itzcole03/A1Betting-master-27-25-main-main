@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React, { useState, useEffect, useMemo} from 'react';
+import { motion} from 'framer-motion';
 import {
   Gamepad2,
   TrendingUp,
@@ -12,52 +12,23 @@ import {
   Activity,
   Users,
   Target,
-  AlertTriangle,
-} from 'lucide-react.ts';
-import { logger } from '@/utils/logger.ts';
+//   AlertTriangle
+} from 'lucide-react';
+import { logger} from '@/utils/logger';
 
 interface EsportsMatch {
-  id: string;
-  game: string;
-  tournament: string;
-  team1: string;
-  team2: string;
-  start_time: string;
-  status: 'upcoming' | 'live' | 'finished';
-  map?: string;
-  format: string;
-}
+  id: string,`n  game: string;,`n  tournament: string,`n  team1: string;,`n  team2: string,`n  start_time: string;,`n  status: 'upcoming' | 'live' | 'finished';
+  map?: string
+  format: string}
 
 interface EsportsBet {
-  id: string;
-  match: EsportsMatch;
-  market_type: string;
-  description: string;
-  odds: number;
-  expected_value: number;
-  confidence: number;
-  stake_recommendation: number;
-  potential_profit: number;
-  risk_level: 'low' | 'medium' | 'high';
-  analysis: {
-    recent_form: string;
-    head_to_head: string;
-    map_advantage: string;
-    momentum: number;
-  };
-}
+  id: string,`n  match: EsportsMatch;,`n  market_type: string,`n  description: string;,`n  odds: number,`n  expected_value: number;,`n  confidence: number,`n  stake_recommendation: number;,`n  potential_profit: number,`n  risk_level: 'low' | 'medium' | 'high';,`n  analysis: {,`n  recent_form: string;,`n  head_to_head: string,`n  map_advantage: string;,`n  momentum: number}}
 
 interface EsportsMetrics {
-  total_matches: number;
-  active_bets: number;
-  daily_profit: number;
-  win_rate: number;
-  avg_odds: number;
-  roi: number;
-}
+  total_matches: number,`n  active_bets: number;,`n  daily_profit: number,`n  win_rate: number;,`n  avg_odds: number,`n  roi: number}
 
 const EsportsMoneyMaker: React.FC = () => {
-  const [bets, setBets] = useState<EsportsBet[] key={892378}>([]);
+  const [bets, setBets] = useState<EsportsBet[0] key={892378}>([0]);
   const [loading, setLoading] = useState(true);
   const [selectedGame, setSelectedGame] = useState<string key={278855}>('all');
   const [selectedMarket, setSelectedMarket] = useState<string key={278855}>('all');
@@ -67,24 +38,22 @@ const EsportsMoneyMaker: React.FC = () => {
     daily_profit: 0,
     win_rate: 0,
     avg_odds: 0,
-    roi: 0,
+    roi: 0
   });
 
 
   // Mock esports betting opportunities;
-  const mockBets: EsportsBet[] = useMemo(() => [
+  const mockBets: EsportsBet[0] = useMemo(() => [
     {
       id: '1',
-      match: {
-        id: 'm1',
+      match: {,`n  id: 'm1',
         game: 'League of Legends',
         tournament: 'LCK Spring 2024',
         team1: 'T1',
         team2: 'Gen.G',
         start_time: '2024-03-15T10:00:00Z',
         status: 'upcoming',
-        format: 'BO3'
-      },
+        format: 'BO3'},
       market_type: 'Match Winner',
       description: 'T1 to win vs Gen.G',
       odds: 2.15,
@@ -93,17 +62,14 @@ const EsportsMoneyMaker: React.FC = () => {
       stake_recommendation: 150,
       potential_profit: 172.50,
       risk_level: 'medium',
-      analysis: {
-        recent_form: 'T1 won 4/5 recent matches',
+      analysis: {,`n  recent_form: 'T1 won 4/5 recent matches',
         head_to_head: 'T1 leads 3-2 in last 5 meetings',
         map_advantage: 'Strong on current patch meta',
-        momentum: 0.75;
-      }
+        momentum: 0.75}
     },
     {
       id: '2',
-      match: {
-        id: 'm2',
+      match: {,`n  id: 'm2',
         game: 'CS2',
         tournament: 'IEM Katowice 2024',
         team1: 'FaZe',
@@ -111,8 +77,7 @@ const EsportsMoneyMaker: React.FC = () => {
         start_time: '2024-03-15T15:30:00Z',
         status: 'live',
         map: 'Dust2',
-        format: 'BO1'
-      },
+        format: 'BO1'},
       market_type: 'Map Winner',
       description: 'FaZe to win Dust2',
       odds: 1.85,
@@ -121,25 +86,21 @@ const EsportsMoneyMaker: React.FC = () => {
       stake_recommendation: 200,
       potential_profit: 170.00,
       risk_level: 'low',
-      analysis: {
-        recent_form: 'FaZe undefeated on Dust2 this tournament',
+      analysis: {,`n  recent_form: 'FaZe undefeated on Dust2 this tournament',
         head_to_head: 'FaZe 75% win rate vs Navi on Dust2',
         map_advantage: 'Historically strong on this map',
-        momentum: 0.85;
-      }
+        momentum: 0.85}
     },
     {
       id: '3',
-      match: {
-        id: 'm3',
+      match: {,`n  id: 'm3',
         game: 'Valorant',
         tournament: 'VCT Americas',
         team1: 'Sentinels',
         team2: 'NRG',
         start_time: '2024-03-15T20:00:00Z',
         status: 'upcoming',
-        format: 'BO3'
-      },
+        format: 'BO3'},
       market_type: 'Total Maps',
       description: 'Over 2.5 Maps',
       odds: 2.05,
@@ -148,25 +109,21 @@ const EsportsMoneyMaker: React.FC = () => {
       stake_recommendation: 100,
       potential_profit: 105.00,
       risk_level: 'medium',
-      analysis: {
-        recent_form: 'Both teams have close recent matches',
+      analysis: {,`n  recent_form: 'Both teams have close recent matches',
         head_to_head: '80% of their matches go to 3 maps',
         map_advantage: 'Very even map pool',
-        momentum: 0.65;
-      }
+        momentum: 0.65}
     },
     {
       id: '4',
-      match: {
-        id: 'm4',
+      match: {,`n  id: 'm4',
         game: 'Dota 2',
         tournament: 'DPC EEU Division I',
         team1: 'Team Spirit',
         team2: 'BetBoom',
         start_time: '2024-03-15T12:00:00Z',
         status: 'upcoming',
-        format: 'BO2'
-      },
+        format: 'BO2'},
       market_type: 'First Blood',
       description: 'Team Spirit First Blood Game 1',
       odds: 1.92,
@@ -175,14 +132,12 @@ const EsportsMoneyMaker: React.FC = () => {
       stake_recommendation: 75,
       potential_profit: 69.00,
       risk_level: 'high',
-      analysis: {
-        recent_form: 'Spirit aggressive early game style',
+      analysis: {,`n  recent_form: 'Spirit aggressive early game style',
         head_to_head: '60% first blood rate vs BetBoom',
         map_advantage: 'Strong laning phase',
-        momentum: 0.55;
-      }
+        momentum: 0.55}
     }
-  ], []);
+  ], [0]);
 
   useEffect(() => {
     const initializeEsports = async () => {
@@ -197,33 +152,25 @@ const EsportsMoneyMaker: React.FC = () => {
           daily_profit: 342.75,
           win_rate: 73.5,
           avg_odds: mockBets.reduce((acc, bet) => acc + bet.odds, 0) / mockBets.length,
-          roi: 15.8;
-        });
-      } catch (error) {
-        logger.error('Failed to initialize esports money maker', error);
-      } finally {
-        setLoading(false);
-      }
+          roi: 15.8})} catch (error) {
+        logger.error('Failed to initialize esports money maker', error);} finally {
+        setLoading(false);}
     };
 
-    initializeEsports();
-  }, [mockBets]);
+    initializeEsports();}, [mockBets]);
 
   const filteredBets = useMemo(() => {
     return bets.filter(bet => {
       if (selectedGame !== 'all' && bet.match.game !== selectedGame) return false;
       if (selectedMarket !== 'all' && bet.market_type !== selectedMarket) return false;
-      return true;
-    });
-  }, [bets, selectedGame, selectedMarket]);
+      return true;});}, [bets, selectedGame, selectedMarket]);
 
   const getRiskColor = (riskLevel: string) => {
     switch (riskLevel) {
       case 'low': return 'text-green-400 bg-green-400/20';
       case 'medium': return 'text-yellow-400 bg-yellow-400/20';
       case 'high': return 'text-red-400 bg-red-400/20';
-      default: return 'text-gray-400 bg-gray-400/20';
-    }
+      default: return 'text-gray-400 bg-gray-400/20'}
   };
 
   const getStatusColor = (status: string) => {
@@ -231,14 +178,12 @@ const EsportsMoneyMaker: React.FC = () => {
       case 'live': return 'text-red-400 bg-red-400/20';
       case 'upcoming': return 'text-blue-400 bg-blue-400/20';
       case 'finished': return 'text-gray-400 bg-gray-400/20';
-      default: return 'text-gray-400 bg-gray-400/20';
-    }
+      default: return 'text-gray-400 bg-gray-400/20'}
   };
 
   const getGameIcon = (game: string) => {
     // In a real app, you'd have specific icons for each game;
-    return <Gamepad2 className="w-5 h-5" / key={276805}>;
-  };
+    return <Gamepad2 className="w-5 h-5" / key={276805}>;};
 
   if (loading) {
     return (
@@ -248,8 +193,7 @@ const EsportsMoneyMaker: React.FC = () => {
           <p className="mt-4 text-gray-400" key={301158}>Loading Esports Opportunities...</p>
         </div>
       </div>
-    );
-  }
+    );}
 
   return (
     <div className="space-y-6" key={501869}>
@@ -373,8 +317,8 @@ const EsportsMoneyMaker: React.FC = () => {
             {filteredBets.map((bet) => (
               <motion.div;
                 key={bet.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 20}}
+                animate={{ opacity: 1, y: 0}}
                 className="bg-gray-800/40 backdrop-blur border border-gray-700/50 rounded-xl p-6 hover:border-purple-500/50 transition-all"
                key={180023}>
                 <div className="flex items-start justify-between mb-4" key={886571}>
@@ -449,7 +393,7 @@ const EsportsMoneyMaker: React.FC = () => {
                         <div className="w-16 h-2 bg-gray-600 rounded-full overflow-hidden" key={620397}>
                           <div; 
                             className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all"
-                            style={{ width: `${bet.analysis.momentum * 100}%` }}
+                            style={{ width: `${bet.analysis.momentum * 100}%`}}
                           / key={312857}>
                         </div>
                         <span className="text-white text-xs" key={934608}>{(bet.analysis.momentum * 100).toFixed(0)}%</span>
@@ -470,8 +414,8 @@ const EsportsMoneyMaker: React.FC = () => {
                   
                   <motion.button;
                     className="px-6 py-2 bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg font-medium hover:from-purple-400 hover:to-pink-500 transition-all"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.05}}
+                    whileTap={{ scale: 0.95}}
                    key={531775}>
                     Place Bet;
                   </motion.button>
@@ -482,7 +426,11 @@ const EsportsMoneyMaker: React.FC = () => {
         )}
       </div>
     </div>
-  );
-};
+  );};
 
 export default EsportsMoneyMaker;
+
+
+
+
+`

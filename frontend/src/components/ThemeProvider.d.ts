@@ -1,11 +1,11 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface ThemeContextType {
-    mode: 'light' | 'dark' | 'system';
-    setThemeMode: (mode: 'light' | 'dark' | 'system') => void;
-}
+  mode: 'light' | 'dark' | 'system',`n  setThemeMode: (mode: 'light' | 'dark' | 'system') => void}
 export declare const useThemeContext: () => ThemeContextType;
 interface ThemeProviderProps {
-    children: React.ReactNode;
-}
+  children: React.ReactNode}
 export declare const ThemeProvider: React.FC<ThemeProviderProps>;
-export {};
+export Record<string, any>;
+
+
+`

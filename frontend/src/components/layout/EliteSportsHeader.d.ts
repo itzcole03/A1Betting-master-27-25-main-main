@@ -1,13 +1,11 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface EliteSportsHeaderProps {
-    connectedSources: number;
-    dataQuality: number;
-    state?: {
-        darkMode?: boolean;
-    };
-    toggleDarkMode: () => void;
-    refreshData: () => Promise<void>;
-    loading: boolean;
-}
+  connectedSources: number,`n  dataQuality: number;
+  state?: {
+    darkMode?: boolean;};
+  toggleDarkMode: () => void,`n  refreshData: () => Promise<void>;,`n  loading: boolean}
 export declare const EliteSportsHeader: React.FC<EliteSportsHeaderProps>;
-export {};
+export Record<string, any>;
+
+
+`

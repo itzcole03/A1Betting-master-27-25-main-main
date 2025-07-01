@@ -1,16 +1,10 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface ModelMetrics {
-    winRate: number;
-    roi: number;
-    totalBets: number;
-    profitLoss: number;
-    averageConfidence: number;
-    accuracy: number;
-    precision: number;
-    recall: number;
-}
+  winRate: number,`n  roi: number;,`n  totalBets: number,`n  profitLoss: number;,`n  averageConfidence: number,`n  accuracy: number;,`n  precision: number,`n  recall: number}
 interface ModelPerformanceProps {
-    metrics: ModelMetrics;
-}
+  metrics: ModelMetrics}
 export declare const ModelPerformance: React.FC<ModelPerformanceProps>;
-export {};
+export Record<string, any>;
+
+
+`

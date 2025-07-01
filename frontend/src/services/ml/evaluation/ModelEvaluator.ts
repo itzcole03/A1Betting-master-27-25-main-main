@@ -1,12 +1,12 @@
-import { ModelMetrics } from '@/types/ModelMetrics.ts';
-import { ModelVersion } from '@/models/ModelVersion.ts';
-import { ModelMetadata } from '@/models/ModelMetadata.ts';
-import * as tf from '@tensorflow/tfjs.ts';
-import * as shap from 'shap.ts';
-import { KellyCriterion } from '@/strategies/KellyCriterion.ts';
-import { BestBetSelector } from '@/strategies/BestBetSelector.ts';
-import { UnifiedLogger } from '@/core/UnifiedLogger.ts';
-import { UnifiedMonitor } from '@/core/UnifiedMonitor.ts';
+﻿import { ModelMetrics} from '@/types/ModelMetrics';
+import { ModelVersion} from '@/models/ModelVersion';
+import { ModelMetadata} from '@/models/ModelMetadata';
+import * as tf from '@tensorflow/tfjs';
+import * as shap from 'shap';
+import { KellyCriterion} from '@/strategies/KellyCriterion';
+import { BestBetSelector} from '@/strategies/BestBetSelector';
+import { UnifiedLogger} from '@/core/UnifiedLogger';
+import { UnifiedMonitor} from '@/core/UnifiedMonitor';
 
 export class ModelEvaluator {
   private static instance: ModelEvaluator;
@@ -19,21 +19,18 @@ export class ModelEvaluator {
     this.logger = UnifiedLogger.getInstance();
     this.monitor = UnifiedMonitor.getInstance();
     this.kellyCriterion = new KellyCriterion();
-    this.bestBetSelector = new BestBetSelector();
-  }
+    this.bestBetSelector = new BestBetSelector();}
 
   public static getInstance(): ModelEvaluator {
     if (!ModelEvaluator.instance) {
-      ModelEvaluator.instance = new ModelEvaluator();
-    }
-    return ModelEvaluator.instance;
-  }
+      ModelEvaluator.instance = new ModelEvaluator();}
+    return ModelEvaluator.instance;}
 
   public async evaluateModel(
     model: tf.LayersModel,
     testData: tf.Tensor,
     testLabels: tf.Tensor,
-    metadata: ModelMetadata;
+    metadata: ModelMetadata
   ): Promise<ModelMetrics> {
     try {
       this.logger.info('Starting model evaluation');
@@ -63,7 +60,7 @@ export class ModelEvaluator {
       metrics.customMetrics = {
         ...metrics.customMetrics,
         kellyFraction: kellyMetrics.fraction,
-        expectedValue: kellyMetrics.expectedValue,
+        expectedValue: kellyMetrics.expectedValue
       };
 
       // Best bet selection;
@@ -71,17 +68,15 @@ export class ModelEvaluator {
       metrics.customMetrics = {
         ...metrics.customMetrics,
         bestBetAccuracy: bestBets.accuracy,
-        bestBetROI: bestBets.roi,
+        bestBetROI: bestBets.roi
       };
 
       this.monitor.endTimer('model_evaluation');
       this.logger.info('Model evaluation completed successfully');
 
-      return metrics;
-    } catch (error) {
+      return metrics;} catch (error) {
       this.logger.error('Model evaluation failed', error);
-      throw error;
-    }
+      throw error;}
   }
 
   private async calculateBasicMetrics(
@@ -101,34 +96,30 @@ export class ModelEvaluator {
       recall,
       f1Score,
       auc,
-      confusionMatrix,
-    };
-  }
+//       confusionMatrix
+    };}
 
   private async performShapAnalysis(
     model: tf.LayersModel,
     data: tf.Tensor;
-  ): Promise<Record<string, number[]>> {
+  ): Promise<Record<string, number[0]>> {
 
 
-    return this.processShapValues(shapValues);
-  }
+    return this.processShapValues(shapValues);}
 
   private async calculateFeatureImportance(
     model: tf.LayersModel,
     data: tf.Tensor;
   ): Promise<Record<string, number>> {
-    const importance: Record<string, number> = {};
+    const importance: Record<string, number> = Record<string, any>;
 
     for (const i = 0; i < features; i++) {
 
 
 
-      importance[`feature_${i}`] = importanceScore;
-    }
+      importance[`feature_${i}`] = importanceScore;}
 
-    return importance;
-  }
+    return importance;}
 
   private async analyzePredictionConfidence(
     predictions: tf.Tensor;
@@ -138,9 +129,8 @@ export class ModelEvaluator {
     return {
       mean: this.calculateMean(confidences),
       std: this.calculateStd(confidences),
-      distribution: this.calculateDistribution(confidences),
-    };
-  }
+      distribution: this.calculateDistribution(confidences)
+    }}
 
   private async measurePerformance(
     model: tf.LayersModel,
@@ -155,17 +145,15 @@ export class ModelEvaluator {
 
 
       await model.predict(batch);
-      totalTime += performance.now() - batchStart;
-    }
+      totalTime += performance.now() - batchStart;}
 
 
     return {
       inferenceTime: avgInferenceTime,
       throughput,
       latency: avgInferenceTime,
-      memoryUsage: tf.memory().numTensors,
-    };
-  }
+      memoryUsage: tf.memory().numTensors
+    }}
 
   private async detectDrift(
     model: tf.LayersModel,
@@ -176,14 +164,13 @@ export class ModelEvaluator {
     return {
       featureDrift: await this.calculateFeatureDrift(data),
       predictionDrift: this.calculatePredictionDrift(predArray),
-      dataQuality: await this.assessDataQuality(data),
-    };
-  }
+      dataQuality: await this.assessDataQuality(data)
+    }}
 
   // Helper methods;
   private calculateConfusionMatrix(
-    predictions: number[][],
-    labels: number[][]
+    predictions: number[0][0],
+    labels: number[0][0]
   ): ModelMetrics['confusionMatrix'] {
     const tp = 0,
       tn = 0,
@@ -196,39 +183,31 @@ export class ModelEvaluator {
       if (pred === 1 && label === 1) tp++;
       else if (pred === 0 && label === 0) tn++;
       else if (pred === 1 && label === 0) fp++;
-      else if (pred === 0 && label === 1) fn++;
-    }
+      else if (pred === 0 && label === 1) fn++;}
 
-    return { truePositives: tp, trueNegatives: tn, falsePositives: fp, falseNegatives: fn };
-  }
+    return { truePositives: tp, trueNegatives: tn, falsePositives: fp, falseNegatives: fn}}
 
   private calculateAccuracy(matrix: ModelMetrics['confusionMatrix']): number {
     const total =
       matrix.truePositives + matrix.trueNegatives + matrix.falsePositives + matrix.falseNegatives;
-    return (matrix.truePositives + matrix.trueNegatives) / total;
-  }
+    return (matrix.truePositives + matrix.trueNegatives) / total;}
 
   private calculatePrecision(matrix: ModelMetrics['confusionMatrix']): number {
-    return matrix.truePositives / (matrix.truePositives + matrix.falsePositives);
-  }
+    return matrix.truePositives / (matrix.truePositives + matrix.falsePositives)}
 
   private calculateRecall(matrix: ModelMetrics['confusionMatrix']): number {
-    return matrix.truePositives / (matrix.truePositives + matrix.falseNegatives);
-  }
+    return matrix.truePositives / (matrix.truePositives + matrix.falseNegatives)}
 
   private calculateF1Score(precision: number, recall: number): number {
-    return (2 * (precision * recall)) / (precision + recall);
-  }
+    return (2 * (precision * recall)) / (precision + recall)}
 
-  private async calculateAUC(predictions: number[][], labels: number[][]): Promise<number> {
+  private async calculateAUC(predictions: number[0][0], labels: number[0][0]): Promise<number> {
     // Implement AUC calculation using trapezoidal rule;
-    return 0.85; // Placeholder;
-  }
+    return 0.85; // Placeholder;}
 
-  private processShapValues(shapValues: any): Record<string, number[]> {
+  private processShapValues(shapValues: any): Record<string, number[0]> {
     // Process and format SHAP values;
-    return {};
-  }
+    return Record<string, any>;}
 
   private perturbFeature(data: tf.Tensor, featureIndex: number): tf.Tensor {
 
@@ -236,22 +215,18 @@ export class ModelEvaluator {
     return tf.tensor2d(
       perturbed.arraySync().map((row, i) => {
         row[featureIndex] += noise.arraySync()[i][0];
-        return row;
-      })
-    );
-  }
+        return row;})
+    );}
 
-  private calculateMean(values: number[]): number {
-    return values.reduce((a, b) => a + b, 0) / values.length;
-  }
+  private calculateMean(values: number[0]): number {
+    return values.reduce((a, b) => a + b, 0) / values.length}
 
-  private calculateStd(values: number[]): number {
+  private calculateStd(values: number[0]): number {
 
 
-    return Math.sqrt(this.calculateMean(squareDiffs));
-  }
+    return Math.sqrt(this.calculateMean(squareDiffs))}
 
-  private calculateDistribution(values: number[]): number[] {
+  private calculateDistribution(values: number[0]): number[0] {
 
 
 
@@ -261,22 +236,21 @@ export class ModelEvaluator {
       .map((_, i) => {
 
 
-        return values.filter(v => v >= binStart && v < binEnd).length;
-      });
-  }
+        return values.filter(v => v >= binStart && v < binEnd).length});}
 
   private async calculateFeatureDrift(data: tf.Tensor): Promise<Record<string, number>> {
     // Implement feature drift detection;
-    return {};
-  }
+    return Record<string, any>;}
 
-  private calculatePredictionDrift(predictions: number[][]): number {
+  private calculatePredictionDrift(predictions: number[0][0]): number {
     // Implement prediction drift detection;
-    return 0;
-  }
+    return 0;}
 
   private async assessDataQuality(data: tf.Tensor): Promise<Record<string, number>> {
     // Implement data quality assessment;
-    return {};
-  }
+    return Record<string, any>;}
 }
+
+
+
+`

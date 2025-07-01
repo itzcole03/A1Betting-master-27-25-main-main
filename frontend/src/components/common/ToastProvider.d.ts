@@ -1,6 +1,7 @@
-import React, { ReactNode  } from 'react.ts';
+﻿import React, { ReactNode} from 'react.ts';
 interface ToastProviderProps {
-    children: ReactNode;
-}
+  children: ReactNode}
 declare const ToastProvider: React.FC<ToastProviderProps>;
-export { ToastProvider };
+export { ToastProvider};
+
+

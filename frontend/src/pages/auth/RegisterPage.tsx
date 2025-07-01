@@ -1,6 +1,6 @@
-import React from 'react.ts';
-import { useState } from 'react.ts';
-import { useNavigate, Link as RouterLink } from 'react-router-dom.ts';
+﻿import React from 'react';
+import { useState} from 'react';
+import { useNavigate, Link as RouterLink} from 'react-router-dom';
 import {
   Box,
   Button,
@@ -8,10 +8,10 @@ import {
   Link,
   Typography,
   Alert,
-  Grid,
-} from '@mui/material.ts';
-import { useStore } from '@/store.ts';
-import { ApiService } from '@/services/api.ts';
+//   Grid
+} from '@mui/material';
+import { useStore} from '@/store';
+import { ApiService} from '@/services/api';
 
 export default function RegisterPage() {
 
@@ -21,15 +21,14 @@ export default function RegisterPage() {
     lastName: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    confirmPassword: ""
   });
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement key={553350}>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+    const { name, value} = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value}));};
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,8 +36,7 @@ export default function RegisterPage() {
 
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match");
-      return;
-    }
+      return;}
 
     setIsLoading(true);
 
@@ -47,21 +45,18 @@ export default function RegisterPage() {
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,
-        password: formData.password,
+        password: formData.password
       });
       setUser(user);
-      navigate("/dashboard");
-    } catch (err) {
-      setError("Failed to create account. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
+      navigate("/dashboard");} catch (err) {
+      setError("Failed to create account. Please try again.");} finally {
+      setIsLoading(false);}
   };
 
   return (
-    <Box component="form" sx={{ width: "100%" }} onSubmit={handleSubmit} key={966550}>
+    <Box component="form" sx={{ width: "100%"}} onSubmit={handleSubmit} key={966550}>
       {error && (
-        <Alert severity="error" sx={{ mb: 2 }} key={957932}>
+        <Alert severity="error" sx={{ mb: 2}} key={957932}>
           {error}
         </Alert>
       )}
@@ -134,14 +129,14 @@ export default function RegisterPage() {
       <Button;
         fullWidth;
         disabled={isLoading}
-        sx={{ mt: 3, mb: 2 }}
+        sx={{ mt: 3, mb: 2}}
         type="submit"
         variant="contained"
        key={11735}>
         {isLoading ? "Creating Account..." : "Sign Up"}
       </Button>
 
-      <Box sx={{ textAlign: "center" }} key={243046}>
+      <Box sx={{ textAlign: "center"}} key={243046}>
         <Typography variant="body2" key={679167}>
           Already have an account?{" "}
           <Link component={RouterLink} to="/login" variant="body2" key={750720}>
@@ -150,5 +145,8 @@ export default function RegisterPage() {
         </Typography>
       </Box>
     </Box>
-  );
-}
+  );}
+
+
+
+

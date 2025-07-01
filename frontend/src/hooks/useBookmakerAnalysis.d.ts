@@ -1,30 +1,13 @@
-export interface BookmakerAnalysisState {
-    isLoading: boolean;
-    error: string | null;
-    analysis: {
-        suspiciousLevel: number;
-        warning?: string;
-        adjustedProbability: number;
-        riskScore: number;
-    } | null;
-}
+﻿export interface BookmakerAnalysisState {
+  isLoading: boolean,`n  error: string | null;,`n  analysis: {,`n  suspiciousLevel: number;
+    warning?: string;
+    adjustedProbability: number,`n  riskScore: number} | null;}
 export interface PropData {
-    playerId: string;
-    propType: string;
-    projectedValue: number;
-    tag: 'demon' | 'goblin' | 'normal';
-    currentOdds: number;
-    historicalAverage: number;
-}
-export declare const useBookmakerAnalysis: (propData: PropData | null) => {
-    refreshAnalysis: () => Promise<void>;
-    isLoading: boolean;
-    error: string | null;
-    analysis: {
-        suspiciousLevel: number;
-        warning?: string;
-        adjustedProbability: number;
-        riskScore: number;
-    } | null;
-};
+  playerId: string,`n  propType: string;,`n  projectedValue: number,`n  tag: 'demon' | 'goblin' | 'normal';,`n  currentOdds: number,`n  historicalAverage: number}
+export declare const useBookmakerAnalysis: (propData: PropData | null) => {,`n  refreshAnalysis: () => Promise<void>;,`n  isLoading: boolean,`n  error: string | null;,`n  analysis: {,`n  suspiciousLevel: number;
+    warning?: string;
+    adjustedProbability: number,`n  riskScore: number} | null;};
 export default useBookmakerAnalysis;
+
+
+`

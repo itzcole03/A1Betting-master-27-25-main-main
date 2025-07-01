@@ -1,6 +1,6 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
-import { useQuery, useQueryClient } from '@tanstack/react-query.ts';
+﻿import React, { useState, useEffect} from 'react';
+import { motion} from 'framer-motion';
+import { useQuery, useQueryClient} from '@tanstack/react-query';
 import {
   Settings as SettingsIcon,
   User,
@@ -12,94 +12,56 @@ import {
   Trash2,
   Save,
   RefreshCw,
-  ExternalLink,
-} from 'lucide-react.ts';
-import { api } from '@/services/integrationService.ts';
-import toast from 'react-hot-toast.ts';
+//   ExternalLink
+} from 'lucide-react';
+import { api} from '@/services/integrationService';
+import toast from 'react-hot-toast';
 
 interface UserSettings {
-  profile: {
-    name: string;
-    email: string;
-    timezone: string;
-    currency: string;
-  };
-  notifications: {
-    email: boolean;
-    push: boolean;
-    sound: boolean;
-    highConfidencePicks: boolean;
-    arbitrageAlerts: boolean;
-  };
-  display: {
-    darkMode: boolean;
-    compactView: boolean;
-    showAnimations: boolean;
-    fontSize: number;
-  };
-  betting: {
-    defaultStake: number;
-    maxStake: number;
-    riskLevel: "conservative" | "moderate" | "aggressive";
-    autoApprove: boolean;
-  };
-  privacy: {
-    sharePredictions: boolean;
-    showStats: boolean;
-    allowAnalytics: boolean;
-  };
-  ultraAccuracy: {
-    enabled: boolean;
-    targetAccuracy: number;
-    enhanceMoneyMaker: boolean;
-    enhancePrizePicks: boolean;
-  };
-}
+  profile: {,`n  name: string;,`n  email: string,`n  timezone: string;,`n  currency: string};
+  notifications: {,`n  email: boolean;,`n  push: boolean,`n  sound: boolean;,`n  highConfidencePicks: boolean,`n  arbitrageAlerts: boolean};
+  display: {,`n  darkMode: boolean;,`n  compactView: boolean,`n  showAnimations: boolean;,`n  fontSize: number};
+  betting: {,`n  defaultStake: number;,`n  maxStake: number,`n  riskLevel: "conservative" | "moderate" | "aggressive";,`n  autoApprove: boolean};
+  privacy: {,`n  sharePredictions: boolean;,`n  showStats: boolean,`n  allowAnalytics: boolean};
+  ultraAccuracy: {,`n  enabled: boolean;,`n  targetAccuracy: number,`n  enhanceMoneyMaker: boolean;,`n  enhancePrizePicks: boolean}}
 
 interface SettingsProps {
-  onNavigate?: (page: string) => void;
-}
+  onNavigate?: (page: string) => void}
 
-export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) => {
+export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate}) => {
   // console statement removed
 
   const [settings, setSettings] = useState<UserSettings key={207290}>({
-    profile: {
-      name: "User",
+    profile: {,`n  name: "User",
       email: "user@a1betting.com",
       timezone: "UTC-5",
-      currency: "USD",
+      currency: "USD"
     },
-    notifications: {
-      email: true,
+    notifications: {,`n  email: true,
       push: true,
       sound: false,
       highConfidencePicks: true,
-      arbitrageAlerts: true,
+      arbitrageAlerts: true
     },
-    display: {
-      darkMode: true,
+    display: {,`n  darkMode: true,
       compactView: false,
       showAnimations: true,
-      fontSize: 16,
+      fontSize: 16
     },
-    betting: {
-      defaultStake: 10,
+    betting: {,`n  defaultStake: 10,
       maxStake: 100,
       riskLevel: "moderate",
-      autoApprove: false,
+      autoApprove: false
     },
-    privacy: {
-      sharePredictions: false,
+    privacy: {,`n  sharePredictions: false,
       showStats: true,
-      allowAnalytics: true,
+      allowAnalytics: true
     },
-    ultraAccuracy: {
-      enabled: true,
+    ultraAccuracy: {,`n  enabled: true,
       targetAccuracy: 99.5,
       enhanceMoneyMaker: true,
-      enhancePrizePicks: true,
-    },
+      enhancePrizePicks: true
+    }
   });
 
   const [isSaving, setIsSaving] = useState(false);
@@ -109,10 +71,9 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
     isActive: true,
     currentQuality: 0.965,
     enhancementsActive: 3,
-    components: {
-      moneyMaker: true,
-      prizePicks: true,
-    },
+    components: {,`n  moneyMaker: true,
+      prizePicks: true
+    }
   });
 
   // Simple loading state for analytics only;
@@ -121,10 +82,10 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
     total_profit: 890,
     win_rate: 0.67,
     roi: 0.128,
-    daily: {},
+    daily: Record<string, any>,
     monthly_profit: 340,
     total_wagered: 12500,
-    max_drawdown: -150,
+    max_drawdown: -150
   });
 
   // Try to load analytics in background without blocking render;
@@ -132,50 +93,42 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
     const loadAnalytics = async () => {
       try {
 
-        setAnalyticsData(analytics);
-      } catch (error) {
+        setAnalyticsData(analytics);} catch (error) {
         // console statement removed
-        // Keep existing default data;
-      }
+        // Keep existing default data;}
     };
 
-    loadAnalytics();
-  }, []);
+    loadAnalytics();}, [0]);
 
   const handleSectionUpdate = (section: keyof UserSettings, updates: any) => {
     setSettings((prev) => ({
       ...prev,
-      [section]: { ...prev[section], ...updates },
-    }));
-  };
+      [section]: { ...prev[section], ...updates}
+    }))};
 
   const handleUltraAccuracyUpdate = (updates: any) => {
     handleSectionUpdate("ultraAccuracy", updates);
-    toast.success("Ultra Accuracy settings updated!");
-  };
+    toast.success("Ultra Accuracy settings updated!");};
 
   const handleSave = async () => {
     setIsSaving(true);
     try {
       // Simulate saving settings;
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      toast.success("Settings saved successfully!");
-    } catch (error) {
-      toast.error("Failed to save settings");
-    } finally {
-      setIsSaving(false);
-    }
+      toast.success("Settings saved successfully!");} catch (error) {
+      toast.error("Failed to save settings");} finally {
+      setIsSaving(false);}
   };
 
   const handleExportData = () => {
     const exportData = {
       analyticsData,
       settings,
-      exportedAt: new Date().toISOString(),
+      exportedAt: new Date().toISOString()
     };
 
     const blob = new Blob([JSON.stringify(exportData, null, 2)], {
-      type: "application/json",
+      type: "application/json"
     });
 
 
@@ -186,8 +139,7 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 
-    toast.success("Data exported successfully!");
-  };
+    toast.success("Data exported successfully!");};
 
   const handleClearData = () => {
     if (
@@ -197,8 +149,7 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
     ) {
       queryClient.clear();
       localStorage.clear();
-      toast.success("All data cleared!");
-    }
+      toast.success("All data cleared!");}
   };
 
   try {
@@ -207,8 +158,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
         <div className="max-w-6xl mx-auto p-6" key={600744}>
           {/* Header */}
           <motion.div;
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: -20}}
+            animate={{ opacity: 1, y: 0}}
             className="text-center mb-8"
            key={611812}>
             <div className="flex items-center justify-center gap-3 mb-4" key={915248}>
@@ -225,8 +176,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8" key={713002}>
             {/* Profile Settings */}
             <motion.div;
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, x: -20}}
+              animate={{ opacity: 1, x: 0}}
               className="bg-black/30 backdrop-blur-lg rounded-2xl p-6 border border-cyan-500/20"
              key={266724}>
               <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2" key={331820}>
@@ -243,8 +194,7 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                     type="text"
                     value={settings.profile.name}
                     onChange={(e) = key={336020}>
-                      handleSectionUpdate("profile", { name: e.target.value })
-                    }
+                      handleSectionUpdate("profile", { name: e.target.value})}
                     className="w-full px-4 py-3 bg-gradient-to-r from-slate-800/90 via-purple-700/80 to-slate-800/90 border border-purple-500/30 rounded-lg text-white font-medium focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all duration-200 hover:border-purple-400 backdrop-blur-sm shadow-lg shadow-purple-500/20 appearance-none cursor-pointer"
                   />
                 </div>
@@ -255,8 +205,7 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                     type="email"
                     value={settings.profile.email}
                     onChange={(e) = key={380779}>
-                      handleSectionUpdate("profile", { email: e.target.value })
-                    }
+                      handleSectionUpdate("profile", { email: e.target.value})}
                     className="w-full px-4 py-3 bg-gradient-to-r from-slate-800/90 via-purple-700/80 to-slate-800/90 border border-purple-500/30 rounded-lg text-white font-medium focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all duration-200 hover:border-purple-400 backdrop-blur-sm shadow-lg shadow-purple-500/20 appearance-none cursor-pointer"
                   />
                 </div>
@@ -268,9 +217,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                       value={settings.profile.timezone}
                       onChange={(e) = key={538139}>
                         handleSectionUpdate("profile", {
-                          timezone: e.target.value,
-                        })
-                      }
+                          timezone: e.target.value
+                        })}
                       className="w-full px-4 py-3 bg-gradient-to-r from-slate-800/90 via-purple-700/80 to-slate-800/90 border border-purple-500/30 rounded-lg text-white font-medium focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all duration-200 hover:border-purple-400 backdrop-blur-sm shadow-lg shadow-purple-500/20 appearance-none cursor-pointer"
                     >
                       <option value="UTC-5" key={409515}>Eastern Time</option>
@@ -286,9 +234,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                       value={settings.profile.currency}
                       onChange={(e) = key={749937}>
                         handleSectionUpdate("profile", {
-                          currency: e.target.value,
-                        })
-                      }
+                          currency: e.target.value
+                        })}
                       className="w-full px-4 py-3 bg-gradient-to-r from-slate-800/90 via-purple-700/80 to-slate-800/90 border border-purple-500/30 rounded-lg text-white font-medium focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all duration-200 hover:border-purple-400 backdrop-blur-sm shadow-lg shadow-purple-500/20 appearance-none cursor-pointer"
                     >
                       <option value="USD" key={42064}>USD ($)</option>
@@ -303,8 +250,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
 
             {/* Notifications */}
             <motion.div;
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, x: 20}}
+              animate={{ opacity: 1, x: 0}}
               className="bg-black/30 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20"
              key={439531}>
               <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2" key={331820}>
@@ -326,9 +273,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                       checked={value}
                       onChange={(e) = key={143781}>
                         handleSectionUpdate("notifications", {
-                          [key]: e.target.checked,
-                        })
-                      }
+                          [key]: e.target.checked
+                        })}
                       className="w-5 h-5 text-purple-400 bg-gray-800 border-gray-600 rounded focus:ring-purple-400 focus:ring-2"
                     />
                   </label>
@@ -338,9 +284,9 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
 
             {/* Display Settings */}
             <motion.div;
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
+              initial={{ opacity: 0, x: -20}}
+              animate={{ opacity: 1, x: 0}}
+              transition={{ delay: 0.1}}
               className="bg-black/30 backdrop-blur-lg rounded-2xl p-6 border border-green-500/20"
              key={890245}>
               <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2" key={331820}>
@@ -356,9 +302,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                     checked={settings.display.darkMode}
                     onChange={(e) = key={479096}>
                       handleSectionUpdate("display", {
-                        darkMode: e.target.checked,
-                      })
-                    }
+                        darkMode: e.target.checked
+                      })}
                     className="w-5 h-5 text-green-400 bg-gray-800 border-gray-600 rounded focus:ring-green-400 focus:ring-2"
                   />
                 </label>
@@ -370,9 +315,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                     checked={settings.display.compactView}
                     onChange={(e) = key={550190}>
                       handleSectionUpdate("display", {
-                        compactView: e.target.checked,
-                      })
-                    }
+                        compactView: e.target.checked
+                      })}
                     className="w-5 h-5 text-green-400 bg-gray-800 border-gray-600 rounded focus:ring-green-400 focus:ring-2"
                   />
                 </label>
@@ -384,9 +328,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                     checked={settings.display.showAnimations}
                     onChange={(e) = key={284334}>
                       handleSectionUpdate("display", {
-                        showAnimations: e.target.checked,
-                      })
-                    }
+                        showAnimations: e.target.checked
+                      })}
                     className="w-5 h-5 text-green-400 bg-gray-800 border-gray-600 rounded focus:ring-green-400 focus:ring-2"
                   />
                 </label>
@@ -400,9 +343,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                     value={settings.display.fontSize}
                     onChange={(e) = key={447006}>
                       handleSectionUpdate("display", {
-                        fontSize: parseInt(e.target.value),
-                      })
-                    }
+                        fontSize: parseInt(e.target.value)
+                      })}
                     className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
                   />
                   <div className="text-center text-gray-400 text-sm mt-1" key={951061}>
@@ -414,9 +356,9 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
 
             {/* Betting Preferences */}
             <motion.div;
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
+              initial={{ opacity: 0, x: 20}}
+              animate={{ opacity: 1, x: 0}}
+              transition={{ delay: 0.1}}
               className="bg-black/30 backdrop-blur-lg rounded-2xl p-6 border border-yellow-500/20"
              key={860738}>
               <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2" key={331820}>
@@ -434,9 +376,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                     value={settings.betting.defaultStake}
                     onChange={(e) = key={663410}>
                       handleSectionUpdate("betting", {
-                        defaultStake: parseFloat(e.target.value),
-                      })
-                    }
+                        defaultStake: parseFloat(e.target.value)
+                      })}
                     className="w-full px-4 py-3 bg-gradient-to-r from-slate-800/90 via-purple-700/80 to-slate-800/90 border border-purple-500/30 rounded-lg text-white font-medium focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all duration-200 hover:border-purple-400 backdrop-blur-sm shadow-lg shadow-purple-500/20 appearance-none cursor-pointer"
                   />
                 </div>
@@ -450,9 +391,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                     value={settings.betting.maxStake}
                     onChange={(e) = key={836476}>
                       handleSectionUpdate("betting", {
-                        maxStake: parseFloat(e.target.value),
-                      })
-                    }
+                        maxStake: parseFloat(e.target.value)
+                      })}
                     className="w-full px-4 py-3 bg-gradient-to-r from-slate-800/90 via-purple-700/80 to-slate-800/90 border border-purple-500/30 rounded-lg text-white font-medium focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all duration-200 hover:border-purple-400 backdrop-blur-sm shadow-lg shadow-purple-500/20 appearance-none cursor-pointer"
                   />
                 </div>
@@ -463,9 +403,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                     value={settings.betting.riskLevel}
                     onChange={(e) = key={991899}>
                       handleSectionUpdate("betting", {
-                        riskLevel: e.target.value,
-                      })
-                    }
+                        riskLevel: e.target.value
+                      })}
                     className="w-full px-4 py-3 bg-gradient-to-r from-slate-800/90 via-purple-700/80 to-slate-800/90 border border-purple-500/30 rounded-lg text-white font-medium focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all duration-200 hover:border-purple-400 backdrop-blur-sm shadow-lg shadow-purple-500/20 appearance-none cursor-pointer"
                   >
                     <option value="conservative" key={170632}>Conservative</option>
@@ -483,9 +422,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                     checked={settings.betting.autoApprove}
                     onChange={(e) = key={163296}>
                       handleSectionUpdate("betting", {
-                        autoApprove: e.target.checked,
-                      })
-                    }
+                        autoApprove: e.target.checked
+                      })}
                     className="w-5 h-5 text-yellow-400 bg-gray-800 border-gray-600 rounded focus:ring-yellow-400 focus:ring-2"
                   />
                 </label>
@@ -495,9 +433,9 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
 
           {/* Ultra Accuracy Settings */}
           <motion.div;
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            initial={{ opacity: 0, y: 20}}
+            animate={{ opacity: 1, y: 0}}
+            transition={{ delay: 0.2}}
             className="bg-black/30 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/30 mb-6"
            key={455457}>
             <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2" key={331820}>
@@ -508,8 +446,7 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                   className={`px-2 py-1 rounded-full text-xs font-bold ${
                     ultraAccuracyStats.isActive;
                       ? "bg-green-500/20 text-green-400"
-                      : "bg-red-500/20 text-red-400"
-                  }`}
+                      : "bg-red-500/20 text-red-400"}`}
                  key={475875}>
                   {ultraAccuracyStats.isActive ? "ACTIVE" : "OFFLINE"}
                 </span>
@@ -526,9 +463,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                     onChange={(e) = key={531753}>
                       handleUltraAccuracyUpdate({
                         ...settings.ultraAccuracy,
-                        enabled: e.target.checked,
-                      })
-                    }
+                        enabled: e.target.checked
+                      })}
                     className="w-5 h-5 text-purple-400 bg-gray-800 border-gray-600 rounded focus:ring-purple-400 focus:ring-2"
                   />
                 </label>
@@ -541,9 +477,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                     onChange={(e) = key={963079}>
                       handleUltraAccuracyUpdate({
                         ...settings.ultraAccuracy,
-                        enhanceMoneyMaker: e.target.checked,
-                      })
-                    }
+                        enhanceMoneyMaker: e.target.checked
+                      })}
                     className="w-5 h-5 text-purple-400 bg-gray-800 border-gray-600 rounded focus:ring-purple-400 focus:ring-2"
                   />
                 </label>
@@ -556,9 +491,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                     onChange={(e) = key={893163}>
                       handleUltraAccuracyUpdate({
                         ...settings.ultraAccuracy,
-                        enhancePrizePicks: e.target.checked,
-                      })
-                    }
+                        enhancePrizePicks: e.target.checked
+                      })}
                     className="w-5 h-5 text-purple-400 bg-gray-800 border-gray-600 rounded focus:ring-purple-400 focus:ring-2"
                   />
                 </label>
@@ -578,9 +512,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                     onChange={(e) = key={947580}>
                       handleUltraAccuracyUpdate({
                         ...settings.ultraAccuracy,
-                        targetAccuracy: parseFloat(e.target.value),
-                      })
-                    }
+                        targetAccuracy: parseFloat(e.target.value)
+                      })}
                     className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
                   />
                   <div className="text-center text-purple-400 font-bold mt-1" key={914086}>
@@ -615,9 +548,9 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
 
           {/* Data & Privacy */}
           <motion.div;
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            initial={{ opacity: 0, y: 20}}
+            animate={{ opacity: 1, y: 0}}
+            transition={{ delay: 0.3}}
             className="bg-black/30 backdrop-blur-lg rounded-2xl p-6 border border-red-500/20 mb-8"
            key={389396}>
             <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2" key={331820}>
@@ -634,9 +567,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                     checked={settings.privacy.sharePredictions}
                     onChange={(e) = key={593142}>
                       handleSectionUpdate("privacy", {
-                        sharePredictions: e.target.checked,
-                      })
-                    }
+                        sharePredictions: e.target.checked
+                      })}
                     className="w-5 h-5 text-red-400 bg-gray-800 border-gray-600 rounded focus:ring-red-400 focus:ring-2"
                   />
                 </label>
@@ -648,9 +580,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                     checked={settings.privacy.showStats}
                     onChange={(e) = key={827199}>
                       handleSectionUpdate("privacy", {
-                        showStats: e.target.checked,
-                      })
-                    }
+                        showStats: e.target.checked
+                      })}
                     className="w-5 h-5 text-red-400 bg-gray-800 border-gray-600 rounded focus:ring-red-400 focus:ring-2"
                   />
                 </label>
@@ -662,9 +593,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
                     checked={settings.privacy.allowAnalytics}
                     onChange={(e) = key={238664}>
                       handleSectionUpdate("privacy", {
-                        allowAnalytics: e.target.checked,
-                      })
-                    }
+                        allowAnalytics: e.target.checked
+                      })}
                     className="w-5 h-5 text-red-400 bg-gray-800 border-gray-600 rounded focus:ring-red-400 focus:ring-2"
                   />
                 </label>
@@ -700,9 +630,9 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
 
           {/* Action Buttons */}
           <motion.div;
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            initial={{ opacity: 0, y: 20}}
+            animate={{ opacity: 1, y: 0}}
+            transition={{ delay: 0.4}}
             className="flex justify-center gap-4"
            key={175983}>
             <button;
@@ -716,7 +646,7 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
             <button;
               onClick={handleSave}
               disabled={isSaving}
-              className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 disabled:opacity-50 text-white rounded-xl transition-all transform hover:scale-105"
+              className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-cyan-500 to-purple-500 hover: from-cyan-600 hover:to-purple-600 disabled:opacity-50 text-white rounded-xl transition-all transform hover:scale-105"
              key={200874}>
               {isSaving ? (
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white" key={241625}></div>
@@ -728,8 +658,7 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
           </motion.div>
         </div>
       </div>
-    );
-  } catch (error) {
+    )} catch (error) {
     // console statement removed
     return (
       <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white" key={573311}>
@@ -748,8 +677,11 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate }) =
           </button>
         </div>
       </div>
-    );
-  }
+    );}
 };
 
 export default Settings;
+
+
+
+`

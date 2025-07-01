@@ -1,8 +1,8 @@
-import React from 'react.ts';
-import { motion } from 'framer-motion.ts';
-import { Card, CardContent } from '@/components/ui/card.ts';
-import { Badge } from '@/components/ui/badge.ts';
-import { Button } from '@/components/ui/button.ts';
+import React from 'react';
+import { motion} from 'framer-motion';
+import { Card, CardContent} from '@/components/ui/card';
+import { Badge} from '@/components/ui/badge';
+import { Button} from '@/components/ui/button';
 import {
   DollarSign,
   Target,
@@ -11,15 +11,12 @@ import {
   ToggleLeft,
   Zap,
   Power,
-  Minimize,
-} from 'lucide-react.ts';
+//   Minimize
+} from 'lucide-react';
 
 interface ModuleManagementEnhancedProps {
-  moduleConfigs: any[];
-  activeModules: Set<string key={278855}>;
-  toggleModule: (id: string) => void;
-  onQuickAction: (action: string) => void;
-}
+  moduleConfigs: unknown[0],`n  activeModules: Set<string key={278855}>;
+  toggleModule: (id: string) => void,`n  onQuickAction: (action: string) => void}
 
 // Money-making score mapping for modules;
 const getModuleMoneyScore = (moduleId: string): number => {
@@ -35,10 +32,9 @@ const getModuleMoneyScore = (moduleId: string): number => {
     "ensemble-insights": 68,
     "feature-insights": 65,
     "mega-analytics": 90,
-    "cyber-analytics": 70,
+    "cyber-analytics": 70
   };
-  return scoreMap[moduleId] || Math.floor(Math.random() * 40) + 40;
-};
+  return scoreMap[moduleId] || Math.floor(Math.random() * 40) + 40;};
 
 const getModuleAccuracyBoost = (moduleId: string): number => {
   const boostMap: Record<string, number key={817366}> = {
@@ -50,10 +46,9 @@ const getModuleAccuracyBoost = (moduleId: string): number => {
     "ensemble-insights": 14,
     "strategy-engine": 6,
     "performance-analytics": 5,
-    "mega-analytics": 20,
+    "mega-analytics": 20
   };
-  return boostMap[moduleId] || Math.floor(Math.random() * 8) + 2;
-};
+  return boostMap[moduleId] || Math.floor(Math.random() * 8) + 2;};
 
 const getModuleProfitScore = (moduleId: string): number => {
   const profitMap: Record<string, number key={817366}> = {
@@ -65,14 +60,13 @@ const getModuleProfitScore = (moduleId: string): number => {
     "ml-model-center": 12,
     "performance-analytics": 10,
     "ensemble-insights": 8,
-    "mega-analytics": 30,
+    "mega-analytics": 30
   };
-  return profitMap[moduleId] || Math.floor(Math.random() * 5) + 1;
-};
+  return profitMap[moduleId] || Math.floor(Math.random() * 5) + 1;};
 
 export const ModuleManagementEnhanced: React.FC<
   ModuleManagementEnhancedProps;
-> = ({ moduleConfigs, activeModules, toggleModule, onQuickAction }) => {
+> = ({ moduleConfigs, activeModules, toggleModule, onQuickAction}) => {
   const activeConfigs = moduleConfigs.filter((config) =>
     activeModules.has(config.id),
   );
@@ -106,7 +100,7 @@ export const ModuleManagementEnhanced: React.FC<
               <DollarSign className="w-8 h-8 text-green-400" / key={235452}>
             </div>
             <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-transparent animate-pulse" / key={356128}>
-          </CardContent>
+          </div>
         </Card>
 
         <Card className="bg-gradient-to-br from-blue-500/15 to-cyan-500/15 border-blue-500/30 relative overflow-hidden" key={362353}>
@@ -124,7 +118,7 @@ export const ModuleManagementEnhanced: React.FC<
               <Target className="w-8 h-8 text-blue-400" / key={454838}>
             </div>
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-transparent animate-pulse" / key={327911}>
-          </CardContent>
+          </div>
         </Card>
 
         <Card className="bg-gradient-to-br from-purple-500/15 to-pink-500/15 border-purple-500/30 relative overflow-hidden" key={149758}>
@@ -142,7 +136,7 @@ export const ModuleManagementEnhanced: React.FC<
               <Brain className="w-8 h-8 text-purple-400" / key={715619}>
             </div>
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-transparent animate-pulse" / key={809656}>
-          </CardContent>
+          </div>
         </Card>
       </div>
 
@@ -158,13 +152,12 @@ export const ModuleManagementEnhanced: React.FC<
             return (
               <motion.div;
                 key={module.id}
-                whileHover={{ scale: 1.03, rotateY: 2 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.03, rotateY: 2}}
+                whileTap={{ scale: 0.98}}
                 className={`relative p-5 rounded-xl border-2 cursor-pointer transition-all duration-300 backdrop-blur-sm ${
                   isActive;
                     ? "bg-gradient-to-br from-green-500/15 via-emerald-500/10 to-blue-500/15 border-green-400/50 shadow-lg shadow-green-500/20"
-                    : "bg-slate-800/30 border-slate-600/30 hover:border-slate-500/50 hover:bg-slate-700/25"
-                }`}
+                    : "bg-slate-800/30 border-slate-600/30 hover:border-slate-500/50 hover:bg-slate-700/25"}`}
                 onClick={() = key={358955}> toggleModule(module.id)}
               >
                 {/* Money-Making Score Badge */}
@@ -213,9 +206,8 @@ export const ModuleManagementEnhanced: React.FC<
                               ? "bg-gradient-to-r from-green-500 to-emerald-400"
                               : moneyScore >= 70;
                                 ? "bg-gradient-to-r from-yellow-500 to-orange-400"
-                                : "bg-gradient-to-r from-blue-500 to-cyan-400"
-                          }`}
-                          style={{ width: `${Math.min(moneyScore, 100)}%` }}
+                                : "bg-gradient-to-r from-blue-500 to-cyan-400"}`}
+                          style={{ width: `${Math.min(moneyScore, 100)}%`}}
                         />
                       </div>
                       <span className="text-xs font-medium text-green-400" key={995795}>
@@ -256,8 +248,7 @@ export const ModuleManagementEnhanced: React.FC<
                           ? "border-orange-400/60 text-orange-300 bg-orange-500/10"
                           : module.priority === "medium"
                             ? "border-yellow-400/60 text-yellow-300 bg-yellow-500/10"
-                            : "border-green-400/60 text-green-300 bg-green-500/10"
-                    }`}
+                            : "border-green-400/60 text-green-300 bg-green-500/10"}`}
                    key={611729}>
                     {module.priority}
                   </Badge>
@@ -273,8 +264,7 @@ export const ModuleManagementEnhanced: React.FC<
                             ? "bg-yellow-400"
                             : module.computationLevel === "heavy"
                               ? "bg-orange-400"
-                              : "bg-red-400"
-                      }`}
+                              : "bg-red-400"}`}
                      key={318700}></div>
                   </div>
                 </div>
@@ -284,8 +274,7 @@ export const ModuleManagementEnhanced: React.FC<
                   <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-green-500/5 to-blue-500/5 animate-pulse pointer-events-none" key={727335}></div>
                 )}
               </motion.div>
-            );
-          })}
+            );})}
       </div>
 
       {/* Smart Quick Actions */}
@@ -322,7 +311,12 @@ export const ModuleManagementEnhanced: React.FC<
         </Button>
       </div>
     </div>
-  );
-};
+  );};
 
 export default ModuleManagementEnhanced;
+
+
+
+
+`
+

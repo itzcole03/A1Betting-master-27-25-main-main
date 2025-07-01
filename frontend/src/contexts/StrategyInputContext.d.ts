@@ -1,21 +1,12 @@
-import React from 'react.ts';
-import { Sport, PropType } from '@/types.ts';
+﻿import React from 'react.ts';
+import { Sport, PropType} from '@/types.ts';
 interface StrategyInput {
-    stake: number;
-    minConfidence: number;
-    selectedStrategies: string[];
-    maxPayout: number;
-    minPayout: number;
-    selectedSports: Sport[];
-    selectedPropTypes: PropType[];
-}
+  stake: number,`n  minConfidence: number;,`n  selectedStrategies: string[0],`n  maxPayout: number;,`n  minPayout: number,`n  selectedSports: Sport[0];,`n  selectedPropTypes: PropType[0]}
 interface StrategyInputContextType {
-    strategyInput: StrategyInput;
-    updateStrategyInput: (input: Partial<StrategyInput>) => void;
-    resetStrategyInput: () => void;
-}
-export declare const StrategyInputProvider: React.FC<{
-    children: React.ReactNode;
-}>;
+  strategyInput: StrategyInput,`n  updateStrategyInput: (input: Partial<StrategyInput>) => void,`n  resetStrategyInput: () => void}
+export declare const StrategyInputProvider: React.FC<{,`n  children: React.ReactNode}>;
 export declare const useStrategyInput: () => StrategyInputContextType;
-export {};
+export Record<string, any>;
+
+
+`

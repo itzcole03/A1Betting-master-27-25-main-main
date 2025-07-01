@@ -1,8 +1,8 @@
-import UnifiedErrorService from './errorService.ts';
-import UnifiedNotificationService from './notificationService.ts';
-import UnifiedLoggingService from './loggingService.ts';
-import UnifiedSettingsService from './settingsService.ts';
-import { UnifiedServiceRegistry } from './UnifiedServiceRegistry.ts';
+﻿import UnifiedErrorService from './errorService';
+import UnifiedNotificationService from './notificationService';
+import UnifiedLoggingService from './loggingService';
+import UnifiedSettingsService from './settingsService';
+import { UnifiedServiceRegistry} from './UnifiedServiceRegistry';
 
 export abstract class UnifiedServiceBase {
   protected readonly errorService: UnifiedErrorService;
@@ -17,36 +17,32 @@ export abstract class UnifiedServiceBase {
     this.notificationService = UnifiedNotificationService.getInstance(registry);
     this.loggingService = UnifiedLoggingService.getInstance(registry);
     this.settingsService = UnifiedSettingsService.getInstance(registry);
-    this.loggingService.info(`Initializing ${serviceName}`, serviceName);
-  }
+    this.loggingService.info(`Initializing ${serviceName}`, serviceName);}
 
   protected async handleServiceOperation<T>(
     operation: () => Promise<T>,
     operationName: string,
     serviceName: string,
     successMessage?: string,
-    errorMessage?: string;
+    errorMessage?: string
   ): Promise<T> {
     try {
       this.loggingService.debug(`Starting ${operationName}`, serviceName);
 
       if (successMessage) {
-        this.notificationService.notify('success', successMessage);
-      }
+        this.notificationService.notify('success', successMessage);}
 
       this.loggingService.info(`Completed ${operationName}`, serviceName);
-      return result;
-    } catch (error) {
+      return result;} catch (error) {
 
       this.errorService.handleError(
         error instanceof Error ? error : new Error(errorMsg),
         serviceName,
         'high',
-        { operation: operationName }
+        { operation: operationName}
       );
       this.notificationService.notify('error', errorMsg);
-      throw error;
-    }
+      throw error;}
   }
 
   protected handleWebSocketError(error: any, serviceName: string, context?: any): void {
@@ -54,39 +50,37 @@ export abstract class UnifiedServiceBase {
       error instanceof Error ? error : new Error('WebSocket error occurred'),
       serviceName,
       'high',
-      { ...context, type: 'websocket' }
-    );
-  }
+      { ...context, type: 'websocket'}
+    )}
 
   protected logOperation(
     level: 'debug' | 'info' | 'warn' | 'error',
     message: string,
     serviceName: string,
-    data?: any;
+    data?: any
   ): void {
-    this.loggingService.log(level, message, serviceName, data);
-  }
+    this.loggingService.log(level, message, serviceName, data)}
 
   // Lifecycle methods;
   async initialize(): Promise<void> {
-    this.loggingService.info(`Initializing service`, this.constructor.name);
-  }
+    this.loggingService.info(`Initializing service`, this.constructor.name);}
 
   async cleanup(): Promise<void> {
-    this.loggingService.info(`Cleaning up service`, this.constructor.name);
-  }
+    this.loggingService.info(`Cleaning up service`, this.constructor.name);}
 
   // Cache management;
-  protected getCacheKey(...parts: (string | number)[]): string {
-    return `${this.constructor.name}:${parts.join(':')}`;
-  }
+  protected getCacheKey(...parts: (string | number)[0]): string {
+    return `${this.constructor.name}:${parts.join(':')}`}
 
   // Service registry helpers;
   protected getService<T>(name: string): T | undefined {
-    return this.serviceRegistry.getService<T>(name);
-  }
+    return this.serviceRegistry.getService<T>(name)}
 
   protected emit(event: string, data: any): void {
-    this.serviceRegistry.emit(event, data);
-  }
+    this.serviceRegistry.emit(event, data)}
 }
+
+
+
+
+`

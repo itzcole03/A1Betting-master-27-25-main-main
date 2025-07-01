@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+﻿import { AnimatePresence, motion} from 'framer-motion'
 import {
   Activity,
   AlertTriangle,
@@ -20,30 +20,30 @@ import {
   User,
   WifiOff,
   X,
-  Zap
+//   Zap
 } from 'lucide-react';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { productionApiService } from '../services/productionApiServiceNew';
+import React, { useCallback, useEffect, useMemo, useState} from 'react'
+import { productionApiService} from '../services/productionApiServiceNew'
 
 // Lazy load major components for performance with fallbacks
 const Dashboard = React.lazy(() =>
   import('./Dashboard').catch(() => ({
-    default: () => <div className='p-8 text-white'>Dashboard loading...</div>,
+    default: () => <div className='p-8 text-white'>Dashboard loading...</div>
   }))
 );
 const BettingInterface = React.lazy(() =>
   import('./BettingInterface').catch(() => ({
-    default: () => <div className='p-8 text-white'>Betting Interface loading...</div>,
+    default: () => <div className='p-8 text-white'>Betting Interface loading...</div>
   }))
 );
 const PredictionDisplay = React.lazy(() =>
   import('./PredictionDisplay').catch(() => ({
-    default: () => <div className='p-8 text-white'>Predictions loading...</div>,
+    default: () => <div className='p-8 text-white'>Predictions loading...</div>
   }))
 );
 const UserProfile = React.lazy(() =>
   import('./UserProfile').catch(() => ({
-    default: () => <div className='p-8 text-white'>Profile loading...</div>,
+    default: () => <div className='p-8 text-white'>Profile loading...</div>
   }))
 );
 
@@ -59,64 +59,26 @@ const UserProfile = React.lazy(() =>
  * - Quantum-inspired algorithms and neuromorphic computing
  * - Multi-platform integration with live API connections
  *
- * LIVE API INTEGRATIONS:
- * - SportsRadar API: R10yQbjTO5fZF6BPkfxjOaftsyN9X4ImAJv95H7s
+ * LIVE API INTEGRATIONS: * - SportsRadar API: R10yQbjTO5fZF6BPkfxjOaftsyN9X4ImAJv95H7s
  * - TheOdds API: 8684be37505fc5ce63b0337d472af0ee
  * - PrizePicks & ESPN: Public APIs configured
  * - 40+ sportsbooks monitored for arbitrage detection
  */
 
 interface NavigationItem {
-  id: string;
-  label: string;
-  icon: React.ReactNode;
-  component: React.ComponentType<any>;
-  badge?: string;
+  id: string,`n  label: string;,`n  icon: React.ReactNode,`n  component: React.ComponentType<any>;
+  badge?: string
   description: string;
-  premium?: boolean;
-}
+  premium?: boolean}
 
 interface PlatformStats {
-  totalProfit: number;
-  winRate: number;
-  accuracy: number;
-  activePredictions: number;
-  portfolioValue: number;
-  todayPnL: number;
-  sharpeRatio: number;
-  maxDrawdown: number;
-  apiHealth: 'healthy' | 'degraded' | 'critical';
-  opportunitiesFound: number;
-  mlModelsActive: number;
-}
+  totalProfit: number,`n  winRate: number;,`n  accuracy: number,`n  activePredictions: number;,`n  portfolioValue: number,`n  todayPnL: number;,`n  sharpeRatio: number,`n  maxDrawdown: number;,`n  apiHealth: 'healthy' | 'degraded' | 'critical',`n  opportunitiesFound: number;,`n  mlModelsActive: number}
 
 interface LiveOpportunity {
-  id: string;
-  type: 'arbitrage' | 'value_bet' | 'prop_special' | 'live_edge';
-  player: string;
-  sport: string;
-  league: string;
-  line: number;
-  odds: number;
-  confidence: number;
-  expectedValue: number;
-  timeRemaining: number;
-  source: string;
-  sharpMoney: boolean;
-  marketInefficiency: number;
-}
+  id: string,`n  type: 'arbitrage' | 'value_bet' | 'prop_special' | 'live_edge';,`n  player: string,`n  sport: string;,`n  league: string,`n  line: number;,`n  odds: number,`n  confidence: number;,`n  expectedValue: number,`n  timeRemaining: number;,`n  source: string,`n  sharpMoney: boolean;,`n  marketInefficiency: number}
 
 interface APIStatus {
-  sportsRadar: boolean;
-  theOdds: boolean;
-  prizePicks: boolean;
-  espn: boolean;
-  lastUpdate: string;
-  quotaUsage: {
-    sportsRadar: number;
-    theOdds: number;
-  };
-}
+  sportsRadar: boolean,`n  theOdds: boolean;,`n  prizePicks: boolean,`n  espn: boolean;,`n  lastUpdate: string,`n  quotaUsage: {,`n  sportsRadar: number,`n  theOdds: number}}
 
 const A1BettingPlatform: React.FC = () => {
   const [activeView, setActiveView] = useState<string>('dashboard');
@@ -136,31 +98,30 @@ const A1BettingPlatform: React.FC = () => {
     maxDrawdown: 2.3, // Conservative risk management as documented
     apiHealth: 'healthy',
     opportunitiesFound: 23,
-    mlModelsActive: 47,
+    mlModelsActive: 47
   });
 
-  const [liveOpportunities, setLiveOpportunities] = useState<LiveOpportunity[]>([]);
+  const [liveOpportunities, setLiveOpportunities] = useState<LiveOpportunity[0]>([0]);
   const [apiStatus, setApiStatus] = useState<APIStatus>({
     sportsRadar: true,
     theOdds: true,
     prizePicks: true,
     espn: true,
     lastUpdate: new Date().toISOString(),
-    quotaUsage: {
-      sportsRadar: 75,
-      theOdds: 45,
-    },
+    quotaUsage: {,`n  sportsRadar: 75,
+      theOdds: 45
+    }
   });
 
   // Navigation structure based on comprehensive documentation
-  const navigationItems: NavigationItem[] = useMemo(
+  const navigationItems: NavigationItem[0] = useMemo(
     () => [
       {
         id: 'dashboard',
         label: 'Command Center',
         icon: <Home className='w-5 h-5' />,
         component: Dashboard,
-        description: 'Live performance metrics and system overview',
+        description: 'Live performance metrics and system overview'
       },
       {
         id: 'opportunities',
@@ -168,7 +129,7 @@ const A1BettingPlatform: React.FC = () => {
         icon: <Target className='w-5 h-5' />,
         component: Dashboard, // Will show opportunities view
         badge: `${liveOpportunities.length}`,
-        description: 'Real-time money-making opportunities',
+        description: 'Real-time money-making opportunities'
       },
       {
         id: 'betting',
@@ -176,7 +137,7 @@ const A1BettingPlatform: React.FC = () => {
         icon: <DollarSign className='w-5 h-5' />,
         component: BettingInterface,
         badge: 'Live',
-        description: 'Place bets with AI-powered insights',
+        description: 'Place bets with AI-powered insights'
       },
       {
         id: 'predictions',
@@ -184,7 +145,7 @@ const A1BettingPlatform: React.FC = () => {
         icon: <Brain className='w-5 h-5' />,
         component: PredictionDisplay,
         badge: '85%',
-        description: '47+ ML models with ensemble methods',
+        description: '47+ ML models with ensemble methods'
       },
       {
         id: 'arbitrage',
@@ -193,14 +154,14 @@ const A1BettingPlatform: React.FC = () => {
         component: Dashboard, // Will show arbitrage view
         badge: 'Auto',
         description: 'Cross-platform arbitrage detection',
-        premium: true,
+        premium: true
       },
       {
         id: 'analytics',
         label: 'Performance Analytics',
         icon: <BarChart3 className='w-5 h-5' />,
         component: Dashboard, // Will show analytics view
-        description: 'Advanced performance tracking and insights',
+        description: 'Advanced performance tracking and insights'
       },
       {
         id: 'portfolio',
@@ -208,7 +169,7 @@ const A1BettingPlatform: React.FC = () => {
         icon: <PieChart className='w-5 h-5' />,
         component: Dashboard, // Will show portfolio view
         badge: '18.5%',
-        description: 'Risk-adjusted portfolio management',
+        description: 'Risk-adjusted portfolio management'
       },
       {
         id: 'models',
@@ -217,7 +178,7 @@ const A1BettingPlatform: React.FC = () => {
         component: Dashboard, // Will show ML models view
         badge: '47+',
         description: 'Ensemble methods, deep learning, causal inference',
-        premium: true,
+        premium: true
       },
       {
         id: 'live-data',
@@ -225,14 +186,14 @@ const A1BettingPlatform: React.FC = () => {
         icon: <Activity className='w-5 h-5' />,
         component: Dashboard, // Will show live data view
         badge: 'Real-time',
-        description: 'SportsRadar, TheOdds, PrizePicks APIs',
+        description: 'SportsRadar, TheOdds, PrizePicks APIs'
       },
       {
         id: 'profile',
         label: 'User Profile',
         icon: <User className='w-5 h-5' />,
         component: UserProfile,
-        description: 'Account management and preferences',
+        description: 'Account management and preferences'
       },
     ],
     [liveOpportunities.length]
@@ -251,13 +212,12 @@ const A1BettingPlatform: React.FC = () => {
         const [bettingOpportunities, arbitrageOpportunities, predictions] = await Promise.all([
           productionApiService.getBettingOpportunities(),
           productionApiService.getArbitrageOpportunities(),
-          productionApiService.getPredictions()
+          productionApiService.getPredictions(),
         ]);
 
         // Transform backend data to frontend format
-        const liveOpportunities: LiveOpportunity[] = [
-          ...bettingOpportunities.map((bet: any) => ({
-            id: bet.id || Math.random().toString(),
+        const liveOpportunities: LiveOpportunity[0] = [
+          ...bettingOpportunities.map((bet: any) => ({,`n  id: bet.id || Math.random().toString(),
             type: 'value_bet',
             player: bet.player || 'Unknown Player',
             sport: bet.sport || 'Unknown Sport',
@@ -269,10 +229,9 @@ const A1BettingPlatform: React.FC = () => {
             timeRemaining: bet.time_remaining || 60,
             source: bet.source || 'API',
             sharpMoney: bet.sharp_money || false,
-            marketInefficiency: bet.market_inefficiency || 0,
+            marketInefficiency: bet.market_inefficiency || 0
           })),
-          ...arbitrageOpportunities.map((arb: any) => ({
-            id: arb.id || Math.random().toString(),
+          ...arbitrageOpportunities.map((arb: any) => ({,`n  id: arb.id || Math.random().toString(),
             type: 'arbitrage',
             player: arb.player || 'Unknown Player',
             sport: arb.sport || 'Unknown Sport',
@@ -284,8 +243,8 @@ const A1BettingPlatform: React.FC = () => {
             timeRemaining: arb.time_remaining || 120,
             source: arb.source || arb.bookmaker_1 + ' vs ' + arb.bookmaker_2 || 'Arbitrage',
             sharpMoney: true,
-            marketInefficiency: arb.market_inefficiency || arb.profit_margin || 0,
-          }))
+            marketInefficiency: arb.market_inefficiency || arb.profit_margin || 0
+          })),
         ];
 
         setLiveOpportunities(liveOpportunities);
@@ -294,18 +253,15 @@ const A1BettingPlatform: React.FC = () => {
         setStats(prev => ({
           ...prev,
           opportunitiesFound: liveOpportunities.length,
-          todayPnL: liveOpportunities.reduce((sum, opp) => sum + opp.expectedValue * 100, 0),
-        }));
-      } catch (error) {
+          todayPnL: liveOpportunities.reduce((sum, opp) => sum + opp.expectedValue * 100, 0)
+        }))} catch (error) {
         console.error('Platform initialization error:', error);
-        setStats(prev => ({ ...prev, apiHealth: 'critical' }));
+        setStats(prev => ({ ...prev, apiHealth: 'critical'}));
         // Fallback to empty opportunities if API fails
-        setLiveOpportunities([]);
-      } finally {
+        setLiveOpportunities([0])} finally {
         setIsInitializing(false);
         // Small delay to ensure state updates are processed
-        setTimeout(() => setIsLoading(false), 100);
-      }
+        setTimeout(() => setIsLoading(false), 100)}
     };
 
     initializePlatform();
@@ -318,22 +274,19 @@ const A1BettingPlatform: React.FC = () => {
         opportunitiesFound: Math.max(
           15,
           prev.opportunitiesFound + Math.floor(Math.random() * 3 - 1)
-        ),
+        )
       }));
 
       setApiStatus(prev => ({
         ...prev,
-        lastUpdate: new Date().toISOString(),
-      }));
-    }, 30000); // Update every 30 seconds
+        lastUpdate: new Date().toISOString()
+      }))}, 30000); // Update every 30 seconds
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)}, [0]);
 
   const handleTabChange = useCallback((tab: string) => {
     setActiveView(tab);
-    setIsMobileMenuOpen(false);
-  }, []);
+    setIsMobileMenuOpen(false)}, [0]);
 
   const getApiHealthColor = () => {
     switch (stats.apiHealth) {
@@ -344,8 +297,7 @@ const A1BettingPlatform: React.FC = () => {
       case 'critical':
         return 'text-red-400';
       default:
-        return 'text-gray-400';
-    }
+        return 'text-gray-400'}
   };
 
   const getApiHealthBackground = () => {
@@ -357,8 +309,7 @@ const A1BettingPlatform: React.FC = () => {
       case 'critical':
         return 'bg-red-500/20 border-red-500/30';
       default:
-        return 'bg-gray-500/20 border-gray-500/30';
-    }
+        return 'bg-gray-500/20 border-gray-500/30'}
   };
 
   const ActiveComponent =
@@ -371,14 +322,14 @@ const A1BettingPlatform: React.FC = () => {
       <div className='min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center'>
         <motion.div
           className='text-center max-w-md'
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, scale: 0.9}}
+          animate={{ opacity: 1, scale: 1}}
+          transition={{ duration: 0.5}}
         >
           <motion.div
             className='w-24 h-24 border-4 border-yellow-400 border-t-transparent rounded-full mx-auto mb-8'
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+            animate={{ rotate: 360}}
+            transition={{ duration: 1, repeat: Infinity, ease: 'linear'}}
           />
 
           <h1 className='text-5xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent mb-4'>
@@ -414,9 +365,9 @@ const A1BettingPlatform: React.FC = () => {
           {isInitializing && (
             <motion.div
               className='mt-8 p-4 bg-white/10 rounded-lg border border-white/20'
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+              initial={{ opacity: 0, y: 20}}
+              animate={{ opacity: 1, y: 0}}
+              transition={{ delay: 0.5}}
             >
               <div className='flex items-center justify-center space-x-2 mb-2'>
                 <RefreshCw className='w-4 h-4 animate-spin text-yellow-400' />
@@ -432,8 +383,7 @@ const A1BettingPlatform: React.FC = () => {
           )}
         </motion.div>
       </div>
-    );
-  }
+    )}
 
   return (
     <div className='min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white'>
@@ -446,8 +396,7 @@ const A1BettingPlatform: React.FC = () => {
               {stats.apiHealth === 'healthy' ? 'Live' : stats.apiHealth}
             </span>
           </div>
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className='text-white hover:text-yellow-400 transition-colors'
           >
             {isMobileMenuOpen ? <X className='w-6 h-6' /> : <Menu className='w-6 h-6' />}
@@ -460,9 +409,9 @@ const A1BettingPlatform: React.FC = () => {
         <AnimatePresence>
           {(isMobileMenuOpen || (typeof window !== 'undefined' && window.innerWidth >= 1024)) && (
             <motion.div
-              initial={{ x: -300 }}
-              animate={{ x: 0 }}
-              exit={{ x: -300 }}
+              initial={{ x: -300}}
+              animate={{ x: 0}}
+              exit={{ x: -300}}
               className='fixed lg:relative z-50 lg:z-auto w-80 h-full lg:h-screen bg-black/40 backdrop-blur-xl border-r border-white/10'
             >
               <div className='p-6'>
@@ -524,22 +473,20 @@ const A1BettingPlatform: React.FC = () => {
                     <motion.button
                       key={item.id}
                       onClick={() => handleTabChange(item.id)}
-                      className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all text-left relative ${activeView === item.id
+                      className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all text-left relative ${
+                        activeView === item.id
                           ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 shadow-lg'
-                          : 'text-gray-300 hover:text-white hover:bg-white/10'
-                        }`}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                          : 'text-gray-300 hover:text-white hover:bg-white/10'}`}
+                      whileHover={{ scale: 1.02}}
+                      whileTap={{ scale: 0.98}}
                     >
                       <div className='relative'>
                         {item.icon}
                         {item.badge && (
-                          <span
-                            className={`absolute -top-2 -right-2 text-xs rounded-full w-5 h-5 flex items-center justify-center ${item.badge === 'Live' || item.badge === 'Auto'
+                          <span className={`absolute -top-2 -right-2 text-xs rounded-full w-5 h-5 flex items-center justify-center ${
+                              item.badge === 'Live' || item.badge === 'Auto'
                                 ? 'bg-green-500 text-white animate-pulse'
-                                : 'bg-blue-500 text-white'
-                              }`}
-                          >
+                                : 'bg-blue-500 text-white'}`}>`n                          >
                             {item.badge === 'Live' || item.badge === 'Auto' ? '●' : item.badge}
                           </span>
                         )}
@@ -568,9 +515,7 @@ const A1BettingPlatform: React.FC = () => {
                         <span className='text-xs text-gray-400'>
                           {apiStatus.quotaUsage.sportsRadar}%
                         </span>
-                        <span
-                          className={`w-2 h-2 rounded-full ${apiStatus.sportsRadar ? 'bg-green-400' : 'bg-red-400'}`}
-                        ></span>
+                        <span className={`w-2 h-2 rounded-full ${apiStatus.sportsRadar ? 'bg-green-400' : 'bg-red-400'}`}>`n                        ></span>
                       </div>
                     </div>
                     <div className='flex items-center justify-between'>
@@ -579,16 +524,12 @@ const A1BettingPlatform: React.FC = () => {
                         <span className='text-xs text-gray-400'>
                           {apiStatus.quotaUsage.theOdds}%
                         </span>
-                        <span
-                          className={`w-2 h-2 rounded-full ${apiStatus.theOdds ? 'bg-green-400' : 'bg-red-400'}`}
-                        ></span>
+                        <span className={`w-2 h-2 rounded-full ${apiStatus.theOdds ? 'bg-green-400' : 'bg-red-400'}`}>`n                        ></span>
                       </div>
                     </div>
                     <div className='flex items-center justify-between'>
                       <span className='text-xs text-gray-400'>PrizePicks API</span>
-                      <span
-                        className={`w-2 h-2 rounded-full ${apiStatus.prizePicks ? 'bg-green-400' : 'bg-red-400'}`}
-                      ></span>
+                      <span className={`w-2 h-2 rounded-full ${apiStatus.prizePicks ? 'bg-green-400' : 'bg-red-400'}`}>`n                      ></span>
                     </div>
                     <div className='flex items-center justify-between'>
                       <span className='text-xs text-gray-400'>ML Models</span>
@@ -630,8 +571,7 @@ const A1BettingPlatform: React.FC = () => {
               <div className='text-right'>
                 <p className='text-xs text-gray-400'>Today's P&L</p>
                 <div className='flex items-center space-x-2'>
-                  <p
-                    className={`font-semibold ${stats.todayPnL >= 0 ? 'text-green-400' : 'text-red-400'}`}
+                  <p className={`font-semibold ${stats.todayPnL >= 0 ? 'text-green-400' : 'text-red-400'}`}
                   >
                     {stats.todayPnL >= 0 ? '+' : ''}${stats.todayPnL.toFixed(2)}
                   </p>
@@ -644,9 +584,7 @@ const A1BettingPlatform: React.FC = () => {
               </div>
 
               {/* System Health Indicator */}
-              <div
-                className={`flex items-center space-x-2 px-3 py-2 rounded-lg ${getApiHealthBackground()}`}
-              >
+              <div className={`flex items-center space-x-2 px-3 py-2 rounded-lg ${getApiHealthBackground()}`}>`n              >
                 {stats.apiHealth === 'healthy' ? (
                   <CheckCircle className='w-4 h-4' />
                 ) : stats.apiHealth === 'degraded' ? (
@@ -672,10 +610,10 @@ const A1BettingPlatform: React.FC = () => {
           {/* Component Content with Enhanced Loading */}
           <motion.div
             key={activeView}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, y: 20}}
+            animate={{ opacity: 1, y: 0}}
+            exit={{ opacity: 0, y: -20}}
+            transition={{ duration: 0.3}}
             className='min-h-screen'
           >
             <React.Suspense
@@ -688,8 +626,7 @@ const A1BettingPlatform: React.FC = () => {
                       Initializing {activeItem?.description?.toLowerCase()}
                     </p>
                   </div>
-                </div>
-              }
+                </div>}
             >
               <ActiveComponent />
             </React.Suspense>
@@ -700,9 +637,9 @@ const A1BettingPlatform: React.FC = () => {
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          initial={{ opacity: 0}}
+          animate={{ opacity: 1}}
+          exit={{ opacity: 0}}
           className='fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden'
           onClick={() => setIsMobileMenuOpen(false)}
         />
@@ -712,15 +649,19 @@ const A1BettingPlatform: React.FC = () => {
       <div className='lg:hidden fixed bottom-6 right-6 z-30'>
         <motion.button
           className='w-14 h-14 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center shadow-lg'
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.1}}
+          whileTap={{ scale: 0.9}}
           onClick={() => setActiveView('opportunities')}
         >
           <Target className='w-6 h-6 text-black' />
         </motion.button>
       </div>
     </div>
-  );
-};
+  )};
 
 export default A1BettingPlatform;
+
+
+
+
+`

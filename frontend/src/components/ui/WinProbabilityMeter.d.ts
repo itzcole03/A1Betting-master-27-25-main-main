@@ -1,7 +1,9 @@
-import React from 'react.ts';
-import type { WinProbability } from '@/types/confidence.ts';
+﻿import React from 'react.ts';
+import type { WinProbability} from '@/types/confidence.ts';
 interface WinProbabilityMeterProps {
-    winProbability: WinProbability | null;
-}
+  winProbability: WinProbability | null}
 export declare const WinProbabilityMeter: React.FC<WinProbabilityMeterProps>;
-export {};
+export Record<string, any>;
+
+
+

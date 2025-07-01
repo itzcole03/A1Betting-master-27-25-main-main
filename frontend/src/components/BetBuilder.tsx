@@ -1,21 +1,19 @@
-import React, { useState  } from 'react.ts';
-import useStore from '@/store/useStore.ts';
+﻿import React, { useState} from 'react'
+import useStore from '@/store/useStore'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars;
-import { EntryStatus, LineupType, PlayerProp } from '@/types/core.ts';
-import { getErrorMessage } from '@/utils/errorUtils.ts';
-import { isTeamDiversified, validateEntry } from '@/utils/businessRules.ts';
+import { EntryStatus, LineupType, PlayerProp} from '@/types/core'
+import { getErrorMessage} from '@/utils/errorUtils'
+import { isTeamDiversified, validateEntry} from '@/utils/businessRules'
 import {
   oddsToDecimal,
   calculatePotentialPayout,
-  calculateWinProbability,
-} from '@/utils/odds.ts';
+//   calculateWinProbability
+} from '@/utils/odds';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars;
 const getSentimentBadge = (sentiment?: {
-  score: number;
-  direction: "up" | "down" | "neutral";
-  tooltip?: string;
-}) => {
+  score: number,`n  direction: "up" | "down" | "neutral";
+  tooltip?: string}) => {
   if (!sentiment) return null;
   const color =
     sentiment.direction === "up"
@@ -36,15 +34,13 @@ const getSentimentBadge = (sentiment?: {
      key={89303}>
       {icon} {sentiment.score}
     </span>
-  );
-};
+  )};
 
 // Map confidence to emoji (example logic)
 function getPropEmoji(confidence: number): string {
   if (confidence >= 80) return "💰";
   if (confidence <= 35) return "👹";
-  return "⇄";
-}
+  return "⇄"}
 
 export const BetBuilder: React.FC = () => {
   // Use only selectedProps for betslip UI;
@@ -54,8 +50,7 @@ export const BetBuilder: React.FC = () => {
 
   // Create helper functions for prop selection;
   const clearSelectedProps = () => {
-    selectedProps.forEach((propId) => togglePropSelection(propId));
-  };
+    selectedProps.forEach((propId) => togglePropSelection(propId))};
   const [entry, setEntry] = useState(10);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null key={121216}>(null);
@@ -64,7 +59,7 @@ export const BetBuilder: React.FC = () => {
   // Get actual prop objects from selectedProps IDs;
   const selectedPropObjects = selectedProps;
     .map((propId) => props.find((p) => p.id === propId))
-    .filter(Boolean) as PlayerProp[];
+    .filter(Boolean) as PlayerProp[0];
 
   // Odds and payout calculation;
 
@@ -78,7 +73,7 @@ export const BetBuilder: React.FC = () => {
   // Combined odds (decimal)
 
   // Handle prop selection (no-op, as only selectedProps are shown)
-  // In a real app, you would source PlayerProp[] from a dedicated prop list, not players[]
+  // In a real app, you would source PlayerProp[0] from a dedicated prop list, not players[0]
 
   // Submit betslip;
   const handleSubmit = async () => {
@@ -86,12 +81,10 @@ export const BetBuilder: React.FC = () => {
     setSuccess(null);
     if (selectedPropObjects.length < 2) {
       setError("You must select at least 2 picks.");
-      return;
-    }
+      return}
     if (!diversified) {
       setError("Too many props from the same team.");
-      return;
-    }
+      return}
     const entryObj = {
       id: `entry-${Date.now()}`,
       userId: "user-1",
@@ -101,34 +94,29 @@ export const BetBuilder: React.FC = () => {
       stake: entry,
       potentialWinnings: payout,
       createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     };
 
     if (validationErrors.length) {
       setError(validationErrors.join(" "));
-      return;
-    }
+      return}
     setLoading(true);
     try {
       const res = await fetch("/api/entries/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(entryObj),
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify(entryObj)
       });
       if (!res.ok) {
 
         setError(getErrorMessage(err));
         setLoading(false);
-        return;
-      }
+        return}
       addEntry(entryObj);
       setSuccess("Entry submitted successfully!");
-      clearSelectedProps();
-    } catch (err) {
-      setError(getErrorMessage(err));
-    } finally {
-      setLoading(false);
-    }
+      clearSelectedProps()} catch (err) {
+      setError(getErrorMessage(err))} finally {
+      setLoading(false)}
   };
 
   return (
@@ -172,7 +160,7 @@ export const BetBuilder: React.FC = () => {
           </div>
         </div>
       </div>
-      {/* In a real app, you would render available PlayerProp[] here for selection */}
+      {/* In a real app, you would render available PlayerProp[0] here for selection */}
       {selectedPropObjects.length > 0 && (
         <div className="p-4 border-t border-gray-200" key={981846}>
           <h3 className="text-sm font-medium text-gray-700 mb-3" key={129043}>Your Picks</h3>
@@ -222,5 +210,9 @@ export const BetBuilder: React.FC = () => {
         </button>
       </div>
     </div>
-  );
-};
+  )};
+
+
+
+
+`

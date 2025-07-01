@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useMemo  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
-import { useQuery } from '@tanstack/react-query.ts';
+﻿import React, { useState, useEffect, useMemo} from 'react';
+import { motion} from 'framer-motion';
+import { useQuery} from '@tanstack/react-query';
 import {
   DollarSign,
   TrendingUp,
@@ -14,84 +14,70 @@ import {
   Eye,
   ArrowRight,
   PlayCircle,
-  BarChart3,
-} from 'lucide-react.ts';
-import { api } from '@/services/integrationService.ts';
-import { enhancedIntegrationBridge } from '@/services/enhancedIntegrationBridge.ts';
+//   BarChart3
+} from 'lucide-react';
+import { api} from '@/services/integrationService';
+import { enhancedIntegrationBridge} from '@/services/enhancedIntegrationBridge';
 import {
   useValueBets,
-  useArbitrageOpportunities,
-} from '@/hooks/useBetting.ts';
-import { useWebSocket } from '@/hooks/useWebSocket.ts';
-import useUserStats from '@/hooks/useUserStats.ts';
-import OfflineIndicator from '@/ui/OfflineIndicator.ts';
-import EmptyState from '@/ui/EmptyState.ts';
-import { useQueryClient } from '@tanstack/react-query.ts';
+//   useArbitrageOpportunities
+} from '@/hooks/useBetting';
+import { useWebSocket} from '@/hooks/useWebSocket';
+import useUserStats from '@/hooks/useUserStats';
+import OfflineIndicator from '@/ui/OfflineIndicator';
+import EmptyState from '@/ui/EmptyState';
+import { useQueryClient} from '@tanstack/react-query';
 
 interface LiveStats {
-  totalProfit: number;
-  winRate: number;
-  activeGames: number;
-  aiAccuracy: number;
-  todaysPicks: number;
-  liveAlerts: number;
-}
+  totalProfit: number,`n  winRate: number;,`n  activeGames: number,`n  aiAccuracy: number;,`n  todaysPicks: number,`n  liveAlerts: number}
 
 interface LiveGame {
-  id: string;
-  teams: string;
-  time: string;
-  aiPick: string;
-  confidence: number;
-  status: "live" | "upcoming" | "final";
-}
+  id: string,`n  teams: string;,`n  time: string,`n  aiPick: string;,`n  confidence: number,`n  status: "live" | "upcoming" | "final"}
 
-export const UserFriendlyDashboard: React.FC<{
-  onNavigate: (page: string) => void;
-}> = ({ onNavigate }) => {
+export const UserFriendlyDashboard: React.FC<{,`n  onNavigate: (page: string) => void}> = ({ onNavigate}) => {
 
   // Real user statistics from backend;
   const {
     userStats,
     backendHealth,
     isLoading: statsLoading,
-    error: statsError,
+    error: statsError
   } = useUserStats();
 
   // Real API data fetching;
   const {
     valueBets,
     stats: valueBetStats,
-    error: valueBetsError,
+    error: valueBetsError
   } = useValueBets();
   const {
     arbitrageOpportunities,
     stats: arbStats,
-    error: arbError,
+    error: arbError
   } = useArbitrageOpportunities();
 
   // Real-time accuracy metrics;
-  const { data: accuracyMetrics, error: accuracyError } = useQuery({
+  const { data: accuracyMetrics, error: accuracyError} = useQuery({
     queryKey: ["accuracyMetrics"],
     queryFn: () => api.getAccuracyMetrics(),
     refetchInterval: 10000, // Update every 10 seconds;
-    retry: false,
+    retry: false
   });
 
   // Real-time health status;
-  const { data: healthStatus, error: healthError } = useQuery({
+  const { data: healthStatus, error: healthError} = useQuery({
     queryKey: ["healthStatus"],
     queryFn: () => api.getHealthStatus(),
     refetchInterval: 30000, // Update every 30 seconds;
-    retry: false,
+    retry: false
   });
 
   // User analytics;
-  const { data: userAnalytics, error: analyticsError } = useQuery({
+  const { data: userAnalytics, error: analyticsError} = useQuery({
     queryKey: ["userAnalytics"],
     queryFn: () => api.getUserAnalytics("default_user"),
     refetchInterval: 60000, // Update every minute;
-    retry: false,
+    retry: false
   });
 
   // Check if backend is offline - detect when we're getting default/empty values due to network errors;
@@ -108,10 +94,9 @@ export const UserFriendlyDashboard: React.FC<{
     !accuracyMetrics;
 
   // WebSocket for real-time updates;
-  const { lastMessage } = useWebSocket("/ws/dashboard", {
+  const { lastMessage} = useWebSocket("/ws/dashboard", {
     onMessage: (message) => {
-      // console statement removed
-    },
+      // console statement removed}
   });
 
   // Calculate live stats from real backend data - memoized to prevent infinite re-renders;
@@ -123,9 +108,8 @@ export const UserFriendlyDashboard: React.FC<{
         userStats.activeBets || healthStatus?.metrics?.active_predictions || 0,
       aiAccuracy: userStats.accuracy || backendHealth.accuracy || 0,
       todaysPicks: valueBets?.length || backendHealth.activePredictions || 0,
-      liveAlerts: arbitrageOpportunities?.length || 0,
-    };
-  }, [
+      liveAlerts: arbitrageOpportunities?.length || 0
+    }}, [
     userStats,
     backendHealth,
     healthStatus,
@@ -135,21 +119,19 @@ export const UserFriendlyDashboard: React.FC<{
 
   // Handle retry functionality;
   const handleRetry = () => {
-    queryClient.invalidateQueries();
-  };
+    queryClient.invalidateQueries();};
 
   // Convert value bets to live games format - memoized to prevent re-renders;
-  const liveGames: LiveGame[] = useMemo(() => {
+  const liveGames: LiveGame[0] = useMemo(() => {
 
-    return (valueBets || []).slice(0, 6).map((bet, index) => ({
+    return (valueBets || [0]).slice(0, 6).map((bet, index) => ({
       id: bet.event + index,
       teams: bet.event,
       time: new Date(bet.commence_time).toLocaleTimeString(),
       aiPick: `${bet.outcome} (${bet.odds}) - Edge: ${((bet.edge || 0) * 100).toFixed(1)}%`,
       confidence: (bet.model_prob || 0) * 100,
-      status: new Date(bet.commence_time) > now ? "upcoming" : "live",
-    }));
-  }, [valueBets]);
+      status: new Date(bet.commence_time) > now ? "upcoming" : "live"
+    }))}, [valueBets]);
 
   return (
     <div className="space-y-8 animate-slide-in-up" key={741941}>
@@ -161,8 +143,8 @@ export const UserFriendlyDashboard: React.FC<{
       / key={580991}>
       {/* Hero Section */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
         className="text-center mb-12 glass-card rounded-3xl p-12 shadow-neon relative"
        key={964913}>
         <div className="absolute inset-0 bg-gradient-to-r from-electric-400 to-neon-blue rounded-3xl blur-2xl opacity-50 animate-pulse" / key={402208}>
@@ -224,9 +206,9 @@ export const UserFriendlyDashboard: React.FC<{
 
       {/* Live Stats Grid */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
+        transition={{ delay: 0.1}}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
        key={222713}>
         <div className="glass-card rounded-xl p-6 text-center hover:shadow-neon transition-all duration-300 transform hover:scale-105" key={318180}>
@@ -284,17 +266,17 @@ export const UserFriendlyDashboard: React.FC<{
 
       {/* Quick Actions */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
+        transition={{ delay: 0.2}}
         className="grid grid-cols-1 md:grid-cols-2 gap-8"
        key={881915}>
         {/* Money Maker Pro */}
         <motion.div;
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          whileHover={{ scale: 1.02, y: -4 }}
+          initial={{ opacity: 0, y: 20}}
+          animate={{ opacity: 1, y: 0}}
+          transition={{ delay: 0.3}}
+          whileHover={{ scale: 1.02, y: -4}}
           onClick={() = key={94464}> onNavigate("money-maker")}
           className="glass-card rounded-2xl p-8 text-center hover:shadow-neon transition-all duration-300 cursor-pointer group"
         >
@@ -315,10 +297,10 @@ export const UserFriendlyDashboard: React.FC<{
 
         {/* PrizePicks Pro */}
         <motion.div;
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          whileHover={{ scale: 1.02, y: -4 }}
+          initial={{ opacity: 0, y: 20}}
+          animate={{ opacity: 1, y: 0}}
+          transition={{ delay: 0.4}}
+          whileHover={{ scale: 1.02, y: -4}}
           onClick={() = key={946433}> onNavigate("prizepicks")}
           className="glass-card rounded-2xl p-8 text-center hover:shadow-neon transition-all duration-300 cursor-pointer group"
         >
@@ -339,10 +321,10 @@ export const UserFriendlyDashboard: React.FC<{
 
         {/* PropOllama Chat */}
         <motion.div;
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          whileHover={{ scale: 1.02, y: -4 }}
+          initial={{ opacity: 0, y: 20}}
+          animate={{ opacity: 1, y: 0}}
+          transition={{ delay: 0.5}}
+          whileHover={{ scale: 1.02, y: -4}}
           onClick={() = key={704261}> onNavigate("propgpt")}
           className="glass-card rounded-2xl p-8 text-center hover:shadow-neon transition-all duration-300 cursor-pointer group"
         >
@@ -363,10 +345,10 @@ export const UserFriendlyDashboard: React.FC<{
 
         {/* Live Analytics */}
         <motion.div;
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          whileHover={{ scale: 1.02, y: -4 }}
+          initial={{ opacity: 0, y: 20}}
+          animate={{ opacity: 1, y: 0}}
+          transition={{ delay: 0.6}}
+          whileHover={{ scale: 1.02, y: -4}}
           onClick={() = key={79100}> onNavigate("analytics")}
           className="glass-card rounded-2xl p-8 text-center hover:shadow-neon transition-all duration-300 cursor-pointer group"
         >
@@ -388,9 +370,9 @@ export const UserFriendlyDashboard: React.FC<{
 
       {/* Live Games Analysis */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
+        transition={{ delay: 0.4}}
         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
        key={171426}>
         <div className="glass-card rounded-2xl p-8 shadow-neon" key={375010}>
@@ -401,16 +383,15 @@ export const UserFriendlyDashboard: React.FC<{
             {liveGames.map((game, index) => (
               <motion.div;
                 key={game.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 + index * 0.1 }}
+                initial={{ opacity: 0, x: -20}}
+                animate={{ opacity: 1, x: 0}}
+                transition={{ delay: 0.5 + index * 0.1}}
                 className={`p-4 rounded-lg border transition-all ${
                   game.status === "live"
                     ? "bg-green-500/10 border-green-500/30"
                     : game.status === "upcoming"
                       ? "bg-blue-500/10 border-blue-500/30"
-                      : "bg-gray-500/10 border-gray-500/30"
-                }`}
+                      : "bg-gray-500/10 border-gray-500/30"}`}
                key={479470}>
                 <div className="flex justify-between items-center" key={795957}>
                   <div className="flex items-center space-x-4" key={787951}>
@@ -420,8 +401,7 @@ export const UserFriendlyDashboard: React.FC<{
                           ? "bg-green-400 animate-pulse shadow-lg shadow-green-400/50"
                           : game.status === "upcoming"
                             ? "bg-blue-400"
-                            : "bg-gray-400"
-                      }`}
+                            : "bg-gray-400"}`}
                     / key={836081}>
                     <div key={241917}>
                       <h4 className="font-bold text-white" key={665663}>{game.teams}</h4>
@@ -448,9 +428,9 @@ export const UserFriendlyDashboard: React.FC<{
           </h3>
           <div className="space-y-4" key={160407}>
             <motion.div;
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
+              initial={{ opacity: 0, x: 20}}
+              animate={{ opacity: 1, x: 0}}
+              transition={{ delay: 0.1}}
               className="flex items-center space-x-4 p-3 bg-electric-500/10 rounded-lg hover:bg-electric-500/20 transition-all cursor-pointer"
               onClick={() = key={705213}> onNavigate("intelligence")}
             >
@@ -463,9 +443,9 @@ export const UserFriendlyDashboard: React.FC<{
               <Eye className="w-4 h-4 text-electric-400 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" / key={956900}>
             </motion.div>
             <motion.div;
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
+              initial={{ opacity: 0, x: 20}}
+              animate={{ opacity: 1, x: 0}}
+              transition={{ delay: 0.2}}
               className="flex items-center space-x-4 p-3 bg-purple-500/10 rounded-lg hover:bg-purple-500/20 transition-all cursor-pointer"
               onClick={() = key={801023}> onNavigate("intelligence")}
             >
@@ -477,9 +457,9 @@ export const UserFriendlyDashboard: React.FC<{
               <BarChart3 className="w-4 h-4 text-purple-400 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" / key={313748}>
             </motion.div>
             <motion.div;
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 }}
+              initial={{ opacity: 0, x: 20}}
+              animate={{ opacity: 1, x: 0}}
+              transition={{ delay: 0.3}}
               className="flex items-center space-x-4 p-3 bg-blue-500/10 rounded-lg hover:bg-blue-500/20 transition-all cursor-pointer"
               onClick={() = key={410318}> onNavigate("intelligence")}
             >
@@ -491,9 +471,9 @@ export const UserFriendlyDashboard: React.FC<{
               <TrendingUp className="w-4 h-4 text-blue-400 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" / key={841920}>
             </motion.div>
             <motion.div;
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 }}
+              initial={{ opacity: 0, x: 20}}
+              animate={{ opacity: 1, x: 0}}
+              transition={{ delay: 0.4}}
               className="flex items-center space-x-4 p-3 bg-green-500/10 rounded-lg hover:bg-green-500/20 transition-all cursor-pointer"
               onClick={() = key={934313}> onNavigate("moneymaker")}
             >
@@ -502,7 +482,7 @@ export const UserFriendlyDashboard: React.FC<{
                 ${(Math.random() * 500 + 100).toFixed(2)} profit opportunity;
                 detected;
               </span>
-              <DollarSign className="w-4 h-4 text-green-400 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" / key={810092}>
+              <DollarSign className="w-4 h-4 text-green-400 ml-auto opacity-0 group-hover: opacity-100 transition-opacity" / key={810092}>
             </motion.div>
           </div>
 
@@ -528,7 +508,10 @@ export const UserFriendlyDashboard: React.FC<{
         </div>
       </motion.div>
     </div>
-  );
-};
+  )};
 
 export default UserFriendlyDashboard;
+
+
+
+`

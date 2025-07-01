@@ -68,14 +68,14 @@ Updated the main navigation to include all new features:
 
 ```typescript
 navigationItems = [
-  { id: "dashboard", label: "Dashboard", icon: Home },
-  { id: "money-maker", label: "Money Maker", icon: DollarSign },
-  { id: "prizepicks", label: "PrizePicks Pro", icon: Trophy }, // ✅ NEW
-  { id: "analytics", label: "Analytics", icon: BarChart3 },
-  { id: "real-time", label: "Real-time Monitor", icon: Activity },
-  { id: "arbitrage", label: "Arbitrage Scanner", icon: Shield },
-  { id: "predictions", label: "Quantum Predictions", icon: Brain },
-  { id: "admin", label: "Admin Panel", icon: UserCog }, // ✅ NEW
+  { id: 'dashboard', label: 'Dashboard', icon: Home },
+  { id: 'money-maker', label: 'Money Maker', icon: DollarSign },
+  { id: 'prizepicks', label: 'PrizePicks Pro', icon: Trophy }, // ✅ NEW
+  { id: 'analytics', label: 'Analytics', icon: BarChart3 },
+  { id: 'real-time', label: 'Real-time Monitor', icon: Activity },
+  { id: 'arbitrage', label: 'Arbitrage Scanner', icon: Shield },
+  { id: 'predictions', label: 'Quantum Predictions', icon: Brain },
+  { id: 'admin', label: 'Admin Panel', icon: UserCog }, // ✅ NEW
 ];
 ```
 

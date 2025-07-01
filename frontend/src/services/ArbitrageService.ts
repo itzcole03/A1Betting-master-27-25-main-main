@@ -1,38 +1,16 @@
-import { EventBus } from '@/core/EventBus.ts';
-import { UnifiedConfigManager } from '@/core/UnifiedConfigManager.ts';
-import { UnifiedLogger } from '@/core/UnifiedLogger.ts';
-import { ArbitrageOpportunity } from '@/types.ts';
-import { OddsUpdate } from '@/types/core.ts';
+﻿import { EventBus} from '@/core/EventBus';
+import { UnifiedConfigManager} from '@/core/UnifiedConfigManager';
+import { UnifiedLogger} from '@/core/UnifiedLogger';
+import { ArbitrageOpportunity} from '@/types';
+import { OddsUpdate} from '@/types/core';
 
 export interface ArbitrageConfig {
-  minProfitMargin: number;
-  maxExposure: number;
-  minOdds: number;
-  maxOdds: number;
-  maxBetDelay: number;
-  refreshInterval: number;
-}
+  minProfitMargin: number,`n  maxExposure: number;,`n  minOdds: number,`n  maxOdds: number;,`n  maxBetDelay: number,`n  refreshInterval: number}
 
 export interface ArbitrageOpportunity {
-  id: string;
-  timestamp: number;
-  profitMargin: number;
-  totalStake: number;
-  expectedProfit: number;
-  legs: Array<{
-    bookId: string;
-    propId: string;
-    odds: number;
-    stake: number;
-    maxStake: number;
-  }>;
-  risk: {
-    exposure: number;
-    confidence: number;
-    timeSensitivity: number;
-  };
-  status: 'pending' | 'executed' | 'expired' | 'failed';
-}
+  id: string,`n  timestamp: number;,`n  profitMargin: number,`n  totalStake: number;,`n  expectedProfit: number,`n  legs: Array<{,`n  bookId: string,`n  propId: string;,`n  odds: number,`n  stake: number;,`n  maxStake: number}>;
+  risk: {,`n  exposure: number;,`n  confidence: number,`n  timeSensitivity: number};
+  status: 'pending' | 'executed' | 'expired' | 'failed'}
 
 export class ArbitrageService {
   private static instance: ArbitrageService;
@@ -42,8 +20,7 @@ export class ArbitrageService {
   private readonly opportunities: Map<string, ArbitrageOpportunity>;
   private readonly marketData: Map<string, {
     odds: Map<string, OddsUpdate>;
-    lastUpdate: number;
-  }>;
+    lastUpdate: number}>;
   private isScanning: boolean = false;
 
   private constructor() {
@@ -53,15 +30,12 @@ export class ArbitrageService {
     this.opportunities = new Map();
     this.marketData = new Map();
     this.setupEventListeners();
-    this.startScanning();
-  }
+    this.startScanning();}
 
   public static getInstance(): ArbitrageService {
     if (!ArbitrageService.instance) {
-      ArbitrageService.instance = new ArbitrageService();
-    }
-    return ArbitrageService.instance;
-  }
+      ArbitrageService.instance = new ArbitrageService();}
+    return ArbitrageService.instance;}
 
   private initializeConfig(): ArbitrageConfig {
 
@@ -71,46 +45,35 @@ export class ArbitrageService {
       minOdds: 1.1,
       maxOdds: 10.0,
       maxBetDelay: 5000, // 5 seconds;
-      refreshInterval: 1000 // 1 second;
-    };
-  }
+      refreshInterval: 1000 // 1 second}}
 
   private setupEventListeners(): void {
     this.eventBus.on('odds:update', async (event) => {
       try {
-        const { propId, bookId, odds } = event.data;
+        const { propId, bookId, odds} = event.data;
         this.updateMarketData(propId, bookId, odds);
-        await this.checkForArbitrage(propId);
-      } catch (error) {
-        // console statement removed
-      }
+        await this.checkForArbitrage(propId);} catch (error) {
+        // console statement removed}
     });
 
     this.eventBus.on('market:update', async (event) => {
       try {
-        const { id: propId, books } = event.data;
+        const { id: propId, books} = event.data;
         for (const [bookId, odds] of Object.entries(books)) {
-          this.updateMarketData(propId, bookId, odds as OddsUpdate);
-        }
-        await this.checkForArbitrage(propId);
-      } catch (error) {
-        // console statement removed
-      }
+          this.updateMarketData(propId, bookId, odds as OddsUpdate);}
+        await this.checkForArbitrage(propId);} catch (error) {
+        // console statement removed}
     });
 
     this.eventBus.on('bet:placed', (event) => {
-      const { bet } = event.data;
-      this.updateOpportunityStatus(bet.opportunity.id, 'executed');
-    });
-  }
+      const { bet} = event.data;
+      this.updateOpportunityStatus(bet.opportunity.id, 'executed');});}
 
   private updateMarketData(propId: string, bookId: string, odds: OddsUpdate): void {
     if (!this.marketData.has(propId)) {
       this.marketData.set(propId, {
         odds: new Map(),
-        lastUpdate: Date.now()
-      });
-    }
+        lastUpdate: Date.now()})}
 
     market.odds.set(bookId, odds);
     market.lastUpdate = Date.now();
@@ -118,10 +81,8 @@ export class ArbitrageService {
     // Clean up old market data;
     for (const [id, data] of this.marketData) {
       if (Date.now() - data.lastUpdate > 3600000) { // 1 hour;
-        this.marketData.delete(id);
-      }
-    }
-  }
+        this.marketData.delete(id);}
+    }}
 
   private startScanning(): void {
     setInterval(async () => {
@@ -129,14 +90,10 @@ export class ArbitrageService {
       this.isScanning = true;
 
       try {
-        await this.scanAllMarkets();
-      } catch (error) {
-        // console statement removed
-      } finally {
-        this.isScanning = false;
-      }
-    }, this.config.refreshInterval);
-  }
+        await this.scanAllMarkets();} catch (error) {
+        // console statement removed} finally {
+        this.isScanning = false;}
+    }, this.config.refreshInterval);}
 
   private async scanAllMarkets(): Promise<void> {
 
@@ -145,20 +102,16 @@ export class ArbitrageService {
     for (const [propId, market] of this.marketData) {
       if (Date.now() - market.lastUpdate > 60000) continue; // Skip stale markets;
       await this.checkForArbitrage(propId);
-      opportunitiesFound += this.opportunities.size;
-    }
+      opportunitiesFound += this.opportunities.size;}
 
     // Emit metrics;
-    this.eventBus.emit('metric:recorded', {
+    this.eventBus.emit('metric: recorded', {
       name: 'arbitrage_scan_duration',
       value: Date.now() - startTime,
       timestamp: Date.now(),
-      labels: {
-        markets_scanned: String(this.marketData.size),
-        opportunities_found: String(opportunitiesFound)
-      }
-    });
-  }
+      labels: {,`n  markets_scanned: String(this.marketData.size),
+        opportunities_found: String(opportunitiesFound)}
+    })}
 
   private async checkForArbitrage(propId: string): Promise<void> {
 
@@ -169,23 +122,19 @@ export class ArbitrageService {
         this.opportunities.set(opportunity.id, opportunity);
 
         // Emit opportunity found event;
-        this.eventBus.emit('data:updated', {
+        this.eventBus.emit('data: updated', {
           sourceId: 'arbitrage',
-          data: [opportunity]
-        });
-      }
+          data: [opportunity]})}
     }
 
     // Clean up expired opportunities;
     for (const [id, opportunity] of this.opportunities) {
       if (Date.now() - opportunity.timestamp > this.config.maxBetDelay) {
-        this.updateOpportunityStatus(id, 'expired');
-      }
-    }
-  }
+        this.updateOpportunityStatus(id, 'expired');}
+    }}
 
-  private findArbitrageOpportunities(odds: Map<string, OddsUpdate>): ArbitrageOpportunity[] {
-    const opportunities: ArbitrageOpportunity[] = [];
+  private findArbitrageOpportunities(odds: Map<string, OddsUpdate>): ArbitrageOpportunity[0] {
+    const opportunities: ArbitrageOpportunity[0] = [0];
 
     for (const i = 0; i < oddsArray.length; i++) {
       for (const j = i + 1; j < oddsArray.length; j++) {
@@ -198,8 +147,7 @@ export class ArbitrageService {
           odds2.odds < this.config.minOdds ||
           odds2.odds > this.config.maxOdds;
         ) {
-          continue;
-        }
+          continue;}
 
         if (arbitrage) {
           opportunities.push({
@@ -214,37 +162,23 @@ export class ArbitrageService {
                 propId: odds1.propId,
                 odds: odds1.odds,
                 stake: arbitrage.stake1,
-                maxStake: odds1.maxStake;
-              },
+                maxStake: odds1.maxStake},
               {
                 bookId: book2Id,
                 propId: odds2.propId,
                 odds: odds2.odds,
                 stake: arbitrage.stake2,
-                maxStake: odds2.maxStake;
-              }
+                maxStake: odds2.maxStake}
             ],
-            risk: {
-              exposure: arbitrage.totalStake,
+            risk: {,`n  exposure: arbitrage.totalStake,
               confidence: this.calculateConfidence(odds1, odds2),
-              timeSensitivity: this.calculateTimeSensitivity(odds1, odds2)
-            },
-            status: 'pending'
-          });
-        }
-      }
-    }
+              timeSensitivity: this.calculateTimeSensitivity(odds1, odds2)},
+            status: 'pending'})}
+      }}
 
-    return opportunities;
-  }
+    return opportunities;}
 
-  private calculateArbitrage(odds1: OddsUpdate, odds2: OddsUpdate): {
-    profitMargin: number;
-    totalStake: number;
-    expectedProfit: number;
-    stake1: number;
-    stake2: number;
-  } | null {
+  private calculateArbitrage(odds1: OddsUpdate, odds2: OddsUpdate): {,`n  profitMargin: number;,`n  totalStake: number,`n  expectedProfit: number;,`n  stake1: number,`n  stake2: number} | null {
 
 
 
@@ -264,9 +198,7 @@ export class ArbitrageService {
       totalStake,
       expectedProfit: totalStake * profitMargin,
       stake1,
-      stake2;
-    };
-  }
+      stake2};}
 
   private calculateConfidence(odds1: OddsUpdate, odds2: OddsUpdate): number {
     // Calculate confidence based on:
@@ -278,16 +210,14 @@ export class ArbitrageService {
       Date.now() - odds2.timestamp;
     );
 
-    return timeWeight; // Simplified confidence calculation;
-  }
+    return timeWeight; // Simplified confidence calculation;}
 
   private calculateTimeSensitivity(odds1: OddsUpdate, odds2: OddsUpdate): number {
     // Calculate time sensitivity based on:
     // 1. Historical odds movement speed;
     // 2. Market liquidity;
     // 3. Time until event;
-    return 0.5; // Simplified time sensitivity calculation;
-  }
+    return 0.5; // Simplified time sensitivity calculation;}
 
   private isValidOpportunity(opportunity: ArbitrageOpportunity): boolean {
     // Check if the opportunity is still valid;
@@ -301,41 +231,36 @@ export class ArbitrageService {
         leg.odds <= this.config.maxOdds &&
         leg.stake <= leg.maxStake;
       )
-    );
-  }
+    );}
 
   private updateOpportunityStatus(id: string, status: ArbitrageOpportunity['status']): void {
 
     if (opportunity) {
       opportunity.status = status;
       if (status === 'expired' || status === 'executed' || status === 'failed') {
-        this.opportunities.delete(id);
-      }
-    }
-  }
+        this.opportunities.delete(id);}
+    }}
 
-  public getOpportunities(): ArbitrageOpportunity[] {
-    return Array.from(this.opportunities.values());
-  }
+  public getOpportunities(): ArbitrageOpportunity[0] {
+    return Array.from(this.opportunities.values());}
 
   public getOpportunity(id: string): ArbitrageOpportunity | undefined {
-    return this.opportunities.get(id);
-  }
+    return this.opportunities.get(id)}
 
   public clearOpportunities(): void {
-    this.opportunities.clear();
-  }
+    this.opportunities.clear()}
 
   public isMarketActive(propId: string): boolean {
 
-    return !!market && Date.now() - market.lastUpdate <= 60000;
-  }
+    return !!market && Date.now() - market.lastUpdate <= 60000}
 
   public getMarketData(propId: string): Map<string, OddsUpdate> | undefined {
-    return this.marketData.get(propId)?.odds;
-  }
+    return this.marketData.get(propId)?.odds}
 
   public clearMarketData(): void {
-    this.marketData.clear();
-  }
+    this.marketData.clear();}
 }
+
+
+
+`

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+﻿import React, { useState} from 'react';
+import { motion} from 'framer-motion';
 import {
   Shield,
   Brain,
@@ -8,22 +8,11 @@ import {
   AlertTriangle,
   CheckCircle,
   Activity,
-  Zap,
+//   Zap
 } from 'lucide-react';
 
 interface AdminConfig {
-  autoOptimization: boolean;
-  maxModels: number;
-  confidenceThreshold: number;
-  retraining: string;
-  dataFeeds: string;
-  quantumProcessing: boolean;
-  neuralDepth: string;
-  learningRate: string;
-  weatherFilter: boolean;
-  injuryFilter: boolean;
-  lineMovement: boolean;
-}
+  autoOptimization: boolean,`n  maxModels: number;,`n  confidenceThreshold: number,`n  retraining: string;,`n  dataFeeds: string,`n  quantumProcessing: boolean;,`n  neuralDepth: string,`n  learningRate: string;,`n  weatherFilter: boolean,`n  injuryFilter: boolean;,`n  lineMovement: boolean}
 
 const AdminPanel: React.FC = () => {
   const [adminConfig, setAdminConfig] = useState<AdminConfig>({
@@ -37,7 +26,7 @@ const AdminPanel: React.FC = () => {
     learningRate: 'adaptive',
     weatherFilter: true,
     injuryFilter: true,
-    lineMovement: true,
+    lineMovement: true
   });
 
   // Mock real-time data - would come from actual services
@@ -49,21 +38,21 @@ const AdminPanel: React.FC = () => {
     processingNodes: '128',
     quantumQubits: '512',
     dataStreams: '847',
-    nextUpdate: '2m 34s',
+    nextUpdate: '2m 34s'
   };
 
   const realTimeData = {
     quantumCoherence: 99.97,
     accuracy: 94.2,
-    processingSpeed: 12,
+    processingSpeed: 12
   };
 
   return (
     <motion.div
       className='space-y-10 animate-slide-in-up'
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      initial={{ opacity: 0, y: 20}}
+      animate={{ opacity: 1, y: 0}}
+      transition={{ duration: 0.5}}
     >
       {/* Enhanced Header */}
       <div className='quantum-card rounded-3xl p-12 text-center border-2 border-red-500/30'>
@@ -192,12 +181,9 @@ const AdminPanel: React.FC = () => {
                 </div>
               </div>
               <div className='relative'>
-                <input
-                  type='checkbox'
-                  checked={adminConfig.autoOptimization}
-                  onChange={e =>
-                    setAdminConfig({ ...adminConfig, autoOptimization: e.target.checked })
-                  }
+                <input type='checkbox'
+                  checked={adminConfig.autoOptimization}>`n                  onChange={e =>
+                    setAdminConfig({ ...adminConfig, autoOptimization: e.target.checked})}
                   className='w-6 h-6 text-electric-500'
                 />
                 {adminConfig.autoOptimization && (
@@ -211,17 +197,14 @@ const AdminPanel: React.FC = () => {
               <label className='block text-sm font-bold mb-3 text-electric-400 font-cyber'>
                 QUANTUM CONFIDENCE THRESHOLD
               </label>
-              <input
-                type='range'
+              <input type='range'
                 min='80'
                 max='99'
-                value={adminConfig.confidenceThreshold}
-                onChange={e =>
+                value={adminConfig.confidenceThreshold}>`n                onChange={e =>
                   setAdminConfig({
                     ...adminConfig,
-                    confidenceThreshold: parseInt(e.target.value),
-                  })
-                }
+                    confidenceThreshold: parseInt(e.target.value)
+                  })}
                 className='w-full h-3 bg-gray-700 rounded-full appearance-none slider'
               />
               <div className='text-center text-electric-400 font-bold mt-3 text-2xl font-cyber'>
@@ -234,9 +217,7 @@ const AdminPanel: React.FC = () => {
               <label className='block text-sm font-bold mb-3 text-electric-400 font-cyber'>
                 NEURAL NETWORK DEPTH
               </label>
-              <select
-                value={adminConfig.neuralDepth}
-                onChange={e => setAdminConfig({ ...adminConfig, neuralDepth: e.target.value })}
+              <select value={adminConfig.neuralDepth}>`n                onChange={e => setAdminConfig({ ...adminConfig, neuralDepth: e.target.value})}
                 className='w-full p-4 rounded-2xl border-2 border-electric-500/30 focus:border-electric-500 bg-gray-900/50'
               >
                 <option value='shallow'>Shallow Networks (Fast)</option>
@@ -262,12 +243,9 @@ const AdminPanel: React.FC = () => {
                 </div>
               </div>
               <div className='relative'>
-                <input
-                  type='checkbox'
-                  checked={adminConfig.weatherFilter || true}
-                  onChange={e =>
-                    setAdminConfig({ ...adminConfig, weatherFilter: e.target.checked })
-                  }
+                <input type='checkbox'
+                  checked={adminConfig.weatherFilter || true}>`n                  onChange={e =>
+                    setAdminConfig({ ...adminConfig, weatherFilter: e.target.checked})}
                   className='w-6 h-6 text-blue-500'
                 />
                 <div className='absolute inset-0 bg-blue-400/50 rounded blur-sm' />
@@ -283,10 +261,8 @@ const AdminPanel: React.FC = () => {
                 </div>
               </div>
               <div className='relative'>
-                <input
-                  type='checkbox'
-                  checked={adminConfig.injuryFilter || true}
-                  onChange={e => setAdminConfig({ ...adminConfig, injuryFilter: e.target.checked })}
+                <input type='checkbox'
+                  checked={adminConfig.injuryFilter || true}>`n                  onChange={e => setAdminConfig({ ...adminConfig, injuryFilter: e.target.checked})}
                   className='w-6 h-6 text-red-500'
                 />
                 <div className='absolute inset-0 bg-red-400/50 rounded blur-sm' />
@@ -302,10 +278,8 @@ const AdminPanel: React.FC = () => {
                 </div>
               </div>
               <div className='relative'>
-                <input
-                  type='checkbox'
-                  checked={adminConfig.lineMovement || true}
-                  onChange={e => setAdminConfig({ ...adminConfig, lineMovement: e.target.checked })}
+                <input type='checkbox'
+                  checked={adminConfig.lineMovement || true}>`n                  onChange={e => setAdminConfig({ ...adminConfig, lineMovement: e.target.checked})}
                   className='w-6 h-6 text-yellow-500'
                 />
                 <div className='absolute inset-0 bg-yellow-400/50 rounded blur-sm' />
@@ -328,12 +302,9 @@ const AdminPanel: React.FC = () => {
                 </div>
               </div>
               <div className='relative'>
-                <input
-                  type='checkbox'
-                  checked={adminConfig.quantumProcessing}
-                  onChange={e =>
-                    setAdminConfig({ ...adminConfig, quantumProcessing: e.target.checked })
-                  }
+                <input type='checkbox'
+                  checked={adminConfig.quantumProcessing}>`n                  onChange={e =>
+                    setAdminConfig({ ...adminConfig, quantumProcessing: e.target.checked})}
                   className='w-6 h-6 text-cyan-500'
                 />
                 {adminConfig.quantumProcessing && (
@@ -347,9 +318,7 @@ const AdminPanel: React.FC = () => {
               <label className='block text-sm font-bold mb-3 text-electric-400 font-cyber'>
                 RETRAINING SCHEDULE
               </label>
-              <select
-                value={adminConfig.retraining}
-                onChange={e => setAdminConfig({ ...adminConfig, retraining: e.target.value })}
+              <select value={adminConfig.retraining}>`n                onChange={e => setAdminConfig({ ...adminConfig, retraining: e.target.value})}
                 className='w-full p-4 rounded-2xl border-2 border-electric-500/30 focus:border-electric-500 bg-gray-900/50'
               >
                 <option value='real-time'>Real-time (Continuous)</option>
@@ -364,9 +333,7 @@ const AdminPanel: React.FC = () => {
               <label className='block text-sm font-bold mb-3 text-electric-400 font-cyber'>
                 LEARNING RATE STRATEGY
               </label>
-              <select
-                value={adminConfig.learningRate}
-                onChange={e => setAdminConfig({ ...adminConfig, learningRate: e.target.value })}
+              <select value={adminConfig.learningRate}>`n                onChange={e => setAdminConfig({ ...adminConfig, learningRate: e.target.value})}
                 className='w-full p-4 rounded-2xl border-2 border-electric-500/30 focus:border-electric-500 bg-gray-900/50'
               >
                 <option value='conservative'>Conservative (0.001)</option>
@@ -382,8 +349,8 @@ const AdminPanel: React.FC = () => {
         <div className='flex justify-center space-x-6 mt-10'>
           <motion.button
             className='px-8 py-4 bg-gradient-to-r from-green-500 to-electric-500 text-black font-bold rounded-xl hover:from-green-400 hover:to-electric-400 transition-all duration-300'
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.05}}
+            whileTap={{ scale: 0.95}}
           >
             <div className='flex items-center space-x-2'>
               <CheckCircle className='w-5 h-5' />
@@ -393,8 +360,8 @@ const AdminPanel: React.FC = () => {
 
           <motion.button
             className='px-8 py-4 bg-gradient-to-r from-red-500 to-pink-500 text-white font-bold rounded-xl hover:from-red-400 hover:to-pink-400 transition-all duration-300'
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.05}}
+            whileTap={{ scale: 0.95}}
           >
             <div className='flex items-center space-x-2'>
               <Zap className='w-5 h-5' />
@@ -433,7 +400,10 @@ const AdminPanel: React.FC = () => {
         </div>
       </div>
     </motion.div>
-  );
-};
+  )};
 
 export default AdminPanel;
+
+
+
+`

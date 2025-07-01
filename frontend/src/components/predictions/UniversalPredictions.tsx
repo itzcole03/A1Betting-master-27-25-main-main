@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo, useCallback  } from 'react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+﻿import React, { useState, useEffect, useMemo, useCallback} from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
 import {
   Brain,
   TrendingUp,
@@ -28,79 +28,41 @@ import {
   Network,
   Gauge,
   LineChart,
-  PieChart,
-} from 'lucide-react.ts';
+//   PieChart
+} from 'lucide-react';
 
 // Import consolidated systems;
-import { MegaCard, MegaButton, MegaInput, MegaAlert } from '@/mega/MegaUI';
-import { useTheme } from '@/components/common/theme/ThemeProvider';
+import { MegaCard, MegaButton, MegaInput, MegaAlert} from '@/mega/MegaUI';
+import { useTheme} from '@/components/common/theme/ThemeProvider';
 import {
   usePredictions,
   useEngineMetrics,
   useToast,
-  useDebounce,
+//   useDebounce
 } from '@/hooks/UniversalHooks';
-import { UniversalServiceFactory } from '@/services/UniversalServiceLayer';
+import { UniversalServiceFactory} from '@/services/UniversalServiceLayer';
 import {
   formatters,
-  analytics as analyticsUtils,
-} from '@/utils/UniversalUtils.ts';
+  analytics as analyticsUtils
+} from '@/utils/UniversalUtils';
 
 // ============================================================================
 // TYPES & INTERFACES;
 // ============================================================================
 
 export interface EnhancedPrediction {
-  id: string;
-  homeTeam: string;
-  awayTeam: string;
-  sport: "nfl" | "nba" | "mlb" | "nhl" | "soccer";
-  league: string;
-  market: string;
-  prediction: string;
-  odds: number;
-  confidence: number;
-  valueEdge: number;
-  expectedValue: number;
-  status: "upcoming" | "live" | "completed";
-  gameTime: string;
-  modelPredictions: Array<{
-    modelName: string;
-    prediction: string;
-    confidence: number;
-    factors: Array<{ name: string; weight: number }>;
-  }>;
+  id: string,`n  homeTeam: string;,`n  awayTeam: string,`n  sport: "nfl" | "nba" | "mlb" | "nhl" | "soccer";,`n  league: string,`n  market: string;,`n  prediction: string,`n  odds: number;,`n  confidence: number,`n  valueEdge: number;,`n  expectedValue: number,`n  status: "upcoming" | "live" | "completed";,`n  gameTime: string,`n  modelPredictions: Array<{,`n  modelName: string,`n  prediction: string;,`n  confidence: number,`n  factors: Array<{ name: string; weight: number}>}>;
   context: {
-    weather?: { temperature: number; conditions: string };
-    injuries: Array<{ player: string; impact: "high" | "medium" | "low" }>;
-    venue: { name: string; capacity: number; homeAdvantage: number };
-    market: {
-      volume: number;
-      liquidity: number;
-      efficiency: number;
-      movement: "up" | "down" | "stable";
-    };
-  };
-  performance: {
-    modelAccuracy: number;
-    recentPerformance: number;
-    consistencyScore: number;
-  };
-  reasoning: {
-    factors: Array<{ factor: string; impact: number; confidence: number }>;
-    keyInsights: string[];
-    riskFactors: string[];
-  };
-}
+    weather?: { temperature: number; conditions: string};
+    injuries: Array<{ player: string; impact: "high" | "medium" | "low"}>;
+    venue: { name: string; capacity: number; homeAdvantage: number};
+    market: {,`n  volume: number;,`n  liquidity: number,`n  efficiency: number;,`n  movement: "up" | "down" | "stable"}};
+  performance: {,`n  modelAccuracy: number;,`n  recentPerformance: number,`n  consistencyScore: number};
+  reasoning: {,`n  factors: Array<{ factor: string; impact: number; confidence: number}>;
+    keyInsights: string[0],`n  riskFactors: string[0]}}
 
 interface PredictionFilters {
-  sport: string;
-  market: string;
-  riskLevel: string;
-  status: string;
-  minConfidence: number;
-  minEdge: number;
-}
+  sport: string,`n  market: string;,`n  riskLevel: string,`n  status: string;,`n  minConfidence: number,`n  minEdge: number}
 
 // ============================================================================
 // THEMED COMPONENTS;
@@ -110,28 +72,27 @@ const ThemedText: React.FC<{
   variant?: "title" | "body" | "caption";
   color?: "primary" | "secondary" | "muted" | "accent";
   children: React.ReactNode;
-  className?: string;
-  style?: React.CSSProperties;
-}> = ({
+  className?: string
+  style?: React.CSSProperties;}> = ({
   variant = "body",
   color = "primary",
   children,
   className = "",
-  style = {},
+  style = Record<string, any>
 }) => {
-  const { theme } = useTheme();
+  const { theme} = useTheme();
 
   const variants = {
-    title: { fontSize: "18px", fontWeight: "700", lineHeight: "28px" },
-    body: { fontSize: "14px", fontWeight: "400", lineHeight: "20px" },
-    caption: { fontSize: "12px", fontWeight: "400", lineHeight: "16px" },
+    title: { fontSize: "18px", fontWeight: "700", lineHeight: "28px"},
+    body: { fontSize: "14px", fontWeight: "400", lineHeight: "20px"},
+    caption: { fontSize: "12px", fontWeight: "400", lineHeight: "16px"}
   };
 
   const colors = {
     primary: theme.colors.text.primary,
     secondary: theme.colors.text.secondary,
     muted: theme.colors.text.muted,
-    accent: theme.colors.primary,
+    accent: theme.colors.primary
   };
 
   return (
@@ -140,20 +101,17 @@ const ThemedText: React.FC<{
       style={{
         color: colors[color],
         ...variants[variant],
-        ...style,
+        ...style
       }}
      key={45206}>
       {children}
     </div>
-  );
-};
+  )};
 
-const ThemedContainer: React.FC<{
-  children: React.ReactNode;
-  className?: string;
-  style?: React.CSSProperties;
-}> = ({ children, className = "", style = {} }) => {
-  const { theme } = useTheme();
+const ThemedContainer: React.FC<{,`n  children: React.ReactNode;
+  className?: string
+  style?: React.CSSProperties;}> = ({ children, className = "", style = Record<string, any> }) => {
+  const { theme} = useTheme();
 
   return (
     <div;
@@ -164,13 +122,12 @@ const ThemedContainer: React.FC<{
         border: `1px solid ${theme.colors.border}`,
         borderRadius: "12px",
         padding: "24px",
-        ...style,
+        ...style
       }}
      key={609266}>
       {children}
     </div>
-  );
-};
+  )};
 
 // ============================================================================
 // MAIN COMPONENT;
@@ -178,7 +135,7 @@ const ThemedContainer: React.FC<{
 
 export const UniversalPredictions: React.FC = () => {
   // Theme;
-  const { theme, isDark } = useTheme();
+  const { theme, isDark} = useTheme();
 
   // State;
   const [viewMode, setViewMode] = useState<
@@ -193,16 +150,16 @@ export const UniversalPredictions: React.FC = () => {
     riskLevel: "all",
     status: "all",
     minConfidence: 0,
-    minEdge: 0,
+    minEdge: 0
   });
 
   // Hooks;
 
 
   // Mock data for demonstration;
-  const enhancedPredictions: EnhancedPrediction[] = useMemo(
+  const enhancedPredictions: EnhancedPrediction[0] = useMemo(
     () =>
-      Array.from({ length: 12 }, (_, i) => ({
+      Array.from({ length: 12}, (_, i) => ({
         id: `pred-${i}`,
         homeTeam: ["Patriots", "Lakers", "Yankees", "Bruins"][i % 4],
         awayTeam: ["Chiefs", "Warriors", "Red Sox", "Rangers"][i % 4],
@@ -216,49 +173,43 @@ export const UniversalPredictions: React.FC = () => {
         expectedValue: (Math.random() - 0.5) * 100,
         status: ["upcoming", "live", "completed"][i % 3] as any,
         gameTime: new Date(Date.now() + i * 3600000).toISOString(),
-        modelPredictions: Array.from({ length: 3 }, (_, j) => ({
+        modelPredictions: Array.from({ length: 3}, (_, j) => ({
           modelName: `Model ${j + 1}`,
           prediction: ["Home", "Away", "Over"][j],
           confidence: 70 + Math.random() * 25,
           factors: [
-            { name: "Recent Form", weight: 0.3 },
-            { name: "Head to Head", weight: 0.2 },
-            { name: "Venue", weight: 0.15 },
-          ],
+            { name: "Recent Form", weight: 0.3},
+            { name: "Head to Head", weight: 0.2},
+            { name: "Venue", weight: 0.15},
+          ]
         })),
-        context: {
-          weather: {
-            temperature: 20 + Math.random() * 15,
-            conditions: "Clear",
+        context: {,`n  weather: {,`n  temperature: 20 + Math.random() * 15,
+            conditions: "Clear"
           },
-          injuries: [],
-          venue: {
-            name: "Stadium Name",
+          injuries: [0],
+          venue: {,`n  name: "Stadium Name",
             capacity: 50000,
-            homeAdvantage: 3 + Math.random() * 7,
+            homeAdvantage: 3 + Math.random() * 7
           },
-          market: {
-            volume: 1000000,
+          market: {,`n  volume: 1000000,
             liquidity: 85,
             efficiency: 80,
-            movement: "stable" as any,
-          },
+            movement: "stable" as any
+          }
         },
-        performance: {
-          modelAccuracy: 75 + Math.random() * 20,
+        performance: {,`n  modelAccuracy: 75 + Math.random() * 20,
           recentPerformance: 80 + Math.random() * 15,
-          consistencyScore: 70 + Math.random() * 25,
+          consistencyScore: 70 + Math.random() * 25
         },
-        reasoning: {
-          factors: [
-            { factor: "Home advantage", impact: 0.15, confidence: 0.8 },
-            { factor: "Recent form", impact: 0.12, confidence: 0.9 },
+        reasoning: {,`n  factors: [
+            { factor: "Home advantage", impact: 0.15, confidence: 0.8},
+            { factor: "Recent form", impact: 0.12, confidence: 0.9},
           ],
           keyInsights: ["Strong home record", "Favorable matchup"],
-          riskFactors: ["Weather conditions", "Key player injury"],
-        },
+          riskFactors: ["Weather conditions", "Key player injury"]
+        }
       })),
-    [],
+    [0],
   );
 
   // Filtering logic;
@@ -266,14 +217,11 @@ export const UniversalPredictions: React.FC = () => {
     const filtered = [...enhancedPredictions];
 
     if (filters.sport !== "all") {
-      filtered = filtered.filter((pred) => pred.sport === filters.sport);
-    }
+      filtered = filtered.filter((pred) => pred.sport === filters.sport);}
     if (filters.market !== "all") {
-      filtered = filtered.filter((pred) => pred.market === filters.market);
-    }
+      filtered = filtered.filter((pred) => pred.market === filters.market);}
     if (filters.status !== "all") {
-      filtered = filtered.filter((pred) => pred.status === filters.status);
-    }
+      filtered = filtered.filter((pred) => pred.status === filters.status);}
 
     filtered = filtered.filter(
       (pred) =>
@@ -289,11 +237,9 @@ export const UniversalPredictions: React.FC = () => {
           pred.awayTeam.toLowerCase().includes(query) ||
           pred.league.toLowerCase().includes(query) ||
           pred.market.toLowerCase().includes(query),
-      );
-    }
+      );}
 
-    return filtered;
-  }, [enhancedPredictions, filters, debouncedSearch]);
+    return filtered;}, [enhancedPredictions, filters, debouncedSearch]);
 
   // Render functions;
   const renderPredictionCard = (prediction: EnhancedPrediction) => (
@@ -317,8 +263,7 @@ export const UniversalPredictions: React.FC = () => {
                 ? "bg-red-500 text-white"
                 : prediction.status === "upcoming"
                   ? "bg-blue-500 text-white"
-                  : "bg-gray-500 text-white"
-            }`}
+                  : "bg-gray-500 text-white"}`}
            key={612367}>
             {prediction.status.toUpperCase()}
           </div>
@@ -328,7 +273,7 @@ export const UniversalPredictions: React.FC = () => {
       {/* Metrics Grid */}
       <div className="grid grid-cols-4 gap-4" key={99198}>
         <div className="text-center" key={120206}>
-          <ThemedText variant="title" style={{ color: theme.colors.primary }} key={891101}>
+          <ThemedText variant="title" style={{ color: theme.colors.primary}} key={891101}>
             {prediction.confidence.toFixed(1)}%
           </ThemedText>
           <ThemedText variant="caption" color="muted" key={478990}>
@@ -337,7 +282,7 @@ export const UniversalPredictions: React.FC = () => {
         </div>
 
         <div className="text-center" key={120206}>
-          <ThemedText variant="title" style={{ color: theme.colors.accent }} key={621814}>
+          <ThemedText variant="title" style={{ color: theme.colors.accent}} key={621814}>
             {formatters.percentage(prediction.valueEdge * 100, 1)}
           </ThemedText>
           <ThemedText variant="caption" color="muted" key={478990}>
@@ -346,7 +291,7 @@ export const UniversalPredictions: React.FC = () => {
         </div>
 
         <div className="text-center" key={120206}>
-          <ThemedText variant="title" style={{ color: theme.colors.primary }} key={891101}>
+          <ThemedText variant="title" style={{ color: theme.colors.primary}} key={891101}>
             {formatters.odds(prediction.odds)}
           </ThemedText>
           <ThemedText variant="caption" color="muted" key={478990}>
@@ -355,7 +300,7 @@ export const UniversalPredictions: React.FC = () => {
         </div>
 
         <div className="text-center" key={120206}>
-          <ThemedText variant="title" style={{ color: theme.colors.accent }} key={621814}>
+          <ThemedText variant="title" style={{ color: theme.colors.accent}} key={621814}>
             {formatters.currency(prediction.expectedValue)}
           </ThemedText>
           <ThemedText variant="caption" color="muted" key={478990}>
@@ -370,8 +315,7 @@ export const UniversalPredictions: React.FC = () => {
         onClick={() = key={634655}>
           toast.success(
             `Betting slip updated for ${prediction.homeTeam} vs ${prediction.awayTeam}`,
-          )
-        }
+          )}
         className="w-full"
       >
         Add to Bet Slip;
@@ -385,14 +329,14 @@ export const UniversalPredictions: React.FC = () => {
       style={{
         background: theme.colors.background,
         color: theme.colors.text.primary,
-        minHeight: "100vh",
+        minHeight: "100vh"
       }}
      key={538481}>
       {/* Header */}
       <ThemedContainer key={20341}>
         <div className="flex items-center justify-between" key={96335}>
           <div key={241917}>
-            <ThemedText variant="title" style={{ fontSize: "32px" }} key={164084}>
+            <ThemedText variant="title" style={{ fontSize: "32px"}} key={164084}>
               Universal Predictions;
             </ThemedText>
             <ThemedText variant="body" color="secondary" key={100923}>
@@ -401,8 +345,8 @@ export const UniversalPredictions: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-3" key={443099}>
-            <Brain size={20} style={{ color: theme.colors.primary }} / key={515227}>
-            <ThemedText variant="body" style={{ color: theme.colors.primary }} key={561409}>
+            <Brain size={20} style={{ color: theme.colors.primary}} / key={515227}>
+            <ThemedText variant="body" style={{ color: theme.colors.primary}} key={561409}>
               {enhancedPredictions.length} Models Active;
             </ThemedText>
           </div>
@@ -419,15 +363,14 @@ export const UniversalPredictions: React.FC = () => {
             <select;
               value={filters.sport}
               onChange={(e) = key={729566}>
-                setFilters((prev) => ({ ...prev, sport: e.target.value }))
-              }
+                setFilters((prev) => ({ ...prev, sport: e.target.value}))}
               style={{
                 background: theme.colors.surface,
                 border: `1px solid ${theme.colors.border}`,
                 color: theme.colors.text.primary,
                 borderRadius: "8px",
                 padding: "8px 12px",
-                width: "100%",
+                width: "100%"
               }}
             >
               <option value="all" key={673287}>All Sports</option>
@@ -445,15 +388,14 @@ export const UniversalPredictions: React.FC = () => {
             <select;
               value={filters.market}
               onChange={(e) = key={740728}>
-                setFilters((prev) => ({ ...prev, market: e.target.value }))
-              }
+                setFilters((prev) => ({ ...prev, market: e.target.value}))}
               style={{
                 background: theme.colors.surface,
                 border: `1px solid ${theme.colors.border}`,
                 color: theme.colors.text.primary,
                 borderRadius: "8px",
                 padding: "8px 12px",
-                width: "100%",
+                width: "100%"
               }}
             >
               <option value="all" key={673287}>All Markets</option>
@@ -471,15 +413,14 @@ export const UniversalPredictions: React.FC = () => {
             <select;
               value={filters.status}
               onChange={(e) = key={631335}>
-                setFilters((prev) => ({ ...prev, status: e.target.value }))
-              }
+                setFilters((prev) => ({ ...prev, status: e.target.value}))}
               style={{
                 background: theme.colors.surface,
                 border: `1px solid ${theme.colors.border}`,
                 color: theme.colors.text.primary,
                 borderRadius: "8px",
                 padding: "8px 12px",
-                width: "100%",
+                width: "100%"
               }}
             >
               <option value="all" key={673287}>All Status</option>
@@ -502,7 +443,7 @@ export const UniversalPredictions: React.FC = () => {
                 color: theme.colors.text.primary,
                 borderRadius: "8px",
                 padding: "8px 12px",
-                width: "100%",
+                width: "100%"
               }}
             >
               <option value="cards" key={170545}>Cards</option>
@@ -526,7 +467,7 @@ export const UniversalPredictions: React.FC = () => {
       </ThemedContainer>
 
       {/* Predictions Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" key={881323}>
+      <div className="grid grid-cols-1 md: grid-cols-2 lg:grid-cols-3 gap-6" key={881323}>
         {filteredPredictions.map(renderPredictionCard)}
       </div>
 
@@ -541,7 +482,11 @@ export const UniversalPredictions: React.FC = () => {
         </ThemedContainer>
       )}
     </div>
-  );
-};
+  )};
 
 export default UniversalPredictions;
+
+
+
+
+`

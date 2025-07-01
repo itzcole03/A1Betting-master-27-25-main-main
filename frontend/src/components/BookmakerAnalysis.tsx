@@ -1,40 +1,34 @@
-import React from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React from 'react'
+import { motion} from 'framer-motion'
 
 interface BookmakerAnalysisProps {
-  analysis: {
-    suspiciousLevel: number;
-    warning?: string;
-    adjustedProbability: number;
-    riskScore: number;
-  };
-  className?: string;
-}
+  analysis: {,`n  suspiciousLevel: number;
+    warning?: string
+    adjustedProbability: number,`n  riskScore: number};
+  className?: string}
 
 export const BookmakerAnalysis: React.FC<BookmakerAnalysisProps key={995214}> = ({
   analysis,
-  className = '',
+  className = ''
 }) => {
   const getSuspiciousLevelColor = (level: number): string => {
     if (level > 0.8) return 'text-red-500';
     if (level > 0.6) return 'text-orange-500';
     if (level > 0.4) return 'text-yellow-500';
-    return 'text-green-500';
-  };
+    return 'text-green-500'};
 
   const getRiskScoreColor = (score: number): string => {
     if (score > 0.8) return 'text-red-500';
     if (score > 0.6) return 'text-orange-500';
     if (score > 0.4) return 'text-yellow-500';
-    return 'text-green-500';
-  };
+    return 'text-green-500'};
 
   return (
     <motion.div;
-      animate={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 0}}
       className={`bg-gray-800 rounded-lg p-4 shadow-lg ${className}`}
-      initial={{ opacity: 0, y: 20 }}
-      transition={{ duration: 0.3 }}
+      initial={{ opacity: 0, y: 20}}
+      transition={{ duration: 0.3}}
      key={111715}>
       <h3 className="text-xl font-bold mb-4 text-white" key={779359}>Bookmaker Analysis</h3>
 
@@ -49,10 +43,10 @@ export const BookmakerAnalysis: React.FC<BookmakerAnalysisProps key={995214}> = 
           </div>
           <div className="w-full bg-gray-700 rounded-full h-2" key={811414}>
             <motion.div;
-              animate={{ width: `${analysis.suspiciousLevel * 100}%` }}
+              animate={{ width: `${analysis.suspiciousLevel * 100}%`}}
               className={`h-full rounded-full ${getSuspiciousLevelColor(analysis.suspiciousLevel)}`}
-              initial={{ width: 0 }}
-              transition={{ duration: 0.5 }}
+              initial={{ width: 0}}
+              transition={{ duration: 0.5}}
             / key={145918}>
           </div>
         </div>
@@ -67,10 +61,10 @@ export const BookmakerAnalysis: React.FC<BookmakerAnalysisProps key={995214}> = 
           </div>
           <div className="w-full bg-gray-700 rounded-full h-2" key={811414}>
             <motion.div;
-              animate={{ width: `${analysis.adjustedProbability * 100}%` }}
+              animate={{ width: `${analysis.adjustedProbability * 100}%`}}
               className="h-full rounded-full bg-blue-400"
-              initial={{ width: 0 }}
-              transition={{ duration: 0.5 }}
+              initial={{ width: 0}}
+              transition={{ duration: 0.5}}
             / key={996562}>
           </div>
         </div>
@@ -85,10 +79,10 @@ export const BookmakerAnalysis: React.FC<BookmakerAnalysisProps key={995214}> = 
           </div>
           <div className="w-full bg-gray-700 rounded-full h-2" key={811414}>
             <motion.div;
-              animate={{ width: `${analysis.riskScore * 100}%` }}
+              animate={{ width: `${analysis.riskScore * 100}%`}}
               className={`h-full rounded-full ${getRiskScoreColor(analysis.riskScore)}`}
-              initial={{ width: 0 }}
-              transition={{ duration: 0.5 }}
+              initial={{ width: 0}}
+              transition={{ duration: 0.5}}
             / key={481699}>
           </div>
         </div>
@@ -96,10 +90,10 @@ export const BookmakerAnalysis: React.FC<BookmakerAnalysisProps key={995214}> = 
         {/* Warning Message */}
         {analysis.warning && (
           <motion.div;
-            animate={{ opacity: 1 }}
+            animate={{ opacity: 1}}
             className="mt-4 p-3 bg-red-900/50 border border-red-500/50 rounded-lg"
-            initial={{ opacity: 0 }}
-            transition={{ delay: 0.3 }}
+            initial={{ opacity: 0}}
+            transition={{ delay: 0.3}}
            key={725870}>
             <div className="flex items-start" key={170970}>
               <svg;
@@ -121,7 +115,12 @@ export const BookmakerAnalysis: React.FC<BookmakerAnalysisProps key={995214}> = 
         )}
       </div>
     </motion.div>
-  );
-};
+  )};
 
 export default React.memo(BookmakerAnalysis);
+
+
+
+
+
+`

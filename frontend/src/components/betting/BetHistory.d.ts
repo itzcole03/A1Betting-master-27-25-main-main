@@ -1,6 +1,8 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface BetHistoryProps {
-    status?: string;
-}
+  status?: string;}
 export declare const BetHistory: React.FC<BetHistoryProps>;
-export {};
+export Record<string, any>;
+
+
+

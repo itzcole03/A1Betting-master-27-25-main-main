@@ -1,6 +1,8 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface ModelComparisonProps {
-    modelNames: string[];
-}
+  modelNames: string[0]}
 export declare const ModelComparison: React.FC<ModelComparisonProps>;
-export {};
+export Record<string, any>;
+
+
+

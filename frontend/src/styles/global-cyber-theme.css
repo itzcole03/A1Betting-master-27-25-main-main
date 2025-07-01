@@ -24,11 +24,7 @@
     rgb(124, 58, 237) 50%,
     rgb(15, 23, 42) 100%
   );
-  --cyber-button-gradient: linear-gradient(
-    135deg,
-    rgba(6, 255, 165, 0.8),
-    rgba(0, 255, 136, 0.6)
-  );
+  --cyber-button-gradient: linear-gradient(135deg, rgba(6, 255, 165, 0.8), rgba(0, 255, 136, 0.6));
   --cyber-card-gradient: linear-gradient(45deg, #00ff88, #00d4ff);
 
   /* Glass Effects */
@@ -37,11 +33,9 @@
   --cyber-glass-button: blur(10px);
 
   /* Shadows */
-  --cyber-shadow-main:
-    0 8px 32px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+  --cyber-shadow-main: 0 8px 32px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.05) inset;
   --cyber-shadow-card: 0 8px 32px rgba(0, 0, 0, 0.1);
-  --cyber-shadow-glow:
-    0 4px 20px rgba(6, 255, 165, 0.4), 0 1px 0 rgba(255, 255, 255, 0.1) inset;
+  --cyber-shadow-glow: 0 4px 20px rgba(6, 255, 165, 0.4), 0 1px 0 rgba(255, 255, 255, 0.1) inset;
 
   /* Transitions */
   --cyber-transition: all 0.3s ease;
@@ -59,7 +53,7 @@ body {
   min-height: 100vh;
   background: var(--cyber-bg-gradient);
   color: var(--cyber-text-primary);
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   overflow-x: hidden;
 }
 
@@ -82,9 +76,9 @@ body.theme-cyber {
 .cyber-container,
 .mega-card,
 .universal-card,
-[class*="card"],
-[class*="panel"],
-[class*="container"] {
+[class*='card'],
+[class*='panel'],
+[class*='container'] {
   backdrop-filter: var(--cyber-glass-card);
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--cyber-border);

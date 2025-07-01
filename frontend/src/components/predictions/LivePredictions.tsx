@@ -1,13 +1,12 @@
-import React from 'react.ts';
-import { motion } from 'framer-motion.ts';
-import { formatPercentage, formatDate, formatTimeAgo } from '@/utils/formatters.ts';
-import type { Prediction } from '@/services/predictionService.ts';
+﻿import React from 'react';
+import { motion} from 'framer-motion';
+import { formatPercentage, formatDate, formatTimeAgo} from '@/utils/formatters';
+import type { Prediction} from '@/services/predictionService';
 
 interface LivePredictionsProps {
-  predictions: Prediction[];
-}
+  predictions: Prediction[0]}
 
-export const LivePredictions: React.FC<LivePredictionsProps key={585467}> = ({ predictions }) => {
+export const LivePredictions: React.FC<LivePredictionsProps key={585467}> = ({ predictions}) => {
   // Sort predictions by timestamp, most recent first;
   const sortedPredictions = [...predictions].sort(
     (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
@@ -19,9 +18,7 @@ export const LivePredictions: React.FC<LivePredictionsProps key={585467}> = ({ p
         return 'text-green-500';
       case 'lost':
         return 'text-red-500';
-      default:
-        return 'text-yellow-500';
-    }
+      default: return 'text-yellow-500'}
   };
 
   return (
@@ -29,9 +26,9 @@ export const LivePredictions: React.FC<LivePredictionsProps key={585467}> = ({ p
       {sortedPredictions.map(prediction => (
         <motion.div;
           key={prediction.id}
-          animate={{ opacity: 1, x: 0 }}
+          animate={{ opacity: 1, x: 0}}
           className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-          initial={{ opacity: 0, x: -20 }}
+          initial={{ opacity: 0, x: -20}}
          key={258163}>
           <div className="flex justify-between items-start" key={678391}>
             <div key={241917}>
@@ -68,5 +65,7 @@ export const LivePredictions: React.FC<LivePredictionsProps key={585467}> = ({ p
         </motion.div>
       ))}
     </div>
-  );
-};
+  );};
+
+
+

@@ -117,25 +117,17 @@
 
 ```typescript
 // OLD
-import {
-  UniversalDashboard,
-  UniversalMoneyMaker,
-  UniversalAnalytics,
-} from "./components";
+import { UniversalDashboard, UniversalMoneyMaker, UniversalAnalytics } from './components';
 
 // NEW
 import {
   ConsolidatedUniversalDashboard,
   ConsolidatedUniversalMoneyMaker,
   ConsolidatedUniversalAnalytics,
-} from "./components";
+} from './components';
 
 // Or use migration aliases
-import {
-  NextGenDashboard,
-  NextGenMoneyMaker,
-  NextGenAnalytics,
-} from "./components";
+import { NextGenDashboard, NextGenMoneyMaker, NextGenAnalytics } from './components';
 ```
 
 #### 2. Component Usage
@@ -185,12 +177,8 @@ import {
 
 ```typescript
 // These still work - automatically use consolidated components
-import { Dashboard, MoneyMaker, Analytics } from "./components";
-import {
-  CyberDashboard,
-  UltimateMoneyMaker,
-  AdvancedAnalytics,
-} from "./components";
+import { Dashboard, MoneyMaker, Analytics } from './components';
+import { CyberDashboard, UltimateMoneyMaker, AdvancedAnalytics } from './components';
 ```
 
 ## 📈 PERFORMANCE IMPROVEMENTS

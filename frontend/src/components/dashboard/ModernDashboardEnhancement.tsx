@@ -1,5 +1,5 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+﻿import React, { useState, useEffect} from 'react';
+import { motion} from 'framer-motion';
 import {
   TrendingUp,
   TrendingDown,
@@ -12,31 +12,22 @@ import {
   Eye,
   Shield,
   Clock,
-  Star,
-} from 'lucide-react.ts';
+//   Star
+} from 'lucide-react';
 
 // Import our modern components;
-import ModernActivityFeed from '@/ui/ModernActivityFeed.ts';
+import ModernActivityFeed from '@/ui/ModernActivityFeed';
 
 interface MetricCardProps {
-  title: string;
-  value: string | number;
-  change?: number;
+  title: string,`n  value: string | number;
+  change?: number
   changeType?: "positive" | "negative" | "neutral";
   icon: React.ReactNode;
-  trend?: number[];
-  loading?: boolean;
-}
+  trend?: number[0];
+  loading?: boolean}
 
 interface OpportunityCardProps {
-  game: string;
-  prediction: string;
-  confidence: number;
-  odds: number;
-  value: number;
-  timeLeft: string;
-  status: "hot" | "warm" | "cool";
-}
+  game: string,`n  prediction: string;,`n  confidence: number,`n  odds: number;,`n  value: number,`n  timeLeft: string;,`n  status: "hot" | "warm" | "cool"}
 
 const MetricCard: React.FC<MetricCardProps key={656645}> = ({
   title,
@@ -45,7 +36,7 @@ const MetricCard: React.FC<MetricCardProps key={656645}> = ({
   changeType = "neutral",
   icon,
   trend,
-  loading = false,
+  loading = false
 }) => {
   if (loading) {
     return (
@@ -56,8 +47,7 @@ const MetricCard: React.FC<MetricCardProps key={656645}> = ({
           <div className="h-3 bg-gray-700/50 rounded w-2/3" / key={887033}>
         </div>
       </div>
-    );
-  }
+    )}
 
   const getChangeColor = () => {
     switch (changeType) {
@@ -65,9 +55,7 @@ const MetricCard: React.FC<MetricCardProps key={656645}> = ({
         return "text-green-400";
       case "negative":
         return "text-red-400";
-      default:
-        return "text-gray-400";
-    }
+      default: return "text-gray-400"}
   };
 
   const getChangeIcon = () => {
@@ -76,16 +64,14 @@ const MetricCard: React.FC<MetricCardProps key={656645}> = ({
         return <TrendingUp size={12} / key={264614}>;
       case "negative":
         return <TrendingDown size={12} / key={951114}>;
-      default:
-        return null;
-    }
+      default: return null}
   };
 
   return (
     <motion.div;
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{ scale: 1.02 }}
+      initial={{ opacity: 0, y: 20}}
+      animate={{ opacity: 1, y: 0}}
+      whileHover={{ scale: 1.02}}
       className="p-6 rounded-2xl border border-gray-800/50 bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-xl hover:border-gray-700/50 transition-all group cursor-pointer"
      key={594793}>
       <div className="flex items-start justify-between mb-4" key={886571}>
@@ -116,7 +102,7 @@ const MetricCard: React.FC<MetricCardProps key={656645}> = ({
             <div className="flex-1 h-1 bg-gray-800 rounded-full overflow-hidden" key={911085}>
               <div;
                 className="h-full bg-gradient-to-r from-blue-500 to-green-500 rounded-full transition-all duration-1000"
-                style={{ width: `${Math.max(...trend)}%` }}
+                style={{ width: `${Math.max(...trend)}%`}}
               / key={252286}>
             </div>
             <span className="text-xs text-gray-500" key={239425}>Trend</span>
@@ -124,8 +110,7 @@ const MetricCard: React.FC<MetricCardProps key={656645}> = ({
         )}
       </div>
     </motion.div>
-  );
-};
+  )};
 
 const OpportunityCard: React.FC<OpportunityCardProps key={839417}> = ({
   game,
@@ -134,7 +119,7 @@ const OpportunityCard: React.FC<OpportunityCardProps key={839417}> = ({
   odds,
   value,
   timeLeft,
-  status,
+//   status
 }) => {
   const getStatusColor = () => {
     switch (status) {
@@ -143,8 +128,7 @@ const OpportunityCard: React.FC<OpportunityCardProps key={839417}> = ({
       case "warm":
         return "from-yellow-500/20 to-orange-500/20 border-yellow-500/30";
       case "cool":
-        return "from-blue-500/20 to-cyan-500/20 border-blue-500/30";
-    }
+        return "from-blue-500/20 to-cyan-500/20 border-blue-500/30";}
   };
 
   const getStatusIcon = () => {
@@ -154,15 +138,14 @@ const OpportunityCard: React.FC<OpportunityCardProps key={839417}> = ({
       case "warm":
         return "⚡";
       case "cool":
-        return "❄️";
-    }
+        return "❄️";}
   };
 
   return (
     <motion.div;
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      whileHover={{ scale: 1.02 }}
+      initial={{ opacity: 0, scale: 0.95}}
+      animate={{ opacity: 1, scale: 1}}
+      whileHover={{ scale: 1.02}}
       className={`p-6 rounded-2xl border bg-gradient-to-br backdrop-blur-xl hover:shadow-lg transition-all cursor-pointer ${getStatusColor()}`}
      key={184991}>
       <div className="flex items-start justify-between mb-4" key={886571}>
@@ -200,8 +183,7 @@ const OpportunityCard: React.FC<OpportunityCardProps key={839417}> = ({
         </button>
       </div>
     </motion.div>
-  );
-};
+  );};
 
 export const ModernDashboardEnhancement: React.FC = () => {
   const [metrics, setMetrics] = useState([
@@ -211,7 +193,7 @@ export const ModernDashboardEnhancement: React.FC = () => {
       change: 15.3,
       changeType: "positive" as const,
       icon: <DollarSign size={20} / key={594218}>,
-      trend: [65, 78, 85, 92, 89],
+      trend: [65, 78, 85, 92, 89]
     },
     {
       title: "Win Rate",
@@ -219,7 +201,7 @@ export const ModernDashboardEnhancement: React.FC = () => {
       change: 2.1,
       changeType: "positive" as const,
       icon: <Target size={20} / key={69317}>,
-      trend: [82, 85, 87, 89, 89],
+      trend: [82, 85, 87, 89, 89]
     },
     {
       title: "AI Confidence",
@@ -227,7 +209,7 @@ export const ModernDashboardEnhancement: React.FC = () => {
       change: 1.8,
       changeType: "positive" as const,
       icon: <Brain size={20} / key={20798}>,
-      trend: [88, 91, 93, 95, 95],
+      trend: [88, 91, 93, 95, 95]
     },
     {
       title: "Active Models",
@@ -235,7 +217,7 @@ export const ModernDashboardEnhancement: React.FC = () => {
       change: 0,
       changeType: "neutral" as const,
       icon: <Activity size={20} / key={927794}>,
-      trend: [45, 46, 47, 47, 47],
+      trend: [45, 46, 47, 47, 47]
     },
   ]);
 
@@ -247,7 +229,7 @@ export const ModernDashboardEnhancement: React.FC = () => {
       odds: 1.85,
       value: 12.3,
       timeLeft: "2h 15m",
-      status: "hot" as const,
+      status: "hot" as const
     },
     {
       game: "Celtics vs Heat",
@@ -256,7 +238,7 @@ export const ModernDashboardEnhancement: React.FC = () => {
       odds: 1.92,
       value: 8.7,
       timeLeft: "4h 32m",
-      status: "warm" as const,
+      status: "warm" as const
     },
     {
       game: "Nuggets vs Suns",
@@ -265,7 +247,7 @@ export const ModernDashboardEnhancement: React.FC = () => {
       odds: 1.78,
       value: 6.2,
       timeLeft: "6h 45m",
-      status: "cool" as const,
+      status: "cool" as const
     },
   ]);
 
@@ -374,7 +356,11 @@ export const ModernDashboardEnhancement: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  );};
 
 export default ModernDashboardEnhancement;
+
+
+
+
+`

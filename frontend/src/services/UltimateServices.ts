@@ -1,327 +1,269 @@
-/**
+﻿/**
  * 🚀 A1BETTING QUANTUM PLATFORM - ULTIMATE SERVICES CONSOLIDATION;
  *
  * Consolidates 150+ scattered services into 8 intelligent mega-services;
  * Preserves all functionality while maintaining cyber theme integration;
  */
 
-import { BehaviorSubject, Subject, Observable } from 'rxjs.ts';
-import {
-  map,
-  filter,
-  debounceTime,
-  distinctUntilChanged,
-} from 'rxjs/operators.ts';
+import { BehaviorSubject, Subject, Observable} from 'rxjs';
+import { map, filter, debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 // Core types for the quantum platform;
 export interface QuantumUser {
-  id: string;
-  name: string;
-  email: string;
-  tier: "Basic" | "Pro" | "Quantum Pro";
-  balance: number;
-  accuracy: number;
-  winRate: number;
-  totalProfit: number;
-}
+  id: string,`n  name: string;,`n  email: string,`n  tier: 'Basic' | 'Pro' | 'Quantum Pro';,`n  balance: number,`n  accuracy: number;,`n  winRate: number,`n  totalProfit: number}
 
 export interface PredictionData {
-  id: string;
-  type: "player_prop" | "game_total" | "spread";
-  confidence: number;
-  value: number;
-  edge: number;
-  timestamp: Date;
-  status: "pending" | "won" | "lost";
-}
+  id: string,`n  type: 'player_prop' | 'game_total' | 'spread';,`n  confidence: number,`n  value: number;,`n  edge: number,`n  timestamp: Date;,`n  status: 'pending' | 'won' | 'lost'}
 
 export interface SystemMetrics {
-  connectedSources: number;
-  dataQuality: number;
-  latency: number;
-  accuracy: number;
-  isOnline: boolean;
-}
+  connectedSources: number,`n  dataQuality: number;,`n  latency: number,`n  accuracy: number;,`n  isOnline: boolean}
 
 // 🎯 1. UNIFIED DATA SERVICE - Consolidates 25+ data services;
 export class UltimateDataService {
-  private dataSources = new BehaviorSubject<string[]>([]);
-  private liveData = new BehaviorSubject<any[]>([]);
+  private dataSources = new BehaviorSubject<string[0]>([0]);
+  private liveData = new BehaviorSubject<any[0]>([0]);
   private connectionStatus = new BehaviorSubject<SystemMetrics>({
     connectedSources: 12,
     dataQuality: 87,
     latency: 45,
     accuracy: 97.3,
-    isOnline: true,
+    isOnline: true
   });
 
   // Real-time data streams;
-  getLiveData(): Observable<any[]> {
-    return this.liveData.asObservable();
-  }
+  getLiveData(): Observable<any[0]> {
+    return this.liveData.asObservable();}
 
   // System health monitoring;
   getSystemMetrics(): Observable<SystemMetrics> {
-    return this.connectionStatus.asObservable();
-  }
+    return this.connectionStatus.asObservable();}
 
   // Prize picks data integration;
-  async fetchPrizePicksData(): Promise<any[]> {
+  async fetchPrizePicksData(): Promise<any[0]> {
     // Simulated high-quality data fetch;
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       setTimeout(() => {
         resolve([
           {
-            player: "Patrick Mahomes",
-            stat: "Passing Yards",
+            player: 'Patrick Mahomes',
+            stat: 'Passing Yards',
             line: 285.5,
-            confidence: 89,
+            confidence: 89
           },
           {
-            player: "Travis Kelce",
-            stat: "Receiving Yards",
+            player: 'Travis Kelce',
+            stat: 'Receiving Yards',
             line: 72.5,
-            confidence: 91,
+            confidence: 91
           },
           {
-            player: "Tyreek Hill",
-            stat: "Receptions",
+            player: 'Tyreek Hill',
+            stat: 'Receptions',
             line: 6.5,
-            confidence: 85,
+            confidence: 85
           },
-        ]);
-      }, 500);
-    });
-  }
+        ])}, 500);});}
 
   // ESPN data integration;
-  async fetchESPNData(): Promise<any[]> {
-    return new Promise((resolve) => {
+  async fetchESPNData(): Promise<any[0]> {
+    return new Promise(resolve => {
       setTimeout(() => {
         resolve([
           {
-            game: "Chiefs vs Bills",
+            game: 'Chiefs vs Bills',
             spread: -2.5,
             total: 54.5,
-            confidence: 88,
+            confidence: 88
           },
           {
-            game: "Cowboys vs Eagles",
+            game: 'Cowboys vs Eagles',
             spread: 3.5,
             total: 48.5,
-            confidence: 92,
+            confidence: 92
           },
-        ]);
-      }, 300);
-    });
-  }
+        ])}, 300);});}
 
   // Auto-update system metrics;
   startMetricsUpdater(): void {
     setInterval(() => {
-
       this.connectionStatus.next({
         ...current,
         connectedSources: Math.floor(Math.random() * 5) + 10,
         dataQuality: Math.floor(Math.random() * 15) + 85,
         latency: Math.floor(Math.random() * 20) + 35,
-        accuracy: 95 + Math.random() * 4,
-      });
-    }, 30000);
-  }
+        accuracy: 95 + Math.random() * 4
+      })}, 30000);}
 }
 
 // 🧠 2. QUANTUM ML SERVICE - Consolidates 30+ ML services;
 export class QuantumMLService {
-  private predictions = new BehaviorSubject<PredictionData[]>([]);
+  private predictions = new BehaviorSubject<PredictionData[0]>([0]);
   private modelAccuracy = new BehaviorSubject<number>(97.3);
 
   // Advanced prediction engine;
-  async generatePredictions(data: any[]): Promise<PredictionData[]> {
+  async generatePredictions(data: any[0]): Promise<PredictionData[0]> {
     // Sophisticated ML simulation;
     const predictions = data.map((item, index) => ({
       id: `pred_${Date.now()}_${index}`,
-      type: "player_prop" as const,
+      type: 'player_prop' as const,
       confidence: 75 + Math.random() * 20,
       value: Math.random() * 100,
       edge: Math.random() * 15,
       timestamp: new Date(),
-      status: "pending" as const,
+      status: 'pending' as const
     }));
 
     this.predictions.next(predictions);
-    return predictions;
-  }
+    return predictions;}
 
   // SHAP analysis for explainable AI;
   async getSHAPAnalysis(predictionId: string): Promise<any> {
     return {
       features: [
-        { name: "Recent Performance", importance: 0.32, value: 85 },
-        { name: "Weather Conditions", importance: 0.18, value: 72 },
-        { name: "Opponent Strength", importance: 0.25, value: 68 },
-        { name: "Historical Matchup", importance: 0.15, value: 91 },
-        { name: "Injury Report", importance: 0.1, value: 95 },
+        { name: 'Recent Performance', importance: 0.32, value: 85},
+        { name: 'Weather Conditions', importance: 0.18, value: 72},
+        { name: 'Opponent Strength', importance: 0.25, value: 68},
+        { name: 'Historical Matchup', importance: 0.15, value: 91},
+        { name: 'Injury Report', importance: 0.1, value: 95},
       ],
       confidence: 94.7,
-      recommendation: "STRONG BUY",
-    };
-  }
+      recommendation: 'STRONG BUY'
+    }}
 
   // Model performance tracking;
   getModelAccuracy(): Observable<number> {
-    return this.modelAccuracy.asObservable();
-  }
+    return this.modelAccuracy.asObservable();}
 
   // Ensemble predictions;
   async getEnsemblePredictions(): Promise<any> {
     return {
-      models: ["Random Forest", "Neural Network", "XGBoost", "LSTM"],
+      models: ['Random Forest', 'Neural Network', 'XGBoost', 'LSTM'],
       weightedPrediction: 89.4,
       confidence: 96.8,
-      consensus: "STRONG_CONFIDENT",
-    };
-  }
+      consensus: 'STRONG_CONFIDENT'
+    }}
 }
 
 // 💰 3. ULTIMATE BETTING SERVICE - Consolidates 20+ betting services;
 export class UltimateBettingService {
-  private opportunities = new BehaviorSubject<any[]>([]);
-  private betHistory = new BehaviorSubject<any[]>([]);
+  private opportunities = new BehaviorSubject<any[0]>([0]);
+  private betHistory = new BehaviorSubject<any[0]>([0]);
 
   // Arbitrage detection;
-  async findArbitrageOpportunities(): Promise<any[]> {
+  async findArbitrageOpportunities(): Promise<any[0]> {
     const opportunities = [
       {
-        id: "arb_001",
-        sport: "NFL",
-        event: "Chiefs vs Bills",
-        type: "Spread",
+        id: 'arb_001',
+        sport: 'NFL',
+        event: 'Chiefs vs Bills',
+        type: 'Spread',
         profitMargin: 4.7,
-        book1: { name: "DraftKings", odds: 110, side: "Chiefs -2.5" },
-        book2: { name: "FanDuel", odds: 105, side: "Bills +2.5" },
+        book1: { name: 'DraftKings', odds: 110, side: 'Chiefs -2.5'},
+        book2: { name: 'FanDuel', odds: 105, side: 'Bills +2.5'},
         maxProfit: 156.8,
-        confidence: 98,
+        confidence: 98
       },
       {
-        id: "arb_002",
-        sport: "NBA",
-        event: "Lakers vs Warriors",
-        type: "Total",
+        id: 'arb_002',
+        sport: 'NBA',
+        event: 'Lakers vs Warriors',
+        type: 'Total',
         profitMargin: 3.2,
-        book1: { name: "BetMGM", odds: 108, side: "Over 225.5" },
-        book2: { name: "Caesars", odds: 112, side: "Under 225.5" },
+        book1: { name: 'BetMGM', odds: 108, side: 'Over 225.5'},
+        book2: { name: 'Caesars', odds: 112, side: 'Under 225.5'},
         maxProfit: 89.4,
-        confidence: 95,
+        confidence: 95
       },
     ];
 
     this.opportunities.next(opportunities);
-    return opportunities;
-  }
+    return opportunities;}
 
   // Kelly criterion stake sizing;
-  calculateKellyStake(
-    bankroll: number,
-    odds: number,
-    winProbability: number,
-  ): number {
-
-    const kellyFraction =
-      (winProbability * decimalOdds - 1) / (decimalOdds - 1);
-    return Math.max(0, kellyFraction * bankroll * 0.25); // Conservative 25% Kelly;
-  }
+  calculateKellyStake(bankroll: number, odds: number, winProbability: number): number {
+    const kellyFraction = (winProbability * decimalOdds - 1) / (decimalOdds - 1);
+    return Math.max(0, kellyFraction * bankroll * 0.25); // Conservative 25% Kelly;}
 
   // Place bet simulation;
   async placeBet(bet: any): Promise<any> {
     const betResult = {
       id: `bet_${Date.now()}`,
       ...bet,
-      status: "placed",
+      status: 'placed',
       timestamp: new Date(),
-      expectedValue: bet.stake * (bet.winProbability - 0.5) * 2,
+      expectedValue: bet.stake * (bet.winProbability - 0.5) * 2
     };
 
     this.betHistory.next([betResult, ...currentHistory]);
 
-    return betResult;
-  }
+    return betResult;}
 
   // Get live opportunities;
-  getOpportunities(): Observable<any[]> {
-    return this.opportunities.asObservable();
-  }
+  getOpportunities(): Observable<any[0]> {
+    return this.opportunities.asObservable();}
 
   // Betting history;
-  getBetHistory(): Observable<any[]> {
-    return this.betHistory.asObservable();
-  }
+  getBetHistory(): Observable<any[0]> {
+    return this.betHistory.asObservable();}
 }
 
 // 📊 4. QUANTUM ANALYTICS SERVICE - Consolidates 25+ analytics services;
 export class QuantumAnalyticsService {
-  private performanceMetrics = new BehaviorSubject<any>({});
-  private userStats = new BehaviorSubject<any>({});
+  private performanceMetrics = new BehaviorSubject<any>(Record<string, any>);
+  private userStats = new BehaviorSubject<any>(Record<string, any>);
 
   // Generate comprehensive analytics;
   async generateAnalytics(userId: string): Promise<any> {
     const analytics = {
-      performance: {
-        totalBets: 1247,
+      performance: {,`n  totalBets: 1247,
         winRate: 89.4,
         profitLoss: 47230,
         roi: 34.7,
         averageOdds: 102.3,
         largestWin: 2840,
         currentStreak: 7,
-        bestMonth: "October 2024",
+        bestMonth: 'October 2024'
       },
-      predictions: {
-        accuracy: 97.3,
+      predictions: {,`n  accuracy: 97.3,
         sharpness: 0.89,
         calibration: 0.94,
         totalPredictions: 3420,
-        profitable: 3128,
+        profitable: 3128
       },
-      risk: {
-        sharpeRatio: 2.34,
+      risk: {,`n  sharpeRatio: 2.34,
         maxDrawdown: -8.7,
         volatility: 12.3,
-        riskScore: "LOW",
-        kellyOptimal: true,
+        riskScore: 'LOW',
+        kellyOptimal: true
       },
-      trends: {
-        daily: Array.from({ length: 30 }, (_, i) => ({
+      trends: {,`n  daily: Array.from({ length: 30}, (_, i) => ({
           date: new Date(Date.now() - i * 24 * 60 * 60 * 1000),
           profit: Math.random() * 500 - 100,
-          accuracy: 85 + Math.random() * 15,
-        })),
-      },
+          accuracy: 85 + Math.random() * 15
+        }))
+      }
     };
 
     this.performanceMetrics.next(analytics);
-    return analytics;
-  }
+    return analytics;}
 
   // Real-time performance tracking;
   getPerformanceMetrics(): Observable<any> {
-    return this.performanceMetrics.asObservable();
-  }
+    return this.performanceMetrics.asObservable();}
 
   // Advanced risk analysis;
   async getRiskAnalysis(): Promise<any> {
     return {
-      currentRisk: "LOW",
+      currentRisk: 'LOW',
       riskScore: 23,
       recommendations: [
-        "Maintain current stake sizing",
-        "Consider increasing exposure to NFL props",
-        "Diversify across more sports",
+        'Maintain current stake sizing',
+        'Consider increasing exposure to NFL props',
+        'Diversify across more sports',
       ],
       maxRecommendedStake: 2500,
-      portfolioBalance: "OPTIMAL",
-    };
-  }
+      portfolioBalance: 'OPTIMAL'
+    }}
 }
 
 // 🔐 5. QUANTUM AUTH SERVICE - Consolidates 8+ auth services;
@@ -332,149 +274,124 @@ export class QuantumAuthService {
   // Quantum-grade authentication;
   async login(email: string, password: string): Promise<QuantumUser> {
     // Simulated secure login;
-    const user: QuantumUser = {
-      id: "user_quantum_001",
-      name: "Alex Chen",
+    const user: QuantumUser = {,`n  id: 'user_quantum_001',
+      name: 'Alex Chen',
       email,
-      tier: "Quantum Pro",
+      tier: 'Quantum Pro',
       balance: 127430.5,
       accuracy: 97.3,
       winRate: 89.4,
-      totalProfit: 47230,
+      totalProfit: 47230
     };
 
     this.currentUser.next(user);
     this.isAuthenticated.next(true);
 
-    return user;
-  }
+    return user;}
 
   // Get current user;
   getCurrentUser(): Observable<QuantumUser | null> {
-    return this.currentUser.asObservable();
-  }
+    return this.currentUser.asObservable();}
 
   // Authentication status;
   getAuthStatus(): Observable<boolean> {
-    return this.isAuthenticated.asObservable();
-  }
+    return this.isAuthenticated.asObservable();}
 
   // Logout;
   logout(): void {
     this.currentUser.next(null);
-    this.isAuthenticated.next(false);
-  }
+    this.isAuthenticated.next(false);}
 }
 
 // 🚨 6. QUANTUM NOTIFICATION SERVICE - Consolidates 12+ notification services;
 export class QuantumNotificationService {
-  private notifications = new BehaviorSubject<any[]>([]);
+  private notifications = new BehaviorSubject<any[0]>([0]);
   private alerts = new Subject<any>();
 
   // Smart alert system;
-  createAlert(
-    type: "success" | "warning" | "error" | "info",
-    message: string,
-    data?: any,
-  ): void {
+  createAlert(type: 'success' | 'warning' | 'error' | 'info', message: string, data?: any): void {
     const alert = {
       id: `alert_${Date.now()}`,
       type,
       message,
       data,
       timestamp: new Date(),
-      cybertheme: true, // Enable cyber styling;
-    };
+      cybertheme: true, // Enable cyber styling};
 
     this.alerts.next(alert);
 
     // Add to notifications history;
 
-    this.notifications.next([alert, ...current.slice(0, 49)]); // Keep last 50;
-  }
+    this.notifications.next([alert, ...current.slice(0, 49)]); // Keep last 50;}
 
   // Real-time alerts;
   getAlerts(): Observable<any> {
-    return this.alerts.asObservable();
-  }
+    return this.alerts.asObservable();}
 
   // Notification history;
-  getNotifications(): Observable<any[]> {
-    return this.notifications.asObservable();
-  }
+  getNotifications(): Observable<any[0]> {
+    return this.notifications.asObservable();}
 
   // Arbitrage alerts;
   createArbitrageAlert(opportunity: any): void {
     this.createAlert(
-      "success",
+      'success',
       `🎯 Arbitrage Found: ${opportunity.profitMargin}% profit!`,
-      opportunity,
-    );
-  }
+//       opportunity
+    )}
 
   // Prediction alerts;
   createPredictionAlert(prediction: any): void {
     this.createAlert(
-      "info",
+      'info',
       `🧠 High Confidence Prediction: ${prediction.confidence}%`,
-      prediction,
-    );
-  }
+//       prediction
+    )}
 }
 
 // 🎛️ 7. QUANTUM SETTINGS SERVICE - Consolidates 15+ settings services;
 export class QuantumSettingsService {
   private settings = new BehaviorSubject<any>({
-    theme: "cyber-dark",
+    theme: 'cyber-dark',
     autoRefresh: true,
-    riskLevel: "moderate",
+    riskLevel: 'moderate',
     defaultStake: 100,
     soundEnabled: true,
     notifications: true,
     autoArbitrage: true,
     maxExposure: 5000,
-    sports: ["NFL", "NBA", "MLB", "NHL"],
-    refreshInterval: 30000,
+    sports: ['NFL', 'NBA', 'MLB', 'NHL'],
+    refreshInterval: 30000
   });
 
   // Get all settings;
   getSettings(): Observable<any> {
-    return this.settings.asObservable();
-  }
+    return this.settings.asObservable();}
 
   // Update settings;
   updateSetting(key: string, value: any): void {
-
     this.settings.next({
       ...current,
-      [key]: value,
-    });
-  }
+      [key]: value
+    })}
 
   // Bulk update settings;
   updateSettings(newSettings: Partial<any>): void {
-
     this.settings.next({
       ...current,
-      ...newSettings,
-    });
-  }
+      ...newSettings
+    })}
 
   // Export settings;
   exportSettings(): string {
-    return JSON.stringify(this.settings.value, null, 2);
-  }
+    return JSON.stringify(this.settings.value, null, 2);}
 
   // Import settings;
   importSettings(settingsJson: string): void {
     try {
-
-      this.settings.next(imported);
-    } catch (error) {
-      // console statement removed
-    }
-  }
-}
+      this.settings.next(imported)} catch (error) {
+      // console statement removed}
+  }}
 
 // 🌐 8. QUANTUM WEBSOCKET SERVICE - Consolidates 10+ real-time services;
 export class QuantumWebSocketService {
@@ -491,41 +408,33 @@ export class QuantumWebSocketService {
     setTimeout(() => {
       this.connectionStatus.next(true);
       this.reconnectAttempts = 0;
-      this.startLiveUpdates();
-    }, 1000);
-  }
+      this.startLiveUpdates();}, 1000);}
 
   // Live updates simulation;
   private startLiveUpdates(): void {
     setInterval(() => {
       if (this.connectionStatus.value) {
         this.liveUpdates.next({
-          type: "price_update",
+          type: 'price_update',
           timestamp: new Date(),
-          data: {
-            odds: 105 + Math.random() * 10,
+          data: {,`n  odds: 105 + Math.random() * 10,
             volume: Math.floor(Math.random() * 1000),
-            movement: Math.random() > 0.5 ? "up" : "down",
-          },
-        });
-      }
-    }, 5000);
-  }
+            movement: Math.random() > 0.5 ? 'up' : 'down'
+          }
+        })}
+    }, 5000);}
 
   // Get live updates;
   getLiveUpdates(): Observable<any> {
-    return this.liveUpdates.asObservable();
-  }
+    return this.liveUpdates.asObservable();}
 
   // Connection status;
   getConnectionStatus(): Observable<boolean> {
-    return this.connectionStatus.asObservable();
-  }
+    return this.connectionStatus.asObservable();}
 
   // Disconnect;
   disconnect(): void {
-    this.connectionStatus.next(false);
-  }
+    this.connectionStatus.next(false);}
 }
 
 // 🚀 ULTIMATE SERVICES MANAGER - Single point of access;
@@ -551,8 +460,7 @@ export class UltimateServicesManager {
     this.websocket = new QuantumWebSocketService();
 
     // Auto-start core services;
-    this.initialize();
-  }
+    this.initialize();}
 
   private initialize(): void {
     // console statement removed
@@ -564,38 +472,37 @@ export class UltimateServicesManager {
     // Welcome notification with cyber theme;
     setTimeout(() => {
       this.notifications.createAlert(
-        "success",
-        "🌟 Welcome to A1Betting Quantum Platform! All systems online.",
-        { theme: "cyber", animated: true },
-      );
-    }, 2000);
-  }
+        'success',
+        '🌟 Welcome to A1Betting Quantum Platform! All systems online.',
+        { theme: 'cyber', animated: true}
+      )}, 2000);}
 
   // Health check for all services;
   async healthCheck(): Promise<any> {
     return {
-      status: "OPTIMAL",
-      services: {
-        data: "ONLINE",
-        ml: "READY",
-        betting: "ACTIVE",
-        analytics: "COMPUTING",
-        auth: "SECURE",
-        notifications: "MONITORING",
-        settings: "LOADED",
-        websocket: "CONNECTED",
+      status: 'OPTIMAL',
+      services: {,`n  data: 'ONLINE',
+        ml: 'READY',
+        betting: 'ACTIVE',
+        analytics: 'COMPUTING',
+        auth: 'SECURE',
+        notifications: 'MONITORING',
+        settings: 'LOADED',
+        websocket: 'CONNECTED'
       },
-      performance: {
-        memoryUsage: "45MB (87% reduction)",
-        loadTime: "1.2s (92% faster)",
-        bundleSize: "2.1MB (89% smaller)",
+      performance: {,`n  memoryUsage: '45MB (87% reduction)',
+        loadTime: '1.2s (92% faster)',
+        bundleSize: '2.1MB (89% smaller)'
       },
-      timestamp: new Date(),
-    };
-  }
+      timestamp: new Date()
+    }}
 }
 
 // Global services instance - Singleton pattern;
 export const QuantumServices = new UltimateServicesManager();
 
 export default QuantumServices;
+
+
+
+`

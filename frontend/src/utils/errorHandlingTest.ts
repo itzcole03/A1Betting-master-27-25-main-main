@@ -1,18 +1,13 @@
-/**
+﻿/**
  * Error Handling Verification Test;
  * Tests that console errors are properly managed and not spamming the console;
  */
 
-import { api } from '@/services/api.ts';
-import { consoleManager } from './consoleUtils.ts';
+import { api} from '@/services/api';
+import { consoleManager} from './consoleUtils';
 
 export interface ErrorTestResult {
-  testName: string;
-  passed: boolean;
-  details: string;
-  consoleBefore: number;
-  consoleAfter: number;
-}
+  testName: string,`n  passed: boolean;,`n  details: string,`n  consoleBefore: number;,`n  consoleAfter: number}
 
 export class ErrorHandlingTest {
   private static consoleErrorCount = 0;
@@ -24,16 +19,13 @@ export class ErrorHandlingTest {
   private static setupConsoleMonitoring() {
     console.error = (...args) => {
       this.consoleErrorCount++;
-      this.originalConsoleError(...args);
-    };
-  }
+      this.originalConsoleError(...args);};}
 
   /**
    * Cleanup console monitoring;
    */
   private static cleanupConsoleMonitoring() {
-    console.error = this.originalConsoleError;
-  }
+    console.error = this.originalConsoleError;}
 
   /**
    * Test that multiple API calls don't spam console errors;
@@ -72,11 +64,9 @@ export class ErrorHandlingTest {
         passed,
         details: `Generated ${newErrors} console errors from 10 API calls. Expected ≤ 2.`,
         consoleBefore: startErrorCount,
-        consoleAfter: endErrorCount,
-      };
-    } finally {
-      this.cleanupConsoleMonitoring();
-    }
+        consoleAfter: endErrorCount
+      }} finally {
+      this.cleanupConsoleMonitoring();}
   }
 
   /**
@@ -105,35 +95,31 @@ export class ErrorHandlingTest {
         details = `All API calls returned default values: ${values;
           .map((v) =>
             Array.isArray(v)
-              ? `[]`
+              ? `[0]`
               : typeof v === "object"
                 ? "defaultObject"
                 : typeof v,
           )
-          .join(", ")}`;
-      } else {
+          .join(", ")}`;} else {
         const rejectedCount = results.filter(
           (r) => r.status === "rejected",
         ).length;
-        details = `${rejectedCount} API calls were rejected instead of returning defaults`;
-      }
+        details = `${rejectedCount} API calls were rejected instead of returning defaults`;}
 
       return {
         testName: "Default Value Returns",
         passed: allResolved,
         details,
         consoleBefore: 0,
-        consoleAfter: 0,
-      };
-    } catch (error) {
+        consoleAfter: 0
+      }} catch (error) {
       return {
         testName: "Default Value Returns",
         passed: false,
         details: `Test failed with error: ${error instanceof Error ? error.message : "Unknown"}`,
         consoleBefore: 0,
-        consoleAfter: 0,
-      };
-    }
+        consoleAfter: 0
+      }}
   }
 
   /**
@@ -164,34 +150,31 @@ export class ErrorHandlingTest {
         passed,
         details: `Initial: ${initialSuppress}, After offline: ${afterOfflineSuppress}, After online: ${afterOnlineSuppress}`,
         consoleBefore: 0,
-        consoleAfter: 0,
-      };
-    } catch (error) {
+        consoleAfter: 0
+      }} catch (error) {
       return {
         testName: "Console Manager State",
         passed: false,
         details: `Test failed: ${error instanceof Error ? error.message : "Unknown"}`,
         consoleBefore: 0,
-        consoleAfter: 0,
-      };
-    }
+        consoleAfter: 0
+      }}
   }
 
   /**
    * Run all error handling tests;
    */
-  static async runAllTests(): Promise<ErrorTestResult[]> {
+  static async runAllTests(): Promise<ErrorTestResult[0]> {
     return [
       await this.testConsoleSpamPrevention(),
       await this.testDefaultValueReturns(),
       await this.testConsoleManagerState(),
-    ];
-  }
+    ];}
 
   /**
    * Generate test report;
    */
-  static generateReport(results: ErrorTestResult[]): string {
+  static generateReport(results: ErrorTestResult[0]): string {
 
 
     const report = `🛠️  Error Handling Test Report\n`;
@@ -202,19 +185,14 @@ export class ErrorHandlingTest {
       report += `${status} ${result.testName}\n`;
       report += `   ${result.details}\n`;
       if (result.consoleBefore || result.consoleAfter) {
-        report += `   Console errors: ${result.consoleBefore} → ${result.consoleAfter}\n`;
-      }
-      report += "\n";
-    });
+        report += `   Console errors: ${result.consoleBefore} → ${result.consoleAfter}\n`}
+      report += "\n";});
 
     if (passed === total) {
-      report += `🎉 All error handling tests passed! Console is clean.\n`;
-    } else {
-      report += `⚠️  Some tests failed. Check error handling implementation.\n`;
-    }
+      report += `🎉 All error handling tests passed! Console is clean.\n`;} else {
+      report += `⚠️  Some tests failed. Check error handling implementation.\n`;}
 
-    return report;
-  }
+    return report;}
 
   /**
    * Run tests and log results;
@@ -223,8 +201,11 @@ export class ErrorHandlingTest {
     // console statement removed
 
 
-    // console statement removed
-  }
+    // console statement removed}
 }
 
 export default ErrorHandlingTest;
+
+
+
+`

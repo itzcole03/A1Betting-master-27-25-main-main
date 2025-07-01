@@ -1,19 +1,19 @@
-import React, { useState  } from 'react.ts';
-import GlassCard from '@/components/ui/GlassCard.ts';
-import GlowButton from '@/components/ui/GlowButton.ts';
-import Tooltip from '@/components/ui/Tooltip.ts';
-import { analyticsService } from '@/services/analytics.ts';
-import { ErrorMessage } from '@/components/common/ErrorMessage.ts';
-import { useQuery } from '@tanstack/react-query.ts';
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer } from 'recharts.ts';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp.ts';
-import TrendingDownIcon from '@mui/icons-material/TrendingDown.ts';
+﻿import React, { useState} from 'react';
+import GlassCard from '@/components/ui/GlassCard';
+import GlowButton from '@/components/ui/GlowButton';
+import Tooltip from '@/components/ui/Tooltip';
+import { analyticsService} from '@/services/analytics';
+import { ErrorMessage} from '@/components/common/ErrorMessage';
+import { useQuery} from '@tanstack/react-query';
+import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer} from 'recharts';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 
 const timeRanges = [
-  { value: '7', label: 'Last 7 days' },
-  { value: '30', label: 'Last 30 days' },
-  { value: '90', label: 'Last 90 days' },
-  { value: '365', label: 'Last year' },
+  { value: '7', label: 'Last 7 days'},
+  { value: '30', label: 'Last 30 days'},
+  { value: '90', label: 'Last 90 days'},
+  { value: '365', label: 'Last year'},
 ];
 
 const Trends: React.FC = () => {
@@ -21,35 +21,31 @@ const Trends: React.FC = () => {
   const [selectedMarket, setSelectedMarket] = useState('all');
   const [selectedTimeRange, setSelectedTimeRange] = useState('30');
 
-  const { data: performanceData, isLoading: performanceLoading, error: performanceError } = useQuery({
+  const { data: performanceData, isLoading: performanceLoading, error: performanceError} = useQuery({
     queryKey: ['performance', selectedTimeRange],
-    queryFn: () => analyticsService.getPerformanceTrends(selectedTimeRange),
+    queryFn: () => analyticsService.getPerformanceTrends(selectedTimeRange)
   });
-  const { data: sportsData, isLoading: sportsLoading, error: sportsError } = useQuery({
+  const { data: sportsData, isLoading: sportsLoading, error: sportsError} = useQuery({
     queryKey: ['sports', selectedSport, selectedTimeRange],
-    queryFn: () => analyticsService.getSportsDistribution(selectedSport, selectedTimeRange),
+    queryFn: () => analyticsService.getSportsDistribution(selectedSport, selectedTimeRange)
   });
-  const { data: marketsData, isLoading: marketsLoading, error: marketsError } = useQuery({
+  const { data: marketsData, isLoading: marketsLoading, error: marketsError} = useQuery({
     queryKey: ['markets', selectedMarket, selectedTimeRange],
-    queryFn: () => analyticsService.getMarketsDistribution(selectedMarket, selectedTimeRange),
+    queryFn: () => analyticsService.getMarketsDistribution(selectedMarket, selectedTimeRange)
   });
 
   const handleSportChange = (event: React.ChangeEvent<HTMLSelectElement key={836532}>) => {
-    setSelectedSport(event.target.value);
-  };
+    setSelectedSport(event.target.value)};
   const handleMarketChange = (event: React.ChangeEvent<HTMLSelectElement key={836532}>) => {
-    setSelectedMarket(event.target.value);
-  };
+    setSelectedMarket(event.target.value)};
   const handleTimeRangeChange = (event: React.ChangeEvent<HTMLSelectElement key={836532}>) => {
-    setSelectedTimeRange(event.target.value);
-  };
+    setSelectedTimeRange(event.target.value)};
 
   if (performanceError || sportsError || marketsError) {
-    return <ErrorMessage error={performanceError || sportsError || marketsError} / key={347999}>;
-  }
+    return <ErrorMessage error={performanceError || sportsError || marketsError} / key={347999}>;}
 
   return (
-    <div className="p-6 min-h-screen bg-gradient-to-br from-purple-100 to-blue-50 dark:from-gray-900 dark:to-blue-950" key={617347}>
+    <div className="p-6 min-h-screen bg-gradient-to-br from-purple-100 to-blue-50 dark: from-gray-900 dark:to-blue-950" key={617347}>
       <GlassCard className="mb-8" key={170857}>
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6" key={449042}>
           <h1 className="text-2xl font-bold text-blue-900 dark:text-blue-100" key={928224}>Trends</h1>
@@ -158,7 +154,9 @@ const Trends: React.FC = () => {
         </GlassCard>
       </GlassCard>
     </div>
-  );
-};
+  )};
 
 export default Trends;
+
+
+

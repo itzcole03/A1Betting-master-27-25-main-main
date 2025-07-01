@@ -1,14 +1,11 @@
-
+﻿
 
 interface CacheEntry<T> {
-  data: T;
-  timestamp: number;
-}
+  data: T,`n  timestamp: number}
 
 export interface CacheConfig {
   ttl: number; // Time to live in milliseconds;
-  maxSize?: number; // Maximum number of entries;
-}
+  maxSize?: number // Maximum number of entries;}
 
 export class Cache<K, V> {
   private cache: Map<K, CacheEntry<V>>;
@@ -16,20 +13,16 @@ export class Cache<K, V> {
 
   constructor(config: CacheConfig) {
     this.cache = new Map();
-    this.config = config;
-  }
+    this.config = config;}
 
   set(key: K, value: V): void {
     // Clean up if we're at max size;
     if (this.config.maxSize && this.cache.size >= this.config.maxSize) {
-      this.cleanup();
-    }
+      this.cleanup();}
 
     this.cache.set(key, {
       data: value,
-      timestamp: Date.now()
-    });
-  }
+      timestamp: Date.now()})}
 
   get(key: K): V | undefined {
 
@@ -38,11 +31,9 @@ export class Cache<K, V> {
     // Check if entry has expired;
     if (Date.now() - entry.timestamp > this.config.ttl) {
       this.cache.delete(key);
-      return undefined;
-    }
+      return undefined;}
 
-    return entry.data;
-  }
+    return entry.data;}
 
   has(key: K): boolean {
 
@@ -51,27 +42,22 @@ export class Cache<K, V> {
     // Check if entry has expired;
     if (Date.now() - entry.timestamp > this.config.ttl) {
       this.cache.delete(key);
-      return false;
-    }
+      return false;}
 
-    return true;
-  }
+    return true;}
 
   delete(key: K): void {
-    this.cache.delete(key);
-  }
+    this.cache.delete(key)}
 
   clear(): void {
-    this.cache.clear();
-  }
+    this.cache.clear()}
 
   private cleanup(): void {
 
     // Remove expired entries;
     for (const [key, entry] of this.cache.entries()) {
       if (now - entry.timestamp > this.config.ttl) {
-        this.cache.delete(key);
-      }
+        this.cache.delete(key);}
     }
 
     // If still over max size, remove oldest entries;
@@ -80,14 +66,11 @@ export class Cache<K, V> {
         .sort((a, b) => a[1].timestamp - b[1].timestamp);
 
       for (const [key] of entriesToRemove) {
-        this.cache.delete(key);
-      }
-    }
-  }
+        this.cache.delete(key);}
+    }}
 
   size(): number {
-    return this.cache.size;
-  }
+    return this.cache.size;}
 }
 
 // Create a decorator for caching async method results;
@@ -95,21 +78,22 @@ export function cached(ttl: number, maxSize?: number) {
   return function (
     target: unknown,
     propertyKey: string,
-    descriptor: PropertyDescriptor;
+    descriptor: PropertyDescriptor
   ) {
 
 
-    descriptor.value = async function (...args: unknown[]) {
+    descriptor.value = async function (...args: unknown[0]) {
 
 
       if (cachedResult !== undefined) {
-        return cachedResult;
-      }
+        return cachedResult}
 
       cache.set(key, result);
-      return result;
-    };
+      return result;};
 
-    return descriptor;
-  };
-} 
+    return descriptor;};} 
+
+
+
+
+`

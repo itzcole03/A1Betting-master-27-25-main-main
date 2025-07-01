@@ -20,6 +20,7 @@ This directory contains Python modules for system monitoring and metrics collect
 ## File Breakdown
 
 ### metrics_collector.py
+
 - **Purpose:** Implements the MetricsCollector class for collecting system metrics, including CPU, memory, disk, network, processes, and file system information.
 - **Usage:** Used to gather comprehensive system metrics for analysis, health checks, and reporting.
 - **Notes:** Integrates with a Config object for dynamic configuration. Handles errors and logs issues during collection. Designed for extensibility and integration with analysis modules.
@@ -27,4 +28,4 @@ This directory contains Python modules for system monitoring and metrics collect
 
 ---
 
-*This documentation is auto-generated and should be updated as files are added, removed, or refactored in the monitoring directory.*
+_This documentation is auto-generated and should be updated as files are added, removed, or refactored in the monitoring directory._

@@ -1,29 +1,26 @@
-/**
+﻿/**
  * Integration Status Component;
  * Shows the status of backend-frontend integration with live data;
  */
 
-import React, { useState, useEffect  } from 'react.ts';
-import { motion } from 'framer-motion.ts';
+import React, { useState, useEffect} from 'react'
+import { motion} from 'framer-motion'
 import {
   CheckCircle,
   XCircle,
   Clock,
   TrendingUp,
   Database,
-  Wifi,
-} from 'lucide-react.ts';
-import { integrationService } from '@/services/integrationService.ts';
+//   Wifi
+} from 'lucide-react';
+import { integrationService} from '@/services/integrationService'
 
 interface StatusItem {
-  name: string;
-  status: "success" | "error" | "loading";
-  message: string;
-  data?: any;
-}
+  name: string,`n  status: "success" | "error" | "loading";,`n  message: string;
+  data?: any}
 
 export const IntegrationStatus: React.FC = () => {
-  const [statuses, setStatuses] = useState<StatusItem[] key={496611}>([]);
+  const [statuses, setStatuses] = useState<StatusItem[0] key={496611}>([0]);
   const [isLoading, setIsLoading] = useState(true);
   const [lastUpdate, setLastUpdate] = useState(new Date());
 
@@ -32,12 +29,11 @@ export const IntegrationStatus: React.FC = () => {
 
     // Check every 30 seconds;
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)}, [0]);
 
   const checkAllIntegrations = async () => {
     setIsLoading(true);
-    const newStatuses: StatusItem[] = [];
+    const newStatuses: StatusItem[0] = [0];
 
     // Check system health;
     try {
@@ -49,16 +45,14 @@ export const IntegrationStatus: React.FC = () => {
           health.status === "online"
             ? "Connected and operational"
             : `Offline: ${health.error}`,
-        data: health.data,
-      });
-    } catch (error) {
+        data: health.data
+      })} catch (error) {
       newStatuses.push({
         name: "Backend API",
         status: "error",
         message: "Connection failed",
-        data: null,
-      });
-    }
+        data: null
+      })}
 
     // Check betting opportunities;
     try {
@@ -70,16 +64,14 @@ export const IntegrationStatus: React.FC = () => {
         name: "Betting Data",
         status: opportunities.length > 0 ? "success" : "error",
         message: `${opportunities.length} opportunities available`,
-        data: opportunities,
-      });
-    } catch (error) {
+        data: opportunities
+      })} catch (error) {
       newStatuses.push({
         name: "Betting Data",
         status: "error",
         message: "Failed to fetch betting data",
-        data: null,
-      });
-    }
+        data: null
+      })}
 
     // Check analytics;
     try {
@@ -88,16 +80,14 @@ export const IntegrationStatus: React.FC = () => {
         name: "Analytics Service",
         status: analytics.current_balance !== undefined ? "success" : "error",
         message: `Balance: $${analytics.current_balance?.toLocaleString() || 0}`,
-        data: analytics,
-      });
-    } catch (error) {
+        data: analytics
+      })} catch (error) {
       newStatuses.push({
         name: "Analytics Service",
         status: "error",
         message: "Analytics unavailable",
-        data: null,
-      });
-    }
+        data: null
+      })}
 
     // Check model performance;
     try {
@@ -106,16 +96,14 @@ export const IntegrationStatus: React.FC = () => {
         name: "ML Models",
         status: accuracy.overall_accuracy > 0 ? "success" : "error",
         message: `${(accuracy.overall_accuracy * 100).toFixed(1)}% accuracy`,
-        data: accuracy,
-      });
-    } catch (error) {
+        data: accuracy
+      })} catch (error) {
       newStatuses.push({
         name: "ML Models",
         status: "error",
         message: "Model performance unavailable",
-        data: null,
-      });
-    }
+        data: null
+      })}
 
     // Check transactions;
     try {
@@ -124,21 +112,18 @@ export const IntegrationStatus: React.FC = () => {
         name: "Transaction System",
         status: "success",
         message: `${transactions.total_count} transactions tracked`,
-        data: transactions,
-      });
-    } catch (error) {
+        data: transactions
+      })} catch (error) {
       newStatuses.push({
         name: "Transaction System",
         status: "error",
         message: "Transaction data unavailable",
-        data: null,
-      });
-    }
+        data: null
+      })}
 
     setStatuses(newStatuses);
     setLastUpdate(new Date());
-    setIsLoading(false);
-  };
+    setIsLoading(false)};
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -149,8 +134,7 @@ export const IntegrationStatus: React.FC = () => {
       case "loading":
         return <Clock className="w-5 h-5 text-yellow-400 animate-spin" / key={180477}>;
       default:
-        return <Database className="w-5 h-5 text-gray-400" / key={680506}>;
-    }
+        return <Database className="w-5 h-5 text-gray-400" / key={680506}>}
   };
 
   const getStatusBg = (status: string) => {
@@ -162,8 +146,7 @@ export const IntegrationStatus: React.FC = () => {
       case "loading":
         return "bg-yellow-500/10 border-yellow-500/30";
       default:
-        return "bg-gray-500/10 border-gray-500/30";
-    }
+        return "bg-gray-500/10 border-gray-500/30"}
   };
 
   const overallStatus = statuses.every((s) => s.status === "success")
@@ -189,8 +172,7 @@ export const IntegrationStatus: React.FC = () => {
                 ? "bg-green-500/20 text-green-400"
                 : overallStatus === "partial"
                   ? "bg-yellow-500/20 text-yellow-400"
-                  : "bg-red-500/20 text-red-400"
-            }`}
+                  : "bg-red-500/20 text-red-400"}`}
            key={418177}>
             {overallStatus === "success"
               ? "✅ All Systems Operational"
@@ -217,9 +199,9 @@ export const IntegrationStatus: React.FC = () => {
         {statuses.map((item, index) => (
           <motion.div;
             key={item.name}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
+            initial={{ opacity: 0, y: 20}}
+            animate={{ opacity: 1, y: 0}}
+            transition={{ delay: index * 0.1}}
             className={`p-4 rounded-lg border backdrop-blur-sm ${getStatusBg(item.status)}`}
            key={850864}>
             <div className="flex items-center justify-between mb-3" key={56204}>
@@ -362,7 +344,11 @@ export const IntegrationStatus: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )};
 
 export default IntegrationStatus;
+
+
+
+
+`

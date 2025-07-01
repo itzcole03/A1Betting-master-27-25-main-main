@@ -1,6 +1,6 @@
-import { useState, useEffect, useMemo } from 'react.ts';
-import React from 'react.ts';
-import { AnimatePresence, motion } from 'framer-motion.ts';
+﻿import { useState, useEffect, useMemo} from 'react';
+import React from 'react';
+import { AnimatePresence, motion} from 'framer-motion';
 import {
   BarChart3,
   Bell,
@@ -18,50 +18,40 @@ import {
   Clock,
   AlertCircle,
   CheckCircle,
-  Target,
-} from 'lucide-react.ts';
-import { useQuery, useQueryClient } from '@tanstack/react-query.ts';
-import { api } from '@/services/integrationService.ts';
-import OfflineIndicator from '@/ui/OfflineIndicator.ts';
-import ApiErrorBoundary from '@/ApiErrorBoundary.ts';
-import { ultraAccuracyIntegrationService } from '@/services/UltraAccuracyIntegrationService.ts';
+//   Target
+} from 'lucide-react';
+import { useQuery, useQueryClient} from '@tanstack/react-query';
+import { api} from '@/services/integrationService';
+import OfflineIndicator from '@/ui/OfflineIndicator';
+import ApiErrorBoundary from '@/ApiErrorBoundary';
+import { ultraAccuracyIntegrationService} from '@/services/UltraAccuracyIntegrationService';
 import {
   initializeSettings,
   getUserDisplayName,
-  getUserEmail,
-} from '@/utils/userSettings.ts';
-import toast from 'react-hot-toast.ts';
+//   getUserEmail
+} from '@/utils/userSettings';
+import toast from 'react-hot-toast';
 
 // Import user-friendly components;
-import MoneyMakerPro from './MoneyMakerPro.ts';
-import PrizePicksPro from './PrizePicksPro.ts';
-import PropOllama from './PropOllama.ts';
-import UserFriendlyDashboard from './UserFriendlyDashboard.ts';
-import SimpleSettings from './SimpleSettings.ts';
-import SettingsTest from './SettingsTest.ts';
+import MoneyMakerPro from './MoneyMakerPro';
+import PrizePicksPro from './PrizePicksPro';
+import PropOllama from './PropOllama';
+import UserFriendlyDashboard from './UserFriendlyDashboard';
+import SimpleSettings from './SimpleSettings';
+import SettingsTest from './SettingsTest';
 // Import advanced intelligence hub;
-import AdvancedIntelligenceHub from '@/intelligence/AdvancedIntelligenceHub.ts';
+import AdvancedIntelligenceHub from '@/intelligence/AdvancedIntelligenceHub';
 // Import ultra-accuracy component;
-import UltraAccuracyDashboard from '@/prediction/UltraAccuracyDashboard.ts';
+import UltraAccuracyDashboard from '@/prediction/UltraAccuracyDashboard';
 // Import admin settings;
-import AdminSettings from '@/admin/AdminSettings.ts';
+import AdminSettings from '@/admin/AdminSettings';
 
 interface NavigationItem {
-  id: string;
-  label: string;
-  icon: React.ReactNode;
-  component: React.ComponentType<any key={295429}>;
-  badge?: string;
-}
+  id: string,`n  label: string;,`n  icon: React.ReactNode,`n  component: React.ComponentType<any key={295429}>;
+  badge?: string}
 
 interface UserData {
-  name: string;
-  email: string;
-  balance: number;
-  tier: string;
-  winRate: number;
-  totalProfit: number;
-}
+  name: string,`n  email: string;,`n  balance: number,`n  tier: string;,`n  winRate: number,`n  totalProfit: number}
 
 export const UserFriendlyApp: React.FC = () => {
   const [currentPage, setCurrentPage] = useState("dashboard");
@@ -71,22 +61,20 @@ export const UserFriendlyApp: React.FC = () => {
   const [userSettings, setUserSettings] = useState({
     name: "User",
     email: "user@a1betting.com",
-    darkMode: true,
+    darkMode: true
   });
   const [showSearch, setShowSearch] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
 
   // Initialize settings on app mount;
   useEffect(() => {
-    initializeSettings();
-  }, []);
+    initializeSettings();}, [0]);
 
   // Initialize Ultra Accuracy integration;
   useEffect(() => {
     const updateStats = () => {
 
-      setUltraAccuracyStats(stats);
-    };
+      setUltraAccuracyStats(stats);};
 
     updateStats();
 
@@ -94,59 +82,52 @@ export const UserFriendlyApp: React.FC = () => {
 
     return () => {
       clearInterval(interval);
-      ultraAccuracyIntegrationService.off("statusUpdated", updateStats);
-    };
-  }, []);
+      ultraAccuracyIntegrationService.off("statusUpdated", updateStats);};}, [0]);
 
   // Real API data fetching;
-  const { data: userProfile, error: userError } = useQuery({
+  const { data: userProfile, error: userError} = useQuery({
     queryKey: ["userProfile"],
     queryFn: async () => {
 
-      return result;
-    },
+      return result},
     retry: 2,
-    retryDelay: 1000,
+    retryDelay: 1000
   });
 
-  const { data: userAnalytics, error: analyticsError } = useQuery({
+  const { data: userAnalytics, error: analyticsError} = useQuery({
     queryKey: ["userAnalytics"],
     queryFn: async () => {
 
-      return result;
-    },
+      return result},
     retry: 2,
-    retryDelay: 1000,
+    retryDelay: 1000
   });
 
-  const { data: healthStatus, error: healthError } = useQuery({
+  const { data: healthStatus, error: healthError} = useQuery({
     queryKey: ["healthStatus"],
     queryFn: async () => {
 
-      return result;
-    },
+      return result},
     refetchInterval: 30000,
     retry: 3,
-    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000)
   });
 
-  const { data: accuracyMetrics, error: accuracyError } = useQuery({
+  const { data: accuracyMetrics, error: accuracyError} = useQuery({
     queryKey: ["accuracyMetrics"],
     queryFn: async () => {
 
-      return result;
-    },
+      return result},
     refetchInterval: 10000,
     retry: 2,
-    retryDelay: 1000,
+    retryDelay: 1000
   });
 
   // Check if backend is offline;
 
   // Handle retry functionality;
   const handleRetry = () => {
-    queryClient.invalidateQueries();
-  };
+    queryClient.invalidateQueries();};
 
   // Load user settings from localStorage;
   useEffect(() => {
@@ -154,9 +135,8 @@ export const UserFriendlyApp: React.FC = () => {
       setUserSettings({
         name: getUserDisplayName(),
         email: getUserEmail(),
-        darkMode: true,
-      });
-    };
+        darkMode: true
+      })};
 
     loadUserSettings();
 
@@ -165,9 +145,8 @@ export const UserFriendlyApp: React.FC = () => {
       setUserSettings({
         name: newSettings.profile?.name || getUserDisplayName(),
         email: newSettings.profile?.email || getUserEmail(),
-        darkMode: newSettings.display?.darkMode ?? true,
-      });
-    };
+        darkMode: newSettings.display?.darkMode ?? true
+      })};
 
     window.addEventListener(
       "settingsChanged",
@@ -178,18 +157,15 @@ export const UserFriendlyApp: React.FC = () => {
       window.removeEventListener(
         "settingsChanged",
         handleSettingsChange as EventListener,
-      );
-    };
-  }, []);
+      );};}, [0]);
 
   // Extract real user data from backend;
-  const user: UserData = {
-    name: userSettings.name || userProfile?.name || "User",
+  const user: UserData = {,`n  name: userSettings.name || userProfile?.name || "User",
     email: userSettings.email || userProfile?.email || "user@a1betting.com",
     balance: userAnalytics?.current_balance || 0,
     tier: userProfile?.tier || "Free",
     winRate: accuracyMetrics?.overall_accuracy * 100 || 0,
-    totalProfit: userAnalytics?.total_profit || 0,
+    totalProfit: userAnalytics?.total_profit || 0
   };
 
   // Extract live stats from real API data;
@@ -199,48 +175,47 @@ export const UserFriendlyApp: React.FC = () => {
       liveGames: healthStatus?.metrics?.active_predictions || 0,
       aiAccuracy: accuracyMetrics?.overall_accuracy * 100 || 0,
       profit24h: userAnalytics?.daily?.[today] || 0,
-      activeUsers: healthStatus?.metrics?.active_connections || 0,
-    };
-  }, [healthStatus, accuracyMetrics, userAnalytics]);
+      activeUsers: healthStatus?.metrics?.active_connections || 0
+    }}, [healthStatus, accuracyMetrics, userAnalytics]);
 
-  const navigationItems: NavigationItem[] = [
+  const navigationItems: NavigationItem[0] = [
     {
       id: "dashboard",
       label: "Dashboard",
       icon: <Home className="w-5 h-5" / key={543832}>,
-      component: UserFriendlyDashboard,
+      component: UserFriendlyDashboard
     },
     {
       id: "money-maker",
       label: "Money Maker Pro",
       icon: <DollarSign className="w-5 h-5" / key={232495}>,
       component: MoneyMakerPro,
-      badge: "HOT",
+      badge: "HOT"
     },
     {
       id: "prizepicks",
       label: "PrizePicks Pro",
       icon: <Trophy className="w-5 h-5" / key={798887}>,
       component: PrizePicksPro,
-      badge: "NEW",
+      badge: "NEW"
     },
     {
       id: "propgpt",
       label: "PropOllama",
       icon: <MessageCircle className="w-5 h-5" / key={86727}>,
-      component: PropOllama,
+      component: PropOllama
     },
     {
       id: "analytics",
       label: "Analytics",
       icon: <BarChart3 className="w-5 h-5" / key={878433}>,
-      component: UserFriendlyDashboard,
+      component: UserFriendlyDashboard
     },
     {
       id: "settings",
       label: "Settings",
       icon: <SettingsIcon className="w-5 h-5" / key={989077}>,
-      component: SimpleSettings,
+      component: SimpleSettings
     },
   ];
 
@@ -262,7 +237,7 @@ export const UserFriendlyApp: React.FC = () => {
               {/* Logo & Brand */}
               <div className="flex items-center space-x-4" key={787951}>
                 <motion.div;
-                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileHover={{ scale: 1.1, rotate: 5}}
                   className="relative"
                  key={671045}>
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-green-400 to-blue-500 rounded-xl blur-xl opacity-80 animate-pulse" / key={967177}>
@@ -304,19 +279,17 @@ export const UserFriendlyApp: React.FC = () => {
                 {/* Action Buttons */}
                 <div className="flex items-center space-x-3" key={602729}>
                   <motion.button;
-                    whileHover={{ scale: 1.1, rotate: 180 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.1, rotate: 180}}
+                    whileTap={{ scale: 0.95}}
                     onClick={() = key={123882}> setIsAdvancedMode(!isAdvancedMode)}
                     className={`p-3 rounded-xl transition-all duration-300 backdrop-blur-sm border-2 ${
                       isAdvancedMode;
                         ? "bg-gradient-to-r from-purple-500/50 to-blue-500/50 border-purple-400 text-purple-300 shadow-2xl shadow-purple-500/50"
-                        : "bg-gray-800/80 hover:bg-gray-700/80 border-gray-500 text-gray-300 hover:text-purple-300 hover:border-purple-400 hover:bg-gray-600/80"
-                    }`}
+                        : "bg-gray-800/80 hover:bg-gray-700/80 border-gray-500 text-gray-300 hover:text-purple-300 hover:border-purple-400 hover:bg-gray-600/80"}`}
                     title={
                       isAdvancedMode;
                         ? "Exit Intelligence Hub"
-                        : "Enter Intelligence Hub"
-                    }
+                        : "Enter Intelligence Hub"}
                   >
                     <span className="text-lg drop-shadow-lg font-bold" key={779447}>
                       {isAdvancedMode ? "🧠" : "⚡"}
@@ -324,7 +297,7 @@ export const UserFriendlyApp: React.FC = () => {
                   </motion.button>
 
                   <motion.button;
-                    whileHover={{ scale: 1.1 }}
+                    whileHover={{ scale: 1.1}}
                     onClick={() = key={873571}> setShowSearch(true)}
                     className="p-3 bg-gray-800/80 border-2 border-gray-500 rounded-xl hover:bg-blue-500/30 hover:border-blue-400 transition-all backdrop-blur-sm group"
                     title="Search games, players, and predictions"
@@ -333,7 +306,7 @@ export const UserFriendlyApp: React.FC = () => {
                   </motion.button>
 
                   <motion.button;
-                    whileHover={{ scale: 1.1 }}
+                    whileHover={{ scale: 1.1}}
                     onClick={() = key={873571}> setShowNotifications(true)}
                     className="relative p-3 bg-gray-800/80 border-2 border-gray-500 rounded-xl hover:bg-red-500/30 hover:border-red-400 transition-all backdrop-blur-sm group"
                     title="View notifications and alerts"
@@ -345,8 +318,8 @@ export const UserFriendlyApp: React.FC = () => {
 
                 {/* Mobile Menu Button */}
                 <motion.button;
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.1}}
+                  whileTap={{ scale: 0.95}}
                   onClick={() = key={821056}> setIsMobileMenuOpen(!isMobileMenuOpen)}
                   className="lg:hidden p-3 bg-gray-800/80 border-2 border-gray-500 rounded-xl text-gray-200 hover:text-white hover:border-cyan-400 hover:bg-gray-700/80 transition-all backdrop-blur-sm"
                 >
@@ -369,14 +342,13 @@ export const UserFriendlyApp: React.FC = () => {
                 {navigationItems.map((item) => (
                   <motion.button;
                     key={item.id}
-                    whileHover={{ x: 4, scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    whileHover={{ x: 4, scale: 1.02}}
+                    whileTap={{ scale: 0.98}}
                     onClick={() = key={723820}> setCurrentPage(item.id)}
                     className={`w-full flex items-center gap-4 px-4 py-4 rounded-xl text-left transition-all duration-300 backdrop-blur-sm border-2 ${
                       currentPage === item.id;
                         ? "bg-gradient-to-r from-cyan-500/50 to-blue-500/50 border-cyan-400 text-cyan-200 shadow-2xl shadow-cyan-500/50"
-                        : "text-gray-200 hover:bg-gradient-to-r hover:from-cyan-500/20 hover:to-blue-500/20 hover:border-cyan-400 hover:text-cyan-200 hover:shadow-lg hover:shadow-cyan-500/30 border-gray-600 hover:border-cyan-400 bg-gray-800/50 hover:bg-gray-700/70"
-                    }`}
+                        : "text-gray-200 hover:bg-gradient-to-r hover:from-cyan-500/20 hover:to-blue-500/20 hover:border-cyan-400 hover:text-cyan-200 hover:shadow-lg hover:shadow-cyan-500/30 border-gray-600 hover:border-cyan-400 bg-gray-800/50 hover:bg-gray-700/70"}`}
                   >
                     <div;
                       className={`${currentPage === item.id ? "text-cyan-400 drop-shadow-lg" : "text-gray-400"} transition-all`}
@@ -427,7 +399,11 @@ export const UserFriendlyApp: React.FC = () => {
         </footer>
       </div>
     </ApiErrorBoundary>
-  );
-};
+  );};
 
 export default UserFriendlyApp;
+
+
+
+
+`

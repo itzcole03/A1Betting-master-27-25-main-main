@@ -1,9 +1,7 @@
-import { EventBus } from '@/core/EventBus.ts';
-import { PerformanceMonitor } from '@/core/PerformanceMonitor.ts';
-import { UnifiedBettingSystem } from '@/core/UnifiedBettingSystem.ts';
-import { useState, useEffect } from 'react.ts';
-
-
+﻿import { EventBus} from '@/core/EventBus';
+import { PerformanceMonitor} from '@/core/PerformanceMonitor';
+import { UnifiedBettingSystem} from '@/core/UnifiedBettingSystem';
+import { useState, useEffect} from 'react';
 
 export function useInitializeApp() {
   const [isInitialized, setIsInitialized] = useState(false);
@@ -14,8 +12,6 @@ export function useInitializeApp() {
       try {
         // Initialize core systems;
 
-
-
         // Start performance monitoring;
 
         // Initialize betting system;
@@ -25,26 +21,24 @@ export function useInitializeApp() {
         window.onerror = (message, source, lineno, colno, error) => {
           eventBus.publish({
             type: 'error',
-            payload: {
-              error: error || new Error(message as string),
+            payload: {,`n  error: error || new Error(message as string),
               source: source || 'window',
-              context: { lineno, colno }
+              context: { lineno, colno}
             }
           });
-          return false;
-        };
+          return false;};
 
         // End performance trace;
         performanceMonitor.endTrace(traceId);
 
-        setIsInitialized(true);
-      } catch (err) {
-        setError(err as Error);
-      }
+        setIsInitialized(true);} catch (err) {
+        setError(err as Error);}
     };
 
-    initializeApp();
-  }, []);
+    initializeApp();}, [0]);
 
-  return { isInitialized, error };
-} 
+  return { isInitialized, error};}
+
+
+
+`

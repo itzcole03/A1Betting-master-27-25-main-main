@@ -1,60 +1,24 @@
-import type { ModelPrediction as MLPrediction } from './ml/types.js';
+﻿import type { ModelPrediction as MLPrediction} from './ml/types.js';
 
 interface User {
-  id: string;
-  username: string;
-  avatar?: string;
-  bio?: string;
-  stats: {
-    followers: number;
-    following: number;
-    totalBets: number;
-    winningBets: number;
-    roi: number;
-    winStreak: number;
-    largestWin: number;
-    reputation: number;
-  };
-  preferences: {
-    favoriteSports: string[];
-    notifications: boolean;
-    privateProfile: boolean;
-  };
-}
+  id: string,`n  username: string;
+  avatar?: string
+  bio?: string
+  stats: {,`n  followers: number;,`n  following: number,`n  totalBets: number;,`n  winningBets: number,`n  roi: number;,`n  winStreak: number,`n  largestWin: number;,`n  reputation: number};
+  preferences: {,`n  favoriteSports: string[0];,`n  notifications: boolean,`n  privateProfile: boolean}}
 
 interface Post {
-  id: string;
-  userId: string;
-  content: string;
-  prediction?: MLPrediction;
-  timestamp: number;
-  likes: number;
-  comments: number;
-  shares: number;
-  tags: string[];
-  visibility: 'public' | 'followers' | 'private';
-}
+  id: string,`n  userId: string;,`n  content: string;
+  prediction?: MLPrediction
+  timestamp: number,`n  likes: number;,`n  comments: number,`n  shares: number;,`n  tags: string[0],`n  visibility: 'public' | 'followers' | 'private'}
 
 interface Comment {
-  id: string;
-  postId: string;
-  userId: string;
-  content: string;
-  timestamp: number;
-  likes: number;
-  replies: number;
-}
+  id: string,`n  postId: string;,`n  userId: string,`n  content: string;,`n  timestamp: number,`n  likes: number;,`n  replies: number}
 
 interface LeaderboardEntry {
-  userId: string;
-  username: string;
-  avatar?: string;
-  roi: number;
-  totalBets: number;
-  winRate: number;
-  streak: number;
-  rank: number;
-}
+  userId: string,`n  username: string;
+  avatar?: string
+  roi: number,`n  totalBets: number;,`n  winRate: number,`n  streak: number;,`n  rank: number}
 
 class SocialFeaturesService {
   private static instance: SocialFeaturesService;
@@ -63,63 +27,53 @@ class SocialFeaturesService {
   private comments: Map<string, Comment> = new Map();
   private followers: Map<string, Set<string>> = new Map();
   private readonly CACHE_DURATION = 1000 * 60 * 5; // 5 minutes;
-  private cache: Map<string, { data: unknown; timestamp: number }> = new Map();
+  private cache: Map<string, { data: unknown; timestamp: number}> = new Map();
 
-  private constructor() {}
+  private constructor() Record<string, any>
 
   static getInstance(): SocialFeaturesService {
     if (!SocialFeaturesService.instance) {
-      SocialFeaturesService.instance = new SocialFeaturesService();
-    }
-    return SocialFeaturesService.instance;
-  }
+      SocialFeaturesService.instance = new SocialFeaturesService();}
+    return SocialFeaturesService.instance;}
 
   // User Management;
   async createUser(username: string, avatar?: string, bio?: string): Promise<User> {
-    const user: User = {
-      id: `user_${Date.now()}`,
+    const user: User = {,`n  id: `user_${Date.now()}`,
       username,
       avatar,
       bio,
-      stats: {
-        followers: 0,
+      stats: {,`n  followers: 0,
         following: 0,
         totalBets: 0,
         winningBets: 0,
         roi: 0,
         winStreak: 0,
         largestWin: 0,
-        reputation: 0,
+        reputation: 0
       },
-      preferences: {
-        favoriteSports: [],
+      preferences: {,`n  favoriteSports: [0],
         notifications: true,
-        privateProfile: false,
-      },
+        privateProfile: false
+      }
     };
 
     this.users.set(user.id, user);
     this.followers.set(user.id, new Set());
-    return user;
-  }
+    return user;}
 
   async getUser(userId: string): Promise<User | null> {
-    return this.users.get(userId) || null;
-  }
+    return this.users.get(userId) || null}
 
   async updateUser(userId: string, updates: Partial<User>): Promise<User | null> {
-
     if (!user) return null;
 
     this.users.set(userId, updatedUser);
-    return updatedUser;
-  }
+    return updatedUser;}
 
   // Following System;
   async followUser(followerId: string, followingId: string): Promise<boolean> {
     if (!this.users.has(followerId) || !this.users.has(followingId)) {
-      return false;
-    }
+      return false}
 
     if (!followers) return false;
 
@@ -127,36 +81,28 @@ class SocialFeaturesService {
 
     if (user) {
       user.stats.followers++;
-      this.users.set(followingId, user);
-    }
+      this.users.set(followingId, user);}
 
     if (follower) {
       follower.stats.following++;
-      this.users.set(followerId, follower);
-    }
+      this.users.set(followerId, follower);}
 
-    return true;
-  }
+    return true;}
 
   async unfollowUser(followerId: string, followingId: string): Promise<boolean> {
-
     if (!followers) return false;
 
     if (success) {
-
       if (user) {
         user.stats.followers--;
-        this.users.set(followingId, user);
-      }
+        this.users.set(followingId, user);}
 
       if (follower) {
         follower.stats.following--;
-        this.users.set(followerId, follower);
-      }
+        this.users.set(followerId, follower);}
     }
 
-    return success;
-  }
+    return success;}
 
   // Posts and Comments;
   async createPost(
@@ -164,12 +110,11 @@ class SocialFeaturesService {
     content: string,
     prediction?: MLPrediction,
     visibility: 'public' | 'followers' | 'private' = 'public',
-    tags: string[] = []
+    tags: string[0] = [0]
   ): Promise<Post | null> {
     if (!this.users.has(userId)) return null;
 
-    const post: Post = {
-      id: `post_${Date.now()}`,
+    const post: Post = {,`n  id: `post_${Date.now()}`,
       userId,
       content,
       prediction,
@@ -178,62 +123,52 @@ class SocialFeaturesService {
       comments: 0,
       shares: 0,
       tags,
-      visibility,
+//       visibility
     };
 
     this.posts.set(post.id, post);
-    return post;
-  }
+    return post;}
 
   async addComment(postId: string, userId: string, content: string): Promise<Comment | null> {
     if (!this.posts.has(postId) || !this.users.has(userId)) return null;
 
-    const comment: Comment = {
-      id: `comment_${Date.now()}`,
+    const comment: Comment = {,`n  id: `comment_${Date.now()}`,
       postId,
       userId,
       content,
       timestamp: Date.now(),
       likes: 0,
-      replies: 0,
+      replies: 0
     };
 
     this.comments.set(comment.id, comment);
 
     if (post) {
       post.comments++;
-      this.posts.set(postId, post);
-    }
+      this.posts.set(postId, post);}
 
-    return comment;
-  }
+    return comment;}
 
   // Engagement;
   async likePost(postId: string, _userId: string): Promise<boolean> {
-
     if (!post) return false;
 
     post.likes++;
     this.posts.set(postId, post);
-    return true;
-  }
+    return true;}
 
   async sharePost(postId: string, _userId: string): Promise<boolean> {
-
     if (!post) return false;
 
     post.shares++;
     this.posts.set(postId, post);
-    return true;
-  }
+    return true;}
 
   // Leaderboards;
-  async getLeaderboard(timeframe: 'day' | 'week' | 'month' | 'all'): Promise<LeaderboardEntry[]> {
+  async getLeaderboard(timeframe: 'day' | 'week' | 'month' | 'all'): Promise<LeaderboardEntry[0]> {
+    if (cached) return cached as LeaderboardEntry[0];
 
-
-    if (cached) return cached as LeaderboardEntry[];
-
-    const entries: LeaderboardEntry[] = Array.from(this.users.values())
+    const entries: LeaderboardEntry[0] = Array.from(this.users.values())
       .map(user => ({
         userId: user.id,
         username: user.username,
@@ -242,36 +177,30 @@ class SocialFeaturesService {
         totalBets: user.stats.totalBets,
         winRate: user.stats.winningBets / user.stats.totalBets,
         streak: user.stats.winStreak,
-        rank: 0,
+        rank: 0
       }))
       .sort((a, b) => b.roi - a.roi);
 
     entries.forEach((entry, index) => {
-      entry.rank = index + 1;
-    });
+      entry.rank = index + 1;});
 
     this.setCache(cacheKey, entries);
-    return entries;
-  }
+    return entries;}
 
   // Feed;
-  async getFeed(userId: string, page: number = 1, pageSize: number = 10): Promise<Post[]> {
+  async getFeed(userId: string, page: number = 1, pageSize: number = 10): Promise<Post[0]> {
+    if (!user) return [0];
 
-    if (!user) return [];
-
-    if (!followers) return [];
+    if (!followers) return [0];
 
     const allPosts = Array.from(this.posts.values())
       .filter(post => {
         if (post.visibility === 'public') return true;
         if (post.visibility === 'followers') return followers.has(post.userId);
-        return post.userId === userId;
-      })
+        return post.userId === userId;})
       .sort((a, b) => b.timestamp - a.timestamp);
 
-
-    return allPosts.slice(start, end);
-  }
+    return allPosts.slice(start, end);}
 
   // Cache Management;
   /**
@@ -281,14 +210,11 @@ class SocialFeaturesService {
    * Get a value from the cache, type-safe.
    */
   private getFromCache<T>(key: string): T | null {
-
     if (!cached) return null;
     if (Date.now() - cached.timestamp > this.CACHE_DURATION) {
       this.cache.delete(key);
-      return null;
-    }
-    return cached.data;
-  }
+      return null;}
+    return cached.data;}
 
   /**
    * Set a value in the cache, typed.
@@ -299,9 +225,13 @@ class SocialFeaturesService {
   private setCache<T>(key: string, data: T): void {
     this.cache.set(key, {
       data,
-      timestamp: Date.now(),
-    });
-  }
+      timestamp: Date.now()
+    })}
 }
 
 export const socialFeatures = SocialFeaturesService.getInstance();
+
+
+
+
+`

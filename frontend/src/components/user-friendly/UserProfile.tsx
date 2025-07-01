@@ -1,5 +1,5 @@
-import React, { useState, useEffect  } from 'react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+﻿import React, { useState, useEffect} from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
 import {
   User,
   Settings,
@@ -24,43 +24,24 @@ import {
   Crown,
   Star,
   Medal,
-  Flame,
-} from 'lucide-react.ts';
-import toast from 'react-hot-toast.ts';
-import { getUserDisplayName, getUserEmail } from '@/utils/userSettings.ts';
+//   Flame
+} from 'lucide-react';
+import toast from 'react-hot-toast';
+import { getUserDisplayName, getUserEmail} from '@/utils/userSettings';
 
 interface UserProfileProps {
-  onNavigate: (page: string) => void;
-}
+  onNavigate: (page: string) => void}
 
 interface UserStats {
-  totalProfit: number;
-  winRate: number;
-  totalBets: number;
-  avgROI: number;
-  currentStreak: number;
-  longestStreak: number;
-  accuracy: number;
-  sharpeRatio: number;
-}
+  totalProfit: number,`n  winRate: number;,`n  totalBets: number,`n  avgROI: number;,`n  currentStreak: number,`n  longestStreak: number;,`n  accuracy: number,`n  sharpeRatio: number}
 
 interface Achievement {
-  id: string;
-  title: string;
-  description: string;
-  icon: string;
-  unlockedDate: string;
-  rarity: "common" | "rare" | "legendary";
-}
+  id: string,`n  title: string;,`n  description: string,`n  icon: string;,`n  unlockedDate: string,`n  rarity: "common" | "rare" | "legendary"}
 
 interface RiskProfile {
-  type: "conservative" | "moderate" | "aggressive";
-  maxStake: number;
-  maxExposure: number;
-  kellyFraction: number;
-}
+  type: "conservative" | "moderate" | "aggressive",`n  maxStake: number;,`n  maxExposure: number,`n  kellyFraction: number}
 
-const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) => {
+const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [activeTab, setActiveTab] = useState<
     "overview" | "stats" | "achievements" | "risk"
@@ -75,7 +56,7 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
     memberSince: "2023-01-15",
     tier: "Ultimate Brain Pro",
     avatar: null as string | null,
-    verified: true,
+    verified: true
   });
 
   const [editedData, setEditedData] = useState(userData);
@@ -88,17 +69,17 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
     currentStreak: 12,
     longestStreak: 28,
     accuracy: 87.2,
-    sharpeRatio: 2.45,
+    sharpeRatio: 2.45
   });
 
-  const [achievements] = useState<Achievement[] key={100729}>([
+  const [achievements] = useState<Achievement[0] key={100729}>([
     {
       id: "1",
       title: "Ultimate Brain Pioneer",
       description: "First 100 users to activate Ultimate Brain AI",
       icon: "🧠",
       unlockedDate: "2024-01-15",
-      rarity: "legendary",
+      rarity: "legendary"
     },
     {
       id: "2",
@@ -106,7 +87,7 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
       description: "Achieved $50k+ in total profits",
       icon: "💰",
       unlockedDate: "2024-12-20",
-      rarity: "rare",
+      rarity: "rare"
     },
     {
       id: "3",
@@ -114,7 +95,7 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
       description: "Maintained 85%+ win rate for 30 days",
       icon: "🎯",
       unlockedDate: "2024-12-15",
-      rarity: "rare",
+      rarity: "rare"
     },
     {
       id: "4",
@@ -122,7 +103,7 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
       description: "25+ consecutive winning bets",
       icon: "🔥",
       unlockedDate: "2024-12-10",
-      rarity: "legendary",
+      rarity: "legendary"
     },
     {
       id: "5",
@@ -130,7 +111,7 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
       description: "Used PropOllama AI for 100+ predictions",
       icon: "🤖",
       unlockedDate: "2024-12-05",
-      rarity: "common",
+      rarity: "common"
     },
     {
       id: "6",
@@ -138,7 +119,7 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
       description: "Perfect bankroll management for 90 days",
       icon: "🛡️",
       unlockedDate: "2024-11-30",
-      rarity: "rare",
+      rarity: "rare"
     },
   ]);
 
@@ -146,34 +127,30 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
     type: "moderate",
     maxStake: 2500,
     maxExposure: 12500,
-    kellyFraction: 0.25,
+    kellyFraction: 0.25
   });
 
   const handleEdit = () => {
     setIsEditing(true);
-    setEditedData(userData);
-  };
+    setEditedData(userData);};
 
   const handleSave = () => {
     setUserData(editedData);
     setIsEditing(false);
     toast.success("Profile updated successfully! 🎉", {
       duration: 3000,
-      icon: "✅",
-    });
-  };
+      icon: "✅"
+    })};
 
   const handleCancel = () => {
     setIsEditing(false);
-    setEditedData(userData);
-  };
+    setEditedData(userData);};
 
   const handleInputChange = (field: string, value: string) => {
     setEditedData((prev) => ({
       ...prev,
-      [field]: value,
-    }));
-  };
+      [field]: value
+    }))};
 
   const handleAvatarUpload = (event: React.ChangeEvent<HTMLInputElement key={553350}>) => {
 
@@ -182,11 +159,9 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
       reader.onloadend = () => {
         setEditedData((prev) => ({
           ...prev,
-          avatar: reader.result as string,
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
+          avatar: reader.result as string
+        }))};
+      reader.readAsDataURL(file);}
   };
 
   const getRarityColor = (rarity: Achievement["rarity"]) => {
@@ -197,9 +172,7 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
         return "from-purple-400 to-blue-500";
       case "common":
         return "from-gray-400 to-gray-600";
-      default:
-        return "from-gray-400 to-gray-600";
-    }
+      default: return "from-gray-400 to-gray-600"}
   };
 
   const getRarityBorder = (rarity: Achievement["rarity"]) => {
@@ -210,22 +183,20 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
         return "border-purple-500/50";
       case "common":
         return "border-gray-500/50";
-      default:
-        return "border-gray-500/50";
-    }
+      default: return "border-gray-500/50"}
   };
 
   return (
     <motion.div;
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 20}}
+      animate={{ opacity: 1, y: 0}}
       className="max-w-6xl mx-auto space-y-6"
      key={72559}>
       {/* Header */}
       <div className="text-center mb-8" key={490373}>
         <motion.h1;
-          initial={{ scale: 0.9 }}
-          animate={{ scale: 1 }}
+          initial={{ scale: 0.9}}
+          animate={{ scale: 1}}
           className="text-4xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-3"
          key={536372}>
           👤 Ultimate Profile;
@@ -237,8 +208,8 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
 
       {/* Profile Header Card */}
       <motion.div;
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0, scale: 0.95}}
+        animate={{ opacity: 1, scale: 1}}
         className="bg-gray-900/80 backdrop-blur-xl border border-cyan-500/20 rounded-2xl p-8"
        key={992934}>
         <div className="flex flex-col lg:flex-row items-center gap-8" key={786044}>
@@ -318,8 +289,7 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
                       type="text"
                       value={editedData.location}
                       onChange={(e) = key={340117}>
-                        handleInputChange("location", e.target.value)
-                      }
+                        handleInputChange("location", e.target.value)}
                       className="bg-transparent border-b border-gray-500 focus:outline-none text-sm"
                     />
                   ) : (
@@ -407,10 +377,10 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
       <div className="flex justify-center" key={263353}>
         <div className="bg-gray-900/60 backdrop-blur-xl rounded-xl p-2 flex gap-2" key={353905}>
           {[
-            { id: "overview", label: "Overview", icon: BarChart3 },
-            { id: "stats", label: "Statistics", icon: TrendingUp },
-            { id: "achievements", label: "Achievements", icon: Trophy },
-            { id: "risk", label: "Risk Profile", icon: Shield },
+            { id: "overview", label: "Overview", icon: BarChart3},
+            { id: "stats", label: "Statistics", icon: TrendingUp},
+            { id: "achievements", label: "Achievements", icon: Trophy},
+            { id: "risk", label: "Risk Profile", icon: Shield},
           ].map((tab) => {
 
             return (
@@ -420,14 +390,12 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
                   activeTab === tab.id;
                     ? "bg-cyan-500 text-white"
-                    : "text-gray-400 hover:text-white hover:bg-gray-800/60"
-                }`}
+                    : "text-gray-400 hover: text-white hover:bg-gray-800/60"}`}
               >
                 <IconComponent className="w-4 h-4" / key={564446}>
                 {tab.label}
               </button>
-            );
-          })}
+            )})}
         </div>
       </div>
 
@@ -435,10 +403,10 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
       <AnimatePresence mode="wait" key={725119}>
         <motion.div;
           key={activeTab}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
+          initial={{ opacity: 0, y: 20}}
+          animate={{ opacity: 1, y: 0}}
+          exit={{ opacity: 0, y: -20}}
+          transition={{ duration: 0.3}}
          key={178746}>
           {activeTab === "overview" && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" key={765662}>
@@ -448,35 +416,35 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
                   label: "Total Profit",
                   value: `$${stats.totalProfit.toLocaleString()}`,
                   color: "green",
-                  change: "+12.3%",
+                  change: "+12.3%"
                 },
                 {
                   icon: TrendingUp,
                   label: "Win Rate",
                   value: `${stats.winRate}%`,
                   color: "cyan",
-                  change: "+2.1%",
+                  change: "+2.1%"
                 },
                 {
                   icon: Target,
                   label: "Accuracy",
                   value: `${stats.accuracy}%`,
                   color: "purple",
-                  change: "+1.5%",
+                  change: "+1.5%"
                 },
                 {
                   icon: Flame,
                   label: "Current Streak",
                   value: `${stats.currentStreak}`,
                   color: "orange",
-                  change: "🔥",
+                  change: "🔥"
                 },
               ].map((stat, index) => (
                 <motion.div;
                   key={stat.label}
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: index * 0.1 }}
+                  initial={{ scale: 0.9, opacity: 0}}
+                  animate={{ scale: 1, opacity: 1}}
+                  transition={{ delay: index * 0.1}}
                   className="bg-gray-900/60 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6 text-center hover:border-cyan-500/30 transition-colors"
                  key={314908}>
                   <stat.icon;
@@ -510,11 +478,11 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
                     {[
                       {
                         label: "Total Bets",
-                        value: stats.totalBets.toLocaleString(),
+                        value: stats.totalBets.toLocaleString()
                       },
-                      { label: "Average ROI", value: `${stats.avgROI}%` },
-                      { label: "Sharpe Ratio", value: stats.sharpeRatio },
-                      { label: "Longest Streak", value: stats.longestStreak },
+                      { label: "Average ROI", value: `${stats.avgROI}%`},
+                      { label: "Sharpe Ratio", value: stats.sharpeRatio},
+                      { label: "Longest Streak", value: stats.longestStreak},
                     ].map((metric) => (
                       <div;
                         key={metric.label}
@@ -536,10 +504,10 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
                   </h3>
                   <div className="space-y-4" key={160407}>
                     {[
-                      { label: "PropOllama Queries", value: "847" },
-                      { label: "Ultimate Brain Predictions", value: "1,234" },
-                      { label: "AI Accuracy Boost", value: "+15.3%" },
-                      { label: "Automated Bets", value: "156" },
+                      { label: "PropOllama Queries", value: "847"},
+                      { label: "Ultimate Brain Predictions", value: "1,234"},
+                      { label: "AI Accuracy Boost", value: "+15.3%"},
+                      { label: "Automated Bets", value: "156"},
                     ].map((metric) => (
                       <div;
                         key={metric.label}
@@ -562,9 +530,9 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
               {achievements.map((achievement, index) => (
                 <motion.div;
                   key={achievement.id}
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: index * 0.1 }}
+                  initial={{ scale: 0.9, opacity: 0}}
+                  animate={{ scale: 1, opacity: 1}}
+                  transition={{ delay: index * 0.1}}
                   className={`bg-gray-900/60 backdrop-blur-xl border ${getRarityBorder(achievement.rarity)} rounded-xl p-6 hover:scale-105 transition-transform`}
                  key={910664}>
                   <div className="text-center mb-4" key={692984}>
@@ -642,7 +610,10 @@ const UserProfile: React.FC<UserProfileProps key={271614}> = ({ onNavigate }) =>
         </motion.div>
       </AnimatePresence>
     </motion.div>
-  );
-};
+  );};
 
 export default UserProfile;
+
+
+
+`

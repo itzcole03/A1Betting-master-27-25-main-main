@@ -1,4 +1,4 @@
-import React from 'react.ts';
+﻿import React from 'react';
 import {
   Box,
   Card,
@@ -8,34 +8,34 @@ import {
   LinearProgress,
   Chip,
   Tooltip,
-  IconButton,
-} from '@mui/material.ts';
+//   IconButton
+} from '@mui/material';
 import {
   TrendingUp as TrendingUpIcon,
   TrendingDown as TrendingDownIcon,
   AccountBalance as BankrollIcon,
   EmojiEvents as TrophyIcon,
   Timeline as TimelineIcon,
-  Warning as WarningIcon,
-} from '@mui/icons-material.ts';
-import { styled } from '@mui/material/styles.ts';
-import { riskManagement } from '@/services/riskManagement.ts';
+  Warning as WarningIcon
+} from '@mui/icons-material';
+import { styled} from '@mui/material/styles';
+import { riskManagement} from '@/services/riskManagement';
 
-const MetricsCard = styled(Card)(({ theme }) => ({
+const MetricsCard = styled(Card)(({ theme}) => ({
   background: 'rgba(255, 255, 255, 0.9)',
   backdropFilter: 'blur(10px)',
   border: '1px solid rgba(255, 255, 255, 0.2)',
   transition: 'all 0.3s ease',
   '&:hover': {
     transform: 'translateY(-2px)',
-    boxShadow: theme.shadows[4],
-  },
+    boxShadow: theme.shadows[4]
+  }
 }));
 
-const ProgressBar = styled(LinearProgress)(({ theme }) => ({
+const ProgressBar = styled(LinearProgress)(({ theme}) => ({
   height: 8,
   borderRadius: 4,
-  marginTop: theme.spacing(1),
+  marginTop: theme.spacing(1)
 }));
 
 export const BankrollMetrics: React.FC = () => {
@@ -43,20 +43,17 @@ export const BankrollMetrics: React.FC = () => {
 
   const calculateWinRate = () => {
     if (bankroll.totalBets === 0) return 0;
-    return (bankroll.winningBets / bankroll.totalBets) * 100;
-  };
+    return (bankroll.winningBets / bankroll.totalBets) * 100;};
 
   const getRoiColor = (roi: number) => {
     if (roi >= 10) return 'success.main';
     if (roi >= 0) return 'primary.main';
-    return 'error.main';
-  };
+    return 'error.main';};
 
   const getStreakColor = (streak: number) => {
     if (streak >= 5) return 'success.main';
     if (streak >= 3) return 'primary.main';
-    return 'warning.main';
-  };
+    return 'warning.main';};
 
   return (
     <MetricsCard key={263212}>
@@ -140,8 +137,8 @@ export const BankrollMetrics: React.FC = () => {
                 sx={{
                   bgcolor: 'grey.200',
                   '& .MuiLinearProgress-bar': {
-                    bgcolor: calculateWinRate()  key={474272}>= 50 ? 'success.main' : 'error.main',
-                  },
+                    bgcolor: calculateWinRate()  key={474272}>= 50 ? 'success.main' : 'error.main'
+                  }
                 }}
               />
             </Box>
@@ -195,7 +192,7 @@ export const BankrollMetrics: React.FC = () => {
                 bgcolor: 'action.hover',
                 borderRadius: 1,
                 border: '1px solid',
-                borderColor: 'divider',
+                borderColor: 'divider'
               }}
              key={530879}>
               <Typography variant="subtitle1" gutterBottom key={9738}>
@@ -240,5 +237,8 @@ export const BankrollMetrics: React.FC = () => {
         </Grid>
       </CardContent>
     </MetricsCard>
-  );
-}; 
+  );}; 
+
+
+
+

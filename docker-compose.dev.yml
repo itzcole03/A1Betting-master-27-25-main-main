@@ -1,0 +1,61 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: a1betting-postgres-dev
+    environment:
+      POSTGRES_DB: ${A1BETTING_POSTGRES_DB:-a1betting_dev}
+      POSTGRES_USER: ${A1BETTING_POSTGRES_USER:-dev_user}
+      POSTGRES_PASSWORD: ${A1BETTING_POSTGRES_PASSWORD:-dev_password}
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data
+    ports:
+      - "5433:5432" # Use a different port to avoid conflicts with production
+    networks:
+      - a1betting-dev-network
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: a1betting-backend-dev
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://${A1BETTING_POSTGRES_USER:-dev_user}:${A1BETTING_POSTGRES_PASSWORD:-dev_password}@postgres:5432/${A1BETTING_POSTGRES_DB:-a1betting_dev}
+      - ENVIRONMENT=development
+    depends_on:
+      - postgres
+    networks:
+      - a1betting-dev-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development # Use the development stage for hot-reloading
+    container_name: a1betting-frontend-dev
+    volumes:
+      - ./frontend/src:/app/src
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://backend:8000
+    depends_on:
+      - backend
+    networks:
+      - a1betting-dev-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data_dev:
+
+networks:
+  a1betting-dev-network:
+    driver: bridge 

@@ -1,50 +1,33 @@
-import { motion } from 'framer-motion.ts';
+﻿import { motion} from 'framer-motion';
 import {
   TrendingUp,
   TrendingDown,
   Zap,
   Target,
   Brain,
-  AlertTriangle,
-} from 'lucide-react.ts';
-import React from 'react.ts';
-import { Badge } from '@/ui/badge.ts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card.ts';
+//   AlertTriangle
+} from 'lucide-react';
+import React from 'react';
+import { Badge} from '@/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle} from '@/ui/card';
 
 // ============================================================================
 // TYPES & INTERFACES;
 // ============================================================================
 
 export interface StrategyRecommendation {
-  strategyId: string;
-  strategyName: string;
-  confidence: number;
-  expectedReturn: number;
-  riskLevel: "low" | "medium" | "high";
-  recommendation: string;
-  reasoning: string[];
-  data: {
-    winProbability: number;
-    expectedValue: number;
-    kellyFraction: number;
-    sharpeRatio: number;
-    maxDrawdown: number;
-  };
-  timeframe: string;
-  sport: string;
-  lastUpdated: number;
-}
+  strategyId: string,`n  strategyName: string;,`n  confidence: number,`n  expectedReturn: number;,`n  riskLevel: "low" | "medium" | "high",`n  recommendation: string;,`n  reasoning: string[0],`n  data: {,`n  winProbability: number,`n  expectedValue: number;,`n  kellyFraction: number,`n  sharpeRatio: number;,`n  maxDrawdown: number};
+  timeframe: string,`n  sport: string;,`n  lastUpdated: number}
 
 interface Props {
-  recommendations?: StrategyRecommendation[];
-  showDebug?: boolean;
-}
+  recommendations?: StrategyRecommendation[0];
+  showDebug?: boolean}
 
 // ============================================================================
 // DEMO DATA;
 // ============================================================================
 
-const DEMO_RECOMMENDATIONS: StrategyRecommendation[] = [
+const DEMO_RECOMMENDATIONS: StrategyRecommendation[0] = [
   {
     strategyId: "momentum-nba",
     strategyName: "NBA Momentum Strategy",
@@ -58,16 +41,15 @@ const DEMO_RECOMMENDATIONS: StrategyRecommendation[] = [
       "Weather conditions favor offensive play",
       "Key players healthy and in form",
     ],
-    data: {
-      winProbability: 0.67,
+    data: {,`n  winProbability: 0.67,
       expectedValue: 0.125,
       kellyFraction: 0.08,
       sharpeRatio: 1.4,
-      maxDrawdown: 0.15,
+      maxDrawdown: 0.15
     },
     timeframe: "24h",
     sport: "NBA",
-    lastUpdated: Date.now() - 300000,
+    lastUpdated: Date.now() - 300000
   },
   {
     strategyId: "value-nfl",
@@ -82,16 +64,15 @@ const DEMO_RECOMMENDATIONS: StrategyRecommendation[] = [
       "Strong defensive metrics vs opponent weakness",
       "Public betting creating line value",
     ],
-    data: {
-      winProbability: 0.78,
+    data: {,`n  winProbability: 0.78,
       expectedValue: 0.187,
       kellyFraction: 0.12,
       sharpeRatio: 2.1,
-      maxDrawdown: 0.08,
+      maxDrawdown: 0.08
     },
     timeframe: "3 days",
     sport: "NFL",
-    lastUpdated: Date.now() - 600000,
+    lastUpdated: Date.now() - 600000
   },
   {
     strategyId: "arbitrage-mlb",
@@ -106,16 +87,15 @@ const DEMO_RECOMMENDATIONS: StrategyRecommendation[] = [
       "Low capital requirement",
       "Quick execution window",
     ],
-    data: {
-      winProbability: 1.0,
+    data: {,`n  winProbability: 1.0,
       expectedValue: 0.042,
       kellyFraction: 1.0,
       sharpeRatio: Infinity,
-      maxDrawdown: 0.0,
+      maxDrawdown: 0.0
     },
     timeframe: "2h",
     sport: "MLB",
-    lastUpdated: Date.now() - 120000,
+    lastUpdated: Date.now() - 120000
   },
 ];
 
@@ -131,16 +111,13 @@ const getRiskColor = (riskLevel: string) => {
       return "text-yellow-600 bg-yellow-100 border-yellow-200";
     case "high":
       return "text-red-600 bg-red-100 border-red-200";
-    default:
-      return "text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700";
-  }
+    default: return "text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700"}
 };
 
 const getConfidenceColor = (confidence: number) => {
   if (confidence >= 0.8) return "text-green-600";
   if (confidence >= 0.6) return "text-yellow-600";
-  return "text-red-600";
-};
+  return "text-red-600";};
 
 const getSportIcon = (sport: string) => {
   const icons: Record<string, string key={248182}> = {
@@ -148,10 +125,9 @@ const getSportIcon = (sport: string) => {
     NFL: "🏈",
     MLB: "⚾",
     NHL: "🏒",
-    Soccer: "⚽",
+    Soccer: "⚽"
   };
-  return icons[sport] || "🏆";
-};
+  return icons[sport] || "🏆";};
 
 const formatTimeAgo = (timestamp: number) => {
 
@@ -160,18 +136,13 @@ const formatTimeAgo = (timestamp: number) => {
 
   if (minutes < 60) return `${minutes}m ago`;
   if (hours < 24) return `${hours}h ago`;
-  return `${Math.floor(hours / 24)}d ago`;
-};
+  return `${Math.floor(hours / 24)}d ago`;};
 
 // ============================================================================
 // COMPONENTS;
 // ============================================================================
 
-const StrategyCard: React.FC<{
-  recommendation: StrategyRecommendation;
-  index: number;
-  showDebug: boolean;
-}> = ({ recommendation, index, showDebug }) => {
+const StrategyCard: React.FC<{,`n  recommendation: StrategyRecommendation;,`n  index: number,`n  showDebug: boolean}> = ({ recommendation, index, showDebug}) => {
   const {
     strategyName,
     confidence,
@@ -182,14 +153,14 @@ const StrategyCard: React.FC<{
     data,
     timeframe,
     sport,
-    lastUpdated,
+//     lastUpdated
   } = recommendation;
 
   return (
     <motion.div;
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
+      initial={{ opacity: 0, y: 20}}
+      animate={{ opacity: 1, y: 0}}
+      transition={{ delay: index * 0.1, duration: 0.5}}
      key={829941}>
       <Card className="glass-card hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white/80 to-white/60 dark:from-gray-800/80 dark:to-gray-900/60" key={518344}>
         <CardHeader className="pb-3" key={82141}>
@@ -299,8 +270,8 @@ const StrategyCard: React.FC<{
           {/* Advanced Metrics (Debug Mode) */}
           {showDebug && (
             <motion.div;
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
+              initial={{ opacity: 0, height: 0}}
+              animate={{ opacity: 1, height: "auto"}}
               className="border-t border-gray-200 dark:border-gray-700 pt-3 space-y-2"
              key={312433}>
               <div className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2" key={971805}>
@@ -340,15 +311,14 @@ const StrategyCard: React.FC<{
         </CardContent>
       </Card>
     </motion.div>
-  );
-};
+  )};
 
 const EmptyState: React.FC = () => (
   <div className="text-center py-12" key={752807}>
     <motion.div;
-      initial={{ scale: 0.8, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      initial={{ scale: 0.8, opacity: 0}}
+      animate={{ scale: 1, opacity: 1}}
+      transition={{ duration: 0.5}}
      key={269130}>
       <div className="text-6xl mb-4" key={671434}>🧠</div>
       <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2" key={538448}>
@@ -376,23 +346,22 @@ const EmptyState: React.FC = () => (
 // ============================================================================
 
 const UnifiedStrategyEngineDisplay: React.FC<Props key={757196}> = ({
-  recommendations = [],
-  showDebug = false,
+  recommendations = [0],
+  showDebug = false
 }) => {
   // Use demo data if no recommendations provided;
   const displayRecommendations =
     recommendations.length > 0 ? recommendations : DEMO_RECOMMENDATIONS;
 
   if (displayRecommendations.length === 0) {
-    return <EmptyState / key={141903}>;
-  }
+    return <EmptyState / key={141903}>;}
 
   return (
     <div className="space-y-6" key={501869}>
       {/* Header */}
       <motion.div;
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: -20}}
+        animate={{ opacity: 1, y: 0}}
         className="text-center mb-8"
        key={951381}>
         <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent" key={11526}>
@@ -434,9 +403,9 @@ const UnifiedStrategyEngineDisplay: React.FC<Props key={757196}> = ({
 
       {/* Performance Summary */}
       <motion.div;
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
+        initial={{ opacity: 0, y: 20}}
+        animate={{ opacity: 1, y: 0}}
+        transition={{ delay: 0.3, duration: 0.5}}
         className="mt-8"
        key={189381}>
         <Card className="glass-card bg-gradient-to-r from-blue-50/80 to-purple-50/80 dark:from-blue-900/20 dark:to-purple-900/20 border-0" key={243983}>
@@ -479,8 +448,7 @@ const UnifiedStrategyEngineDisplay: React.FC<Props key={757196}> = ({
                 <div className="text-2xl font-bold text-purple-600" key={630773}>
                   {
                     displayRecommendations.filter((r) => r.riskLevel === "low")
-                      .length;
-                  }
+                      .length;}
                 </div>
                 <div className="text-sm text-gray-500 dark:text-gray-400" key={528105}>
                   Low Risk Strategies;
@@ -499,7 +467,11 @@ const UnifiedStrategyEngineDisplay: React.FC<Props key={757196}> = ({
         </Card>
       </motion.div>
     </div>
-  );
-};
+  );};
 
 export default UnifiedStrategyEngineDisplay;
+
+
+
+
+`

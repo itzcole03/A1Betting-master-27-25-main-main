@@ -1,7 +1,8 @@
-import React from 'react.ts';
+﻿import React from 'react.ts';
 interface LoadingSpinnerProps {
-    size?: number;
-    color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
-}
+  size?: number;
+  color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';}
 declare const _default: React.NamedExoticComponent<LoadingSpinnerProps>;
 export default _default;
+
+

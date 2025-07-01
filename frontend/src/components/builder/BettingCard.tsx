@@ -1,15 +1,14 @@
-import React from 'react.ts';
+﻿import React from 'react';
 
 // Custom Betting Card Component (Builder.io removed)
 interface BettingCardProps {
-  title?: string;
-  odds?: string;
-  team1?: string;
-  team2?: string;
-  sport?: string;
-  time?: string;
-  onClick?: () => void;
-}
+  title?: string
+  odds?: string
+  team1?: string
+  team2?: string
+  sport?: string
+  time?: string
+  onClick?: () => void;}
 
 const BettingCard: React.FC<BettingCardProps key={312754}> = ({
   title = "Match Title",
@@ -18,11 +17,11 @@ const BettingCard: React.FC<BettingCardProps key={312754}> = ({
   team2 = "Team B",
   sport = "Football",
   time = "Today 3:00 PM",
-  onClick,
+//   onClick
 }) => {
   return (
     <div;
-      className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 cursor-pointer hover:shadow-lg transition-shadow"
+      className="bg-white dark: bg-gray-800 rounded-lg shadow-md p-4 cursor-pointer hover:shadow-lg transition-shadow"
       onClick={onClick}
      key={821723}>
       <div className="flex justify-between items-center mb-2" key={88839}>
@@ -43,9 +42,13 @@ const BettingCard: React.FC<BettingCardProps key={312754}> = ({
         </div>
       </div>
     </div>
-  );
-};
+  )};
 
 // Builder.io registration completely removed;
 
 export default BettingCard;
+
+
+
+
+

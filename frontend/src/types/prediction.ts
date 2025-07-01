@@ -1,4 +1,4 @@
-export interface ShapValue {
+﻿export interface ShapValue {
   feature: string;
   value: number;
   impact: 'positive' | 'negative';
@@ -32,24 +32,9 @@ export interface Prediction {
 }
 
 export interface PredictionResponse {
-  predictions: Prediction[];
-  metadata: {
-    total: number;
-    page: number;
-    pageSize: number;
-  };
+  prediction: ModelOutput;
+  metrics: PredictionMetrics;
   timestamp: string;
-  eventId: string;
-  odds: {
-    home: number;
-    away: number;
-    draw?: number;
-  };
-  marketMovement: {
-    initial: number;
-    current: number;
-    change: number;
-  };
 }
 
 export interface PredictionError {
@@ -58,21 +43,20 @@ export interface PredictionError {
   details?: unknown;
 }
 
-export interface ModelPrediction;
-  extends Omit<
-    Prediction,
-    | 'id'
-    | 'eventName'
-    | 'sport'
-    | 'betType'
-    | 'odds'
-    | 'recommendedStake'
-    | 'riskLevel'
-    | 'shapValues'
-    | 'modelWeights'
-    | 'features'
-    | 'metadata'
-  > {
+export interface ModelPrediction extends Omit<
+  Prediction,
+  | 'id'
+  | 'eventName'
+  | 'sport'
+  | 'betType'
+  | 'odds'
+  | 'recommendedStake'
+  | 'riskLevel'
+  | 'shapValues'
+  | 'modelWeights'
+  | 'features'
+  | 'metadata'
+> {
   modelName: string;
   prediction: number;
   features: Feature[];
@@ -137,15 +121,6 @@ export interface PredictionState {
   error: string | null;
 }
 
-export interface PredictionConfig {
-  modelType: 'xgboost' | 'lightgbm' | 'catboost' | 'ensemble';
-  features: string[];
-  target: string;
-  threshold: number;
-  confidenceThreshold: number;
-  updateInterval: number;
-}
-
 export interface PredictionMetrics {
   accuracy: number;
   precision: number;
@@ -166,12 +141,6 @@ export interface PredictionRequest {
   selectionId: string;
   features: Record<string, number>;
   config?: Partial<PredictionConfig>;
-}
-
-export interface PredictionResponse {
-  prediction: ModelOutput;
-  metrics: PredictionMetrics;
-  timestamp: string;
 }
 
 export interface PredictionValidation {
@@ -210,12 +179,6 @@ export interface PredictionModel {
   shapValues?: Record<string, number>;
 }
 
-export interface PredictionResponse {
-  prediction: PredictionModel;
-  metrics: ModelMetrics;
-  explanation: PredictionExplanation;
-}
-
 export interface ModelMetrics {
   accuracy: number;
   precision: number;
@@ -244,31 +207,6 @@ export interface PredictionExplanation {
     lineMovement: number;
     bookmakerConsistency: number;
   };
-}
-
-export interface PredictionRequest {
-  eventId: string;
-  sport: string;
-  predictionType: 'win' | 'spread' | 'total';
-  features: Record<string, any>;
-  odds: number;
-  riskProfile?: string;
-}
-
-export interface ModelPerformance {
-  totalPredictions: number;
-  successfulPredictions: number;
-  averageConfidence: number;
-  averageError: number;
-  recentPerformance: number[];
-  lastUpdated: string;
-}
-
-export interface FeatureImportance {
-  feature: string;
-  importance: number;
-  reliability: number;
-  lastUpdated: string;
 }
 
 export interface RiskProfile {

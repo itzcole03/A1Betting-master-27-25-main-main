@@ -1,25 +1,10 @@
-import React, { useState, useEffect  } from 'react.ts';
-import axios from 'axios.ts';
+﻿import React, { useState, useEffect} from 'react'
+import axios from 'axios'
 
 interface ArbitrageOpportunity {
-  id: string;
-  sport: string;
-  event: string;
-  market: string;
-  bookmaker1: {
-    name: string;
-    odds: number;
-    stake: number;
-  };
-  bookmaker2: {
-    name: string;
-    odds: number;
-    stake: number;
-  };
-  profit: number;
-  profitPercentage: number;
-  expiresAt: string;
-}
+  id: string,`n  sport: string;,`n  event: string,`n  market: string;,`n  bookmaker1: {,`n  name: string;,`n  odds: number,`n  stake: number};
+  bookmaker2: {,`n  name: string;,`n  odds: number,`n  stake: number};
+  profit: number,`n  profitPercentage: number;,`n  expiresAt: string}
 
 /**
  * ArbitragePage integrates with the backend API to fetch and display arbitrage opportunities.
@@ -28,8 +13,8 @@ interface ArbitrageOpportunity {
  */
 const ArbitragePage: React.FC = () => {
   const [minProfit, setMinProfit] = useState<number key={430559}>(10);
-  const [selectedSports, setSelectedSports] = useState<string[] key={530032}>(['NBA', 'NFL', 'MLB']);
-  const [opportunities, setOpportunities] = useState<ArbitrageOpportunity[] key={128378}>([]);
+  const [selectedSports, setSelectedSports] = useState<string[0] key={530032}>(['NBA', 'NFL', 'MLB']);
+  const [opportunities, setOpportunities] = useState<ArbitrageOpportunity[0] key={128378}>([0]);
   const [loading, setLoading] = useState<boolean key={575407}>(true);
   const [error, setError] = useState<string | null key={121216}>(null);
 
@@ -41,23 +26,17 @@ const ArbitragePage: React.FC = () => {
       try {
         // @ts-expect-error: workaround for axios type issue;
 
-        setOpportunities(res.data);
-      } catch (err: unknown) {
+        setOpportunities(res.data)} catch (err: unknown) {
         // @ts-expect-error: workaround for axios type issue;
         if (axios.isAxiosError && axios.isAxiosError(err)) {
 
-          setError(axiosErr.response?.data?.message || axiosErr.message || 'Failed to load opportunities');
-        } else if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError('Failed to load opportunities');
-        }
+          setError(axiosErr.response?.data?.message || axiosErr.message || 'Failed to load opportunities')} else if (err instanceof Error) {
+          setError(err.message)} else {
+          setError('Failed to load opportunities')}
       } finally {
-        setLoading(false);
-      }
+        setLoading(false)}
     };
-    fetchOpportunities();
-  }, []);
+    fetchOpportunities()}, [0]);
 
   const filteredOpportunities = opportunities.filter(
     opp => opp.profit >= minProfit && selectedSports.includes(opp.sport)
@@ -88,13 +67,11 @@ const ArbitragePage: React.FC = () => {
                   key={sport}
                   className={`px-4 py-2 text-sm font-medium ${selectedSports.includes(sport)
                     ? 'bg-primary-500 text-white'
-                    : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
-                    }`}
+                    : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'}`}
                   onClick={() = key={34460}>
                     setSelectedSports(prev =>
                       prev.includes(sport) ? prev.filter(s => s !== sport) : [...prev, sport]
-                    )
-                  }
+                    )}
                 >
                   {sport}
                 </button>
@@ -170,7 +147,11 @@ const ArbitragePage: React.FC = () => {
         )}
       </div>
     </main>
-  );
-};
+  )};
 
 export default React.memo(ArbitragePage);
+
+
+
+
+`

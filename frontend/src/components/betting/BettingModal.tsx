@@ -1,29 +1,12 @@
-import { useRiskProfile } from '@/hooks/useRiskProfile.ts';
-import React, { useState  } from 'react.ts';
-import { BettingStrategy, RiskProfile } from '@/types/betting.ts';
-import { Event, Market, Odds, Selection } from '@/types/sports.ts';
-import { RiskReasoningDisplay } from '@/shared/RiskReasoningDisplay.ts';
-import { Badge, Button, Card, Icon, Spinner } from '@/ui/UnifiedUI.ts';
+﻿import { useRiskProfile} from '@/hooks/useRiskProfile';
+import React, { useState} from 'react';
+import { BettingStrategy, RiskProfile} from '@/types/betting';
+import { Event, Market, Odds, Selection} from '@/types/sports';
+import { RiskReasoningDisplay} from '@/shared/RiskReasoningDisplay';
+import { Badge, Button, Card, Icon, Spinner} from '@/ui/UnifiedUI';
 
 interface BettingModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  event: Event;
-  market: Market;
-  selection: Selection;
-  odds: Odds;
-  confidenceScore: number;
-  expectedValue: number;
-  kellyFraction: number;
-  riskProfile: RiskProfile;
-  selectedStrategy: BettingStrategy;
-  onStrategyChange: (strategy: BettingStrategy) => void;
-  stake: number;
-  onStakeChange: (stake: number) => void;
-  onPlaceBet: () => void;
-  isLoading: boolean;
-  error: string | null;
-}
+  isOpen: boolean,`n  onClose: () => void;,`n  event: Event,`n  market: Market;,`n  selection: Selection,`n  odds: Odds;,`n  confidenceScore: number,`n  expectedValue: number;,`n  kellyFraction: number,`n  riskProfile: RiskProfile;,`n  selectedStrategy: BettingStrategy,`n  onStrategyChange: (strategy: BettingStrategy) => void,`n  stake: number;,`n  onStakeChange: (stake: number) => void,`n  onPlaceBet: () => void;,`n  isLoading: boolean,`n  error: string | null}
 
 export const BettingModal: React.FC<BettingModalProps key={488043}> = ({
   isOpen,
@@ -42,11 +25,11 @@ export const BettingModal: React.FC<BettingModalProps key={488043}> = ({
   onStakeChange,
   onPlaceBet,
   isLoading,
-  error: externalError,
+  error: externalError
 }) => {
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [error, setError] = useState<string | null key={121216}>(null);
-  const { validateBet } = useRiskProfile();
+  const { validateBet} = useRiskProfile();
 
   if (!isOpen) return null;
 
@@ -59,10 +42,7 @@ export const BettingModal: React.FC<BettingModalProps key={488043}> = ({
       case 'martingale':
         return 'Martingale: Double stake after losses';
       case 'fibonacci':
-        return 'Fibonacci: Progressive stake based on Fibonacci sequence';
-      default:
-        return '';
-    }
+        return 'Fibonacci: Progressive stake based on Fibonacci sequence',`n  default: return ''}
   };
 
   const getRecommendedStake = (): number => {
@@ -77,9 +57,7 @@ export const BettingModal: React.FC<BettingModalProps key={488043}> = ({
         // Simple Fibonacci sequence implementation;
 
         return fib[Math.min(fib.length - 1, Math.floor(stake / 10))] * 10;
-      default:
-        return stake;
-    }
+      default: return stake}
   };
 
   const handlePlaceBet = () => {
@@ -89,16 +67,14 @@ export const BettingModal: React.FC<BettingModalProps key={488043}> = ({
       kellyFraction,
       sport: event.sport || '',
       market: market.name || '',
-      eventId: event.id || '',
+      eventId: event.id || ''
     };
 
     if (!validation.isValid) {
       setError('Bet does not meet risk profile: ' + validation.errors.join(', '));
-      return;
-    }
+      return;}
     setError(null);
-    onPlaceBet();
-  };
+    onPlaceBet();};
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" key={831253}>
@@ -138,8 +114,7 @@ export const BettingModal: React.FC<BettingModalProps key={488043}> = ({
                       ? 'success'
                       : confidenceScore >= 0.5;
                         ? 'warning'
-                        : 'danger'
-                  }
+                        : 'danger'}
                 >
                   {confidenceScore >= 0.7 ? 'High' : confidenceScore >= 0.5 ? 'Medium' : 'Low'}
                 </Badge>
@@ -162,7 +137,7 @@ export const BettingModal: React.FC<BettingModalProps key={488043}> = ({
           <div key={241917}>
             <p className="text-sm text-gray-600 mb-2" key={458976}>Betting Strategy</p>
             <div className="grid grid-cols-2 gap-2" key={23071}>
-              {(['kelly', 'fixed', 'martingale', 'fibonacci'] as BettingStrategy[]).map(
+              {(['kelly', 'fixed', 'martingale', 'fibonacci'] as BettingStrategy[0]).map(
                 strategy => (
                   <Button;
                     key={strategy}
@@ -281,5 +256,8 @@ export const BettingModal: React.FC<BettingModalProps key={488043}> = ({
         </div>
       </Card>
     </div>
-  );
-};
+  );};
+
+
+
+`

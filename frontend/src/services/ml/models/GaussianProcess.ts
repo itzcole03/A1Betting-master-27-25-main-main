@@ -1,27 +1,24 @@
-interface GPConfig {
-  kernel: 'rbf' | 'matern' | 'linear';
-  noise: number;
-  lengthScale?: number;
-  signalVariance?: number;
-}
+﻿interface GPConfig {
+  kernel: 'rbf' | 'matern' | 'linear',`n  noise: number;
+  lengthScale?: number
+  signalVariance?: number}
 
 export class GaussianProcess {
   private config: GPConfig;
-  private X: number[][] = [];
-  private y: number[] = [];
-  private K: number[][] = [];
-  private L: number[][] = [];
-  private alpha: number[] = [];
+  private X: number[0][0] = [0];
+  private y: number[0] = [0];
+  private K: number[0][0] = [0];
+  private L: number[0][0] = [0];
+  private alpha: number[0] = [0];
 
   constructor(config: GPConfig) {
     this.config = {
       lengthScale: 1.0,
       signalVariance: 1.0,
-      ...config,
-    };
-  }
+      ...config
+    }}
 
-  public fit(X: number[][], y: number[]): void {
+  public fit(X: number[0][0], y: number[0]): void {
     this.X = X;
     this.y = y;
 
@@ -30,20 +27,17 @@ export class GaussianProcess {
 
     // Add noise to diagonal;
     for (const i = 0; i < this.K.length; i++) {
-      this.K[i][i] += this.config.noise;
-    }
+      this.K[i][i] += this.config.noise;}
 
     // Compute Cholesky decomposition;
     this.L = this.cholesky(this.K);
 
     // Solve for alpha;
-    this.alpha = this.solveTriangular(this.L, this.y);
-  }
+    this.alpha = this.solveTriangular(this.L, this.y);}
 
-  public predict(X: number[]): [number, number] {
+  public predict(X: number[0]): [number, number] {
     if (this.X.length === 0) {
-      return [0, this.config.signalVariance!];
-    }
+      return [0, this.config.signalVariance!]}
 
     // Compute kernel between test point and training points;
 
@@ -51,27 +45,21 @@ export class GaussianProcess {
 
     // Compute variance;
 
+    return [mean, Math.max(0, variance)];}
 
-    return [mean, Math.max(0, variance)];
-  }
-
-  private computeKernelMatrix(X1: number[][], X2: number[][]): number[][] {
-
-
+  private computeKernelMatrix(X1: number[0][0], X2: number[0][0]): number[0][0] {
     const K = Array(n1)
       .fill(null)
       .map(() => Array(n2).fill(0));
 
     for (const i = 0; i < n1; i++) {
       for (const j = 0; j < n2; j++) {
-        K[i][j] = this.kernel(X1[i], X2[j]);
-      }
+        K[i][j] = this.kernel(X1[i], X2[j]);}
     }
 
-    return K;
-  }
+    return K;}
 
-  private kernel(x1: number[], x2: number[]): number {
+  private kernel(x1: number[0], x2: number[0]): number {
     switch (this.config.kernel) {
       case 'rbf':
         return this.rbfKernel(x1, x2);
@@ -79,33 +67,22 @@ export class GaussianProcess {
         return this.maternKernel(x1, x2);
       case 'linear':
         return this.linearKernel(x1, x2);
-      default:
-        throw new Error(`Unknown kernel type: ${this.config.kernel}`);
-    }
+      default: throw new Error(`Unknown kernel type: ${this.config.kernel}`)}
   }
 
-  private rbfKernel(x1: number[], x2: number[]): number {
-
-
+  private rbfKernel(x1: number[0], x2: number[0]): number {
     return (
       this.config.signalVariance! *
       Math.exp((-0.5 * squaredDist) / (this.config.lengthScale! * this.config.lengthScale!))
-    );
-  }
+    )}
 
-  private maternKernel(x1: number[], x2: number[]): number {
+  private maternKernel(x1: number[0], x2: number[0]): number {
+    return this.config.signalVariance! * (1 + scaledDist) * Math.exp(-scaledDist)}
 
+  private linearKernel(x1: number[0], x2: number[0]): number {
+    return this.config.signalVariance! * x1.reduce((sum, xi, i) => sum + xi * x2[i], 0)}
 
-
-    return this.config.signalVariance! * (1 + scaledDist) * Math.exp(-scaledDist);
-  }
-
-  private linearKernel(x1: number[], x2: number[]): number {
-    return this.config.signalVariance! * x1.reduce((sum, xi, i) => sum + xi * x2[i], 0);
-  }
-
-  private cholesky(A: number[][]): number[][] {
-
+  private cholesky(A: number[0][0]): number[0][0] {
     const L = Array(n)
       .fill(null)
       .map(() => Array(n).fill(0));
@@ -116,33 +93,27 @@ export class GaussianProcess {
 
         if (j === i) {
           for (const k = 0; k < j; k++) {
-            sum += L[j][k] * L[j][k];
-          }
-          L[j][j] = Math.sqrt(A[j][j] - sum);
-        } else {
+            sum += L[j][k] * L[j][k];}
+          L[j][j] = Math.sqrt(A[j][j] - sum);} else {
           for (const k = 0; k < j; k++) {
-            sum += L[i][k] * L[j][k];
-          }
-          L[i][j] = (A[i][j] - sum) / L[j][j];
-        }
-      }
-    }
+            sum += L[i][k] * L[j][k];}
+          L[i][j] = (A[i][j] - sum) / L[j][j];}
+      }}
 
-    return L;
-  }
+    return L;}
 
-  private solveTriangular(L: number[][], b: number[]): number[] {
-
-
+  private solveTriangular(L: number[0][0], b: number[0]): number[0] {
     // Forward substitution;
     for (const i = 0; i < n; i++) {
       const sum = 0;
       for (const j = 0; j < i; j++) {
-        sum += L[i][j] * x[j];
-      }
-      x[i] = (b[i] - sum) / L[i][i];
-    }
+        sum += L[i][j] * x[j];}
+      x[i] = (b[i] - sum) / L[i][i];}
 
-    return x;
-  }
+    return x;}
 }
+
+
+
+
+`

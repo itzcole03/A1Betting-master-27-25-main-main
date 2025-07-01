@@ -2,7 +2,7 @@
    ENHANCED CYBER THEME - LIGHT & DARK MODE
    =========================================== */
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
 
 /* ============================================================================
    KEYFRAME ANIMATIONS
@@ -91,7 +91,7 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  font-family: "Inter", system-ui, sans-serif !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
   transition: all 0.3s ease;
 }
 
@@ -212,14 +212,7 @@ body {
 
 /* Holographic Text Effect */
 .holographic {
-  background: linear-gradient(
-    45deg,
-    #ff006e,
-    #8338ec,
-    #3a86ff,
-    #06ffa5,
-    #ffbe0b
-  ) !important;
+  background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5, #ffbe0b) !important;
   background-size: 400% 400% !important;
   animation: gradient-shift 8s ease infinite !important;
   -webkit-background-clip: text !important;
@@ -232,11 +225,7 @@ body {
 
 /* Modern Button Styles */
 .cyber-btn {
-  background: linear-gradient(
-    45deg,
-    var(--cyber-primary),
-    var(--cyber-secondary)
-  );
+  background: linear-gradient(45deg, var(--cyber-primary), var(--cyber-secondary));
   border: none;
   color: #000 !important;
   font-weight: 700;
@@ -251,18 +240,13 @@ body {
 }
 
 .cyber-btn::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.4),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
   transition: left 0.5s;
 }
 
@@ -299,10 +283,10 @@ body {
 }
 
 /* Input Styling */
-input[type="number"],
+input[type='number'],
 select,
-input[type="text"],
-input[type="email"],
+input[type='text'],
+input[type='email'],
 textarea {
   font-size: 16px !important;
   background: var(--cyber-surface) !important;
@@ -384,10 +368,10 @@ option {
   font-weight: 600 !important;
 }
 
-input[type="number"]:focus,
+input[type='number']:focus,
 select:focus,
-input[type="text"]:focus,
-input[type="email"]:focus,
+input[type='text']:focus,
+input[type='email']:focus,
 textarea:focus {
   outline: none !important;
   border-color: var(--cyber-primary) !important;
@@ -398,12 +382,12 @@ textarea:focus {
 select option,
 select optgroup {
   font-size: 16px !important;
-  font-family: "Inter", system-ui, sans-serif !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
   line-height: 1.5 !important;
 }
 
 /* Force dropdown options to be visible in all browsers */
-html[data-theme="cyber-dark"] select option,
+html[data-theme='cyber-dark'] select option,
 body.cyber-dark select option,
 body.theme-cyber-dark select option,
 .cyber-dark select option,
@@ -413,7 +397,7 @@ body.theme-cyber-dark select option,
   border: none !important;
 }
 
-html[data-theme="cyber-light"] select option,
+html[data-theme='cyber-light'] select option,
 body.cyber-light select option,
 body.theme-cyber-light select option,
 .cyber-light select option,
@@ -479,14 +463,14 @@ body.theme-cyber-light select option,
 
 /* Typography */
 .cyber-title {
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 900;
   letter-spacing: -0.02em;
   color: var(--cyber-text-primary);
 }
 
 .cyber-mono {
-  font-family: "JetBrains Mono", monospace;
+  font-family: 'JetBrains Mono', monospace;
   color: var(--cyber-text-primary);
 }
 
@@ -520,15 +504,15 @@ body.theme-cyber-light select option,
 }
 
 /* Primary buttons with gradient */
-.mega-button[style*="gradient"],
-.cyber-button[style*="gradient"] {
+.mega-button[style*='gradient'],
+.cyber-button[style*='gradient'] {
   color: #000 !important;
   font-weight: 600 !important;
 }
 
 /* Secondary buttons */
-.mega-button:not([style*="gradient"]),
-.cyber-button:not([style*="gradient"]) {
+.mega-button:not([style*='gradient']),
+.cyber-button:not([style*='gradient']) {
   background: var(--cyber-surface) !important;
   border: 1px solid var(--cyber-border) !important;
   color: var(--cyber-text-primary) !important;

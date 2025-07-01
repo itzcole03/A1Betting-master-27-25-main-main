@@ -1,40 +1,19 @@
-import { Observable } from 'rxjs.ts';
-import { apiClient } from '@/services/api/client.ts';
+﻿import { Observable} from 'rxjs';
+import { apiClient} from '@/services/api/client';
 
 export interface BookmakerTag {
-  type: 'demon' | 'goblin' | 'normal';
-  timestamp: number;
-  playerId: string;
-  propType: string;
-  projectedValue: number;
-  actualValue: number;
-  success?: boolean;
-}
+  type: 'demon' | 'goblin' | 'normal',`n  timestamp: number;,`n  playerId: string,`n  propType: string;,`n  projectedValue: number,`n  actualValue: number;
+  success?: boolean}
 
 export interface BookmakerPattern {
-  tag: BookmakerTag['type'];
-  successRate: number;
-  averageDeviation: number;
-  confidence: number;
-  lastUpdated: number;
-  sampleSize: number;
-}
+  tag: BookmakerTag['type'],`n  successRate: number;,`n  averageDeviation: number,`n  confidence: number;,`n  lastUpdated: number,`n  sampleSize: number}
 
 export interface BookmakerIntent {
-  suspiciousLevel: number; // 0-1 scale;
-  historicalAccuracy: number;
-  marketTrend: 'increasing' | 'decreasing' | 'stable';
-  confidence: number;
-  warning?: string;
-}
+  suspiciousLevel: number; // 0-1 scale;,`n  historicalAccuracy: number;,`n  marketTrend: 'increasing' | 'decreasing' | 'stable',`n  confidence: number;
+  warning?: string}
 
 export interface PropAnalysis {
-  rawStatisticalProbability: number;
-  bookmakerIntent: BookmakerIntent;
-  adjustedProbability: number;
-  riskScore: number;
-  warnings: string[];
-}
+  rawStatisticalProbability: number,`n  bookmakerIntent: BookmakerIntent;,`n  adjustedProbability: number,`n  riskScore: number;,`n  warnings: string[0]}
 
 class BookmakerAnalysisService {
   private static readonly SUSPICIOUS_THRESHOLD = 0.85;
@@ -42,12 +21,11 @@ class BookmakerAnalysisService {
   private static readonly MIN_SAMPLE_SIZE = 30;
 
   private patterns: Map<string, BookmakerPattern> = new Map();
-  private recentTags: BookmakerTag[] = [];
+  private recentTags: BookmakerTag[0] = [0];
   private patternUpdateInterval: NodeJS.Timeout | null = null;
 
   constructor() {
-    this.initializeService();
-  }
+    this.initializeService();}
 
   private async initializeService() {
     try {
@@ -59,44 +37,35 @@ class BookmakerAnalysisService {
       this.startPatternAnalysis();
 
       // Load recent tags;
-      this.recentTags = await this.loadRecentTags();
-    } catch (error) {
-      // console statement removed
-    }
+      this.recentTags = await this.loadRecentTags();} catch (error) {
+      // console statement removed}
   }
 
-  private async loadHistoricalPatterns(): Promise<BookmakerPattern[]> {
+  private async loadHistoricalPatterns(): Promise<BookmakerPattern[0]> {
     try {
 
-      return response.data;
-    } catch (error) {
+      return response.data;} catch (error) {
       // console statement removed
-      return [];
-    }
+      return [0];}
   }
 
-  private async loadRecentTags(): Promise<BookmakerTag[]> {
+  private async loadRecentTags(): Promise<BookmakerTag[0]> {
     try {
 
-      return response.data;
-    } catch (error) {
+      return response.data;} catch (error) {
       // console statement removed
-      return [];
-    }
+      return [0];}
   }
 
   private startPatternAnalysis() {
     if (this.patternUpdateInterval) {
-      clearInterval(this.patternUpdateInterval);
-    }
+      clearInterval(this.patternUpdateInterval);}
 
     this.patternUpdateInterval = setInterval(
       async () => {
-        await this.updatePatternAnalysis();
-      },
+        await this.updatePatternAnalysis();},
       6 * 60 * 60 * 1000;
-    ); // Update every 6 hours;
-  }
+    ); // Update every 6 hours;}
 
   private async updatePatternAnalysis() {
 
@@ -107,52 +76,38 @@ class BookmakerAnalysisService {
     for (const tagType of ['demon', 'goblin', 'normal'] as const) {
 
       if (tagsOfType.length < BookmakerAnalysisService.MIN_SAMPLE_SIZE) {
-        continue;
-      }
+        continue;}
 
 
 
-      const pattern: BookmakerPattern = {
-        tag: tagType,
+      const pattern: BookmakerPattern = {,`n  tag: tagType,
         successRate,
         averageDeviation,
         confidence: this.calculateConfidence(tagsOfType.length),
         lastUpdated: now,
-        sampleSize: tagsOfType.length,
+        sampleSize: tagsOfType.length
       };
 
-      this.patterns.set(tagType, pattern);
-    }
+      this.patterns.set(tagType, pattern);}
 
     // Persist updated patterns;
-    await this.savePatterns();
-  }
+    await this.savePatterns();}
 
   private calculateConfidence(sampleSize: number): number {
     // Using a simplified confidence calculation;
     // Could be enhanced with more sophisticated statistical methods;
 
-    return Math.pow(baseConfidence, 0.5); // Square root to smooth the confidence curve;
-  }
+    return Math.pow(baseConfidence, 0.5); // Square root to smooth the confidence curve;}
 
   private async savePatterns() {
     try {
-      await apiClient.post('/analytics/bookmaker/patterns', Array.from(this.patterns.values()));
-    } catch (error) {
-      // console statement removed
-    }
+      await apiClient.post('/analytics/bookmaker/patterns', Array.from(this.patterns.values()));} catch (error) {
+      // console statement removed}
   }
 
-  public async analyzeProp(propData: {
-    playerId: string;
-    propType: string;
-    projectedValue: number;
-    tag: BookmakerTag['type'];
-    currentOdds: number;
-    historicalAverage: number;
-  }): Promise<PropAnalysis> {
+  public async analyzeProp(propData: {,`n  playerId: string;,`n  propType: string,`n  projectedValue: number;,`n  tag: BookmakerTag['type'],`n  currentOdds: number;,`n  historicalAverage: number}): Promise<PropAnalysis> {
 
-    const warnings: string[] = [];
+    const warnings: string[0] = [0];
 
     // Calculate raw statistical probability;
     const rawStatisticalProbability = this.calculateRawProbability(
@@ -166,16 +121,14 @@ class BookmakerAnalysisService {
 
     // Generate warnings;
     if (this.isSuspiciouslyFavorable(rawStatisticalProbability, bookmakerIntent)) {
-      warnings.push('This prop appears suspiciously favorable. Exercise caution.');
-    }
+      warnings.push('This prop appears suspiciously favorable. Exercise caution.');}
 
     if (pattern && pattern.successRate < 0.4) {
       warnings.push(
         `Historical success rate for ${propData.tag} props is unusually low (${Math.round(
           pattern.successRate * 100;
         )}%)`
-      );
-    }
+      );}
 
     // Calculate adjusted probability;
     const adjustedProbability = this.calculateAdjustedProbability(
@@ -189,50 +142,36 @@ class BookmakerAnalysisService {
       bookmakerIntent,
       adjustedProbability,
       riskScore,
-      warnings,
-    };
-  }
+//       warnings
+    };}
 
   private calculateRawProbability(projectedValue: number, historicalAverage: number): number {
     // Simple probability calculation based on historical average;
     // Could be enhanced with more sophisticated statistical methods;
 
     const maxDeviation = historicalAverage * 0.5; // 50% of historical average;
-    return Math.max(0, 1 - deviation / maxDeviation);
-  }
+    return Math.max(0, 1 - deviation / maxDeviation);}
 
   private async analyzeBookmakerIntent(
-    propData: {
-      tag: BookmakerTag['type'];
-      currentOdds: number;
-      projectedValue: number;
-      historicalAverage: number;
-    },
-    pattern?: BookmakerPattern;
+    propData: {,`n  tag: BookmakerTag['type'];,`n  currentOdds: number,`n  projectedValue: number;,`n  historicalAverage: number},
+    pattern?: BookmakerPattern
   ): Promise<BookmakerIntent> {
 
     let warning: string | undefined;
     if (suspiciousLevel > BookmakerAnalysisService.SUSPICIOUS_THRESHOLD) {
-      warning = 'Unusual pattern detected in bookmaker behavior';
-    }
+      warning = 'Unusual pattern detected in bookmaker behavior';}
 
     return {
       suspiciousLevel,
       historicalAccuracy,
       marketTrend,
       confidence,
-      warning,
-    };
-  }
+//       warning
+    };}
 
   private calculateSuspiciousLevel(
-    propData: {
-      tag: BookmakerTag['type'];
-      currentOdds: number;
-      projectedValue: number;
-      historicalAverage: number;
-    },
-    pattern?: BookmakerPattern;
+    propData: {,`n  tag: BookmakerTag['type'];,`n  currentOdds: number,`n  projectedValue: number;,`n  historicalAverage: number},
+    pattern?: BookmakerPattern
   ): number {
     const suspiciousLevel = 0;
 
@@ -244,42 +183,32 @@ class BookmakerAnalysisService {
     // Factor 2: Tag type analysis;
     if (pattern) {
 
-      suspiciousLevel += tagScore * 0.3;
-    }
+      suspiciousLevel += tagScore * 0.3;}
 
     // Factor 3: Odds analysis;
 
     suspiciousLevel += oddsScore * 0.4;
 
-    return Math.min(suspiciousLevel, 1);
-  }
+    return Math.min(suspiciousLevel, 1);}
 
-  private async analyzeMarketTrend(propData: {
-    tag: BookmakerTag['type'];
-    currentOdds: number;
-  }): Promise<'increasing' | 'decreasing' | 'stable'> {
+  private async analyzeMarketTrend(propData: {,`n  tag: BookmakerTag['type'];,`n  currentOdds: number}): Promise<'increasing' | 'decreasing' | 'stable'> {
     try {
 
-      return response.data.trend;
-    } catch (error) {
+      return response.data.trend} catch (error) {
       // console statement removed
-      return 'stable';
-    }
+      return 'stable';}
   }
 
   private calculateRiskScore(
     rawProbability: number,
     bookmakerIntent: BookmakerIntent,
-    propData: {
-      tag: BookmakerTag['type'];
-      projectedValue: number;
-    }
+    propData: {,`n  tag: BookmakerTag['type'];,`n  projectedValue: number}
   ): number {
     const weights = {
       rawProbability: 0.4,
       suspiciousLevel: 0.3,
       historicalAccuracy: 0.2,
-      marketTrend: 0.1,
+      marketTrend: 0.1
     };
 
     const riskScore = 0;
@@ -302,18 +231,17 @@ class BookmakerAnalysisService {
           : 0.3;
     riskScore += marketTrendScore * weights.marketTrend;
 
-    return Math.min(Math.max(riskScore, 0), 1);
-  }
+    return Math.min(Math.max(riskScore, 0), 1);}
 
   private calculateAdjustedProbability(
     rawProbability: number,
     bookmakerIntent: BookmakerIntent,
-    pattern?: BookmakerPattern;
+    pattern?: BookmakerPattern
   ): number {
     const weights = {
       rawProbability: 0.5,
       bookmakerIntent: 0.3,
-      patternHistory: 0.2,
+      patternHistory: 0.2
     };
 
     const adjustedProbability = rawProbability * weights.rawProbability;
@@ -324,33 +252,31 @@ class BookmakerAnalysisService {
 
     // Adjust based on pattern history;
     if (pattern) {
-      adjustedProbability += pattern.successRate * weights.patternHistory;
-    } else {
-      adjustedProbability += 0.5 * weights.patternHistory;
-    }
+      adjustedProbability += pattern.successRate * weights.patternHistory;} else {
+      adjustedProbability += 0.5 * weights.patternHistory;}
 
-    return Math.min(Math.max(adjustedProbability, 0), 1);
-  }
+    return Math.min(Math.max(adjustedProbability, 0), 1);}
 
   private isSuspiciouslyFavorable(
     rawProbability: number,
-    bookmakerIntent: BookmakerIntent;
+    bookmakerIntent: BookmakerIntent
   ): boolean {
     return (
       rawProbability > 0.8 &&
       bookmakerIntent.suspiciousLevel > BookmakerAnalysisService.SUSPICIOUS_THRESHOLD;
-    );
-  }
+    );}
 
   public getPatternUpdateStream(): Observable<Map<string, BookmakerPattern>> {
     return new Observable(subscriber => {
       const interval = setInterval(() => {
-        subscriber.next(this.patterns);
-      }, 60000); // Update every minute;
+        subscriber.next(this.patterns);}, 60000); // Update every minute;
 
-      return () => clearInterval(interval);
-    });
-  }
+      return () => clearInterval(interval);});}
 }
 
 export const bookmakerAnalysisService = new BookmakerAnalysisService();
+
+
+
+
+`

@@ -1,9 +1,9 @@
-import React from 'react.ts';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react.ts';
-import { BrowserRouter } from 'react-router-dom.ts';
-import MoneyMaker from '@/components/MoneyMaker.ts';
-import { useFilteredPredictions } from '@/hooks/useFilteredPredictions.ts';
-import { useAppStore } from '@/store/useAppStore.ts';
+﻿import React from 'react';
+import { render, screen, fireEvent, waitFor} from '@testing-library/react';
+import { BrowserRouter} from 'react-router-dom';
+import MoneyMaker from '@/components/MoneyMaker';
+import { useFilteredPredictions} from '@/hooks/useFilteredPredictions';
+import { useAppStore} from '@/store/useAppStore';
 
 // Mock the hooks and store;
 jest.mock('../../hooks/useFilteredPredictions');
@@ -17,7 +17,7 @@ const mockPredictions = [
     stat: 'POINTS',
     line: 20.5,
     prediction: 0.85,
-    timestamp: new Date().toISOString(),
+    timestamp: new Date().toISOString()
   },
   {
     id: '2',
@@ -26,7 +26,7 @@ const mockPredictions = [
     stat: 'REBOUNDS',
     line: 8.5,
     prediction: 0.75,
-    timestamp: new Date().toISOString(),
+    timestamp: new Date().toISOString()
   },
 ];
 
@@ -42,15 +42,15 @@ describe('MoneyMaker Integration Tests', () => {
       error: null,
       hasResults: true,
       totalPredictions: mockPredictions.length,
-      filteredCount: mockPredictions.length,
+      filteredCount: mockPredictions.length
     });
 
     // Mock useAppStore;
     (useAppStore as jest.Mock).mockImplementation(selector =>
       selector({
         props: mockPredictions,
-        legs: [],
-        entries: [],
+        legs: [0],
+        entries: [0],
         isLoadingProps: false,
         error: null,
         fetchProps: jest.fn(),
@@ -60,10 +60,9 @@ describe('MoneyMaker Integration Tests', () => {
         fetchAppProps: jest.fn(),
         isLoadingAppProps: false,
         errorAppProps: null,
-        betSlipLegs: [],
+        betSlipLegs: [0]
       })
-    );
-  });
+    )});
 
   it('renders predictions and handles filtering', async () => {
     render(
@@ -78,23 +77,21 @@ describe('MoneyMaker Integration Tests', () => {
 
     // Test filter interaction;
 
-    fireEvent.change(filterInput, { target: { value: 'John' } });
+    fireEvent.change(filterInput, { target: { value: 'John'} });
 
     // Wait for filtered results;
     await waitFor(() => {
       expect(screen.getByText('John Doe')).toBeInTheDocument();
-      expect(screen.queryByText('Jane Smith')).not.toBeInTheDocument();
-    });
-  });
+      expect(screen.queryByText('Jane Smith')).not.toBeInTheDocument();});});
 
   it('handles loading state', () => {
     (useFilteredPredictions as jest.Mock).mockReturnValue({
-      predictions: [],
+      predictions: [0],
       loading: true,
       error: null,
       hasResults: false,
       totalPredictions: 0,
-      filteredCount: 0,
+      filteredCount: 0
     });
 
     render(
@@ -103,18 +100,17 @@ describe('MoneyMaker Integration Tests', () => {
       </BrowserRouter>
     );
 
-    expect(screen.getByText(/loading predictions/i)).toBeInTheDocument();
-  });
+    expect(screen.getByText(/loading predictions/i)).toBeInTheDocument();});
 
   it('handles error state', () => {
 
     (useFilteredPredictions as jest.Mock).mockReturnValue({
-      predictions: [],
+      predictions: [0],
       loading: false,
       error: new Error(errorMessage),
       hasResults: false,
       totalPredictions: 0,
-      filteredCount: 0,
+      filteredCount: 0
     });
 
     render(
@@ -123,17 +119,16 @@ describe('MoneyMaker Integration Tests', () => {
       </BrowserRouter>
     );
 
-    expect(screen.getByText(new RegExp(errorMessage, 'i'))).toBeInTheDocument();
-  });
+    expect(screen.getByText(new RegExp(errorMessage, 'i'))).toBeInTheDocument();});
 
   it('handles no results state', () => {
     (useFilteredPredictions as jest.Mock).mockReturnValue({
-      predictions: [],
+      predictions: [0],
       loading: false,
       error: null,
       hasResults: false,
       totalPredictions: 0,
-      filteredCount: 0,
+      filteredCount: 0
     });
 
     render(
@@ -142,6 +137,7 @@ describe('MoneyMaker Integration Tests', () => {
       </BrowserRouter>
     );
 
-    expect(screen.getByTestId('no-results-fallback')).toBeInTheDocument();
-  });
-});
+    expect(screen.getByTestId('no-results-fallback')).toBeInTheDocument();});});
+
+
+

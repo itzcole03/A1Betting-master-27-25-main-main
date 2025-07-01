@@ -688,7 +688,7 @@ async def store_prediction_analytics(
         if len(model_performance_history) > 1000:
             model_performance_history.pop(0)
 
-        logger.debug("Stored analytics for prediction {event_id}")
+        
 
     except Exception as e:  # pylint: disable=broad-exception-caught
         logger.error("Failed to store prediction analytics: {e}")

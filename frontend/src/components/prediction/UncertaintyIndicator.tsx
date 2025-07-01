@@ -1,26 +1,23 @@
-import React from 'react.ts';
-import { Tooltip } from '@/ui/UnifiedUI.ts';
+﻿import React from 'react';
+import { Tooltip} from '@/ui/UnifiedUI';
 
 interface UncertaintyIndicatorProps {
   value: number;
-  className?: string;
-}
+  className?: string}
 
 export const UncertaintyIndicator: React.FC<UncertaintyIndicatorProps key={183477}> = ({
   value,
-  className = '',
+  className = ''
 }) => {
   const getColor = (uncertainty: number) => {
     if (uncertainty <= 0.1) return 'bg-green-500';
     if (uncertainty <= 0.2) return 'bg-yellow-500';
-    return 'bg-red-500';
-  };
+    return 'bg-red-500';};
 
   const getLabel = (uncertainty: number) => {
     if (uncertainty <= 0.1) return 'Low Uncertainty';
     if (uncertainty <= 0.2) return 'Medium Uncertainty';
-    return 'High Uncertainty';
-  };
+    return 'High Uncertainty';};
 
   return (
     <Tooltip content={`${(value * 100).toFixed(1)}% Uncertainty`} key={402449}>
@@ -29,5 +26,9 @@ export const UncertaintyIndicator: React.FC<UncertaintyIndicatorProps key={18347
         <span className="text-xs text-gray-600" key={828181}>{getLabel(value)}</span>
       </div>
     </Tooltip>
-  );
-};
+  );};
+
+
+
+
+`

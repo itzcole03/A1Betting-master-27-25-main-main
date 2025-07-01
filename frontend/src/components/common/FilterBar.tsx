@@ -1,6 +1,6 @@
-import React from 'react.ts';
-import type { Sport, PropType } from '@/types.ts';
-import { motion, Variants } from 'framer-motion.ts';
+﻿import React from 'react';
+import type { Sport, PropType} from '@/types';
+import { motion, Variants} from 'framer-motion';
 import {
   FaFilter,
   FaChartBar,
@@ -8,62 +8,56 @@ import {
   FaMoneyBillWave,
   FaFire,
   FaHistory,
-  FaTimes;
-} from 'react-icons/fa.ts';
-// import { useStore } from '@/store/useStore.ts';
+  FaTimes} from 'react-icons/fa';
+// import { useStore} from '@/store/useStore';
 
-const filterVariants: Variants = {
-  initial: { opacity: 0, y: -20 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -20 }
+const filterVariants: Variants = {,`n  initial: { opacity: 0, y: -20},
+  animate: { opacity: 1, y: 0},
+  exit: { opacity: 0, y: -20}
 };
 
-const sportFilters: { id: Sport; label: string }[] = [
-  { id: 'NBA', label: 'NBA' },
-  { id: 'NFL', label: 'NFL' },
-  { id: 'MLB', label: 'MLB' },
-  { id: 'NHL', label: 'NHL' }
+const sportFilters: { id: Sport; label: string}[0] = [
+  { id: 'NBA', label: 'NBA'},
+  { id: 'NFL', label: 'NFL'},
+  { id: 'MLB', label: 'MLB'},
+  { id: 'NHL', label: 'NHL'}
 ];
 
-const propTypeFilters: { id: PropType; label: string }[] = [
-  { id: 'POINTS', label: 'Points' },
-  { id: 'REBOUNDS', label: 'Rebounds' },
-  { id: 'ASSISTS', label: 'Assists' },
-  { id: 'THREES', label: '3-Pointers' },
-  { id: 'STEALS', label: 'Steals' },
-  { id: 'BLOCKS', label: 'Blocks' }
+const propTypeFilters: { id: PropType; label: string}[0] = [
+  { id: 'POINTS', label: 'Points'},
+  { id: 'REBOUNDS', label: 'Rebounds'},
+  { id: 'ASSISTS', label: 'Assists'},
+  { id: 'THREES', label: '3-Pointers'},
+  { id: 'STEALS', label: 'Steals'},
+  { id: 'BLOCKS', label: 'Blocks'}
 ];
 
 const confidenceFilters = [
-  { id: 'high', label: 'High Confidence (65%+)', icon: FaFire },
-  { id: 'medium', label: 'Medium Confidence (55-65%)', icon: FaChartBar },
-  { id: 'low', label: 'Low Confidence (<55%)', icon: FaPercentage }
+  { id: 'high', label: 'High Confidence (65%+)', icon: FaFire},
+  { id: 'medium', label: 'Medium Confidence (55-65%)', icon: FaChartBar},
+  { id: 'low', label: 'Low Confidence (<55%)', icon: FaPercentage}
 ];
 
 const payoutFilters = [
-  { id: 'high', label: 'High Payout (5x+)', icon: FaMoneyBillWave },
-  { id: 'medium', label: 'Medium Payout (2-5x)', icon: FaMoneyBillWave },
-  { id: 'low', label: 'Low Payout (<2x)', icon: FaMoneyBillWave }
+  { id: 'high', label: 'High Payout (5x+)', icon: FaMoneyBillWave},
+  { id: 'medium', label: 'Medium Payout (2-5x)', icon: FaMoneyBillWave},
+  { id: 'low', label: 'Low Payout (<2x)', icon: FaMoneyBillWave}
 ];
 
 export const FilterBar: React.FC = () = key={469077}> {
-  // const { activeFilters, toggleFilter } = useStore();
+  // const { activeFilters, toggleFilter} = useStore();
 
   const isFilterActive = (filterId: string) => {
     // if (activeFilters) {
     //   return activeFilters.has(filterId);
-    // }
-    return false;
-  };
+    //}
+    return false;};
 
-  const FilterButton: React.FC<{
-    id: string;
-    label: string;
-    icon?: React.ElementType;
-  }> = ({ id, label, icon: Icon }) => (
+  const FilterButton: React.FC<{,`n  id: string;,`n  label: string;
+    icon?: React.ElementType;}> = ({ id, label, icon: Icon}) => (
     <motion.button;
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={{ scale: 1.05}}
+      whileTap={{ scale: 0.95}}
       // onClick={() = key={788504}> toggleFilter(id)}
       className={`
         inline-flex items-center px-3 py-1.5 rounded-lg text-sm font-medium;
@@ -71,8 +65,7 @@ export const FilterBar: React.FC = () = key={469077}> {
         ${
           isFilterActive(id)
             ? 'bg-primary-500 text-white'
-            : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
-        }
+            : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'}
       `}
     >
       {Icon && <Icon className="w-4 h-4 mr-2" / key={604463}>}
@@ -113,7 +106,7 @@ export const FilterBar: React.FC = () = key={469077}> {
           Sports;
         </h3>
         <div className="flex flex-wrap gap-2" key={835928}>
-          {sportFilters.map(({ id, label }) => (
+          {sportFilters.map(({ id, label}) => (
             <FilterButton key={id} id={id} label={label} / key={912157}>
           ))}
         </div>
@@ -125,7 +118,7 @@ export const FilterBar: React.FC = () = key={469077}> {
           Prop Types;
         </h3>
         <div className="flex flex-wrap gap-2" key={835928}>
-          {propTypeFilters.map(({ id, label }) => (
+          {propTypeFilters.map(({ id, label}) => (
             <FilterButton key={id} id={id} label={label} / key={912157}>
           ))}
         </div>
@@ -137,7 +130,7 @@ export const FilterBar: React.FC = () = key={469077}> {
           Confidence Level;
         </h3>
         <div className="flex flex-wrap gap-2" key={835928}>
-          {confidenceFilters.map(({ id, label, icon }) => (
+          {confidenceFilters.map(({ id, label, icon}) => (
             <FilterButton key={id} id={`confidence_${id}`} label={label} icon={icon} / key={318105}>
           ))}
         </div>
@@ -149,7 +142,7 @@ export const FilterBar: React.FC = () = key={469077}> {
           Potential Payout;
         </h3>
         <div className="flex flex-wrap gap-2" key={835928}>
-          {payoutFilters.map(({ id, label, icon }) => (
+          {payoutFilters.map(({ id, label, icon}) => (
             <FilterButton key={id} id={`payout_${id}`} label={label} icon={icon} / key={980329}>
           ))}
         </div>
@@ -157,7 +150,7 @@ export const FilterBar: React.FC = () = key={469077}> {
 
       {/* Active Filters Summary */}
       {/* activeFilters.size > 0 && (
-        <div className="pt-4 border-t border-gray-200 dark:border-gray-700" key={440181}>
+        <div className="pt-4 border-t border-gray-200 dark: border-gray-700" key={440181}>
           <div className="flex items-center space-x-2" key={740830}>
             <FaHistory className="w-4 h-4 text-gray-500" / key={684213}>
             <span className="text-sm text-gray-600 dark:text-gray-400" key={10584}>
@@ -167,5 +160,9 @@ export const FilterBar: React.FC = () = key={469077}> {
         </div>
       ) */}
     </motion.div>
-  );
-}; 
+  )}; 
+
+
+
+
+`

@@ -1,10 +1,10 @@
-/**
+﻿/**
  * Clean Advanced Intelligence Hub;
  * User-friendly interface with simplified navigation and backend monitoring;
  */
 
-import React, { useState, useEffect  } from 'react.ts';
-import { motion, AnimatePresence } from 'framer-motion.ts';
+import React, { useState, useEffect} from 'react';
+import { motion, AnimatePresence} from 'framer-motion';
 import {
   Brain,
   Activity,
@@ -24,42 +24,29 @@ import {
   Power,
   Wifi,
   WifiOff,
-  Database,
-} from 'lucide-react.ts';
+//   Database
+} from 'lucide-react';
 
 // Clean, minimal interfaces;
 interface SystemHealth {
-  backend: "healthy" | "degraded" | "offline";
-  apis: {
-    sportsradar: "healthy" | "degraded" | "offline";
-    dailyfantasy: "healthy" | "degraded" | "offline";
-    theodds: "healthy" | "degraded" | "offline";
-  };
-  accuracy: number;
-  uptime: number;
-  lastUpdate: string;
-}
+  backend: "healthy" | "degraded" | "offline",`n  apis: {,`n  sportsradar: "healthy" | "degraded" | "offline",`n  dailyfantasy: "healthy" | "degraded" | "offline";,`n  theodds: "healthy" | "degraded" | "offline"};
+  accuracy: number,`n  uptime: number;,`n  lastUpdate: string}
 
 interface QuickAction {
-  id: string;
-  label: string;
-  icon: React.ReactNode;
-  action: () => void;
-  status?: "active" | "inactive" | "pending";
-}
+  id: string,`n  label: string;,`n  icon: React.ReactNode,`n  action: () => void;
+  status?: "active" | "inactive" | "pending";}
 
 export const CleanAdvancedIntelligenceHub: React.FC = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [systemHealth, setSystemHealth] = useState<SystemHealth key={277585}>({
     backend: "healthy",
-    apis: {
-      sportsradar: "healthy",
+    apis: {,`n  sportsradar: "healthy",
       dailyfantasy: "healthy",
-      theodds: "healthy",
+      theodds: "healthy"
     },
     accuracy: 85.0,
     uptime: 99.8,
-    lastUpdate: new Date().toLocaleTimeString(),
+    lastUpdate: new Date().toLocaleTimeString()
   });
   const [isLoading, setIsLoading] = useState(false);
 
@@ -78,8 +65,8 @@ export const CleanAdvancedIntelligenceHub: React.FC = () => {
       const response = await fetch(backendUrl, {
         signal: controller.signal,
         headers: {
-          "Content-Type": "application/json",
-        },
+          "Content-Type": "application/json"
+        }
       });
 
       clearTimeout(timeoutId);
@@ -89,8 +76,7 @@ export const CleanAdvancedIntelligenceHub: React.FC = () => {
         setSystemHealth((prev) => ({
           ...prev,
           backend: "healthy",
-          apis: {
-            sportsradar:
+          apis: {,`n  sportsradar:
               data.services?.sportsradar?.status === "healthy"
                 ? "healthy"
                 : "degraded",
@@ -101,64 +87,55 @@ export const CleanAdvancedIntelligenceHub: React.FC = () => {
             theodds:
               data.services?.theodds?.status === "healthy"
                 ? "healthy"
-                : "degraded",
+                : "degraded"
           },
           accuracy: data.accuracy || prev.accuracy,
           uptime: data.uptime || prev.uptime,
-          lastUpdate: new Date().toLocaleTimeString(),
-        }));
-      } else {
+          lastUpdate: new Date().toLocaleTimeString()
+        }))} else {
         // Backend responded but with error status;
         setSystemHealth((prev) => ({
           ...prev,
           backend: "degraded",
-          lastUpdate: new Date().toLocaleTimeString(),
-        }));
-      }
+          lastUpdate: new Date().toLocaleTimeString()
+        }))}
     } catch (error) {
       // Network error, CORS error, timeout, or other fetch failure;
       // console statement removed
       setSystemHealth((prev) => ({
         ...prev,
         backend: "offline",
-        apis: {
-          sportsradar: "offline",
+        apis: {,`n  sportsradar: "offline",
           dailyfantasy: "offline",
-          theodds: "offline",
+          theodds: "offline"
         },
-        lastUpdate: new Date().toLocaleTimeString(),
-      }));
-    } finally {
-      setIsLoading(false);
-    }
+        lastUpdate: new Date().toLocaleTimeString()
+      }))} finally {
+      setIsLoading(false);}
   };
 
   // Auto-refresh system health with error resilience;
   useEffect(() => {
     // Initial health check with delay to avoid immediate fetch on mount;
     const initialCheck = setTimeout(() => {
-      checkSystemHealth().catch(console.warn);
-    }, 1000);
+      checkSystemHealth().catch(console.warn);}, 1000);
 
     // Less aggressive interval - check every 2 minutes instead of 30 seconds;
     const interval = setInterval(() => {
-      checkSystemHealth().catch(console.warn);
-    }, 120000);
+      checkSystemHealth().catch(console.warn);}, 120000);
 
     return () => {
       clearTimeout(initialCheck);
-      clearInterval(interval);
-    };
-  }, []);
+      clearInterval(interval);};}, [0]);
 
   // Quick actions for easy access;
-  const quickActions: QuickAction[] = [
+  const quickActions: QuickAction[0] = [
     {
       id: "refresh",
       label: "Refresh System",
       icon: <RefreshCw className="w-4 h-4" / key={190374}>,
       action: () => checkSystemHealth().catch(console.warn),
-      status: isLoading ? "pending" : "active",
+      status: isLoading ? "pending" : "active"
     },
     {
       id: "backend",
@@ -170,21 +147,21 @@ export const CleanAdvancedIntelligenceHub: React.FC = () => {
           <AlertCircle className="w-4 h-4" / key={466896}>
         ),
       action: () => setActiveTab("backend"),
-      status: systemHealth.backend === "healthy" ? "active" : "inactive",
+      status: systemHealth.backend === "healthy" ? "active" : "inactive"
     },
     {
       id: "predictions",
       label: "View Predictions",
       icon: <Target className="w-4 h-4" / key={184202}>,
       action: () => setActiveTab("predictions"),
-      status: "active",
+      status: "active"
     },
     {
       id: "analytics",
       label: "Analytics",
       icon: <BarChart3 className="w-4 h-4" / key={509964}>,
       action: () => setActiveTab("analytics"),
-      status: "active",
+      status: "active"
     },
   ];
 
@@ -196,9 +173,7 @@ export const CleanAdvancedIntelligenceHub: React.FC = () => {
         return <AlertCircle className="w-5 h-5 text-yellow-500" / key={11964}>;
       case "offline":
         return <AlertCircle className="w-5 h-5 text-red-500" / key={55732}>;
-      default:
-        return <Activity className="w-5 h-5 text-gray-500" / key={276792}>;
-    }
+      default: return <Activity className="w-5 h-5 text-gray-500" / key={276792}>}
   };
 
   const getStatusColor = (status: string) => {
@@ -209,9 +184,7 @@ export const CleanAdvancedIntelligenceHub: React.FC = () => {
         return "text-yellow-600 bg-yellow-50 border-yellow-200";
       case "offline":
         return "text-red-600 bg-red-50 border-red-200";
-      default:
-        return "text-gray-600 bg-gray-50 border-gray-200";
-    }
+      default: return "text-gray-600 bg-gray-50 border-gray-200"}
   };
 
   return (
@@ -274,10 +247,9 @@ export const CleanAdvancedIntelligenceHub: React.FC = () => {
               className={`p-4 bg-white rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 transition-all duration-200 ${
                 action.status === "pending"
                   ? "opacity-50 cursor-not-allowed"
-                  : "hover:scale-105"
-              }`}
-              whileHover={{ scale: action.status === "pending" ? 1 : 1.02 }}
-              whileTap={{ scale: 0.98 }}
+                  : "hover:scale-105"}`}
+              whileHover={{ scale: action.status === "pending" ? 1 : 1.02}}
+              whileTap={{ scale: 0.98}}
              key={10919}>
               <div className="flex flex-col items-center gap-2" key={12501}>
                 <div;
@@ -286,8 +258,7 @@ export const CleanAdvancedIntelligenceHub: React.FC = () => {
                       ? "bg-blue-100 text-blue-600"
                       : action.status === "inactive"
                         ? "bg-red-100 text-red-600"
-                        : "bg-gray-100 text-gray-600"
-                  }`}
+                        : "bg-gray-100 text-gray-600"}`}
                  key={95274}>
                   {action.status === "pending" ? (
                     <RefreshCw className="w-4 h-4 animate-spin" / key={971972}>
@@ -313,27 +284,27 @@ export const CleanAdvancedIntelligenceHub: React.FC = () => {
               {
                 id: "overview",
                 label: "Overview",
-                icon: <Eye className="w-4 h-4" / key={800383}>,
+                icon: <Eye className="w-4 h-4" / key={800383}>
               },
               {
                 id: "backend",
                 label: "Backend Control",
-                icon: <Server className="w-4 h-4" / key={234913}>,
+                icon: <Server className="w-4 h-4" / key={234913}>
               },
               {
                 id: "api-tests",
                 label: "API Testing",
-                icon: <Activity className="w-4 h-4" / key={270767}>,
+                icon: <Activity className="w-4 h-4" / key={270767}>
               },
               {
                 id: "predictions",
                 label: "Predictions",
-                icon: <Target className="w-4 h-4" / key={184202}>,
+                icon: <Target className="w-4 h-4" / key={184202}>
               },
               {
                 id: "analytics",
                 label: "Analytics",
-                icon: <BarChart3 className="w-4 h-4" / key={509964}>,
+                icon: <BarChart3 className="w-4 h-4" / key={509964}>
               },
             ].map((tab) => (
               <button;
@@ -342,8 +313,7 @@ export const CleanAdvancedIntelligenceHub: React.FC = () => {
                 className={`flex items-center gap-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${
                   activeTab === tab.id;
                     ? "border-blue-500 text-blue-600"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                }`}
+                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"}`}
               >
                 {tab.icon}
                 {tab.label}
@@ -358,10 +328,10 @@ export const CleanAdvancedIntelligenceHub: React.FC = () => {
             {activeTab === "overview" && (
               <motion.div;
                 key="overview"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, y: 20}}
+                animate={{ opacity: 1, y: 0}}
+                exit={{ opacity: 0, y: -20}}
+                transition={{ duration: 0.3}}
                key={481042}>
                 <OverviewTab systemHealth={systemHealth} / key={444295}>
               </motion.div>
@@ -370,10 +340,10 @@ export const CleanAdvancedIntelligenceHub: React.FC = () => {
             {activeTab === "backend" && (
               <motion.div;
                 key="backend"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, y: 20}}
+                animate={{ opacity: 1, y: 0}}
+                exit={{ opacity: 0, y: -20}}
+                transition={{ duration: 0.3}}
                key={492947}>
                 <BackendControlTab;
                   systemHealth={systemHealth}
@@ -385,10 +355,10 @@ export const CleanAdvancedIntelligenceHub: React.FC = () => {
             {activeTab === "api-tests" && (
               <motion.div;
                 key="api-tests"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, y: 20}}
+                animate={{ opacity: 1, y: 0}}
+                exit={{ opacity: 0, y: -20}}
+                transition={{ duration: 0.3}}
                key={85660}>
                 <APITestingTab / key={113361}>
               </motion.div>
@@ -397,10 +367,10 @@ export const CleanAdvancedIntelligenceHub: React.FC = () => {
             {activeTab === "predictions" && (
               <motion.div;
                 key="predictions"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, y: 20}}
+                animate={{ opacity: 1, y: 0}}
+                exit={{ opacity: 0, y: -20}}
+                transition={{ duration: 0.3}}
                key={152096}>
                 <PredictionsTab / key={802345}>
               </motion.div>
@@ -409,10 +379,10 @@ export const CleanAdvancedIntelligenceHub: React.FC = () => {
             {activeTab === "analytics" && (
               <motion.div;
                 key="analytics"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, y: 20}}
+                animate={{ opacity: 1, y: 0}}
+                exit={{ opacity: 0, y: -20}}
+                transition={{ duration: 0.3}}
                key={96978}>
                 <AnalyticsTab / key={883332}>
               </motion.div>
@@ -421,12 +391,11 @@ export const CleanAdvancedIntelligenceHub: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )};
 
 // Overview Tab Component;
-const OverviewTab: React.FC<{ systemHealth: SystemHealth }> = ({
-  systemHealth,
+const OverviewTab: React.FC<{ systemHealth: SystemHealth}> = ({
+//   systemHealth
 }) => {
   return (
     <div className="space-y-6" key={501869}>
@@ -448,8 +417,7 @@ const OverviewTab: React.FC<{ systemHealth: SystemHealth }> = ({
                   className={`px-2 py-1 rounded-full text-xs font-medium ${
                     systemHealth.backend === "healthy"
                       ? "bg-green-100 text-green-700"
-                      : "bg-red-100 text-red-700"
-                  }`}
+                      : "bg-red-100 text-red-700"}`}
                  key={107785}>
                   {systemHealth.backend}
                 </span>
@@ -486,8 +454,7 @@ const OverviewTab: React.FC<{ systemHealth: SystemHealth }> = ({
                           ? "bg-green-500"
                           : status === "degraded"
                             ? "bg-yellow-500"
-                            : "bg-red-500"
-                      }`}
+                            : "bg-red-500"}`}
                      key={273279}></div>
                     <span className="text-xs" key={944235}>{status}</span>
                   </div>
@@ -520,15 +487,11 @@ const OverviewTab: React.FC<{ systemHealth: SystemHealth }> = ({
         </div>
       </div>
     </div>
-  );
-};
+  );};
 
 // Backend Control Tab Component;
-const BackendControlTab: React.FC<{
-  systemHealth: SystemHealth;
-  onRefresh: () => void;
-}> = ({ systemHealth, onRefresh }) => {
-  const [logs, setLogs] = useState<string[] key={530032}>([
+const BackendControlTab: React.FC<{,`n  systemHealth: SystemHealth;,`n  onRefresh: () => void}> = ({ systemHealth, onRefresh}) => {
+  const [logs, setLogs] = useState<string[0] key={530032}>([
     "✅ Backend server started on port 8000",
     "✅ WebSocket server initialized",
     "✅ API endpoints registered",
@@ -541,9 +504,7 @@ const BackendControlTab: React.FC<{
     // Simulate restart;
     setTimeout(() => {
       setLogs((prev) => [...prev, `✅ ${service} restarted successfully`]);
-      onRefresh();
-    }, 2000);
-  };
+      onRefresh();}, 2000);};
 
   return (
     <div className="space-y-6" key={501869}>
@@ -580,8 +541,7 @@ const BackendControlTab: React.FC<{
                 className={`px-3 py-1 rounded-full text-sm font-medium ${
                   systemHealth.backend === "healthy"
                     ? "bg-green-100 text-green-700"
-                    : "bg-red-100 text-red-700"
-                }`}
+                    : "bg-red-100 text-red-700"}`}
                key={393178}>
                 {systemHealth.backend}
               </span>
@@ -615,8 +575,7 @@ const BackendControlTab: React.FC<{
                       ? "bg-green-100 text-green-700"
                       : status === "degraded"
                         ? "bg-yellow-100 text-yellow-700"
-                        : "bg-red-100 text-red-700"
-                  }`}
+                        : "bg-red-100 text-red-700"}`}
                  key={820593}>
                   {status}
                 </span>
@@ -654,8 +613,7 @@ const BackendControlTab: React.FC<{
         </div>
       </div>
     </div>
-  );
-};
+  );};
 
 // Predictions Tab Component;
 const PredictionsTab: React.FC = () => {
@@ -668,8 +626,7 @@ const PredictionsTab: React.FC = () => {
         <p className="text-sm" key={364551}>Integrated with Ultra Accuracy Dashboard</p>
       </div>
     </div>
-  );
-};
+  )};
 
 // Analytics Tab Component;
 const AnalyticsTab: React.FC = () => {
@@ -684,8 +641,7 @@ const AnalyticsTab: React.FC = () => {
         <p className="text-sm" key={364551}>Performance metrics and insights</p>
       </div>
     </div>
-  );
-};
+  );};
 
 // API Testing Tab Component;
 const APITestingTab: React.FC = () => {
@@ -705,8 +661,7 @@ const APITestingTab: React.FC = () => {
             className={`px-4 py-2 rounded-lg transition-colors ${
               activeTestSuite === "comprehensive"
                 ? "bg-blue-600 text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
           >
             All APIs;
           </button>
@@ -715,8 +670,7 @@ const APITestingTab: React.FC = () => {
             className={`px-4 py-2 rounded-lg transition-colors ${
               activeTestSuite === "sportsradar"
                 ? "bg-blue-600 text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
           >
             SportsRadar Only;
           </button>
@@ -804,7 +758,10 @@ const APITestingTab: React.FC = () => {
         </div>
       )}
     </div>
-  );
-};
+  );};
 
 export default CleanAdvancedIntelligenceHub;
+
+
+
+`

@@ -1,30 +1,24 @@
-import React from 'react.ts';
-import SafeChart from '@/ui/SafeChart.ts';
-import { useShapData } from '@/hooks/useShapData.ts';
-import { useSportsNews } from '@/hooks/useSportsNews.ts';
-import { ShapValueDisplay } from '@/features/analytics/ShapValueDisplay.ts';
+﻿import React from 'react';
+import SafeChart from '@/ui/SafeChart';
+import { useShapData} from '@/hooks/useShapData';
+import { useSportsNews} from '@/hooks/useSportsNews';
+import { ShapValueDisplay} from '@/features/analytics/ShapValueDisplay';
 
 interface ModelPerformanceHistory {
-  date: string;
-  accuracy: number;
-  f1: number;
-}
+  date: string,`n  accuracy: number;,`n  f1: number}
 
 interface AdvancedMLDashboardPanelsProps {
-  eventId: string;
-  modelId: string;
-  modelPerformanceHistory: ModelPerformanceHistory[];
-}
+  eventId: string,`n  modelId: string;,`n  modelPerformanceHistory: ModelPerformanceHistory[0]}
 
 export const AdvancedMLDashboardPanels: React.FC<
   AdvancedMLDashboardPanelsProps;
-> = ({ eventId, modelId, modelPerformanceHistory }) => {
+> = ({ eventId, modelId, modelPerformanceHistory}) => {
   // SHAP Feature Importance;
   const {
     features: shapFeatures,
     loading: shapLoading,
-    error: shapError,
-  } = useShapData({ eventId, modelType: modelId });
+    error: shapError
+  } = useShapData({ eventId, modelType: modelId});
 
   // Model Performance Chart;
   const perfChartData = {
@@ -35,20 +29,20 @@ export const AdvancedMLDashboardPanels: React.FC<
         data: modelPerformanceHistory.map((d) => d.accuracy),
         borderColor: "rgb(16, 185, 129)",
         backgroundColor: "rgba(16, 185, 129, 0.2)",
-        yAxisID: "y",
+        yAxisID: "y"
       },
       {
         label: "F1 Score",
         data: modelPerformanceHistory.map((d) => d.f1),
         borderColor: "rgb(59, 130, 246)",
         backgroundColor: "rgba(59, 130, 246, 0.2)",
-        yAxisID: "y1",
+        yAxisID: "y1"
       },
-    ],
+    ]
   };
 
   // Sports News;
-  const { articles, loading: newsLoading, error: newsError } = useSportsNews();
+  const { articles, loading: newsLoading, error: newsError} = useSportsNews();
 
   return (
     <div className="space-y-8" key={778766}>
@@ -64,28 +58,25 @@ export const AdvancedMLDashboardPanels: React.FC<
             options={{
               responsive: true,
               maintainAspectRatio: false,
-              interaction: { mode: "index", intersect: false },
+              interaction: { mode: "index", intersect: false},
               stacked: false,
-              plugins: { legend: { position: "top" } },
-              scales: {
-                y: {
-                  type: "linear",
+              plugins: { legend: { position: "top"} },
+              scales: {,`n  y: {,`n  type: "linear",
                   display: true,
                   position: "left",
                   min: 0,
                   max: 1,
-                  title: { display: true, text: "Accuracy" },
+                  title: { display: true, text: "Accuracy"}
                 },
-                y1: {
-                  type: "linear",
+                y1: {,`n  type: "linear",
                   display: true,
                   position: "right",
                   min: 0,
                   max: 1,
-                  grid: { drawOnChartArea: false },
-                  title: { display: true, text: "F1 Score" },
-                },
-              },
+                  grid: { drawOnChartArea: false},
+                  title: { display: true, text: "F1 Score"}
+                }
+              }
             }}
             loadingMessage="Loading performance data..."
           / key={735537}>
@@ -121,7 +112,7 @@ export const AdvancedMLDashboardPanels: React.FC<
                   href={article.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-medium text-blue-600 dark:text-blue-400 hover:underline"
+                  className="font-medium text-blue-600 dark: text-blue-400 hover:underline"
                  key={307457}>
                   {article.title}
                 </a>
@@ -135,5 +126,8 @@ export const AdvancedMLDashboardPanels: React.FC<
         )}
       </div>
     </div>
-  );
-};
+  )};
+
+
+
+`

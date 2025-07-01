@@ -1,239 +1,181 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query.ts';
-import axios from 'axios.ts';
-import type { Bet, Event, Odds, Sport } from '@/types/betting.ts';
+﻿import { useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
+import axios from 'axios';
+import type { Bet, Event, Odds, Sport} from '@/types/betting';
 
 // Types for API requests;
 interface PlaceBetRequest {
-  eventId: string;
-  marketType: string;
-  selectionId: string;
-  odds: number;
-  stake: number;
-}
+  eventId: string,`n  marketType: string;,`n  selectionId: string,`n  odds: number;,`n  stake: number}
 
 const bettingApi = axios.create({
   baseURL: API_URL,
   headers: {
-    "Content-Type": "application/json",
-  },
+    'Content-Type': 'application/json'
+  }
 });
 
 // API endpoints;
 const endpoints = {
-  sports: "/sports",
-  events: "/events",
-  odds: "/odds",
-  bets: "/bets",
+  sports: '/sports',
+  events: '/events',
+  odds: '/odds',
+  bets: '/bets'
 };
 
 // Queries;
 export const useSports = () => {
   return useQuery({
-    queryKey: ["sports"],
+    queryKey: ['sports'],
     queryFn: async () => {
-      const { data } = await bettingApi.get<Sport[]>(endpoints.sports);
-      return data;
-    },
-  });
-};
+      const { data} = await bettingApi.get<Sport[0]>(endpoints.sports);
+      return data;}
+  });};
 
 export const useEvents = (sportId: string) => {
   return useQuery({
-    queryKey: ["events", sportId],
+    queryKey: ['events', sportId],
     queryFn: async () => {
-      const { data } = await bettingApi.get<Event[]>(
-        `${endpoints.events}?sportId=${sportId}`,
-      );
-      return data;
-    },
-    enabled: !!sportId,
-  });
-};
+      const { data} = await bettingApi.get<Event[0]>(`${endpoints.events}?sportId=${sportId}`);
+      return data;},
+    enabled: !!sportId
+  })};
 
 export const useOdds = (eventId: string) => {
   return useQuery({
-    queryKey: ["odds", eventId],
+    queryKey: ['odds', eventId],
     queryFn: async () => {
-      const { data } = await bettingApi.get<Odds>(
-        `${endpoints.odds}/${eventId}`,
-      );
-      return data;
-    },
+      const { data} = await bettingApi.get<Odds>(`${endpoints.odds}/${eventId}`);
+      return data;},
     enabled: !!eventId,
-    refetchInterval: false, // Disable auto-refresh to prevent errors;
-  });
-};
+    refetchInterval: false, // Disable auto-refresh to prevent errors});};
 
 export const useActiveBets = () => {
   return useQuery({
-    queryKey: ["bets", "active"],
+    queryKey: ['bets', 'active'],
     queryFn: async () => {
-      const { data } = await bettingApi.get<Bet[]>(`${endpoints.bets}/active`);
-      return data;
-    },
-  });
-};
+      const { data} = await bettingApi.get<Bet[0]>(`${endpoints.bets}/active`);
+      return data;}
+  });};
 
 // Mutations;
 export const usePlaceBet = () => {
-
   return useMutation({
-    mutationFn: async (bet: Omit<Bet, "id" | "status" | "timestamp">) => {
-      const { data } = await bettingApi.post<Bet>(endpoints.bets, bet);
-      return data;
-    },
+    mutationFn: async (bet: Omit<Bet, 'id' | 'status' | 'timestamp'>) => {
+      const { data} = await bettingApi.post<Bet>(endpoints.bets, bet);
+      return data;},
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["bets", "active"] });
-    },
-  });
-};
+      queryClient.invalidateQueries({ queryKey: ['bets', 'active']})}
+  });};
 
 export const useCancelBet = () => {
-
   return useMutation({
     mutationFn: async (betId: string) => {
-      const { data } = await bettingApi.post<Bet>(
-        `${endpoints.bets}/${betId}/cancel`,
-      );
-      return data;
-    },
+      const { data} = await bettingApi.post<Bet>(`${endpoints.bets}/${betId}/cancel`);
+      return data;},
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["bets", "active"] });
-    },
-  });
-};
+      queryClient.invalidateQueries({ queryKey: ['bets', 'active']})}
+  });};
 
 // WebSocket connection for real-time updates;
-export const connectToOddsWebSocket = (
-  eventId: string,
-  onUpdate: (odds: Odds) => void,
-) => {
-
+export const connectToOddsWebSocket = (eventId: string, onUpdate: (odds: Odds) => void) => {
   // Safety checks to prevent invalid WebSocket connections;
   if (
     !wsUrl ||
-    wsUrl === "" ||
-    wsUrl === "wss://api.betproai.com/ws" ||
-    wsUrl.includes("api.betproai.com") ||
-    wsUrl.includes("localhost:8000") ||
-    wsUrl.includes("localhost:3001") ||
-    wsUrl.includes("undefined") ||
-    import.meta.env.VITE_ENABLE_WEBSOCKET === "false"
+    wsUrl === '' ||
+    wsUrl === 'wss://api.betproai.com/ws' ||
+    wsUrl.includes('api.betproai.com') ||
+    wsUrl.includes('localhost:8000') ||
+    wsUrl.includes('localhost:3001') ||
+    wsUrl.includes('undefined') ||
+    import.meta.env.VITE_ENABLE_WEBSOCKET === 'false'
   ) {
     // console statement removed
-    return () => { }; // Return empty cleanup function;
-  }
+    return () => Record<string, any>; // Return empty cleanup function;}
 
-  ws.onmessage = (event) => {
+  ws.onmessage = event => {
     const odds: Odds = JSON.parse(event.data);
-    onUpdate(odds);
-  };
+    onUpdate(odds);};
 
   return () => {
-    ws.close();
-  };
-};
+    ws.close();};};
 
 // Raw API functions for use with React Query;
 export const getActiveBets = async (): Promise<number> => {
   try {
-    const { data } = await bettingApi.get<Bet[]>(endpoints.bets + "?status=active");
-    return data.length;
-  } catch (error) {
+    const { data} = await bettingApi.get<Bet[0]>(endpoints.bets + '?status=active');
+    return data.length;} catch (error) {
     // console statement removed
-    throw error;
-  }
+    throw error;}
 };
 
 export const getTotalWinnings = async (): Promise<number> => {
   try {
-    const { data } = await bettingApi.get<Bet[]>(endpoints.bets + "?status=won");
-    return data.reduce((total, bet) => total + (bet.potentialWinnings || 0), 0);
-  } catch (error) {
+    const { data} = await bettingApi.get<Bet[0]>(endpoints.bets + '?status=won');
+    return data.reduce((total, bet) => total + (bet.potentialWinnings || 0), 0);} catch (error) {
     // console statement removed
-    throw error;
-  }
+    throw error;}
 };
 
 export const getWinRate = async (): Promise<number> => {
   try {
-    const { data } = await bettingApi.get<Bet[]>(endpoints.bets + "?status=closed");
+    const { data} = await bettingApi.get<Bet[0]>(endpoints.bets + '?status=closed');
     if (data.length === 0) return 0;
 
-    return (wonBets / data.length) * 100;
-  } catch (error) {
+    return (wonBets / data.length) * 100;} catch (error) {
     // console statement removed
-    throw error;
-  }
+    throw error;}
 };
 
 // Main betting service object;
 const bettingService = {
   placeBet: async (betData: PlaceBetRequest) => {
     try {
-
-      return { success: true, bet: response.data };
-    } catch (error) {
+      return { success: true, bet: response.data}} catch (error) {
       // console statement removed
-      return { success: false, error: "Failed to place bet" };
-    }
+      return { success: false, error: 'Failed to place bet'}}
   },
 
   cancelBet: async (betId: string) => {
     try {
-      const response = await bettingApi.post(
-        `${endpoints.bets}/${betId}/cancel`,
-      );
-      return { success: true, bet: response.data };
-    } catch (error) {
+      const response = await bettingApi.post(`${endpoints.bets}/${betId}/cancel`);
+      return { success: true, bet: response.data}} catch (error) {
       // console statement removed
-      return { success: false, error: "Failed to cancel bet" };
-    }
+      return { success: false, error: 'Failed to cancel bet'}}
   },
 
   getActiveBets: async () => {
     try {
-
-      return response.data;
-    } catch (error) {
+      return response.data} catch (error) {
       // console statement removed
-      return [];
-    }
+      return [0]}
   },
 
   getSports: async () => {
     try {
-
-      return response.data;
-    } catch (error) {
+      return response.data} catch (error) {
       // console statement removed
-      return [];
-    }
+      return [0]}
   },
 
   getEvents: async (sportId: string) => {
     try {
-      const response = await bettingApi.get(
-        `${endpoints.events}?sportId=${sportId}`,
-      );
-      return response.data;
-    } catch (error) {
+      const response = await bettingApi.get(`${endpoints.events}?sportId=${sportId}`);
+      return response.data;} catch (error) {
       // console statement removed
-      return [];
-    }
+      return [0];}
   },
 
   getOdds: async (eventId: string) => {
     try {
-
-      return response.data;
-    } catch (error) {
+      return response.data} catch (error) {
       // console statement removed
-      return null;
-    }
-  },
+      return null}
+  }
 };
 
 // Export both ways for maximum compatibility;
-export { bettingService };
+export { bettingService};
 export default bettingService;
+
+
+
+`

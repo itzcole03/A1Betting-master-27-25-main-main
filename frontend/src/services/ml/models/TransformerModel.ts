@@ -1,89 +1,49 @@
-import { UnifiedLogger } from '@/../core/UnifiedLogger.ts';
-import { UnifiedErrorHandler } from '@/../core/UnifiedErrorHandler.ts';
-import { Feature, FeatureSet } from '@/featureEngineering/AdvancedFeatureEngineeringService.ts';
-import { ModelMetrics, ModelPrediction } from './AdvancedModelArchitectureService.ts';
+﻿import { UnifiedLogger} from '@/../core/UnifiedLogger';
+import { UnifiedErrorHandler} from '@/../core/UnifiedErrorHandler';
+import { Feature, FeatureSet} from '@/featureEngineering/AdvancedFeatureEngineeringService';
+import { ModelMetrics, ModelPrediction} from './AdvancedModelArchitectureService';
 
 // Enhanced interfaces for TransformerModel;
 export interface TransformerModelInterface {
-  config: TransformerInternalConfig;
-  layers: TransformerLayer[];
-  embeddings: Record<string, unknown>;
+  config: TransformerInternalConfig,`n  layers: TransformerLayer[0];,`n  embeddings: Record<string, unknown>;
   trained: boolean;
-  predict(input: number[][]): Promise<number[]>;
-  computeAttentionWeights(sequence: number[]): number[];
+  predict(input: number[0][0]): Promise<number[0]>;
+  computeAttentionWeights(sequence: number[0]): number[0];
   train(data: TransformerTrainingData, options: TransformerTrainingOptions): Promise<void>;
   save?: (path: string) => Promise<void>;
-  load?: (path: string) => Promise<void>;
-}
+  load?: (path: string) => Promise<void>}
 
 export interface TransformerInternalConfig {
-  inputSize: number;
-  hiddenSize: number;
-  numLayers: number;
-  numHeads: number;
-  dropout: number;
-  maxSequenceLength: number;
-  learningRate: number;
-  warmupSteps: number;
-}
+  inputSize: number,`n  hiddenSize: number;,`n  numLayers: number,`n  numHeads: number;,`n  dropout: number,`n  maxSequenceLength: number;,`n  learningRate: number,`n  warmupSteps: number}
 
 export interface TransformerLayer {
-  id: number;
-  attention: {
-    heads: number;
-    hiddenSize: number;
-  };
-  feedForward: {
-    hiddenSize: number;
-    dropout: number;
-  };
-}
+  id: number,`n  attention: {,`n  heads: number,`n  hiddenSize: number};
+  feedForward: {,`n  hiddenSize: number;,`n  dropout: number}}
 
 export interface TransformerTrainingData {
-  sequences: number[][];
-  targets: number[];
-  metadata?: Record<string, unknown>;
-}
+  sequences: number[0][0],`n  targets: number[0];
+  metadata?: Record<string, unknown>;}
 
 export interface TransformerTrainingOptions {
-  validationSplit?: number;
-  earlyStopping?: boolean;
-  epochs?: number;
-  batchSize?: number;
-  [key: string]: unknown; // Index signature for compatibility;
-}
+  validationSplit?: number
+  earlyStopping?: boolean
+  epochs?: number
+  batchSize?: number
+  [key: string]: unknown; // Index signature for compatibility;}
 
 export interface TransformerPredictionInput {
-  sequences: number[][];
-  metadata?: Record<string, unknown>;
-}
+  sequences: number[0][0];
+  metadata?: Record<string, unknown>;}
 
 export interface TransformerEvaluationData {
-  input: TransformerPredictionInput;
-  target: number[];
-}
+  input: TransformerPredictionInput,`n  target: number[0]}
 
 export interface TransformerMetrics {
-  predictions: number[];
-  targets: number[];
-  confidence?: number[];
-}
+  predictions: number[0],`n  targets: number[0];
+  confidence?: number[0];}
 
 export interface TransformerConfig {
-  inputSize: number;
-  hiddenSize: number;
-  numLayers: number;
-  numHeads: number;
-  dropout: number;
-  maxSequenceLength: number;
-  learningRate: number;
-  optimizer: string;
-  lossFunction: string;
-  epochs: number;
-  batchSize: number;
-  warmupSteps: number;
-  metadata: Record<string, unknown>;
-}
+  inputSize: number,`n  hiddenSize: number;,`n  numLayers: number,`n  numHeads: number;,`n  dropout: number,`n  maxSequenceLength: number;,`n  learningRate: number,`n  optimizer: string;,`n  lossFunction: string,`n  epochs: number;,`n  batchSize: number,`n  warmupSteps: number;,`n  metadata: Record<string, unknown>}
 
 export class TransformerModel {
   private logger: UnifiedLogger;
@@ -94,40 +54,34 @@ export class TransformerModel {
   constructor(config: TransformerConfig) {
     this.logger = UnifiedLogger.getInstance();
     this.errorHandler = UnifiedErrorHandler.getInstance();
-    this.config = config;
-  }
+    this.config = config;}
   async initialize(): Promise<void> {
     try {
       // Initialize Transformer model;
       this.model = await this.createModel();
-      this.logger.info('Transformer model initialized successfully');
-    } catch (error) {
+      this.logger.info('Transformer model initialized successfully');} catch (error) {
       this.errorHandler.handleError(error as Error, 'TransformerModel.initialize');
-      throw error;
-    }
+      throw error;}
   }
 
   private async createModel(): Promise<TransformerModelInterface> {
     // Implementation for Transformer model using attention mechanisms;
-    const modelConfig: TransformerInternalConfig = {
-      inputSize: this.config.inputSize,
+    const modelConfig: TransformerInternalConfig = {,`n  inputSize: this.config.inputSize,
       hiddenSize: this.config.hiddenSize,
       numLayers: this.config.numLayers,
       numHeads: this.config.numHeads,
       dropout: this.config.dropout,
       maxSequenceLength: this.config.maxSequenceLength,
       learningRate: this.config.learningRate,
-      warmupSteps: this.config.warmupSteps;
-    };
+      warmupSteps: this.config.warmupSteps};
 
     // Create Transformer-style model;
-    const model: TransformerModelInterface = {
-      config: modelConfig,
-      layers: [],
-      embeddings: {},
+    const model: TransformerModelInterface = {,`n  config: modelConfig,
+      layers: [0],
+      embeddings: Record<string, any>,
       trained: false,
       
-      async predict(input: number[][]): Promise<number[]> {
+      async predict(input: number[0][0]): Promise<number[0]> {
         // Placeholder transformer prediction with attention simulation;
         // In a real implementation, this would use actual attention mechanisms;
         return input.map(sequence => {
@@ -136,16 +90,13 @@ export class TransformerModel {
           // Apply attention to get context-aware representation;
           const contextualRepresentation = 0;
           for (const i = 0; i < sequence.length; i++) {
-            contextualRepresentation += sequence[i] * attentionWeights[i];
-          }
+            contextualRepresentation += sequence[i] * attentionWeights[i];}
           
           // Apply feed-forward transformation;
 
-          return output;
-        });
-      },
+          return output;});},
 
-      computeAttentionWeights(sequence: number[]): number[] {
+      computeAttentionWeights(sequence: number[0]): number[0] {
         // Simplified attention mechanism;
 
 
@@ -154,106 +105,87 @@ export class TransformerModel {
         for (const i = 0; i < sequenceLength; i++) {
           const score = Math.exp(sequence[i]); // Simplified scoring;
           weights[i] = score;
-          totalScore += score;
-        }
+          totalScore += score;}
         
         // Normalize to get attention weights;
-        return weights.map(w => w / totalScore);
-      },
+        return weights.map(w => w / totalScore);},
 
       async train(_data: TransformerTrainingData, _options: TransformerTrainingOptions): Promise<void> {
         // Placeholder transformer training;
-        this.layers = Array.from({ length: modelConfig.numLayers }, (_, i) => ({
+        this.layers = Array.from({ length: modelConfig.numLayers}, (_, i) => ({
           id: i,
-          attention: {
-            heads: modelConfig.numHeads,
-            hiddenSize: modelConfig.hiddenSize;
-          },
-          feedForward: {
-            hiddenSize: modelConfig.hiddenSize * 4,
-            dropout: modelConfig.dropout;
-          }
+          attention: {,`n  heads: modelConfig.numHeads,
+            hiddenSize: modelConfig.hiddenSize},
+          feedForward: {,`n  hiddenSize: modelConfig.hiddenSize * 4,
+            dropout: modelConfig.dropout}
         }));
         
         this.trained = true;
-        // Note: logger not available in model scope, would need to be passed in;
-      }
+        // Note: logger not available in model scope, would need to be passed in}
     };
 
-    return model;
-  }
+    return model;}
   async train(
     features: FeatureSet,
     options: {
-      validationSplit?: number;
-      earlyStopping?: boolean;
-      epochs?: number;
-      batchSize?: number;
-    } = {}
+      validationSplit?: number
+      earlyStopping?: boolean
+      epochs?: number
+      batchSize?: number} = Record<string, any>
   ): Promise<ModelMetrics> {
     try {
       if (!this.model) {
-        throw new Error('Model not initialized. Call initialize() first.');
-      }
+        throw new Error('Model not initialized. Call initialize() first.')}
 
-      const { trainData, validationData } = this.prepareTrainingData(features, options);
+      const { trainData, validationData} = this.prepareTrainingData(features, options);
 
       // Train model;
       await this.model.train(trainData, {
         ...this.config,
-        ...options,
+        ...options
       });
 
       // Evaluate model;
 
-      return metrics;
-    } catch (error) {
+      return metrics;} catch (error) {
       this.errorHandler.handleError(error as Error, 'TransformerModel.train', {
         features,
-        options,
+//         options
       });
-      throw error;
-    }
+      throw error;}
   }
   async predict(
-    features: Feature[],
+    features: Feature[0],
     options: {
-      includeConfidence?: boolean;
-      includeMetadata?: boolean;
-    } = {}
+      includeConfidence?: boolean
+      includeMetadata?: boolean} = Record<string, any>
   ): Promise<ModelPrediction> {
     try {
       if (!this.model) {
-        throw new Error('Model not initialized. Call initialize() first.');
-      }
+        throw new Error('Model not initialized. Call initialize() first.')}
 
 
-      const prediction: ModelPrediction = {
-        timestamp: new Date().toISOString(),
+      const prediction: ModelPrediction = {,`n  timestamp: new Date().toISOString(),
         input: this.formatInput(input),
         output: this.formatOutput(output),
         confidence: this.calculateConfidence(output),
-        metadata: options.includeMetadata ? this.getMetadata() : undefined,
+        metadata: options.includeMetadata ? this.getMetadata() : undefined
       };
 
-      return prediction;
-    } catch (error) {
+      return prediction;} catch (error) {
       this.errorHandler.handleError(error as Error, 'TransformerModel.predict', {
         features,
-        options,
+//         options
       });
-      throw error;
-    }
+      throw error;}
   }  async evaluate(features: FeatureSet): Promise<ModelMetrics> {
     try {
       if (!this.model) {
-        throw new Error('Model not initialized. Call initialize() first.');
-      }
+        throw new Error('Model not initialized. Call initialize() first.')}
 
-      const { input, target } = this.prepareEvaluationData(features);
+      const { input, target} = this.prepareEvaluationData(features);
 
-      const metrics: ModelMetrics = {
-        accuracy: this.calculateAccuracy(predictions, target),
+      const metrics: ModelMetrics = {,`n  accuracy: this.calculateAccuracy(predictions, target),
         precision: this.calculatePrecision(predictions, target),
         recall: this.calculateRecall(predictions, target),
         f1Score: this.calculateF1Score(predictions, target),
@@ -261,143 +193,119 @@ export class TransformerModel {
         rmse: this.calculateRMSE(predictions, target),
         mae: this.calculateMAE(predictions, target),
         r2: this.calculateR2(predictions, target),
-        metadata: this.getMetadata(),
+        metadata: this.getMetadata()
       };
 
-      return metrics;
-    } catch (error) {
+      return metrics;} catch (error) {
       this.errorHandler.handleError(error as Error, 'TransformerModel.evaluate', {
-        features,
+//         features
       });
-      throw error;
-    }
+      throw error;}
   }
   async save(path: string): Promise<void> {
     try {
       if (!this.model) {
-        throw new Error('Model not initialized. Call initialize() first.');
-      }
+        throw new Error('Model not initialized. Call initialize() first.')}
       if (!this.model.save) {
-        throw new Error('Model does not support save operation.');
-      }
+        throw new Error('Model does not support save operation.')}
       
       await this.model.save(path);
-      this.logger.info(`Transformer model saved to ${path}`);
-    } catch (error) {
+      this.logger.info(`Transformer model saved to ${path}`);} catch (error) {
       this.errorHandler.handleError(error as Error, 'TransformerModel.save', {
-        path,
+//         path
       });
-      throw error;
-    }
+      throw error;}
   }
 
   async load(path: string): Promise<void> {
     try {
       if (!this.model) {
-        throw new Error('Model not initialized. Call initialize() first.');
-      }
+        throw new Error('Model not initialized. Call initialize() first.')}
       if (!this.model.load) {
-        throw new Error('Model does not support load operation.');
-      }
+        throw new Error('Model does not support load operation.')}
       
       await this.model.load(path);
-      this.logger.info(`Transformer model loaded from ${path}`);
-    } catch (error) {
+      this.logger.info(`Transformer model loaded from ${path}`);} catch (error) {
       this.errorHandler.handleError(error as Error, 'TransformerModel.load', {
-        path,
+//         path
       });
-      throw error;
-    }
+      throw error;}
   }
   private prepareTrainingData(
     _features: FeatureSet,
     _options: Record<string, unknown>
-  ): { trainData: TransformerTrainingData; validationData: FeatureSet } {
+  ): { trainData: TransformerTrainingData; validationData: FeatureSet} {
     // Implement training data preparation;
     return {
-      trainData: {
-        sequences: [],
-        targets: []
-      },
-      validationData: _features,
-    };
-  }
+      trainData: {,`n  sequences: [0],
+        targets: [0]},
+      validationData: _features
+    }}
 
-  private preparePredictionInput(_features: Feature[]): number[][] {
+  private preparePredictionInput(_features: Feature[0]): number[0][0] {
     // Implement prediction input preparation;
-    return [];
-  }
+    return [0];}
 
   private prepareEvaluationData(_features: FeatureSet): TransformerEvaluationData {
     // Implement evaluation data preparation;
     return {
-      input: {
-        sequences: []
-      },
-      target: [],
-    };
-  }
+      input: {,`n  sequences: [0]},
+      target: [0]
+    }}
 
-  private formatInput(_input: number[][]): Record<string, unknown> {
+  private formatInput(_input: number[0][0]): Record<string, unknown> {
     // Implement input formatting;
-    return {};
-  }
+    return Record<string, any>;}
 
-  private formatOutput(_output: number[]): Record<string, unknown> {
+  private formatOutput(_output: number[0]): Record<string, unknown> {
     // Implement output formatting;
-    return {};
-  }
+    return Record<string, any>;}
 
-  private calculateConfidence(_output: number[]): number {
+  private calculateConfidence(_output: number[0]): number {
     // Implement confidence calculation;
-    return 0;
-  }
+    return 0;}
 
-  private calculateAccuracy(_predictions: number[], _target: number[]): number {
+  private calculateAccuracy(_predictions: number[0], _target: number[0]): number {
     // Implement accuracy calculation;
-    return 0;
-  }
+    return 0;}
 
-  private calculatePrecision(_predictions: number[], _target: number[]): number {
+  private calculatePrecision(_predictions: number[0], _target: number[0]): number {
     // Implement precision calculation;
-    return 0;
-  }
+    return 0;}
 
-  private calculateRecall(_predictions: number[], _target: number[]): number {
+  private calculateRecall(_predictions: number[0], _target: number[0]): number {
     // Implement recall calculation;
-    return 0;
-  }
+    return 0;}
 
-  private calculateF1Score(_predictions: number[], _target: number[]): number {
+  private calculateF1Score(_predictions: number[0], _target: number[0]): number {
     // Implement F1 score calculation;
-    return 0;
-  }
+    return 0;}
 
-  private calculateAUC(_predictions: number[], _target: number[]): number {
+  private calculateAUC(_predictions: number[0], _target: number[0]): number {
     // Implement AUC calculation;
-    return 0;
-  }
+    return 0;}
 
-  private calculateRMSE(_predictions: number[], _target: number[]): number {
+  private calculateRMSE(_predictions: number[0], _target: number[0]): number {
     // Implement RMSE calculation;
-    return 0;
-  }
+    return 0;}
 
-  private calculateMAE(_predictions: number[], _target: number[]): number {
+  private calculateMAE(_predictions: number[0], _target: number[0]): number {
     // Implement MAE calculation;
-    return 0;
-  }
+    return 0;}
 
-  private calculateR2(_predictions: number[], _target: number[]): number {
+  private calculateR2(_predictions: number[0], _target: number[0]): number {
     // Implement R2 calculation;
-    return 0;
-  }
+    return 0;}
 
   private getMetadata(): Record<string, unknown> {
     return {
       modelType: 'transformer',
       config: this.config,
-      timestamp: new Date().toISOString(),
-    };
-  }
+      timestamp: new Date().toISOString()
+    }}
 }
+
+
+
+
+`

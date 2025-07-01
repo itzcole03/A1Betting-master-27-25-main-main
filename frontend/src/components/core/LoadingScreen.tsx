@@ -1,11 +1,10 @@
-import React from 'react.ts';
-import { Box, CircularProgress, Typography } from '@mui/material.ts';
+﻿import React from 'react';
+import { Box, CircularProgress, Typography} from '@mui/material';
 
 interface LoadingScreenProps {
-  message?: string;
-}
+  message?: string}
 
-const LoadingScreen: React.FC<LoadingScreenProps key={316746}> = ({ message = 'Loading...' }) => {
+const LoadingScreen: React.FC<LoadingScreenProps key={316746}> = ({ message = 'Loading...'}) => {
   return (
     <Box;
       sx={{
@@ -14,7 +13,7 @@ const LoadingScreen: React.FC<LoadingScreenProps key={316746}> = ({ message = 'L
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '100vh',
-        gap: 2,
+        gap: 2
       }}
      key={250695}>
       <CircularProgress size={60} / key={173336}>
@@ -22,7 +21,10 @@ const LoadingScreen: React.FC<LoadingScreenProps key={316746}> = ({ message = 'L
         {message}
       </Typography>
     </Box>
-  );
-};
+  )};
 
 export default React.memo(LoadingScreen);
+
+
+
+
