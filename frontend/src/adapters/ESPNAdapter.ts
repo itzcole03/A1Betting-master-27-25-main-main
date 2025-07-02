@@ -1,19 +1,25 @@
-﻿
+import { DataSource } from '../unified/DataSource';
+import { EventBus } from '../unified/EventBus';
+import { PerformanceMonitor } from '../unified/PerformanceMonitor';
+
 export interface ESPNGame {
-  id: string
-,`n  homeTeam: string;
-,`n  awayTeam: string
-,`n  startTime: string;
-,`n  status: string}
+  id: string;
+  homeTeam: string;
+  awayTeam: string;
+  startTime: string;
+  status: string;
+}
 
 export interface ESPNHeadline {
-  title: string
-,`n  link: string;
-,`n  pubDate: string}
+  title: string;
+  link: string;
+  pubDate: string;
+}
 
 export interface ESPNData {
-  games: ESPNGame[0]
-,`n  headlines: ESPNHeadline[0]}
+  games: ESPNGame[];
+  headlines: ESPNHeadline[];
+}
 
 export class ESPNAdapter implements DataSource<ESPNData> {
   public readonly id = 'espn';
@@ -22,8 +28,9 @@ export class ESPNAdapter implements DataSource<ESPNData> {
   private readonly eventBus: EventBus;
   private readonly performanceMonitor: PerformanceMonitor;
   private cache: {
-,`n  data: ESPNData | null;
-,`n  timestamp: number};
+    data: ESPNData | null;
+    timestamp: number;
+  }
 
   constructor() {
     this.eventBus = EventBus.getInstance();
@@ -31,10 +38,12 @@ export class ESPNAdapter implements DataSource<ESPNData> {
     this.cache = {
       data: null,
       timestamp: 0
-    }}
+    }
+  }
 
   public async isAvailable(): Promise<boolean> {
-    return true}
+    return true;
+  }
 
   public async fetch(): Promise<ESPNData> {
     const traceId = this.performanceMonitor.startTrace('espn-fetch', {
@@ -44,18 +53,27 @@ export class ESPNAdapter implements DataSource<ESPNData> {
 
     try {
       if (this.isCacheValid()) {
-        return this.cache.data!}
+        return this.cache.data!;
+      }
+      
       const [games, headlines] = await Promise.all([this.fetchGames(), this.fetchHeadlines()]);
-      const data: ESPNData = { games, headlines};
-      this.cache = { data, timestamp: Date.now()};
-      this.eventBus.emit('espn-updated', { data});
+      const data: ESPNData = { games, headlines }
+      
+      this.cache = { data, timestamp: Date.now() }
+      await this.eventBus.publish({
+        type: 'espn:data-updated',
+        payload: { data: { gameCount: games.length, headlineCount: headlines.length }, timestamp: Date.now() }
+      });
+      
       this.performanceMonitor.endTrace(traceId);
-      return data} catch (error) {
+      return data;
+    } catch (error) {
       this.performanceMonitor.endTrace(traceId, error as Error);
-      throw error}
+      throw error;
+    }
   }
 
-  private async fetchGames(): Promise<ESPNGame[0]> {
+  private async fetchGames(): Promise<ESPNGame[]> {
     // Use ESPN's public scoreboard API (NBA example)
     const url = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard';
 
@@ -85,12 +103,15 @@ export class ESPNAdapter implements DataSource<ESPNData> {
           startTime: eventData.date as string,
           status: ((eventData.status as Record<string, unknown>)?.type as Record<string, unknown>)
             ?.name as string
-        }})} catch {
-      return [0]}
+        }
+      });
+    } catch {
+      return [];
+    }
   }
 
-  private async fetchHeadlines(): Promise<ESPNHeadline[0]> {
-    // Use ESPN's NBA news RSS feed;
+  private async fetchHeadlines(): Promise<ESPNHeadline[]> {
+    // Use ESPN's NBA news RSS feed
     const url = 'https://www.espn.com/espn/rss/nba/news';
 
     try {
@@ -105,10 +126,10 @@ export class ESPNAdapter implements DataSource<ESPNData> {
         const link = item.querySelector('link')?.textContent || '';
         const pubDate = item.querySelector('pubDate')?.textContent || '';
         
-        return { title, link, pubDate };
+        return { title, link, pubDate }
       });
     } catch {
-      return [0];
+      return [];
     }
   }
 
@@ -118,7 +139,8 @@ export class ESPNAdapter implements DataSource<ESPNData> {
   }
 
   public clearCache(): void {
-    this.cache = { data: null, timestamp: 0 }}
+    this.cache = { data: null, timestamp: 0 }
+  }
 
   public async connect(): Promise<void> {
     // Implementation for connection
@@ -126,18 +148,4 @@ export class ESPNAdapter implements DataSource<ESPNData> {
 
   public async disconnect(): Promise<void> {
     // Implementation for disconnection
-  }
-
-  public async getData(): Promise<ESPNData> {
-    return this.cache.data as ESPNData }
-
-  public isConnected(): boolean {
-    return true }
-
-  public getMetadata(): Record<string, unknown> {
-    return { id: this.id, type: this.type }}
 }
-
-
-
-`
