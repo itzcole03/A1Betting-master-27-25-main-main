@@ -1,0 +1,44 @@
+# RESCUE BOT - ENVIRONMENT & ENDPOINT DISCOVERY
+# Generated: 07/02/2025 17:45:51
+
+## DISCOVERED API ENDPOINTS:
+/api/health/all
+/api/health/status
+/api/prizepicks/props
+/api/prizepicks/comprehensive-projections
+/api/prizepicks/recommendations
+/api/betting-opportunities
+/api/active-bets
+/api/risk-profiles
+/api/ultra-accuracy/model-performance
+/api/v1/performance-stats
+/api/v1/predictions
+/api/analytics/events
+/api/analytics/sync
+/api/logs
+/api/users
+/api/data-scraping
+/api/config
+/api/news
+/api/sentiment
+/api/live
+/api/opportunities
+/api/predictions/prizepicks
+/api/portfolio
+/api/performance
+/api/models
+/api/bets
+
+## ENVIRONMENT VARIABLES:
+REACT_APP_API_URL=http://localhost:8000
+VITE_API_URL=http://localhost:8000
+
+## BACKEND SERVICES DETECTED:
+- PrizePicks API Integration
+- Analytics Service
+- Betting Opportunities
+- Model Performance
+- Health Monitoring
+- User Management
+- News & Sentiment
+- Live Data Feeds
