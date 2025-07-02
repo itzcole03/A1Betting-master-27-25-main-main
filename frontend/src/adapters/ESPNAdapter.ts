@@ -1,15 +1,19 @@
-﻿import { DataSource} from '@/core/DataSource.js'
-import { EventBus} from '@/core/EventBus.js'
-import { PerformanceMonitor} from '@/core/PerformanceMonitor.js'
-
+﻿
 export interface ESPNGame {
-  id: string,`n  homeTeam: string;,`n  awayTeam: string,`n  startTime: string;,`n  status: string}
+  id: string
+,`n  homeTeam: string;
+,`n  awayTeam: string
+,`n  startTime: string;
+,`n  status: string}
 
 export interface ESPNHeadline {
-  title: string,`n  link: string;,`n  pubDate: string}
+  title: string
+,`n  link: string;
+,`n  pubDate: string}
 
 export interface ESPNData {
-  games: ESPNGame[0],`n  headlines: ESPNHeadline[0]}
+  games: ESPNGame[0]
+,`n  headlines: ESPNHeadline[0]}
 
 export class ESPNAdapter implements DataSource<ESPNData> {
   public readonly id = 'espn';
@@ -17,7 +21,9 @@ export class ESPNAdapter implements DataSource<ESPNData> {
 
   private readonly eventBus: EventBus;
   private readonly performanceMonitor: PerformanceMonitor;
-  private cache: {,`n  data: ESPNData | null;,`n  timestamp: number};
+  private cache: {
+,`n  data: ESPNData | null;
+,`n  timestamp: number};
 
   constructor() {
     this.eventBus = EventBus.getInstance();
@@ -31,6 +37,11 @@ export class ESPNAdapter implements DataSource<ESPNData> {
     return true}
 
   public async fetch(): Promise<ESPNData> {
+    const traceId = this.performanceMonitor.startTrace('espn-fetch', {
+      source: this.id,
+      type: this.type
+    });
+
     try {
       if (this.isCacheValid()) {
         return this.cache.data!}
@@ -46,9 +57,17 @@ export class ESPNAdapter implements DataSource<ESPNData> {
 
   private async fetchGames(): Promise<ESPNGame[0]> {
     // Use ESPN's public scoreboard API (NBA example)
+    const url = 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard';
 
     try {
-      return (json.events || [0]).map((event: unknown) => {
+      const response = await fetch(url);
+      const json = await response.json();
+      
+      return (json.events || []).map((event: any) => {
+        const eventData = event as Record<string, unknown>;
+        const competitions = eventData.competitions as unknown[];
+        const competitors = (competitions?.[0] as Record<string, unknown>)?.competitors as unknown[];
+
         const homeCompetitor = competitors?.find(
           (c: unknown) => (c as Record<string, unknown>).homeAway === 'home'
         ) as Record<string, unknown> | undefined;
@@ -72,27 +91,52 @@ export class ESPNAdapter implements DataSource<ESPNData> {
 
   private async fetchHeadlines(): Promise<ESPNHeadline[0]> {
     // Use ESPN's NBA news RSS feed;
+    const url = 'https://www.espn.com/espn/rss/nba/news';
 
     try {
-      return matches.map(item => {
-        return { title, link, pubDate}})} catch {
-      return [0]}
+      const response = await fetch(url);
+      const text = await response.text();
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(text, 'text/xml');
+      const items = xml.querySelectorAll('item');
+      
+      return Array.from(items).map(item => {
+        const title = item.querySelector('title')?.textContent || '';
+        const link = item.querySelector('link')?.textContent || '';
+        const pubDate = item.querySelector('pubDate')?.textContent || '';
+        
+        return { title, link, pubDate };
+      });
+    } catch {
+      return [0];
+    }
   }
 
   private isCacheValid(): boolean {
-    return this.cache.data !== null && Date.now() - this.cache.timestamp < cacheTimeout}
+    const cacheTimeout = 5 * 60 * 1000; // 5 minutes
+    return this.cache.data !== null && Date.now() - this.cache.timestamp < cacheTimeout;
+  }
 
   public clearCache(): void {
-    this.cache = { data: null, timestamp: 0}}
+    this.cache = { data: null, timestamp: 0 }}
 
-  public async connect(): Promise<void> Record<string, any>
-  public async disconnect(): Promise<void> Record<string, any>
+  public async connect(): Promise<void> {
+    // Implementation for connection
+  }
+
+  public async disconnect(): Promise<void> {
+    // Implementation for disconnection
+  }
+
   public async getData(): Promise<ESPNData> {
-    return this.cache.data as ESPNData}
+    return this.cache.data as ESPNData }
+
   public isConnected(): boolean {
-    return true}
+    return true }
+
   public getMetadata(): Record<string, unknown> {
-    return { id: this.id, type: this.type}}}
+    return { id: this.id, type: this.type }}
+}
 
 
 

@@ -1,4 +1,4 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
     Activity,
     Atom,
@@ -31,12 +31,16 @@ const useClickOutside = (ref: React.RefObject<HTMLElement>, callback: () => void
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
-        callback()}
+        callback();
+      }
     };
 
     document.addEventListener('mousedown', handleClick);
     return () => {
-      document.removeEventListener('mousedown', handleClick)}}, [ref, callback])};
+      document.removeEventListener('mousedown', handleClick);
+    };
+  }, [ref, callback]);
+};
 
 // Enhanced Real-time Monitor with live data streaming
 const WorkingRealTimeMonitor: React.FC = () => {
@@ -73,7 +77,7 @@ const WorkingRealTimeMonitor: React.FC = () => {
       <div className='grid grid-cols-2 md:grid-cols-4 gap-6'>
         <motion.div className='quantum-card p-6 rounded-2xl text-center hover:shadow-neon transition-all'>
           <div className='text-green-400 text-3xl font-bold font-cyber'>
-            {realTimeData?.liveGames || 23}
+                          {realTimeData?.liveGames || 23}
           </div>
           <div className='text-gray-300 text-sm font-mono uppercase tracking-wider'>Live Games</div>
           <div className='flex items-center justify-center mt-2'>
@@ -139,7 +143,7 @@ const WorkingRealTimeMonitor: React.FC = () => {
             ].map((item, idx) => (
               <div key={idx}
                 className='flex items-center justify-between p-3 bg-gray-800/30 rounded-lg'
->`n              >
+              >
                 <span className='text-gray-300 font-mono'>{item.name}</span>
                 <div className='flex items-center space-x-2'>
                   <div className={`w-3 h-3 bg-${item.color} rounded-full animate-pulse`} />
@@ -167,7 +171,7 @@ const WorkingRealTimeMonitor: React.FC = () => {
               <div className='w-full bg-gray-700 rounded-full h-2'>
                 <div className='bg-gradient-to-r from-electric-400 to-cyan-400 h-2 rounded-full transition-all duration-500'
                   style={{ width: `${systemLoad}%`}}
->`n                />
+                />
               </div>
             </div>
 
@@ -181,7 +185,7 @@ const WorkingRealTimeMonitor: React.FC = () => {
               <div className='w-full bg-gray-700 rounded-full h-2'>
                 <div className='bg-gradient-to-r from-green-400 to-emerald-400 h-2 rounded-full'
                   style={{ width: `${realTimeData?.accuracy || 87.3}%`}}
->`n                />
+ />
               </div>
             </div>
 
@@ -195,7 +199,7 @@ const WorkingRealTimeMonitor: React.FC = () => {
               <div className='w-full bg-gray-700 rounded-full h-2'>
                 <div className='bg-gradient-to-r from-cyan-400 to-blue-400 h-2 rounded-full'
                   style={{ width: `${realTimeData?.confidence || 91.5}%`}}
->`n                />
+ />
               </div>
             </div>
 
@@ -295,7 +299,7 @@ const WorkingRealTimeMonitor: React.FC = () => {
           ].map((source, idx) => (
             <div key={idx}
               className='p-4 bg-gray-800/30 rounded-xl text-center border border-gray-600/30'
->`n            >
+>
               <div className='text-sm font-bold text-white font-mono mb-2'>{source.name}</div>
               <div className={`w-3 h-3 rounded-full mx-auto mb-2 ${
                   source.status === 'online'
@@ -303,34 +307,42 @@ const WorkingRealTimeMonitor: React.FC = () => {
                     : source.status === 'optimal'
                       ? 'bg-cyan-400 animate-pulse'
                       : 'bg-yellow-400 animate-pulse'}`}
->`n              />
+ />
               <div className='text-xs text-gray-400 font-mono'>{source.latency}</div>
             </div>
           ))}
         </div>
       </div>
     </motion.div>
-  )};
+  );
+};
 
 // Import real services
-import { useAuth} from '../hooks/useAuth';
-import { useBettingData} from '../hooks/useBettingData';
-import { useRealtimeData} from '../hooks/useRealtimeData';
-import { useStore} from '../stores/useStore';
+import { useAuth } from '../hooks/useAuth';
+import { useBettingData } from '../hooks/useBettingData';
+import { useRealtimeData } from '../hooks/useRealtimeData';
+import { useStore } from '../stores/useStore';
 
 // Context for app state
 interface AppContextType {
-  currentPage: string
-,`n  setCurrentPage: (page: string) => void
-,`n  sidebarCollapsed: boolean;
-,`n  setSidebarCollapsed: (collapsed: boolean) => void
-,`n  user: any;
-,`n  realTimeData: any
-,`n  notifications: any[0];
-,`n  theme: string
-,`n  setTheme: (theme: string) => void
-,`n  toggleTheme: () => void}
-
+  currentPage: string;
+  setCurrentPage: (page: string) => void
+;
+  sidebarCollapsed: boolean;
+  
+  setSidebarCollapsed: (collapsed: boolean) => void
+;
+  user: any;
+  
+  realTimeData: any
+;
+  notifications: any[];
+  
+  theme: string
+;
+  setTheme: (theme: string) => void
+;
+  toggleTheme: () => void}
 const AppContext = createContext<AppContextType | null>(null);
 
 const QuantumSportsPlatform: React.FC = () => {
@@ -358,8 +370,10 @@ const QuantumSportsPlatform: React.FC = () => {
 
       setTimeout(() => {
         if (particle.parentNode) {
-          particle.remove()}
-      }, 12000)};
+          particle.remove();
+        }
+      }, 12000);
+    };
 
     const particleInterval = setInterval(createParticle, 2000);
 
@@ -383,8 +397,9 @@ const QuantumSportsPlatform: React.FC = () => {
       document.body.style.background =
         'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 50%, #94a3b8 75%, #64748b 100%)'} else {
       document.documentElement.classList.add('dark');
-      document.body.style.background = ''}
-  };
+      document.body.style.background = '';
+    }
+  };;
 
   // Initialize theme on mount
   useEffect(() => {
@@ -400,14 +415,14 @@ const QuantumSportsPlatform: React.FC = () => {
     sidebarCollapsed,
     setSidebarCollapsed,
     user: user || {
-,`n  name: 'Quantum User',
+      name: 'Quantum User',
       tier: 'NEURAL',
       level: realTimeData?.activeBots || 0,
       accuracy: realTimeData?.accuracy || 0,
       profit: realTimeData?.profit || 0
     },
     realTimeData: realTimeData || {
-,`n  liveGames: 0,
+      liveGames: 0,
       predictions: 0,
       accuracy: 0,
       profit: 0,
@@ -420,11 +435,12 @@ const QuantumSportsPlatform: React.FC = () => {
       winStreak: 0,
       marketAnalysis: 'Loading...'
     },
-    notifications: notifications || [0],
+    notifications: notifications || [],
     theme,
     setTheme,
-//     toggleTheme
+    toggleTheme
   };
+
 
   return (
     <AppContext.Provider value={contextValue}>
@@ -455,7 +471,7 @@ const QuantumSportsPlatform: React.FC = () => {
         </div>
       </div>
     </AppContext.Provider>
-  )};
+  );
 
 const Header: React.FC = () => {
   const context = useContext(AppContext);
@@ -490,14 +506,14 @@ const Header: React.FC = () => {
           <input type='text'
             placeholder='Search players, games, stats...'
             className='w-72 bg-gray-800/50 border border-white/10 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all font-mono'
->`n          />
+ />
           <Zap className='absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5' />
         </div>
 
         {/* Theme Toggle */}
         <button onClick={toggleTheme}
           className='p-3 rounded-full hover:bg-white/10 transition-colors'
->`n        >
+>
           <Atom className='w-6 h-6' />
         </button>
 
@@ -569,7 +585,7 @@ const Header: React.FC = () => {
         </div>
       </div>
     </header>
-  )};
+  );
 
 const Sidebar: React.FC = () => {
   const context = useContext(AppContext);
@@ -593,7 +609,7 @@ const Sidebar: React.FC = () => {
   return (
     <aside className={`ultra-glass border-r border-white/10 transition-all duration-500 flex flex-col ${
         sidebarCollapsed ? 'w-24' : 'w-72'}`}
->`n    >
+>
       {/* Logo */}
       <div className='h-24 flex items-center justify-center'>
         <div className='w-12 h-12 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-full flex items-center justify-center'>
@@ -605,7 +621,7 @@ const Sidebar: React.FC = () => {
       <nav className='flex-1 px-4 py-6 space-y-2'>
         {navItems.map(item => (
           <button key={item.id}
->`n            onClick={() => setCurrentPage(item.id)}
+>onClick={() => setCurrentPage(item.id)}
             className={`w-full flex items-center p-3 rounded-lg transition-all duration-200 ${
               currentPage === item.id
                 ? 'bg-cyan-400/20 text-cyan-300 shadow-lg'
@@ -621,19 +637,19 @@ const Sidebar: React.FC = () => {
       <div className='p-4 border-t border-white/10'>
         <div className={`p-4 rounded-lg bg-gradient-to-br from-gray-700/50 to-gray-800/50 ${
             sidebarCollapsed ? 'text-center' : ''}`}
->`n        >
+>
           {!sidebarCollapsed && <h4 className='font-bold text-white mb-2'>Quantum Status</h4>}
           <div className='flex items-center space-x-2'>
             <div className='w-3 h-3 bg-green-400 rounded-full animate-pulse' />
             <span className={`text-green-400 font-mono text-sm ${sidebarCollapsed ? 'hidden' : ''}`}
->`n            >
+>
               ALL SYSTEMS OPTIMAL
             </span>
           </div>
         </div>
       </div>
     </aside>
-  )};
+  );
 
 const PageRenderer: React.FC = () => {
   const { currentPage, setCurrentPage} = useContext(AppContext)!;
@@ -662,11 +678,9 @@ const PageRenderer: React.FC = () => {
     case 'settings':
       return <UltimateSettingsPage />;
     default:
-      return <EnhancedWorkingDashboard onNavigate={setCurrentPage} />}
-};
+      return <EnhancedWorkingDashboard onNavigate={setCurrentPage} />};
+  }
+
 
 export default QuantumSportsPlatform;
 
-
-
-`
