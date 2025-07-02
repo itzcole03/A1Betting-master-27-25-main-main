@@ -1,0 +1,7 @@
+[33mcommit c879303fe1388fd9576aa567077cd6224e28cf75[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: itzcole03 <itzcole03@gmail.com>
+Date:   Tue Jul 1 21:39:59 2025 -0500
+
+    Remove large files and update .gitignore to prevent tracking of large data files
+
+M	.gitignore
