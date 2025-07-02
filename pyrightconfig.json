@@ -1,8 +1,0 @@
-{
-    "include": [
-        "backend",
-        "frontend"
-    ],
-    "pythonVersion": "3.9",
-    "typeCheckingMode": "strict"
-}
