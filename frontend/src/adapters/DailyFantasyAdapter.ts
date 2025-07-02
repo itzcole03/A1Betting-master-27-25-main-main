@@ -1,11 +1,12 @@
-﻿import { DataSource } from '@/unified/DataSource.js';
-import { EventBus } from '@/unified/EventBus.js'; // RESOLVED: ensure correct implementation after QA;
-import { PerformanceMonitor } from '@/unified/PerformanceMonitor.js'; // RESOLVED: ensure correct implementation after QA;
+import { DataSource } from '../unified/DataSource';
+import { EventBus } from '../unified/EventBus';
+import { PerformanceMonitor } from '../unified/PerformanceMonitor';
 
 interface DailyFantasyConfig {
-  apiKey: string
+  apiKey: string;
   baseUrl: string;
-  cacheTimeout: number}
+  cacheTimeout: number;
+}
 
 export interface DailyFantasyData {
   projections: {
@@ -62,7 +63,7 @@ export class DailyFantasyAdapter implements DataSource<DailyFantasyData> {
       
       if (!response.ok) throw new Error('Failed to fetch projections');
       
-      const data = await response.json();
+      const data = await responseon();
       return { projections: data.projections };
     } catch (error) {
       console.error("API Error:", error);
@@ -101,7 +102,7 @@ export class DailyFantasyAdapter implements DataSource<DailyFantasyData> {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data = await responseon();
       this.performanceMonitor.endSpan(spanId);
 
       // Update cache
@@ -161,8 +162,4 @@ export class DailyFantasyAdapter implements DataSource<DailyFantasyData> {
   }
 }
 
-// RESOLVED: Update EventMap in ../types/core.js to include 'daily-fantasy:data-updated' and 'social-sentiment-updated' event types for type safety.
-
-
-
-`
+// RESOLVED: Update EventMap in ../types/core to include 'daily-fantasy:data-updated' and 'social-sentiment-updated' event types for type safety.
