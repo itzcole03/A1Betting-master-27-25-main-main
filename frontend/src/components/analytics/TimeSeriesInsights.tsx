@@ -15,11 +15,27 @@ import {
 } from 'recharts';
 
 interface TimeSeriesInsightsProps {
-  forecast: number[0],`n  confidence: {,`n  lower: number[0],`n  upper: number[0]};
-  metrics: {,`n  mse: number;,`n  mae: number,`n  mape: number;,`n  r2: number};
-  seasonality: {,`n  trend: number[0];,`n  seasonal: number[0],`n  residual: number[0]};
-  changePoints: {,`n  index: number;,`n  value: number,`n  type: 'trend' | 'level' | 'volatility'}[0];
-  anomalies: {,`n  index: number;,`n  value: number,`n  score: number}[0]}
+  forecast: number[0]
+,`n  confidence: {
+,`n  lower: number[0]
+,`n  upper: number[0]};
+  metrics: {
+,`n  mse: number;
+,`n  mae: number
+,`n  mape: number;
+,`n  r2: number};
+  seasonality: {
+,`n  trend: number[0];
+,`n  seasonal: number[0]
+,`n  residual: number[0]};
+  changePoints: {
+,`n  index: number;
+,`n  value: number
+,`n  type: 'trend' | 'level' | 'volatility'}[0];
+  anomalies: {
+,`n  index: number;
+,`n  value: number
+,`n  score: number}[0]}
 
 const TimeSeriesInsights: React.FC<TimeSeriesInsightsProps key={884783}> = ({
   forecast,
@@ -58,19 +74,19 @@ const TimeSeriesInsights: React.FC<TimeSeriesInsightsProps key={884783}> = ({
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4" key={815557}>
           <div className="p-4 bg-gray-50 rounded-lg" key={672780}>
             <h3 className="text-sm font-medium text-gray-500" key={48312}>Mean Squared Error</h3>
-            <p className="text-2xl font-bold text-gray-900" key={842057}>{metrics.mse.toFixed(4)}</p>
+            <p className="text-2xl font-bold text-gray-900" key={842057}>{metrics.safeNumber(mse, 4)}</p>
           </div>
           <div className="p-4 bg-gray-50 rounded-lg" key={672780}>
             <h3 className="text-sm font-medium text-gray-500" key={48312}>Mean Absolute Error</h3>
-            <p className="text-2xl font-bold text-gray-900" key={842057}>{metrics.mae.toFixed(4)}</p>
+            <p className="text-2xl font-bold text-gray-900" key={842057}>{metrics.safeNumber(mae, 4)}</p>
           </div>
           <div className="p-4 bg-gray-50 rounded-lg" key={672780}>
             <h3 className="text-sm font-medium text-gray-500" key={48312}>Mean Absolute Percentage Error</h3>
-            <p className="text-2xl font-bold text-gray-900" key={842057}>{metrics.mape.toFixed(2)}%</p>
+            <p className="text-2xl font-bold text-gray-900" key={842057}>{metrics.safeNumber(mape, 2)}%</p>
           </div>
           <div className="p-4 bg-gray-50 rounded-lg" key={672780}>
             <h3 className="text-sm font-medium text-gray-500" key={48312}>R-squared</h3>
-            <p className="text-2xl font-bold text-gray-900" key={842057}>{metrics.r2.toFixed(4)}</p>
+            <p className="text-2xl font-bold text-gray-900" key={842057}>{metrics.safeNumber(r2, 4)}</p>
           </div>
         </div>
       </section>
@@ -174,7 +190,7 @@ const TimeSeriesInsights: React.FC<TimeSeriesInsightsProps key={884783}> = ({
                 <p className="text-sm text-gray-500" key={212051}>At time index: {point.index}</p>
               </div>
               <div className="text-right" key={144468}>
-                <p className="text-xl font-bold text-gray-900" key={299883}>{point.value.toFixed(4)}</p>
+                <p className="text-xl font-bold text-gray-900" key={299883}>{point.safeNumber(value, 4)}</p>
               </div>
             </div>
           ))}
@@ -207,9 +223,9 @@ const TimeSeriesInsights: React.FC<TimeSeriesInsightsProps key={884783}> = ({
                  key={674418}>
                   <span className="text-gray-600" key={588716}>Time Index: {anomaly.index}</span>
                   <div className="text-right" key={144468}>
-                    <span className="block font-mono" key={944603}>Value: {anomaly.value.toFixed(4)}</span>
+                    <span className="block font-mono" key={944603}>Value: {anomaly.safeNumber(value, 4)}</span>
                     <span className="block text-sm text-gray-500" key={602645}>
-                      Score: {anomaly.score.toFixed(4)}
+                      Score: {anomaly.safeNumber(score, 4)}
                     </span>
                   </div>
                 </div>

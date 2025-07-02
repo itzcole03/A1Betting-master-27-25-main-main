@@ -2,13 +2,20 @@
 import UnifiedSettingsService from './settingsService';
 
 interface ErrorDetails {
-  code: string,`n  message: string;
+  code: string
+,`n  message: string;
   stack?: string
-  timestamp: number,`n  source: string;,`n  severity: 'low' | 'medium' | 'high' | 'critical';
+  timestamp: number
+,`n  source: string;
+,`n  severity: 'low' | 'medium' | 'high' | 'critical';
   context?: any}
 
 interface ErrorConfig {
-  logToConsole: boolean,`n  showNotifications: boolean;,`n  reportToServer: boolean,`n  maxStoredErrors: number;,`n  autoClearInterval: number}
+  logToConsole: boolean
+,`n  showNotifications: boolean;
+,`n  reportToServer: boolean
+,`n  maxStoredErrors: number;
+,`n  autoClearInterval: number}
 
 class UnifiedErrorService {
   private static instance: UnifiedErrorService | null = null;
@@ -18,7 +25,8 @@ class UnifiedErrorService {
   private readonly STORAGE_KEY = 'esa_errors';
   private readonly MAX_ERRORS = 100;
 
-  private config: ErrorConfig = {,`n  logToConsole: true,
+  private config: ErrorConfig = {
+,`n  logToConsole: true,
     showNotifications: true,
     reportToServer: true,
     maxStoredErrors: 100,
@@ -61,7 +69,8 @@ class UnifiedErrorService {
     severity: ErrorDetails['severity'] = 'medium',
     context?: any
   ): void {
-    const errorDetails: ErrorDetails = {,`n  code: this.generateErrorCode(error),
+    const errorDetails: ErrorDetails = {
+,`n  code: this.generateErrorCode(error),
       message: error instanceof Error ? error.message : error,
       stack: error instanceof Error ? error.stack : undefined,
       timestamp: Date.now(),
@@ -133,7 +142,7 @@ class UnifiedErrorService {
   private async reportToServer(error: ErrorDetails): Promise<void> {
     try {
 
-      const response = await fetch(`${settings.apiUrl}/api/errors`, {
+      const response = await fetch(`${settings.apiUrl}/api/errors`, {.catch(error => console.error("API Error:", error))
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

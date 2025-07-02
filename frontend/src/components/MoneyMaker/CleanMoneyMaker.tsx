@@ -12,10 +12,28 @@ import {
 } from 'lucide-react';
 
 interface OpportunityCandidate {
-  id: string,`n  sport: string;,`n  game: string,`n  prediction: string;,`n  confidence: number,`n  odds: string;,`n  edge: number,`n  expectedValue: number;,`n  recommendedStake: number,`n  timeLeft: string;,`n  model: string,`n  bookmaker: string;,`n  riskLevel: 'low' | 'medium' | 'high',`n  riskScore: number}
+  id: string
+,`n  sport: string;
+,`n  game: string
+,`n  prediction: string;
+,`n  confidence: number
+,`n  odds: string;
+,`n  edge: number
+,`n  expectedValue: number;
+,`n  recommendedStake: number
+,`n  timeLeft: string;
+,`n  model: string
+,`n  bookmaker: string;
+,`n  riskLevel: 'low' | 'medium' | 'high'
+,`n  riskScore: number}
 
 interface PortfolioMetrics {
-  totalValue: number,`n  totalStaked: number;,`n  expectedReturn: number,`n  winRate: number;,`n  activePositions: number,`n  riskScore: number}
+  totalValue: number
+,`n  totalStaked: number;
+,`n  expectedReturn: number
+,`n  winRate: number;
+,`n  activePositions: number
+,`n  riskScore: number}
 
 export const CleanMoneyMaker: React.FC = () => {
   const [opportunities, setOpportunities] = useState<OpportunityCandidate[0]>([
@@ -193,7 +211,8 @@ export const CleanMoneyMaker: React.FC = () => {
               </div>
               <button onClick={runScan}
                 disabled={isScanning}
-                className='px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 text-white font-medium rounded-lg transition-all flex items-center space-x-2'>`n              >
+                className='px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 text-white font-medium rounded-lg transition-all flex items-center space-x-2'
+>`n              >
                 {isScanning ? (
                   <>
                     <div className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin' />
@@ -224,7 +243,8 @@ export const CleanMoneyMaker: React.FC = () => {
                       <span className='px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-sm font-bold'>
                         {opportunity.sport}
                       </span>
-                      <span className={`px-2 py-1 rounded text-sm font-bold ${getRiskColor(opportunity.riskLevel)}`}>`n                      >
+                      <span className={`px-2 py-1 rounded text-sm font-bold ${getRiskColor(opportunity.riskLevel)}`}
+>`n                      >
                         {opportunity.riskLevel} risk
                       </span>
                     </div>
@@ -234,7 +254,7 @@ export const CleanMoneyMaker: React.FC = () => {
 
                   <div className='text-right'>
                     <div className='text-2xl font-bold text-green-400'>
-                      +{opportunity.expectedValue.toFixed(1)}%
+                      +{opportunity.safeNumber(expectedValue, 1)}%
                     </div>
                     <div className='text-sm text-gray-400'>Expected Value</div>
                   </div>
@@ -299,20 +319,23 @@ export const CleanMoneyMaker: React.FC = () => {
                 <label className='block text-sm text-gray-400 mb-2'>Win Probability (%)</label>
                 <input type='number'
                   className='w-full p-3 rounded-lg bg-gray-800 border border-gray-600 text-white'
-                  placeholder='85'>`n                />
+                  placeholder='85'
+>`n                />
               </div>
               <div>
                 <label className='block text-sm text-gray-400 mb-2'>Decimal Odds</label>
                 <input type='number'
                   step='0.01'
                   className='w-full p-3 rounded-lg bg-gray-800 border border-gray-600 text-white'
-                  placeholder='1.85'>`n                />
+                  placeholder='1.85'
+>`n                />
               </div>
               <div>
                 <label className='block text-sm text-gray-400 mb-2'>Bankroll ($)</label>
                 <input type='number'
                   className='w-full p-3 rounded-lg bg-gray-800 border border-gray-600 text-white'
-                  placeholder='10000'>`n                />
+                  placeholder='10000'
+>`n                />
               </div>
               <button className='w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium rounded-lg transition-all'>
                 Calculate Optimal Stake

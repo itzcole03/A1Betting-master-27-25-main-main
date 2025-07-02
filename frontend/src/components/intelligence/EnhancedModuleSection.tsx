@@ -16,10 +16,23 @@ import { Button} from '@/components/ui/button';
 import { Badge} from '@/components/ui/badge';
 
 interface ModuleConfig {
-  id: string,`n  name: string;,`n  category: string,`n  priority: 'critical' | 'high' | 'medium' | 'low';,`n  icon: React.ReactNode,`n  computationLevel: 'light' | 'medium' | 'heavy' | 'extreme'}
+  id: string
+,`n  name: string;
+,`n  category: string
+,`n  priority: 'critical' | 'high' | 'medium' | 'low';
+,`n  icon: React.ReactNode
+,`n  computationLevel: 'light' | 'medium' | 'heavy' | 'extreme'}
 
 interface EnhancedModuleSectionProps {
-  moduleConfigs: ModuleConfig[0],`n  activeModules: Set<string>;,`n  setActiveModules: (modules: Set<string>) => void,`n  getModuleProfitScore: (id: string) => number,`n  getModuleAccuracyBoost: (id: string) => number,`n  getModuleMoneyScore: (id: string) => number,`n  getActiveModuleConfigs: () => ModuleConfig[0];,`n  toggleModule: (id: string) => void,`n  toast: { success: (message: string) => void}}
+  moduleConfigs: ModuleConfig[0]
+,`n  activeModules: Set<string>;
+,`n  setActiveModules: (modules: Set<string>) => void
+,`n  getModuleProfitScore: (id: string) => number
+,`n  getModuleAccuracyBoost: (id: string) => number
+,`n  getModuleMoneyScore: (id: string) => number
+,`n  getActiveModuleConfigs: () => ModuleConfig[0];
+,`n  toggleModule: (id: string) => void
+,`n  toast: { success: (message: string) => void}}
 
 const EnhancedModuleSection: React.FC<EnhancedModuleSectionProps> = ({
   moduleConfigs,
@@ -242,7 +255,8 @@ const EnhancedModuleSection: React.FC<EnhancedModuleSectionProps> = ({
                             ? 'border-orange-400/60 text-orange-300 bg-orange-500/20 shadow-orange-500/25'
                             : module.priority === 'medium'
                               ? 'border-yellow-400/60 text-yellow-300 bg-yellow-500/20 shadow-yellow-500/25'
-                              : 'border-green-400/60 text-green-300 bg-green-500/20 shadow-green-500/25'} shadow-lg`}>`n                    >
+                              : 'border-green-400/60 text-green-300 bg-green-500/20 shadow-green-500/25'} shadow-lg`}
+>`n                    >
                       {module.priority}
                     </Badge>
                     {moneyScore >= 90 && (
@@ -260,7 +274,8 @@ const EnhancedModuleSection: React.FC<EnhancedModuleSectionProps> = ({
                             ? 'bg-yellow-400 shadow-yellow-400/50'
                             : module.computationLevel === 'heavy'
                               ? 'bg-orange-400 shadow-orange-400/50'
-                              : 'bg-red-400 shadow-red-400/50'}`}>`n                    />
+                              : 'bg-red-400 shadow-red-400/50'}`}
+>`n                    />
                   </div>
                 </div>
 

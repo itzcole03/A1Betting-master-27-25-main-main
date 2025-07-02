@@ -18,12 +18,36 @@ import { api} from '@/services/integrationService';
 import toast from 'react-hot-toast';
 
 interface UserSettings {
-  profile: {,`n  name: string;,`n  email: string,`n  timezone: string;,`n  currency: string};
-  notifications: {,`n  email: boolean;,`n  push: boolean,`n  sound: boolean;,`n  highConfidencePicks: boolean,`n  arbitrageAlerts: boolean};
-  display: {,`n  darkMode: boolean;,`n  compactView: boolean,`n  showAnimations: boolean;,`n  fontSize: number};
-  betting: {,`n  defaultStake: number;,`n  maxStake: number,`n  riskLevel: "conservative" | "moderate" | "aggressive";,`n  autoApprove: boolean};
-  privacy: {,`n  sharePredictions: boolean;,`n  showStats: boolean,`n  allowAnalytics: boolean};
-  ultraAccuracy: {,`n  enabled: boolean;,`n  targetAccuracy: number,`n  enhanceMoneyMaker: boolean;,`n  enhancePrizePicks: boolean}}
+  profile: {
+,`n  name: string;
+,`n  email: string
+,`n  timezone: string;
+,`n  currency: string};
+  notifications: {
+,`n  email: boolean;
+,`n  push: boolean
+,`n  sound: boolean;
+,`n  highConfidencePicks: boolean
+,`n  arbitrageAlerts: boolean};
+  display: {
+,`n  darkMode: boolean;
+,`n  compactView: boolean
+,`n  showAnimations: boolean;
+,`n  fontSize: number};
+  betting: {
+,`n  defaultStake: number;
+,`n  maxStake: number
+,`n  riskLevel: "conservative" | "moderate" | "aggressive";
+,`n  autoApprove: boolean};
+  privacy: {
+,`n  sharePredictions: boolean;
+,`n  showStats: boolean
+,`n  allowAnalytics: boolean};
+  ultraAccuracy: {
+,`n  enabled: boolean;
+,`n  targetAccuracy: number
+,`n  enhanceMoneyMaker: boolean;
+,`n  enhancePrizePicks: boolean}}
 
 interface SettingsProps {
   onNavigate?: (page: string) => void}
@@ -32,32 +56,38 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate}) =>
   // console statement removed
 
   const [settings, setSettings] = useState<UserSettings key={207290}>({
-    profile: {,`n  name: "User",
+    profile: {
+,`n  name: "User",
       email: "user@a1betting.com",
       timezone: "UTC-5",
       currency: "USD"
     },
-    notifications: {,`n  email: true,
+    notifications: {
+,`n  email: true,
       push: true,
       sound: false,
       highConfidencePicks: true,
       arbitrageAlerts: true
     },
-    display: {,`n  darkMode: true,
+    display: {
+,`n  darkMode: true,
       compactView: false,
       showAnimations: true,
       fontSize: 16
     },
-    betting: {,`n  defaultStake: 10,
+    betting: {
+,`n  defaultStake: 10,
       maxStake: 100,
       riskLevel: "moderate",
       autoApprove: false
     },
-    privacy: {,`n  sharePredictions: false,
+    privacy: {
+,`n  sharePredictions: false,
       showStats: true,
       allowAnalytics: true
     },
-    ultraAccuracy: {,`n  enabled: true,
+    ultraAccuracy: {
+,`n  enabled: true,
       targetAccuracy: 99.5,
       enhanceMoneyMaker: true,
       enhancePrizePicks: true
@@ -71,7 +101,8 @@ export const Settings: React.FC<SettingsProps key={834684}> = ({ onNavigate}) =>
     isActive: true,
     currentQuality: 0.965,
     enhancementsActive: 3,
-    components: {,`n  moneyMaker: true,
+    components: {
+,`n  moneyMaker: true,
       prizePicks: true
     }
   });

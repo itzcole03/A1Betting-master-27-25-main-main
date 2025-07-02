@@ -1,13 +1,43 @@
 ﻿import { toast} from 'react-toastify';
 
 interface UserPreferences {
-  theme: 'light' | 'dark' | 'system',`n  notifications: {,`n  enabled: boolean,`n  sound: boolean;,`n  desktop: boolean,`n  email: boolean;,`n  bettingAlerts: boolean,`n  predictionUpdates: boolean;,`n  oddsChanges: boolean};
-  display: {,`n  oddsFormat: 'decimal' | 'fractional' | 'american';,`n  timezone: string,`n  dateFormat: string;,`n  currency: string,`n  showLiveOdds: boolean;,`n  showPredictionConfidence: boolean,`n  showRiskIndicators: boolean};
-  betting: {,`n  defaultStake: number;,`n  maxStake: number,`n  autoConfirm: boolean;,`n  showArbitrage: boolean,`n  showValueBets: boolean;,`n  riskProfile: 'conservative' | 'moderate' | 'aggressive'};
-  analytics: {,`n  refreshInterval: number;,`n  metricsWindow: 'day' | 'week' | 'month' | 'year',`n  showAdvancedMetrics: boolean;,`n  exportFormat: 'csv' | 'json' | 'excel'}}
+  theme: 'light' | 'dark' | 'system'
+,`n  notifications: {
+,`n  enabled: boolean
+,`n  sound: boolean;
+,`n  desktop: boolean
+,`n  email: boolean;
+,`n  bettingAlerts: boolean
+,`n  predictionUpdates: boolean;
+,`n  oddsChanges: boolean};
+  display: {
+,`n  oddsFormat: 'decimal' | 'fractional' | 'american';
+,`n  timezone: string
+,`n  dateFormat: string;
+,`n  currency: string
+,`n  showLiveOdds: boolean;
+,`n  showPredictionConfidence: boolean
+,`n  showRiskIndicators: boolean};
+  betting: {
+,`n  defaultStake: number;
+,`n  maxStake: number
+,`n  autoConfirm: boolean;
+,`n  showArbitrage: boolean
+,`n  showValueBets: boolean;
+,`n  riskProfile: 'conservative' | 'moderate' | 'aggressive'};
+  analytics: {
+,`n  refreshInterval: number;
+,`n  metricsWindow: 'day' | 'week' | 'month' | 'year'
+,`n  showAdvancedMetrics: boolean;
+,`n  exportFormat: 'csv' | 'json' | 'excel'}}
 
 interface AppSettings {
-  apiUrl: string,`n  websocketUrl: string;,`n  environment: 'development' | 'staging' | 'production',`n  debug: boolean;,`n  maintenance: boolean,`n  version: string}
+  apiUrl: string
+,`n  websocketUrl: string;
+,`n  environment: 'development' | 'staging' | 'production'
+,`n  debug: boolean;
+,`n  maintenance: boolean
+,`n  version: string}
 
 class UnifiedSettingsService {
   private static instance: UnifiedSettingsService | null = null;
@@ -35,7 +65,7 @@ class UnifiedSettingsService {
 
   private loadSettings(): AppSettings {
     return {
-      apiUrl: import.meta.env.VITE_API_URL || 'http://localhost:8000',
+      apiUrl: import.meta.env.VITE_API_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}',
       websocketUrl: import.meta.env.VITE_WEBSOCKET_URL || 'ws://localhost:8000',
       environment: (import.meta.env.VITE_ENV as AppSettings['environment']) || 'development',
       debug: import.meta.env.VITE_DEBUG === 'true',
@@ -46,7 +76,8 @@ class UnifiedSettingsService {
   private getDefaultPreferences(): UserPreferences {
     return {
       theme: 'system',
-      notifications: {,`n  enabled: true,
+      notifications: {
+,`n  enabled: true,
         sound: true,
         desktop: true,
         email: false,
@@ -54,7 +85,8 @@ class UnifiedSettingsService {
         predictionUpdates: true,
         oddsChanges: true
       },
-      display: {,`n  oddsFormat: 'decimal',
+      display: {
+,`n  oddsFormat: 'decimal',
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         dateFormat: 'YYYY-MM-DD',
         currency: 'USD',
@@ -62,14 +94,16 @@ class UnifiedSettingsService {
         showPredictionConfidence: true,
         showRiskIndicators: true
       },
-      betting: {,`n  defaultStake: 10,
+      betting: {
+,`n  defaultStake: 10,
         maxStake: 1000,
         autoConfirm: false,
         showArbitrage: true,
         showValueBets: true,
         riskProfile: 'moderate'
       },
-      analytics: {,`n  refreshInterval: 30000,
+      analytics: {
+,`n  refreshInterval: 30000,
         metricsWindow: 'week',
         showAdvancedMetrics: false,
         exportFormat: 'csv'

@@ -43,7 +43,7 @@ app.add_middleware(
     allow_origins=[
         "*",  # Allow all for development
         "https://7fb6bf6978914ca48f089e6151180b03-a1b171efc67d4aea943f921a9.fly.dev",  # Cloud frontend
-        "http://localhost:5173",  # Local development
+        "${process.env.REACT_APP_API_URL || "http://localhost:8000"}",  # Local development
         "http://192.168.1.125:5173",  # Local network access
     ],
     allow_credentials=True,
@@ -465,7 +465,7 @@ async def propollama_status():
     }
 
 # Enhanced Prediction Endpoints
-@app.get("/api/predictions/enhanced", response_model=List[EnhancedPrediction])
+@app.get("/api/predictions/prizepicks/enhanced", response_model=List[EnhancedPrediction])
 async def get_enhanced_predictions():
     """Get predictions with SHAP explanations"""
     explainability_engine = AIExplainabilityEngine()

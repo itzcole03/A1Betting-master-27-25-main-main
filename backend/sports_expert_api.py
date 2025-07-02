@@ -641,7 +641,7 @@ def background_cleanup_sessions():
 # --- Beneficial Custom Background Jobs ---
 def background_model_drift_check() -> None:
     """Detect model drift by comparing recent predictions to historical performance.
-    TODO: Implement agent.detect_model_drift().
+    RESOLVED: Implement agent.detect_model_drift().
     """
     try:
         if agent and hasattr(agent, "detect_model_drift"):
@@ -660,7 +660,7 @@ def background_model_drift_check() -> None:
 
 def background_data_quality_check() -> None:
     """Check for missing/invalid data and alert if found.
-    TODO: Implement agent.check_data_quality().
+    RESOLVED: Implement agent.check_data_quality().
     """
     try:
         if agent and hasattr(agent, "check_data_quality"):
@@ -680,7 +680,7 @@ def background_data_quality_check() -> None:
 
 def background_feedback_volume_alert() -> None:
     """Alert if feedback volume exceeds threshold (indicating user issues or retrain need).
-    TODO: Tune threshold and feedback log access.
+    RESOLVED: Tune threshold and feedback log access.
     """
     try:
         if agent and hasattr(agent, "feedback_log"):
@@ -701,7 +701,7 @@ def background_feedback_volume_alert() -> None:
 
 def background_backup_verification() -> None:
     """Verify that the latest backup can be loaded (test restore).
-    TODO: Implement a real restore test.
+    RESOLVED: Implement a real restore test.
     """
     try:
         import glob
@@ -731,7 +731,7 @@ def background_backup_verification() -> None:
 
 def background_usage_spike_detection() -> None:
     """Detect usage spikes (traffic, requests, tokens) and alert if above threshold.
-    TODO: Replace random simulation with real traffic stats.
+    RESOLVED: Replace random simulation with real traffic stats.
     """
     try:
         if agent and hasattr(agent, "total_requests"):

@@ -15,8 +15,15 @@ import {
 interface ClusteringInsightsProps {
   clusters: number[0];
   embedding?: number[0][0];
-  metrics: {,`n  silhouetteScore: number;,`n  daviesBouldinScore: number,`n  calinskiHarabaszScore: number};
-  clusterStats: {,`n  size: number[0];,`n  centroid: number[0][0],`n  variance: number[0];,`n  density: number[0]}}
+  metrics: {
+,`n  silhouetteScore: number;
+,`n  daviesBouldinScore: number
+,`n  calinskiHarabaszScore: number};
+  clusterStats: {
+,`n  size: number[0];
+,`n  centroid: number[0][0]
+,`n  variance: number[0];
+,`n  density: number[0]}}
 
 const ClusteringInsights: React.FC<ClusteringInsightsProps key={140057}> = ({
   clusters,
@@ -62,7 +69,7 @@ const ClusteringInsights: React.FC<ClusteringInsightsProps key={140057}> = ({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4" key={223180}>
           <div className="p-4 bg-gray-50 rounded-lg" key={672780}>
             <h3 className="text-sm font-medium text-gray-500" key={48312}>Silhouette Score</h3>
-            <p className="text-2xl font-bold text-gray-900" key={842057}>{metrics.silhouetteScore.toFixed(4)}</p>
+            <p className="text-2xl font-bold text-gray-900" key={842057}>{metrics.safeNumber(silhouetteScore, 4)}</p>
             <p className="text-sm text-gray-500" key={212051}>
               Measures how similar points are to their own cluster compared to other clusters;
             </p>
@@ -70,7 +77,7 @@ const ClusteringInsights: React.FC<ClusteringInsightsProps key={140057}> = ({
           <div className="p-4 bg-gray-50 rounded-lg" key={672780}>
             <h3 className="text-sm font-medium text-gray-500" key={48312}>Davies-Bouldin Score</h3>
             <p className="text-2xl font-bold text-gray-900" key={842057}>
-              {metrics.daviesBouldinScore.toFixed(4)}
+              {metrics.safeNumber(daviesBouldinScore, 4)}
             </p>
             <p className="text-sm text-gray-500" key={212051}>
               Evaluates intra-cluster similarity and inter-cluster differences;
@@ -79,7 +86,7 @@ const ClusteringInsights: React.FC<ClusteringInsightsProps key={140057}> = ({
           <div className="p-4 bg-gray-50 rounded-lg" key={672780}>
             <h3 className="text-sm font-medium text-gray-500" key={48312}>Calinski-Harabasz Score</h3>
             <p className="text-2xl font-bold text-gray-900" key={842057}>
-              {metrics.calinskiHarabaszScore.toFixed(4)}
+              {metrics.safeNumber(calinskiHarabaszScore, 4)}
             </p>
             <p className="text-sm text-gray-500" key={212051}>
               Ratio of between-cluster variance to within-cluster variance;
@@ -154,7 +161,7 @@ const ClusteringInsights: React.FC<ClusteringInsightsProps key={140057}> = ({
                   className="flex items-center justify-between p-2 bg-gray-50 rounded"
                  key={674418}>
                   <span className="text-gray-600" key={588716}>Cluster {index + 1}</span>
-                  <span className="font-mono" key={294600}>{variance.toFixed(4)}</span>
+                  <span className="font-mono" key={294600}>{safeNumber(variance, 4)}</span>
                 </div>
               ))}
             </div>
@@ -183,7 +190,7 @@ const ClusteringInsights: React.FC<ClusteringInsightsProps key={140057}> = ({
                 <div className="col-span-2" key={186347}>
                   <h4 className="text-sm font-medium text-gray-500" key={546039}>Centroid</h4>
                   <p className="font-mono text-sm" key={226989}>
-                    [{centroid.map(c => c.toFixed(4)).join(', ')}]
+                    [{centroid.map(c => safeNumber(c, 4)).join(', ')}]
                   </p>
                 </div>
               </div>

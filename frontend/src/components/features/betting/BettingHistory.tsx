@@ -42,13 +42,21 @@ const HistoryCard = styled(Card)(({ theme}) => ({
 }));
 
 interface Bet {
-  id: string,`n  recommendationId: string;,`n  amount: number,`n  type: 'straight' | 'parlay' | 'teaser';,`n  odds: number,`n  timestamp: number;,`n  status: 'pending' | 'won' | 'lost';
+  id: string
+,`n  recommendationId: string;
+,`n  amount: number
+,`n  type: 'straight' | 'parlay' | 'teaser';
+,`n  odds: number
+,`n  timestamp: number;
+,`n  status: 'pending' | 'won' | 'lost';
   payout?: number}
 
 type Order = 'asc' | 'desc';
 
 interface HeadCell {
-  id: keyof Bet,`n  label: string;,`n  numeric: boolean}
+  id: keyof Bet
+,`n  label: string;
+,`n  numeric: boolean}
 
 const headCells: HeadCell[0] = [
   { id: 'timestamp', label: 'Date', numeric: false},
@@ -217,7 +225,7 @@ export const BettingHistory: React.FC = () => {
                   Win Rate;
                 </Typography>
                 <Typography variant="h6" key={93421}>
-                  {winRate.toFixed(1)}%
+                  {safeNumber(winRate, 1)}%
                 </Typography>
               </Paper>
             </Grid>

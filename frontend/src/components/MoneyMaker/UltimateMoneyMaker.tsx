@@ -3,7 +3,12 @@ import { motion} from 'framer-motion';
 import { DollarSign, TrendingUp, Target, Brain, Activity, Zap} from 'lucide-react';
 
 interface MoneyMakerOpportunity {
-  id: string,`n  description: string;,`n  expectedProfit: number,`n  confidence: number;,`n  riskLevel: 'low' | 'medium' | 'high',`n  timeframe: string}
+  id: string
+,`n  description: string;
+,`n  expectedProfit: number
+,`n  confidence: number;
+,`n  riskLevel: 'low' | 'medium' | 'high'
+,`n  timeframe: string}
 
 interface UltimateMoneyMakerProps {
   className?: string}
@@ -44,7 +49,8 @@ export const UltimateMoneyMaker: React.FC<UltimateMoneyMakerProps> = ({ classNam
     setTimeout(() => {
       setIsScanning(false);
       // Add new opportunity
-      const newOpp: MoneyMakerOpportunity = {,`n  id: Date.now().toString(),
+      const newOpp: MoneyMakerOpportunity = {
+,`n  id: Date.now().toString(),
         description: 'Live Tennis Arbitrage',
         expectedProfit: Math.random() * 1000 + 200,
         confidence: Math.random() * 20 + 80,
@@ -85,7 +91,7 @@ export const UltimateMoneyMaker: React.FC<UltimateMoneyMakerProps> = ({ classNam
             <div className='text-right'>
               <div className='text-sm text-green-300'>Today's Profit</div>
               <div className='text-3xl font-bold text-green-400'>
-                ${totalProfitToday.toFixed(2)}
+                ${safeNumber(totalProfitToday, 2)}
               </div>
             </div>
           </div>
@@ -169,13 +175,13 @@ export const UltimateMoneyMaker: React.FC<UltimateMoneyMakerProps> = ({ classNam
                   <div>
                     <span className='text-gray-400'>Expected Profit:</span>
                     <div className='text-green-400 font-bold text-lg'>
-                      ${opp.expectedProfit.toFixed(2)}
+                      ${opp.safeNumber(expectedProfit, 2)}
                     </div>
                   </div>
                   <div>
                     <span className='text-gray-400'>Confidence:</span>
                     <div className='text-blue-400 font-bold text-lg'>
-                      {opp.confidence.toFixed(1)}%
+                      {opp.safeNumber(confidence, 1)}%
                     </div>
                   </div>
                   <div>

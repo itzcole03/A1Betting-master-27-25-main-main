@@ -1,21 +1,14 @@
-﻿import { motion} from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import {
-  Activity,
-  Atom,
-  BarChart3,
-  Bell,
-  Brain,
-  DollarSign,
-  Eye,
-  Home,
-  Menu,
-  Settings,
-  Shield,
-  Trophy,
-  X,
-//   Zap
+    Activity,
+    Atom,
+    BarChart3,
+    Bell,
+    Brain,
+    Menu,
+    X
 } from 'lucide-react';
-import React, { createContext, useContext, useEffect, useRef, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 // Import working components
 import AdminPanel from './admin/AdminPanel';
@@ -145,7 +138,8 @@ const WorkingRealTimeMonitor: React.FC = () => {
               { name: 'Alert System', status: 'MONITORING', color: 'orange-400'},
             ].map((item, idx) => (
               <div key={idx}
-                className='flex items-center justify-between p-3 bg-gray-800/30 rounded-lg'>`n              >
+                className='flex items-center justify-between p-3 bg-gray-800/30 rounded-lg'
+>`n              >
                 <span className='text-gray-300 font-mono'>{item.name}</span>
                 <div className='flex items-center space-x-2'>
                   <div className={`w-3 h-3 bg-${item.color} rounded-full animate-pulse`} />
@@ -172,7 +166,8 @@ const WorkingRealTimeMonitor: React.FC = () => {
               </div>
               <div className='w-full bg-gray-700 rounded-full h-2'>
                 <div className='bg-gradient-to-r from-electric-400 to-cyan-400 h-2 rounded-full transition-all duration-500'
-                  style={{ width: `${systemLoad}%`}}>`n                />
+                  style={{ width: `${systemLoad}%`}}
+>`n                />
               </div>
             </div>
 
@@ -185,7 +180,8 @@ const WorkingRealTimeMonitor: React.FC = () => {
               </div>
               <div className='w-full bg-gray-700 rounded-full h-2'>
                 <div className='bg-gradient-to-r from-green-400 to-emerald-400 h-2 rounded-full'
-                  style={{ width: `${realTimeData?.accuracy || 87.3}%`}}>`n                />
+                  style={{ width: `${realTimeData?.accuracy || 87.3}%`}}
+>`n                />
               </div>
             </div>
 
@@ -198,7 +194,8 @@ const WorkingRealTimeMonitor: React.FC = () => {
               </div>
               <div className='w-full bg-gray-700 rounded-full h-2'>
                 <div className='bg-gradient-to-r from-cyan-400 to-blue-400 h-2 rounded-full'
-                  style={{ width: `${realTimeData?.confidence || 91.5}%`}}>`n                />
+                  style={{ width: `${realTimeData?.confidence || 91.5}%`}}
+>`n                />
               </div>
             </div>
 
@@ -297,14 +294,16 @@ const WorkingRealTimeMonitor: React.FC = () => {
             { name: 'Quantum Core', status: 'optimal', latency: '8ms'},
           ].map((source, idx) => (
             <div key={idx}
-              className='p-4 bg-gray-800/30 rounded-xl text-center border border-gray-600/30'>`n            >
+              className='p-4 bg-gray-800/30 rounded-xl text-center border border-gray-600/30'
+>`n            >
               <div className='text-sm font-bold text-white font-mono mb-2'>{source.name}</div>
               <div className={`w-3 h-3 rounded-full mx-auto mb-2 ${
                   source.status === 'online'
                     ? 'bg-green-400 animate-pulse'
                     : source.status === 'optimal'
                       ? 'bg-cyan-400 animate-pulse'
-                      : 'bg-yellow-400 animate-pulse'}`}>`n              />
+                      : 'bg-yellow-400 animate-pulse'}`}
+>`n              />
               <div className='text-xs text-gray-400 font-mono'>{source.latency}</div>
             </div>
           ))}
@@ -321,12 +320,21 @@ import { useStore} from '../stores/useStore';
 
 // Context for app state
 interface AppContextType {
-  currentPage: string,`n  setCurrentPage: (page: string) => void,`n  sidebarCollapsed: boolean;,`n  setSidebarCollapsed: (collapsed: boolean) => void,`n  user: any;,`n  realTimeData: any,`n  notifications: any[0];,`n  theme: string,`n  setTheme: (theme: string) => void,`n  toggleTheme: () => void}
+  currentPage: string
+,`n  setCurrentPage: (page: string) => void
+,`n  sidebarCollapsed: boolean;
+,`n  setSidebarCollapsed: (collapsed: boolean) => void
+,`n  user: any;
+,`n  realTimeData: any
+,`n  notifications: any[0];
+,`n  theme: string
+,`n  setTheme: (theme: string) => void
+,`n  toggleTheme: () => void}
 
 const AppContext = createContext<AppContextType | null>(null);
 
 const QuantumSportsPlatform: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState('dashboard');
+  const [currentPage, setCurrentPage] = useState('prizepicks-pro');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [theme, setTheme] = useState('quantum-dark');
 
@@ -391,13 +399,15 @@ const QuantumSportsPlatform: React.FC = () => {
     setCurrentPage,
     sidebarCollapsed,
     setSidebarCollapsed,
-    user: user || {,`n  name: 'Quantum User',
+    user: user || {
+,`n  name: 'Quantum User',
       tier: 'NEURAL',
       level: realTimeData?.activeBots || 0,
       accuracy: realTimeData?.accuracy || 0,
       profit: realTimeData?.profit || 0
     },
-    realTimeData: realTimeData || {,`n  liveGames: 0,
+    realTimeData: realTimeData || {
+,`n  liveGames: 0,
       predictions: 0,
       accuracy: 0,
       profit: 0,
@@ -479,13 +489,15 @@ const Header: React.FC = () => {
         <div className='relative hidden md:block'>
           <input type='text'
             placeholder='Search players, games, stats...'
-            className='w-72 bg-gray-800/50 border border-white/10 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all font-mono'>`n          />
+            className='w-72 bg-gray-800/50 border border-white/10 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all font-mono'
+>`n          />
           <Zap className='absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5' />
         </div>
 
         {/* Theme Toggle */}
         <button onClick={toggleTheme}
-          className='p-3 rounded-full hover:bg-white/10 transition-colors'>`n        >
+          className='p-3 rounded-full hover:bg-white/10 transition-colors'
+>`n        >
           <Atom className='w-6 h-6' />
         </button>
 
@@ -580,7 +592,8 @@ const Sidebar: React.FC = () => {
 
   return (
     <aside className={`ultra-glass border-r border-white/10 transition-all duration-500 flex flex-col ${
-        sidebarCollapsed ? 'w-24' : 'w-72'}`}>`n    >
+        sidebarCollapsed ? 'w-24' : 'w-72'}`}
+>`n    >
       {/* Logo */}
       <div className='h-24 flex items-center justify-center'>
         <div className='w-12 h-12 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-full flex items-center justify-center'>
@@ -591,7 +604,8 @@ const Sidebar: React.FC = () => {
       {/* Navigation */}
       <nav className='flex-1 px-4 py-6 space-y-2'>
         {navItems.map(item => (
-          <button key={item.id}>`n            onClick={() => setCurrentPage(item.id)}
+          <button key={item.id}
+>`n            onClick={() => setCurrentPage(item.id)}
             className={`w-full flex items-center p-3 rounded-lg transition-all duration-200 ${
               currentPage === item.id
                 ? 'bg-cyan-400/20 text-cyan-300 shadow-lg'
@@ -606,11 +620,13 @@ const Sidebar: React.FC = () => {
       {/* Footer */}
       <div className='p-4 border-t border-white/10'>
         <div className={`p-4 rounded-lg bg-gradient-to-br from-gray-700/50 to-gray-800/50 ${
-            sidebarCollapsed ? 'text-center' : ''}`}>`n        >
+            sidebarCollapsed ? 'text-center' : ''}`}
+>`n        >
           {!sidebarCollapsed && <h4 className='font-bold text-white mb-2'>Quantum Status</h4>}
           <div className='flex items-center space-x-2'>
             <div className='w-3 h-3 bg-green-400 rounded-full animate-pulse' />
-            <span className={`text-green-400 font-mono text-sm ${sidebarCollapsed ? 'hidden' : ''}`}>`n            >
+            <span className={`text-green-400 font-mono text-sm ${sidebarCollapsed ? 'hidden' : ''}`}
+>`n            >
               ALL SYSTEMS OPTIMAL
             </span>
           </div>

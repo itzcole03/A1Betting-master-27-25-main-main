@@ -3,7 +3,8 @@ import { APIError, AppError} from '@/core/UnifiedError.js';
 import { getInitializedUnifiedConfig} from '@/core/UnifiedConfig.js';
 
 export interface ApiResponse<T> {
-  data: T,`n  status: number;
+  data: T
+,`n  status: number;
   headers?: Record<string, string>;}
 
 export interface ApiRequestConfig {
@@ -18,7 +19,7 @@ class ApiClient {
 
   constructor() {
 
-    this.baseUrl = (config.get('api.baseUrl') as string || 'http://localhost:8000') + '/api';
+    this.baseUrl = (config.get('api.baseUrl') as string || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}') + '/api';
     this.defaultHeaders = {
       'Content-Type': 'application/json'
     };
@@ -46,7 +47,7 @@ class ApiClient {
     };
 
     try {
-      const response = await fetch(url.toString(), {
+      const response = await fetch(url.toString(), {.catch(error => console.error("API Error:", error))
         method,
         headers,
         body: data ? JSON.stringify(data) : undefined,

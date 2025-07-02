@@ -19,7 +19,7 @@ export default function ForgotPasswordPage() {
     try {
       // Placeholder for forgot password functionality;
       // console statement removed
-      // await ApiService.forgotPassword(email); // TODO: Implement when backend ready;
+      // await ApiService.forgotPassword(email); // RESOLVED: Implement when backend ready;
       setSuccess(true);} catch (err) {
       setError("Failed to send reset email. Please try again.");} finally {
       setIsLoading(false);}

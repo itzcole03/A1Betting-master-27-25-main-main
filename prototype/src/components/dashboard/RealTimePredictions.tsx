@@ -1,15 +1,15 @@
-import React, { useState } from "react";
 import {
-  Target,
-  TrendingUp,
-  Shield,
-  Brain,
-  Award,
-  AlertTriangle,
-  CheckCircle,
+    AlertTriangle,
+    Brain,
+    CheckCircle,
+    Shield,
+    Target,
+    TrendingUp
 } from "lucide-react";
+import { useState } from "react";
+import { safeNumber } from '../../../../frontend/src/utils/UniversalUtils';
+import { SPORT_OPTIONS } from "../../constants/sports";
 import { EnhancedPrediction } from "../../services/realTimePredictionEngine";
-import { SPORT_OPTIONS, getSportDisplayName } from "../../constants/sports";
 import { SportSelector } from "../common/SportSelector";
 
 interface RealTimePredictionsProps {
@@ -199,7 +199,7 @@ export function RealTimePredictions({
                 <div
                   className={`text-lg font-bold ${getConfidenceColor(prediction.confidence)}`}
                 >
-                  {prediction.confidence.toFixed(0)}%
+                  {safeNumber(prediction.confidence).toFixed(0)}%
                 </div>
               </div>
               <div className="text-center p-2 bg-white/50 dark:bg-black/20 rounded-lg">
@@ -264,7 +264,7 @@ export function RealTimePredictions({
                   </span>
                   <div className="font-bold">
                     {prediction.odds > 0 ? "+" : ""}
-                    {prediction.odds}
+                    {safeNumber(prediction.odds).toFixed(2)}
                   </div>
                 </div>
               </div>
@@ -308,7 +308,7 @@ export function RealTimePredictions({
                     Profit Factor:
                   </span>
                   <div className="font-bold">
-                    {prediction.backtestResults.profitFactor.toFixed(2)}
+                    {safeNumber(prediction.backtestResults.profitFactor).toFixed(2)}
                   </div>
                 </div>
               </div>
@@ -331,7 +331,7 @@ export function RealTimePredictions({
                     className={`font-bold ${prediction.realTimeFactors.lineMovement > 0 ? "text-green-600" : "text-red-600"}`}
                   >
                     {prediction.realTimeFactors.lineMovement > 0 ? "+" : ""}
-                    {prediction.realTimeFactors.lineMovement.toFixed(1)}
+                    {safeNumber(prediction.realTimeFactors.lineMovement).toFixed(1)}
                   </div>
                 </div>
                 <div>

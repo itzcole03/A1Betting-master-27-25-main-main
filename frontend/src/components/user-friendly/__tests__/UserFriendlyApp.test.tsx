@@ -54,7 +54,9 @@ jest.mock("../../prediction/UltraAccuracyDashboard", () => {
 // Test wrapper component;
 const TestWrapper: React.FC<{ children: React.ReactNode}> = ({ children}) => {
   const queryClient = new QueryClient({
-    defaultOptions: {,`n  queries: {,`n  retry: false,
+    defaultOptions: {
+,`n  queries: {
+,`n  retry: false,
         cacheTime: 0
       }
     }

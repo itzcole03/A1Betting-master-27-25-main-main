@@ -5,7 +5,10 @@
  */
 
 export interface ApiConfig {
-  baseUrl: string,`n  timeout: number;,`n  retryAttempts: number,`n  retryDelay: number}
+  baseUrl: string
+,`n  timeout: number;
+,`n  retryAttempts: number
+,`n  retryDelay: number}
 
 export class RealApiService {
   private config: ApiConfig;
@@ -13,7 +16,7 @@ export class RealApiService {
 
   constructor(config?: Partial<ApiConfig>) {
     this.config = {
-      baseUrl: process.env.REACT_APP_API_URL || 'http://localhost:8000',
+      baseUrl: process.env.REACT_APP_API_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}',
       timeout: 10000,
       retryAttempts: 3,
       retryDelay: 1000,
@@ -28,7 +31,7 @@ export class RealApiService {
     const timeoutId = setTimeout(() => controller.abort(), this.config.timeout);
 
     try {
-      const response = await fetch(url, {
+      const response = await fetch(url, {.catch(error => console.error("API Error:", error))
         ...options,
         signal: controller.signal,
         headers: {
@@ -73,35 +76,72 @@ export class RealApiService {
 
   public async getHealth() {
     return this.makeRequest<{
-      status: string,`n  timestamp: string;,`n  version: string,`n  uptime: number;,`n  services: Record<string, string>}>('/health');}
+      status: string
+,`n  timestamp: string;
+,`n  version: string
+,`n  uptime: number;
+,`n  services: Record<string, string>}>('/health');}
 
   public async getBettingOpportunities() {
     return this.makeRequest<
       Array<{
-        id: string,`n  sport: string;,`n  event: string,`n  market: string;,`n  odds: number,`n  probability: number;,`n  expected_value: number,`n  kelly_fraction: number;,`n  confidence: number,`n  risk_level: string;,`n  recommendation: string}>
+        id: string
+,`n  sport: string;
+,`n  event: string
+,`n  market: string;
+,`n  odds: number
+,`n  probability: number;
+,`n  expected_value: number
+,`n  kelly_fraction: number;
+,`n  confidence: number
+,`n  risk_level: string;
+,`n  recommendation: string}>
     >('/api/betting-opportunities')}
 
   public async getArbitrageOpportunities() {
     return this.makeRequest<
       Array<{
-        id: string,`n  sport: string;,`n  event: string,`n  bookmaker_a: string;,`n  bookmaker_b: string,`n  odds_a: number;,`n  odds_b: number,`n  profit_margin: number;,`n  required_stake: number}>
+        id: string
+,`n  sport: string;
+,`n  event: string
+,`n  bookmaker_a: string;
+,`n  bookmaker_b: string
+,`n  odds_a: number;
+,`n  odds_b: number
+,`n  profit_margin: number;
+,`n  required_stake: number}>
     >('/api/arbitrage-opportunities')}
 
   public async getPredictions() {
     return this.makeRequest<{
-      predictions: Array<{,`n  id: string;,`n  sport: string,`n  event: string;,`n  prediction: string,`n  confidence: number;,`n  odds: number,`n  expected_value: number;,`n  timestamp: string,`n  model_version: string}>;
-      total_count: number}>('/api/predictions')}
+      predictions: Array<{
+,`n  id: string;
+,`n  sport: string
+,`n  event: string;
+,`n  prediction: string
+,`n  confidence: number;
+,`n  odds: number
+,`n  expected_value: number;
+,`n  timestamp: string
+,`n  model_version: string}>;
+      total_count: number}>('/api/predictions/prizepicks')}
 
   public async getModelPerformance() {
     return this.makeRequest<{
-      overall_accuracy: number,`n  recent_accuracy: number;,`n  model_metrics: {,`n  precision: number;,`n  recall: number,`n  f1_score: number;,`n  auc_roc: number};
+      overall_accuracy: number
+,`n  recent_accuracy: number;
+,`n  model_metrics: {
+,`n  precision: number;
+,`n  recall: number
+,`n  f1_score: number;
+,`n  auc_roc: number};
       performance_by_sport: Record<string, { accuracy: number; games: number}>}>('/api/ultra-accuracy/model-performance');}
 
   public async isBackendAvailable(): Promise<boolean> {
     try {
       await this.getHealth();
       return true;} catch (error) {
-      console.warn('Backend not available:', error);
+//       console.warn('Backend not available:', error);
       return false;}
   }}
 

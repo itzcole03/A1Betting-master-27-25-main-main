@@ -19,13 +19,20 @@ import { useLogger} from '@/hooks/useLogger';
 import { useMetrics} from '@/hooks/useMetrics';
 
 interface DailyFantasyData {
-  playerId: string,`n  playerName: string;,`n  team: string,`n  position: string;,`n  salary: number,`n  projectedPoints: number;
+  playerId: string
+,`n  playerName: string;
+,`n  team: string
+,`n  position: string;
+,`n  salary: number
+,`n  projectedPoints: number;
   actualPoints?: number
   ownershipPercentage?: number
   valueScore?: number}
 
 interface DailyFantasyIntegrationProps {
-  onDataUpdate: (data: DailyFantasyData[0]) => void,`n  sport: string;,`n  date: string}
+  onDataUpdate: (data: DailyFantasyData[0]) => void
+,`n  sport: string;
+,`n  date: string}
 
 export const DailyFantasyIntegration: React.FC<DailyFantasyIntegrationProps key={952172}> = ({
   onDataUpdate,
@@ -47,7 +54,7 @@ export const DailyFantasyIntegration: React.FC<DailyFantasyIntegrationProps key=
       setError(null);
 
       try {
-        const response = await fetch(`/api/dailyfantasy/${sport}`, {
+        const response = await fetch(`/api/dailyfantasy/${sport}`, {.catch(error => console.error("API Error:", error))
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

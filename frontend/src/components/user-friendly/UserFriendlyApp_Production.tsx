@@ -53,11 +53,19 @@ import {
 } from './SearchNotificationHandlers';
 
 interface NavigationItem {
-  id: string,`n  label: string;,`n  icon: React.ReactNode,`n  component: React.ComponentType<any key={295429}>;
+  id: string
+,`n  label: string;
+,`n  icon: React.ReactNode
+,`n  component: React.ComponentType<any key={295429}>;
   badge?: string}
 
 interface UserData {
-  name: string,`n  email: string;,`n  balance: number,`n  tier: string;,`n  winRate: number,`n  totalProfit: number}
+  name: string
+,`n  email: string;
+,`n  balance: number
+,`n  tier: string;
+,`n  winRate: number
+,`n  totalProfit: number}
 
 // Production health check hook with real API integration and intelligent fallbacks;
 const useHealthCheck = () => {
@@ -413,7 +421,7 @@ const ProductionUserFriendlyApp: React.FC = () => {
                 Brain {isOnline ? "OPTIMAL" : "OFFLINE"}
               </span>
               <span className="text-xs text-cyan-400 font-medium" key={118062}>
-                {accuracy.toFixed(1)}% ACC;
+                {safeNumber(accuracy, 1)}% ACC;
               </span>
               {systemHealth && (
                 <span className="text-xs text-purple-400" key={964451}>
@@ -568,7 +576,7 @@ const ProductionUserFriendlyApp: React.FC = () => {
                     <div className="flex justify-between" key={588832}>
                       <span key={595076}>Accuracy:</span>
                       <span className="text-cyan-400" key={797516}>
-                        {accuracy.toFixed(1)}%
+                        {safeNumber(accuracy, 1)}%
                       </span>
                     </div>
                     <div className="flex justify-between" key={588832}>

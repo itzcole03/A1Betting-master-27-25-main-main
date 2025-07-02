@@ -59,7 +59,7 @@ export function RealtimePredictionDisplay({
         {/* Prediction Value */}
         <div className="flex items-center justify-between" key={96335}>
           <span className="text-gray-600 dark:text-gray-400" key={517223}>Predicted Value</span>
-          <span className="text-xl font-bold" key={980159}>{prediction.value.toFixed(2)}</span>
+          <span className="text-xl font-bold" key={980159}>{prediction.safeNumber(value, 2)}</span>
         </div>
 
         {/* SHAP Values */}

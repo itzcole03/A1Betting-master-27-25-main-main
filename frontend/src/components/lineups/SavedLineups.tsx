@@ -178,11 +178,12 @@ const SavedLineups: React.FC = () => {
           <span>
             Progress: {lineup.progress.settledPicks}/{totalPicks}
           </span>
-          <span>{percentage.toFixed(0)}%</span>
+          <span>{safeNumber(percentage, 0)}%</span>
         </div>
         <div className='w-full bg-gray-700 rounded-full h-2'>
           <div className='bg-gradient-to-r from-green-400 to-electric-400 h-2 rounded-full transition-all duration-300'
-            style={{ width: `${percentage}%`}}>`n          />
+            style={{ width: `${percentage}%`}}
+>`n          />
         </div>
         {lineup.progress.settledPicks > 0 && (
           <div className='flex justify-between text-xs'>
@@ -242,19 +243,19 @@ const SavedLineups: React.FC = () => {
           <div className='quantum-card p-4 rounded-xl text-center'>
             <div className={`text-2xl font-bold font-cyber ${stats.roi >= 0 ? 'text-green-400' : 'text-red-400'}`}
             >
-              {stats.roi.toFixed(1)}%
+              {stats.safeNumber(roi, 1)}%
             </div>
             <div className='text-xs text-gray-400 font-mono'>ROI</div>
           </div>
           <div className='quantum-card p-4 rounded-xl text-center'>
             <div className='text-2xl font-bold text-purple-400 font-cyber'>
-              {stats.winRate.toFixed(1)}%
+              {stats.safeNumber(winRate, 1)}%
             </div>
             <div className='text-xs text-gray-400 font-mono'>Win Rate</div>
           </div>
           <div className='quantum-card p-4 rounded-xl text-center'>
             <div className='text-2xl font-bold text-blue-400 font-cyber'>
-              {stats.averageConfidence.toFixed(1)}%
+              {stats.safeNumber(averageConfidence, 1)}%
             </div>
             <div className='text-xs text-gray-400 font-mono'>Avg Conf.</div>
           </div>
@@ -281,13 +282,15 @@ const SavedLineups: React.FC = () => {
             <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4' />
             <input type='text'
               placeholder='Search lineups...'
-              value={searchTerm}>`n              onChange={e => setSearchTerm(e.target.value)}
+              value={searchTerm}
+>`n              onChange={e => setSearchTerm(e.target.value)}
               className='w-full pl-10 pr-4 py-2 bg-gray-800/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-electric-400 focus:outline-none'
             />
           </div>
 
           {/* Sort */}
-          <select value={sortBy}>`n            onChange={e => setSortBy(e.target.value as any)}
+          <select value={sortBy}
+>`n            onChange={e => setSortBy(e.target.value as any)}
             className='px-4 py-2 bg-gray-800/50 border border-gray-600 rounded-lg text-white focus:border-electric-400 focus:outline-none'
           >
             <option value='newest'>Newest First</option>
@@ -298,7 +301,8 @@ const SavedLineups: React.FC = () => {
 
           {/* Export */}
           <button onClick={exportLineups}
-            className='flex items-center space-x-2 px-4 py-2 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-lg hover:bg-blue-500/30 transition-all'>`n          >
+            className='flex items-center space-x-2 px-4 py-2 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-lg hover:bg-blue-500/30 transition-all'
+>`n          >
             <Download className='w-4 h-4' />
             <span>Export</span>
           </button>
@@ -310,7 +314,8 @@ const SavedLineups: React.FC = () => {
             <label className='text-sm text-gray-400 font-mono'>TYPE</label>
             <div className='flex gap-2'>
               {(['all', 'money-maker', 'prizepicks', 'propollama'] as const).map(type => (
-                <button key={type}>`n                  onClick={() => setSelectedType(type)}
+                <button key={type}
+>`n                  onClick={() => setSelectedType(type)}
                   className={`px-4 py-2 rounded-lg font-bold transition-all text-sm ${
                     selectedType === type
                       ? 'bg-electric-500/20 text-electric-400 border border-electric-500/40'
@@ -327,7 +332,8 @@ const SavedLineups: React.FC = () => {
             <label className='text-sm text-gray-400 font-mono'>STATUS</label>
             <div className='flex gap-2'>
               {(['all', 'active', 'completed', 'pending', 'cancelled'] as const).map(status => (
-                <button key={status}>`n                  onClick={() => setSelectedStatus(status)}
+                <button key={status}
+>`n                  onClick={() => setSelectedStatus(status)}
                   className={`px-4 py-2 rounded-lg font-bold transition-all text-sm ${
                     selectedStatus === status
                       ? 'bg-electric-500/20 text-electric-400 border border-electric-500/40'
@@ -369,7 +375,8 @@ const SavedLineups: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  <div className={`px-3 py-1 rounded-full text-xs font-bold ${getStatusColor(lineup.status)}`}>`n                  >
+                  <div className={`px-3 py-1 rounded-full text-xs font-bold ${getStatusColor(lineup.status)}`}
+>`n                  >
                     {lineup.status.toUpperCase()}
                   </div>
                 </div>
@@ -402,7 +409,7 @@ const SavedLineups: React.FC = () => {
                   <div className='flex items-center justify-between'>
                     <span className='text-sm text-gray-400'>Confidence:</span>
                     <span className='text-electric-400 font-bold'>
-                      {lineup.metadata.confidence.toFixed(1)}%
+                      {lineup.metadata.safeNumber(confidence, 1)}%
                     </span>
                   </div>
                 )}
@@ -427,7 +434,7 @@ const SavedLineups: React.FC = () => {
                                 </div>
                                 {pick.confidence && (
                                   <div className='text-xs text-electric-400'>
-                                    {pick.confidence.toFixed(1)}% confidence
+                                    {pick.safeNumber(confidence, 1)}% confidence
                                   </div>
                                 )}
                               </div>
@@ -436,7 +443,7 @@ const SavedLineups: React.FC = () => {
                                 <div className='text-white'>{pick.description}</div>
                                 {pick.confidence && (
                                   <div className='text-xs text-electric-400'>
-                                    {pick.confidence.toFixed(1)}% confidence
+                                    {pick.safeNumber(confidence, 1)}% confidence
                                   </div>
                                 )}
                               </div>
@@ -502,12 +509,14 @@ const SavedLineups: React.FC = () => {
         </p>
         <div className='flex justify-center space-x-4'>
           <button onClick={exportLineups}
-            className='flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold rounded-xl hover:from-blue-400 hover:to-purple-400 transition-all duration-300 font-cyber'>`n          >
+            className='flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold rounded-xl hover:from-blue-400 hover:to-purple-400 transition-all duration-300 font-cyber'
+>`n          >
             <BarChart3 className='w-5 h-5' />
             <span>EXPORT ANALYTICS</span>
           </button>
           <button onClick={loadLineups}
-            className='flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-green-500 to-electric-500 text-black font-bold rounded-xl hover: from-green-400 hover:to-electric-400 transition-all duration-300 font-cyber'>`n          >
+            className='flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-green-500 to-electric-500 text-black font-bold rounded-xl hover: from-green-400 hover:to-electric-400 transition-all duration-300 font-cyber'
+>`n          >
             <RefreshCw className='w-5 h-5' />
             <span>REFRESH DATA</span>
           </button>

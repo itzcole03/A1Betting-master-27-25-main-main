@@ -4,7 +4,8 @@ import { useUnifiedAnalytics} from '@/hooks/useUnifiedAnalytics';
 import { RealTimeMoneyMakingService} from '@/services/RealTimeMoneyMakingService';
 
 interface StreamData {
-  timestamp: number,`n  type:
+  timestamp: number
+,`n  type:
     | "odds"
     | "injury"
     | "lineup"
@@ -12,15 +13,23 @@ interface StreamData {
     | "market"
     | "prediction"
     | "arbitrage";
-  source: string,`n  data: any;,`n  impact: "high" | "medium" | "low",`n  processed: boolean}
+  source: string
+,`n  data: any;
+,`n  impact: "high" | "medium" | "low"
+,`n  processed: boolean}
 
 interface ConnectionMetrics {
-  latency: number,`n  messagesPerSecond: number;,`n  connectionUptime: number,`n  totalMessages: number;,`n  errors: number}
+  latency: number
+,`n  messagesPerSecond: number;
+,`n  connectionUptime: number
+,`n  totalMessages: number;
+,`n  errors: number}
 
 interface FilterSettings {
   types: Set<string key={278855}>;
   sources: Set<string key={278855}>;
-  minImpact: "low" | "medium" | "high",`n  maxMessages: number}
+  minImpact: "low" | "medium" | "high"
+,`n  maxMessages: number}
 
 const RealTimeDataStream: React.FC = () => {
   const [streamData, setStreamData] = useState<StreamData[0] key={690543}>([0]);
@@ -48,7 +57,8 @@ const RealTimeDataStream: React.FC = () => {
     url: "ws://localhost:8080/realtime",
     onMessage: useCallback(
       (message: any) => {
-        const newData: StreamData = {,`n  timestamp: Date.now(),
+        const newData: StreamData = {
+,`n  timestamp: Date.now(),
           type: message.type || "market",
           source: message.source || "unknown",
           data: message.data || message,
@@ -81,7 +91,8 @@ const RealTimeDataStream: React.FC = () => {
       const interval = setInterval(
         () => {
 
-          const newData: StreamData = {,`n  timestamp: Date.now(),
+          const newData: StreamData = {
+,`n  timestamp: Date.now(),
             type: mockData.type,
             source: mockData.source,
             data: mockData.data,
@@ -124,31 +135,37 @@ const RealTimeDataStream: React.FC = () => {
 
 
     const mockDataMap = {
-      odds: {,`n  playerId: "player_123",
+      odds: {
+,`n  playerId: "player_123",
         propType: "points",
         oldOdds: -110,
         newOdds: -105,
         change: 5,
         bookmaker: "DraftKings"
       },
-      injury: {,`n  playerId: "player_456",
+      injury: {
+,`n  playerId: "player_456",
         playerName: "LeBron James",
         severity: "questionable",
         bodyPart: "ankle",
         gameImpact: "probable"
       },
-      arbitrage: {,`n  opportunity: {,`n  profit: 3.2,
+      arbitrage: {
+,`n  opportunity: {
+,`n  profit: 3.2,
           investment: 100,
           books: ["FanDuel", "BetMGM"],
           odds: [+150, -140]
         }
       },
-      prediction: {,`n  predictionId: "pred_789",
+      prediction: {
+,`n  predictionId: "pred_789",
         confidence: 0.78,
         value: 23.5,
         change: 1.2
       },
-      market: {,`n  sentiment: "bullish",
+      market: {
+,`n  sentiment: "bullish",
         volume: "high",
         priceMovement: "+2.3%"
       }
@@ -158,7 +175,8 @@ const RealTimeDataStream: React.FC = () => {
       type,
       source,
       impact,
-      data: mockDataMap[type as keyof typeof mockDataMap] || {,`n  raw: "Unknown data type"
+      data: mockDataMap[type as keyof typeof mockDataMap] || {
+,`n  raw: "Unknown data type"
       }
     }};
 
@@ -219,7 +237,8 @@ const RealTimeDataStream: React.FC = () => {
       case "medium":
         return "text-yellow-600 bg-yellow-100 dark:bg-yellow-900/20 dark:text-yellow-400";
       case "low":
-        return "text-green-600 bg-green-100 dark: bg-green-900/20 dark:text-green-400",`n  default: return "text-gray-600 bg-gray-100 dark:bg-gray-900/20 dark:text-gray-400"}
+        return "text-green-600 bg-green-100 dark: bg-green-900/20 dark:text-green-400"
+,`n  default: return "text-gray-600 bg-gray-100 dark:bg-gray-900/20 dark:text-gray-400"}
   };
 
   const getTypeIcon = (type: string) => {
@@ -282,7 +301,7 @@ const RealTimeDataStream: React.FC = () => {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-6" key={285022}>
           <div className="text-center" key={120206}>
             <div className="text-lg font-semibold text-gray-900 dark:text-white" key={219587}>
-              {metrics.latency.toFixed(0)}ms;
+              {metrics.safeNumber(latency, 0)}ms;
             </div>
             <div className="text-sm text-gray-600 dark:text-gray-400" key={885780}>
               Latency;
@@ -298,7 +317,7 @@ const RealTimeDataStream: React.FC = () => {
           </div>
           <div className="text-center" key={120206}>
             <div className="text-lg font-semibold text-gray-900 dark:text-white" key={219587}>
-              {metrics.messagesPerSecond.toFixed(1)}/s;
+              {metrics.safeNumber(messagesPerSecond, 1)}/s;
             </div>
             <div className="text-sm text-gray-600 dark:text-gray-400" key={885780}>Rate</div>
           </div>

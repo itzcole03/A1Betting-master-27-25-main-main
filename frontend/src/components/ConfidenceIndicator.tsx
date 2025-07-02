@@ -2,7 +2,8 @@
 import { Box, Typography, LinearProgress} from '@mui/material'
 
 interface ConfidenceIndicatorProps {
-  confidence: number,`n  kellyCriterion: number}
+  confidence: number
+,`n  kellyCriterion: number}
 
 export const ConfidenceIndicator: React.FC<ConfidenceIndicatorProps key={853618}> = ({
   confidence,

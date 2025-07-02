@@ -76,7 +76,7 @@ class RealTimePredictionService {
 
   constructor() {
     // Use the Phase 5 prediction API endpoint
-    this.baseUrl = 'http://localhost:8003';
+    this.baseUrl = '${process.env.REACT_APP_API_URL || "http://localhost:8000"}';
     this.timeout = 10000; // 10 seconds timeout
   }
 
@@ -86,22 +86,22 @@ class RealTimePredictionService {
    */
   async getLivePredictions(request: PredictionRequest = {}): Promise<RealTimePrediction[]> {
     try {
-      console.log('🎯 Fetching real-time predictions...', request);
+//       console.log('🎯 Fetching real-time predictions...', request);
       
       const params = new URLSearchParams();
       if (request.sport) params.append('sport', request.sport);
       if (request.limit) params.append('limit', request.limit.toString());
 
       const response: AxiosResponse<RealTimePrediction[]> = await axios.get(
-        `${this.baseUrl}/api/predictions/live?${params.toString()}`,
+        `${this.baseUrl}/api/predictions/prizepicks/live?${params.toString()}`,
         { timeout: this.timeout }
       );
 
-      console.log(`✅ Received ${response.data.length} real-time predictions`);
+//       console.log(`✅ Received ${response.data.length} real-time predictions`);
       return response.data;
 
     } catch (error) {
-      console.error('❌ Error fetching live predictions:', error);
+//       console.error('❌ Error fetching live predictions:', error);
       
       // Check if the API is running
       if (axios.isAxiosError(error) && error.code === 'ECONNREFUSED') {
@@ -118,14 +118,14 @@ class RealTimePredictionService {
   async getSystemHealth(): Promise<SystemHealth> {
     try {
       const response: AxiosResponse<SystemHealth> = await axios.get(
-        `${this.baseUrl}/api/predictions/health`,
+        `${this.baseUrl}/api/predictions/prizepicks/health`,
         { timeout: this.timeout }
       );
 
       return response.data;
 
     } catch (error) {
-      console.error('❌ Error fetching system health:', error);
+//       console.error('❌ Error fetching system health:', error);
       throw new Error(`Failed to fetch system health: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
@@ -136,14 +136,14 @@ class RealTimePredictionService {
   async getPredictionExplanation(propId: string): Promise<Record<string, any>> {
     try {
       const response: AxiosResponse<Record<string, any>> = await axios.get(
-        `${this.baseUrl}/api/predictions/explain/${propId}`,
+        `${this.baseUrl}/api/predictions/prizepicks/explain/${propId}`,
         { timeout: this.timeout }
       );
 
       return response.data;
 
     } catch (error) {
-      console.error('❌ Error fetching prediction explanation:', error);
+//       console.error('❌ Error fetching prediction explanation:', error);
       throw new Error(`Failed to fetch explanation: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
@@ -154,14 +154,14 @@ class RealTimePredictionService {
   async getLoadedModels(): Promise<{ models_loaded: number; models: ModelInfo[]; timestamp: string }> {
     try {
       const response = await axios.get(
-        `${this.baseUrl}/api/predictions/models`,
+        `${this.baseUrl}/api/predictions/prizepicks/models`,
         { timeout: this.timeout }
       );
 
       return response.data;
 
     } catch (error) {
-      console.error('❌ Error fetching model info:', error);
+//       console.error('❌ Error fetching model info:', error);
       throw new Error(`Failed to fetch model info: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
@@ -172,14 +172,14 @@ class RealTimePredictionService {
   async getPredictionStats(): Promise<PredictionStats> {
     try {
       const response: AxiosResponse<PredictionStats> = await axios.get(
-        `${this.baseUrl}/api/predictions/stats`,
+        `${this.baseUrl}/api/predictions/prizepicks/stats`,
         { timeout: this.timeout }
       );
 
       return response.data;
 
     } catch (error) {
-      console.error('❌ Error fetching prediction stats:', error);
+//       console.error('❌ Error fetching prediction stats:', error);
       throw new Error(`Failed to fetch stats: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
@@ -190,7 +190,7 @@ class RealTimePredictionService {
   async triggerModelTraining(): Promise<{ message: string; timestamp: string; status: string }> {
     try {
       const response = await axios.post(
-        `${this.baseUrl}/api/predictions/train`,
+        `${this.baseUrl}/api/predictions/prizepicks/train`,
         {},
         { timeout: this.timeout }
       );
@@ -198,7 +198,7 @@ class RealTimePredictionService {
       return response.data;
 
     } catch (error) {
-      console.error('❌ Error triggering model training:', error);
+//       console.error('❌ Error triggering model training:', error);
       throw new Error(`Failed to trigger training: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
@@ -216,7 +216,7 @@ class RealTimePredictionService {
       return response.status === 200;
 
     } catch (error) {
-      console.warn('⚠️ Prediction API health check failed:', error);
+//       console.warn('⚠️ Prediction API health check failed:', error);
       return false;
     }
   }
@@ -234,7 +234,7 @@ class RealTimePredictionService {
       return response.data;
 
     } catch (error) {
-      console.error('❌ Error fetching API info:', error);
+//       console.error('❌ Error fetching API info:', error);
       throw new Error(`Failed to fetch API info: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }

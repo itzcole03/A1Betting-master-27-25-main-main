@@ -10,7 +10,8 @@ const getEmoji = (type: 'goblin' | 'demon' | 'normal') => {
   return '⇄';};
 
 const getSentimentBadge = (sentiment?: {
-  score: number,`n  direction: 'up' | 'down' | 'neutral';
+  score: number
+,`n  direction: 'up' | 'down' | 'neutral';
   tooltip?: string}) => {
   if (!sentiment) return null;
   const color =

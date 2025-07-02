@@ -87,12 +87,12 @@ class SecurityConfig:
 
     def __post_init__(self):
         if self.cors_origins is None:
-            self.cors_origins = ["http://localhost:5173", "http://127.0.0.1:5173"]
+            self.cors_origins = ["http://localhost:3000", "http://localhost:3001", "http://localhost:3002", "http://localhost:3003", "http://127.0.0.1:5173"]
 
     @classmethod
     def from_env(cls) -> "SecurityConfig":
         cors_origins_str = os.getenv(
-            "CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173"
+            "CORS_ORIGINS", "http://localhost:3000,http://localhost:3001,http://localhost:3002,http://localhost:3003,http://127.0.0.1:5173"
         )
         cors_origins = [origin.strip() for origin in cors_origins_str.split(",")]
 

@@ -8,13 +8,37 @@ import { integrationService} from './integrationService';
 import { ultraAccuracyBackgroundService} from './UltraAccuracyBackgroundService';
 
 export interface SimplifiedPrediction {
-  id: string,`n  game: string;,`n  pick: string,`n  confidence: number;,`n  odds: string,`n  reasoning: string;,`n  expectedValue: number,`n  riskLevel: "low" | "medium" | "high";,`n  sport: string,`n  modelVersion: string}
+  id: string
+,`n  game: string;
+,`n  pick: string
+,`n  confidence: number;
+,`n  odds: string
+,`n  reasoning: string;
+,`n  expectedValue: number
+,`n  riskLevel: "low" | "medium" | "high";
+,`n  sport: string
+,`n  modelVersion: string}
 
 export interface SimplifiedAnalytics {
-  totalProfit: number,`n  winRate: number;,`n  roi: number,`n  todaysPicks: number;,`n  activeGames: number,`n  aiAccuracy: number;,`n  recommendations: string[0],`n  alerts: string[0]}
+  totalProfit: number
+,`n  winRate: number;
+,`n  roi: number
+,`n  todaysPicks: number;
+,`n  activeGames: number
+,`n  aiAccuracy: number;
+,`n  recommendations: string[0]
+,`n  alerts: string[0]}
 
 export interface SimplifiedOpportunity {
-  id: string,`n  title: string;,`n  description: string,`n  confidence: number;,`n  expectedReturn: number,`n  riskLevel: "low" | "medium" | "high";,`n  timeRemaining: string,`n  sport: string;,`n  actionRequired: string}
+  id: string
+,`n  title: string;
+,`n  description: string
+,`n  confidence: number;
+,`n  expectedReturn: number
+,`n  riskLevel: "low" | "medium" | "high";
+,`n  timeRemaining: string
+,`n  sport: string;
+,`n  actionRequired: string}
 
 class EnhancedIntegrationBridge {
   private static instance: EnhancedIntegrationBridge;
@@ -301,7 +325,8 @@ export async function getMoneyMakerRecommendations(
           : strategy === "aggressive"
             ? "high"
             : "medium",
-      picks: opportunities.slice(0, 3).map((opp: any) => ({,`n  game: opp.event || "Featured Game",
+      picks: opportunities.slice(0, 3).map((opp: any) => ({
+,`n  game: opp.event || "Featured Game",
         pick: opp.market || "Moneyline",
         confidence: Math.round((opp.confidence || 0.75) * 100),
         odds: opp.odds?.toString() || "1.85",
@@ -354,7 +379,8 @@ export async function getPrizePicksRecommendations(
       return [0];}
 
     // Convert betting opportunities to PrizePicks format;
-    const baseProps = opportunities.map((opp: any) => ({,`n  id: opp.id,
+    const baseProps = opportunities.map((opp: any) => ({
+,`n  id: opp.id,
       player: opp.event?.split(" vs ")[0] || "Featured Player",
       stat: opp.market || "Points",
       line: opp.odds || 20.5,

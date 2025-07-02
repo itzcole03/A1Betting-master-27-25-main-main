@@ -5,7 +5,7 @@
  */
 
 export const API_CONFIG = {
-  baseURL: import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000',
+  baseURL: import.meta.env.VITE_BACKEND_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}',
   timeout: 30000,
 
   endpoints: {
@@ -19,17 +19,17 @@ export const API_CONFIG = {
     legacyUltraAccuracy: '/api/v4/predict/ultra-accuracy',
 
     // Core Prediction Endpoints
-    predictions: '/api/predictions',
+    predictions: '/api/predictions/prizepicks',
     bettingOpportunities: '/api/betting-opportunities',
     arbitrageOpportunities: '/api/arbitrage-opportunities',
 
     // Analytics & Performance
-    analytics: '/api/analytics/advanced',
+    analytics: '/api/analytics/summary',
     performanceStats: '/api/v1/performance-stats',
     modelPerformance: '/api/ultra-accuracy/model-performance',
 
     // Health & Monitoring
-    health: '/api/health/all',
+    health: '/api/health/status',
     systemHealth: '/health',
 
     // PrizePicks Integration

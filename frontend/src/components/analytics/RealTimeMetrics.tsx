@@ -6,7 +6,9 @@ import { UnifiedWebSocketService} from '@/services/unified/UnifiedWebSocketServi
 import { PerformanceMetrics, TrendDelta, RiskProfile} from '@/types/analytics.js';
 
 interface RealTimeMetricsProps {
-  eventId: string,`n  marketId: string;,`n  selectionId: string;
+  eventId: string
+,`n  marketId: string;
+,`n  selectionId: string;
   className?: string}
 
 export const RealTimeMetrics: React.FC<RealTimeMetricsProps key={981146}> = ({
@@ -63,7 +65,11 @@ export const RealTimeMetrics: React.FC<RealTimeMetricsProps key={981146}> = ({
           'trendDelta' in data &&
           'riskProfile' in data) {
           const typedData = data as {
-            eventId: string,`n  marketId: string;,`n  metrics: PerformanceMetrics,`n  trendDelta: TrendDelta;,`n  riskProfile: RiskProfile};
+            eventId: string
+,`n  marketId: string;
+,`n  metrics: PerformanceMetrics
+,`n  trendDelta: TrendDelta;
+,`n  riskProfile: RiskProfile};
 
           if (typedData.eventId === eventId && typedData.marketId === marketId) {
             setMetrics(typedData.metrics);
@@ -163,7 +169,7 @@ export const RealTimeMetrics: React.FC<RealTimeMetricsProps key={981146}> = ({
         <div key={241917}>
           <p className="text-sm text-gray-600" key={656535}>Profit/Loss</p>
           <div className="flex items-center space-x-2" key={740830}>
-            <p className="text-lg font-semibold" key={930820}>${metrics.profitLoss.toFixed(2)}</p>
+            <p className="text-lg font-semibold" key={930820}>${metrics.safeNumber(profitLoss, 2)}</p>
             <Icon;
               className={`w-4 h-4 ${getMetricColor(metrics.profitLoss, 'positive')}`}
               name={getTrendIcon(metrics.profitLoss)}

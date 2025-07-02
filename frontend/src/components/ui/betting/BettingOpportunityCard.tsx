@@ -26,7 +26,7 @@ export const BettingOpportunityCard = memo<BettingOpportunityCardProps key={2427
           <div className="flex items-center space-x-4" key={787951}>
             <div className="text-right" key={144468}>
               <p className="text-sm text-gray-500" key={212051}>Odds</p>
-              <p className="text-xl font-bold text-primary-500" key={403748}>{opportunity.odds.toFixed(2)}</p>
+              <p className="text-xl font-bold text-primary-500" key={403748}>{opportunity.safeNumber(odds, 2)}</p>
             </div>
             <ModelConfidenceIndicator confidence={opportunity.confidence} / key={186907}>
           </div>
@@ -39,7 +39,7 @@ export const BettingOpportunityCard = memo<BettingOpportunityCardProps key={2427
               className={`text-lg font-semibold ${
                 opportunity.expectedValue  key={706839}>= 0 ? 'text-success-500' : 'text-error-500'}`}
             >
-              {opportunity.expectedValue.toFixed(2)}
+              {opportunity.safeNumber(expectedValue, 2)}
             </p>
           </div>
           <div key={241917}>

@@ -25,7 +25,7 @@ const ShapValueDisplay: React.FC<ShapValueDisplayProps key={274061}> = ({ shapVa
               className={`text-sm font-medium ${
                 item.impact  key={699317}> 0 ? 'text-green-600' : 'text-red-600'}`}
             >
-              {item.value.toFixed(2)}
+              {item.safeNumber(value, 2)}
             </span>
           </div>
         </div>

@@ -21,24 +21,29 @@ export class UnifiedConfig {
     // this.errorHandler = ErrorHandler.getInstance(); // Use lazy getter;
     this.config = new Map();
     this.defaultConfig = {
-      websocket: {,`n  url: import.meta.env.VITE_WS_URL || 'ws://localhost:8000/ws',
+      websocket: {
+,`n  url: import.meta.env.VITE_WS_URL || 'ws://localhost:8000/ws',
         reconnectAttempts: 5,
         reconnectDelay: 1000,
         pingInterval: 30000
       },
-      api: {,`n  baseUrl: import.meta.env.VITE_API_URL || 'http://localhost:8000',
+      api: {
+,`n  baseUrl: import.meta.env.VITE_API_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}',
         timeout: 30000,
         retryAttempts: 3
       },
-      prediction: {,`n  confidenceThreshold: 0.7,
+      prediction: {
+,`n  confidenceThreshold: 0.7,
         updateInterval: 5000,
         maxPredictions: 100
       },
-      risk: {,`n  defaultProfile: 'moderate',
+      risk: {
+,`n  defaultProfile: 'moderate',
         maxExposure: 0.2,
         stopLoss: 0.1
       },
-      features: {,`n  enablePvPModel: { enabled: true},
+      features: {
+,`n  enablePvPModel: { enabled: true},
         enablePlayerFormModel: { enabled: true},
         enableVenueEffectModel: { enabled: true},
         enableRefereeImpactModel: { enabled: true},

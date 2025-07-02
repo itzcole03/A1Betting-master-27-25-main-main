@@ -29,14 +29,25 @@ import {
 
 // Player prop interface;
 interface PlayerProp {
-  id: string,`n  playerName: string;,`n  team: string,`n  opponent: string;,`n  sport: string,`n  statType: string;,`n  projectedValue: number,`n  overOdds: number;,`n  underOdds: number,`n  gameTime: string;
+  id: string
+,`n  playerName: string;
+,`n  team: string
+,`n  opponent: string;
+,`n  sport: string
+,`n  statType: string;
+,`n  projectedValue: number
+,`n  overOdds: number;
+,`n  underOdds: number
+,`n  gameTime: string;
   isLive?: boolean
   trend?: "up" | "down" | "stable";
   confidence?: number}
 
 // Lineup entry interface;
 interface LineupEntry {
-  propId: string,`n  choice: "over" | "under";,`n  prop: PlayerProp}
+  propId: string
+,`n  choice: "over" | "under";
+,`n  prop: PlayerProp}
 
 // MEGA PRIZEPICKS - Cyber-themed with original prop card styling preserved;
 const MegaPrizePicks: React.FC<{
@@ -154,7 +165,9 @@ const MegaPrizePicks: React.FC<{
       : playerProps.filter((prop) => prop.sport === selectedSport);
 
   // Original PrizePicks-style prop card (preserved styling)
-  const PropCard: React.FC<{,`n  prop: PlayerProp;,`n  onSelect: (propId: string, choice: "over" | "under") => void}> = ({ prop, onSelect}) => {
+  const PropCard: React.FC<{
+,`n  prop: PlayerProp;
+,`n  onSelect: (propId: string, choice: "over" | "under") => void}> = ({ prop, onSelect}) => {
 
     const selectedChoice = lineup.find(
       (entry) => entry.propId === prop.id,
@@ -294,7 +307,7 @@ const MegaPrizePicks: React.FC<{
               }}
              key={771714}>
               <Target size={12} / key={395978}>
-              {prop.confidence.toFixed(1)}% confidence;
+              {prop.safeNumber(confidence, 1)}% confidence;
             </div>
           )}
         </div>

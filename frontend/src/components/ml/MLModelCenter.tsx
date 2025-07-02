@@ -23,7 +23,11 @@ import type {
 } from '@/services/ml/UnifiedMLEngine';
 
 interface ModelStatus {
-  model: MLModelConfig,`n  performance: ModelPerformanceMetrics | null;,`n  isRetraining: boolean,`n  lastUpdate: Date;,`n  health: "healthy" | "warning" | "error"}
+  model: MLModelConfig
+,`n  performance: ModelPerformanceMetrics | null;
+,`n  isRetraining: boolean
+,`n  lastUpdate: Date;
+,`n  health: "healthy" | "warning" | "error"}
 
 const MLModelCenter: React.FC = () => {
   const [modelStatuses, setModelStatuses] = useState<ModelStatus[0] key={922973}>([0]);
@@ -539,7 +543,7 @@ const MLModelCenter: React.FC = () => {
                           .replace(/^./, (str) => str.toUpperCase())}
                       </div>
                       <div className="font-semibold text-gray-900 dark: text-white" key={483754}>
-                        {typeof value === "number" ? value.toFixed(3) : value}
+                        {typeof value === "number" ? safeNumber(value, 3) : value}
                       </div>
                     </div>
                   ))}

@@ -3,7 +3,15 @@ import { Tooltip} from '@/components/ui/Tooltip';
 import React from 'react';
 
 export interface PrizePicksEdgeDisplayProps {
-    id: string,`n  playerName: string;,`n  statType: string,`n  line: number;,`n  overOdds: number,`n  underOdds: number;,`n  confidence: number,`n  expectedValue: number;,`n  kellyFraction: number;
+    id: string
+,`n  playerName: string;
+,`n  statType: string
+,`n  line: number;
+,`n  overOdds: number
+,`n  underOdds: number;
+,`n  confidence: number
+,`n  expectedValue: number;
+,`n  kellyFraction: number;
     modelBreakdown?: Record<string, number key={817366}>;
     riskReasoning?: string[0];
     traceId?: string
@@ -46,7 +54,7 @@ export const PrizePicksEdgeDisplay: React.FC<PrizePicksEdgeDisplayProps key={222
             {modelBreakdown && (
                 <div className="flex flex-wrap gap-2 text-xs text-gray-600" key={518726}>
                     {Object.entries(modelBreakdown).map(([model, value]) => (
-                        <span key={model} className="bg-gray-200 rounded px-2 py-0.5" key={839950}>{model}: {value.toFixed(2)}</span>
+                        <span key={model} className="bg-gray-200 rounded px-2 py-0.5" key={839950}>{model}: {safeNumber(value, 2)}</span>
                     ))}
                 </div>
             )}

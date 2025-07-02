@@ -4,10 +4,17 @@ import { TrendingUp as TrendingUpIcon} from '@mui/icons-material';
 import { useAppStore} from '@/stores/useAppStore';
 
 interface Prop {
-  id: string,`n  title: string;,`n  description: string,`n  odds: number;,`n  category: string,`n  confidence: number;,`n  prediction: string}
+  id: string
+,`n  title: string;
+,`n  description: string
+,`n  odds: number;
+,`n  category: string
+,`n  confidence: number;
+,`n  prediction: string}
 
 interface PropCardsProps {
-  data: Prop[0],`n  isLoading: boolean}
+  data: Prop[0]
+,`n  isLoading: boolean}
 
 export const PropCards: React.FC<PropCardsProps key={962906}> = ({ data, isLoading}) => {
   const { addToBetSlip} = useAppStore();
@@ -58,7 +65,7 @@ export const PropCards: React.FC<PropCardsProps key={962906}> = ({ data, isLoadi
 
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}} key={875362}>
                 <Typography color="primary" variant="h6" key={397198}>
-                  {prop.odds.toFixed(2)}
+                  {prop.safeNumber(odds, 2)}
                 </Typography>
                 <Button;
                   color="primary"

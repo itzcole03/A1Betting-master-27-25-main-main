@@ -28,7 +28,8 @@ import { useStore} from '@/stores/useStore';
 import { Button, Card} from './ui/UnifiedUI';
 
 interface SmartSidebarProps {
-  isOpen: boolean,`n  onClose: () => void}
+  isOpen: boolean
+,`n  onClose: () => void}
 
 export const SmartSidebar: React.FC<SmartSidebarProps> = ({ isOpen, onClose}) => {
   const { state} = useStore();
@@ -56,7 +57,17 @@ export const SmartSidebar: React.FC<SmartSidebarProps> = ({ isOpen, onClose}) =>
 
 const updateTypeDefinitions = (): void => {
   const modelPerformanceType = `export interface ModelPerformance {
-  model: string,`n  accuracy: number;,`n  precision: number,`n  recall: number;,`n  f1Score: number,`n  timestamp: string;,`n  metrics: {,`n  f1: number;,`n  accuracy: number,`n  precision: number;,`n  recall: number}}`;
+  model: string
+,`n  accuracy: number;
+,`n  precision: number
+,`n  recall: number;
+,`n  f1Score: number
+,`n  timestamp: string;
+,`n  metrics: {
+,`n  f1: number;
+,`n  accuracy: number
+,`n  precision: number;
+,`n  recall: number}}`;
 
   writeFile('src/types/model.ts', modelPerformanceType);};
 

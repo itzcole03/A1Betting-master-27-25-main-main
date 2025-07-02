@@ -5,7 +5,10 @@
 import { logger} from '../../utils/logger';
 
 interface ApiConfig {
-  baseUrl: string,`n  timeout: number;,`n  retries: number,`n  retryDelay: number}
+  baseUrl: string
+,`n  timeout: number;
+,`n  retries: number
+,`n  retryDelay: number}
 
 interface ApiResponse<T> {
   success: boolean;
@@ -15,7 +18,9 @@ interface ApiResponse<T> {
   cached?: boolean}
 
 interface CacheEntry<T> {
-  data: T,`n  timestamp: number;,`n  ttl: number}
+  data: T
+,`n  timestamp: number;
+,`n  ttl: number}
 
 export class ProductionApiService {
   private config: ApiConfig;
@@ -24,7 +29,7 @@ export class ProductionApiService {
 
   constructor(config: Partial<ApiConfig> = Record<string, any>) {
     this.config = {
-      baseUrl: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000',
+      baseUrl: import.meta.env.VITE_API_BASE_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}',
       timeout: 30000,
       retries: 3,
       retryDelay: 1000,
@@ -66,7 +71,7 @@ export class ProductionApiService {
 
         const timeoutId = setTimeout(() => controller.abort(), this.config.timeout);
 
-        const response = await fetch(url, {
+        const response = await fetch(url, {.catch(error => console.error("API Error:", error))
           ...options,
           signal: controller.signal
         });
@@ -232,13 +237,32 @@ export const productionApiService = new ProductionApiService();
 
 // Specific API endpoints with proper typing;
 export interface User {
-  id: string,`n  name: string;,`n  email: string,`n  tier: string;,`n  balance: number,`n  winRate: number;,`n  totalProfit: number}
+  id: string
+,`n  name: string;
+,`n  email: string
+,`n  tier: string;
+,`n  balance: number
+,`n  winRate: number;
+,`n  totalProfit: number}
 
 export interface Prediction {
-  id: string,`n  event: string;,`n  outcome: string,`n  odds: number;,`n  confidence: number,`n  edge: number;,`n  modelProb: number,`n  commenceTime: string;,`n  sport: string,`n  league: string}
+  id: string
+,`n  event: string;
+,`n  outcome: string
+,`n  odds: number;
+,`n  confidence: number
+,`n  edge: number;
+,`n  modelProb: number
+,`n  commenceTime: string;
+,`n  sport: string
+,`n  league: string}
 
 export interface SystemHealth {
-  status: 'online' | 'offline' | 'degraded',`n  accuracy: number;,`n  activePredictions: number,`n  uptime: number;,`n  lastUpdate: string}
+  status: 'online' | 'offline' | 'degraded'
+,`n  accuracy: number;
+,`n  activePredictions: number
+,`n  uptime: number;
+,`n  lastUpdate: string}
 
 // Typed API methods;
 export const api = {

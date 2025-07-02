@@ -26,7 +26,16 @@ import { useLogger} from '@/hooks/useLogger';
 import { useMetrics} from '@/hooks/useMetrics';
 
 interface PredictionGeneratorProps {
-  modelName: string,`n  availableModels: string[0];,`n  onPredictionsGenerated: (,`n  predictions: Array<{,`n  playerId: string,`n  playerName: string;,`n  predictedWinProbability: number,`n  predictedScore: number;,`n  confidence: number,`n  timestamp: string}>
+  modelName: string
+,`n  availableModels: string[0];
+,`n  onPredictionsGenerated: (
+,`n  predictions: Array<{
+,`n  playerId: string
+,`n  playerName: string;
+,`n  predictedWinProbability: number
+,`n  predictedScore: number;
+,`n  confidence: number
+,`n  timestamp: string}>
   ) => void}
 
 export const PredictionGenerator: React.FC<PredictionGeneratorProps key={196479}> = ({
@@ -39,7 +48,12 @@ export const PredictionGenerator: React.FC<PredictionGeneratorProps key={196479}
   const [selectedModel, setSelectedModel] = useState(modelName);
   const [predictions, setPredictions] = useState<
     Array<{
-      playerId: string,`n  playerName: string;,`n  predictedWinProbability: number,`n  predictedScore: number;,`n  confidence: number,`n  timestamp: string}>
+      playerId: string
+,`n  playerName: string;
+,`n  predictedWinProbability: number
+,`n  predictedScore: number;
+,`n  confidence: number
+,`n  timestamp: string}>
   >([0]);
   const [date, setDate] = useState<string key={278855}>(new Date().toISOString().split('T')[0]);
 
@@ -58,12 +72,13 @@ export const PredictionGenerator: React.FC<PredictionGeneratorProps key={196479}
     setError(null);
 
     try {
-      const response = await fetch('/api/predictions/generate', {
+      const response = await fetch('/api/predictions/prizepicks/generate', {.catch(error => console.error("API Error:", error))
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({,`n  modelName: selectedModel,
+        body: JSON.stringify({
+,`n  modelName: selectedModel,
 //           date
         })
       });
@@ -173,10 +188,10 @@ export const PredictionGenerator: React.FC<PredictionGeneratorProps key={196479}
                     <TableRow key={prediction.playerId} key={699693}>
                       <TableCell key={942983}>{prediction.playerName}</TableCell>
                       <TableCell align="right" key={741903}>
-                        {prediction.predictedWinProbability.toFixed(1)}%
+                        {prediction.safeNumber(predictedWinProbability, 1)}%
                       </TableCell>
-                      <TableCell align="right" key={741903}>{prediction.predictedScore.toFixed(1)}</TableCell>
-                      <TableCell align="right" key={741903}>{prediction.confidence.toFixed(1)}%</TableCell>
+                      <TableCell align="right" key={741903}>{prediction.safeNumber(predictedScore, 1)}</TableCell>
+                      <TableCell align="right" key={741903}>{prediction.safeNumber(confidence, 1)}%</TableCell>
                       <TableCell align="right" key={741903}>
                         {new Date(prediction.timestamp).toLocaleString()}
                       </TableCell>

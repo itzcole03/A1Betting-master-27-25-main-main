@@ -1,8 +1,8 @@
-import React from "react";
-import { X, Users } from "lucide-react";
+import { Users, X } from "lucide-react";
+import { safeNumber } from '../../../frontend/src/utils/UniversalUtils';
 import { useApp } from "../../contexts/AppContext";
-import { validateLineup, calculatePayout } from "../../utils/lineupValidation";
 import { DataGenerator } from "../../utils/dataGenerator";
+import { calculatePayout, validateLineup } from "../../utils/lineupValidation";
 
 interface LineupBuilderProps {
   entryAmount: number;
@@ -443,7 +443,7 @@ export function LineupBuilder({
                           fontWeight: "500",
                         }}
                       >
-                        {prop.line}
+                        {safeNumber(prop.line).toFixed(2)}
                       </div>
 
                       <div
@@ -849,7 +849,7 @@ export function LineupBuilder({
                       color: "white",
                     }}
                   >
-                    <span>{payoutInfo.multiplier.toFixed(1)}</span>
+                    <span>{safeNumber(payoutInfo.multiplier).toFixed(1)}</span>
                     <span>X</span>
                   </div>
                 </div>
@@ -1092,7 +1092,7 @@ export function LineupBuilder({
                     aria-label="to win"
                     placeholder="Enter amount"
                     type="text"
-                    value={`$${payoutInfo.payout.toFixed(2)}`}
+                    value={`$${safeNumber(payoutInfo.payout).toFixed(2)}`}
                     style={{
                       appearance: "auto",
                       borderRadius: "10px",

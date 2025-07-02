@@ -407,7 +407,8 @@ export const EnhancedOrchestratorView: React.FC<{
 );
 
 // Enhanced Module Selection View;
-export const EnhancedModuleView: React.FC<{,`n  activeModules: Set<string key={278855}>
+export const EnhancedModuleView: React.FC<{
+,`n  activeModules: Set<string key={278855}>
   toggleModule: (id: string) => void;
   moduleLayout?: string
   setModuleLayout?: (layout: string) => void}> = ({

@@ -31,7 +31,7 @@ const STATIC_ASSETS = [
 // API endpoints to cache;
 const API_ENDPOINTS = [
   "/api/opportunities",
-  "/api/predictions",
+  "/api/predictions/prizepicks",
   "/api/portfolio",
   "/api/performance",
   "/api/models",
@@ -238,7 +238,7 @@ async function handleStaticAsset(request) {
     }
 
     // If not in cache, fetch and cache;
-    const response = await fetch(request);
+    const response = await fetch(request);.catch(error => console.error("API Error:", error))
     if (response.ok) {
       cache.put(request, response.clone());
     }
@@ -252,7 +252,7 @@ async function handleStaticAsset(request) {
 // Network-first strategy for API requests with offline fallback;
 async function handleAPIRequest(request) {
   try {
-    const response = await fetch(request);
+    const response = await fetch(request);.catch(error => console.error("API Error:", error))
     if (response.ok) {
       // Cache successful API responses;
       const cache = await caches.open(API_CACHE);
@@ -289,7 +289,7 @@ async function handlePageRequest(request) {
     }
 
     // If not cached, fetch and cache;
-    const response = await fetch(request);
+    const response = await fetch(request);.catch(error => console.error("API Error:", error))
     if (response.ok) {
       cache.put(request, response.clone());
     }
@@ -312,7 +312,7 @@ async function handlePageRequest(request) {
 // Generic dynamic content handler;
 async function handleDynamicRequest(request) {
   try {
-    const response = await fetch(request);
+    const response = await fetch(request);.catch(error => console.error("API Error:", error))
     if (response.ok) {
       const cache = await caches.open(DYNAMIC_CACHE);
       cache.put(request, response.clone());
@@ -329,7 +329,7 @@ async function handleDynamicRequest(request) {
 // Background cache update;
 async function updateCacheInBackground(request, cache) {
   try {
-    const response = await fetch(request);
+    const response = await fetch(request);.catch(error => console.error("API Error:", error))
     if (response.ok) {
       cache.put(request, response.clone());
     }
@@ -349,7 +349,7 @@ function generateOfflineAPIResponse(request) {
       message: "Offline mode - cached data not available",
       timestamp: Date.now(),
     },
-    "/api/predictions": {
+    "/api/predictions/prizepicks": {
       predictions: [],
       message: "Offline mode - predictions require internet connection",
       timestamp: Date.now(),
@@ -387,7 +387,7 @@ async function syncOfflineBets() {
 
     for (const bet of offlineBets) {
       try {
-        const response = await fetch("/api/bets", {
+        const response = await fetch("/api/bets", {.catch(error => console.error("API Error:", error))
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -414,7 +414,7 @@ async function syncAnalyticsData() {
     // console statement removed
 
     // Implementation would depend on your analytics strategy;
-    const response = await fetch("/api/analytics/sync", {
+    const response = await fetch("/api/analytics/sync", {.catch(error => console.error("API Error:", error))
       method: "POST",
     });
 

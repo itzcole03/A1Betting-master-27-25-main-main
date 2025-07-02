@@ -13,7 +13,10 @@ import { useQuery} from '@tanstack/react-query';
 import axios from 'axios';
 
 interface BettingStats {
-  _id: string,`n  count: number;,`n  totalStake: number,`n  totalWinnings: number}
+  _id: string
+,`n  count: number;
+,`n  totalStake: number
+,`n  totalWinnings: number}
 
 export const BettingStats: React.FC = () => {
 
@@ -52,7 +55,7 @@ export const BettingStats: React.FC = () => {
       <Box bg={bgColor} borderColor={borderColor} borderRadius="lg" borderWidth={1} p={4} key={968706}>
         <Stat key={212070}>
           <StatLabel key={238154}>Win Rate</StatLabel>
-          <StatNumber key={950974}>{winRate.toFixed(1)}%</StatNumber>
+          <StatNumber key={950974}>{safeNumber(winRate, 1)}%</StatNumber>
           <StatHelpText key={563333}>
             {stats.won} wins / {stats.lost} losses;
           </StatHelpText>
@@ -62,7 +65,7 @@ export const BettingStats: React.FC = () => {
       <Box bg={bgColor} borderColor={borderColor} borderRadius="lg" borderWidth={1} p={4} key={968706}>
         <Stat key={212070}>
           <StatLabel key={238154}>Total Stake</StatLabel>
-          <StatNumber key={950974}>${stats.totalStake.toFixed(2)}</StatNumber>
+          <StatNumber key={950974}>${stats.safeNumber(totalStake, 2)}</StatNumber>
           <StatHelpText key={563333}>
             Average ${(stats.totalStake / stats.total).toFixed(2)} per bet;
           </StatHelpText>
@@ -73,10 +76,10 @@ export const BettingStats: React.FC = () => {
         <Stat key={212070}>
           <StatLabel key={238154}>Profit/Loss</StatLabel>
           <StatNumber key={950974}>
-            ${profit.toFixed(2)}
+            ${safeNumber(profit, 2)}
             <StatArrow type={profit  key={270974}>= 0 ? 'increase' : 'decrease'} />
           </StatNumber>
-          <StatHelpText key={563333}>ROI: {roi.toFixed(1)}%</StatHelpText>
+          <StatHelpText key={563333}>ROI: {safeNumber(roi, 1)}%</StatHelpText>
         </Stat>
       </Box>
     </SimpleGrid>

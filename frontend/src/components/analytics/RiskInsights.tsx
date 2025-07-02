@@ -18,8 +18,17 @@ import {
 
 interface RiskInsightsProps {
   riskMetrics: Record<string, number key={817366}>;
-  recommendations: {,`n  shouldBet: boolean;,`n  confidence: number,`n  maxStake: number;,`n  expectedValue: number};
-  simulation: {,`n  distribution: number[0];,`n  var: number,`n  cvar: number;,`n  sharpeRatio: number,`n  maxDrawdown: number}}
+  recommendations: {
+,`n  shouldBet: boolean;
+,`n  confidence: number
+,`n  maxStake: number;
+,`n  expectedValue: number};
+  simulation: {
+,`n  distribution: number[0];
+,`n  var: number
+,`n  cvar: number;
+,`n  sharpeRatio: number
+,`n  maxDrawdown: number}}
 
 const RiskInsights: React.FC<RiskInsightsProps key={334733}> = ({
   riskMetrics,
@@ -38,7 +47,7 @@ const RiskInsights: React.FC<RiskInsightsProps key={334733}> = ({
                 {metric.replace(/([A-Z])/g, ' $1').trim()}
               </h3>
               <p className="text-2xl font-bold text-gray-900" key={842057}>
-                {typeof value === 'number' ? value.toFixed(4) : value}
+                {typeof value === 'number' ? safeNumber(value, 4) : value}
               </p>
             </div>
           ))}
@@ -61,11 +70,11 @@ const RiskInsights: React.FC<RiskInsightsProps key={334733}> = ({
             </div>
             <div className="flex items-center justify-between" key={96335}>
               <span className="text-gray-600" key={588716}>Confidence</span>
-              <span className="font-mono" key={294600}>{recommendations.confidence.toFixed(2)}%</span>
+              <span className="font-mono" key={294600}>{recommendations.safeNumber(confidence, 2)}%</span>
             </div>
             <div className="flex items-center justify-between" key={96335}>
               <span className="text-gray-600" key={588716}>Max Stake</span>
-              <span className="font-mono" key={294600}>${recommendations.maxStake.toFixed(2)}</span>
+              <span className="font-mono" key={294600}>${recommendations.safeNumber(maxStake, 2)}</span>
             </div>
             <div className="flex items-center justify-between" key={96335}>
               <span className="text-gray-600" key={588716}>Expected Value</span>
@@ -73,7 +82,7 @@ const RiskInsights: React.FC<RiskInsightsProps key={334733}> = ({
                 className={`font-mono ${
                   recommendations.expectedValue  key={683458}>= 0 ? 'text-green-600' : 'text-red-600'}`}
               >
-                ${recommendations.expectedValue.toFixed(2)}
+                ${recommendations.safeNumber(expectedValue, 2)}
               </span>
             </div>
           </div>
@@ -107,15 +116,15 @@ const RiskInsights: React.FC<RiskInsightsProps key={334733}> = ({
             <div className="space-y-4" key={160407}>
               <div className="flex items-center justify-between" key={96335}>
                 <span className="text-gray-600" key={588716}>Value at Risk (95%)</span>
-                <span className="font-mono" key={294600}>${simulation.var.toFixed(2)}</span>
+                <span className="font-mono" key={294600}>${simulation.safeNumber(var, 2)}</span>
               </div>
               <div className="flex items-center justify-between" key={96335}>
                 <span className="text-gray-600" key={588716}>Conditional VaR</span>
-                <span className="font-mono" key={294600}>${simulation.cvar.toFixed(2)}</span>
+                <span className="font-mono" key={294600}>${simulation.safeNumber(cvar, 2)}</span>
               </div>
               <div className="flex items-center justify-between" key={96335}>
                 <span className="text-gray-600" key={588716}>Sharpe Ratio</span>
-                <span className="font-mono" key={294600}>{simulation.sharpeRatio.toFixed(4)}</span>
+                <span className="font-mono" key={294600}>{simulation.safeNumber(sharpeRatio, 4)}</span>
               </div>
               <div className="flex items-center justify-between" key={96335}>
                 <span className="text-gray-600" key={588716}>Max Drawdown</span>

@@ -103,11 +103,11 @@ const BetSlip: React.FC<BetSlipProps key={167092}> = ({ onPlaceBet}) => {
       <Box p={2} key={859867}>
         <Box display="flex" justifyContent="space-between" mb={1} key={518942}>
           <Typography key={705030}>Total Stake:</Typography>
-          <Typography key={705030}>${betSlip.totalStake.toFixed(2)}</Typography>
+          <Typography key={705030}>${betSlip.safeNumber(totalStake, 2)}</Typography>
         </Box>
         <Box display="flex" justifyContent="space-between" mb={2} key={239518}>
           <Typography key={705030}>Potential Winnings:</Typography>
-          <Typography key={705030}>${betSlip.potentialWinnings.toFixed(2)}</Typography>
+          <Typography key={705030}>${betSlip.safeNumber(potentialWinnings, 2)}</Typography>
         </Box>
         <Button;
           fullWidth;

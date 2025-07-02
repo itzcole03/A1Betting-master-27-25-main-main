@@ -30,7 +30,7 @@ class SportsRadarTester {
       error: '\x1b[31m',
       reset: '\x1b[0m'
     };
-    console.log(`${colors[type] || colors.info}${message}${colors.reset}`);
+//     console.log(`${colors[type] || colors.info}${message}${colors.reset}`);
   }
 
   async test(name, testFn) {
@@ -74,7 +74,7 @@ class SportsRadarTester {
     return this.test('API Basic Access', async () => {
       // Test a simple NBA endpoint that should be accessible
       const url = `${this.baseUrl}/nba/v7/en/league/hierarchy.json?api_key=${this.apiKey}`;
-      const response = await fetch(url);
+      const response = await fetch(url);.catch(error => console.error("API Error:", error))
       const data = await response.json();
 
       if (!response.ok) {
@@ -93,7 +93,7 @@ class SportsRadarTester {
     return this.test('Odds Comparison API', async () => {
       // Test odds comparison endpoint
       const url = `${this.baseUrl}/nba/odds/v4/en/markets/moneyline/events/schedule.json?api_key=${this.apiKey}`;
-      const response = await fetch(url);
+      const response = await fetch(url);.catch(error => console.error("API Error:", error))
       const data = await response.json();
 
       if (!response.ok) {
@@ -114,9 +114,9 @@ class SportsRadarTester {
       const url = `${this.baseUrl}/nba/v7/en/league/hierarchy.json?api_key=${this.apiKey}`;
       
       // Make two quick requests to test rate limiting
-      await fetch(url);
+      await fetch(url);.catch(error => console.error("API Error:", error))
       await new Promise(resolve => setTimeout(resolve, 1100)); // Wait 1.1 seconds
-      await fetch(url);
+      await fetch(url);.catch(error => console.error("API Error:", error))
       
       const duration = Date.now() - startTime;
 

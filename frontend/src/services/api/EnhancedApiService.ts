@@ -16,7 +16,9 @@ import axios, { AxiosInstance, AxiosResponse} from 'axios';
 // ============================================================================
 
 export interface PredictionRequest {
-    event_id: string,`n  sport: string;,`n  features: Record<string, number>;
+    event_id: string
+,`n  sport: string;
+,`n  features: Record<string, number>;
     models?: string[0];
     require_explanations?: boolean
     risk_tolerance?: number
@@ -24,41 +26,114 @@ export interface PredictionRequest {
     metadata?: Record<string, any>;}
 
 export interface ModelPrediction {
-    model_name: string,`n  model_type: string;,`n  value: number,`n  probability: number;,`n  confidence: number,`n  performance: Record<string, number>;
+    model_name: string
+,`n  model_type: string;
+,`n  value: number
+,`n  probability: number;
+,`n  confidence: number
+,`n  performance: Record<string, number>;
     shap_values: Record<string, number>;
     feature_importance: Record<string, number>;
-    prediction_time: number,`n  model_version: string}
+    prediction_time: number
+,`n  model_version: string}
 
 export interface RiskAssessment {
-    kelly_fraction: number,`n  recommended_bet_size: number;,`n  max_bet_size: number,`n  risk_level: string;,`n  expected_value: number,`n  variance: number;,`n  sharpe_ratio: number}
+    kelly_fraction: number
+,`n  recommended_bet_size: number;
+,`n  max_bet_size: number
+,`n  risk_level: string;
+,`n  expected_value: number
+,`n  variance: number;
+,`n  sharpe_ratio: number}
 
 export interface MarketAnalysis {
-    market_efficiency: number,`n  arbitrage_opportunities: Array<{,`n  bookmaker_a: string,`n  bookmaker_b: string;,`n  odds_a: number,`n  odds_b: number;,`n  profit_margin: number,`n  required_stake: number}>;
-    value_bets: Array<{,`n  market: string;,`n  predicted_odds: number,`n  market_odds: number;,`n  value_percentage: number,`n  confidence: number}>;
-    market_sentiment: string,`n  liquidity_score: number}
+    market_efficiency: number
+,`n  arbitrage_opportunities: Array<{
+,`n  bookmaker_a: string
+,`n  bookmaker_b: string;
+,`n  odds_a: number
+,`n  odds_b: number;
+,`n  profit_margin: number
+,`n  required_stake: number}>;
+    value_bets: Array<{
+,`n  market: string;
+,`n  predicted_odds: number
+,`n  market_odds: number;
+,`n  value_percentage: number
+,`n  confidence: number}>;
+    market_sentiment: string
+,`n  liquidity_score: number}
 
 export interface PredictionResponse {
-    event_id: string,`n  sport: string;,`n  final_value: number,`n  win_probability: number;,`n  ensemble_confidence: number,`n  expected_payout: number;,`n  risk_assessment: RiskAssessment,`n  market_analysis: MarketAnalysis;,`n  model_breakdown: ModelPrediction[0],`n  model_consensus: number;,`n  shap_values: Record<string, number>;
+    event_id: string
+,`n  sport: string;
+,`n  final_value: number
+,`n  win_probability: number;
+,`n  ensemble_confidence: number
+,`n  expected_payout: number;
+,`n  risk_assessment: RiskAssessment
+,`n  market_analysis: MarketAnalysis;
+,`n  model_breakdown: ModelPrediction[0]
+,`n  model_consensus: number;
+,`n  shap_values: Record<string, number>;
     feature_importance: Record<string, number>;
     explanation: string;
     confidence_intervals?: Record<string, [number, number]>;
-    prediction_timestamp: string,`n  processing_time: number;,`n  model_versions: Record<string, string>;
+    prediction_timestamp: string
+,`n  processing_time: number;
+,`n  model_versions: Record<string, string>;
     data_quality_score: number}
 
 export interface BettingOpportunity {
-    id: string,`n  sport: string;,`n  event: string,`n  market: string;,`n  odds: number,`n  probability: number;,`n  expected_value: number,`n  kelly_fraction: number;,`n  confidence: number,`n  risk_level: string;,`n  recommendation: string}
+    id: string
+,`n  sport: string;
+,`n  event: string
+,`n  market: string;
+,`n  odds: number
+,`n  probability: number;
+,`n  expected_value: number
+,`n  kelly_fraction: number;
+,`n  confidence: number
+,`n  risk_level: string;
+,`n  recommendation: string}
 
 export interface ArbitrageOpportunity {
-    id: string,`n  sport: string;,`n  event: string,`n  bookmaker_a: string;,`n  bookmaker_b: string,`n  odds_a: number;,`n  odds_b: number,`n  profit_margin: number;,`n  required_stake: number}
+    id: string
+,`n  sport: string;
+,`n  event: string
+,`n  bookmaker_a: string;
+,`n  bookmaker_b: string
+,`n  odds_a: number;
+,`n  odds_b: number
+,`n  profit_margin: number;
+,`n  required_stake: number}
 
 export interface Transaction {
-    id: string,`n  type: string;,`n  amount: number,`n  description: string;,`n  timestamp: string,`n  status: string}
+    id: string
+,`n  type: string;
+,`n  amount: number
+,`n  description: string;
+,`n  timestamp: string
+,`n  status: string}
 
 export interface RiskProfile {
-    id: string,`n  name: string;,`n  description: string,`n  max_bet_percentage: number;,`n  kelly_multiplier: number,`n  min_confidence: number}
+    id: string
+,`n  name: string;
+,`n  description: string
+,`n  max_bet_percentage: number;
+,`n  kelly_multiplier: number
+,`n  min_confidence: number}
 
 export interface ActiveBet {
-    id: string,`n  event: string;,`n  market: string,`n  selection: string;,`n  odds: number,`n  stake: number;,`n  potential_return: number,`n  status: string;,`n  placed_at: string}
+    id: string
+,`n  event: string;
+,`n  market: string
+,`n  selection: string;
+,`n  odds: number
+,`n  stake: number;
+,`n  potential_return: number
+,`n  status: string;
+,`n  placed_at: string}
 
 // ============================================================================
 // API SERVICE CLASS;
@@ -72,7 +147,7 @@ class EnhancedApiService {
 
     constructor() {
         // Get API base URL from environment or use default;
-        this.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+        this.baseURL = import.meta.env.VITE_API_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}';
 
         // Create axios instance with enhanced configuration;
         this.api = axios.create({

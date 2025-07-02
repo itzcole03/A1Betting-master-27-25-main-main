@@ -6,14 +6,15 @@ const handlers = [
   // Proxy to real backend API for props
   http.get('/api/props', async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/v1/props');
+      const response = await fetch('${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/v1/props');.catch(error => console.error("API Error:", error))
       const data = await response.json();
       return HttpResponse.json({
         success: true,
-        data: {,`n  props: data.props || [0]
+        data: {
+,`n  props: data.props || [0]
         }
       })} catch (error) {
-      console.error('Error proxying props API:', error);
+//       console.error('Error proxying props API:', error);
       return HttpResponse.json(
         {
           success: false,
@@ -27,14 +28,15 @@ const handlers = [
   // Proxy to real backend API for odds
   http.get('/api/odds', async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/v1/odds');
+      const response = await fetch('${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/v1/odds');.catch(error => console.error("API Error:", error))
       const data = await response.json();
       return HttpResponse.json({
         success: true,
-        data: {,`n  odds: data.odds || [0]
+        data: {
+,`n  odds: data.odds || [0]
         }
       })} catch (error) {
-      console.error('Error proxying odds API:', error);
+//       console.error('Error proxying odds API:', error);
       return HttpResponse.json(
         {
           success: false,
@@ -46,16 +48,17 @@ const handlers = [
   }),
 
   // Proxy to real backend API for predictions
-  http.get('/api/predictions', async () => {
+  http.get('/api/predictions/prizepicks', async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/v1/predictions');
+      const response = await fetch('${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/v1/predictions');.catch(error => console.error("API Error:", error))
       const data = await response.json();
       return HttpResponse.json({
         success: true,
-        data: {,`n  predictions: data.predictions || [0]
+        data: {
+,`n  predictions: data.predictions || [0]
         }
       })} catch (error) {
-      console.error('Error proxying predictions API:', error);
+//       console.error('Error proxying predictions API:', error);
       return HttpResponse.json(
         {
           success: false,
@@ -69,30 +72,30 @@ const handlers = [
   // Proxy to real backend API for players
   http.get('/api/players', async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/v1/players');
+      const response = await fetch('${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/v1/players');.catch(error => console.error("API Error:", error))
       const data = await response.json();
       return HttpResponse.json(data.players || [0]);} catch (error) {
-      console.error('Error proxying players API:', error);
+//       console.error('Error proxying players API:', error);
       return HttpResponse.json([0], { status: 503})}
   }),
 
   // Proxy to real backend API for entries
   http.get('/api/entries', async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/v1/entries');
+      const response = await fetch('${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/v1/entries');.catch(error => console.error("API Error:", error))
       const data = await response.json();
       return HttpResponse.json(data.entries || [0]);} catch (error) {
-      console.error('Error proxying entries API:', error);
+//       console.error('Error proxying entries API:', error);
       return HttpResponse.json([0], { status: 503})}
   }),
 
   // Proxy to real backend API for lineups
   http.get('/api/lineups', async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/v1/lineups');
+      const response = await fetch('${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/v1/lineups');.catch(error => console.error("API Error:", error))
       const data = await response.json();
       return HttpResponse.json(data.lineups || [0]);} catch (error) {
-      console.error('Error proxying lineups API:', error);
+//       console.error('Error proxying lineups API:', error);
       return HttpResponse.json([0], { status: 503})}
   }),
 ];

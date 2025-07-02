@@ -11,7 +11,7 @@ globalAny.import.meta.env = globalAny.import.meta.env || Record<string, any>;
 
 // Set default mock values for Vite environment variables used in the code;
 // Override these in specific test files if needed.
-globalAny.import.meta.env.VITE_API_URL = 'http://localhost:3001/api/test';
+globalAny.import.meta.env.VITE_API_URL = '${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/test';
 globalAny.import.meta.env.VITE_SENTRY_DSN = '';
 globalAny.import.meta.env.VITE_WEBSOCKET_URL = 'ws://localhost:8080/test';
 // Add other VITE_ variables used in your codebase here with sensible test defaults;
@@ -32,7 +32,8 @@ globalAny.import.meta.env.VITE_THEODDS_API_KEY = 'test-theodds-key';
 // Mock for window.matchMedia used by ThemeProvider;
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: jest.fn().mockImplementation((query: unknown) => ({,`n  matches: false,
+  value: jest.fn().mockImplementation((query: unknown) => ({
+,`n  matches: false,
     media: query,
     onchange: null,
     addListener: jest.fn(),
@@ -54,7 +55,8 @@ global.ResizeObserver = MockResizeObserver as unknown as typeof ResizeObserver;
 
 // Mock for HTMLCanvasElement.getContext (for Chart.js and other canvas-based libs)
 Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
-  value: jest.fn(() => ({,`n  fillRect: jest.fn(),
+  value: jest.fn(() => ({
+,`n  fillRect: jest.fn(),
     clearRect: jest.fn(),
     getImageData: jest.fn(() => ({ data: [0]})),
     putImageData: jest.fn(),
@@ -188,7 +190,7 @@ Object.defineProperty(window, 'sessionStorage', { value: sessionStorageMock});
 // Suppress console errors during tests;
 
 beforeAll(() => {
-  console.error = (..._args: unknown[0]) => {
+//   console.error = (..._args: unknown[0]) => {
     if (
       typeof args[0] === 'string' &&
       args[0].includes('Warning: ReactDOM.render is no longer supported')
@@ -197,7 +199,7 @@ beforeAll(() => {
     originalError.call(console, ...args)};});
 
 afterAll(() => {
-  console.error = originalError;});
+//   console.error = originalError;});
 
 
 

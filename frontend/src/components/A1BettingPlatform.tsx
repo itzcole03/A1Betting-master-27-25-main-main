@@ -1,29 +1,16 @@
-﻿import { AnimatePresence, motion} from 'framer-motion'
+﻿import { AnimatePresence, motion } from 'framer-motion';
 import {
-  Activity,
-  AlertTriangle,
-  ArrowDown,
-  ArrowUp,
-  BarChart3,
-  Brain,
-  CheckCircle,
-  Cpu,
-  DollarSign,
-  Home,
-  Menu,
-  PieChart,
-  RefreshCw,
-  Star,
-  Target,
-  TrendingUp,
-  Trophy,
-  User,
-  WifiOff,
-  X,
-//   Zap
+    Activity,
+    AlertTriangle,
+    ArrowDown,
+    ArrowUp,
+    CheckCircle,
+    Star,
+    Target,
+    WifiOff
 } from 'lucide-react';
-import React, { useCallback, useEffect, useMemo, useState} from 'react'
-import { productionApiService} from '../services/productionApiServiceNew'
+import React, { useState } from 'react';
+import { safeNumber } from '../utils/UniversalUtils';
 
 // Lazy load major components for performance with fallbacks
 const Dashboard = React.lazy(() =>
@@ -66,19 +53,51 @@ const UserProfile = React.lazy(() =>
  */
 
 interface NavigationItem {
-  id: string,`n  label: string;,`n  icon: React.ReactNode,`n  component: React.ComponentType<any>;
+  id: string
+,`n  label: string;
+,`n  icon: React.ReactNode
+,`n  component: React.ComponentType<any>;
   badge?: string
   description: string;
   premium?: boolean}
 
 interface PlatformStats {
-  totalProfit: number,`n  winRate: number;,`n  accuracy: number,`n  activePredictions: number;,`n  portfolioValue: number,`n  todayPnL: number;,`n  sharpeRatio: number,`n  maxDrawdown: number;,`n  apiHealth: 'healthy' | 'degraded' | 'critical',`n  opportunitiesFound: number;,`n  mlModelsActive: number}
+  totalProfit: number
+,`n  winRate: number;
+,`n  accuracy: number
+,`n  activePredictions: number;
+,`n  portfolioValue: number
+,`n  todayPnL: number;
+,`n  sharpeRatio: number
+,`n  maxDrawdown: number;
+,`n  apiHealth: 'healthy' | 'degraded' | 'critical'
+,`n  opportunitiesFound: number;
+,`n  mlModelsActive: number}
 
 interface LiveOpportunity {
-  id: string,`n  type: 'arbitrage' | 'value_bet' | 'prop_special' | 'live_edge';,`n  player: string,`n  sport: string;,`n  league: string,`n  line: number;,`n  odds: number,`n  confidence: number;,`n  expectedValue: number,`n  timeRemaining: number;,`n  source: string,`n  sharpMoney: boolean;,`n  marketInefficiency: number}
+  id: string
+,`n  type: 'arbitrage' | 'value_bet' | 'prop_special' | 'live_edge';
+,`n  player: string
+,`n  sport: string;
+,`n  league: string
+,`n  line: number;
+,`n  odds: number
+,`n  confidence: number;
+,`n  expectedValue: number
+,`n  timeRemaining: number;
+,`n  source: string
+,`n  sharpMoney: boolean;
+,`n  marketInefficiency: number}
 
 interface APIStatus {
-  sportsRadar: boolean,`n  theOdds: boolean;,`n  prizePicks: boolean,`n  espn: boolean;,`n  lastUpdate: string,`n  quotaUsage: {,`n  sportsRadar: number,`n  theOdds: number}}
+  sportsRadar: boolean
+,`n  theOdds: boolean;
+,`n  prizePicks: boolean
+,`n  espn: boolean;
+,`n  lastUpdate: string
+,`n  quotaUsage: {
+,`n  sportsRadar: number
+,`n  theOdds: number}}
 
 const A1BettingPlatform: React.FC = () => {
   const [activeView, setActiveView] = useState<string>('dashboard');
@@ -108,7 +127,8 @@ const A1BettingPlatform: React.FC = () => {
     prizePicks: true,
     espn: true,
     lastUpdate: new Date().toISOString(),
-    quotaUsage: {,`n  sportsRadar: 75,
+    quotaUsage: {
+,`n  sportsRadar: 75,
       theOdds: 45
     }
   });
@@ -217,7 +237,8 @@ const A1BettingPlatform: React.FC = () => {
 
         // Transform backend data to frontend format
         const liveOpportunities: LiveOpportunity[0] = [
-          ...bettingOpportunities.map((bet: any) => ({,`n  id: bet.id || Math.random().toString(),
+          ...bettingOpportunities.map((bet: any) => ({
+,`n  id: bet.id || Math.random().toString(),
             type: 'value_bet',
             player: bet.player || 'Unknown Player',
             sport: bet.sport || 'Unknown Sport',
@@ -231,7 +252,8 @@ const A1BettingPlatform: React.FC = () => {
             sharpMoney: bet.sharp_money || false,
             marketInefficiency: bet.market_inefficiency || 0
           })),
-          ...arbitrageOpportunities.map((arb: any) => ({,`n  id: arb.id || Math.random().toString(),
+          ...arbitrageOpportunities.map((arb: any) => ({
+,`n  id: arb.id || Math.random().toString(),
             type: 'arbitrage',
             player: arb.player || 'Unknown Player',
             sport: arb.sport || 'Unknown Sport',
@@ -255,7 +277,7 @@ const A1BettingPlatform: React.FC = () => {
           opportunitiesFound: liveOpportunities.length,
           todayPnL: liveOpportunities.reduce((sum, opp) => sum + opp.expectedValue * 100, 0)
         }))} catch (error) {
-        console.error('Platform initialization error:', error);
+//         console.error('Platform initialization error:', error);
         setStats(prev => ({ ...prev, apiHealth: 'critical'}));
         // Fallback to empty opportunities if API fails
         setLiveOpportunities([0])} finally {
@@ -424,21 +446,21 @@ const A1BettingPlatform: React.FC = () => {
                   <div className='grid grid-cols-2 gap-3 mb-6'>
                     <div className='bg-white/10 rounded-lg p-3 border border-white/20'>
                       <p className='text-xs text-gray-400'>Win Rate</p>
-                      <p className='text-lg font-bold text-green-400'>{stats.winRate}%</p>
+                      <p className='text-lg font-bold text-green-400'>{safeNumber(stats.winRate).toFixed(2)}%</p>
                     </div>
                     <div className='bg-white/10 rounded-lg p-3 border border-white/20'>
                       <p className='text-xs text-gray-400'>AI Accuracy</p>
-                      <p className='text-lg font-bold text-blue-400'>{stats.accuracy}%</p>
+                      <p className='text-lg font-bold text-blue-400'>{safeNumber(stats.accuracy).toFixed(2)}%</p>
                     </div>
                     <div className='bg-white/10 rounded-lg p-3 border border-white/20'>
                       <p className='text-xs text-gray-400'>Total Profit</p>
                       <p className='text-lg font-bold text-yellow-400'>
-                        ${stats.totalProfit.toLocaleString()}
+                        ${safeNumber(stats.totalProfit).toLocaleString()}
                       </p>
                     </div>
                     <div className='bg-white/10 rounded-lg p-3 border border-white/20'>
                       <p className='text-xs text-gray-400'>ML Models</p>
-                      <p className='text-lg font-bold text-purple-400'>{stats.mlModelsActive}+</p>
+                      <p className='text-lg font-bold text-purple-400'>{safeNumber(stats.mlModelsActive).toFixed(0)}+</p>
                     </div>
                   </div>
 
@@ -448,16 +470,16 @@ const A1BettingPlatform: React.FC = () => {
                     <div className='space-y-2 text-xs'>
                       <div className='flex justify-between'>
                         <span className='text-gray-400'>Sharpe Ratio</span>
-                        <span className='text-green-400 font-semibold'>{stats.sharpeRatio}</span>
+                        <span className='text-green-400 font-semibold'>{safeNumber(stats.sharpeRatio).toFixed(2)}</span>
                       </div>
                       <div className='flex justify-between'>
                         <span className='text-gray-400'>Max Drawdown</span>
-                        <span className='text-yellow-400 font-semibold'>{stats.maxDrawdown}%</span>
+                        <span className='text-yellow-400 font-semibold'>{safeNumber(stats.maxDrawdown).toFixed(2)}%</span>
                       </div>
                       <div className='flex justify-between'>
                         <span className='text-gray-400'>Opportunities</span>
                         <span className='text-purple-400 font-semibold'>
-                          {stats.opportunitiesFound}
+                          {safeNumber(stats.opportunitiesFound).toFixed(0)}
                         </span>
                       </div>
                     </div>
@@ -486,7 +508,8 @@ const A1BettingPlatform: React.FC = () => {
                           <span className={`absolute -top-2 -right-2 text-xs rounded-full w-5 h-5 flex items-center justify-center ${
                               item.badge === 'Live' || item.badge === 'Auto'
                                 ? 'bg-green-500 text-white animate-pulse'
-                                : 'bg-blue-500 text-white'}`}>`n                          >
+                                : 'bg-blue-500 text-white'}`}
+>`n                          >
                             {item.badge === 'Live' || item.badge === 'Auto' ? '●' : item.badge}
                           </span>
                         )}
@@ -513,23 +536,26 @@ const A1BettingPlatform: React.FC = () => {
                       <span className='text-xs text-gray-400'>SportsRadar API</span>
                       <div className='flex items-center space-x-2'>
                         <span className='text-xs text-gray-400'>
-                          {apiStatus.quotaUsage.sportsRadar}%
+                          {safeNumber(apiStatus.quotaUsage.sportsRadar).toFixed(2)}%
                         </span>
-                        <span className={`w-2 h-2 rounded-full ${apiStatus.sportsRadar ? 'bg-green-400' : 'bg-red-400'}`}>`n                        ></span>
+                        <span className={`w-2 h-2 rounded-full ${apiStatus.sportsRadar ? 'bg-green-400' : 'bg-red-400'}`}
+>`n                        ></span>
                       </div>
                     </div>
                     <div className='flex items-center justify-between'>
                       <span className='text-xs text-gray-400'>TheOdds API</span>
                       <div className='flex items-center space-x-2'>
                         <span className='text-xs text-gray-400'>
-                          {apiStatus.quotaUsage.theOdds}%
+                          {safeNumber(apiStatus.quotaUsage.theOdds).toFixed(2)}%
                         </span>
-                        <span className={`w-2 h-2 rounded-full ${apiStatus.theOdds ? 'bg-green-400' : 'bg-red-400'}`}>`n                        ></span>
+                        <span className={`w-2 h-2 rounded-full ${apiStatus.theOdds ? 'bg-green-400' : 'bg-red-400'}`}
+>`n                        ></span>
                       </div>
                     </div>
                     <div className='flex items-center justify-between'>
                       <span className='text-xs text-gray-400'>PrizePicks API</span>
-                      <span className={`w-2 h-2 rounded-full ${apiStatus.prizePicks ? 'bg-green-400' : 'bg-red-400'}`}>`n                      ></span>
+                      <span className={`w-2 h-2 rounded-full ${apiStatus.prizePicks ? 'bg-green-400' : 'bg-red-400'}`}
+>`n                      ></span>
                     </div>
                     <div className='flex items-center justify-between'>
                       <span className='text-xs text-gray-400'>ML Models</span>
@@ -573,7 +599,7 @@ const A1BettingPlatform: React.FC = () => {
                 <div className='flex items-center space-x-2'>
                   <p className={`font-semibold ${stats.todayPnL >= 0 ? 'text-green-400' : 'text-red-400'}`}
                   >
-                    {stats.todayPnL >= 0 ? '+' : ''}${stats.todayPnL.toFixed(2)}
+                    {stats.todayPnL >= 0 ? '+' : ''}${safeNumber(stats.todayPnL).toFixed(2)}
                   </p>
                   {stats.todayPnL >= 0 ? (
                     <ArrowUp className='w-4 h-4 text-green-400' />
@@ -584,7 +610,8 @@ const A1BettingPlatform: React.FC = () => {
               </div>
 
               {/* System Health Indicator */}
-              <div className={`flex items-center space-x-2 px-3 py-2 rounded-lg ${getApiHealthBackground()}`}>`n              >
+              <div className={`flex items-center space-x-2 px-3 py-2 rounded-lg ${getApiHealthBackground()}`}
+>`n              >
                 {stats.apiHealth === 'healthy' ? (
                   <CheckCircle className='w-4 h-4' />
                 ) : stats.apiHealth === 'degraded' ? (
@@ -601,7 +628,7 @@ const A1BettingPlatform: React.FC = () => {
               <div className='flex items-center space-x-2'>
                 <Target className='w-4 h-4 text-purple-400' />
                 <span className='text-sm text-purple-400 font-medium'>
-                  {liveOpportunities.length} Live Opportunities
+                  {safeNumber(liveOpportunities.length).toFixed(0)} Live Opportunities
                 </span>
               </div>
             </div>

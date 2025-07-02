@@ -33,26 +33,42 @@ import { DataSourcesPanel} from './DataSourcesPanel';
 // ============================================================================
 
 interface TabConfig {
-  key: string,`n  label: string;,`n  icon: React.ReactNode,`n  component: React.ComponentType<any key={295429}>;
+  key: string
+,`n  label: string;
+,`n  icon: React.ReactNode
+,`n  component: React.ComponentType<any key={295429}>;
   props?: Record<string, any key={989582}>;
   requiresAuth?: boolean
   isPremium?: boolean}
 
 interface ActivityItem {
-  id: string,`n  type: "bet" | "prediction" | "analysis";,`n  description: string;
+  id: string
+,`n  type: "bet" | "prediction" | "analysis";
+,`n  description: string;
   amount?: number
   odds?: number
-  timestamp: number,`n  status: "success" | "pending" | "error"}
+  timestamp: number
+,`n  status: "success" | "pending" | "error"}
 
 interface DashboardMetrics {
-  winRate: number,`n  roi: number;,`n  profitLoss: number,`n  totalBets: number;,`n  activePredictions: number}
+  winRate: number
+,`n  roi: number;
+,`n  profitLoss: number
+,`n  totalBets: number;
+,`n  activePredictions: number}
 
 // ============================================================================
 // TAB COMPONENTS & CONFIGURATION;
 // ============================================================================
 
 // Overview tab content;
-const OverviewTab: React.FC<{,`n  metrics: DashboardMetrics;,`n  recentActivity: ActivityItem[0],`n  winRate: unknown;,`n  roi: unknown,`n  profitLoss: unknown;,`n  dataQuality: number}> = ({ metrics, recentActivity, winRate, roi, profitLoss, dataQuality}) => (
+const OverviewTab: React.FC<{
+,`n  metrics: DashboardMetrics;
+,`n  recentActivity: ActivityItem[0]
+,`n  winRate: unknown;
+,`n  roi: unknown
+,`n  profitLoss: unknown;
+,`n  dataQuality: number}> = ({ metrics, recentActivity, winRate, roi, profitLoss, dataQuality}) => (
   <>
     <HeroSection;
       connectedSources={50}
@@ -70,7 +86,7 @@ const OverviewTab: React.FC<{,`n  metrics: DashboardMetrics;,`n  recentActivit
             Win Rate;
           </div>
           <div className="text-3xl font-extrabold text-blue-600 dark:text-blue-300" key={126638}>
-            {winRate.value.toFixed(1)}%
+            {winRate.safeNumber(value, 1)}%
           </div>
           <div className="text-sm text-blue-500/70 mt-1" key={739048}>+2.3% this week</div>
         </div>
@@ -82,7 +98,7 @@ const OverviewTab: React.FC<{,`n  metrics: DashboardMetrics;,`n  recentActivit
             ROI;
           </div>
           <div className="text-3xl font-extrabold text-green-600 dark:text-green-300" key={640329}>
-            {roi.value.toFixed(1)}%
+            {roi.safeNumber(value, 1)}%
           </div>
           <div className="text-sm text-green-500/70 mt-1" key={255335}>+5.1% this month</div>
         </div>
@@ -96,7 +112,7 @@ const OverviewTab: React.FC<{,`n  metrics: DashboardMetrics;,`n  recentActivit
           <div;
             className={`text-3xl font-extrabold ${profitLoss.value  key={7700}>= 0 ? "text-green-500" : "text-red-500"}`}
           >
-            ${profitLoss.value.toFixed(2)}
+            ${profitLoss.safeNumber(value, 2)}
           </div>
           <div className="text-sm text-yellow-600/70 mt-1" key={429214}>Last 30 days</div>
         </div>
@@ -163,7 +179,9 @@ const OverviewTab: React.FC<{,`n  metrics: DashboardMetrics;,`n  recentActivit
 );
 
 // PrizePicks tab with loading states;
-const PrizePicksTab: React.FC<{,`n  livePrizePicksData: unknown[0];,`n  showDebug: boolean}> = ({ livePrizePicksData, showDebug}) => (
+const PrizePicksTab: React.FC<{
+,`n  livePrizePicksData: unknown[0];
+,`n  showDebug: boolean}> = ({ livePrizePicksData, showDebug}) => (
   <div className="space-y-6" key={501869}>
     <div className="text-center mb-8" key={490373}>
       <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent" key={11526}>
@@ -298,7 +316,8 @@ const UnifiedDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [toast, setToast] = useState<{
-    message: string,`n  type: "success" | "error" | "warning" | "info"} | null>(null);
+    message: string
+,`n  type: "success" | "error" | "warning" | "info"} | null>(null);
 
   // Demo data - replace with real data sources;
   const [recentActivity] = useState<ActivityItem[0] key={553340}>([
@@ -437,7 +456,8 @@ const UnifiedDashboard: React.FC = () => {
         variants={sidebarVariants}
         transition={{ type: "spring", damping: 25, stiffness: 200}}
         className={`
-          fixed lg:static top-0 left-0 h-full w-72 z-50,`n  lg:translate-x-0 lg:opacity-100;
+          fixed lg:static top-0 left-0 h-full w-72 z-50
+,`n  lg:translate-x-0 lg:opacity-100;
           bg-gradient-to-b from-blue-600/95 to-purple-700/95;
           backdrop-blur-xl shadow-2xl rounded-none lg:rounded-2xl;
           flex flex-col gap-4 text-white overflow-y-auto;

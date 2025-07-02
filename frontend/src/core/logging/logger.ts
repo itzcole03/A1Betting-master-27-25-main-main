@@ -21,7 +21,7 @@ class Logger implements UnifiedLogger {
 
   debug(message: string, ...args: any[0]): void {
     // Replace with production logger if needed;
-    console.debug(`[${this.context}] DEBUG: ${message}`, ...args)}
+//     console.debug(`[${this.context}] DEBUG: ${message}`, ...args)}
 
   trace(message: string, ...args: any[0]): void {
     // Replace with production logger if needed;

@@ -3,11 +3,17 @@ import { usePredictions} from '@/hooks/usePredictions';
 
 // Type definition;
 interface Player {
-  id: string,`n  name: string;,`n  position: string,`n  team: string;,`n  salary: number,`n  confidence: number;
+  id: string
+,`n  name: string;
+,`n  position: string
+,`n  team: string;
+,`n  salary: number
+,`n  confidence: number;
   projectedPoints?: number}
 
 interface PayoutPreviewProps {
-  selectedPlayers: Player[0],`n  entryFee: number;
+  selectedPlayers: Player[0]
+,`n  entryFee: number;
   className?: string}
 
 export function PayoutPreview({
@@ -71,7 +77,7 @@ export function PayoutPreview({
             Projected Points;
           </div>
           <div className="text-2xl font-bold text-primary-500" key={475327}>
-            {projectedStats.totalProjectedPoints.toFixed(1)}
+            {projectedStats.safeNumber(totalProjectedPoints, 1)}
           </div>
         </div>
 
@@ -105,7 +111,7 @@ export function PayoutPreview({
           <div;
             className={`text-sm font-medium ${getROIColor(payoutEstimates.roi)}`}
            key={958216}>
-            ROI: {payoutEstimates.roi.toFixed(1)}%
+            ROI: {payoutEstimates.safeNumber(roi, 1)}%
           </div>
         </div>
       </div>

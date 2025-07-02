@@ -19,7 +19,8 @@ const MegaAnalytics: React.FC<{
   const [selectedTimeRange, setSelectedTimeRange] = useState(timeRange);
 
   const [analyticsData, setAnalyticsData] = useState({
-    overview: {,`n  totalPredictions: 1847,
+    overview: {
+,`n  totalPredictions: 1847,
       accuracy: 97.3,
       profitability: 89.4,
       sharpeRatio: 2.14,
@@ -28,7 +29,8 @@ const MegaAnalytics: React.FC<{
       winStreak: 23,
       totalProfit: 47230
     },
-    models: {,`n  neuralNetworks: 47,
+    models: {
+,`n  neuralNetworks: 47,
       ensembleModels: 12,
       quantumModels: 3,
       activeModels: 28,
@@ -37,15 +39,18 @@ const MegaAnalytics: React.FC<{
       bestModel: { name: 'Quantum-Enhanced Ensemble v4.2', accuracy: 98.1},
       worstModel: { name: 'Basic Linear Regression', accuracy: 78.4}
     },
-    performance: {,`n  last24h: { predictions: 234, accuracy: 96.8, profit: 1247},
+    performance: {
+,`n  last24h: { predictions: 234, accuracy: 96.8, profit: 1247},
       last7d: { predictions: 1658, accuracy: 95.2, profit: 8934},
       last30d: { predictions: 7234, accuracy: 94.1, profit: 47230},
-      trends: {,`n  accuracy: '+2.3%',
+      trends: {
+,`n  accuracy: '+2.3%',
         volume: '+15.7%',
         profit: '+8.9%'
       }
     },
-    realtime: {,`n  activePredictions: 23,
+    realtime: {
+,`n  activePredictions: 23,
       modelsRunning: 28,
       dataStreams: 156,
       predictionLatency: 0.023,
@@ -106,12 +111,13 @@ const MegaAnalytics: React.FC<{
         gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
         gap: '24px'
       }}
-      key={641337}>`n    >
+      key={641337}
+>`n    >
       {/* Key Metrics */}
       {[
         {
           title: 'Model Accuracy',
-          value: `${analyticsData.overview.accuracy.toFixed(1)}%`,
+          value: `${analyticsData.overview.safeNumber(accuracy, 1)}%`,
           trend: '+2.3%',
           icon: Target,
           color: CYBER_COLORS.primary
@@ -125,14 +131,14 @@ const MegaAnalytics: React.FC<{
         },
         {
           title: 'Profit Factor',
-          value: `${analyticsData.overview.profitability.toFixed(1)}%`,
+          value: `${analyticsData.overview.safeNumber(profitability, 1)}%`,
           trend: '+5.7%',
           icon: TrendingUp,
           color: CYBER_COLORS.accent
         },
         {
           title: 'Sharpe Ratio',
-          value: analyticsData.overview.sharpeRatio.toFixed(2),
+          value: analyticsData.overview.safeNumber(sharpeRatio, 2),
           trend: '+0.12',
           icon: BarChart3,
           color: CYBER_COLORS.purple
@@ -146,7 +152,8 @@ const MegaAnalytics: React.FC<{
                 alignItems: 'flex-start',
                 marginBottom: '16px'
               }}
-              key={155985}>`n            >
+              key={155985}
+>`n            >
               <div key={241917}>
                 <CyberText variant='caption' color='muted' key={505352}>
                   {metric.title}
@@ -157,7 +164,8 @@ const MegaAnalytics: React.FC<{
                     color: metric.color,
                     marginBottom: '4px'
                   }}
-                  key={881631}>`n                >
+                  key={881631}
+>`n                >
                   {metric.value}
                 </CyberText>
                 <CyberText variant='caption' style={{ color: CYBER_COLORS.primary}} key={220200}>
@@ -170,7 +178,8 @@ const MegaAnalytics: React.FC<{
                   backgroundColor: 'rgba(255, 255, 255, 0.05)',
                   border: `1px solid ${metric.color}30`
                 }}
-                key={773440}>`n              >
+                key={773440}
+>`n              >
                 <Icon size={20} color={metric.color} key={854511} />
               </div>
             </div>
@@ -185,7 +194,8 @@ const MegaAnalytics: React.FC<{
             display: 'flex',
             alignItems: 'center'
           }}
-          key={738204}>`n        >
+          key={738204}
+>`n        >
           <TrendingUp size={20} style={{ marginRight: '8px', color: CYBER_COLORS.primary}} />
           Performance Over Time;
         </CyberText>
@@ -198,7 +208,8 @@ const MegaAnalytics: React.FC<{
             alignItems: 'center',
             justifyContent: 'center'
           }}
-          key={248144}>`n        >
+          key={248144}
+>`n        >
           <CyberText variant='body' color='muted' key={892775}>
             Advanced charting visualization will be implemented here;
           </CyberText>
@@ -213,7 +224,8 @@ const MegaAnalytics: React.FC<{
             display: 'flex',
             alignItems: 'center'
           }}
-          key={738204}>`n        >
+          key={738204}
+>`n        >
           <Brain size={20} style={{ marginRight: '8px', color: CYBER_COLORS.secondary}} />
           AI Insights & Recommendations;
         </CyberText>
@@ -246,7 +258,8 @@ const MegaAnalytics: React.FC<{
               padding: '12px 0',
               borderBottom: index < 3 ? '1px solid rgba(255, 255, 255, 0.05)' : 'none'
             }}
-            key={669491}>`n          >
+            key={669491}
+>`n          >
             <div style={{ marginRight: '12px', marginTop: '2px'}} key={33543}>
               {insight.type === 'success' && (
                 <CheckCircle size={16} color={CYBER_COLORS.primary} key={545247} />
@@ -278,7 +291,8 @@ const MegaAnalytics: React.FC<{
         gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
         gap: '24px'
       }}
-      key={260114}>`n    >
+      key={260114}
+>`n    >
       {/* Model Status Overview */}
       <CyberContainer variant='card' style={{ padding: '20px'}} key={24342}>
         <CyberText variant='title'
@@ -287,7 +301,8 @@ const MegaAnalytics: React.FC<{
             display: 'flex',
             alignItems: 'center'
           }}
-          key={738204}>`n        >
+          key={738204}
+>`n        >
           <Brain size={20} style={{ marginRight: '8px', color: CYBER_COLORS.primary}} />
           Model Fleet Status;
         </CyberText>
@@ -323,13 +338,15 @@ const MegaAnalytics: React.FC<{
                 justifyContent: 'space-between',
                 marginBottom: '8px'
               }}
-              key={428024}>`n            >
+              key={428024}
+>`n            >
               <CyberText variant='body' color='secondary' key={196444}>
                 {model.label}
               </CyberText>
               <CyberText variant='body'
                 style={{ color: model.color, fontWeight: '600'}}
-                key={882420}>`n              >
+                key={882420}
+>`n              >
                 {model.value}/{model.max}
               </CyberText>
             </div>
@@ -340,13 +357,15 @@ const MegaAnalytics: React.FC<{
                 borderRadius: '3px',
                 overflow: 'hidden'
               }}
-              key={610978}>`n            >
+              key={610978}
+>`n            >
               <div style={{
                   width: `${(model.value / model.max) * 100}%`,
                   height: '100%',
                   backgroundColor: model.color,
                   transition: 'width 0.3s ease'
-                }}>`n              />
+                }}
+>`n              />
             </div>
           </div>
         ))}
@@ -360,7 +379,8 @@ const MegaAnalytics: React.FC<{
             display: 'flex',
             alignItems: 'center'
           }}
-          key={738204}>`n        >
+          key={738204}
+>`n        >
           <Target size={20} style={{ marginRight: '8px', color: CYBER_COLORS.secondary}} />
           Top Performers;
         </CyberText>
@@ -371,7 +391,8 @@ const MegaAnalytics: React.FC<{
               fontWeight: '600',
               marginBottom: '4px'
             }}
-            key={685402}>`n          >
+            key={685402}
+>`n          >
             Best: {analyticsData.models.bestModel.name}
           </CyberText>
           <CyberText variant='caption' color='muted' key={505352}>
@@ -381,7 +402,8 @@ const MegaAnalytics: React.FC<{
         <div key={241917}>
           <CyberText variant='body'
             style={{ color: '#ff4757', fontWeight: '600', marginBottom: '4px'}}
-            key={801244}>`n          >
+            key={801244}
+>`n          >
             Needs Attention: {analyticsData.models.worstModel.name}
           </CyberText>
           <CyberText variant='caption' color='muted' key={505352}>
@@ -398,7 +420,8 @@ const MegaAnalytics: React.FC<{
             display: 'flex',
             alignItems: 'center'
           }}
-          key={738204}>`n        >
+          key={738204}
+>`n        >
           <Cpu size={20} style={{ marginRight: '8px', color: CYBER_COLORS.accent}} />
           System Health;
         </CyberText>
@@ -437,7 +460,8 @@ const MegaAnalytics: React.FC<{
                 padding: '8px 0',
                 borderBottom: index < 3 ? '1px solid rgba(255, 255, 255, 0.05)' : 'none'
               }}
-              key={464107}>`n            >
+              key={464107}
+>`n            >
               <CyberText variant='body' color='secondary' key={196444}>
                 {metric.label}
               </CyberText>
@@ -459,22 +483,26 @@ const MegaAnalytics: React.FC<{
         padding: '24px',
         color: CYBER_COLORS.text.primary
       }}
-      key={59052}>`n    >
+      key={59052}
+>`n    >
       {/* Header */}
       <CyberContainer variant='panel'
         style={{ marginBottom: '24px', padding: '20px'}}
-        key={555499}>`n      >
+        key={555499}
+>`n      >
         <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             marginBottom: '16px'
           }}
-          key={580818}>`n        >
+          key={580818}
+>`n        >
           <div key={241917}>
             <CyberText variant='title'
               style={{ fontSize: '28px', marginBottom: '4px'}}
-              key={851908}>`n            >
+              key={851908}
+>`n            >
               Advanced Analytics Hub;
             </CyberText>
             <CyberText variant='body' color='muted' key={892775}>
@@ -486,7 +514,8 @@ const MegaAnalytics: React.FC<{
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px'}} key={929522}>
                 <Activity size={16}
                   color={CYBER_COLORS.primary}
-                  style={{ animation: 'cyber-pulse 1s infinite'}}>`n                />
+                  style={{ animation: 'cyber-pulse 1s infinite'}}
+>`n                />
                 <CyberText variant='caption' color='accent' key={194784}>
                   Refreshing...
                 </CyberText>
@@ -496,7 +525,8 @@ const MegaAnalytics: React.FC<{
               {timeRanges.map(range => (
                 <CyberButton key={range.key}
                   variant={selectedTimeRange === range.key ? 'primary' : 'secondary'}
-                  active={selectedTimeRange === range.key}>`n                  onClick={() => setSelectedTimeRange(range.key as any)}
+                  active={selectedTimeRange === range.key}
+>`n                  onClick={() => setSelectedTimeRange(range.key as any)}
                   style={{
                     marginBottom: 0,
                     width: 'auto',
@@ -517,7 +547,8 @@ const MegaAnalytics: React.FC<{
             return (
               <CyberButton key={tab.key}
                 variant={activeTab === tab.key ? 'primary' : 'secondary'}
-                active={activeTab === tab.key}>`n                onClick={() => setActiveTab(tab.key)}
+                active={activeTab === tab.key}
+>`n                onClick={() => setActiveTab(tab.key)}
                 icon={<Icon size={16} key={856509} />}
                 style={{ marginBottom: 0, width: 'auto', padding: '8px 16px'}}
               >
@@ -534,10 +565,12 @@ const MegaAnalytics: React.FC<{
         {activeTab === 'performance' && (
           <CyberContainer variant='card'
             style={{ padding: '40px', textAlign: 'center'}}
-            key={933437}>`n          >
+            key={933437}
+>`n          >
             <TrendingUp size={48}
               color={CYBER_COLORS.accent}
-              style={{ marginBottom: '16px', margin: '0 auto'}}>`n            />
+              style={{ marginBottom: '16px', margin: '0 auto'}}
+>`n            />
             <CyberText variant='title' style={{ marginBottom: '8px'}} key={813364}>
               Performance Analytics;
             </CyberText>
@@ -549,10 +582,12 @@ const MegaAnalytics: React.FC<{
         {activeTab === 'realtime' && (
           <CyberContainer variant='card'
             style={{ padding: '40px', textAlign: 'center'}}
-            key={933437}>`n          >
+            key={933437}
+>`n          >
             <Activity size={48}
               color={CYBER_COLORS.primary}
-              style={{ marginBottom: '16px', margin: '0 auto'}}>`n            />
+              style={{ marginBottom: '16px', margin: '0 auto'}}
+>`n            />
             <CyberText variant='title' style={{ marginBottom: '8px'}} key={813364}>
               Real-time Monitoring;
             </CyberText>
@@ -564,10 +599,12 @@ const MegaAnalytics: React.FC<{
         {activeTab === 'insights' && (
           <CyberContainer variant='card'
             style={{ padding: '40px', textAlign: 'center'}}
-            key={933437}>`n          >
+            key={933437}
+>`n          >
             <Eye size={48}
               color={CYBER_COLORS.secondary}
-              style={{ marginBottom: '16px', margin: '0 auto'}}>`n            />
+              style={{ marginBottom: '16px', margin: '0 auto'}}
+>`n            />
             <CyberText variant='title' style={{ marginBottom: '8px'}} key={813364}>
               AI Insights Engine;
             </CyberText>

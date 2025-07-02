@@ -25,7 +25,7 @@ export async function measurePerformance(fn: () => Promise<void>, label: string)
   // Log or report;
 
   if (duration > 2000) {
-    throw new Error(`[PERF] ${label} exceeded 2s: ${duration.toFixed(2)}ms`)}
+    throw new Error(`[PERF] ${label} exceeded 2s: ${safeNumber(duration, 2)}ms`)}
 }
 
 

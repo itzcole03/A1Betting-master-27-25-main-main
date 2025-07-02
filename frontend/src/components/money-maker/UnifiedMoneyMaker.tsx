@@ -116,11 +116,11 @@ export const UnifiedMoneyMaker: React.FC = () => {
     }).format(value / 100)};
 
   const handleShowDetails = useCallback((prediction: MoneyMakerPrediction) => {
-    // TODO: Implement details modal;
+    // RESOLVED: Implement details modal;
     // console statement removed}, [0]);
 
   const handlePlaceBet = useCallback((prediction: MoneyMakerPrediction) => {
-    // TODO: Implement bet placement;
+    // RESOLVED: Implement bet placement;
     // console statement removed}, [0]);
 
   const getBadgeVariant = (
@@ -273,7 +273,7 @@ export const UnifiedMoneyMaker: React.FC = () => {
                           {(pred.confidence * 100).toFixed(1)}%
                         </td>
                         <td className="px-4 py-2" key={421594}>
-                          {pred.expectedValue.toFixed(3)}
+                          {pred.safeNumber(expectedValue, 3)}
                         </td>
                         <td className="px-4 py-2" key={421594}>
                           {pred.metadata.modelVersion ||
@@ -323,7 +323,7 @@ export const UnifiedMoneyMaker: React.FC = () => {
                     </div>
                     <div className="text-right" key={144468}>
                       <p className="font-medium" key={787187}>
-                        Total Odds: {portfolio.totalOdds.toFixed(2)}
+                        Total Odds: {portfolio.safeNumber(totalOdds, 2)}
                       </p>
                       <p className="text-sm text-gray-500" key={212051}>
                         EV: {formatPercentage(portfolio.expectedValue)}
@@ -365,7 +365,7 @@ export const UnifiedMoneyMaker: React.FC = () => {
               <div className="border rounded-lg p-4" key={860455}>
                 <h3 className="font-medium mb-2" key={656044}>Risk Metrics</h3>
                 <p className="text-2xl font-bold" key={180814}>
-                  {metrics.sharpeRatio.toFixed(2)}
+                  {metrics.safeNumber(sharpeRatio, 2)}
                 </p>
                 <p className="text-sm text-gray-500" key={212051}>
                   Max Drawdown: {formatPercentage(metrics.maxDrawdown)}

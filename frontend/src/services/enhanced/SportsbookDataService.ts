@@ -17,15 +17,40 @@ interface SportsbookOdds {
   last_updated: string}
 
 interface SportsbookEvent {
-  event_id: string,`n  sport: string;,`n  league: string,`n  commence_time: string;,`n  home_team: string,`n  away_team: string;,`n  sportsbooks: SportsbookOdds[0],`n  best_odds: {,`n  moneyline_home: SportsbookOdds,`n  moneyline_away: SportsbookOdds;,`n  spread_home: SportsbookOdds,`n  spread_away: SportsbookOdds;,`n  over: SportsbookOdds,`n  under: SportsbookOdds}}
+  event_id: string
+,`n  sport: string;
+,`n  league: string
+,`n  commence_time: string;
+,`n  home_team: string
+,`n  away_team: string;
+,`n  sportsbooks: SportsbookOdds[0]
+,`n  best_odds: {
+,`n  moneyline_home: SportsbookOdds
+,`n  moneyline_away: SportsbookOdds;
+,`n  spread_home: SportsbookOdds
+,`n  spread_away: SportsbookOdds;
+,`n  over: SportsbookOdds
+,`n  under: SportsbookOdds}}
 
 interface LiveUpdate {
-  event_id: string,`n  sportsbook: string;,`n  market: string,`n  previous_odds: number;,`n  new_odds: number;
+  event_id: string
+,`n  sportsbook: string;
+,`n  market: string
+,`n  previous_odds: number;
+,`n  new_odds: number;
   line_change?: number
-  timestamp: string,`n  movement_type: "increase" | "decrease" | "no_change"}
+  timestamp: string
+,`n  movement_type: "increase" | "decrease" | "no_change"}
 
 interface SportsbookAvailability {
-  draftkings: boolean,`n  fanduel: boolean;,`n  betmgm: boolean,`n  caesars: boolean;,`n  pointsbet: boolean,`n  unibet: boolean;,`n  barstool: boolean,`n  last_checked: string}
+  draftkings: boolean
+,`n  fanduel: boolean;
+,`n  betmgm: boolean
+,`n  caesars: boolean;
+,`n  pointsbet: boolean
+,`n  unibet: boolean;
+,`n  barstool: boolean
+,`n  last_checked: string}
 
 export class SportsbookDataService {
   private readonly baseUrl: string;
@@ -54,7 +79,7 @@ export class SportsbookDataService {
     this.baseUrl =
       import.meta.env.VITE_BACKEND_URL ||
       import.meta.env.VITE_API_URL ||
-      "http://localhost:8000";
+      "${process.env.REACT_APP_API_URL || "http://localhost:8000"}";
     this.cache = new Map();
 
     // Production validation;
@@ -92,7 +117,7 @@ export class SportsbookDataService {
       : `${this.baseUrl}${endpoint}`;
 
     try {
-      const response = await fetch(url, {
+      const response = await fetch(url, {.catch(error => console.error("API Error:", error))
         headers: {
           "Content-Type": "application/json",
           "User-Agent": "A1Betting-Platform/1.0"
@@ -183,7 +208,8 @@ export class SportsbookDataService {
         commence_time: new Date(Date.now() + 3600000).toISOString(),
         home_team: "Lakers",
         away_team: "Warriors",
-        odds: {,`n  moneyline_home: -110 + Math.random() * 20,
+        odds: {
+,`n  moneyline_home: -110 + Math.random() * 20,
           moneyline_away: +105 + Math.random() * 20,
           spread_home: -3.5,
           spread_home_odds: -110 + Math.random() * 10,
@@ -218,30 +244,37 @@ export class SportsbookDataService {
             home_team: event.home_team,
             away_team: event.away_team,
             sportsbooks: [0],
-            best_odds: {,`n  moneyline_home: {,`n  sportsbook: "",
+            best_odds: {
+,`n  moneyline_home: {
+,`n  sportsbook: "",
                 moneyline_home: 0,
                 last_updated: ""
               },
-              moneyline_away: {,`n  sportsbook: "",
+              moneyline_away: {
+,`n  sportsbook: "",
                 moneyline_away: 0,
                 last_updated: ""
               },
-              spread_home: {,`n  sportsbook: "",
+              spread_home: {
+,`n  sportsbook: "",
                 spread_home: 0,
                 spread_line: 0,
                 last_updated: ""
               },
-              spread_away: {,`n  sportsbook: "",
+              spread_away: {
+,`n  sportsbook: "",
                 spread_away: 0,
                 spread_line: 0,
                 last_updated: ""
               },
-              over: {,`n  sportsbook: "",
+              over: {
+,`n  sportsbook: "",
                 total_over: 0,
                 total_line: 0,
                 last_updated: ""
               },
-              under: {,`n  sportsbook: "",
+              under: {
+,`n  sportsbook: "",
                 total_under: 0,
                 total_line: 0,
                 last_updated: ""
@@ -400,7 +433,8 @@ export class SportsbookDataService {
    * Check sportsbook availability;
    */
   async checkSportsbookAvailability(): Promise<SportsbookAvailability> {
-    const availability: SportsbookAvailability = {,`n  draftkings: false,
+    const availability: SportsbookAvailability = {
+,`n  draftkings: false,
       fanduel: false,
       betmgm: false,
       caesars: false,
@@ -501,7 +535,14 @@ export class SportsbookDataService {
    */
   async getArbitrageOpportunities(sport: string): Promise<
     Array<{
-      event: string,`n  profit_margin: number;,`n  total_stake: number,`n  bets: Array<{,`n  sportsbook: string,`n  market: string;,`n  odds: number,`n  stake: number}>}>
+      event: string
+,`n  profit_margin: number;
+,`n  total_stake: number
+,`n  bets: Array<{
+,`n  sportsbook: string
+,`n  market: string;
+,`n  odds: number
+,`n  stake: number}>}>
   > {
     try {
 
@@ -557,7 +598,9 @@ export class SportsbookDataService {
    * Health check for sportsbook services;
    */
   async healthCheck(): Promise<{
-    overall: string,`n  sportsbooks: SportsbookAvailability;,`n  backend_status: string}> {
+    overall: string
+,`n  sportsbooks: SportsbookAvailability;
+,`n  backend_status: string}> {
     try {
       const [availability, backendTest] = await Promise.allSettled([
         this.checkSportsbookAvailability(),
@@ -593,7 +636,8 @@ export class SportsbookDataService {
       // console statement removed
       return {
         overall: "degraded",
-        sportsbooks: {,`n  draftkings: false,
+        sportsbooks: {
+,`n  draftkings: false,
           fanduel: false,
           betmgm: false,
           caesars: false,

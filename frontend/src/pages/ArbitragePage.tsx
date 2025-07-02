@@ -3,9 +3,21 @@ import GlassCard from '@/components/ui/GlassCard';
 import GlowButton from '@/components/ui/GlowButton';
 
 interface ArbitrageOpportunity {
-  id: string,`n  sport: string;,`n  event: string,`n  market: string;,`n  bookmaker1: {,`n  name: string;,`n  odds: number,`n  stake: number};
-  bookmaker2: {,`n  name: string;,`n  odds: number,`n  stake: number};
-  profit: number,`n  profitPercentage: number;,`n  expiresAt: string}
+  id: string
+,`n  sport: string;
+,`n  event: string
+,`n  market: string;
+,`n  bookmaker1: {
+,`n  name: string;
+,`n  odds: number
+,`n  stake: number};
+  bookmaker2: {
+,`n  name: string;
+,`n  odds: number
+,`n  stake: number};
+  profit: number
+,`n  profitPercentage: number;
+,`n  expiresAt: string}
 
 const fetchOpportunities = async (): Promise<ArbitrageOpportunity[0] key={128378}> => {
   // Replace with real API call;
@@ -133,10 +145,10 @@ const ArbitragePage: React.FC = () => {
                         Profit;
                       </p>
                       <p className="text-lg font-bold text-green-600" key={477957}>
-                        ${opp.profit.toFixed(2)}
+                        ${opp.safeNumber(profit, 2)}
                       </p>
                       <p className="text-xs text-green-600" key={709710}>
-                        ({opp.profitPercentage.toFixed(2)}%)
+                        ({opp.safeNumber(profitPercentage, 2)}%)
                       </p>
                     </div>
                     <div className="text-center" key={120206}>
@@ -158,7 +170,7 @@ const ArbitragePage: React.FC = () => {
                       </span>
                     </div>
                     <div className="text-sm text-gray-500 dark:text-gray-400" key={528105}>
-                      Stake: ${opp.bookmaker1.stake.toFixed(2)}
+                      Stake: ${opp.bookmaker1.safeNumber(stake, 2)}
                     </div>
                   </GlassCard>
                   <GlassCard className="p-4" key={456254}>
@@ -169,7 +181,7 @@ const ArbitragePage: React.FC = () => {
                       </span>
                     </div>
                     <div className="text-sm text-gray-500 dark:text-gray-400" key={528105}>
-                      Stake: ${opp.bookmaker2.stake.toFixed(2)}
+                      Stake: ${opp.bookmaker2.safeNumber(stake, 2)}
                     </div>
                   </GlassCard>
                 </div>

@@ -3,36 +3,21 @@
  * Dedicated page for monitoring and controlling backend services;
  */
 
-import React, { useState, useEffect} from 'react';
-import { motion} from 'framer-motion';
-import {
-  Server,
-  Database,
-  Wifi,
-  WifiOff,
-  RefreshCw,
-  AlertCircle,
-  CheckCircle,
-  Clock,
-  Activity,
-  Zap,
-  Monitor,
-  Settings,
-  Play,
-  Pause,
-  RotateCcw,
-  Terminal,
-  Eye,
-//   EyeOff
-} from 'lucide-react';
 
 interface ServiceStatus {
-  name: string,`n  status: "healthy" | "degraded" | "offline";,`n  lastCheck: string,`n  endpoint: string;
+  name: string
+,`n  status: "healthy" | "degraded" | "offline";
+,`n  lastCheck: string
+,`n  endpoint: string;
   responseTime?: number
   error?: string}
 
 interface SystemMetrics {
-  uptime: number,`n  totalRequests: number;,`n  activeConnections: number,`n  errorRate: number;,`n  avgResponseTime: number}
+  uptime: number
+,`n  totalRequests: number;
+,`n  activeConnections: number
+,`n  errorRate: number;
+,`n  avgResponseTime: number}
 
 export const BackendStatusPage: React.FC = () => {
   const [services, setServices] = useState<ServiceStatus[0] key={2997}>([
@@ -40,14 +25,14 @@ export const BackendStatusPage: React.FC = () => {
       name: "Backend API",
       status: "healthy",
       lastCheck: new Date().toLocaleTimeString(),
-      endpoint: "http://localhost:8000/health",
+      endpoint: "${process.env.REACT_APP_API_URL || "http://localhost:8000"}/health",
       responseTime: 120
     },
     {
       name: "SportsRadar API",
       status: "degraded",
       lastCheck: new Date().toLocaleTimeString(),
-      endpoint: "http://localhost:8000/api/sportsradar/health",
+      endpoint: "${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/sportsradar/health",
       responseTime: 450,
       error: "API key validation required"
     },
@@ -55,14 +40,14 @@ export const BackendStatusPage: React.FC = () => {
       name: "DailyFantasy API",
       status: "offline",
       lastCheck: new Date().toLocaleTimeString(),
-      endpoint: "http://localhost:8000/api/dailyfantasy/contests/nba",
+      endpoint: "${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/dailyfantasy/contests/nba",
       error: "Authentication failed"
     },
     {
       name: "TheOdds API",
       status: "offline",
       lastCheck: new Date().toLocaleTimeString(),
-      endpoint: "http://localhost:8000/api/theodds/sports",
+      endpoint: "${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/theodds/sports",
       error: "Unauthorized access"
     },
   ]);
@@ -101,13 +86,7 @@ export const BackendStatusPage: React.FC = () => {
 
 
       // Check comprehensive health;
-      const healthResponse = await fetch(
-        "http://localhost:8000/api/health/all",
-      );
-      const healthData = null;
-
-      if (healthResponse.ok) {
-        healthData = await healthResponse.json();}
+      // Use ProductionApiService or show error if no supported endpoint exists.
 
       // Update services status;
       setServices((prev) =>

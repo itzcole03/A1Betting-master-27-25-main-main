@@ -10,11 +10,37 @@ import FluentLiveFilters from '../filters/FluentLiveFilters';
 import QuantumFilters from '../filters/QuantumFilters';
 
 interface BettingConfig {
-  investment: number,`n  strategy: string;,`n  confidence: number,`n  portfolio: number;,`n  sports: string,`n  riskLevel: string;,`n  timeFrame: string,`n  leagues: string[0];,`n  maxOdds: number,`n  minOdds: number;,`n  playerTypes: string,`n  weatherFilter: boolean;,`n  injuryFilter: boolean,`n  lineMovement: string}
+  investment: number
+,`n  strategy: string;
+,`n  confidence: number
+,`n  portfolio: number;
+,`n  sports: string
+,`n  riskLevel: string;
+,`n  timeFrame: string
+,`n  leagues: string[0];
+,`n  maxOdds: number
+,`n  minOdds: number;
+,`n  playerTypes: string
+,`n  weatherFilter: boolean;
+,`n  injuryFilter: boolean
+,`n  lineMovement: string}
 
 interface MoneyMakerResults {
-  investment: number,`n  multiplier: number;,`n  payout: number,`n  accuracy: number;,`n  picks: Array<{,`n  game: string;,`n  pick: string,`n  confidence: number;,`n  odds: string,`n  neural: string;,`n  reason: string}>;
-  quantumBoost: boolean,`n  processingTime: string;,`n  neuralNetworks: number,`n  filters: BettingConfig}
+  investment: number
+,`n  multiplier: number;
+,`n  payout: number
+,`n  accuracy: number;
+,`n  picks: Array<{
+,`n  game: string;
+,`n  pick: string
+,`n  confidence: number;
+,`n  odds: string
+,`n  neural: string;
+,`n  reason: string}>;
+  quantumBoost: boolean
+,`n  processingTime: string;
+,`n  neuralNetworks: number
+,`n  filters: BettingConfig}
 
 const MoneyMakerPro: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -73,7 +99,8 @@ const MoneyMakerPro: React.FC = () => {
 
     toast.success(`💰 Money Maker lineup "${lineupName}" saved!`, {
       duration: 3000,
-      style: {,`n  background: '#1f2937',
+      style: {
+,`n  background: '#1f2937',
         color: '#10b981',
         border: '1px solid #10b981'
       }
@@ -165,13 +192,13 @@ const MoneyMakerPro: React.FC = () => {
           </div>
           <div className='text-center'>
             <div className='text-4xl font-bold text-purple-400 font-cyber'>
-              {quantumState.accuracy.toFixed(1)}%
+              {quantumState.safeNumber(accuracy, 1)}%
             </div>
             <div className='text-gray-400 font-mono'>Quantum Accuracy</div>
           </div>
           <div className='text-center'>
             <div className='text-4xl font-bold text-cyan-400 font-cyber'>
-              {quantumState.coherence.toFixed(1)}%
+              {quantumState.safeNumber(coherence, 1)}%
             </div>
             <div className='text-gray-400 font-mono'>Coherence</div>
           </div>
@@ -231,7 +258,8 @@ const MoneyMakerPro: React.FC = () => {
                     min='100'
                     max='10000'
                     step='100'
-                    value={config.investment}>`n                    onChange={e => setConfig({ ...config, investment: parseInt(e.target.value)})}
+                    value={config.investment}
+>`n                    onChange={e => setConfig({ ...config, investment: parseInt(e.target.value)})}
                     className='w-full p-3 rounded-xl text-center font-bold text-lg border-2 border-green-500/30 focus:border-green-500 bg-gray-900/50 text-green-400'
                   />
                 </div>
@@ -239,7 +267,8 @@ const MoneyMakerPro: React.FC = () => {
                   <label className='block text-sm font-bold mb-2 text-green-400 font-cyber'>
 //                     STRATEGY
                   </label>
-                  <select value={config.strategy}>`n                    onChange={e => setConfig({ ...config, strategy: e.target.value})}
+                  <select value={config.strategy}
+>`n                    onChange={e => setConfig({ ...config, strategy: e.target.value})}
                     className='w-full p-3 rounded-xl border-2 border-green-500/30 focus:border-green-500 bg-gray-900/50 text-white font-cyber'
                   >
                     <option value='quantum'>Quantum Enhanced</option>
@@ -264,7 +293,8 @@ const MoneyMakerPro: React.FC = () => {
                   <input type='range'
                     min='80'
                     max='99'
-                    value={config.confidence}>`n                    onChange={e => setConfig({ ...config, confidence: parseInt(e.target.value)})}
+                    value={config.confidence}
+>`n                    onChange={e => setConfig({ ...config, confidence: parseInt(e.target.value)})}
                     className='w-full h-2 bg-gray-700 rounded-lg appearance-none slider-thumb'
                   />
                   <div className='flex justify-between text-xs text-gray-400 mt-1 font-mono'>
@@ -276,7 +306,8 @@ const MoneyMakerPro: React.FC = () => {
                   <label className='block text-sm font-bold mb-2 text-blue-400 font-cyber'>
                     PORTFOLIO SIZE
                   </label>
-                  <select value={config.portfolio}>`n                    onChange={e => setConfig({ ...config, portfolio: parseInt(e.target.value)})}
+                  <select value={config.portfolio}
+>`n                    onChange={e => setConfig({ ...config, portfolio: parseInt(e.target.value)})}
                     className='w-full p-3 rounded-xl border-2 border-blue-500/30 focus:border-blue-500 bg-gray-900/50 text-white font-cyber'
                   >
                     <option value={2}>2 Picks (Safe)</option>
@@ -313,14 +344,15 @@ const MoneyMakerPro: React.FC = () => {
                 </div>
                 <div className='flex items-center justify-between p-3 bg-gray-800/30 rounded-lg'>
                   <span className='text-gray-300 font-mono text-sm'>Quantum Boost</span>
-                  <span className={`font-cyber font-bold text-sm ${quantumState.quantumBoostActive ? 'text-green-400' : 'text-gray-400'}`}>`n                  >
+                  <span className={`font-cyber font-bold text-sm ${quantumState.quantumBoostActive ? 'text-green-400' : 'text-gray-400'}`}
+>`n                  >
                     {quantumState.quantumBoostActive ? 'ACTIVE' : 'STANDBY'}
                   </span>
                 </div>
                 <div className='text-center p-3 bg-cyan-500/10 rounded-lg border border-cyan-500/30'>
                   <div className='text-xs text-cyan-400 font-mono mb-1'>Quantum Coherence</div>
                   <div className='text-lg font-bold text-cyan-400 font-cyber'>
-                    {quantumState.coherence.toFixed(2)}%
+                    {quantumState.safeNumber(coherence, 2)}%
                   </div>
                 </div>
               </div>
@@ -330,7 +362,8 @@ const MoneyMakerPro: React.FC = () => {
               onFiltersChange={updateFluentFilters}
               totalGames={totalOpportunities}
               filteredGames={filteredOpportunities}
-              className='border border-electric-500/20 shadow-neon'>`n            />
+              className='border border-electric-500/20 shadow-neon'
+>`n            />
 
             <div className='quantum-card p-6 rounded-2xl border border-purple-500/30'>
               <h3 className='text-lg font-bold text-purple-400 font-cyber mb-4 flex items-center space-x-2'>
@@ -344,7 +377,8 @@ const MoneyMakerPro: React.FC = () => {
                 </div>
                 <div className='flex items-center justify-between p-3 bg-gray-800/30 rounded-lg'>
                   <span className='text-gray-300 font-mono text-sm'>Risk Protocol</span>
-                  <select value={config.riskLevel}>`n                    onChange={e => setConfig({ ...config, riskLevel: e.target.value})}
+                  <select value={config.riskLevel}
+>`n                    onChange={e => setConfig({ ...config, riskLevel: e.target.value})}
                     className='bg-gray-900/50 text-white text-sm rounded px-2 py-1 border border-gray-600 font-cyber'
                   >
                     <option value='conservative'>Conservative</option>
@@ -376,7 +410,8 @@ const MoneyMakerPro: React.FC = () => {
             <QuantumFilters filters={oldFilters}
               onFiltersChange={updateOldFilters}
               showAdvanced={true}
-              className='border-2 border-electric-500/30 shadow-neon'>`n            />
+              className='border-2 border-electric-500/30 shadow-neon'
+>`n            />
           </motion.div>
         )}
 
@@ -491,7 +526,7 @@ const MoneyMakerPro: React.FC = () => {
             </div>
             <div className='text-center quantum-card p-6 rounded-2xl'>
               <div className='text-3xl font-bold text-electric-400 font-cyber mb-2'>
-                {results.multiplier.toFixed(2)}x
+                {results.safeNumber(multiplier, 2)}x
               </div>
               <div className='text-gray-400 font-mono'>Neural Multiplier</div>
             </div>
@@ -516,7 +551,7 @@ const MoneyMakerPro: React.FC = () => {
                   </div>
                   <div className='text-right'>
                     <div className='text-green-400 font-bold text-lg'>
-                      {pick.confidence.toFixed(1)}%
+                      {pick.safeNumber(confidence, 1)}%
                     </div>
                     <div className='text-gray-400 font-mono'>{pick.odds}</div>
                   </div>
@@ -569,14 +604,16 @@ const MoneyMakerPro: React.FC = () => {
               <div>
                 <label className='block text-sm font-bold mb-2 text-gray-300'>Lineup Name</label>
                 <input type='text'
-                  value={lineupName}>`n                  onChange={e => setLineupName(e.target.value)}
+                  value={lineupName}
+>`n                  onChange={e => setLineupName(e.target.value)}
                   placeholder='Enter lineup name...'
                   className='w-full p-3 rounded-lg bg-gray-800/50 border border-gray-600 text-white placeholder-gray-400 focus:border-electric-400 focus:outline-none'
                 />
               </div>
               <div className='flex space-x-4 pt-4'>
                 <button onClick={saveLineup}
-                  className='flex-1 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-400 transition-all'>`n                >
+                  className='flex-1 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-400 transition-all'
+>`n                >
                   Save Lineup
                 </button>
                 <button onClick={() => setShowSaveModal(false)}

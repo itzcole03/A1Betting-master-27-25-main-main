@@ -13,7 +13,7 @@ class SportsBettingService {
         params: { homeTeam, awayTeam, league, date}
       });
       return prediction;} catch (error) {
-      console.error('Error getting match prediction:', error);
+//       console.error('Error getting match prediction:', error);
       throw error;}
   }}
 

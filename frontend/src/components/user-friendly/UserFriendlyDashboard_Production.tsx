@@ -40,17 +40,39 @@ import EmptyState from '@/ui/EmptyState';
 import toast from 'react-hot-toast';
 
 interface LiveStats {
-  totalProfit: number,`n  winRate: number;,`n  activeGames: number,`n  aiAccuracy: number;,`n  todaysPicks: number,`n  liveAlerts: number;,`n  profitToday: number,`n  accuracy24h: number}
+  totalProfit: number
+,`n  winRate: number;
+,`n  activeGames: number
+,`n  aiAccuracy: number;
+,`n  todaysPicks: number
+,`n  liveAlerts: number;
+,`n  profitToday: number
+,`n  accuracy24h: number}
 
 interface LiveGame {
-  id: string,`n  teams: string;,`n  time: string,`n  aiPick: string;,`n  confidence: number,`n  status: "live" | "upcoming" | "final";,`n  edge: number,`n  sport: string;,`n  league: string,`n  predictedValue: number;,`n  marketOdds: number}
+  id: string
+,`n  teams: string;
+,`n  time: string
+,`n  aiPick: string;
+,`n  confidence: number
+,`n  status: "live" | "upcoming" | "final";
+,`n  edge: number
+,`n  sport: string;
+,`n  league: string
+,`n  predictedValue: number;
+,`n  marketOdds: number}
 
 interface QuickAction {
-  id: string,`n  title: string;,`n  description: string,`n  icon: React.ReactNode;,`n  action: () => void;
+  id: string
+,`n  title: string;
+,`n  description: string
+,`n  icon: React.ReactNode;
+,`n  action: () => void;
   badge?: string
   color: string}
 
-export const ProductionUserFriendlyDashboard: React.FC<{,`n  onNavigate: (page: string) => void}> = ({ onNavigate}) => {
+export const ProductionUserFriendlyDashboard: React.FC<{
+,`n  onNavigate: (page: string) => void}> = ({ onNavigate}) => {
   const [selectedTimeframe, setSelectedTimeframe] = useState<
     "24h" | "7d" | "30d"
   >("24h");
@@ -258,7 +280,7 @@ export const ProductionUserFriendlyDashboard: React.FC<{,`n  onNavigate: (page:
           onNavigate("moneymaker");},
         badge:
           liveStats.profitToday > 0;
-            ? `+$${liveStats.profitToday.toFixed(0)}`
+            ? `+$${liveStats.safeNumber(profitToday, 0)}`
             : undefined,
         color: "from-green-500 to-emerald-500"
       },
@@ -419,7 +441,7 @@ export const ProductionUserFriendlyDashboard: React.FC<{,`n  onNavigate: (page:
         {[
           {
             title: "AI Accuracy",
-            value: `${liveStats.aiAccuracy.toFixed(1)}%`,
+            value: `${liveStats.safeNumber(aiAccuracy, 1)}%`,
             change: liveStats.accuracy24h - liveStats.aiAccuracy,
             icon: <Brain className="w-6 h-6" / key={674415}>,
             color: "from-cyan-500 to-blue-500",
@@ -431,11 +453,11 @@ export const ProductionUserFriendlyDashboard: React.FC<{,`n  onNavigate: (page:
             change: liveStats.profitToday,
             icon: <DollarSign className="w-6 h-6" / key={555051}>,
             color: "from-green-500 to-emerald-500",
-            subtitle: "Today: +$" + liveStats.profitToday.toFixed(0)
+            subtitle: "Today: +$" + liveStats.safeNumber(profitToday, 0)
           },
           {
             title: "Win Rate",
-            value: `${liveStats.winRate.toFixed(1)}%`,
+            value: `${liveStats.safeNumber(winRate, 1)}%`,
             change: 0,
             icon: <Target className="w-6 h-6" / key={637226}>,
             color: "from-purple-500 to-indigo-500",
@@ -570,7 +592,7 @@ export const ProductionUserFriendlyDashboard: React.FC<{,`n  onNavigate: (page:
                     <div className="text-center" key={120206}>
                       <p className="text-xs text-gray-400" key={777449}>Confidence</p>
                       <p className="font-semibold text-cyan-400" key={157936}>
-                        {game.confidence.toFixed(1)}%
+                        {game.safeNumber(confidence, 1)}%
                       </p>
                     </div>
                     <div className="text-center" key={120206}>
@@ -580,7 +602,7 @@ export const ProductionUserFriendlyDashboard: React.FC<{,`n  onNavigate: (page:
                           game.edge  key={528370}> 0 ? "text-green-400" : "text-red-400"}`}
                       >
                         {game.edge > 0 ? "+" : ""}
-                        {game.edge.toFixed(1)}%
+                        {game.safeNumber(edge, 1)}%
                       </p>
                     </div>
                   </div>

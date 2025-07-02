@@ -58,10 +58,38 @@ import {
 } from 'lucide-react';
 
 interface ModelPerformanceMetrics {
-  accuracy: number,`n  precision: number;,`n  recall: number,`n  f1Score: number;,`n  roc: number,`n  predictionCount: number;,`n  successRate: number,`n  averageConfidence: number;,`n  modelStatus: string,`n  lastUpdated: string;,`n  trainingTime: number,`n  inferenceTime: number;,`n  memoryUsage: number,`n  cpuUsage: number;,`n  modelVersion: string,`n  datasetSize: number;,`n  featureCount: number,`n  hyperparameters: Record<string, any>}
+  accuracy: number
+,`n  precision: number;
+,`n  recall: number
+,`n  f1Score: number;
+,`n  roc: number
+,`n  predictionCount: number;
+,`n  successRate: number
+,`n  averageConfidence: number;
+,`n  modelStatus: string
+,`n  lastUpdated: string;
+,`n  trainingTime: number
+,`n  inferenceTime: number;
+,`n  memoryUsage: number
+,`n  cpuUsage: number;
+,`n  modelVersion: string
+,`n  datasetSize: number;
+,`n  featureCount: number
+,`n  hyperparameters: Record<string, any>}
 
 interface SystemHealthMetrics {
-  overallHealth: number,`n  cpuUsage: number;,`n  memoryUsage: number,`n  diskUsage: number;,`n  networkLatency: number,`n  activeConnections: number;,`n  errorRate: number,`n  uptime: number;,`n  responseTime: number,`n  throughput: number;,`n  lastHealthCheck: string,`n  services: Record<string, string>;
+  overallHealth: number
+,`n  cpuUsage: number;
+,`n  memoryUsage: number
+,`n  diskUsage: number;
+,`n  networkLatency: number
+,`n  activeConnections: number;
+,`n  errorRate: number
+,`n  uptime: number;
+,`n  responseTime: number
+,`n  throughput: number;
+,`n  lastHealthCheck: string
+,`n  services: Record<string, string>;
   alerts: Array<{ level: string; message: string; timestamp: string}>}
 
 const UltraAdvancedMLDashboard: React.FC = () => {
@@ -108,7 +136,8 @@ const UltraAdvancedMLDashboard: React.FC = () => {
       modelVersion: 'v2.1.3',
       datasetSize: 250000,
       featureCount: 47,
-      hyperparameters: {,`n  learning_rate: 0.001,
+      hyperparameters: {
+,`n  learning_rate: 0.001,
         batch_size: 128,
         epochs: 100
       }
@@ -131,7 +160,8 @@ const UltraAdvancedMLDashboard: React.FC = () => {
       modelVersion: 'v2.2.0-beta',
       datasetSize: 400000,
       featureCount: 52,
-      hyperparameters: {,`n  learning_rate: 0.0005,
+      hyperparameters: {
+,`n  learning_rate: 0.0005,
         batch_size: 256,
         epochs: 150
       }
@@ -198,27 +228,30 @@ const UltraAdvancedMLDashboard: React.FC = () => {
             <div className='text-gray-400 font-mono'>Overall Health</div>
             <div className='w-full bg-gray-700 rounded-full h-2 mt-2'>
               <div className='bg-green-400 h-2 rounded-full'
-                style={{ width: `${systemHealth.overallHealth}%`}}>`n              ></div>
+                style={{ width: `${systemHealth.overallHealth}%`}}
+>`n              ></div>
             </div>
           </div>
           <div className='text-center'>
             <div className='text-3xl font-bold text-electric-400 font-cyber mb-2'>
-              {systemHealth.cpuUsage.toFixed(1)}%
+              {systemHealth.safeNumber(cpuUsage, 1)}%
             </div>
             <div className='text-gray-400 font-mono'>CPU Usage</div>
             <div className='w-full bg-gray-700 rounded-full h-2 mt-2'>
               <div className='bg-electric-400 h-2 rounded-full'
-                style={{ width: `${systemHealth.cpuUsage}%`}}>`n              ></div>
+                style={{ width: `${systemHealth.cpuUsage}%`}}
+>`n              ></div>
             </div>
           </div>
           <div className='text-center'>
             <div className='text-3xl font-bold text-purple-400 font-cyber mb-2'>
-              {systemHealth.memoryUsage.toFixed(1)}%
+              {systemHealth.safeNumber(memoryUsage, 1)}%
             </div>
             <div className='text-gray-400 font-mono'>Memory Usage</div>
             <div className='w-full bg-gray-700 rounded-full h-2 mt-2'>
               <div className='bg-purple-400 h-2 rounded-full'
-                style={{ width: `${systemHealth.memoryUsage}%`}}>`n              ></div>
+                style={{ width: `${systemHealth.memoryUsage}%`}}
+>`n              ></div>
             </div>
           </div>
           <div className='text-center'>
@@ -228,7 +261,8 @@ const UltraAdvancedMLDashboard: React.FC = () => {
             <div className='text-gray-400 font-mono'>Network Latency</div>
             <div className='w-full bg-gray-700 rounded-full h-2 mt-2'>
               <div className='bg-cyan-400 h-2 rounded-full'
-                style={{ width: `${Math.min(100, systemHealth.networkLatency * 2)}%`}}>`n              ></div>
+                style={{ width: `${Math.min(100, systemHealth.networkLatency * 2)}%`}}
+>`n              ></div>
             </div>
           </div>
         </div>
@@ -247,7 +281,8 @@ const UltraAdvancedMLDashboard: React.FC = () => {
               <h4 className='text-lg font-bold text-purple-400 font-cyber'>
                 Neural Model {idx + 1}
               </h4>
-              <div className={`px-3 py-1 rounded-full text-xs font-bold ${getStatusColor(model.modelStatus)} bg-gray-800`}>`n              >
+              <div className={`px-3 py-1 rounded-full text-xs font-bold ${getStatusColor(model.modelStatus)} bg-gray-800`}
+>`n              >
                 {model.modelStatus.toUpperCase()}
               </div>
             </div>
@@ -255,7 +290,7 @@ const UltraAdvancedMLDashboard: React.FC = () => {
             <div className='grid grid-cols-2 gap-4'>
               <div>
                 <div className='text-2xl font-bold text-white font-cyber'>
-                  {model.accuracy.toFixed(1)}%
+                  {model.safeNumber(accuracy, 1)}%
                 </div>
                 <div className='text-gray-400 text-sm'>Accuracy</div>
               </div>
@@ -267,7 +302,7 @@ const UltraAdvancedMLDashboard: React.FC = () => {
               </div>
               <div>
                 <div className='text-2xl font-bold text-green-400 font-cyber'>
-                  {model.f1Score.toFixed(2)}
+                  {model.safeNumber(f1Score, 2)}
                 </div>
                 <div className='text-gray-400 text-sm'>F1 Score</div>
               </div>
@@ -299,7 +334,8 @@ const UltraAdvancedMLDashboard: React.FC = () => {
                 <span className='font-bold text-white font-mono capitalize'>
                   {service.replace('-', ' ')}
                 </span>
-                <div className={`w-3 h-3 rounded-full ${status === 'healthy' ? 'bg-green-400 animate-pulse' : 'bg-red-400'}`}>`n                ></div>
+                <div className={`w-3 h-3 rounded-full ${status === 'healthy' ? 'bg-green-400 animate-pulse' : 'bg-red-400'}`}
+>`n                ></div>
               </div>
               <div className='text-xs text-gray-400 font-mono'>{status}</div>
             </div>
@@ -345,19 +381,19 @@ const UltraAdvancedMLDashboard: React.FC = () => {
 
             <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4'>
               <div className='text-center p-3 bg-gray-800/40 rounded-lg'>
-                <div className='text-lg font-bold text-green-400'>{model.accuracy.toFixed(1)}%</div>
+                <div className='text-lg font-bold text-green-400'>{model.safeNumber(accuracy, 1)}%</div>
                 <div className='text-xs text-gray-400'>Accuracy</div>
               </div>
               <div className='text-center p-3 bg-gray-800/40 rounded-lg'>
-                <div className='text-lg font-bold text-blue-400'>{model.precision.toFixed(1)}%</div>
+                <div className='text-lg font-bold text-blue-400'>{model.safeNumber(precision, 1)}%</div>
                 <div className='text-xs text-gray-400'>Precision</div>
               </div>
               <div className='text-center p-3 bg-gray-800/40 rounded-lg'>
-                <div className='text-lg font-bold text-purple-400'>{model.recall.toFixed(1)}%</div>
+                <div className='text-lg font-bold text-purple-400'>{model.safeNumber(recall, 1)}%</div>
                 <div className='text-xs text-gray-400'>Recall</div>
               </div>
               <div className='text-center p-3 bg-gray-800/40 rounded-lg'>
-                <div className='text-lg font-bold text-cyan-400'>{model.f1Score.toFixed(2)}</div>
+                <div className='text-lg font-bold text-cyan-400'>{model.safeNumber(f1Score, 2)}</div>
                 <div className='text-xs text-gray-400'>F1 Score</div>
               </div>
               <div className='text-center p-3 bg-gray-800/40 rounded-lg'>

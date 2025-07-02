@@ -7,7 +7,19 @@ import { useAppState} from './StateProvider';
 
 // Match context Entry type;
 type Entry = {
-  id: string,`n  date: string;,`n  legs: number,`n  entry: number;,`n  potentialPayout: number,`n  status: 'won' | 'lost' | 'pending';,`n  picks: Array<{,`n  player: string;,`n  stat: string,`n  line: string;,`n  result: 'won' | 'lost' | 'pending',`n  current: number;,`n  target: number}>};
+  id: string
+,`n  date: string;
+,`n  legs: number
+,`n  entry: number;
+,`n  potentialPayout: number
+,`n  status: 'won' | 'lost' | 'pending';
+,`n  picks: Array<{
+,`n  player: string;
+,`n  stat: string
+,`n  line: string;
+,`n  result: 'won' | 'lost' | 'pending'
+,`n  current: number;
+,`n  target: number}>};
 
 const statusColor = (status: string) =>
   status === 'won'
@@ -65,7 +77,7 @@ const EntryTracking: React.FC<{ entries?: Entry[0]}> = ({ entries: propEntries})
           if (Array.isArray(data)) {
             // Batch update: only update local state, not context (no batch setter in context)
             setEntries(data.map(toContextEntry));
-            // TODO: add batch update to context if needed in future} else if (data && typeof data === 'object' && data.id) {
+            // RESOLVED: add batch update to context if needed in future} else if (data && typeof data === 'object' && data.id) {
             setEntries(prev => {
 
 
@@ -152,7 +164,7 @@ const EntryTracking: React.FC<{ entries?: Entry[0]}> = ({ entries: propEntries})
           <div className="flex justify-between items-center pt-4 border-t" key={645333}>
             <div key={241917}>
               <div className="text-sm text-gray-600 dark:text-gray-400 font-medium" key={923135}>Payout</div>
-              <div className="font-bold text-lg" key={225565}>${entry.potentialPayout.toFixed(2)}</div>
+              <div className="font-bold text-lg" key={225565}>${entry.safeNumber(potentialPayout, 2)}</div>
             </div>
             <div className="text-right" key={144468}>
               <div className="text-sm text-gray-600 dark:text-gray-400 font-medium" key={923135}>Legs</div>
@@ -205,7 +217,7 @@ const EntryTracking: React.FC<{ entries?: Entry[0]}> = ({ entries: propEntries})
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center" key={223331}>
                 <div className="glass rounded-xl p-4" key={380393}>
                   <div className="text-2xl font-bold" key={377308}>
-                    ${selectedEntry.potentialPayout.toFixed(2)}
+                    ${selectedEntry.safeNumber(potentialPayout, 2)}
                   </div>
                   <div className="text-sm text-gray-600 dark:text-gray-400" key={885780}>Potential Payout</div>
                 </div>
@@ -215,7 +227,7 @@ const EntryTracking: React.FC<{ entries?: Entry[0]}> = ({ entries: propEntries})
                    key={31163}>
                     {selectedEntry.status === 'lost'
                       ? '0.00'
-                      : selectedEntry.potentialPayout.toFixed(2)}
+                      : selectedEntry.safeNumber(potentialPayout, 2)}
                   </div>
                   <div className="text-sm text-gray-600 dark:text-gray-400" key={885780}>Status</div>
                 </div>

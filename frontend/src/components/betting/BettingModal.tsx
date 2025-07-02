@@ -6,7 +6,23 @@ import { RiskReasoningDisplay} from '@/shared/RiskReasoningDisplay';
 import { Badge, Button, Card, Icon, Spinner} from '@/ui/UnifiedUI';
 
 interface BettingModalProps {
-  isOpen: boolean,`n  onClose: () => void;,`n  event: Event,`n  market: Market;,`n  selection: Selection,`n  odds: Odds;,`n  confidenceScore: number,`n  expectedValue: number;,`n  kellyFraction: number,`n  riskProfile: RiskProfile;,`n  selectedStrategy: BettingStrategy,`n  onStrategyChange: (strategy: BettingStrategy) => void,`n  stake: number;,`n  onStakeChange: (stake: number) => void,`n  onPlaceBet: () => void;,`n  isLoading: boolean,`n  error: string | null}
+  isOpen: boolean
+,`n  onClose: () => void;
+,`n  event: Event
+,`n  market: Market;
+,`n  selection: Selection
+,`n  odds: Odds;
+,`n  confidenceScore: number
+,`n  expectedValue: number;
+,`n  kellyFraction: number
+,`n  riskProfile: RiskProfile;
+,`n  selectedStrategy: BettingStrategy
+,`n  onStrategyChange: (strategy: BettingStrategy) => void
+,`n  stake: number;
+,`n  onStakeChange: (stake: number) => void
+,`n  onPlaceBet: () => void;
+,`n  isLoading: boolean
+,`n  error: string | null}
 
 export const BettingModal: React.FC<BettingModalProps key={488043}> = ({
   isOpen,
@@ -42,7 +58,8 @@ export const BettingModal: React.FC<BettingModalProps key={488043}> = ({
       case 'martingale':
         return 'Martingale: Double stake after losses';
       case 'fibonacci':
-        return 'Fibonacci: Progressive stake based on Fibonacci sequence',`n  default: return ''}
+        return 'Fibonacci: Progressive stake based on Fibonacci sequence'
+,`n  default: return ''}
   };
 
   const getRecommendedStake = (): number => {
@@ -99,7 +116,7 @@ export const BettingModal: React.FC<BettingModalProps key={488043}> = ({
             </div>
             <div key={241917}>
               <p className="text-sm text-gray-600" key={656535}>Odds</p>
-              <p className="font-medium" key={787187}>{odds.value.toFixed(2)}</p>
+              <p className="font-medium" key={787187}>{odds.safeNumber(value, 2)}</p>
             </div>
           </div>
 

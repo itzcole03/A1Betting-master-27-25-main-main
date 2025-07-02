@@ -59,7 +59,8 @@ export const ComprehensiveUserProfile: React.FC<
     verified: true,
     twoFactorEnabled: true,
     bio: "Professional sports bettor leveraging AI and machine learning for data-driven betting strategies. Focused on maximizing ROI through systematic analysis.",
-    stats: {,`n  totalProfit: 47350.75,
+    stats: {
+,`n  totalProfit: 47350.75,
       winRate: 84.7,
       totalBets: 234,
       avgROI: 23.8,
@@ -67,7 +68,8 @@ export const ComprehensiveUserProfile: React.FC<
       bestStreak: 15,
       totalVolume: 125000
     },
-    riskProfile: {,`n  type: "moderate" as const,
+    riskProfile: {
+,`n  type: "moderate" as const,
       maxStake: 500,
       minStake: 25,
       confidenceThreshold: 0.75,
@@ -185,7 +187,12 @@ export const ComprehensiveUserProfile: React.FC<
       default: return "text-gray-400 bg-gray-500/20"}
   };
 
-  const TabButton: React.FC<{,`n  id: string;,`n  label: string,`n  icon: React.ReactNode;,`n  active: boolean,`n  onClick: () => void}> = ({ id, label, icon, active, onClick}) => (
+  const TabButton: React.FC<{
+,`n  id: string;
+,`n  label: string
+,`n  icon: React.ReactNode;
+,`n  active: boolean
+,`n  onClick: () => void}> = ({ id, label, icon, active, onClick}) => (
     <button;
       onClick={onClick}
       className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${

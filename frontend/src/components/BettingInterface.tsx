@@ -12,16 +12,33 @@ import {
 } from 'lucide-react';
 
 interface Match {
-  id: number,`n  homeTeam: string;,`n  awayTeam: string,`n  sport: string;,`n  league: string,`n  startTime: string;,`n  status: 'scheduled' | 'live' | 'finished'}
+  id: number
+,`n  homeTeam: string;
+,`n  awayTeam: string
+,`n  sport: string;
+,`n  league: string
+,`n  startTime: string;
+,`n  status: 'scheduled' | 'live' | 'finished'}
 
 interface Odds {
-  id: number,`n  matchId: number;,`n  bookmaker: string,`n  marketType: string;,`n  homeOdds: number,`n  awayOdds: number;
+  id: number
+,`n  matchId: number;
+,`n  bookmaker: string
+,`n  marketType: string;
+,`n  homeOdds: number
+,`n  awayOdds: number;
   drawOdds?: number
   overUnder?: {
-    line: number,`n  overOdds: number;,`n  underOdds: number}}
+    line: number
+,`n  overOdds: number;
+,`n  underOdds: number}}
 
 interface NewBet {
-  matchId: number,`n  betType: string;,`n  selection: string,`n  stake: number;,`n  odds: number}
+  matchId: number
+,`n  betType: string;
+,`n  selection: string
+,`n  stake: number;
+,`n  odds: number}
 
 interface BetResult {
   success: boolean;
@@ -29,7 +46,10 @@ interface BetResult {
   message: string}
 
 interface BettingInterfaceProps {
-  availableMatches: Match[0],`n  liveOdds: Odds[0];,`n  onPlaceBet: (bet: NewBet) => Promise<BetResult>,`n  userBalance: number}
+  availableMatches: Match[0]
+,`n  liveOdds: Odds[0];
+,`n  onPlaceBet: (bet: NewBet) => Promise<BetResult>
+,`n  userBalance: number}
 
 const BettingInterface: React.FC<BettingInterfaceProps> = ({
   availableMatches,
@@ -117,7 +137,8 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
                   <div className='relative'>
                     <Search className='absolute left-3 top-3 w-4 h-4 text-gray-400' />
                     <input type='text'
-                      value={searchTerm}>`n                      onChange={e => setSearchTerm(e.target.value)}
+                      value={searchTerm}
+>`n                      onChange={e => setSearchTerm(e.target.value)}
                       placeholder='Search teams...'
                       className='w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400'
                     />
@@ -125,7 +146,8 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
                 </div>
                 <div>
                   <label className='block text-gray-400 text-sm mb-2'>Sport</label>
-                  <select value={selectedSport}>`n                    onChange={e => setSelectedSport(e.target.value)}
+                  <select value={selectedSport}
+>`n                    onChange={e => setSelectedSport(e.target.value)}
                     className='w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-yellow-400'
                   >
                     {sports.map(sport => (
@@ -173,7 +195,8 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
                               ? 'bg-red-500/20 text-red-400'
                               : match.status === 'scheduled'
                                 ? 'bg-green-500/20 text-green-400'
-                                : 'bg-gray-500/20 text-gray-400'}`}>`n                        >
+                                : 'bg-gray-500/20 text-gray-400'}`}
+>`n                        >
                           {match.status}
                         </span>
                       </div>
@@ -221,7 +244,8 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
 
                   <div>
                     <label className='block text-gray-400 text-sm mb-2'>Bet Type</label>
-                    <select value={selectedBetType}>`n                      onChange={e => setSelectedBetType(e.target.value)}
+                    <select value={selectedBetType}
+>`n                      onChange={e => setSelectedBetType(e.target.value)}
                       className='w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-yellow-400'
                     >
                       <option value='match_winner' className='bg-slate-800'>
@@ -271,13 +295,15 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
                   <div>
                     <label className='block text-gray-400 text-sm mb-2'>Stake Amount</label>
                     <input type='number'
-                      value={stakeAmount}>`n                      onChange={e => setStakeAmount(Number(e.target.value))}
+                      value={stakeAmount}
+>`n                      onChange={e => setStakeAmount(Number(e.target.value))}
                       placeholder='Enter stake amount...'
                       className='w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400'
                     />
                     <div className='flex gap-2 mt-2'>
                       {[10, 25, 50, 100].map(amount => (
-                        <button key={amount}>`n                          onClick={() => setStakeAmount(amount)}
+                        <button key={amount}
+>`n                          onClick={() => setStakeAmount(amount)}
                           className='px-3 py-1 bg-white/10 border border-white/20 rounded text-sm text-gray-300 hover:bg-white/20 transition-all'
                         >
                           ${amount}
@@ -298,11 +324,11 @@ const BettingInterface: React.FC<BettingInterfaceProps> = ({
                       </div>
                       <div className='flex justify-between'>
                         <span className='text-gray-400'>Potential Winnings:</span>
-                        <span className='text-green-400'>${potentialWinnings.toFixed(2)}</span>
+                        <span className='text-green-400'>${safeNumber(potentialWinnings, 2)}</span>
                       </div>
                       <div className='flex justify-between font-semibold'>
                         <span className='text-gray-400'>Profit:</span>
-                        <span className='text-green-400'>${profit.toFixed(2)}</span>
+                        <span className='text-green-400'>${safeNumber(profit, 2)}</span>
                       </div>
                     </div>
                   )}
@@ -399,7 +425,8 @@ const BettingInterfaceWithMockData: React.FC = () => {
     <BettingInterface availableMatches={mockMatches}
       liveOdds={mockOdds}
       onPlaceBet={handlePlaceBet}
-      userBalance={2500}>`n    />
+      userBalance={2500}
+>`n    />
   )};
 
 export default BettingInterfaceWithMockData;

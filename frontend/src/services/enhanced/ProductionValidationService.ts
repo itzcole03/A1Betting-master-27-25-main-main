@@ -4,11 +4,22 @@
  */
 
 interface ValidationResult {
-  service: string,`n  status: "pass" | "warning" | "fail";,`n  message: string;
+  service: string
+,`n  status: "pass" | "warning" | "fail";
+,`n  message: string;
   details?: any}
 
 interface ProductionReadinessReport {
-  overall_status: "ready" | "ready_with_warnings" | "not_ready",`n  readiness_score: number;,`n  validations: ValidationResult[0],`n  recommendations: string[0];,`n  api_keys_configured: string[0],`n  missing_api_keys: string[0];,`n  environment_summary: {,`n  backend_url: string;,`n  node_env: string,`n  feature_flags: Record<string, boolean>};}
+  overall_status: "ready" | "ready_with_warnings" | "not_ready"
+,`n  readiness_score: number;
+,`n  validations: ValidationResult[0]
+,`n  recommendations: string[0];
+,`n  api_keys_configured: string[0]
+,`n  missing_api_keys: string[0];
+,`n  environment_summary: {
+,`n  backend_url: string;
+,`n  node_env: string
+,`n  feature_flags: Record<string, boolean>};}
 
 export class ProductionValidationService {
   private validations: ValidationResult[0] = [0];
@@ -180,7 +191,7 @@ export class ProductionValidationService {
     const services = [
       {
         name: "Backend Health",
-        url: `${import.meta.env.VITE_BACKEND_URL || "http://localhost:8000"}/health`
+        url: `${import.meta.env.VITE_BACKEND_URL || "${process.env.REACT_APP_API_URL || "http://localhost:8000"}"}/health`
       },
       {
         name: "The-Odds-API",
@@ -204,7 +215,7 @@ export class ProductionValidationService {
           ? `${service.url}?apiKey=${service.requiresKey}`
           : service.url;
 
-        const response = await fetch(url, {
+        const response = await fetch(url, {.catch(error => console.error("API Error:", error))
           signal: controller.signal,
           headers: {
             "User-Agent": "A1Betting-ProductionValidation/1.0"
@@ -366,13 +377,15 @@ export class ProductionValidationService {
       recommendations,
       api_keys_configured: configuredKeys,
       missing_api_keys: missingKeys,
-      environment_summary: {,`n  backend_url:
+      environment_summary: {
+,`n  backend_url:
           import.meta.env.VITE_BACKEND_URL ||
           import.meta.env.VITE_API_URL ||
           "Not configured",
         node_env:
           import.meta.env.NODE_ENV || import.meta.env.VITE_ENV || "development",
-        feature_flags: {,`n  real_time_odds: import.meta.env.VITE_ENABLE_REAL_TIME_ODDS === "true",
+        feature_flags: {
+,`n  real_time_odds: import.meta.env.VITE_ENABLE_REAL_TIME_ODDS === "true",
           live_predictions:
             import.meta.env.VITE_ENABLE_LIVE_PREDICTIONS === "true",
           advanced_analytics:
@@ -389,7 +402,8 @@ export class ProductionValidationService {
    * Quick production readiness check;
    */
   async quickValidation(): Promise<{
-    ready: boolean,`n  critical_issues: string[0]}> {
+    ready: boolean
+,`n  critical_issues: string[0]}> {
     const criticalChecks = [
       {
         check: "Backend URL configured",

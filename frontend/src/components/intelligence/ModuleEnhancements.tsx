@@ -7,10 +7,13 @@ export const moduleEnhancementStyles = `
   .enhanced-module-card {
     background: linear-gradient(135deg, rgba(30, 41, 59, 0.4) 0%, rgba(51, 65, 85, 0.3) 100%);
     border: 2px solid rgba(71, 85, 105, 0.4);
-    border-radius: 16px,`n  padding: 20px;
-    backdrop-filter: blur(12px),`n  transition: all 0.3s ease}
+    border-radius: 16px
+,`n  padding: 20px;
+    backdrop-filter: blur(12px)
+,`n  transition: all 0.3s ease}
 
-  .enhanced-module-card:hover {,`n  transform: scale(1.03) rotateY(2deg);
+  .enhanced-module-card:hover {
+,`n  transform: scale(1.03) rotateY(2deg);
     border-color: rgba(71, 85, 105, 0.6);
     background: linear-gradient(135deg, rgba(51, 65, 85, 0.3) 0%, rgba(71, 85, 105, 0.25) 100%);
     box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.3)}
@@ -21,21 +24,29 @@ export const moduleEnhancementStyles = `
     box-shadow: 0 25px 50px -12px rgba(34, 197, 94, 0.4)}
 
   .money-badge {
-    position: absolute,`n  top: -8px;,`n  right: -8px,`n  background: linear-gradient(45deg, #fbbf24, #f59e0b);
+    position: absolute
+,`n  top: -8px;
+,`n  right: -8px
+,`n  background: linear-gradient(45deg, #fbbf24, #f59e0b);
     color: black;
     font-size: 11px;
-    font-weight: bold,`n  padding: 4px 8px;
+    font-weight: bold
+,`n  padding: 4px 8px;
     border-radius: 9999px;
     box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4);
     animation: pulse 2s infinite}
 
   .profit-bar {
-    width: 100%,`n  height: 6px;,`n  background: rgba(71, 85, 105, 0.3);
-    border-radius: 3px,`n  overflow: hidden}
+    width: 100%
+,`n  height: 6px;
+,`n  background: rgba(71, 85, 105, 0.3);
+    border-radius: 3px
+,`n  overflow: hidden}
 
   .profit-fill {
     height: 100%;
-    border-radius: 3px,`n  transition: width 1s ease-out}
+    border-radius: 3px
+,`n  transition: width 1s ease-out}
 
   .profit-fill.high {
     background: linear-gradient(90deg, #10b981, #34d399)}

@@ -12,7 +12,9 @@ export enum LogLevel {
 }
 
 export interface LogEntry {
-  timestamp: string,`n  level: LogLevel;,`n  message: string;
+  timestamp: string
+,`n  level: LogLevel;
+,`n  message: string;
   data?: any
   source?: string}
 
@@ -37,7 +39,8 @@ class Logger {
   private addLogEntry(level: LogLevel, message: string, data?: any, source?: string) {
     if (!this.shouldLog(level)) return;
 
-    const entry: LogEntry = {,`n  timestamp: new Date().toISOString(),
+    const entry: LogEntry = {
+,`n  timestamp: new Date().toISOString(),
       level,
       message,
       data,
@@ -63,16 +66,16 @@ class Logger {
 
     switch (entry.level) {
       case LogLevel.DEBUG:
-        console.debug(message, entry.data || '');
+//         console.debug(message, entry.data || '');
         break;
       case LogLevel.INFO:
         console.info(message, entry.data || '');
         break;
       case LogLevel.WARN:
-        console.warn(message, entry.data || '');
+//         console.warn(message, entry.data || '');
         break;
       case LogLevel.ERROR:
-        console.error(message, entry.data || '');
+//         console.error(message, entry.data || '');
         break;}
   }
 

@@ -3,7 +3,9 @@ import { useUnifiedAnalytics} from '@/hooks/useUnifiedAnalytics';
 import { llmService} from '@/services/LLMService';
 
 interface ScenarioInput {
-  id: string,`n  name: string;,`n  type:
+  id: string
+,`n  name: string;
+,`n  type:
   | "odds_change"
   | "injury"
   | "weather"
@@ -14,7 +16,18 @@ interface ScenarioInput {
   impact: number; // -1 to 1}
 
 interface SimulationResult {
-  scenarioId: string,`n  originalPrediction: number;,`n  adjustedPrediction: number,`n  impact: number;,`n  confidence: number,`n  riskLevel: "low" | "medium" | "high";,`n  explanation: string,`n  factors: Array<{,`n  name: string,`n  originalValue: number;,`n  adjustedValue: number,`n  contribution: number}>}
+  scenarioId: string
+,`n  originalPrediction: number;
+,`n  adjustedPrediction: number
+,`n  impact: number;
+,`n  confidence: number
+,`n  riskLevel: "low" | "medium" | "high";
+,`n  explanation: string
+,`n  factors: Array<{
+,`n  name: string
+,`n  originalValue: number;
+,`n  adjustedValue: number
+,`n  contribution: number}>}
 
 interface WhatIfSimulatorProps {
   eventId?: string
@@ -139,7 +152,8 @@ export const WhatIfSimulator: React.FC<WhatIfSimulatorProps key={72580}> = ({
         },
       ];
 
-      const result: SimulationResult = {,`n  scenarioId: scenario.id,
+      const result: SimulationResult = {
+,`n  scenarioId: scenario.id,
         originalPrediction: baselinePrediction,
         adjustedPrediction,
         impact: adjustedPrediction - baselinePrediction,

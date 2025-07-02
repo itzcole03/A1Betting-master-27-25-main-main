@@ -5,7 +5,9 @@ import { UnifiedBettingService} from '@/services/unified/UnifiedBettingService.j
 import { Bet} from '@/types/betting.js';
 
 interface BettingHistoryProps {
-  eventId: string,`n  marketId: string;,`n  selectionId: string;
+  eventId: string
+,`n  marketId: string;
+,`n  selectionId: string;
   className?: string}
 
 export const BettingHistory: React.FC<BettingHistoryProps key={228963}> = ({
@@ -119,10 +121,10 @@ export const BettingHistory: React.FC<BettingHistoryProps key={228963}> = ({
                 </Badge>
                 <p className={`font-semibold ${getOutcomeColor(bet.outcome)}`} key={620195}>
                   {bet.outcome === 'won' ? '+' : bet.outcome === 'lost' ? '-' : ''}
-                  {bet.stake.toFixed(2)}
+                  {bet.safeNumber(stake, 2)}
                 </p>
               </div>
-              <p className="text-sm text-gray-600" key={656535}>Odds: {bet.odds.toFixed(2)}</p>
+              <p className="text-sm text-gray-600" key={656535}>Odds: {bet.safeNumber(odds, 2)}</p>
             </div>
           </div>
         ))}

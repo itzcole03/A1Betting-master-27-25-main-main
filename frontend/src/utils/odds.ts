@@ -1,5 +1,6 @@
-﻿import type { LineupType} from '@/types/common';
-import type { Entry, PlayerProp} from '@/types/core';
+﻿import type { LineupType } from '@/types/common';
+import type { Entry, PlayerProp } from '@/types/core';
+import { safeNumber } from './safeNumber';
 
 
 
@@ -165,7 +166,8 @@ export const formatCurrencyDecimal = (amount: number): string => {
 
 // Format percentage;
 export const formatPercentage = (value: number): string => {
-  return `${(value * 100).toFixed(1)}%`};
+  return safePercentage(value, 1);
+};
 
 // Calculate risk level multiplier;
 export const getRiskMultiplier = (type: LineupType): number => {
@@ -195,7 +197,7 @@ export const calculateEntryProgress = (entry: Entry): number => {
 // Format odds for display;
 export const formatOdds = (odds: number, format: 'american' | 'decimal' = 'american'): string => {
   if (format === 'decimal') {
-    return odds.toFixed(2)}
+    return safeNumber(odds, 2)}
 
   return oddsString};
 

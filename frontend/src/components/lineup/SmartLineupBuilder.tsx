@@ -5,7 +5,15 @@ import { Card, CardContent, CardHeader, CardTitle} from '@/ui/card';
 import { Badge} from '@/ui/badge';
 
 interface Player {
-  id: string,`n  name: string;,`n  position: string,`n  team: string;,`n  salary: number,`n  projectedPoints: number;,`n  ownership: number,`n  value: number;,`n  tier: "elite" | "core" | "value" | "punt"}
+  id: string
+,`n  name: string;
+,`n  position: string
+,`n  team: string;
+,`n  salary: number
+,`n  projectedPoints: number;
+,`n  ownership: number
+,`n  value: number;
+,`n  tier: "elite" | "core" | "value" | "punt"}
 
 export const SmartLineupBuilder: React.FC = () => {
   const [selectedPlayers, setSelectedPlayers] = useState<Player[0] key={702301}>([0]);

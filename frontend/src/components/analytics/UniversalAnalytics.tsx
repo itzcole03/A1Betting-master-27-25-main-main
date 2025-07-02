@@ -12,10 +12,18 @@ import {
 } from 'lucide-react';
 
 interface AnalyticsMetric {
-  id: string,`n  name: string;,`n  value: number,`n  change: number;,`n  trend: 'up' | 'down' | 'stable',`n  category: string}
+  id: string
+,`n  name: string;
+,`n  value: number
+,`n  change: number;
+,`n  trend: 'up' | 'down' | 'stable'
+,`n  category: string}
 
 interface ModelPerformance {
-  name: string,`n  accuracy: number;,`n  status: 'active' | 'training' | 'offline',`n  color: string}
+  name: string
+,`n  accuracy: number;
+,`n  status: 'active' | 'training' | 'offline'
+,`n  color: string}
 
 const UniversalAnalytics: React.FC = () => {
   const [activeView, setActiveView] = useState('overview');
@@ -109,7 +117,8 @@ const UniversalAnalytics: React.FC = () => {
                     ? 'text-green-400'
                     : metric.trend === 'down'
                       ? 'text-red-400'
-                      : 'text-gray-400'}`}>`n              >
+                      : 'text-gray-400'}`}
+>`n              >
                 <TrendingUp className='w-4 h-4' />
                 <span className='text-sm font-mono'>
                   {metric.change > 0 ? '+' : ''}
@@ -137,18 +146,20 @@ const UniversalAnalytics: React.FC = () => {
           <div className='space-y-4'>
             {modelPerformance.slice(0, 3).map((model, index) => (
               <div key={index}
-                className='flex justify-between items-center p-4 bg-gray-800/30 rounded-xl'>`n              >
+                className='flex justify-between items-center p-4 bg-gray-800/30 rounded-xl'
+>`n              >
                 <div>
                   <div className='font-bold text-white'>{model.name}</div>
                   <div className='text-sm text-gray-400 font-mono'>
                     Status:{' '}
-                    <span className={model.status === 'active' ? 'text-green-400' : 'text-yellow-400'}>`n                    >
+                    <span className={model.status === 'active' ? 'text-green-400' : 'text-yellow-400'}
+>`n                    >
                       {model.status.toUpperCase()}
                     </span>
                   </div>
                 </div>
                 <div className={`text-2xl font-bold font-cyber ${model.color}`}>
-                  {model.accuracy.toFixed(1)}%
+                  {model.safeNumber(accuracy, 1)}%
                 </div>
               </div>
             ))}
@@ -173,13 +184,13 @@ const UniversalAnalytics: React.FC = () => {
             <div className='flex justify-between items-center'>
               <span className='text-gray-300 font-mono'>Response Time</span>
               <span className='text-cyan-400 font-bold'>
-                {realTimeData.processingSpeed.toFixed(1)}ms
+                {realTimeData.safeNumber(processingSpeed, 1)}ms
               </span>
             </div>
             <div className='flex justify-between items-center'>
               <span className='text-gray-300 font-mono'>System Confidence</span>
               <span className='text-purple-400 font-bold'>
-                {realTimeData.confidence.toFixed(1)}%
+                {realTimeData.safeNumber(confidence, 1)}%
               </span>
             </div>
           </div>
@@ -204,7 +215,7 @@ const UniversalAnalytics: React.FC = () => {
 
             <div className='text-center mb-4'>
               <div className={`text-4xl font-bold font-cyber ${model.color}`}>
-                {model.accuracy.toFixed(1)}%
+                {model.safeNumber(accuracy, 1)}%
               </div>
               <div className='text-gray-400 font-mono'>Accuracy</div>
             </div>
@@ -214,7 +225,8 @@ const UniversalAnalytics: React.FC = () => {
                   ? 'bg-green-500/20 text-green-400'
                   : model.status === 'training'
                     ? 'bg-yellow-500/20 text-yellow-400'
-                    : 'bg-red-500/20 text-red-400'}`}>`n            >
+                    : 'bg-red-500/20 text-red-400'}`}
+>`n            >
               <div className='font-bold font-cyber'>{model.status.toUpperCase()}</div>
             </div>
           </motion.div>
@@ -236,7 +248,7 @@ const UniversalAnalytics: React.FC = () => {
                 />
               </div>
               <div className={`w-16 text-right font-bold ${model.color}`}>
-                {model.accuracy.toFixed(1)}%
+                {model.safeNumber(accuracy, 1)}%
               </div>
             </div>
           ))}
@@ -250,7 +262,7 @@ const UniversalAnalytics: React.FC = () => {
       <div className='grid grid-cols-1 md:grid-cols-4 gap-6'>
         <motion.div className='quantum-card p-6 rounded-2xl' whileHover={{ scale: 1.02}}>
           <div className='text-3xl font-bold text-electric-400 font-cyber'>
-            {realTimeData.accuracy.toFixed(1)}%
+            {realTimeData.safeNumber(accuracy, 1)}%
           </div>
           <div className='text-gray-400 font-mono'>Live Accuracy</div>
         </motion.div>
@@ -262,13 +274,13 @@ const UniversalAnalytics: React.FC = () => {
         </motion.div>
         <motion.div className='quantum-card p-6 rounded-2xl' whileHover={{ scale: 1.02}}>
           <div className='text-3xl font-bold text-purple-400 font-cyber'>
-            {realTimeData.processingSpeed.toFixed(1)}ms
+            {realTimeData.safeNumber(processingSpeed, 1)}ms
           </div>
           <div className='text-gray-400 font-mono'>Response Time</div>
         </motion.div>
         <motion.div className='quantum-card p-6 rounded-2xl' whileHover={{ scale: 1.02}}>
           <div className='text-3xl font-bold text-cyan-400 font-cyber'>
-            {realTimeData.confidence.toFixed(1)}%
+            {realTimeData.safeNumber(confidence, 1)}%
           </div>
           <div className='text-gray-400 font-mono'>Confidence</div>
         </motion.div>
@@ -285,7 +297,8 @@ const UniversalAnalytics: React.FC = () => {
                   <span className='text-gray-400 font-mono w-20'>Net #{net * 9 + 5}</span>
                   <div className='flex-1 bg-gray-700 rounded-full h-2'>
                     <div className='h-full bg-electric-400 rounded-full animate-pulse'
-                      style={{ width: `${Math.random() * 40 + 60}%`}}>`n                    />
+                      style={{ width: `${Math.random() * 40 + 60}%`}}
+>`n                    />
                   </div>
                   <span className='text-electric-400 font-mono text-sm'>
                     {(Math.random() * 40 + 60).toFixed(1)}%
@@ -337,10 +350,11 @@ const UniversalAnalytics: React.FC = () => {
                 {metric.name === 'ROI'
                   ? `+${metric.value}%`
                   : metric.name === 'Sharpe Ratio'
-                    ? metric.value.toFixed(2)
+                    ? metric.safeNumber(value, 2)
                     : `${metric.value}%`}
               </div>
-              <div className={`text-sm font-mono ${metric.trend === 'up' ? 'text-green-400' : 'text-red-400'}`}>`n              >
+              <div className={`text-sm font-mono ${metric.trend === 'up' ? 'text-green-400' : 'text-red-400'}`}
+>`n              >
                 {metric.change > 0 ? '↗' : '↘'} {Math.abs(metric.change)}% this week
               </div>
             </motion.div>

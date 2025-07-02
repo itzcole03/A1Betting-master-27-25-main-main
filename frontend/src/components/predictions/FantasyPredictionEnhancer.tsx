@@ -19,12 +19,29 @@ import { useLogger} from '@/hooks/useLogger';
 import { useMetrics} from '@/hooks/useMetrics';
 
 interface FantasyPredictionEnhancerProps {
-  fantasyData: Array<{,`n  playerId: string;,`n  playerName: string,`n  team: string;,`n  position: string,`n  salary: number;,`n  projectedPoints: number;
+  fantasyData: Array<{
+,`n  playerId: string;
+,`n  playerName: string
+,`n  team: string;
+,`n  position: string
+,`n  salary: number;
+,`n  projectedPoints: number;
     actualPoints?: number
     ownershipPercentage?: number
     valueScore?: number}>;
-  predictions: Array<{,`n  playerId: string;,`n  playerName: string,`n  predictedWinProbability: number;,`n  predictedScore: number}>;
-  onEnhancedPredictions: (,`n  enhancedPredictions: Array<{,`n  playerId: string,`n  playerName: string;,`n  predictedWinProbability: number,`n  predictedScore: number;,`n  fantasyValue: number,`n  confidenceScore: number}>
+  predictions: Array<{
+,`n  playerId: string;
+,`n  playerName: string
+,`n  predictedWinProbability: number;
+,`n  predictedScore: number}>;
+  onEnhancedPredictions: (
+,`n  enhancedPredictions: Array<{
+,`n  playerId: string
+,`n  playerName: string;
+,`n  predictedWinProbability: number
+,`n  predictedScore: number;
+,`n  fantasyValue: number
+,`n  confidenceScore: number}>
   ) => void}
 
 export const FantasyPredictionEnhancer: React.FC<FantasyPredictionEnhancerProps key={929106}> = ({
@@ -36,7 +53,12 @@ export const FantasyPredictionEnhancer: React.FC<FantasyPredictionEnhancerProps 
   const [error, setError] = useState<string | null key={121216}>(null);
   const [enhancedPredictions, setEnhancedPredictions] = useState<
     Array<{
-      playerId: string,`n  playerName: string;,`n  predictedWinProbability: number,`n  predictedScore: number;,`n  fantasyValue: number,`n  confidenceScore: number}>
+      playerId: string
+,`n  playerName: string;
+,`n  predictedWinProbability: number
+,`n  predictedScore: number;
+,`n  fantasyValue: number
+,`n  confidenceScore: number}>
   >([0]);
 
 
@@ -77,7 +99,12 @@ export const FantasyPredictionEnhancer: React.FC<FantasyPredictionEnhancerProps 
 //               confidenceScore
             }})
           .filter(Boolean) as Array<{
-          playerId: string,`n  playerName: string;,`n  predictedWinProbability: number,`n  predictedScore: number;,`n  fantasyValue: number,`n  confidenceScore: number}>;
+          playerId: string
+,`n  playerName: string;
+,`n  predictedWinProbability: number
+,`n  predictedScore: number;
+,`n  fantasyValue: number
+,`n  confidenceScore: number}>;
 
         setEnhancedPredictions(matchedData);
         onEnhancedPredictions(matchedData);
@@ -164,11 +191,11 @@ export const FantasyPredictionEnhancer: React.FC<FantasyPredictionEnhancerProps 
                 <TableRow key={prediction.playerId} key={699693}>
                   <TableCell key={942983}>{prediction.playerName}</TableCell>
                   <TableCell align="right" key={741903}>
-                    {prediction.predictedWinProbability.toFixed(1)}%
+                    {prediction.safeNumber(predictedWinProbability, 1)}%
                   </TableCell>
-                  <TableCell align="right" key={741903}>{prediction.predictedScore.toFixed(1)}</TableCell>
-                  <TableCell align="right" key={741903}>{prediction.fantasyValue.toFixed(2)}</TableCell>
-                  <TableCell align="right" key={741903}>{prediction.confidenceScore.toFixed(1)}%</TableCell>
+                  <TableCell align="right" key={741903}>{prediction.safeNumber(predictedScore, 1)}</TableCell>
+                  <TableCell align="right" key={741903}>{prediction.safeNumber(fantasyValue, 2)}</TableCell>
+                  <TableCell align="right" key={741903}>{prediction.safeNumber(confidenceScore, 1)}%</TableCell>
                 </TableRow>
               ))}
             </TableBody>

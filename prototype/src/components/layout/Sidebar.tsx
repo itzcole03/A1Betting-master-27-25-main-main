@@ -1,5 +1,5 @@
-import React from 'react';
-import { Brain, Target, BarChart3, Zap, Wifi, WifiOff } from 'lucide-react';
+import { BarChart3, Brain, Target, Wifi, WifiOff, Zap } from 'lucide-react';
+import { safeNumber } from '../../../../frontend/src/utils/UniversalUtils';
 import { useApp } from '../../contexts/AppContext';
 
 interface SidebarProps {
@@ -86,7 +86,7 @@ export function Sidebar({ currentSection, onSectionChange, connectedSources, dat
             <div className="flex justify-between">
               <span className="text-gray-300">Data Quality:</span>
               <span className={dataQuality > 0.7 ? 'text-green-400' : dataQuality > 0.4 ? 'text-yellow-400' : 'text-red-400'}>
-                {(dataQuality * 100).toFixed(1)}%
+                {safeNumber(dataQuality * 100).toFixed(1)}%
               </span>
             </div>
             <div className="flex justify-between">
@@ -107,11 +107,11 @@ export function Sidebar({ currentSection, onSectionChange, connectedSources, dat
           <div className="space-y-2 text-xs">
             <div className="flex justify-between">
               <span className="text-gray-300">Real Data Boost:</span>
-              <span className="text-green-400">+{(dataQuality * 15).toFixed(1)}%</span>
+              <span className="text-green-400">+{safeNumber(dataQuality * 15).toFixed(1)}%</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-300">Prediction Accuracy:</span>
-              <span className="text-blue-400">{(85 + dataQuality * 10).toFixed(1)}%</span>
+              <span className="text-blue-400">{safeNumber(85 + dataQuality * 10).toFixed(1)}%</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-300">Model Confidence:</span>

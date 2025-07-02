@@ -6,28 +6,65 @@
 import { api} from './api';
 
 export interface RealSportsData {
-  games: RealGame[0],`n  playerProps: RealPlayerProp[0];,`n  teams: RealTeam[0],`n  players: RealPlayer[0]}
+  games: RealGame[0]
+,`n  playerProps: RealPlayerProp[0];
+,`n  teams: RealTeam[0]
+,`n  players: RealPlayer[0]}
 
 export interface RealGame {
-  id: string,`n  homeTeam: string;,`n  awayTeam: string,`n  sport: string;,`n  startTime: string,`n  status: "upcoming" | "live" | "completed";
+  id: string
+,`n  homeTeam: string;
+,`n  awayTeam: string
+,`n  sport: string;
+,`n  startTime: string
+,`n  status: "upcoming" | "live" | "completed";
   score?: {
-    home: number,`n  away: number};
+    home: number
+,`n  away: number};
   quarter?: string
   timeRemaining?: string}
 
 export interface RealPlayerProp {
-  id: string,`n  playerId: string;,`n  playerName: string,`n  team: string;,`n  opponent: string,`n  sport: string;,`n  gameId: string,`n  stat: string;,`n  line: number,`n  overOdds: number;,`n  underOdds: number,`n  confidence: number;,`n  recommendation: "over" | "under",`n  reasoning: string;,`n  expectedValue: number,`n  trend: "up" | "down" | "stable";,`n  volume: number,`n  pickType: "normal" | "demon" | "goblin"}
+  id: string
+,`n  playerId: string;
+,`n  playerName: string
+,`n  team: string;
+,`n  opponent: string
+,`n  sport: string;
+,`n  gameId: string
+,`n  stat: string;
+,`n  line: number
+,`n  overOdds: number;
+,`n  underOdds: number
+,`n  confidence: number;
+,`n  recommendation: "over" | "under"
+,`n  reasoning: string;
+,`n  expectedValue: number
+,`n  trend: "up" | "down" | "stable";
+,`n  volume: number
+,`n  pickType: "normal" | "demon" | "goblin"}
 
 export interface RealTeam {
-  id: string,`n  name: string;,`n  abbreviation: string,`n  sport: string;
+  id: string
+,`n  name: string;
+,`n  abbreviation: string
+,`n  sport: string;
   conference?: string
   division?: string
-  record: {,`n  wins: number;,`n  losses: number};
+  record: {
+,`n  wins: number;
+,`n  losses: number};
   stats: Record<string, number>}
 
 export interface RealPlayer {
-  id: string,`n  name: string;,`n  team: string,`n  position: string;,`n  sport: string,`n  seasonStats: Record<string, number>;
-  recentForm: number[0],`n  trends: Record<string, any>}
+  id: string
+,`n  name: string;
+,`n  team: string
+,`n  position: string;
+,`n  sport: string
+,`n  seasonStats: Record<string, number>;
+  recentForm: number[0]
+,`n  trends: Record<string, any>}
 
 class RealDataManager {
   private cache = new Map<
@@ -157,7 +194,8 @@ class RealDataManager {
                   name: teamName,
                   abbreviation: this.getTeamAbbreviation(teamName),
                   sport: game.sport,
-                  record: {,`n  wins: Math.floor(Math.random() * 40) + 20,
+                  record: {
+,`n  wins: Math.floor(Math.random() * 40) + 20,
                     losses: Math.floor(Math.random() * 30) + 10
                   },
                   stats: this.generateTeamStats(game.sport)
@@ -247,17 +285,20 @@ class RealDataManager {
 
   private generateTeamStats(sport: string): Record<string, number> {
     const baseStats: Record<string, Record<string, number>> = {
-      basketball: {,`n  points_per_game: Math.random() * 40 + 100,
+      basketball: {
+,`n  points_per_game: Math.random() * 40 + 100,
         rebounds_per_game: Math.random() * 10 + 40,
         assists_per_game: Math.random() * 5 + 20,
         field_goal_percentage: Math.random() * 0.2 + 0.4
       },
-      football: {,`n  points_per_game: Math.random() * 15 + 20,
+      football: {
+,`n  points_per_game: Math.random() * 15 + 20,
         yards_per_game: Math.random() * 100 + 300,
         turnovers_per_game: Math.random() * 2 + 1,
         time_of_possession: Math.random() * 5 + 27.5
       },
-      baseball: {,`n  runs_per_game: Math.random() * 3 + 4,
+      baseball: {
+,`n  runs_per_game: Math.random() * 3 + 4,
         batting_average: Math.random() * 0.1 + 0.2,
         era: Math.random() * 2 + 3,
         home_runs_per_game: Math.random() * 1 + 1
@@ -282,7 +323,8 @@ class RealDataManager {
           sport: prop.sport,
           seasonStats: this.generatePlayerStats(prop.sport),
           recentForm: Array.from({ length: 10}, () => Math.random() * 40 + 10),
-          trends: {,`n  form: "good",
+          trends: {
+,`n  form: "good",
             health: "healthy",
             matchup: "favorable"
           }
@@ -302,18 +344,21 @@ class RealDataManager {
 
   private generatePlayerStats(sport: string): Record<string, number> {
     const baseStats: Record<string, Record<string, number>> = {
-      basketball: {,`n  points: Math.random() * 15 + 10,
+      basketball: {
+,`n  points: Math.random() * 15 + 10,
         rebounds: Math.random() * 8 + 3,
         assists: Math.random() * 6 + 2,
         steals: Math.random() * 2 + 0.5,
         blocks: Math.random() * 2 + 0.3
       },
-      football: {,`n  passing_yards: Math.random() * 200 + 100,
+      football: {
+,`n  passing_yards: Math.random() * 200 + 100,
         rushing_yards: Math.random() * 80 + 20,
         touchdowns: Math.random() * 2 + 1,
         receptions: Math.random() * 5 + 3
       },
-      baseball: {,`n  batting_average: Math.random() * 0.15 + 0.25,
+      baseball: {
+,`n  batting_average: Math.random() * 0.15 + 0.25,
         home_runs: Math.random() * 20 + 10,
         rbis: Math.random() * 40 + 30,
         era: Math.random() * 2 + 2.5

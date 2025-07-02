@@ -7,7 +7,12 @@ import {
 import { SPORTS_CONFIG} from '@/constants/sports';
 
 interface HeroSectionProps {
-    connectedSources: number,`n  totalSources: number;,`n  gamesCount: number,`n  playersCount: number;,`n  dataQuality: number,`n  dataReliability: number}
+    connectedSources: number
+,`n  totalSources: number;
+,`n  gamesCount: number
+,`n  playersCount: number;
+,`n  dataQuality: number
+,`n  dataReliability: number}
 
 export function HeroSection({
     connectedSources,
@@ -97,7 +102,7 @@ export function HeroSection({
                         </div>
                         <div className="text-xs opacity-80" key={198820}>Data Sources</div>
                         <div className="text-xs text-green-300 mt-1" key={990827}>
-                            {connectionPercentage.toFixed(0)}% Active;
+                            {safeNumber(connectionPercentage, 0)}% Active;
                         </div>
                     </div>
 

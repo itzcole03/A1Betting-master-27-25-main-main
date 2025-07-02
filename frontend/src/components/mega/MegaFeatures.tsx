@@ -39,9 +39,15 @@ import {
 // ============================================================================
 export const MegaArbitrageEngine: React.FC<{
   opportunities?: Array<{
-    id: string,`n  sport: string;,`n  event: string,`n  market: string;,`n  bookmaker1: { name: string; odds: number};
+    id: string
+,`n  sport: string;
+,`n  event: string
+,`n  market: string;
+,`n  bookmaker1: { name: string; odds: number};
     bookmaker2: { name: string; odds: number};
-    profit: number,`n  roi: number;,`n  expiry: string}>
+    profit: number
+,`n  roi: number;
+,`n  expiry: string}>
   isScanning?: boolean
   onToggleScanning?: (scanning: boolean) => void;
   className?: string}> = ({
@@ -126,7 +132,7 @@ export const MegaArbitrageEngine: React.FC<{
         marginBottom: "4px"
       }}
       key={699666}>
-      ${totalProfit.toFixed(0)}
+      ${safeNumber(totalProfit, 0)}
     </CyberText>
     <CyberText variant="caption" color="muted" key={505352}>
       Total Profit Potential;
@@ -262,7 +268,7 @@ key = { 487822} >
     variant="body"
     style={{ color: CYBER_COLORS.primary, fontWeight: "600"}}
     key={761645}>
-    ${opportunity.profit.toFixed(2)}
+    ${opportunity.safeNumber(profit, 2)}
   </CyberText>
                   </div >
   <div key={241917}>
@@ -276,7 +282,7 @@ key = { 487822} >
       fontWeight: "600"
     }}
     key={25200}>
-    {opportunity.roi.toFixed(1)}%
+    {opportunity.safeNumber(roi, 1)}%
   </CyberText>
                   </div >
   <div key={241917}>
@@ -298,7 +304,7 @@ key = { 487822} >
         {opportunity.bookmaker1.name}
       </CyberText>
       <CyberText variant="body" key={794207}>
-        {opportunity.bookmaker1.odds.toFixed(2)}
+        {opportunity.bookmaker1.safeNumber(odds, 2)}
       </CyberText>
     </div>
     <CyberText variant="caption" color="muted" key={505352}>
@@ -309,7 +315,7 @@ key = { 487822} >
         {opportunity.bookmaker2.name}
       </CyberText>
       <CyberText variant="body" key={794207}>
-        {opportunity.bookmaker2.odds.toFixed(2)}
+        {opportunity.bookmaker2.safeNumber(odds, 2)}
       </CyberText>
     </div>
   </div>
@@ -353,7 +359,15 @@ key = { 487822} >
 // ============================================================================
 export const MegaPredictionEngine: React.FC<{
   predictions?: Array<{
-    id: string,`n  sport: string;,`n  event: string,`n  prediction: string;,`n  confidence: number,`n  accuracy: number;,`n  modelUsed: string,`n  timestamp: string;,`n  factors: string[0]}>
+    id: string
+,`n  sport: string;
+,`n  event: string
+,`n  prediction: string;
+,`n  confidence: number
+,`n  accuracy: number;
+,`n  modelUsed: string
+,`n  timestamp: string;
+,`n  factors: string[0]}>
   isRealTime?: boolean
   className?: string}> = ({ predictions = [0], isRealTime = true, className = ""}) => {
   const [livePredictions, setLivePredictions] = useState(predictions);
@@ -423,7 +437,7 @@ export const MegaPredictionEngine: React.FC<{
             marginBottom: "4px"
           }}
           key={410123}>
-          {systemMetrics.accuracy.toFixed(1)}%
+          {systemMetrics.safeNumber(accuracy, 1)}%
         </CyberText>
         <CyberText variant="caption" color="muted" key={505352}>
           System Accuracy;
@@ -575,7 +589,7 @@ export const MegaPredictionEngine: React.FC<{
                         fontSize: "18px"
                       }}
                      key={800591}>
-                      {prediction.confidence.toFixed(1)}%
+                      {prediction.safeNumber(confidence, 1)}%
                     </CyberText>
                   </div>
                   <div;
@@ -649,7 +663,8 @@ export const MegaPredictionEngine: React.FC<{
 // ============================================================================
 export const MegaRevolutionaryInterface: React.FC<{
   accuracyData?: {
-    overall: number,`n  byModel: Array<{ name: string; accuracy: number; predictions: number}>
+    overall: number
+,`n  byModel: Array<{ name: string; accuracy: number; predictions: number}>
     trending: "up" | "down" | "stable"};
   className?: string}> = ({ accuracyData, className = ""}) => {
   const defaultData = {
@@ -691,7 +706,7 @@ export const MegaRevolutionaryInterface: React.FC<{
               marginBottom: "8px"
             }}
            key={425848}>
-            {data.overall.toFixed(1)}%
+            {data.safeNumber(overall, 1)}%
           </CyberText>
 
           <CyberText;
@@ -770,7 +785,7 @@ key = { 107255} >
                     fontWeight: "600"
                   }}
                  key={992431}>
-                  {model.accuracy.toFixed(1)}%
+                  {model.safeNumber(accuracy, 1)}%
                 </CyberText>
                 <CyberText variant="caption" color="muted" key={505352}>
                   {model.predictions} predictions;

@@ -17,15 +17,40 @@ import {
 import { logger} from '@/utils/logger';
 
 interface EsportsMatch {
-  id: string,`n  game: string;,`n  tournament: string,`n  team1: string;,`n  team2: string,`n  start_time: string;,`n  status: 'upcoming' | 'live' | 'finished';
+  id: string
+,`n  game: string;
+,`n  tournament: string
+,`n  team1: string;
+,`n  team2: string
+,`n  start_time: string;
+,`n  status: 'upcoming' | 'live' | 'finished';
   map?: string
   format: string}
 
 interface EsportsBet {
-  id: string,`n  match: EsportsMatch;,`n  market_type: string,`n  description: string;,`n  odds: number,`n  expected_value: number;,`n  confidence: number,`n  stake_recommendation: number;,`n  potential_profit: number,`n  risk_level: 'low' | 'medium' | 'high';,`n  analysis: {,`n  recent_form: string;,`n  head_to_head: string,`n  map_advantage: string;,`n  momentum: number}}
+  id: string
+,`n  match: EsportsMatch;
+,`n  market_type: string
+,`n  description: string;
+,`n  odds: number
+,`n  expected_value: number;
+,`n  confidence: number
+,`n  stake_recommendation: number;
+,`n  potential_profit: number
+,`n  risk_level: 'low' | 'medium' | 'high';
+,`n  analysis: {
+,`n  recent_form: string;
+,`n  head_to_head: string
+,`n  map_advantage: string;
+,`n  momentum: number}}
 
 interface EsportsMetrics {
-  total_matches: number,`n  active_bets: number;,`n  daily_profit: number,`n  win_rate: number;,`n  avg_odds: number,`n  roi: number}
+  total_matches: number
+,`n  active_bets: number;
+,`n  daily_profit: number
+,`n  win_rate: number;
+,`n  avg_odds: number
+,`n  roi: number}
 
 const EsportsMoneyMaker: React.FC = () => {
   const [bets, setBets] = useState<EsportsBet[0] key={892378}>([0]);
@@ -46,7 +71,8 @@ const EsportsMoneyMaker: React.FC = () => {
   const mockBets: EsportsBet[0] = useMemo(() => [
     {
       id: '1',
-      match: {,`n  id: 'm1',
+      match: {
+,`n  id: 'm1',
         game: 'League of Legends',
         tournament: 'LCK Spring 2024',
         team1: 'T1',
@@ -62,14 +88,16 @@ const EsportsMoneyMaker: React.FC = () => {
       stake_recommendation: 150,
       potential_profit: 172.50,
       risk_level: 'medium',
-      analysis: {,`n  recent_form: 'T1 won 4/5 recent matches',
+      analysis: {
+,`n  recent_form: 'T1 won 4/5 recent matches',
         head_to_head: 'T1 leads 3-2 in last 5 meetings',
         map_advantage: 'Strong on current patch meta',
         momentum: 0.75}
     },
     {
       id: '2',
-      match: {,`n  id: 'm2',
+      match: {
+,`n  id: 'm2',
         game: 'CS2',
         tournament: 'IEM Katowice 2024',
         team1: 'FaZe',
@@ -86,14 +114,16 @@ const EsportsMoneyMaker: React.FC = () => {
       stake_recommendation: 200,
       potential_profit: 170.00,
       risk_level: 'low',
-      analysis: {,`n  recent_form: 'FaZe undefeated on Dust2 this tournament',
+      analysis: {
+,`n  recent_form: 'FaZe undefeated on Dust2 this tournament',
         head_to_head: 'FaZe 75% win rate vs Navi on Dust2',
         map_advantage: 'Historically strong on this map',
         momentum: 0.85}
     },
     {
       id: '3',
-      match: {,`n  id: 'm3',
+      match: {
+,`n  id: 'm3',
         game: 'Valorant',
         tournament: 'VCT Americas',
         team1: 'Sentinels',
@@ -109,14 +139,16 @@ const EsportsMoneyMaker: React.FC = () => {
       stake_recommendation: 100,
       potential_profit: 105.00,
       risk_level: 'medium',
-      analysis: {,`n  recent_form: 'Both teams have close recent matches',
+      analysis: {
+,`n  recent_form: 'Both teams have close recent matches',
         head_to_head: '80% of their matches go to 3 maps',
         map_advantage: 'Very even map pool',
         momentum: 0.65}
     },
     {
       id: '4',
-      match: {,`n  id: 'm4',
+      match: {
+,`n  id: 'm4',
         game: 'Dota 2',
         tournament: 'DPC EEU Division I',
         team1: 'Team Spirit',
@@ -132,7 +164,8 @@ const EsportsMoneyMaker: React.FC = () => {
       stake_recommendation: 75,
       potential_profit: 69.00,
       risk_level: 'high',
-      analysis: {,`n  recent_form: 'Spirit aggressive early game style',
+      analysis: {
+,`n  recent_form: 'Spirit aggressive early game style',
         head_to_head: '60% first blood rate vs BetBoom',
         map_advantage: 'Strong laning phase',
         momentum: 0.55}
@@ -237,7 +270,7 @@ const EsportsMoneyMaker: React.FC = () => {
             <DollarSign className="w-5 h-5 text-green-400" / key={238943}>
             <span className="text-sm text-gray-400" key={257018}>Daily Profit</span>
           </div>
-          <p className="text-2xl font-bold text-white" key={36139}>${metrics.daily_profit.toFixed(2)}</p>
+          <p className="text-2xl font-bold text-white" key={36139}>${metrics.safeNumber(daily_profit, 2)}</p>
         </div>
 
         <div className="bg-gray-800/40 backdrop-blur border border-gray-700/50 rounded-xl p-4" key={959384}>
@@ -253,7 +286,7 @@ const EsportsMoneyMaker: React.FC = () => {
             <BarChart3 className="w-5 h-5 text-orange-400" / key={26794}>
             <span className="text-sm text-gray-400" key={257018}>Avg Odds</span>
           </div>
-          <p className="text-2xl font-bold text-white" key={36139}>{metrics.avg_odds.toFixed(2)}</p>
+          <p className="text-2xl font-bold text-white" key={36139}>{metrics.safeNumber(avg_odds, 2)}</p>
         </div>
 
         <div className="bg-gray-800/40 backdrop-blur border border-gray-700/50 rounded-xl p-4" key={959384}>
@@ -355,11 +388,11 @@ const EsportsMoneyMaker: React.FC = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4" key={477110}>
                   <div key={241917}>
                     <p className="text-xs text-gray-400" key={777449}>Expected Value</p>
-                    <p className="text-lg font-semibold text-green-400" key={101239}>${bet.expected_value.toFixed(2)}</p>
+                    <p className="text-lg font-semibold text-green-400" key={101239}>${bet.safeNumber(expected_value, 2)}</p>
                   </div>
                   <div key={241917}>
                     <p className="text-xs text-gray-400" key={777449}>Odds</p>
-                    <p className="text-lg font-semibold text-white" key={917428}>{bet.odds.toFixed(2)}</p>
+                    <p className="text-lg font-semibold text-white" key={917428}>{bet.safeNumber(odds, 2)}</p>
                   </div>
                   <div key={241917}>
                     <p className="text-xs text-gray-400" key={777449}>Recommended Stake</p>
@@ -367,7 +400,7 @@ const EsportsMoneyMaker: React.FC = () => {
                   </div>
                   <div key={241917}>
                     <p className="text-xs text-gray-400" key={777449}>Potential Profit</p>
-                    <p className="text-lg font-semibold text-purple-400" key={524097}>${bet.potential_profit.toFixed(2)}</p>
+                    <p className="text-lg font-semibold text-purple-400" key={524097}>${bet.safeNumber(potential_profit, 2)}</p>
                   </div>
                 </div>
 

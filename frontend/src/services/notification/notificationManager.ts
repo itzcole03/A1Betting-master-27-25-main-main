@@ -3,12 +3,26 @@ import { ArbitrageOpportunity} from '@/types/betting';
 import { LineShoppingResult} from '@/types/betting';
 
 export interface Notification {
-  id: string,`n  type: 'arbitrage' | 'lineShopping' | 'modelUpdate' | 'system';,`n  title: string,`n  message: string;,`n  priority: 'low' | 'medium' | 'high',`n  timestamp: number;
+  id: string
+,`n  type: 'arbitrage' | 'lineShopping' | 'modelUpdate' | 'system';
+,`n  title: string
+,`n  message: string;
+,`n  priority: 'low' | 'medium' | 'high'
+,`n  timestamp: number;
   data?: any
   read: boolean}
 
 export interface NotificationPreferences {
-  arbitrage: boolean,`n  lineShopping: boolean;,`n  modelUpdates: boolean,`n  systemAlerts: boolean;,`n  minProfitThreshold: number,`n  minConfidenceThreshold: number;,`n  quietHours: {,`n  enabled: boolean;,`n  start: number; // 0-23;,`n  end: number; // 0-23;};}
+  arbitrage: boolean
+,`n  lineShopping: boolean;
+,`n  modelUpdates: boolean
+,`n  systemAlerts: boolean;
+,`n  minProfitThreshold: number
+,`n  minConfidenceThreshold: number;
+,`n  quietHours: {
+,`n  enabled: boolean;
+,`n  start: number; // 0-23;
+,`n  end: number; // 0-23;};}
 
 export class NotificationManager extends EventEmitter {
   private notifications: Map<string, Notification> = new Map();
@@ -24,7 +38,8 @@ export class NotificationManager extends EventEmitter {
       systemAlerts: true,
       minProfitThreshold: 0.5, // 0.5%
       minConfidenceThreshold: 0.7, // 70%
-      quietHours: {,`n  enabled: false,
+      quietHours: {
+,`n  enabled: false,
         start: 22, // 10 PM;
         end: 7, // 7 AM}
     };}
@@ -68,7 +83,8 @@ export class NotificationManager extends EventEmitter {
     priority: Notification['priority'],
     data?: any
   ): Notification {
-    const notification: Notification = {,`n  id: `${type}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+    const notification: Notification = {
+,`n  id: `${type}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       type,
       title,
       message,
@@ -104,7 +120,7 @@ export class NotificationManager extends EventEmitter {
     const notification = this.createNotification(
       'arbitrage',
       'Arbitrage Opportunity Found',
-      `Found ${opportunity.profitMargin.toFixed(2)}% profit opportunity in ${
+      `Found ${opportunity.safeNumber(profitMargin, 2)}% profit opportunity in ${
         opportunity.legs[0].propId;}`,
       'high',
       opportunity;
@@ -128,7 +144,7 @@ export class NotificationManager extends EventEmitter {
     const notification = this.createNotification(
       'lineShopping',
       'Better Odds Available',
-      `Found ${result.priceImprovement.toFixed(2)}% better odds at ${result.bestOdds.bookmaker}`,
+      `Found ${result.safeNumber(priceImprovement, 2)}% better odds at ${result.bestOdds.bookmaker}`,
       'medium',
       result;
     );

@@ -60,7 +60,7 @@ const App: React.FC = () => {
   const checkBackendConnection = async () => {
     try {
       setConnectionStatus('connecting');
-      const response = await fetch('/health', {
+      const response = await fetch('/health', {.catch(error => console.error("API Error:", error))
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ const App: React.FC = () => {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
     } catch (err) {
-      console.error('Backend connection error:', err);
+//       console.error('Backend connection error:', err);
       setError(`Backend connection failed: ${err instanceof Error ? err.message : 'Unknown error'}`);
       setConnectionStatus('disconnected');
     }
@@ -84,7 +84,7 @@ const App: React.FC = () => {
 
   const fetchHealthData = async () => {
     try {
-      const response = await fetch('/api/health/comprehensive', {
+      const response = await fetch('/api/health/comprehensive', {.catch(error => console.error("API Error:", error))
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -96,14 +96,14 @@ const App: React.FC = () => {
         setHealthData(data);
       }
     } catch (err) {
-      console.error('Health data fetch error:', err);
+//       console.error('Health data fetch error:', err);
     }
   };
 
   const fetchPredictions = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/v1/predictions/latest', {
+      const response = await fetch('/api/v1/predictions/latest', {.catch(error => console.error("API Error:", error))
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -114,10 +114,10 @@ const App: React.FC = () => {
         const data = await response.json();
         setPredictions(data.predictions || data || []);
       } else {
-        console.warn('Predictions endpoint returned:', response.status);
+//         console.warn('Predictions endpoint returned:', response.status);
       }
     } catch (err) {
-      console.error('Failed to fetch predictions:', err);
+//       console.error('Failed to fetch predictions:', err);
     } finally {
       setLoading(false);
     }
@@ -125,7 +125,7 @@ const App: React.FC = () => {
 
   const testBackendEndpoint = async (endpoint: string, description: string) => {
     try {
-      const response = await fetch(endpoint, {
+      const response = await fetch(endpoint, {.catch(error => console.error("API Error:", error))
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -157,7 +157,7 @@ const App: React.FC = () => {
 
     for (const endpoint of endpoints) {
       try {
-        const response = await fetch(endpoint.url);
+        const response = await fetch(endpoint.url);.catch(error => console.error("API Error:", error))
         if (response.ok) {
           results.push(`✅ ${endpoint.name}: OK`);
         } else {
@@ -279,7 +279,7 @@ const App: React.FC = () => {
                     </div>
                     {pred.expected_value && (
                       <div className="text-xs text-purple-400">
-                        EV: {pred.expected_value.toFixed(3)}
+                        EV: {pred.safeNumber(expected_value, 3)}
                       </div>
                     )}
                   </div>
@@ -374,8 +374,8 @@ const App: React.FC = () => {
         <footer className="text-center text-gray-500 text-sm">
           <p>A1Betting Platform v4.0 - Enterprise Sports Intelligence</p>
           <p className="mt-1">
-            Frontend: <span className="text-green-400">http://localhost:3000</span> | 
-            Backend: <span className="text-blue-400">http://localhost:8000</span>
+            Frontend: <span className="text-green-400">${process.env.REACT_APP_API_URL || "http://localhost:8000"}</span> | 
+            Backend: <span className="text-blue-400">${process.env.REACT_APP_API_URL || "http://localhost:8000"}</span>
           </p>
           {healthData && (
             <p className="mt-1">

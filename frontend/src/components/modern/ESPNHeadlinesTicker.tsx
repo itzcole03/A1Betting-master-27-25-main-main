@@ -3,7 +3,8 @@ import { useApiRequest} from '@/hooks/useApiRequest';
 import { useWebSocket} from '@/hooks/useWebSocket';
 
 interface Headline {
-  headline: string,`n  timestamp: number;
+  headline: string
+,`n  timestamp: number;
   link?: string
   relatedPlayers: { id: string; name: string}[0];
   sentiment: {

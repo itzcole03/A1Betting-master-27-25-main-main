@@ -8,24 +8,60 @@ import { prizePicksProjectionsService} from './PrizePicksProjectionsService';
 
 // DraftKings unofficial endpoints;
 interface DraftKingsContest {
-  id: string,`n  name: string;,`n  sport_id: string,`n  entry_fee: number;,`n  total_payouts: number,`n  max_entries: number;,`n  starts_at: string,`n  salary_cap: number;,`n  draft_group_id: string}
+  id: string
+,`n  name: string;
+,`n  sport_id: string
+,`n  entry_fee: number;
+,`n  total_payouts: number
+,`n  max_entries: number;
+,`n  starts_at: string
+,`n  salary_cap: number;
+,`n  draft_group_id: string}
 
 interface DraftKingsPlayer {
-  id: string,`n  name: string;,`n  position: string,`n  team_abbreviation: string;,`n  salary: number,`n  projected_fantasy_points: number;,`n  average_fantasy_points: number;
+  id: string
+,`n  name: string;
+,`n  position: string
+,`n  team_abbreviation: string;
+,`n  salary: number
+,`n  projected_fantasy_points: number;
+,`n  average_fantasy_points: number;
   injury_status?: string
   game_info?: {
-    game_date: string,`n  opponent: string;,`n  home_away: string}}
+    game_date: string
+,`n  opponent: string;
+,`n  home_away: string}}
 
 // SportsDataIO integration;
 interface SportsDataIOProjection {
-  PlayerID: number,`n  Name: string;,`n  Position: string,`n  Team: string;,`n  FantasyPoints: number,`n  FantasyPointsDraftKings: number;,`n  FantasyPointsFanDuel: number,`n  Salary: number;,`n  SalaryDraftKings: number,`n  SalaryFanDuel: number;,`n  OpponentRank: number,`n  IsInjured: boolean;,`n  InjuryStatus: string}
+  PlayerID: number
+,`n  Name: string;
+,`n  Position: string
+,`n  Team: string;
+,`n  FantasyPoints: number
+,`n  FantasyPointsDraftKings: number;
+,`n  FantasyPointsFanDuel: number
+,`n  Salary: number;
+,`n  SalaryDraftKings: number
+,`n  SalaryFanDuel: number;
+,`n  OpponentRank: number
+,`n  IsInjured: boolean;
+,`n  InjuryStatus: string}
 
 // FairPlay API integration;
 interface FairPlayLineup {
-  players: Array<{,`n  id: string;,`n  name: string,`n  position: string;,`n  salary: number,`n  projectedPoints: number}>;
-  totalSalary: number,`n  projectedPoints: number;,`n  optimization_score: number;
+  players: Array<{
+,`n  id: string;
+,`n  name: string
+,`n  position: string;
+,`n  salary: number
+,`n  projectedPoints: number}>;
+  totalSalary: number
+,`n  projectedPoints: number;
+,`n  optimization_score: number;
   stack_info?: {
-    primary_stack: string,`n  correlation_bonus: number}}
+    primary_stack: string
+,`n  correlation_bonus: number}}
 
 export class EnhancedDailyFantasyService {
   private readonly baseUrl: string;
@@ -44,7 +80,7 @@ export class EnhancedDailyFantasyService {
     this.baseUrl =
       import.meta.env.VITE_BACKEND_URL ||
       import.meta.env.VITE_API_URL ||
-      "http://localhost:8000";
+      "${process.env.REACT_APP_API_URL || "http://localhost:8000"}";
     this.sportsDataIOKey = import.meta.env.VITE_SPORTSDATA_API_KEY || "";
     this.fairPlayKey = import.meta.env.VITE_FAIRPLAY_API_KEY || "";
     this.cache = new Map();
@@ -86,7 +122,7 @@ export class EnhancedDailyFantasyService {
       : `${this.baseUrl}${endpoint}`;
 
     try {
-      const response = await fetch(url, {
+      const response = await fetch(url, {.catch(error => console.error("API Error:", error))
         headers: {
           "Content-Type": "application/json",
           "User-Agent": "A1Betting-Platform/1.0"
@@ -172,7 +208,8 @@ export class EnhancedDailyFantasyService {
           projected_fantasy_points: 58.2,
           average_fantasy_points: 56.8,
           injury_status: "GTD",
-          game_info: {,`n  game_date: new Date().toISOString(),
+          game_info: {
+,`n  game_date: new Date().toISOString(),
             opponent: "GSW",
             home_away: "HOME"
           }
@@ -185,7 +222,8 @@ export class EnhancedDailyFantasyService {
           salary: 10800,
           projected_fantasy_points: 54.7,
           average_fantasy_points: 52.3,
-          game_info: {,`n  game_date: new Date().toISOString(),
+          game_info: {
+,`n  game_date: new Date().toISOString(),
             opponent: "LAL",
             home_away: "AWAY"
           }
@@ -241,14 +279,17 @@ export class EnhancedDailyFantasyService {
 
       return await this.makeRequest<FairPlayLineup>(endpoint, {
         method: "POST",
-        headers: {,`n  Authorization: `Bearer ${this.fairPlayKey}`,
+        headers: {
+,`n  Authorization: `Bearer ${this.fairPlayKey}`,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({,`n  sport: sport.toLowerCase(),
+        body: JSON.stringify({
+,`n  sport: sport.toLowerCase(),
           site,
           strategy,
           salary_cap,
-          settings: {,`n  include_stacks: strategy === "gpp",
+          settings: {
+,`n  include_stacks: strategy === "gpp",
             max_exposure: strategy === "cash" ? 0.3 : 0.15,
             min_salary_pct: 0.98
           }
@@ -277,7 +318,8 @@ export class EnhancedDailyFantasyService {
         totalSalary: 49800,
         projectedPoints: 298.5,
         optimization_score: 0.95,
-        stack_info: {,`n  primary_stack: "LAL",
+        stack_info: {
+,`n  primary_stack: "LAL",
           correlation_bonus: 2.3
         }
       }}
@@ -319,7 +361,8 @@ export class EnhancedDailyFantasyService {
             : [0],
         optimalLineup,
         lastUpdated: new Date().toISOString(),
-        sources: {,`n  contests: contests.status === "fulfilled" ? "DraftKings" : "Mock",
+        sources: {
+,`n  contests: contests.status === "fulfilled" ? "DraftKings" : "Mock",
           projections:
             sportsDataProjections.status === "fulfilled"
               ? "SportsDataIO"
@@ -340,7 +383,10 @@ export class EnhancedDailyFantasyService {
    */
   async getPlayerOwnership(contestId: string): Promise<
     Array<{
-      playerId: string,`n  name: string;,`n  ownership: number,`n  projected_ownership: number}>
+      playerId: string
+,`n  name: string;
+,`n  ownership: number
+,`n  projected_ownership: number}>
   > {
     // This would integrate with services that track ownership;
     // For now, return estimated ownership based on salary/projection ratio;
@@ -364,7 +410,8 @@ export class EnhancedDailyFantasyService {
    * Health check for all DFS services;
    */
   async healthCheck(): Promise<{
-    overall: string,`n  services: Record<string, { status: string; message?: string}>;}> {
+    overall: string
+,`n  services: Record<string, { status: string; message?: string}>;}> {
     const results = {
       backend: { status: "unknown", message: ""},
       sportsDataIO: { status: "unknown", message: ""},

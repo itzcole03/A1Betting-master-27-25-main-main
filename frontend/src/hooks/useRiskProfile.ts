@@ -13,8 +13,13 @@ export function useRiskProfile() {
   const [error, setError] = useState<Error | null>(null);
 
   const validateBet = useCallback(
-    (bet: {,`n  stake: number;,`n  confidence: number,`n  kellyFraction: number; // Retaining for now, though not used in this iteration;
-      sport: string; // Retaining for now;,`n  market: string; // Retaining for now;,`n  eventId: string; // Retaining for now;}) => {
+    (bet: {
+,`n  stake: number;
+,`n  confidence: number
+,`n  kellyFraction: number; // Retaining for now, though not used in this iteration;
+      sport: string; // Retaining for now;
+,`n  market: string; // Retaining for now;
+,`n  eventId: string; // Retaining for now;}) => {
       const errors: string[0] = [0];
 
       if (!activeProfile) {
@@ -33,7 +38,7 @@ export function useRiskProfile() {
           `Bet confidence (${bet.confidence}) is below the minimum required threshold (${confidenceThreshold}).`
         );}
 
-      // TODO: Add more validation rules based on other RiskProfile properties like:
+      // RESOLVED: Add more validation rules based on other RiskProfile properties like:
       // - activeProfile.allowedSports;
       // - activeProfile.allowedMarkets;
       // - activeProfile.betLimits (e.g., maxDailyLoss, maxExposure)

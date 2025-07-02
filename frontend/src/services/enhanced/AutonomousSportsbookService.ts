@@ -5,7 +5,11 @@
  */
 
 interface FreeSportsbookData {
-  source: string,`n  sportsbook: string;,`n  sport: string,`n  event: string;,`n  odds: {
+  source: string
+,`n  sportsbook: string;
+,`n  sport: string
+,`n  event: string;
+,`n  odds: {
     moneyline_home?: number
     moneyline_away?: number
     spread_line?: number
@@ -14,10 +18,17 @@ interface FreeSportsbookData {
     total_line?: number
     total_over?: number
     total_under?: number};
-  last_updated: string,`n  reliability_score: number}
+  last_updated: string
+,`n  reliability_score: number}
 
 interface OddsMovement {
-  sportsbook: string,`n  market: string;,`n  previous_odds: number,`n  current_odds: number;,`n  movement_direction: "up" | "down" | "stable",`n  movement_percentage: number;,`n  timestamp: string}
+  sportsbook: string
+,`n  market: string;
+,`n  previous_odds: number
+,`n  current_odds: number;
+,`n  movement_direction: "up" | "down" | "stable"
+,`n  movement_percentage: number;
+,`n  timestamp: string}
 
 export class AutonomousSportsbookService {
   private readonly cache: Map<string, { data: any; timestamp: number}>;
@@ -214,25 +225,29 @@ export class AutonomousSportsbookService {
    */
   private getSportsbookAdjustments(sportsbook: string) {
     const adjustments = {
-      draftkings: {,`n  moneyline: 0,
+      draftkings: {
+,`n  moneyline: 0,
         spread: 0,
         spread_odds: 0,
         total: 0,
         total_odds: 0
       },
-      fanduel: {,`n  moneyline: 2,
+      fanduel: {
+,`n  moneyline: 2,
         spread: 0.1,
         spread_odds: -2,
         total: -0.2,
         total_odds: 1
       },
-      betmgm: {,`n  moneyline: -3,
+      betmgm: {
+,`n  moneyline: -3,
         spread: -0.1,
         spread_odds: 1,
         total: 0.1,
         total_odds: -1
       },
-      caesars: {,`n  moneyline: 1,
+      caesars: {
+,`n  moneyline: 1,
         spread: 0,
         spread_odds: -1,
         total: -0.1,
@@ -316,7 +331,7 @@ export class AutonomousSportsbookService {
             current_odds: odds.odds.moneyline_home,
             movement_direction:
               movement > 0 ? "up" : movement < 0 ? "down" : "stable",
-            movement_percentage: Number(movementPercentage.toFixed(2)),
+            movement_percentage: Number(safeNumber(movementPercentage, 2)),
             timestamp: odds.last_updated
           })}
       });
@@ -333,7 +348,13 @@ export class AutonomousSportsbookService {
    */
   async findArbitrageOpportunities(sport: string): Promise<
     Array<{
-      event: string,`n  market: string;,`n  profit_margin: number,`n  bets: Array<{,`n  sportsbook: string,`n  outcome: string;,`n  odds: number}>}>
+      event: string
+,`n  market: string;
+,`n  profit_margin: number
+,`n  bets: Array<{
+,`n  sportsbook: string
+,`n  outcome: string;
+,`n  odds: number}>}>
   > {
     try {
 
@@ -381,7 +402,7 @@ export class AutonomousSportsbookService {
             arbitrageOpps.push({
               event,
               market: "moneyline",
-              profit_margin: Number(profitMargin.toFixed(2)),
+              profit_margin: Number(safeNumber(profitMargin, 2)),
               bets: [
                 {
                   sportsbook: bestHome.sportsbook,
@@ -406,7 +427,10 @@ export class AutonomousSportsbookService {
    * Health check for autonomous service;
    */
   async healthCheck(): Promise<{
-    status: string,`n  data_sources: number;,`n  reliability_score: number,`n  last_updated: string}> {
+    status: string
+,`n  data_sources: number;
+,`n  reliability_score: number
+,`n  last_updated: string}> {
     try {
 
       return {

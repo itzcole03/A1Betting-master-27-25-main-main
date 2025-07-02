@@ -4,9 +4,11 @@
     ReactNode,
     useContext,
     useEffect,
-    useState} from 'react';
-import { productionApiService} from '../services/productionApiServiceNew'
-import PropOllama from './user-friendly/PropOllama'
+    useState
+} from 'react';
+import { productionApiService } from '../services/productionApiServiceNew';
+import { safeNumber } from '../utils/UniversalUtils';
+import PropOllama from './user-friendly/PropOllama';
 
 /**
  * A1Betting Quantum Platform - Exact Clone of poe-preview (8).html
@@ -21,19 +23,43 @@ import PropOllama from './user-friendly/PropOllama'
 // ============================================
 
 interface Opportunity {
-  id: number,`n  game: string;,`n  market: string,`n  pick: string;,`n  odds: number,`n  confidence: number;,`n  ev: number,`n  source: string;,`n  time: string}
+  id: number
+,`n  game: string;
+,`n  market: string
+,`n  pick: string;
+,`n  odds: number
+,`n  confidence: number;
+,`n  ev: number
+,`n  source: string;
+,`n  time: string}
 
 interface OpportunitiesData {
-  live: Opportunity[0],`n  upcoming: Opportunity[0];,`n  value: Opportunity[0],`n  arbitrage: Opportunity[0]}
+  live: Opportunity[0]
+,`n  upcoming: Opportunity[0];
+,`n  value: Opportunity[0]
+,`n  arbitrage: Opportunity[0]}
 
 // ============================================
 // CONTEXT & STATE MANAGEMENT
 // ============================================
 
 interface AppContextType {
-  currentPage: string,`n  setCurrentPage: (page: string) => void,`n  realTimeData: any;,`n  setRealTimeData: (data: any) => void,`n  user: any;,`n  sidebarCollapsed: boolean,`n  setSidebarCollapsed: (collapsed: boolean) => void,`n  notifications: any[0];,`n  setNotifications: (notifications: any[0]) => void,`n  theme: string;,`n  setTheme: (theme: string) => void,`n  loading: Record<string, boolean>;
+  currentPage: string
+,`n  setCurrentPage: (page: string) => void
+,`n  realTimeData: any;
+,`n  setRealTimeData: (data: any) => void
+,`n  user: any;
+,`n  sidebarCollapsed: boolean
+,`n  setSidebarCollapsed: (collapsed: boolean) => void
+,`n  notifications: any[0];
+,`n  setNotifications: (notifications: any[0]) => void
+,`n  theme: string;
+,`n  setTheme: (theme: string) => void
+,`n  loading: Record<string, boolean>;
   setLoading: (loading: Record<string, boolean>) => void;
-  predictionEngine: any,`n  marketData: any;,`n  setMarketData: (data: any) => void}
+  predictionEngine: any
+,`n  marketData: any;
+,`n  setMarketData: (data: any) => void}
 
 const AppContext = createContext<AppContextType>(Record<string, any> as AppContextType);
 
@@ -59,41 +85,6 @@ const AppContextProvider: FC<{ children: ReactNode}> = ({ children}) => {
     confidence: 0,
     marketAnalysis: 'Loading...'
   });
-
-  // Fetch real-time data from backend
-  useEffect(() => {
-    const fetchRealTimeData = async () => {
-      try {
-        const [healthResponse, analyticsResponse] = await Promise.all([
-          fetch('http://localhost:8000/api/health/all'),
-          fetch('http://localhost:8000/api/analytics/advanced')
-        ]);
-
-        const healthData = await healthResponse.json();
-        const analyticsData = await analyticsResponse.json();
-
-        setRealTimeData({
-          liveGames: healthData.models?.active_models || 0,
-          predictions: healthData.models?.predictions_today || 0,
-          accuracy: healthData.models?.model_accuracy || 0,
-          profit: Math.round((analyticsData.performance_analytics?.model_performance?.roi_trend?.slice(-1)[0] || 0) * 100000),
-          neuralActivity: healthData.performance?.cpu_usage || 0,
-          quantumCoherence: Math.round((healthData.api_metrics?.cache_hit_rate || 0) * 100 * 100) / 100,
-          dataPoints: analyticsData.machine_learning_insights?.data_points_processed || 0,
-          processingSpeed: healthData.api_metrics?.requests_per_minute || 0,
-          confidence: Math.round((analyticsData.machine_learning_insights?.model_confidence || 0) * 100 * 100) / 100,
-          activeBots: healthData.models?.active_models || 0,
-          winStreak: analyticsData.performance_analytics?.sport_breakdown?.NBA?.volume || 0,
-          marketAnalysis: analyticsData.market_analysis?.market_sentiment || 'Active'
-        })} catch (error) {
-        console.error('Failed to fetch real-time data: ', error)}
-    };
-
-    fetchRealTimeData();
-
-    // Refresh data every 30 seconds
-    const interval = setInterval(fetchRealTimeData, 30000);
-    return () => clearInterval(interval);}, [0]);
 
   // User data (will be connected to real auth)
   const [user] = useState({
@@ -154,8 +145,10 @@ const AppContextProvider: FC<{ children: ReactNode}> = ({ children}) => {
 //           0
         );
         const avgConfidence =
-          predictionsData.reduce((sum: number, pred: any) => sum + pred.confidenceScore, 0) /
-          predictionsData.length;
+          predictionsData.length > 0
+            ? predictionsData.reduce((sum: number, pred: any) => sum + pred.confidenceScore, 0) /
+              predictionsData.length
+            : 0;
         const accuracy = avgConfidence * 100;
 
         setRealTimeData({
@@ -182,14 +175,15 @@ const AppContextProvider: FC<{ children: ReactNode}> = ({ children}) => {
           sentiment: 'Bullish'
         }));
 
-        const hotGames = bettingData.slice(0, 3).map((bet: any) => ({,`n  game: bet.event,
-          odds: bet.odds.toFixed(2),
+        const hotGames = bettingData.slice(0, 3).map((bet: any) => ({
+,`n  game: bet.event,
+          odds: bet.safeNumber(odds, 2),
           confidence: (bet.confidence * 100).toFixed(1),
           volume: bet.expected_value > 0.06 ? 'Massive' : 'High'
         }));
 
         setMarketData({ trends, hotGames});} catch (error) {
-        console.error('Error fetching real-time data:', error);
+//         console.error('Error fetching real-time data:', error);
         // Keep default loading state if backend is unavailable}
     };
 
@@ -267,7 +261,8 @@ const Button: FC<ButtonProps> = ({
   return (
     <button onClick={onClick}
       disabled={disabled || loading}
-      className={`${sizes[size]} rounded-2xl font-bold transition-all duration-300 flex items-center justify-center space-x-2 ${variants[variant]} ${disabled || loading ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}>`n    >
+      className={`${sizes[size]} rounded-2xl font-bold transition-all duration-300 flex items-center justify-center space-x-2 ${variants[variant]} ${disabled || loading ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}
+>`n    >
       {loading && (
         <div className='w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin' />
       )}
@@ -314,7 +309,9 @@ const Card: FC<CardProps> = ({
   );};
 
 interface MetricCardProps {
-  label: string,`n  value: string;,`n  icon: string;
+  label: string
+,`n  value: string;
+,`n  icon: string;
   change?: string
   trend?: 'up' | 'down' | 'neutral';
   live?: boolean
@@ -342,14 +339,16 @@ const MetricCard: FC<MetricCardProps> = ({
   };
 
   return (
-    <div className={`${variants[variant]} rounded-2xl p-6 text-center hover: shadow-neon transition-all duration-500 transform hover:scale-105 hover:rotate-1`}>`n    >
+    <div className={`${variants[variant]} rounded-2xl p-6 text-center hover: shadow-neon transition-all duration-500 transform hover:scale-105 hover:rotate-1`}
+>`n    >
       <div className='relative mb-4'>
         <div className='absolute inset-0 bg-electric-400/20 rounded-full blur-xl' />
         <div className={`relative text-4xl text-electric-400 ${live ? 'brain-pulse' : ''}`}>
           <i className={icon} />
         </div>
       </div>
-      <div className={`text-3xl font-black mb-2 text-white font-cyber ${live ? 'animate-cyber-pulse' : ''}`}>`n      >
+      <div className={`text-3xl font-black mb-2 text-white font-cyber ${live ? 'animate-cyber-pulse' : ''}`}
+>`n      >
         {value}
       </div>
       <div className='text-gray-400 text-sm mb-3 uppercase tracking-wider'>{label}</div>
@@ -402,7 +401,8 @@ const Header: React.FC = () => {
                 strokeWidth='2'
                 strokeLinecap='round'
                 strokeLinejoin='round'
-                className='text-gray-300'>`n              >
+                className='text-gray-300'
+>`n              >
                 <path d='M4 12h16' />
                 <path d='M4 6h16' />
                 <path d='M4 18h16' />
@@ -426,9 +426,9 @@ const Header: React.FC = () => {
               <div className='hidden xl:flex items-center space-x-3 bg-gradient-to-r from-green-500/10 to-electric-500/10 rounded-xl px-4 py-2 border border-green-500/20'>
                 <div className='w-3 h-3 bg-green-400 rounded-full animate-pulse'></div>
                 <span className='text-green-400 text-sm font-bold font-cyber'>NEURAL OPTIMAL</span>
-                <span className='text-green-300 text-sm font-mono'>{`${realTimeData.accuracy.toFixed(1)}% ACC`}</span>
+                <span className='text-green-300 text-sm font-mono'>{`${safeNumber(realTimeData.accuracy).toFixed(1)}% ACC`}</span>
                 <div className='w-px h-4 bg-green-400/30'></div>
-                <span className='text-blue-400 text-sm font-mono'>{`${realTimeData.quantumCoherence}% COHERENCE`}</span>
+                <span className='text-blue-400 text-sm font-mono'>{`${safeNumber(realTimeData.quantumCoherence)}% COHERENCE`}</span>
               </div>
             </div>
           </div>
@@ -437,21 +437,23 @@ const Header: React.FC = () => {
               <div className='flex items-center space-x-2'>
                 <i className='fas fa-microchip text-electric-400 animate-pulse'></i>
                 <span className='text-gray-400'>Processing:</span>
-                <span className='text-electric-400 font-mono font-bold'>{`${realTimeData.processingSpeed}ms`}</span>
+                <span className='text-electric-400 font-mono font-bold'>{`${safeNumber(realTimeData.processingSpeed).toFixed(1)}ms`}</span>
               </div>
               <div className='flex items-center space-x-2'>
                 <i className='fas fa-robot text-purple-400 animate-pulse'></i>
                 <span className='text-gray-400'>Bots:</span>
-                <span className='text-purple-400 font-mono font-bold'>{`${realTimeData.activeBots}/47`}</span>
+                <span className='text-purple-400 font-mono font-bold'>{`${safeNumber(realTimeData.activeBots)}/47`}</span>
               </div>
             </div>
             <button onClick={toggleTheme}
               className='p-3 rounded-xl hover:bg-gray-100/10 transition-all duration-300 hover:shadow-neon'
-              aria-label='Toggle theme'>`n            >
+              aria-label='Toggle theme'
+>`n            >
               <i className='fas fa-palette text-electric-400 text-lg'></i>
             </button>
             <button className='p-3 rounded-xl hover:bg-gray-100/10 transition-all duration-300 hover:shadow-neon'
-              aria-label='Search'>`n            >
+              aria-label='Search'
+>`n            >
               <svg width='20'
                 height='20'
                 viewBox='0 0 24 24'
@@ -460,7 +462,8 @@ const Header: React.FC = () => {
                 strokeWidth='2'
                 strokeLinecap='round'
                 strokeLinejoin='round'
-                className='text-gray-400'>`n              >
+                className='text-gray-400'
+>`n              >
                 <circle cx='11' cy='11' r='8' />
                 <path d='m21 21-4.35-4.35' />
               </svg>
@@ -478,7 +481,8 @@ const Header: React.FC = () => {
                   strokeWidth='2'
                   strokeLinecap='round'
                   strokeLinejoin='round'
-                  className='text-gray-400'>`n                >
+                  className='text-gray-400'
+>`n                >
                   <path d='M6 8A6 6 0 0 1 18 8c0 7 3 9 3 9H3s3-2 3-9' />
                   <path d='M13.73 21a2 2 0 0 1-3.46 0' />
                 </svg>
@@ -511,7 +515,8 @@ const Header: React.FC = () => {
                 <div className='text-xs text-electric-400 font-mono'>{`${user.tier} • LVL ${user.level}`}</div>
               </div>
               <button className='relative w-12 h-12 bg-gradient-to-br from-electric-400 via-neon-blue to-neon-purple rounded-xl flex items-center justify-center hover:shadow-neon transition-all duration-300 transform hover:scale-105 hover:rotate-3'
-                aria-label='Profile'>`n              >
+                aria-label='Profile'
+>`n              >
                 <span className='text-black font-black text-lg font-cyber'>
                   {user.name.charAt(0)}
                 </span>
@@ -637,7 +642,8 @@ const Sidebar: React.FC = () => {
   );
 
   return (
-    <div className={`${sidebarCollapsed ? 'w-20' : 'w-96'} ultra-glass h-screen border-r border-white/10 flex flex-col transition-all duration-500 ease-in-out`}>`n    >
+    <div className={`${sidebarCollapsed ? 'w-20' : 'w-96'} ultra-glass h-screen border-r border-white/10 flex flex-col transition-all duration-500 ease-in-out`}
+>`n    >
       <div className='p-6 border-b border-white/10'>
         {!sidebarCollapsed && (
           <div className='flex items-center space-x-4 mb-8'>
@@ -709,15 +715,15 @@ const Sidebar: React.FC = () => {
             <div className='space-y-3 text-sm'>
               <div className='flex justify-between items-center'>
                 <span className='text-gray-400'>Accuracy</span>
-                <span className='text-green-400 font-mono font-bold'>{`${realTimeData.accuracy.toFixed(1)}%`}</span>
+                <span className='text-green-400 font-mono font-bold'>{`${safeNumber(realTimeData.accuracy).toFixed(1)}%`}</span>
               </div>
               <div className='flex justify-between items-center'>
                 <span className='text-gray-400'>Coherence</span>
-                <span className='text-blue-400 font-mono font-bold'>{`${realTimeData.quantumCoherence}%`}</span>
+                <span className='text-blue-400 font-mono font-bold'>{`${safeNumber(realTimeData.quantumCoherence).toFixed(2)}%`}</span>
               </div>
               <div className='flex justify-between items-center'>
                 <span className='text-gray-400'>Bots Active</span>
-                <span className='text-purple-400 font-mono font-bold'>{realTimeData.activeBots}/47</span>
+                <span className='text-purple-400 font-mono font-bold'>{safeNumber(realTimeData.activeBots)}/47</span>
               </div>
             </div>
           </div>
@@ -772,7 +778,7 @@ const Dashboard: FC = () => {
             Real-time neural network analysis with quantum enhancement
           </p>
           <div className='text-lg text-electric-400 mt-4 font-mono'>
-            {`${realTimeData.dataPoints.toLocaleString()} data points processed • ${realTimeData.activeBots} AI agents active`}
+            {`${safeNumber(realTimeData.dataPoints).toLocaleString()} data points processed • ${safeNumber(realTimeData.activeBots)} AI agents active`}
           </div>
         </div>
       </div>
@@ -780,32 +786,36 @@ const Dashboard: FC = () => {
       {/* Enhanced Real-Time Metrics Grid */}
       <div className='grid grid-cols-1 md: grid-cols-2 lg:grid-cols-4 gap-8'>
         <MetricCard label='Neural Activity'
-          value={`${isNaN(Number(realTimeData?.neuralActivity)) ? "N/A" : Number(realTimeData?.neuralActivity).toFixed(1)}%`}
+          value={`${safeNumber(realTimeData?.neuralActivity).toFixed(1)}%`}
           icon='fa-brain'
           change='+2.1%'
           trend='up'
           live={true}
-          variant='neural'>`n        />
+          variant='neural'
+        />
         <MetricCard label='Quantum Coherence'
-          value={`${isNaN(Number(realTimeData?.quantumCoherence)) ? "N/A" : Number(realTimeData?.quantumCoherence).toFixed(2)}%`}
+          value={`${safeNumber(realTimeData?.quantumCoherence).toFixed(2)}%`}
           icon='fa-atom'
           change='+0.03%'
           trend='up'
           live={true}
-          variant='quantum'>`n        />
+          variant='quantum'
+        />
         <MetricCard label='Real-Time Accuracy'
-          value={`${isNaN(Number(realTimeData?.accuracy)) ? "N/A" : Number(realTimeData?.accuracy).toFixed(1)}%`}
+          value={`${safeNumber(realTimeData?.accuracy).toFixed(1)}%`}
           icon='fa-target'
           change='+0.4%'
           trend='up'
-          live={true}>`n        />
+          live={true}
+        />
         <MetricCard label='Live Profit Stream'
-          value={`$${realTimeData.profit.toLocaleString()}`}
+          value={`$${safeNumber(realTimeData.profit).toLocaleString()}`}
           icon='fa-chart-line'
           change='+$2.7K'
           trend='up'
           live={true}
-          variant='profit'>`n        />
+          variant='profit'
+        />
       </div>
 
       {/* Enhanced Status Bar */}
@@ -828,7 +838,8 @@ const Dashboard: FC = () => {
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
           {marketData.hotGames.map((game: any, index: number) => (
             <div key={index}
-              className={`quantum-card rounded-3xl p-6 bg-gradient-to-br ${gameCardStyles[index % 3].container} transform hover:scale-105 transition-transform duration-300`}>`n            >
+              className={`quantum-card rounded-3xl p-6 bg-gradient-to-br ${gameCardStyles[index % 3].container} transform hover:scale-105 transition-transform duration-300`}
+>`n            >
               <div className='flex justify-between items-start mb-4'>
                 <div>
                   <h4 className={`text-lg font-bold ${gameCardStyles[index % 3].title}`}>{game.game}</h4>
@@ -847,7 +858,8 @@ const Dashboard: FC = () => {
               </div>
               <div className='w-full bg-gray-700/50 rounded-full h-2.5'>
                 <div className={`h-2.5 rounded-full ${gameCardStyles[index % 3].confidenceBar}`}
-                  style={{ width: `${game.confidence}%`}}>`n                ></div>
+                  style={{ width: `${game.confidence}%`}}
+>`n                ></div>
               </div>
               <div className='text-center mt-4'>
                 <p className='text-sm text-gray-400'>Market Volume</p>
@@ -916,7 +928,8 @@ const MoneyMaker: React.FC = () => {
         ]);
 
         // Transform backend data to frontend format
-        const liveOpportunities = bettingData.map((bet: any, index: number) => ({,`n  id: index + 1,
+        const liveOpportunities = bettingData.map((bet: any, index: number) => ({
+,`n  id: index + 1,
           game: bet.event || `${bet.home_team} vs ${bet.away_team}`,
           market: bet.market || 'Spread',
           pick: bet.recommendation || bet.selection,
@@ -927,7 +940,8 @@ const MoneyMaker: React.FC = () => {
           time: bet.start_time || 'Live'
         }));
 
-        const arbitrageOpportunities = arbitrageData.map((arb: any, index: number) => ({,`n  id: index + 100,
+        const arbitrageOpportunities = arbitrageData.map((arb: any, index: number) => ({
+,`n  id: index + 100,
           game: arb.event || `${arb.team1} vs ${arb.team2}`,
           market: 'Arbitrage',
           pick: arb.strategy || 'Multi-book',
@@ -938,7 +952,8 @@ const MoneyMaker: React.FC = () => {
           time: arb.start_time || 'Live'
         }));
 
-        const valueOpportunities = valueBets.map((value: any, index: number) => ({,`n  id: index + 200,
+        const valueOpportunities = valueBets.map((value: any, index: number) => ({
+,`n  id: index + 200,
           game: value.event || `${value.home_team} vs ${value.away_team}`,
           market: value.market || 'Value Bet',
           pick: value.selection || value.recommendation,
@@ -954,7 +969,7 @@ const MoneyMaker: React.FC = () => {
           upcoming: liveOpportunities.filter((_, i) => i % 2 === 1), // Upcoming games
           value: valueOpportunities,
           arbitrage: arbitrageOpportunities})} catch (err) {
-        console.error('Error fetching opportunities:', err);
+//         console.error('Error fetching opportunities:', err);
         setError('Failed to load opportunities. Please try again.');
         // Fallback to empty state
         setOpportunities({
@@ -989,13 +1004,15 @@ const MoneyMaker: React.FC = () => {
                   min='1'
                   max='100'
                   defaultValue='75'
-                  className='w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer range-lg'>`n                />
+                  className='w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer range-lg'
+>`n                />
               </div>
               <div>
                 <label className='text-sm font-bold text-gray-400 font-mono'>Minimum EV</label>
                 <input type='number'
                   defaultValue='5'
-                  className='w-full p-3 rounded-lg bg-gray-800/50 border-2 border-gray-700'>`n                />
+                  className='w-full p-3 rounded-lg bg-gray-800/50 border-2 border-gray-700'
+>`n                />
               </div>
               <div>
                 <label className='text-sm font-bold text-gray-400 font-mono'>AI Models</label>
@@ -1007,7 +1024,8 @@ const MoneyMaker: React.FC = () => {
               <Button label='Apply & Recalculate'
                 variant='ghost'
                 className='w-full'
-                icon='fas fa-cogs'>`n              />
+                icon='fas fa-cogs'
+>`n              />
             </div>
           </Card>
           <Card title='Business Rules & Overrides' variant='quantum'>
@@ -1018,7 +1036,8 @@ const MoneyMaker: React.FC = () => {
                 </label>
                 <input type='number'
                   defaultValue='1000'
-                  className='w-full p-3 rounded-lg bg-gray-800/50 border-2 border-gray-700'>`n                />
+                  className='w-full p-3 rounded-lg bg-gray-800/50 border-2 border-gray-700'
+>`n                />
               </div>
               <div>
                 <label className='text-sm font-bold text-gray-400 font-mono'>Allowed Sports</label>
@@ -1059,7 +1078,8 @@ const MoneyMaker: React.FC = () => {
             <div className='space-y-4'>
               {opportunities.live.map(opp => (
                 <div key={opp.id}
-                  className='p-4 bg-green-500/10 rounded-xl border border-green-500/20'>`n                >
+                  className='p-4 bg-green-500/10 rounded-xl border border-green-500/20'
+>`n                >
                   <div className='flex justify-between items-center'>
                     <div>
                       <p className='font-bold text-white'>{opp.game}</p>
@@ -1081,7 +1101,13 @@ const MoneyMaker: React.FC = () => {
   )};
 
 interface PrizePicksProp {
-  id: number,`n  player: string;,`n  stat: string,`n  line: number;,`n  position: string,`n  team: string;,`n  game: string;
+  id: number
+,`n  player: string;
+,`n  stat: string
+,`n  line: number;
+,`n  position: string
+,`n  team: string;
+,`n  game: string;
   odds?: number
   confidence?: number}
 
@@ -1109,7 +1135,8 @@ const PrizePicks: React.FC = () => {
         const data = await productionApiService.getPrizePicksProps();
 
         // Transform backend data to frontend format
-        const formattedProps = data.map((prop: any, index: number) => ({,`n  id: prop.id || index,
+        const formattedProps = data.map((prop: any, index: number) => ({
+,`n  id: prop.id || index,
           player: prop.player_name || prop.player,
           stat: prop.stat_type || prop.market,
           line: prop.line || prop.threshold,
@@ -1120,7 +1147,7 @@ const PrizePicks: React.FC = () => {
           confidence: (prop.confidence * 100) || 75}));
 
         setProps(formattedProps);} catch (err) {
-        console.error('Error fetching PrizePicks props:', err);
+//         console.error('Error fetching PrizePicks props:', err);
         setError('Failed to fetch props. Please try again later.');
         setProps([0]); // Set empty array on error} finally {
         setLoading(false);}
@@ -1167,7 +1194,8 @@ const PrizePicks: React.FC = () => {
               {error && <p className='text-red-500 col-span-full'>{error}</p>}
               {props.map(prop => (
                 <div key={prop.id}
-                  className='p-6 bg-blue-500/10 rounded-2xl border border-blue-500/20 transition-all duration-300 hover:shadow-neon'>`n                >
+                  className='p-6 bg-blue-500/10 rounded-2xl border border-blue-500/20 transition-all duration-300 hover:shadow-neon'
+>`n                >
                   <div className='flex justify-between items-center mb-4'>
                     <div>
                       <p className='font-bold text-xl text-white font-cyber'>{prop.player}</p>
@@ -1177,10 +1205,12 @@ const PrizePicks: React.FC = () => {
                   </div>
                   <div className='grid grid-cols-2 gap-4'>
                     <Button label='Over'
-                      variant='success'>`n                      onClick={() => handleSelectProp(prop, 'over')}
+                      variant='success'
+>`n                      onClick={() => handleSelectProp(prop, 'over')}
                     />
                     <Button label='Under'
-                      variant='danger'>`n                      onClick={() => handleSelectProp(prop, 'under')}
+                      variant='danger'
+>`n                      onClick={() => handleSelectProp(prop, 'under')}
                     />
                   </div>
                 </div>
@@ -1194,7 +1224,8 @@ const PrizePicks: React.FC = () => {
             <div className='space-y-4'>
               {lineup.map(prop => (
                 <div key={prop.id}
-                  className='flex items-center justify-between p-3 bg-green-500/10 rounded-lg'>`n                >
+                  className='flex items-center justify-between p-3 bg-green-500/10 rounded-lg'
+>`n                >
                   <div>
                     <p className='font-bold text-white'>{prop.player}</p>
                     <p className='text-sm text-gray-300'>{`${prop.stat} ${prop.overUnder === 'over' ? 'Over' : 'Under'} ${prop.line}`}</p>
@@ -1222,18 +1253,20 @@ const PrizePicks: React.FC = () => {
                   onChange={handleEntryChange}
                   min='5'
                   max='100'
-                  className='w-full p-3 rounded-lg bg-gray-800/50 border-2 border-gray-700 mt-2'>`n                />
+                  className='w-full p-3 rounded-lg bg-gray-800/50 border-2 border-gray-700 mt-2'
+>`n                />
               </div>
               <div className='text-center'>
                 <p className='text-gray-400 font-mono'>Potential Payout</p>
-                <p className='text-4xl font-black text-green-400 font-cyber'>{`$${payout.toFixed(2)}`}</p>
+                <p className='text-4xl font-black text-green-400 font-cyber'>{`$${safeNumber(payout, 2)}`}</p>
                 <p className='text-sm text-gray-400'>{`(${lineup.length} picks x${payout / entryAmount || 0})`}</p>
               </div>
               <Button label='Submit Entry'
                 variant='primary'
                 size='lg'
                 className='w-full'
-                disabled={lineup.length < 2}>`n              />
+                disabled={lineup.length < 2}
+>`n              />
             </div>
           </Card>
         </div>

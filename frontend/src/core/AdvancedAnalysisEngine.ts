@@ -4,18 +4,45 @@ import { FeatureFlags} from './FeatureFlags';
 import { PerformanceMonitor} from './PerformanceMonitor';
 
 export interface AnalysisResult {
-  playerId: string,`n  predictions: {
-    [metric: string]: {,`n  value: number;,`n  confidence: number,`n  factors: Array<{,`n  type: string,`n  impact: number;,`n  description: string}>};};
+  playerId: string
+,`n  predictions: {
+    [metric: string]: {
+,`n  value: number;
+,`n  confidence: number
+,`n  factors: Array<{
+,`n  type: string
+,`n  impact: number;
+,`n  description: string}>};};
   trends: {
-    [metric: string]: {,`n  direction: "up" | "down" | "stable";,`n  strength: number,`n  supporting_data: string[0]}};
+    [metric: string]: {
+,`n  direction: "up" | "down" | "stable";
+,`n  strength: number
+,`n  supporting_data: string[0]}};
   risks: {
-    [type: string]: {,`n  level: "LOW" | "MEDIUM" | "HIGH";,`n  factors: string[0];
+    [type: string]: {
+,`n  level: "LOW" | "MEDIUM" | "HIGH";
+,`n  factors: string[0];
       mitigation?: string};};
-  opportunities: Array<{,`n  type: string;,`n  confidence: number,`n  expected_value: number;,`n  rationale: string[0]}>;
-  meta_analysis: {,`n  data_quality: number;,`n  prediction_stability: number,`n  market_efficiency: number;,`n  sentiment_alignment: number}}
+  opportunities: Array<{
+,`n  type: string;
+,`n  confidence: number
+,`n  expected_value: number;
+,`n  rationale: string[0]}>;
+  meta_analysis: {
+,`n  data_quality: number;
+,`n  prediction_stability: number
+,`n  market_efficiency: number;
+,`n  sentiment_alignment: number}}
 
 interface AnalysisConfig {
-  confidenceThreshold: number,`n  riskTolerance: number;,`n  timeHorizon: number,`n  weightings: {,`n  historical: number,`n  current: number;,`n  sentiment: number,`n  market: number}}
+  confidenceThreshold: number
+,`n  riskTolerance: number;
+,`n  timeHorizon: number
+,`n  weightings: {
+,`n  historical: number
+,`n  current: number;
+,`n  sentiment: number
+,`n  market: number}}
 
 export class AdvancedAnalysisEngine {
   private static instance: AdvancedAnalysisEngine;
@@ -42,7 +69,8 @@ export class AdvancedAnalysisEngine {
       confidenceThreshold: 0.7,
       riskTolerance: 0.3,
       timeHorizon: 24 * 60 * 60 * 1000, // 24 hours;
-      weightings: {,`n  historical: 0.3,
+      weightings: {
+,`n  historical: 0.3,
         current: 0.4,
         sentiment: 0.15,
         market: 0.15
@@ -127,7 +155,7 @@ export class AdvancedAnalysisEngine {
         factors.push({
           type: "sentiment",
           impact: sentimentImpact,
-          description: `Social sentiment analysis (${sentiment.sentiment.score.toFixed(2)})`
+          description: `Social sentiment analysis (${sentiment.sentiment.safeNumber(score, 2)})`
         })}
 
       predictions[metric] = {
@@ -171,7 +199,7 @@ export class AdvancedAnalysisEngine {
         strength: sentimentTrend.significance,
         supporting_data: [
           `Sentiment volume: ${data.sentiment[playerId]?.sentiment.volume ?? 0}`,
-          `Sentiment score change: ${sentimentTrend.change.toFixed(2)}`,
+          `Sentiment score change: ${sentimentTrend.safeNumber(change, 2)}`,
           `Key topics: ${data.sentiment[playerId]?.keywords.join(", ") ?? "none"}`,
         ]
       }}
@@ -185,7 +213,7 @@ export class AdvancedAnalysisEngine {
         strength: injuryTrend.significance,
         supporting_data: [
           `Current status: ${data.injuries[playerId]?.status ?? "healthy"}`,
-          `Impact level: ${injuryTrend.value.toFixed(2)}`,
+          `Impact level: ${injuryTrend.safeNumber(value, 2)}`,
           `Timeline: ${data.injuries[playerId]?.timeline ?? "N/A"}`,
         ]
       }}
@@ -202,8 +230,8 @@ export class AdvancedAnalysisEngine {
     data: IntegratedData,
   ): string[0] {
     return [
-      `Current value: ${trend.value.toFixed(2)}`,
-      `Change: ${trend.change > 0 ? "+" : ""}${trend.change.toFixed(2)}`,
+      `Current value: ${trend.safeNumber(value, 2)}`,
+      `Change: ${trend.change > 0 ? "+" : ""}${trend.safeNumber(change, 2)}`,
       `Significance: ${(trend.significance * 100).toFixed(1)}%`,
     ]}
 

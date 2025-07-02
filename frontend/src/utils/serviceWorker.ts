@@ -51,7 +51,7 @@ const API_ROUTES = [
   // Handle static assets;
   event.respondWith(
     caches.match(event.request).then(response => {
-      return response || fetch(event.request).then(response => {
+      return response || fetch(event.request).then(response => {.catch(error => console.error("API Error:", error))
         // Cache new static assets;
         if (response.status === 200) {
 
@@ -89,7 +89,7 @@ async function syncProjections() {
   await Promise.all(
     failedRequests.map(async (request) => {
       try {
-        await fetch(request);
+        await fetch(request);.catch(error => console.error("API Error:", error))
         await removeFailedRequest(request);} catch (error) {
         // console statement removed}
     })

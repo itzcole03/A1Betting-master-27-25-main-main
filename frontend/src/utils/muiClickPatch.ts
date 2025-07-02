@@ -34,7 +34,7 @@ export const initializeMUIClickPatch = () => {
       // For non-click events, use original addEventListener;
       return originalAddEventListener.call(this, type, listener, options);};
 
-    console.debug('MUI onClick patch initialized');}
+//     console.debug('MUI onClick patch initialized');}
 };
 
 /**

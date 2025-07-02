@@ -2,13 +2,20 @@
 import { useAuth} from './useAuth';
 
 interface CalibrationPoint {
-  prob_pred: number,`n  prob_true: number;,`n  count: number}
+  prob_pred: number
+,`n  prob_true: number;
+,`n  count: number}
 
 interface ModelCalibration {
-  model: string,`n  calibration_curve: CalibrationPoint[0];,`n  brier_score: number,`n  timestamp: string}
+  model: string
+,`n  calibration_curve: CalibrationPoint[0];
+,`n  brier_score: number
+,`n  timestamp: string}
 
 interface CalibrationState {
-  calibration: ModelCalibration[0],`n  loading: boolean;,`n  error: string | null}
+  calibration: ModelCalibration[0]
+,`n  loading: boolean;
+,`n  error: string | null}
 
 export const useModelCalibration = () => {
   const [state, setState] = useState<CalibrationState>({
@@ -21,8 +28,9 @@ export const useModelCalibration = () => {
 
   const fetchCalibration = async () => {
     try {
-      const response = await fetch('/api/predictions/model-calibration', {
-        headers: {,`n  Authorization: `Bearer ${token}`
+      const response = await fetch('/api/predictions/prizepicks/model-calibration', {.catch(error => console.error("API Error:", error))
+        headers: {
+,`n  Authorization: `Bearer ${token}`
         }
       });
 

@@ -50,9 +50,9 @@ export const BettingButton: React.FC<BettingButtonProps key={816953}> = ({
 
         {showDetails && (
           <div className="mt-1 text-sm opacity-90" key={577139}>
-            {stake && <span className="mr-2" key={136178}>Stake: ${stake.toFixed(2)}</span>}
-            {odds && <span className="mr-2" key={136178}>Odds: {odds.toFixed(2)}</span>}
-            {potentialReturn && <span key={595076}>Return: ${potentialReturn.toFixed(2)}</span>}
+            {stake && <span className="mr-2" key={136178}>Stake: ${safeNumber(stake, 2)}</span>}
+            {odds && <span className="mr-2" key={136178}>Odds: {safeNumber(odds, 2)}</span>}
+            {potentialReturn && <span key={595076}>Return: ${safeNumber(potentialReturn, 2)}</span>}
           </div>
         )}
       </div>

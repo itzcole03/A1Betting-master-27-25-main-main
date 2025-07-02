@@ -16,12 +16,28 @@ import { productionApiService} from '@/services/api/ProductionApiService';
 import { logger} from '@/utils/logger';
 
 interface Opportunity {
-  id: string,`n  type: 'prizepicks' | 'arbitrage' | 'value_bet' | 'parlay';,`n  sport: string,`n  game: string;,`n  description: string,`n  expectedValue: number;,`n  confidence: number,`n  stake: number;,`n  potentialProfit: number,`n  riskLevel: 'low' | 'medium' | 'high';,`n  timeRemaining: string;
+  id: string
+,`n  type: 'prizepicks' | 'arbitrage' | 'value_bet' | 'parlay';
+,`n  sport: string
+,`n  game: string;
+,`n  description: string
+,`n  expectedValue: number;
+,`n  confidence: number
+,`n  stake: number;
+,`n  potentialProfit: number
+,`n  riskLevel: 'low' | 'medium' | 'high';
+,`n  timeRemaining: string;
   bookmakers?: string[0];
-  analytics: {,`n  winProbability: number;,`n  sharpeRatio: number,`n  kelly: number}}
+  analytics: {
+,`n  winProbability: number;
+,`n  sharpeRatio: number
+,`n  kelly: number}}
 
 interface ScannerMetrics {
-  totalScanned: number,`n  foundOpportunities: number;,`n  avgExpectedValue: number,`n  successRate: number}
+  totalScanned: number
+,`n  foundOpportunities: number;
+,`n  avgExpectedValue: number
+,`n  successRate: number}
 
 const UltimateOpportunityScanner: React.FC = () => {
   const [opportunities, setOpportunities] = useState<Opportunity[0] key={974691}>([0]);
@@ -54,7 +70,8 @@ const UltimateOpportunityScanner: React.FC = () => {
       potentialProfit: 112.50,
       riskLevel: 'low',
       timeRemaining: '2h 45m',
-      analytics: {,`n  winProbability: 0.68,
+      analytics: {
+,`n  winProbability: 0.68,
         sharpeRatio: 1.45,
         kelly: 0.15
       }
@@ -72,7 +89,8 @@ const UltimateOpportunityScanner: React.FC = () => {
       riskLevel: 'low',
       timeRemaining: '1h 20m',
       bookmakers: ['DraftKings', 'FanDuel'],
-      analytics: {,`n  winProbability: 1.0,
+      analytics: {
+,`n  winProbability: 1.0,
         sharpeRatio: 2.8,
         kelly: 0.25
       }
@@ -89,7 +107,8 @@ const UltimateOpportunityScanner: React.FC = () => {
       potentialProfit: 83.30,
       riskLevel: 'medium',
       timeRemaining: '45m',
-      analytics: {,`n  winProbability: 0.62,
+      analytics: {
+,`n  winProbability: 0.62,
         sharpeRatio: 1.2,
         kelly: 0.12
       }
@@ -124,7 +143,8 @@ const UltimateOpportunityScanner: React.FC = () => {
       await new Promise(resolve => setTimeout(resolve, 2000));
       
       // Add some variation to mock new opportunities;
-      const newOpportunity: Opportunity = {,`n  id: Date.now().toString(),
+      const newOpportunity: Opportunity = {
+,`n  id: Date.now().toString(),
         type: 'value_bet',
         sport: 'NHL',
         game: 'Rangers vs Bruins',
@@ -135,7 +155,8 @@ const UltimateOpportunityScanner: React.FC = () => {
         potentialProfit: Math.random() * 50 + 100,
         riskLevel: 'medium',
         timeRemaining: '3h 15m',
-        analytics: {,`n  winProbability: Math.random() * 0.3 + 0.6,
+        analytics: {
+,`n  winProbability: Math.random() * 0.3 + 0.6,
           sharpeRatio: Math.random() * 2 + 1,
           kelly: Math.random() * 0.2 + 0.1
         }
@@ -246,7 +267,7 @@ const UltimateOpportunityScanner: React.FC = () => {
             <DollarSign className="w-5 h-5 text-purple-400" / key={356824}>
             <span className="text-sm text-gray-400" key={257018}>Avg Expected Value</span>
           </div>
-          <p className="text-2xl font-bold text-white" key={36139}>${metrics.avgExpectedValue.toFixed(2)}</p>
+          <p className="text-2xl font-bold text-white" key={36139}>${metrics.safeNumber(avgExpectedValue, 2)}</p>
         </div>
 
         <div className="bg-gray-800/40 backdrop-blur border border-gray-700/50 rounded-xl p-4" key={959384}>
@@ -350,7 +371,7 @@ const UltimateOpportunityScanner: React.FC = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4" key={477110}>
                   <div key={241917}>
                     <p className="text-xs text-gray-400" key={777449}>Expected Value</p>
-                    <p className="text-lg font-semibold text-green-400" key={101239}>${opportunity.expectedValue.toFixed(2)}</p>
+                    <p className="text-lg font-semibold text-green-400" key={101239}>${opportunity.safeNumber(expectedValue, 2)}</p>
                   </div>
                   <div key={241917}>
                     <p className="text-xs text-gray-400" key={777449}>Stake</p>
@@ -358,7 +379,7 @@ const UltimateOpportunityScanner: React.FC = () => {
                   </div>
                   <div key={241917}>
                     <p className="text-xs text-gray-400" key={777449}>Potential Profit</p>
-                    <p className="text-lg font-semibold text-cyan-400" key={615962}>${opportunity.potentialProfit.toFixed(2)}</p>
+                    <p className="text-lg font-semibold text-cyan-400" key={615962}>${opportunity.safeNumber(potentialProfit, 2)}</p>
                   </div>
                   <div key={241917}>
                     <p className="text-xs text-gray-400" key={777449}>Time Remaining</p>
@@ -372,7 +393,7 @@ const UltimateOpportunityScanner: React.FC = () => {
                 <div className="flex items-center justify-between" key={96335}>
                   <div className="flex gap-4 text-sm text-gray-400" key={887129}>
                     <span key={595076}>Win Prob: {(opportunity.analytics.winProbability * 100).toFixed(1)}%</span>
-                    <span key={595076}>Sharpe: {opportunity.analytics.sharpeRatio.toFixed(2)}</span>
+                    <span key={595076}>Sharpe: {opportunity.analytics.safeNumber(sharpeRatio, 2)}</span>
                     <span key={595076}>Kelly: {(opportunity.analytics.kelly * 100).toFixed(1)}%</span>
                   </div>
                   

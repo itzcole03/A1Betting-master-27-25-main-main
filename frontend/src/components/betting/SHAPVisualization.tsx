@@ -69,21 +69,31 @@ const SHAPVisualization: React.FC<SHAPVisualizationProps key={80852}> = ({
     indexAxis: "y" as const,
     responsive: true,
     maintainAspectRatio: false,
-    plugins: {,`n  legend: {,`n  display: false
+    plugins: {
+,`n  legend: {
+,`n  display: false
       },
-      tooltip: {,`n  callbacks: {,`n  label: (context: unknown) => {
+      tooltip: {
+,`n  callbacks: {
+,`n  label: (context: unknown) => {
 
-            return `SHAP Value: ${value.toFixed(4)}`}
+            return `SHAP Value: ${safeNumber(value, 4)}`}
         }
       }
     },
-    scales: {,`n  x: {,`n  grid: {,`n  display: false
+    scales: {
+,`n  x: {
+,`n  grid: {
+,`n  display: false
         },
-        title: {,`n  display: true,
+        title: {
+,`n  display: true,
           text: "SHAP Value"
         }
       },
-      y: {,`n  grid: {,`n  display: false
+      y: {
+,`n  grid: {
+,`n  display: false
         }
       }
     }
@@ -107,7 +117,7 @@ const SHAPVisualization: React.FC<SHAPVisualizationProps key={80852}> = ({
         </Typography>
         {baseValue !== undefined && (
           <Typography color="text.secondary" mt={1} variant="body2" key={621003}>
-            Base Value: {baseValue.toFixed(4)}
+            Base Value: {safeNumber(baseValue, 4)}
           </Typography>
         )}
         {confidence !== undefined && (

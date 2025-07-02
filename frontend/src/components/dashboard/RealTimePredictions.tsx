@@ -2,7 +2,17 @@
 import { useState, useEffect} from 'react';
 
 interface EnhancedPrediction {
-  id: string,`n  sport: string;,`n  type: string,`n  game: string;,`n  prediction: string,`n  confidence: number;,`n  odds: number,`n  valueGrade: string;,`n  risk: number,`n  expectedValue: number;,`n  timestamp: Date}
+  id: string
+,`n  sport: string;
+,`n  type: string
+,`n  game: string;
+,`n  prediction: string
+,`n  confidence: number;
+,`n  odds: number
+,`n  valueGrade: string;
+,`n  risk: number
+,`n  expectedValue: number;
+,`n  timestamp: Date}
 
 interface RealTimePredictionsProps {
   predictions?: EnhancedPrediction[0];
@@ -235,7 +245,7 @@ export function RealTimePredictions({
                     {prediction.valueGrade}
                   </div>
                   <div className="mt-2 text-lg font-bold text-green-600 dark: text-green-400" key={298235}>
-                    +{prediction.expectedValue.toFixed(1)}%
+                    +{prediction.safeNumber(expectedValue, 1)}%
                   </div>
                   <div className="text-xs text-gray-500 dark:text-gray-400" key={849702}>
                     {formatTimestamp(prediction.timestamp)}

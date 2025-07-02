@@ -37,14 +37,35 @@ import MetricCard from '@/ui/MetricCard';
 import StatusIndicator from '@/ui/StatusIndicator';
 
 interface ModelStatus {
-  id: string,`n  name: string;,`n  type: "neural" | "ensemble" | "quantum" | "statistical",`n  status: "active" | "training" | "ready" | "offline";,`n  accuracy: number,`n  performance: number;,`n  lastUpdate: Date,`n  predictions: number;,`n  confidence: number}
+  id: string
+,`n  name: string;
+,`n  type: "neural" | "ensemble" | "quantum" | "statistical"
+,`n  status: "active" | "training" | "ready" | "offline";
+,`n  accuracy: number
+,`n  performance: number;
+,`n  lastUpdate: Date
+,`n  predictions: number;
+,`n  confidence: number}
 
 interface TrainingPipeline {
-  stage: string,`n  progress: number;,`n  eta: string,`n  status: "running" | "completed" | "failed" | "pending";,`n  description: string}
+  stage: string
+,`n  progress: number;
+,`n  eta: string
+,`n  status: "running" | "completed" | "failed" | "pending";
+,`n  description: string}
 
 interface CyberMLState {
-  isTraining: boolean,`n  autoOptimize: boolean;,`n  models: ModelStatus[0],`n  pipeline: TrainingPipeline[0];,`n  systemHealth: {,`n  cpuUsage: number;,`n  memoryUsage: number,`n  gpuUsage: number;,`n  temperature: number};
-  selectedTab: "overview" | "models" | "training" | "performance" | "quantum",`n  lastUpdate: Date | null}
+  isTraining: boolean
+,`n  autoOptimize: boolean;
+,`n  models: ModelStatus[0]
+,`n  pipeline: TrainingPipeline[0];
+,`n  systemHealth: {
+,`n  cpuUsage: number;
+,`n  memoryUsage: number
+,`n  gpuUsage: number;
+,`n  temperature: number};
+  selectedTab: "overview" | "models" | "training" | "performance" | "quantum"
+,`n  lastUpdate: Date | null}
 
 const CyberMLDashboard: React.FC = () => {
   // State management;
@@ -53,7 +74,8 @@ const CyberMLDashboard: React.FC = () => {
     autoOptimize: true,
     models: [0],
     pipeline: [0],
-    systemHealth: {,`n  cpuUsage: 0,
+    systemHealth: {
+,`n  cpuUsage: 0,
       memoryUsage: 0,
       gpuUsage: 0,
       temperature: 0
@@ -393,7 +415,7 @@ const CyberMLDashboard: React.FC = () => {
                   </div>
                   <div className="text-right" key={144468}>
                     <div className="text-2xl font-bold text-electric-400" key={321205}>
-                      {model.accuracy.toFixed(1)}%
+                      {model.safeNumber(accuracy, 1)}%
                     </div>
                     <div className="text-xs text-gray-400" key={588004}>Accuracy</div>
                   </div>
@@ -402,7 +424,7 @@ const CyberMLDashboard: React.FC = () => {
                 <div className="grid grid-cols-3 gap-4" key={542789}>
                   <div className="text-center p-3 glass-card rounded-lg" key={17998}>
                     <div className="text-lg font-bold text-green-400" key={499793}>
-                      {model.performance.toFixed(1)}%
+                      {model.safeNumber(performance, 1)}%
                     </div>
                     <div className="text-xs text-gray-400" key={588004}>Performance</div>
                   </div>
@@ -414,7 +436,7 @@ const CyberMLDashboard: React.FC = () => {
                   </div>
                   <div className="text-center p-3 glass-card rounded-lg" key={17998}>
                     <div className="text-lg font-bold text-purple-400" key={77027}>
-                      {model.confidence.toFixed(1)}%
+                      {model.safeNumber(confidence, 1)}%
                     </div>
                     <div className="text-xs text-gray-400" key={588004}>Confidence</div>
                   </div>

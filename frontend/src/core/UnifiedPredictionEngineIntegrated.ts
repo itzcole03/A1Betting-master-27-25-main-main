@@ -25,35 +25,47 @@ export interface PredictionRequest {
   context?: Record<string, any>;}
 
 export interface BackendPredictionResponse {
-  final_value: number,`n  ensemble_confidence: number;
-  payout: number,`n  model_breakdown: Array<{
-    model_name: string,`n  value: number;
-    confidence: number,`n  performance: Record<string, number>;
+  final_value: number
+,`n  ensemble_confidence: number;
+  payout: number
+,`n  model_breakdown: Array<{
+    model_name: string
+,`n  value: number;
+    confidence: number
+,`n  performance: Record<string, number>;
     shap_values: Record<string, number>}>;
   shap_values: Record<string, number>;
   explanation: string}
 
 export interface PredictionContext {
-  playerId: string,`n  metric: string;
+  playerId: string
+,`n  metric: string;
   timestamp: number;
   marketState?: {
-    line: number,`n  volume: number;
+    line: number
+,`n  volume: number;
     movement: 'up' | 'down' | 'stable'};
   historicalData?: TimestampedData[0];
   features?: Record<string, number>;}
 
 export interface ModelPrediction {
-  value: number,`n  confidence: number;
-  factors: PredictionFactor[0],`n  analysis: {
-    risk_factors: string[0],`n  meta_analysis: {
-      market_efficiency: number,`n  playerId: string;
+  value: number
+,`n  confidence: number;
+  factors: PredictionFactor[0]
+,`n  analysis: {
+    risk_factors: string[0]
+,`n  meta_analysis: {
+      market_efficiency: number
+,`n  playerId: string;
       metric: string}};
   shap_values?: Record<string, number>;
   explanation?: string}
 
 export interface PredictionFactor {
-  name: string,`n  weight: number;
-  source: string,`n  confidence: number}
+  name: string
+,`n  weight: number;
+  source: string
+,`n  confidence: number}
 
 export class UnifiedPredictionEngineIntegrated {
   private static instance: UnifiedPredictionEngineIntegrated;
@@ -107,7 +119,7 @@ export class UnifiedPredictionEngineIntegrated {
 
   private async checkBackendHealth(): Promise<void> {
     try {
-      const response = await fetch(`${BACKEND_URL}/health`, {
+      const response = await fetch(`${BACKEND_URL}/health`, {.catch(error => console.error("API Error:", error))
         method: 'GET',
         headers: { 'Content-Type': 'application/json'},
         signal: AbortSignal.timeout(5000)});
@@ -133,7 +145,8 @@ export class UnifiedPredictionEngineIntegrated {
         weight: 1.0,
         isActive: true,
         lastUpdate: Date.now(),
-        metadata: {,`n  initialized: true,
+        metadata: {
+,`n  initialized: true,
           backendIntegrated: this.backendHealthy}
       })});}
 
@@ -184,11 +197,12 @@ export class UnifiedPredictionEngineIntegrated {
         features,
         playerId: context.playerId,
         metric: context.metric,
-        context: {,`n  timestamp: context.timestamp,
+        context: {
+,`n  timestamp: context.timestamp,
           marketState: context.marketState}
       };
 
-      const response = await fetch(`${BACKEND_URL}/predict`, {
+      const response = await fetch(`${BACKEND_URL}/predict`, {.catch(error => console.error("API Error:", error))
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(request),
@@ -212,12 +226,15 @@ export class UnifiedPredictionEngineIntegrated {
     return {
       value: response.final_value,
       confidence: response.ensemble_confidence,
-      factors: response.model_breakdown.map(model => ({,`n  name: model.model_name,
+      factors: response.model_breakdown.map(model => ({
+,`n  name: model.model_name,
         weight: model.confidence,
         source: 'backend_ml',
         confidence: model.confidence})),
-      analysis: {,`n  risk_factors: this.extractRiskFactors(response),
-        meta_analysis: {,`n  market_efficiency: this.calculateMarketEfficiency(response),
+      analysis: {
+,`n  risk_factors: this.extractRiskFactors(response),
+        meta_analysis: {
+,`n  market_efficiency: this.calculateMarketEfficiency(response),
           playerId: context.playerId,
           metric: context.metric}
       },
@@ -279,8 +296,10 @@ export class UnifiedPredictionEngineIntegrated {
         { name: 'historical_trend', weight: 0.4, source: 'time_series', confidence: 0.8},
         { name: 'seasonal_pattern', weight: 0.35, source: 'time_series', confidence: 0.75}
       ],
-      analysis: {,`n  risk_factors: ['data_age', 'trend_volatility'],
-        meta_analysis: {,`n  market_efficiency: 0.72,
+      analysis: {
+,`n  risk_factors: ['data_age', 'trend_volatility'],
+        meta_analysis: {
+,`n  market_efficiency: 0.72,
           playerId: context.playerId,
           metric: context.metric}
       }}}
@@ -295,8 +314,10 @@ export class UnifiedPredictionEngineIntegrated {
         { name: 'market_movement', weight: 0.5, source: 'market', confidence: 0.85},
         { name: 'volume_analysis', weight: 0.3, source: 'market', confidence: 0.78}
       ],
-      analysis: {,`n  risk_factors: ['market_volatility'],
-        meta_analysis: {,`n  market_efficiency: 0.85,
+      analysis: {
+,`n  risk_factors: ['market_volatility'],
+        meta_analysis: {
+,`n  market_efficiency: 0.85,
           playerId: context.playerId,
           metric: context.metric}
       }}}
@@ -310,8 +331,10 @@ export class UnifiedPredictionEngineIntegrated {
         { name: 'player_form', weight: 0.6, source: 'performance', confidence: 0.9},
         { name: 'matchup_analysis', weight: 0.4, source: 'performance', confidence: 0.85}
       ],
-      analysis: {,`n  risk_factors: ['injury_risk', 'fatigue_factor'],
-        meta_analysis: {,`n  market_efficiency: 0.78,
+      analysis: {
+,`n  risk_factors: ['injury_risk', 'fatigue_factor'],
+        meta_analysis: {
+,`n  market_efficiency: 0.78,
           playerId: context.playerId,
           metric: context.metric}
       }}}
@@ -325,8 +348,10 @@ export class UnifiedPredictionEngineIntegrated {
         { name: 'ensemble_consensus', weight: 0.8, source: 'ml_ensemble', confidence: 0.95},
         { name: 'feature_importance', weight: 0.2, source: 'ml_ensemble', confidence: 0.88}
       ],
-      analysis: {,`n  risk_factors: ['model_disagreement'],
-        meta_analysis: {,`n  market_efficiency: 0.91,
+      analysis: {
+,`n  risk_factors: ['model_disagreement'],
+        meta_analysis: {
+,`n  market_efficiency: 0.91,
           playerId: context.playerId,
           metric: context.metric}
       }}}
@@ -340,8 +365,10 @@ export class UnifiedPredictionEngineIntegrated {
         { name: 'market_inefficiency', weight: 0.7, source: 'reality_exploitation', confidence: 0.89},
         { name: 'arbitrage_opportunity', weight: 0.3, source: 'reality_exploitation', confidence: 0.82}
       ],
-      analysis: {,`n  risk_factors: ['market_correction_risk'],
-        meta_analysis: {,`n  market_efficiency: 0.65, // Lower efficiency = better exploitation opportunity;
+      analysis: {
+,`n  risk_factors: ['market_correction_risk'],
+        meta_analysis: {
+,`n  market_efficiency: 0.65, // Lower efficiency = better exploitation opportunity;
           playerId: context.playerId,
           metric: context.metric}
       }}}
@@ -366,8 +393,10 @@ export class UnifiedPredictionEngineIntegrated {
       value: weightedValue,
       confidence: weightedConfidence,
       factors: allFactors,
-      analysis: {,`n  risk_factors: Array.from(riskFactors),
-        meta_analysis: {,`n  market_efficiency: predictions.reduce((sum, p) => sum + p.prediction.analysis.meta_analysis.market_efficiency * p.weight, 0) / totalWeight,
+      analysis: {
+,`n  risk_factors: Array.from(riskFactors),
+        meta_analysis: {
+,`n  market_efficiency: predictions.reduce((sum, p) => sum + p.prediction.analysis.meta_analysis.market_efficiency * p.weight, 0) / totalWeight,
           playerId: predictions[0].prediction.analysis.meta_analysis.playerId,
           metric: predictions[0].prediction.analysis.meta_analysis.metric}
       }}}
@@ -430,7 +459,8 @@ export class UnifiedPredictionEngineIntegrated {
       kellyFraction: this.calculateKellyFraction(prediction, context),
       timestamp: context.timestamp,
       expiresAt: context.timestamp + (60 * 60 * 1000), // 1 hour;
-      metadata: {,`n  factors: prediction.factors,
+      metadata: {
+,`n  factors: prediction.factors,
         riskFactors: prediction.analysis.risk_factors,
         marketEfficiency: prediction.analysis.meta_analysis.market_efficiency,
         source: this.backendHealthy ? 'backend_ml' : 'local_ensemble',

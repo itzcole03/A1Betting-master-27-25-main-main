@@ -17,12 +17,14 @@ export class PrizePicksAdapterImpl {
       PrizePicksAdapterImpl.instance = new PrizePicksAdapterImpl();}
     return PrizePicksAdapterImpl.instance;}
 
-  public async fetchProps(params: {,`n  sports: string[0];,`n  timeWindow: string}): Promise<PrizePicksProps[0]> {
+  public async fetchProps(params: {
+,`n  sports: string[0];
+,`n  timeWindow: string}): Promise<PrizePicksProps[0]> {
     try {
       if (cachedProps) {
         return cachedProps}
 
-      const response = await fetch(`${this.baseUrl}/props`, {
+      const response = await fetch(`${this.baseUrl}/props`, {.catch(error => console.error("API Error:", error))
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -45,7 +47,7 @@ export class PrizePicksAdapterImpl {
       if (cachedPlayers) {
         return cachedPlayers}
 
-      const response = await fetch(`${this.baseUrl}/players`, {
+      const response = await fetch(`${this.baseUrl}/players`, {.catch(error => console.error("API Error:", error))
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -68,7 +70,7 @@ export class PrizePicksAdapterImpl {
       if (cachedLines) {
         return cachedLines}
 
-      const response = await fetch(`${this.baseUrl}/lines`, {
+      const response = await fetch(`${this.baseUrl}/lines`, {.catch(error => console.error("API Error:", error))
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

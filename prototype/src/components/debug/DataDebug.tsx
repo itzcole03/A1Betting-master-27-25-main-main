@@ -1,7 +1,7 @@
+import { Activity, AlertTriangle, CheckCircle, ChevronDown, ChevronUp, Database, WifiOff } from 'lucide-react';
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp, Wifi, WifiOff, AlertTriangle, CheckCircle, RefreshCw, Database, Activity } from 'lucide-react';
-import { useRealTimeData } from '../../hooks/useRealTimeData';
 import { useEnhancedRealDataSources } from '../../hooks/useEnhancedRealDataSources';
+import { useRealTimeData } from '../../hooks/useRealTimeData';
 
 export function DataDebug() {
   const [isExpanded, setIsExpanded] = useState(false);

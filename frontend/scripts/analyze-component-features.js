@@ -114,7 +114,7 @@ function extractFeatures(filePath) {
 
     return features;
   } catch (error) {
-    console.error(`Error reading file ${filePath}:`, error.message);
+//     console.error(`Error reading file ${filePath}:`, error.message);
     return null;
   }
 }
@@ -123,7 +123,7 @@ function extractFeatures(filePath) {
  * Compare features across components
  */
 function compareFeatures() {
-  console.log('🔍 Analyzing component features...');
+//   console.log('🔍 Analyzing component features...');
 
   const allFeatures = {};
   const uniqueFeatures = {};
@@ -136,31 +136,31 @@ function compareFeatures() {
 
     if (features) {
       allFeatures[componentPath] = features;
-      console.log(`✅ Analyzed ${componentPath}`);
+//       console.log(`✅ Analyzed ${componentPath}`);
     } else {
-      console.log(`❌ Failed to analyze ${componentPath}`);
+//       console.log(`❌ Failed to analyze ${componentPath}`);
     }
   });
 
-  console.log(`\n📊 Analysis complete. Found ${Object.keys(allFeatures).length} valid components.`);
+//   console.log(`\n📊 Analysis complete. Found ${Object.keys(allFeatures).length} valid components.`);
 
   // Get main component features
   const mainFeatures = allFeatures[mainComponent];
   if (!mainFeatures) {
-    console.error('❌ Could not analyze main component');
+//     console.error('❌ Could not analyze main component');
     return;
   }
 
-  console.log('\n🏠 Main component features:');
-  console.log(`  - Components: ${mainFeatures.components.length}`);
-  console.log(`  - Functions: ${mainFeatures.functions.length}`);
-  console.log(`  - Hooks: ${mainFeatures.hooks.length}`);
-  console.log(`  - Interfaces: ${mainFeatures.interfaces.length}`);
-  console.log(`  - Constants: ${mainFeatures.constants.length}`);
-  console.log(`  - CSS Classes: ${mainFeatures.css_classes.length}`);
+//   console.log('\n🏠 Main component features:');
+//   console.log(`  - Components: ${mainFeatures.components.length}`);
+//   console.log(`  - Functions: ${mainFeatures.functions.length}`);
+//   console.log(`  - Hooks: ${mainFeatures.hooks.length}`);
+//   console.log(`  - Interfaces: ${mainFeatures.interfaces.length}`);
+//   console.log(`  - Constants: ${mainFeatures.constants.length}`);
+//   console.log(`  - CSS Classes: ${mainFeatures.css_classes.length}`);
 
   // Find unique features in other components
-  console.log('\n🔍 Finding unique features in variants...');
+//   console.log('\n🔍 Finding unique features in variants...');
 
   Object.keys(allFeatures).forEach((componentPath) => {
     if (componentPath === mainComponent) return;
@@ -195,50 +195,50 @@ function compareFeatures() {
 
   // Report unique features
   if (Object.keys(uniqueFeatures).length === 0) {
-    console.log('\n✅ No unique features found in variants.');
-    console.log('   All features are already present in the main component.');
-    console.log('   Consider consolidating or removing duplicate files.');
+//     console.log('\n✅ No unique features found in variants.');
+//     console.log('   All features are already present in the main component.');
+//     console.log('   Consider consolidating or removing duplicate files.');
   } else {
-    console.log('\n🎯 Unique features found:');
+//     console.log('\n🎯 Unique features found:');
 
     Object.keys(uniqueFeatures).forEach((componentPath) => {
       const unique = uniqueFeatures[componentPath];
       const fileName = path.basename(componentPath);
 
-      console.log(`\n📁 ${fileName}:`);
+//       console.log(`\n📁 ${fileName}:`);
 
       if (unique.components.length > 0) {
-        console.log(`  🧩 Components: ${unique.components.slice(0, 5).join(", ")}${unique.components.length > 5 ? "..." : ""}`);
+//         console.log(`  🧩 Components: ${unique.components.slice(0, 5).join(", ")}${unique.components.length > 5 ? "..." : ""}`);
       }
       if (unique.functions.length > 0) {
-        console.log(`  ⚡ Functions: ${unique.functions.slice(0, 5).join(", ")}${unique.functions.length > 5 ? "..." : ""}`);
+//         console.log(`  ⚡ Functions: ${unique.functions.slice(0, 5).join(", ")}${unique.functions.length > 5 ? "..." : ""}`);
       }
       if (unique.hooks.length > 0) {
-        console.log(`  🪝 Hooks: ${unique.hooks.slice(0, 5).join(", ")}${unique.hooks.length > 5 ? "..." : ""}`);
+//         console.log(`  🪝 Hooks: ${unique.hooks.slice(0, 5).join(", ")}${unique.hooks.length > 5 ? "..." : ""}`);
       }
       if (unique.interfaces.length > 0) {
-        console.log(`  📋 Interfaces: ${unique.interfaces.slice(0, 5).join(", ")}${unique.interfaces.length > 5 ? "..." : ""}`);
+//         console.log(`  📋 Interfaces: ${unique.interfaces.slice(0, 5).join(", ")}${unique.interfaces.length > 5 ? "..." : ""}`);
       }
       if (unique.css_classes.length > 0) {
-        console.log(`  🎨 CSS Classes: ${unique.css_classes.slice(0, 5).join(", ")}${unique.css_classes.length > 5 ? "..." : ""}`);
+//         console.log(`  🎨 CSS Classes: ${unique.css_classes.slice(0, 5).join(", ")}${unique.css_classes.length > 5 ? "..." : ""}`);
       }
-      console.log('');
+//       console.log('');
     });
   }
 
   // Summary
-  console.log('\n📈 Summary:');
-  console.log(`  📊 Total components analyzed: ${Object.keys(allFeatures).length}`);
-  console.log(`  🏠 Main component features: ${Object.keys(mainFeatures).reduce((sum, key) => sum + mainFeatures[key].length, 0)}`);
-  console.log(`  🎯 Components with unique features: ${Object.keys(uniqueFeatures).length}`);
-  console.log('');
+//   console.log('\n📈 Summary:');
+//   console.log(`  📊 Total components analyzed: ${Object.keys(allFeatures).length}`);
+//   console.log(`  🏠 Main component features: ${Object.keys(mainFeatures).reduce((sum, key) => sum + mainFeatures[key].length, 0)}`);
+//   console.log(`  🎯 Components with unique features: ${Object.keys(uniqueFeatures).length}`);
+//   console.log('');
 
   if (Object.keys(uniqueFeatures).length === 0) {
-    console.log('💡 Recommendation: Consider consolidating duplicate components.');
-    console.log('   All functionality appears to be present in the main component.');
+//     console.log('💡 Recommendation: Consider consolidating duplicate components.');
+//     console.log('   All functionality appears to be present in the main component.');
   } else {
-    console.log('💡 Recommendation: Review unique features for potential integration.');
-    console.log('   Some variants contain features not present in the main component.');
+//     console.log('💡 Recommendation: Review unique features for potential integration.');
+//     console.log('   Some variants contain features not present in the main component.');
   }
 }
 

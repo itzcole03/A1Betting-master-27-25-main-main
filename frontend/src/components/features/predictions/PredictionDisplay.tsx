@@ -10,7 +10,9 @@ interface PredictionDisplayProps {
     context?: { [key: string]: unknown}}
 
 interface FeatureContribution {
-    name: string,`n  value: number;,`n  importance: number}
+    name: string
+,`n  value: number;
+,`n  importance: number}
 
 export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = ({
     propId,

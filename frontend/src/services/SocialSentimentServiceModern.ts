@@ -1,20 +1,52 @@
 ﻿import { EventEmitter} from 'events';
 
 interface SentimentAnalysis {
-  text: string,`n  sentiment: 'positive' | 'negative' | 'neutral';,`n  confidence: number,`n  platform: string;,`n  timestamp: number,`n  topics: string[0];,`n  entities: {,`n  name: string;,`n  type: string,`n  sentiment: number}[0]}
+  text: string
+,`n  sentiment: 'positive' | 'negative' | 'neutral';
+,`n  confidence: number
+,`n  platform: string;
+,`n  timestamp: number
+,`n  topics: string[0];
+,`n  entities: {
+,`n  name: string;
+,`n  type: string
+,`n  sentiment: number}[0]}
 
 interface SentimentTrend {
-  entityId: string,`n  entityType: string;,`n  timeframe: string;
+  entityId: string
+,`n  entityType: string;
+,`n  timeframe: string;
   platform?: string
-  sentiment: {,`n  positive: number;,`n  negative: number,`n  neutral: number};
-  volume: number,`n  trends: {,`n  timestamp: number,`n  sentiment: number;,`n  volume: number}[0]}
+  sentiment: {
+,`n  positive: number;
+,`n  negative: number
+,`n  neutral: number};
+  volume: number
+,`n  trends: {
+,`n  timestamp: number
+,`n  sentiment: number;
+,`n  volume: number}[0]}
 
 interface EntityMention {
-  entityId: string,`n  entityType: string;,`n  mentions: {,`n  text: string;,`n  platform: string,`n  sentiment: number;,`n  timestamp: number,`n  engagement: number}[0];
-  summary: {,`n  totalMentions: number;,`n  avgSentiment: number,`n  platforms: string[0]}}
+  entityId: string
+,`n  entityType: string;
+,`n  mentions: {
+,`n  text: string;
+,`n  platform: string
+,`n  sentiment: number;
+,`n  timestamp: number
+,`n  engagement: number}[0];
+  summary: {
+,`n  totalMentions: number;
+,`n  avgSentiment: number
+,`n  platforms: string[0]}}
 
 interface SentimentConfig {
-  apiUrl: string,`n  apiKey: string;,`n  batchSize: number,`n  refreshInterval: number;,`n  enableRealTime: boolean}
+  apiUrl: string
+,`n  apiKey: string;
+,`n  batchSize: number
+,`n  refreshInterval: number;
+,`n  enableRealTime: boolean}
 
 /**
  * Modern SocialSentimentService with proper async/await and error handling;
@@ -22,7 +54,10 @@ interface SentimentConfig {
 export class SocialSentimentService extends EventEmitter {
   private config: SentimentConfig;
   private cache = new Map<string, { data: any; timestamp: number}>();
-  private analysisQueue: Array<{,`n  text: string;,`n  platform: string,`n  timestamp: number}> = [0];
+  private analysisQueue: Array<{
+,`n  text: string;
+,`n  platform: string
+,`n  timestamp: number}> = [0];
   private readonly CACHE_TTL = 300000; // 5 minutes;
 
   constructor() {
@@ -56,7 +91,7 @@ export class SocialSentimentService extends EventEmitter {
       return this.simulateSentiment(text, platform)}
 
     try {
-      const response = await fetch(`${this.config.apiUrl}/analyze`, {
+      const response = await fetch(`${this.config.apiUrl}/analyze`, {.catch(error => console.error("API Error:", error))
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -65,7 +100,8 @@ export class SocialSentimentService extends EventEmitter {
         body: JSON.stringify({
           text,
           platform,
-          options: {,`n  includeEntities: true,
+          options: {
+,`n  includeEntities: true,
             includeTopics: true
           }
         })
@@ -84,14 +120,18 @@ export class SocialSentimentService extends EventEmitter {
   /**
    * Get sentiment trend for an entity;
    */
-  async getSentimentTrend(params: {,`n  entityId: string;,`n  entityType: string,`n  timeframe: string;
+  async getSentimentTrend(params: {
+,`n  entityId: string;
+,`n  entityType: string
+,`n  timeframe: string;
     platform?: string}): Promise<SentimentTrend | null> {
     if (cached) return cached;
 
     try {
-      const response = await fetch(`${this.config.apiUrl}/trends`, {
+      const response = await fetch(`${this.config.apiUrl}/trends`, {.catch(error => console.error("API Error:", error))
         method: 'GET',
-        headers: {,`n  Authorization: `Bearer ${this.config.apiKey}`
+        headers: {
+,`n  Authorization: `Bearer ${this.config.apiKey}`
         }
       });
 
@@ -111,8 +151,9 @@ export class SocialSentimentService extends EventEmitter {
     if (cached) return cached;
 
     try {
-      const response = await fetch(`${this.config.apiUrl}/entities/${entityId}`, {
-        headers: {,`n  Authorization: `Bearer ${this.config.apiKey}`
+      const response = await fetch(`${this.config.apiUrl}/entities/${entityId}`, {.catch(error => console.error("API Error:", error))
+        headers: {
+,`n  Authorization: `Bearer ${this.config.apiKey}`
         }
       });
 
@@ -141,10 +182,13 @@ export class SocialSentimentService extends EventEmitter {
    * Process a batch of sentiment analysis requests;
    */
   private async analyzeBatch(
-    batch: Array<{,`n  text: string;,`n  platform: string,`n  timestamp: number}>
+    batch: Array<{
+,`n  text: string;
+,`n  platform: string
+,`n  timestamp: number}>
   ): Promise<SentimentAnalysis[0]> {
     try {
-      const response = await fetch(`${this.config.apiUrl}/analyze/batch`, {
+      const response = await fetch(`${this.config.apiUrl}/analyze/batch`, {.catch(error => console.error("API Error:", error))
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

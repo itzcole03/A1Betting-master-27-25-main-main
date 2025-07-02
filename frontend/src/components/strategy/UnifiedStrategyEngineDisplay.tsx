@@ -16,8 +16,22 @@ import { Card, CardContent, CardHeader, CardTitle} from '@/ui/card';
 // ============================================================================
 
 export interface StrategyRecommendation {
-  strategyId: string,`n  strategyName: string;,`n  confidence: number,`n  expectedReturn: number;,`n  riskLevel: "low" | "medium" | "high",`n  recommendation: string;,`n  reasoning: string[0],`n  data: {,`n  winProbability: number,`n  expectedValue: number;,`n  kellyFraction: number,`n  sharpeRatio: number;,`n  maxDrawdown: number};
-  timeframe: string,`n  sport: string;,`n  lastUpdated: number}
+  strategyId: string
+,`n  strategyName: string;
+,`n  confidence: number
+,`n  expectedReturn: number;
+,`n  riskLevel: "low" | "medium" | "high"
+,`n  recommendation: string;
+,`n  reasoning: string[0]
+,`n  data: {
+,`n  winProbability: number
+,`n  expectedValue: number;
+,`n  kellyFraction: number
+,`n  sharpeRatio: number;
+,`n  maxDrawdown: number};
+  timeframe: string
+,`n  sport: string;
+,`n  lastUpdated: number}
 
 interface Props {
   recommendations?: StrategyRecommendation[0];
@@ -41,7 +55,8 @@ const DEMO_RECOMMENDATIONS: StrategyRecommendation[0] = [
       "Weather conditions favor offensive play",
       "Key players healthy and in form",
     ],
-    data: {,`n  winProbability: 0.67,
+    data: {
+,`n  winProbability: 0.67,
       expectedValue: 0.125,
       kellyFraction: 0.08,
       sharpeRatio: 1.4,
@@ -64,7 +79,8 @@ const DEMO_RECOMMENDATIONS: StrategyRecommendation[0] = [
       "Strong defensive metrics vs opponent weakness",
       "Public betting creating line value",
     ],
-    data: {,`n  winProbability: 0.78,
+    data: {
+,`n  winProbability: 0.78,
       expectedValue: 0.187,
       kellyFraction: 0.12,
       sharpeRatio: 2.1,
@@ -87,7 +103,8 @@ const DEMO_RECOMMENDATIONS: StrategyRecommendation[0] = [
       "Low capital requirement",
       "Quick execution window",
     ],
-    data: {,`n  winProbability: 1.0,
+    data: {
+,`n  winProbability: 1.0,
       expectedValue: 0.042,
       kellyFraction: 1.0,
       sharpeRatio: Infinity,
@@ -142,7 +159,10 @@ const formatTimeAgo = (timestamp: number) => {
 // COMPONENTS;
 // ============================================================================
 
-const StrategyCard: React.FC<{,`n  recommendation: StrategyRecommendation;,`n  index: number,`n  showDebug: boolean}> = ({ recommendation, index, showDebug}) => {
+const StrategyCard: React.FC<{
+,`n  recommendation: StrategyRecommendation;
+,`n  index: number
+,`n  showDebug: boolean}> = ({ recommendation, index, showDebug}) => {
   const {
     strategyName,
     confidence,
@@ -215,7 +235,7 @@ const StrategyCard: React.FC<{,`n  recommendation: StrategyRecommendation;,`n 
                 </span>
               </div>
               <div className="text-lg font-bold text-green-600" key={134873}>
-                +{expectedReturn.toFixed(1)}%
+                +{safeNumber(expectedReturn, 1)}%
               </div>
             </div>
 
@@ -287,7 +307,7 @@ const StrategyCard: React.FC<{,`n  recommendation: StrategyRecommendation;,`n 
                 <div key={241917}>
                   Sharpe Ratio:{" "}
                   <span className="font-mono" key={294600}>
-                    {data.sharpeRatio.toFixed(2)}
+                    {data.safeNumber(sharpeRatio, 2)}
                   </span>
                 </div>
                 <div key={241917}>

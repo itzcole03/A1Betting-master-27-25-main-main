@@ -25,7 +25,11 @@ import {
 } from 'lucide-react';
 
 interface FeatureStatus {
-  name: string,`n  category: string;,`n  status: "active" | "inactive" | "partial",`n  description: string;,`n  capabilities: string[0];
+  name: string
+,`n  category: string;
+,`n  status: "active" | "inactive" | "partial"
+,`n  description: string;
+,`n  capabilities: string[0];
   endpoint?: string
   accuracy?: number}
 
@@ -44,7 +48,7 @@ export const EnhancedFeaturesStatus: React.FC = () => {
 
     // Check PropOllama AI;
     try {
-      const response = await fetch(`${backendUrl}/api/propollama/status`, {
+      const response = await fetch(`${backendUrl}/api/propollama/status`, {.catch(error => console.error("API Error:", error))
         signal: AbortSignal.timeout(5000)
       });
       if (response.ok) {
@@ -80,7 +84,7 @@ export const EnhancedFeaturesStatus: React.FC = () => {
 
     // Check Enhanced Predictions;
     try {
-      const response = await fetch(`${backendUrl}/api/predictions/enhanced`, {
+      const response = await fetch(`${backendUrl}/api/predictions/prizepicks/enhanced`, {.catch(error => console.error("API Error:", error))
         signal: AbortSignal.timeout(5000)
       });
       if (response.ok) {
@@ -96,7 +100,7 @@ export const EnhancedFeaturesStatus: React.FC = () => {
             "Risk assessment metrics",
             "Model transparency",
           ],
-          endpoint: "/api/predictions/enhanced",
+          endpoint: "/api/predictions/prizepicks/enhanced",
           accuracy: 82
         })} else {
         throw new Error("Enhanced predictions not available")}
@@ -116,7 +120,7 @@ export const EnhancedFeaturesStatus: React.FC = () => {
 
     // Check Ultra-Accuracy Engine;
     try {
-      const response = await fetch(
+      const response = await fetch(.catch(error => console.error("API Error:", error))
         `${backendUrl}/api/ultra-accuracy/performance-metrics`,
         {
           signal: AbortSignal.timeout(5000)
@@ -155,7 +159,7 @@ export const EnhancedFeaturesStatus: React.FC = () => {
 
     // Check Advanced Analytics;
     try {
-      const response = await fetch(`${backendUrl}/api/analytics/advanced`, {
+      const response = await fetch(`${backendUrl}/api/analytics/summary`, {.catch(error => console.error("API Error:", error))
         signal: AbortSignal.timeout(5000)
       });
       if (response.ok) {
@@ -171,7 +175,7 @@ export const EnhancedFeaturesStatus: React.FC = () => {
             "Bankroll management tools",
             "Performance trend analysis",
           ],
-          endpoint: "/api/analytics/advanced",
+          endpoint: "/api/analytics/summary",
           accuracy: 87
         })} else {
         throw new Error("Advanced analytics not available")}

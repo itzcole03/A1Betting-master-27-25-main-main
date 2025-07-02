@@ -2,7 +2,12 @@
 import { useRealtimeData} from '../hooks/useRealtimeData'
 
 interface Transaction {
-  id: string,`n  date: string;,`n  type: 'deposit' | 'withdrawal' | 'win' | 'loss',`n  amount: number;,`n  description: string,`n  balance: number}
+  id: string
+,`n  date: string;
+,`n  type: 'deposit' | 'withdrawal' | 'win' | 'loss'
+,`n  amount: number;
+,`n  description: string
+,`n  balance: number}
 
 /**
  * BankrollPage integrates with the backend API to fetch and display real transaction data.
@@ -33,7 +38,7 @@ const BankrollPage: React.FC = () => {
       switch (type) {
         case 'win':
           amount = Math.floor(Math.random() * 5000) + 500;
-          description = `Winning bet - ${realtimeData.accuracy.toFixed(1)}% confidence`;
+          description = `Winning bet - ${realtimeData.safeNumber(accuracy, 1)}% confidence`;
           break;
         case 'loss':
           amount = Math.floor(Math.random() * 2000) + 200;
@@ -73,7 +78,8 @@ const BankrollPage: React.FC = () => {
       case 'win':
         return 'text-green-600 dark:text-green-400';
       case 'loss':
-        return 'text-red-600 dark: text-red-400',`n  default:
+        return 'text-red-600 dark: text-red-400'
+,`n  default:
         return 'text-gray-600 dark:text-gray-400'}
   };
 
@@ -120,7 +126,7 @@ const BankrollPage: React.FC = () => {
                 <h3 className='text-sm font-medium text-gray-500 dark:text-gray-400 mb-2'>ROI</h3>
                 <p className={`text-2xl font-bold ${roi >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                   {roi >= 0 ? '+' : ''}
-                  {roi.toFixed(1)}%
+                  {safeNumber(roi, 1)}%
                 </p>
               </div>
 
@@ -142,7 +148,8 @@ const BankrollPage: React.FC = () => {
                       className={`px-4 py-2 text-sm font-medium ${
                         timeframe === t
                           ? 'bg-primary-500 text-white'
-                          : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'}`}>`n                      onClick={() => setTimeframe(t)}
+                          : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'}`}
+>`n                      onClick={() => setTimeframe(t)}
                     >
                       {t === 'all' ? 'All Time' : t}
                     </button>
@@ -156,7 +163,7 @@ const BankrollPage: React.FC = () => {
                     Real-time balance tracking: ${currentBalance.toLocaleString()}
                   </p>
                   <p className='text-green-500 text-sm mt-2'>
-                    Consistent growth with {roi.toFixed(1)}% ROI
+                    Consistent growth with {safeNumber(roi, 1)}% ROI
                   </p>
                 </div>
               </div>

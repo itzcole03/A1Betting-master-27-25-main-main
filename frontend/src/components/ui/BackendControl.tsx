@@ -255,7 +255,7 @@ export const BackendControl: React.FC<BackendControlProps key={625300}> = ({
                 ? "Run each command separately in PowerShell/CMD"
                 : "Commands can be chained with &&"}
             </div>
-            <div key={241917}>Backend should start on http://localhost:8000</div>
+            <div key={241917}>Backend should start on ${process.env.REACT_APP_API_URL || "http://localhost:8000"}</div>
           </div>
         </>,
         {

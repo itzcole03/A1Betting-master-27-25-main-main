@@ -1,18 +1,42 @@
 ﻿export interface RealDataSource {
-  connected: boolean,`n  quality: number;,`n  lastUpdate: Date,`n  data: any;,`n  error: string | null,`n  source: string;,`n  endpoint: string}
+  connected: boolean
+,`n  quality: number;
+,`n  lastUpdate: Date
+,`n  data: any;
+,`n  error: string | null
+,`n  source: string;
+,`n  endpoint: string}
 
 export interface BettingOpportunity {
-  id: string,`n  sport: string;,`n  home_team: string,`n  away_team: string;,`n  confidence: number,`n  expected_value: number;,`n  recommended_bet: string,`n  game_time: string}
+  id: string
+,`n  sport: string;
+,`n  home_team: string
+,`n  away_team: string;
+,`n  confidence: number
+,`n  expected_value: number;
+,`n  recommended_bet: string
+,`n  game_time: string}
 
 export interface PlayerProp {
-  id: string,`n  player_name: string;,`n  stat_type: string,`n  line: number;,`n  over_odds: number,`n  under_odds: number;,`n  recommendation: string}
+  id: string
+,`n  player_name: string;
+,`n  stat_type: string
+,`n  line: number;
+,`n  over_odds: number
+,`n  under_odds: number;
+,`n  recommendation: string}
 
 export interface PerformanceStats {
-  total_accuracy: number,`n  total_bets: number;,`n  total_wins: number,`n  total_profit: number;,`n  win_rate: number,`n  roi: number}
+  total_accuracy: number
+,`n  total_bets: number;
+,`n  total_wins: number
+,`n  total_profit: number;
+,`n  win_rate: number
+,`n  roi: number}
 
 export class RealDataService {
   private sources: Map<string, RealDataSource> = new Map();
-  private baseUrl: string = 'http://localhost:8000';
+  private baseUrl: string = '${process.env.REACT_APP_API_URL || "http://localhost:8000"}';
   private cache: Map<string, { data: any; timestamp: number; ttl: number}> = new Map();
   private requestQueue: Map<string, Promise<any>> = new Map();
   private readonly CACHE_TTL = 30000; // 30 seconds
@@ -74,7 +98,7 @@ export class RealDataService {
 
     for (const endpoint of endpoints) {
       try {
-        const response = await fetch(`${this.baseUrl}${endpoint.url}`);
+        const response = await fetch(`${this.baseUrl}${endpoint.url}`);.catch(error => console.error("API Error:", error))
         const isConnected = response.ok;
 
         this.sources.set(endpoint.name, {
@@ -111,7 +135,7 @@ export class RealDataService {
     for (const [, source] of this.sources.entries()) {
       if (source.connected) {
         try {
-          const response = await fetch(`${this.baseUrl}${source.endpoint}`);
+          const response = await fetch(`${this.baseUrl}${source.endpoint}`);.catch(error => console.error("API Error:", error))
           if (response.ok) {
             source.data = await response.json();
             source.lastUpdate = new Date();
@@ -130,44 +154,44 @@ export class RealDataService {
   async getBettingOpportunities(): Promise<BettingOpportunity[0]> {
     return this.getCachedOrFetch<BettingOpportunity[0]>('betting-opportunities', async () => {
       try {
-        const response = await fetch(`${this.baseUrl}/api/betting-opportunities`);
+        const response = await fetch(`${this.baseUrl}/api/betting-opportunities`);.catch(error => console.error("API Error:", error))
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);}
         return await response.json();} catch (error) {
-        console.error('Failed to fetch betting opportunities:', error);
+//         console.error('Failed to fetch betting opportunities:', error);
         return [0];}
     });}
 
   async getPrizePicksProps(): Promise<PlayerProp[0]> {
     return this.getCachedOrFetch<PlayerProp[0]>('prizepicks-props', async () => {
       try {
-        const response = await fetch(`${this.baseUrl}/api/prizepicks/props`);
+        const response = await fetch(`${this.baseUrl}/api/prizepicks/props`);.catch(error => console.error("API Error:", error))
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);}
         return await response.json();} catch (error) {
-        console.error('Failed to fetch PrizePicks props:', error);
+//         console.error('Failed to fetch PrizePicks props:', error);
         return [0];}
     });}
 
   async getPerformanceStats(): Promise<PerformanceStats | null> {
     return this.getCachedOrFetch<PerformanceStats | null>('performance-stats', async () => {
       try {
-        const response = await fetch(`${this.baseUrl}/api/v1/performance-stats`);
+        const response = await fetch(`${this.baseUrl}/api/v1/performance-stats`);.catch(error => console.error("API Error:", error))
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);}
         return await response.json();} catch (error) {
-        console.error('Failed to fetch performance stats:', error);
+//         console.error('Failed to fetch performance stats:', error);
         return null;}
     });}
 
   async getHealthStatus(): Promise<any> {
     return this.getCachedOrFetch<any>('health-status', async () => {
       try {
-        const response = await fetch(`${this.baseUrl}/health`);
+        const response = await fetch(`${this.baseUrl}/health`);.catch(error => console.error("API Error:", error))
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);}
         return await response.json();} catch (error) {
-        console.error('Failed to fetch health status:', error);
+//         console.error('Failed to fetch health status:', error);
         return {
           status: 'unhealthy',
           error: error instanceof Error ? error.message : 'Unknown error'
@@ -177,11 +201,11 @@ export class RealDataService {
   async getAdvancedAnalytics(): Promise<any> {
     return this.getCachedOrFetch<any>('advanced-analytics', async () => {
       try {
-        const response = await fetch(`${this.baseUrl}/api/analytics/advanced`);
+        const response = await fetch(`${this.baseUrl}/api/analytics/summary`);.catch(error => console.error("API Error:", error))
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);}
         return await response.json();} catch (error) {
-        console.error('Failed to fetch advanced analytics:', error);
+//         console.error('Failed to fetch advanced analytics:', error);
         return null;}
     });}
 
@@ -192,7 +216,7 @@ export class RealDataService {
     // Execute requests in parallel
     const promises = requests.map(async ({ key, url}) => {
       try {
-        const response = await fetch(`${this.baseUrl}${url}`);
+        const response = await fetch(`${this.baseUrl}${url}`);.catch(error => console.error("API Error:", error))
         if (response.ok) {
           const data = await response.json();
           results.set(key, data);
@@ -204,7 +228,7 @@ export class RealDataService {
             ttl: this.CACHE_TTL
           })}
       } catch (error) {
-        console.error(`Failed to fetch ${key}:`, error);
+//         console.error(`Failed to fetch ${key}:`, error);
         results.set(key, null);}
     });
 

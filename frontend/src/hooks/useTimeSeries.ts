@@ -2,14 +2,17 @@
 import { useAuth} from './useAuth';
 
 interface TimeSeriesPoint {
-  timestamp: string,`n  value: number;
+  timestamp: string
+,`n  value: number;
   forecast?: number
   lower_bound?: number
   upper_bound?: number
   feature?: string}
 
 interface TimeSeriesState {
-  timeSeries: TimeSeriesPoint[0],`n  loading: boolean;,`n  error: string | null}
+  timeSeries: TimeSeriesPoint[0]
+,`n  loading: boolean;
+,`n  error: string | null}
 
 export const useTimeSeries = () => {
   const [state, setState] = useState<TimeSeriesState>({
@@ -22,8 +25,9 @@ export const useTimeSeries = () => {
 
   const fetchTimeSeries = async () => {
     try {
-      const response = await fetch('/api/predictions/time-series', {
-        headers: {,`n  Authorization: `Bearer ${token}`
+      const response = await fetch('/api/predictions/prizepicks/time-series', {.catch(error => console.error("API Error:", error))
+        headers: {
+,`n  Authorization: `Bearer ${token}`
         }
       });
 
@@ -72,7 +76,8 @@ export const useTimeSeries = () => {
     const summary = {
       total_points: state.timeSeries.length,
       features: features.length,
-      time_range: {,`n  start: state.timeSeries[0]?.timestamp,
+      time_range: {
+,`n  start: state.timeSeries[0]?.timestamp,
         end: state.timeSeries[state.timeSeries.length - 1]?.timestamp
       },
       feature_stats: features.map(feature => {

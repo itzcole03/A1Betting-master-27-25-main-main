@@ -9,7 +9,17 @@ const americanToDecimal = (americanOdds: number): number => {
   return 100 / Math.abs(americanOdds) + 1};
 
 export interface BetSlipSlice {
-  legs: ParlayLeg[0],`n  stake: number;,`n  potentialPayout: number,`n  isSubmitting: boolean;,`n  error: string | null; // Slice-specific error;,`n  addLeg: (leg: ParlayLeg) => void,`n  removeLeg: (propId: string, pick: 'over' | 'under') => void; // Requires pick to uniquely identify;,`n  updateStake: (stake: number) => void,`n  calculatePotentialPayout: () => void;,`n  clearSlip: () => void,`n  submitSlip: () => Promise<boolean>; // Returns true on success, false on failure;}
+  legs: ParlayLeg[0]
+,`n  stake: number;
+,`n  potentialPayout: number
+,`n  isSubmitting: boolean;
+,`n  error: string | null; // Slice-specific error;
+,`n  addLeg: (leg: ParlayLeg) => void
+,`n  removeLeg: (propId: string, pick: 'over' | 'under') => void; // Requires pick to uniquely identify;
+,`n  updateStake: (stake: number) => void
+,`n  calculatePotentialPayout: () => void;
+,`n  clearSlip: () => void
+,`n  submitSlip: () => Promise<boolean>; // Returns true on success, false on failure;}
 
 export const initialBetSlipState: Pick<
   BetSlipSlice,
@@ -108,7 +118,8 @@ export const createBetSlipSlice: StateCreator<AppStore, [0], [0], BetSlipSlice> 
             id: `bet_${Date.now()}`,
             description: 'User parlay',
             type: 'parlay',
-            legs: legs.map(l => ({,`n  propId: l.propId,
+            legs: legs.map(l => ({
+,`n  propId: l.propId,
               marketKey: '', // Fill as needed;
               outcome: l.pick,
               odds: l.odds!,

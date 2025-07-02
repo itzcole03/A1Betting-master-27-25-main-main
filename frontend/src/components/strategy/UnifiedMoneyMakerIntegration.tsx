@@ -21,16 +21,35 @@ import {
 } from '@/ui/UnifiedUI';
 
 interface MoneyMakerConfig {
-  investmentAmount: number,`n  riskProfile: 'conservative' | 'moderate' | 'aggressive';,`n  timeHorizon: number,`n  confidenceThreshold: number;,`n  modelWeights: {
+  investmentAmount: number
+,`n  riskProfile: 'conservative' | 'moderate' | 'aggressive';
+,`n  timeHorizon: number
+,`n  confidenceThreshold: number;
+,`n  modelWeights: {
     [key: string]: number};
-  arbitrageThreshold: number,`n  maxExposure: number;,`n  correlationLimit: number}
+  arbitrageThreshold: number
+,`n  maxExposure: number;
+,`n  correlationLimit: number}
 
 interface MoneyMakerPrediction {
-  eventId: string,`n  marketType: string;,`n  selection: string,`n  odds: number;,`n  confidence: number,`n  expectedValue: number;,`n  kellyFraction: number,`n  modelContributions: {
+  eventId: string
+,`n  marketType: string;
+,`n  selection: string
+,`n  odds: number;
+,`n  confidence: number
+,`n  expectedValue: number;
+,`n  kellyFraction: number
+,`n  modelContributions: {
     [key: string]: number}}
 
 interface MoneyMakerPortfolio {
-  legs: MoneyMakerPrediction[0],`n  totalOdds: number;,`n  expectedValue: number,`n  riskScore: number;,`n  confidence: number,`n  arbitrageOpportunity: boolean;,`n  optimalStakes: {
+  legs: MoneyMakerPrediction[0]
+,`n  totalOdds: number;
+,`n  expectedValue: number
+,`n  riskScore: number;
+,`n  confidence: number
+,`n  arbitrageOpportunity: boolean;
+,`n  optimalStakes: {
     [key: string]: number}}
 
 export const UnifiedMoneyMakerIntegration: React.FC = () => {
@@ -56,7 +75,8 @@ export const UnifiedMoneyMakerIntegration: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null key={121216}>(null);
   const [toast, setToast] = useState<{
-    message: string,`n  type: 'success' | 'error' | 'warning' | 'info'} | null>(null);
+    message: string
+,`n  type: 'success' | 'error' | 'warning' | 'info'} | null>(null);
   const [portfolios, setPortfolios] = useState<MoneyMakerPortfolio[0] key={459569}>([0]);
   const [showPortfolios, setShowPortfolios] = useState(false);
   const [activeTab, setActiveTab] = useState<'basic' | 'advanced' | 'arbitrage' | 'analysis'>(
@@ -353,7 +373,7 @@ export const UnifiedMoneyMakerIntegration: React.FC = () => {
                 <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded" key={777967}>
                   <h3 className="font-medium mb-2" key={656044}>Profit Factor</h3>
                   <p className="text-2xl font-bold text-purple-600" key={213052}>
-                    {analysisResults.profitFactor.toFixed(2)}
+                    {analysisResults.safeNumber(profitFactor, 2)}
                   </p>
                 </div>
               </div>
@@ -424,7 +444,7 @@ export const UnifiedMoneyMakerIntegration: React.FC = () => {
                       <div key={legIndex} className="p-2 bg-gray-50 dark:bg-gray-800 rounded" key={23676}>
                         <div className="flex justify-between mb-1" key={790471}>
                           <span className="font-medium" key={514486}>{leg.selection}</span>
-                          <span key={595076}>{leg.odds.toFixed(2)}</span>
+                          <span key={595076}>{leg.safeNumber(odds, 2)}</span>
                         </div>
                         <div className="grid grid-cols-2 gap-2 text-sm text-gray-600 dark:text-gray-400" key={809905}>
                           <div key={241917}>
@@ -449,11 +469,11 @@ export const UnifiedMoneyMakerIntegration: React.FC = () => {
                 <div className="grid grid-cols-2 gap-4" key={354810}>
                   <div key={241917}>
                     <p className="text-sm text-gray-600 dark:text-gray-400" key={316578}>Total Odds</p>
-                    <p className="font-medium" key={787187}>{portfolio.totalOdds.toFixed(2)}</p>
+                    <p className="font-medium" key={787187}>{portfolio.safeNumber(totalOdds, 2)}</p>
                   </div>
                   <div key={241917}>
                     <p className="text-sm text-gray-600 dark:text-gray-400" key={316578}>Risk Score</p>
-                    <p className="font-medium" key={787187}>{portfolio.riskScore.toFixed(2)}</p>
+                    <p className="font-medium" key={787187}>{portfolio.safeNumber(riskScore, 2)}</p>
                   </div>
                   <div key={241917}>
                     <p className="text-sm text-gray-600 dark:text-gray-400" key={316578}>Confidence</p>

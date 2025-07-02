@@ -107,7 +107,7 @@ const BetSlipSidebar: React.FC = () => {
         <div className="flex items-center justify-between" key={96335}>
           <span className="text-primary-100 font-semibold" key={644718}>Potential Payout</span>
           <span className="text-yellow-300 text-xl font-extrabold" key={247442}>
-            ${potentialPayout.toFixed(2)}
+            ${safeNumber(potentialPayout, 2)}
           </span>
         </div>
         <button;

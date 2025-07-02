@@ -21,7 +21,8 @@ ChartJS.register(
 );
 
 interface SHAPValue {
-  feature: string,`n  value: number}
+  feature: string
+,`n  value: number}
 
 interface SHAPChartProps {
   shapValues: SHAPValue[0];
@@ -55,29 +56,42 @@ export function SHAPChart({ shapValues, className = ""}: SHAPChartProps) {
     indexAxis: "y" as const,
     responsive: true,
     maintainAspectRatio: false,
-    plugins: {,`n  legend: {,`n  display: false
+    plugins: {
+,`n  legend: {
+,`n  display: false
       },
-      title: {,`n  display: true,
+      title: {
+,`n  display: true,
         text: "Feature Impact on Prediction",
         color: "rgb(107, 114, 128)",
-        font: {,`n  size: 16,
+        font: {
+,`n  size: 16,
           weight: "500" as const
         }
       },
-      tooltip: {,`n  callbacks: {,`n  label: (context: any) => {
+      tooltip: {
+,`n  callbacks: {
+,`n  label: (context: any) => {
 
-            return `Impact: ${value > 0 ? "+" : ""}${value.toFixed(3)}`}
+            return `Impact: ${value > 0 ? "+" : ""}${safeNumber(value, 3)}`}
         }
       }
     },
-    scales: {,`n  x: {,`n  grid: {,`n  color: "rgba(107, 114, 128, 0.1)"
+    scales: {
+,`n  x: {
+,`n  grid: {
+,`n  color: "rgba(107, 114, 128, 0.1)"
         },
-        ticks: {,`n  color: "rgb(107, 114, 128)"
+        ticks: {
+,`n  color: "rgb(107, 114, 128)"
         }
       },
-      y: {,`n  grid: {,`n  display: false
+      y: {
+,`n  grid: {
+,`n  display: false
         },
-        ticks: {,`n  color: "rgb(107, 114, 128)",
+        ticks: {
+,`n  color: "rgb(107, 114, 128)",
           callback: (value: any) => {
 
             return label.length > 20 ? label.substring(0, 17) + "..." : label}

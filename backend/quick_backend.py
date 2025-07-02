@@ -57,7 +57,7 @@ def health():
 def api_health():
     return {"status": "healthy", "service": "A1Betting API"}
 
-@app.get("/api/health/all")
+@app.get("/api/health/status")
 async def comprehensive_health_check():
     """Comprehensive health check endpoint that the frontend expects"""
     global prizepicks_service
@@ -194,7 +194,7 @@ async def get_betting_opportunities():
         for i in range(10)
     ]
 
-@app.get("/api/predictions")
+@app.get("/api/predictions/prizepicks")
 async def get_predictions():
     """Predictions"""
     return {
@@ -209,7 +209,7 @@ async def get_predictions():
         ]
     }
 
-@app.get("/api/analytics/advanced")
+@app.get("/api/analytics/summary")
 async def get_advanced_analytics():
     """Advanced analytics endpoint that the frontend expects"""
     global prizepicks_service

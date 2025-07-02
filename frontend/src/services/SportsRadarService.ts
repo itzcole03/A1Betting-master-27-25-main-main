@@ -5,32 +5,91 @@
 
 export interface SportsRadarAPIEndpoints {
   // Odds Comparison APIs;
-  oddsComparison: {,`n  prematch: string;,`n  playerProps: string,`n  futures: string;,`n  regular: string};
+  oddsComparison: {
+,`n  prematch: string;
+,`n  playerProps: string
+,`n  futures: string;
+,`n  regular: string};
 
   // Sports APIs;
-  sports: {,`n  nba: string;,`n  wnba: string,`n  nfl: string;,`n  nhl: string,`n  mlb: string;,`n  soccer: string,`n  tennis: string;,`n  golf: string,`n  mma: string}}
+  sports: {
+,`n  nba: string;
+,`n  wnba: string
+,`n  nfl: string;
+,`n  nhl: string
+,`n  mlb: string;
+,`n  soccer: string
+,`n  tennis: string;
+,`n  golf: string
+,`n  mma: string}}
 
 export interface SportsRadarConfig {
-  apiKey: string,`n  baseUrl: string;,`n  rateLimit: number,`n  quotaLimit: number;,`n  cacheTTL: number}
+  apiKey: string
+,`n  baseUrl: string;
+,`n  rateLimit: number
+,`n  quotaLimit: number;
+,`n  cacheTTL: number}
 
 export interface OddsData {
-  eventId: string,`n  sport: string;,`n  homeTeam: string,`n  awayTeam: string;,`n  odds: {,`n  moneyline: {,`n  home: number,`n  away: number};
-    spread: {,`n  line: number;,`n  home: number,`n  away: number};
-    total: {,`n  line: number;,`n  over: number,`n  under: number}};
+  eventId: string
+,`n  sport: string;
+,`n  homeTeam: string
+,`n  awayTeam: string;
+,`n  odds: {
+,`n  moneyline: {
+,`n  home: number
+,`n  away: number};
+    spread: {
+,`n  line: number;
+,`n  home: number
+,`n  away: number};
+    total: {
+,`n  line: number;
+,`n  over: number
+,`n  under: number}};
   playerProps?: Array<{
-    playerId: string,`n  playerName: string;,`n  propType: string,`n  line: number;,`n  overOdds: number,`n  underOdds: number}>;
+    playerId: string
+,`n  playerName: string;
+,`n  propType: string
+,`n  line: number;
+,`n  overOdds: number
+,`n  underOdds: number}>;
   timestamp: string}
 
 export interface PlayerStatsData {
-  playerId: string,`n  playerName: string;,`n  team: string,`n  position: string;,`n  season: string,`n  stats: {,`n  games: number,`n  points: number;,`n  rebounds: number,`n  assists: number;
+  playerId: string
+,`n  playerName: string;
+,`n  team: string
+,`n  position: string;
+,`n  season: string
+,`n  stats: {
+,`n  games: number
+,`n  points: number;
+,`n  rebounds: number
+,`n  assists: number;
     [key: string]: number};
-  recentForm: Array<{,`n  gameId: string;,`n  date: string,`n  opponent: string;,`n  stats: Record<string, number>}>;}
+  recentForm: Array<{
+,`n  gameId: string;
+,`n  date: string
+,`n  opponent: string;
+,`n  stats: Record<string, number>}>;}
 
 export interface GameData {
-  gameId: string,`n  sport: string;,`n  status: 'scheduled' | 'live' | 'completed',`n  scheduled: string;,`n  homeTeam: {,`n  id: string;,`n  name: string,`n  abbreviation: string};
-  awayTeam: {,`n  id: string;,`n  name: string,`n  abbreviation: string};
+  gameId: string
+,`n  sport: string;
+,`n  status: 'scheduled' | 'live' | 'completed'
+,`n  scheduled: string;
+,`n  homeTeam: {
+,`n  id: string;
+,`n  name: string
+,`n  abbreviation: string};
+  awayTeam: {
+,`n  id: string;
+,`n  name: string
+,`n  abbreviation: string};
   score?: {
-    home: number,`n  away: number};
+    home: number
+,`n  away: number};
   period?: {
     current: number;
     timeRemaining?: string};}
@@ -44,7 +103,7 @@ export class EnhancedSportsRadarService {
   constructor() {
     this.config = {
       apiKey: import.meta.env.VITE_SPORTRADAR_API_KEY || '',
-      baseUrl: import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000',
+      baseUrl: import.meta.env.VITE_BACKEND_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}',
       rateLimit: parseInt(import.meta.env.VITE_SPORTSRADAR_RATE_LIMIT || '1'),
       quotaLimit: parseInt(import.meta.env.VITE_SPORTSRADAR_QUOTA_LIMIT || '1000'),
       cacheTTL: parseInt(import.meta.env.VITE_SPORTSRADAR_CACHE_TTL || '300000')

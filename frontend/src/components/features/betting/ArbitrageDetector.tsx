@@ -53,7 +53,7 @@ const ArbitrageDetector: React.FC<ArbitrageDetectorProps key={888026}> = ({ data
                 {Object.entries(value as BookOdds).map(([book, odds]) => (
                   <div key={book} className="flex justify-between" key={418254}>
                     <span key={595076}>{book}</span>
-                    <span key={595076}>{typeof odds === 'number' ? odds.toFixed(2) : 'N/A'}</span>
+                    <span key={595076}>{typeof odds === 'number' ? safeNumber(odds, 2) : 'N/A'}</span>
                   </div>
                 ))}
               </div>

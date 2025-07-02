@@ -976,7 +976,7 @@ class SportsExpertAgent:
             # Try to list available Ollama models (local API)
             import requests
 
-            ollama_url = "http://localhost:11434/api/tags"
+            ollama_url = "${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/tags"
             resp = requests.get(ollama_url, timeout=2)
             if resp.status_code == 200:
                 tags = resp.json().get("models", [])

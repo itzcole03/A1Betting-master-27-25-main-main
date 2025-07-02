@@ -46,13 +46,26 @@ import UserProfile from './UserProfile'
  */
 
 interface NavigationItem {
-  id: string,`n  label: string;,`n  icon: React.ReactNode,`n  component: React.ComponentType<any>;
+  id: string
+,`n  label: string;
+,`n  icon: React.ReactNode
+,`n  component: React.ComponentType<any>;
   badge?: string
   description: string;
   premium?: boolean}
 
 interface PlatformStats {
-  totalProfit: number,`n  winRate: number;,`n  accuracy: number,`n  activePredictions: number;,`n  portfolioValue: number,`n  todayPnL: number;,`n  sharpeRatio: number,`n  maxDrawdown: number;,`n  apiHealth: 'healthy' | 'degraded' | 'critical',`n  opportunitiesFound: number;,`n  mlModelsActive: number}
+  totalProfit: number
+,`n  winRate: number;
+,`n  accuracy: number
+,`n  activePredictions: number;
+,`n  portfolioValue: number
+,`n  todayPnL: number;
+,`n  sharpeRatio: number
+,`n  maxDrawdown: number;
+,`n  apiHealth: 'healthy' | 'degraded' | 'critical'
+,`n  opportunitiesFound: number;
+,`n  mlModelsActive: number}
 
 const A1BettingPlatformImmediate: React.FC = () => {
   const [activeView, setActiveView] = useState<string>('dashboard');
@@ -268,7 +281,8 @@ const A1BettingPlatformImmediate: React.FC = () => {
                           <span className={`absolute -top-2 -right-2 text-xs rounded-full w-5 h-5 flex items-center justify-center ${
                               item.badge === 'Live' || item.badge === 'Auto'
                                 ? 'bg-green-500 text-white animate-pulse'
-                                : 'bg-blue-500 text-white'}`}>`n                          >
+                                : 'bg-blue-500 text-white'}`}
+>`n                          >
                             {item.badge === 'Live' || item.badge === 'Auto' ? '●' : item.badge}
                           </span>
                         )}
@@ -339,7 +353,7 @@ const A1BettingPlatformImmediate: React.FC = () => {
               <div className='text-right'>
                 <p className='text-xs text-gray-400'>Today's P&L</p>
                 <div className='flex items-center space-x-2'>
-                  <p className='font-semibold text-green-400'>+${stats.todayPnL.toFixed(2)}</p>
+                  <p className='font-semibold text-green-400'>+${stats.safeNumber(todayPnL, 2)}</p>
                   <ArrowUp className='w-4 h-4 text-green-400' />
                 </div>
               </div>

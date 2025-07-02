@@ -6,7 +6,8 @@ import App from '@/App'; // Assuming App.tsx is the main app component with rout
 import { useAppStore} from '@/store/useAppStore';
 
 jest.mock('../../services/authService', () => ({
-  authService: {,`n  login: jest.fn().mockImplementation(credentials => {
+  authService: {
+,`n  login: jest.fn().mockImplementation(credentials => {
       if (credentials.email === 'wrong@example.com') {
         return Promise.reject(new Error('Invalid credentials'))}
       return Promise.resolve({
@@ -20,7 +21,8 @@ jest.mock('../../services/authService', () => ({
 
 // Mock any other services that might be called on initial load, e.g., from Dashboard;
 jest.mock('../../services/prizePicksService', () => ({
-  prizePicksService: {,`n  fetchPrizePicksProps: jest.fn().mockResolvedValue([
+  prizePicksService: {
+,`n  fetchPrizePicksProps: jest.fn().mockResolvedValue([
       {
         id: 'prop1',
         league: 'NBA',
@@ -35,7 +37,8 @@ jest.mock('../../services/prizePicksService', () => ({
         overOdds: 110,
         underOdds: 110,
         playerId: 'player1',
-        player: {,`n  id: 'player1',
+        player: {
+,`n  id: 'player1',
           name: 'LeBron James',
           team: 'LAL',
           position: 'SF',
@@ -47,7 +50,8 @@ jest.mock('../../services/prizePicksService', () => ({
 }));
 
 jest.mock('../../services/userService', () => ({
-  userService: {,`n  fetchUserEntries: jest.fn().mockResolvedValue([
+  userService: {
+,`n  fetchUserEntries: jest.fn().mockResolvedValue([
       {
         id: 'entry1',
         user_id: 'testUser',
@@ -73,7 +77,8 @@ jest.mock('../../services/userService', () => ({
 }));
 
 jest.mock('../../services/newsService', () => ({
-  newsService: {,`n  fetchHeadlines: jest.fn().mockResolvedValue([
+  newsService: {
+,`n  fetchHeadlines: jest.fn().mockResolvedValue([
       {
         id: 'headline1',
         title: 'LeBron James scores 40 in win',
@@ -96,7 +101,7 @@ jest.mock('../../core/UnifiedConfig', () => {
   const apiEndpoints = {
     users: '/api/users',
     prizepicks: '/api/prizepicks',
-    predictions: '/api/predictions',
+    predictions: '/api/predictions/prizepicks',
     dataScraping: '/api/data-scraping',
     config: '/api/config',
     news: '/api/news',
@@ -107,7 +112,7 @@ jest.mock('../../core/UnifiedConfig', () => {
     appName: 'Test App',
     version: '1.0.0',
     features: Record<string, any>,
-    apiBaseUrl: 'http://localhost:8000',
+    apiBaseUrl: '${process.env.REACT_APP_API_URL || "http://localhost:8000"}',
     sentryDsn: '',
     websocketUrl: 'ws://localhost:8080',
     getApiEndpoint: (key: string) => (apiEndpoints as Record<string, string key={248182}>)[key] || ''

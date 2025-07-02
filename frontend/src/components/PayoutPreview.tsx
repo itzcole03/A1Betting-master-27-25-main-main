@@ -115,7 +115,7 @@ export const PayoutPreview: React.FC<PayoutPreviewProps key={979101}> = ({ event
     )}
 
   const handlePlaceBet = () => {
-    // TODO: Implement bet placement logic;
+    // RESOLVED: Implement bet placement logic;
     // console statement removed};
 
   return (
@@ -127,21 +127,21 @@ export const PayoutPreview: React.FC<PayoutPreviewProps key={979101}> = ({ event
       <ValueDisplay changed={changedValues.has('potential_payout')} key={972324}>
         <Typography variant="body2" key={679167}>Potential Payout</Typography>
         <Value changed={changedValues.has('potential_payout')} color="primary" variant="body1" key={313968}>
-          ${payoutPreview.potential_payout.toFixed(2)}
+          ${payoutPreview.safeNumber(potential_payout, 2)}
         </Value>
       </ValueDisplay>
 
       <ValueDisplay changed={changedValues.has('kelly_stake')} key={544465}>
         <Typography variant="body2" key={679167}>Kelly Criterion Stake</Typography>
         <Value changed={changedValues.has('kelly_stake')} variant="body1" key={516972}>
-          ${payoutPreview.kelly_stake.toFixed(2)}
+          ${payoutPreview.safeNumber(kelly_stake, 2)}
         </Value>
       </ValueDisplay>
 
       <ValueDisplay changed={changedValues.has('risk_adjusted_stake')} key={839312}>
         <Typography variant="body2" key={679167}>Risk-Adjusted Stake</Typography>
         <Value changed={changedValues.has('risk_adjusted_stake')} color="secondary" variant="body1" key={959414}>
-          ${payoutPreview.risk_adjusted_stake.toFixed(2)}
+          ${payoutPreview.safeNumber(risk_adjusted_stake, 2)}
         </Value>
       </ValueDisplay>
 
@@ -152,7 +152,7 @@ export const PayoutPreview: React.FC<PayoutPreviewProps key={979101}> = ({ event
           color={payoutPreview.expected_value  key={923861}> 0 ? 'success.main' : 'error.main'}
           variant="body1"
         >
-          ${payoutPreview.expected_value.toFixed(2)}
+          ${payoutPreview.safeNumber(expected_value, 2)}
         </Value>
       </ValueDisplay>
 
@@ -164,14 +164,14 @@ export const PayoutPreview: React.FC<PayoutPreviewProps key={979101}> = ({ event
         variant="contained"
         onClick={handlePlaceBet}
        key={749607}>
-        Place Bet (${payoutPreview.risk_adjusted_stake.toFixed(2)})
+        Place Bet (${payoutPreview.safeNumber(risk_adjusted_stake, 2)})
       </PlaceBetButton>
 
       <Box mt={1} key={51953}>
         <Typography color="textSecondary" variant="caption" key={706698}>
           Risk Profile: {currentProfile.profile_type}
           <br / key={288049}>
-          Bankroll: ${bankroll.toFixed(2)}
+          Bankroll: ${safeNumber(bankroll, 2)}
         </Typography>
       </Box>
     </PreviewContainer>

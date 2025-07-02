@@ -4,7 +4,9 @@ import { getMetrics} from '@/core/metrics/metrics'
 
 
 interface DailyFantasyRequest {
-  site: 'draftkings' | 'fanduel',`n  date: string;,`n  sport: string}
+  site: 'draftkings' | 'fanduel'
+,`n  date: string;
+,`n  sport: string}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -56,8 +58,9 @@ async function fetchDailyFantasyData(
   const baseUrl =
     site === 'draftkings' ? 'https://api.draftkings.com/v1' : 'https://api.fanduel.com/v1';
 
-  const response = await fetch(`${baseUrl}/contests/${sport}/${date}`, {
-    headers: {,`n  Authorization: `Bearer ${apiKey}`,
+  const response = await fetch(`${baseUrl}/contests/${sport}/${date}`, {.catch(error => console.error("API Error:", error))
+    headers: {
+,`n  Authorization: `Bearer ${apiKey}`,
       Accept: 'application/json'
     }
   });

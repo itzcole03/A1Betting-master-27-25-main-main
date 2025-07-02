@@ -23,11 +23,13 @@ export const MLPredictions: React.FC<MLPredictionsProps key={745992}> = ({
 
     setIsGenerating(true);
     try {
-      const input: PredictionInput = {,`n  eventId: selectedEventId,
+      const input: PredictionInput = {
+,`n  eventId: selectedEventId,
         sport,
         homeTeam: "Team A",
         awayTeam: "Team B",
-        features: {,`n  elo_difference: 50,
+        features: {
+,`n  elo_difference: 50,
           player_recent_form: 0.8,
           home_court_advantage: 2.5,
           rest_days: 1,
@@ -43,7 +45,8 @@ export const MLPredictions: React.FC<MLPredictionsProps key={745992}> = ({
         predictedValue: prediction.finalPrediction,
         factors: prediction.factors,
         timestamp: Date.now(),
-        metadata: {,`n  modelVersion: "ensemble_v1.0",
+        metadata: {
+,`n  modelVersion: "ensemble_v1.0",
           features: input.features
         }
       })} catch (error) {

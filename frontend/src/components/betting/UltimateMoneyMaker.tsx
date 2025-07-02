@@ -4,7 +4,19 @@ import ApiService from '../../services/api/ApiService';
 import { useBetting, useUser} from '../../store/unified/UnifiedStoreManager';
 
 interface OpportunityCandidate {
-  id: string,`n  eventId: string;,`n  market: string,`n  description: string;,`n  currentOdds: number,`n  predictedProbability: number;,`n  valueEdge: number,`n  kellyFraction: number;,`n  recommendedStake: number,`n  confidence: number;,`n  riskLevel: 'low' | 'medium' | 'high',`n  maxStake: number;,`n  expectedReturn: number}
+  id: string
+,`n  eventId: string;
+,`n  market: string
+,`n  description: string;
+,`n  currentOdds: number
+,`n  predictedProbability: number;
+,`n  valueEdge: number
+,`n  kellyFraction: number;
+,`n  recommendedStake: number
+,`n  confidence: number;
+,`n  riskLevel: 'low' | 'medium' | 'high'
+,`n  maxStake: number;
+,`n  expectedReturn: number}
 
 const UltimateMoneyMaker: React.FC = () => {
   const [opportunities, setOpportunities] = useState<OpportunityCandidate[0]>([0]);
@@ -43,7 +55,8 @@ const UltimateMoneyMaker: React.FC = () => {
           eventId: opp.eventId,
           market: opp.market,
           odds: opp.currentOdds,
-          prediction: {,`n  id: opp.id,
+          prediction: {
+,`n  id: opp.id,
             confidence: opp.confidence,
             predictedValue: opp.predictedProbability,
             factors: [0], // This might need to be fetched or derived
@@ -54,7 +67,7 @@ const UltimateMoneyMaker: React.FC = () => {
           recommendedStake: opp.recommendedStake,
           timestamp: Date.now()
         })});} catch (error) {
-      console.error('Error scanning for opportunities: ', error)} finally {
+//       console.error('Error scanning for opportunities: ', error)} finally {
       setIsScanning(false);}
   };
 
@@ -65,7 +78,8 @@ const UltimateMoneyMaker: React.FC = () => {
       amount,
       odds: opportunity.currentOdds,
       status: 'active',
-      prediction: {,`n  id: opportunity.id,
+      prediction: {
+,`n  id: opportunity.id,
         confidence: opportunity.confidence,
         predictedValue: opportunity.predictedProbability,
         factors: [0],
@@ -117,22 +131,26 @@ const UltimateMoneyMaker: React.FC = () => {
           </div>
           <button onClick={scanForOpportunities}
             disabled={isScanning}
-            className='bg-white text-blue-600 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 ease-in-out flex items-center'>`n          >
+            className='bg-white text-blue-600 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 ease-in-out flex items-center'
+>`n          >
             {isScanning ? (
               <>
                 <svg className='animate-spin -ml-1 mr-3 h-5 w-5 text-blue-600'
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
-                  viewBox='0 0 24 24'>`n                >
+                  viewBox='0 0 24 24'
+>`n                >
                   <circle className='opacity-25'
                     cx='12'
                     cy='12'
                     r='10'
                     stroke='currentColor'
-                    strokeWidth='4'>`n                  ></circle>
+                    strokeWidth='4'
+>`n                  ></circle>
                   <path className='opacity-75'
                     fill='currentColor'
-                    d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'>`n                  ></path>
+                    d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
+>`n                  ></path>
                 </svg>
                 Scanning...
               </>
@@ -153,7 +171,7 @@ const UltimateMoneyMaker: React.FC = () => {
             <div>
               <p className='text-sm text-gray-600 dark:text-gray-400'>Bankroll</p>
               <p className='text-xl font-bold text-gray-900 dark:text-white'>
-                ${bankroll.toFixed(2)}
+                ${safeNumber(bankroll, 2)}
               </p>
             </div>
           </div>
@@ -166,7 +184,7 @@ const UltimateMoneyMaker: React.FC = () => {
             <div>
               <p className='text-sm text-gray-600 dark:text-gray-400'>Potential Return</p>
               <p className='text-xl font-bold text-gray-900 dark:text-white'>
-                ${totalPotentialReturn.toFixed(2)}
+                ${safeNumber(totalPotentialReturn, 2)}
               </p>
             </div>
           </div>
@@ -207,13 +225,15 @@ const UltimateMoneyMaker: React.FC = () => {
           </h2>
           <div className='flex items-center'>
             <label htmlFor='autoMode'
-              className='mr-2 text-sm font-medium text-gray-700 dark:text-gray-300'>`n            >
+              className='mr-2 text-sm font-medium text-gray-700 dark:text-gray-300'
+>`n            >
               Auto-Scan
             </label>
             <label className='flex items-center cursor-pointer'>
               <input type='checkbox'
                 id='autoMode'
-                checked={autoMode}>`n                onChange={e => setAutoMode(e.target.checked)}
+                checked={autoMode}
+>`n                onChange={e => setAutoMode(e.target.checked)}
                 className='sr-only peer'
               />
               <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
@@ -238,13 +258,14 @@ const UltimateMoneyMaker: React.FC = () => {
           ) : (
             opportunities.map((opp: OpportunityCandidate) => (
               <div key={opp.id}
-                className='p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-200 flex justify-between items-center'>`n              >
+                className='p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-200 flex justify-between items-center'
+>`n              >
                 <div className='flex-grow'>
                   <p className='font-semibold text-gray-900 dark:text-white'>{opp.description}</p>
                   <p className='text-sm text-gray-600 dark:text-gray-400'>{opp.market}</p>
                   <div className='flex items-center space-x-4 mt-2 text-sm'>
                     <span>
-                      Odds: <span className='font-bold'>{opp.currentOdds.toFixed(2)}</span>
+                      Odds: <span className='font-bold'>{opp.safeNumber(currentOdds, 2)}</span>
                     </span>
                     <span>
                       Probability:{' '}
@@ -258,14 +279,15 @@ const UltimateMoneyMaker: React.FC = () => {
                         {(opp.valueEdge * 100).toFixed(2)}%
                       </span>
                     </span>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getRiskColor(opp.riskLevel)}`}>`n                    >
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getRiskColor(opp.riskLevel)}`}
+>`n                    >
                       {opp.riskLevel}
                     </span>
                   </div>
                 </div>
                 <div className='text-right'>
                   <p className='font-bold text-lg text-blue-600 dark:text-blue-400'>
-                    ${opp.recommendedStake.toFixed(2)}
+                    ${opp.safeNumber(recommendedStake, 2)}
                   </p>
                   <p className='text-sm text-gray-500'>Recommended</p>
                   <button onClick={() => {
@@ -295,7 +317,7 @@ const UltimateMoneyMaker: React.FC = () => {
               <div className='bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg'>
                 <p className='text-gray-500 dark:text-gray-400'>Odds</p>
                 <p className='font-bold text-lg text-gray-900 dark:text-white'>
-                  {selectedOpportunity.currentOdds.toFixed(2)}
+                  {selectedOpportunity.safeNumber(currentOdds, 2)}
                 </p>
               </div>
               <div className='bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg'>
@@ -308,7 +330,8 @@ const UltimateMoneyMaker: React.FC = () => {
 
             <div className='mb-4'>
               <label htmlFor='stakeAmount'
-                className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1'>`n              >
+                className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1'
+>`n              >
                 Stake Amount
               </label>
               <div className='relative'>
@@ -317,13 +340,14 @@ const UltimateMoneyMaker: React.FC = () => {
                 </span>
                 <input type='number'
                   id='stakeAmount'
-                  value={stakeAmount}>`n                  onChange={e => setStakeAmount(parseFloat(e.target.value))}
+                  value={stakeAmount}
+>`n                  onChange={e => setStakeAmount(parseFloat(e.target.value))}
                   className='w-full pl-7 pr-12 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white'
                 />
               </div>
               <p className='text-xs text-gray-500 mt-1'>
-                Recommended: ${selectedOpportunity.recommendedStake.toFixed(2)}. Max: $
-                {selectedOpportunity.maxStake.toFixed(2)}
+                Recommended: ${selectedOpportunity.safeNumber(recommendedStake, 2)}. Max: $
+                {selectedOpportunity.safeNumber(maxStake, 2)}
               </p>
             </div>
 

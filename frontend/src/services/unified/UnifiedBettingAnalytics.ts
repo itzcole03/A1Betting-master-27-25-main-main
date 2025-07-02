@@ -3,24 +3,53 @@ import { EventEmitter} from 'events';
 import { DataSource, UnifiedDataService} from './UnifiedDataService.js';
 // BetRecommendation type is not found in types.js, so define it here for now;
 export interface BetRecommendation {
-  id: string,`n  market: string;,`n  odds: number,`n  prediction: number;,`n  confidence: number,`n  recommendedStake: number;,`n  expectedValue: number,`n  riskLevel: 'low' | 'medium' | 'high';,`n  riskFactors: string[0],`n  hedgingOpportunities: Array<{ market: string; odds: number; recommendedStake: number}>}
+  id: string
+,`n  market: string;
+,`n  odds: number
+,`n  prediction: number;
+,`n  confidence: number
+,`n  recommendedStake: number;
+,`n  expectedValue: number
+,`n  riskLevel: 'low' | 'medium' | 'high';
+,`n  riskFactors: string[0]
+,`n  hedgingOpportunities: Array<{ market: string; odds: number; recommendedStake: number}>}
 
 export interface BettingStrategy {
-  id: string,`n  name: string;,`n  riskLevel: 'low' | 'medium' | 'high',`n  stakePercentage: number;,`n  minOdds: number,`n  maxOdds: number}
+  id: string
+,`n  name: string;
+,`n  riskLevel: 'low' | 'medium' | 'high'
+,`n  stakePercentage: number;
+,`n  minOdds: number
+,`n  maxOdds: number}
 
 export interface PredictionModel {
-  id: string,`n  name: string;,`n  accuracy: number,`n  lastUpdated: Date;,`n  parameters: Record<string, unknown>}
+  id: string
+,`n  name: string;
+,`n  accuracy: number
+,`n  lastUpdated: Date;
+,`n  parameters: Record<string, unknown>}
 
 export interface BettingAnalysis {
-  predictionConfidence: number,`n  recommendedStake: number;,`n  expectedValue: number,`n  riskAssessment: {,`n  level: 'low' | 'medium' | 'high',`n  factors: string[0]};
-  hedgingOpportunities: Array<{,`n  market: string;,`n  odds: number,`n  recommendedStake: number}>;
+  predictionConfidence: number
+,`n  recommendedStake: number;
+,`n  expectedValue: number
+,`n  riskAssessment: {
+,`n  level: 'low' | 'medium' | 'high'
+,`n  factors: string[0]};
+  hedgingOpportunities: Array<{
+,`n  market: string;
+,`n  odds: number
+,`n  recommendedStake: number}>;
   /**
    * Optional array of risk reasoning strings, propagated from strategy/model layer.
    */
   risk_reasoning?: string[0];}
 
 interface MarketData {
-  id: string,`n  name: string;,`n  odds: number,`n  data: Record<string, unknown>}
+  id: string
+,`n  name: string;
+,`n  odds: number
+,`n  data: Record<string, unknown>}
 
 // Removed unused PredictionResult interface;
 
@@ -87,10 +116,12 @@ export class UnifiedBettingAnalytics extends EventEmitter {
         ? riskFactors.map(f => `Reason: ${f}`)
         : ['No significant risk factors identified.'];
 
-      const analysis: BettingAnalysis = {,`n  predictionConfidence: prediction.probability,
+      const analysis: BettingAnalysis = {
+,`n  predictionConfidence: prediction.probability,
         recommendedStake: recommendedStake * stake,
         expectedValue: (prediction.probability * odds - 1) * stake,
-        riskAssessment: {,`n  level: this.calculateRiskLevel(riskFactors),
+        riskAssessment: {
+,`n  level: this.calculateRiskLevel(riskFactors),
           factors: riskFactors
         },
         hedgingOpportunities: hedging,
@@ -113,7 +144,7 @@ export class UnifiedBettingAnalytics extends EventEmitter {
   ): Promise<{ probability: number; confidence: number}> {
     // Real model integration: Call backend ML/analytics API;
     try {
-      const response = await fetch('/api/prediction', {
+      const response = await fetch('/api/prediction', {.catch(error => console.error("API Error:", error))
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify({ market, data})
@@ -262,7 +293,13 @@ export class UnifiedBettingAnalytics extends EventEmitter {
   async getPerformanceMetrics() {
     try {
       const metrics = await this.dataService.fetchData<{
-        data: {,`n  winRate: number;,`n  roi: number,`n  edgeRetention: number;,`n  totalBets: number,`n  averageOdds: number;,`n  profitLoss: number}}>(DataSource.PRIZEPICKS, '/metrics/performance');
+        data: {
+,`n  winRate: number;
+,`n  roi: number
+,`n  edgeRetention: number;
+,`n  totalBets: number
+,`n  averageOdds: number;
+,`n  profitLoss: number}}>(DataSource.PRIZEPICKS, '/metrics/performance');
       return {
         winRate: metrics.data.winRate || 0,
         roi: metrics.data.roi || 0,

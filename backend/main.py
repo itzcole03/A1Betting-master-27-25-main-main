@@ -163,7 +163,9 @@ app.add_middleware(
         "*",  # Allow all for development
         "https://7fb6bf6978914ca48f089e6151180b03-a1b171efc67d4aea943f921a9.fly.dev",  # Cloud frontend
         "http://localhost:3000",  # Vite dev server
-        "http://localhost:5173",  # Alternative Vite port
+        "http://localhost:3001",  # Alternative Vite port
+        "http://localhost:3002",  # Alternative Vite port
+        "http://localhost:3003",  # Alternative Vite port
         "http://192.168.1.125:5173",  # Local network access
         "http://192.168.1.190:3000",  # Network frontend access
     ],
@@ -280,7 +282,7 @@ async def root():
 # COMPREHENSIVE HEALTH CHECK ENDPOINT
 # ============================================================================
 
-@app.get("/api/health/all")
+@app.get("/api/health/status")
 async def comprehensive_health_check():
     """Comprehensive health check endpoint"""
     try:

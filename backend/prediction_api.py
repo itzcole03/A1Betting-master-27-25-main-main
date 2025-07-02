@@ -36,7 +36,7 @@ app = FastAPI(
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],  # React dev servers
+    allow_origins=["${process.env.REACT_APP_API_URL || "http://localhost:8000"}", "${process.env.REACT_APP_API_URL || "http://localhost:8000"}"],  # React dev servers
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -129,9 +129,9 @@ async def root():
         "phase": "PHASE 5: REAL-TIME PREDICTION ENGINE",
         "status": "operational",
         "endpoints": {
-            "predictions": "/api/predictions/live",
-            "health": "/api/predictions/health",
-            "explain": "/api/predictions/explain/{prop_id}",
+            "predictions": "/api/predictions/prizepicks/live",
+            "health": "/api/predictions/prizepicks/health",
+            "explain": "/api/predictions/prizepicks/explain/{prop_id}",
             "docs": "/docs"
         }
     }
@@ -145,7 +145,7 @@ async def health_check():
         "service": "real-time-prediction-api"
     }
 
-@app.post("/api/predictions/live", response_model=List[PredictionResponse])
+@app.post("/api/predictions/prizepicks/live", response_model=List[PredictionResponse])
 async def get_live_predictions(
     request: PredictionRequest,
     engine = Depends(get_initialized_engine)
@@ -211,7 +211,7 @@ async def get_live_predictions(
         logger.error(f"❌ API error generating predictions: {e}")
         raise HTTPException(status_code=500, detail=f"Prediction generation failed: {str(e)}")
 
-@app.get("/api/predictions/live", response_model=List[PredictionResponse])
+@app.get("/api/predictions/prizepicks/live", response_model=List[PredictionResponse])
 async def get_live_predictions_get(
     sport: Optional[str] = None,
     limit: int = 20,
@@ -223,7 +223,7 @@ async def get_live_predictions_get(
     request = PredictionRequest(sport=sport, limit=limit)
     return await get_live_predictions(request, engine)
 
-@app.get("/api/predictions/health", response_model=SystemHealthResponse)
+@app.get("/api/predictions/prizepicks/health", response_model=SystemHealthResponse)
 async def get_system_health(
     engine = Depends(get_initialized_engine)
 ) -> SystemHealthResponse:
@@ -247,7 +247,7 @@ async def get_system_health(
         logger.error(f"❌ Error getting system health: {e}")
         raise HTTPException(status_code=500, detail=f"Health check failed: {str(e)}")
 
-@app.get("/api/predictions/explain/{prop_id}")
+@app.get("/api/predictions/prizepicks/explain/{prop_id}")
 async def get_prediction_explanation(
     prop_id: str,
     engine = Depends(get_initialized_engine)
@@ -271,7 +271,7 @@ async def get_prediction_explanation(
         logger.error(f"❌ Error getting explanation for {prop_id}: {e}")
         raise HTTPException(status_code=500, detail=f"Explanation failed: {str(e)}")
 
-@app.get("/api/predictions/models")
+@app.get("/api/predictions/prizepicks/models")
 async def get_loaded_models(
     engine = Depends(get_initialized_engine)
 ):
@@ -298,7 +298,7 @@ async def get_loaded_models(
         logger.error(f"❌ Error getting model info: {e}")
         raise HTTPException(status_code=500, detail=f"Model info failed: {str(e)}")
 
-@app.get("/api/predictions/stats")
+@app.get("/api/predictions/prizepicks/stats")
 async def get_prediction_stats(
     engine = Depends(get_initialized_engine)
 ):
@@ -328,7 +328,7 @@ async def get_prediction_stats(
         logger.error(f"❌ Error getting prediction stats: {e}")
         raise HTTPException(status_code=500, detail=f"Stats failed: {str(e)}")
 
-@app.post("/api/predictions/train")
+@app.post("/api/predictions/prizepicks/train")
 async def trigger_model_training(
     background_tasks: BackgroundTasks,
     engine = Depends(get_initialized_engine)

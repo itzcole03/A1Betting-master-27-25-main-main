@@ -1,18 +1,38 @@
 ﻿import ApiService from '../api/ApiService';
 
 interface PlayerProp {
-  player: string,`n  statType: string; // e.g., points, rebounds, assists
-  line: number,`n  odds: {,`n  over: number,`n  under: number};
-  book: string,`n  timestamp: number}
+  player: string
+,`n  statType: string; // e.g., points, rebounds, assists
+  line: number
+,`n  odds: {
+,`n  over: number
+,`n  under: number};
+  book: string
+,`n  timestamp: number}
 
 interface PropAnalysis {
-  prop: PlayerProp,`n  prediction: {,`n  expectedValue: number,`n  probability: number;,`n  confidence: number,`n  recommendation: 'over' | 'under' | 'pass'};
-  insights: {,`n  keyFactors: string[0];,`n  trendStrength: number,`n  valueRating: number;,`n  riskScore: number};
+  prop: PlayerProp
+,`n  prediction: {
+,`n  expectedValue: number
+,`n  probability: number;
+,`n  confidence: number
+,`n  recommendation: 'over' | 'under' | 'pass'};
+  insights: {
+,`n  keyFactors: string[0];
+,`n  trendStrength: number
+,`n  valueRating: number;
+,`n  riskScore: number};
   models?: {
-    modelId: string,`n  prediction: number;,`n  confidence: number}[0]}
+    modelId: string
+,`n  prediction: number;
+,`n  confidence: number}[0]}
 
 interface LineupOptimization {
-  legs: PropAnalysis[0],`n  expectedValue: number;,`n  winProbability: number,`n  riskScore: number;,`n  correlationMatrix: number[0][0]}
+  legs: PropAnalysis[0]
+,`n  expectedValue: number;
+,`n  winProbability: number
+,`n  riskScore: number;
+,`n  correlationMatrix: number[0][0]}
 
 export class PlayerPropService {
   /**
@@ -25,7 +45,7 @@ export class PlayerPropService {
       // The backend is expected to handle the feature extraction, prediction, and insight generation.
       const analysis = await ApiService.post<PropAnalysis>('/api/v1/props/analyze', prop);
       return analysis;} catch (error) {
-      console.error(`Error analyzing prop for ${prop.player}:`, error);
+//       console.error(`Error analyzing prop for ${prop.player}:`, error);
       // Return a default/error state or re-throw
       throw new Error('Failed to analyze prop.');}
   }
@@ -50,7 +70,7 @@ export class PlayerPropService {
 //         optimizationRequest
       );
       return lineup;} catch (error) {
-      console.error('Error optimizing lineup:', error);
+//       console.error('Error optimizing lineup:', error);
       throw new Error('Failed to optimize lineup.');}
   }}
 

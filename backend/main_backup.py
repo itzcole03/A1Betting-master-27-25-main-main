@@ -183,7 +183,7 @@ app.add_middleware(
     allow_origins=[
         "*",  # Allow all for development
         "https://7fb6bf6978914ca48f089e6151180b03-a1b171efc67d4aea943f921a9.fly.dev",  # Cloud frontend
-        "http://localhost:5173",  # Local development
+        "${process.env.REACT_APP_API_URL || "http://localhost:8000"}",  # Local development
         "http://192.168.1.125:5173",  # Local network access
     ],
     allow_credentials=True,
@@ -299,7 +299,7 @@ async def root():
 # COMPREHENSIVE HEALTH CHECK ENDPOINT
 # ============================================================================
 
-@app.get("/api/health/all")
+@app.get("/api/health/status")
 async def comprehensive_health_check():
     """Comprehensive health check endpoint"""
     try:

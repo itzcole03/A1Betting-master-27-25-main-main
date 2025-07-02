@@ -26,7 +26,7 @@ export const ConnectionTest: React.FC = () => {
       setStatus("Connecting...");
       setDetails({ apiUrl, timestamp: new Date().toISOString()});
 
-      const response = await fetch(`${apiUrl}/health`, {
+      const response = await fetch(`${apiUrl}/health`, {.catch(error => console.error("API Error:", error))
         method: "GET",
         headers: {
           "Content-Type": "application/json"

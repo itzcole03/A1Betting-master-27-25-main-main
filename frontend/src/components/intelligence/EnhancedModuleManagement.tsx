@@ -114,14 +114,26 @@ const MODULE_SCORES = {
 };
 
 interface ModuleConfig {
-  id: string,`n  name: string;,`n  icon: React.ReactNode,`n  category: string;,`n  priority: "critical" | "high" | "medium" | "low",`n  dependencies: string[0];,`n  computationLevel: "light" | "medium" | "heavy" | "extreme",`n  isActive: boolean}
+  id: string
+,`n  name: string;
+,`n  icon: React.ReactNode
+,`n  category: string;
+,`n  priority: "critical" | "high" | "medium" | "low"
+,`n  dependencies: string[0];
+,`n  computationLevel: "light" | "medium" | "heavy" | "extreme"
+,`n  isActive: boolean}
 
 interface EnhancedModuleManagementProps {
-  modules: ModuleConfig[0],`n  activeModules: Set<string key={278855}>;
+  modules: ModuleConfig[0]
+,`n  activeModules: Set<string key={278855}>;
   onToggleModule: (moduleId: string) => void;
   onBatchActivate?: (moduleIds: string[0]) => void}
 
-const EnhancedModuleCard: React.FC<{,`n  module: ModuleConfig;,`n  isActive: boolean,`n  onToggle: () => void;,`n  rank: number}> = ({ module, isActive, onToggle, rank}) => {
+const EnhancedModuleCard: React.FC<{
+,`n  module: ModuleConfig;
+,`n  isActive: boolean
+,`n  onToggle: () => void;
+,`n  rank: number}> = ({ module, isActive, onToggle, rank}) => {
   const scores = MODULE_SCORES[module.id as keyof typeof MODULE_SCORES] || {
     money: 50,
     accuracy: 3,
@@ -338,7 +350,8 @@ const EnhancedModuleCard: React.FC<{,`n  module: ModuleConfig;,`n  isActive: b
     </motion.div>
   )};
 
-const PerformanceDashboard: React.FC<{,`n  activeModules: Set<string key={278855}>
+const PerformanceDashboard: React.FC<{
+,`n  activeModules: Set<string key={278855}>
   moduleConfigs: ModuleConfig[0]}> = ({ activeModules, moduleConfigs}) => {
   const activeConfigs = moduleConfigs.filter((config) =>
     activeModules.has(config.id),
@@ -386,7 +399,7 @@ const PerformanceDashboard: React.FC<{,`n  activeModules: Set<string key={27885
     },
     {
       title: "Prediction Power",
-      value: `${metrics.avgAccuracyBoost.toFixed(1)}%`,
+      value: `${metrics.safeNumber(avgAccuracyBoost, 1)}%`,
       subtitle: "Combined boost",
       icon: Target,
       gradient: "from-blue-500/15 to-cyan-500/15",
@@ -395,7 +408,7 @@ const PerformanceDashboard: React.FC<{,`n  activeModules: Set<string key={27885
     },
     {
       title: "Money Score",
-      value: `${metrics.avgMoneyScore.toFixed(1)}%`,
+      value: `${metrics.safeNumber(avgMoneyScore, 1)}%`,
       subtitle: "Average rating",
       icon: Sparkles,
       gradient: "from-purple-500/15 to-pink-500/15",
@@ -404,7 +417,7 @@ const PerformanceDashboard: React.FC<{,`n  activeModules: Set<string key={27885
     },
     {
       title: "Total ROI",
-      value: `${metrics.totalROI.toFixed(0)}%`,
+      value: `${metrics.safeNumber(totalROI, 0)}%`,
       subtitle: "Return potential",
       icon: TrendingUp,
       gradient: "from-orange-500/15 to-yellow-500/15",

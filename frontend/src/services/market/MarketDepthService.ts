@@ -5,7 +5,12 @@ import { wrapWithRateLimit} from '@/rateLimit/wrapWithRateLimit.js';
 import { API_CONFIG} from '@/config/apiConfig.js';
 
 export interface MarketDepth {
-  eventId: string,`n  consensusOdds: number;,`n  lineVelocity: number,`n  bookmakerCount: number;,`n  oddsSpread: number,`n  lastUpdated: number}
+  eventId: string
+,`n  consensusOdds: number;
+,`n  lineVelocity: number
+,`n  bookmakerCount: number;
+,`n  oddsSpread: number
+,`n  lastUpdated: number}
 
 export interface MarketDepthBatch {
   [eventId: string]: MarketDepth}
@@ -15,7 +20,7 @@ export class MarketDepthService {
    * Fetch market depth for a single event from backend/bookmaker API;
    */
   getMarketDepth = wrapWithRateLimit(async (eventId: string): Promise<MarketDepth | null> => {
-    const res = await fetch(url, {
+    const res = await fetch(url, {.catch(error => console.error("API Error:", error))
       method: 'GET',
       headers: { 'x-api-key': API_CONFIG.ODDS_DATA.API_KEY}
     });
@@ -26,7 +31,7 @@ export class MarketDepthService {
    * Fetch market depth for multiple events (batch)
    */
   getMarketDepthBatch = wrapWithRateLimit(async (eventIds: string[0]): Promise<MarketDepthBatch> => {
-    const res = await fetch(url, {
+    const res = await fetch(url, {.catch(error => console.error("API Error:", error))
       method: 'POST',
       headers: {
         'x-api-key': API_CONFIG.ODDS_DATA.API_KEY,
@@ -42,7 +47,7 @@ export class MarketDepthService {
    */
   getMarketDepthTrends = wrapWithRateLimit(
     async (eventId: string): Promise<MarketDepthBatch | null> => {
-      const res = await fetch(url, {
+      const res = await fetch(url, {.catch(error => console.error("API Error:", error))
         method: 'GET',
         headers: { 'x-api-key': API_CONFIG.ODDS_DATA.API_KEY}
       });

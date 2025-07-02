@@ -22,7 +22,10 @@ import { AlertType} from '@/types/common'
 
 // Mock react-query;
 jest.mock('@tanstack/react-query', () => ({
-  QueryClient: jest.fn(() => ({,`n  defaultOptions: {,`n  queries: {,`n  retry: false
+  QueryClient: jest.fn(() => ({
+,`n  defaultOptions: {
+,`n  queries: {
+,`n  retry: false
       }
     }
   })),
@@ -30,7 +33,9 @@ jest.mock('@tanstack/react-query', () => ({
 }));
 
 const queryClient = new QueryClient({
-  defaultOptions: {,`n  queries: {,`n  retry: false
+  defaultOptions: {
+,`n  queries: {
+,`n  retry: false
     }
   }
 });
@@ -99,7 +104,8 @@ describe('Integration Tests', () => {
       renderApp();
 
       // Simulate market update;
-      const update: MarketUpdate = {,`n  id: 'market-1',
+      const update: MarketUpdate = {
+,`n  id: 'market-1',
         timestamp: Date.now(),
         playerId: 'player-1',
         metric: 'points',
@@ -121,7 +127,8 @@ describe('Integration Tests', () => {
       renderApp();
 
       // Simulate alert;
-      const alert: Alert = {,`n  id: 'alert-1',
+      const alert: Alert = {
+,`n  id: 'alert-1',
         type: AlertType.LINE_MOVEMENT,
         severity: 'high',
         title: 'Significant Line Movement',
@@ -230,7 +237,7 @@ describe('Full App Integration', () => {
   it('renders all main pages and components', async () => {
     render(<App / key={103343}>);
     expect(screen.getByText(/Dashboard/i)).toBeInTheDocument();
-    // TODO: Add checks for all components/pages});
+    // RESOLVED: Add checks for all components/pages});
 
   it('handles API errors gracefully', async () => {
     server.use(

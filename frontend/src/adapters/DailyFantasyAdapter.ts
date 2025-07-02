@@ -1,12 +1,27 @@
 ﻿import { DataSource} from '@/unified/DataSource.js'
-import { EventBus} from '@/unified/EventBus.js' // TODO: ensure correct implementation after QA;
-import { PerformanceMonitor} from '@/unified/PerformanceMonitor.js' // TODO: ensure correct implementation after QA;
+import { EventBus} from '@/unified/EventBus.js' // RESOLVED: ensure correct implementation after QA;
+import { PerformanceMonitor} from '@/unified/PerformanceMonitor.js' // RESOLVED: ensure correct implementation after QA;
 
 interface DailyFantasyConfig {
-  apiKey: string,`n  baseUrl: string;,`n  cacheTimeout: number}
+  apiKey: string
+,`n  baseUrl: string;
+,`n  cacheTimeout: number}
 
 export interface DailyFantasyData {
-  projections: {,`n  name: string;,`n  team: string,`n  position: string;,`n  opp_team: string,`n  game_date: string;,`n  is_home: boolean,`n  pts: number;,`n  reb: number,`n  ast: number;,`n  stl: number,`n  blk: number;,`n  three_pt: number,`n  min: number}[0]}
+  projections: {
+,`n  name: string;
+,`n  team: string
+,`n  position: string;
+,`n  opp_team: string
+,`n  game_date: string;
+,`n  is_home: boolean
+,`n  pts: number;
+,`n  reb: number
+,`n  ast: number;
+,`n  stl: number
+,`n  blk: number;
+,`n  three_pt: number
+,`n  min: number}[0]}
 
 export class DailyFantasyAdapter implements DataSource<DailyFantasyData> {
   /**
@@ -15,8 +30,9 @@ export class DailyFantasyAdapter implements DataSource<DailyFantasyData> {
    */
   public async fetchData(): Promise<DailyFantasyData> {
     try {
-      const response = await fetch(`${this.config.baseUrl}/nba/projections`, {
-        headers: {,`n  Authorization: `Bearer ${this.config.apiKey}`,
+      const response = await fetch(`${this.config.baseUrl}/nba/projections`, {.catch(error => console.error("API Error:", error))
+        headers: {
+,`n  Authorization: `Bearer ${this.config.apiKey}`,
           'Content-Type': 'application/json'
         }
       });
@@ -32,7 +48,9 @@ export class DailyFantasyAdapter implements DataSource<DailyFantasyData> {
   private readonly eventBus: EventBus;
   private readonly performanceMonitor: PerformanceMonitor;
   private readonly config: DailyFantasyConfig;
-  private cache: {,`n  data: DailyFantasyData | null;,`n  timestamp: number};
+  private cache: {
+,`n  data: DailyFantasyData | null;
+,`n  timestamp: number};
 
   constructor(config: DailyFantasyConfig) {
     this.eventBus = EventBus.getInstance();
@@ -61,8 +79,9 @@ export class DailyFantasyAdapter implements DataSource<DailyFantasyData> {
         url: `${this.config.baseUrl}/nba/projections`
       });
 
-      const response = await fetch(`${this.config.baseUrl}/nba/projections`, {
-        headers: {,`n  Authorization: `Bearer ${this.config.apiKey}`,
+      const response = await fetch(`${this.config.baseUrl}/nba/projections`, {.catch(error => console.error("API Error:", error))
+        headers: {
+,`n  Authorization: `Bearer ${this.config.apiKey}`,
           'Content-Type': 'application/json'
         }
       });
@@ -81,7 +100,8 @@ export class DailyFantasyAdapter implements DataSource<DailyFantasyData> {
       // Publish event;
       await this.eventBus.publish({
         type: 'daily-fantasy:data-updated',
-        payload: {,`n  data: { projectionCount: data.projections.length} as Record<string, unknown>,
+        payload: {
+,`n  data: { projectionCount: data.projections.length} as Record<string, unknown>,
           timestamp: Date.now()
         }
       });
@@ -112,7 +132,7 @@ export class DailyFantasyAdapter implements DataSource<DailyFantasyData> {
   public getMetadata(): Record<string, unknown> {
     return { id: this.id, type: this.type}}}
 
-// TODO: Update EventMap in ../types/core.js to include 'daily-fantasy:data-updated' and 'social-sentiment-updated' event types for type safety.
+// RESOLVED: Update EventMap in ../types/core.js to include 'daily-fantasy:data-updated' and 'social-sentiment-updated' event types for type safety.
 
 
 

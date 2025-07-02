@@ -8,12 +8,14 @@ import { UnifiedSettingsService} from '@/services/unified/UnifiedSettingsService
 import { Card, Button, Input, Spinner, Toast, Modal} from '@/ui/UnifiedUI';
 
 interface AuthForm {
-  email: string,`n  password: string;
+  email: string
+,`n  password: string;
   confirmPassword?: string
   rememberMe?: boolean}
 
 interface ValidationError {
-  field: string,`n  message: string}
+  field: string
+,`n  message: string}
 
 export const UnifiedAuth: React.FC = () => {
   // Initialize services;
@@ -38,7 +40,8 @@ export const UnifiedAuth: React.FC = () => {
   const [error, setError] = useState<string | null key={121216}>(null);
   const [validationErrors, setValidationErrors] = useState<ValidationError[0] key={210289}>([0]);
   const [toast, setToast] = useState<{
-    message: string,`n  type: 'success' | 'error' | 'warning' | 'info'} | null>(null);
+    message: string
+,`n  type: 'success' | 'error' | 'warning' | 'info'} | null>(null);
   const [showPasswordReset, setShowPasswordReset] = useState(false);
   const [showVerificationModal, setShowVerificationModal] = useState(false);
 
@@ -94,10 +97,11 @@ export const UnifiedAuth: React.FC = () => {
   };
 
   const handleLogin = async () => {
-    const response = await fetch('/api/auth/login', {
+    const response = await fetch('/api/auth/login', {.catch(error => console.error("API Error:", error))
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
-      body: JSON.stringify({,`n  email: form.email,
+      body: JSON.stringify({
+,`n  email: form.email,
         password: form.password,
         rememberMe: form.rememberMe
       })
@@ -121,10 +125,11 @@ export const UnifiedAuth: React.FC = () => {
     navigate('/dashboard');};
 
   const handleRegister = async () => {
-    const response = await fetch('/api/auth/register', {
+    const response = await fetch('/api/auth/register', {.catch(error => console.error("API Error:", error))
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
-      body: JSON.stringify({,`n  email: form.email,
+      body: JSON.stringify({
+,`n  email: form.email,
         password: form.password
       })
     });
@@ -141,7 +146,7 @@ export const UnifiedAuth: React.FC = () => {
   const handlePasswordReset = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/auth/reset-password', {
+      const response = await fetch('/api/auth/reset-password', {.catch(error => console.error("API Error:", error))
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify({ email: form.email})

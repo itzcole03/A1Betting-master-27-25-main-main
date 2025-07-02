@@ -7,16 +7,46 @@ import { UnifiedErrorService} from '@/services/unified/UnifiedErrorService';
 import { Card, Button, Input, Select, Spinner, Toast, Badge, Modal} from '@/ui/UnifiedUI';
 
 interface Bet {
-  id: string,`n  eventId: string;,`n  eventName: string,`n  marketType: string;,`n  selection: string,`n  odds: number;,`n  stake: number,`n  potentialReturn: number;,`n  status: 'pending' | 'won' | 'lost' | 'cancelled',`n  placedAt: string;
+  id: string
+,`n  eventId: string;
+,`n  eventName: string
+,`n  marketType: string;
+,`n  selection: string
+,`n  odds: number;
+,`n  stake: number
+,`n  potentialReturn: number;
+,`n  status: 'pending' | 'won' | 'lost' | 'cancelled'
+,`n  placedAt: string;
   settledAt?: string
   result?: {
-    outcome: string,`n  profit: number;,`n  roi: number}}
+    outcome: string
+,`n  profit: number;
+,`n  roi: number}}
 
 interface BettingStats {
-  totalBets: number,`n  wonBets: number;,`n  lostBets: number,`n  pendingBets: number;,`n  totalStake: number,`n  totalProfit: number;,`n  averageOdds: number,`n  winRate: number;,`n  roi: number,`n  bestWin: number;,`n  worstLoss: number,`n  currentStreak: number;,`n  bestStreak: number}
+  totalBets: number
+,`n  wonBets: number;
+,`n  lostBets: number
+,`n  pendingBets: number;
+,`n  totalStake: number
+,`n  totalProfit: number;
+,`n  averageOdds: number
+,`n  winRate: number;
+,`n  roi: number
+,`n  bestWin: number;
+,`n  worstLoss: number
+,`n  currentStreak: number;
+,`n  bestStreak: number}
 
 interface FilterOptions {
-  dateRange: 'day' | 'week' | 'month' | 'year' | 'all',`n  status: 'all' | 'pending' | 'won' | 'lost' | 'cancelled';,`n  marketType: string,`n  minOdds: number;,`n  maxOdds: number,`n  minStake: number;,`n  maxStake: number,`n  searchQuery: string}
+  dateRange: 'day' | 'week' | 'month' | 'year' | 'all'
+,`n  status: 'all' | 'pending' | 'won' | 'lost' | 'cancelled';
+,`n  marketType: string
+,`n  minOdds: number;
+,`n  maxOdds: number
+,`n  minStake: number;
+,`n  maxStake: number
+,`n  searchQuery: string}
 
 export const UnifiedBettingHistory: React.FC = () => {
   // Initialize services;
@@ -32,7 +62,8 @@ export const UnifiedBettingHistory: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null key={121216}>(null);
   const [toast, setToast] = useState<{
-    message: string,`n  type: 'success' | 'error' | 'warning' | 'info'} | null>(null);
+    message: string
+,`n  type: 'success' | 'error' | 'warning' | 'info'} | null>(null);
   const [filters, setFilters] = useState<FilterOptions key={946696}>({
     dateRange: 'month',
     status: 'all',
@@ -187,7 +218,7 @@ export const UnifiedBettingHistory: React.FC = () => {
                 </div>
                 <div className="flex justify-between" key={588832}>
                   <span key={595076}>Average Odds</span>
-                  <span className="font-medium" key={514486}>{stats.averageOdds.toFixed(2)}</span>
+                  <span className="font-medium" key={514486}>{stats.safeNumber(averageOdds, 2)}</span>
                 </div>
               </div>
             </Card>
@@ -400,7 +431,7 @@ export const UnifiedBettingHistory: React.FC = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap" key={865159}>
                       <div className="text-sm text-gray-900 dark:text-white" key={940407}>
-                        {bet.odds.toFixed(2)}
+                        {bet.safeNumber(odds, 2)}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap" key={865159}>
@@ -460,7 +491,7 @@ export const UnifiedBettingHistory: React.FC = () => {
                 </div>
                 <div className="flex justify-between" key={588832}>
                   <span key={595076}>Odds</span>
-                  <span key={595076}>{selectedBet.odds.toFixed(2)}</span>
+                  <span key={595076}>{selectedBet.safeNumber(odds, 2)}</span>
                 </div>
                 <div className="flex justify-between" key={588832}>
                   <span key={595076}>Stake</span>

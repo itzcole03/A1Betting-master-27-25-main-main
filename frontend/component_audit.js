@@ -22,7 +22,7 @@ function findComponentFiles(dir, componentFiles = []) {
       }
     });
   } catch (error) {
-    console.error(`Error reading directory ${dir}:`, error.message);
+//     console.error(`Error reading directory ${dir}:`, error.message);
   }
   
   return componentFiles;
@@ -52,7 +52,7 @@ function extractComponentNames(filePath) {
     
     return components;
   } catch (error) {
-    console.error(`Error reading file ${filePath}:`, error.message);
+//     console.error(`Error reading file ${filePath}:`, error.message);
     return [];
   }
 }
@@ -91,14 +91,14 @@ function checkComponentImplementation(filePath) {
 
 // Main audit function
 function auditComponents() {
-  console.log('Starting component audit...');
+//   console.log('Starting component audit...');
   
   if (!fs.existsSync(componentsDir)) {
-    console.error('Components directory not found:', componentsDir);
+//     console.error('Components directory not found:', componentsDir);
     return;
   }
 
-  console.log('Finding component files...');
+//   console.log('Finding component files...');
   const componentFiles = findComponentFiles(componentsDir);
   
   const audit = {
@@ -148,53 +148,53 @@ function auditComponents() {
   });
   
   // Generate report
-  console.log('\n=== COMPONENT AUDIT REPORT ===');
-  console.log(`Total Files: ${audit.totalFiles}`);
-  console.log(`Total Components: ${audit.totalComponents}`);
-  console.log(`Implemented: ${audit.implementedComponents}`);
-  console.log(`Stubs: ${audit.stubComponents}`);
-  console.log(`Broken: ${audit.brokenComponents}`);
-  console.log(`Duplicates: ${audit.duplicateComponents}`);
+//   console.log('\n=== COMPONENT AUDIT REPORT ===');
+//   console.log(`Total Files: ${audit.totalFiles}`);
+//   console.log(`Total Components: ${audit.totalComponents}`);
+//   console.log(`Implemented: ${audit.implementedComponents}`);
+//   console.log(`Stubs: ${audit.stubComponents}`);
+//   console.log(`Broken: ${audit.brokenComponents}`);
+//   console.log(`Duplicates: ${audit.duplicateComponents}`);
   
   if (duplicates.size > 0) {
-    console.log('\nDuplicate Components:');
+//     console.log('\nDuplicate Components:');
     duplicates.forEach(name => console.log(`  - ${name}`));
-    console.log('');
+//     console.log('');
   }
   
   const brokenFiles = Object.entries(audit.components)
     .filter(([, data]) => data.status === 'broken');
   
   if (brokenFiles.length > 0) {
-    console.log('\nBroken Components:');
+//     console.log('\nBroken Components:');
     brokenFiles.forEach(([filePath, data]) => {
-      console.log(`  ${filePath}:`);
+//       console.log(`  ${filePath}:`);
       data.issues.forEach(issue => console.log(`    - ${issue}`));
     });
-    console.log('');
+//     console.log('');
   }
   
   const stubFiles = Object.entries(audit.components)
     .filter(([, data]) => data.status === 'stub');
   
   if (stubFiles.length > 0) {
-    console.log('\nStub Components:');
+//     console.log('\nStub Components:');
     stubFiles.forEach(([filePath, data]) => {
-      console.log(`  ${filePath}: ${data.components.join(', ')}`);
+//       console.log(`  ${filePath}: ${data.components.join(', ')}`);
     });
-    console.log('');
+//     console.log('');
   }
   
   // Calculate completion percentage
   const completionRate = audit.totalComponents > 0 ? 
     (audit.implementedComponents / audit.totalComponents * 100).toFixed(1) : 0;
-  console.log(`Completion Rate: ${completionRate}%`);
+//   console.log(`Completion Rate: ${completionRate}%`);
   
   // Save detailed report
   const reportPath = path.join(__dirname, 'component_audit_report.json');
   fs.writeFileSync(reportPath, JSON.stringify(audit, null, 2));
   
-  console.log(`\nDetailed report saved to: ${reportPath}`);
+//   console.log(`\nDetailed report saved to: ${reportPath}`);
   
   return audit;
 }

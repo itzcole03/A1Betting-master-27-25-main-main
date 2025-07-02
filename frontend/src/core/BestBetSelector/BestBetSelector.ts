@@ -8,10 +8,18 @@ import { ErrorHandler} from '@/unified/ErrorHandler';
 import { PerformanceMonitor} from '@/unified/PerformanceMonitor';
 
 interface ModelPerformance {
-  wins: number,`n  losses: number;,`n  roi: number,`n  lastUpdated: Date}
+  wins: number
+,`n  losses: number;
+,`n  roi: number
+,`n  lastUpdated: Date}
 
 interface BestBetSelectorConfig {
-  minConfidence: number,`n  maxStake: number;,`n  minOdds: number,`n  maxOdds: number;,`n  maxConcurrentBets: number,`n  maxDailyLoss: number}
+  minConfidence: number
+,`n  maxStake: number;
+,`n  minOdds: number
+,`n  maxOdds: number;
+,`n  maxConcurrentBets: number
+,`n  maxDailyLoss: number}
 
 interface ValidationResult {
   isValid: boolean;
@@ -84,7 +92,7 @@ export class BestBetSelector {
       if (opportunity.confidence < riskProfile.min_confidence_threshold) {
         return {
           isValid: false,
-          reason: `Confidence (${opportunity.confidence.toFixed(2)}) below threshold (${riskProfile.min_confidence_threshold})`
+          reason: `Confidence (${opportunity.safeNumber(confidence, 2)}) below threshold (${riskProfile.min_confidence_threshold})`
         }}
 
       // Check stake percentage;
@@ -99,14 +107,14 @@ export class BestBetSelector {
       if (opportunity.volatility > riskProfile.volatility_tolerance) {
         return {
           isValid: false,
-          reason: `Volatility (${opportunity.volatility.toFixed(2)}) exceeds tolerance (${riskProfile.volatility_tolerance})`
+          reason: `Volatility (${opportunity.safeNumber(volatility, 2)}) exceeds tolerance (${riskProfile.volatility_tolerance})`
         }}
 
       // Check risk score;
       if (opportunity.riskScore > riskProfile.max_risk_score) {
         return {
           isValid: false,
-          reason: `Risk score (${opportunity.riskScore.toFixed(2)}) exceeds maximum (${riskProfile.max_risk_score})`
+          reason: `Risk score (${opportunity.safeNumber(riskScore, 2)}) exceeds maximum (${riskProfile.max_risk_score})`
         }}
 
       // Check preferred sports;
@@ -139,7 +147,7 @@ export class BestBetSelector {
       if (opportunity.stake > kellyStake) {
         return {
           isValid: false,
-          reason: `Stake (${opportunity.stake}) exceeds Kelly Criterion (${kellyStake.toFixed(2)})`
+          reason: `Stake (${opportunity.stake}) exceeds Kelly Criterion (${safeNumber(kellyStake, 2)})`
         }}
 
       // Record performance;

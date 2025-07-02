@@ -13,7 +13,7 @@ from ultra_accuracy_engine import UltraAccuracyEngine, RealPerformanceMetrics, Q
 
 class RealMetricsIntegrationTester:
     def __init__(self):
-        self.base_url = "http://localhost:8000/api/ultra-accuracy"
+        self.base_url = "${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/ultra-accuracy"
         self.test_results = {}
     
     def test_performance_metrics_endpoint_integration(self):

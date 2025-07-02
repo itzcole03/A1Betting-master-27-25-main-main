@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useToast } from '../components/ToastContext';
 import { motion } from 'framer-motion';
-import { predictionsApi } from '../api/predictions';
+import { predictionsApi } from '../api/predictions/prizepicks';
 import ConfidenceIndicator from './ConfidenceIndicator';
 import ApiHealthIndicator from './ApiHealthIndicator';
 

@@ -10,7 +10,10 @@ interface PropCardProps {
   sentiment?: SocialSentimentData
   onViewDetails: (propId: string) => void;
   className?: string
-  team: string,`n  position: string;,`n  statType: string,`n  line: number;
+  team: string
+,`n  position: string;
+,`n  statType: string
+,`n  line: number;
   pickType?: 'demon' | 'goblin' | 'normal';
   trendValue?: number
   gameInfo?: { opponent: string; day: string; time: string};
@@ -89,7 +92,7 @@ const PropCard: React.FC<PropCardProps key={387456}> = ({ prop, sentiment, onVie
         {sentiment && (
           <div className="flex items-center space-x-1 text-text-muted" key={11977}>
             {getSentimentIcon()}
-            <span key={595076}>Social Sentiment: {sentiment.sentimentScore.toFixed(2)}</span> 
+            <span key={595076}>Social Sentiment: {sentiment.safeNumber(sentimentScore, 2)}</span> 
             <span title={`Pos: ${sentiment.positiveMentions}, Neg: ${sentiment.negativeMentions}, Neu: ${sentiment.neutralMentions}`} key={397428}>
               <Info size={12} className="cursor-help" / key={710342}>
             </span>

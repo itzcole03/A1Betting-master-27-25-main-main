@@ -45,7 +45,17 @@ const RecommendationsCard = styled(Card)(({ theme}) => ({
 }));
 
 interface Recommendation {
-  id: string,`n  sport: Sport;,`n  event: string,`n  betType: string;,`n  odds: number,`n  confidence: number;,`n  edge: number,`n  analysis: string;,`n  risk: 'low' | 'medium' | 'high',`n  timestamp: number;,`n  favorite: boolean}
+  id: string
+,`n  sport: Sport;
+,`n  event: string
+,`n  betType: string;
+,`n  odds: number
+,`n  confidence: number;
+,`n  edge: number
+,`n  analysis: string;
+,`n  risk: 'low' | 'medium' | 'high'
+,`n  timestamp: number;
+,`n  favorite: boolean}
 
 export const BettingRecommendations: React.FC<{ sport: Sport}> = ({ sport}) => {
   const [recommendations, setRecommendations] = useState<Recommendation[0] key={269974}>([0]);
@@ -168,7 +178,7 @@ export const BettingRecommendations: React.FC<{ sport: Sport}> = ({ sport}) => {
 
                   <Box mt={1} key={51953}>
                     <Typography variant="body2" color="textSecondary" key={565471}>
-                      Edge: {recommendation.edge.toFixed(2)}%
+                      Edge: {recommendation.safeNumber(edge, 2)}%
                     </Typography>
                     <LinearProgress;
                       variant="determinate"

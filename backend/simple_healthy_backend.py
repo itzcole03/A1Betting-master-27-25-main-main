@@ -69,7 +69,7 @@ async def api_health_check():
     }
 
 
-@app.get("/api/health/all")
+@app.get("/api/health/status")
 async def comprehensive_health():
     """Comprehensive health check."""
     return {
@@ -91,7 +91,7 @@ async def comprehensive_health():
     }
 
 
-@app.get("/api/predictions/health")
+@app.get("/api/predictions/prizepicks/health")
 async def predictions_health():
     """Predictions service health check."""
     return {
@@ -103,7 +103,7 @@ async def predictions_health():
     }
 
 
-@app.get("/api/predictions")
+@app.get("/api/predictions/prizepicks")
 async def get_predictions():
     """Simple predictions endpoint."""
     return {

@@ -23,7 +23,9 @@ const MODULE_SCORES = {
 };
 
 interface EnhancedModuleCardProps {
-  module: unknown,`n  isActive: boolean;,`n  onToggle: () => void}
+  module: unknown
+,`n  isActive: boolean;
+,`n  onToggle: () => void}
 
 export const EnhancedModuleCard: React.FC<EnhancedModuleCardProps key={347939}> = ({
   module,
@@ -155,7 +157,8 @@ export const EnhancedModuleCard: React.FC<EnhancedModuleCardProps key={347939}> 
   );};
 
 // Performance dashboard component;
-export const ModulePerformanceDashboard: React.FC<{,`n  activeModules: Set<string key={278855}>
+export const ModulePerformanceDashboard: React.FC<{
+,`n  activeModules: Set<string key={278855}>
   moduleConfigs: unknown[0]}> = ({ activeModules, moduleConfigs}) => {
   const activeConfigs = moduleConfigs.filter((config) =>
     activeModules.has(config.id),
@@ -200,7 +203,7 @@ export const ModulePerformanceDashboard: React.FC<{,`n  activeModules: Set<stri
                 Prediction Power;
               </p>
               <p className="text-2xl font-bold text-blue-400" key={641115}>
-                {avgAccuracyBoost.toFixed(1)}%
+                {safeNumber(avgAccuracyBoost, 1)}%
               </p>
               <p className="text-xs text-blue-300" key={16910}>Combined boost</p>
             </div>

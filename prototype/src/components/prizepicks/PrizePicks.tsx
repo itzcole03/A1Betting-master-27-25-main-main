@@ -1,35 +1,25 @@
-import React, { useState, useEffect } from "react";
 import {
-  TrendingUp,
-  Target,
-  DollarSign,
-  Award,
-  Users,
-  Zap,
-  Star,
-  TrendingDown,
-  BarChart3,
-  Activity,
-  RefreshCw,
+    Award,
+    RefreshCw,
+    Target
 } from "lucide-react";
-import { PropCard } from "./PropCard";
-import { LineupBuilder } from "./LineupBuilder";
-import { useEnhancedBettingEngine } from "../../hooks/useEnhancedBettingEngine";
+import { useEffect, useState } from "react";
+import { safeNumber } from '../../../frontend/src/utils/UniversalUtils';
 import {
-  SPORT_OPTIONS,
-  getSportDisplayName,
-  getSportEmoji,
+    SPORT_OPTIONS
 } from "../../constants/sports";
-import { SportSelector } from "../common/SportSelector";
 import { useApp } from "../../contexts/AppContext";
 import { useEnhancedRealDataSources } from "../../hooks/useEnhancedRealDataSources";
 import { useRealDataValidation } from "../../hooks/useRealDataValidation";
-import { PlayerProp } from "../../types";
-import { DataDebug } from "../debug/DataDebug";
-import { RulesButton } from "./RulesModal";
-import { validateLineup } from "../../utils/lineupValidation";
 import { useToasts } from "../../hooks/useToasts";
+import { PlayerProp } from "../../types";
 import { DataGenerator } from "../../utils/dataGenerator";
+import { validateLineup } from "../../utils/lineupValidation";
+import { SportSelector } from "../common/SportSelector";
+import { DataDebug } from "../debug/DataDebug";
+import { LineupBuilder } from "./LineupBuilder";
+import { PropCard } from "./PropCard";
+import { RulesButton } from "./RulesModal";
 
 export function PrizePicks() {
   const { state, addSelectedProp } = useApp();
@@ -401,7 +391,7 @@ export function PrizePicks() {
 
     // Show success toast
     addToast(
-      `🎯 Lineup submitted successfully! Entry: $${entryAmount}, Expected payout: $${(entryAmount * 3.5).toFixed(2)}`,
+      `🎯 Lineup submitted successfully! Entry: $${safeNumber(entryAmount).toFixed(2)}, Expected payout: $${safeNumber(entryAmount * 3.5).toFixed(2)}`,
       "success",
     );
 
@@ -417,9 +407,9 @@ export function PrizePicks() {
       props: state.selectedProps.size,
       teams: Array.from(teams),
       sports: Array.from(sports),
-      entry: entryAmount,
-      avgConfidence: avgConfidence.toFixed(1),
-      totalEV: totalEV.toFixed(1),
+      entry: safeNumber(entryAmount).toFixed(2),
+      avgConfidence: safeNumber(avgConfidence).toFixed(1),
+      totalEV: safeNumber(totalEV).toFixed(1),
       dataSource: selectedPropsArray[0]?.source || "Real Player Data",
     });
   };

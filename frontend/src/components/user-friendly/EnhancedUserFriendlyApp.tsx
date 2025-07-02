@@ -56,12 +56,23 @@ import UserProfile from './UserProfile';
 import CleanAdvancedIntelligenceHub from '@/intelligence/CleanAdvancedIntelligenceHub';
 
 interface NavigationItem {
-  id: string,`n  label: string;,`n  icon: React.ReactNode,`n  component: React.ComponentType<any key={295429}>;
+  id: string
+,`n  label: string;
+,`n  icon: React.ReactNode
+,`n  component: React.ComponentType<any key={295429}>;
   badge?: string
-  description: string,`n  category: 'primary' | 'advanced' | 'tools' | 'settings'}
+  description: string
+,`n  category: 'primary' | 'advanced' | 'tools' | 'settings'}
 
 interface UserData {
-  name: string,`n  email: string;,`n  balance: number,`n  tier: string;,`n  winRate: number,`n  totalProfit: number;,`n  activeOpportunities: number,`n  todayProfit: number}
+  name: string
+,`n  email: string;
+,`n  balance: number
+,`n  tier: string;
+,`n  winRate: number
+,`n  totalProfit: number;
+,`n  activeOpportunities: number
+,`n  todayProfit: number}
 
 // Enhanced health check with money-making metrics;
 const useEnhancedHealthCheck = () => {
@@ -335,7 +346,7 @@ const EnhancedUserFriendlyApp: React.FC = () => {
               <div className="flex items-center gap-2 px-3 py-1 bg-gray-800/40 rounded-lg" key={176902}>
                 <div className={`w-2 h-2 rounded-full ${isOnline ? "bg-green-400" : "bg-red-400"}`} / key={804854}>
                 <span className="text-sm text-gray-300" key={660813}>
-                  {accuracy.toFixed(1)}% Accuracy;
+                  {safeNumber(accuracy, 1)}% Accuracy;
                 </span>
               </div>
               
@@ -349,7 +360,7 @@ const EnhancedUserFriendlyApp: React.FC = () => {
               <div className="flex items-center gap-2 px-3 py-1 bg-gray-800/40 rounded-lg" key={176902}>
                 <TrendingUp className="w-4 h-4 text-green-400" / key={448374}>
                 <span className="text-sm text-gray-300" key={660813}>
-                  ${userData.todayProfit.toFixed(2)} Today;
+                  ${userData.safeNumber(todayProfit, 2)} Today;
                 </span>
               </div>
             </div>
@@ -368,7 +379,7 @@ const EnhancedUserFriendlyApp: React.FC = () => {
               
               <div className="text-right" key={144468}>
                 <p className="text-sm font-medium" key={659934}>{userData.name}</p>
-                <p className="text-xs text-gray-400" key={777449}>${userData.balance.toFixed(2)}</p>
+                <p className="text-xs text-gray-400" key={777449}>${userData.safeNumber(balance, 2)}</p>
               </div>
             </div>
           </div>

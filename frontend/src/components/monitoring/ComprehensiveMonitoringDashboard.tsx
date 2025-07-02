@@ -17,10 +17,22 @@ import {
 import React, { useEffect, useState} from 'react';
 
 interface SystemMetrics {
-  health_score: number,`n  api_response_time: number;,`n  active_users: number,`n  predictions_today: number;,`n  accuracy_rate: number,`n  system_uptime: number;,`n  memory_usage: number,`n  cpu_usage: number;,`n  database_connections: number,`n  error_rate: number}
+  health_score: number
+,`n  api_response_time: number;
+,`n  active_users: number
+,`n  predictions_today: number;
+,`n  accuracy_rate: number
+,`n  system_uptime: number;
+,`n  memory_usage: number
+,`n  cpu_usage: number;
+,`n  database_connections: number
+,`n  error_rate: number}
 
 interface ServiceStatus {
-  name: string,`n  status: 'online' | 'offline' | 'degraded';,`n  response_time: number,`n  last_check: string}
+  name: string
+,`n  status: 'online' | 'offline' | 'degraded';
+,`n  response_time: number
+,`n  last_check: string}
 
 const ComprehensiveMonitoringDashboard: React.FC = () => {
   const [metrics, setMetrics] = useState<SystemMetrics>({
@@ -253,7 +265,7 @@ const ComprehensiveMonitoringDashboard: React.FC = () => {
             </div>
             <div className='text-center p-4 border rounded-lg'>
               <AlertTriangle className='h-8 w-8 mx-auto mb-2 text-yellow-500' />
-              <p className='text-2xl font-bold'>{metrics.error_rate.toFixed(1)}%</p>
+              <p className='text-2xl font-bold'>{metrics.safeNumber(error_rate, 1)}%</p>
               <p className='text-sm text-gray-500'>Error Rate</p>
             </div>
             <div className='text-center p-4 border rounded-lg'>

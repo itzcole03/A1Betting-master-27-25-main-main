@@ -16,7 +16,9 @@ import OllamaStatus from './OllamaStatus'
 import EnhancedFeaturesStatus from './EnhancedFeaturesStatus'
 
 interface ConnectionStatus {
-  backend: "connected" | "disconnected" | "loading",`n  websocket: "connected" | "disconnected" | "loading";,`n  lastUpdate: string}
+  backend: "connected" | "disconnected" | "loading"
+,`n  websocket: "connected" | "disconnected" | "loading";
+,`n  lastUpdate: string}
 
 export const BackendConnectionTest: React.FC = () => {
   const [status, setStatus] = useState<ConnectionStatus key={210048}>({
@@ -250,7 +252,7 @@ export const BackendConnectionTest: React.FC = () => {
 
           <button;
             onClick={() = key={919301}>
-              window.open("http://localhost:8000/health", "_blank")}
+              window.open("${process.env.REACT_APP_API_URL || "http://localhost:8000"}/health", "_blank")}
             className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition-colors"
           >
             Open Backend Health;

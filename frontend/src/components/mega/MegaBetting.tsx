@@ -287,7 +287,7 @@ const MegaBetting: React.FC<{
                     variant="body"
                     style={{ color: CYBER_COLORS.primary, fontWeight: "600"}}
                    key={913089}>
-                    ${opp.value.toFixed(2)}
+                    ${opp.safeNumber(value, 2)}
                   </CyberText>
                 </div>
                 <div key={241917}>
@@ -298,7 +298,7 @@ const MegaBetting: React.FC<{
                     variant="body"
                     style={{ color: CYBER_COLORS.secondary, fontWeight: "600"}}
                    key={519700}>
-                    {opp.roi.toFixed(1)}%
+                    {opp.safeNumber(roi, 1)}%
                   </CyberText>
                 </div>
                 <div key={241917}>
@@ -309,7 +309,7 @@ const MegaBetting: React.FC<{
                     variant="body"
                     style={{ color: CYBER_COLORS.accent, fontWeight: "600"}}
                    key={2557}>
-                    {opp.confidence.toFixed(1)}%
+                    {opp.safeNumber(confidence, 1)}%
                   </CyberText>
                 </div>
               </div>

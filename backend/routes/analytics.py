@@ -368,11 +368,11 @@ async def get_predictions_shim(
     _limit: int = 10
 ) -> Dict[str, Any]:
     """
-    Shim endpoint to support legacy frontend calls to /api/predictions.
+    Shim endpoint to support legacy frontend calls to /api/predictions/prizepicks.
     This endpoint returns an empty list to avoid 404 errors.
     The frontend should be updated to use versioned endpoints.
     """
-    logger.warning("Legacy /api/predictions endpoint was called. This is deprecated.")
+    logger.warning("Legacy /api/predictions/prizepicks endpoint was called. This is deprecated.")
     return {
         "predictions": [],
         "total": 0,

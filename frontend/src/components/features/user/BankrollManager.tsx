@@ -60,15 +60,15 @@ const BankrollManager: React.FC<BankrollManagerProps key={397812}> = ({ userId})
           <div className="space-y-3" key={186520}>
             <div key={241917}>
               <div className="text-sm text-gray-600" key={847282}>Recommended Stake</div>
-              <div className="text-xl font-bold text-blue-600" key={543399}>${recommendedStake.toFixed(2)}</div>
+              <div className="text-xl font-bold text-blue-600" key={543399}>${safeNumber(recommendedStake, 2)}</div>
             </div>
             <div key={241917}>
               <div className="text-sm text-gray-600" key={847282}>Max Daily Risk</div>
-              <div className="text-xl font-bold text-blue-600" key={543399}>${maxDailyRisk.toFixed(2)}</div>
+              <div className="text-xl font-bold text-blue-600" key={543399}>${safeNumber(maxDailyRisk, 2)}</div>
             </div>
             <div key={241917}>
               <div className="text-sm text-gray-600" key={847282}>Stop Loss</div>
-              <div className="text-xl font-bold text-red-600" key={539340}>${stopLoss.toFixed(2)}</div>
+              <div className="text-xl font-bold text-red-600" key={539340}>${safeNumber(stopLoss, 2)}</div>
             </div>
           </div>
         </motion.div>

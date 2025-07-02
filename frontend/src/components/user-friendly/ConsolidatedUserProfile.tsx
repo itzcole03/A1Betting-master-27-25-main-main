@@ -41,27 +41,53 @@ import {
 
 interface ExtendedUserProfile {
   // Basic Profile;
-  name: string,`n  email: string;
+  name: string
+,`n  email: string;
   phone?: string
   location?: string
   avatar?: string
-  joinDate: string,`n  tier: string;,`n  verified: boolean,`n  twoFactorEnabled: boolean;
+  joinDate: string
+,`n  tier: string;
+,`n  verified: boolean
+,`n  twoFactorEnabled: boolean;
   bio?: string
 
   // Betting Stats;
-  stats: {,`n  totalProfit: number;,`n  winRate: number,`n  totalBets: number;,`n  avgROI: number,`n  currentStreak: number;,`n  bestStreak: number,`n  totalVolume: number};
+  stats: {
+,`n  totalProfit: number;
+,`n  winRate: number
+,`n  totalBets: number;
+,`n  avgROI: number
+,`n  currentStreak: number;
+,`n  bestStreak: number
+,`n  totalVolume: number};
 
   // Risk Profile;
-  riskProfile: {,`n  type: "conservative" | "moderate" | "aggressive";,`n  maxStake: number,`n  minStake: number;,`n  confidenceThreshold: number,`n  maxExposure: number;,`n  stopLossPercentage: number,`n  takeProfitPercentage: number};
+  riskProfile: {
+,`n  type: "conservative" | "moderate" | "aggressive";
+,`n  maxStake: number
+,`n  minStake: number;
+,`n  confidenceThreshold: number
+,`n  maxExposure: number;
+,`n  stopLossPercentage: number
+,`n  takeProfitPercentage: number};
 
   // Achievements;
-  achievements: Array<{,`n  id: number;,`n  title: string,`n  description: string;,`n  icon: string;
+  achievements: Array<{
+,`n  id: number;
+,`n  title: string
+,`n  description: string;
+,`n  icon: string;
     unlockedAt?: string
     progress?: number
     target?: number}>;
 
   // Recent Activity;
-  recentActivity: Array<{,`n  id: number;,`n  type: "bet_won" | "bet_lost" | "bet_pending" | "milestone" | "achievement",`n  title: string;,`n  description: string;
+  recentActivity: Array<{
+,`n  id: number;
+,`n  type: "bet_won" | "bet_lost" | "bet_pending" | "milestone" | "achievement"
+,`n  title: string;
+,`n  description: string;
     amount?: number
     timestamp: string;
     confidence?: number}>;}
@@ -90,7 +116,8 @@ export const ConsolidatedUserProfile: React.FC<
     verified: true,
     twoFactorEnabled: true,
     bio: "Professional sports bettor leveraging AI and machine learning for data-driven betting strategies. Focused on maximizing ROI through systematic analysis.",
-    stats: {,`n  totalProfit: 47350.75,
+    stats: {
+,`n  totalProfit: 47350.75,
       winRate: 84.7,
       totalBets: 234,
       avgROI: 23.8,
@@ -98,7 +125,8 @@ export const ConsolidatedUserProfile: React.FC<
       bestStreak: 15,
       totalVolume: 125000
     },
-    riskProfile: {,`n  type: "moderate",
+    riskProfile: {
+,`n  type: "moderate",
       maxStake: 500,
       minStake: 25,
       confidenceThreshold: 0.75,
@@ -238,7 +266,12 @@ export const ConsolidatedUserProfile: React.FC<
       currency: "USD"
     }).format(amount)};
 
-  const TabButton: React.FC<{,`n  id: string;,`n  label: string,`n  icon: React.ReactNode;,`n  active: boolean,`n  onClick: () => void}> = ({ id, label, icon, active, onClick}) => (
+  const TabButton: React.FC<{
+,`n  id: string;
+,`n  label: string
+,`n  icon: React.ReactNode;
+,`n  active: boolean
+,`n  onClick: () => void}> = ({ id, label, icon, active, onClick}) => (
     <button;
       onClick={onClick}
       className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${

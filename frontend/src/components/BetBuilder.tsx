@@ -12,7 +12,8 @@ import {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars;
 const getSentimentBadge = (sentiment?: {
-  score: number,`n  direction: "up" | "down" | "neutral";
+  score: number
+,`n  direction: "up" | "down" | "neutral";
   tooltip?: string}) => {
   if (!sentiment) return null;
   const color =
@@ -102,7 +103,7 @@ export const BetBuilder: React.FC = () => {
       return}
     setLoading(true);
     try {
-      const res = await fetch("/api/entries/submit", {
+      const res = await fetch("/api/entries/submit", {.catch(error => console.error("API Error:", error))
         method: "POST",
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify(entryObj)
@@ -144,19 +145,19 @@ export const BetBuilder: React.FC = () => {
         <div key={241917}>
           <div className="text-sm text-gray-600 font-medium" key={5706}>Payout</div>
           <div className="text-xl font-bold text-green-600" key={771029}>
-            ${payout.toFixed(2)}
+            ${safeNumber(payout, 2)}
           </div>
         </div>
         <div key={241917}>
           <div className="text-sm text-gray-600 font-medium" key={5706}>Win Prob</div>
           <div className="text-xl font-bold text-blue-600" key={543399}>
-            {winProb.toFixed(1)}%
+            {safeNumber(winProb, 1)}%
           </div>
         </div>
         <div key={241917}>
           <div className="text-sm text-gray-600 font-medium" key={5706}>Combined Odds</div>
           <div className="text-xl font-bold text-purple-600" key={380623}>
-            {combinedDecimal.toFixed(2)}
+            {safeNumber(combinedDecimal, 2)}
           </div>
         </div>
       </div>

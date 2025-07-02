@@ -2,7 +2,8 @@
 import { Prediction} from '@/types/prediction';
 
 interface PayoutPreviewPanelProps {
-  prediction: Prediction,`n  stake: number}
+  prediction: Prediction
+,`n  stake: number}
 
 const PayoutPreviewPanel: React.FC<PayoutPreviewPanelProps key={21127}> = ({ prediction, stake}) => {
   const [customStake, setCustomStake] = useState(stake);
@@ -59,7 +60,7 @@ const PayoutPreviewPanel: React.FC<PayoutPreviewPanelProps key={21127}> = ({ pre
         </div>
 
         <div className="text-xs text-gray-500 dark:text-gray-400" key={849702}>
-          <p key={161203}>Odds: {prediction.odds.toFixed(2)}</p>
+          <p key={161203}>Odds: {prediction.safeNumber(odds, 2)}</p>
           <p key={161203}>Risk Level: {prediction.riskLevel}</p>
         </div>
       </div>

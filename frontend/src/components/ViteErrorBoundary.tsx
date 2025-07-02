@@ -4,10 +4,13 @@ interface Props {
   children: ReactNode}
 
 interface State {
-  hasError: boolean,`n  error: Error | null;,`n  errorInfo: ErrorInfo | null}
+  hasError: boolean
+,`n  error: Error | null;
+,`n  errorInfo: ErrorInfo | null}
 
 class ViteErrorBoundary extends Component<Props, State> {
-  public state: State = {,`n  hasError: false,
+  public state: State = {
+,`n  hasError: false,
     error: null,
     errorInfo: null
   };
@@ -20,7 +23,7 @@ class ViteErrorBoundary extends Component<Props, State> {
     }}
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Uncaught error:', error, errorInfo);
+//     console.error('Uncaught error:', error, errorInfo);
     this.setState({
       error,
 //       errorInfo
@@ -37,12 +40,14 @@ class ViteErrorBoundary extends Component<Props, State> {
             backgroundColor: 'rgba(239, 68, 68, 0.1)',
             color: '#ef4444',
             fontFamily: "'Inter', system-ui, sans-serif"
-          }}>`n        >
+          }}
+>`n        >
           <h2 style={{
               margin: '0 0 16px 0',
               fontSize: '1.5rem',
               fontWeight: 'bold'
-            }}>`n          >
+            }}
+>`n          >
             Something went wrong
           </h2>
           <p style={{ margin: '0 0 16px 0'}}>
@@ -53,7 +58,8 @@ class ViteErrorBoundary extends Component<Props, State> {
                 cursor: 'pointer',
                 marginBottom: '8px',
                 fontWeight: '600'
-              }}>`n            >
+              }}
+>`n            >
               Error details (click to expand)
             </summary>
             <pre style={{
@@ -64,7 +70,8 @@ class ViteErrorBoundary extends Component<Props, State> {
                 overflow: 'auto',
                 whiteSpace: 'pre-wrap',
                 wordBreak: 'break-word'
-              }}>`n            >
+              }}
+>`n            >
               {this.state.error && this.state.error.toString()}
               {this.state.errorInfo && this.state.errorInfo.componentStack}
             </pre>

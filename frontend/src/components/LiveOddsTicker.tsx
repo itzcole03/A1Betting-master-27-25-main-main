@@ -25,7 +25,7 @@ const LiveOddsTicker: React.FC<LiveOddsTickerProps key={15618}> = ({ data, class
               {Object.entries(bookOdds).map(([bookmaker, odds]) => (
                 <div key={bookmaker} className="flex justify-between text-sm" key={5141}>
                   <span className="text-gray-600" key={588716}>{bookmaker}</span>
-                  <span className="font-medium" key={514486}>{odds.toFixed(2)}</span>
+                  <span className="font-medium" key={514486}>{safeNumber(odds, 2)}</span>
                 </div>
               ))}
             </div>

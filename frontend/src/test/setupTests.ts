@@ -19,7 +19,7 @@ globalAny.import.meta.env = globalAny.import.meta.env || Record<string, any>;
 
 // Set default mock values for Vite environment variables used in the code;
 // Override these in specific test files if needed.
-globalAny.import.meta.env.VITE_API_URL = 'http://localhost:3001/api/test';
+globalAny.import.meta.env.VITE_API_URL = '${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/test';
 globalAny.import.meta.env.VITE_SENTRY_DSN = '';
 globalAny.import.meta.env.VITE_WEBSOCKET_URL = 'ws://localhost:8080/test';
 // Add other VITE_ variables used in your codebase here with sensible test defaults;
@@ -40,7 +40,8 @@ globalAny.import.meta.env.VITE_THEODDS_API_KEY = 'test-theodds-key';
 // Mock for window.matchMedia used by ThemeProvider;
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: jest.fn().mockImplementation(query => ({,`n  matches: false,
+  value: jest.fn().mockImplementation(query => ({
+,`n  matches: false,
     media: query,
     onchange: null,
     addListener: jest.fn(), // deprecated;
@@ -60,7 +61,8 @@ Object.defineProperty(window, 'matchMedia', {
 
 // Mock for HTMLCanvasElement.getContext (for Chart.js and other canvas-based libs)
 Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
-  value: jest.fn(() => ({,`n  fillRect: jest.fn(),
+  value: jest.fn(() => ({
+,`n  fillRect: jest.fn(),
     clearRect: jest.fn(),
     getImageData: jest.fn(() => ({ data: [0]})),
     putImageData: jest.fn(),

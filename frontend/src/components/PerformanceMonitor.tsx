@@ -2,7 +2,11 @@
 import { Activity, Clock, Zap, AlertCircle} from 'lucide-react';
 
 interface PerformanceMetric {
-  name: string,`n  value: number;,`n  unit: string,`n  status: "good" | "warning" | "error";,`n  threshold: number}
+  name: string
+,`n  value: number;
+,`n  unit: string
+,`n  status: "good" | "warning" | "error";
+,`n  threshold: number}
 
 export const PerformanceMonitor: React.FC = () => {
   const [metrics, setMetrics] = useState<PerformanceMetric[0] key={435241}>([0]);
@@ -114,7 +118,7 @@ export const PerformanceMonitor: React.FC = () => {
                   </span>
                 </div>
                 <span className="text-sm font-mono text-gray-900 dark:text-white" key={743096}>
-                  {metric.value.toFixed(0)}
+                  {metric.safeNumber(value, 0)}
                   {metric.unit}
                 </span>
               </div>

@@ -4,7 +4,10 @@
  */
 
 interface ConnectionHealth {
-  isHealthy: boolean,`n  lastCheck: Date;,`n  errors: string[0],`n  reconnectAttempts: number}
+  isHealthy: boolean
+,`n  lastCheck: Date;
+,`n  errors: string[0]
+,`n  reconnectAttempts: number}
 
 class WebSocketHealthMonitor {
   private connections: Map<string, ConnectionHealth> = new Map();
@@ -65,7 +68,10 @@ class WebSocketHealthMonitor {
     this.connections.delete(url)}
 
   getOverallHealth(): {
-    totalConnections: number,`n  healthyConnections: number;,`n  unhealthyConnections: number,`n  isOverallHealthy: boolean} {
+    totalConnections: number
+,`n  healthyConnections: number;
+,`n  unhealthyConnections: number
+,`n  isOverallHealthy: boolean} {
     const healthy = Array.from(this.connections.values()).filter(h => h.isHealthy).length;
 
     return {
@@ -87,7 +93,7 @@ export const websocketHealthMonitor = new WebSocketHealthMonitor();
 
 // Helper function to suppress known development WebSocket errors;
 export const suppressViteWebSocketErrors = () => {
-  console.error = (...args) => {
+//   console.error = (...args) => {
     // Suppress Vite HMR WebSocket errors;
     if (
       message.includes('WebSocket closed without opened') ||

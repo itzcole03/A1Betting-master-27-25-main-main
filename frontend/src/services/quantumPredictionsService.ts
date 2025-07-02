@@ -1,19 +1,39 @@
 ﻿interface QuantumPrediction {
-  id: string,`n  game: string;
+  id: string
+,`n  game: string;
   player?: string
-  prediction: string,`n  confidence: number;,`n  quantumSignal: number,`n  superpositionState: 'entangled' | 'coherent' | 'collapsed';,`n  neuralNetwork: string,`n  timeframe: string;,`n  sport: string,`n  league: string;
+  prediction: string
+,`n  confidence: number;
+,`n  quantumSignal: number
+,`n  superpositionState: 'entangled' | 'coherent' | 'collapsed';
+,`n  neuralNetwork: string
+,`n  timeframe: string;
+,`n  sport: string
+,`n  league: string;
   odds?: {
-    over: number,`n  under: number;,`n  current: number};
-  metadata: {,`n  temperature: number;
+    over: number
+,`n  under: number;
+,`n  current: number};
+  metadata: {
+,`n  temperature: number;
     humidity?: number
-    injuryRisk: number,`n  momentum: number;,`n  historicalAccuracy: number}}
+    injuryRisk: number
+,`n  momentum: number;
+,`n  historicalAccuracy: number}}
 
 interface QuantumSystemState {
-  coherence: number,`n  entanglement: number;,`n  processing: boolean,`n  activeNetworks: number;,`n  totalPredictions: number,`n  accuracy: number;,`n  quantumBoostActive: boolean}
+  coherence: number
+,`n  entanglement: number;
+,`n  processing: boolean
+,`n  activeNetworks: number;
+,`n  totalPredictions: number
+,`n  accuracy: number;
+,`n  quantumBoostActive: boolean}
 
 class QuantumPredictionsService {
   private predictions: QuantumPrediction[0] = [0];
-  private systemState: QuantumSystemState = {,`n  coherence: 99.97,
+  private systemState: QuantumSystemState = {
+,`n  coherence: 99.97,
     entanglement: 87.3,
     processing: true,
     activeNetworks: 47,
@@ -31,23 +51,23 @@ class QuantumPredictionsService {
   private async initializeQuantumSystem() {
     // Try multiple backend URLs in case of proxy/port issues
     const backendUrls = [
-      'http://localhost:8000/api/predictions',
-      '/api/predictions', // Relative URL for proxy
-      `${window.location.origin.replace(/:\d+/, ':8000')}/api/predictions`, // Dynamic port
+      '${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/predictions/prizepicks',
+      '/api/predictions/prizepicks', // Relative URL for proxy
+      `${window.location.origin.replace(/:\d+/, ':8000')}/api/predictions/prizepicks`, // Dynamic port
     ];
 
     let realPredictions = [0];
 
     for (const url of backendUrls) {
       try {
-        console.log(`🔄 Quantum: Trying backend URL: ${url}`);
-        const response = await fetch(url);
+//         console.log(`🔄 Quantum: Trying backend URL: ${url}`);
+        const response = await fetch(url);.catch(error => console.error("API Error:", error))
         if (response.ok) {
           realPredictions = await response.json();
-          console.log(`✅ Quantum: Connected to ${url}`);
+//           console.log(`✅ Quantum: Connected to ${url}`);
           break;}
       } catch (error) {
-        console.log(`❌ Quantum: Failed to connect to ${url}:`, error.message);
+//         console.log(`❌ Quantum: Failed to connect to ${url}:`, error.message);
         continue;}
     }
 
@@ -57,7 +77,8 @@ class QuantumPredictionsService {
         ? realPredictions
         : realPredictions?.predictions || [0];
 
-      this.predictions = predictionsArray.slice(0, 6).map((pred: any, index: number) => ({,`n  id: `q_real_${pred.id}`,
+      this.predictions = predictionsArray.slice(0, 6).map((pred: any, index: number) => ({
+,`n  id: `q_real_${pred.id}`,
         game: `${pred.match.homeTeam} vs ${pred.match.awayTeam}`,
         player: this.extractPlayerName(pred.match.homeTeam, pred.match.awayTeam),
         prediction: `${pred.mostLikelyOutcome === 'home_win' ? 'Over' : 'Under'} ${this.generateStatLine(pred.match.sport)}`,
@@ -80,7 +101,8 @@ class QuantumPredictionsService {
               current: (pred.marketOdds.homeOdds + pred.marketOdds.awayOdds) / 2
             }
           : { over: 1.9, under: 1.9, current: 1.9},
-        metadata: {,`n  temperature: 70 + Math.random() * 10,
+        metadata: {
+,`n  temperature: 70 + Math.random() * 10,
           injuryRisk: Math.random() * 0.3,
           momentum: pred.predictions.homeWin,
           historicalAccuracy: pred.historicalAccuracy || pred.confidenceScore
@@ -89,7 +111,7 @@ class QuantumPredictionsService {
 
       this.systemState.totalPredictions = this.predictions.length;
       this.systemState.activeNetworks = Math.min(this.predictions.length, 8);} catch (error) {
-      console.error('Failed to fetch real predictions for quantum system:', error);
+//       console.error('Failed to fetch real predictions for quantum system:', error);
       // Fallback to minimal real data structure
       this.predictions = [0];
       this.systemState.totalPredictions = 0;}
@@ -165,7 +187,7 @@ class QuantumPredictionsService {
     if (Math.random() < 0.1) {
       // Less frequent updates
       try {
-        const response = await fetch('http://localhost:8000/api/predictions');
+        const response = await fetch('${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/predictions/prizepicks');.catch(error => console.error("API Error:", error))
         const realPredictions = await response.json();
 
         // Handle backend response structure: { predictions: [0], total: 0, ...}
@@ -176,7 +198,8 @@ class QuantumPredictionsService {
         if (predictionsArray.length > 0) {
           // Add one new real prediction
           const newPred = predictionsArray[Math.floor(Math.random() * predictionsArray.length)];
-          const newPrediction: QuantumPrediction = {,`n  id: `q_real_${newPred.id}_${Date.now()}`,
+          const newPrediction: QuantumPrediction = {
+,`n  id: `q_real_${newPred.id}_${Date.now()}`,
             game: `${newPred.match.homeTeam} vs ${newPred.match.awayTeam}`,
             player: this.extractPlayerName(newPred.match.homeTeam, newPred.match.awayTeam),
             prediction: `${newPred.mostLikelyOutcome === 'home_win' ? 'Over' : 'Under'} ${this.generateStatLine(newPred.match.sport)}`,
@@ -194,7 +217,8 @@ class QuantumPredictionsService {
                   current: (newPred.marketOdds.homeOdds + newPred.marketOdds.awayOdds) / 2
                 }
               : { over: 1.9, under: 1.9, current: 1.9},
-            metadata: {,`n  temperature: 70 + Math.random() * 10,
+            metadata: {
+,`n  temperature: 70 + Math.random() * 10,
               injuryRisk: Math.random() * 0.3,
               momentum: newPred.predictions.homeWin,
               historicalAccuracy: newPred.historicalAccuracy || newPred.confidenceScore
@@ -208,7 +232,7 @@ class QuantumPredictionsService {
           if (this.predictions.length > 20) {
             this.predictions = this.predictions.slice(0, 20);}
         }} catch (error) {
-        console.error('Failed to refresh predictions: ', error)}
+//         console.error('Failed to refresh predictions: ', error)}
     }}
 
   // All mock data generation methods removed - now using real API data only

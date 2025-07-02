@@ -8,13 +8,25 @@ interface UltraAccuracyRequest {
     targetAccuracy?: number}
 
 interface UltraAccuracyResponse {
-    finalPrediction: number,`n  confidenceScore: number;,`n  uncertaintyEstimate: number,`n  predictionInterval: [number, number];
-    modelConsensus: number,`n  marketEfficiencyScore: number;,`n  expectedAccuracy: number,`n  alternativeDataSignals: Record<string, number>;
+    finalPrediction: number
+,`n  confidenceScore: number;
+,`n  uncertaintyEstimate: number
+,`n  predictionInterval: [number, number];
+    modelConsensus: number
+,`n  marketEfficiencyScore: number;
+,`n  expectedAccuracy: number
+,`n  alternativeDataSignals: Record<string, number>;
     behavioralPatterns: Record<string, any>;
     microstructureAnalysis: Record<string, any>;
     featureImportance: Record<string, number>;
     modelContributions: Record<string, number>;
-    riskAdjustedEdge: number,`n  optimalStakeFraction: number;,`n  predictionRationale: string,`n  timestamp: string;,`n  processingTime: number,`n  dataQualityScore: number;,`n  marketConditions: Record<string, any>}
+    riskAdjustedEdge: number
+,`n  optimalStakeFraction: number;
+,`n  predictionRationale: string
+,`n  timestamp: string;
+,`n  processingTime: number
+,`n  dataQualityScore: number;
+,`n  marketConditions: Record<string, any>}
 
 class UltraAccuracyService {
     private baseURL: string;
@@ -22,7 +34,7 @@ class UltraAccuracyService {
     private cacheTimeout: number = 300000; // 5 minutes;
 
     constructor() {
-        this.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+        this.baseURL = process.env.REACT_APP_API_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}';
         this.cache = new Map();}
 
     /**
@@ -84,7 +96,8 @@ class UltraAccuracyService {
             return {
                 efficiencyScore: Math.random() * 0.7 + 0.2,
                 predictabilityScore: Math.random() * 0.8 + 0.1,
-                liquidityAnalysis: {,`n  depth: Math.random() * 10000,
+                liquidityAnalysis: {
+,`n  depth: Math.random() * 10000,
                     spread: Math.random() * 0.02,
                     resilience: Math.random()}
             }}
@@ -168,19 +181,22 @@ class UltraAccuracyService {
             modelConsensus: 0.95 + Math.random() * 0.04,
             marketEfficiencyScore: 0.3 + Math.random() * 0.4,
             expectedAccuracy: targetAccuracy,
-            alternativeDataSignals: {,`n  socialSentiment: Math.random() * 2 - 1,
+            alternativeDataSignals: {
+,`n  socialSentiment: Math.random() * 2 - 1,
                 weatherImpact: Math.random() * 0.1 - 0.05,
                 newsSentiment: Math.random() * 2 - 1,
                 venueFactors: Math.random() * 0.2 - 0.1,
                 injuryReports: Math.random() * 0.15 - 0.075},
-            behavioralPatterns: {,`n  overreactionBias: Math.random(),
+            behavioralPatterns: {
+,`n  overreactionBias: Math.random(),
                 herdingBehavior: Math.random(),
                 anchoring: Math.random(),
                 recencyBias: Math.random(),
                 confirmationBias: Math.random(),
                 dispositionEffect: Math.random(),
                 overallImpact: Math.random() * 0.1 - 0.05},
-            microstructureAnalysis: {,`n  bidAskSpread: Math.random() * 0.03,
+            microstructureAnalysis: {
+,`n  bidAskSpread: Math.random() * 0.03,
                 liquidityDepth: Math.random() * 15000,
                 orderFlowImbalance: Math.random() * 0.6 - 0.3,
                 volatilityClustering: Math.random(),
@@ -208,7 +224,8 @@ class UltraAccuracyService {
             timestamp: new Date().toISOString(),
             processingTime: 2.0 + Math.random() * 2,
             dataQualityScore: 0.95 + Math.random() * 0.04,
-            marketConditions: {,`n  volatility: Math.random() * 0.4,
+            marketConditions: {
+,`n  volatility: Math.random() * 0.4,
                 liquidity: Math.random(),
                 efficiency: Math.random() * 0.8,
                 momentum: Math.random() * 2 - 1,

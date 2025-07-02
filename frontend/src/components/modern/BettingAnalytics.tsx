@@ -5,7 +5,9 @@ import { BettingStrategy} from '@/services/unified/UnifiedBettingAnalytics';
 import { RiskReasoningDisplay} from '@/shared/RiskReasoningDisplay';
 
 interface BettingAnalyticsProps {
-  market: string,`n  initialOdds: number;,`n  initialStake: number;
+  market: string
+,`n  initialOdds: number;
+,`n  initialStake: number;
   className?: string}
 
 export function BettingAnalytics({
@@ -35,7 +37,8 @@ export function BettingAnalytics({
   });
 
   const handleAddStrategy = () => {
-    const newStrategy: BettingStrategy = {,`n  id: crypto.randomUUID(),
+    const newStrategy: BettingStrategy = {
+,`n  id: crypto.randomUUID(),
       name: 'Custom Strategy',
       riskLevel: 'medium',
       stakePercentage: 5,
@@ -119,12 +122,12 @@ export function BettingAnalytics({
         <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4" key={279633}>
           <div className="bg-blue-50 rounded-lg p-4" key={217813}>
             <h3 className="text-lg font-semibold text-blue-900" key={253984}>Recommended Stake</h3>
-            <p className="text-2xl font-bold text-blue-600" key={945487}>${recommendedStake.toFixed(2)}</p>
+            <p className="text-2xl font-bold text-blue-600" key={945487}>${safeNumber(recommendedStake, 2)}</p>
           </div>
 
           <div className="bg-green-50 rounded-lg p-4" key={515466}>
             <h3 className="text-lg font-semibold text-green-900" key={55655}>Potential Profit</h3>
-            <p className="text-2xl font-bold text-green-600" key={401802}>${potentialProfit.toFixed(2)}</p>
+            <p className="text-2xl font-bold text-green-600" key={401802}>${safeNumber(potentialProfit, 2)}</p>
           </div>
 
           <div className="bg-purple-50 rounded-lg p-4" key={181963}>
@@ -188,7 +191,7 @@ export function BettingAnalytics({
                     <h3 className="font-semibold" key={204068}>{opportunity.market}</h3>
                     <p className="text-sm text-gray-600" key={656535}>
                       Odds: {opportunity.odds} | Recommended Stake: $
-                      {opportunity.recommendedStake.toFixed(2)}
+                      {opportunity.safeNumber(recommendedStake, 2)}
                     </p>
                   </div>
                   <button className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600" key={133429}>

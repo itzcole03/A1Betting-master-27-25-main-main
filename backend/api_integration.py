@@ -1128,9 +1128,9 @@ def create_integrated_app() -> FastAPI:
     app.add_middleware(
         CORSMiddleware,
         allow_origins=[
-            "http://localhost:5173",  # Vite dev server
-            "http://localhost:3000",  # Alternative dev port
-            "http://localhost:8080",  # Another common port
+            "${process.env.REACT_APP_API_URL || "http://localhost:8000"}",  # Vite dev server
+            "${process.env.REACT_APP_API_URL || "http://localhost:8000"}",  # Alternative dev port
+            "${process.env.REACT_APP_API_URL || "http://localhost:8000"}",  # Another common port
         ],
         allow_credentials=True,
         allow_methods=["*"],

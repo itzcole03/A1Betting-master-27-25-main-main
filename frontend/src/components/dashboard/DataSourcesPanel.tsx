@@ -2,7 +2,11 @@
 import { CheckCircle, XCircle, Clock, AlertTriangle, Wifi} from 'lucide-react';
 
 interface DataSource {
-  name: string,`n  status: "connected" | "disconnected" | "connecting" | "error";,`n  lastUpdate: string,`n  dataQuality: number;,`n  endpoint: string}
+  name: string
+,`n  status: "connected" | "disconnected" | "connecting" | "error";
+,`n  lastUpdate: string
+,`n  dataQuality: number;
+,`n  endpoint: string}
 
 interface DataSourcesPanelProps {
   connectedSources?: number
@@ -76,7 +80,8 @@ export function DataSourcesPanel({
       case "connecting":
         return "text-yellow-600 bg-yellow-50 dark:bg-yellow-900/20 dark:text-yellow-400";
       case "error":
-        return "text-red-600 bg-red-50 dark: bg-red-900/20 dark:text-red-400",`n  default: return "text-gray-600 bg-gray-50 dark:bg-gray-900/20 dark:text-gray-400"}
+        return "text-red-600 bg-red-50 dark: bg-red-900/20 dark:text-red-400"
+,`n  default: return "text-gray-600 bg-gray-50 dark:bg-gray-900/20 dark:text-gray-400"}
   };
 
   const connectionPercentage =
@@ -94,7 +99,7 @@ export function DataSourcesPanel({
             {connectedSources}/{totalSources}
           </div>
           <div className="text-xs text-gray-500 dark:text-gray-400" key={849702}>
-            {connectionPercentage.toFixed(0)}% Connected;
+            {safeNumber(connectionPercentage, 0)}% Connected;
           </div>
         </div>
       </div>
@@ -106,7 +111,7 @@ export function DataSourcesPanel({
             Connection Health;
           </span>
           <span className="text-sm text-gray-500 dark:text-gray-400" key={896462}>
-            {connectionPercentage.toFixed(1)}%
+            {safeNumber(connectionPercentage, 1)}%
           </span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-3 dark:bg-gray-700" key={808701}>

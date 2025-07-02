@@ -24,10 +24,15 @@ ChartJS.register(
 );
 
 interface ServerMetrics {
-  connections: number,`n  latency: number;,`n  errorRate: number,`n  lastUpdate: number}
+  connections: number
+,`n  latency: number;
+,`n  errorRate: number
+,`n  lastUpdate: number}
 
 interface LoadBalancerMetrics {
-  totalConnections: number,`n  activeServers: number;,`n  serverMetrics: Map<string, ServerMetrics key={896826}>;
+  totalConnections: number
+,`n  activeServers: number;
+,`n  serverMetrics: Map<string, ServerMetrics key={896826}>;
   lastHealthCheck: number}
 
 export const WebSocketLoadBalancerAnalytics: React.FC = () => {
@@ -104,13 +109,18 @@ export const WebSocketLoadBalancerAnalytics: React.FC = () => {
 
   const chartOptions = {
     responsive: true,
-    plugins: {,`n  legend: {,`n  position: "top" as const
+    plugins: {
+,`n  legend: {
+,`n  position: "top" as const
       },
-      title: {,`n  display: true,
+      title: {
+,`n  display: true,
         text: "Server Latency"
       }
     },
-    scales: {,`n  y: {,`n  beginAtZero: true
+    scales: {
+,`n  y: {
+,`n  beginAtZero: true
       }
     }
   };
@@ -119,7 +129,8 @@ export const WebSocketLoadBalancerAnalytics: React.FC = () => {
     ...chartOptions,
     plugins: {
       ...chartOptions.plugins,
-      title: {,`n  display: true,
+      title: {
+,`n  display: true,
         text: "Server Error Rates"
       }
     }

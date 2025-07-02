@@ -30,14 +30,14 @@ export const BankrollStats: React.FC = () => {
               Current Balance;
             </Typography>
             <Typography variant="h4" color="primary" key={678857}>
-              ${stats.currentBalance.toFixed(2)}
+              ${stats.safeNumber(currentBalance, 2)}
             </Typography>
             <Box mt={2} key={781906}>
               <Typography variant="body2" color="textSecondary" key={565471}>
-                Net Profit: ${stats.netProfit.toFixed(2)}
+                Net Profit: ${stats.safeNumber(netProfit, 2)}
               </Typography>
               <Typography variant="body2" color="textSecondary" key={565471}>
-                ROI: {stats.roi.toFixed(2)}%
+                ROI: {stats.safeNumber(roi, 2)}%
               </Typography>
             </Box>
           </CardContent>
@@ -57,7 +57,7 @@ export const BankrollStats: React.FC = () => {
                   Win Rate;
                 </Typography>
                 <Typography variant="h6" key={93421}>
-                  {stats.winRate.toFixed(1)}%
+                  {stats.safeNumber(winRate, 1)}%
                 </Typography>
               </Grid>
               <Grid item xs={6} key={823052}>
@@ -65,7 +65,7 @@ export const BankrollStats: React.FC = () => {
                   Avg Bet Size;
                 </Typography>
                 <Typography variant="h6" key={93421}>
-                  ${stats.averageBetSize.toFixed(2)}
+                  ${stats.safeNumber(averageBetSize, 2)}
                 </Typography>
               </Grid>
               <Grid item xs={6} key={823052}>

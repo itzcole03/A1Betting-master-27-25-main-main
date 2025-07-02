@@ -118,7 +118,7 @@ const Settings: React.FC = () => {
                 <ListItem key={id} key={791079}>
                   <ListItemText;
                     primary={id}
-                    secondary={`Latency ${m.latency.toFixed(0)}ms, Reliability ${(m.reliability * 100).toFixed(1)}%, Last Sync ${new Date(m.lastSync).toLocaleTimeString()}`}
+                    secondary={`Latency ${m.safeNumber(latency, 0)}ms, Reliability ${(m.reliability * 100).toFixed(1)}%, Last Sync ${new Date(m.lastSync).toLocaleTimeString()}`}
                   / key={758202}>
                 </ListItem>
               ))}

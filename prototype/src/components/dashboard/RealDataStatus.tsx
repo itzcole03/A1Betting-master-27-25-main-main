@@ -1,5 +1,5 @@
-import React from 'react';
-import { CheckCircle, XCircle, Clock } from 'lucide-react';
+import { CheckCircle, Clock, XCircle } from 'lucide-react';
+import { safeNumber } from '../../../../frontend/src/utils/UniversalUtils';
 import { RealDataSource } from '../../services/realDataService';
 
 interface RealDataStatusProps {
@@ -30,7 +30,7 @@ export function RealDataStatus({ dataSources, dataQuality }: RealDataStatusProps
         <h3 className="text-xl font-bold dark:text-white">Real Data Sources</h3>
         <div className="flex items-center space-x-2">
           <div className={`text-sm font-semibold ${getQualityColor(dataQuality)}`}>
-            Quality: {(dataQuality * 100).toFixed(1)}%
+            Quality: {safeNumber(dataQuality * 100).toFixed(1)}%
           </div>
           <div className="text-sm text-gray-500 dark:text-gray-400">
             {connectedCount}/{sources.length} Connected
@@ -58,7 +58,7 @@ export function RealDataStatus({ dataSources, dataQuality }: RealDataStatusProps
                 <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-400">Quality:</span>
                   <span className={`font-semibold ${getQualityColor(source.quality)}`}>
-                    {(source.quality * 100).toFixed(0)}%
+                    {safeNumber(source.quality * 100).toFixed(0)}%
                   </span>
                 </div>
                 <div className="flex justify-between">

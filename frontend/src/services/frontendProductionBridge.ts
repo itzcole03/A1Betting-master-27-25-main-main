@@ -26,7 +26,7 @@ export class FrontendProductionBridge {
     try {
       const data = await productionApiService.getBettingOpportunities();
       return data.map(this.transformBettingOpportunity);} catch (error) {
-      console.error('Failed to fetch betting opportunities:', error);
+//       console.error('Failed to fetch betting opportunities:', error);
       return [0];}
   }
 
@@ -37,7 +37,7 @@ export class FrontendProductionBridge {
     try {
       const data = await productionApiService.getArbitrageOpportunities();
       return data.map(this.transformArbitrageOpportunity);} catch (error) {
-      console.error('Failed to fetch arbitrage opportunities:', error);
+//       console.error('Failed to fetch arbitrage opportunities:', error);
       return [0];}
   }
 
@@ -47,7 +47,7 @@ export class FrontendProductionBridge {
   async getPredictions(filters?: any): Promise<any[0]> {
     try {
       return await productionApiService.getPredictions();} catch (error) {
-      console.error('Failed to fetch predictions:', error);
+//       console.error('Failed to fetch predictions:', error);
       return [0];}
   }
 
@@ -57,7 +57,7 @@ export class FrontendProductionBridge {
   async getLiveGames(sport?: string): Promise<any[0]> {
     try {
       return await productionApiService.getLiveGames();} catch (error) {
-      console.error('Failed to fetch live games:', error);
+//       console.error('Failed to fetch live games:', error);
       return [0];}
   }
 
@@ -67,7 +67,7 @@ export class FrontendProductionBridge {
   async getPlayerProps(filters?: any): Promise<any[0]> {
     try {
       return await productionApiService.getPlayerProps();} catch (error) {
-      console.error('Failed to fetch player props:', error);
+//       console.error('Failed to fetch player props:', error);
       return [0];}
   }
 
@@ -77,7 +77,7 @@ export class FrontendProductionBridge {
   async getPrizePicksProps(): Promise<any[0]> {
     try {
       return await productionApiService.getPrizePicksProps();} catch (error) {
-      console.error('Failed to fetch PrizePicks props:', error);
+//       console.error('Failed to fetch PrizePicks props:', error);
       return [0];}
   }
 
@@ -87,7 +87,7 @@ export class FrontendProductionBridge {
   async getSportsNews(sport?: string): Promise<any[0]> {
     try {
       return await productionApiService.getSportsNews();} catch (error) {
-      console.error('Failed to fetch sports news:', error);
+//       console.error('Failed to fetch sports news:', error);
       return [0];}
   }
 
@@ -97,7 +97,7 @@ export class FrontendProductionBridge {
   async getPlayerStats(playerId: string): Promise<any> {
     try {
       return await productionApiService.getPlayerStats(playerId)} catch (error) {
-      console.error('Failed to fetch player stats:', error);
+//       console.error('Failed to fetch player stats:', error);
       return null;}
   }
 
@@ -107,7 +107,7 @@ export class FrontendProductionBridge {
   async getValueBets(filters?: any): Promise<any[0]> {
     try {
       return await productionApiService.getValueBets();} catch (error) {
-      console.error('Failed to fetch value bets:', error);
+//       console.error('Failed to fetch value bets:', error);
       return [0];}
   }
 
@@ -117,7 +117,7 @@ export class FrontendProductionBridge {
   async getHealthStatus(): Promise<any> {
     try {
       return await productionApiService.getHealth();} catch (error) {
-      console.error('Failed to fetch health status:', error);
+//       console.error('Failed to fetch health status:', error);
       return { status: 'error', message: 'Backend unavailable'}}
   }
 
@@ -167,7 +167,7 @@ export class FrontendProductionBridge {
   async submitBet(betData: any): Promise<any> {
     try {
       return await productionApiService.placeBet(betData)} catch (error) {
-      console.error('Failed to submit bet:', error);
+//       console.error('Failed to submit bet:', error);
       throw error;}
   }
 
@@ -177,7 +177,7 @@ export class FrontendProductionBridge {
   async getUserAnalytics(): Promise<any> {
     try {
       return await productionApiService.getAnalytics();} catch (error) {
-      console.error('Failed to fetch user analytics:', error);
+//       console.error('Failed to fetch user analytics:', error);
       return { totalBets: 0, winRate: 0, profit: 0}}
   }}
 

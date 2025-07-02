@@ -98,7 +98,7 @@ export const SmartAlerts: React.FC<SmartAlertsProps key={426115}> = ({ wsEndpoin
                     <div className="mt-2 text-sm text-gray-500" key={855669}>
                       {alert.metadata.impactScore && (
                         <span className="mr-3" key={11753}>
-                          Impact: {alert.metadata.impactScore.toFixed(2)}
+                          Impact: {alert.metadata.safeNumber(impactScore, 2)}
                         </span>
                       )}
                       {alert.metadata.lineMovement && (

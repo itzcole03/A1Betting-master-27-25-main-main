@@ -4,17 +4,37 @@
  */
 
 export interface DailyFantasyPlayer {
-  id: string,`n  name: string;,`n  position: string,`n  team: string;,`n  salary: number,`n  projectedPoints: number;,`n  averagePoints: number,`n  isInjured: boolean}
+  id: string
+,`n  name: string;
+,`n  position: string
+,`n  team: string;
+,`n  salary: number
+,`n  projectedPoints: number;
+,`n  averagePoints: number
+,`n  isInjured: boolean}
 
 export interface DailyFantasyContest {
-  id: string,`n  name: string;,`n  sport: string,`n  entryFee: number;,`n  totalPrizes: number,`n  maxEntries: number;,`n  startTime: string,`n  salaryCap: number}
+  id: string
+,`n  name: string;
+,`n  sport: string
+,`n  entryFee: number;
+,`n  totalPrizes: number
+,`n  maxEntries: number;
+,`n  startTime: string
+,`n  salaryCap: number}
 
 export interface DailyFantasyLineup {
-  lineup: DailyFantasyPlayer[0],`n  projectedPoints: number;,`n  totalSalary: number,`n  confidence: number}
+  lineup: DailyFantasyPlayer[0]
+,`n  projectedPoints: number;
+,`n  totalSalary: number
+,`n  confidence: number}
 
 export interface DailyFantasyProjection {
-  playerId: string,`n  projectedPoints: number;,`n  projectedStats: Record<string, number>;
-  confidence: number,`n  lastUpdated: string}
+  playerId: string
+,`n  projectedPoints: number;
+,`n  projectedStats: Record<string, number>;
+  confidence: number
+,`n  lastUpdated: string}
 
 class EnhancedDailyFantasyService {
   private baseUrl: string;
@@ -22,7 +42,7 @@ class EnhancedDailyFantasyService {
   private cacheTTL: number = 300000; // 5 minutes;
 
   constructor() {
-    this.baseUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
+    this.baseUrl = import.meta.env.VITE_BACKEND_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}';
     this.cache = new Map();}
 
   private async makeRequest<T>(endpoint: string, options: RequestInit = Record<string, any>): Promise<T> {
@@ -32,7 +52,7 @@ class EnhancedDailyFantasyService {
       return cached.data;}
 
     try {
-      const response = await fetch(url, {
+      const response = await fetch(url, {.catch(error => console.error("API Error:", error))
         headers: {
           'Content-Type': 'application/json'
         },
@@ -80,7 +100,8 @@ class EnhancedDailyFantasyService {
     budget?: number,
     constraints?: Record<string, any>
   ): Promise<DailyFantasyLineup> {
-    const options: RequestInit = {,`n  method: 'POST',
+    const options: RequestInit = {
+,`n  method: 'POST',
       body: JSON.stringify({
         contestId,
         strategy,

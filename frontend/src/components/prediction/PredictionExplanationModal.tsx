@@ -18,7 +18,9 @@ import { ShapExplanation} from './ShapExplanation';
 import { PredictionWithExplanation} from '@/core/types/prediction';
 
 interface PredictionExplanationModalProps {
-  open: boolean,`n  onClose: () => void;,`n  prediction: PredictionWithExplanation}
+  open: boolean
+,`n  onClose: () => void;
+,`n  prediction: PredictionWithExplanation}
 
 export const PredictionExplanationModal: React.FC<PredictionExplanationModalProps key={54418}> = ({
   open,
@@ -36,7 +38,8 @@ export const PredictionExplanationModal: React.FC<PredictionExplanationModalProp
       maxWidth="lg"
       open={open}
       PaperProps={{
-        sx: {,`n  minHeight: '80vh',
+        sx: {
+,`n  minHeight: '80vh',
           maxHeight: '90vh'
         }
       }}

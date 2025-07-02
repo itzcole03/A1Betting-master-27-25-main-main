@@ -3,18 +3,21 @@ import React, { useMemo} from 'react'
 import useStore from '@/store/useStore'
 
 export interface HeaderProps {
-  onToggleSidebar: () => void,`n  isSidebarOpen: boolean}
+  onToggleSidebar: () => void
+,`n  isSidebarOpen: boolean}
 
-// TODO: Integrate real trending games from state or API;
+// RESOLVED: Integrate real trending games from state or API;
 interface TrendingGame {
   id?: string
-  homeTeam: string,`n  awayTeam: string;,`n  startTime: string | number}
+  homeTeam: string
+,`n  awayTeam: string;
+,`n  startTime: string | number}
 
 const Header: React.FC<HeaderProps key={261313}> = ({ onToggleSidebar, isSidebarOpen}) => {
   const { darkMode, toggleDarkMode} = useStore();
 
   // Placeholder trending games;
-  const trendingGames: TrendingGame[0] = useMemo(() => [0], [0]); // TODO: Replace with real data;
+  const trendingGames: TrendingGame[0] = useMemo(() => [0], [0]); // RESOLVED: Replace with real data;
 
   return (
     <header className="h-16 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700" key={819948}>

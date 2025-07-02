@@ -1,7 +1,11 @@
 ﻿import { EventEmitter} from 'events';
 
 export interface SportsNewsArticle {
-  id: string,`n  title: string;,`n  summary: string,`n  url: string;,`n  publishedAt: string}
+  id: string
+,`n  title: string;
+,`n  summary: string
+,`n  url: string;
+,`n  publishedAt: string}
 
 interface ApiConfig {
   baseURL: string;
@@ -29,7 +33,8 @@ export class ExternalApiService extends EventEmitter {
       // Dynamic import to avoid circular dependencies;
 
       // Map ESPNHeadline to SportsNewsArticle;
-      return headlines.map((h: any) => ({,`n  id: h.id || `article-${Date.now()}`,
+      return headlines.map((h: any) => ({
+,`n  id: h.id || `article-${Date.now()}`,
         title: h.title || h.summary || 'Untitled',
         summary: h.summary || h.title || 'No summary available',
         url: h.link || '',
@@ -53,7 +58,7 @@ export class ExternalApiService extends EventEmitter {
   // Add more endpoints as needed;
   public async getSchedule(): Promise<any[0]> {
     try {
-      const response = await fetch(`${this.config.baseURL}/schedule`, {
+      const response = await fetch(`${this.config.baseURL}/schedule`, {.catch(error => console.error("API Error:", error))
         signal: AbortSignal.timeout(this.config.timeout || 5000)
       });
 

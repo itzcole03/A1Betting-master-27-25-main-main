@@ -45,7 +45,8 @@ const UpdatesCard = styled(Card)(({ theme}) => ({
 
 interface TabPanelProps {
   children?: React.ReactNode;
-  index: number,`n  value: number}
+  index: number
+,`n  value: number}
 
 const TabPanel = (props: TabPanelProps) => {
   const { children, value, index, ...other} = props;
@@ -68,7 +69,11 @@ export const RealTimeUpdates: React.FC<{ sport: Sport}> = ({ sport}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null key={121216}>(null);
   const [updates, setUpdates] = useState<{
-    odds: any[0],`n  injuries: any[0];,`n  lineMovements: any[0],`n  news: any[0];,`n  predictions: any[0]}>({
+    odds: any[0]
+,`n  injuries: any[0];
+,`n  lineMovements: any[0]
+,`n  news: any[0];
+,`n  predictions: any[0]}>({
     odds: [0],
     injuries: [0],
     lineMovements: [0],

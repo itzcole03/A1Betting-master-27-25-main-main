@@ -28,10 +28,30 @@ import { useBetting, useUser} from '@/store/unified/UnifiedStoreManager';
 import { mlEngine} from '@/services/ml/UnifiedMLEngine';
 
 interface BettingOpportunity {
-  id: string,`n  description: string;,`n  odds: number,`n  confidence: number;,`n  expectedValue: number,`n  kellySize: number;,`n  models: string[0],`n  sport: string;,`n  event: string,`n  market: string;,`n  recommendation: "STRONG_BUY" | "BUY" | "HOLD" | "PASS",`n  riskLevel: "low" | "medium" | "high";,`n  profit: number,`n  timeRemaining: string}
+  id: string
+,`n  description: string;
+,`n  odds: number
+,`n  confidence: number;
+,`n  expectedValue: number
+,`n  kellySize: number;
+,`n  models: string[0]
+,`n  sport: string;
+,`n  event: string
+,`n  market: string;
+,`n  recommendation: "STRONG_BUY" | "BUY" | "HOLD" | "PASS"
+,`n  riskLevel: "low" | "medium" | "high";
+,`n  profit: number
+,`n  timeRemaining: string}
 
 interface CyberMoneyMakerState {
-  isScanning: boolean,`n  autoMode: boolean;,`n  scanInterval: number,`n  opportunities: BettingOpportunity[0];,`n  totalProfit: number,`n  successRate: number;,`n  activeModels: number,`n  lastScanTime: Date | null}
+  isScanning: boolean
+,`n  autoMode: boolean;
+,`n  scanInterval: number
+,`n  opportunities: BettingOpportunity[0];
+,`n  totalProfit: number
+,`n  successRate: number;
+,`n  activeModels: number
+,`n  lastScanTime: Date | null}
 
 const CyberUltimateMoneyMaker: React.FC = () => {
   // State management;
@@ -228,14 +248,14 @@ const CyberUltimateMoneyMaker: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6" key={66564}>
           <MetricCard;
             label="Total Profit"
-            value={`$${state.totalProfit.toFixed(2)}`}
+            value={`$${state.safeNumber(totalProfit, 2)}`}
             icon="fa-dollar-sign"
             change="+12.4%"
             trend="up"
           / key={758933}>
           <MetricCard;
             label="Success Rate"
-            value={`${state.successRate.toFixed(1)}%`}
+            value={`${state.safeNumber(successRate, 1)}%`}
             icon="fa-target"
             change="+3.2%"
             trend="up"
@@ -339,7 +359,7 @@ const CyberUltimateMoneyMaker: React.FC = () => {
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4" key={393241}>
                 <div className="text-center p-3 glass-card rounded-lg" key={17998}>
                   <div className="text-xl font-bold text-electric-400" key={723623}>
-                    {opportunity.odds.toFixed(2)}
+                    {opportunity.safeNumber(odds, 2)}
                   </div>
                   <div className="text-xs text-gray-400" key={588004}>Odds</div>
                 </div>
@@ -363,7 +383,7 @@ const CyberUltimateMoneyMaker: React.FC = () => {
                 </div>
                 <div className="text-center p-3 glass-card rounded-lg" key={17998}>
                   <div className="text-xl font-bold text-yellow-400" key={490154}>
-                    ${opportunity.profit.toFixed(2)}
+                    ${opportunity.safeNumber(profit, 2)}
                   </div>
                   <div className="text-xs text-gray-400" key={588004}>Est. Profit</div>
                 </div>

@@ -1,5 +1,5 @@
-import React from 'react';
-import { RefreshCw, Moon, Sun, Wifi, WifiOff } from 'lucide-react';
+import { Moon, RefreshCw, Sun, Wifi, WifiOff } from 'lucide-react';
+import { safeNumber } from '../../../../frontend/src/utils/UniversalUtils';
 import { useApp } from '../../contexts/AppContext';
 import { useRealDataSources } from '../../hooks/useRealDataSources';
 
@@ -52,7 +52,7 @@ export function Header({ connectedSources, dataQuality }: HeaderProps) {
             </span>
             <span className="text-gray-400">•</span>
             <span className="font-semibold text-purple-600 text-sm">
-              {(dataQuality * 100).toFixed(1)}% Data Quality
+              {safeNumber(dataQuality * 100).toFixed(2)}% Data Quality
             </span>
           </div>
         </div>

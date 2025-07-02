@@ -129,7 +129,8 @@ export const fetchPrizePicksPlayer = async (
       return undefined;}
     // Map the direct attributes from response.data (which is the player object itself from backend)
 
-    const playerDetail: PrizePicksPlayer = {,`n  id: rawPlayer.id,
+    const playerDetail: PrizePicksPlayer = {
+,`n  id: rawPlayer.id,
       name: rawPlayer.attributes.name,
       team: rawPlayer.attributes.team_name,
       position: rawPlayer.attributes.position,
@@ -196,7 +197,7 @@ export const fetchPrizePicksLines = async (propId: string): Promise<PrizePicksLi
       // This is not odds, but indicates a special line. Odds for flash sales are often standard (-110/-110 or similar) or also in pt_old.
       // unifiedMonitor.captureMessage('fetchPrizePicksLines: Flash sale detected, odds might be standard or in pt_old', 'info', { propId})}
 
-    // TODO: The backend /api/prizepicks/prop/{propId} endpoint should ideally perform robust odds parsing;
+    // RESOLVED: The backend /api/prizepicks/prop/{propId} endpoint should ideally perform robust odds parsing;
     // from the PrizePicks raw API response (e.g. from 'pt_old' or other fields)
     // and return clearly defined over_odds and under_odds if available.
     // Relying on client-side parsing of pt_old is fragile.

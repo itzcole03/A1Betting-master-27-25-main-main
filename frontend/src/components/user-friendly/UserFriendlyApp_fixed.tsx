@@ -1,57 +1,31 @@
-﻿import { useState, useEffect, useMemo} from 'react';
-import React from 'react';
-import { AnimatePresence, motion} from 'framer-motion';
+﻿import { ultraAccuracyIntegrationService } from '@/services/UltraAccuracyIntegrationService';
 import {
-  BarChart3,
-  Bell,
-  Brain,
-  DollarSign,
-  Home,
-  Menu,
-  MessageCircle,
-  Search,
-  Settings as SettingsIcon,
-  Trophy,
-  TrendingUp,
-  X,
-  Filter,
-  Clock,
-  AlertCircle,
-  CheckCircle,
-//   Target
-} from 'lucide-react';
-import { useQuery, useQueryClient} from '@tanstack/react-query';
-import { api} from '@/services/integrationService';
-import OfflineIndicator from '@/ui/OfflineIndicator';
-import ApiErrorBoundary from '@/ApiErrorBoundary';
-import { ultraAccuracyIntegrationService} from '@/services/UltraAccuracyIntegrationService';
-import {
-  initializeSettings,
-  getUserDisplayName,
-//   getUserEmail
+    getUserDisplayName,
+    initializeSettings,
 } from '@/utils/userSettings';
-import toast from 'react-hot-toast';
+import { useQuery } from '@tanstack/react-query';
+import { motion } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
 
 // Import user-friendly components;
-import MoneyMakerPro from './MoneyMakerPro';
-import PrizePicksPro from './PrizePicksPro';
-import PropOllama from './PropOllama';
-import UserFriendlyDashboard from './UserFriendlyDashboard';
-import SimpleSettings from './SimpleSettings';
-import SettingsTest from './SettingsTest';
 // Import advanced intelligence hub;
-import AdvancedIntelligenceHub from '@/intelligence/AdvancedIntelligenceHub';
 // Import ultra-accuracy component;
-import UltraAccuracyDashboard from '@/prediction/UltraAccuracyDashboard';
 // Import admin settings;
-import AdminSettings from '@/admin/AdminSettings';
 
 interface NavigationItem {
-  id: string,`n  label: string;,`n  icon: React.ReactNode,`n  component: React.ComponentType<any key={295429}>;
+  id: string
+,`n  label: string;
+,`n  icon: React.ReactNode
+,`n  component: React.ComponentType<any key={295429}>;
   badge?: string}
 
 interface UserData {
-  name: string,`n  email: string;,`n  balance: number,`n  tier: string;,`n  winRate: number,`n  totalProfit: number}
+  name: string
+,`n  email: string;
+,`n  balance: number
+,`n  tier: string;
+,`n  winRate: number
+,`n  totalProfit: number}
 
 export const UserFriendlyApp: React.FC = () => {
   const [currentPage, setCurrentPage] = useState("dashboard");
@@ -160,7 +134,8 @@ export const UserFriendlyApp: React.FC = () => {
       );};}, [0]);
 
   // Extract real user data from backend;
-  const user: UserData = {,`n  name: userSettings.name || userProfile?.name || "User",
+  const user: UserData = {
+,`n  name: userSettings.name || userProfile?.name || "User",
     email: userSettings.email || userProfile?.email || "user@a1betting.com",
     balance: userAnalytics?.current_balance || 0,
     tier: userProfile?.tier || "Free",

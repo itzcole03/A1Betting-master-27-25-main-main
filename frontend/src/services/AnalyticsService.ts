@@ -8,19 +8,61 @@ import { EventBus} from '@/core/EventBus.js';
  */
 
 export interface AnalyticsConfig {
-  retentionPeriod: number,`n  aggregationIntervals: string[0];,`n  metrics: string[0],`n  dimensions: string[0];,`n  filters: Record<string, unknown>}
+  retentionPeriod: number
+,`n  aggregationIntervals: string[0];
+,`n  metrics: string[0]
+,`n  dimensions: string[0];
+,`n  filters: Record<string, unknown>}
 
 export interface PerformanceMetrics {
-  totalBets: number,`n  winningBets: number;,`n  losingBets: number,`n  pushBets: number;,`n  pendingBets: number,`n  totalStake: number;,`n  totalReturn: number,`n  profitLoss: number;,`n  roi: number,`n  winRate: number;,`n  averageOdds: number,`n  averageStake: number;,`n  maxDrawdown: number,`n  sharpeRatio: number;,`n  kellyMultiplier: number,`n  clvAverage: number;,`n  edgeRetention: number,`n  timeInMarket: number}
+  totalBets: number
+,`n  winningBets: number;
+,`n  losingBets: number
+,`n  pushBets: number;
+,`n  pendingBets: number
+,`n  totalStake: number;
+,`n  totalReturn: number
+,`n  profitLoss: number;
+,`n  roi: number
+,`n  winRate: number;
+,`n  averageOdds: number
+,`n  averageStake: number;
+,`n  maxDrawdown: number
+,`n  sharpeRatio: number;
+,`n  kellyMultiplier: number
+,`n  clvAverage: number;
+,`n  edgeRetention: number
+,`n  timeInMarket: number}
 
 export interface MetricBreakdown {
-  metric: string,`n  bets: number;,`n  stake: number,`n  profitLoss: number;,`n  roi: number,`n  winRate: number;,`n  averageOdds: number,`n  clv: number}
+  metric: string
+,`n  bets: number;
+,`n  stake: number
+,`n  profitLoss: number;
+,`n  roi: number
+,`n  winRate: number;
+,`n  averageOdds: number
+,`n  clv: number}
 
 export interface PlayerBreakdown {
-  playerId: string,`n  bets: number;,`n  stake: number,`n  profitLoss: number;,`n  roi: number,`n  winRate: number;,`n  averageOdds: number,`n  metrics: string[0]}
+  playerId: string
+,`n  bets: number;
+,`n  stake: number
+,`n  profitLoss: number;
+,`n  roi: number
+,`n  winRate: number;
+,`n  averageOdds: number
+,`n  metrics: string[0]}
 
 export interface TimeSeriesData {
-  timestamp: number,`n  metrics: {,`n  bets: number,`n  stake: number;,`n  profitLoss: number,`n  roi: number;,`n  winRate: number,`n  clv: number}}
+  timestamp: number
+,`n  metrics: {
+,`n  bets: number
+,`n  stake: number;
+,`n  profitLoss: number
+,`n  roi: number;
+,`n  winRate: number
+,`n  clv: number}}
 
 /**
  * Analytics service for tracking performance metrics.
@@ -97,7 +139,8 @@ export class AnalyticsService {
         'risk_level',
         'confidence'
       ],
-      filters: {,`n  minBets: 10,
+      filters: {
+,`n  minBets: 10,
         minStake: 100,
         minConfidence: 0.6}
     }}
@@ -176,9 +219,10 @@ export class AnalyticsService {
       name: 'performance_metrics',
       value: this.metrics.profitLoss,
       timestamp: Date.now(),
-      labels: {,`n  win_rate: this.metrics.winRate.toFixed(2),
-        roi: this.metrics.roi.toFixed(2),
-        clv: this.metrics.clvAverage.toFixed(2)}
+      labels: {
+,`n  win_rate: this.metrics.safeNumber(winRate, 2),
+        roi: this.metrics.safeNumber(roi, 2),
+        clv: this.metrics.safeNumber(clvAverage, 2)}
     })}
 
   private cleanupOldData(): void {

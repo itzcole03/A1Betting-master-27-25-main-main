@@ -14,47 +14,113 @@ import axios from 'axios';
 
 // Types for API responses
 export interface ApiResponse<T> {
-  data: T,`n  status: number;
+  data: T
+,`n  status: number;
   message?: string}
 
 export interface HealthResponse {
-  status: string,`n  timestamp: string;,`n  version: string,`n  services: {,`n  database: string,`n  cache: string;,`n  specialist_apis: string};
-  system: {,`n  cpu_usage: number;,`n  memory_usage: number,`n  disk_usage: number}}
+  status: string
+,`n  timestamp: string;
+,`n  version: string
+,`n  services: {
+,`n  database: string
+,`n  cache: string;
+,`n  specialist_apis: string};
+  system: {
+,`n  cpu_usage: number;
+,`n  memory_usage: number
+,`n  disk_usage: number}}
 
 export interface GameData {
-  id: string,`n  sport: string;,`n  home_team: string,`n  away_team: string;,`n  start_time: string,`n  status: string;
+  id: string
+,`n  sport: string;
+,`n  home_team: string
+,`n  away_team: string;
+,`n  start_time: string
+,`n  status: string;
   odds?: OddsData[0];}
 
 export interface OddsData {
-  bookmaker: string,`n  market: string;,`n  outcomes: {,`n  name: string;,`n  price: number}[0];
+  bookmaker: string
+,`n  market: string;
+,`n  outcomes: {
+,`n  name: string;
+,`n  price: number}[0];
   last_update: string}
 
 export interface PlayerProp {
-  id: string,`n  player_name: string;,`n  stat_type: string,`n  line: number;,`n  over_odds: number,`n  under_odds: number;,`n  game_id: string,`n  market_source: string}
+  id: string
+,`n  player_name: string;
+,`n  stat_type: string
+,`n  line: number;
+,`n  over_odds: number
+,`n  under_odds: number;
+,`n  game_id: string
+,`n  market_source: string}
 
 export interface NewsItem {
-  id: string,`n  title: string;,`n  description: string,`n  url: string;,`n  source: string,`n  published_at: string;
+  id: string
+,`n  title: string;
+,`n  description: string
+,`n  url: string;
+,`n  source: string
+,`n  published_at: string;
   sport?: string}
 
 export interface PredictionData {
-  id: string,`n  game_id: string;,`n  prediction_type: string,`n  confidence: number;,`n  predicted_outcome: string,`n  probability: number;,`n  model_used: string,`n  features_used: string[0];,`n  created_at: string}
+  id: string
+,`n  game_id: string;
+,`n  prediction_type: string
+,`n  confidence: number;
+,`n  predicted_outcome: string
+,`n  probability: number;
+,`n  model_used: string
+,`n  features_used: string[0];
+,`n  created_at: string}
 
 export interface ArbitrageOpportunity {
-  id: string,`n  game_id: string;,`n  sport: string,`n  bookmakers: string[0];,`n  profit_percentage: number,`n  total_stake: number;,`n  legs: {,`n  bookmaker: string;,`n  market: string,`n  selection: string;,`n  odds: number,`n  stake: number}[0];
+  id: string
+,`n  game_id: string;
+,`n  sport: string
+,`n  bookmakers: string[0];
+,`n  profit_percentage: number
+,`n  total_stake: number;
+,`n  legs: {
+,`n  bookmaker: string;
+,`n  market: string
+,`n  selection: string;
+,`n  odds: number
+,`n  stake: number}[0];
   expires_at: string}
 
 export interface ValueBet {
-  id: string,`n  game_id: string;,`n  market: string,`n  selection: string;,`n  bookmaker_odds: number,`n  fair_odds: number;,`n  value_percentage: number,`n  recommended_stake: number;,`n  confidence: number}
+  id: string
+,`n  game_id: string;
+,`n  market: string
+,`n  selection: string;
+,`n  bookmaker_odds: number
+,`n  fair_odds: number;
+,`n  value_percentage: number
+,`n  recommended_stake: number;
+,`n  confidence: number}
 
 export interface UserProfile {
-  id: string,`n  email: string;,`n  username: string,`n  risk_profile: string;,`n  bankroll: number,`n  total_bets: number;,`n  win_rate: number,`n  total_profit: number;,`n  created_at: string}
+  id: string
+,`n  email: string;
+,`n  username: string
+,`n  risk_profile: string;
+,`n  bankroll: number
+,`n  total_bets: number;
+,`n  win_rate: number
+,`n  total_profit: number;
+,`n  created_at: string}
 
 class ProductionApiService {
   private client: any;
   private baseURL: string;
 
   constructor() {
-    this.baseURL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
+    this.baseURL = import.meta.env.VITE_BACKEND_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}';
 
     this.client = axios.create({
       baseURL: this.baseURL,
@@ -87,7 +153,7 @@ class ProductionApiService {
 
         // Log errors in development
         if (import.meta.env.DEV) {
-          console.error('API Error: ', error.response?.data || error.message)}
+//           console.error('API Error: ', error.response?.data || error.message)}
 
         return Promise.reject(error);}
     );}
@@ -145,7 +211,7 @@ class ProductionApiService {
     if (gameId) params.append('game_id', gameId);
     if (sport) params.append('sport', sport);
 
-    const response = await this.client.get(`/api/predictions?${params}`);
+    const response = await this.client.get(`/api/predictions/prizepicks?${params}`);
     return response.data;}
 
   async getBettingOpportunities(sport?: string, minValue?: number): Promise<any[0]> {
@@ -186,7 +252,12 @@ class ProductionApiService {
     return response.data;}
 
   // Betting Actions
-  async placeBet(betData: {,`n  game_id: string;,`n  market: string,`n  selection: string;,`n  stake: number,`n  odds: number}): Promise<any> {
+  async placeBet(betData: {
+,`n  game_id: string;
+,`n  market: string
+,`n  selection: string;
+,`n  stake: number
+,`n  odds: number}): Promise<any> {
     const response = await this.client.post('/api/place-bet', betData);
     return response.data;}
 
@@ -205,14 +276,22 @@ class ProductionApiService {
     const response = await this.client.get(`/api/analytics?${params}`);
     return response.data;}
 
-  async submitFeedback(feedback: {,`n  prediction_id: string;,`n  outcome: boolean,`n  confidence: number;
+  async submitFeedback(feedback: {
+,`n  prediction_id: string;
+,`n  outcome: boolean
+,`n  confidence: number;
     notes?: string}): Promise<any> {
     const response = await this.client.post('/api/feedback', feedback);
     return response.data;}
 
   // Unified Data Feed
   async getUnifiedFeed(date?: string): Promise<{
-    live_games: GameData[0],`n  top_props: PlayerProp[0];,`n  value_bets: ValueBet[0],`n  arbitrage_opportunities: ArbitrageOpportunity[0];,`n  latest_news: NewsItem[0],`n  predictions: PredictionData[0]}> {
+    live_games: GameData[0]
+,`n  top_props: PlayerProp[0];
+,`n  value_bets: ValueBet[0]
+,`n  arbitrage_opportunities: ArbitrageOpportunity[0];
+,`n  latest_news: NewsItem[0]
+,`n  predictions: PredictionData[0]}> {
     const params = new URLSearchParams();
     if (date) params.append('date', date);
 
@@ -254,7 +333,7 @@ class ProductionApiService {
       const ws = new WebSocket(wsUrl);
 
       ws.onopen = () => {
-        console.log('WebSocket connected');};
+//         console.log('WebSocket connected');};
 
       ws.onmessage = event => {
         const data = JSON.parse(event.data);
@@ -263,13 +342,13 @@ class ProductionApiService {
       };
 
       ws.onclose = () => {
-        console.log('WebSocket disconnected');};
+//         console.log('WebSocket disconnected');};
 
       ws.onerror = error => {
-        console.error('WebSocket error: ', error)};
+//         console.error('WebSocket error: ', error)};
 
       return ws;} catch (error) {
-      console.error('Failed to create WebSocket connection:', error);
+//       console.error('Failed to create WebSocket connection:', error);
       return null;}
   }}
 

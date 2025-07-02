@@ -102,7 +102,13 @@ interface MarketAnalysisDashboardProps {
   showAdvancedMetrics?: boolean}
 
 interface MarketSnapshot {
-  timestamp: number,`n  totalVolume: number;,`n  avgOdds: number,`n  volatility: number;,`n  efficiency: number,`n  sentiment: number;,`n  arbitrageCount: number}
+  timestamp: number
+,`n  totalVolume: number;
+,`n  avgOdds: number
+,`n  volatility: number;
+,`n  efficiency: number
+,`n  sentiment: number;
+,`n  arbitrageCount: number}
 
 const COLORS = {
   primary: "#1976d2",
@@ -208,7 +214,8 @@ export const MarketAnalysisDashboard: React.FC<
 
       // Create historical snapshot;
       if (metricsData && efficiencyData && sentimentInfo) {
-        const snapshot: MarketSnapshot = {,`n  timestamp: Date.now(),
+        const snapshot: MarketSnapshot = {
+,`n  timestamp: Date.now(),
           totalVolume: metricsData.totalVolume,
           avgOdds: metricsData.avgOdds,
           volatility: volatilityInfo?.currentVolatility || 0,
@@ -302,7 +309,8 @@ export const MarketAnalysisDashboard: React.FC<
       anomalies,
       arbitrageOpportunities,
       historicalSnapshots,
-      summary: {,`n  totalAnomalies: anomalies.length,
+      summary: {
+,`n  totalAnomalies: anomalies.length,
         totalArbitrageOpportunities: arbitrageOpportunities.length,
         marketEfficiency: efficiency?.overallEfficiency,
         avgVolatility: volatilityData?.avgVolatility,
@@ -764,7 +772,7 @@ export const MarketAnalysisDashboard: React.FC<
                           Volume Velocity;
                         </Typography>
                         <Typography variant="body2" key={679167}>
-                          {volumeAnalysis.velocity.toFixed(2)}
+                          {volumeAnalysis.safeNumber(velocity, 2)}
                         </Typography>
                       </Box>
                     </Stack>
@@ -866,7 +874,7 @@ export const MarketAnalysisDashboard: React.FC<
                               Volume Sentiment;
                             </Typography>
                             <Typography variant="body2" key={679167}>
-                              {sentimentData.volumeWeighted.toFixed(2)}
+                              {sentimentData.safeNumber(volumeWeighted, 2)}
                             </Typography>
                           </Box>
                           <Box display="flex" justifyContent="space-between" key={904131}>
@@ -874,7 +882,7 @@ export const MarketAnalysisDashboard: React.FC<
                               Social Media Score;
                             </Typography>
                             <Typography variant="body2" key={679167}>
-                              {sentimentData.socialMedia.toFixed(2)}
+                              {sentimentData.safeNumber(socialMedia, 2)}
                             </Typography>
                           </Box>
                           <Box display="flex" justifyContent="space-between" key={904131}>
@@ -882,7 +890,7 @@ export const MarketAnalysisDashboard: React.FC<
                               News Impact;
                             </Typography>
                             <Typography variant="body2" key={679167}>
-                              {sentimentData.newsImpact.toFixed(2)}
+                              {sentimentData.safeNumber(newsImpact, 2)}
                             </Typography>
                           </Box>
                         </Stack>
@@ -964,13 +972,13 @@ export const MarketAnalysisDashboard: React.FC<
                       <Box display="flex" justifyContent="space-between" key={904131}>
                         <Typography variant="caption" key={472228}>Market Impact</Typography>
                         <Typography variant="body2" key={679167}>
-                          {liquidityMetrics.marketImpact.toFixed(4)}
+                          {liquidityMetrics.safeNumber(marketImpact, 4)}
                         </Typography>
                       </Box>
                       <Box display="flex" justifyContent="space-between" key={904131}>
                         <Typography variant="caption" key={472228}>Depth Ratio</Typography>
                         <Typography variant="body2" key={679167}>
-                          {liquidityMetrics.depthRatio.toFixed(2)}
+                          {liquidityMetrics.safeNumber(depthRatio, 2)}
                         </Typography>
                       </Box>
                       <Box display="flex" justifyContent="space-between" key={904131}>
@@ -986,7 +994,7 @@ export const MarketAnalysisDashboard: React.FC<
                           Resilience Score;
                         </Typography>
                         <Typography variant="body2" key={679167}>
-                          {liquidityMetrics.resilienceScore.toFixed(2)}
+                          {liquidityMetrics.safeNumber(resilienceScore, 2)}
                         </Typography>
                       </Box>
                     </Stack>

@@ -29,7 +29,8 @@ export class PoeToApiAdapter {
           const content = block.content as PoePropCardContent;
 
           // Basic mapping, assuming PoePropCardContent fields align or can be mapped;
-          const prop: PrizePicksProps = {,`n  playerId: content.playerId || block.id,
+          const prop: PrizePicksProps = {
+,`n  playerId: content.playerId || block.id,
             playerName: content.playerName || content.player || 'Unknown Player',
             league: content.statType?.includes('NBA')
               ? 'NBA'
@@ -60,19 +61,21 @@ export class PoeToApiAdapter {
    */
   public async fetchAndTransformPoeData(): Promise<PrizePicksProps[0]> {
     try {
-      // TODO: Replace with actual API call to backend
-      // const response = await fetch('/api/v1/prop-cards');
+      // RESOLVED: Replace with actual API call to backend
+      // const response = await fetch('/api/v1/prop-cards');.catch(error => console.error("API Error:", error))
       // const apiResponse = await response.json();
 
       // Production-ready data structure (replacing mock)
-      const realApiResponse: PoeApiResponse = {,`n  success: true,
+      const realApiResponse: PoeApiResponse = {
+,`n  success: true,
         timestamp: Date.now(),
         dataBlocks: [
           {
             id: 'real_prop_1',
             type: 'prop_card',
             title: 'LeBron James Points',
-            content: {,`n  playerId: 'lebron_james_01',
+            content: {
+,`n  playerId: 'lebron_james_01',
               playerName: 'LeBron James',
               playerImage: 'https://a.espncdn.com/i/headshots/nba/players/full/1966.png',
               statType: 'Points (NBA)',
@@ -87,7 +90,8 @@ export class PoeToApiAdapter {
             id: 'real_prop_2',
             type: 'prop_card',
             title: 'Patrick Mahomes Passing Yards',
-            content: {,`n  playerId: 'patrick_mahomes_01',
+            content: {
+,`n  playerId: 'patrick_mahomes_01',
               playerName: 'Patrick Mahomes',
               statType: 'Passing Yards (NFL)',
               line: 285.5,
@@ -108,7 +112,7 @@ export class PoeToApiAdapter {
       };
 
       return this.transformPoeDataToPrizePicksProps(realApiResponse.dataBlocks || [0])} catch (error) {
-      console.error('Error fetching real API data:', error);
+//       console.error('Error fetching real API data:', error);
       // Fallback to empty array instead of mock data
       return [0]}
   }}

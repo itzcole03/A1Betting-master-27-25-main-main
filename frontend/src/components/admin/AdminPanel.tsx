@@ -12,7 +12,17 @@ import {
 } from 'lucide-react';
 
 interface AdminConfig {
-  autoOptimization: boolean,`n  maxModels: number;,`n  confidenceThreshold: number,`n  retraining: string;,`n  dataFeeds: string,`n  quantumProcessing: boolean;,`n  neuralDepth: string,`n  learningRate: string;,`n  weatherFilter: boolean,`n  injuryFilter: boolean;,`n  lineMovement: boolean}
+  autoOptimization: boolean
+,`n  maxModels: number;
+,`n  confidenceThreshold: number
+,`n  retraining: string;
+,`n  dataFeeds: string
+,`n  quantumProcessing: boolean;
+,`n  neuralDepth: string
+,`n  learningRate: string;
+,`n  weatherFilter: boolean
+,`n  injuryFilter: boolean;
+,`n  lineMovement: boolean}
 
 const AdminPanel: React.FC = () => {
   const [adminConfig, setAdminConfig] = useState<AdminConfig>({
@@ -182,7 +192,8 @@ const AdminPanel: React.FC = () => {
               </div>
               <div className='relative'>
                 <input type='checkbox'
-                  checked={adminConfig.autoOptimization}>`n                  onChange={e =>
+                  checked={adminConfig.autoOptimization}
+>`n                  onChange={e =>
                     setAdminConfig({ ...adminConfig, autoOptimization: e.target.checked})}
                   className='w-6 h-6 text-electric-500'
                 />
@@ -200,7 +211,8 @@ const AdminPanel: React.FC = () => {
               <input type='range'
                 min='80'
                 max='99'
-                value={adminConfig.confidenceThreshold}>`n                onChange={e =>
+                value={adminConfig.confidenceThreshold}
+>`n                onChange={e =>
                   setAdminConfig({
                     ...adminConfig,
                     confidenceThreshold: parseInt(e.target.value)
@@ -217,7 +229,8 @@ const AdminPanel: React.FC = () => {
               <label className='block text-sm font-bold mb-3 text-electric-400 font-cyber'>
                 NEURAL NETWORK DEPTH
               </label>
-              <select value={adminConfig.neuralDepth}>`n                onChange={e => setAdminConfig({ ...adminConfig, neuralDepth: e.target.value})}
+              <select value={adminConfig.neuralDepth}
+>`n                onChange={e => setAdminConfig({ ...adminConfig, neuralDepth: e.target.value})}
                 className='w-full p-4 rounded-2xl border-2 border-electric-500/30 focus:border-electric-500 bg-gray-900/50'
               >
                 <option value='shallow'>Shallow Networks (Fast)</option>
@@ -244,7 +257,8 @@ const AdminPanel: React.FC = () => {
               </div>
               <div className='relative'>
                 <input type='checkbox'
-                  checked={adminConfig.weatherFilter || true}>`n                  onChange={e =>
+                  checked={adminConfig.weatherFilter || true}
+>`n                  onChange={e =>
                     setAdminConfig({ ...adminConfig, weatherFilter: e.target.checked})}
                   className='w-6 h-6 text-blue-500'
                 />
@@ -262,7 +276,8 @@ const AdminPanel: React.FC = () => {
               </div>
               <div className='relative'>
                 <input type='checkbox'
-                  checked={adminConfig.injuryFilter || true}>`n                  onChange={e => setAdminConfig({ ...adminConfig, injuryFilter: e.target.checked})}
+                  checked={adminConfig.injuryFilter || true}
+>`n                  onChange={e => setAdminConfig({ ...adminConfig, injuryFilter: e.target.checked})}
                   className='w-6 h-6 text-red-500'
                 />
                 <div className='absolute inset-0 bg-red-400/50 rounded blur-sm' />
@@ -279,7 +294,8 @@ const AdminPanel: React.FC = () => {
               </div>
               <div className='relative'>
                 <input type='checkbox'
-                  checked={adminConfig.lineMovement || true}>`n                  onChange={e => setAdminConfig({ ...adminConfig, lineMovement: e.target.checked})}
+                  checked={adminConfig.lineMovement || true}
+>`n                  onChange={e => setAdminConfig({ ...adminConfig, lineMovement: e.target.checked})}
                   className='w-6 h-6 text-yellow-500'
                 />
                 <div className='absolute inset-0 bg-yellow-400/50 rounded blur-sm' />
@@ -303,7 +319,8 @@ const AdminPanel: React.FC = () => {
               </div>
               <div className='relative'>
                 <input type='checkbox'
-                  checked={adminConfig.quantumProcessing}>`n                  onChange={e =>
+                  checked={adminConfig.quantumProcessing}
+>`n                  onChange={e =>
                     setAdminConfig({ ...adminConfig, quantumProcessing: e.target.checked})}
                   className='w-6 h-6 text-cyan-500'
                 />
@@ -318,7 +335,8 @@ const AdminPanel: React.FC = () => {
               <label className='block text-sm font-bold mb-3 text-electric-400 font-cyber'>
                 RETRAINING SCHEDULE
               </label>
-              <select value={adminConfig.retraining}>`n                onChange={e => setAdminConfig({ ...adminConfig, retraining: e.target.value})}
+              <select value={adminConfig.retraining}
+>`n                onChange={e => setAdminConfig({ ...adminConfig, retraining: e.target.value})}
                 className='w-full p-4 rounded-2xl border-2 border-electric-500/30 focus:border-electric-500 bg-gray-900/50'
               >
                 <option value='real-time'>Real-time (Continuous)</option>
@@ -333,7 +351,8 @@ const AdminPanel: React.FC = () => {
               <label className='block text-sm font-bold mb-3 text-electric-400 font-cyber'>
                 LEARNING RATE STRATEGY
               </label>
-              <select value={adminConfig.learningRate}>`n                onChange={e => setAdminConfig({ ...adminConfig, learningRate: e.target.value})}
+              <select value={adminConfig.learningRate}
+>`n                onChange={e => setAdminConfig({ ...adminConfig, learningRate: e.target.value})}
                 className='w-full p-4 rounded-2xl border-2 border-electric-500/30 focus:border-electric-500 bg-gray-900/50'
               >
                 <option value='conservative'>Conservative (0.001)</option>
@@ -377,13 +396,13 @@ const AdminPanel: React.FC = () => {
         <div className='grid grid-cols-1 md:grid-cols-4 gap-6'>
           <div className='text-center'>
             <div className='text-3xl font-bold text-green-400 font-cyber'>
-              {realTimeData.accuracy.toFixed(1)}%
+              {realTimeData.safeNumber(accuracy, 1)}%
             </div>
             <div className='text-gray-400 font-mono'>Accuracy</div>
           </div>
           <div className='text-center'>
             <div className='text-3xl font-bold text-cyan-400 font-cyber'>
-              {realTimeData.quantumCoherence.toFixed(2)}%
+              {realTimeData.safeNumber(quantumCoherence, 2)}%
             </div>
             <div className='text-gray-400 font-mono'>Quantum Coherence</div>
           </div>

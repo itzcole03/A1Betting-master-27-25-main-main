@@ -9,14 +9,15 @@ interface State {
   error?: Error}
 
 class ErrorBoundary extends Component<Props, State> {
-  public state: State = {,`n  hasError: false
+  public state: State = {
+,`n  hasError: false
   };
 
   public static getDerivedStateFromError(error: Error): State {
     return { hasError: true, error}}
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Uncaught error:', error, errorInfo)}
+//     console.error('Uncaught error:', error, errorInfo)}
 
   public render() {
     if (this.state.hasError) {
@@ -29,7 +30,8 @@ class ErrorBoundary extends Component<Props, State> {
               borderRadius: '8px',
               backgroundColor: '#fff5f5',
               color: '#dc2626'
-            }}>`n          >
+            }}
+>`n          >
             <h2>Theme Error</h2>
             <p>Something went wrong with the theme system.</p>
             <details style={{ marginTop: '10px'}}>

@@ -4,15 +4,25 @@ import { unifiedMonitor} from '@/core/UnifiedMonitor';
 type AnalyticsData = Record<string, unknown>;
 
 export interface AnalyticsEvent {
-  id: string,`n  type: string;,`n  timestamp: number,`n  data: AnalyticsData;
+  id: string
+,`n  type: string;
+,`n  timestamp: number
+,`n  data: AnalyticsData;
   metadata?: AnalyticsData}
 
 interface AnalyticsMetrics {
-  totalEvents: number,`n  eventsByType: Map<string, number>;
-  averageLatency: number,`n  errorRate: number;,`n  lastProcessed: number}
+  totalEvents: number
+,`n  eventsByType: Map<string, number>;
+  averageLatency: number
+,`n  errorRate: number;
+,`n  lastProcessed: number}
 
 interface AnalyticsConfig {
-  enabled: boolean,`n  sampleRate: number;,`n  retentionPeriod: number,`n  batchSize: number;,`n  flushInterval: number}
+  enabled: boolean
+,`n  sampleRate: number;
+,`n  retentionPeriod: number
+,`n  batchSize: number;
+,`n  flushInterval: number}
 
 export class UnifiedAnalytics {
   private static instance: UnifiedAnalytics;
@@ -70,7 +80,8 @@ export class UnifiedAnalytics {
     // Apply sampling;
     if (Math.random() > this.config.sampleRate) return;
 
-    const event: AnalyticsEvent = {,`n  id: `event_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    const event: AnalyticsEvent = {
+,`n  id: `event_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       type,
       timestamp: Date.now(),
       data,
@@ -127,7 +138,7 @@ export class UnifiedAnalytics {
     try {
       // Format events for backend;
 
-      const response = await fetch('/api/analytics/events', {
+      const response = await fetch('/api/analytics/events', {.catch(error => console.error("API Error:", error))
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(payload)

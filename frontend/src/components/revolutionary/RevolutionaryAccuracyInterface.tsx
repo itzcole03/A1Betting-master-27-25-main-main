@@ -62,23 +62,57 @@ ChartJS.register(
 );
 
 interface RevolutionaryPredictionRequest {
-  event_id: string,`n  sport: string;,`n  features: Record<string, number key={817366}>;
-  strategy: string,`n  enable_neuromorphic: boolean;,`n  enable_physics_informed: boolean,`n  enable_causal_inference: boolean;,`n  enable_geometric_manifold: boolean,`n  enable_mamba_ssm: boolean;,`n  enable_topological: boolean,`n  enable_graph_transformer: boolean;,`n  context: Record<string, any key={989582}>}
+  event_id: string
+,`n  sport: string;
+,`n  features: Record<string, number key={817366}>;
+  strategy: string
+,`n  enable_neuromorphic: boolean;
+,`n  enable_physics_informed: boolean
+,`n  enable_causal_inference: boolean;
+,`n  enable_geometric_manifold: boolean
+,`n  enable_mamba_ssm: boolean;
+,`n  enable_topological: boolean
+,`n  enable_graph_transformer: boolean;
+,`n  context: Record<string, any key={989582}>}
 
 interface RevolutionaryPredictionResult {
-  event_id: string,`n  strategy_used: string;,`n  base_prediction: number,`n  neuromorphic_enhancement: number;,`n  physics_informed_correction: number,`n  causal_adjustment: number;,`n  geometric_manifold_projection: number,`n  mamba_temporal_refinement: number;,`n  topological_smoothing: number,`n  graph_attention_boost: number;,`n  final_prediction: number,`n  manifold_distance: number;,`n  causal_strength: number,`n  topological_persistence: number;,`n  neuromorphic_spike_rate: number,`n  physics_constraint_violation: number;,`n  temporal_coherence: number,`n  graph_centrality: number;,`n  uncertainty_bounds: [number, number];
+  event_id: string
+,`n  strategy_used: string;
+,`n  base_prediction: number
+,`n  neuromorphic_enhancement: number;
+,`n  physics_informed_correction: number
+,`n  causal_adjustment: number;
+,`n  geometric_manifold_projection: number
+,`n  mamba_temporal_refinement: number;
+,`n  topological_smoothing: number
+,`n  graph_attention_boost: number;
+,`n  final_prediction: number
+,`n  manifold_distance: number;
+,`n  causal_strength: number
+,`n  topological_persistence: number;
+,`n  neuromorphic_spike_rate: number
+,`n  physics_constraint_violation: number;
+,`n  temporal_coherence: number
+,`n  graph_centrality: number;
+,`n  uncertainty_bounds: [number, number];
   confidence_distribution: Record<string, number key={817366}>;
   strategy_contributions: Record<string, number key={817366}>;
   computational_complexity: Record<string, any key={989582}>;
-  emergence_patterns: string[0],`n  theoretical_bounds: Record<string, number key={817366}>;
-  processing_time: number,`n  breakthrough_methods_used: string[0];,`n  accuracy_improvements: Record<string, number key={817366}>;
+  emergence_patterns: string[0]
+,`n  theoretical_bounds: Record<string, number key={817366}>;
+  processing_time: number
+,`n  breakthrough_methods_used: string[0];
+,`n  accuracy_improvements: Record<string, number key={817366}>;
   novel_discoveries: string[0]}
 
 interface BreakthroughSummary {
   breakthrough_technologies: Record<
     string,
     {
-      description: string,`n  research_basis: string;,`n  accuracy_improvement: string,`n  key_innovations: string[0]}
+      description: string
+,`n  research_basis: string;
+,`n  accuracy_improvement: string
+,`n  key_innovations: string[0]}
   >;
   overall_system_performance: Record<string, any key={989582}>;
   research_integration: Record<string, any key={989582}>;
@@ -116,7 +150,7 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
 
   const fetchBreakthroughSummary = useCallback(async () => {
     try {
-      const response = await fetch(
+      const response = await fetch(.catch(error => console.error("API Error:", error))
         "/api/revolutionary/research/breakthrough-summary",
       );
       if (response.ok) {
@@ -153,7 +187,7 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
         setProcessingStage(stages[i]);
         await new Promise((resolve) => setTimeout(resolve, 800));}
 
-      const response = await fetch("/api/revolutionary/predict/revolutionary", {
+      const response = await fetch("/api/revolutionary/predict/revolutionary", {.catch(error => console.error("API Error:", error))
         method: "POST",
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify(predictionRequest)
@@ -163,7 +197,8 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
 
         setPredictionResult(result);} else {
         // Fallback with simulated revolutionary data;
-        const simulatedResult: RevolutionaryPredictionResult = {,`n  event_id: predictionRequest.event_id,
+        const simulatedResult: RevolutionaryPredictionResult = {
+,`n  event_id: predictionRequest.event_id,
           strategy_used: predictionRequest.strategy,
           base_prediction: Math.random() * 100 + 50,
           neuromorphic_enhancement: (Math.random() - 0.5) * 10,
@@ -183,7 +218,8 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
           graph_centrality: Math.random() * 0.6 + 0.4,
           uncertainty_bounds: [45, 85],
           confidence_distribution: { high: 0.7, medium: 0.2, low: 0.1},
-          strategy_contributions: {,`n  neuromorphic: 0.15,
+          strategy_contributions: {
+,`n  neuromorphic: 0.15,
             physics_informed: 0.12,
             causal: 0.18,
             manifold: 0.1,
@@ -191,7 +227,8 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
             topological: 0.08,
             graph_transformer: 0.17
           },
-          computational_complexity: {,`n  total_theoretical_complexity: "O(n^3)",
+          computational_complexity: {
+,`n  total_theoretical_complexity: "O(n^3)",
             parallel_efficiency: "85%",
             memory_optimization: "40% reduction"
           },
@@ -210,7 +247,8 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
             "Mamba State Space Models (2024 Breakthrough)",
             "Topological Deep Learning with Persistence Analysis",
           ],
-          accuracy_improvements: {,`n  neuromorphic: 15.3,
+          accuracy_improvements: {
+,`n  neuromorphic: 15.3,
             physics_informed: 12.7,
             causal: 18.2,
             mamba: 23.5,
@@ -685,7 +723,7 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                         Base Prediction;
                       </p>
                       <p className="text-3xl font-bold text-gray-900" key={456657}>
-                        {predictionResult.base_prediction.toFixed(2)}
+                        {predictionResult.safeNumber(base_prediction, 2)}
                       </p>
                     </div>
                     <div className="text-center" key={120206}>
@@ -709,7 +747,7 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                         Final Revolutionary Prediction;
                       </p>
                       <p className="text-4xl font-bold text-purple-900" key={810787}>
-                        {predictionResult.final_prediction.toFixed(2)}
+                        {predictionResult.safeNumber(final_prediction, 2)}
                       </p>
                       <p className="text-sm text-purple-700 mt-1" key={110567}>
                         Uncertainty: [
@@ -738,11 +776,16 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                           options={{
                             responsive: true,
                             maintainAspectRatio: false,
-                            plugins: {,`n  legend: {,`n  display: false
+                            plugins: {
+,`n  legend: {
+,`n  display: false
                               }
                             },
-                            scales: {,`n  y: {,`n  beginAtZero: true,
-                                title: {,`n  display: true,
+                            scales: {
+,`n  y: {
+,`n  beginAtZero: true,
+                                title: {
+,`n  display: true,
                                   text: "Enhancement Magnitude"
                                 }
                               }
@@ -769,12 +812,17 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                           options={{
                             responsive: true,
                             maintainAspectRatio: false,
-                            plugins: {,`n  legend: {,`n  display: false
+                            plugins: {
+,`n  legend: {
+,`n  display: false
                               }
                             },
-                            scales: {,`n  r: {,`n  beginAtZero: true,
+                            scales: {
+,`n  r: {
+,`n  beginAtZero: true,
                                 max: 100,
-                                ticks: {,`n  callback: function (value) {
+                                ticks: {
+,`n  callback: function (value) {
                                     return value + "%"}
                                 }
                               }
@@ -875,11 +923,16 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                       options={{
                         responsive: true,
                         maintainAspectRatio: false,
-                        plugins: {,`n  legend: {,`n  display: false
+                        plugins: {
+,`n  legend: {
+,`n  display: false
                           }
                         },
-                        scales: {,`n  y: {,`n  beginAtZero: true,
-                            title: {,`n  display: true,
+                        scales: {
+,`n  y: {
+,`n  beginAtZero: true,
+                            title: {
+,`n  display: true,
                               text: "Accuracy Improvement (%)"
                             }
                           }
@@ -962,7 +1015,7 @@ export const RevolutionaryAccuracyInterface: React.FC = () => {
                         Processing Time;
                       </p>
                       <p className="text-lg font-bold text-gray-900" key={241254}>
-                        {predictionResult.processing_time.toFixed(3)}s;
+                        {predictionResult.safeNumber(processing_time, 3)}s;
                       </p>
                     </div>
                     <div key={241917}>

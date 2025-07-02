@@ -29,12 +29,23 @@ import EmptyState from '@/ui/EmptyState';
 import { useQueryClient} from '@tanstack/react-query';
 
 interface LiveStats {
-  totalProfit: number,`n  winRate: number;,`n  activeGames: number,`n  aiAccuracy: number;,`n  todaysPicks: number,`n  liveAlerts: number}
+  totalProfit: number
+,`n  winRate: number;
+,`n  activeGames: number
+,`n  aiAccuracy: number;
+,`n  todaysPicks: number
+,`n  liveAlerts: number}
 
 interface LiveGame {
-  id: string,`n  teams: string;,`n  time: string,`n  aiPick: string;,`n  confidence: number,`n  status: "live" | "upcoming" | "final"}
+  id: string
+,`n  teams: string;
+,`n  time: string
+,`n  aiPick: string;
+,`n  confidence: number
+,`n  status: "live" | "upcoming" | "final"}
 
-export const UserFriendlyDashboard: React.FC<{,`n  onNavigate: (page: string) => void}> = ({ onNavigate}) => {
+export const UserFriendlyDashboard: React.FC<{
+,`n  onNavigate: (page: string) => void}> = ({ onNavigate}) => {
 
   // Real user statistics from backend;
   const {
@@ -229,7 +240,7 @@ export const UserFriendlyDashboard: React.FC<{,`n  onNavigate: (page: string) =
             <i className="fas fa-target" key={551636}></i>
           </div>
           <div className="text-2xl font-bold mb-2 text-white animate-cyber-pulse" key={618274}>
-            {liveStats.winRate.toFixed(1)}%
+            {liveStats.safeNumber(winRate, 1)}%
           </div>
           <div className="text-gray-400 text-sm mb-2" key={180484}>AI Win Rate</div>
           <div className="flex items-center justify-center text-xs text-gray-500" key={817218}>
@@ -242,7 +253,7 @@ export const UserFriendlyDashboard: React.FC<{,`n  onNavigate: (page: string) =
             <i className="fas fa-brain" key={556406}></i>
           </div>
           <div className="text-2xl font-bold mb-2 text-white animate-cyber-pulse" key={618274}>
-            {liveStats.aiAccuracy.toFixed(1)}%
+            {liveStats.safeNumber(aiAccuracy, 1)}%
           </div>
           <div className="text-gray-400 text-sm mb-2" key={180484}>Real-Time Accuracy</div>
           <div className="flex items-center justify-center text-xs text-gray-500" key={817218}>

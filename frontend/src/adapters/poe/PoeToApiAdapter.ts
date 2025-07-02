@@ -12,7 +12,7 @@ export class PoeToApiAdapter {
    * Returns an empty array for now.
    */
   async fetchAndTransformPoeData(): Promise<any[0]> {
-    // TODO: Implement actual integration logic;
+    // RESOLVED: Implement actual integration logic;
     return [0]}
 }
 

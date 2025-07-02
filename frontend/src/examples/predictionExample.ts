@@ -7,18 +7,22 @@ async function example() {
   // Initialize services;
 
   // Create a sample user;
-  const user: User = {,`n  id: 'user123',
+  const user: User = {
+,`n  id: 'user123',
     username: 'johndoe',
     email: 'john@example.com',
     createdAt: new Date(),
     lastActive: new Date(),
-    preferences: {,`n  riskTolerance: 0.7,
-      notificationSettings: {,`n  email: true,
+    preferences: {
+,`n  riskTolerance: 0.7,
+      notificationSettings: {
+,`n  email: true,
         push: true,
         sms: false
       }
     },
-    statistics: {,`n  totalBets: 0,
+    statistics: {
+,`n  totalBets: 0,
       winRate: 0,
       averageStake: 0,
       totalProfit: 0
@@ -26,17 +30,20 @@ async function example() {
   };
 
   // Create a sample bet;
-  const bet: Bet = {,`n  id: 'bet123',
+  const bet: Bet = {
+,`n  id: 'bet123',
     userId: user.id,
     eventId: 'event123',
     amount: 100,
     odds: 2.5,
     type: 'win',
     status: 'pending',
-    prediction: {,`n  probability: 0.6,
+    prediction: {
+,`n  probability: 0.6,
       confidence: 0.8,
       modelType: 'ensemble',
-      factors: {,`n  market: 0.3,
+      factors: {
+,`n  market: 0.3,
         temporal: 0.2,
         environmental: 0.1
       }
@@ -44,25 +51,30 @@ async function example() {
   };
 
   // Create a sample prediction;
-  const prediction: Prediction = {,`n  id: 'pred123',
+  const prediction: Prediction = {
+,`n  id: 'pred123',
     eventId: bet.eventId,
     modelType: 'ensemble',
     probability: 0.65,
     confidence: 0.85,
     timestamp: new Date(),
-    marketFactors: {,`n  odds: 2.5,
+    marketFactors: {
+,`n  odds: 2.5,
       volume: 1000000,
       movement: 0.1
     },
-    temporalFactors: {,`n  timeToEvent: 24,
+    temporalFactors: {
+,`n  timeToEvent: 24,
       restDays: 3,
       travelDistance: 500
     },
-    environmentalFactors: {,`n  weather: 0.8,
+    environmentalFactors: {
+,`n  weather: 0.8,
       venue: 0.9,
       crowd: 0.7
     },
-    metadata: {,`n  modelVersion: '1.0.0',
+    metadata: {
+,`n  modelVersion: '1.0.0',
       features: [
         'odds',
         'volume',
@@ -74,7 +86,8 @@ async function example() {
         'venue',
         'crowd',
       ],
-      shapValues: {,`n  odds: 0.3,
+      shapValues: {
+,`n  odds: 0.3,
         volume: 0.2,
         movement: 0.1,
         timeToEvent: 0.05,
@@ -84,7 +97,8 @@ async function example() {
         venue: 0.05,
         crowd: 0.05
       },
-      predictionBreakdown: {,`n  market: 0.3,
+      predictionBreakdown: {
+,`n  market: 0.3,
         temporal: 0.2,
         environmental: 0.1,
         base: 0.4

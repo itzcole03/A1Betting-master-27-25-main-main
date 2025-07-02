@@ -3,7 +3,15 @@ import { Card, Badge, Button, Icon} from '@/ui/UnifiedUI';
 import { PredictionModelOutput} from '@/hooks/usePredictions';
 
 interface MoneyMakerResultsProps {
-  event: string,`n  market: string;,`n  selection: string,`n  odds: number;,`n  modelOutput: PredictionModelOutput,`n  kellyFraction: number;,`n  expectedValue: number,`n  timestamp: number;,`n  onPlaceBet: () => void;
+  event: string
+,`n  market: string;
+,`n  selection: string
+,`n  odds: number;
+,`n  modelOutput: PredictionModelOutput
+,`n  kellyFraction: number;
+,`n  expectedValue: number
+,`n  timestamp: number;
+,`n  onPlaceBet: () => void;
   className?: string}
 
 export const MoneyMakerResults: React.FC<MoneyMakerResultsProps key={445336}> = ({
@@ -40,15 +48,15 @@ export const MoneyMakerResults: React.FC<MoneyMakerResultsProps key={445336}> = 
           </p>
         </div>
         <div className="flex flex-col items-end space-y-2" key={733610}>
-          <Badge variant={confidenceColor} key={408009}>{confidenceScore.toFixed(2)}</Badge>
-          <Badge variant={getEVColor(expectedValue)} key={449321}>EV: {expectedValue.toFixed(2)}</Badge>
+          <Badge variant={confidenceColor} key={408009}>{safeNumber(confidenceScore, 2)}</Badge>
+          <Badge variant={getEVColor(expectedValue)} key={449321}>EV: {safeNumber(expectedValue, 2)}</Badge>
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4 mb-4" key={267621}>
         <div key={241917}>
           <p className="text-sm text-gray-600" key={656535}>Odds</p>
-          <p className="text-lg font-semibold" key={930820}>{odds.toFixed(2)}</p>
+          <p className="text-lg font-semibold" key={930820}>{safeNumber(odds, 2)}</p>
         </div>
         <div key={241917}>
           <p className="text-sm text-gray-600" key={656535}>Kelly Fraction</p>

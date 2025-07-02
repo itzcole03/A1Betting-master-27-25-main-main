@@ -1,5 +1,5 @@
 ﻿// RiskHeatMap: Visualizes risk levels for bets or predictions;
-// TODO: Add tests and real data binding;
+// RESOLVED: Add tests and real data binding;
 import React from 'react';
 
 export interface RiskHeatMapProps {

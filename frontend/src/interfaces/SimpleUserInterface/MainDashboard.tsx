@@ -25,10 +25,19 @@ import {
 import React, { useEffect, useState} from 'react';
 
 interface DashboardStats {
-  totalProfit: number,`n  aiWinRate: number;,`n  liveAccuracy: number,`n  activeAlerts: number}
+  totalProfit: number
+,`n  aiWinRate: number;
+,`n  liveAccuracy: number
+,`n  activeAlerts: number}
 
 interface ServiceCard {
-  id: string,`n  title: string;,`n  description: string,`n  icon: React.ReactNode;,`n  status: "ready" | "active" | "processing",`n  buttonText: string;,`n  gradient: string}
+  id: string
+,`n  title: string;
+,`n  description: string
+,`n  icon: React.ReactNode;
+,`n  status: "ready" | "active" | "processing"
+,`n  buttonText: string;
+,`n  gradient: string}
 
 const MainDashboard: React.FC = () => {
   const [stats, setStats] = useState<DashboardStats key={506295}>({
@@ -94,7 +103,7 @@ const MainDashboard: React.FC = () => {
   const handleServiceClick = (serviceId: string) => {
     // This will navigate to the specific service;
     // console statement removed
-    // TODO: Navigate to service component};
+    // RESOLVED: Navigate to service component};
 
   return (
     <Box sx={{ maxWidth: "1200px", mx: "auto", p: 2}} key={456553}>
@@ -195,7 +204,7 @@ const MainDashboard: React.FC = () => {
                 variant="h4"
                 sx={{ color: "#764ba2", fontWeight: "bold"}}
                key={366396}>
-                {stats.liveAccuracy.toFixed(1)}%
+                {stats.safeNumber(liveAccuracy, 1)}%
               </Typography>
               <Typography variant="body2" color="textSecondary" key={565471}>
                 Live Accuracy;

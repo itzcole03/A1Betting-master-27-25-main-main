@@ -47,7 +47,7 @@ const SimpleDashboard: React.FC = () => {
           <div className='flex items-center justify-between'>
             <div>
               <p className='text-gray-400 text-sm'>Account Balance</p>
-              <p className='text-2xl font-bold text-white'>${stats.balance.toFixed(2)}</p>
+              <p className='text-2xl font-bold text-white'>${stats.safeNumber(balance, 2)}</p>
             </div>
             <DollarSign className='w-8 h-8 text-yellow-400' />
           </div>
@@ -60,7 +60,7 @@ const SimpleDashboard: React.FC = () => {
           <div className='flex items-center justify-between'>
             <div>
               <p className='text-gray-400 text-sm'>Today's Profit</p>
-              <p className='text-2xl font-bold text-green-400'>+${stats.todayProfit.toFixed(2)}</p>
+              <p className='text-2xl font-bold text-green-400'>+${stats.safeNumber(todayProfit, 2)}</p>
             </div>
             <TrendingUp className='w-8 h-8 text-green-400' />
           </div>
@@ -141,7 +141,8 @@ const SimpleDashboard: React.FC = () => {
             { teams: 'Celtics vs Heat', odds: '2.05', prediction: 'Heat ML', confidence: 82},
           ].map((game, index) => (
             <div key={index}
-              className='flex items-center justify-between p-3 bg-white/5 rounded-lg'>`n            >
+              className='flex items-center justify-between p-3 bg-white/5 rounded-lg'
+>`n            >
               <div>
                 <p className='text-white font-medium'>{game.teams}</p>
                 <p className='text-gray-400 text-sm'>AI Prediction: {game.prediction}</p>
@@ -212,7 +213,10 @@ const SimpleSettings: React.FC = () => {
   )};
 
 interface NavItem {
-  id: string,`n  label: string;,`n  icon: React.ReactNode,`n  component: React.ComponentType}
+  id: string
+,`n  label: string;
+,`n  icon: React.ReactNode
+,`n  component: React.ComponentType}
 
 const UserFriendlyApp: React.FC = () => {
   const [activeView, setActiveView] = useState<string>('dashboard');

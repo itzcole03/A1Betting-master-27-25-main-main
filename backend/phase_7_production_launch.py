@@ -309,9 +309,9 @@ class Phase7ProductionLauncher:
                 with open('prediction_api.py', 'r') as f:
                     content = f.read()
                     required_endpoints = [
-                        '/api/predictions/live',
-                        '/api/predictions/health',
-                        '/api/predictions/explain'
+                        '/api/predictions/prizepicks/live',
+                        '/api/predictions/prizepicks/health',
+                        '/api/predictions/prizepicks/explain'
                     ]
                     
                     endpoints_present = all(endpoint in content for endpoint in required_endpoints)

@@ -19,7 +19,11 @@ import { useAppStore} from '@/store/useAppStore';
 // ============================================================================
 
 interface QuickStat {
-  label: string,`n  value: string;,`n  change: string,`n  icon: React.ReactNode;,`n  color: string}
+  label: string
+,`n  value: string;
+,`n  change: string
+,`n  icon: React.ReactNode;
+,`n  color: string}
 
 // ============================================================================
 // MAIN HOMEPAGE COMPONENT;

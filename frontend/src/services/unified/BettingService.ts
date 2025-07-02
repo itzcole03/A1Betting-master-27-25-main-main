@@ -11,12 +11,17 @@ import {
 } from '@/types/betting';
 
 interface BettingConfig {
-  minConfidence: number,`n  maxStakePercentage: number;,`n  riskProfile: RiskProfileType,`n  autoRefresh: boolean;,`n  refreshInterval: number}
+  minConfidence: number
+,`n  maxStakePercentage: number;
+,`n  riskProfile: RiskProfileType
+,`n  autoRefresh: boolean;
+,`n  refreshInterval: number}
 
 class UnifiedBettingService {
   private static instance: UnifiedBettingService | null = null;
   private readonly wsService: WebSocketManager;
-  private config: BettingConfig = {,`n  minConfidence: 0.7,
+  private config: BettingConfig = {
+,`n  minConfidence: 0.7,
     maxStakePercentage: 0.1,
     riskProfile: RiskProfileType.MODERATE,
     autoRefresh: true,
@@ -25,7 +30,7 @@ class UnifiedBettingService {
   private readonly apiUrl: string;
 
   protected constructor() {
-    this.apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+    this.apiUrl = import.meta.env.VITE_API_BASE_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}';
     this.wsService = WebSocketManager.getInstance();
     this.initializeWebSocketHandlers();}
 

@@ -9,12 +9,27 @@ import { api} from '@/services/integrationService';
 
 // Define types locally since they're not exported from integrationService;
 interface ValueBet {
-  id: string,`n  sport: string;,`n  event: string,`n  market: string;,`n  odds: number,`n  probability: number;,`n  expected_value: number,`n  confidence: number;,`n  recommendation: string;
+  id: string
+,`n  sport: string;
+,`n  event: string
+,`n  market: string;
+,`n  odds: number
+,`n  probability: number;
+,`n  expected_value: number
+,`n  confidence: number;
+,`n  recommendation: string;
   edge?: number
   bookmaker?: string}
 
 interface ArbitrageOpportunity {
-  id: string,`n  sport: string;,`n  event: string,`n  bookmaker_a: string;,`n  bookmaker_b: string,`n  odds_a: number;,`n  odds_b: number,`n  profit_margin: number;
+  id: string
+,`n  sport: string;
+,`n  event: string
+,`n  bookmaker_a: string;
+,`n  bookmaker_b: string
+,`n  odds_a: number;
+,`n  odds_b: number
+,`n  profit_margin: number;
   guaranteed_profit?: number
   profit_percent?: number
   stakes?: { [key: string]: number};
@@ -39,7 +54,8 @@ export const useValueBets = (filters?: {
         filters?.limit || 10,
       );
       // Map betting opportunities to ValueBet format;
-      return opportunities.map((opp: any) => ({,`n  id: opp.id,
+      return opportunities.map((opp: any) => ({
+,`n  id: opp.id,
         sport: opp.sport,
         event: opp.event,
         market: opp.market,
@@ -186,7 +202,13 @@ export const useArbitrageOpportunities = (filters?: {
 export const usePlaceBet = () => {
 
   const placeBetMutation = useMutation({
-    mutationFn: (betData: {,`n  event: string;,`n  outcome: string,`n  bookmaker: string;,`n  odds: number,`n  stake: number}) => Promise.reject(new Error("Bet placement not implemented yet")), // TODO: Implement placeBet in integration service,`n  onSuccess: (data) => {
+    mutationFn: (betData: {
+,`n  event: string;
+,`n  outcome: string
+,`n  bookmaker: string;
+,`n  odds: number
+,`n  stake: number}) => Promise.reject(new Error("Bet placement not implemented yet")), // RESOLVED: Implement placeBet in integration service
+,`n  onSuccess: (data) => {
       toast.success("Bet placed successfully!");
       // Invalidate relevant queries to refresh data;
       queryClient.invalidateQueries({ queryKey: ["valueBets"]});

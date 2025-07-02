@@ -34,7 +34,7 @@ def check_dependencies():
 def check_port():
     """Check if port 8000 is available."""
     try:
-        response = requests.get("http://localhost:8000/health", timeout=2)
+        response = requests.get("${process.env.REACT_APP_API_URL || "http://localhost:8000"}/health", timeout=2)
         print("⚠️  Port 8000 already in use - stopping existing server...")
         return False
     except requests.RequestException:

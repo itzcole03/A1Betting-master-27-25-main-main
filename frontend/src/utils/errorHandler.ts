@@ -16,12 +16,20 @@ import {
 } from '@/unified/UnifiedError';
 
 interface ErrorLog {
-  type: string,`n  message: string;,`n  timestamp: string;
+  type: string
+,`n  message: string;
+,`n  timestamp: string;
   stack?: string
   details?: Record<string, any>;}
 
 interface ApiCallLog {
-  url: string,`n  method: string;,`n  status: number,`n  statusText: string;,`n  duration: number,`n  timestamp: string;,`n  ok: boolean}
+  url: string
+,`n  method: string;
+,`n  status: number
+,`n  statusText: string;
+,`n  duration: number
+,`n  timestamp: string;
+,`n  ok: boolean}
 
 interface ErrorHandlerConfig {
   maxErrors?: number
@@ -82,7 +90,7 @@ export class ErrorHandler {
 
     // Intercept console.error;
 
-    console.error = (...args) => {
+//     console.error = (...args) => {
       this.handleError(
         new SystemError(args.join(' '), {
           category: ErrorCategory.SYSTEM,
@@ -142,7 +150,8 @@ export class ErrorHandler {
 
       // Emit error event;
       this.eventBus.emit('data:updated', {
-        data: {,`n  error: systemError,
+        data: {
+,`n  error: systemError,
           emergency: systemError.severity === ErrorSeverity.CRITICAL
         },
         sourceId: 'error-handler',
@@ -249,7 +258,8 @@ export class ErrorHandler {
       url: window.location.href,
       errors: this.errors,
       apiCalls: this.apiCalls,
-      localStorage: {,`n  errors: JSON.parse(localStorage.getItem('app_errors') || '[0]'),
+      localStorage: {
+,`n  errors: JSON.parse(localStorage.getItem('app_errors') || '[0]'),
         apiCalls: JSON.parse(localStorage.getItem('app_api_calls') || '[0]')
       }
     }}

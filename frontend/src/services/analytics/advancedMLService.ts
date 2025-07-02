@@ -8,14 +8,18 @@ interface PredictionRequest {
   // Add other relevant parameters for the prediction endpoint}
 
 interface PredictionResponse {
-  prediction: number,`n  confidence: number;,`n  modelVersion: string;
+  prediction: number
+,`n  confidence: number;
+,`n  modelVersion: string;
   // Add other fields from the backend response}
 
 interface MarketAnalysisRequest {
   marketData: any}
 
 interface MarketAnalysisResponse {
-  analysis: string,`n  confidence: number;,`n  recommendations: string[0]}
+  analysis: string
+,`n  confidence: number;
+,`n  recommendations: string[0]}
 
 interface FeatureGenerationRequest {
   rawData: any}
@@ -38,7 +42,7 @@ export class AdvancedMLService {
       const request: PredictionRequest = { features};
       const response = await ApiService.post<PredictionResponse>('/api/v1/ml/predict', request);
       return response;} catch (error) {
-      console.error('Error getting prediction:', error);
+//       console.error('Error getting prediction:', error);
       throw new Error('Failed to get prediction.');}
   }
 
@@ -55,7 +59,7 @@ export class AdvancedMLService {
 //         request
       );
       return response;} catch (error) {
-      console.error('Error analyzing market data:', error);
+//       console.error('Error analyzing market data:', error);
       throw new Error('Failed to analyze market data.');}
   }
 
@@ -72,7 +76,7 @@ export class AdvancedMLService {
 //         request
       );
       return response;} catch (error) {
-      console.error('Error generating features:', error);
+//       console.error('Error generating features:', error);
       throw new Error('Failed to generate features.');}
   }}
 

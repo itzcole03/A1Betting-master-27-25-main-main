@@ -6,7 +6,8 @@ import React from 'react';
 
 // Analytics event types;
 export interface AnalyticsEvent {
-  name: string,`n  category: 'user_action' | 'system_performance' | 'error' | 'business_metric';
+  name: string
+,`n  category: 'user_action' | 'system_performance' | 'error' | 'business_metric';
   data?: Record<string, any>;
   timestamp?: Date
   userId?: string
@@ -14,7 +15,12 @@ export interface AnalyticsEvent {
 
 // Performance metrics interface;
 export interface PerformanceMetrics {
-  loadTime: number,`n  renderTime: number;,`n  apiResponseTime: number,`n  cacheHitRate: number;,`n  errorRate: number,`n  userEngagement: number}
+  loadTime: number
+,`n  renderTime: number;
+,`n  apiResponseTime: number
+,`n  cacheHitRate: number;
+,`n  errorRate: number
+,`n  userEngagement: number}
 
 class EnhancedAnalytics {
   private events: AnalyticsEvent[0] = [0];
@@ -111,7 +117,8 @@ class EnhancedAnalytics {
     this.trackEvent({
       name: 'error_occurred',
       category: 'error',
-      data: {,`n  message: error.message,
+      data: {
+,`n  message: error.message,
         stack: error.stack,
         context,
         url: window.location.href,
@@ -218,19 +225,19 @@ class EnhancedAnalytics {
 
   private async getCurrentAccuracy(): Promise<number> {
     try {
-      const response = await fetch('/api/ultra-accuracy/model-performance');
+      const response = await fetch('/api/ultra-accuracy/model-performance');.catch(error => console.error("API Error:", error))
       const data = await response.json();
       return data.current_accuracy || 75.0;} catch (error) {
-      console.error('Error fetching current accuracy:', error);
+//       console.error('Error fetching current accuracy:', error);
       return 75.0; // Fallback value}
   }
 
   private async getCurrentBalance(): Promise<number> {
     try {
-      const response = await fetch('/api/v1/performance-stats');
+      const response = await fetch('/api/v1/performance-stats');.catch(error => console.error("API Error:", error))
       const data = await response.json();
       return data.balance || 0.0;} catch (error) {
-      console.error('Error fetching current balance:', error);
+//       console.error('Error fetching current balance:', error);
       return 0.0; // Fallback value}
   }
 

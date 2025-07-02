@@ -9,36 +9,108 @@ import { UnifiedErrorService} from '@/services/unified/UnifiedErrorService';
 import { Card, Button, Spinner, Toast, Badge, Modal, Tabs, Tab} from '@/ui/UnifiedUI';
 
 interface Event {
-  id: string,`n  name: string;,`n  sport: string,`n  competition: string;,`n  startTime: string,`n  status: 'upcoming' | 'live' | 'ended' | 'cancelled';,`n  homeTeam: {,`n  id: string;,`n  name: string,`n  logo: string;,`n  stats: TeamStats};
-  awayTeam: {,`n  id: string;,`n  name: string,`n  logo: string;,`n  stats: TeamStats};
-  venue: {,`n  name: string;,`n  city: string,`n  country: string};
+  id: string
+,`n  name: string;
+,`n  sport: string
+,`n  competition: string;
+,`n  startTime: string
+,`n  status: 'upcoming' | 'live' | 'ended' | 'cancelled';
+,`n  homeTeam: {
+,`n  id: string;
+,`n  name: string
+,`n  logo: string;
+,`n  stats: TeamStats};
+  awayTeam: {
+,`n  id: string;
+,`n  name: string
+,`n  logo: string;
+,`n  stats: TeamStats};
+  venue: {
+,`n  name: string;
+,`n  city: string
+,`n  country: string};
   weather?: {
-    condition: string,`n  temperature: number;,`n  windSpeed: number,`n  precipitation: number};
-  markets: Market[0],`n  predictions: Prediction[0];,`n  statistics: EventStatistics}
+    condition: string
+,`n  temperature: number;
+,`n  windSpeed: number
+,`n  precipitation: number};
+  markets: Market[0]
+,`n  predictions: Prediction[0];
+,`n  statistics: EventStatistics}
 
 interface TeamStats {
-  form: string[0],`n  goalsScored: number;,`n  goalsConceded: number,`n  cleanSheets: number;,`n  winRate: number,`n  averageGoals: number;
+  form: string[0]
+,`n  goalsScored: number;
+,`n  goalsConceded: number
+,`n  cleanSheets: number;
+,`n  winRate: number
+,`n  averageGoals: number;
   homeAdvantage?: number
   awayDisadvantage?: number}
 
 interface Market {
-  id: string,`n  type: string;,`n  name: string,`n  selections: Selection[0];,`n  status: 'open' | 'suspended' | 'closed',`n  lastUpdated: string}
+  id: string
+,`n  type: string;
+,`n  name: string
+,`n  selections: Selection[0];
+,`n  status: 'open' | 'suspended' | 'closed'
+,`n  lastUpdated: string}
 
 interface Selection {
-  id: string,`n  name: string;,`n  odds: number,`n  probability: number;
+  id: string
+,`n  name: string;
+,`n  odds: number
+,`n  probability: number;
   prediction?: {
-    confidence: number,`n  expectedValue: number;,`n  kellyFraction: number}}
+    confidence: number
+,`n  expectedValue: number;
+,`n  kellyFraction: number}}
 
 interface Prediction {
-  marketType: string,`n  selection: string;,`n  confidence: number,`n  expectedValue: number;,`n  kellyFraction: number,`n  factors: {,`n  name: string,`n  impact: number;,`n  description: string}[0]}
+  marketType: string
+,`n  selection: string;
+,`n  confidence: number
+,`n  expectedValue: number;
+,`n  kellyFraction: number
+,`n  factors: {
+,`n  name: string
+,`n  impact: number;
+,`n  description: string}[0]}
 
 interface EventStatistics {
-  headToHead: {,`n  total: number;,`n  homeWins: number,`n  awayWins: number;,`n  draws: number,`n  lastFive: Array<{,`n  date: string,`n  homeTeam: string;,`n  awayTeam: string,`n  score: string;,`n  winner: string}>};
-  form: {,`n  home: {,`n  lastFive: string[0],`n  goalsScored: number;,`n  goalsConceded: number};
-    away: {,`n  lastFive: string[0];,`n  goalsScored: number,`n  goalsConceded: number}};
-  trends: {,`n  overUnder: {,`n  over2_5: number,`n  under2_5: number;,`n  averageGoals: number};
-    bothTeamsToScore: {,`n  yes: number;,`n  no: number,`n  percentage: number};
-    firstHalf: {,`n  homeWins: number;,`n  awayWins: number,`n  draws: number}};}
+  headToHead: {
+,`n  total: number;
+,`n  homeWins: number
+,`n  awayWins: number;
+,`n  draws: number
+,`n  lastFive: Array<{
+,`n  date: string
+,`n  homeTeam: string;
+,`n  awayTeam: string
+,`n  score: string;
+,`n  winner: string}>};
+  form: {
+,`n  home: {
+,`n  lastFive: string[0]
+,`n  goalsScored: number;
+,`n  goalsConceded: number};
+    away: {
+,`n  lastFive: string[0];
+,`n  goalsScored: number
+,`n  goalsConceded: number}};
+  trends: {
+,`n  overUnder: {
+,`n  over2_5: number
+,`n  under2_5: number;
+,`n  averageGoals: number};
+    bothTeamsToScore: {
+,`n  yes: number;
+,`n  no: number
+,`n  percentage: number};
+    firstHalf: {
+,`n  homeWins: number;
+,`n  awayWins: number
+,`n  draws: number}};}
 
 export const UnifiedEventDetails: React.FC = () => {
   // Initialize services;
@@ -57,7 +129,8 @@ export const UnifiedEventDetails: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null key={121216}>(null);
   const [toast, setToast] = useState<{
-    message: string,`n  type: 'success' | 'error' | 'warning' | 'info'} | null>(null);
+    message: string
+,`n  type: 'success' | 'error' | 'warning' | 'info'} | null>(null);
   const [selectedMarket, setSelectedMarket] = useState<Market | null key={585252}>(null);
   const [showBetModal, setShowBetModal] = useState(false);
   const [selectedSelection, setSelectedSelection] = useState<Selection | null key={165096}>(null);
@@ -93,7 +166,7 @@ export const UnifiedEventDetails: React.FC = () => {
     })};
 
   const formatOdds = (odds: number) => {
-    return odds.toFixed(2)};
+    return safeNumber(odds, 2)};
 
   const formatPercentage = (value: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -486,7 +559,7 @@ export const UnifiedEventDetails: React.FC = () => {
                   <div className="space-y-2" key={725977}>
                     <div className="flex justify-between" key={588832}>
                       <span key={595076}>Average Goals per Game</span>
-                      <span key={595076}>{event.statistics.trends.overUnder.averageGoals.toFixed(2)}</span>
+                      <span key={595076}>{event.statistics.trends.overUnder.safeNumber(averageGoals, 2)}</span>
                     </div>
                     <div className="flex justify-between" key={588832}>
                       <span key={595076}>Over 2.5 Goals</span>

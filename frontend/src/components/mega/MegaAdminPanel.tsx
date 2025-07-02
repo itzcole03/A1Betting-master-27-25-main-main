@@ -344,7 +344,7 @@ const MegaAdminPanel: React.FC<{
                         fontWeight: "600"
                       }}
                      key={25200}>
-                      {user.winRate.toFixed(1)}%
+                      {user.safeNumber(winRate, 1)}%
                     </CyberText>
                   </td>
                   <td style={{ padding: "16px", textAlign: "center"}} key={811855}>

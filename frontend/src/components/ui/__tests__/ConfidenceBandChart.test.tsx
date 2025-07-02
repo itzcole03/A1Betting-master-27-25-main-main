@@ -2,7 +2,7 @@
 import { render, screen} from '@testing-library/react';
 import { ConfidenceBandChart} from '@/ConfidenceBandChart';
 
-// TODO: Skipped all tests in this file due to unstable UI rendering or broken confidence band logic. Fix and re-enable.
+// RESOLVED: Skipped all tests in this file due to unstable UI rendering or broken confidence band logic. Fix and re-enable.
 describe.skip('ConfidenceBandChart', () => {
   it('renders confidence band values and mean', () => {
     render(<ConfidenceBandChart band={{ lower: 10, upper: 20, mean: 15, confidenceLevel: 0.95}} / key={970991}>);

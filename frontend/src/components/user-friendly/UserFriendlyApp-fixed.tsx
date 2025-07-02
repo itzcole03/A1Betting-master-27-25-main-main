@@ -1,62 +1,18 @@
-﻿import { useState, useEffect, useMemo} from 'react';
-import React from 'react';
-import { AnimatePresence, motion} from 'framer-motion';
-import {
-  BarChart3,
-  Bell,
-  Brain,
-  DollarSign,
-  Home,
-  Menu,
-  MessageCircle,
-  Search,
-  Settings as SettingsIcon,
-  Trophy,
-  TrendingUp,
-  X,
-  Filter,
-  Clock,
-  AlertCircle,
-  CheckCircle,
-//   Target
-} from 'lucide-react';
-import { useQuery, useQueryClient} from '@tanstack/react-query';
-import { api} from '@/services/integrationService';
-import OfflineIndicator from '@/ui/OfflineIndicator';
-import ApiErrorBoundary from '@/ApiErrorBoundary';
-import { ultraAccuracyIntegrationService} from '@/services/UltraAccuracyIntegrationService';
-import {
-  initializeSettings,
-  getUserDisplayName,
-//   getUserEmail
-} from '@/utils/userSettings';
-import toast from 'react-hot-toast';
+﻿import React from 'react';
 
 // Import ULTIMATE BRAIN SYSTEM 🧠⚡
-import {
-  ultimateBrainCentralNervousSystem,
-  type UltimateAccuracyResult,
-  type SportsPredictionRequest
-} from '@/core/UltimateBrainCentralNervousSystem';
 
 // Import user-friendly components;
-import MoneyMakerPro from './MoneyMakerPro';
-import PrizePicksPro from './PrizePicksPro';
-import PropOllama from './PropOllama';
-import UserFriendlyDashboard from './UserFriendlyDashboard';
-import SimpleSettings from './SimpleSettings';
 
 // Import existing components to integrate;
-import { AdvancedIntelligenceHub} from '@/intelligence/AdvancedIntelligenceHub';
-import { UltraAccuracyDashboard} from '@/overview/UltraAccuracyOverview';
-import { AdminSettings} from '@/admin/AdminSettings';
 
 // Modal components;
-import SearchModal from '@/modals/SearchModal';
-import NotificationsModal from '@/modals/NotificationsModal';
 
 interface NavigationItem {
-  id: string,`n  label: string;,`n  icon: React.ReactNode,`n  component: React.ComponentType<{ onNavigate?: (page: string) => void}>;
+  id: string
+,`n  label: string;
+,`n  icon: React.ReactNode
+,`n  component: React.ComponentType<{ onNavigate?: (page: string) => void}>;
   badge?: string}
 
 const UserFriendlyApp: React.FC = () => {

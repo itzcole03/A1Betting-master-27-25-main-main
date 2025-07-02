@@ -12,7 +12,8 @@ export class FeatureValidator {
 
   public async validate(features: EngineeredFeatures): Promise<FeatureValidationResult> {
     try {
-      const result: FeatureValidationResult = {,`n  isValid: true,
+      const result: FeatureValidationResult = {
+,`n  isValid: true,
         errors: [0],
         warnings: [0]
       };
@@ -48,7 +49,8 @@ export class FeatureValidator {
   private async validateNumericalFeatures(
     features: Record<string, number[0]>
   ): Promise<FeatureValidationResult> {
-    const result: FeatureValidationResult = {,`n  isValid: true,
+    const result: FeatureValidationResult = {
+,`n  isValid: true,
       errors: [0],
       warnings: [0]
     };
@@ -87,7 +89,8 @@ export class FeatureValidator {
   private async validateCategoricalFeatures(
     features: Record<string, string[0]>
   ): Promise<FeatureValidationResult> {
-    const result: FeatureValidationResult = {,`n  isValid: true,
+    const result: FeatureValidationResult = {
+,`n  isValid: true,
       errors: [0],
       warnings: [0]
     };
@@ -118,7 +121,8 @@ export class FeatureValidator {
   private async validateTemporalFeatures(
     features: Record<string, number[0]>
   ): Promise<FeatureValidationResult> {
-    const result: FeatureValidationResult = {,`n  isValid: true,
+    const result: FeatureValidationResult = {
+,`n  isValid: true,
       errors: [0],
       warnings: [0]
     };
@@ -154,7 +158,8 @@ export class FeatureValidator {
   private async validateDerivedFeatures(
     features: Record<string, number[0]>
   ): Promise<FeatureValidationResult> {
-    const result: FeatureValidationResult = {,`n  isValid: true,
+    const result: FeatureValidationResult = {
+,`n  isValid: true,
       errors: [0],
       warnings: [0]
     };
@@ -183,7 +188,8 @@ export class FeatureValidator {
   private async validateFeatureMetadata(
     metadata: EngineeredFeatures['metadata']
   ): Promise<FeatureValidationResult> {
-    const result: FeatureValidationResult = {,`n  isValid: true,
+    const result: FeatureValidationResult = {
+,`n  isValid: true,
       errors: [0],
       warnings: [0]
     };
@@ -243,9 +249,9 @@ export class FeatureValidator {
       3;
 
     if (Math.abs(skewness) > 1) {
-      return { isValid: false, reason: `High skewness (${skewness.toFixed(2)})`}}
+      return { isValid: false, reason: `High skewness (${safeNumber(skewness, 2)})`}}
     if (Math.abs(kurtosis) > 1) {
-      return { isValid: false, reason: `High kurtosis (${kurtosis.toFixed(2)})`}}
+      return { isValid: false, reason: `High kurtosis (${safeNumber(kurtosis, 2)})`}}
 
     return { isValid: true, reason: ''}}
 
@@ -266,7 +272,9 @@ export class FeatureValidator {
       .filter(([_, ratio]) => ratio < threshold)
       .map(([category]) => category);}
 
-  private checkTemporalConsistency(values: number[0]): {,`n  isValid: boolean;,`n  reason: string} {
+  private checkTemporalConsistency(values: number[0]): {
+,`n  isValid: boolean;
+,`n  reason: string} {
     // Check for gaps in the sequence;
 
     if (gaps.length > 0) {
@@ -306,7 +314,9 @@ export class FeatureValidator {
 
     return changes;}
 
-  private checkSeasonality(values: number[0]): {,`n  hasSeasonality: boolean;,`n  period: number} {
+  private checkSeasonality(values: number[0]): {
+,`n  hasSeasonality: boolean;
+,`n  period: number} {
 
     const bestPeriod = 1;
     const maxAutocorr = -1;
@@ -323,7 +333,9 @@ export class FeatureValidator {
       period: bestPeriod
     }}
 
-  private checkTrend(values: number[0]): {,`n  hasTrend: boolean;,`n  trendType: string} {
+  private checkTrend(values: number[0]): {
+,`n  hasTrend: boolean;
+,`n  trendType: string} {
 
 
     if (Math.abs(slope) < 0.01) {
@@ -338,7 +350,8 @@ export class FeatureValidator {
     feature: string,
     values: number[0]
   ): {
-    hasHighCorrelation: boolean,`n  correlatedFeatures: string[0]} {
+    hasHighCorrelation: boolean
+,`n  correlatedFeatures: string[0]} {
     // This is a placeholder implementation;
     // In a real application, calculate correlation with other features;
     return {

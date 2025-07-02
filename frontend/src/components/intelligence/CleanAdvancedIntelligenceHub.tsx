@@ -29,18 +29,28 @@ import {
 
 // Clean, minimal interfaces;
 interface SystemHealth {
-  backend: "healthy" | "degraded" | "offline",`n  apis: {,`n  sportsradar: "healthy" | "degraded" | "offline",`n  dailyfantasy: "healthy" | "degraded" | "offline";,`n  theodds: "healthy" | "degraded" | "offline"};
-  accuracy: number,`n  uptime: number;,`n  lastUpdate: string}
+  backend: "healthy" | "degraded" | "offline"
+,`n  apis: {
+,`n  sportsradar: "healthy" | "degraded" | "offline"
+,`n  dailyfantasy: "healthy" | "degraded" | "offline";
+,`n  theodds: "healthy" | "degraded" | "offline"};
+  accuracy: number
+,`n  uptime: number;
+,`n  lastUpdate: string}
 
 interface QuickAction {
-  id: string,`n  label: string;,`n  icon: React.ReactNode,`n  action: () => void;
+  id: string
+,`n  label: string;
+,`n  icon: React.ReactNode
+,`n  action: () => void;
   status?: "active" | "inactive" | "pending";}
 
 export const CleanAdvancedIntelligenceHub: React.FC = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [systemHealth, setSystemHealth] = useState<SystemHealth key={277585}>({
     backend: "healthy",
-    apis: {,`n  sportsradar: "healthy",
+    apis: {
+,`n  sportsradar: "healthy",
       dailyfantasy: "healthy",
       theodds: "healthy"
     },
@@ -57,12 +67,12 @@ export const CleanAdvancedIntelligenceHub: React.FC = () => {
       // Check if we're in development and backend is available;
       const backendUrl =
         process.env.NODE_ENV === "development"
-          ? "http://localhost:8000/api/health/all"
-          : "/api/health/all";
+          ? "${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/health/status"
+          : "/api/health/status";
 
       const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout;
 
-      const response = await fetch(backendUrl, {
+      const response = await fetch(backendUrl, {.catch(error => console.error("API Error:", error))
         signal: controller.signal,
         headers: {
           "Content-Type": "application/json"
@@ -76,7 +86,8 @@ export const CleanAdvancedIntelligenceHub: React.FC = () => {
         setSystemHealth((prev) => ({
           ...prev,
           backend: "healthy",
-          apis: {,`n  sportsradar:
+          apis: {
+,`n  sportsradar:
               data.services?.sportsradar?.status === "healthy"
                 ? "healthy"
                 : "degraded",
@@ -105,7 +116,8 @@ export const CleanAdvancedIntelligenceHub: React.FC = () => {
       setSystemHealth((prev) => ({
         ...prev,
         backend: "offline",
-        apis: {,`n  sportsradar: "offline",
+        apis: {
+,`n  sportsradar: "offline",
           dailyfantasy: "offline",
           theodds: "offline"
         },
@@ -490,7 +502,9 @@ const OverviewTab: React.FC<{ systemHealth: SystemHealth}> = ({
   );};
 
 // Backend Control Tab Component;
-const BackendControlTab: React.FC<{,`n  systemHealth: SystemHealth;,`n  onRefresh: () => void}> = ({ systemHealth, onRefresh}) => {
+const BackendControlTab: React.FC<{
+,`n  systemHealth: SystemHealth;
+,`n  onRefresh: () => void}> = ({ systemHealth, onRefresh}) => {
   const [logs, setLogs] = useState<string[0] key={530032}>([
     "✅ Backend server started on port 8000",
     "✅ WebSocket server initialized",

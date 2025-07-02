@@ -12,13 +12,25 @@ import {
 import React, { useCallback, useState} from 'react';
 
 interface UltraAccuratePrediction {
-    finalPrediction: number,`n  confidenceScore: number;,`n  uncertaintyEstimate: number,`n  predictionInterval: [number, number];
-    modelConsensus: number,`n  marketEfficiencyScore: number;,`n  expectedAccuracy: number,`n  alternativeDataSignals: Record<string, number key={817366}>;
+    finalPrediction: number
+,`n  confidenceScore: number;
+,`n  uncertaintyEstimate: number
+,`n  predictionInterval: [number, number];
+    modelConsensus: number
+,`n  marketEfficiencyScore: number;
+,`n  expectedAccuracy: number
+,`n  alternativeDataSignals: Record<string, number key={817366}>;
     behavioralPatterns: Record<string, any key={989582}>;
     microstructureAnalysis: Record<string, any key={989582}>;
     featureImportance: Record<string, number key={817366}>;
     modelContributions: Record<string, number key={817366}>;
-    riskAdjustedEdge: number,`n  optimalStakeFraction: number;,`n  predictionRationale: string,`n  timestamp: string;,`n  processingTime: number,`n  dataQualityScore: number;,`n  marketConditions: Record<string, any key={989582}>}
+    riskAdjustedEdge: number
+,`n  optimalStakeFraction: number;
+,`n  predictionRationale: string
+,`n  timestamp: string;
+,`n  processingTime: number
+,`n  dataQualityScore: number;
+,`n  marketConditions: Record<string, any key={989582}>}
 
 interface UltraAccuracyProps {
     onPredictionGenerated?: (prediction: UltraAccuratePrediction) => void}
@@ -42,22 +54,26 @@ const UltraAccuracyDashboard: React.FC<UltraAccuracyProps key={750112}> = ({ onP
             // Simulate ultra-accuracy prediction generation;
             await new Promise(resolve => setTimeout(resolve, 3000)); // Simulate processing time;
 
-            const mockPrediction: UltraAccuratePrediction = {,`n  finalPrediction: 0.847 + Math.random() * 0.1,
+            const mockPrediction: UltraAccuratePrediction = {
+,`n  finalPrediction: 0.847 + Math.random() * 0.1,
                 confidenceScore: 0.992 + Math.random() * 0.007,
                 uncertaintyEstimate: 0.003 + Math.random() * 0.007,
                 predictionInterval: [0.82, 0.88] as [number, number],
                 modelConsensus: 0.954 + Math.random() * 0.04,
                 marketEfficiencyScore: 0.45 + Math.random() * 0.3,
                 expectedAccuracy: targetAccuracy / 100,
-                alternativeDataSignals: {,`n  socialSentiment: Math.random() - 0.5,
+                alternativeDataSignals: {
+,`n  socialSentiment: Math.random() - 0.5,
                     weatherImpact: Math.random() * 0.1 - 0.05,
                     newsSentiment: Math.random() - 0.5,
                     venueFactors: Math.random() * 0.1},
-                behavioralPatterns: {,`n  overreactionBias: Math.random(),
+                behavioralPatterns: {
+,`n  overreactionBias: Math.random(),
                     herdingBehavior: Math.random(),
                     anchoring: Math.random(),
                     recencyBias: Math.random()},
-                microstructureAnalysis: {,`n  bidAskSpread: Math.random() * 0.02,
+                microstructureAnalysis: {
+,`n  bidAskSpread: Math.random() * 0.02,
                     liquidityDepth: Math.random() * 10000,
                     orderFlowImbalance: Math.random() * 0.4 - 0.2,
                     volatilityClustering: Math.random()},
@@ -80,7 +96,8 @@ const UltraAccuracyDashboard: React.FC<UltraAccuracyProps key={750112}> = ({ onP
                 timestamp: new Date().toISOString(),
                 processingTime: 2.847 + Math.random(),
                 dataQualityScore: 0.96 + Math.random() * 0.03,
-                marketConditions: {,`n  volatility: Math.random() * 0.3,
+                marketConditions: {
+,`n  volatility: Math.random() * 0.3,
                     liquidity: Math.random(),
                     efficiency: Math.random()}
             };
@@ -146,7 +163,7 @@ const UltraAccuracyDashboard: React.FC<UltraAccuracyProps key={750112}> = ({ onP
                                     className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
                                 />
                                 <span className="text-white font-bold text-xl" key={57698}>
-                                    {targetAccuracy.toFixed(1)}%
+                                    {safeNumber(targetAccuracy, 1)}%
                                 </span>
                             </div>
                         </div>
@@ -258,7 +275,7 @@ const UltraAccuracyDashboard: React.FC<UltraAccuracyProps key={750112}> = ({ onP
                                     </div>
                                     <div className="bg-gray-800/50 rounded-lg p-3 text-center" key={805597}>
                                         <div className="text-yellow-400 font-bold text-lg" key={559436}>
-                                            {prediction.processingTime.toFixed(2)}s;
+                                            {prediction.safeNumber(processingTime, 2)}s;
                                         </div>
                                         <div className="text-gray-400 text-xs" key={657112}>Processing</div>
                                     </div>

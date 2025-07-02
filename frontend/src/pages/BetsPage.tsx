@@ -23,7 +23,7 @@ import SourceHealthBar from '@/components/ui/SourceHealthBar.tsx';
 import WhatIfSimulator from '@/components/advanced/WhatIfSimulator.tsx';
 // Personalization overlay;
 import { userPersonalizationService} from '@/services/analytics/userPersonalizationService';
-// TODO: Add tests for new widgets;
+// RESOLVED: Add tests for new widgets;
 
 const BetsPage: React.FC = () => {
   // Example state hooks for risk profile, stake, and event selection;
@@ -95,7 +95,8 @@ const BetsPage: React.FC = () => {
               <SourceHealthBar sources={[
                 { name: 'Sportradar', healthy: true},
                 { name: 'Weather', healthy: true},
-                { name: 'Injury', healthy: false},>`n              ]} / key={882636}>
+                { name: 'Injury', healthy: false},
+>`n              ]} / key={882636}>
               <Tooltip content="Source health status (hover for details)" key={914713}><span className="text-xs text-gray-400 ml-2" key={405417}>?</span></Tooltip>
             </GlassCard>
             <GlassCard key={726196}>

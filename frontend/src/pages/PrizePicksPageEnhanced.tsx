@@ -11,7 +11,17 @@ import { useUnifiedStore} from '@/store/unified/UnifiedStoreManager';
 import { dataPipeline} from '@/services/data/UnifiedDataPipeline';
 
 interface PlayerProjection {
-  id: string,`n  playerName: string;,`n  team: string,`n  position: string;,`n  statType: string,`n  line: number;,`n  over: number,`n  under: number;,`n  confidence: number,`n  trend: "up" | "down" | "stable";,`n  recent: number[0]}
+  id: string
+,`n  playerName: string;
+,`n  team: string
+,`n  position: string;
+,`n  statType: string
+,`n  line: number;
+,`n  over: number
+,`n  under: number;
+,`n  confidence: number
+,`n  trend: "up" | "down" | "stable";
+,`n  recent: number[0]}
 
 const PrizePicksPageEnhanced: React.FC = () => {
   const [projections, setProjections] = useState<PlayerProjection[0]>([0]);
@@ -170,14 +180,16 @@ const PrizePicksPageEnhanced: React.FC = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
               <input type="text"
                 placeholder="Search players..."
-                value={searchTerm}>`n                onChange={(e) => setSearchTerm(e.target.value)}
+                value={searchTerm}
+>`n                onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
               />
             </div>
 
             {/* Position Filter */}
             <div>
-              <select value={selectedPosition}>`n                onChange={(e) => setSelectedPosition(e.target.value)}
+              <select value={selectedPosition}
+>`n                onChange={(e) => setSelectedPosition(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
               >
                 <option value="all">All Positions</option>
@@ -198,7 +210,8 @@ const PrizePicksPageEnhanced: React.FC = () => {
                 min="0.5"
                 max="1"
                 step="0.05"
-                value={minConfidence}>`n                onChange={(e) => setMinConfidence(parseFloat(e.target.value))}
+                value={minConfidence}
+>`n                onChange={(e) => setMinConfidence(parseFloat(e.target.value))}
                 className="w-full"
               />
             </div>
@@ -229,7 +242,8 @@ const PrizePicksPageEnhanced: React.FC = () => {
         {!isLoading && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProjections.map((projection) => (
-              <div key={projection.id}>`n                className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow">
+              <div key={projection.id}
+>`n                className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-4">
                   <div>
@@ -287,7 +301,8 @@ const PrizePicksPageEnhanced: React.FC = () => {
                   <div className="flex space-x-1">
                     {projection.recent.map((value, index) => (
                       <div key={index}
-                        className={`flex-1 h-8 rounded flex items-center justify-center text-xs font-medium ${>`n                          value > projection.line ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>
+                        className={`flex-1 h-8 rounded flex items-center justify-center text-xs font-medium ${
+>`n                          value > projection.line ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>
                         {value}
                       </div>
                     ))}

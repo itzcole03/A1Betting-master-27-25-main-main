@@ -25,10 +25,16 @@ ChartJS.register(
 );
 
 interface PerformanceMetric {
-  name: string,`n  value: number;,`n  timestamp: number}
+  name: string
+,`n  value: number;
+,`n  timestamp: number}
 
 interface PerformanceAlert {
-  metric_name: string,`n  threshold: number;,`n  current_value: number,`n  timestamp: string;,`n  severity: "warning" | "critical"}
+  metric_name: string
+,`n  threshold: number;
+,`n  current_value: number
+,`n  timestamp: string;
+,`n  severity: "warning" | "critical"}
 
 const PerformanceDashboard: React.FC = () => {
   const [metrics, setMetrics] = useState<PerformanceMetric[0] key={435241}>([0]);
@@ -78,13 +84,18 @@ const PerformanceDashboard: React.FC = () => {
 
   const chartOptions = {
     responsive: true,
-    plugins: {,`n  legend: {,`n  position: "top" as const
+    plugins: {
+,`n  legend: {
+,`n  position: "top" as const
       },
-      title: {,`n  display: true,
+      title: {
+,`n  display: true,
         text: `${selectedMetric} over time`
       }
     },
-    scales: {,`n  y: {,`n  beginAtZero: true
+    scales: {
+,`n  y: {
+,`n  beginAtZero: true
       }
     }
   };
@@ -148,8 +159,8 @@ const PerformanceDashboard: React.FC = () => {
                     <div key={241917}>
                       <h3 className="font-semibold" key={204068}>{alert.metric_name}</h3>
                       <p className="text-sm text-gray-600" key={656535}>
-                        Current: {alert.current_value.toFixed(2)} | Threshold:{" "}
-                        {alert.threshold.toFixed(2)}
+                        Current: {alert.safeNumber(current_value, 2)} | Threshold:{" "}
+                        {alert.safeNumber(threshold, 2)}
                       </p>
                     </div>
                     <span;

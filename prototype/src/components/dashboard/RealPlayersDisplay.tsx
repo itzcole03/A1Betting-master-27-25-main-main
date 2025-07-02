@@ -1,14 +1,9 @@
-import React from "react";
 import {
-  User,
-  Star,
-  TrendingUp,
-  Zap,
-  Timer,
-  Users,
-  Activity,
+    Activity,
+    TrendingUp,
+    User
 } from "lucide-react";
-import { getSportEmoji } from "../../constants/sports";
+import { safeNumber } from '../../../../frontend/src/utils/UniversalUtils';
 import { ProcessedPlayer } from "../../services/dataProcessor";
 
 interface RealPlayersDisplayProps {
@@ -52,31 +47,31 @@ export function RealPlayersDisplay({ players }: RealPlayersDisplayProps) {
       case "WNBA":
         return {
           label: "PPG",
-          value: player.stats.points?.toFixed(1) || "0.0",
+          value: safeNumber(player.stats.points).toFixed(1),
         };
       case "NHL":
         return {
           label: "Goals",
-          value: player.stats.goals?.toFixed(1) || "0.0",
+          value: safeNumber(player.stats.goals).toFixed(1),
         };
       case "MLB":
         return {
           label: "AVG",
-          value: player.stats.average?.toFixed(3) || ".000",
+          value: safeNumber(player.stats.average).toFixed(3),
         };
       case "NFL":
-        return { label: "YDS", value: player.stats.yards?.toFixed(0) || "0" };
+        return { label: "YDS", value: safeNumber(player.stats.yards).toFixed(0) };
       case "Soccer":
-        return { label: "Goals", value: player.stats.goals?.toFixed(0) || "0" };
+        return { label: "Goals", value: safeNumber(player.stats.goals).toFixed(0) };
       case "MMA":
-        return { label: "Wins", value: player.stats.wins?.toFixed(0) || "0" };
+        return { label: "Wins", value: safeNumber(player.stats.wins).toFixed(0) };
       case "PGA":
         return {
           label: "Score",
-          value: player.stats.score?.toFixed(1) || "0.0",
+          value: safeNumber(player.stats.score).toFixed(1),
         };
       default:
-        return { label: "Rating", value: player.rating?.toFixed(1) || "0.0" };
+        return { label: "Rating", value: safeNumber(player.rating).toFixed(1) };
     }
   };
 

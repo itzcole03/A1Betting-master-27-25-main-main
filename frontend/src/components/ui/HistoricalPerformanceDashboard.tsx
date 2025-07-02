@@ -61,20 +61,20 @@ export const HistoricalPerformanceDashboard: React.FC = () => {
                       {entry.betType}
                     </td>
                     <td className='px-2 py-1' key={865501}>
-                      ${entry.stake.toFixed(2)}
+                      ${entry.safeNumber(stake, 2)}
                     </td>
                     <td className='px-2 py-1' key={865501}>
-                      {entry.odds.toFixed(2)}
+                      {entry.safeNumber(odds, 2)}
                     </td>
                     <td className='px-2 py-1' key={865501}>
                       {entry.result}
                     </td>
                     <td className='px-2 py-1' key={865501}>
-                      ${entry.payout.toFixed(2)}
+                      ${entry.safeNumber(payout, 2)}
                     </td>
                     <td className='px-2 py-1' key={865501}>
-                      [{entry.confidenceBand.lower.toFixed(2)} -{' '}
-                      {entry.confidenceBand.upper.toFixed(2)}]
+                      [{entry.confidenceBand.safeNumber(lower, 2)} -{' '}
+                      {entry.confidenceBand.safeNumber(upper, 2)}]
                     </td>
                     <td className='px-2 py-1' key={865501}>
                       {(entry.winProbability.probability * 100).toFixed(1)}%
@@ -142,20 +142,20 @@ export const HistoricalPerformanceDashboard: React.FC = () => {
                         {entry.date}
                       </td>
                       <td className='px-2 py-1' key={865501}>
-                        {entry.prediction.toFixed(2)}
+                        {entry.safeNumber(prediction, 2)}
                       </td>
                       <td className='px-2 py-1' key={865501}>
-                        {entry.actual.toFixed(2)}
+                        {entry.safeNumber(actual, 2)}
                       </td>
                       <td className='px-2 py-1' key={865501}>
                         {entry.won ? 'Yes' : 'No'}
                       </td>
                       <td className='px-2 py-1' key={865501}>
-                        ${entry.payout.toFixed(2)}
+                        ${entry.safeNumber(payout, 2)}
                       </td>
                       <td className='px-2 py-1' key={865501}>
-                        [{entry.confidenceBand.lower.toFixed(2)} -{' '}
-                        {entry.confidenceBand.upper.toFixed(2)}]
+                        [{entry.confidenceBand.safeNumber(lower, 2)} -{' '}
+                        {entry.confidenceBand.safeNumber(upper, 2)}]
                       </td>
                       <td className='px-2 py-1' key={865501}>
                         {(entry.winProbability.probability * 100).toFixed(1)}%

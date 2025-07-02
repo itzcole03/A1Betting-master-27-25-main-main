@@ -6,42 +6,88 @@
 import type { ModelPerformance, ShapExplanation} from './core.js';
 
 export interface TimestampedData {
-  timestamp: number,`n  value: number;
+  timestamp: number
+,`n  value: number;
   metadata?: Record<string, unknown>;}
 
 export interface MarketState {
-  line: number,`n  volume: number;,`n  movement: 'up' | 'down' | 'stable',`n  volatility: number;,`n  liquidity: number}
+  line: number
+,`n  volume: number;
+,`n  movement: 'up' | 'down' | 'stable'
+,`n  volatility: number;
+,`n  liquidity: number}
 
 export interface PredictionFactor {
-  name: string,`n  weight: number;,`n  impact: number,`n  source: string;,`n  confidence: number}
+  name: string
+,`n  weight: number;
+,`n  impact: number
+,`n  source: string;
+,`n  confidence: number}
 
 export interface ModelWeight {
-  modelId: string,`n  weight: number;,`n  lastUpdate: number,`n  performance: ModelPerformance}
+  modelId: string
+,`n  weight: number;
+,`n  lastUpdate: number
+,`n  performance: ModelPerformance}
 
 export interface ModelEnsemble {
-  id: string,`n  name: string;,`n  weight: number,`n  type: 'time_series' | 'market_analysis' | 'performance_analysis';,`n  context: {,`n  conditions: Record<string, unknown>;
+  id: string
+,`n  name: string;
+,`n  weight: number
+,`n  type: 'time_series' | 'market_analysis' | 'performance_analysis';
+,`n  context: {
+,`n  conditions: Record<string, unknown>;
     performance: ModelPerformance}}
 
 export interface ModelExplanation {
-  modelId: string,`n  prediction: number;,`n  confidence: number,`n  factors: Array<{,`n  name: string,`n  weight: number;,`n  impact: number,`n  source: string;,`n  confidence: number}>;
+  modelId: string
+,`n  prediction: number;
+,`n  confidence: number
+,`n  factors: Array<{
+,`n  name: string
+,`n  weight: number;
+,`n  impact: number
+,`n  source: string;
+,`n  confidence: number}>;
   shapValues: ShapExplanation[0]}
 
 export interface FeatureImpact {
-  feature: string,`n  value: number;,`n  importance: number;
+  feature: string
+,`n  value: number;
+,`n  importance: number;
   metadata?: Record<string, unknown>;}
 
 export interface AdvancedPrediction {
-  predictionId: string,`n  propId: string;,`n  predictedValue: number,`n  confidence: number;,`n  timestamp: number,`n  factors: PredictionFactor[0];,`n  uncertaintyBounds: {,`n  lower: number;,`n  upper: number};
-  metadata: {,`n  processingTime: number;,`n  dataFreshness: number,`n  signalQuality: number;,`n  modelVersion: string};
-  shapValues: ShapExplanation[0],`n  ensembleWeights: Record<string, number>;
-  expectedValue: number,`n  riskAdjustedScore: number;,`n  lineMovements: Array<{,`n  timestamp: number;,`n  newValue: number,`n  velocity: number}>;
-  context: {,`n  temporal: Record<string, unknown>;
+  predictionId: string
+,`n  propId: string;
+,`n  predictedValue: number
+,`n  confidence: number;
+,`n  timestamp: number
+,`n  factors: PredictionFactor[0];
+,`n  uncertaintyBounds: {
+,`n  lower: number;
+,`n  upper: number};
+  metadata: {
+,`n  processingTime: number;
+,`n  dataFreshness: number
+,`n  signalQuality: number;
+,`n  modelVersion: string};
+  shapValues: ShapExplanation[0]
+,`n  ensembleWeights: Record<string, number>;
+  expectedValue: number
+,`n  riskAdjustedScore: number;
+,`n  lineMovements: Array<{
+,`n  timestamp: number;
+,`n  newValue: number
+,`n  velocity: number}>;
+  context: {
+,`n  temporal: Record<string, unknown>;
     opponent: Record<string, unknown>;
     momentum: Record<string, unknown>;
     market: Record<string, unknown>};}
 
 // Re-export core types that are commonly used;
-// TODO: Fix core type exports;
+// RESOLVED: Fix core type exports;
 
 // Common utility types;
 export type Nullable<T> = T | null;
@@ -51,22 +97,31 @@ export type Result<T, E = Error> = { success: true; data: T} | { success: false;
 
 // Common interfaces;
 export interface BaseEntity {
-  id: string,`n  createdAt: number;,`n  updatedAt: number;
+  id: string
+,`n  createdAt: number;
+,`n  updatedAt: number;
   metadata?: Record<string, unknown>;}
 
 export interface PaginationParams {
-  page: number,`n  limit: number;
+  page: number
+,`n  limit: number;
   sortBy?: string
   sortOrder?: 'asc' | 'desc';}
 
 export interface PaginatedResponse<T> {
-  data: T[0],`n  total: number;,`n  page: number,`n  limit: number;,`n  hasMore: boolean}
+  data: T[0]
+,`n  total: number;
+,`n  page: number
+,`n  limit: number;
+,`n  hasMore: boolean}
 
 export interface TimeRange {
-  start: number,`n  end: number}
+  start: number
+,`n  end: number}
 
 export interface FilterCriteria {
-  field: string,`n  operator:
+  field: string
+,`n  operator:
     | 'eq'
     | 'neq'
     | 'gt'
@@ -81,7 +136,8 @@ export interface FilterCriteria {
   value: any}
 
 export interface SortCriteria {
-  field: string,`n  order: 'asc' | 'desc'}
+  field: string
+,`n  order: 'asc' | 'desc'}
 
 export interface QueryOptions {
   filters?: FilterCriteria[0];

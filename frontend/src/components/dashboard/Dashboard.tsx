@@ -51,12 +51,17 @@ const Dashboard: React.FC = () => {
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
-    plugins: {,`n  legend: {,`n  position: 'top' as const
+    plugins: {
+,`n  legend: {
+,`n  position: 'top' as const
       },
-      tooltip: {,`n  enabled: true
+      tooltip: {
+,`n  enabled: true
       }
     },
-    scales: {,`n  y: {,`n  beginAtZero: true,
+    scales: {
+,`n  y: {
+,`n  beginAtZero: true,
         max: 1
       }
     }
@@ -106,7 +111,7 @@ const Dashboard: React.FC = () => {
               <span className="text-sm text-gray-500 cursor-help" key={746776}>ROI</span>
             </Tooltip>
             <span className="text-3xl font-bold text-primary-500" key={608874}>
-              {metricsLoading ? '...' : metrics?.roi ? `${metrics.roi.toFixed(2)}%` : '0%'}
+              {metricsLoading ? '...' : metrics?.roi ? `${metrics.safeNumber(roi, 2)}%` : '0%'}
             </span>
           </div>
         </GlassCard>

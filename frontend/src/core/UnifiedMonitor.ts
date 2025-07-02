@@ -44,9 +44,9 @@ export class UnifiedMonitor {
       description,
       startTime: Date.now(),
       setHttpStatus: (status: number) => {
-        console.debug(`[TRACE] ${name} HTTP Status: ${status}`)},
+//         console.debug(`[TRACE] ${name} HTTP Status: ${status}`)},
       setDuration: (duration: number) => {
-        console.debug(`[TRACE] ${name} Duration: ${duration}ms`)}
+//         console.debug(`[TRACE] ${name} Duration: ${duration}ms`)}
     };}
 
   endTrace(trace: any) Record<string, any>
@@ -57,7 +57,7 @@ export class UnifiedMonitor {
   recordMetric(name: string, value: number, tags?: Record<string, string | number | boolean>) {
     // Simple implementation - in production this would integrate with monitoring services;
     if (typeof console !== 'undefined') {
-      console.debug(`[METRIC] ${name}: ${value}`, tags || Record<string, any>);}
+//       console.debug(`[METRIC] ${name}: ${value}`, tags || Record<string, any>);}
 
     // Store metrics for potential retrieval;
     if (!this.metrics) {
@@ -72,7 +72,7 @@ export class UnifiedMonitor {
     this.reportError(error, context)}
 
   trackEvent(eventName: string, data?: any) {
-    console.debug(`[EVENT] ${eventName}`, data || Record<string, any>);
+//     console.debug(`[EVENT] ${eventName}`, data || Record<string, any>);
     // In production, this would send events to analytics services;}
 
   private metrics?: Map<

@@ -47,19 +47,38 @@ ChartJS.register(
 );
 
 interface PredictionWithConfidence {
-  prediction_id: string,`n  final_prediction: number;,`n  confidence_score: number,`n  uncertainty_bounds: [number, number];
-  model_agreement: number,`n  quantum_fidelity: number;,`n  prediction_interval: [number, number];
+  prediction_id: string
+,`n  final_prediction: number;
+,`n  confidence_score: number
+,`n  uncertainty_bounds: [number, number];
+  model_agreement: number
+,`n  quantum_fidelity: number;
+,`n  prediction_interval: [number, number];
   individual_predictions: Record<string, number key={817366}>;
   model_weights: Record<string, number key={817366}>;
   feature_importance: Record<string, number key={817366}>;
   shap_values: Record<string, number key={817366}>;
-  processing_time: number,`n  timestamp: string;,`n  context: {,`n  sport: string;,`n  event_type: string,`n  market_type: string}}
+  processing_time: number
+,`n  timestamp: string;
+,`n  context: {
+,`n  sport: string;
+,`n  event_type: string
+,`n  market_type: string}}
 
 interface ConfidenceMetrics {
-  overall_confidence: number,`n  directional_confidence: number;,`n  magnitude_confidence: number,`n  model_consensus: number;,`n  uncertainty_quality: number,`n  calibration_score: number;,`n  prediction_sharpness: number,`n  coverage_probability: number}
+  overall_confidence: number
+,`n  directional_confidence: number;
+,`n  magnitude_confidence: number
+,`n  model_consensus: number;
+,`n  uncertainty_quality: number
+,`n  calibration_score: number;
+,`n  prediction_sharpness: number
+,`n  coverage_probability: number}
 
 interface ConfidenceDistribution {
-  confidence_bins: number[0],`n  frequency: number[0];,`n  accuracy_by_bin: number[0]}
+  confidence_bins: number[0]
+,`n  frequency: number[0];
+,`n  accuracy_by_bin: number[0]}
 
 export const AdvancedConfidenceVisualizer: React.FC = () => {
   const [predictions, setPredictions] = useState<PredictionWithConfidence[0] key={23669}>(
@@ -80,9 +99,9 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
     try {
       setIsLoading(true);
       const [predictionsRes, metricsRes, distributionRes] = await Promise.all([
-        fetch(`/api/v3/predictions/with-confidence?timeRange=${timeRange}`),
-        fetch("/api/v3/predictions/confidence-metrics"),
-        fetch("/api/v3/predictions/confidence-distribution"),
+        fetch(`/api/v3/predictions/with-confidence?timeRange=${timeRange}`),.catch(error => console.error("API Error:", error))
+        fetch("/api/v3/predictions/confidence-metrics"),.catch(error => console.error("API Error:", error))
+        fetch("/api/v3/predictions/confidence-distribution"),.catch(error => console.error("API Error:", error))
       ]);
 
       if (predictionsRes.ok) {
@@ -429,20 +448,27 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
                     options={{
                       responsive: true,
                       maintainAspectRatio: false,
-                      plugins: {,`n  legend: {,`n  position: "top" as const
+                      plugins: {
+,`n  legend: {
+,`n  position: "top" as const
                         },
-                        tooltip: {,`n  mode: "index",
+                        tooltip: {
+,`n  mode: "index",
                           intersect: false
                         }
                       },
-                      scales: {,`n  y: {,`n  beginAtZero: true,
+                      scales: {
+,`n  y: {
+,`n  beginAtZero: true,
                           max: 100,
-                          ticks: {,`n  callback: function (value) {
+                          ticks: {
+,`n  callback: function (value) {
                               return value + "%"}
                           }
                         }
                       },
-                      interaction: {,`n  mode: "nearest",
+                      interaction: {
+,`n  mode: "nearest",
                         axis: "x",
                         intersect: false
                       }
@@ -471,25 +497,34 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
                     options={{
                       responsive: true,
                       maintainAspectRatio: false,
-                      plugins: {,`n  legend: {,`n  position: "top" as const
+                      plugins: {
+,`n  legend: {
+,`n  position: "top" as const
                         }
                       },
-                      scales: {,`n  y: {,`n  type: "linear",
+                      scales: {
+,`n  y: {
+,`n  type: "linear",
                           display: true,
                           position: "left",
-                          title: {,`n  display: true,
+                          title: {
+,`n  display: true,
                             text: "Frequency"
                           }
                         },
-                        y1: {,`n  type: "linear",
+                        y1: {
+,`n  type: "linear",
                           display: true,
                           position: "right",
-                          title: {,`n  display: true,
+                          title: {
+,`n  display: true,
                             text: "Accuracy (%)"
                           },
-                          grid: {,`n  drawOnChartArea: false
+                          grid: {
+,`n  drawOnChartArea: false
                           },
-                          ticks: {,`n  callback: function (value) {
+                          ticks: {
+,`n  callback: function (value) {
                               return value + "%"}
                           }
                         }
@@ -519,20 +554,29 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
                     options={{
                       responsive: true,
                       maintainAspectRatio: false,
-                      plugins: {,`n  legend: {,`n  position: "top" as const
+                      plugins: {
+,`n  legend: {
+,`n  position: "top" as const
                         },
-                        tooltip: {,`n  callbacks: {,`n  label: function (context) {
-                              return `Confidence: ${context.parsed.x.toFixed(1)}%, Uncertainty: ${context.parsed.y.toFixed(1)}%`}
+                        tooltip: {
+,`n  callbacks: {
+,`n  label: function (context) {
+                              return `Confidence: ${context.parsed.safeNumber(x, 1)}%, Uncertainty: ${context.parsed.safeNumber(y, 1)}%`}
                           }
                         }
                       },
-                      scales: {,`n  x: {,`n  title: {,`n  display: true,
+                      scales: {
+,`n  x: {
+,`n  title: {
+,`n  display: true,
                             text: "Confidence Score (%)"
                           },
                           min: 0,
                           max: 100
                         },
-                        y: {,`n  title: {,`n  display: true,
+                        y: {
+,`n  title: {
+,`n  display: true,
                             text: "Uncertainty Range (%)"
                           },
                           min: 0
@@ -608,7 +652,7 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
                         <div key={241917}>
                           <p className="text-sm text-gray-600" key={656535}>Prediction</p>
                           <p className="text-lg font-bold text-gray-900" key={241254}>
-                            {prediction.final_prediction.toFixed(2)}
+                            {prediction.safeNumber(final_prediction, 2)}
                           </p>
                         </div>
                         <div key={241917}>
@@ -669,12 +713,17 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
                         options={{
                           responsive: true,
                           maintainAspectRatio: false,
-                          plugins: {,`n  legend: {,`n  position: "top" as const
+                          plugins: {
+,`n  legend: {
+,`n  position: "top" as const
                             }
                           },
-                          scales: {,`n  r: {,`n  beginAtZero: true,
+                          scales: {
+,`n  r: {
+,`n  beginAtZero: true,
                               max: 100,
-                              ticks: {,`n  callback: function (value) {
+                              ticks: {
+,`n  callback: function (value) {
                                   return value + "%"}
                               }
                             }
@@ -702,7 +751,7 @@ export const AdvancedConfidenceVisualizer: React.FC = () => {
                           Final Prediction;
                         </p>
                         <p className="text-xl font-bold text-gray-900" key={299883}>
-                          {selectedPrediction.final_prediction.toFixed(3)}
+                          {selectedPrediction.safeNumber(final_prediction, 3)}
                         </p>
                       </div>
                       <div key={241917}>

@@ -295,6 +295,6 @@ async def propollama_status():
 if __name__ == "__main__":
     import uvicorn
     logger.info("🚀 Starting Simple PropOllama Backend...")
-    logger.info("📡 Available at: http://localhost:8000")
-    logger.info("🤖 PropOllama endpoint: http://localhost:8000/api/propollama/chat")
+    logger.info("📡 Available at: ${process.env.REACT_APP_API_URL || "http://localhost:8000"}")
+    logger.info("🤖 PropOllama endpoint: ${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/propollama/chat")
     uvicorn.run(app, host="0.0.0.0", port=8000) 

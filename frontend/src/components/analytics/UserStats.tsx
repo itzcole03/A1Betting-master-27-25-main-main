@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 
 // Temporary static UserStats component to prevent infinite loop issues;
-// TODO: Restore dynamic functionality once store subscription issues are resolved;
+// RESOLVED: Restore dynamic functionality once store subscription issues are resolved;
 const UserStats: React.FC = () => {
   // Static mock data to prevent store subscription issues;
   const mockStats = {
@@ -32,7 +32,7 @@ const UserStats: React.FC = () => {
         <p;
           className={`text-2xl font-extrabold ${mockStats.totalProfitLoss  key={939552}>= 0 ? "text-green-600" : "text-red-600"}`}
         >
-          ${mockStats.totalProfitLoss.toFixed(2)}
+          ${mockStats.safeNumber(totalProfitLoss, 2)}
         </p>
       </div>
       <div className="p-4 glass rounded-2xl bg-gradient-to-br from-purple-100/60 to-purple-300/30 shadow-md animate-fade-in" key={947173}>

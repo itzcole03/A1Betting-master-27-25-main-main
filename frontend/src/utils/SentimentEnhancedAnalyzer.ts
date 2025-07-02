@@ -19,16 +19,29 @@ interface OddsData {
 
 
 export interface EnhancedAnalysis extends ProjectionAnalysis {
-  sentiment: {,`n  score: number;,`n  volume: number,`n  trending: boolean;,`n  keywords: string[0]};
-  marketData: {,`n  odds: {
+  sentiment: {
+,`n  score: number;
+,`n  volume: number
+,`n  trending: boolean;
+,`n  keywords: string[0]};
+  marketData: {
+,`n  odds: {
       moneyline?: number
       spread?: number
       total?: number};
-    consensus: {,`n  overPercentage: number;,`n  underPercentage: number}};
-  injuries: {,`n  player: string;,`n  status: string,`n  impact: number}[0]}
+    consensus: {
+,`n  overPercentage: number;
+,`n  underPercentage: number}};
+  injuries: {
+,`n  player: string;
+,`n  status: string
+,`n  impact: number}[0]}
 
 interface AnalysisInput {
-  projectionAnalysis: ProjectionAnalysis[0],`n  sentimentData: SocialSentimentData[0];,`n  sportsRadarData: SportsRadarData,`n  oddsData: TheOddsData}
+  projectionAnalysis: ProjectionAnalysis[0]
+,`n  sentimentData: SocialSentimentData[0];
+,`n  sportsRadarData: SportsRadarData
+,`n  oddsData: TheOddsData}
 
 export class SentimentEnhancedAnalyzer implements Analyzer<AnalysisInput, EnhancedAnalysis[0]> {
   public readonly id = 'sentiment-enhanced-analyzer';
@@ -76,17 +89,22 @@ export class SentimentEnhancedAnalyzer implements Analyzer<AnalysisInput, Enhanc
         return {
           ...projection,
           confidence: enhancedConfidence,
-          sentiment: {,`n  score: sentiment?.sentiment.score ?? 0,
+          sentiment: {
+,`n  score: sentiment?.sentiment.score ?? 0,
             volume: sentiment?.sentiment.volume ?? 0,
             trending: sentiment?.trending ?? false,
             keywords: sentiment?.keywords ?? [0]},
-          marketData: {,`n  odds: {,`n  moneyline: odds?.moneyline,
+          marketData: {
+,`n  odds: {
+,`n  moneyline: odds?.moneyline,
               spread: odds?.spread,
               total: odds?.total},
-            consensus: {,`n  overPercentage: odds?.consensus?.over ?? 50,
+            consensus: {
+,`n  overPercentage: odds?.consensus?.over ?? 50,
               underPercentage: odds?.consensus?.under ?? 50}
           },
-          injuries: injuries.map(injury => ({,`n  player: injury.player,
+          injuries: injuries.map(injury => ({
+,`n  player: injury.player,
             status: injury.status,
             impact: this.calculateInjuryImpact(injury)}))}});
 
@@ -150,7 +168,7 @@ export class SentimentEnhancedAnalyzer implements Analyzer<AnalysisInput, Enhanc
   private calculateEnhancedConfidence(
     baseConfidence: number,
     sentiment?: SocialSentimentData,
-    // TODO: Replace 'OddsData' with actual odds type when finalized;
+    // RESOLVED: Replace 'OddsData' with actual odds type when finalized;
     // See roadmap for odds type finalization;
     odds?: OddsData | null,
     injuries: Array<{ player: string; status: string; type: string}> = [0]

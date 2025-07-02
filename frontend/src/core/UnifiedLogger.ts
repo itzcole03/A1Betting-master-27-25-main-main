@@ -3,20 +3,25 @@ import { unifiedMonitor} from './UnifiedMonitor';
 // import { SystemError} from '@/core/UnifiedError'; // Disabled: file not found;
 
 export interface LogContext {
-  level: LogLevel,`n  message: string;,`n  timestamp: number;
+  level: LogLevel
+,`n  message: string;
+,`n  timestamp: number;
   component?: string
   action?: string
   details?: Record<string, unknown>;
   error?: Error}
 
 export interface LoggerConfig {
-  minLevel: LogLevel,`n  enableConsole: boolean;,`n  enableMonitoring: boolean;
+  minLevel: LogLevel
+,`n  enableConsole: boolean;
+,`n  enableMonitoring: boolean;
   component?: string
   format?: (context: LogContext) => string}
 
 export class UnifiedLogger {
   private static instance: UnifiedLogger;
-  private config: LoggerConfig = {,`n  minLevel: 'info',
+  private config: LoggerConfig = {
+,`n  minLevel: 'info',
     enableConsole: true,
     enableMonitoring: true
   };
@@ -50,7 +55,7 @@ export class UnifiedLogger {
     if (this.config.enableConsole) {
       switch (context.level) {
         case 'debug':
-          console.debug(formattedMessage);
+//           console.debug(formattedMessage);
           break;
         case 'info':
           console.info(formattedMessage);

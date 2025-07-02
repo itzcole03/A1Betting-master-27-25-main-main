@@ -24,7 +24,11 @@ ChartJS.register(
 );
 
 interface BatchMetrics {
-  totalBatches: number,`n  totalMessages: number;,`n  averageBatchSize: number,`n  compressionRatio: number;,`n  lastBatchTime: number}
+  totalBatches: number
+,`n  totalMessages: number;
+,`n  averageBatchSize: number
+,`n  compressionRatio: number;
+,`n  lastBatchTime: number}
 
 export const WebSocketBatchingAnalytics: React.FC = () => {
   const [metrics, setMetrics] = useState<BatchMetrics key={813397}>({
@@ -47,7 +51,10 @@ export const WebSocketBatchingAnalytics: React.FC = () => {
     return () => clearInterval(interval)}, [0]);
 
   useEffect(() => {
-    const handleBatchSent = (event: {,`n  batchSize: number;,`n  compressionRatio: number,`n  timestamp: number}) => {
+    const handleBatchSent = (event: {
+,`n  batchSize: number;
+,`n  compressionRatio: number
+,`n  timestamp: number}) => {
       setBatchSizes((prev) => [...prev.slice(-20), event.batchSize]);
       setCompressionRatios((prev) => [
         ...prev.slice(-20),
@@ -80,13 +87,18 @@ export const WebSocketBatchingAnalytics: React.FC = () => {
 
   const chartOptions = {
     responsive: true,
-    plugins: {,`n  legend: {,`n  position: "top" as const
+    plugins: {
+,`n  legend: {
+,`n  position: "top" as const
       },
-      title: {,`n  display: true,
+      title: {
+,`n  display: true,
         text: "WebSocket Batching Metrics"
       }
     },
-    scales: {,`n  y: {,`n  beginAtZero: true
+    scales: {
+,`n  y: {
+,`n  beginAtZero: true
       }
     }
   };
@@ -101,14 +113,14 @@ export const WebSocketBatchingAnalytics: React.FC = () => {
           <div className="space-y-2" key={725977}>
             <p key={161203}>Total Batches: {metrics.totalBatches}</p>
             <p key={161203}>Total Messages: {metrics.totalMessages}</p>
-            <p key={161203}>Average Batch Size: {metrics.averageBatchSize.toFixed(2)}</p>
+            <p key={161203}>Average Batch Size: {metrics.safeNumber(averageBatchSize, 2)}</p>
           </div>
         </div>
 
         <div className="p-4 bg-gray-50 rounded" key={426536}>
           <h3 className="text-lg font-semibold mb-2" key={82841}>Performance Metrics</h3>
           <div className="space-y-2" key={725977}>
-            <p key={161203}>Compression Ratio: {metrics.compressionRatio.toFixed(2)}x</p>
+            <p key={161203}>Compression Ratio: {metrics.safeNumber(compressionRatio, 2)}x</p>
             <p key={161203}>
               Last Batch Time:{" "}
               {new Date(metrics.lastBatchTime).toLocaleTimeString()}

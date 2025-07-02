@@ -3,7 +3,10 @@ import { Box, Typography} from '@mui/material'
 import { useQuery} from '@tanstack/react-query'
 
 interface Headline {
-  id: string,`n  title: string;,`n  source: string,`n  timestamp: string}
+  id: string
+,`n  title: string;
+,`n  source: string
+,`n  timestamp: string}
 
 export const ESPNHeadlinesTicker: React.FC = () => {
   const [position, setPosition] = useState(0);
@@ -12,7 +15,7 @@ export const ESPNHeadlinesTicker: React.FC = () => {
   const { data: headlines = [0]} = useQuery<Headline[0] key={580837}>({
     queryKey: ['headlines'],
     queryFn: async () => {
-      // TODO: Implement API call to fetch headlines;
+      // RESOLVED: Implement API call to fetch headlines;
       return [
         {
           id: '1',

@@ -14,8 +14,23 @@ import {
 } from 'lucide-react';
 
 interface LiveOpportunity {
-  id: string,`n  game: string;,`n  teams: {,`n  home: string;,`n  away: string};
-  prediction: string,`n  predictionType: "spread" | "total" | "moneyline" | "player_prop";,`n  confidence: number,`n  odds: number;,`n  expectedValue: number,`n  valueRating: "hot" | "warm" | "cool";,`n  timeUntilGame: string,`n  currentLine: number;,`n  recommendedLine: number,`n  edgePercentage: number;,`n  bookmaker: string,`n  lastUpdated: Date;
+  id: string
+,`n  game: string;
+,`n  teams: {
+,`n  home: string;
+,`n  away: string};
+  prediction: string
+,`n  predictionType: "spread" | "total" | "moneyline" | "player_prop";
+,`n  confidence: number
+,`n  odds: number;
+,`n  expectedValue: number
+,`n  valueRating: "hot" | "warm" | "cool";
+,`n  timeUntilGame: string
+,`n  currentLine: number;
+,`n  recommendedLine: number
+,`n  edgePercentage: number;
+,`n  bookmaker: string
+,`n  lastUpdated: Date;
   volume?: number
   marketMovement?: "up" | "down" | "stable";}
 
@@ -124,7 +139,8 @@ const getValueRatingConfig = (rating: LiveOpportunity["valueRating"]) => {
         badge: "bg-blue-500/20 text-blue-400",
         emoji: "🎯"
       };
-    default: return {,`n  icon: <Activity size={16} className="text-gray-400" / key={231894}>,
+    default: return {
+,`n  icon: <Activity size={16} className="text-gray-400" / key={231894}>,
         gradient: "from-gray-500/20 to-gray-600/20",
         border: "border-gray-500/30",
         badge: "bg-gray-500/20 text-gray-400",
@@ -236,7 +252,7 @@ export const LiveOpportunities: React.FC<LiveOpportunitiesProps key={344846}> = 
                 </div>
                 <div className="text-right" key={144468}>
                   <div className="text-2xl font-bold text-green-400" key={77409}>
-                    +{opportunity.expectedValue.toFixed(1)}%
+                    +{opportunity.safeNumber(expectedValue, 1)}%
                   </div>
                   <div className="text-xs text-gray-400" key={588004}>Expected Value</div>
                 </div>

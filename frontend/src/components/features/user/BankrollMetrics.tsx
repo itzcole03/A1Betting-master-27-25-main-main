@@ -76,11 +76,11 @@ export const BankrollMetrics: React.FC = () => {
                 Current Bankroll;
               </Typography>
               <Typography variant="h4" color="primary" key={678857}>
-                ${bankroll.current.toFixed(2)}
+                ${bankroll.safeNumber(current, 2)}
               </Typography>
               <Box display="flex" alignItems="center" gap={1} mt={1} key={128952}>
                 <Typography variant="body2" color="textSecondary" key={565471}>
-                  Initial: ${bankroll.initial.toFixed(2)}
+                  Initial: ${bankroll.safeNumber(initial, 2)}
                 </Typography>
                 <Typography;
                   variant="body2"
@@ -107,11 +107,11 @@ export const BankrollMetrics: React.FC = () => {
                 variant="h4"
                 color={getRoiColor(bankroll.roi)}
                key={933786}>
-                {bankroll.roi.toFixed(1)}%
+                {bankroll.safeNumber(roi, 1)}%
               </Typography>
               <Box display="flex" alignItems="center" gap={1} mt={1} key={128952}>
                 <Typography variant="body2" color="textSecondary" key={565471}>
-                  Total Profit: ${bankroll.totalProfit.toFixed(2)}
+                  Total Profit: ${bankroll.safeNumber(totalProfit, 2)}
                 </Typography>
               </Box>
             </Box>
@@ -204,7 +204,7 @@ export const BankrollMetrics: React.FC = () => {
                     Average Bet;
                   </Typography>
                   <Typography variant="h6" key={93421}>
-                    ${bankroll.averageBetSize.toFixed(2)}
+                    ${bankroll.safeNumber(averageBetSize, 2)}
                   </Typography>
                 </Grid>
                 <Grid item xs={6} sm={3} key={199050}>
@@ -212,7 +212,7 @@ export const BankrollMetrics: React.FC = () => {
                     Largest Bet;
                   </Typography>
                   <Typography variant="h6" key={93421}>
-                    ${bankroll.largestBet.toFixed(2)}
+                    ${bankroll.safeNumber(largestBet, 2)}
                   </Typography>
                 </Grid>
                 <Grid item xs={6} sm={3} key={199050}>
@@ -220,7 +220,7 @@ export const BankrollMetrics: React.FC = () => {
                     Largest Win;
                   </Typography>
                   <Typography variant="h6" color="success.main" key={39828}>
-                    ${bankroll.largestWin.toFixed(2)}
+                    ${bankroll.safeNumber(largestWin, 2)}
                   </Typography>
                 </Grid>
                 <Grid item xs={6} sm={3} key={199050}>

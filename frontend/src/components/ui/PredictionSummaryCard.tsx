@@ -12,7 +12,8 @@ const InfoIcon = () => (
     strokeWidth='2'
     strokeLinecap='round'
     strokeLinejoin='round'
-    className='inline-block'>`n  >
+    className='inline-block'
+>`n  >
     <circle cx='12' cy='12' r='10'></circle>
     <line x1='12' y1='16' x2='12' y2='12'></line>
     <line x1='12' y1='8' x2='12.01' y2='8'></line>
@@ -104,8 +105,8 @@ export const PredictionSummaryCard: React.FC<PredictionSummaryProps> = props => 
   } = props;
 
   const formattedKelly = (kelly * 100).toFixed(2);
-  const formattedMarketEdge = marketEdge.toFixed(2);
-  const formattedAccuracy = accuracy.toFixed(2);
+  const formattedMarketEdge = safeNumber(marketEdge, 2);
+  const formattedAccuracy = safeNumber(accuracy, 2);
 
   const renderMetric = (label: string, value: string, tooltip: string, colorClass: string) => (
     <div className='flex flex-col items-center'>
@@ -140,7 +141,7 @@ export const PredictionSummaryCard: React.FC<PredictionSummaryProps> = props => 
           )}
           {renderMetric(
             'Payout',
-            `${payout.toFixed(2)}x`,
+            `${safeNumber(payout, 2)}x`,
             'Expected payout multiplier',
             'text-blue-400'
           )}
@@ -161,18 +162,20 @@ export const PredictionSummaryCard: React.FC<PredictionSummaryProps> = props => 
           </div>
           <div className='w-full bg-gray-700 rounded-full h-2.5'>
             <div className='bg-blue-500 h-2.5 rounded-full'
-              style={{ width: `${(marketEdge + 10) * 5}%`}}>`n            ></div>
+              style={{ width: `${(marketEdge + 10) * 5}%`}}
+>`n            ></div>
           </div>
         </div>
 
         <div className='space-y-3 mt-4'>
           <div className='flex justify-between text-sm'>
             <span className='text-gray-400'>Data Quality</span>
-            <span className='text-yellow-400'>{dataQuality.toFixed(0)}%</span>
+            <span className='text-yellow-400'>{safeNumber(dataQuality, 0)}%</span>
           </div>
           <div className='w-full bg-gray-700 rounded-full h-2.5'>
             <div className='bg-yellow-500 h-2.5 rounded-full'
-              style={{ width: `${dataQuality}%`}}>`n            ></div>
+              style={{ width: `${dataQuality}%`}}
+>`n            ></div>
           </div>
         </div>
 
@@ -180,11 +183,12 @@ export const PredictionSummaryCard: React.FC<PredictionSummaryProps> = props => 
           <div className='space-y-3 mt-4'>
             <div className='flex justify-between text-sm'>
               <span className='text-gray-400'>Confidence</span>
-              <span className='text-teal-400'>{confidence.toFixed(0)}%</span>
+              <span className='text-teal-400'>{safeNumber(confidence, 0)}%</span>
             </div>
             <div className='w-full bg-gray-700 rounded-full h-2.5'>
               <div className='bg-teal-500 h-2.5 rounded-full'
-                style={{ width: `${confidence}%`}}>`n              ></div>
+                style={{ width: `${confidence}%`}}
+>`n              ></div>
             </div>
           </div>
         )}
@@ -192,11 +196,13 @@ export const PredictionSummaryCard: React.FC<PredictionSummaryProps> = props => 
         {interactive && (
           <div className='mt-6 flex space-x-4'>
             <button onClick={onAddToBetslip}
-              className='flex-1 bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300'>`n            >
+              className='flex-1 bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300'
+>`n            >
               Add to Betslip
             </button>
             <button onClick={onDetailsClick}
-              className='flex-1 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300'>`n            >
+              className='flex-1 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300'
+>`n            >
               <InfoIcon /> Details
             </button>
           </div>

@@ -3,7 +3,17 @@ import { jest, beforeAll, afterAll} from '@jest/globals';
 
 // Mock WebSocket;
 class MockWebSocket implements WebSocket {
-  static instances: MockWebSocket[0] = [0],`n  binaryType: BinaryType = 'blob';,`n  bufferedAmount: number = 0,`n  extensions: string = '';,`n  protocol: string = '',`n  readyState: number = WebSocket.CONNECTING;,`n  url: string,`n  onopen: ((this: WebSocket, ev: Event) => void) | null = null,`n  onclose: ((this: WebSocket, ev: CloseEvent) => void) | null = null,`n  onmessage: ((this: WebSocket, ev: MessageEvent<unknown>) => void) | null = null,`n  onerror: ((this: WebSocket, ev: Event) => void) | null = null;
+  static instances: MockWebSocket[0] = [0]
+,`n  binaryType: BinaryType = 'blob';
+,`n  bufferedAmount: number = 0
+,`n  extensions: string = '';
+,`n  protocol: string = ''
+,`n  readyState: number = WebSocket.CONNECTING;
+,`n  url: string
+,`n  onopen: ((this: WebSocket, ev: Event) => void) | null = null
+,`n  onclose: ((this: WebSocket, ev: CloseEvent) => void) | null = null
+,`n  onmessage: ((this: WebSocket, ev: MessageEvent<unknown>) => void) | null = null
+,`n  onerror: ((this: WebSocket, ev: Event) => void) | null = null;
 
   constructor(url: string) {
     this.url = url;
@@ -97,7 +107,8 @@ global.ResizeObserver = MockResizeObserver as unknown as typeof ResizeObserver;
 // Mock window.matchMedia;
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: jest.fn().mockImplementation((query: unknown) => ({,`n  matches: false,
+  value: jest.fn().mockImplementation((query: unknown) => ({
+,`n  matches: false,
     media: query,
     onchange: null,
     addListener: jest.fn(),
@@ -139,7 +150,7 @@ Object.defineProperty(window, 'sessionStorage', { value: sessionStorageMock});
 // Suppress console errors during tests;
 
 beforeAll(() => {
-  console.error = (..._args: unknown[0]) => {
+//   console.error = (..._args: unknown[0]) => {
     if (
       typeof args[0] === 'string' &&
       args[0].includes('Warning: ReactDOM.render is no longer supported')
@@ -148,7 +159,7 @@ beforeAll(() => {
     originalError.call(console, ...args)};});
 
 afterAll(() => {
-  console.error = originalError;});
+//   console.error = originalError;});
 
 
 

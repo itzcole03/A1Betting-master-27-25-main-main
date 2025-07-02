@@ -28,12 +28,29 @@ import type {
 } from '@/services/data/UnifiedDataPipeline';
 
 interface BettingMarket {
-  id: string,`n  name: string;,`n  sport: string,`n  event: string;,`n  type: "moneyline" | "spread" | "total" | "props",`n  odds: OddsData[0];,`n  volume: number,`n  lastUpdate: Date;,`n  trend: "up" | "down" | "stable",`n  valueScore: number}
+  id: string
+,`n  name: string;
+,`n  sport: string
+,`n  event: string;
+,`n  type: "moneyline" | "spread" | "total" | "props"
+,`n  odds: OddsData[0];
+,`n  volume: number
+,`n  lastUpdate: Date;
+,`n  trend: "up" | "down" | "stable"
+,`n  valueScore: number}
 
 interface LiveGame {
-  id: string,`n  sport: string;,`n  homeTeam: string,`n  awayTeam: string;,`n  status: "scheduled" | "live" | "finished",`n  startTime: Date;,`n  markets: BettingMarket[0];
+  id: string
+,`n  sport: string;
+,`n  homeTeam: string
+,`n  awayTeam: string;
+,`n  status: "scheduled" | "live" | "finished"
+,`n  startTime: Date;
+,`n  markets: BettingMarket[0];
   liveScore?: {
-    home: number,`n  away: number;,`n  period: string;
+    home: number
+,`n  away: number;
+,`n  period: string;
     timeRemaining?: string};}
 
 const UnifiedBettingInterface: React.FC = () => {
@@ -62,7 +79,8 @@ const UnifiedBettingInterface: React.FC = () => {
             awayTeam: "Golden State Warriors",
             status: "live",
             startTime: new Date(),
-            liveScore: {,`n  home: 78,
+            liveScore: {
+,`n  home: 78,
               away: 82,
               period: "3rd Quarter",
               timeRemaining: "8:45"
@@ -273,7 +291,7 @@ const UnifiedBettingInterface: React.FC = () => {
             <span;
               className={`px-2 py-1 rounded text-xs font-medium ${getValueColor(market.valueScore)}`}
              key={154304}>
-              {market.valueScore.toFixed(1)}
+              {market.safeNumber(valueScore, 1)}
             </span>
           </div>
         </div>
@@ -312,7 +330,7 @@ const UnifiedBettingInterface: React.FC = () => {
                 {outcome.name}
               </span>
               <span className="font-bold text-blue-600" key={838726}>
-                {outcome.odds.toFixed(2)}
+                {outcome.safeNumber(odds, 2)}
               </span>
             </button>
           ))}
@@ -545,7 +563,7 @@ const UnifiedBettingInterface: React.FC = () => {
                     {outcome.name}
                   </span>
                   <span className="font-bold text-blue-600" key={838726}>
-                    {outcome.odds.toFixed(2)}
+                    {outcome.safeNumber(odds, 2)}
                   </span>
                 </div>
               ))}

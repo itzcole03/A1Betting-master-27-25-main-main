@@ -5,18 +5,57 @@ import { UnifiedConfigManager} from '@/core/UnifiedConfigManager';
 
 
 export interface RiskConfig {
-  maxExposure: number,`n  maxExposurePerBet: number;,`n  maxExposurePerPlayer: number,`n  maxExposurePerMetric: number;,`n  maxActiveBets: number,`n  minBankroll: number;,`n  maxBankrollPercentage: number,`n  stopLossPercentage: number;,`n  takeProfitPercentage: number,`n  confidenceThresholds: {,`n  low: number,`n  medium: number;,`n  high: number};
-  volatilityThresholds: {,`n  low: number;,`n  medium: number,`n  high: number}}
+  maxExposure: number
+,`n  maxExposurePerBet: number;
+,`n  maxExposurePerPlayer: number
+,`n  maxExposurePerMetric: number;
+,`n  maxActiveBets: number
+,`n  minBankroll: number;
+,`n  maxBankrollPercentage: number
+,`n  stopLossPercentage: number;
+,`n  takeProfitPercentage: number
+,`n  confidenceThresholds: {
+,`n  low: number
+,`n  medium: number;
+,`n  high: number};
+  volatilityThresholds: {
+,`n  low: number;
+,`n  medium: number
+,`n  high: number}}
 
 export interface RiskAssessment {
-  id: string,`n  timestamp: number;,`n  opportunity: BettingOpportunity,`n  riskLevel: 'low' | 'medium' | 'high';,`n  maxStake: number,`n  factors: {,`n  exposure: number,`n  confidence: number;,`n  volatility: number,`n  correlation: number;,`n  timeToEvent: number};
-  limits: {,`n  maxExposure: number;,`n  maxStake: number,`n  minOdds: number;,`n  maxOdds: number};
-  warnings: string[0],`n  recommendations: string[0]}
+  id: string
+,`n  timestamp: number;
+,`n  opportunity: BettingOpportunity
+,`n  riskLevel: 'low' | 'medium' | 'high';
+,`n  maxStake: number
+,`n  factors: {
+,`n  exposure: number
+,`n  confidence: number;
+,`n  volatility: number
+,`n  correlation: number;
+,`n  timeToEvent: number};
+  limits: {
+,`n  maxExposure: number;
+,`n  maxStake: number
+,`n  minOdds: number;
+,`n  maxOdds: number};
+  warnings: string[0]
+,`n  recommendations: string[0]}
 
 export interface RiskMetrics {
-  totalExposure: number,`n  exposureByPlayer: Record<string, number>;
+  totalExposure: number
+,`n  exposureByPlayer: Record<string, number>;
   exposureByMetric: Record<string, number>;
-  activeBets: number,`n  bankroll: number;,`n  profitLoss: number,`n  roi: number;,`n  winRate: number,`n  averageStake: number;,`n  maxDrawdown: number,`n  sharpeRatio: number;,`n  kellyMultiplier: number}
+  activeBets: number
+,`n  bankroll: number;
+,`n  profitLoss: number
+,`n  roi: number;
+,`n  winRate: number
+,`n  averageStake: number;
+,`n  maxDrawdown: number
+,`n  sharpeRatio: number;
+,`n  kellyMultiplier: number}
 
 export class RiskManagerService {
   private static instance: RiskManagerService;
@@ -53,10 +92,12 @@ export class RiskManagerService {
       maxBankrollPercentage: 0.1,
       stopLossPercentage: 0.2,
       takeProfitPercentage: 0.5,
-      confidenceThresholds: {,`n  low: 0.3,
+      confidenceThresholds: {
+,`n  low: 0.3,
         medium: 0.6,
         high: 0.8},
-      volatilityThresholds: {,`n  low: 0.1,
+      volatilityThresholds: {
+,`n  low: 0.1,
         medium: 0.3,
         high: 0.5}
     }}
@@ -108,17 +149,20 @@ export class RiskManagerService {
       this.updateMetrics();});}
 
   private async assessRisk(opportunity: BettingOpportunity): Promise<RiskAssessment> {
-    const assessment: RiskAssessment = {,`n  id: `risk_${opportunity.id}_${Date.now()}`,
+    const assessment: RiskAssessment = {
+,`n  id: `risk_${opportunity.id}_${Date.now()}`,
       timestamp: Date.now(),
       opportunity,
       riskLevel: 'medium',
       maxStake: 0,
-      factors: {,`n  exposure: 0,
+      factors: {
+,`n  exposure: 0,
         confidence: 0,
         volatility: 0,
         correlation: 0,
         timeToEvent: 0},
-      limits: {,`n  maxExposure: this.config.maxExposure,
+      limits: {
+,`n  maxExposure: this.config.maxExposure,
         maxStake: this.config.maxExposurePerBet,
         minOdds: 1.1,
         maxOdds: 10},
@@ -338,9 +382,10 @@ export class RiskManagerService {
       name: 'risk_metrics',
       value: this.metrics.totalExposure,
       timestamp: Date.now(),
-      labels: {,`n  active_bets: String(this.metrics.activeBets),
-        win_rate: this.metrics.winRate.toFixed(2),
-        roi: this.metrics.roi.toFixed(2)}
+      labels: {
+,`n  active_bets: String(this.metrics.activeBets),
+        win_rate: this.metrics.safeNumber(winRate, 2),
+        roi: this.metrics.safeNumber(roi, 2)}
     })}
 
   public getRiskAssessment(id: string): RiskAssessment | undefined {

@@ -56,16 +56,43 @@ import { PropOllama} from '@/user-friendly/PropOllama';
 // ============================================================================
 
 interface BrainMetrics {
-  overallHealth: number,`n  ensembleAccuracy: number;,`n  predictionLatency: number,`n  activeModels: number;,`n  dataQuality: number,`n  systemLoad: number;,`n  automationLevel: number,`n  confidenceScore: number;,`n  brainCoherence: number,`n  neuralSyncLevel: number;,`n  predictionOptimization: number,`n  userInterfaceReadiness: number}
+  overallHealth: number
+,`n  ensembleAccuracy: number;
+,`n  predictionLatency: number
+,`n  activeModels: number;
+,`n  dataQuality: number
+,`n  systemLoad: number;
+,`n  automationLevel: number
+,`n  confidenceScore: number;
+,`n  brainCoherence: number
+,`n  neuralSyncLevel: number;
+,`n  predictionOptimization: number
+,`n  userInterfaceReadiness: number}
 
 interface BrainMonitoringState {
-  isMonitoring: boolean,`n  lastOptimization: number;,`n  predictionsDelivered: number,`n  userInterfaceConnected: boolean;,`n  brainEfficiency: number,`n  automatedDeliveryActive: boolean;,`n  lastDeliveryTime: number,`n  optimizationCount: number}
+  isMonitoring: boolean
+,`n  lastOptimization: number;
+,`n  predictionsDelivered: number
+,`n  userInterfaceConnected: boolean;
+,`n  brainEfficiency: number
+,`n  automatedDeliveryActive: boolean;
+,`n  lastDeliveryTime: number
+,`n  optimizationCount: number}
 
 interface AutomatedBrainConfig {
-  enableContinuousOptimization: boolean,`n  enableAutoPredictionDelivery: boolean;,`n  optimizationInterval: number; // milliseconds;,`n  deliveryThreshold: number; // confidence threshold;,`n  userInterfaceEndpoint: string,`n  brainHealthThreshold: number;,`n  autoHealingEnabled: boolean}
+  enableContinuousOptimization: boolean
+,`n  enableAutoPredictionDelivery: boolean;
+,`n  optimizationInterval: number; // milliseconds;
+,`n  deliveryThreshold: number; // confidence threshold;
+,`n  userInterfaceEndpoint: string
+,`n  brainHealthThreshold: number;
+,`n  autoHealingEnabled: boolean}
 
 interface OptimizedPrediction extends EnsemblePrediction {
-  optimizationScore: number,`n  deliveryReady: boolean;,`n  userInterfaceFormatted: unknown,`n  brainConfidence: number}
+  optimizationScore: number
+,`n  deliveryReady: boolean;
+,`n  userInterfaceFormatted: unknown
+,`n  brainConfidence: number}
 
 // ============================================================================
 // BRAIN MONITORING HUB COMPONENT;
@@ -90,7 +117,7 @@ export const BrainMonitoringHub: React.FC = () => {
     enableAutoPredictionDelivery: true,
     optimizationInterval: 30000, // 30 seconds;
     deliveryThreshold: 0.85, // 85% confidence;
-    userInterfaceEndpoint: "/api/predictions/deliver",
+    userInterfaceEndpoint: "/api/predictions/prizepicks/deliver",
     brainHealthThreshold: 0.9,
     autoHealingEnabled: true
   });
@@ -329,10 +356,11 @@ export const BrainMonitoringHub: React.FC = () => {
   ) => {
     try {
       // Send optimized predictions to the simple user interface;
-      const response = await fetch(brainConfig.userInterfaceEndpoint, {
+      const response = await fetch(brainConfig.userInterfaceEndpoint, {.catch(error => console.error("API Error:", error))
         method: "POST",
         headers: { "Content-Type": "application/json"},
-        body: JSON.stringify({,`n  predictions: predictions.map((p) => p.userInterfaceFormatted),
+        body: JSON.stringify({
+,`n  predictions: predictions.map((p) => p.userInterfaceFormatted),
           timestamp: Date.now(),
           brainOptimized: true,
           deliveryId: `brain-${Date.now()}`
@@ -358,7 +386,7 @@ export const BrainMonitoringHub: React.FC = () => {
               <div key={241917}>
                 <p className="text-sm text-green-300" key={840313}>Brain Health</p>
                 <p className="text-2xl font-bold text-green-400" key={176412}>
-                  {brainMetrics?.overallHealth.toFixed(1) || "95.0"}%
+                  {brainMetrics?.safeNumber(overallHealth, 1) || "95.0"}%
                 </p>
               </div>
               <Brain className="w-8 h-8 text-green-400" / key={965546}>
@@ -373,7 +401,7 @@ export const BrainMonitoringHub: React.FC = () => {
               <div key={241917}>
                 <p className="text-sm text-blue-300" key={440128}>Brain Efficiency</p>
                 <p className="text-2xl font-bold text-blue-400" key={641115}>
-                  {brainState.brainEfficiency.toFixed(1)}%
+                  {brainState.safeNumber(brainEfficiency, 1)}%
                 </p>
               </div>
               <Cpu className="w-8 h-8 text-blue-400" / key={378311}>
@@ -451,7 +479,7 @@ export const BrainMonitoringHub: React.FC = () => {
                     Neural Sync Level;
                   </span>
                   <span className="text-cyan-400 font-semibold" key={350846}>
-                    {brainMetrics?.neuralSyncLevel.toFixed(1) || "96.7"}%
+                    {brainMetrics?.safeNumber(neuralSyncLevel, 1) || "96.7"}%
                   </span>
                 </div>
                 <Progress;
@@ -464,7 +492,7 @@ export const BrainMonitoringHub: React.FC = () => {
                     Brain Coherence;
                   </span>
                   <span className="text-green-400 font-semibold" key={426839}>
-                    {brainMetrics?.brainCoherence.toFixed(1) || "98.1"}%
+                    {brainMetrics?.safeNumber(brainCoherence, 1) || "98.1"}%
                   </span>
                 </div>
                 <Progress;
@@ -477,7 +505,7 @@ export const BrainMonitoringHub: React.FC = () => {
                     Prediction Optimization;
                   </span>
                   <span className="text-purple-400 font-semibold" key={11277}>
-                    {brainMetrics?.predictionOptimization.toFixed(1) || "94.3"}%
+                    {brainMetrics?.safeNumber(predictionOptimization, 1) || "94.3"}%
                   </span>
                 </div>
                 <Progress;
@@ -615,7 +643,7 @@ export const BrainMonitoringHub: React.FC = () => {
                     </div>
                     <div className="text-right" key={144468}>
                       <div className="text-lg font-bold text-green-400" key={499793}>
-                        {prediction.brainConfidence.toFixed(1)}%
+                        {prediction.safeNumber(brainConfidence, 1)}%
                       </div>
                       <div className="text-sm text-slate-400" key={858171}>
                         Brain Confidence;
@@ -629,7 +657,7 @@ export const BrainMonitoringHub: React.FC = () => {
                         Optimization Score:
                       </span>
                       <span className="ml-2 text-blue-400 font-semibold" key={944094}>
-                        {prediction.optimizationScore.toFixed(1)}
+                        {prediction.safeNumber(optimizationScore, 1)}
                       </span>
                     </div>
                     <div key={241917}>
@@ -693,7 +721,7 @@ export const BrainMonitoringHub: React.FC = () => {
               Brain Analysis;
             </Button>
             <Badge variant="outline" className="px-3 py-1" key={133259}>
-              {brainState.brainEfficiency.toFixed(1)}% Brain Efficiency;
+              {brainState.safeNumber(brainEfficiency, 1)}% Brain Efficiency;
             </Badge>
           </div>
         </div>

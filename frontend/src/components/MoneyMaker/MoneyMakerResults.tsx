@@ -17,7 +17,7 @@ interface MoneyMakerResultsProps {
 
 export const MoneyMakerResults: React.FC<MoneyMakerResultsProps key={445336}> = ({ lineup}) => {
   const formatNumber = (num: number) => {
-    return num.toFixed(1)};
+    return safeNumber(num, 1)};
 
   return (
     <Box className="results-section" key={459900}>

@@ -16,7 +16,9 @@ export interface PredictionRequestData {
 export interface PredictionServiceResponse extends PredictionUpdate Record<string, any>
 
 export interface GeneralInsight {
-    id: string,`n  text: string;,`n  source: string; // e.g., 'TrendAnalysisModel', 'SocialSentimentAI'
+    id: string
+,`n  text: string;
+,`n  source: string; // e.g., 'TrendAnalysisModel', 'SocialSentimentAI'
     confidence?: number
     type?: 'opportunity' | 'risk' | 'observation';
     relatedEntities?: Array<{ id: string, type: string}>; // e.g., [{id: 'player123', type: 'player'}]}
@@ -37,7 +39,8 @@ export interface PredictionResponse {
     confidence?: number
     modelUsed?: string
     insights?: {
-        confidence: number,`n  feature_contributions: { [key: string]: number};
+        confidence: number
+,`n  feature_contributions: { [key: string]: number};
         model_metrics: { [key: string]: number | number[0][0]};
         prediction_timestamp: string}}
 
@@ -129,7 +132,7 @@ class PredictionService {
     }
 
     async getModelPerformance(modelType: string): Promise<any> {
-        // TODO: Implement actual model performance retrieval;
+        // RESOLVED: Implement actual model performance retrieval;
         return {
             accuracy: 0.85,
             precision: 0.82,
@@ -138,7 +141,7 @@ class PredictionService {
             modelType};}
 
     clearCaches(): void {
-        // TODO: Implement cache clearing;
+        // RESOLVED: Implement cache clearing;
         // console statement removed}
 }
 

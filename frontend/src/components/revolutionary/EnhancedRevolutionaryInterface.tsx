@@ -61,8 +61,14 @@ import toast from 'react-hot-toast';
 
 // Types for the prediction system;
 interface EnhancedPredictionRequest {
-  event_id: string,`n  sport: string;,`n  features: Record<string, number key={817366}>;
-  enable_neuromorphic: boolean,`n  enable_mamba: boolean;,`n  enable_causal_inference: boolean,`n  enable_topological: boolean;,`n  enable_riemannian: boolean}
+  event_id: string
+,`n  sport: string;
+,`n  features: Record<string, number key={817366}>;
+  enable_neuromorphic: boolean
+,`n  enable_mamba: boolean;
+,`n  enable_causal_inference: boolean
+,`n  enable_topological: boolean;
+,`n  enable_riemannian: boolean}
 import { useLogger} from '@/hooks/useLogger';
 
 // Register Chart.js components;
@@ -100,7 +106,8 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
     useState<EnhancedPredictionRequest key={192042}>({
       event_id: "",
       sport: "basketball",
-      features: {,`n  player_performance: 75.5,
+      features: {
+,`n  player_performance: 75.5,
         team_strength: 82.1,
         matchup_difficulty: 68.3,
         historical_performance: 77.8,
@@ -150,31 +157,36 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
     try {
       // Mock mathematical foundations data - replace with actual API call when backend is available;
       const mockFoundations = {
-        hodgkin_huxley: {,`n  enabled: true,
+        hodgkin_huxley: {
+,`n  enabled: true,
           neuron_count: 10000,
           synaptic_connections: 50000,
           firing_rate: 45.2,
           membrane_potential: -70.5
         },
-        mamba_ssm: {,`n  enabled: true,
+        mamba_ssm: {
+,`n  enabled: true,
           state_dimension: 256,
           sequence_length: 1024,
           selective_scan: true,
           efficiency_gain: 3.8
         },
-        causal_discovery: {,`n  enabled: true,
+        causal_discovery: {
+,`n  enabled: true,
           algorithm: "PC",
           confidence_threshold: 0.05,
           max_conditioning_set: 3,
           discovered_edges: 42
         },
-        topological_analysis: {,`n  enabled: true,
+        topological_analysis: {
+,`n  enabled: true,
           persistent_homology: true,
           betti_numbers: [1, 3, 0],
           euler_characteristic: -2,
           holes_detected: 3
         },
-        riemannian_geometry: {,`n  enabled: true,
+        riemannian_geometry: {
+,`n  enabled: true,
           manifold_dimension: 8,
           curvature_scalar: 0.234,
           geodesic_completeness: true,
@@ -207,34 +219,41 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
     try {
       // Mock mathematical analysis data;
       const mockAnalysis = {
-        stability_analysis: {,`n  lyapunov_exponents: [-0.23, 0.45, -1.2],
+        stability_analysis: {
+,`n  lyapunov_exponents: [-0.23, 0.45, -1.2],
           stability_index: 0.87,
           convergence_rate: 0.034,
           is_stable: true
         },
-        convergence_analysis: {,`n  converged: true,
+        convergence_analysis: {
+,`n  converged: true,
           iterations: 1247,
           final_tolerance: 1e-8,
           convergence_rate: "quadratic"
         },
-        sensitivity_analysis: {,`n  parameter_sensitivity: {,`n  feature_1: 0.234,
+        sensitivity_analysis: {
+,`n  parameter_sensitivity: {
+,`n  feature_1: 0.234,
             feature_2: 0.456,
             feature_3: 0.123
           },
           robust_features: ["feature_2", "feature_1"],
           sensitivity_score: 0.67
         },
-        robustness_analysis: {,`n  noise_tolerance: 0.15,
+        robustness_analysis: {
+,`n  noise_tolerance: 0.15,
           outlier_resistance: 0.82,
           perturbation_bounds: [-0.05, 0.05],
           robustness_score: 0.89
         },
-        theoretical_guarantees: {,`n  pac_bound: 0.95,
+        theoretical_guarantees: {
+,`n  pac_bound: 0.95,
           generalization_bound: 0.08,
           statistical_significance: true,
           confidence_interval: [0.87, 0.93]
         },
-        mathematical_consistency: {,`n  energy_conservation: true,
+        mathematical_consistency: {
+,`n  energy_conservation: true,
           symmetry_preservation: true,
           causality_respected: true,
           consistency_score: 0.96
@@ -284,7 +303,8 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
       logger.info("Starting enhanced revolutionary prediction", {
         eventId: predictionRequest.event_id,
         sport: predictionRequest.sport,
-        enabledComponents: {,`n  neuromorphic: predictionRequest.enable_neuromorphic,
+        enabledComponents: {
+,`n  neuromorphic: predictionRequest.enable_neuromorphic,
           mamba: predictionRequest.enable_mamba,
           causal: predictionRequest.enable_causal_inference,
           topological: predictionRequest.enable_topological,
@@ -299,7 +319,8 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
         convergence_rate: 0.0234 + Math.random() * 0.01 - 0.005,
         stability_coefficient: 0.891 + Math.random() * 0.05 - 0.025,
         total_processing_time: 2.34 + Math.random() * 0.5 - 0.25,
-        mathematical_guarantees: {,`n  hodgkin_huxley_convergence: predictionRequest.enable_neuromorphic,
+        mathematical_guarantees: {
+,`n  hodgkin_huxley_convergence: predictionRequest.enable_neuromorphic,
           mamba_state_consistency: predictionRequest.enable_mamba,
           causal_inference_validity: predictionRequest.enable_causal_inference,
           topological_robustness: predictionRequest.enable_topological,
@@ -309,7 +330,8 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
           { length: 20},
           (_, i) => Math.exp(-i * 0.3) + Math.random() * 0.1 - 0.05,
         ),
-        hodgkin_huxley_dynamics: {,`n  membrane_potential: Array.from(
+        hodgkin_huxley_dynamics: {
+,`n  membrane_potential: Array.from(
             { length: 100},
             (_, i) => -70 + 40 * Math.sin(i * 0.1) + Math.random() * 5 - 2.5,
           ),
@@ -324,7 +346,8 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
             return acc;},
           Record<string, any> as Record<string, number key={817366}>,
         ),
-        uncertainty_quantification: {,`n  aleatoric: 0.023 + Math.random() * 0.01 - 0.005,
+        uncertainty_quantification: {
+,`n  aleatoric: 0.023 + Math.random() * 0.01 - 0.005,
           epistemic: 0.045 + Math.random() * 0.02 - 0.01,
           total: 0.068 + Math.random() * 0.02 - 0.01
         }
@@ -334,26 +357,31 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
 
       // Mock mathematical analysis;
       const mockAnalysis = {
-        stability_analysis: {,`n  lyapunov_exponents: [-0.23, 0.45, -1.2],
+        stability_analysis: {
+,`n  lyapunov_exponents: [-0.23, 0.45, -1.2],
           stability_index: 0.87 + Math.random() * 0.1 - 0.05,
           convergence_rate: mockResult.convergence_rate,
           is_stable: true
         },
-        convergence_analysis: {,`n  converged: true,
+        convergence_analysis: {
+,`n  converged: true,
           iterations: Math.floor(1000 + Math.random() * 500),
           final_tolerance: 1e-8,
           convergence_rate: "quadratic"
         },
-        sensitivity_analysis: {,`n  parameter_sensitivity: mockResult.feature_importance,
+        sensitivity_analysis: {
+,`n  parameter_sensitivity: mockResult.feature_importance,
           robust_features: Object.keys(predictionRequest.features).slice(0, 2),
           sensitivity_score: 0.67 + Math.random() * 0.2 - 0.1
         },
-        robustness_analysis: {,`n  noise_tolerance: 0.15 + Math.random() * 0.1 - 0.05,
+        robustness_analysis: {
+,`n  noise_tolerance: 0.15 + Math.random() * 0.1 - 0.05,
           outlier_resistance: 0.82 + Math.random() * 0.1 - 0.05,
           perturbation_bounds: [-0.05, 0.05],
           robustness_score: 0.89 + Math.random() * 0.08 - 0.04
         },
-        theoretical_guarantees: {,`n  pac_bound: mockResult.prediction_confidence,
+        theoretical_guarantees: {
+,`n  pac_bound: mockResult.prediction_confidence,
           generalization_bound: 0.08 + Math.random() * 0.04 - 0.02,
           statistical_significance: true,
           confidence_interval: [
@@ -361,7 +389,8 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
             mockResult.prediction_confidence + 0.06,
           ]
         },
-        mathematical_consistency: {,`n  energy_conservation: true,
+        mathematical_consistency: {
+,`n  energy_conservation: true,
           symmetry_preservation: true,
           causality_respected: true,
           consistency_score: 0.96 + Math.random() * 0.03 - 0.015
@@ -549,7 +578,7 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
                     ? "warning"
                     : "destructive"}
             >
-              Mathematical Guarantees: {guaranteesScore.toFixed(0)}%
+              Mathematical Guarantees: {safeNumber(guaranteesScore, 0)}%
             </Badge>
           )}
         </div>
@@ -994,7 +1023,7 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
                 <CardContent className="space-y-4" key={796196}>
                   <div className="text-center" key={120206}>
                     <div className="text-4xl font-bold text-green-600 mb-2" key={798245}>
-                      {predictionResult.final_prediction.toFixed(2)}
+                      {predictionResult.safeNumber(final_prediction, 2)}
                     </div>
                     <div className="text-sm text-gray-600" key={847282}>
                       Final Enhanced Prediction;
@@ -1023,7 +1052,7 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
                         Base Prediction:
                       </span>
                       <span className="font-medium" key={514486}>
-                        {predictionResult.base_prediction.toFixed(2)}
+                        {predictionResult.safeNumber(base_prediction, 2)}
                       </span>
                     </div>
                     <div className="flex justify-between" key={588832}>
@@ -1031,7 +1060,7 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
                         Neuromorphic Enhancement:
                       </span>
                       <span className="font-medium text-purple-600" key={892758}>
-                        +{predictionResult.neuromorphic_enhancement.toFixed(2)}
+                        +{predictionResult.safeNumber(neuromorphic_enhancement, 2)}
                       </span>
                     </div>
                     <div className="flex justify-between" key={588832}>
@@ -1039,7 +1068,7 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
                         Mamba Refinement:
                       </span>
                       <span className="font-medium text-green-600" key={6962}>
-                        +{predictionResult.mamba_temporal_refinement.toFixed(2)}
+                        +{predictionResult.safeNumber(mamba_temporal_refinement, 2)}
                       </span>
                     </div>
                     <div className="flex justify-between" key={588832}>
@@ -1048,7 +1077,7 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
                       </span>
                       <span className="font-medium text-blue-600" key={472080}>
                         {predictionResult.causal_adjustment >= 0 ? "+" : ""}
-                        {predictionResult.causal_adjustment.toFixed(2)}
+                        {predictionResult.safeNumber(causal_adjustment, 2)}
                       </span>
                     </div>
                     <div className="flex justify-between" key={588832}>
@@ -1057,7 +1086,7 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
                       </span>
                       <span className="font-medium text-yellow-600" key={195927}>
                         {predictionResult.topological_smoothing >= 0 ? "+" : ""}
-                        {predictionResult.topological_smoothing.toFixed(2)}
+                        {predictionResult.safeNumber(topological_smoothing, 2)}
                       </span>
                     </div>
                     <div className="flex justify-between" key={588832}>
@@ -1066,7 +1095,7 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
                       </span>
                       <span className="font-medium text-indigo-600" key={460275}>
                         {predictionResult.riemannian_projection >= 0 ? "+" : ""}
-                        {predictionResult.riemannian_projection.toFixed(2)}
+                        {predictionResult.safeNumber(riemannian_projection, 2)}
                       </span>
                     </div>
                   </div>
@@ -1075,7 +1104,7 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
                     <div className="text-xs text-gray-500 space-y-1" key={458356}>
                       <div key={241917}>
                         Processing Time:{" "}
-                        {predictionResult.total_processing_time.toFixed(2)}s;
+                        {predictionResult.safeNumber(total_processing_time, 2)}s;
                       </div>
                       <div key={241917}>
                         Convergence Rate:{" "}
@@ -1083,11 +1112,11 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
                       </div>
                       <div key={241917}>
                         Stability Margin:{" "}
-                        {predictionResult.stability_margin.toFixed(3)}
+                        {predictionResult.safeNumber(stability_margin, 3)}
                       </div>
                       <div key={241917}>
                         Lyapunov Exponent:{" "}
-                        {predictionResult.lyapunov_exponent.toFixed(6)}
+                        {predictionResult.safeNumber(lyapunov_exponent, 6)}
                       </div>
                     </div>
                   </div>
@@ -1110,11 +1139,15 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
                         options={{
                           responsive: true,
                           maintainAspectRatio: false,
-                          plugins: {,`n  legend: { display: false},
+                          plugins: {
+,`n  legend: { display: false},
                             title: { display: false}
                           },
-                          scales: {,`n  x: { title: { display: true, text: "Iteration"} },
-                            y: {,`n  title: {,`n  display: true,
+                          scales: {
+,`n  x: { title: { display: true, text: "Iteration"} },
+                            y: {
+,`n  title: {
+,`n  display: true,
                                 text: "Convergence Rate"
                               },
                               min: 0,
@@ -1144,10 +1177,12 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
                         options={{
                           responsive: true,
                           maintainAspectRatio: false,
-                          plugins: {,`n  legend: { display: false},
+                          plugins: {
+,`n  legend: { display: false},
                             title: { display: false}
                           },
-                          scales: {,`n  x: { title: { display: true, text: "Eigenvalue"} },
+                          scales: {
+,`n  x: { title: { display: true, text: "Eigenvalue"} },
                             y: { title: { display: true, text: "Magnitude"} }
                           }
                         }}
@@ -1177,11 +1212,15 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
                         options={{
                           responsive: true,
                           maintainAspectRatio: false,
-                          plugins: {,`n  legend: { position: "top"}
+                          plugins: {
+,`n  legend: { position: "top"}
                           },
-                          scales: {,`n  x: {,`n  title: { display: true, text: "Persistence"}
+                          scales: {
+,`n  x: {
+,`n  title: { display: true, text: "Persistence"}
                             },
-                            y: {,`n  title: { display: true, text: "Feature Index"}
+                            y: {
+,`n  title: { display: true, text: "Feature Index"}
                             }
                           }
                         }}
@@ -1220,7 +1259,7 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
                 <CardContent key={452065}>
                   <div className="text-center" key={120206}>
                     <div className="text-6xl font-bold text-purple-600 mb-2" key={515309}>
-                      {mathematicalAnalysis.mathematical_rigor_score.toFixed(0)}
+                      {mathematicalAnalysis.safeNumber(mathematical_rigor_score, 0)}
                     </div>
                     <div className="text-lg text-gray-600" key={123167}>
                       Overall Rigor Score;
@@ -1400,7 +1439,7 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
                               ? "True"
                               : "False"
                             : typeof value === "number"
-                              ? value.toFixed(6)
+                              ? safeNumber(value, 6)
                               : String(value)}
                         </span>
                       </div>
@@ -1469,7 +1508,7 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
                                 {key}:
                               </span>
                               <span className="font-mono text-sm" key={133106}>
-                                {value.toFixed(2)}
+                                {safeNumber(value, 2)}
                               </span>
                             </div>
                           ),
@@ -1507,7 +1546,7 @@ const EnhancedRevolutionaryInterface: React.FC = () => {
                             className="w-20 h-2"
                           / key={208934}>
                           <span className="font-mono text-sm w-16 text-right" key={874529}>
-                            {value.toFixed(2)}s;
+                            {safeNumber(value, 2)}s;
                           </span>
                         </div>
                       </div>

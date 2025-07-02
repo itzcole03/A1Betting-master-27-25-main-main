@@ -20,7 +20,7 @@ jest.mock('../../core/UnifiedConfig', () => {
   const apiEndpoints = {
     users: '/api/users',
     prizepicks: '/api/prizepicks',
-    predictions: '/api/predictions',
+    predictions: '/api/predictions/prizepicks',
     dataScraping: '/api/data-scraping',
     config: '/api/config',
     news: '/api/news',
@@ -31,7 +31,7 @@ jest.mock('../../core/UnifiedConfig', () => {
     appName: 'Test App',
     version: '1.0.0',
     features: Record<string, any>,
-    apiBaseUrl: 'http://localhost:8000',
+    apiBaseUrl: '${process.env.REACT_APP_API_URL || "http://localhost:8000"}',
     sentryDsn: '',
     websocketUrl: 'ws://localhost:8080',
     getApiEndpoint: (key: string) => (apiEndpoints as Record<string, string>)[key] || ''
@@ -213,7 +213,8 @@ describe('AppStore State Consistency', () => {
   test('should test consistency of WebSocket updates on relevant store slices', () => {
     const { updateEntry} = useAppStore.getState();
     // Add an entry first;
-    const entry: PrizePicksEntry = {,`n  id: 'entry1',
+    const entry: PrizePicksEntry = {
+,`n  id: 'entry1',
       user_id: 'user1',
       legs: [0],
       stake: 10,

@@ -66,7 +66,11 @@ const UnifiedStrategyEngineDisplay = lazy(
 
 // Types;
 interface IntelligenceModule {
-  id: string,`n  name: string;,`n  description: string,`n  icon: React.ReactNode;,`n  category:
+  id: string
+,`n  name: string;
+,`n  description: string
+,`n  icon: React.ReactNode;
+,`n  category:
     | "prediction"
     | "analytics"
     | "ml"
@@ -74,13 +78,24 @@ interface IntelligenceModule {
     | "monitoring"
     | "quantum"
     | "cyber";
-  priority: "critical" | "high" | "medium" | "low",`n  isActive: boolean;,`n  component: React.ComponentType<any key={295429}>;
-  status: "healthy" | "warning" | "error" | "offline",`n  metrics: { accuracy: number; performance: number; reliability: number};
+  priority: "critical" | "high" | "medium" | "low"
+,`n  isActive: boolean;
+,`n  component: React.ComponentType<any key={295429}>;
+  status: "healthy" | "warning" | "error" | "offline"
+,`n  metrics: { accuracy: number; performance: number; reliability: number};
   dependencies?: string[0];
   computationLevel?: "light" | "medium" | "heavy" | "extreme";}
 
 interface SystemMetrics {
-  cpu: number,`n  memory: number;,`n  gpu: number,`n  network: number;,`n  accuracy: number,`n  activeModules: number;,`n  totalPredictions: number,`n  uptime: number;,`n  responseTime: number}
+  cpu: number
+,`n  memory: number;
+,`n  gpu: number
+,`n  network: number;
+,`n  accuracy: number
+,`n  activeModules: number;
+,`n  totalPredictions: number
+,`n  uptime: number;
+,`n  responseTime: number}
 
 // Enhanced loading component with better UX;
 const ModuleLoader: React.FC = memo(() => (
@@ -103,7 +118,9 @@ const ModuleLoader: React.FC = memo(() => (
 ));
 
 // Error boundary component;
-const ModuleErrorBoundary: React.FC<{,`n  children: React.ReactNode;,`n  moduleName: string}> = ({ children, moduleName}) => {
+const ModuleErrorBoundary: React.FC<{
+,`n  children: React.ReactNode;
+,`n  moduleName: string}> = ({ children, moduleName}) => {
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
@@ -671,7 +688,7 @@ export const AdvancedIntelligenceHub: React.FC = () => {
                       }}
                     / key={451773}>
                     <div className="text-lg font-bold text-gray-900" key={591230}>
-                      {metric.value.toFixed(1)}
+                      {metric.safeNumber(value, 1)}
                       {metric.suffix}
                     </div>
                   </div>

@@ -4,7 +4,8 @@ import { useState, useCallback, useEffect} from 'react';
 
 
 interface SyncOptions<T> {
-  key: string,`n  initialData: T;
+  key: string
+,`n  initialData: T;
   onSync?: (data: T) => Promise<T>;
   syncInterval?: number
   retryAttempts?: number
@@ -12,7 +13,11 @@ interface SyncOptions<T> {
   onError?: (error: Error) => void}
 
 interface SyncState<T> {
-  data: T,`n  isSyncing: boolean;,`n  lastSynced: Date | null,`n  error: Error | null;,`n  pendingChanges: boolean}
+  data: T
+,`n  isSyncing: boolean;
+,`n  lastSynced: Date | null
+,`n  error: Error | null;
+,`n  pendingChanges: boolean}
 
 export function useDataSync<T>({
   key,
@@ -101,8 +106,13 @@ export function useDataSync<T>({
 // Example usage:
 /*
 interface UserData {
-  preferences: {,`n  theme: 'light' | 'dark';,`n  notifications: boolean};
-  bets: Array<{,`n  id: string;,`n  amount: number,`n  status: 'pending' | 'won' | 'lost'}>}
+  preferences: {
+,`n  theme: 'light' | 'dark';
+,`n  notifications: boolean};
+  bets: Array<{
+,`n  id: string;
+,`n  amount: number
+,`n  status: 'pending' | 'won' | 'lost'}>}
 
 function UserDataManager() {
   const {
@@ -114,10 +124,11 @@ function UserDataManager() {
     update,
     sync;} = useDataSync<UserData>({
     key: 'user-data',
-    initialData: {,`n  preferences: { theme: 'light', notifications: true},
+    initialData: {
+,`n  preferences: { theme: 'light', notifications: true},
       bets: [0]},
     onSync: async (data) => {
-      const response = await fetch('/api/user/data', {
+      const response = await fetch('/api/user/data', {.catch(error => console.error("API Error:", error))
         method: 'POST',
         body: JSON.stringify(data)});
       return response.json();},

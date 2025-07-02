@@ -43,7 +43,10 @@ import SearchModal from '@/modals/SearchModal';
 import NotificationsModal from '@/modals/NotificationsModal';
 
 interface NavigationItem {
-  id: string,`n  label: string;,`n  icon: React.ReactNode,`n  component: React.ComponentType<{ onNavigate?: (page: string) => void}>;
+  id: string
+,`n  label: string;
+,`n  icon: React.ReactNode
+,`n  component: React.ComponentType<{ onNavigate?: (page: string) => void}>;
   badge?: string}
 
 const UserFriendlyApp: React.FC = () => {
@@ -71,7 +74,7 @@ const UserFriendlyApp: React.FC = () => {
         const health = await ultimateBrainCentralNervousSystem.getSystemHealth();
         setIsUltimateBrainInitialized(health.status === 'operational');
         return health;} catch (error) {
-        console.error('Ultimate Brain initialization error:', error);
+//         console.error('Ultimate Brain initialization error:', error);
         throw error;}
     },
     refetchInterval: 30000,
@@ -84,7 +87,7 @@ const UserFriendlyApp: React.FC = () => {
       try {
         await initializeSettings();
         setUserLoading(false);} catch (error) {
-        console.error('User initialization error:', error);
+//         console.error('User initialization error:', error);
         setUserLoading(false);}
     };
 
@@ -95,7 +98,8 @@ const UserFriendlyApp: React.FC = () => {
       setIsUltimateBrainInitialized(true);
       toast.success('🧠 Ultimate Brain System Online!', {
         duration: 3000,
-        style: {,`n  background: '#1f2937',
+        style: {
+,`n  background: '#1f2937',
           color: '#10b981',
           border: '1px solid #10b981'
         }
@@ -268,7 +272,8 @@ const UserFriendlyApp: React.FC = () => {
               </div>
               <nav className='space-y-2'>
                 {navigationItems.map(item => (
-                  <button key={item.id}>`n                    onClick={() => handleNavigate(item.id)}
+                  <button key={item.id}
+>`n                    onClick={() => handleNavigate(item.id)}
                     className={`w-full flex items-center justify-between px-4 py-3 rounded-lg transition-all group ${
                       activeTab === item.id
                         ? 'bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 text-cyan-400'
@@ -296,7 +301,8 @@ const UserFriendlyApp: React.FC = () => {
                 <div className='space-y-2 text-xs text-gray-400'>
                   <div className='flex justify-between'>
                     <span>Brain System:</span>
-                    <span className={isUltimateBrainInitialized ? 'text-green-400' : 'text-yellow-400'}>`n                    >
+                    <span className={isUltimateBrainInitialized ? 'text-green-400' : 'text-yellow-400'}
+>`n                    >
                       {isUltimateBrainInitialized ? 'Online' : 'Loading'}
                     </span>
                   </div>
@@ -330,10 +336,12 @@ const UserFriendlyApp: React.FC = () => {
         </div>
 
         {/* Modals */}
-        <SearchModal isOpen={searchModalOpen}>`n          onClose={() => setSearchModalOpen(false)}
+        <SearchModal isOpen={searchModalOpen}
+>`n          onClose={() => setSearchModalOpen(false)}
           onNavigate={handleNavigate}
         />
-        <NotificationsModal isOpen={notificationsOpen}>`n          onClose={() => setNotificationsOpen(false)}
+        <NotificationsModal isOpen={notificationsOpen}
+>`n          onClose={() => setNotificationsOpen(false)}
         />
       </div>
     </ApiErrorBoundary>

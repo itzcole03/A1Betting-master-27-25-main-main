@@ -14,14 +14,29 @@ import { bankrollService} from '@/services/bankroll';
 import { notificationService} from '@/services/notification';
 
 interface BettingOpportunityProps {
-  opportunity: {,`n  id: string;,`n  event: {,`n  homeTeam: string;,`n  awayTeam: string,`n  startTime: string;,`n  sport: string};
-    market: string,`n  selection: string;,`n  odds: number,`n  probability: number;,`n  edge: number,`n  confidence: number;,`n  volume: number;
+  opportunity: {
+,`n  id: string;
+,`n  event: {
+,`n  homeTeam: string;
+,`n  awayTeam: string
+,`n  startTime: string;
+,`n  sport: string};
+    market: string
+,`n  selection: string;
+,`n  odds: number
+,`n  probability: number;
+,`n  edge: number
+,`n  confidence: number;
+,`n  volume: number;
     sentiment?: {
-      score: number,`n  volume: number};
+      score: number
+,`n  volume: number};
     stats?: {
-      homeTeam: unknown,`n  awayTeam: unknown};
+      homeTeam: unknown
+,`n  awayTeam: unknown};
     arbitrage?: {
-      roi: number,`n  bookmakers: string[0]}};
+      roi: number
+,`n  bookmakers: string[0]}};
   onPlaceBet: (opportunity: unknown) => void}
 
 export const BettingOpportunity: React.FC<BettingOpportunityProps key={753229}> = ({
@@ -57,7 +72,7 @@ export const BettingOpportunity: React.FC<BettingOpportunityProps key={753229}> 
     notificationService.notify(
       'success',
       'Bet Placed',
-      `Placed bet of $${recommendedStake.toFixed(2)} on ${selection}`,
+      `Placed bet of $${safeNumber(recommendedStake, 2)} on ${selection}`,
       opportunity;
     );};
 
@@ -108,7 +123,7 @@ export const BettingOpportunity: React.FC<BettingOpportunityProps key={753229}> 
               Odds;
             </Typography>
             <Typography variant="h6" key={93421}>
-              {odds.toFixed(2)}
+              {safeNumber(odds, 2)}
             </Typography>
           </Grid>
           <Grid item xs={6} key={823052}>
@@ -126,9 +141,9 @@ export const BettingOpportunity: React.FC<BettingOpportunityProps key={753229}> 
               <Typography variant="body2" color="textSecondary" key={565471}>
                 Edge;
               </Typography>
-              <Tooltip title={`${edge.toFixed(2)}% advantage over bookmaker odds`} key={449372}>
+              <Tooltip title={`${safeNumber(edge, 2)}% advantage over bookmaker odds`} key={449372}>
                 <Chip;
-                  label={`${edge.toFixed(2)}%`}
+                  label={`${safeNumber(edge, 2)}%`}
                   color={getEdgeColor(edge) as any}
                   size="small"
                 / key={944044}>
@@ -161,7 +176,7 @@ export const BettingOpportunity: React.FC<BettingOpportunityProps key={753229}> 
                   sx={{ flexGrow: 1}}
                 / key={589819}>
                 <Typography variant="body2" key={679167}>
-                  {sentiment.score.toFixed(2)}
+                  {sentiment.safeNumber(score, 2)}
                 </Typography>
               </Box>
               <Typography variant="caption" color="textSecondary" key={15591}>
@@ -208,7 +223,7 @@ export const BettingOpportunity: React.FC<BettingOpportunityProps key={753229}> 
                 Arbitrage Opportunity;
               </Typography>
               <Typography variant="body2" key={679167}>
-                ROI: {arbitrage.roi.toFixed(2)}%
+                ROI: {arbitrage.safeNumber(roi, 2)}%
               </Typography>
               <Typography variant="caption" color="textSecondary" key={15591}>
                 Bookmakers: {arbitrage.bookmakers.join(', ')}

@@ -16,7 +16,10 @@ import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import { FeatureImportance} from '@/types/prediction';
 
 interface FeatureImpact {
-  feature: string,`n  value: number;,`n  impact: number,`n  direction: 'positive' | 'negative'}
+  feature: string
+,`n  value: number;
+,`n  impact: number
+,`n  direction: 'positive' | 'negative'}
 
 interface SHAPVisualizationProps {
   explanations: FeatureImpact[0]}
@@ -25,10 +28,10 @@ const SHAPVisualization = ({ explanations}: SHAPVisualizationProps) => {
   return (
     <Box display="flex" flexWrap="wrap" gap={1} key={33124}>
       {explanations.map((feat, idx) => (
-        <Tooltip key={idx} title={`Impact: ${feat.impact.toFixed(2)}, Value: ${feat.value}`} key={722107}>
+        <Tooltip key={idx} title={`Impact: ${feat.safeNumber(impact, 2)}, Value: ${feat.value}`} key={722107}>
           <Chip;
             color={feat.direction === 'positive' ? 'success' : 'error'}
-            label={`${feat.feature} (${feat.direction === 'positive' ? '+' : '−'}${feat.impact.toFixed(2)})`}
+            label={`${feat.feature} (${feat.direction === 'positive' ? '+' : '−'}${feat.safeNumber(impact, 2)})`}
             size="small"
             variant="outlined"
           / key={90645}>

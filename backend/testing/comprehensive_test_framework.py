@@ -47,7 +47,7 @@ class ComprehensiveTestFramework:
         
         # Test configuration
         self.config = {
-            'api_base_url': 'http://localhost:8000',
+            'api_base_url': '${process.env.REACT_APP_API_URL || "http://localhost:8000"}',
             'timeout': 30,
             'retry_attempts': 3,
             'performance_threshold_ms': 2000

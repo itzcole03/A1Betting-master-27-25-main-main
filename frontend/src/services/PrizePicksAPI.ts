@@ -4,19 +4,47 @@ import axios, { AxiosInstance} from 'axios';
 // import { UnifiedErrorHandler} from '@/unified/UnifiedError'; // File does not exist, use UnifiedErrorService if needed;
 
 interface PrizePicksResponse<T> {
-  data: T,`n  meta: {,`n  timestamp: number,`n  status: number}}
+  data: T
+,`n  meta: {
+,`n  timestamp: number
+,`n  status: number}}
 
 interface Projection {
-  id: string,`n  playerId: string;,`n  playerName: string,`n  team: string;,`n  opponent: string,`n  sport: Sport;,`n  league: string,`n  propType: PropType;,`n  line: number,`n  overOdds: number;,`n  underOdds: number,`n  timestamp: number;,`n  gameTime: string,`n  status: 'active' | 'suspended' | 'settled';
+  id: string
+,`n  playerId: string;
+,`n  playerName: string
+,`n  team: string;
+,`n  opponent: string
+,`n  sport: Sport;
+,`n  league: string
+,`n  propType: PropType;
+,`n  line: number
+,`n  overOdds: number;
+,`n  underOdds: number
+,`n  timestamp: number;
+,`n  gameTime: string
+,`n  status: 'active' | 'suspended' | 'settled';
   result?: number}
 
 interface Player {
-  id: string,`n  name: string;,`n  team: string,`n  position: string;,`n  sport: Sport,`n  stats: Record<string, number>}
+  id: string
+,`n  name: string;
+,`n  team: string
+,`n  position: string;
+,`n  sport: Sport
+,`n  stats: Record<string, number>}
 
 interface Game {
-  id: string,`n  homeTeam: string;,`n  awayTeam: string,`n  sport: Sport;,`n  league: string,`n  startTime: string;,`n  status: 'scheduled' | 'live' | 'final';
+  id: string
+,`n  homeTeam: string;
+,`n  awayTeam: string
+,`n  sport: Sport;
+,`n  league: string
+,`n  startTime: string;
+,`n  status: 'scheduled' | 'live' | 'final';
   score?: {
-    home: number,`n  away: number}}
+    home: number
+,`n  away: number}}
 
 export class PrizePicksAPI {
   private static instance: PrizePicksAPI;
@@ -85,7 +113,7 @@ export class PrizePicksAPI {
       };
 
       // Log the error for debugging
-      console.error('PrizePicks API Error:', error, errorContext);
+//       console.error('PrizePicks API Error:', error, errorContext);
 
       // In production, return empty array instead of mock data
       // This prevents misleading users with stale/incorrect data
@@ -93,7 +121,8 @@ export class PrizePicksAPI {
         // Dispatch error event for UI notification
         window.dispatchEvent(
           new CustomEvent('prizepicks:error', {
-            detail: {,`n  message: 'Live data unavailable. Please try again later.',
+            detail: {
+,`n  message: 'Live data unavailable. Please try again later.',
               error: error,
               context: errorContext
             }
@@ -110,7 +139,8 @@ export class PrizePicksAPI {
     return [
       {
         id: 'mock-1',
-        player: {,`n  id: 'player-1',
+        player: {
+,`n  id: 'player-1',
           name: 'LeBron James',
           team: 'LAL',
           position: 'SF',
@@ -119,7 +149,8 @@ export class PrizePicksAPI {
         },
         propType: 'points' as PropType,
         line: 25.5,
-        game: {,`n  id: 'game-1',
+        game: {
+,`n  id: 'game-1',
           homeTeam: 'LAL',
           awayTeam: 'GSW',
           sport: 'NBA' as Sport,
@@ -134,7 +165,8 @@ export class PrizePicksAPI {
       },
       {
         id: 'mock-2',
-        player: {,`n  id: 'player-2',
+        player: {
+,`n  id: 'player-2',
           name: 'Stephen Curry',
           team: 'GSW',
           position: 'PG',
@@ -143,7 +175,8 @@ export class PrizePicksAPI {
         },
         propType: 'threes' as PropType,
         line: 4.5,
-        game: {,`n  id: 'game-1',
+        game: {
+,`n  id: 'game-1',
           homeTeam: 'LAL',
           awayTeam: 'GSW',
           sport: 'NBA' as Sport,

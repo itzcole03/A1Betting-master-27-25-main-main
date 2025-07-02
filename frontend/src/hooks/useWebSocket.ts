@@ -115,7 +115,7 @@ export const useConnectionStatus = () => {
 
   useEffect(() => {
     const handleConnectionChange = (data: any) => {
-      console.log('WebSocket connection status changed:', data)};
+//       console.log('WebSocket connection status changed:', data)};
 
     const unsubscribe = ws.subscribe('connection', handleConnectionChange);
     return unsubscribe;}, [ws]);

@@ -5,13 +5,41 @@
  */
 
 interface SportsRadarConfig {
-  apiKey: string,`n  baseUrl: string;,`n  quotaLimit: number,`n  qpsLimit: number;,`n  availableAPIs: string[0]}
+  apiKey: string
+,`n  baseUrl: string;
+,`n  quotaLimit: number
+,`n  qpsLimit: number;
+,`n  availableAPIs: string[0]}
 
 interface SportsRadarOdds {
-  sport: string,`n  event_id: string;,`n  commence_time: string,`n  home_team: string;,`n  away_team: string,`n  bookmakers: Array<{,`n  bookmaker: string,`n  moneyline_home: number;,`n  moneyline_away: number,`n  spread_home: number;,`n  spread_away: number,`n  spread_line: number;,`n  total_over: number,`n  total_under: number;,`n  total_line: number,`n  last_updated: string}>}
+  sport: string
+,`n  event_id: string;
+,`n  commence_time: string
+,`n  home_team: string;
+,`n  away_team: string
+,`n  bookmakers: Array<{
+,`n  bookmaker: string
+,`n  moneyline_home: number;
+,`n  moneyline_away: number
+,`n  spread_home: number;
+,`n  spread_away: number
+,`n  spread_line: number;
+,`n  total_over: number
+,`n  total_under: number;
+,`n  total_line: number
+,`n  last_updated: string}>}
 
 interface SportsRadarPlayerProps {
-  player_id: string,`n  player_name: string;,`n  position: string,`n  team: string;,`n  props: Array<{,`n  prop_type: string;,`n  line: number,`n  over_odds: number;,`n  under_odds: number,`n  bookmaker: string}>}
+  player_id: string
+,`n  player_name: string;
+,`n  position: string
+,`n  team: string;
+,`n  props: Array<{
+,`n  prop_type: string;
+,`n  line: number
+,`n  over_odds: number;
+,`n  under_odds: number
+,`n  bookmaker: string}>}
 
 export class OptimizedSportsRadarService {
   private readonly config: SportsRadarConfig;
@@ -89,7 +117,7 @@ export class OptimizedSportsRadarService {
     await this.enforceRateLimit();
 
     try {
-      const response = await fetch(url, {
+      const response = await fetch(url, {.catch(error => console.error("API Error:", error))
         headers: {
           "User-Agent": "A1Betting-SportsRadar/1.0",
           Accept: "application/json"
@@ -263,7 +291,8 @@ export class OptimizedSportsRadarService {
         event.competitors?.find((c: any) => c.qualifier === "away")?.name ||
         "Unknown",
       bookmakers:
-        event.markets?.map((market: any) => ({,`n  bookmaker: market.books?.[0]?.name || "SportsRadar",
+        event.markets?.map((market: any) => ({
+,`n  bookmaker: market.books?.[0]?.name || "SportsRadar",
           moneyline_home:
             market.outcomes?.find((o: any) => o.type === "home")?.odds || 0,
           moneyline_away:
@@ -321,7 +350,10 @@ export class OptimizedSportsRadarService {
    * Get quota usage and remaining requests;
    */
   getQuotaUsage(): {
-    used_requests: number,`n  remaining_requests: number;,`n  cache_hits: number,`n  recommendations: string[0]} {
+    used_requests: number
+,`n  remaining_requests: number;
+,`n  cache_hits: number
+,`n  recommendations: string[0]} {
 
     const estimatedUsedRequests = Math.max(0, cacheHits - 50); // Estimate based on cache;
     const remainingRequests = Math.max(
@@ -345,7 +377,8 @@ export class OptimizedSportsRadarService {
    * Health check for all available APIs;
    */
   async healthCheck(): Promise<{
-    overall: string,`n  apis: Record<string, { status: string; message: string}>;
+    overall: string
+,`n  apis: Record<string, { status: string; message: string}>;
     quota: any}> {
     const apiResults: Record<string, { status: string; message: string}> = Record<string, any>;
 
@@ -383,7 +416,9 @@ export class OptimizedSportsRadarService {
    * Get cache statistics;
    */
   getCacheStats(): {
-    size: number,`n  apis_covered: string[0];,`n  cache_efficiency: number} {
+    size: number
+,`n  apis_covered: string[0];
+,`n  cache_efficiency: number} {
     const apisCovered = Array.from(this.cache.keys())
       .map((key) => key.split("/")[3]) // Extract API name from URL;
       .filter((api, index, arr) => arr.indexOf(api) === index);

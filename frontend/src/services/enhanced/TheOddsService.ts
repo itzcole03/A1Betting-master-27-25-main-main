@@ -5,41 +5,101 @@
 
 // The-Odds-API types;
 interface TheOddsAPISport {
-  key: string,`n  group: string;,`n  title: string,`n  description: string;,`n  active: boolean,`n  has_outrights: boolean}
+  key: string
+,`n  group: string;
+,`n  title: string
+,`n  description: string;
+,`n  active: boolean
+,`n  has_outrights: boolean}
 
 interface TheOddsAPIEvent {
-  id: string,`n  sport_key: string;,`n  sport_title: string,`n  commence_time: string;,`n  home_team: string,`n  away_team: string;,`n  bookmakers: TheOddsAPIBookmaker[0]}
+  id: string
+,`n  sport_key: string;
+,`n  sport_title: string
+,`n  commence_time: string;
+,`n  home_team: string
+,`n  away_team: string;
+,`n  bookmakers: TheOddsAPIBookmaker[0]}
 
 interface TheOddsAPIBookmaker {
-  key: string,`n  title: string;,`n  last_update: string,`n  markets: TheOddsAPIMarket[0]}
+  key: string
+,`n  title: string;
+,`n  last_update: string
+,`n  markets: TheOddsAPIMarket[0]}
 
 interface TheOddsAPIMarket {
-  key: string,`n  last_update: string;,`n  outcomes: TheOddsAPIOutcome[0]}
+  key: string
+,`n  last_update: string;
+,`n  outcomes: TheOddsAPIOutcome[0]}
 
 interface TheOddsAPIOutcome {
-  name: string,`n  price: number;
+  name: string
+,`n  price: number;
   point?: number}
 
 // OddsJam API types;
 interface OddsJamEvent {
-  event_id: string,`n  sport: string;,`n  commence_time: string,`n  home_team: string;,`n  away_team: string,`n  sportsbooks: Array<{,`n  sportsbook: string,`n  markets: Array<{,`n  market_type: string,`n  outcomes: Array<{,`n  outcome: string,`n  odds: number;,`n  implied_probability: number}>}>;}>;}
+  event_id: string
+,`n  sport: string;
+,`n  commence_time: string
+,`n  home_team: string;
+,`n  away_team: string
+,`n  sportsbooks: Array<{
+,`n  sportsbook: string
+,`n  markets: Array<{
+,`n  market_type: string
+,`n  outcomes: Array<{
+,`n  outcome: string
+,`n  odds: number;
+,`n  implied_probability: number}>}>;}>;}
 
 // SportsDataIO Odds types;
 interface SportsDataIOOdds {
-  GameID: number,`n  DateTime: string;,`n  HomeTeam: string,`n  AwayTeam: string;,`n  PregameOdds: Array<{,`n  Sportsbook: string;,`n  MoneyLineHome: number,`n  MoneyLineAway: number;,`n  PointSpreadHome: number,`n  PointSpreadAway: number;,`n  PointSpreadHomeOdds: number,`n  PointSpreadAwayOdds: number;,`n  OverUnder: number,`n  OverOdds: number;,`n  UnderOdds: number}>}
+  GameID: number
+,`n  DateTime: string;
+,`n  HomeTeam: string
+,`n  AwayTeam: string;
+,`n  PregameOdds: Array<{
+,`n  Sportsbook: string;
+,`n  MoneyLineHome: number
+,`n  MoneyLineAway: number;
+,`n  PointSpreadHome: number
+,`n  PointSpreadAway: number;
+,`n  PointSpreadHomeOdds: number
+,`n  PointSpreadAwayOdds: number;
+,`n  OverUnder: number
+,`n  OverOdds: number;
+,`n  UnderOdds: number}>}
 
 // Aggregated odds interface;
 interface AggregatedOdds {
-  event_id: string,`n  sport: string;,`n  commence_time: string,`n  home_team: string;,`n  away_team: string,`n  best_odds: {,`n  home_ml: { odds: number; sportsbook: string};
+  event_id: string
+,`n  sport: string;
+,`n  commence_time: string
+,`n  home_team: string;
+,`n  away_team: string
+,`n  best_odds: {
+,`n  home_ml: { odds: number; sportsbook: string};
     away_ml: { odds: number; sportsbook: string};
     home_spread: { odds: number; line: number; sportsbook: string};
     away_spread: { odds: number; line: number; sportsbook: string};
     over: { odds: number; line: number; sportsbook: string};
     under: { odds: number; line: number; sportsbook: string}};
   arbitrage_opportunities?: Array<{
-    type: string,`n  profit_margin: number;,`n  bets: Array<{,`n  sportsbook: string;,`n  outcome: string,`n  odds: number;,`n  stake_percentage: number}>}>;
+    type: string
+,`n  profit_margin: number;
+,`n  bets: Array<{
+,`n  sportsbook: string;
+,`n  outcome: string
+,`n  odds: number;
+,`n  stake_percentage: number}>}>;
   value_bets?: Array<{
-    outcome: string,`n  fair_odds: number;,`n  market_odds: number,`n  sportsbook: string;,`n  expected_value: number,`n  kelly_criterion: number}>}
+    outcome: string
+,`n  fair_odds: number;
+,`n  market_odds: number
+,`n  sportsbook: string;
+,`n  expected_value: number
+,`n  kelly_criterion: number}>}
 
 export class EnhancedTheOddsService {
   private readonly baseUrl: string;
@@ -59,7 +119,7 @@ export class EnhancedTheOddsService {
     this.baseUrl =
       import.meta.env.VITE_BACKEND_URL ||
       import.meta.env.VITE_API_URL ||
-      "http://localhost:8000";
+      "${process.env.REACT_APP_API_URL || "http://localhost:8000"}";
     this.theOddsAPIKey = import.meta.env.VITE_THEODDS_API_KEY || "";
     this.oddsJamKey = import.meta.env.VITE_ODDSJAM_API_KEY || "";
     this.sportsDataIOKey = import.meta.env.VITE_SPORTSDATA_API_KEY || "";
@@ -100,7 +160,7 @@ export class EnhancedTheOddsService {
       : `${this.baseUrl}${endpoint}`;
 
     try {
-      const response = await fetch(url, {
+      const response = await fetch(url, {.catch(error => console.error("API Error:", error))
         headers: {
           "Content-Type": "application/json",
           "User-Agent": "A1Betting-Platform/1.0"
@@ -240,12 +300,14 @@ export class EnhancedTheOddsService {
       // Process The-Odds-API data;
       if (theOddsData.status === "fulfilled") {
         for (const event of theOddsData.value) {
-          const aggregated: AggregatedOdds = {,`n  event_id: event.id,
+          const aggregated: AggregatedOdds = {
+,`n  event_id: event.id,
             sport: event.sport_key,
             commence_time: event.commence_time,
             home_team: event.home_team,
             away_team: event.away_team,
-            best_odds: {,`n  home_ml: { odds: 0, sportsbook: ""},
+            best_odds: {
+,`n  home_ml: { odds: 0, sportsbook: ""},
               away_ml: { odds: 0, sportsbook: ""},
               home_spread: { odds: 0, line: 0, sportsbook: ""},
               away_spread: { odds: 0, line: 0, sportsbook: ""},
@@ -334,7 +396,15 @@ export class EnhancedTheOddsService {
    */
   async findArbitrageOpportunities(sport: string): Promise<
     Array<{
-      event: string,`n  type: string;,`n  profit_margin: number,`n  total_stake: number;,`n  bets: Array<{,`n  sportsbook: string;,`n  outcome: string,`n  odds: number;,`n  stake: number}>}>
+      event: string
+,`n  type: string;
+,`n  profit_margin: number
+,`n  total_stake: number;
+,`n  bets: Array<{
+,`n  sportsbook: string;
+,`n  outcome: string
+,`n  odds: number;
+,`n  stake: number}>}>
   > {
     try {
 
@@ -401,7 +471,13 @@ export class EnhancedTheOddsService {
    */
   async getSharpMoneyIndicators(sport: string): Promise<
     Array<{
-      event: string,`n  market: string;,`n  sharp_side: string,`n  line_movement: number;,`n  reverse_line_movement: boolean,`n  steam_move: boolean;,`n  sharp_percentage: number}>
+      event: string
+,`n  market: string;
+,`n  sharp_side: string
+,`n  line_movement: number;
+,`n  reverse_line_movement: boolean
+,`n  steam_move: boolean;
+,`n  sharp_percentage: number}>
   > {
     // This would require historical odds data and betting percentages;
     // For now, return mock indicators based on line movements;
@@ -423,7 +499,8 @@ export class EnhancedTheOddsService {
    * Health check for all odds services;
    */
   async healthCheck(): Promise<{
-    overall: string,`n  services: Record<string, { status: string; message?: string}>;}> {
+    overall: string
+,`n  services: Record<string, { status: string; message?: string}>;}> {
     const results = {
       backend: { status: "unknown", message: ""},
       theOddsAPI: { status: "unknown", message: ""},

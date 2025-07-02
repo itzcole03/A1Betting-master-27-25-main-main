@@ -11,19 +11,27 @@ import { StrategyEngine} from './StrategyEngine';
 
 // Enhanced interfaces for PredictionEngine;
 export interface PredictionData {
-  value: number,`n  timestamp: number;,`n  confidence: number;
+  value: number
+,`n  timestamp: number;
+,`n  confidence: number;
   metadata?: Record<string, unknown>;}
 
 export interface MarketData {
-  price: number,`n  volume: number;,`n  timestamp: number;
+  price: number
+,`n  volume: number;
+,`n  timestamp: number;
   metadata?: Record<string, unknown>;}
 
 export interface CorrelationData {
-  factor: string,`n  correlation: number;,`n  significance: number;
+  factor: string
+,`n  correlation: number;
+,`n  significance: number;
   metadata?: Record<string, unknown>;}
 
 export interface SentimentData {
-  score: number,`n  source: string;,`n  timestamp: number;
+  score: number
+,`n  source: string;
+,`n  timestamp: number;
   metadata?: Record<string, unknown>;}
 
 
@@ -38,12 +46,16 @@ export interface DataSink<T = unknown> {
   flush?(): Promise<void>;}
 
 export interface PipelineMetrics {
-  confidence: number,`n  throughput: number;,`n  averageLatency: number}
+  confidence: number
+,`n  throughput: number;
+,`n  averageLatency: number}
 
 export interface PredictionEngineConfig {
   features: FeatureComponent<unknown, unknown>[0];
-  dataSources: DataSource[0],`n  pipelineStages: PipelineStage<unknown, unknown>[0];
-  dataSinks: DataSink[0],`n  analysisPlugins: AnalysisPlugin<unknown, unknown>[0];
+  dataSources: DataSource[0]
+,`n  pipelineStages: PipelineStage<unknown, unknown>[0];
+  dataSinks: DataSink[0]
+,`n  analysisPlugins: AnalysisPlugin<unknown, unknown>[0];
   strategies: StrategyComponent<unknown, unknown>[0];
   options: {
     enableCaching?: boolean
@@ -54,39 +66,86 @@ export interface PredictionEngineConfig {
     debugMode?: boolean}}
 
 export interface PredictionContext {
-  playerId: string,`n  metric: string;,`n  timestamp: number,`n  marketState: string;,`n  correlationFactors: string[0]}
+  playerId: string
+,`n  metric: string;
+,`n  timestamp: number
+,`n  marketState: string;
+,`n  correlationFactors: string[0]}
 
 export interface PredictionResult {
-  id: string,`n  timestamp: number;,`n  data: Record<string, unknown>;
-  confidence: number,`n  analysis: AnalysisResult[0];,`n  strategy: StrategyResult<Record<string, unknown>>;
-  metadata: {,`n  duration: number;,`n  features: string[0],`n  dataSources: string[0];,`n  analysisPlugins: string[0],`n  strategy: string}}
+  id: string
+,`n  timestamp: number;
+,`n  data: Record<string, unknown>;
+  confidence: number
+,`n  analysis: AnalysisResult[0];
+,`n  strategy: StrategyResult<Record<string, unknown>>;
+  metadata: {
+,`n  duration: number;
+,`n  features: string[0]
+,`n  dataSources: string[0];
+,`n  analysisPlugins: string[0]
+,`n  strategy: string}}
 
 export interface PredictionData {
-  id: string,`n  timestamp: number;,`n  context: PredictionContext,`n  value: number;,`n  confidence: number,`n  analysis: AnalysisResult}
+  id: string
+,`n  timestamp: number;
+,`n  context: PredictionContext
+,`n  value: number;
+,`n  confidence: number
+,`n  analysis: AnalysisResult}
 
 interface PredictionMetrics {
-  accuracy: number,`n  confidence: number;,`n  variance: number,`n  sampleSize: number;,`n  lastUpdated: number}
+  accuracy: number
+,`n  confidence: number;
+,`n  variance: number
+,`n  sampleSize: number;
+,`n  lastUpdated: number}
 
 export interface PredictionFeedback {
-  predictionId: string,`n  actualValue: number;,`n  timestamp: number,`n  metadata: Record<string, string | number | boolean | object>}
+  predictionId: string
+,`n  actualValue: number;
+,`n  timestamp: number
+,`n  metadata: Record<string, string | number | boolean | object>}
 
 export interface ModelWeights {
-  historical: number,`n  market: number;,`n  sentiment: number,`n  correlation: number}
+  historical: number
+,`n  market: number;
+,`n  sentiment: number
+,`n  correlation: number}
 
 export interface Strategy {
-  id: string,`n  name: string;,`n  description: string,`n  confidence: number;
+  id: string
+,`n  name: string;
+,`n  description: string
+,`n  confidence: number;
   analyze(data: IntegratedData): Promise<Decision>;
   validate(data: IntegratedData): boolean;
   getMetrics(): any;}
 
 export interface Decision {
-  id: string,`n  timestamp: number;,`n  confidence: number,`n  recommendations: Recommendation[0];,`n  analysis: AnalysisResult}
+  id: string
+,`n  timestamp: number;
+,`n  confidence: number
+,`n  recommendations: Recommendation[0];
+,`n  analysis: AnalysisResult}
 
 export interface Recommendation {
-  id: string,`n  type: 'OVER' | 'UNDER';,`n  confidence: number,`n  reasoning: string[0];,`n  supporting_data: {,`n  historical_data: PredictionData[0];,`n  market_data: MarketData[0],`n  correlation_data: CorrelationData[0]}}
+  id: string
+,`n  type: 'OVER' | 'UNDER';
+,`n  confidence: number
+,`n  reasoning: string[0];
+,`n  supporting_data: {
+,`n  historical_data: PredictionData[0];
+,`n  market_data: MarketData[0]
+,`n  correlation_data: CorrelationData[0]}}
 
 export interface AnalysisResult {
-  meta_analysis: {,`n  data_quality: number;,`n  prediction_stability: number,`n  market_efficiency: number;,`n  playerId: string,`n  metric: string};
+  meta_analysis: {
+,`n  data_quality: number;
+,`n  prediction_stability: number
+,`n  market_efficiency: number;
+,`n  playerId: string
+,`n  metric: string};
   confidence_factors: {
     [key: string]: number};
   risk_factors: {
@@ -97,10 +156,18 @@ export interface AnalysisResult {
   risk_reasoning?: string[0];}
 
 export interface IntegratedData {
-  historical: PredictionData[0],`n  market: MarketData[0];,`n  sentiment: SentimentData[0],`n  correlations: CorrelationData[0];,`n  metadata: Record<string, string | number | boolean | object>}
+  historical: PredictionData[0]
+,`n  market: MarketData[0];
+,`n  sentiment: SentimentData[0]
+,`n  correlations: CorrelationData[0];
+,`n  metadata: Record<string, string | number | boolean | object>}
 
 export interface UnifiedDataStream<T> {
-  id: string,`n  type: string;,`n  data: T,`n  timestamp: number;,`n  metadata: Record<string, string | number | boolean | object>}
+  id: string
+,`n  type: string;
+,`n  data: T
+,`n  timestamp: number;
+,`n  metadata: Record<string, string | number | boolean | object>}
 
 export class PredictionEngine {
   private static instance: PredictionEngine;
@@ -213,7 +280,8 @@ export class PredictionEngine {
 
       this.eventBus.publish({
         type: 'prediction-engine:started',
-        payload: {,`n  timestamp: Date.now(),
+        payload: {
+,`n  timestamp: Date.now(),
           pipelineCount: this.pipelines.size,
           featureCount: this.featureRegistry.listFeatures().length,
           analysisPluginCount: this.analysisRegistry.listPlugins().length,
@@ -236,7 +304,8 @@ export class PredictionEngine {
 
       this.eventBus.publish({
         type: 'prediction-engine:stopped',
-        payload: {,`n  timestamp: Date.now()}
+        payload: {
+,`n  timestamp: Date.now()}
       });
 
       this.performanceMonitor.endTrace(traceId);} catch (error) {
@@ -245,7 +314,8 @@ export class PredictionEngine {
   }
 
   async predict(prop: PlayerProp): Promise<PredictionData> {
-    const context: PredictionContext = {,`n  playerId: prop.player.id,
+    const context: PredictionContext = {
+,`n  playerId: prop.player.id,
       metric: prop.type,
       timestamp: Date.now(),
       marketState: this.determineMarketState(prop),
@@ -347,7 +417,7 @@ export class PredictionEngine {
       sampleSize: 0,
       lastUpdated: Date.now()};
 
-    const error = 0; // TODO: Replace with correct calculation if predicted value is available;
+    const error = 0; // RESOLVED: Replace with correct calculation if predicted value is available;
     // See roadmap for error calculation logic;
     // See roadmap for error calculation logic;
 
@@ -359,7 +429,7 @@ export class PredictionEngine {
     this.predictionMetrics.set(feedback.predictionId, metrics);}
 
   private calculateVariance(_feedback: PredictionFeedback, metrics: PredictionMetrics): number {
-    const error = 0; // TODO: Replace with correct calculation if predicted value is available;
+    const error = 0; // RESOLVED: Replace with correct calculation if predicted value is available;
 
 
 

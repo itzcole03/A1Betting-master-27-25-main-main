@@ -29,7 +29,7 @@ class LoggerService implements Logger {
 
   public debug(message: string, meta?: Record<string, any>): void {
     if (this.isDevelopment) {
-      console.debug(`[DEBUG] ${message}`, meta || '')}
+//       console.debug(`[DEBUG] ${message}`, meta || '')}
     // In production, you would send this to your logging service;}
 }
 

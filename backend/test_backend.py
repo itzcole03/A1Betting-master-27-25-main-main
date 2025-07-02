@@ -44,7 +44,7 @@ async def health_check():
         }
     }
 
-@app.get("/api/health/all")
+@app.get("/api/health/status")
 async def get_comprehensive_health():
     """Comprehensive health check for all system components"""
     uptime = time.time() - app_start_time
@@ -93,7 +93,7 @@ async def get_ultra_accuracy_model_performance():
         }
     }
 
-@app.get("/api/analytics/advanced")
+@app.get("/api/analytics/summary")
 async def get_advanced_analytics():
     """Get advanced analytics and insights"""
     return {

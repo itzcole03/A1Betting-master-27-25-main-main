@@ -1,128 +1,49 @@
-﻿import React, { useState, useEffect, useMemo, useCallback} from 'react'
-import { motion, AnimatePresence} from 'framer-motion'
-import {
-  Card,
-  CardContent,
-  Typography,
-  Button,
-  Box,
-  Grid,
-  Chip,
-  Alert,
-  LinearProgress,
-  Tooltip,
-  IconButton,
-  Divider,
-  Paper,
-  Stack,
-  Switch,
-  FormControlLabel,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Badge,
-  Avatar,
-  ButtonGroup,
-  Stepper,
-  Step,
-//   StepLabel
-} from '@mui/material';
-import {
-  TrendingUp,
-  TrendingDown,
-  Assessment,
-  MonetizationOn,
-  Warning,
-  Info,
-  Download,
-  Settings,
-  PlayArrow,
-  Stop,
-  Refresh,
-  NotificationImportant,
-  Speed,
-  Timeline,
-  Calculate,
-  AutoAwesome,
-  ShowChart,
-  BarChart,
-  PieChart,
-  Visibility,
-  Schedule,
-  CheckCircle,
-  Error,
-  Bookmark,
-  BookmarkBorder,
-  Share,
-  Print,
-  Launch,
-  CompareArrows,
-  SwapHoriz,
-  AccountBalance,
-  Security,
-  VerifiedUser,
-  FlashOn,
-  AccessTime,
-//   Cached
-} from '@mui/icons-material';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip as RechartsTooltip,
-  Legend,
-  ResponsiveContainer,
-  AreaChart,
-  Area,
-  BarChart as RechartsBarChart,
-  Bar,
-  ScatterChart,
-  Scatter,
-//   ComposedChart
-} from 'recharts';
-import {
-  formatCurrency,
-  formatPercentage,
-  formatOdds,
-//   formatDateTime
-} from '@/utils/formatters';
+﻿import { ProductionApiService } from '@/services/ProductionApiService';
+import React, { useCallback, useState } from 'react';
 
 interface ArbitrageOpportunity {
-  id: string,`n  sport: string;,`n  league: string,`n  event: string;,`n  market: string;
+  id: string
+,`n  sport: string;
+,`n  league: string
+,`n  event: string;
+,`n  market: string;
 
   // Side A (Back)
-  sideA: {,`n  selection: string;,`n  bookmaker: string,`n  odds: number;,`n  stake: number,`n  payout: number};
+  sideA: {
+,`n  selection: string;
+,`n  bookmaker: string
+,`n  odds: number;
+,`n  stake: number
+,`n  payout: number};
 
   // Side B (Lay or opposing bet)
-  sideB: {,`n  selection: string;,`n  bookmaker: string,`n  odds: number;,`n  stake: number,`n  payout: number};
+  sideB: {
+,`n  selection: string;
+,`n  bookmaker: string
+,`n  odds: number;
+,`n  stake: number
+,`n  payout: number};
 
   // Arbitrage Metrics;
-  profitMargin: number,`n  totalStake: number;,`n  guaranteedProfit: number,`n  roi: number;
+  profitMargin: number
+,`n  totalStake: number;
+,`n  guaranteedProfit: number
+,`n  roi: number;
 
   // Risk & Timing;
-  riskLevel: "low" | "medium" | "high",`n  timeToExpiry: number;,`n  lastUpdate: Date,`n  discoveryTime: Date;,`n  confidence: number;
+  riskLevel: "low" | "medium" | "high"
+,`n  timeToExpiry: number;
+,`n  lastUpdate: Date
+,`n  discoveryTime: Date;
+,`n  confidence: number;
 
   // Market Data;
-  volume: {,`n  sideA: number;,`n  sideB: number};
-  liquidity: {,`n  sideA: number;,`n  sideB: number};
+  volume: {
+,`n  sideA: number;
+,`n  sideB: number};
+  liquidity: {
+,`n  sideA: number;
+,`n  sideB: number};
 
   // Execution;
   status: "active" | "executing" | "completed" | "expired" | "failed";
@@ -130,15 +51,30 @@ interface ArbitrageOpportunity {
   actualProfit?: number
 
   // Metadata;
-  tags: string[0],`n  bookmakerPair: string;,`n  isBookmarked: boolean}
+  tags: string[0]
+,`n  bookmakerPair: string;
+,`n  isBookmarked: boolean}
 
 interface ArbitrageCalculation {
-  stake: number,`n  allocation: {,`n  sideA: number,`n  sideB: number};
-  profit: number,`n  margin: number;,`n  roi: number}
+  stake: number
+,`n  allocation: {
+,`n  sideA: number
+,`n  sideB: number};
+  profit: number
+,`n  margin: number;
+,`n  roi: number}
 
 interface ExecutionPlan {
-  opportunity: ArbitrageOpportunity,`n  steps: {,`n  step: number,`n  action: string;,`n  bookmaker: string,`n  amount: number;,`n  odds: number,`n  status: "pending" | "executing" | "completed" | "failed"}[0];
-  totalTime: number,`n  riskLevel: string}
+  opportunity: ArbitrageOpportunity
+,`n  steps: {
+,`n  step: number
+,`n  action: string;
+,`n  bookmaker: string
+,`n  amount: number;
+,`n  odds: number
+,`n  status: "pending" | "executing" | "completed" | "failed"}[0];
+  totalTime: number
+,`n  riskLevel: string}
 
 const BOOKMAKER_COLORS = {
   DraftKings: "#ff6600",
@@ -194,24 +130,27 @@ export const ArbitrageOpportunities: React.FC = () => {
   // Real-time Data Loading with backend integration
   const loadArbitrageData = useCallback(async () => {
     try {
-      // Fetch real arbitrage opportunities from backend
-      const response = await fetch('http://localhost:8000/api/analytics/advanced');
+      // Use ProductionApiService or show error if no supported endpoint exists.
+      const response = await ProductionApiService.getAdvancedAnalytics();
       const analyticsData = await response.json();
 
       // Convert backend data to ArbitrageOpportunity format
       const realOpportunities: ArbitrageOpportunity[0] =
-        analyticsData.predictive_insights?.upcoming_opportunities?.map((opp: any, index: number) => ({,`n  id: `arb-${index + 1}`,
+        analyticsData.predictive_insights?.upcoming_opportunities?.map((opp: any, index: number) => ({
+,`n  id: `arb-${index + 1}`,
           sport: opp.sport || "Basketball",
           league: opp.sport || "NBA",
           event: opp.game || "Unknown vs Unknown",
           market: opp.market?.replace('_', ' ') || "Moneyline",
-          sideA: {,`n  selection: `${opp.game?.split(' vs ')[0]} Win` || "Home Win",
+          sideA: {
+,`n  selection: `${opp.game?.split(' vs ')[0]} Win` || "Home Win",
             bookmaker: "DraftKings",
             odds: 2.15,
             stake: Math.round(opp.expected_value * 37.4) || 465,
             payout: 1000.0
           },
-          sideB: {,`n  selection: `${opp.game?.split(' vs ')[1]} Win` || "Away Win",
+          sideB: {
+,`n  selection: `${opp.game?.split(' vs ')[1]} Win` || "Away Win",
             bookmaker: "FanDuel",
             odds: 1.95,
             stake: Math.round(opp.expected_value * 42.6) || 535,
@@ -227,10 +166,12 @@ export const ArbitrageOpportunities: React.FC = () => {
           discoveryTime: new Date(Date.now() - 300000),
           confidence: opp.confidence || 0.95,
 
-          volume: {,`n  sideA: 2450000,
+          volume: {
+,`n  sideA: 2450000,
             sideB: 1890000
           },
-          liquidity: {,`n  sideA: 0.92,
+          liquidity: {
+,`n  sideA: 0.92,
             sideB: 0.88
           },
 
@@ -247,14 +188,16 @@ export const ArbitrageOpportunities: React.FC = () => {
           event: "Chiefs vs Bills",
           market: "Spread (-3.5)",
 
-          sideA: {,`n  selection: "Chiefs -3.5",
+          sideA: {
+,`n  selection: "Chiefs -3.5",
             bookmaker: "Bet365",
             odds: 2.05,
             stake: 487.8,
             payout: 1000.0
           },
 
-          sideB: {,`n  selection: "Bills +3.5",
+          sideB: {
+,`n  selection: "Bills +3.5",
             bookmaker: "BetMGM",
             odds: 1.98,
             stake: 512.2,
@@ -272,10 +215,12 @@ export const ArbitrageOpportunities: React.FC = () => {
           discoveryTime: new Date(Date.now() - 180000),
           confidence: 0.87,
 
-          volume: {,`n  sideA: 1560000,
+          volume: {
+,`n  sideA: 1560000,
             sideB: 1780000
           },
-          liquidity: {,`n  sideA: 0.85,
+          liquidity: {
+,`n  sideA: 0.85,
             sideB: 0.91
           },
 
@@ -292,14 +237,16 @@ export const ArbitrageOpportunities: React.FC = () => {
           event: "Man City vs Liverpool",
           market: "Over/Under 2.5 Goals",
 
-          sideA: {,`n  selection: "Over 2.5",
+          sideA: {
+,`n  selection: "Over 2.5",
             bookmaker: "Pinnacle",
             odds: 1.85,
             stake: 540.54,
             payout: 1000.0
           },
 
-          sideB: {,`n  selection: "Under 2.5",
+          sideB: {
+,`n  selection: "Under 2.5",
             bookmaker: "Caesars",
             odds: 2.2,
             stake: 459.46,
@@ -317,10 +264,12 @@ export const ArbitrageOpportunities: React.FC = () => {
           discoveryTime: new Date(Date.now() - 120000),
           confidence: 0.78,
 
-          volume: {,`n  sideA: 890000,
+          volume: {
+,`n  sideA: 890000,
             sideB: 1200000
           },
-          liquidity: {,`n  sideA: 0.79,
+          liquidity: {
+,`n  sideA: 0.79,
             sideB: 0.83
           },
 
@@ -337,14 +286,16 @@ export const ArbitrageOpportunities: React.FC = () => {
           event: "Djokovic vs Nadal",
           market: "Match Winner",
 
-          sideA: {,`n  selection: "Djokovic",
+          sideA: {
+,`n  selection: "Djokovic",
             bookmaker: "PointsBet",
             odds: 1.78,
             stake: 561.8,
             payout: 1000.0
           },
 
-          sideB: {,`n  selection: "Nadal",
+          sideB: {
+,`n  selection: "Nadal",
             bookmaker: "DraftKings",
             odds: 2.35,
             stake: 438.2,
@@ -362,10 +313,12 @@ export const ArbitrageOpportunities: React.FC = () => {
           discoveryTime: new Date(Date.now() - 90000),
           confidence: 0.91,
 
-          volume: {,`n  sideA: 567000,
+          volume: {
+,`n  sideA: 567000,
             sideB: 789000
           },
-          liquidity: {,`n  sideA: 0.88,
+          liquidity: {
+,`n  sideA: 0.88,
             sideB: 0.92
           },
 
@@ -446,7 +399,8 @@ const calculateArbitrage = useCallback(
 
     return {
       stake,
-      allocation: {,`n  sideA: stakeA,
+      allocation: {
+,`n  sideA: stakeA,
         sideB: stakeB
       },
       profit,
@@ -553,7 +507,8 @@ const exportData = useCallback(() => {
   const exportData = {
     timestamp: new Date().toISOString(),
     opportunities: filteredOpportunities,
-    summary: {,`n  totalOpportunities: opportunities.length,
+    summary: {
+,`n  totalOpportunities: opportunities.length,
       avgProfitMargin:
         opportunities.reduce((sum, opp) => sum + opp.profitMargin, 0) /
         opportunities.length,

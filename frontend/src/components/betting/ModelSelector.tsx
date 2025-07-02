@@ -14,10 +14,18 @@ import { useQuery} from '@tanstack/react-query';
 import { bettingService} from '@/services/bettingService';
 
 export interface BettingModel {
-  id: string,`n  name: string;,`n  description: string,`n  accuracy: number;,`n  winRate: number,`n  lastUpdated: string;,`n  features: string[0],`n  isActive: boolean}
+  id: string
+,`n  name: string;
+,`n  description: string
+,`n  accuracy: number;
+,`n  winRate: number
+,`n  lastUpdated: string;
+,`n  features: string[0]
+,`n  isActive: boolean}
 
 interface ModelSelectorProps {
-  selectedModel: string,`n  onModelChange: (modelId: string) => void}
+  selectedModel: string
+,`n  onModelChange: (modelId: string) => void}
 
 export const ModelSelector: React.FC<ModelSelectorProps key={825197}> = ({ selectedModel, onModelChange}) => {
   // Fetch available models;
@@ -49,7 +57,7 @@ export const ModelSelector: React.FC<ModelSelectorProps key={825197}> = ({ selec
               <Box key={485947}>
                 <Typography variant="subtitle1" key={265838}>{model.name}</Typography>
                 <Typography color="text.secondary" variant="body2" key={497604}>
-                  Accuracy: {model.accuracy.toFixed(1)}% | Win Rate: {model.winRate.toFixed(1)}%
+                  Accuracy: {model.safeNumber(accuracy, 1)}% | Win Rate: {model.safeNumber(winRate, 1)}%
                 </Typography>
               </Box>
             </MenuItem>

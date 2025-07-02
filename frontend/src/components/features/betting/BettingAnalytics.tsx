@@ -14,7 +14,9 @@ interface BettingAnalyticsProps {
   onOpportunitySelect?: (opportunity: BettingOpportunity) => void}
 
 interface PredictionFactor {
-  name: string,`n  impact: number;,`n  description: string}
+  name: string
+,`n  impact: number;
+,`n  description: string}
 
 export const BettingAnalytics: React.FC<BettingAnalyticsProps key={232088}> = ({
 //   onOpportunitySelect

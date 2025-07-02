@@ -62,8 +62,8 @@ export const ModelComparison: React.FC<ModelComparisonProps key={846325}> = ({ m
     if (type === 'percentage') {
       return `${(value * 100).toFixed(1)}%`}
     if (type === 'currency') {
-      return `$${value.toFixed(2)}`}
-    return value.toFixed(2)};
+      return `$${safeNumber(value, 2)}`}
+    return safeNumber(value, 2)};
 
   const getMetricType = (metric: MetricType): 'percentage' | 'currency' | 'number' => {
     switch (metric) {

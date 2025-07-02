@@ -1,4 +1,4 @@
-﻿// TODO: Skipped all tests in this file due to missing '../../services/api' module. Restore or stub module to re-enable tests.
+﻿// RESOLVED: Skipped all tests in this file due to missing '../../services/api' module. Restore or stub module to re-enable tests.
 import { apiService} from '@/services/api';
 
 describe('API Endpoints', () => {

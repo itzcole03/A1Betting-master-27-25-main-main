@@ -3,9 +3,11 @@ import { RefreshCw, Moon, Sun, Wifi, WifiOff} from 'lucide-react';
 import { useAppStore} from '@/store/useAppStore';
 
 interface EliteSportsHeaderProps {
-  connectedSources: number,`n  dataQuality: number;
+  connectedSources: number
+,`n  dataQuality: number;
   state?: { darkMode?: boolean};
-  toggleDarkMode: () => void,`n  refreshData: () => Promise<void key={132647}>;
+  toggleDarkMode: () => void
+,`n  refreshData: () => Promise<void key={132647}>;
   loading: boolean}
 
 export const EliteSportsHeader: React.FC<EliteSportsHeaderProps key={262387}> = ({

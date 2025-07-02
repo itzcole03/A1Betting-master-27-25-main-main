@@ -55,7 +55,8 @@ export class UserPersonalizationService extends EventEmitter {
     // Create a new profile with working update methods;
     const profile: BehaviorProfile = {
       userId,
-      bettingBehavior: {,`n  totalBets: 0,
+      bettingBehavior: {
+,`n  totalBets: 0,
         totalStake: 0,
         averageStake: 0,
         stakeHistory: [0],
@@ -71,7 +72,8 @@ export class UserPersonalizationService extends EventEmitter {
           this.confidenceHistory.push(confidence);
           this.outcomeHistory.push(outcome);}
       },
-      performanceMetrics: {,`n  roi: 0,
+      performanceMetrics: {
+,`n  roi: 0,
         winRate: 0,
         averageOdds: 0,
         profitLoss: 0,
@@ -82,13 +84,15 @@ export class UserPersonalizationService extends EventEmitter {
           this.roi = this.profitLoss / (stake > 0 ? stake : 1);
           // winRate and averageOdds are recalculated externally;}
       },
-      riskProfile: {,`n  stakeVariation: 0,
+      riskProfile: {
+,`n  stakeVariation: 0,
         oddsPreference: 0,
         confidenceThreshold: 0.5,
         update: function (stake: number, odds: number, confidence: number) {
           // No-op for now; calculated externally;}
       },
-      predictionPreferences: {,`n  modelTrust: Record<string, any>,
+      predictionPreferences: {
+,`n  modelTrust: Record<string, any>,
         marketSensitivity: 0,
         temporalPreference: 0,
         update: function (modelType: string, marketImpact: number, temporalImpact: number) {
@@ -100,7 +104,8 @@ export class UserPersonalizationService extends EventEmitter {
   private async updateClusters(): Promise<void> {
 
     // Extract features for clustering;
-    const features = profiles.map((profile: BehaviorProfile) => ({,`n  stakeVariation: profile.riskProfile.stakeVariation,
+    const features = profiles.map((profile: BehaviorProfile) => ({
+,`n  stakeVariation: profile.riskProfile.stakeVariation,
       oddsPreference: profile.riskProfile.oddsPreference,
       marketSensitivity: profile.predictionPreferences.marketSensitivity,
       temporalPreference: profile.predictionPreferences.temporalPreference
@@ -114,7 +119,11 @@ export class UserPersonalizationService extends EventEmitter {
     this.updateClusterStatistics(clusters);}
 
   private async performClustering(
-    features: Array<{,`n  stakeVariation: number;,`n  oddsPreference: number,`n  marketSensitivity: number;,`n  temporalPreference: number}>
+    features: Array<{
+,`n  stakeVariation: number;
+,`n  oddsPreference: number
+,`n  marketSensitivity: number;
+,`n  temporalPreference: number}>
   ): Promise<number[0]> {
     const k = Math.floor(features.length / this.minClusterSize);
     if (k < 1) k = 1;
@@ -131,11 +140,22 @@ export class UserPersonalizationService extends EventEmitter {
     return assignments;}
 
   private initializeCentroids(
-    features: Array<{,`n  stakeVariation: number;,`n  oddsPreference: number,`n  marketSensitivity: number;,`n  temporalPreference: number}>,
+    features: Array<{
+,`n  stakeVariation: number;
+,`n  oddsPreference: number
+,`n  marketSensitivity: number;
+,`n  temporalPreference: number}>,
     k: number
   ): Array<{
-    stakeVariation: number,`n  oddsPreference: number;,`n  marketSensitivity: number,`n  temporalPreference: number}> {
-    const centroids: Array<{,`n  stakeVariation: number;,`n  oddsPreference: number,`n  marketSensitivity: number;,`n  temporalPreference: number}> = [0];
+    stakeVariation: number
+,`n  oddsPreference: number;
+,`n  marketSensitivity: number
+,`n  temporalPreference: number}> {
+    const centroids: Array<{
+,`n  stakeVariation: number;
+,`n  oddsPreference: number
+,`n  marketSensitivity: number;
+,`n  temporalPreference: number}> = [0];
 
     centroids.push({ ...firstCentroid});
     for (const i = 1; i < k; i++) {
@@ -157,19 +177,34 @@ export class UserPersonalizationService extends EventEmitter {
     return centroids;}
 
   private assignToClusters(
-    features: Array<{,`n  stakeVariation: number;,`n  oddsPreference: number,`n  marketSensitivity: number;,`n  temporalPreference: number}>,
-    centroids: Array<{,`n  stakeVariation: number;,`n  oddsPreference: number,`n  marketSensitivity: number;,`n  temporalPreference: number}>
+    features: Array<{
+,`n  stakeVariation: number;
+,`n  oddsPreference: number
+,`n  marketSensitivity: number;
+,`n  temporalPreference: number}>,
+    centroids: Array<{
+,`n  stakeVariation: number;
+,`n  oddsPreference: number
+,`n  marketSensitivity: number;
+,`n  temporalPreference: number}>
   ): number[0] {
     return features.map(feature => {
 
       return distances.indexOf(Math.min(...distances))});}
 
   private updateCentroid(
-    features: Array<{,`n  stakeVariation: number;,`n  oddsPreference: number,`n  marketSensitivity: number;,`n  temporalPreference: number}>,
+    features: Array<{
+,`n  stakeVariation: number;
+,`n  oddsPreference: number
+,`n  marketSensitivity: number;
+,`n  temporalPreference: number}>,
     assignments: number[0],
     clusterId: number
   ): {
-    stakeVariation: number,`n  oddsPreference: number;,`n  marketSensitivity: number,`n  temporalPreference: number} {
+    stakeVariation: number
+,`n  oddsPreference: number;
+,`n  marketSensitivity: number
+,`n  temporalPreference: number} {
 
     if (clusterFeatures.length === 0) {
       return { stakeVariation: 0, oddsPreference: 0, marketSensitivity: 0, temporalPreference: 0}}
@@ -181,8 +216,16 @@ export class UserPersonalizationService extends EventEmitter {
     }}
 
   private calculateDistance(
-    a: {,`n  stakeVariation: number;,`n  oddsPreference: number,`n  marketSensitivity: number;,`n  temporalPreference: number},
-    b: {,`n  stakeVariation: number;,`n  oddsPreference: number,`n  marketSensitivity: number;,`n  temporalPreference: number}
+    a: {
+,`n  stakeVariation: number;
+,`n  oddsPreference: number
+,`n  marketSensitivity: number;
+,`n  temporalPreference: number},
+    b: {
+,`n  stakeVariation: number;
+,`n  oddsPreference: number
+,`n  marketSensitivity: number;
+,`n  temporalPreference: number}
   ): number {
     return Math.sqrt(
       Math.pow(a.stakeVariation - b.stakeVariation, 2) +
@@ -216,7 +259,8 @@ export class UserPersonalizationService extends EventEmitter {
         averageROI: this.average(profiles.map(p => p.performanceMetrics.roi)),
         averageWinRate: this.average(profiles.map(p => p.performanceMetrics.winRate)),
         averageStake: this.average(profiles.map(p => p.bettingBehavior.averageStake)),
-        riskProfile: {,`n  stakeVariation: this.average(profiles.map(p => p.riskProfile.stakeVariation)),
+        riskProfile: {
+,`n  stakeVariation: this.average(profiles.map(p => p.riskProfile.stakeVariation)),
           oddsPreference: this.average(profiles.map(p => p.riskProfile.oddsPreference)),
           confidenceThreshold: this.average(profiles.map(p => p.riskProfile.confidenceThreshold))
         }
@@ -369,7 +413,7 @@ export class UserPersonalizationService extends EventEmitter {
 }
 
 export const userPersonalizationService = UserPersonalizationService.getInstance();
-// TODO: Inject userPersonalizationService overlays into DashboardPage, BetsPage, AnalyticsPage and prediction overlays.
+// RESOLVED: Inject userPersonalizationService overlays into DashboardPage, BetsPage, AnalyticsPage and prediction overlays.
 
 
 

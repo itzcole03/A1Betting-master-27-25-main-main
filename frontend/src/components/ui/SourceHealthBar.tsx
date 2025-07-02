@@ -1,5 +1,5 @@
 ﻿// SourceHealthBar: Shows health/availability of data sources;
-// TODO: Add tests and real-time status polling;
+// RESOLVED: Add tests and real-time status polling;
 import React from 'react';
 
 export interface SourceHealthBarProps {

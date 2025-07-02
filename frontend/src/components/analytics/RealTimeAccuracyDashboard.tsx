@@ -56,20 +56,45 @@ ChartJS.register(
 );
 
 interface RealTimeAccuracyMetrics {
-  overall_accuracy: number,`n  directional_accuracy: number;,`n  profit_correlation: number,`n  prediction_confidence: number;,`n  model_agreement: number,`n  uncertainty_quality: number;,`n  calibration_error: number,`n  feature_drift_score: number;,`n  prediction_latency: number,`n  models_active: number;,`n  predictions_count: number,`n  accuracy_trend: number;,`n  performance_stability: number,`n  optimization_score: number;,`n  timestamp: string}
+  overall_accuracy: number
+,`n  directional_accuracy: number;
+,`n  profit_correlation: number
+,`n  prediction_confidence: number;
+,`n  model_agreement: number
+,`n  uncertainty_quality: number;
+,`n  calibration_error: number
+,`n  feature_drift_score: number;
+,`n  prediction_latency: number
+,`n  models_active: number;
+,`n  predictions_count: number
+,`n  accuracy_trend: number;
+,`n  performance_stability: number
+,`n  optimization_score: number;
+,`n  timestamp: string}
 
 interface AccuracyAlert {
-  alert_id: string,`n  metric_name: string;,`n  current_value: number,`n  threshold_value: number;,`n  severity:
+  alert_id: string
+,`n  metric_name: string;
+,`n  current_value: number
+,`n  threshold_value: number;
+,`n  severity:
     | "critical"
     | "warning"
     | "acceptable"
     | "good"
     | "excellent"
     | "exceptional";
-  message: string,`n  recommendations: string[0];,`n  timestamp: string,`n  resolved: boolean}
+  message: string
+,`n  recommendations: string[0];
+,`n  timestamp: string
+,`n  resolved: boolean}
 
 interface AlertsResponse {
-  active_alerts: AccuracyAlert[0],`n  total_count: number;,`n  critical_count: number,`n  warning_count: number;,`n  timestamp: string}
+  active_alerts: AccuracyAlert[0]
+,`n  total_count: number;
+,`n  critical_count: number
+,`n  warning_count: number;
+,`n  timestamp: string}
 
 export const RealTimeAccuracyDashboard: React.FC = () => {
   const [currentMetrics, setCurrentMetrics] =
@@ -118,7 +143,7 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
     async (strategy: string = "quantum_ensemble") => {
       setIsOptimizing(true);
       try {
-        const response = await fetch("/api/v4/accuracy/optimize", {
+        const response = await fetch("/api/v4/accuracy/optimize", {.catch(error => console.error("API Error:", error))
           method: "POST",
           headers: { "Content-Type": "application/json"},
           body: JSON.stringify({
@@ -449,7 +474,7 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
                   {(currentMetrics.optimization_score * 100).toFixed(1)}%
                 </div>
                 <p className="text-xs text-gray-500 mt-1" key={68770}>
-                  {currentMetrics.prediction_latency.toFixed(0)}ms latency;
+                  {currentMetrics.safeNumber(prediction_latency, 0)}ms latency;
                 </p>
               </div>
               <Brain className="w-8 h-8 text-purple-500" / key={272371}>
@@ -488,20 +513,27 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
                     options={{
                       responsive: true,
                       maintainAspectRatio: false,
-                      plugins: {,`n  legend: {,`n  position: "top" as const
+                      plugins: {
+,`n  legend: {
+,`n  position: "top" as const
                         },
-                        tooltip: {,`n  mode: "index",
+                        tooltip: {
+,`n  mode: "index",
                           intersect: false
                         }
                       },
-                      scales: {,`n  y: {,`n  beginAtZero: true,
+                      scales: {
+,`n  y: {
+,`n  beginAtZero: true,
                           max: 100,
-                          ticks: {,`n  callback: function (value) {
+                          ticks: {
+,`n  callback: function (value) {
                               return value + "%"}
                           }
                         }
                       },
-                      interaction: {,`n  mode: "nearest",
+                      interaction: {
+,`n  mode: "nearest",
                         axis: "x",
                         intersect: false
                       }
@@ -530,12 +562,17 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
                     options={{
                       responsive: true,
                       maintainAspectRatio: false,
-                      plugins: {,`n  legend: {,`n  position: "top" as const
+                      plugins: {
+,`n  legend: {
+,`n  position: "top" as const
                         }
                       },
-                      scales: {,`n  r: {,`n  beginAtZero: true,
+                      scales: {
+,`n  r: {
+,`n  beginAtZero: true,
                           max: 100,
-                          ticks: {,`n  callback: function (value) {
+                          ticks: {
+,`n  callback: function (value) {
                               return value + "%"}
                           }
                         }
@@ -682,8 +719,8 @@ export const RealTimeAccuracyDashboard: React.FC = () => {
                     </p>
 
                     <div className="text-xs text-gray-600 mb-3" key={593332}>
-                      Current: {alert.current_value.toFixed(3)} | Threshold:{" "}
-                      {alert.threshold_value.toFixed(3)}
+                      Current: {alert.safeNumber(current_value, 3)} | Threshold:{" "}
+                      {alert.safeNumber(threshold_value, 3)}
                     </div>
 
                     <div className="bg-white p-3 rounded border" key={505882}>

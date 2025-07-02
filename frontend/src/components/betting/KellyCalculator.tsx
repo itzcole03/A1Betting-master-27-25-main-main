@@ -68,7 +68,7 @@ const KellyCalculator: React.FC<KellyCalculatorProps key={279049}> = ({
 
       <div className="text-sm text-gray-500" key={826371}>
         <p key={161203}>
-          The Kelly Criterion suggests betting {kellyValue.toFixed(3)} of your bankroll based on the;
+          The Kelly Criterion suggests betting {safeNumber(kellyValue, 3)} of your bankroll based on the;
           prediction confidence and market edge. This is a{' '}
           <span className={getRiskColor(kellyValue)} key={611765}>{getRiskLevel(kellyValue)}</span> bet size.
         </p>

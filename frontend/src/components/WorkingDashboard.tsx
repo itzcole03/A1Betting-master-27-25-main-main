@@ -1,27 +1,37 @@
-﻿import { BettingOpportunity} from '@/types/betting';
-import { motion} from 'framer-motion';
+﻿import { ProductionApiService } from '@/services/ProductionApiService';
+import { BettingOpportunity } from '@/types/betting';
+import { motion } from 'framer-motion';
 import {
-  Atom,
-  BarChart3,
-  Brain,
-  Cpu,
-  DollarSign,
-  Minus,
-  Shield,
-  TrendingDown,
-  TrendingUp,
-  Trophy,
-  Users,
-//   Zap
+    Atom,
+    BarChart3,
+    Brain,
+    Cpu,
+    DollarSign,
+    Minus,
+    Shield,
+    TrendingDown,
+    TrendingUp,
+    Trophy,
+    Users,
 } from 'lucide-react';
-import React, { useEffect, useState} from 'react';
-import { BettingDataSource} from './betting/BettingDataSource';
+import React, { useEffect, useState } from 'react';
+import { BettingDataSource } from './betting/BettingDataSource';
 
 interface WorkingDashboardProps {
   onNavigate: (page: string) => void}
 
 interface RealTimeData {
-  liveGames: number,`n  predictions: number;,`n  accuracy: number,`n  profit: number;,`n  neuralActivity: number,`n  quantumCoherence: number;,`n  dataPoints: number,`n  processingSpeed: number;,`n  confidence: number,`n  activeBots: number;,`n  winStreak: number}
+  liveGames: number
+,`n  predictions: number;
+,`n  accuracy: number
+,`n  profit: number;
+,`n  neuralActivity: number
+,`n  quantumCoherence: number;
+,`n  dataPoints: number
+,`n  processingSpeed: number;
+,`n  confidence: number
+,`n  activeBots: number;
+,`n  winStreak: number}
 
 // Enhanced UI Components - Exact matches from poe-preview(8).html
 const Button = ({
@@ -34,7 +44,8 @@ const Button = ({
   disabled = false,
   loading = false
 }: {
-  label: string,`n  onClick: () => void;
+  label: string
+,`n  onClick: () => void;
   variant?: 'primary' | 'secondary' | 'success' | 'danger' | 'ghost' | 'neural';
   className?: string
   icon?: React.ReactNode;
@@ -64,7 +75,8 @@ const Button = ({
   return (
     <button onClick={onClick}
       disabled={disabled || loading}
-      className={`${sizes[size]} rounded-2xl font-bold transition-all duration-300 flex items-center justify-center space-x-2 ${variants[variant]} ${disabled || loading ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}>`n    >
+      className={`${sizes[size]} rounded-2xl font-bold transition-all duration-300 flex items-center justify-center space-x-2 ${variants[variant]} ${disabled || loading ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}
+>`n    >
       {loading && (
         <div className='w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin' />
       )}
@@ -116,7 +128,9 @@ const MetricCard = ({
   live = false,
   variant = 'default'
 }: {
-  label: string,`n  value: string | number;,`n  icon: React.ReactNode;
+  label: string
+,`n  value: string | number;
+,`n  icon: React.ReactNode;
   change?: string
   trend?: 'up' | 'down' | 'stable';
   live?: boolean
@@ -140,14 +154,16 @@ const MetricCard = ({
   };
 
   return (
-    <div className={`${variants[variant]} rounded-2xl p-6 text-center hover:shadow-neon transition-all duration-500 transform hover:scale-105 hover:rotate-1`}>`n    >
+    <div className={`${variants[variant]} rounded-2xl p-6 text-center hover:shadow-neon transition-all duration-500 transform hover:scale-105 hover:rotate-1`}
+>`n    >
       <div className='relative mb-4'>
         <div className='absolute inset-0 bg-electric-400/20 rounded-full blur-xl' />
         <div className={`relative text-4xl text-electric-400 ${live ? 'brain-pulse' : ''}`}>
           {icon}
         </div>
       </div>
-      <div className={`text-3xl font-black mb-2 text-white font-cyber ${live ? 'animate-cyber-pulse' : ''}`}>`n      >
+      <div className={`text-3xl font-black mb-2 text-white font-cyber ${live ? 'animate-cyber-pulse' : ''}`}
+>`n      >
         {value}
       </div>
       <div className='text-gray-400 text-sm mb-3 uppercase tracking-wider'>{label}</div>
@@ -182,7 +198,7 @@ const WorkingDashboard: React.FC<WorkingDashboardProps> = ({ onNavigate}) => {
       try {
         // Try multiple backend URLs
         const backendUrls = [
-          'http://localhost:8000',
+          '${process.env.REACT_APP_API_URL || "http://localhost:8000"}',
           '', // Relative URL for proxy
           window.location.origin.replace(/:\d+/, ':8000'), // Dynamic port
         ];
@@ -193,8 +209,8 @@ const WorkingDashboard: React.FC<WorkingDashboardProps> = ({ onNavigate}) => {
         for (const baseUrl of backendUrls) {
           try {
             const [healthResponse, analyticsResponse] = await Promise.all([
-              fetch(`${baseUrl}/api/health/all`),
-              fetch(`${baseUrl}/api/analytics/advanced`),
+              ProductionApiService.getHealthData(baseUrl),
+              ProductionApiService.getAnalyticsData(baseUrl),
             ]);
 
             if (healthResponse.ok && analyticsResponse.ok) {
@@ -231,7 +247,7 @@ const WorkingDashboard: React.FC<WorkingDashboardProps> = ({ onNavigate}) => {
           winStreak: analyticsData.performance_analytics?.sport_breakdown?.NBA?.volume || 0
         });
         setLoading(false)} catch (error) {
-        console.error('Failed to fetch real-time data:', error);
+//         console.error('Failed to fetch real-time data:', error);
         setLoading(false)}
     };
 
@@ -260,11 +276,13 @@ const WorkingDashboard: React.FC<WorkingDashboardProps> = ({ onNavigate}) => {
           </p>
         </div>
         <div className='flex space-x-4'>
-          <Button label='System Status'>`n            icon={<Shield size={18} />}
+          <Button label='System Status'
+>`n            icon={<Shield size={18} />}
             variant='secondary'
             onClick={() => onNavigate('monitor')}
           />
-          <Button label='Analytics'>`n            icon={<BarChart3 size={18} />}
+          <Button label='Analytics'
+>`n            icon={<BarChart3 size={18} />}
             onClick={() => onNavigate('analytics')}
           />
         </div>
@@ -273,31 +291,37 @@ const WorkingDashboard: React.FC<WorkingDashboardProps> = ({ onNavigate}) => {
       {/* Key Metrics */}
       <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6'>
         <MetricCard label='Neural Activity'
-          value={`${isNaN(Number(realTimeData?.neuralActivity)) ? 'N/A' : Number(realTimeData?.neuralActivity).toFixed(1)}%`}>`n          icon={<Brain size={28} />}
+          value={`${isNaN(Number(realTimeData?.neuralActivity)) ? 'N/A' : Number(realTimeData?.neuralActivity).toFixed(1)}%`}
+>`n          icon={<Brain size={28} />}
           variant='neural'
 //           live
         />
         <MetricCard label='Quantum Coherence'
-          value={`${isNaN(Number(realTimeData?.quantumCoherence)) ? 'N/A' : Number(realTimeData?.quantumCoherence).toFixed(2)}%`}>`n          icon={<Atom size={28} />}
+          value={`${isNaN(Number(realTimeData?.quantumCoherence)) ? 'N/A' : Number(realTimeData?.quantumCoherence).toFixed(2)}%`}
+>`n          icon={<Atom size={28} />}
           variant='quantum'
 //           live
         />
         <MetricCard label='Profit'
-          value={`$${isNaN(Number(realTimeData?.profit)) ? 'N/A' : (Number(realTimeData?.profit) / 1000).toFixed(1)}k`}>`n          icon={<DollarSign size={28} />}
+          value={`$${isNaN(Number(realTimeData?.profit)) ? 'N/A' : (Number(realTimeData?.profit) / 1000).toFixed(1)}k`}
+>`n          icon={<DollarSign size={28} />}
           change='+2.4% DoD'
           variant='profit'
         />
         <MetricCard label='Win Rate'
-          value={`${isNaN(Number(realTimeData?.accuracy)) ? 'N/A' : Number(realTimeData?.accuracy).toFixed(1)}%`}>`n          icon={<Trophy size={28} />}
+          value={`${isNaN(Number(realTimeData?.accuracy)) ? 'N/A' : Number(realTimeData?.accuracy).toFixed(1)}%`}
+>`n          icon={<Trophy size={28} />}
           change='+0.2% WoW'
         />
         <MetricCard label='Active Bots'
-          value={realTimeData?.activeBots || 0}>`n          icon={<Cpu size={28} />}
+          value={realTimeData?.activeBots || 0}
+>`n          icon={<Cpu size={28} />}
           change='Stable'
           trend='stable'
         />
         <MetricCard label='Live Predictions'
-          value={(realTimeData?.predictions || 0).toLocaleString()}>`n          icon={<Zap size={28} />}
+          value={(realTimeData?.predictions || 0).toLocaleString()}
+>`n          icon={<Zap size={28} />}
           change='+12% DoD'
         />
       </div>
@@ -321,19 +345,23 @@ const WorkingDashboard: React.FC<WorkingDashboardProps> = ({ onNavigate}) => {
         <div className='space-y-8'>
           <Card title='Quick Actions' variant='neural'>
             <div className='grid grid-cols-2 gap-4'>
-              <Button label='PrizePicks Pro'>`n                onClick={() => onNavigate('prizepicks')}
+              <Button label='PrizePicks Pro'
+>`n                onClick={() => onNavigate('prizepicks')}
                 variant='ghost'
                 icon={<Trophy size={16} />}
               />
-              <Button label='Money Maker'>`n                onClick={() => onNavigate('moneymaker')}
+              <Button label='Money Maker'
+>`n                onClick={() => onNavigate('moneymaker')}
                 variant='ghost'
                 icon={<DollarSign size={16} />}
               />
-              <Button label='Prop Ollama'>`n                onClick={() => onNavigate('propollama')}
+              <Button label='Prop Ollama'
+>`n                onClick={() => onNavigate('propollama')}
                 variant='ghost'
                 icon={<Brain size={16} />}
               />
-              <Button label='Lineups'>`n                onClick={() => onNavigate('lineups')}
+              <Button label='Lineups'
+>`n                onClick={() => onNavigate('lineups')}
                 variant='ghost'
                 icon={<Users size={16} />}
               />

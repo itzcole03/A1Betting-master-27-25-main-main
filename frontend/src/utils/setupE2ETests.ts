@@ -9,7 +9,16 @@ class MockWebSocket implements WebSocket {
   static CLOSING = 2;
   static CLOSED = 3;
 
-  binaryType: BinaryType = 'blob',`n  bufferedAmount: number = 0;,`n  extensions: string = '',`n  protocol: string = '';,`n  readyState: number = MockWebSocket.CONNECTING,`n  url: string;,`n  onopen: ((this: WebSocket, ev: Event) => void) | null = null,`n  onclose: ((this: WebSocket, ev: CloseEvent) => void) | null = null,`n  onmessage: ((this: WebSocket, ev: MessageEvent<unknown>) => void) | null = null,`n  onerror: ((this: WebSocket, ev: Event) => void) | null = null;
+  binaryType: BinaryType = 'blob'
+,`n  bufferedAmount: number = 0;
+,`n  extensions: string = ''
+,`n  protocol: string = '';
+,`n  readyState: number = MockWebSocket.CONNECTING
+,`n  url: string;
+,`n  onopen: ((this: WebSocket, ev: Event) => void) | null = null
+,`n  onclose: ((this: WebSocket, ev: CloseEvent) => void) | null = null
+,`n  onmessage: ((this: WebSocket, ev: MessageEvent<unknown>) => void) | null = null
+,`n  onerror: ((this: WebSocket, ev: Event) => void) | null = null;
 
   constructor(url: string) {
     this.url = url;
@@ -103,7 +112,8 @@ global.ResizeObserver = MockResizeObserver as unknown as typeof ResizeObserver;
 // Mock window.matchMedia;
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: jest.fn().mockImplementation((query: unknown) => ({,`n  matches: false,
+  value: jest.fn().mockImplementation((query: unknown) => ({
+,`n  matches: false,
     media: query,
     onchange: null,
     addListener: jest.fn(),
@@ -147,8 +157,8 @@ Object.defineProperty(window, 'sessionStorage', { value: sessionStorageMock});
 delete (window as unknown as { location: unknown}).location;
 window.location = {
   ...originalLocation,
-  href: 'http://localhost:3000',
-  origin: 'http://localhost:3000',
+  href: '${process.env.REACT_APP_API_URL || "http://localhost:8000"}',
+  origin: '${process.env.REACT_APP_API_URL || "http://localhost:8000"}',
   protocol: 'http:',
   host: 'localhost:3000',
   hostname: 'localhost',
@@ -198,7 +208,7 @@ window.navigator = {
 // Suppress console errors during tests;
 
 beforeAll(() => {
-  console.error = (..._args: unknown[0]) => {
+//   console.error = (..._args: unknown[0]) => {
     if (
       typeof args[0] === 'string' &&
       args[0].includes('Warning: ReactDOM.render is no longer supported')
@@ -207,7 +217,7 @@ beforeAll(() => {
     originalError.call(console, ...args)};});
 
 afterAll(() => {
-  console.error = originalError;});
+//   console.error = originalError;});
 
 
 

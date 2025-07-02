@@ -1,7 +1,13 @@
 ﻿import React, { useState, useEffect} from 'react';
 
 interface SystemMetrics {
-  cpuUsage: number,`n  memoryUsage: number;,`n  diskUsage: number,`n  apiResponseTime: number;,`n  activeUsers: number,`n  errorRate: number;,`n  uptime: string}
+  cpuUsage: number
+,`n  memoryUsage: number;
+,`n  diskUsage: number
+,`n  apiResponseTime: number;
+,`n  activeUsers: number
+,`n  errorRate: number;
+,`n  uptime: string}
 
 const MonitoringDashboard: React.FC = () => {
   const [metrics, setMetrics] = useState<SystemMetrics | null>(null);
@@ -11,7 +17,7 @@ const MonitoringDashboard: React.FC = () => {
   useEffect(() => {
     const fetchMetrics = async () => {
       try {
-        const response = await fetch('/api/monitoring/metrics');
+        const response = await fetch('/api/monitoring/metrics');.catch(error => console.error("API Error:", error))
         if (!response.ok) throw new Error('Failed to fetch metrics');
         const data = await response.json();
         setMetrics(data);

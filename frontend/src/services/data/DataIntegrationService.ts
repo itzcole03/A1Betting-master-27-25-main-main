@@ -6,15 +6,18 @@ import ApiService from '../api/ApiService';
 
 export interface PlayerStats {
   // Define structure based on backend response
-  playerId: string,`n  stats: Record<string, any>}
+  playerId: string
+,`n  stats: Record<string, any>}
 
 export interface GameOdds {
   // Define structure based on backend response
-  gameId: string,`n  odds: any[0]}
+  gameId: string
+,`n  odds: any[0]}
 
 export interface InjuryReport {
   // Define structure based on backend response
-  playerId: string,`n  report: any}
+  playerId: string
+,`n  report: any}
 
 class DataIntegrationService {
   /**
@@ -29,7 +32,7 @@ class DataIntegrationService {
         params: { source, limit}
       });
       return headlines;} catch (error) {
-      console.error('Error fetching news headlines:', error);
+//       console.error('Error fetching news headlines:', error);
       return [0]; // Return empty array on error}
   }
 
@@ -42,7 +45,7 @@ class DataIntegrationService {
     try {
       const stats = await ApiService.get<PlayerStats>(`/api/v1/data/stats/player/${playerId}`);
       return stats;} catch (error) {
-      console.error(`Error fetching stats for player ${playerId}:`, error);
+//       console.error(`Error fetching stats for player ${playerId}:`, error);
       return null;}
   }
 
@@ -55,7 +58,7 @@ class DataIntegrationService {
     try {
       const odds = await ApiService.get<GameOdds>(`/api/v1/data/odds/game/${gameId}`);
       return odds;} catch (error) {
-      console.error(`Error fetching odds for game ${gameId}:`, error);
+//       console.error(`Error fetching odds for game ${gameId}:`, error);
       return null;}
   }
 
@@ -68,7 +71,7 @@ class DataIntegrationService {
     try {
       const reports = await ApiService.get<InjuryReport[0]>('/api/v1/data/injuries', { team});
       return reports;} catch (error) {
-      console.error('Error fetching injury reports:', error);
+//       console.error('Error fetching injury reports:', error);
       return [0];}
   }}
 

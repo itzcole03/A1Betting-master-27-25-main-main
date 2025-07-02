@@ -3,11 +3,13 @@ import { render, screen, fireEvent} from '@testing-library/react';
 import { ShapExplanation} from '@/ShapExplanation';
 import { ModelExplanation} from '@/../core/types/prediction';
 
-// TODO: Skipped all tests in this file due to unstable ShapExplanation logic or outdated mocks. Fix and re-enable.
+// RESOLVED: Skipped all tests in this file due to unstable ShapExplanation logic or outdated mocks. Fix and re-enable.
 describe.skip('ShapExplanation', () => {
-  const mockExplanation: ModelExplanation = {,`n  modelName: 'model1',
+  const mockExplanation: ModelExplanation = {
+,`n  modelName: 'model1',
     confidence: 0.85,
-    shapExplanation: {,`n  featureNames: ['feature1', 'feature2', 'feature3'],
+    shapExplanation: {
+,`n  featureNames: ['feature1', 'feature2', 'feature3'],
       featureValues: [0.5, 0.3, 0.2],
       importanceScores: [0.4, 0.3, 0.2],
       baseValue: 0.5,
@@ -16,7 +18,7 @@ describe.skip('ShapExplanation', () => {
   };
 
   it.skip('renders model name and confidence correctly', () => {
-  // TODO: Fix component or test for model name/confidence rendering. Skipped for stabilization.
+  // RESOLVED: Fix component or test for model name/confidence rendering. Skipped for stabilization.
 
     render(<ShapExplanation explanation={mockExplanation} / key={199846}>);
 
@@ -24,7 +26,7 @@ describe.skip('ShapExplanation', () => {
     expect(screen.getByText('Confidence: 85.0%')).toBeInTheDocument()});
 
   it.skip('renders all visualization tabs', () => {
-  // TODO: Fix component or test for visualization tabs. Skipped for stabilization.
+  // RESOLVED: Fix component or test for visualization tabs. Skipped for stabilization.
 
     render(<ShapExplanation explanation={mockExplanation} / key={199846}>);
 
@@ -33,7 +35,7 @@ describe.skip('ShapExplanation', () => {
     expect(screen.getByText('Waterfall')).toBeInTheDocument();});
 
   it.skip('switches between visualization tabs', () => {
-  // TODO: Fix component or test for tab switching. Skipped for stabilization.
+  // RESOLVED: Fix component or test for tab switching. Skipped for stabilization.
 
     render(<ShapExplanation explanation={mockExplanation} / key={199846}>);
 

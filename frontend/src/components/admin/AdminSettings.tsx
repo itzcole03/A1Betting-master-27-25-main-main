@@ -29,13 +29,31 @@ interface AdminSettingsProps {
   onNavigate?: (page: string) => void}
 
 interface ModelSettings {
-  modelType: string,`n  confidenceThreshold: number;,`n  kellyThreshold: number,`n  maxBetPercentage: number;,`n  stopLossPercentage: number,`n  takeProfitPercentage: number;,`n  maxDailyBets: number,`n  autoRebalance: boolean;,`n  riskLevel: "conservative" | "moderate" | "aggressive"}
+  modelType: string
+,`n  confidenceThreshold: number;
+,`n  kellyThreshold: number
+,`n  maxBetPercentage: number;
+,`n  stopLossPercentage: number
+,`n  takeProfitPercentage: number;
+,`n  maxDailyBets: number
+,`n  autoRebalance: boolean;
+,`n  riskLevel: "conservative" | "moderate" | "aggressive"}
 
 interface ApiKeys {
-  sportsRadar: string,`n  theOddsApi: string;,`n  openAI: string,`n  anthropic: string}
+  sportsRadar: string
+,`n  theOddsApi: string;
+,`n  openAI: string
+,`n  anthropic: string}
 
 interface SystemSettings {
-  cacheSize: number,`n  maxConnections: number;,`n  rateLimitPerMinute: number,`n  enableLogging: boolean;,`n  debugMode: boolean,`n  enableMetrics: boolean;,`n  autoBackup: boolean,`n  backupInterval: number}
+  cacheSize: number
+,`n  maxConnections: number;
+,`n  rateLimitPerMinute: number
+,`n  enableLogging: boolean;
+,`n  debugMode: boolean
+,`n  enableMetrics: boolean;
+,`n  autoBackup: boolean
+,`n  backupInterval: number}
 
 export const AdminSettings: React.FC<AdminSettingsProps key={999593}> = ({ onNavigate}) => {
   const { theme, setTheme} = useTheme();
@@ -46,9 +64,13 @@ export const AdminSettings: React.FC<AdminSettingsProps key={999593}> = ({ onNav
 
     style.textContent = `
       * {
-        color: white !important,`n  opacity: 1 !important;,`n  visibility: visible !important}
+        color: white !important
+,`n  opacity: 1 !important;
+,`n  visibility: visible !important}
       h1, h2, h3, h4, h5, h6, p, span, label, div {
-        color: white !important,`n  opacity: 1 !important;,`n  visibility: visible !important;
+        color: white !important
+,`n  opacity: 1 !important;
+,`n  visibility: visible !important;
         background-clip: border-box !important}
       .text-transparent {
         color: white !important}

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Brain, TrendingUp, Shield, Target, AlertTriangle, CheckCircle } from 'lucide-react';
+import { AlertTriangle, Brain, CheckCircle, Shield, Target, TrendingUp } from 'lucide-react';
+import { safeNumber } from '../../../../frontend/src/utils/UniversalUtils';
 
 interface PredictionQualityIndicatorProps {
   quality: number;
@@ -58,7 +58,7 @@ export function PredictionQualityIndicator({
         <div className="flex items-center justify-between mb-2">
           <span className="font-semibold text-purple-700 dark:text-purple-300">Overall Prediction Score</span>
           <span className={`font-bold text-2xl ${getQualityColor(overallScore).split(' ')[0]}`}>
-            {(overallScore * 100).toFixed(1)}%
+            {safeNumber(overallScore * 100).toFixed(1)}%
           </span>
         </div>
         <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
@@ -80,7 +80,7 @@ export function PredictionQualityIndicator({
             <span className="font-medium text-gray-700 dark:text-gray-300">Data Quality</span>
           </div>
           <div className={`text-xl font-bold ${getQualityColor(quality).split(' ')[0]}`}>
-            {(quality * 100).toFixed(1)}%
+            {safeNumber(quality * 100).toFixed(1)}%
           </div>
           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-2">
             <div 
@@ -96,7 +96,7 @@ export function PredictionQualityIndicator({
             <span className="font-medium text-gray-700 dark:text-gray-300">Confidence</span>
           </div>
           <div className={`text-xl font-bold ${getQualityColor(confidence).split(' ')[0]}`}>
-            {(confidence * 100).toFixed(1)}%
+            {safeNumber(confidence * 100).toFixed(1)}%
           </div>
           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-2">
             <div 
@@ -112,7 +112,7 @@ export function PredictionQualityIndicator({
             <span className="font-medium text-gray-700 dark:text-gray-300">Model Consensus</span>
           </div>
           <div className={`text-xl font-bold ${getQualityColor(modelConsensus).split(' ')[0]}`}>
-            {(modelConsensus * 100).toFixed(1)}%
+            {safeNumber(modelConsensus * 100).toFixed(1)}%
           </div>
           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-2">
             <div 
@@ -128,7 +128,7 @@ export function PredictionQualityIndicator({
             <span className="font-medium text-gray-700 dark:text-gray-300">Data Reliability</span>
           </div>
           <div className={`text-xl font-bold ${getQualityColor(dataReliability).split(' ')[0]}`}>
-            {(dataReliability * 100).toFixed(1)}%
+            {safeNumber(dataReliability * 100).toFixed(1)}%
           </div>
           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-2">
             <div 
@@ -144,7 +144,7 @@ export function PredictionQualityIndicator({
             <span className="font-medium text-gray-700 dark:text-gray-300">Risk Score</span>
           </div>
           <div className={`text-xl font-bold ${getRiskColor(riskScore)}`}>
-            {(riskScore * 100).toFixed(1)}%
+            {safeNumber(riskScore * 100).toFixed(1)}%
           </div>
           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-2">
             <div 
@@ -185,10 +185,10 @@ export function PredictionQualityIndicator({
                 <div className={`text-sm font-medium ${
                   factor.impact > 0 ? 'text-green-600' : 'text-red-600'
                 }`}>
-                  {factor.impact > 0 ? '+' : ''}{(factor.impact * 100).toFixed(1)}%
+                  {factor.impact > 0 ? '+' : ''}{safeNumber(factor.impact * 100).toFixed(1)}%
                 </div>
                 <div className="text-xs text-gray-500 dark:text-gray-400">
-                  {(factor.confidence * 100).toFixed(0)}% conf
+                  {safeNumber(factor.confidence * 100).toFixed(0)}% conf
                 </div>
               </div>
             </div>

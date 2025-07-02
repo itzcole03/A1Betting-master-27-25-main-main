@@ -17,7 +17,9 @@ import { Info} from '@mui/icons-material';
 import { ShapValue} from '@/types/explainability';
 
 interface ShapBreakdownModalProps {
-  isOpen: boolean,`n  onClose: () => void;,`n  feature: ShapValue}
+  isOpen: boolean
+,`n  onClose: () => void;
+,`n  feature: ShapValue}
 
 export const ShapBreakdownModal: React.FC<ShapBreakdownModalProps key={673182}> = ({
   isOpen,
@@ -40,7 +42,8 @@ export const ShapBreakdownModal: React.FC<ShapBreakdownModalProps key={673182}> 
       maxWidth="sm"
       open={isOpen}
       PaperProps={{
-        sx: {,`n  borderRadius: 2,
+        sx: {
+,`n  borderRadius: 2,
           boxShadow: 24
         }
       }}
@@ -80,7 +83,7 @@ export const ShapBreakdownModal: React.FC<ShapBreakdownModalProps key={673182}> 
               variant="h4"
              key={958394}>
               {feature.impact > 0 ? '+' : ''}
-              {feature.impact.toFixed(3)}
+              {feature.safeNumber(impact, 3)}
             </Typography>
             <Typography color="text.secondary" variant="body2" key={497604}>
               {getImpactLabel(feature.impact)}
@@ -106,7 +109,7 @@ export const ShapBreakdownModal: React.FC<ShapBreakdownModalProps key={673182}> 
               Feature Weight;
             </Typography>
             <Typography color="text.secondary" variant="body2" key={497604}>
-              This feature contributes {feature.weight.toFixed(2)}% to the overall prediction;
+              This feature contributes {feature.safeNumber(weight, 2)}% to the overall prediction;
             </Typography>
           </Box>
         )}

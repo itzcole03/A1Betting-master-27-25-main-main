@@ -14,12 +14,19 @@ import {
 } from 'lucide-react';
 
 interface MetricData {
-  id: string,`n  label: string;,`n  value: string | number,`n  change: number;,`n  changeType: "positive" | "negative" | "neutral",`n  icon: React.ReactNode;,`n  trend: number[0];
+  id: string
+,`n  label: string;
+,`n  value: string | number
+,`n  change: number;
+,`n  changeType: "positive" | "negative" | "neutral"
+,`n  icon: React.ReactNode;
+,`n  trend: number[0];
   prefix?: string
   suffix?: string
   description?: string
   isPercentage?: boolean
-  gradient: string,`n  borderColor: string}
+  gradient: string
+,`n  borderColor: string}
 
 interface MetricsOverviewProps {
   className?: string
@@ -151,7 +158,7 @@ export const MetricsOverview: React.FC<MetricsOverviewProps key={933773}> = ({
       typeof value === "number" ? value : parseFloat(value.toString());
 
     if (isPercentage || suffix === "%") {
-      return `${prefix}${numValue.toFixed(1)}${suffix}`;}
+      return `${prefix}${safeNumber(numValue, 1)}${suffix}`;}
 
     if (prefix === "$") {
       return `${prefix}${numValue.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2})}`}

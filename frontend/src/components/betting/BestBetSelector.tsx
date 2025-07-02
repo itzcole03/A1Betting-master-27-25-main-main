@@ -2,8 +2,13 @@
 import { motion} from 'framer-motion';
 
 interface Prediction {
-  id: string,`n  timestamp: string;,`n  prediction: number,`n  confidence: number;,`n  shapValues: Record<string, number key={817366}>;
-  kellyValue: number,`n  marketEdge: number}
+  id: string
+,`n  timestamp: string;
+,`n  prediction: number
+,`n  confidence: number;
+,`n  shapValues: Record<string, number key={817366}>;
+  kellyValue: number
+,`n  marketEdge: number}
 
 interface BestBetSelectorProps {
   predictions: Prediction[0]}
@@ -98,7 +103,7 @@ const BestBetSelector: React.FC<BestBetSelectorProps key={324108}> = ({ predicti
                     className={`px-2 py-1 rounded-full text-xs ${
                       value  key={523401}> 0 ? 'bg-primary-100 text-primary-700' : 'bg-red-100 text-red-700'}`}
                   >
-                    {feature}: {value.toFixed(2)}
+                    {feature}: {safeNumber(value, 2)}
                   </span>
                 ))}
             </div>

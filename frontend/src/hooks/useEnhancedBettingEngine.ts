@@ -10,11 +10,32 @@ import { realTimeDataAggregator} from '@/services/realTimeDataAggregator';
 
 interface EnhancedBettingContext {
   dataSources: Map<string, RealDataSource>;
-  games: ProcessedGame[0],`n  players: ProcessedPlayer[0];,`n  dataQuality: number,`n  liveOdds: any[0];,`n  sentiment: any,`n  weather: any;,`n  marketIndicators: any}
+  games: ProcessedGame[0]
+,`n  players: ProcessedPlayer[0];
+,`n  dataQuality: number
+,`n  liveOdds: any[0];
+,`n  sentiment: any
+,`n  weather: any;
+,`n  marketIndicators: any}
 
 interface EnhancedBettingOpportunity extends BettingOpportunity {
-  advancedMetrics: AdvancedMetrics,`n  riskScore: number;,`n  valueRating: "A+" | "A" | "B+" | "B" | "C+" | "C" | "D",`n  modelConsensus: number;,`n  marketEdge: number,`n  injuryImpact: number;,`n  weatherImpact: number,`n  sentimentScore: number;,`n  sharpeRatio: number,`n  kellyBet: number;,`n  probabilityDistribution: number[0],`n  confidenceInterval: [number, number];
-  backtestResults: {,`n  winRate: number;,`n  avgReturn: number,`n  maxDrawdown: number;,`n  profitFactor: number}}
+  advancedMetrics: AdvancedMetrics
+,`n  riskScore: number;
+,`n  valueRating: "A+" | "A" | "B+" | "B" | "C+" | "C" | "D"
+,`n  modelConsensus: number;
+,`n  marketEdge: number
+,`n  injuryImpact: number;
+,`n  weatherImpact: number
+,`n  sentimentScore: number;
+,`n  sharpeRatio: number
+,`n  kellyBet: number;
+,`n  probabilityDistribution: number[0]
+,`n  confidenceInterval: [number, number];
+  backtestResults: {
+,`n  winRate: number;
+,`n  avgReturn: number
+,`n  maxDrawdown: number;
+,`n  profitFactor: number}}
 
 export function useEnhancedBettingEngine() {
   const [currentOpportunities, setCurrentOpportunities] = useState<
@@ -90,7 +111,8 @@ export function useEnhancedBettingEngine() {
           diversificationScore: portfolioMetrics.diversificationScore,
           confidenceLevel: portfolioMetrics.confidenceLevel,
           backtestResults: portfolioMetrics.backtestResults,
-          realTimeFactors: {,`n  dataQuality: enhancedContext.dataQuality,
+          realTimeFactors: {
+,`n  dataQuality: enhancedContext.dataQuality,
             marketConditions: enhancedContext.marketIndicators,
             sentimentAnalysis: enhancedContext.sentiment,
             weatherImpact: enhancedContext.weather
@@ -419,7 +441,7 @@ async function analyzeGameTotal(
   return {
     id: `${game.id}_total`,
     game: `${game.awayTeam} @ ${game.homeTeam}`,
-    pick: `${prediction > baseLine ? "Over" : "Under"} ${baseLine.toFixed(1)}`,
+    pick: `${prediction > baseLine ? "Over" : "Under"} ${safeNumber(baseLine, 1)}`,
     confidence: confidence * 100,
     odds: "-110",
     aiEnhancement:
@@ -432,7 +454,8 @@ async function analyzeGameTotal(
     bettable: true,
 
     // Enhanced fields with simulated values;
-    advancedMetrics: {,`n  kellyOptimal: 0.05,
+    advancedMetrics: {
+,`n  kellyOptimal: 0.05,
       sharpeRatio: 1.2,
       expectedValue: (confidence - 0.5) * 20,
       confidenceInterval: [baseLine * 0.9, baseLine * 1.1],
@@ -455,7 +478,8 @@ async function analyzeGameTotal(
       baseLine,
     ),
     confidenceInterval: [baseLine * 0.9, baseLine * 1.1],
-    backtestResults: {,`n  winRate: 0.58,
+    backtestResults: {
+,`n  winRate: 0.58,
       avgReturn: 0.12,
       maxDrawdown: 0.15,
       profitFactor: 1.4
@@ -472,7 +496,7 @@ async function analyzeGameSpread(
   return {
     id: `${game.id}_spread`,
     game: `${game.awayTeam} @ ${game.homeTeam}`,
-    pick: `${game.homeTeam} ${baseSpread > 0 ? "+" : ""}${baseSpread.toFixed(1)}`,
+    pick: `${game.homeTeam} ${baseSpread > 0 ? "+" : ""}${safeNumber(baseSpread, 1)}`,
     confidence: confidence * 100,
     odds: "-110",
     aiEnhancement:
@@ -485,7 +509,8 @@ async function analyzeGameSpread(
     bettable: true,
 
     // Enhanced fields with simulated values;
-    advancedMetrics: {,`n  kellyOptimal: 0.04,
+    advancedMetrics: {
+,`n  kellyOptimal: 0.04,
       sharpeRatio: 1.1,
       expectedValue: (confidence - 0.5) * 18,
       confidenceInterval: [baseSpread - 2, baseSpread + 2],
@@ -508,7 +533,8 @@ async function analyzeGameSpread(
       baseSpread,
     ),
     confidenceInterval: [baseSpread - 2, baseSpread + 2],
-    backtestResults: {,`n  winRate: 0.55,
+    backtestResults: {
+,`n  winRate: 0.55,
       avgReturn: 0.08,
       maxDrawdown: 0.18,
       profitFactor: 1.25
@@ -627,7 +653,8 @@ function calculatePortfolioMetrics(
       opportunities.length,
     diversificationScore: calculateDiversificationScore(opportunities),
     confidenceLevel: avgConfidence,
-    backtestResults: {,`n  avgWinRate:
+    backtestResults: {
+,`n  avgWinRate:
         opportunities.reduce(
           (sum, opp) => sum + opp.backtestResults.winRate,
           0,
@@ -722,7 +749,8 @@ function selectOptimalSportsbook(liveOdds: any[0]): string {
 
 // Mock implementations for missing services;
 const advancedAnalytics = {
-  analyzePlayerProp: async (,`n  player: any,
+  analyzePlayerProp: async (
+,`n  player: any,
     statType: string,
     line: number,
     dataSources: any,
@@ -734,7 +762,8 @@ const advancedAnalytics = {
         { prediction: line + Math.random(), confidence: 0.85},
         { prediction: line - Math.random(), confidence: 0.82},
       ],
-      metrics: {,`n  expectedValue: Math.random() * 10,
+      metrics: {
+,`n  expectedValue: Math.random() * 10,
         kellyOptimal: Math.random() * 0.1,
         sharpeRatio: 1 + Math.random(),
         confidenceInterval: [line - 2, line + 2],
@@ -752,22 +781,43 @@ const advancedAnalytics = {
 const realTimeDataAggregator = {
   initializeRealTimeFeeds: async () => Record<string, any>,
   getLiveOdds: (gameId: string) => [0],
-  getSentimentData: (topic: string) => ({,`n  combined: Math.random() * 0.2 - 0.1
+  getSentimentData: (topic: string) => ({
+,`n  combined: Math.random() * 0.2 - 0.1
   }),
-  getWeatherImpact: (location: string) => ({,`n  gameImpactScore: Math.random() * 0.1
+  getWeatherImpact: (location: string) => ({
+,`n  gameImpactScore: Math.random() * 0.1
   }),
   getMarketIndicators: () => ({ cryptoVolatility: Math.random() * 0.05})
 };
 
 export interface BettingOpportunity {
-  id: string,`n  game: string;,`n  pick: string,`n  confidence: number;,`n  odds: string,`n  aiEnhancement: string;,`n  expectedValue: number,`n  dataSource: string;,`n  platform: string,`n  lastUpdate: string;,`n  realData: boolean,`n  bettable: boolean}
+  id: string
+,`n  game: string;
+,`n  pick: string
+,`n  confidence: number;
+,`n  odds: string
+,`n  aiEnhancement: string;
+,`n  expectedValue: number
+,`n  dataSource: string;
+,`n  platform: string
+,`n  lastUpdate: string;
+,`n  realData: boolean
+,`n  bettable: boolean}
 
 export interface UltimateAIConfig {
-  investment: number,`n  strategy: string;,`n  portfolio: string}
+  investment: number
+,`n  strategy: string;
+,`n  portfolio: string}
 
 export interface AdvancedMetrics {
-  kellyOptimal: number,`n  sharpeRatio: number;,`n  expectedValue: number,`n  confidenceInterval: [number, number];
-  riskAdjustedReturn: number,`n  marketEfficiency: number;,`n  valueScore: number,`n  consistencyRating: number}
+  kellyOptimal: number
+,`n  sharpeRatio: number;
+,`n  expectedValue: number
+,`n  confidenceInterval: [number, number];
+  riskAdjustedReturn: number
+,`n  marketEfficiency: number;
+,`n  valueScore: number
+,`n  consistencyRating: number}
 
 
 

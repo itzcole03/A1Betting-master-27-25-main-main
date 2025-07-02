@@ -83,7 +83,8 @@ export function EnhancedPrizePicks() {
       underConfidence: calculateConfidence(projection, "under"),
       expectedValue: projection.expected_value || 0,
       source: "PRIZEPICKS_REAL_DATA",
-      aiEnhancement: {,`n  valueRating: projection.value_rating,
+      aiEnhancement: {
+,`n  valueRating: projection.value_rating,
         kellyOptimal: projection.kelly_optimal,
         marketEdge: projection.expected_value / 100,
         riskScore: 1 - projection.confidence_score,
@@ -96,7 +97,8 @@ export function EnhancedPrizePicks() {
         steamMove: projection.steam_move,
         reverseLineMovement: projection.reverse_line_movement
       },
-      patternAnalysis: {,`n  overallStrength: projection.confidence_score || 0.8,
+      patternAnalysis: {
+,`n  overallStrength: projection.confidence_score || 0.8,
         seasonalTrends: calculateSeasonalTrends(projection),
         matchupAdvantage: calculateMatchupAdvantage(projection),
         recentPerformance: projection.recent_form || [0.5, 0.6, 0.7, 0.8, 0.9],
@@ -147,7 +149,8 @@ export function EnhancedPrizePicks() {
 //             statType
           }),
           source: "REAL_PLAYER_DATA_ENHANCED",
-          aiEnhancement: {,`n  valueRating: ["A+", "A", "B+", "B", "C+"][
+          aiEnhancement: {
+,`n  valueRating: ["A+", "A", "B+", "B", "C+"][
               Math.floor(DataGenerator.generateConfidence(player) / 20)
             ],
             kellyOptimal:
@@ -160,7 +163,8 @@ export function EnhancedPrizePicks() {
             injuryImpact: 0.02, // Low injury impact for active players;
             formTrend: DataGenerator.generateExpectedValue(player) / 500
           },
-          patternAnalysis: {,`n  overallStrength:
+          patternAnalysis: {
+,`n  overallStrength:
               DataGenerator.generateConfidence({ ...player, statType}) / 100
           }
         })});});
@@ -254,7 +258,8 @@ export function EnhancedPrizePicks() {
 
   const getBaseStatValue = (sport: string, statType: string): number => {
     const baseValues = {
-      NBA: {,`n  Points: 20,
+      NBA: {
+,`n  Points: 20,
         Rebounds: 8,
         Assists: 5,
         "3-Pointers Made": 2.5,
@@ -268,13 +273,15 @@ export function EnhancedPrizePicks() {
         "Receiving Yards": 60,
         Touchdowns: 1.5
       },
-      MLB: {,`n  Hits: 1.2,
+      MLB: {
+,`n  Hits: 1.2,
         RBIs: 1,
         Runs: 0.8,
         "Home Runs": 0.3,
         Strikeouts: 1.5
       },
-      NHL: {,`n  Goals: 0.8,
+      NHL: {
+,`n  Goals: 0.8,
         Assists: 1.2,
         Shots: 3.5,
         Points: 2
@@ -342,8 +349,8 @@ export function EnhancedPrizePicks() {
     // console statement removed,
       sports: Array.from(sports),
       entry: entryAmount,
-      avgConfidence: avgConfidence.toFixed(1),
-      totalEV: totalEV.toFixed(1),
+      avgConfidence: safeNumber(avgConfidence, 1),
+      totalEV: safeNumber(totalEV, 1),
       dataSource: selectedPropsArray[0]?.source || "Real Player Data"
     })};
 
@@ -703,7 +710,18 @@ const DataGenerator = {
 };
 
 export interface PlayerProp {
-  id: string,`n  playerName: string;,`n  team: string,`n  position: string;,`n  statType: string,`n  line: number;,`n  sport: string,`n  realDataQuality: number;,`n  overConfidence: number,`n  underConfidence: number;,`n  expectedValue: number,`n  source: string;
+  id: string
+,`n  playerName: string;
+,`n  team: string
+,`n  position: string;
+,`n  statType: string
+,`n  line: number;
+,`n  sport: string
+,`n  realDataQuality: number;
+,`n  overConfidence: number
+,`n  underConfidence: number;
+,`n  expectedValue: number
+,`n  source: string;
   aiEnhancement?: unknown
   patternAnalysis?: unknown}
 

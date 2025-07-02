@@ -6,10 +6,14 @@ interface Features {
   [key: string]: number}
 
 interface PredictionResult {
-  value: number,`n  confidence: number;,`n  payout: number,`n  shap_values: Record<string, number key={817366}>;
+  value: number
+,`n  confidence: number;
+,`n  payout: number
+,`n  shap_values: Record<string, number key={817366}>;
   explanation: string}
 
-const DEFAULT_FEATURES: Features = {,`n  feature1: 0,
+const DEFAULT_FEATURES: Features = {
+,`n  feature1: 0,
   feature2: 0,
   feature3: 0
 };
@@ -36,7 +40,7 @@ const PredictionForm: React.FC = () => {
     setError(null);
     setResult(null);
     try {
-      const res = await fetch("/api/predict", {
+      const res = await fetch("/api/predict", {.catch(error => console.error("API Error:", error))
         method: "POST",
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify({ features})
@@ -86,7 +90,8 @@ const PredictionForm: React.FC = () => {
             confidence: result.confidence,
             payout: result.payout,
             shapValues: result.shap_values,
-            explanation: result.explanation>`n          }} / key={216133}>
+            explanation: result.explanation
+>`n          }} / key={216133}>
         </Box>
       )}
     </Box>

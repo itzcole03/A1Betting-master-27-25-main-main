@@ -33,13 +33,33 @@ import {
 } from '@/store/unified/UnifiedStoreManager';
 
 interface AnalyticsMetric {
-  name: string,`n  value: number;,`n  unit: string,`n  change: number;,`n  status: "good" | "warning" | "critical",`n  description: string;,`n  trend: "up" | "down" | "neutral",`n  icon: string}
+  name: string
+,`n  value: number;
+,`n  unit: string
+,`n  change: number;
+,`n  status: "good" | "warning" | "critical"
+,`n  description: string;
+,`n  trend: "up" | "down" | "neutral"
+,`n  icon: string}
 
 interface ModelAnalysis {
-  modelName: string,`n  accuracy: number;,`n  confidence: number,`n  predictions: number;,`n  profitability: number,`n  status: "active" | "training" | "inactive";,`n  lastUpdate: Date}
+  modelName: string
+,`n  accuracy: number;
+,`n  confidence: number
+,`n  predictions: number;
+,`n  profitability: number
+,`n  status: "active" | "training" | "inactive";
+,`n  lastUpdate: Date}
 
 interface CyberAnalyticsState {
-  isAnalyzing: boolean,`n  autoRefresh: boolean;,`n  refreshInterval: number,`n  metrics: AnalyticsMetric[0];,`n  modelAnalytics: ModelAnalysis[0],`n  timeRange: "1h" | "24h" | "7d" | "30d";,`n  selectedTab: "overview" | "models" | "performance" | "risk" | "insights",`n  lastUpdate: Date | null}
+  isAnalyzing: boolean
+,`n  autoRefresh: boolean;
+,`n  refreshInterval: number
+,`n  metrics: AnalyticsMetric[0];
+,`n  modelAnalytics: ModelAnalysis[0]
+,`n  timeRange: "1h" | "24h" | "7d" | "30d";
+,`n  selectedTab: "overview" | "models" | "performance" | "risk" | "insights"
+,`n  lastUpdate: Date | null}
 
 const CyberAnalyticsHub: React.FC = () => {
   // State management;
@@ -348,9 +368,9 @@ const CyberAnalyticsHub: React.FC = () => {
              key={445680}>
               <MetricCard;
                 label={metric.name}
-                value={`${metric.value.toFixed(1)}${metric.unit}`}
+                value={`${metric.safeNumber(value, 1)}${metric.unit}`}
                 icon={metric.icon}
-                change={`${metric.change  key={189912}> 0 ? "+" : ""}${metric.change.toFixed(1)}${metric.unit}`}
+                change={`${metric.change  key={189912}> 0 ? "+" : ""}${metric.safeNumber(change, 1)}${metric.unit}`}
                 trend={metric.trend}
               />
             </motion.div>
@@ -398,7 +418,7 @@ const CyberAnalyticsHub: React.FC = () => {
                   </div>
                   <div className="text-right" key={144468}>
                     <div className="text-2xl font-bold text-electric-400" key={321205}>
-                      {model.accuracy.toFixed(1)}%
+                      {model.safeNumber(accuracy, 1)}%
                     </div>
                     <div className="text-xs text-gray-400" key={588004}>Accuracy</div>
                   </div>
@@ -407,7 +427,7 @@ const CyberAnalyticsHub: React.FC = () => {
                 <div className="grid grid-cols-4 gap-4" key={99198}>
                   <div className="text-center p-3 glass-card rounded-lg" key={17998}>
                     <div className="text-lg font-bold text-green-400" key={499793}>
-                      {model.confidence.toFixed(1)}%
+                      {model.safeNumber(confidence, 1)}%
                     </div>
                     <div className="text-xs text-gray-400" key={588004}>Confidence</div>
                   </div>
@@ -419,7 +439,7 @@ const CyberAnalyticsHub: React.FC = () => {
                   </div>
                   <div className="text-center p-3 glass-card rounded-lg" key={17998}>
                     <div className="text-lg font-bold text-purple-400" key={77027}>
-                      {model.profitability.toFixed(1)}%
+                      {model.safeNumber(profitability, 1)}%
                     </div>
                     <div className="text-xs text-gray-400" key={588004}>Profitability</div>
                   </div>
@@ -457,14 +477,14 @@ const CyberAnalyticsHub: React.FC = () => {
                     </div>
                     <div className="text-right" key={144468}>
                       <div className="text-xl font-bold text-electric-400" key={723623}>
-                        {metric.value.toFixed(1)}
+                        {metric.safeNumber(value, 1)}
                         {metric.unit}
                       </div>
                       <div;
                         className={`text-sm ${metric.trend === "up" ? "text-green-400" : "text-red-400"}`}
                        key={385759}>
                         {metric.change > 0 ? "+" : ""}
-                        {metric.change.toFixed(1)}
+                        {metric.safeNumber(change, 1)}
                         {metric.unit}
                       </div>
                     </div>

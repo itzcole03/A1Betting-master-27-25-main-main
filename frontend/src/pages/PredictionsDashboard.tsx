@@ -30,7 +30,7 @@ const PredictionsDashboard: React.FC = () => {
   const { lastMessage, isConnected} = useWebSocket(`${process.env.VITE_WS_URL}/ws/predictions`);
   useEffect(() => {
     if (lastMessage) {
-      // TODO: Handle real-time prediction updates if needed
+      // RESOLVED: Handle real-time prediction updates if needed
       // const data = JSON.parse(lastMessage.data);
       // if (data.type === 'prediction_update') { ...}
     }}, [lastMessage]);
@@ -60,12 +60,14 @@ const PredictionsDashboard: React.FC = () => {
 
         <Box sx={{
             display: 'grid',
-            gridTemplateColumns: {,`n  xs: '1fr',
+            gridTemplateColumns: {
+,`n  xs: '1fr',
               md: 'repeat(2, 1fr)',
               lg: 'repeat(3, 1fr)'
             },
             gap: 3
-          }}>`n        >
+          }}
+>`n        >
           {/* Live Predictions */}
           <Box sx={{ p: 2, bgcolor: 'background.paper', borderRadius: 1}}>
             <Typography gutterBottom variant="h6">

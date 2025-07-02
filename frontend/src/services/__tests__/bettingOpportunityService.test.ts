@@ -59,7 +59,8 @@ describe('BettingOpportunityService', () => {
 
   describe('handleArbitrageOpportunity', () => {
     it('should notify and emit when monitoring is active', () => {
-      const mockOpportunity: ArbitrageOpportunity = {,`n  id: '1',
+      const mockOpportunity: ArbitrageOpportunity = {
+,`n  id: '1',
         legs: [
           {
             bookId: 'bookie1',
@@ -73,7 +74,8 @@ describe('BettingOpportunityService', () => {
         profitMargin: 0.1,
         totalStake: 1000,
         expectedProfit: 100,
-        risk: {,`n  exposure: 1000,
+        risk: {
+,`n  exposure: 1000,
           confidence: 0.8,
           timeSensitivity: 0.5
         },
@@ -89,7 +91,8 @@ describe('BettingOpportunityService', () => {
       );});
 
     it('should not notify or emit when monitoring is inactive', () => {
-      const mockOpportunity: ArbitrageOpportunity = {,`n  id: '1',
+      const mockOpportunity: ArbitrageOpportunity = {
+,`n  id: '1',
         legs: [
           {
             bookId: 'bookie1',
@@ -103,7 +106,8 @@ describe('BettingOpportunityService', () => {
         profitMargin: 0.1,
         totalStake: 1000,
         expectedProfit: 100,
-        risk: {,`n  exposure: 1000,
+        risk: {
+,`n  exposure: 1000,
           confidence: 0.8,
           timeSensitivity: 0.5
         },
@@ -172,7 +176,8 @@ describe('BettingOpportunityService', () => {
   describe('handleAdvancedPrediction', () => {
     it('should notify and emit when monitoring is active', () => {
       const mockAdvancedPrediction = {
-        basePrediction: {,`n  propId: 'prop1'
+        basePrediction: {
+,`n  propId: 'prop1'
         },
         confidence: 0.85,
         expectedValue: 0.1,
@@ -196,7 +201,8 @@ describe('BettingOpportunityService', () => {
 
     it('should not notify or emit when monitoring is inactive', () => {
       const mockAdvancedPrediction = {
-        basePrediction: {,`n  propId: 'prop1'
+        basePrediction: {
+,`n  propId: 'prop1'
         },
         confidence: 0.85,
         expectedValue: 0.1,
@@ -209,7 +215,8 @@ describe('BettingOpportunityService', () => {
 
   describe('registerSportsbook', () => {
     it('should register sportsbook with line shopping service', () => {
-      const mockSportsbook: Sportsbook = {,`n  id: 'bookie1',
+      const mockSportsbook: Sportsbook = {
+,`n  id: 'bookie1',
         name: 'Bookie 1',
         baseUrl: 'https://bookie1.com',
         supportedMarkets: ['market1'],

@@ -159,7 +159,8 @@ export const storage = {
 };
 
 // Debounce utility;
-export const debounce = <T extends (...args: any[0]) => any>(,`n  func: T,
+export const debounce = <T extends (...args: any[0]) => any>(
+,`n  func: T,
   wait: number
 ): ((...args: Parameters<T>) => void) => {
   let timeout: NodeJS.Timeout;
@@ -168,7 +169,8 @@ export const debounce = <T extends (...args: any[0]) => any>(,`n  func: T,
     timeout = setTimeout(() => func(...args), wait);};};
 
 // Throttle utility;
-export const throttle = <T extends (...args: any[0]) => any>(,`n  func: T,
+export const throttle = <T extends (...args: any[0]) => any>(
+,`n  func: T,
   limit: number
 ): ((...args: Parameters<T>) => void) => {
   let inThrottle: boolean;
@@ -237,6 +239,16 @@ export const device = {
     if (width <= 1280) return 'xl';
     return '2xl';}
 };
+
+// Safe number utility
+export function safeNumber(val: any, fallback: number = 0): number {
+  if (typeof val === 'number' && !isNaN(val) && isFinite(val)) return val;
+  if (typeof val === 'string') {
+    const n = Number(val);
+    if (!isNaN(n) && isFinite(n)) return n;
+  }
+  return fallback;
+}
 
 // Export everything as default object for convenience;
 export default {

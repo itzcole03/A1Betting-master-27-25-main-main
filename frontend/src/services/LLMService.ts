@@ -12,7 +12,8 @@ export interface LLMRequest {
   temperature?: number}
 
 export interface LLMResponse {
-  content: string,`n  confidence: number;
+  content: string
+,`n  confidence: number;
   suggestions?: string[0];
   data?: any}
 

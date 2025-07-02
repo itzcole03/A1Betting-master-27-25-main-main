@@ -5,7 +5,8 @@
 // ============================================================================
 
 export interface APIResponse<T = any> {
-  data: T,`n  success: boolean;
+  data: T
+,`n  success: boolean;
   message?: string
   error?: string
   timestamp: string;
@@ -25,26 +26,52 @@ export interface ServiceConfig {
   headers?: Record<string, string>;}
 
 export interface CacheConfig {
-  key: string,`n  ttl: number; // Time to live in seconds;
+  key: string
+,`n  ttl: number; // Time to live in seconds;
   staleTime?: number
   refetchInterval?: number}
 
 // Prediction related types;
 export interface Prediction {
-  id: string,`n  game: string;,`n  prediction: number,`n  confidence: number;,`n  timestamp: string;
+  id: string
+,`n  game: string;
+,`n  prediction: number
+,`n  confidence: number;
+,`n  timestamp: string;
   potentialWin?: number
   odds?: number
   status: "pending" | "won" | "lost" | "void"}
 
 export interface EngineMetrics {
-  totalPredictions: number,`n  accuracy: number;,`n  totalProfit: number,`n  winRate: number;,`n  dataQuality: number}
+  totalPredictions: number
+,`n  accuracy: number;
+,`n  totalProfit: number
+,`n  winRate: number;
+,`n  dataQuality: number}
 
 // Betting related types;
 export interface BetOpportunity {
-  id: string,`n  sport: string;,`n  game: string,`n  type: string;,`n  odds: number,`n  confidence: number;,`n  expectedValue: number,`n  stake: number;,`n  potentialReturn: number,`n  book: string}
+  id: string
+,`n  sport: string;
+,`n  game: string
+,`n  type: string;
+,`n  odds: number
+,`n  confidence: number;
+,`n  expectedValue: number
+,`n  stake: number;
+,`n  potentialReturn: number
+,`n  book: string}
 
 export interface UserProfile {
-  id: string,`n  name: string;,`n  email: string,`n  tier: string;,`n  balance: number,`n  totalProfit: number;,`n  accuracy: number,`n  winRate: number;,`n  preferences: Record<string, any>}
+  id: string
+,`n  name: string;
+,`n  email: string
+,`n  tier: string;
+,`n  balance: number
+,`n  totalProfit: number;
+,`n  accuracy: number
+,`n  winRate: number;
+,`n  preferences: Record<string, any>}
 
 // ============================================================================
 // BASE SERVICE CLASS;
@@ -56,7 +83,7 @@ export class BaseService {
 
   constructor(config: ServiceConfig = Record<string, any>) {
     this.config = {
-      baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:3001",
+      baseURL: import.meta.env.VITE_API_BASE_URL || "${process.env.REACT_APP_API_URL || "http://localhost:8000"}",
       timeout: 10000,
       retries: 3,
       retryDelay: 1000,
@@ -74,7 +101,7 @@ export class BaseService {
     // Set timeout;
 
     try {
-      const response = await fetch(url, {
+      const response = await fetch(url, {.catch(error => console.error("API Error:", error))
         ...options,
         signal: controller.signal,
         headers: {
@@ -215,7 +242,8 @@ export class UniversalPredictionService extends BaseService {
     await this.delay(300);
 
     return {
-      data: {,`n  totalPredictions: 1247,
+      data: {
+,`n  totalPredictions: 1247,
         accuracy: 89.3,
         totalProfit: 47230,
         winRate: 85.6,
@@ -320,7 +348,8 @@ export class UniversalUserService extends BaseService {
     await this.delay(300);
 
     return {
-      data: {,`n  id: "user_1",
+      data: {
+,`n  id: "user_1",
         name: "Alex Chen",
         email: "alex@example.com",
         tier: "Pro",
@@ -328,7 +357,8 @@ export class UniversalUserService extends BaseService {
         totalProfit: 47230,
         accuracy: 89.3,
         winRate: 85.6,
-        preferences: {,`n  notifications: true,
+        preferences: {
+,`n  notifications: true,
           autobet: false,
           riskLevel: "medium"
         }
@@ -401,18 +431,22 @@ export class UniversalServiceFactory {
 // ============================================================================
 
 export const createQueryKeys = {
-  predictions: {,`n  all: ["predictions"] as const,
+  predictions: {
+,`n  all: ["predictions"] as const,
     recent: (limit?: number) => ["predictions", "recent", limit] as const,
     metrics: () => ["predictions", "metrics"] as const
   },
-  betting: {,`n  all: ["betting"] as const,
+  betting: {
+,`n  all: ["betting"] as const,
     opportunities: () => ["betting", "opportunities"] as const,
     history: (userId: string) => ["betting", "history", userId] as const
   },
-  user: {,`n  all: ["user"] as const,
+  user: {
+,`n  all: ["user"] as const,
     profile: () => ["user", "profile"] as const
   },
-  analytics: {,`n  all: ["analytics"] as const,
+  analytics: {
+,`n  all: ["analytics"] as const,
     performance: (range: string) =>
       ["analytics", "performance", range] as const,
     insights: () => ["analytics", "ml-insights"] as const,

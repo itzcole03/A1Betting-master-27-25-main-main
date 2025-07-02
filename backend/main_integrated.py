@@ -67,9 +67,9 @@ app.add_middleware(
     allow_origins=[
         "*",  # Allow all for development
         "https://7fb6bf6978914ca48f089e6151180b03-a1b171efc67d4aea943f921a9.fly.dev",  # Cloud frontend
-        "http://localhost:5173",  # Vite dev server
-        "http://localhost:3000",  # Alternative React dev server
-        "http://localhost:8080",  # Another common dev port
+        "${process.env.REACT_APP_API_URL || "http://localhost:8000"}",  # Vite dev server
+        "${process.env.REACT_APP_API_URL || "http://localhost:8000"}",  # Alternative React dev server
+        "${process.env.REACT_APP_API_URL || "http://localhost:8000"}",  # Another common dev port
         "http://127.0.0.1:5173",
         "http://127.0.0.1:3000",
         "http://127.0.0.1:8080",

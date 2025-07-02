@@ -16,7 +16,9 @@ import {
 import { integrationService} from '@/services/integrationService'
 
 interface StatusItem {
-  name: string,`n  status: "success" | "error" | "loading";,`n  message: string;
+  name: string
+,`n  status: "success" | "error" | "loading";
+,`n  message: string;
   data?: any}
 
 export const IntegrationStatus: React.FC = () => {
@@ -259,7 +261,7 @@ export const IntegrationStatus: React.FC = () => {
                     <div className="flex justify-between" key={588832}>
                       <span className="text-gray-400" key={912100}>ROI:</span>
                       <span className="text-cyan-400" key={797516}>
-                        {item.data.roi.toFixed(1)}%
+                        {item.data.safeNumber(roi, 1)}%
                       </span>
                     </div>
                     <div className="flex justify-between" key={588832}>

@@ -11,13 +11,18 @@ import type {
 } from '@/types/betting';
 
 interface AnalyticsConfig {
-  autoRefresh: boolean,`n  refreshInterval: number;,`n  metricsWindow: 'day' | 'week' | 'month' | 'year',`n  includeArbitrage: boolean;,`n  includeLineMovement: boolean}
+  autoRefresh: boolean
+,`n  refreshInterval: number;
+,`n  metricsWindow: 'day' | 'week' | 'month' | 'year'
+,`n  includeArbitrage: boolean;
+,`n  includeLineMovement: boolean}
 
 class UnifiedAnalyticsService {
   private static instance: UnifiedAnalyticsService | null = null;
   private readonly predictionService: UnifiedPredictionService;
   private readonly bettingService: UnifiedBettingService;
-  private config: AnalyticsConfig = {,`n  autoRefresh: true,
+  private config: AnalyticsConfig = {
+,`n  autoRefresh: true,
     refreshInterval: 30000,
     metricsWindow: 'week',
     includeArbitrage: true,
@@ -29,7 +34,7 @@ class UnifiedAnalyticsService {
   private lastUpdate: number = 0;
 
   protected constructor() {
-    this.apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+    this.apiUrl = import.meta.env.VITE_API_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}';
     this.predictionService = UnifiedPredictionService.getInstance();
     this.bettingService = UnifiedBettingService.getInstance();}
 

@@ -20,7 +20,16 @@ import { useMutation} from '@tanstack/react-query';
 import axios from 'axios';
 
 interface BetFormProps {
-  eventId: string,`n  marketType: string;,`n  selection: string,`n  odds: number;,`n  metadata: {,`n  sport: string;,`n  league: string,`n  homeTeam: string;,`n  awayTeam: string,`n  startTime: Date}}
+  eventId: string
+,`n  marketType: string;
+,`n  selection: string
+,`n  odds: number;
+,`n  metadata: {
+,`n  sport: string;
+,`n  league: string
+,`n  homeTeam: string;
+,`n  awayTeam: string
+,`n  startTime: Date}}
 
 export const BetForm: React.FC<BetFormProps key={295001}> = ({
   eventId,
@@ -121,7 +130,7 @@ export const BetForm: React.FC<BetFormProps key={295001}> = ({
 
         <FormControl key={563987}>
           <FormLabel key={787921}>Potential Winnings</FormLabel>
-          <Text key={348605}>${potentialWinnings.toFixed(2)}</Text>
+          <Text key={348605}>${safeNumber(potentialWinnings, 2)}</Text>
         </FormControl>
 
         <Button;

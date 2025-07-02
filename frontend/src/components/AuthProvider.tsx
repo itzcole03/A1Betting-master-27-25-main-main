@@ -2,8 +2,11 @@
 import { User} from '@/types'
 
 interface AuthContextType {
-  user: User | null,`n  isLoading: boolean;,`n  login: (email: string, password: string) => Promise<void key={132647}>;
-  logout: () => void,`n  register: (email: string, password: string, username: string) => Promise<void key={132647}>;
+  user: User | null
+,`n  isLoading: boolean;
+,`n  login: (email: string, password: string) => Promise<void key={132647}>;
+  logout: () => void
+,`n  register: (email: string, password: string, username: string) => Promise<void key={132647}>;
   updateProfile: (data: Partial<User key={43469}>) => Promise<void key={132647}>}
 
 export const AuthProvider: React.FC<{ children: React.ReactNode}> = ({ children}) => {
@@ -19,8 +22,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode}> = ({ children}
 
   const validateToken = async (token: string) => {
     try {
-      const response = await fetch('https://api.betproai.com/auth/validate', {
-        headers: {,`n  Authorization: `Bearer ${token}`
+      const response = await fetch('https://api.betproai.com/auth/validate', {.catch(error => console.error("API Error:", error))
+        headers: {
+,`n  Authorization: `Bearer ${token}`
         }
       });
 
@@ -37,7 +41,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode}> = ({ children}
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      const response = await fetch('https://api.betproai.com/auth/login', {
+      const response = await fetch('https://api.betproai.com/auth/login', {.catch(error => console.error("API Error:", error))
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify({ email, password})
@@ -57,7 +61,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode}> = ({ children}
   const register = async (email: string, password: string, username: string) => {
     setIsLoading(true);
     try {
-      const response = await fetch('https://api.betproai.com/auth/register', {
+      const response = await fetch('https://api.betproai.com/auth/register', {.catch(error => console.error("API Error:", error))
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify({ email, password, username})
@@ -83,7 +87,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode}> = ({ children}
     if (!token) throw new Error('Not authenticated');
 
     try {
-      const response = await fetch('https://api.betproai.com/auth/profile', {
+      const response = await fetch('https://api.betproai.com/auth/profile', {.catch(error => console.error("API Error:", error))
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

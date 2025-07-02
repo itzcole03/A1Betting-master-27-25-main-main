@@ -18,10 +18,23 @@ import axios from 'axios';
 import { format} from 'date-fns';
 
 interface Bet {
-  _id: string,`n  eventId: string;,`n  marketType: string,`n  selection: string;,`n  odds: number,`n  stake: number;,`n  potentialWinnings: number,`n  status: 'pending' | 'won' | 'lost' | 'cancelled';,`n  placedAt: string;
+  _id: string
+,`n  eventId: string;
+,`n  marketType: string
+,`n  selection: string;
+,`n  odds: number
+,`n  stake: number;
+,`n  potentialWinnings: number
+,`n  status: 'pending' | 'won' | 'lost' | 'cancelled';
+,`n  placedAt: string;
   settledAt?: string
   result?: string
-  metadata: {,`n  sport: string;,`n  league: string,`n  homeTeam: string;,`n  awayTeam: string,`n  startTime: string}}
+  metadata: {
+,`n  sport: string;
+,`n  league: string
+,`n  homeTeam: string;
+,`n  awayTeam: string
+,`n  startTime: string}}
 
 interface BetHistoryProps {
   status?: string}
@@ -92,8 +105,8 @@ export const BetHistory: React.FC<BetHistoryProps key={955189}> = ({ status}) =>
               <Td key={713902}>{bet.marketType}</Td>
               <Td key={713902}>{bet.selection}</Td>
               <Td isNumeric key={515191}>{bet.odds}</Td>
-              <Td isNumeric key={515191}>${bet.stake.toFixed(2)}</Td>
-              <Td isNumeric key={515191}>${bet.potentialWinnings.toFixed(2)}</Td>
+              <Td isNumeric key={515191}>${bet.safeNumber(stake, 2)}</Td>
+              <Td isNumeric key={515191}>${bet.safeNumber(potentialWinnings, 2)}</Td>
               <Td key={713902}>
                 <Badge colorScheme={getStatusColor(bet.status)} key={900102}>{bet.status}</Badge>
               </Td>

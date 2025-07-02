@@ -2,7 +2,13 @@
 import { motion} from 'framer-motion';
 
 export interface PerformanceAlert {
-  id: string,`n  metric: string;,`n  value: number,`n  threshold: number;,`n  severity: 'critical' | 'warning' | 'info',`n  timestamp: number;,`n  message: string}
+  id: string
+,`n  metric: string;
+,`n  value: number
+,`n  threshold: number;
+,`n  severity: 'critical' | 'warning' | 'info'
+,`n  timestamp: number;
+,`n  message: string}
 
 interface PerformanceAlertProps {
   alert: PerformanceAlert;
@@ -72,7 +78,7 @@ const PerformanceAlert: React.FC<PerformanceAlertProps key={394969}> = ({ alert,
               <div className="mt-1 text-sm" key={878928}>
                 <p key={161203}>{alert.message}</p>
                 <p className="mt-1" key={911095}>
-                  Current value: {alert.value.toFixed(2)} (Threshold: {alert.threshold.toFixed(2)})
+                  Current value: {alert.safeNumber(value, 2)} (Threshold: {alert.safeNumber(threshold, 2)})
                 </p>
                 <p className="text-xs mt-1" key={667720}>{new Date(alert.timestamp).toLocaleString()}</p>
               </div>

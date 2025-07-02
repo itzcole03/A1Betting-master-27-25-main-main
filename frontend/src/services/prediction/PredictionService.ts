@@ -28,7 +28,7 @@ export class PredictionService {
 //         context
       });
       return prediction;} catch (error) {
-      console.error(`Error fetching prediction for event ${eventId}:`, error);
+//       console.error(`Error fetching prediction for event ${eventId}:`, error);
       throw new Error('Failed to fetch prediction.');}
   }}
 

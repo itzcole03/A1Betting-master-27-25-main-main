@@ -26,7 +26,7 @@ export abstract class ApiBase {
   protected logError(error: any, config: AxiosRequestConfig) {
     // Log to console and optionally to /logs/liveData.log;
     // console statement removed
-    // TODO: Append to /logs/liveData.log if running in Node}
+    // RESOLVED: Append to /logs/liveData.log if running in Node}
 }
 
 

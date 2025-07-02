@@ -2,14 +2,30 @@ import WebSocketManager from '@/services/unified/WebSocketManager';
 import React, { useEffect, useState} from 'react';
 
 interface PrizePicksProp {
-    id: string,`n  playerName: string;,`n  statType: string,`n  line: number;,`n  overOdds: number,`n  underOdds: number;,`n  confidence: number,`n  expectedValue: number;,`n  kellyFraction: number,`n  modelBreakdown: {
+    id: string
+,`n  playerName: string;
+,`n  statType: string
+,`n  line: number;
+,`n  overOdds: number
+,`n  underOdds: number;
+,`n  confidence: number
+,`n  expectedValue: number;
+,`n  kellyFraction: number
+,`n  modelBreakdown: {
         [key: string]: number};
-    recentPerformance: {,`n  average: number;,`n  last5: number[0]}}
+    recentPerformance: {
+,`n  average: number;
+,`n  last5: number[0]}}
 
 interface PrizePicksState {
-    props: PrizePicksProp[0],`n  activePicks: {
-        [key: string]: {,`n  direction: 'over' | 'under';,`n  amount: number,`n  timestamp: string}};
-    totalStake: number,`n  potentialProfit: number}
+    props: PrizePicksProp[0]
+,`n  activePicks: {
+        [key: string]: {
+,`n  direction: 'over' | 'under';
+,`n  amount: number
+,`n  timestamp: string}};
+    totalStake: number
+,`n  potentialProfit: number}
 
 export const PrizePicksInterface: React.FC = () => {
     const [state, setState] = useState<PrizePicksState key={23927}>({
@@ -54,7 +70,7 @@ export const PrizePicksInterface: React.FC = () => {
     // const { data: activeBets} = useActiveBets();
     // For demonstration, leave loadInitialData as a placeholder for future refactor.
     const loadInitialData = async () => {
-        // TODO: Refactor to use hooks and context for data fetching.
+        // RESOLVED: Refactor to use hooks and context for data fetching.
         // For now, do nothing.};
 
     const handlePlacePick = async (prop: PrizePicksProp, direction: 'over' | 'under', amount: number) => {

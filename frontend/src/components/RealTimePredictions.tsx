@@ -65,7 +65,7 @@ const RealTimePredictions: React.FC<RealTimePredictionsProps> = ({
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred';
       setError(errorMessage);
-      console.error('❌ Error fetching predictions:', err);
+//       console.error('❌ Error fetching predictions:', err);
     } finally {
       setLoading(false);
     }
@@ -139,7 +139,7 @@ const RealTimePredictions: React.FC<RealTimePredictionsProps> = ({
           </div>
           <div>
             <p className="text-sm text-gray-600">Predicted Value</p>
-            <p className="font-medium text-blue-600">{prediction.predicted_value.toFixed(2)}</p>
+            <p className="font-medium text-blue-600">{prediction.safeNumber(predicted_value, 2)}</p>
           </div>
           <div>
             <p className="text-sm text-gray-600">Probability</p>
@@ -167,7 +167,7 @@ const RealTimePredictions: React.FC<RealTimePredictionsProps> = ({
           <div>
             <p className="text-sm text-gray-600">Expected Value</p>
             <p className={`font-medium ${prediction.expected_value >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-              {prediction.expected_value >= 0 ? '+' : ''}{prediction.expected_value.toFixed(3)}
+              {prediction.expected_value >= 0 ? '+' : ''}{prediction.safeNumber(expected_value, 3)}
             </p>
           </div>
         </div>
@@ -202,7 +202,7 @@ const RealTimePredictions: React.FC<RealTimePredictionsProps> = ({
             </div>
             <div>
               <p>Game Time: {formatDateTime(prediction.game_time)}</p>
-              <p>Data Freshness: {prediction.data_freshness.toFixed(1)}m</p>
+              <p>Data Freshness: {prediction.safeNumber(data_freshness, 1)}m</p>
             </div>
           </div>
         </div>

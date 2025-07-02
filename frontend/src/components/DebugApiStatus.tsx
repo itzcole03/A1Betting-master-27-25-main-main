@@ -2,7 +2,9 @@
 import { CheckCircle, XCircle, Clock, Wifi} from 'lucide-react'
 
 interface ApiEndpoint {
-  name: string,`n  url: string;,`n  status: "pending" | "success" | "error";
+  name: string
+,`n  url: string;
+,`n  status: "pending" | "success" | "error";
   response?: any
   error?: string}
 
@@ -14,8 +16,8 @@ export const DebugApiStatus: React.FC = () => {
       url: "/api/betting-opportunities",
       status: "pending"
     },
-    { name: "Predictions", url: "/api/predictions", status: "pending"},
-    { name: "Analytics", url: "/api/analytics/advanced", status: "pending"},
+    { name: "Predictions", url: "/api/predictions/prizepicks", status: "pending"},
+    { name: "Analytics", url: "/api/analytics/summary", status: "pending"},
   ]);
 
   const [environment, setEnvironment] = useState({

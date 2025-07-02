@@ -28,24 +28,67 @@ import OfflineIndicator from '@/components/ui/OfflineIndicator';
 // ============================================================================
 
 interface PlayerProp {
-  id: string,`n  player: string;,`n  team: string,`n  opponent: string;,`n  stat: string,`n  line: number;,`n  overOdds: number,`n  underOdds: number;,`n  confidence: number,`n  pickType: "over" | "under" | null;,`n  projection: number,`n  edge: number;,`n  recent_form: number[0],`n  season_stats: {,`n  average: number,`n  games: number;,`n  hit_rate: number};
-  matchup_data: {,`n  defense_rank: number;,`n  pace: number,`n  total: number};
+  id: string
+,`n  player: string;
+,`n  team: string
+,`n  opponent: string;
+,`n  stat: string
+,`n  line: number;
+,`n  overOdds: number
+,`n  underOdds: number;
+,`n  confidence: number
+,`n  pickType: "over" | "under" | null;
+,`n  projection: number
+,`n  edge: number;
+,`n  recent_form: number[0]
+,`n  season_stats: {
+,`n  average: number
+,`n  games: number;
+,`n  hit_rate: number};
+  matchup_data: {
+,`n  defense_rank: number;
+,`n  pace: number
+,`n  total: number};
   weather?: {
-    condition: string,`n  temp: number;,`n  wind: number};
+    condition: string
+,`n  temp: number;
+,`n  wind: number};
   injury_report?: string
-  last_5_games: number[0],`n  vs_opponent: number[0]}
+  last_5_games: number[0]
+,`n  vs_opponent: number[0]}
 
 interface SelectedPick {
-  propId: string,`n  choice: "over" | "under";,`n  player: string,`n  stat: string;,`n  line: number,`n  confidence: number;,`n  pickType: string,`n  projection: number;,`n  edge: number}
+  propId: string
+,`n  choice: "over" | "under";
+,`n  player: string
+,`n  stat: string;
+,`n  line: number
+,`n  confidence: number;
+,`n  pickType: string
+,`n  projection: number;
+,`n  edge: number}
 
 interface LineupEntry {
-  picks: SelectedPick[0],`n  entryFee: number;,`n  potentialPayout: number,`n  riskLevel: "low" | "medium" | "high";,`n  strategy: string}
+  picks: SelectedPick[0]
+,`n  entryFee: number;
+,`n  potentialPayout: number
+,`n  riskLevel: "low" | "medium" | "high";
+,`n  strategy: string}
 
 interface PrizePicksStats {
-  totalLineups: number,`n  winRate: number;,`n  profit: number,`n  avgConfidence: number;,`n  bestStreak: number,`n  currentStreak: number}
+  totalLineups: number
+,`n  winRate: number;
+,`n  profit: number
+,`n  avgConfidence: number;
+,`n  bestStreak: number
+,`n  currentStreak: number}
 
 interface HealthStatus {
-  status: string,`n  accuracy: number;,`n  activePredictions: number,`n  uptime: number;,`n  lastUpdate: string}
+  status: string
+,`n  accuracy: number;
+,`n  activePredictions: number
+,`n  uptime: number;
+,`n  lastUpdate: string}
 
 // ============================================================================
 // COMPONENT;
@@ -166,10 +209,12 @@ const PrizePicksPro: React.FC = () => {
           projection: pred.modelProb * 30, // Convert to points;
           edge: pred.edge,
           recent_form: [0, 0, 0, 0, 0], // Default - should come from proper API;
-          season_stats: {,`n  average: 0, // Default - should come from proper API;
+          season_stats: {
+,`n  average: 0, // Default - should come from proper API;
             games: 0, // Default - should come from proper API;
             hit_rate: 0, // Default - should come from proper API},
-          matchup_data: {,`n  defense_rank: 0, // Default - should come from proper API;
+          matchup_data: {
+,`n  defense_rank: 0, // Default - should come from proper API;
             pace: 0, // Default - should come from proper API;
             total: 0, // Default - should come from proper API},
           last_5_games: [0, 0, 0, 0, 0], // Default - should come from proper API;
@@ -275,7 +320,8 @@ const PrizePicksPro: React.FC = () => {
       return;}
 
     // Add new pick;
-    const newPick: SelectedPick = {,`n  propId: prop.id,
+    const newPick: SelectedPick = {
+,`n  propId: prop.id,
       choice,
       player: prop.player,
       stat: prop.stat,
@@ -322,7 +368,8 @@ const PrizePicksPro: React.FC = () => {
     try {
       setIsSubmitting(true);
 
-      const lineup: LineupEntry = {,`n  picks: selectedPicks,
+      const lineup: LineupEntry = {
+,`n  picks: selectedPicks,
         entryFee,
         potentialPayout,
         riskLevel,
@@ -424,11 +471,11 @@ const PrizePicksPro: React.FC = () => {
           <span className="text-lg font-semibold text-gray-900" key={677584}>{prop.stat}</span>
           <div className="flex items-center space-x-2" key={740830}>
             <ChartBarIcon className="h-4 w-4 text-gray-500" / key={747870}>
-            <span className="text-sm text-gray-600" key={279234}>Proj: {prop.projection.toFixed(1)}</span>
+            <span className="text-sm text-gray-600" key={279234}>Proj: {prop.safeNumber(projection, 1)}</span>
           </div>
         </div>
         <div className="text-sm text-gray-600 mb-3" key={985190}>
-          Season Avg: {prop.season_stats.average.toFixed(1)} | Hit Rate: {Math.round(prop.season_stats.hit_rate * 100)}%
+          Season Avg: {prop.season_stats.safeNumber(average, 1)} | Hit Rate: {Math.round(prop.season_stats.hit_rate * 100)}%
         </div>
       </div>
 
@@ -459,7 +506,7 @@ const PrizePicksPro: React.FC = () => {
             <div key={241917}>
               <span className="text-gray-600" key={588716}>Edge:</span>
               <div className={`font-semibold ${prop.edge  key={75548}> 0 ? "text-green-600" : "text-red-600"}`}>
-                {prop.edge > 0 ? "+" : ""}{prop.edge.toFixed(1)}%
+                {prop.edge > 0 ? "+" : ""}{prop.safeNumber(edge, 1)}%
               </div>
             </div>
           </div>
@@ -523,7 +570,8 @@ const PrizePicksPro: React.FC = () => {
             <div className="flex items-center space-x-4" key={787951}>
               {/* Health Status */}
               <div className="flex items-center space-x-2" key={740830}>
-                <div className={`w-3 h-3 rounded-full ${>`n                  healthStatus.status === "online" ? "bg-green-500" : "bg-red-500"}`} / key={280897}>
+                <div className={`w-3 h-3 rounded-full ${
+>`n                  healthStatus.status === "online" ? "bg-green-500" : "bg-red-500"}`} / key={280897}>
                 <span className="text-sm text-gray-600" key={279234}>
                   {healthStatus.activePredictions} active props;
                 </span>
@@ -556,12 +604,12 @@ const PrizePicksPro: React.FC = () => {
               <div className="space-y-3" key={186520}>
                 <div className="flex justify-between" key={588832}>
                   <span className="text-gray-600" key={588716}>Win Rate:</span>
-                  <span className="font-semibold text-green-600" key={567278}>{stats.winRate.toFixed(1)}%</span>
+                  <span className="font-semibold text-green-600" key={567278}>{stats.safeNumber(winRate, 1)}%</span>
                 </div>
                 <div className="flex justify-between" key={588832}>
                   <span className="text-gray-600" key={588716}>Profit:</span>
                   <span className={`font-semibold ${stats.profit  key={93503}>= 0 ? "text-green-600" : "text-red-600"}`}>
-                    ${stats.profit.toFixed(2)}
+                    ${stats.safeNumber(profit, 2)}
                   </span>
                 </div>
                 <div className="flex justify-between" key={588832}>

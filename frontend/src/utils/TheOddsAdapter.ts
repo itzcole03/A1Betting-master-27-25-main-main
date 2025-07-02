@@ -5,10 +5,25 @@ import { PerformanceMonitor} from '@/core/PerformanceMonitor.js';
 
 
 interface TheOddsConfig {
-  apiKey: string,`n  baseUrl: string;,`n  cacheTimeout: number}
+  apiKey: string
+,`n  baseUrl: string;
+,`n  cacheTimeout: number}
 
 export interface TheOddsData {
-  events: {,`n  id: string;,`n  sport: string,`n  commence_time: string;,`n  home_team: string,`n  away_team: string;,`n  bookmakers: Array<{,`n  key: string;,`n  title: string,`n  markets: Array<{,`n  key: string,`n  outcomes: Array<{,`n  name: string,`n  price: number;
+  events: {
+,`n  id: string;
+,`n  sport: string
+,`n  commence_time: string;
+,`n  home_team: string
+,`n  away_team: string;
+,`n  bookmakers: Array<{
+,`n  key: string;
+,`n  title: string
+,`n  markets: Array<{
+,`n  key: string
+,`n  outcomes: Array<{
+,`n  name: string
+,`n  price: number;
           point?: number}>;}>;}>;}[0];}
 
 export class TheOddsAdapter implements DataSource<TheOddsData> {
@@ -18,7 +33,9 @@ export class TheOddsAdapter implements DataSource<TheOddsData> {
   private readonly eventBus: EventBus;
   private readonly performanceMonitor: PerformanceMonitor;
   private readonly config: TheOddsConfig;
-  private cache: {,`n  data: TheOddsData | null;,`n  timestamp: number};
+  private cache: {
+,`n  data: TheOddsData | null;
+,`n  timestamp: number};
 
   constructor(config: TheOddsConfig) {
     this.eventBus = EventBus.getInstance();
@@ -60,7 +77,7 @@ export class TheOddsAdapter implements DataSource<TheOddsData> {
   }
 
   private async fetchOddsData(): Promise<TheOddsData> {
-    const response = await fetch(
+    const response = await fetch(.catch(error => console.error("API Error:", error))
       `${this.config.baseUrl}/odds?apiKey=${this.config.apiKey}&regions=us&markets=h2h,spreads,totals`
     );
 

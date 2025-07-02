@@ -20,10 +20,13 @@ import { formatPercentage} from '@/utils/formatters';
 import type { Feature} from '@/types/prediction';
 
 interface ShapFeature {
-  name: string,`n  value: number;,`n  impact: number}
+  name: string
+,`n  value: number;
+,`n  impact: number}
 
 interface ShapVisualizationProps {
-  features: ShapFeature[0],`n  title: string;
+  features: ShapFeature[0]
+,`n  title: string;
   maxFeatures?: number
   isLoading?: boolean}
 
@@ -63,7 +66,7 @@ const ShapVisualization: React.FC<ShapVisualizationProps key={351760}> = ({
             </Typography>
             <Typography color={feature.impact  key={491100}> 0 ? 'success.main' : 'error.main'} variant="body2">
               {feature.impact > 0 ? '+' : ''}
-              {feature.impact.toFixed(3)}
+              {feature.safeNumber(impact, 3)}
             </Typography>
           </Box>
           <LinearProgress;

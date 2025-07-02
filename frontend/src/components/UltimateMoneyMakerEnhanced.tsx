@@ -4,10 +4,24 @@ import ApiService from '../services/api/ApiService';
 import UltimateMoneyMaker from './betting/UltimateMoneyMaker';
 
 interface PerformanceStatsResponse {
-  today_profit: number,`n  weekly_profit: number;,`n  monthly_profit: number,`n  total_bets: number;,`n  win_rate: number,`n  avg_odds: number;,`n  roi_percent: number,`n  active_bets: number}
+  today_profit: number
+,`n  weekly_profit: number;
+,`n  monthly_profit: number
+,`n  total_bets: number;
+,`n  win_rate: number
+,`n  avg_odds: number;
+,`n  roi_percent: number
+,`n  active_bets: number}
 
 interface EnhancedStats {
-  todayProfit: number,`n  weeklyProfit: number;,`n  monthlyProfit: number,`n  totalBets: number;,`n  winRate: number,`n  avgOdds: number;,`n  roiPercent: number,`n  activeBets: number}
+  todayProfit: number
+,`n  weeklyProfit: number;
+,`n  monthlyProfit: number
+,`n  totalBets: number;
+,`n  winRate: number
+,`n  avgOdds: number;
+,`n  roiPercent: number
+,`n  activeBets: number}
 
 const UltimateMoneyMakerEnhanced: React.FC = () => {
   const [stats, setStats] = useState<EnhancedStats>({
@@ -30,7 +44,8 @@ const UltimateMoneyMakerEnhanced: React.FC = () => {
         const response = await ApiService.get<PerformanceStatsResponse>(
           '/api/v1/performance-stats'
         );
-        const transformedStats: EnhancedStats = {,`n  todayProfit: response.today_profit,
+        const transformedStats: EnhancedStats = {
+,`n  todayProfit: response.today_profit,
           weeklyProfit: response.weekly_profit,
           monthlyProfit: response.monthly_profit,
           totalBets: response.total_bets,
@@ -40,15 +55,18 @@ const UltimateMoneyMakerEnhanced: React.FC = () => {
           activeBets: response.active_bets
         };
         setStats(transformedStats)} catch (error) {
-        console.error('Failed to fetch performance stats:', error)} finally {
+//         console.error('Failed to fetch performance stats:', error)} finally {
         setIsLoading(false)}
     };
 
     fetchStats()}, [0]);
 
-  const StatCard: React.FC<{,`n  title: string;,`n  value: string | number;
+  const StatCard: React.FC<{
+,`n  title: string;
+,`n  value: string | number;
     change?: number
-    icon: React.ReactNode,`n  color: string}> = ({ title, value, change, icon, color}) => (
+    icon: React.ReactNode
+,`n  color: string}> = ({ title, value, change, icon, color}) => (
     <div className='bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200 dark:border-gray-700'>
       <div className='flex items-center justify-between'>
         <div>
@@ -94,23 +112,27 @@ const UltimateMoneyMakerEnhanced: React.FC = () => {
       {/* Enhanced Stats Dashboard */}
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
         <StatCard title="Today's Profit"
-          value={`$${stats.todayProfit.toFixed(2)}`}
-          change={8.2} // This could be dynamic>`n          icon={<DollarSign className='w-6 h-6 text-white' />}
+          value={`$${stats.safeNumber(todayProfit, 2)}`}
+          change={8.2} // This could be dynamic
+>`n          icon={<DollarSign className='w-6 h-6 text-white' />}
           color='bg-green-500'
         />
         <StatCard title='Weekly Profit'
           value={`$${stats.weeklyProfit.toLocaleString()}`}
-          change={15.7} // This could be dynamic>`n          icon={<TrendingUp className='w-6 h-6 text-white' />}
+          change={15.7} // This could be dynamic
+>`n          icon={<TrendingUp className='w-6 h-6 text-white' />}
           color='bg-blue-500'
         />
         <StatCard title='Win Rate'
           value={`${stats.winRate}%`}
-          change={2.3} // This could be dynamic>`n          icon={<Target className='w-6 h-6 text-white' />}
+          change={2.3} // This could be dynamic
+>`n          icon={<Target className='w-6 h-6 text-white' />}
           color='bg-purple-500'
         />
         <StatCard title='ROI'
           value={`${stats.roiPercent}%`}
-          change={1.8} // This could be dynamic>`n          icon={<Zap className='w-6 h-6 text-white' />}
+          change={1.8} // This could be dynamic
+>`n          icon={<Zap className='w-6 h-6 text-white' />}
           color='bg-yellow-500'
         />
       </div>
@@ -138,13 +160,16 @@ const UltimateMoneyMakerEnhanced: React.FC = () => {
             </div>
             <label className='flex items-center cursor-pointer'>
               <input type='checkbox'
-                checked={isAdvancedMode}>`n                onChange={e => setIsAdvancedMode(e.target.checked)}
+                checked={isAdvancedMode}
+>`n                onChange={e => setIsAdvancedMode(e.target.checked)}
                 className='sr-only'
               />
               <div className={`relative w-12 h-6 rounded-full transition-colors ${
-                  isAdvancedMode ? 'bg-blue-600' : 'bg-gray-300'}`}>`n              >
+                  isAdvancedMode ? 'bg-blue-600' : 'bg-gray-300'}`}
+>`n              >
                 <div className={`absolute top-0.5 w-5 h-5 bg-white rounded-full transition-transform ${
-                    isAdvancedMode ? 'translate-x-6' : 'translate-x-0.5'}`}>`n                ></div>
+                    isAdvancedMode ? 'translate-x-6' : 'translate-x-0.5'}`}
+>`n                ></div>
               </div>
             </label>
           </div>

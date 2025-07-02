@@ -12,7 +12,8 @@ import { productionValidationService} from '@/services/enhanced/ProductionValida
 import { prizePicksProjectionsService} from '@/services/enhanced/PrizePicksProjectionsService';
 
 interface TestResult {
-  service: string,`n  status: "testing" | "success" | "error";
+  service: string
+,`n  status: "testing" | "success" | "error";
   data?: unknown
   error?: string
   responseTime?: number}
@@ -358,7 +359,7 @@ const EnhancedAPITestDashboard: React.FC = () => {
                     <p key={161203}>Response Time: {provider.response_time}ms</p>
                     <p key={161203}>
                       Availability:{" "}
-                      {provider.availability_percentage.toFixed(1)}%
+                      {provider.safeNumber(availability_percentage, 1)}%
                     </p>
                     <p key={161203}>
                       Last Updated:{" "}

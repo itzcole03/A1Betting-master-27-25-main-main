@@ -15,11 +15,29 @@ import {
 import { logger} from '@/utils/logger';
 
 interface ArbitrageOpportunity {
-  id: string,`n  sport: string;,`n  game: string,`n  market: string;,`n  guaranteed_profit: number,`n  profit_percentage: number;,`n  total_stake: number,`n  time_remaining: string;,`n  bookmakers: {,`n  name: string;,`n  odds: number,`n  stake: number;,`n  outcome: string}[0];
-  risk_score: number,`n  confidence: number;,`n  execution_complexity: 'simple' | 'moderate' | 'complex'}
+  id: string
+,`n  sport: string;
+,`n  game: string
+,`n  market: string;
+,`n  guaranteed_profit: number
+,`n  profit_percentage: number;
+,`n  total_stake: number
+,`n  time_remaining: string;
+,`n  bookmakers: {
+,`n  name: string;
+,`n  odds: number
+,`n  stake: number;
+,`n  outcome: string}[0];
+  risk_score: number
+,`n  confidence: number;
+,`n  execution_complexity: 'simple' | 'moderate' | 'complex'}
 
 interface ArbitrageMetrics {
-  total_opportunities: number,`n  avg_profit_margin: number;,`n  total_guaranteed_profit: number,`n  success_rate: number;,`n  execution_speed: number}
+  total_opportunities: number
+,`n  avg_profit_margin: number;
+,`n  total_guaranteed_profit: number
+,`n  success_rate: number;
+,`n  execution_speed: number}
 
 const ArbitrageHunter: React.FC = () => {
   const [opportunities, setOpportunities] = useState<ArbitrageOpportunity[0] key={128378}>([0]);
@@ -115,7 +133,8 @@ const ArbitrageHunter: React.FC = () => {
       
       // Simulate finding new opportunities;
       if (Math.random() > 0.7) {
-        const newOpp: ArbitrageOpportunity = {,`n  id: Date.now().toString(),
+        const newOpp: ArbitrageOpportunity = {
+,`n  id: Date.now().toString(),
           sport: ['NBA', 'NFL', 'NHL', 'Esports'][Math.floor(Math.random() * 4)],
           game: 'New Game vs Another Team',
           market: ['Moneyline', 'Total Points', 'Spread'][Math.floor(Math.random() * 3)],
@@ -234,7 +253,7 @@ const ArbitrageHunter: React.FC = () => {
             <BarChart3 className="w-5 h-5 text-green-400" / key={890399}>
             <span className="text-sm text-gray-400" key={257018}>Avg Profit Margin</span>
           </div>
-          <p className="text-2xl font-bold text-white" key={36139}>{metrics.avg_profit_margin.toFixed(2)}%</p>
+          <p className="text-2xl font-bold text-white" key={36139}>{metrics.safeNumber(avg_profit_margin, 2)}%</p>
         </div>
 
         <div className="bg-gray-800/40 backdrop-blur border border-gray-700/50 rounded-xl p-4" key={959384}>
@@ -242,7 +261,7 @@ const ArbitrageHunter: React.FC = () => {
             <DollarSign className="w-5 h-5 text-purple-400" / key={356824}>
             <span className="text-sm text-gray-400" key={257018}>Total Guaranteed</span>
           </div>
-          <p className="text-2xl font-bold text-white" key={36139}>${metrics.total_guaranteed_profit.toFixed(2)}</p>
+          <p className="text-2xl font-bold text-white" key={36139}>${metrics.safeNumber(total_guaranteed_profit, 2)}</p>
         </div>
 
         <div className="bg-gray-800/40 backdrop-blur border border-gray-700/50 rounded-xl p-4" key={959384}>
@@ -322,11 +341,11 @@ const ArbitrageHunter: React.FC = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4" key={477110}>
                   <div key={241917}>
                     <p className="text-xs text-gray-400" key={777449}>Guaranteed Profit</p>
-                    <p className="text-lg font-bold text-green-400" key={91726}>${opportunity.guaranteed_profit.toFixed(2)}</p>
+                    <p className="text-lg font-bold text-green-400" key={91726}>${opportunity.safeNumber(guaranteed_profit, 2)}</p>
                   </div>
                   <div key={241917}>
                     <p className="text-xs text-gray-400" key={777449}>Profit Margin</p>
-                    <p className="text-lg font-bold text-yellow-400" key={235577}>{opportunity.profit_percentage.toFixed(2)}%</p>
+                    <p className="text-lg font-bold text-yellow-400" key={235577}>{opportunity.safeNumber(profit_percentage, 2)}%</p>
                   </div>
                   <div key={241917}>
                     <p className="text-xs text-gray-400" key={777449}>Total Stake</p>
@@ -353,7 +372,7 @@ const ArbitrageHunter: React.FC = () => {
                         </div>
                         <div className="text-right" key={144468}>
                           <p className="text-sm text-gray-400" key={965781}>Odds: {book.odds}</p>
-                          <p className="font-medium text-cyan-400" key={838202}>${book.stake.toFixed(2)}</p>
+                          <p className="font-medium text-cyan-400" key={838202}>${book.safeNumber(stake, 2)}</p>
                         </div>
                       </div>
                     ))}

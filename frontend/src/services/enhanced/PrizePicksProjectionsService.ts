@@ -5,21 +5,61 @@
  */
 
 interface PrizePicksProjection {
-  id: string,`n  type: string;,`n  attributes: {,`n  stat_type: string;,`n  line_score: number,`n  under_odds: number;,`n  over_odds: number,`n  status: string;,`n  start_time: string,`n  description: string;,`n  market_id: string};
-  relationships: {,`n  league: {,`n  data: {,`n  id: string;,`n  type: string}};
-    new_player: {,`n  data: {,`n  id: string,`n  type: string}};};}
+  id: string
+,`n  type: string;
+,`n  attributes: {
+,`n  stat_type: string;
+,`n  line_score: number
+,`n  under_odds: number;
+,`n  over_odds: number
+,`n  status: string;
+,`n  start_time: string
+,`n  description: string;
+,`n  market_id: string};
+  relationships: {
+,`n  league: {
+,`n  data: {
+,`n  id: string;
+,`n  type: string}};
+    new_player: {
+,`n  data: {
+,`n  id: string
+,`n  type: string}};};}
 
 interface PrizePicksPlayer {
-  id: string,`n  type: string;,`n  attributes: {,`n  name: string;,`n  position: string,`n  team: string;,`n  slug: string;
+  id: string
+,`n  type: string;
+,`n  attributes: {
+,`n  name: string;
+,`n  position: string
+,`n  team: string;
+,`n  slug: string;
     image_url?: string};}
 
 interface PrizePicksLeague {
-  id: string,`n  type: string;,`n  attributes: {,`n  name: string;,`n  slug: string;
+  id: string
+,`n  type: string;
+,`n  attributes: {
+,`n  name: string;
+,`n  slug: string;
     image_url?: string
     sport: string}}
 
 interface ProcessedProjection {
-  player_name: string,`n  player_id: string;,`n  position: string,`n  team: string;,`n  league: string,`n  sport: string;,`n  stat_type: string,`n  line: number;,`n  over_odds: number,`n  under_odds: number;,`n  start_time: string,`n  status: string;,`n  value_score: number,`n  projection_confidence: number}
+  player_name: string
+,`n  player_id: string;
+,`n  position: string
+,`n  team: string;
+,`n  league: string
+,`n  sport: string;
+,`n  stat_type: string
+,`n  line: number;
+,`n  over_odds: number
+,`n  under_odds: number;
+,`n  start_time: string
+,`n  status: string;
+,`n  value_score: number
+,`n  projection_confidence: number}
 
 export class PrizePicksProjectionsService {
   private readonly baseUrl: string = "https://api.prizepicks.com";
@@ -56,7 +96,7 @@ export class PrizePicksProjectionsService {
     await this.enforceRateLimit();
 
     try {
-      const response = await fetch(url, {
+      const response = await fetch(url, {.catch(error => console.error("API Error:", error))
         headers: {
           "User-Agent": "A1Betting-PrizePicks/1.0",
           Accept: "application/json",
@@ -85,7 +125,11 @@ export class PrizePicksProjectionsService {
    * Get all current projections from PrizePicks;
    */
   async getProjections(): Promise<{
-    projections: ProcessedProjection[0],`n  leagues: PrizePicksLeague[0];,`n  players: PrizePicksPlayer[0],`n  raw_count: number;,`n  processed_count: number}> {
+    projections: ProcessedProjection[0]
+,`n  leagues: PrizePicksLeague[0];
+,`n  players: PrizePicksPlayer[0]
+,`n  raw_count: number;
+,`n  processed_count: number}> {
     try {
 
       if (!data || !data.data) {
@@ -306,7 +350,9 @@ export class PrizePicksProjectionsService {
   async getMarketComparison(): Promise<{
     sport_breakdown: Record<string, number>;
     stat_type_breakdown: Record<string, number>;
-    avg_over_odds: number,`n  avg_under_odds: number;,`n  total_markets: number}> {
+    avg_over_odds: number
+,`n  avg_under_odds: number;
+,`n  total_markets: number}> {
     try {
 
       const sportBreakdown: Record<string, number> = Record<string, any>;
@@ -354,7 +400,11 @@ export class PrizePicksProjectionsService {
    * Health check for PrizePicks API;
    */
   async healthCheck(): Promise<{
-    status: string,`n  response_time: number;,`n  projections_available: number,`n  sports_covered: string[0];,`n  last_updated: string}> {
+    status: string
+,`n  response_time: number;
+,`n  projections_available: number
+,`n  sports_covered: string[0];
+,`n  last_updated: string}> {
 
     try {
 

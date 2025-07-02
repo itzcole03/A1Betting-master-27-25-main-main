@@ -16,19 +16,44 @@ import React, { useEffect, useState} from 'react'
 import { useRealtimeData} from '../hooks/useRealtimeData'
 
 interface User {
-  id: number,`n  name: string;,`n  email: string,`n  balance: number;,`n  tier: string}
+  id: number
+,`n  name: string;
+,`n  email: string
+,`n  balance: number;
+,`n  tier: string}
 
 interface Bet {
-  id: number,`n  match: string;,`n  amount: number,`n  odds: number;,`n  status: 'pending' | 'won' | 'lost',`n  potentialWinnings: number;,`n  placedAt: string,`n  sport: string;
+  id: number
+,`n  match: string;
+,`n  amount: number
+,`n  odds: number;
+,`n  status: 'pending' | 'won' | 'lost'
+,`n  potentialWinnings: number;
+,`n  placedAt: string
+,`n  sport: string;
   confidence?: number}
 
 interface Prediction {
-  id: number,`n  match: string;,`n  prediction: string,`n  confidence: number;,`n  odds: number,`n  sport: string;
+  id: number
+,`n  match: string;
+,`n  prediction: string
+,`n  confidence: number;
+,`n  odds: number
+,`n  sport: string;
   expectedValue?: number
   modelAccuracy?: number}
 
 interface EnhancedPerformanceStats {
-  totalProfit: number,`n  winRate: number;,`n  todayProfit: number,`n  activeBets: number;,`n  sharpeRatio: number,`n  maxDrawdown: number;,`n  totalBets: number,`n  avgBetSize: number;,`n  roiWeekly: number,`n  mlModelsActive: number}
+  totalProfit: number
+,`n  winRate: number;
+,`n  todayProfit: number
+,`n  activeBets: number;
+,`n  sharpeRatio: number
+,`n  maxDrawdown: number;
+,`n  totalBets: number
+,`n  avgBetSize: number;
+,`n  roiWeekly: number
+,`n  mlModelsActive: number}
 
 interface DashboardProps {
   user?: User
@@ -51,7 +76,8 @@ const Dashboard: React.FC<DashboardProps> = ({
   const { data: realtimeData, loading: dataLoading, error: dataError} = useRealtimeData();
 
   // Default fallback data (minimal)
-  const defaultUser: User = {,`n  id: 1,
+  const defaultUser: User = {
+,`n  id: 1,
     name: 'Elite Bettor',
     email: 'elite@example.com',
     balance: realtimeData?.profit || 125000,
@@ -77,7 +103,8 @@ const Dashboard: React.FC<DashboardProps> = ({
   // Map backend opportunities to bet format
   const actualBets =
     recentBets ||
-    realtimeData?.upcomingOpportunities?.slice(0, 4).map((opportunity: any, index: number) => ({,`n  id: index + 1,
+    realtimeData?.upcomingOpportunities?.slice(0, 4).map((opportunity: any, index: number) => ({
+,`n  id: index + 1,
       match: opportunity.game || 'Live Match',
       amount: Math.floor(Math.random() * 150) + 75, // Random stake for demo
       odds: 1.5 + Math.random() * 1.5, // Random odds
@@ -95,7 +122,8 @@ const Dashboard: React.FC<DashboardProps> = ({
 
   const actualPredictions =
     livePredictions ||
-    realtimeData?.upcomingOpportunities?.slice(0, 4).map((opportunity: any, index: number) => ({,`n  id: index + 1,
+    realtimeData?.upcomingOpportunities?.slice(0, 4).map((opportunity: any, index: number) => ({
+,`n  id: index + 1,
       match: opportunity.game || 'Live Match',
       prediction: opportunity.recommendation || 'Analysis pending',
       confidence: opportunity.confidence || 0,
@@ -202,7 +230,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                 <p className='text-gray-400 text-sm'>Account Balance</p>
                 <p className='text-2xl font-bold text-white'>${actualBalance.toLocaleString()}</p>
                 <p className='text-green-400 text-sm mt-1'>
-                  +${actualStats.todayProfit.toFixed(2)} today
+                  +${actualStats.safeNumber(todayProfit, 2)} today
                 </p>
               </div>
               <DollarSign className='w-8 h-8 text-yellow-400' />
@@ -312,7 +340,8 @@ const Dashboard: React.FC<DashboardProps> = ({
             <div className='space-y-3'>
               {actualPredictions.slice(0, 4).map(prediction => (
                 <div key={prediction.id}
-                  className='flex items-center justify-between p-3 bg-white/5 rounded-lg'>`n                >
+                  className='flex items-center justify-between p-3 bg-white/5 rounded-lg'
+>`n                >
                   <div className='flex-1'>
                     <p className='text-white font-medium text-sm'>{prediction.match}</p>
                     <p className='text-gray-400 text-xs'>
@@ -320,7 +349,8 @@ const Dashboard: React.FC<DashboardProps> = ({
                     </p>
                   </div>
                   <div className='text-right'>
-                    <p className={`font-semibold text-xs ${getConfidenceColor(prediction.confidence)}`}>`n                    >
+                    <p className={`font-semibold text-xs ${getConfidenceColor(prediction.confidence)}`}
+>`n                    >
                       {prediction.confidence}%
                     </p>
                     {prediction.expectedValue && (
@@ -345,7 +375,8 @@ const Dashboard: React.FC<DashboardProps> = ({
             <div className='space-y-3'>
               {actualBets.slice(0, 4).map(bet => (
                 <div key={bet.id}
-                  className='flex items-center justify-between p-3 bg-white/5 rounded-lg'>`n                >
+                  className='flex items-center justify-between p-3 bg-white/5 rounded-lg'
+>`n                >
                   <div className='flex-1'>
                     <p className='text-white font-medium text-sm'>{bet.match}</p>
                     <p className='text-gray-400 text-xs'>
@@ -353,7 +384,8 @@ const Dashboard: React.FC<DashboardProps> = ({
                     </p>
                   </div>
                   <div className='text-right'>
-                    <span className={`px-2 py-1 rounded text-xs font-semibold ${getStatusBadge(bet.status)}`}>`n                    >
+                    <span className={`px-2 py-1 rounded text-xs font-semibold ${getStatusBadge(bet.status)}`}
+>`n                    >
                       {bet.status}
                     </span>
                     {bet.confidence && (

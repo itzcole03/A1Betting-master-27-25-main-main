@@ -1,11 +1,16 @@
 ﻿// betaTest4/src/utils/formatters.ts;
+import { safePercentage } from './safeNumber';
+
+const pad = (num: number): string => num.toString().padStart(2, '0');
 
 export const formatDate = (date: string | Date, format: string = 'yyyy-MM-dd HH:mm'): string => {
+  const d = new Date(date);
   if (isNaN(d.getTime())) return 'Invalid Date';
 
   // Basic ISO-like format, can be expanded with a library like date-fns for complex needs;
-  if (format === 'yyyy-MM-dd HH: mm') {
-    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`}
+  if (format === 'yyyy-MM-dd HH:mm') {
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  }
 
   // Fallback to locale string for other/unspecified formats for now;
   return d.toLocaleDateString(undefined, {
@@ -14,13 +19,16 @@ export const formatDate = (date: string | Date, format: string = 'yyyy-MM-dd HH:
     day: 'numeric',
     hour: '2-digit',
     minute: '2-digit'
-  })};
+  });
+};
 
 export const formatCurrency = (amount: number, currency: string = 'USD'): string => {
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency}).format(amount)};
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency}).format(amount);
+};
 
 export const formatPercentage = (value: number, decimals: number = 2): string => {
-  return `${(value * 100).toFixed(decimals)}%`};
+  return safePercentage(value, decimals);
+};
 
 export const formatOdds = (odds: number): string => {
   if (odds >= 2) {
@@ -41,7 +49,9 @@ export const formatDateTime = (date: string | Date): string => {
 
 // ToastNotification type for use in notifications and toasts;
 export interface ToastNotification {
-  id: string,`n  message: string;,`n  type: 'success' | 'error' | 'warning' | 'info';
+  id: string
+,`n  message: string;
+,`n  type: 'success' | 'error' | 'warning' | 'info';
   duration?: number}
 
 

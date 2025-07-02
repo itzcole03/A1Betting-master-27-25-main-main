@@ -160,9 +160,9 @@ class Phase6IntegrationTester:
                 
                 with open(api_path, 'r') as f:
                     content = f.read()
-                    if '/api/predictions/live' in content:
+                    if '/api/predictions/prizepicks/live' in content:
                         print("  ✅ Live predictions endpoint found")
-                    if '/api/predictions/health' in content:
+                    if '/api/predictions/prizepicks/health' in content:
                         print("  ✅ Health endpoint found")
             
             return True
@@ -183,11 +183,11 @@ class Phase6IntegrationTester:
                     
                     # Check for required endpoints
                     endpoints = [
-                        '/api/predictions/live',
-                        '/api/predictions/health',
-                        '/api/predictions/explain',
-                        '/api/predictions/models',
-                        '/api/predictions/stats'
+                        '/api/predictions/prizepicks/live',
+                        '/api/predictions/prizepicks/health',
+                        '/api/predictions/prizepicks/explain',
+                        '/api/predictions/prizepicks/models',
+                        '/api/predictions/prizepicks/stats'
                     ]
                     
                     for endpoint in endpoints:

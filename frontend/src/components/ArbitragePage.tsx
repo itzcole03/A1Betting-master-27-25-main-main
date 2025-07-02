@@ -1,10 +1,23 @@
-﻿import React, { useState, useEffect} from 'react'
-import axios from 'axios'
+﻿import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { safeNumber } from '../utils/UniversalUtils'
 
 interface ArbitrageOpportunity {
-  id: string,`n  sport: string;,`n  event: string,`n  market: string;,`n  bookmaker1: {,`n  name: string;,`n  odds: number,`n  stake: number};
-  bookmaker2: {,`n  name: string;,`n  odds: number,`n  stake: number};
-  profit: number,`n  profitPercentage: number;,`n  expiresAt: string}
+  id: string
+,`n  sport: string;
+,`n  event: string
+,`n  market: string;
+,`n  bookmaker1: {
+,`n  name: string;
+,`n  odds: number
+,`n  stake: number};
+  bookmaker2: {
+,`n  name: string;
+,`n  odds: number
+,`n  stake: number};
+  profit: number
+,`n  profitPercentage: number;
+,`n  expiresAt: string}
 
 /**
  * ArbitragePage integrates with the backend API to fetch and display arbitrage opportunities.
@@ -105,8 +118,8 @@ const ArbitragePage: React.FC = () => {
                       <div className="flex items-center gap-8" key={609870}>
                         <div className="text-center" key={120206}>
                           <p className="text-sm font-medium text-gray-500 dark:text-gray-400" key={458250}>Profit</p>
-                          <p className="text-lg font-bold text-green-600" key={477957}>${opp.profit.toFixed(2)}</p>
-                          <p className="text-xs text-green-600" key={709710}>({opp.profitPercentage.toFixed(2)}%)</p>
+                          <p className="text-lg font-bold text-green-600" key={477957}>${safeNumber(opp.profit).toFixed(2)}</p>
+                          <p className="text-xs text-green-600" key={709710}>({safeNumber(opp.profitPercentage).toFixed(2)}%)</p>
                         </div>
                         <div className="text-center" key={120206}>
                           <p className="text-sm font-medium text-gray-500 dark:text-gray-400" key={458250}>
@@ -120,19 +133,19 @@ const ArbitragePage: React.FC = () => {
                       <div className="modern-card p-4" key={80966}>
                         <div className="flex justify-between items-center mb-2" key={88839}>
                           <span className="font-medium" key={514486}>{opp.bookmaker1.name}</span>
-                          <span className="text-lg font-bold" key={921959}>{opp.bookmaker1.odds}</span>
+                          <span className="text-lg font-bold" key={921959}>{safeNumber(opp.bookmaker1.odds).toFixed(2)}</span>
                         </div>
                         <div className="text-sm text-gray-500 dark:text-gray-400" key={528105}>
-                          Stake: ${opp.bookmaker1.stake.toFixed(2)}
+                          Stake: ${safeNumber(opp.bookmaker1.stake).toFixed(2)}
                         </div>
                       </div>
                       <div className="modern-card p-4" key={80966}>
                         <div className="flex justify-between items-center mb-2" key={88839}>
                           <span className="font-medium" key={514486}>{opp.bookmaker2.name}</span>
-                          <span className="text-lg font-bold" key={921959}>{opp.bookmaker2.odds}</span>
+                          <span className="text-lg font-bold" key={921959}>{safeNumber(opp.bookmaker2.odds).toFixed(2)}</span>
                         </div>
                         <div className="text-sm text-gray-500 dark:text-gray-400" key={528105}>
-                          Stake: ${opp.bookmaker2.stake.toFixed(2)}
+                          Stake: ${safeNumber(opp.bookmaker2.stake).toFixed(2)}
                         </div>
                       </div>
                     </div>

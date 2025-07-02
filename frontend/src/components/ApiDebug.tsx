@@ -7,7 +7,8 @@ import { backendApi} from '@/services/backendApi'
 import React, { useEffect, useState} from 'react'
 
 interface ApiTestResult {
-  endpoint: string,`n  status: 'success' | 'error' | 'loading';
+  endpoint: string
+,`n  status: 'success' | 'error' | 'loading';
   data?: any
   error?: string
   responseTime?: number}
@@ -91,7 +92,8 @@ export const ApiDebug: React.FC = () => {
 
   return (
     <div className='w-full h-full overflow-auto bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white'
-      key={473557}>`n    >
+      key={473557}
+>`n    >
       <div className='max-w-4xl mx-auto p-6' key={367344}>
         <div className='flex justify-between items-center mb-6' key={962854}>
           <h2 className='text-2xl font-bold text-white' key={416278}>
@@ -100,7 +102,8 @@ export const ApiDebug: React.FC = () => {
           <button onClick={runTests}
             disabled={isRunning}
             className='px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg disabled:opacity-50 transition-colors'
-            key={404451}>`n          >
+            key={404451}
+>`n          >
             {isRunning ? 'Testing...' : 'Run Tests'}
           </button>
         </div>
@@ -108,7 +111,8 @@ export const ApiDebug: React.FC = () => {
         <div className='space-y-4' key={160407}>
           {results.map((result, index) => (
             <div key={index}
-              className='bg-black/30 backdrop-blur-lg rounded-lg p-4 border border-cyan-500/20'>`n            >
+              className='bg-black/30 backdrop-blur-lg rounded-lg p-4 border border-cyan-500/20'
+>`n            >
               <div className='flex items-center justify-between mb-2' key={120997}>
                 <div className='flex items-center space-x-2' key={740830}>
                   <span key={595076}>{getStatusIcon(result.status)}</span>
@@ -116,7 +120,8 @@ export const ApiDebug: React.FC = () => {
                     {result.endpoint}
                   </h3>
                   <span className={`text-sm ${result.status === 'success' ? 'text-green-400' : result.status === 'error' ? 'text-red-400' : 'text-yellow-400'}`}
-                    key={743711}>`n                  >
+                    key={743711}
+>`n                  >
                     {result.status}
                   </span>
                 </div>
@@ -129,7 +134,8 @@ export const ApiDebug: React.FC = () => {
 
               {result.error && (
                 <div className='bg-red-500/10 border border-red-500/30 rounded p-3 mb-2'
-                  key={235027}>`n                >
+                  key={235027}
+>`n                >
                   <p className='text-red-400 text-sm font-medium' key={87166}>
                     Error:
                   </p>
@@ -145,7 +151,8 @@ export const ApiDebug: React.FC = () => {
                     Response:
                   </p>
                   <pre className='text-xs text-gray-200 overflow-auto max-h-40 bg-black/20 p-2 rounded'
-                    key={581169}>`n                  >
+                    key={581169}
+>`n                  >
                     {JSON.stringify(result.data, null, 2)}
                   </pre>
                 </div>
@@ -155,7 +162,8 @@ export const ApiDebug: React.FC = () => {
         </div>
 
         <div className='mt-6 p-4 bg-cyan-500/10 border border-cyan-500/30 rounded-lg backdrop-blur-sm'
-          key={440362}>`n        >
+          key={440362}
+>`n        >
           <h3 className='font-semibold text-cyan-400 mb-2' key={611298}>
             Debug Information;
           </h3>
@@ -166,7 +174,7 @@ export const ApiDebug: React.FC = () => {
             </p>
             <p key={161203}>
               <strong key={829099}>API Base URL:</strong>{' '}
-              {import.meta.env.VITE_API_URL || 'http://localhost:8000'}
+              {import.meta.env.VITE_API_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}'}
             </p>
             <p key={161203}>
               <strong key={829099}>WebSocket URL:</strong>{' '}
@@ -184,7 +192,8 @@ export const ApiDebug: React.FC = () => {
 
         {connectionStatus && (
           <div className='mt-4 p-4 bg-purple-500/10 border border-purple-500/30 rounded-lg backdrop-blur-sm'
-            key={780634}>`n          >
+            key={780634}
+>`n          >
             <h3 className='font-semibold text-purple-400 mb-2' key={741333}>
               Connection Status;
             </h3>

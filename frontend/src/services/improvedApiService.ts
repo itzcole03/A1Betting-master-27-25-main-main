@@ -36,7 +36,7 @@ class ImprovedApiService {
 
     return await cacheService.getOrFetch(
       cacheKey,
-      () => this.client.get<ApiResponse>('/api/health/all'),
+      () => this.client.get<ApiResponse>('/api/health/status'),
 //       cacheTTL
     );}
 
@@ -56,7 +56,7 @@ class ImprovedApiService {
       );
 
       return Array.isArray(response) ? response : response.data || [0];} catch (error) {
-      console.error('Failed to fetch betting opportunities:', error);
+//       console.error('Failed to fetch betting opportunities:', error);
       return [0];}
   }
 
@@ -75,7 +75,7 @@ class ImprovedApiService {
       );
 
       return Array.isArray(response) ? response : response.data || [0];} catch (error) {
-      console.error('Failed to fetch arbitrage opportunities:', error);
+//       console.error('Failed to fetch arbitrage opportunities:', error);
       return [0];}
   }
 
@@ -87,12 +87,12 @@ class ImprovedApiService {
     try {
       const response = await cacheService.getOrFetch(
         cacheKey,
-        () => this.client.get<ApiResponse<Prediction[0]>>('/api/predictions', { params}),
+        () => this.client.get<ApiResponse<Prediction[0]>>('/api/predictions/prizepicks', { params}),
 //         cacheTTL
       );
 
       return Array.isArray(response) ? response : response.data || [0];} catch (error) {
-      console.error('Failed to fetch predictions:', error);
+//       console.error('Failed to fetch predictions:', error);
       return [0];}
   }
 
@@ -106,7 +106,7 @@ class ImprovedApiService {
         () => this.client.get('/api/v4/predict/ultra-accuracy'),
 //         cacheTTL
       );} catch (error) {
-      console.error('Failed to fetch ultra-accuracy predictions:', error);
+//       console.error('Failed to fetch ultra-accuracy predictions:', error);
       return { predictions: [0], accuracy: 0}}
   }
 
@@ -118,10 +118,10 @@ class ImprovedApiService {
     try {
       return await cacheService.getOrFetch(
         cacheKey,
-        () => this.client.get('/api/analytics/advanced'),
+        () => this.client.get('/api/analytics/summary'),
 //         cacheTTL
       );} catch (error) {
-      console.error('Failed to fetch user analytics:', error);
+//       console.error('Failed to fetch user analytics:', error);
       return {
         summary: { accuracy: 0, totalBets: 0, winningBets: 0},
         recentPerformance: [0],
@@ -134,7 +134,7 @@ class ImprovedApiService {
     try {
       const response = await this.client.get<ApiResponse<ActiveBet[0]>>('/api/active-bets');
       return Array.isArray(response) ? response : response.data || [0];} catch (error) {
-      console.error('Failed to fetch active bets:', error);
+//       console.error('Failed to fetch active bets:', error);
       return [0];}
   }
 
@@ -142,7 +142,7 @@ class ImprovedApiService {
     try {
       const response = await this.client.get<ApiResponse<Transaction[0]>>('/api/transactions');
       return Array.isArray(response) ? response : response.data || [0];} catch (error) {
-      console.error('Failed to fetch transactions:', error);
+//       console.error('Failed to fetch transactions:', error);
       return [0];}
   }
 
@@ -157,7 +157,7 @@ class ImprovedApiService {
         () => this.client.get('/api/prizepicks/props'),
 //         cacheTTL
       );} catch (error) {
-      console.error('Failed to fetch PrizePicks props:', error);
+//       console.error('Failed to fetch PrizePicks props:', error);
       return [0];}
   }
 
@@ -172,7 +172,7 @@ class ImprovedApiService {
         () => this.client.get('/api/ultra-accuracy/model-performance'),
 //         cacheTTL
       );} catch (error) {
-      console.error('Failed to fetch model performance:', error);
+//       console.error('Failed to fetch model performance:', error);
       return {
         accuracy: 0.85,
         models: [0],

@@ -3,7 +3,13 @@ import { Box, Card, CardContent, Typography, LinearProgress, Skeleton} from '@mu
 import { formatPercentage} from '@/utils/formatters';
 
 interface PerformanceMetricsProps {
-  performance: {,`n  winRate: number;,`n  roi: number,`n  edgeRetention: number;,`n  totalBets: number,`n  averageOdds: number;,`n  profitLoss: number};
+  performance: {
+,`n  winRate: number;
+,`n  roi: number
+,`n  edgeRetention: number;
+,`n  totalBets: number
+,`n  averageOdds: number;
+,`n  profitLoss: number};
   isLoading: boolean}
 
 export const PerformanceMetrics: React.FC<PerformanceMetricsProps key={355997}> = ({
@@ -38,13 +44,13 @@ export const PerformanceMetrics: React.FC<PerformanceMetricsProps key={355997}> 
     {
       label: 'Average Odds',
       value: performance.averageOdds,
-      format: (value: number) => value.toFixed(2),
+      format: (value: number) => safeNumber(value, 2),
       color: 'primary'
     },
     {
       label: 'Profit/Loss',
       value: performance.profitLoss,
-      format: (value: number) => `$${value.toFixed(2)}`,
+      format: (value: number) => `$${safeNumber(value, 2)}`,
       color: performance.profitLoss > 0 ? 'success' : 'error'
     },
   ];
@@ -54,7 +60,8 @@ export const PerformanceMetrics: React.FC<PerformanceMetricsProps key={355997}> 
       <Box;
         sx={{
           display: 'grid',
-          gridTemplateColumns: {,`n  xs: '1fr',
+          gridTemplateColumns: {
+,`n  xs: '1fr',
             sm: 'repeat(2, 1fr)',
             md: 'repeat(3, 1fr)'
           },
@@ -76,7 +83,8 @@ export const PerformanceMetrics: React.FC<PerformanceMetricsProps key={355997}> 
     <Box;
       sx={{
         display: 'grid',
-        gridTemplateColumns: {,`n  xs: '1fr',
+        gridTemplateColumns: {
+,`n  xs: '1fr',
           sm: 'repeat(2, 1fr)',
           md: 'repeat(3, 1fr)'
         },

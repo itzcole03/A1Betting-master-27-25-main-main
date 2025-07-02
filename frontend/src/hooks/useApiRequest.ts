@@ -3,7 +3,8 @@
 
 
 interface CacheItem<T> {
-  data: T,`n  timestamp: number}
+  data: T
+,`n  timestamp: number}
 
 interface Cache {
   [key: string]: CacheItem<any>}
@@ -16,7 +17,10 @@ interface UseApiRequestOptions {
   enabled?: boolean}
 
 interface UseApiRequestState<T> {
-  data: T | null,`n  error: Error | null;,`n  isLoading: boolean,`n  isValidating: boolean}
+  data: T | null
+,`n  error: Error | null;
+,`n  isLoading: boolean
+,`n  isValidating: boolean}
 
 const globalCache: Cache = Record<string, any>;
 
@@ -42,7 +46,7 @@ export function useApiRequest<T>(
       abortControllerRef.current = new AbortController();
 
       try {
-        const response = await fetch(url, {
+        const response = await fetch(url, {.catch(error => console.error("API Error:", error))
           signal: abortControllerRef.current.signal,
           headers: {
             'Content-Type': 'application/json'}

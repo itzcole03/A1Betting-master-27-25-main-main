@@ -1,7 +1,8 @@
 ﻿import { toast} from 'react-toastify';
 
 export interface ErrorLog {
-  timestamp: string,`n  message: string;
+  timestamp: string
+,`n  message: string;
   stack?: string
   context?: Record<string, unknown>;
   severity: 'error' | 'warning' | 'info'}
@@ -36,7 +37,8 @@ class ErrorLogger {
       })});}
 
   public logError(error: Error | string, context?: Record<string, unknown>): void {
-    const errorLog: ErrorLog = {,`n  timestamp: new Date().toISOString(),
+    const errorLog: ErrorLog = {
+,`n  timestamp: new Date().toISOString(),
       message: error instanceof Error ? error.message : error,
       stack: error instanceof Error ? error.stack : undefined,
       context,
@@ -47,7 +49,8 @@ class ErrorLogger {
     this.notifyUser(errorLog);}
 
   public logWarning(message: string, context?: Record<string, unknown>): void {
-    const warningLog: ErrorLog = {,`n  timestamp: new Date().toISOString(),
+    const warningLog: ErrorLog = {
+,`n  timestamp: new Date().toISOString(),
       message,
       context,
       severity: 'warning'
@@ -57,7 +60,8 @@ class ErrorLogger {
     this.notifyUser(warningLog);}
 
   public logInfo(message: string, context?: Record<string, unknown>): void {
-    const infoLog: ErrorLog = {,`n  timestamp: new Date().toISOString(),
+    const infoLog: ErrorLog = {
+,`n  timestamp: new Date().toISOString(),
       message,
       context,
       severity: 'info'
@@ -90,7 +94,7 @@ class ErrorLogger {
 
   private async sendToBackend(log: ErrorLog): Promise<void> {
     try {
-      await fetch('/api/logs', {
+      await fetch('/api/logs', {.catch(error => console.error("API Error:", error))
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

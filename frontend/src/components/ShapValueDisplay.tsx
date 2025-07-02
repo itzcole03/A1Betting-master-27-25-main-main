@@ -26,7 +26,7 @@ export function ShapValueDisplay({ feature}: ShapValueDisplayProps) {
       >
         <div className="flex items-center justify-between text-sm" key={20634}>
           <span className="text-gray-600 dark:text-gray-400" key={517223}>{feature.feature}</span>
-          <span className="font-medium" key={514486}>{feature.value.toFixed(3)}</span>
+          <span className="font-medium" key={514486}>{feature.safeNumber(value, 3)}</span>
         </div>
         <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden" key={514168}>
           <div;

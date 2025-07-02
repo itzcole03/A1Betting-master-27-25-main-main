@@ -2,13 +2,29 @@
  * Hook for fetching real user statistics from backend;
  */
 
-import { useState, useEffect} from 'react';
+import { useState } from 'react';
 
 export interface UserStats {
-  balance: number,`n  winRate: number;,`n  totalProfit: number,`n  totalBets: number;,`n  activeBets: number,`n  todayProfit: number;,`n  weeklyProfit: number,`n  monthlyProfit: number;,`n  accuracy: number,`n  lastUpdated: string}
+  balance: number
+,`n  winRate: number;
+,`n  totalProfit: number
+,`n  totalBets: number;
+,`n  activeBets: number
+,`n  todayProfit: number;
+,`n  weeklyProfit: number
+,`n  monthlyProfit: number;
+,`n  accuracy: number
+,`n  lastUpdated: string}
 
 export interface BackendHealth {
-  status: "healthy" | "degraded" | "offline",`n  uptime: number;,`n  accuracy: number,`n  activePredictions: number;,`n  apis: {,`n  sportsradar: "healthy" | "degraded" | "offline";,`n  dailyfantasy: "healthy" | "degraded" | "offline",`n  theodds: "healthy" | "degraded" | "offline"}}
+  status: "healthy" | "degraded" | "offline"
+,`n  uptime: number;
+,`n  accuracy: number
+,`n  activePredictions: number;
+,`n  apis: {
+,`n  sportsradar: "healthy" | "degraded" | "offline";
+,`n  dailyfantasy: "healthy" | "degraded" | "offline"
+,`n  theodds: "healthy" | "degraded" | "offline"}}
 
 const useUserStats = () => {
   const [userStats, setUserStats] = useState<UserStats>({
@@ -29,7 +45,8 @@ const useUserStats = () => {
     uptime: 99.8,
     accuracy: 85.0,
     activePredictions: 12,
-    apis: {,`n  sportsradar: "healthy",
+    apis: {
+,`n  sportsradar: "healthy",
       dailyfantasy: "healthy",
       theodds: "healthy"
     }
@@ -44,7 +61,7 @@ const useUserStats = () => {
     // console statement removed
 
     try {
-      const response = await fetch(testUrl, {
+      const response = await fetch(testUrl, {.catch(error => console.error("API Error:", error))
         method: "GET",
         signal: AbortSignal.timeout(5000)
       });
@@ -111,7 +128,7 @@ const useUserStats = () => {
     try {
       // Try to fetch from multiple endpoints for comprehensive data;
       const endpoints = [
-        getApiUrl("/analytics/advanced"),
+        getApiUrl("/analytics/summary"),
         getApiUrl("/active-bets"),
         getApiUrl("/transactions"),
       ];
@@ -119,7 +136,7 @@ const useUserStats = () => {
       // console statement removed
 
       const requests = endpoints.map((endpoint) =>
-        fetch(endpoint, {
+        fetch(endpoint, {.catch(error => console.error("API Error:", error))
           method: "GET",
           headers: {
             "Content-Type": "application/json"
@@ -196,19 +213,21 @@ const useUserStats = () => {
   // Fetch backend health information;
   const fetchBackendHealth = async () => {
     try {
-      const response = await fetch(getApiUrl("/health/all"), {
+      const response = await fetch(getApiUrl("/health/status"), {
         method: "GET",
         headers: {
           "Content-Type": "application/json"
         },
-        signal: AbortSignal.timeout(8000), // 8 second timeout});
+        signal: AbortSignal.timeout(8000), // 8 second timeout
+      }).catch(error => console.error("API Error:", error));
 
       if (response.ok) {
 
         setBackendHealth((prev) => ({
           ...prev,
           status: "healthy",
-          apis: {,`n  sportsradar:
+          apis: {
+,`n  sportsradar:
               healthData.services?.sportsradar?.status === "healthy"
                 ? "healthy"
                 : "degraded",
@@ -231,7 +250,8 @@ const useUserStats = () => {
         uptime: 0,
         accuracy: 96.5,
         activePredictions: 12,
-        apis: {,`n  sportsradar: "offline",
+        apis: {
+,`n  sportsradar: "offline",
           dailyfantasy: "offline",
           theodds: "offline"
         }
@@ -241,7 +261,7 @@ const useUserStats = () => {
   // Get system accuracy from the Ultimate Brain system;
   const fetchSystemAccuracy = async () => {
     try {
-      const response = await fetch(
+      const response = await fetch(.catch(error => console.error("API Error:", error))
         getApiUrl("/ultra-accuracy/model-performance"),
         {
           method: "GET",

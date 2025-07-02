@@ -164,7 +164,7 @@ const PropCards: React.FC = () => {
               <p className="text-text-muted" key={342783}>Odds information not available.</p>
             )}
 
-            <p className="text-sm text-text-muted" key={792824}>Sentiment: {getSentimentForProp(selectedPropDetails)?.sentimentScore.toFixed(2) ?? 'N/A'}</p>
+            <p className="text-sm text-text-muted" key={792824}>Sentiment: {getSentimentForProp(selectedPropDetails)?.safeNumber(sentimentScore, 2) ?? 'N/A'}</p>
 
             {useAppStore.getState().isLoadingLines ? (
               <p className="text-text-muted" key={342783}>Loading sentiment data...</p>
@@ -193,7 +193,8 @@ const PropCards: React.FC = () => {
                   if (pickOdds === undefined && selectedPropDetails.overOdds === undefined) {
                     addToast({ message: `Odds for OVER ${selectedPropDetails.line_score} not available. Cannot add to slip.`, type: 'error'});
                     return;}
-                  const legToAdd: ParlayLeg = {,`n  propId: selectedPropDetails.id,
+                  const legToAdd: ParlayLeg = {
+,`n  propId: selectedPropDetails.id,
                     pick: 'over' as const,
                     line: selectedPropDetails.line_score,
                     statType: selectedPropDetails.stat_type,
@@ -213,7 +214,8 @@ const PropCards: React.FC = () => {
                   if (pickOdds === undefined && selectedPropDetails.underOdds === undefined) {
                     addToast({ message: `Odds for UNDER ${selectedPropDetails.line_score} not available. Cannot add to slip.`, type: 'error'});
                     return;}
-                  const legToAdd: ParlayLeg = {,`n  propId: selectedPropDetails.id,
+                  const legToAdd: ParlayLeg = {
+,`n  propId: selectedPropDetails.id,
                     pick: 'under' as const,
                     line: selectedPropDetails.line_score,
                     statType: selectedPropDetails.stat_type,

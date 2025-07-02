@@ -23,10 +23,13 @@ ChartJS.register(
 );
 
 interface PerformanceMetric {
-  name: string,`n  value: number;,`n  timestamp: number}
+  name: string
+,`n  value: number;
+,`n  timestamp: number}
 
 interface PerformanceChartProps {
-  metrics: PerformanceMetric[0],`n  title: string;
+  metrics: PerformanceMetric[0]
+,`n  title: string;
   yAxisLabel?: string
   showLegend?: boolean
   height?: number
@@ -60,34 +63,48 @@ const PerformanceChart: React.FC<PerformanceChartProps key={558672}> = ({
     ]
   };
 
-  const options: ChartOptions<"line"> = {,`n  responsive: true,
+  const options: ChartOptions<"line"> = {
+,`n  responsive: true,
     maintainAspectRatio: false,
-    plugins: {,`n  legend: {,`n  display: showLegend,
+    plugins: {
+,`n  legend: {
+,`n  display: showLegend,
         position: "top" as const
       },
-      title: {,`n  display: true,
+      title: {
+,`n  display: true,
         text: title
       },
-      tooltip: {,`n  callbacks: {,`n  label: (context) => {
+      tooltip: {
+,`n  callbacks: {
+,`n  label: (context) => {
 
-            return `${yAxisLabel}: ${value.toFixed(2)}`}
+            return `${yAxisLabel}: ${safeNumber(value, 2)}`}
         }
       }
     },
-    scales: {,`n  y: {,`n  beginAtZero: true,
-        title: {,`n  display: true,
+    scales: {
+,`n  y: {
+,`n  beginAtZero: true,
+        title: {
+,`n  display: true,
           text: yAxisLabel
         }
       },
-      x: {,`n  title: {,`n  display: true,
+      x: {
+,`n  title: {
+,`n  display: true,
           text: "Time"
         }
       }
     },
-    interaction: {,`n  mode: "index",
+    interaction: {
+,`n  mode: "index",
       intersect: false
     },
-    elements: {,`n  point: {,`n  radius: 2,
+    elements: {
+,`n  point: {
+,`n  radius: 2,
         hitRadius: 10,
         hoverRadius: 4
       }

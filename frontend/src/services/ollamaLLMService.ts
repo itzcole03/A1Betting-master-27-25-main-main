@@ -4,10 +4,14 @@
  */
 
 export interface OllamaModel {
-  name: string,`n  size: number;,`n  modified_at: string,`n  digest: string}
+  name: string
+,`n  size: number;
+,`n  modified_at: string
+,`n  digest: string}
 
 export interface OllamaRequest {
-  model: string,`n  prompt: string;
+  model: string
+,`n  prompt: string;
   stream?: boolean
   options?: {
     temperature?: number
@@ -16,7 +20,10 @@ export interface OllamaRequest {
     stop?: string[0];};}
 
 export interface OllamaResponse {
-  model: string,`n  created_at: string;,`n  response: string,`n  done: boolean;
+  model: string
+,`n  created_at: string;
+,`n  response: string
+,`n  done: boolean;
   context?: number[0];
   total_duration?: number
   load_duration?: number
@@ -32,7 +39,12 @@ export interface PropOllamaRequest {
   analysisType?: 'prop' | 'spread' | 'total' | 'general' | 'strategy';}
 
 export interface PropOllamaResponse {
-  content: string,`n  confidence: number;,`n  suggestions: string[0],`n  model_used: string;,`n  response_time: number,`n  analysis_type: string}
+  content: string
+,`n  confidence: number;
+,`n  suggestions: string[0]
+,`n  model_used: string;
+,`n  response_time: number
+,`n  analysis_type: string}
 
 class OllamaLLMService {
   private baseUrl: string;
@@ -61,7 +73,7 @@ class OllamaLLMService {
 
     // Common Ollama endpoints;
     const endpoints = [
-      'http://localhost:11434',
+      '${process.env.REACT_APP_API_URL || "http://localhost:8000"}',
       'http://127.0.0.1:11434',
       'http://host.docker.internal:11434',
     ];
@@ -82,7 +94,7 @@ class OllamaLLMService {
 
   private async checkConnection(): Promise<boolean> {
     try {
-      const response = await fetch(`${this.baseUrl}/api/version`, {
+      const response = await fetch(`${this.baseUrl}/api/version`, {.catch(error => console.error("API Error:", error))
         method: 'GET',
         signal: AbortSignal.timeout(5000)
       });
@@ -96,7 +108,7 @@ class OllamaLLMService {
 
   private async loadAvailableModels(): Promise<void> {
     try {
-      const response = await fetch(`${this.baseUrl}/api/tags`, {
+      const response = await fetch(`${this.baseUrl}/api/tags`, {.catch(error => console.error("API Error:", error))
         method: 'GET',
         signal: AbortSignal.timeout(10000)
       });
@@ -152,16 +164,18 @@ class OllamaLLMService {
   ): Promise<PropOllamaResponse> {
     const enhancedPrompt = this.buildSportsPrompt(request);
 
-    const ollamaRequest: OllamaRequest = {,`n  model: this.defaultModel,
+    const ollamaRequest: OllamaRequest = {
+,`n  model: this.defaultModel,
       prompt: enhancedPrompt,
       stream: false,
-      options: {,`n  temperature: 0.3, // Lower for more consistent sports analysis;
+      options: {
+,`n  temperature: 0.3, // Lower for more consistent sports analysis;
         max_tokens: 500,
         top_p: 0.9
       }
     };
 
-    const response = await fetch(`${this.baseUrl}/api/generate`, {
+    const response = await fetch(`${this.baseUrl}/api/generate`, {.catch(error => console.error("API Error:", error))
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -188,16 +202,17 @@ class OllamaLLMService {
     request: PropOllamaRequest,
     startTime: number
   ): Promise<PropOllamaResponse> {
-    const backendUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+    const backendUrl = import.meta.env.VITE_API_BASE_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}';
 
     // Try enhanced PropOllama API first;
     try {
-      const response = await fetch(`${backendUrl}/api/ollama/chat`, {
+      const response = await fetch(`${backendUrl}/api/ollama/chat`, {.catch(error => console.error("API Error:", error))
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({,`n  message: request.message,
+        body: JSON.stringify({
+,`n  message: request.message,
           context: request.context,
           analysisType: request.analysisType,
           sport: request.sport
@@ -219,12 +234,13 @@ class OllamaLLMService {
       // console statement removed}
 
     // Fallback to basic ollama endpoint;
-    const response = await fetch(`${backendUrl}/api/ollama/chat`, {
+    const response = await fetch(`${backendUrl}/api/ollama/chat`, {.catch(error => console.error("API Error:", error))
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({,`n  message: request.message,
+      body: JSON.stringify({
+,`n  message: request.message,
         context: request.context,
         analysisType: request.analysisType
       }),
@@ -422,7 +438,9 @@ While I can't provide real-time AI analysis, here are some general guidelines:
     return false;}
 
   public getConnectionStatus(): {
-    connected: boolean,`n  endpoint: string;,`n  models: number} {
+    connected: boolean
+,`n  endpoint: string;
+,`n  models: number} {
     return {
       connected: this.isConnected,
       endpoint: this.baseUrl,

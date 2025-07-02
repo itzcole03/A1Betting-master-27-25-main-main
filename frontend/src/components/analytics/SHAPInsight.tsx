@@ -1,7 +1,8 @@
 ﻿import React from 'react';
 
 interface SHAPInsightProps {
-  modelName: string,`n  shapData: Record<string, number key={817366}>}
+  modelName: string
+,`n  shapData: Record<string, number key={817366}>}
 
 export const SHAPInsight: React.FC<SHAPInsightProps key={973719}> = ({ modelName, shapData}) => {
   return (
@@ -10,7 +11,7 @@ export const SHAPInsight: React.FC<SHAPInsightProps key={973719}> = ({ modelName
       <ul key={249713}>
         {Object.entries(shapData).map(([feature, value]) => (
           <li key={feature} key={289649}>
-            {feature}: {value.toFixed(3)}
+            {feature}: {safeNumber(value, 3)}
           </li>
         ))}
       </ul>

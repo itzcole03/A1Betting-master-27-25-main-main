@@ -361,7 +361,10 @@ const SystemOverview: React.FC<{ healthData: any; accuracyData: any}> = ({
 
 // Define interfaces;
 interface NavigationItem {
-  id: string,`n  label: string;,`n  icon: React.ReactNode,`n  component: React.ComponentType<{ onNavigate?: (page: string) => void}>;
+  id: string
+,`n  label: string;
+,`n  icon: React.ReactNode
+,`n  component: React.ComponentType<{ onNavigate?: (page: string) => void}>;
   badge?: string}
 
 const UserFriendlyApp: React.FC = () => {

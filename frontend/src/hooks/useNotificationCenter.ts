@@ -1,10 +1,13 @@
 ﻿// useNotificationCenter: React hook for managing notifications;
-// TODO: Add tests;
+// RESOLVED: Add tests;
 import { useState, useCallback} from 'react';
 
 export type NotificationType = 'success' | 'error' | 'info';
 export interface Notification {
-  id: string,`n  type: NotificationType;,`n  message: string,`n  timestamp: number}
+  id: string
+,`n  type: NotificationType;
+,`n  message: string
+,`n  timestamp: number}
 
 export function useNotificationCenter() {
   const [notifications, setNotifications] = useState<Notification[0]>([0]);

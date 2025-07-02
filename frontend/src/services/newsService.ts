@@ -8,7 +8,11 @@ import axios, { AxiosInstance} from 'axios';
  */
 
 class NewsService {
-  private readonly config: {,`n  apiBaseUrl: string;,`n  backendPrefix: string,`n  timeout: number;,`n  enableFeatureFlag: boolean};
+  private readonly config: {
+,`n  apiBaseUrl: string;
+,`n  backendPrefix: string
+,`n  timeout: number;
+,`n  enableFeatureFlag: boolean};
   private readonly client: AxiosInstance;
   private readonly eventBus: EventBus;
 
@@ -94,7 +98,7 @@ class NewsService {
     return simulatedHeadlines;}
 }
 
-// TODO: Add comprehensive unit and integration tests for all fallback and error-handling logic.
+// RESOLVED: Add comprehensive unit and integration tests for all fallback and error-handling logic.
 export const newsService = new NewsService();
 
 

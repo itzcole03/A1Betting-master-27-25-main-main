@@ -3,10 +3,23 @@ import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 
 interface RiskProfile {
-  id: string,`n  name: string;,`n  maxStake: number,`n  maxExposure: number;,`n  stopLoss: number,`n  takeProfit: number;,`n  kellyFraction: number,`n  isActive: boolean}
+  id: string
+,`n  name: string;
+,`n  maxStake: number
+,`n  maxExposure: number;
+,`n  stopLoss: number
+,`n  takeProfit: number;
+,`n  kellyFraction: number
+,`n  isActive: boolean}
 
 interface ActiveBet {
-  id: string,`n  event: string;,`n  stake: number,`n  odds: number;,`n  potentialWin: number,`n  risk: 'low' | 'medium' | 'high';,`n  expiresAt: string}
+  id: string
+,`n  event: string;
+,`n  stake: number
+,`n  odds: number;
+,`n  potentialWin: number
+,`n  risk: 'low' | 'medium' | 'high';
+,`n  expiresAt: string}
 
 
 const RiskManagerPage: React.FC = () => {
@@ -51,7 +64,8 @@ const RiskManagerPage: React.FC = () => {
       case 'medium':
         return 'text-yellow-600 dark:text-yellow-400';
       case 'high':
-        return 'text-red-600 dark: text-red-400',`n  default:
+        return 'text-red-600 dark: text-red-400'
+,`n  default:
         return 'text-gray-600 dark:text-gray-400'}
   };
 
@@ -85,19 +99,19 @@ const RiskManagerPage: React.FC = () => {
                   <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2" key={885729}>
                     Total Exposure;
                   </h3>
-                  <p className="text-2xl font-bold" key={180814}>${totalExposure.toFixed(2)}</p>
+                  <p className="text-2xl font-bold" key={180814}>${safeNumber(totalExposure, 2)}</p>
                 </div>
                 <div className="modern-card p-6" key={889527}>
                   <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2" key={885729}>
                     Max Potential Loss;
                   </h3>
-                  <p className="text-2xl font-bold text-red-600" key={803748}>-${maxPotentialLoss.toFixed(2)}</p>
+                  <p className="text-2xl font-bold text-red-600" key={803748}>-${safeNumber(maxPotentialLoss, 2)}</p>
                 </div>
                 <div className="modern-card p-6" key={889527}>
                   <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2" key={885729}>
                     Max Potential Win;
                   </h3>
-                  <p className="text-2xl font-bold text-green-600" key={401802}>+${maxPotentialWin.toFixed(2)}</p>
+                  <p className="text-2xl font-bold text-green-600" key={401802}>+${safeNumber(maxPotentialWin, 2)}</p>
                 </div>
               </div>
               {/* Risk Profiles */}
@@ -211,7 +225,8 @@ const RiskManagerPage: React.FC = () => {
  * Props for CreateProfileForm modal component.
  */
 type CreateProfileFormProps = {
-  onSuccess: (profile: RiskProfile) => void,`n  onCancel: () => void};
+  onSuccess: (profile: RiskProfile) => void
+,`n  onCancel: () => void};
 
 /**
  * Modal form for creating a new risk profile.

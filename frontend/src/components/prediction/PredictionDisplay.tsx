@@ -238,7 +238,8 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
           severity: 'HIGH',
           component: componentId,
           retryable: true,
-          recoveryStrategy: {,`n  type: 'retry',
+          recoveryStrategy: {
+,`n  type: 'retry',
             maxRetries: 3,
             timeout: 1000
           }
@@ -367,7 +368,7 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
             <Box alignItems="center" display="flex" justifyContent="space-between" mb={1} key={742420}>
               <Typography variant="subtitle1" key={265838}>Prediction</Typography>
               <ValueDisplay changed={changedValues.has('value')} key={336930}>
-                <Typography variant="h5" key={944884}>{value.toFixed(2)}</Typography>
+                <Typography variant="h5" key={944884}>{safeNumber(value, 2)}</Typography>
               </ValueDisplay>
             </Box>
             <Box alignItems="center" display="flex" gap={1} key={110385}>
@@ -410,7 +411,7 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps key={692949}> = 
             </Box>
             <Box mt={1} key={51953}>
               <Typography color="textSecondary" variant="body2" key={603568}>
-                Kelly Fraction: {kelly_fraction.toFixed(3)}
+                Kelly Fraction: {safeNumber(kelly_fraction, 3)}
               </Typography>
             </Box>
           </Box>

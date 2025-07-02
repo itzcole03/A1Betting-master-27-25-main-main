@@ -11,10 +11,17 @@ import {
 import { AnalysisResult as CoreAnalysisResult, PerformanceMetrics} from '@/types/core';
 
 interface StrategyConfig {
-  minConfidence: number,`n  minEdge: number;,`n  maxRisk: number,`n  useHistoricalData: boolean;,`n  useAdvancedStats: boolean}
+  minConfidence: number
+,`n  minEdge: number;
+,`n  maxRisk: number
+,`n  useHistoricalData: boolean;
+,`n  useAdvancedStats: boolean}
 
 interface _ProjectionAnalysisResult extends CoreAnalysisResult {
-  context: {,`n  market: string;,`n  timestamp: number,`n  parameters: Record<string, unknown>};
+  context: {
+,`n  market: string;
+,`n  timestamp: number
+,`n  parameters: Record<string, unknown>};
   results: ProjectionAnalysis[0]}
 
 export class ProjectionBettingStrategy implements Strategy {
@@ -28,7 +35,8 @@ export class ProjectionBettingStrategy implements Strategy {
   private readonly performanceMonitor: PerformanceMonitor;
   private readonly featureManager: FeatureFlags;
   private readonly config: StrategyConfig;
-  private metrics: PerformanceMetrics = {,`n  totalBets: 0,
+  private metrics: PerformanceMetrics = {
+,`n  totalBets: 0,
     winRate: 0,
     averageOdds: 0,
     roi: 0,
@@ -94,11 +102,14 @@ export class ProjectionBettingStrategy implements Strategy {
       // Sort recommendations by confidence;
       filteredRecommendations.sort((a, b) => b.confidence - a.confidence);
 
-      const decision: Decision = {,`n  id: `decision-${Date.now()}`,
+      const decision: Decision = {
+,`n  id: `decision-${Date.now()}`,
         timestamp: Date.now(),
         confidence: overallConfidence,
         recommendations: filteredRecommendations,
-        analysis: {,`n  meta_analysis: {,`n  data_quality: this.calculateDataQuality(data),
+        analysis: {
+,`n  meta_analysis: {
+,`n  data_quality: this.calculateDataQuality(data),
             prediction_stability:
               this.calculatePredictionStability(recommendations),
             market_efficiency: this.calculateMarketEfficiency(
@@ -158,36 +169,45 @@ export class ProjectionBettingStrategy implements Strategy {
       return {
         player: playerId,
         confidence: d.confidence,
-        predictions: {,`n  points: {,`n  predicted: stats.points,
+        predictions: {
+,`n  points: {
+,`n  predicted: stats.points,
             confidence: d.confidence,
             range: { min: 0, max: 0}
           },
-          rebounds: {,`n  predicted: stats.rebounds,
+          rebounds: {
+,`n  predicted: stats.rebounds,
             confidence: d.confidence,
             range: { min: 0, max: 0}
           },
-          assists: {,`n  predicted: stats.assists,
+          assists: {
+,`n  predicted: stats.assists,
             confidence: d.confidence,
             range: { min: 0, max: 0}
           },
-          steals: {,`n  predicted: stats.steals,
+          steals: {
+,`n  predicted: stats.steals,
             confidence: d.confidence,
             range: { min: 0, max: 0}
           },
-          blocks: {,`n  predicted: stats.blocks,
+          blocks: {
+,`n  predicted: stats.blocks,
             confidence: d.confidence,
             range: { min: 0, max: 0}
           },
-          threes: {,`n  predicted: stats.threes,
+          threes: {
+,`n  predicted: stats.threes,
             confidence: d.confidence,
             range: { min: 0, max: 0}
           },
-          minutes: {,`n  predicted: stats.minutes,
+          minutes: {
+,`n  predicted: stats.minutes,
             confidence: d.confidence,
             range: { min: 0, max: 0}
           }
         },
-        metadata: {,`n  team: stats.team,
+        metadata: {
+,`n  team: stats.team,
           position: stats.position,
           opponent: stats.opponent,
           isHome: stats.isHome
@@ -352,7 +372,8 @@ export class ProjectionBettingStrategy implements Strategy {
             metrics,
             useAdvancedStats,
           ),
-          supporting_data: {,`n  historical_data: [0],
+          supporting_data: {
+,`n  historical_data: [0],
             market_data: [0],
             correlation_data: [0]
           }
@@ -369,7 +390,8 @@ export class ProjectionBettingStrategy implements Strategy {
               metrics,
               useAdvancedStats,
             ),
-            supporting_data: {,`n  historical_data: [0],
+            supporting_data: {
+,`n  historical_data: [0],
               market_data: [0],
               correlation_data: [0]
             }
@@ -400,7 +422,7 @@ export class ProjectionBettingStrategy implements Strategy {
 
     if (minutes.predicted >= 30) {
       reasoning.push(
-        `Expected to play significant minutes (${minutes.predicted.toFixed(1)})`,
+        `Expected to play significant minutes (${minutes.safeNumber(predicted, 1)})`,
       );}
 
     // Matchup-based reasoning;
@@ -411,7 +433,7 @@ export class ProjectionBettingStrategy implements Strategy {
     // Advanced stats reasoning if enabled;
     if (useAdvancedStats) {
       reasoning.push(
-        `Projection range: ${metrics.range.min.toFixed(1)} - ${metrics.range.max.toFixed(1)}`,
+        `Projection range: ${metrics.range.safeNumber(min, 1)} - ${metrics.range.safeNumber(max, 1)}`,
       )}
 
     return reasoning;}

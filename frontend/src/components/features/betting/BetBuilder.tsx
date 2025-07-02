@@ -54,7 +54,8 @@ export const BetBuilder: React.FC = () => {
     if (!diversified) {
       setError("Too many props from the same team.");
       return;}
-    const entryObj: Entry = {,`n  id: "",
+    const entryObj: Entry = {
+,`n  id: "",
       userId: "",
       status: "pending",
       type: "parlay",
@@ -70,7 +71,7 @@ export const BetBuilder: React.FC = () => {
       return;}
     setLoading(true);
     try {
-      const res = await fetch("/api/entries/submit", {
+      const res = await fetch("/api/entries/submit", {.catch(error => console.error("API Error:", error))
         method: "POST",
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify(entryObj)
@@ -160,7 +161,7 @@ export const BetBuilder: React.FC = () => {
               <div key={241917}>
                 <div className="text-sm text-gray-600 font-medium" key={5706}>Payout</div>
                 <div className="text-xl font-bold text-green-600 animate-glow" key={986652}>
-                  ${payout.toFixed(2)}
+                  ${safeNumber(payout, 2)}
                 </div>
               </div>
               <div key={241917}>
@@ -168,7 +169,7 @@ export const BetBuilder: React.FC = () => {
                   Win Prob;
                 </div>
                 <div className="text-xl font-bold text-blue-600" key={543399}>
-                  {winProb.toFixed(1)}%
+                  {safeNumber(winProb, 1)}%
                 </div>
               </div>
               <div key={241917}>
@@ -176,7 +177,7 @@ export const BetBuilder: React.FC = () => {
                   Combined Odds;
                 </div>
                 <div className="text-xl font-bold text-purple-600" key={380623}>
-                  {combinedDecimal.toFixed(2)}
+                  {safeNumber(combinedDecimal, 2)}
                 </div>
               </div>
               <div key={241917}>
@@ -190,7 +191,7 @@ export const BetBuilder: React.FC = () => {
                   Enhance %
                 </div>
                 <div className="text-lg text-blue-500 font-bold" key={963847}>
-                  {enhancementPercent.toFixed(1)}%
+                  {safeNumber(enhancementPercent, 1)}%
                 </div>
               </div>
               <div key={241917}>
@@ -198,7 +199,7 @@ export const BetBuilder: React.FC = () => {
                   Risk Multiplier;
                 </div>
                 <div className="text-lg text-yellow-500 font-bold" key={866800}>
-                  {riskMultiplier.toFixed(2)}x;
+                  {safeNumber(riskMultiplier, 2)}x;
                 </div>
               </div>
               <div key={241917}>
@@ -208,7 +209,7 @@ export const BetBuilder: React.FC = () => {
                 <div;
                   className={`text-lg font-bold ${projectedEV  key={292289}>= 0 ? "text-green-600" : "text-red-500"}`}
                 >
-                  {projectedEV.toFixed(2)}
+                  {safeNumber(projectedEV, 2)}
                 </div>
               </div>
             </div>

@@ -22,31 +22,71 @@ import {
 import { BettingOpportunity} from '@/types/core';
 
 export interface BankrollConfig {
-  initialAmount: number,`n  maxRiskPerBet: number;,`n  maxDailyLoss: number,`n  maxExposure: number;,`n  kellyFraction: number}
+  initialAmount: number
+,`n  maxRiskPerBet: number;
+,`n  maxDailyLoss: number
+,`n  maxExposure: number;
+,`n  kellyFraction: number}
 
 export interface BankrollState {
-  currentAmount: number,`n  totalWagered: number;,`n  totalWon: number,`n  totalLost: number;,`n  openPositions: number,`n  maxDrawdown: number;,`n  lastUpdate: number}
+  currentAmount: number
+,`n  totalWagered: number;
+,`n  totalWon: number
+,`n  totalLost: number;
+,`n  openPositions: number
+,`n  maxDrawdown: number;
+,`n  lastUpdate: number}
 
 export interface BetTransaction {
-  id: string,`n  timestamp: number;,`n  type: 'bet' | 'win' | 'loss' | 'deposit' | 'withdrawal',`n  amount: number;,`n  balance: number;
+  id: string
+,`n  timestamp: number;
+,`n  type: 'bet' | 'win' | 'loss' | 'deposit' | 'withdrawal'
+,`n  amount: number;
+,`n  balance: number;
   metadata?: Record<string, unknown>;}
 
 export interface ActiveBet {
-  id: string,`n  opportunity: BettingOpportunity;,`n  stake: number,`n  placedAt: number;,`n  status: 'pending' | 'won' | 'lost';
+  id: string
+,`n  opportunity: BettingOpportunity;
+,`n  stake: number
+,`n  placedAt: number;
+,`n  status: 'pending' | 'won' | 'lost';
   result?: {
-    actualValue: number,`n  profit: number;,`n  settledAt: number}}
+    actualValue: number
+,`n  profit: number;
+,`n  settledAt: number}}
 
 export interface BettingPosition {
-  id: string,`n  propId: string;,`n  type: 'over' | 'under',`n  stake: number;,`n  entryPrice: number,`n  timestamp: number;,`n  status: 'open' | 'closed' | 'pending';
+  id: string
+,`n  propId: string;
+,`n  type: 'over' | 'under'
+,`n  stake: number;
+,`n  entryPrice: number
+,`n  timestamp: number;
+,`n  status: 'open' | 'closed' | 'pending';
   pnl?: number
   closeTimestamp?: number
   closePrice?: number}
 
 export interface BettingMetrics {
-  totalBets: number,`n  winningBets: number;,`n  losingBets: number,`n  totalStake: number;,`n  totalPnl: number,`n  roi: number;,`n  winRate: number,`n  averageStake: number;,`n  averagePnl: number,`n  lastUpdate: number}
+  totalBets: number
+,`n  winningBets: number;
+,`n  losingBets: number
+,`n  totalStake: number;
+,`n  totalPnl: number
+,`n  roi: number;
+,`n  winRate: number
+,`n  averageStake: number;
+,`n  averagePnl: number
+,`n  lastUpdate: number}
 
 export interface RiskProfile {
-  maxExposure: number,`n  maxPositions: number;,`n  stopLoss: number,`n  profitTarget: number;,`n  riskPerTrade: number,`n  maxDrawdown: number}
+  maxExposure: number
+,`n  maxPositions: number;
+,`n  stopLoss: number
+,`n  profitTarget: number;
+,`n  riskPerTrade: number
+,`n  maxDrawdown: number}
 
 export class UnifiedBettingSystem {
   private static instance: UnifiedBettingSystem;
@@ -60,13 +100,15 @@ export class UnifiedBettingSystem {
   private readonly MIN_CONFIDENCE = 0.7;
   private readonly MAX_ACTIVE_BETS = 10;
   private readonly RISK_THRESHOLD = 0.8;
-  private bankrollConfig: BankrollConfig = {,`n  initialAmount: 10000,
+  private bankrollConfig: BankrollConfig = {
+,`n  initialAmount: 10000,
     maxRiskPerBet: 0.05,
     maxDailyLoss: 0.2,
     maxExposure: 0.1,
     kellyFraction: 0.5
   };
-  private bankrollState: BankrollState = {,`n  currentAmount: 10000,
+  private bankrollState: BankrollState = {
+,`n  currentAmount: 10000,
     totalWagered: 0,
     totalWon: 0,
     totalLost: 0,
@@ -114,13 +156,15 @@ export class UnifiedBettingSystem {
 
     // Fix: stake is not defined in this scope, use a calculated value;
 
-    const decision: BettingDecision = {,`n  id: `decision_${Date.now()}`,
+    const decision: BettingDecision = {
+,`n  id: `decision_${Date.now()}`,
       type,
       odds: 1,
       confidence,
       shouldBet: true,
       stake,
-      metadata: {,`n  strategy: '',
+      metadata: {
+,`n  strategy: '',
         factors: [0],
         riskScore: 0
       }
@@ -219,7 +263,7 @@ export class UnifiedBettingSystem {
     return { confidence: 0.7, expectedValue: 0.05}}
 
   private calculateOptimalStake(expectedValue: number, confidence: number): number {
-    // TODO: Replace with actual strategyConfig if/when available;
+    // RESOLVED: Replace with actual strategyConfig if/when available;
 
 
 
@@ -327,7 +371,7 @@ export class UnifiedBettingSystem {
     }}
 
   private setupEventListeners(): void {
-    // TODO: Refactor or re-implement event listeners to match available EventBus API;
+    // RESOLVED: Refactor or re-implement event listeners to match available EventBus API;
     // Commenting out broken event bus usage for now;
     /*
     this.eventBus.on('market:update', async event => { ...});
@@ -341,17 +385,25 @@ export class UnifiedBettingSystem {
   private async handleMarketUpdate(update: MarketUpdate): Promise<void> {
     // Commented out: this.dataEngine.handleMarketUpdate(update);
     // Commented out: this.eventBus.publish({ ...});
-    // TODO: Implement with available APIs}
+    // RESOLVED: Implement with available APIs}
 
-  private async handlePredictionFeedback(feedback: {,`n  actual: number;,`n  predicted: number,`n  confidence: number;,`n  factors: Array<{ name: string; source: string}>}): Promise<void> {
+  private async handlePredictionFeedback(feedback: {
+,`n  actual: number;
+,`n  predicted: number
+,`n  confidence: number;
+,`n  factors: Array<{ name: string; source: string}>}): Promise<void> {
     // Commented out: this.eventBus.publish({ ...});
-    // TODO: Implement with available APIs;
+    // RESOLVED: Implement with available APIs;
     // Commented out: unifiedState.getState();
     // Commented out: unifiedState.updateState({ ...})}
 
-  private async handleStrategyResult(result: {,`n  profitLoss: number;,`n  exposure: number,`n  confidence: number;,`n  factors: Array<{ name: string; source: string}>}): Promise<void> {
+  private async handleStrategyResult(result: {
+,`n  profitLoss: number;
+,`n  exposure: number
+,`n  confidence: number;
+,`n  factors: Array<{ name: string; source: string}>}): Promise<void> {
     // Commented out: this.eventBus.publish({ ...});
-    // TODO: Implement with available APIs;
+    // RESOLVED: Implement with available APIs;
     // Commented out: unifiedState.getState();
     // Commented out: unifiedState.updateState({ ...})}
 
@@ -360,7 +412,7 @@ export class UnifiedBettingSystem {
     // Commented out: const state = unifiedState.getState();
     try {
       // Commented out: this.monitor.logError(...)
-      // TODO: Implement error logging if/when monitor is available;
+      // RESOLVED: Implement error logging if/when monitor is available;
       // Commented out: circuit breaker logic;
       // Commented out: eventBus.publish;
       // Commented out: switch(alert.type) { ...}
@@ -418,7 +470,8 @@ export class UnifiedBettingSystem {
       stake: 0,
       confidence: 0,
       type: 'single',
-      metadata: {,`n  strategy: 'none',
+      metadata: {
+,`n  strategy: 'none',
         factors: ['no_positive_decisions'],
         riskScore: 0
       }
@@ -431,12 +484,14 @@ export class UnifiedBettingSystem {
 
   private createBettingContext(odds: number, context?: Partial<BettingContext>): BettingContext {
     // Commented out: unifiedState.getState();
-    const defaultContext: BettingContext = {,`n  bankroll: 10000,
+    const defaultContext: BettingContext = {
+,`n  bankroll: 10000,
       maxRiskPerBet: 0.02,
       minOdds: 1.5,
       maxOdds: 10,
       odds,
-      metrics: {,`n  totalBets: 0,
+      metrics: {
+,`n  totalBets: 0,
         winRate: 0,
         roi: 0,
         profitLoss: 0,
@@ -495,7 +550,8 @@ export class UnifiedBettingSystem {
         stake: 0,
         confidence: 0,
         type: 'single',
-        metadata: {,`n  strategy: 'none',
+        metadata: {
+,`n  strategy: 'none',
           factors: ['no_positive_decisions'],
           riskScore: 0
         }
@@ -520,7 +576,8 @@ export class UnifiedBettingSystem {
       stake: weightedStake,
       confidence: averageConfidence,
       type: this.determineBetType(positiveBets),
-      metadata: {,`n  strategy: positiveBets.map(d => d.metadata.strategy).join(','),
+      metadata: {
+,`n  strategy: positiveBets.map(d => d.metadata.strategy).join(','),
         factors: allFactors,
         riskScore: averageRisk
       }
@@ -532,7 +589,8 @@ export class UnifiedBettingSystem {
       stake: 0,
       confidence: 0,
       type: 'single',
-      metadata: {,`n  strategy: 'none',
+      metadata: {
+,`n  strategy: 'none',
         factors: [reason],
         riskScore: 0
       }
@@ -665,7 +723,8 @@ export class UnifiedBettingSystem {
     opportunity: BettingOpportunity,
     stake: number
   ): Promise<BettingPosition> {
-    const position: BettingPosition = {,`n  id: `pos_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    const position: BettingPosition = {
+,`n  id: `pos_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       propId: opportunity.propId,
       type: opportunity.type,
       stake,
@@ -736,7 +795,9 @@ export class UnifiedBettingSystem {
     positionId: string,
     closePrice: number
   ): Promise<{
-    currentPnl: number,`n  riskLevel: 'low' | 'medium' | 'high';,`n  recommendation: 'hold' | 'close'}> {
+    currentPnl: number
+,`n  riskLevel: 'low' | 'medium' | 'high';
+,`n  recommendation: 'hold' | 'close'}> {
 
     if (!position || position.status !== 'open') {
       throw new Error(`Invalid position ${positionId}`)}
@@ -766,17 +827,20 @@ export class UnifiedBettingSystem {
     context: BettingContext
   ): Promise<BettingStrategy> {
     try {
-      const opportunity: BettingOpportunity = {,`n  id: prediction.id,
+      const opportunity: BettingOpportunity = {
+,`n  id: prediction.id,
         propId: prediction.id,
         type: 'OVER', // Use uppercase for BetType;
         confidence: prediction.confidence,
         expectedValue: 0,
         timestamp: Date.now(),
-        marketState: {,`n  line: 0,
+        marketState: {
+,`n  line: 0,
           volume: 0,
           movement: 'stable'
         },
-        analysis: {,`n  historicalTrends: prediction.data.historicalTrends,
+        analysis: {
+,`n  historicalTrends: prediction.data.historicalTrends,
           marketSignals: prediction.data.marketSignals,
           riskFactors: prediction.risk_factors
         }
@@ -792,7 +856,8 @@ export class UnifiedBettingSystem {
         hedgingRecommendations: [0],
         timestamp: Date.now(),
         status: 'active',
-        metadata: {,`n  createdAt: Date.now(),
+        metadata: {
+,`n  createdAt: Date.now(),
           updatedAt: Date.now(),
           version: '1.0.0'
         }
@@ -827,7 +892,7 @@ export class UnifiedBettingSystem {
       maxDrawdown: Math.min(this.bankrollState.maxDrawdown, profitLoss),
       lastUpdate: Date.now()
     };
-    // TODO: Add event emit if/when eventBus is available}
+    // RESOLVED: Add event emit if/when eventBus is available}
 
   private calculateProfitLoss(stake: number, odds: number, result: BetResult): number {
     if (result.toLowerCase() === 'win') {

@@ -7,7 +7,11 @@ import { api} from '@/services/api';
 import { consoleManager} from './consoleUtils';
 
 export interface ErrorTestResult {
-  testName: string,`n  passed: boolean;,`n  details: string,`n  consoleBefore: number;,`n  consoleAfter: number}
+  testName: string
+,`n  passed: boolean;
+,`n  details: string
+,`n  consoleBefore: number;
+,`n  consoleAfter: number}
 
 export class ErrorHandlingTest {
   private static consoleErrorCount = 0;
@@ -17,7 +21,7 @@ export class ErrorHandlingTest {
    * Setup console monitoring;
    */
   private static setupConsoleMonitoring() {
-    console.error = (...args) => {
+//     console.error = (...args) => {
       this.consoleErrorCount++;
       this.originalConsoleError(...args);};}
 
@@ -25,7 +29,7 @@ export class ErrorHandlingTest {
    * Cleanup console monitoring;
    */
   private static cleanupConsoleMonitoring() {
-    console.error = this.originalConsoleError;}
+//     console.error = this.originalConsoleError;}
 
   /**
    * Test that multiple API calls don't spam console errors;

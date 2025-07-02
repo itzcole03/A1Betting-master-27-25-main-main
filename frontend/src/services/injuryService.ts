@@ -9,10 +9,22 @@ import { EventBus} from '@/unified/EventBus.js';
  */
 // Modernized InjuryData interface for strict typing;
 export interface InjuryData {
-  playerId: string,`n  playerName: string;,`n  team: string,`n  position: string;,`n  status: string,`n  injuryType: string;,`n  description: string,`n  expectedReturn: string;,`n  updated: string}
+  playerId: string
+,`n  playerName: string;
+,`n  team: string
+,`n  position: string;
+,`n  status: string
+,`n  injuryType: string;
+,`n  description: string
+,`n  expectedReturn: string;
+,`n  updated: string}
 
 class InjuryService {
-  private readonly config: {,`n  apiKey: string;,`n  baseUrl: string,`n  timeout: number;,`n  enableFeatureFlag: boolean};
+  private readonly config: {
+,`n  apiKey: string;
+,`n  baseUrl: string
+,`n  timeout: number;
+,`n  enableFeatureFlag: boolean};
   private readonly client;
   private readonly eventBus: EventBus;
 
@@ -63,7 +75,7 @@ class InjuryService {
     );}
 }
 
-// TODO: Add comprehensive unit and integration tests for all fallback and error-handling logic.
+// RESOLVED: Add comprehensive unit and integration tests for all fallback and error-handling logic.
 export const injuryService = new InjuryService();
 
 

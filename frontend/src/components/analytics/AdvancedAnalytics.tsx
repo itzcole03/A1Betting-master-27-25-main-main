@@ -22,7 +22,8 @@ Chart.register(ArcElement, BarElement, CategoryScale, LinearScale, ChartTooltip,
 
 // Helper: Status chip;
 interface StatusChipProps {
-  label: string,`n  color: 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
+  label: string
+,`n  color: 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
   icon?: React.ReactElement}
 const StatusChip: React.FC<StatusChipProps key={639518}> = ({ label, color, icon}) => (
   <Chip icon={icon} label={label} color={color} size="small" sx={{ mr: 1, mb: 1}} / key={432764}>
@@ -138,7 +139,8 @@ const AdvancedAnalytics: React.FC = () => {
                 <Bar;
                   data={{
                     labels: Object.keys(explainability.featureImportances),
-                    datasets: [{,`n  label: 'Feature Importance',
+                    datasets: [{
+,`n  label: 'Feature Importance',
                       data: Object.values(explainability.featureImportances),
                       backgroundColor: primaryColor
                     }]

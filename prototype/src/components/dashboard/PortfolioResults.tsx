@@ -1,5 +1,5 @@
-import React from 'react';
 import { CheckCircle } from 'lucide-react';
+import { safeNumber } from '../../../../frontend/src/utils/UniversalUtils';
 
 interface PortfolioResult {
   opportunities: any[];
@@ -67,18 +67,18 @@ export function PortfolioResults({ results }: PortfolioResultsProps) {
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div className="bg-white/50 dark:bg-black/20 p-3 rounded-lg">
                     <div className="text-sm text-gray-600 dark:text-gray-400">Odds</div>
-                    <div className="text-2xl font-bold text-green-600">{opp.odds}</div>
+                    <div className="text-2xl font-bold text-green-600">{safeNumber(opp.odds).toFixed(2)}</div>
                   </div>
                   <div className="bg-white/50 dark:bg-black/20 p-3 rounded-lg">
                     <div className="text-sm text-gray-600 dark:text-gray-400">AI Confidence</div>
-                    <div className="text-2xl font-bold text-blue-600">{Math.round(opp.confidence)}%</div>
+                    <div className="text-2xl font-bold text-blue-600">{Math.round(safeNumber(opp.confidence))}%</div>
                   </div>
                 </div>
                 
                 {/* AI Enhancement */}
                 <div className="text-sm text-gray-700 dark:text-gray-300 bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 p-3 rounded-lg mb-3">
                   <div className="font-semibold text-purple-700 dark:text-purple-300 mb-1">🧠 AI Enhancement:</div>
-                  <div>{opp.aiEnhancement}</div>
+                  <div>{safeNumber(opp.aiEnhancement).toFixed(2)}</div>
                 </div>
                 
                 {/* Actionable Betting Info */}
@@ -91,11 +91,11 @@ export function PortfolioResults({ results }: PortfolioResultsProps) {
                     </div>
                     <div>
                       <span className="text-gray-600 dark:text-gray-400">Expected Value:</span>
-                      <div className="font-bold text-green-600">+{opp.expectedValue.toFixed(1)}%</div>
+                      <div className="font-bold text-green-600">+{safeNumber(opp.expectedValue).toFixed(2)}%</div>
                     </div>
                     <div>
                       <span className="text-gray-600 dark:text-gray-400">Last Update:</span>
-                      <div className="font-bold">{opp.lastUpdate}</div>
+                      <div className="font-bold">{safeNumber(opp.lastUpdate).toFixed(2)}</div>
                     </div>
                   </div>
                 </div>
@@ -140,15 +140,15 @@ export function PortfolioResults({ results }: PortfolioResultsProps) {
       {/* Enhanced Performance Dashboard */}
       <div className="grid grid-cols-2 lg:grid-cols-6 gap-4 mt-8">
         <div className="text-center p-4 bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-xl">
-          <div className="text-2xl font-bold text-green-500 mb-1">{results.ensembleAccuracy.toFixed(1)}%</div>
+          <div className="text-2xl font-bold text-green-500 mb-1">{safeNumber(results.ensembleAccuracy).toFixed(2)}%</div>
           <div className="text-xs text-green-700 font-semibold">AI Accuracy</div>
         </div>
         <div className="text-center p-4 bg-gradient-to-br from-yellow-500/20 to-yellow-600/20 rounded-xl">
-          <div className="text-2xl font-bold text-yellow-500 mb-1">${Math.round(results.payout).toLocaleString()}</div>
+          <div className="text-2xl font-bold text-yellow-500 mb-1">${Math.round(safeNumber(results.payout)).toLocaleString()}</div>
           <div className="text-xs text-yellow-700 font-semibold">Projected Win</div>
         </div>
         <div className="text-center p-4 bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-xl">
-          <div className="text-2xl font-bold text-blue-500 mb-1">{results.multiplier.toFixed(2)}x</div>
+          <div className="text-2xl font-bold text-blue-500 mb-1">{safeNumber(results.multiplier).toFixed(2)}x</div>
           <div className="text-xs text-blue-700 font-semibold">Multiplier</div>
         </div>
         <div className="text-center p-4 bg-gradient-to-br from-purple-500/20 to-purple-600/20 rounded-xl">

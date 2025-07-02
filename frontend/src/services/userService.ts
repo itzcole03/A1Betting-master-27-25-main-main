@@ -14,7 +14,7 @@ export class UserService {
     try {
       const entries = await ApiService.get<PrizePicksEntry[0]>(`/api/v1/users/${userId}/entries`);
       return entries;} catch (error) {
-      console.error(`Failed to fetch user entries for user ${userId}:`, error);
+//       console.error(`Failed to fetch user entries for user ${userId}:`, error);
       throw error;}
   }
 
@@ -25,7 +25,7 @@ export class UserService {
     try {
       const user = await ApiService.get<User>(`/api/v1/users/${userId}`);
       return user;} catch (error) {
-      console.error(`Failed to fetch user profile for user ${userId}:`, error);
+//       console.error(`Failed to fetch user profile for user ${userId}:`, error);
       throw error;}
   }
 
@@ -39,7 +39,7 @@ export class UserService {
 //         preferences
       );
       return updatedUser;} catch (error) {
-      console.error(`Failed to update user preferences for user ${userId}:`, error);
+//       console.error(`Failed to update user preferences for user ${userId}:`, error);
       throw error;}
   }}
 

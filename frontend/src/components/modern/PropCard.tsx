@@ -91,7 +91,7 @@ const PropCard: React.FC<PropCardProps key={387456}> = ({ prop, sentiment, onVie
         {sentiment && (
           <div className="flex items-center space-x-1 text-text-muted" key={11977}>
             {getSentimentIcon()}
-            <span key={595076}>Social Sentiment: {sentiment.sentimentScore.toFixed(2)}</span>
+            <span key={595076}>Social Sentiment: {sentiment.safeNumber(sentimentScore, 2)}</span>
             <span;
               title={`Pos: ${sentiment.positiveMentions}, Neg: ${sentiment.negativeMentions}, Neu: ${sentiment.neutralMentions}`}
              key={833709}>

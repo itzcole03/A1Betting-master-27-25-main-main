@@ -69,7 +69,7 @@ export const PerformanceAlerts: React.FC<PerformanceAlertsProps key={279705}> = 
   const formatMetricValue = (metric: string, value: number): string => {
     if (metric === 'roi' || metric === 'winRate' || metric === 'maxDrawdown') {
       return `${(value * 100).toFixed(1)}%`}
-    return value.toFixed(2)};
+    return safeNumber(value, 2)};
 
   return (
     <Card key={650115}>

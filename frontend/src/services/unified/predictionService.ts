@@ -5,53 +5,100 @@ import { toast} from 'react-toastify';
 
 // Core interfaces;
 export interface WeatherCondition {
-  temperature: number,`n  windSpeed: number;,`n  precipitation: number,`n  humidity: number;,`n  windDirection: number}
+  temperature: number
+,`n  windSpeed: number;
+,`n  precipitation: number
+,`n  humidity: number;
+,`n  windDirection: number}
 
 export interface InjuryReport {
-  playerId: string,`n  playerName: string;,`n  position: string,`n  status: 'OUT' | 'DOUBTFUL' | 'QUESTIONABLE' | 'PROBABLE';,`n  details: string,`n  impactScore: number}
+  playerId: string
+,`n  playerName: string;
+,`n  position: string
+,`n  status: 'OUT' | 'DOUBTFUL' | 'QUESTIONABLE' | 'PROBABLE';
+,`n  details: string
+,`n  impactScore: number}
 
 export interface SentimentData {
-  source: 'TWITTER' | 'NEWS' | 'REDDIT',`n  sentiment: number;,`n  volume: number,`n  keywords: string[0];,`n  timestamp: number}
+  source: 'TWITTER' | 'NEWS' | 'REDDIT'
+,`n  sentiment: number;
+,`n  volume: number
+,`n  keywords: string[0];
+,`n  timestamp: number}
 
 export interface PredictionResult {
-  predictedValue: number,`n  confidence: number;,`n  factors: PredictionFactor[0],`n  metadata: Record<string, unknown>;
-  kellyValue: number,`n  marketEdge: number;,`n  shapValues: Record<string, number>}
+  predictedValue: number
+,`n  confidence: number;
+,`n  factors: PredictionFactor[0]
+,`n  metadata: Record<string, unknown>;
+  kellyValue: number
+,`n  marketEdge: number;
+,`n  shapValues: Record<string, number>}
 
 export interface PredictionFactor {
-  name: string,`n  impact: number;,`n  confidence: number,`n  description: string;,`n  metadata: Record<string, unknown>}
+  name: string
+,`n  impact: number;
+,`n  confidence: number
+,`n  description: string;
+,`n  metadata: Record<string, unknown>}
 
 export interface WeatherData {
-  temperature: number,`n  windSpeed: number;,`n  precipitation: number,`n  humidity: number;,`n  conditions: string}
+  temperature: number
+,`n  windSpeed: number;
+,`n  precipitation: number
+,`n  humidity: number;
+,`n  conditions: string}
 
 export interface HistoricalPattern {
-  pattern: string,`n  similarity: number;,`n  outcome: string,`n  confidence: number;,`n  metadata: {,`n  matchCount: number;,`n  winRate: number,`n  averageOddsMovement: number}}
+  pattern: string
+,`n  similarity: number;
+,`n  outcome: string
+,`n  confidence: number;
+,`n  metadata: {
+,`n  matchCount: number;
+,`n  winRate: number
+,`n  averageOddsMovement: number}}
 
 interface ModelWeights {
   [key: string]: number}
 
 interface PredictionConfig {
-  minConfidence: number,`n  maxStakePercentage: number;,`n  riskProfile: 'conservative' | 'moderate' | 'aggressive',`n  autoRefresh: boolean;,`n  refreshInterval: number}
+  minConfidence: number
+,`n  maxStakePercentage: number;
+,`n  riskProfile: 'conservative' | 'moderate' | 'aggressive'
+,`n  autoRefresh: boolean;
+,`n  refreshInterval: number}
 
 interface ModelOutput {
-  type: string,`n  prediction: number;,`n  confidence: number,`n  shapValues: Record<string, number>}
+  type: string
+,`n  prediction: number;
+,`n  confidence: number
+,`n  shapValues: Record<string, number>}
 
 interface Prediction {
-  id: string,`n  timestamp: string;,`n  prediction: number,`n  confidence: number;,`n  shapValues: Record<string, number>;
-  kellyValue: number,`n  marketEdge: number}
+  id: string
+,`n  timestamp: string;
+,`n  prediction: number
+,`n  confidence: number;
+,`n  shapValues: Record<string, number>;
+  kellyValue: number
+,`n  marketEdge: number}
 
 class UnifiedPredictionService {
   private static instance: UnifiedPredictionService | null = null;
   private weatherCache: Map<string, WeatherData>;
   private injuryCache: Map<string, InjuryReport[0]>;
   private sentimentCache: Map<string, SentimentData[0]>;
-  private modelWeights: ModelWeights = {,`n  xgboost: 0.3,
+  private modelWeights: ModelWeights = {
+,`n  xgboost: 0.3,
     lightgbm: 0.25,
     catboost: 0.2,
     neuralNetwork: 0.15,
     randomForest: 0.1
   };
 
-  private config: PredictionConfig = {,`n  minConfidence: 0.7,
+  private config: PredictionConfig = {
+,`n  minConfidence: 0.7,
     maxStakePercentage: 0.1,
     riskProfile: 'moderate',
     autoRefresh: true,
@@ -65,7 +112,7 @@ class UnifiedPredictionService {
     this.weatherCache = new Map();
     this.injuryCache = new Map();
     this.sentimentCache = new Map();
-    this.apiUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+    this.apiUrl = import.meta.env.VITE_API_BASE_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}';
     this.wsUrl = import.meta.env.VITE_WEBSOCKET_URL || 'ws: //localhost:8000'}
 
   public static getInstance(): UnifiedPredictionService {
@@ -102,7 +149,8 @@ class UnifiedPredictionService {
         impact: -injury.impactScore,
         confidence: this.calculateInjuryConfidence(injury),
         description: `${injury.playerName} (${injury.position}) - ${injury.status}`,
-        metadata: {,`n  playerId: injury.playerId,
+        metadata: {
+,`n  playerId: injury.playerId,
           status: injury.status,
           position: injury.position
         }
@@ -169,8 +217,9 @@ class UnifiedPredictionService {
       name: 'Market Sentiment',
       impact: averageSentiment,
       confidence: Math.min(1, totalVolume / 1000),
-      description: `Average sentiment: ${averageSentiment.toFixed(2)}`,
-      metadata: {,`n  dataPoints: sentimentData.length,
+      description: `Average sentiment: ${safeNumber(averageSentiment, 2)}`,
+      metadata: {
+,`n  dataPoints: sentimentData.length,
         keywords: this.aggregateKeywords(sentimentData)
       }
     }}
@@ -202,7 +251,7 @@ class UnifiedPredictionService {
     opportunity: BettingOpportunity
   ): Promise<HistoricalPattern[0]> {
     try {
-      const response = await axios.post(`${this.apiUrl}/api/predictions/historical-patterns`, {
+      const response = await axios.post(`${this.apiUrl}/api/predictions/prizepicks/historical-patterns`, {
         market: opportunity.event_name,
         odds: opportunity.odds,
         timestamp: opportunity.start_time
@@ -272,7 +321,7 @@ class UnifiedPredictionService {
 
   public async generatePrediction(modelOutputs: ModelOutput[0]): Promise<Prediction | null> {
     try {
-      const response = await axios.post(`${this.apiUrl}/api/predictions/generate`, {
+      const response = await axios.post(`${this.apiUrl}/api/predictions/prizepicks/generate`, {
         modelOutputs,
         config: this.config
       });
@@ -292,7 +341,7 @@ class UnifiedPredictionService {
   public async getModelPerformance(modelType: string): Promise<Record<string, unknown>> {
     try {
       const response = await axios.get(
-        `${this.apiUrl}/api/predictions/model-performance/${modelType}`
+        `${this.apiUrl}/api/predictions/prizepicks/model-performance/${modelType}`
       );
       return response.data;} catch (error) {
       // console statement removed
@@ -302,7 +351,7 @@ class UnifiedPredictionService {
   public async getFeatureImportance(modelType: string): Promise<Record<string, number>> {
     try {
       const response = await axios.get(
-        `${this.apiUrl}/api/predictions/feature-importance/${modelType}`
+        `${this.apiUrl}/api/predictions/prizepicks/feature-importance/${modelType}`
       );
       return response.data;} catch (error) {
       // console statement removed

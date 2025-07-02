@@ -57,8 +57,8 @@ class AdvancedRateLimiter:
         
         # Endpoint-specific rate limits
         self.endpoint_limits = {
-            '/api/predictions': RateLimit(100, 3600, RateLimitStrategy.SLIDING_WINDOW),
-            '/api/predictions/batch': RateLimit(10, 3600, RateLimitStrategy.TOKEN_BUCKET, burst_limit=20),
+            '/api/predictions/prizepicks': RateLimit(100, 3600, RateLimitStrategy.SLIDING_WINDOW),
+            '/api/predictions/prizepicks/batch': RateLimit(10, 3600, RateLimitStrategy.TOKEN_BUCKET, burst_limit=20),
             '/api/auth/login': RateLimit(5, 300, RateLimitStrategy.FIXED_WINDOW),  # Login attempts
             '/api/auth/register': RateLimit(3, 3600, RateLimitStrategy.FIXED_WINDOW),
             '/api/admin/*': RateLimit(500, 3600, RateLimitStrategy.SLIDING_WINDOW),
@@ -430,7 +430,7 @@ def main():
     
     # Test rate limiting
     test_user = "user123"
-    test_endpoint = "/api/predictions"
+    test_endpoint = "/api/predictions/prizepicks"
     
     print(f"Testing rate limits for {test_user} on {test_endpoint}")
     

@@ -41,7 +41,7 @@ class PerformanceOptimizer {
       // Log slow renders;
       if (renderTime > 16) {
         // More than one frame;
-        console.warn(`Slow render detected for ${componentName}: ${renderTime.toFixed(2)}ms`);
+//         console.warn(`Slow render detected for ${componentName}: ${safeNumber(renderTime, 2)}ms`);
       }
     };
   }

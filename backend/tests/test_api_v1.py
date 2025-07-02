@@ -24,7 +24,7 @@ def test_health_check():
     assert "services" in data
 
 def test_comprehensive_health_check():
-    response = client.get("/api/health/all")
+    response = client.get("/api/health/status")
     assert response.status_code == 200
     data = response.json()
     assert data["status"] == "healthy"
@@ -46,7 +46,7 @@ def test_get_arbitrage_opportunities():
     assert isinstance(response.json(), list)
 
 def test_get_predictions_shim():
-    response = client.get("/api/predictions")
+    response = client.get("/api/predictions/prizepicks")
     assert response.status_code == 200
     assert isinstance(response.json(), dict)
 

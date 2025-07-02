@@ -21,25 +21,53 @@ import {
 } from '@/ui/UnifiedUI';
 
 interface StrategyConfig {
-  investmentAmount: number,`n  modelSet: {
-    [key: string]: {,`n  enabled: boolean;,`n  weight: number}};
-  confidenceThreshold: number,`n  strategyMode:
+  investmentAmount: number
+,`n  modelSet: {
+    [key: string]: {
+,`n  enabled: boolean;
+,`n  weight: number}};
+  confidenceThreshold: number
+,`n  strategyMode:
     | 'maximum_profit'
     | 'balanced'
     | 'conservative'
     | 'aggressive'
     | 'arbitrage'
     | 'ai_adaptive';
-  portfolioSize: number,`n  sportsUniverse: {,`n  all: boolean,`n  selected: string[0]};
-  timeHorizon: {,`n  value: number;,`n  unit: 'minutes' | 'hours' | 'days'};
-  riskProfile: {,`n  maxDrawdown: number;,`n  maxExposure: number,`n  correlationLimit: number}}
+  portfolioSize: number
+,`n  sportsUniverse: {
+,`n  all: boolean
+,`n  selected: string[0]};
+  timeHorizon: {
+,`n  value: number;
+,`n  unit: 'minutes' | 'hours' | 'days'};
+  riskProfile: {
+,`n  maxDrawdown: number;
+,`n  maxExposure: number
+,`n  correlationLimit: number}}
 
 interface ModelInfo {
-  id: string,`n  name: string;,`n  type: string,`n  accuracy: number;,`n  profitFactor: number,`n  description: string;,`n  lastUpdated: string}
+  id: string
+,`n  name: string;
+,`n  type: string
+,`n  accuracy: number;
+,`n  profitFactor: number
+,`n  description: string;
+,`n  lastUpdated: string}
 
 interface PortfolioRecommendation {
-  legs: Array<{,`n  eventId: string;,`n  marketType: string,`n  selection: string;,`n  odds: number,`n  confidence: number;,`n  expectedValue: number,`n  kellyFraction: number}>;
-  totalOdds: number,`n  expectedValue: number;,`n  riskScore: number,`n  confidence: number}
+  legs: Array<{
+,`n  eventId: string;
+,`n  marketType: string
+,`n  selection: string;
+,`n  odds: number
+,`n  confidence: number;
+,`n  expectedValue: number
+,`n  kellyFraction: number}>;
+  totalOdds: number
+,`n  expectedValue: number;
+,`n  riskScore: number
+,`n  confidence: number}
 
 export const UnifiedStrategyConfig: React.FC = () => {
   // Initialize services;
@@ -58,13 +86,16 @@ export const UnifiedStrategyConfig: React.FC = () => {
     confidenceThreshold: 85,
     strategyMode: 'balanced',
     portfolioSize: 3,
-    sportsUniverse: {,`n  all: true,
+    sportsUniverse: {
+,`n  all: true,
       selected: [0]
     },
-    timeHorizon: {,`n  value: 1,
+    timeHorizon: {
+,`n  value: 1,
       unit: 'hours'
     },
-    riskProfile: {,`n  maxDrawdown: 20,
+    riskProfile: {
+,`n  maxDrawdown: 20,
       maxExposure: 50,
       correlationLimit: 0.7
     }
@@ -73,7 +104,8 @@ export const UnifiedStrategyConfig: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null key={121216}>(null);
   const [toast, setToast] = useState<{
-    message: string,`n  type: 'success' | 'error' | 'warning' | 'info'} | null>(null);
+    message: string
+,`n  type: 'success' | 'error' | 'warning' | 'info'} | null>(null);
   const [recommendations, setRecommendations] = useState<PortfolioRecommendation[0] key={30381}>([0]);
   const [showRecommendations, setShowRecommendations] = useState(false);
   const [activeTab, setActiveTab] = useState<'basic' | 'advanced' | 'risk' | 'models'>('basic');
@@ -277,7 +309,7 @@ export const UnifiedStrategyConfig: React.FC = () => {
                     <div key={241917}>
                       <p className="text-sm text-gray-600" key={656535}>Profit/Loss</p>
                       <div className="flex items-center space-x-2" key={740830}>
-                        <p className="text-lg font-semibold" key={930820}>{metrics.profitLoss.toFixed(2)}%</p>
+                        <p className="text-lg font-semibold" key={930820}>{metrics.safeNumber(profitLoss, 2)}%</p>
                         <Icon;
                           className={`w-4 h-4 ${getMetricColor(metrics.profitLoss, 'positive')}`}
                           name={getTrendIcon(metrics.profitLoss)}
@@ -637,7 +669,7 @@ export const UnifiedStrategyConfig: React.FC = () => {
                     </div>
                     <div key={241917}>
                       <p className="text-sm text-gray-600 dark:text-gray-400" key={316578}>Profit Factor</p>
-                      <p className="font-medium" key={787187}>{model.profitFactor.toFixed(2)}</p>
+                      <p className="font-medium" key={787187}>{model.safeNumber(profitFactor, 2)}</p>
                     </div>
                   </div>
                   <div className="flex items-center justify-between" key={96335}>
@@ -703,7 +735,7 @@ export const UnifiedStrategyConfig: React.FC = () => {
                       <div key={legIndex} className="p-2 bg-gray-50 dark:bg-gray-800 rounded" key={23676}>
                         <div className="flex justify-between mb-1" key={790471}>
                           <span className="font-medium" key={514486}>{leg.selection}</span>
-                          <span key={595076}>{leg.odds.toFixed(2)}</span>
+                          <span key={595076}>{leg.safeNumber(odds, 2)}</span>
                         </div>
                         <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400" key={323743}>
                           <span key={595076}>{leg.marketType}</span>
@@ -716,11 +748,11 @@ export const UnifiedStrategyConfig: React.FC = () => {
                 <div className="grid grid-cols-2 gap-4" key={354810}>
                   <div key={241917}>
                     <p className="text-sm text-gray-600 dark:text-gray-400" key={316578}>Total Odds</p>
-                    <p className="font-medium" key={787187}>{recommendation.totalOdds.toFixed(2)}</p>
+                    <p className="font-medium" key={787187}>{recommendation.safeNumber(totalOdds, 2)}</p>
                   </div>
                   <div key={241917}>
                     <p className="text-sm text-gray-600 dark:text-gray-400" key={316578}>Risk Score</p>
-                    <p className="font-medium" key={787187}>{recommendation.riskScore.toFixed(2)}</p>
+                    <p className="font-medium" key={787187}>{recommendation.safeNumber(riskScore, 2)}</p>
                   </div>
                   <div key={241917}>
                     <p className="text-sm text-gray-600 dark:text-gray-400" key={316578}>Confidence</p>

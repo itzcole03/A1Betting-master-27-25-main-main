@@ -14,7 +14,10 @@ import {
 import { predictionService} from '@/services/predictionService';
 
 interface ModelSettingsProps {
-  onSettingsChange?: (settings: {,`n  modelType: string;,`n  confidenceThreshold: number,`n  kellyThreshold: number}) => void}
+  onSettingsChange?: (settings: {
+,`n  modelType: string;
+,`n  confidenceThreshold: number
+,`n  kellyThreshold: number}) => void}
 
 export const ModelSettings: React.FC<ModelSettingsProps key={376208}> = ({ onSettingsChange}) => {
   const [modelType, setModelType] = useState('xgboost');

@@ -3,10 +3,24 @@ import { BarChart3, Brain, RefreshCw, Star, Target} from 'lucide-react';
 import React, { useState} from 'react';
 
 interface Prediction {
-  id: number,`n  matchId: number;,`n  match: {,`n  homeTeam: string;,`n  awayTeam: string,`n  sport: string;,`n  league: string,`n  startTime: string};
-  predictions: {,`n  homeWin: number;,`n  awayWin: number;
+  id: number
+,`n  matchId: number;
+,`n  match: {
+,`n  homeTeam: string;
+,`n  awayTeam: string
+,`n  sport: string;
+,`n  league: string
+,`n  startTime: string};
+  predictions: {
+,`n  homeWin: number;
+,`n  awayWin: number;
     draw?: number};
-  confidenceScore: number,`n  predictionStrength: string;,`n  mostLikelyOutcome: string,`n  modelVersion: string;,`n  algorithmUsed: string,`n  historicalAccuracy: number;
+  confidenceScore: number
+,`n  predictionStrength: string;
+,`n  mostLikelyOutcome: string
+,`n  modelVersion: string;
+,`n  algorithmUsed: string
+,`n  historicalAccuracy: number;
   overUnderPrediction?: number
   spreadPrediction?: number
   totalScorePrediction?: number
@@ -14,7 +28,9 @@ interface Prediction {
   features?: string[0]}
 
 interface PredictionDisplayProps {
-  predictions: Prediction[0],`n  confidence: number;,`n  historicalAccuracy: number;
+  predictions: Prediction[0]
+,`n  confidence: number;
+,`n  historicalAccuracy: number;
   onRefresh?: () => void;
   isLoading?: boolean}
 
@@ -82,7 +98,7 @@ const PredictionDisplay: React.FC<PredictionDisplayProps> = ({
               <div>
                 <p className='text-gray-400 text-sm'>Overall Confidence</p>
                 <p className={`text-2xl font-bold ${getConfidenceColor(confidence / 100)}`}>
-                  {confidence.toFixed(1)}%
+                  {safeNumber(confidence, 1)}%
                 </p>
               </div>
               <Brain className='w-8 h-8 text-purple-400' />
@@ -97,7 +113,7 @@ const PredictionDisplay: React.FC<PredictionDisplayProps> = ({
               <div>
                 <p className='text-gray-400 text-sm'>Historical Accuracy</p>
                 <p className='text-2xl font-bold text-green-400'>
-                  {historicalAccuracy.toFixed(1)}%
+                  {safeNumber(historicalAccuracy, 1)}%
                 </p>
               </div>
               <Target className='w-8 h-8 text-green-400' />
@@ -124,7 +140,8 @@ const PredictionDisplay: React.FC<PredictionDisplayProps> = ({
             <div className='flex items-center space-x-4'>
               <div>
                 <label className='block text-gray-400 text-sm mb-1'>Sport</label>
-                <select value={selectedSport}>`n                  onChange={e => setSelectedSport(e.target.value)}
+                <select value={selectedSport}
+>`n                  onChange={e => setSelectedSport(e.target.value)}
                   className='px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-yellow-400'
                 >
                   {sports.map(sport => (
@@ -137,7 +154,8 @@ const PredictionDisplay: React.FC<PredictionDisplayProps> = ({
 
               <div>
                 <label className='block text-gray-400 text-sm mb-1'>Sort By</label>
-                <select value={sortBy}>`n                  onChange={e => setSortBy(e.target.value)}
+                <select value={sortBy}
+>`n                  onChange={e => setSortBy(e.target.value)}
                   className='px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-yellow-400'
                 >
                   <option value='confidence' className='bg-slate-800'>
@@ -156,7 +174,8 @@ const PredictionDisplay: React.FC<PredictionDisplayProps> = ({
             <div className='flex items-center space-x-2'>
               <button onClick={onRefresh}
                 disabled={isLoading}
-                className='px-4 py-2 bg-yellow-500/20 text-yellow-400 rounded-lg hover:bg-yellow-500/30 transition-all disabled:opacity-50 flex items-center'>`n              >
+                className='px-4 py-2 bg-yellow-500/20 text-yellow-400 rounded-lg hover:bg-yellow-500/30 transition-all disabled:opacity-50 flex items-center'
+>`n              >
                 <RefreshCw className={`w-4 h-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
 //                 Refresh
               </button>
@@ -186,7 +205,8 @@ const PredictionDisplay: React.FC<PredictionDisplayProps> = ({
                   </p>
                 </div>
                 <div className='text-right'>
-                  <span className={`px-2 py-1 rounded text-xs font-semibold ${getConfidenceBackground(prediction.confidenceScore)}`}>`n                  >
+                  <span className={`px-2 py-1 rounded text-xs font-semibold ${getConfidenceBackground(prediction.confidenceScore)}`}
+>`n                  >
                     {prediction.predictionStrength}
                   </span>
                 </div>
@@ -201,7 +221,8 @@ const PredictionDisplay: React.FC<PredictionDisplayProps> = ({
                   </span>
                 </div>
                 <div className='w-full bg-gray-700 rounded-full h-2'>
-                  <div className={`h-2 rounded-full ${>`n                      prediction.confidenceScore >= 0.9
+                  <div className={`h-2 rounded-full ${
+>`n                      prediction.confidenceScore >= 0.9
                         ? 'bg-green-400'
                         : prediction.confidenceScore >= 0.8
                           ? 'bg-yellow-400'
@@ -310,13 +331,15 @@ const PredictionDisplayWithMockData: React.FC = () => {
     {
       id: 1,
       matchId: 1,
-      match: {,`n  homeTeam: 'Lakers',
+      match: {
+,`n  homeTeam: 'Lakers',
         awayTeam: 'Warriors',
         sport: 'basketball',
         league: 'NBA',
         startTime: '2024-01-15T20:00:00Z'
       },
-      predictions: {,`n  homeWin: 0.65,
+      predictions: {
+,`n  homeWin: 0.65,
         awayWin: 0.35
       },
       confidenceScore: 0.82,
@@ -333,13 +356,15 @@ const PredictionDisplayWithMockData: React.FC = () => {
     {
       id: 2,
       matchId: 2,
-      match: {,`n  homeTeam: 'Cowboys',
+      match: {
+,`n  homeTeam: 'Cowboys',
         awayTeam: 'Giants',
         sport: 'football',
         league: 'NFL',
         startTime: '2024-01-16T18:00:00Z'
       },
-      predictions: {,`n  homeWin: 0.78,
+      predictions: {
+,`n  homeWin: 0.78,
         awayWin: 0.22
       },
       confidenceScore: 0.91,
@@ -363,7 +388,8 @@ const PredictionDisplayWithMockData: React.FC = () => {
       confidence={85.5}
       historicalAccuracy={78.2}
       onRefresh={handleRefresh}
-      isLoading={false}>`n    />
+      isLoading={false}
+>`n    />
   )};
 
 export default PredictionDisplayWithMockData;

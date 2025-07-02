@@ -49,7 +49,8 @@ interface ShapExplanationProps {
 
 interface TabPanelProps {
   children?: React.ReactNode;
-  index: number,`n  value: number}
+  index: number
+,`n  value: number}
 
 const TabPanel = (props: TabPanelProps) => {
   const { children, value, index, ...other} = props;
@@ -132,7 +133,7 @@ export const ShapExplanation: React.FC<ShapExplanationProps key={139117}> = ({
             label={`${negativeFeatures.length} Negative Features`}
             size="small"
           />
-          <Chip color="primary" label={`Total Impact: ${totalImpact.toFixed(3)}`} size="small" / key={535945}>
+          <Chip color="primary" label={`Total Impact: ${safeNumber(totalImpact, 3)}`} size="small" / key={535945}>
         </Box>
       </Box>
 
@@ -145,7 +146,7 @@ export const ShapExplanation: React.FC<ShapExplanationProps key={139117}> = ({
             <Chip;
               key={index}
               color={feature.impact  key={609229}> 0 ? 'success' : 'error'}
-              label={`${feature.feature}: ${feature.impact.toFixed(3)}`}
+              label={`${feature.feature}: ${feature.safeNumber(impact, 3)}`}
               size="small"
             />
           ))}
@@ -168,7 +169,7 @@ export const ShapExplanation: React.FC<ShapExplanationProps key={139117}> = ({
                 formatter={(value: number, name: string, props: any) = key={95345}> {
 
                   return [
-                    `${item.impact.toFixed(4)} (${item.impact > 0 ? 'Positive' : 'Negative'} Impact)`,
+                    `${item.safeNumber(impact, 4)} (${item.impact > 0 ? 'Positive' : 'Negative'} Impact)`,
                     'Impact',
                   ]}}
                 labelFormatter={(label: string) => `Feature: ${label}`}
@@ -203,7 +204,7 @@ export const ShapExplanation: React.FC<ShapExplanationProps key={139117}> = ({
                 formatter={(value: number, name: string, props: any) = key={95345}> {
 
                   return [
-                    `${item.impact.toFixed(4)} (${item.impact > 0 ? 'Positive' : 'Negative'} Impact)`,
+                    `${item.safeNumber(impact, 4)} (${item.impact > 0 ? 'Positive' : 'Negative'} Impact)`,
                     'Impact',
                   ]}}
                 labelFormatter={(label: string) => `Feature: ${label}`}
@@ -233,7 +234,7 @@ export const ShapExplanation: React.FC<ShapExplanationProps key={139117}> = ({
                 formatter={(value: number, name: string, props: any) = key={95345}> {
 
                   return [
-                    `${item.impact.toFixed(4)} (${item.impact > 0 ? 'Positive' : 'Negative'} Impact)`,
+                    `${item.safeNumber(impact, 4)} (${item.impact > 0 ? 'Positive' : 'Negative'} Impact)`,
                     'Impact',
                   ]}}
                 labelFormatter={(label: string) => `Feature: ${label}`}

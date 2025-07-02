@@ -2,7 +2,8 @@
 import { ModelOutput, RiskProfile} from '@/core/types/prediction';
 
 test.describe('Prediction Flow', () => {
-  const mockRiskProfile: RiskProfile = {,`n  type: 'moderate',
+  const mockRiskProfile: RiskProfile = {
+,`n  type: 'moderate',
     maxStake: 1000,
     multiplier: 1,
     minConfidence: 0.7,
@@ -28,7 +29,7 @@ test.describe('Prediction Flow', () => {
 
   test.beforeEach(async ({ page}: { page: Page}) => {
     // Mock API responses;
-    await page.route('**/api/predictions', async (route: Route) => {
+    await page.route('**/api/predictions/prizepicks', async (route: Route) => {
       await route.fulfill({
         status: 200,
         body: JSON.stringify(mockPredictions)
@@ -125,7 +126,7 @@ test.describe('Prediction Flow', () => {
 
   test('handles API errors gracefully', async ({ page}: { page: Page}) => {
     // Mock API error;
-    await page.route('**/api/predictions', async (route: Route) => {
+    await page.route('**/api/predictions/prizepicks', async (route: Route) => {
       await route.fulfill({
         status: 500,
         body: JSON.stringify({ error: 'Internal Server Error'})

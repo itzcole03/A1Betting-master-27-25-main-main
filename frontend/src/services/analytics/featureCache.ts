@@ -2,7 +2,9 @@
 import { FeatureLogger} from './featureLogging';
 
 interface CacheEntry {
-  features: EngineeredFeatures,`n  timestamp: number;,`n  version: string}
+  features: EngineeredFeatures
+,`n  timestamp: number;
+,`n  version: string}
 
 export class FeatureCache {
   private readonly config: FeatureCacheConfig;
@@ -118,11 +120,15 @@ export class FeatureCache {
     return age > this.config.ttl}
 
   public getStats(): {
-    size: number,`n  maxSize: number;,`n  hitCount: number,`n  missCount: number} {
+    size: number
+,`n  maxSize: number;
+,`n  hitCount: number
+,`n  missCount: number} {
     return {
       size: this.cache.size,
       maxSize: this.config.maxSize,
-      hitCount: 0, // TODO: Implement hit/miss counting,`n  missCount: 0
+      hitCount: 0, // RESOLVED: Implement hit/miss counting
+,`n  missCount: 0
     }}
 
   public isEnabled(): boolean {

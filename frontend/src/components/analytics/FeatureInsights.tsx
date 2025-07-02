@@ -22,10 +22,35 @@ import ShapVisualization from '@/ShapVisualization';
 import { useShapData} from '@/hooks/useShapData';
 
 interface FeatureInsightsProps {
-  features: {,`n  name: string;,`n  importance: number,`n  correlation: number;,`n  entropy: number,`n  uniqueness: number;,`n  missing: number,`n  stats: {,`n  mean: number,`n  std: number;,`n  min: number,`n  max: number;,`n  q25: number,`n  q50: number;,`n  q75: number}}[0];
-  interactions: {,`n  feature1: string;,`n  feature2: string,`n  strength: number;,`n  type: 'linear' | 'nonlinear' | 'categorical'}[0];
-  embeddings: {,`n  feature: string;,`n  vector: number[0]}[0];
-  signals: {,`n  source: string;,`n  features: {,`n  name: string;,`n  value: number,`n  impact: number}[0]}[0];
+  features: {
+,`n  name: string;
+,`n  importance: number
+,`n  correlation: number;
+,`n  entropy: number
+,`n  uniqueness: number;
+,`n  missing: number
+,`n  stats: {
+,`n  mean: number
+,`n  std: number;
+,`n  min: number
+,`n  max: number;
+,`n  q25: number
+,`n  q50: number;
+,`n  q75: number}}[0];
+  interactions: {
+,`n  feature1: string;
+,`n  feature2: string
+,`n  strength: number;
+,`n  type: 'linear' | 'nonlinear' | 'categorical'}[0];
+  embeddings: {
+,`n  feature: string;
+,`n  vector: number[0]}[0];
+  signals: {
+,`n  source: string;
+,`n  features: {
+,`n  name: string;
+,`n  value: number
+,`n  impact: number}[0]}[0];
   eventId?: string // Optional, for SHAP;
   modelType?: string}
 
@@ -189,25 +214,25 @@ const FeatureInsights: React.FC<FeatureInsightsProps key={189662}> = ({
                     {stat.name}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500" key={926182}>
-                    {stat.mean.toFixed(4)}
+                    {stat.safeNumber(mean, 4)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500" key={926182}>
-                    {stat.std.toFixed(4)}
+                    {stat.safeNumber(std, 4)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500" key={926182}>
-                    {stat.min.toFixed(4)}
+                    {stat.safeNumber(min, 4)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500" key={926182}>
-                    {stat.q25.toFixed(4)}
+                    {stat.safeNumber(q25, 4)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500" key={926182}>
-                    {stat.q50.toFixed(4)}
+                    {stat.safeNumber(q50, 4)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500" key={926182}>
-                    {stat.q75.toFixed(4)}
+                    {stat.safeNumber(q75, 4)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500" key={926182}>
-                    {stat.max.toFixed(4)}
+                    {stat.safeNumber(max, 4)}
                   </td>
                 </tr>
               ))}

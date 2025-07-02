@@ -20,7 +20,10 @@ import {
 import { ollamaLLMService} from '@/services/ollamaLLMService';
 
 interface OllamaStatusData {
-  connected: boolean,`n  endpoint: string;,`n  models: Array<{,`n  name: string;
+  connected: boolean
+,`n  endpoint: string;
+,`n  models: Array<{
+,`n  name: string;
     size?: number
     modified_at?: string}>;
   currentModel: string;
@@ -29,7 +32,7 @@ interface OllamaStatusData {
 export const OllamaStatus: React.FC = () => {
   const [status, setStatus] = useState<OllamaStatusData key={285975}>({
     connected: false,
-    endpoint: "http://localhost:11434",
+    endpoint: "${process.env.REACT_APP_API_URL || "http://localhost:8000"}",
     models: [0],
     currentModel: "none"
   });
@@ -78,7 +81,7 @@ export const OllamaStatus: React.FC = () => {
   const formatFileSize = (bytes: number): string => {
     if (!bytes) return "Unknown size";
 
-    return `${gb.toFixed(1)} GB`};
+    return `${safeNumber(gb, 1)} GB`};
 
   if (isLoading) {
     return (

@@ -51,18 +51,49 @@ import {
 // ============================================================================
 
 export interface EnhancedPrediction {
-  id: string,`n  homeTeam: string;,`n  awayTeam: string,`n  sport: "nfl" | "nba" | "mlb" | "nhl" | "soccer";,`n  league: string,`n  market: string;,`n  prediction: string,`n  odds: number;,`n  confidence: number,`n  valueEdge: number;,`n  expectedValue: number,`n  status: "upcoming" | "live" | "completed";,`n  gameTime: string,`n  modelPredictions: Array<{,`n  modelName: string,`n  prediction: string;,`n  confidence: number,`n  factors: Array<{ name: string; weight: number}>}>;
+  id: string
+,`n  homeTeam: string;
+,`n  awayTeam: string
+,`n  sport: "nfl" | "nba" | "mlb" | "nhl" | "soccer";
+,`n  league: string
+,`n  market: string;
+,`n  prediction: string
+,`n  odds: number;
+,`n  confidence: number
+,`n  valueEdge: number;
+,`n  expectedValue: number
+,`n  status: "upcoming" | "live" | "completed";
+,`n  gameTime: string
+,`n  modelPredictions: Array<{
+,`n  modelName: string
+,`n  prediction: string;
+,`n  confidence: number
+,`n  factors: Array<{ name: string; weight: number}>}>;
   context: {
     weather?: { temperature: number; conditions: string};
     injuries: Array<{ player: string; impact: "high" | "medium" | "low"}>;
     venue: { name: string; capacity: number; homeAdvantage: number};
-    market: {,`n  volume: number;,`n  liquidity: number,`n  efficiency: number;,`n  movement: "up" | "down" | "stable"}};
-  performance: {,`n  modelAccuracy: number;,`n  recentPerformance: number,`n  consistencyScore: number};
-  reasoning: {,`n  factors: Array<{ factor: string; impact: number; confidence: number}>;
-    keyInsights: string[0],`n  riskFactors: string[0]}}
+    market: {
+,`n  volume: number;
+,`n  liquidity: number
+,`n  efficiency: number;
+,`n  movement: "up" | "down" | "stable"}};
+  performance: {
+,`n  modelAccuracy: number;
+,`n  recentPerformance: number
+,`n  consistencyScore: number};
+  reasoning: {
+,`n  factors: Array<{ factor: string; impact: number; confidence: number}>;
+    keyInsights: string[0]
+,`n  riskFactors: string[0]}}
 
 interface PredictionFilters {
-  sport: string,`n  market: string;,`n  riskLevel: string,`n  status: string;,`n  minConfidence: number,`n  minEdge: number}
+  sport: string
+,`n  market: string;
+,`n  riskLevel: string
+,`n  status: string;
+,`n  minConfidence: number
+,`n  minEdge: number}
 
 // ============================================================================
 // THEMED COMPONENTS;
@@ -108,7 +139,8 @@ const ThemedText: React.FC<{
     </div>
   )};
 
-const ThemedContainer: React.FC<{,`n  children: React.ReactNode;
+const ThemedContainer: React.FC<{
+,`n  children: React.ReactNode;
   className?: string
   style?: React.CSSProperties;}> = ({ children, className = "", style = Record<string, any> }) => {
   const { theme} = useTheme();
@@ -183,25 +215,31 @@ export const UniversalPredictions: React.FC = () => {
             { name: "Venue", weight: 0.15},
           ]
         })),
-        context: {,`n  weather: {,`n  temperature: 20 + Math.random() * 15,
+        context: {
+,`n  weather: {
+,`n  temperature: 20 + Math.random() * 15,
             conditions: "Clear"
           },
           injuries: [0],
-          venue: {,`n  name: "Stadium Name",
+          venue: {
+,`n  name: "Stadium Name",
             capacity: 50000,
             homeAdvantage: 3 + Math.random() * 7
           },
-          market: {,`n  volume: 1000000,
+          market: {
+,`n  volume: 1000000,
             liquidity: 85,
             efficiency: 80,
             movement: "stable" as any
           }
         },
-        performance: {,`n  modelAccuracy: 75 + Math.random() * 20,
+        performance: {
+,`n  modelAccuracy: 75 + Math.random() * 20,
           recentPerformance: 80 + Math.random() * 15,
           consistencyScore: 70 + Math.random() * 25
         },
-        reasoning: {,`n  factors: [
+        reasoning: {
+,`n  factors: [
             { factor: "Home advantage", impact: 0.15, confidence: 0.8},
             { factor: "Recent form", impact: 0.12, confidence: 0.9},
           ],
@@ -274,7 +312,7 @@ export const UniversalPredictions: React.FC = () => {
       <div className="grid grid-cols-4 gap-4" key={99198}>
         <div className="text-center" key={120206}>
           <ThemedText variant="title" style={{ color: theme.colors.primary}} key={891101}>
-            {prediction.confidence.toFixed(1)}%
+            {prediction.safeNumber(confidence, 1)}%
           </ThemedText>
           <ThemedText variant="caption" color="muted" key={478990}>
             Confidence;

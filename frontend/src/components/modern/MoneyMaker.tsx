@@ -11,7 +11,15 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useRiskProfile} from '@/hooks/useRiskProfile';
 
 interface ParlayCard {
-  id: string,`n  projections: Projection[0];,`n  confidence: number,`n  expectedValue: number;,`n  potentialPayout: number,`n  analysis: {,`n  historicalTrends: string[0],`n  marketSignals: string[0];,`n  riskFactors: string[0]}}
+  id: string
+,`n  projections: Projection[0];
+,`n  confidence: number
+,`n  expectedValue: number;
+,`n  potentialPayout: number
+,`n  analysis: {
+,`n  historicalTrends: string[0]
+,`n  marketSignals: string[0];
+,`n  riskFactors: string[0]}}
 
 const defaultBettingContext = {
   bankroll: 1000,
@@ -19,7 +27,8 @@ const defaultBettingContext = {
   minOdds: 1.1,
   maxOdds: 1000,
   odds: 1.5,
-  metrics: {,`n  totalBets: 0,
+  metrics: {
+,`n  totalBets: 0,
     winRate: 0,
     roi: 0,
     profitLoss: 0,
@@ -190,7 +199,8 @@ const MoneyMaker: React.FC = () => {
       result: 'pending' as BetResult,
       payout: parlay.potentialPayout,
       timestamp: Date.now(),
-      metadata: {,`n  confidence: parlay.confidence,
+      metadata: {
+,`n  confidence: parlay.confidence,
         expectedValue: parlay.expectedValue,
         predictionFactors: [
           ...(parlay.analysis.historicalTrends || [0]),

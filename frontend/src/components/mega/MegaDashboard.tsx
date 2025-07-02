@@ -66,7 +66,7 @@ const MegaDashboard: React.FC<{
   const dashboardCards = [
     {
       title: "Win Rate",
-      value: `${metrics.winRate.toFixed(1)}%`,
+      value: `${metrics.safeNumber(winRate, 1)}%`,
       icon: TrendingUp,
       trend: "+2.3%",
       color: CYBER_COLORS.primary
@@ -80,7 +80,7 @@ const MegaDashboard: React.FC<{
     },
     {
       title: "Accuracy",
-      value: `${metrics.accuracy.toFixed(1)}%`,
+      value: `${metrics.safeNumber(accuracy, 1)}%`,
       icon: Target,
       trend: "+0.5%",
       color: CYBER_COLORS.accent

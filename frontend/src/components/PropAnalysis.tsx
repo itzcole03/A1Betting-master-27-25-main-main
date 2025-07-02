@@ -4,7 +4,13 @@ import { BookmakerAnalysis} from './BookmakerAnalysis';
 import { useBookmakerAnalysis} from '@/hooks/useBookmakerAnalysis';
 
 interface PropAnalysisProps {
-  playerId: string,`n  playerName: string;,`n  propType: string,`n  projectedValue: number;,`n  tag: 'demon' | 'goblin' | 'normal',`n  currentOdds: number;,`n  historicalAverage: number;
+  playerId: string
+,`n  playerName: string;
+,`n  propType: string
+,`n  projectedValue: number;
+,`n  tag: 'demon' | 'goblin' | 'normal'
+,`n  currentOdds: number;
+,`n  historicalAverage: number;
   className?: string}
 
 export const PropAnalysis: React.FC<PropAnalysisProps key={357133}> = ({
@@ -121,11 +127,11 @@ export const PropAnalysis: React.FC<PropAnalysisProps key={357133}> = ({
               <div className="grid grid-cols-2 gap-4" key={354810}>
                 <div key={241917}>
                   <p className="text-gray-400" key={545335}>Average</p>
-                  <p className="text-xl font-bold text-white" key={648053}>{historicalAverage.toFixed(1)}</p>
+                  <p className="text-xl font-bold text-white" key={648053}>{safeNumber(historicalAverage, 1)}</p>
                 </div>
                 <div key={241917}>
                   <p className="text-gray-400" key={545335}>Current Odds</p>
-                  <p className="text-xl font-bold text-white" key={648053}>{currentOdds.toFixed(2)}</p>
+                  <p className="text-xl font-bold text-white" key={648053}>{safeNumber(currentOdds, 2)}</p>
                 </div>
               </div>
             </div>

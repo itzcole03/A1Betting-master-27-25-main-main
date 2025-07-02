@@ -3,17 +3,16 @@
  * Explains the backend-frontend integration setup;
  */
 
-import React from 'react'
-import { motion} from 'framer-motion'
+import { motion } from 'framer-motion';
 import {
-  CheckCircle,
-  Server,
-  Globe,
-  Database,
-  Code,
-  Play,
-//   ExternalLink
+    CheckCircle,
+    Code,
+    Database,
+    Globe,
+    Play,
+    Server,
 } from 'lucide-react';
+import React from 'react';
 
 export const DevelopmentGuide: React.FC = () => {
   const steps = [
@@ -142,17 +141,13 @@ export const DevelopmentGuide: React.FC = () => {
                 <Code className="w-3 h-3 text-gray-400 mr-2" / key={259885}>
                 <span key={595076}>/api/ultra-accuracy/predictions</span>
               </div>
-              <div className="flex items-center" key={520222}>
-                <Code className="w-3 h-3 text-gray-400 mr-2" / key={259885}>
-                <span key={595076}>/api/analytics/advanced</span>
-              </div>
             </div>
           </div>
         </div>
 
         <div className="flex gap-3 mt-6" key={799725}>
           <a;
-            href="http://localhost:8000/health"
+            href="${process.env.REACT_APP_API_URL || "http://localhost:8000"}/health"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 transition-colors"
@@ -162,7 +157,7 @@ export const DevelopmentGuide: React.FC = () => {
           </a>
 
           <a;
-            href="http://localhost:8000/api/betting-opportunities"
+            href="${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/betting-opportunities"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"

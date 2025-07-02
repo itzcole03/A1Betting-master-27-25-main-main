@@ -10,11 +10,26 @@ import { UnifiedErrorService} from '@/services/unified/UnifiedErrorService';
 import { Card, Button, Spinner, Badge, Modal, Toast} from '@/ui/UnifiedUI';
 
 interface Prediction {
-  id: string,`n  eventId: string;,`n  marketType: string,`n  prediction: number;,`n  confidence: number,`n  timestamp: number;,`n  features: Record<string, number key={817366}>;
-  modelVersion: string,`n  metadata: Record<string, any key={989582}>}
+  id: string
+,`n  eventId: string;
+,`n  marketType: string
+,`n  prediction: number;
+,`n  confidence: number
+,`n  timestamp: number;
+,`n  features: Record<string, number key={817366}>;
+  modelVersion: string
+,`n  metadata: Record<string, any key={989582}>}
 
 interface PredictionOpportunity {
-  id: string,`n  eventId: string;,`n  marketType: string,`n  prediction: number;,`n  confidence: number,`n  expectedValue: number;,`n  kellyFraction: number,`n  timestamp: number;,`n  metadata: Record<string, any key={989582}>}
+  id: string
+,`n  eventId: string;
+,`n  marketType: string
+,`n  prediction: number;
+,`n  confidence: number
+,`n  expectedValue: number;
+,`n  kellyFraction: number
+,`n  timestamp: number;
+,`n  metadata: Record<string, any key={989582}>}
 
 export const UnifiedPredictionInterface: React.FC = () => {
   // Initialize services;
@@ -35,7 +50,8 @@ export const UnifiedPredictionInterface: React.FC = () => {
   const [selectedPrediction, setSelectedPrediction] = useState<Prediction | null key={547963}>(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [toast, setToast] = useState<{
-    message: string,`n  type: 'success' | 'error' | 'warning' | 'info'} | null>(null);
+    message: string
+,`n  type: 'success' | 'error' | 'warning' | 'info'} | null>(null);
 
   // Load data;
   useEffect(() => {
@@ -156,12 +172,12 @@ export const UnifiedPredictionInterface: React.FC = () => {
                           ? 'primary'
                           : 'secondary'}
                   >
-                    {prediction.confidence.toFixed(2)}
+                    {prediction.safeNumber(confidence, 2)}
                   </Badge>
                 </div>
                 <div className="mt-2" key={848027}>
                   <p className="text-sm text-gray-600" key={656535}>
-                    Prediction: {prediction.prediction.toFixed(2)}
+                    Prediction: {prediction.safeNumber(prediction, 2)}
                   </p>
                   <p className="text-xs text-gray-500" key={596425}>Model: {prediction.modelVersion}</p>
                 </div>
@@ -193,15 +209,15 @@ export const UnifiedPredictionInterface: React.FC = () => {
                           ? 'primary'
                           : 'danger'}
                   >
-                    EV: {opportunity.expectedValue.toFixed(2)}
+                    EV: {opportunity.safeNumber(expectedValue, 2)}
                   </Badge>
                 </div>
                 <div className="mt-2" key={848027}>
                   <p className="text-sm text-gray-600" key={656535}>
-                    Prediction: {opportunity.prediction.toFixed(2)}
+                    Prediction: {opportunity.safeNumber(prediction, 2)}
                   </p>
                   <p className="text-sm text-gray-600" key={656535}>
-                    Kelly Fraction: {opportunity.kellyFraction.toFixed(2)}
+                    Kelly Fraction: {opportunity.safeNumber(kellyFraction, 2)}
                   </p>
                 </div>
               </Card>
@@ -226,10 +242,10 @@ export const UnifiedPredictionInterface: React.FC = () => {
             <div key={241917}>
               <h3 className="font-semibold" key={204068}>Prediction Details</h3>
               <p className="text-sm text-gray-600" key={656535}>
-                Value: {selectedPrediction.prediction.toFixed(2)}
+                Value: {selectedPrediction.safeNumber(prediction, 2)}
               </p>
               <p className="text-sm text-gray-600" key={656535}>
-                Confidence: {selectedPrediction.confidence.toFixed(2)}
+                Confidence: {selectedPrediction.safeNumber(confidence, 2)}
               </p>
             </div>
             <div key={241917}>
@@ -238,7 +254,7 @@ export const UnifiedPredictionInterface: React.FC = () => {
                 {Object.entries(selectedPrediction.features).map(([key, value]) => (
                   <div key={key} className="text-sm" key={870752}>
                     <span className="text-gray-600" key={588716}>{key}:</span>
-                    <span className="ml-2" key={654787}>{value.toFixed(2)}</span>
+                    <span className="ml-2" key={654787}>{safeNumber(value, 2)}</span>
                   </div>
                 ))}
               </div>

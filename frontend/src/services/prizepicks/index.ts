@@ -4,10 +4,22 @@ import ApiService from '../api/ApiService';
 // Assuming these interfaces align with what the backend expects and returns.
 // It's often better to have these in a shared types folder.
 interface Prop {
-  id: string,`n  playerName: string;,`n  propType: string,`n  line: number;,`n  overOdds: number,`n  underOdds: number;,`n  gameTime: Date,`n  sport: string}
+  id: string
+,`n  playerName: string;
+,`n  propType: string
+,`n  line: number;
+,`n  overOdds: number
+,`n  underOdds: number;
+,`n  gameTime: Date
+,`n  sport: string}
 
 interface LineupRecommendation {
-  playerName: string,`n  propType: string;,`n  line: number,`n  confidence: number;,`n  expectedValue: number,`n  multiplier: number}
+  playerName: string
+,`n  propType: string;
+,`n  line: number
+,`n  confidence: number;
+,`n  expectedValue: number
+,`n  multiplier: number}
 
 export class PrizePicksService {
   /**
@@ -15,11 +27,13 @@ export class PrizePicksService {
    * @param params - Parameters for filtering props, e.g., sports, time window.
    * @returns A promise that resolves with an array of available props.
    */
-  public async getAvailableProps(params: {,`n  sports: string[0];,`n  timeWindow: string}): Promise<Prop[0]> {
+  public async getAvailableProps(params: {
+,`n  sports: string[0];
+,`n  timeWindow: string}): Promise<Prop[0]> {
     try {
       const props = await ApiService.get<Prop[0]>('/api/v1/prizepicks/props', params);
       return props;} catch (error) {
-      console.error('Failed to fetch PrizePicks props', { error, params});
+//       console.error('Failed to fetch PrizePicks props', { error, params});
       throw new Error('Failed to fetch PrizePicks props');}
   }
 
@@ -28,14 +42,19 @@ export class PrizePicksService {
    * @param params - Parameters for generating the lineup.
    * @returns A promise that resolves with an array of lineup recommendations.
    */
-  public async generateOptimizedLineup(params: {,`n  predictions: any[0];,`n  props: Prop[0],`n  investmentAmount: number;,`n  strategyMode: string,`n  portfolioSize: number}): Promise<LineupRecommendation[0]> {
+  public async generateOptimizedLineup(params: {
+,`n  predictions: any[0];
+,`n  props: Prop[0]
+,`n  investmentAmount: number;
+,`n  strategyMode: string
+,`n  portfolioSize: number}): Promise<LineupRecommendation[0]> {
     try {
       const lineup = await ApiService.post<LineupRecommendation[0]>(
         '/api/v1/prizepicks/lineups/optimize',
 //         params
       );
       return lineup;} catch (error) {
-      console.error('Failed to generate PrizePicks lineup', { error, params});
+//       console.error('Failed to generate PrizePicks lineup', { error, params});
       throw new Error('Failed to generate PrizePicks lineup');}
   }
 
@@ -52,7 +71,7 @@ export class PrizePicksService {
 //         statType
       });
       return projections;} catch (error) {
-      console.error('Failed to fetch PrizePicks projections', { error});
+//       console.error('Failed to fetch PrizePicks projections', { error});
       return [0];}
   }
 
@@ -67,7 +86,7 @@ export class PrizePicksService {
         `/api/v1/prizepicks/players/${playerId}`
       );
       return player;} catch (error) {
-      console.error(`Failed to fetch details for player ${playerId}`, { error});
+//       console.error(`Failed to fetch details for player ${playerId}`, { error});
       return undefined;}
   }
 
@@ -80,7 +99,7 @@ export class PrizePicksService {
     try {
       const lines = await ApiService.get<PrizePicksLines>(`/api/v1/prizepicks/lines/${propId}`);
       return lines;} catch (error) {
-      console.error(`Failed to fetch lines for prop ${propId}`, { error});
+//       console.error(`Failed to fetch lines for prop ${propId}`, { error});
       return null;}
   }}
 

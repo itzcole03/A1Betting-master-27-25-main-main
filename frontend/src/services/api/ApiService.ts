@@ -5,7 +5,7 @@
 import axios, { AxiosError, AxiosResponse} from 'axios';
 
 // Define base URL from environment variables
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}';
 
 // Create axios instance with default configuration
 const apiClient = axios.create({
@@ -26,10 +26,10 @@ apiClient.interceptors.request.use(
         config.headers.Authorization = `Bearer ${token}`;}
     }
     if (import.meta.env.DEV) {
-      console.log(`[API Request] ${config.method?.toUpperCase()} ${config.url}`, config.data || '');}
+//       console.log(`[API Request] ${config.method?.toUpperCase()} ${config.url}`, config.data || '');}
     return config;},
   error => {
-    console.error('[API Request Error]', error);
+//     console.error('[API Request Error]', error);
     return Promise.reject(error);}
 );
 
@@ -37,14 +37,14 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => {
     if (import.meta.env.DEV) {
-      console.log(
+//       console.log(
         `[API Response] ${response.config.method?.toUpperCase()} ${response.config.url}`,
         response.status,
         response.data
       )}
     return response;},
   (error: AxiosError) => {
-    console.error(
+//     console.error(
       `[API Response Error] ${error.config?.method?.toUpperCase()} ${error.config?.url}`,
       error.response?.status,
       error.response?.data
@@ -52,7 +52,7 @@ apiClient.interceptors.response.use(
 
     if (error.response?.status === 401) {
       // Handle unauthorized access, e.g., redirect to login
-      console.error('Unauthorized access - redirecting to login.');
+//       console.error('Unauthorized access - redirecting to login.');
       // window.location.href = '/login';}
 
     // Return a structured error to be handled by the calling code
@@ -73,7 +73,7 @@ export class ApiService {
     try {
       const response = await apiClient.get<T>(endpoint, { params});
       return response.data;} catch (error) {
-      console.error(`Error fetching data from ${endpoint}:`, error);
+//       console.error(`Error fetching data from ${endpoint}:`, error);
       throw error;}
   }
 
@@ -87,7 +87,7 @@ export class ApiService {
     try {
       const response = await apiClient.post<T>(endpoint, data);
       return response.data;} catch (error) {
-      console.error(`Error posting data to ${endpoint}:`, error);
+//       console.error(`Error posting data to ${endpoint}:`, error);
       throw error;}
   }
 
@@ -101,7 +101,7 @@ export class ApiService {
     try {
       const response = await apiClient.put<T>(endpoint, data);
       return response.data;} catch (error) {
-      console.error(`Error updating data at ${endpoint}:`, error);
+//       console.error(`Error updating data at ${endpoint}:`, error);
       throw error;}
   }
 
@@ -114,7 +114,7 @@ export class ApiService {
     try {
       const response = await apiClient.delete<T>(endpoint);
       return response.data;} catch (error) {
-      console.error(`Error deleting data from ${endpoint}:`, error);
+//       console.error(`Error deleting data from ${endpoint}:`, error);
       throw error;}
   }}
 

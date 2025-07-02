@@ -150,9 +150,9 @@ class AsyncPerformanceOptimizer:
         try:
             async with self.db_pool.acquire() as connection:
                 if params:
-                    rows = await connection.fetch(query, *params)
+                    rows = await connection.fetch(query, *params).catch(error => console.error("API Error:", error))
                 else:
-                    rows = await connection.fetch(query)
+                    rows = await connection.fetch(query).catch(error => console.error("API Error:", error))
                 
                 end_time = time.time()
                 query_time = end_time - start_time

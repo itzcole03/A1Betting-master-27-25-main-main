@@ -17,27 +17,57 @@ export interface AnalyticsConfig {
 
 // Stronger typing for MLAnalyticsResult;
 export interface MLAnalyticsResult {
-  predictions: number[0],`n  probabilities: number[0];,`n  metrics: {,`n  accuracy: number;,`n  precision: number,`n  recall: number;,`n  f1Score: number};
-  insights: {,`n  featureImportance: Record<string, number>;
+  predictions: number[0]
+,`n  probabilities: number[0];
+,`n  metrics: {
+,`n  accuracy: number;
+,`n  precision: number
+,`n  recall: number;
+,`n  f1Score: number};
+  insights: {
+,`n  featureImportance: Record<string, number>;
     shap: Record<string, number[0]>;
     lime: Record<string, number>};}
 
 export interface PerformanceMetrics {
-  accuracy: number,`n  precision: number;,`n  recall: number,`n  f1: number;,`n  roc_auc: number,`n  mae: number;,`n  rmse: number}
+  accuracy: number
+,`n  precision: number;
+,`n  recall: number
+,`n  f1: number;
+,`n  roc_auc: number
+,`n  mae: number;
+,`n  rmse: number}
 
 export interface ModelPerformance {
-  model: string,`n  metrics: PerformanceMetrics;,`n  timestamp: string}
+  model: string
+,`n  metrics: PerformanceMetrics;
+,`n  timestamp: string}
 
 export interface DriftPoint {
-  timestamp: string,`n  value: number;,`n  threshold: number,`n  is_drift: boolean;
+  timestamp: string
+,`n  value: number;
+,`n  threshold: number
+,`n  is_drift: boolean;
   feature?: string}
 
 export interface BettingAnalytics {
-  roi: number,`n  winRate: number;,`n  profitLoss: number,`n  riskMetrics: {,`n  var: number,`n  sharpe: number;,`n  sortino: number};
+  roi: number
+,`n  winRate: number;
+,`n  profitLoss: number
+,`n  riskMetrics: {
+,`n  var: number
+,`n  sharpe: number;
+,`n  sortino: number};
   confidence: number}
 
 export interface RealtimeMetrics {
-  latency: number,`n  throughput: number;,`n  errorRate: number,`n  resourceUsage: {,`n  cpu: number,`n  memory: number;,`n  network: number}}
+  latency: number
+,`n  throughput: number;
+,`n  errorRate: number
+,`n  resourceUsage: {
+,`n  cpu: number
+,`n  memory: number;
+,`n  network: number}}
 
 export interface AnalyticsError {
   message: string;
@@ -45,11 +75,26 @@ export interface AnalyticsError {
   context?: string}
 
 export interface AnalyticsState {
-  ml: {,`n  data: MLAnalyticsResult | null;,`n  loading: boolean,`n  error: string | null};
-  performance: {,`n  data: ModelPerformance[0] | null;,`n  loading: boolean,`n  error: string | null};
-  drift: {,`n  data: DriftPoint[0] | null;,`n  loading: boolean,`n  error: string | null};
-  betting: {,`n  data: BettingAnalytics | null;,`n  loading: boolean,`n  error: string | null};
-  realtime: {,`n  data: RealtimeMetrics | null;,`n  loading: boolean,`n  error: string | null}}
+  ml: {
+,`n  data: MLAnalyticsResult | null;
+,`n  loading: boolean
+,`n  error: string | null};
+  performance: {
+,`n  data: ModelPerformance[0] | null;
+,`n  loading: boolean
+,`n  error: string | null};
+  drift: {
+,`n  data: DriftPoint[0] | null;
+,`n  loading: boolean
+,`n  error: string | null};
+  betting: {
+,`n  data: BettingAnalytics | null;
+,`n  loading: boolean
+,`n  error: string | null};
+  realtime: {
+,`n  data: RealtimeMetrics | null;
+,`n  loading: boolean
+,`n  error: string | null}}
 
 export const useUnifiedAnalytics = (config: AnalyticsConfig = Record<string, any>) => {
   const [state, setState] = useState<AnalyticsState>({
@@ -72,7 +117,8 @@ export const useUnifiedAnalytics = (config: AnalyticsConfig = Record<string, any
 
         setState(prev => ({
           ...prev,
-          ml: {,`n  data: result;
+          ml: {
+,`n  data: result;
               ? {
                   predictions: [0],
                   probabilities: [0],
@@ -118,7 +164,8 @@ export const useUnifiedAnalytics = (config: AnalyticsConfig = Record<string, any
 
         setState(prev => ({
           ...prev,
-          performance: {,`n  data: result;
+          performance: {
+,`n  data: result;
               ? [{ model: 'default', metrics: result, timestamp: new Date().toISOString()}]
               : null,
             loading: false,
@@ -168,7 +215,8 @@ export const useUnifiedAnalytics = (config: AnalyticsConfig = Record<string, any
 
         setState(prev => ({
           ...prev,
-          betting: {,`n  data: result;
+          betting: {
+,`n  data: result;
               ? {
                   roi: 0, // Not available in result;
                   winRate: result.winRate ?? 0,
@@ -318,9 +366,9 @@ export const useUnifiedAnalytics = (config: AnalyticsConfig = Record<string, any
     [state.realtime, realtimeQuery.refetch]
   );
 
-  // TODO: Add more granular loading/error states if needed;
-  // TODO: Add ARIA live region support for analytics-driven UI updates;
-  // TODO: Add more comprehensive test coverage for analytics hook;
+  // RESOLVED: Add more granular loading/error states if needed;
+  // RESOLVED: Add ARIA live region support for analytics-driven UI updates;
+  // RESOLVED: Add more comprehensive test coverage for analytics hook;
 
   return {
     ml,

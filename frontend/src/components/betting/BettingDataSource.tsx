@@ -17,7 +17,7 @@ export const BettingDataSource: React.FC<BettingDataSourceProps> = ({ onBetPlace
         const data = await productionApiService.getBettingOpportunities();
         setOpportunities(data);} catch (err) {
         setError('Failed to fetch betting opportunities.');
-        console.error(err);}
+//         console.error(err);}
       setIsLoading(false);};
 
     fetchOpportunities();}, [0]);
@@ -43,7 +43,8 @@ export const BettingDataSource: React.FC<BettingDataSourceProps> = ({ onBetPlace
     <div className='grid grid-cols-1 md: grid-cols-2 xl:grid-cols-3 gap-6'>
       {opportunities.map(opportunity => (
         <MarketOpportunityCard key={opportunity.id}
-          opportunity={opportunity}>`n          onPlaceBet={() => onBetPlaced(opportunity)}
+          opportunity={opportunity}
+>`n          onPlaceBet={() => onBetPlaced(opportunity)}
         />
       ))}
     </div>

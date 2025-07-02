@@ -69,8 +69,8 @@ export const ModelPerformanceDashboard: React.FC<ModelPerformanceDashboardProps 
     if (type === 'percentage') {
       return `${(value * 100).toFixed(1)}%`}
     if (type === 'currency') {
-      return `$${value.toFixed(2)}`}
-    return value.toFixed(2)};
+      return `$${safeNumber(value, 2)}`}
+    return safeNumber(value, 2)};
 
   const getMetricColor = (value: number, label: string) => {
     if (label === 'Max Drawdown') {

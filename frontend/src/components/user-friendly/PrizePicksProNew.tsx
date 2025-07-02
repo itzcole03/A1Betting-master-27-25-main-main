@@ -20,18 +20,65 @@ import { DataUnavailableMessage} from '../common/DataUnavailableMessage';
 // ============================================================================
 
 interface PlayerProp {
-  id: string,`n  player: string;,`n  team: string,`n  position: string;,`n  stat: string,`n  line: number;,`n  overOdds: number,`n  underOdds: number;,`n  gameTime: string,`n  opponent: string;,`n  sport: string,`n  confidence: number;,`n  projection: number,`n  edge: number;,`n  pickType: "normal" | "demon" | "goblin",`n  reasoning: string;,`n  lastGameStats: number[0],`n  seasonAvg: number;,`n  recentForm: "hot" | "cold" | "neutral",`n  injuryStatus: "healthy" | "questionable" | "probable";
+  id: string
+,`n  player: string;
+,`n  team: string
+,`n  position: string;
+,`n  stat: string
+,`n  line: number;
+,`n  overOdds: number
+,`n  underOdds: number;
+,`n  gameTime: string
+,`n  opponent: string;
+,`n  sport: string
+,`n  confidence: number;
+,`n  projection: number
+,`n  edge: number;
+,`n  pickType: "normal" | "demon" | "goblin"
+,`n  reasoning: string;
+,`n  lastGameStats: number[0]
+,`n  seasonAvg: number;
+,`n  recentForm: "hot" | "cold" | "neutral"
+,`n  injuryStatus: "healthy" | "questionable" | "probable";
   weatherImpact?: number
-  homeAwayFactor: number,`n  over: number;,`n  under: number,`n  neural: string;,`n  trend: string,`n  game: string;,`n  expectedValue: number,`n  llmReasoning: string;,`n  analysis: string}
+  homeAwayFactor: number
+,`n  over: number;
+,`n  under: number
+,`n  neural: string;
+,`n  trend: string
+,`n  game: string;
+,`n  expectedValue: number
+,`n  llmReasoning: string;
+,`n  analysis: string}
 
 interface SelectedPick {
-  propId: string,`n  choice: "over" | "under";,`n  player: string,`n  stat: string;,`n  line: number,`n  confidence: number;,`n  pickType: "normal" | "demon" | "goblin",`n  projection: number;,`n  edge: number}
+  propId: string
+,`n  choice: "over" | "under";
+,`n  player: string
+,`n  stat: string;
+,`n  line: number
+,`n  confidence: number;
+,`n  pickType: "normal" | "demon" | "goblin"
+,`n  projection: number;
+,`n  edge: number}
 
 interface LineupEntry {
-  id: string,`n  picks: SelectedPick[0];,`n  entryFee: number,`n  potentialPayout: number;,`n  multiplier: number,`n  expectedValue: number;,`n  winProbability: number,`n  status: "draft" | "submitted" | "live" | "completed"}
+  id: string
+,`n  picks: SelectedPick[0];
+,`n  entryFee: number
+,`n  potentialPayout: number;
+,`n  multiplier: number
+,`n  expectedValue: number;
+,`n  winProbability: number
+,`n  status: "draft" | "submitted" | "live" | "completed"}
 
 interface PrizePicksConfig {
-  sport: "all" | "nba" | "nfl" | "mlb" | "soccer",`n  maxPicks: number;,`n  minConfidence: number,`n  entrySize: number;,`n  strategy: "conservative" | "balanced" | "aggressive",`n  focusOnDemonsGoblins: boolean}
+  sport: "all" | "nba" | "nfl" | "mlb" | "soccer"
+,`n  maxPicks: number;
+,`n  minConfidence: number
+,`n  entrySize: number;
+,`n  strategy: "conservative" | "balanced" | "aggressive"
+,`n  focusOnDemonsGoblins: boolean}
 
 // ============================================================================
 // UTILITY FUNCTIONS;
@@ -48,7 +95,8 @@ const getPickTypeColor = (pickType: "normal" | "demon" | "goblin"): string => {
     case "demon":
       return "text-red-500 bg-red-100 dark:bg-red-900/20";
     case "goblin":
-      return "text-green-500 bg-green-100 dark: bg-green-900/20",`n  default: return "text-blue-500 bg-blue-100 dark:bg-blue-900/20"}
+      return "text-green-500 bg-green-100 dark: bg-green-900/20"
+,`n  default: return "text-blue-500 bg-blue-100 dark:bg-blue-900/20"}
 };
 
 const getConfidenceColor = (confidence: number): string => {
@@ -133,7 +181,8 @@ const PrizePicksPro: React.FC = () => {
     const topPicks = recommendations
       .filter((rec: any) => rec.confidence >= config.minConfidence)
       .slice(0, config.maxPicks)
-      .map((rec: any) => ({,`n  propId: rec.id || `${rec.player}_${rec.stat}`,
+      .map((rec: any) => ({
+,`n  propId: rec.id || `${rec.player}_${rec.stat}`,
         choice: rec.recommendedPick as "over" | "under",
         player: rec.player,
         stat: rec.stat,
@@ -154,7 +203,7 @@ const PrizePicksPro: React.FC = () => {
         setLoading(true);
         
         // Get comprehensive projections from backend service
-        const response = await fetch('http://localhost:8000/api/prizepicks/comprehensive-projections');
+        const response = await fetch('${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/prizepicks/comprehensive-projections');.catch(error => console.error("API Error:", error))
         const backendData = await response.json();
         
         // Also get frontend service data for comparison
@@ -162,7 +211,8 @@ const PrizePicksPro: React.FC = () => {
         
         // Combine and format the data
         const combinedProjections: PlayerProp[0] = [
-          ...backendData.projections?.map((proj: any) => ({,`n  id: proj.id,
+          ...backendData.projections?.map((proj: any) => ({
+,`n  id: proj.id,
             player: proj.player_name,
             team: proj.team,
             stat: proj.stat_type,
@@ -177,7 +227,8 @@ const PrizePicksPro: React.FC = () => {
             llmReasoning: `Confidence: ${(proj.confidence * 100).toFixed(1)}%, Value Score: ${proj.value_score?.toFixed(3)}`,
             analysis: `League: ${proj.league}, Status: ${proj.status}`
           })) || [0],
-          ...frontendData.map((proj: any) => ({,`n  id: `fe_${proj.player_id}`,
+          ...frontendData.map((proj: any) => ({
+,`n  id: `fe_${proj.player_id}`,
             player: proj.player_name,
             team: proj.team,
             stat: proj.stat_type,
@@ -205,13 +256,14 @@ const PrizePicksPro: React.FC = () => {
         setRealProjections(uniqueProjections);
         setServiceStats(backendData.service_stats);
         setLastUpdate(new Date().toLocaleTimeString());} catch (error) {
-        console.error('Error fetching comprehensive projections:', error);
+//         console.error('Error fetching comprehensive projections:', error);
         // Fallback to frontend service only
         try {
           const fallbackData = await prizePicksProjectionsService.getProjections();
           const fallbackProjections = fallbackData.projections
             .slice(0, 8)
-            .map((proj: any) => ({,`n  id: proj.player_id,
+            .map((proj: any) => ({
+,`n  id: proj.player_id,
               player: proj.player_name,
               team: proj.team,
               stat: proj.stat_type,
@@ -228,7 +280,7 @@ const PrizePicksPro: React.FC = () => {
             }));
           
           setRealProjections(fallbackProjections);} catch (fallbackError) {
-          console.error('Fallback service also failed:', fallbackError);
+//           console.error('Fallback service also failed:', fallbackError);
           setRealProjections([0]);}
       } finally {
         setLoading(false);}
@@ -275,7 +327,8 @@ const PrizePicksPro: React.FC = () => {
         );
         logUserAction("pick_updated", { propId: prop.id, choice})}
     } else if (selectedPicks.length < config.maxPicks) {
-      const newPick: SelectedPick = {,`n  propId: prop.id,
+      const newPick: SelectedPick = {
+,`n  propId: prop.id,
         choice,
         player: prop.player,
         stat: prop.stat,
@@ -303,7 +356,8 @@ const PrizePicksPro: React.FC = () => {
       alert("Need at least 2 picks for a lineup");
       return;}
 
-    const newLineup: LineupEntry = {,`n  id: `lineup_${Date.now()}`,
+    const newLineup: LineupEntry = {
+,`n  id: `lineup_${Date.now()}`,
       picks: [...selectedPicks],
       entryFee,
       potentialPayout,
@@ -355,7 +409,8 @@ const PrizePicksPro: React.FC = () => {
         errorType="api"
         onRetry={fetchProps}
         showRetryButton={true}
-        severity="warning">`n      />
+        severity="warning"
+>`n      />
     );}
 
   return (
@@ -554,7 +609,7 @@ const PrizePicksPro: React.FC = () => {
                           </p>
                         </div>
                         <div className={`px-2 py-1 text-xs font-bold rounded-full ${getConfidenceColor(prop.confidence)}`} key={96862}>
-                          {prop.confidence.toFixed(0)}%
+                          {prop.safeNumber(confidence, 0)}%
                         </div>
                       </div>
 
@@ -564,7 +619,7 @@ const PrizePicksPro: React.FC = () => {
                           {prop.line} {prop.stat}
                         </div>
                         <div className="text-sm text-slate-600 dark:text-slate-400" key={994128}>
-                          Projection: {prop.projection.toFixed(1)} | Edge: {prop.edge > 0 ? "+" : ""}{prop.edge.toFixed(1)}%
+                          Projection: {prop.safeNumber(projection, 1)} | Edge: {prop.edge > 0 ? "+" : ""}{prop.safeNumber(edge, 1)}%
                         </div>
                       </div>
 
@@ -601,12 +656,13 @@ const PrizePicksPro: React.FC = () => {
                       <div className="text-xs text-slate-500 dark:text-slate-400 space-y-1" key={185211}>
                         <div className="flex justify-between" key={588832}>
                           <span key={595076}>Season Avg:</span>
-                          <span key={595076}>{prop.seasonAvg.toFixed(1)}</span>
+                          <span key={595076}>{prop.safeNumber(seasonAvg, 1)}</span>
                         </div>
                         <div className="flex justify-between" key={588832}>
                           <span key={595076}>Form:</span>
                           <span className={`font-medium ${
-                            prop.recentForm === "hot" ? "text-red-500" : >`n                            prop.recentForm === "cold" ? "text-blue-500" : "text-slate-500"}`} key={105760}>
+                            prop.recentForm === "hot" ? "text-red-500" : 
+>`n                            prop.recentForm === "cold" ? "text-blue-500" : "text-slate-500"}`} key={105760}>
                             {prop.recentForm.toUpperCase()}
                           </span>
                         </div>
@@ -641,7 +697,7 @@ const PrizePicksPro: React.FC = () => {
                       </div>
                       <div className="text-right" key={144468}>
                         <div className={`font-bold ${getConfidenceColor(pick.confidence)}`} key={563087}>
-                          {pick.confidence.toFixed(0)}%
+                          {pick.safeNumber(confidence, 0)}%
                         </div>
                       </div>
                     </div>
@@ -703,7 +759,8 @@ const PrizePicksPro: React.FC = () => {
                       <span className={`px-3 py-1 text-sm font-medium rounded-full ${
                         entry.status === "draft" ? "bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-300" :
                         entry.status === "submitted" ? "bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-300" :
-                        entry.status === "live" ? "bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300" :>`n                        "bg-slate-100 dark:bg-slate-900/20 text-slate-800 dark:text-slate-300"}`} key={245263}>
+                        entry.status === "live" ? "bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300" :
+>`n                        "bg-slate-100 dark:bg-slate-900/20 text-slate-800 dark:text-slate-300"}`} key={245263}>
                         {entry.status.toUpperCase()}
                       </span>
                     </div>
@@ -719,7 +776,7 @@ const PrizePicksPro: React.FC = () => {
                           </div>
                           <div className="text-right" key={144468}>
                             <div className={`text-xs font-medium ${getConfidenceColor(pick.confidence)}`} key={738500}>
-                              {pick.confidence.toFixed(0)}%
+                              {pick.safeNumber(confidence, 0)}%
                             </div>
                           </div>
                         </div>
@@ -734,7 +791,7 @@ const PrizePicksPro: React.FC = () => {
                         </div>
                         <div key={241917}>
                           <div className="text-slate-500 dark:text-slate-400" key={231997}>Potential Payout</div>
-                          <div className="font-bold text-green-600" key={507977}>${entry.potentialPayout.toFixed(2)}</div>
+                          <div className="font-bold text-green-600" key={507977}>${entry.safeNumber(potentialPayout, 2)}</div>
                         </div>
                         <div key={241917}>
                           <div className="text-slate-500 dark:text-slate-400" key={231997}>Multiplier</div>
@@ -742,7 +799,7 @@ const PrizePicksPro: React.FC = () => {
                         </div>
                         <div key={241917}>
                           <div className="text-slate-500 dark:text-slate-400" key={231997}>Win Probability</div>
-                          <div className="font-bold" key={378160}>{entry.winProbability.toFixed(1)}%</div>
+                          <div className="font-bold" key={378160}>{entry.safeNumber(winProbability, 1)}%</div>
                         </div>
                       </div>
                     </div>

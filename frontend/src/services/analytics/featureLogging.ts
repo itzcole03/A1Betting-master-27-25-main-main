@@ -93,7 +93,7 @@ export class FeatureLogger {
         // console statement removed
         break;
       case 'debug':
-        console.debug(formattedLog);
+//         console.debug(formattedLog);
         break;
       default:
       // console statement removed}

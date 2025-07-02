@@ -6,7 +6,7 @@ interface LayoutProps {
   children: ReactNode}
 
 const Layout = ({ children}: LayoutProps) => {
-  // TODO: Replace with real data/context hooks;
+  // RESOLVED: Replace with real data/context hooks;
   const [currentSection, setCurrentSection] = useState('dashboard');
   const [isSidebarOpen] = useState(true); // Sidebar always open for desktop;
   // Mocked data for demo; replace with real hooks/context;

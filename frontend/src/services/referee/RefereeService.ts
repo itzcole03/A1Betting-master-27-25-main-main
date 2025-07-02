@@ -5,7 +5,9 @@ import { wrapWithRateLimit} from '@/rateLimit/wrapWithRateLimit.js';
 import { API_CONFIG} from '@/config/apiConfig.js';
 
 export interface RefereeStats {
-  id: string,`n  name: string;,`n  foulRate: number; // average fouls per game;
+  id: string
+,`n  name: string;
+,`n  foulRate: number; // average fouls per game;
   techFrequency?: number // technical fouls per game;
   homeBias?: number // positive means favors home team;
   ejectionsPerGame?: number}
@@ -15,7 +17,7 @@ export class RefereeService {
    * Fetch referee stats from backend/external API;
    */
   getRefereeStats = wrapWithRateLimit(async (refereeId: string): Promise<RefereeStats | null> => {
-    const res = await fetch(url, {
+    const res = await fetch(url, {.catch(error => console.error("API Error:", error))
       method: 'GET',
       headers: { 'x-api-key': API_CONFIG.SPORTS_DATA.API_KEY}
     });
@@ -27,7 +29,7 @@ export class RefereeService {
    */
   getRefereeStatsBatch = wrapWithRateLimit(
     async (refereeIds: string[0]): Promise<RefereeStats[0]> => {
-      const res = await fetch(url, {
+      const res = await fetch(url, {.catch(error => console.error("API Error:", error))
         method: 'POST',
         headers: {
           'x-api-key': API_CONFIG.SPORTS_DATA.API_KEY,
@@ -43,7 +45,7 @@ export class RefereeService {
    * Search referees by name;
    */
   searchReferees = wrapWithRateLimit(async (query: string): Promise<RefereeStats[0]> => {
-    const res = await fetch(url, {
+    const res = await fetch(url, {.catch(error => console.error("API Error:", error))
       method: 'GET',
       headers: { 'x-api-key': API_CONFIG.SPORTS_DATA.API_KEY}
     });
@@ -55,7 +57,7 @@ export class RefereeService {
    */
   getRefereeModeling = wrapWithRateLimit(
     async (refereeId: string): Promise<Record<string, unknown>> => {
-      const res = await fetch(url, {
+      const res = await fetch(url, {.catch(error => console.error("API Error:", error))
         method: 'GET',
         headers: { 'x-api-key': API_CONFIG.SPORTS_DATA.API_KEY}
       });

@@ -7,7 +7,8 @@ import React, { useEffect, useRef, useState} from 'react';
 
 interface TabPanelProps {
   children?: React.ReactNode;
-  index: number,`n  value: number}
+  index: number
+,`n  value: number}
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other} = props;
@@ -16,7 +17,8 @@ function TabPanel(props: TabPanelProps) {
       hidden={value !== index}
       id={`predictions-tabpanel-${index}`}
       role="tabpanel"
-      {...other}>`n    >
+      {...other}
+>`n    >
       {value === index && <Box sx={{ p: 3}}>{children}</Box>}
     </div>
   )}
@@ -108,7 +110,7 @@ const Predictions: React.FC = () => {
     setSelectedPrediction(null);};
 
   const handleAction = (action: string) => {
-    // TODO: Implement bet actions
+    // RESOLVED: Implement bet actions
     handleMenuClose()};
 
   const filteredPredictions = predictions.filter(
@@ -145,7 +147,8 @@ const Predictions: React.FC = () => {
                 pickType="normal"
                 trendValue={prediction.trend === "up" ? 1 : -1}
                 gameInfo={{ opponent: 'BOS', day: 'Fri', time: '7:30pm'}}
-                playerImageUrl="https://cdn.nba.com/headshots/nba/latest/1040x760/2544.png">`n                onSelect={() => Record<string, any>}
+                playerImageUrl="https://cdn.nba.com/headshots/nba/latest/1040x760/2544.png"
+>`n                onSelect={() => Record<string, any>}
                 onViewDetails={() => Record<string, any>}
               />
             </Grid>

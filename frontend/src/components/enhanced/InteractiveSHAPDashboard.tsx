@@ -17,6 +17,7 @@ import {
 } from 'chart.js';
 import React, { useCallback, useMemo, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
+import { safeNumber } from '../../utils/UniversalUtils';
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
 import { Card, CardContent, CardHeader } from '../ui/Card';
@@ -205,7 +206,7 @@ const InteractiveSHAPDashboard: React.FC<InteractiveSHAPDashboardProps> = ({
             const shapValue = filteredShapValues[context.dataIndex];
             if (shapValue) {
               return [
-                `SHAP Value: ${shapValue.shapValue.toFixed(4)}`,
+                `SHAP Value: ${safeNumber(shapValue.shapValue).toFixed(4)}`,
                 `Feature Value: ${shapValue.value}`,
                 `Confidence: ${(shapValue.confidence * 100).toFixed(1)}%`
               ];
@@ -277,7 +278,7 @@ const InteractiveSHAPDashboard: React.FC<InteractiveSHAPDashboardProps> = ({
             
             <div>
               <label className="block text-sm font-medium mb-2">
-                Confidence Threshold: {confidenceThreshold.toFixed(2)}
+                Confidence Threshold: {safeNumber(confidenceThreshold).toFixed(2)}
               </label>
               <Slider
                 value={[confidenceThreshold]}
@@ -311,7 +312,7 @@ const InteractiveSHAPDashboard: React.FC<InteractiveSHAPDashboardProps> = ({
         <Card>
           <CardContent className="p-4">
             <div className="text-2xl font-bold text-green-600">
-              +{summaryStats.totalPositive.toFixed(3)}
+              +{safeNumber(summaryStats.totalPositive).toFixed(3)}
             </div>
             <div className="text-sm text-gray-600">Positive Impact</div>
           </CardContent>
@@ -320,7 +321,7 @@ const InteractiveSHAPDashboard: React.FC<InteractiveSHAPDashboardProps> = ({
         <Card>
           <CardContent className="p-4">
             <div className="text-2xl font-bold text-red-600">
-              -{summaryStats.totalNegative.toFixed(3)}
+              -{safeNumber(summaryStats.totalNegative).toFixed(3)}
             </div>
             <div className="text-sm text-gray-600">Negative Impact</div>
           </CardContent>
@@ -329,7 +330,7 @@ const InteractiveSHAPDashboard: React.FC<InteractiveSHAPDashboardProps> = ({
         <Card>
           <CardContent className="p-4">
             <div className="text-2xl font-bold text-blue-600">
-              {summaryStats.netImpact.toFixed(3)}
+              {safeNumber(summaryStats.netImpact).toFixed(3)}
             </div>
             <div className="text-sm text-gray-600">Net Impact</div>
           </CardContent>
@@ -338,7 +339,7 @@ const InteractiveSHAPDashboard: React.FC<InteractiveSHAPDashboardProps> = ({
         <Card>
           <CardContent className="p-4">
             <div className="text-2xl font-bold text-gray-900">
-              {summaryStats.featureCount}
+              {safeNumber(summaryStats.featureCount).toFixed(0)}
             </div>
             <div className="text-sm text-gray-600">Features</div>
           </CardContent>
@@ -419,11 +420,11 @@ const InteractiveSHAPDashboard: React.FC<InteractiveSHAPDashboardProps> = ({
                           {index + 1}. {feature.feature}
                         </div>
                         <Badge variant={feature.impact > 0 ? 'success' : 'destructive'}>
-                          {feature.impact > 0 ? '+' : ''}{feature.impact.toFixed(3)}
+                          {feature.impact > 0 ? '+' : ''}{safeNumber(feature.impact).toFixed(3)}
                         </Badge>
                       </div>
                       <div className="text-sm text-gray-600">
-                        {feature.percentage.toFixed(1)}%
+                        {safeNumber(feature.percentage).toFixed(1)}%
                       </div>
                     </div>
                   ))}
@@ -439,13 +440,13 @@ const InteractiveSHAPDashboard: React.FC<InteractiveSHAPDashboardProps> = ({
               <CardContent>
                 <div className="space-y-4">
                   <div className="text-sm">
-                    <span className="font-medium">Base Value:</span> {explanation.baseValue.toFixed(3)}
+                    <span className="font-medium">Base Value:</span> {safeNumber(explanation.baseValue).toFixed(3)}
                   </div>
                   <div className="text-sm">
-                    <span className="font-medium">Final Prediction:</span> {explanation.predictedValue.toFixed(3)}
+                    <span className="font-medium">Final Prediction:</span> {safeNumber(explanation.predictedValue).toFixed(3)}
                   </div>
                   <div className="text-sm">
-                    <span className="font-medium">Total Change:</span> {(explanation.predictedValue - explanation.baseValue).toFixed(3)}
+                    <span className="font-medium">Total Change:</span> {safeNumber(explanation.predictedValue - explanation.baseValue).toFixed(3)}
                   </div>
                   
                   {selectedFeatures.size > 0 && (
@@ -458,7 +459,7 @@ const InteractiveSHAPDashboard: React.FC<InteractiveSHAPDashboardProps> = ({
                             <div key={feature} className="text-sm bg-blue-50 p-2 rounded">
                               <div className="font-medium">{feature}</div>
                               <div>Value: {shapValue.value}</div>
-                              <div>SHAP: {shapValue.shapValue.toFixed(4)}</div>
+                              <div>SHAP: {safeNumber(shapValue.shapValue).toFixed(4)}</div>
                               <div>Confidence: {(shapValue.confidence * 100).toFixed(1)}%</div>
                             </div>
                           ) : null;

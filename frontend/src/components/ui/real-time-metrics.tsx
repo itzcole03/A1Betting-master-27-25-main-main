@@ -4,7 +4,10 @@ import { ModelConfidenceIndicator} from './ml-status-indicators';
 
 interface RealTimeMetricsProps {
     initialMetrics?: {
-        predictions: number,`n  opportunities: number;,`n  activeModels: number,`n  totalProfit: number}}
+        predictions: number
+,`n  opportunities: number;
+,`n  activeModels: number
+,`n  totalProfit: number}}
 
 export const RealTimeMetrics: React.FC<RealTimeMetricsProps key={981146}> = ({
     initialMetrics = {
@@ -46,7 +49,7 @@ export const RealTimeMetrics: React.FC<RealTimeMetricsProps key={981146}> = ({
             />
             <MetricCard;
                 title="Total Profit"
-                value={`$${metrics.totalProfit.toFixed(2)}`}
+                value={`$${metrics.safeNumber(totalProfit, 2)}`}
                 icon="💰"
                 trend={metrics.totalProfit  key={311843}> initialMetrics.totalProfit ? 'up' : 'down'}
                 isMonetary;
@@ -55,7 +58,10 @@ export const RealTimeMetrics: React.FC<RealTimeMetricsProps key={981146}> = ({
     );};
 
 interface MetricCardProps {
-    title: string,`n  value: number | string;,`n  icon: string,`n  trend: 'up' | 'down';
+    title: string
+,`n  value: number | string;
+,`n  icon: string
+,`n  trend: 'up' | 'down';
     isMonetary?: boolean}
 
 const MetricCard: React.FC<MetricCardProps key={656645}> = ({

@@ -107,11 +107,12 @@ export class BackendStarter {
    * Try to start backend via API call;
    */
   private static async tryStartViaAPI(): Promise<{
-    success: boolean,`n  message: string}> {
+    success: boolean
+,`n  message: string}> {
     try {
       // Try to ping the backend health endpoint first with proper timeout;
       const healthResponse = await Promise.race([
-        fetch(`${this.getBackendUrl()}/health`, {
+        fetch(`${this.getBackendUrl()}/health`, {.catch(error => console.error("API Error:", error))
           method: 'GET'
         }),
         new Promise<Response>((_, reject) =>
@@ -131,7 +132,7 @@ export class BackendStarter {
     try {
       // Try to send a wake-up call to backend with proper timeout;
       const startResponse = await Promise.race([
-        fetch(`${this.getBackendUrl()}/start`, {
+        fetch(`${this.getBackendUrl()}/start`, {.catch(error => console.error("API Error:", error))
           method: 'POST',
           headers: { 'Content-Type': 'application/json'},
           body: JSON.stringify({ action: 'start'})
@@ -159,7 +160,8 @@ export class BackendStarter {
    * Try to start backend via WebSocket ping (simplified)
    */
   private static async tryStartViaWebSocket(): Promise<{
-    success: boolean,`n  message: string}> {
+    success: boolean
+,`n  message: string}> {
     try {
       // Skip WebSocket attempts for now to avoid connection errors;
       // This would be implemented when we have a proper WebSocket endpoint;
@@ -171,7 +173,8 @@ export class BackendStarter {
    * Provide manual instructions as fallback;
    */
   private static async tryManualInstructions(): Promise<{
-    success: boolean,`n  message: string}> {
+    success: boolean
+,`n  message: string}> {
     // Final fallback - provide instructions;
     return {
       success: false,
@@ -183,7 +186,8 @@ export class BackendStarter {
    * Restart the backend service;
    */
   static async restartBackend(): Promise<{
-    success: boolean,`n  message: string}> {
+    success: boolean
+,`n  message: string}> {
     try {
       // console statement removed
 
@@ -217,7 +221,7 @@ export class BackendStarter {
       '2. Navigate to the backend directory: cd backend',
       '3. Install dependencies: pip install -r requirements.txt',
       '4. Start the server: python main_enhanced.py',
-      '5. Backend should be available at http://localhost:8000',
+      '5. Backend should be available at ${process.env.REACT_APP_API_URL || "http://localhost:8000"}',
       '',
       'Note: In PowerShell/CMD, run each command separately.',
       'In Bash/Terminal, you can use: cd backend && python main_enhanced.py',
@@ -244,7 +248,7 @@ export class BackendStarter {
       try {
         // Use Promise.race for proper timeout handling;
         const response = await Promise.race([
-          fetch(`${testUrl}/health`, {
+          fetch(`${testUrl}/health`, {.catch(error => console.error("API Error:", error))
             method: 'GET'
           }),
           new Promise<Response>((_, reject) =>

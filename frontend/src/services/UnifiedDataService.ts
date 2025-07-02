@@ -27,7 +27,10 @@ export enum DataSource {
 // Unified response schema;
 // (Removed unused DataResponseSchema)
 export type DataResponse<T = unknown> = {
-  source: DataSource,`n  timestamp: number;,`n  data: T | null,`n  status: 'success' | 'error'};
+  source: DataSource
+,`n  timestamp: number;
+,`n  data: T | null
+,`n  status: 'success' | 'error'};
 
 export class UnifiedDataService extends SimpleEventEmitter {
   private static instance: UnifiedDataService;
@@ -50,7 +53,8 @@ export class UnifiedDataService extends SimpleEventEmitter {
         return API_CONFIG.SPORTS_DATA.BASE_URL;
       case DataSource.ESPN:
         return API_CONFIG.NEWS.BASE_URL;
-      case DataSource.ODDS_API: return API_CONFIG.ODDS_DATA.BASE_URL,`n  default: return ''}
+      case DataSource.ODDS_API: return API_CONFIG.ODDS_DATA.BASE_URL
+,`n  default: return ''}
   }
 
   /**
@@ -72,7 +76,7 @@ export class UnifiedDataService extends SimpleEventEmitter {
       try {
         if (params) {
           Object.entries(params).forEach(([k, v]) => url.searchParams.append(k, String(v)));}
-        const res = await fetch(url.toString(), {
+        const res = await fetch(url.toString(), {.catch(error => console.error("API Error:", error))
           method: 'GET',
           headers: { 'x-api-key': API_CONFIG.SPORTS_DATA.API_KEY}
         });

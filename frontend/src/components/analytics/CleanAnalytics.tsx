@@ -19,10 +19,30 @@ import {
 } from 'lucide-react';
 
 interface ModelPerformance {
-  id: string,`n  name: string;,`n  accuracy: number,`n  predictions: number;,`n  profit: number,`n  roi: number;,`n  sharpeRatio: number,`n  maxDrawdown: number;,`n  lastUpdated: Date,`n  status: "active" | "training" | "offline"}
+  id: string
+,`n  name: string;
+,`n  accuracy: number
+,`n  predictions: number;
+,`n  profit: number
+,`n  roi: number;
+,`n  sharpeRatio: number
+,`n  maxDrawdown: number;
+,`n  lastUpdated: Date
+,`n  status: "active" | "training" | "offline"}
 
 interface AnalyticsMetrics {
-  totalPredictions: number,`n  accuracy: number;,`n  profit: number,`n  roi: number;,`n  winRate: number,`n  avgOdds: number;,`n  avgStake: number,`n  totalVolume: number;,`n  bestModel: string,`n  worstModel: string;,`n  riskScore: number,`n  confidenceScore: number}
+  totalPredictions: number
+,`n  accuracy: number;
+,`n  profit: number
+,`n  roi: number;
+,`n  winRate: number
+,`n  avgOdds: number;
+,`n  avgStake: number
+,`n  totalVolume: number;
+,`n  bestModel: string
+,`n  worstModel: string;
+,`n  riskScore: number
+,`n  confidenceScore: number}
 
 export const CleanAnalytics: React.FC = () => {
   const [models, setModels] = useState<ModelPerformance[0] key={45592}>([
@@ -301,25 +321,25 @@ export const CleanAnalytics: React.FC = () => {
                   <div className="text-center" key={120206}>
                     <div className="text-sm text-gray-400" key={372957}>Accuracy</div>
                     <div className="text-lg font-bold text-white" key={142411}>
-                      {model.accuracy.toFixed(1)}%
+                      {model.safeNumber(accuracy, 1)}%
                     </div>
                   </div>
                   <div className="text-center" key={120206}>
                     <div className="text-sm text-gray-400" key={372957}>ROI</div>
                     <div className="text-lg font-bold text-green-400" key={499793}>
-                      {model.roi.toFixed(1)}%
+                      {model.safeNumber(roi, 1)}%
                     </div>
                   </div>
                   <div className="text-center" key={120206}>
                     <div className="text-sm text-gray-400" key={372957}>Sharpe</div>
                     <div className="text-lg font-bold text-blue-400" key={930283}>
-                      {model.sharpeRatio.toFixed(1)}
+                      {model.safeNumber(sharpeRatio, 1)}
                     </div>
                   </div>
                   <div className="text-center" key={120206}>
                     <div className="text-sm text-gray-400" key={372957}>Max DD</div>
                     <div className="text-lg font-bold text-red-400" key={175036}>
-                      {model.maxDrawdown.toFixed(1)}%
+                      {model.safeNumber(maxDrawdown, 1)}%
                     </div>
                   </div>
                   <div className="text-center" key={120206}>

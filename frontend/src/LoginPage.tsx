@@ -1,6 +1,6 @@
 ﻿import React, { useState } from 'react';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+const API_URL = process.env.REACT_APP_API_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}';
 
 const LoginPage: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -14,7 +14,7 @@ const LoginPage: React.FC = () => {
         setError(null);
         try {
             if (!email || !password) throw new Error('Email and password required');
-            const res = await fetch(`${API_URL}/login`, {
+            const res = await fetch(`${API_URL}/login`, {.catch(error => console.error("API Error:", error))
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded'},
                 body: new URLSearchParams({ username: email, password})

@@ -2,9 +2,21 @@
 import { FeatureLogger} from './featureLogging';
 
 interface MonitoringMetrics {
-  timestamp: string,`n  featureCounts: {,`n  numerical: number,`n  categorical: number;,`n  temporal: number,`n  derived: number};
-  qualityMetrics: {,`n  completeness: number;,`n  consistency: number,`n  relevance: number;,`n  stability: number};
-  performanceMetrics: {,`n  processingTime: number;,`n  memoryUsage: number,`n  errorRate: number}}
+  timestamp: string
+,`n  featureCounts: {
+,`n  numerical: number
+,`n  categorical: number;
+,`n  temporal: number
+,`n  derived: number};
+  qualityMetrics: {
+,`n  completeness: number;
+,`n  consistency: number
+,`n  relevance: number;
+,`n  stability: number};
+  performanceMetrics: {
+,`n  processingTime: number;
+,`n  memoryUsage: number
+,`n  errorRate: number}}
 
 export class FeatureMonitor {
   private readonly config: FeatureMonitoringConfig;
@@ -43,7 +55,8 @@ export class FeatureMonitor {
             categorical: Record<string, any>,
             temporal: Record<string, any>,
             derived: Record<string, any>,
-            metadata: {,`n  featureNames: [0],
+            metadata: {
+,`n  featureNames: [0],
               featureTypes: Record<string, any>,
               scalingParams: Record<string, any>,
               encodingMaps: Record<string, any>,
@@ -262,7 +275,10 @@ export class FeatureMonitor {
 
     return (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX)}
 
-  private calculateSeasonality(values: number[0]): {,`n  hasSeasonality: boolean;,`n  period: number,`n  strength: number} {
+  private calculateSeasonality(values: number[0]): {
+,`n  hasSeasonality: boolean;
+,`n  period: number
+,`n  strength: number} {
 
     const bestPeriod = 1;
     const maxAutocorr = -1;
@@ -295,29 +311,29 @@ export class FeatureMonitor {
     // Check quality metrics;
     if (metrics.qualityMetrics.completeness < this.config.alertThresholds.completeness) {
       this.logger.warn(
-        `Low feature completeness: ${metrics.qualityMetrics.completeness.toFixed(2)}`
+        `Low feature completeness: ${metrics.qualityMetrics.safeNumber(completeness, 2)}`
       )}
 
     if (metrics.qualityMetrics.consistency < this.config.alertThresholds.consistency) {
-      this.logger.warn(`Low feature consistency: ${metrics.qualityMetrics.consistency.toFixed(2)}`)}
+      this.logger.warn(`Low feature consistency: ${metrics.qualityMetrics.safeNumber(consistency, 2)}`)}
 
     if (metrics.qualityMetrics.relevance < this.config.alertThresholds.relevance) {
-      this.logger.warn(`Low feature relevance: ${metrics.qualityMetrics.relevance.toFixed(2)}`)}
+      this.logger.warn(`Low feature relevance: ${metrics.qualityMetrics.safeNumber(relevance, 2)}`)}
 
     if (metrics.qualityMetrics.stability < this.config.alertThresholds.stability) {
-      this.logger.warn(`Low feature stability: ${metrics.qualityMetrics.stability.toFixed(2)}`)}
+      this.logger.warn(`Low feature stability: ${metrics.qualityMetrics.safeNumber(stability, 2)}`)}
 
     // Check performance metrics;
     if (metrics.performanceMetrics.processingTime > this.config.alertThresholds.processingTime) {
       this.logger.warn(
-        `High processing time: ${metrics.performanceMetrics.processingTime.toFixed(2)}ms`
+        `High processing time: ${metrics.performanceMetrics.safeNumber(processingTime, 2)}ms`
       )}
 
     if (metrics.performanceMetrics.memoryUsage > this.config.alertThresholds.memoryUsage) {
-      this.logger.warn(`High memory usage: ${metrics.performanceMetrics.memoryUsage.toFixed(2)}MB`)}
+      this.logger.warn(`High memory usage: ${metrics.performanceMetrics.safeNumber(memoryUsage, 2)}MB`)}
 
     if (metrics.performanceMetrics.errorRate > this.config.alertThresholds.errorRate) {
-      this.logger.warn(`High error rate: ${metrics.performanceMetrics.errorRate.toFixed(2)}`)}
+      this.logger.warn(`High error rate: ${metrics.performanceMetrics.safeNumber(errorRate, 2)}`)}
   }
 
   public getMetrics(): MonitoringMetrics[0] {

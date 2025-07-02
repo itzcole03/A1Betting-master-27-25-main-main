@@ -8,8 +8,29 @@ process.env.DISABLE_CONSOLE_NINJA = 'true';
 // https://vite.dev/config/
 export default defineConfig({
   esbuild: {
-    // Ignore TypeScript errors during build;
+    // Ignore TypeScript errors during build
     logLevel: 'error',
+    target: 'es2020',
+    // Skip type checking entirely
+    tsconfigRaw: {
+      compilerOptions: {
+        skipLibCheck: true,
+        noEmit: true,
+        isolatedModules: true,
+        allowSyntheticDefaultImports: true,
+        esModuleInterop: true,
+        jsx: 'react-jsx',
+        target: 'es2020',
+        lib: ['es2020', 'dom', 'dom.iterable'],
+        module: 'esnext',
+        moduleResolution: 'node',
+        resolveJsonModule: true,
+        strict: false,
+        noImplicitAny: false,
+        noUnusedLocals: false,
+        noUnusedParameters: false
+      }
+    }
   },
   resolve: {
     alias: {
@@ -35,7 +56,7 @@ export default defineConfig({
     strictPort: false, // Allow fallback ports;
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        target: process.env.REACT_APP_API_URL || "http://localhost:8000",
         changeOrigin: true,
         secure: false,
         ws: false,
@@ -52,7 +73,7 @@ export default defineConfig({
         },
       },
       '/health': {
-        target: 'http://localhost:8000',
+        target: process.env.REACT_APP_API_URL || "http://localhost:8000",
         changeOrigin: true,
         secure: false,
         configure: (proxy, _options) => {

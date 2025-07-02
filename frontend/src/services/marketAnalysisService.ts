@@ -51,7 +51,8 @@ export class MarketAnalysisService extends EventEmitter {
 
   public updateMarketMetrics(eventId: string, odds: BettingOdds[0]): void {
     const currentMetrics = this.marketMetrics.get(eventId) || {
-      volume: {,`n  totalVolume: 0,
+      volume: {
+,`n  totalVolume: 0,
         lastUpdate: Date.now(),
         volumeHistory: [0]
       },
@@ -163,9 +164,10 @@ export class MarketAnalysisService extends EventEmitter {
         anomalies.push({
           type: "volume",
           severity: this.getAnomalySeverity(mlPrediction.deviation),
-          description: `ML-detected volume anomaly: ${mlPrediction.deviation.toFixed(2)} standard deviations from expected`,
+          description: `ML-detected volume anomaly: ${mlPrediction.safeNumber(deviation, 2)} standard deviations from expected`,
           timestamp: Date.now(),
-          metrics: {,`n  current: recentVolumes[recentVolumes.length - 1],
+          metrics: {
+,`n  current: recentVolumes[recentVolumes.length - 1],
             expected: mlPrediction.expectedValue,
             deviation: mlPrediction.deviation
           }
@@ -205,9 +207,10 @@ export class MarketAnalysisService extends EventEmitter {
       return {
         type: "price",
         severity: this.getAnomalySeverity(pricePrediction.deviation),
-        description: `ML-detected price anomaly: ${pricePrediction.deviation.toFixed(2)} standard deviations from expected`,
+        description: `ML-detected price anomaly: ${pricePrediction.safeNumber(deviation, 2)} standard deviations from expected`,
         timestamp: Date.now(),
-        metrics: {,`n  current: pricePrediction.currentPrice,
+        metrics: {
+,`n  current: pricePrediction.currentPrice,
           expected: pricePrediction.expectedPrice,
           deviation: pricePrediction.deviation
         }
@@ -222,9 +225,10 @@ export class MarketAnalysisService extends EventEmitter {
       return {
         type: "spread",
         severity: this.getAnomalySeverity(spreadPrediction.deviation),
-        description: `ML-detected spread anomaly: ${spreadPrediction.deviation.toFixed(2)} standard deviations from expected`,
+        description: `ML-detected spread anomaly: ${spreadPrediction.safeNumber(deviation, 2)} standard deviations from expected`,
         timestamp: Date.now(),
-        metrics: {,`n  current: spreadPrediction.currentSpread,
+        metrics: {
+,`n  current: spreadPrediction.currentSpread,
           expected: spreadPrediction.expectedSpread,
           deviation: spreadPrediction.deviation
         }
@@ -244,9 +248,10 @@ export class MarketAnalysisService extends EventEmitter {
       return {
         type: "liquidity",
         severity: this.getAnomalySeverity(liquidityPrediction.deviation),
-        description: `ML-detected liquidity anomaly: ${liquidityPrediction.deviation.toFixed(2)} standard deviations from expected`,
+        description: `ML-detected liquidity anomaly: ${liquidityPrediction.safeNumber(deviation, 2)} standard deviations from expected`,
         timestamp: Date.now(),
-        metrics: {,`n  current: liquidityPrediction.currentLiquidity,
+        metrics: {
+,`n  current: liquidityPrediction.currentLiquidity,
           expected: liquidityPrediction.expectedLiquidity,
           deviation: liquidityPrediction.deviation
         }
@@ -404,7 +409,8 @@ export class MarketAnalysisService extends EventEmitter {
       score: 0.65,
       confidence: 0.8,
       sources: ["twitter", "reddit", "news"],
-      breakdown: {,`n  positive: 65,
+      breakdown: {
+,`n  positive: 65,
         neutral: 25,
         negative: 10
       }

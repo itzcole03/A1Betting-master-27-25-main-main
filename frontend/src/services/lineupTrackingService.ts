@@ -12,17 +12,37 @@ export interface LineupPick {
   projection?: number}
 
 export interface SavedLineup {
-  id: string,`n  name: string;,`n  type: 'money-maker' | 'prizepicks' | 'propollama',`n  picks: LineupPick[0];,`n  entryAmount: number,`n  projectedPayout: number;,`n  savedAt: Date,`n  status: 'active' | 'completed' | 'pending' | 'cancelled';
+  id: string
+,`n  name: string;
+,`n  type: 'money-maker' | 'prizepicks' | 'propollama'
+,`n  picks: LineupPick[0];
+,`n  entryAmount: number
+,`n  projectedPayout: number;
+,`n  savedAt: Date
+,`n  status: 'active' | 'completed' | 'pending' | 'cancelled';
   actualResult?: number
   progress?: {
-    totalPicks: number,`n  settledPicks: number;,`n  wonPicks: number,`n  lostPicks: number;,`n  pushPicks: number};
+    totalPicks: number
+,`n  settledPicks: number;
+,`n  wonPicks: number
+,`n  lostPicks: number;
+,`n  pushPicks: number};
   metadata?: {
-    confidence: number,`n  source: string;
+    confidence: number
+,`n  source: string;
     notes?: string
     tags?: string[0];};}
 
 export interface LineupStats {
-  totalLineups: number,`n  activeLineups: number;,`n  completedLineups: number,`n  totalWinnings: number;,`n  totalLosses: number,`n  averageConfidence: number;,`n  winRate: number,`n  roi: number;,`n  bestPerformingType: string}
+  totalLineups: number
+,`n  activeLineups: number;
+,`n  completedLineups: number
+,`n  totalWinnings: number;
+,`n  totalLosses: number
+,`n  averageConfidence: number;
+,`n  winRate: number
+,`n  roi: number;
+,`n  bestPerformingType: string}
 
 class LineupTrackingService extends EventEmitter {
   private static instance: LineupTrackingService;
@@ -49,14 +69,14 @@ class LineupTrackingService extends EventEmitter {
             savedAt: new Date(lineup.savedAt)
           })});}
     } catch (error) {
-      console.error('Failed to load lineups from storage: ', error)}
+//       console.error('Failed to load lineups from storage: ', error)}
   }
 
   private saveToStorage(): void {
     try {
       const data = Object.fromEntries(this.lineups);
       localStorage.setItem(this.storageKey, JSON.stringify(data));} catch (error) {
-      console.error('Failed to save lineups to storage: ', error)}
+//       console.error('Failed to save lineups to storage: ', error)}
   }
 
   saveLineup(lineup: Omit<SavedLineup, 'id' | 'savedAt'>): string {
@@ -65,7 +85,8 @@ class LineupTrackingService extends EventEmitter {
       ...lineup,
       id,
       savedAt: new Date(),
-      progress: {,`n  totalPicks: lineup.picks.length,
+      progress: {
+,`n  totalPicks: lineup.picks.length,
         settledPicks: 0,
         wonPicks: 0,
         lostPicks: 0,
@@ -77,7 +98,7 @@ class LineupTrackingService extends EventEmitter {
     this.saveToStorage();
     this.emit('lineupSaved', newLineup);
 
-    console.log(`Lineup saved: ${lineup.name} (${lineup.type})`);
+//     console.log(`Lineup saved: ${lineup.name} (${lineup.type})`);
     return id;}
 
   updateLineup(id: string, updates: Partial<SavedLineup>): boolean {
@@ -220,9 +241,9 @@ class LineupTrackingService extends EventEmitter {
 
       this.saveToStorage();
       this.emit('lineupsImported', count);
-      console.log(`Imported ${count} lineups`);
+//       console.log(`Imported ${count} lineups`);
       return true;} catch (error) {
-      console.error('Failed to import lineups:', error);
+//       console.error('Failed to import lineups:', error);
       return false;}
   }
 
@@ -264,7 +285,8 @@ class LineupTrackingService extends EventEmitter {
       entryAmount,
       projectedPayout,
       status: 'active',
-      metadata: {,`n  confidence: avgConfidence,
+      metadata: {
+,`n  confidence: avgConfidence,
         source: 'PrizePicks Pro',
         tags: ['props', 'prizepicks']
       }

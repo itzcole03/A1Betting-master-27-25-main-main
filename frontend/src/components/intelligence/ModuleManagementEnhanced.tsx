@@ -15,8 +15,10 @@ import {
 } from 'lucide-react';
 
 interface ModuleManagementEnhancedProps {
-  moduleConfigs: unknown[0],`n  activeModules: Set<string key={278855}>;
-  toggleModule: (id: string) => void,`n  onQuickAction: (action: string) => void}
+  moduleConfigs: unknown[0]
+,`n  activeModules: Set<string key={278855}>;
+  toggleModule: (id: string) => void
+,`n  onQuickAction: (action: string) => void}
 
 // Money-making score mapping for modules;
 const getModuleMoneyScore = (moduleId: string): number => {
@@ -111,7 +113,7 @@ export const ModuleManagementEnhanced: React.FC<
                   Prediction Power;
                 </p>
                 <p className="text-2xl font-bold text-blue-400" key={641115}>
-                  {avgAccuracyBoost.toFixed(1)}%
+                  {safeNumber(avgAccuracyBoost, 1)}%
                 </p>
                 <p className="text-xs text-blue-300" key={16910}>Accuracy boost</p>
               </div>

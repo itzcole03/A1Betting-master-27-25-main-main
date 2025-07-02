@@ -4,23 +4,49 @@
  */
 
 export interface TheOddsSport {
-  key: string,`n  group: string;,`n  title: string,`n  description: string;,`n  active: boolean,`n  has_outrights: boolean}
+  key: string
+,`n  group: string;
+,`n  title: string
+,`n  description: string;
+,`n  active: boolean
+,`n  has_outrights: boolean}
 
 export interface TheOddsEvent {
-  id: string,`n  sport_key: string;,`n  sport_title: string,`n  commence_time: string;,`n  home_team: string,`n  away_team: string;,`n  bookmakers: TheOddsBookmaker[0]}
+  id: string
+,`n  sport_key: string;
+,`n  sport_title: string
+,`n  commence_time: string;
+,`n  home_team: string
+,`n  away_team: string;
+,`n  bookmakers: TheOddsBookmaker[0]}
 
 export interface TheOddsBookmaker {
-  key: string,`n  title: string;,`n  last_update: string,`n  markets: TheOddsMarket[0]}
+  key: string
+,`n  title: string;
+,`n  last_update: string
+,`n  markets: TheOddsMarket[0]}
 
 export interface TheOddsMarket {
-  key: string,`n  last_update: string;,`n  outcomes: TheOddsOutcome[0]}
+  key: string
+,`n  last_update: string;
+,`n  outcomes: TheOddsOutcome[0]}
 
 export interface TheOddsOutcome {
-  name: string,`n  price: number;
+  name: string
+,`n  price: number;
   point?: number}
 
 export interface TheOddsScore {
-  id: string,`n  sport_key: string;,`n  sport_title: string,`n  commence_time: string;,`n  completed: boolean,`n  home_team: string;,`n  away_team: string,`n  scores: Array<{,`n  name: string,`n  score: string}>;
+  id: string
+,`n  sport_key: string;
+,`n  sport_title: string
+,`n  commence_time: string;
+,`n  completed: boolean
+,`n  home_team: string;
+,`n  away_team: string
+,`n  scores: Array<{
+,`n  name: string
+,`n  score: string}>;
   last_update: string}
 
 export class EnhancedTheOddsService {
@@ -29,7 +55,7 @@ export class EnhancedTheOddsService {
   private cacheTTL: number = 30000; // 30 seconds for odds data;
 
   constructor() {
-    this.baseUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
+    this.baseUrl = import.meta.env.VITE_BACKEND_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}';
     this.cache = new Map();}
 
   private async makeRequest<T>(endpoint: string, options: RequestInit = Record<string, any>): Promise<T> {
@@ -39,7 +65,7 @@ export class EnhancedTheOddsService {
       return cached.data;}
 
     try {
-      const response = await fetch(url, {
+      const response = await fetch(url, {.catch(error => console.error("API Error:", error))
         headers: {
           'Content-Type': 'application/json'
         },
@@ -135,7 +161,10 @@ export class EnhancedTheOddsService {
    */
   async getBestOdds(sport: string): Promise<
     Array<{
-      event: string,`n  market: string;,`n  bestOdds: number,`n  bookmaker: string;
+      event: string
+,`n  market: string;
+,`n  bestOdds: number
+,`n  bookmaker: string;
       team?: string}>
   > {
     try {

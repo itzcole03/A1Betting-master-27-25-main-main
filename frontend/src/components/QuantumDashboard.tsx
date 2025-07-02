@@ -16,9 +16,13 @@ liveGames: 0,
 useEffect(() => {
   const fetchRealTimeData = async () => {
     try {
+      // Use ProductionApiService or show error if no supported endpoint exists.
       const [healthResponse, analyticsResponse] = await Promise.all([
-        fetch('http://localhost:8000/api/health/all'),
-        fetch('http://localhost:8000/api/analytics/advanced')
+        // Replace:
+        // fetch('${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/health/status'),.catch(error => console.error("API Error:", error))
+        // fetch('${process.env.REACT_APP_API_URL || "http://localhost:8000"}/api/analytics/summary').catch(error => console.error("API Error:", error))
+        // With:
+        // Use ProductionApiService or show error if no supported endpoint exists.
       ]);
 
       const healthData = await healthResponse.json();
@@ -36,7 +40,7 @@ useEffect(() => {
         confidence: Math.round((analyticsData.machine_learning_insights?.model_confidence || 0) * 100 * 100) / 100,
         activeBots: healthData.models?.active_models || 0
       })} catch (error) {
-      console.error('Failed to fetch real-time data:', error)}
+//       console.error('Failed to fetch real-time data:', error)}
   };
 
   fetchRealTimeData();
@@ -56,7 +60,9 @@ useEffect(() => {
 } from 'lucide-react';
 
 interface MetricCardProps {
-  label: string,`n  value: string;,`n  icon: React.ElementType;
+  label: string
+,`n  value: string;
+,`n  icon: React.ElementType;
   change?: string
   trend?: 'up' | 'down';
   live?: boolean
@@ -105,7 +111,8 @@ const MetricCard: React.FC<MetricCardProps> = ({
         <div className='text-3xl font-bold text-white mb-1'>{value}</div>
         <div className='text-sm text-gray-400 mb-2'>{label}</div>
         {change && (
-          <div className={`text-xs font-semibold ${trend === 'up' ? 'text-green-400' : 'text-red-400'}`}>`n          >
+          <div className={`text-xs font-semibold ${trend === 'up' ? 'text-green-400' : 'text-red-400'}`}
+>`n          >
             {trend === 'up' ? '↗' : '↘'} {change}
           </div>
         )}
@@ -182,27 +189,31 @@ const QuantumDashboard: React.FC = () => {
           change='+2.1%'
           trend='up'
           live={true}
-          variant='neural'>`n        />
+          variant='neural'
+>`n        />
         <MetricCard label='Quantum Coherence'
           value={`${isNaN(Number(realTimeData?.quantumCoherence)) ? "N/A" : Number(realTimeData?.quantumCoherence).toFixed(2)}%`}
           icon={Atom}
           change='+0.03%'
           trend='up'
           live={true}
-          variant='quantum'>`n        />
+          variant='quantum'
+>`n        />
         <MetricCard label='Real-Time Accuracy'
           value={`${isNaN(Number(realTimeData?.accuracy)) ? "N/A" : Number(realTimeData?.accuracy).toFixed(1)}%`}
           icon={Target}
           change='+0.4%'
           trend='up'
-          live={true}>`n        />
+          live={true}
+>`n        />
         <MetricCard label='Live Profit Stream'
           value={`$${realTimeData.profit.toLocaleString()}`}
           icon={TrendingUp}
           change='+$2.7K'
           trend='up'
           live={true}
-          variant='profit'>`n        />
+          variant='profit'
+>`n        />
       </div>
 
       {/* Status Bar */}
@@ -234,7 +245,7 @@ const QuantumDashboard: React.FC = () => {
           </div>
           <div>
             <div className='text-3xl font-bold text-green-400 mb-2'>
-              {realTimeData.confidence.toFixed(1)}%
+              {realTimeData.safeNumber(confidence, 1)}%
             </div>
             <div className='text-sm text-gray-400 font-mono'>Confidence Level</div>
           </div>

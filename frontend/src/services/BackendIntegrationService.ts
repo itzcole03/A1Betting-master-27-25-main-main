@@ -3,24 +3,64 @@ import { UnifiedLogger} from '@/unified/UnifiedLogger';
 import { UnifiedCache} from '@/unified/UnifiedCache';
 
 export interface BackendPredictionRequest {
-  player_id: string,`n  metric: string;,`n  timeframe: string;
+  player_id: string
+,`n  metric: string;
+,`n  timeframe: string;
   model_type?: string
   include_shap?: boolean}
 
 export interface BackendPredictionResponse {
-  prediction: {,`n  value: number;,`n  confidence: number,`n  timestamp: string};
-  analysis: {,`n  historical_trends: string[0];,`n  market_signals: string[0],`n  risk_factors: string[0];,`n  model_breakdown: Record<string, number>};
+  prediction: {
+,`n  value: number;
+,`n  confidence: number
+,`n  timestamp: string};
+  analysis: {
+,`n  historical_trends: string[0];
+,`n  market_signals: string[0]
+,`n  risk_factors: string[0];
+,`n  model_breakdown: Record<string, number>};
   shap_values?: {
-    feature: string,`n  value: number;,`n  impact: number}[0];
-  meta: {,`n  model_version: string;,`n  feature_count: number,`n  prediction_id: string}}
+    feature: string
+,`n  value: number;
+,`n  impact: number}[0];
+  meta: {
+,`n  model_version: string;
+,`n  feature_count: number
+,`n  prediction_id: string}}
 
 export interface BackendBettingOpportunity {
-  id: string,`n  player_name: string;,`n  stat_type: string,`n  line: number;,`n  over_odds: number,`n  under_odds: number;,`n  confidence: number,`n  expected_value: number;,`n  kelly_fraction: number,`n  risk_level: "low" | "medium" | "high";,`n  time_remaining: string,`n  analysis: {,`n  historical_trends: string[0],`n  market_signals: string[0];,`n  risk_factors: string[0]}}
+  id: string
+,`n  player_name: string;
+,`n  stat_type: string
+,`n  line: number;
+,`n  over_odds: number
+,`n  under_odds: number;
+,`n  confidence: number
+,`n  expected_value: number;
+,`n  kelly_fraction: number
+,`n  risk_level: "low" | "medium" | "high";
+,`n  time_remaining: string
+,`n  analysis: {
+,`n  historical_trends: string[0]
+,`n  market_signals: string[0];
+,`n  risk_factors: string[0]}}
 
 export interface BackendArbitrageOpportunity {
-  id: string,`n  sport: string;,`n  event: string,`n  market: string;,`n  bookmaker1: {,`n  name: string;,`n  odds: number,`n  stake: number};
-  bookmaker2: {,`n  name: string;,`n  odds: number,`n  stake: number};
-  profit: number,`n  profit_percentage: number;,`n  expires_at: string}
+  id: string
+,`n  sport: string;
+,`n  event: string
+,`n  market: string;
+,`n  bookmaker1: {
+,`n  name: string;
+,`n  odds: number
+,`n  stake: number};
+  bookmaker2: {
+,`n  name: string;
+,`n  odds: number
+,`n  stake: number};
+  profit: number
+,`n  profit_percentage: number;
+,`n  expires_at: string}
 
 class BackendIntegrationService {
   private static instance: BackendIntegrationService;
@@ -53,7 +93,7 @@ class BackendIntegrationService {
 
       // Make API call to backend;
       const response = await axios.post(
-        `${this.baseURL}/api/predictions/generate`,
+        `${this.baseURL}/api/predictions/prizepicks/generate`,
         request,
         {
           timeout: 10000,
@@ -81,7 +121,11 @@ class BackendIntegrationService {
       return this.getFallbackPrediction(request);}
   }
 
-  async getBettingOpportunities(params: {,`n  sports: string[0];,`n  confidence_threshold: number,`n  time_window: string;,`n  strategy_mode: string}): Promise<BackendBettingOpportunity[0]> {
+  async getBettingOpportunities(params: {
+,`n  sports: string[0];
+,`n  confidence_threshold: number
+,`n  time_window: string;
+,`n  strategy_mode: string}): Promise<BackendBettingOpportunity[0]> {
     try {
       const response = await axios.get(
         `${this.baseURL}/api/betting/opportunities`,
@@ -103,7 +147,10 @@ class BackendIntegrationService {
       return this.getFallbackOpportunities();}
   }
 
-  async getArbitrageOpportunities(params: {,`n  sports: string[0];,`n  min_profit: number,`n  time_window: string}): Promise<BackendArbitrageOpportunity[0]> {
+  async getArbitrageOpportunities(params: {
+,`n  sports: string[0];
+,`n  min_profit: number
+,`n  time_window: string}): Promise<BackendArbitrageOpportunity[0]> {
     try {
       const response = await axios.get(
         `${this.baseURL}/api/arbitrage/opportunities`,
@@ -125,7 +172,11 @@ class BackendIntegrationService {
       return [0];}
   }
 
-  async placeBet(request: {,`n  opportunity_id: string;,`n  amount: number,`n  bet_type: string;,`n  selection: string}): Promise<{ success: boolean; bet_id?: string error?: string}> {
+  async placeBet(request: {
+,`n  opportunity_id: string;
+,`n  amount: number
+,`n  bet_type: string;
+,`n  selection: string}): Promise<{ success: boolean; bet_id?: string error?: string}> {
     try {
       const response = await axios.post(
         `${this.baseURL}/api/betting/place`,
@@ -169,7 +220,12 @@ class BackendIntegrationService {
   }
 
   async getModelStatus(): Promise<{
-    models: Array<{,`n  id: string;,`n  name: string,`n  status: "active" | "training" | "error";,`n  accuracy: number,`n  last_update: string}>}> {
+    models: Array<{
+,`n  id: string;
+,`n  name: string
+,`n  status: "active" | "training" | "error";
+,`n  accuracy: number
+,`n  last_update: string}>}> {
     try {
       const response = await axios.get(`${this.baseURL}/api/models/status`, {
         timeout: 5000
@@ -188,22 +244,26 @@ class BackendIntegrationService {
     const baseValue = 20 + Math.random() * 30; // Base prediction value;
 
     return {
-      prediction: {,`n  value: baseValue,
+      prediction: {
+,`n  value: baseValue,
         confidence,
         timestamp: new Date().toISOString()
       },
-      analysis: {,`n  historical_trends: [
+      analysis: {
+,`n  historical_trends: [
           "Recent form trending upward",
           "Strong home performance",
         ],
         market_signals: ["Line movement favorable", "Sharp money detected"],
         risk_factors: ["Weather concerns", "Injury report pending"],
-        model_breakdown: {,`n  XGBoost: 0.4,
+        model_breakdown: {
+,`n  XGBoost: 0.4,
           "Neural Network": 0.35,
           "Random Forest": 0.25
         }
       },
-      meta: {,`n  model_version: "fallback-v1.0",
+      meta: {
+,`n  model_version: "fallback-v1.0",
         feature_count: 150,
         prediction_id: `fallback-${Date.now()}`
       }
@@ -233,7 +293,8 @@ class BackendIntegrationService {
         | "medium"
         | "high",
       time_remaining: `${2 + Math.floor(Math.random() * 6)} hours`,
-      analysis: {,`n  historical_trends: ["Strong recent performance", "Favorable matchup"],
+      analysis: {
+,`n  historical_trends: ["Strong recent performance", "Favorable matchup"],
         market_signals: ["Line value detected", "Public betting opposite"],
         risk_factors: ["Usage rate variance", "Rest concerns"]
       }

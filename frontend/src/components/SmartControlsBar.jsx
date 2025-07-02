@@ -85,7 +85,7 @@ const SmartControlsBar = () => {
           />
         </label>
 
-        <span className='font-bold text-green-600'>Payout: ${payout.toFixed(2)}</span>
+        <span className='font-bold text-green-600'>Payout: ${safeNumber(payout, 2)}</span>
       </div>
     </div>
   );

@@ -11,7 +11,10 @@ import { ollamaLLMService} from '../../services/ollamaLLMService';
 // ============================================================================
 
 interface Message {
-  id: number,`n  type: 'user' | 'assistant';,`n  content: string,`n  timestamp: Date;
+  id: number
+,`n  type: 'user' | 'assistant';
+,`n  content: string
+,`n  timestamp: Date;
   confidence?: number
   model_used?: string}
 
@@ -65,7 +68,8 @@ const PropOllama: React.FC = () => {
 
     toast.success(`🤖 PropOllama lineup "${lineupName}" saved!`, {
       duration: 3000,
-      style: {,`n  background: '#1f2937',
+      style: {
+,`n  background: '#1f2937',
         color: '#3b82f6',
         border: '1px solid #3b82f6'
       }
@@ -77,7 +81,8 @@ const PropOllama: React.FC = () => {
   const sendMessage = async () => {
     if (!input.trim()) return;
 
-    const userMessage: Message = {,`n  id: Date.now(),
+    const userMessage: Message = {
+,`n  id: Date.now(),
       type: 'user',
       content: input,
       timestamp: new Date()
@@ -115,7 +120,7 @@ const PropOllama: React.FC = () => {
 
         // Extract recommendations for lineup saving
         extractRecommendations(ollamaResponse.content);} catch (ollamaError) {
-        console.warn('Ollama service unavailable, trying backend API:', ollamaError);
+//         console.warn('Ollama service unavailable, trying backend API:', ollamaError);
 
         // Method 2: Fallback to backend PropOllama API
         try {
@@ -139,7 +144,7 @@ const PropOllama: React.FC = () => {
           };
 
           extractRecommendations(backendResponse.data.content);} catch (backendError) {
-          console.warn('Backend API unavailable, using enhanced fallback:', backendError);
+//           console.warn('Backend API unavailable, using enhanced fallback:', backendError);
 
           // Method 3: Enhanced intelligent fallback
           aiResponse = {
@@ -154,10 +159,11 @@ const PropOllama: React.FC = () => {
 
       setMessages(prev => [...prev, aiResponse]);
       setIsTyping(false);} catch (error) {
-      console.error('PropOllama LLM Error:', error);
+//       console.error('PropOllama LLM Error:', error);
 
       // Error fallback
-      const errorResponse: Message = {,`n  id: Date.now() + 1,
+      const errorResponse: Message = {
+,`n  id: Date.now() + 1,
         type: 'assistant',
         content: `🤖 I encountered an issue processing your request. However, I can still help you with general sports betting advice!\n\n**Your question:** "${currentInput}"\n\n**General guidance:** Always research team/player stats, consider recent form, check injury reports, and manage your bankroll responsibly.\n\n*Try asking me again or check if Ollama is running locally for full AI analysis.*`,
         timestamp: new Date(),
@@ -295,12 +301,14 @@ const PropOllama: React.FC = () => {
               animate={{ opacity: 1, y: 0}}
               className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
             >
-              <div className={`flex items-start space-x-3 max-w-[80%] ${message.type === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>`n              >
+              <div className={`flex items-start space-x-3 max-w-[80%] ${message.type === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}
+>`n              >
                 {/* Avatar */}
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
                     message.type === 'user'
                       ? 'bg-gradient-to-br from-electric-400 to-cyan-400'
-                      : 'bg-gradient-to-br from-purple-500 to-blue-500'}`}>`n                >
+                      : 'bg-gradient-to-br from-purple-500 to-blue-500'}`}
+>`n                >
                   {message.type === 'user' ? (
                     <span className='text-black font-bold text-sm'>U</span>
                   ) : (
@@ -312,7 +320,8 @@ const PropOllama: React.FC = () => {
                 <div className={`p-4 rounded-2xl ${
                     message.type === 'user'
                       ? 'bg-electric-500/20 border border-electric-500/30'
-                      : 'bg-purple-500/20 border border-purple-500/30'}`}>`n                >
+                      : 'bg-purple-500/20 border border-purple-500/30'}`}
+>`n                >
                   <div className='text-white whitespace-pre-line'>{message.content}</div>
                   <div className='text-xs text-gray-400 mt-2 flex justify-between'>
                     <span>{message.timestamp.toLocaleTimeString()}</span>
@@ -339,9 +348,11 @@ const PropOllama: React.FC = () => {
                   <div className='flex space-x-1'>
                     <div className='w-2 h-2 bg-purple-400 rounded-full animate-bounce'></div>
                     <div className='w-2 h-2 bg-purple-400 rounded-full animate-bounce'
-                      style={{ animationDelay: '0.1s'}}>`n                    ></div>
+                      style={{ animationDelay: '0.1s'}}
+>`n                    ></div>
                     <div className='w-2 h-2 bg-purple-400 rounded-full animate-bounce'
-                      style={{ animationDelay: '0.2s'}}>`n                    ></div>
+                      style={{ animationDelay: '0.2s'}}
+>`n                    ></div>
                   </div>
                   <div className='text-xs text-gray-400 mt-2'>PropOllama AI is analyzing...</div>
                 </div>
@@ -364,7 +375,8 @@ const PropOllama: React.FC = () => {
             </button>
           </div>
           <div className='flex space-x-4'>
-            <input value={input}>`n              onChange={e => setInput(e.target.value)}
+            <input value={input}
+>`n              onChange={e => setInput(e.target.value)}
               onKeyPress={e => e.key === 'Enter' && sendMessage()}
               placeholder='Ask about props, strategies, or market analysis...'
               className='flex-1 p-4 rounded-2xl bg-gray-800/50 border border-gray-600 focus:border-electric-500 focus:outline-none text-white placeholder-gray-400'
@@ -419,7 +431,8 @@ const PropOllama: React.FC = () => {
               <div>
                 <label className='block text-sm font-bold mb-2 text-gray-300'>Analysis Name</label>
                 <input type='text'
-                  value={lineupName}>`n                  onChange={e => setLineupName(e.target.value)}
+                  value={lineupName}
+>`n                  onChange={e => setLineupName(e.target.value)}
                   placeholder='Enter analysis name...'
                   className='w-full p-3 rounded-lg bg-gray-800/50 border border-gray-600 text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none'
                 />
@@ -429,7 +442,8 @@ const PropOllama: React.FC = () => {
               </div>
               <div className='flex space-x-4 pt-4'>
                 <button onClick={saveConversationAsLineup}
-                  className='flex-1 py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-400 transition-all'>`n                >
+                  className='flex-1 py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-400 transition-all'
+>`n                >
                   Save Analysis
                 </button>
                 <button onClick={() => setShowSaveModal(false)}

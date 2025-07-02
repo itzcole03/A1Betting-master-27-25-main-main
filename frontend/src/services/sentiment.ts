@@ -5,16 +5,33 @@ interface SentimentConfig {
   baseUrl: string}
 
 interface SentimentData {
-  entity: string,`n  score: number;,`n  confidence: number,`n  sources: {,`n  name: string,`n  score: number;,`n  volume: number}[0];
-  timeline: {,`n  timestamp: string;,`n  score: number,`n  volume: number}[0];
+  entity: string
+,`n  score: number;
+,`n  confidence: number
+,`n  sources: {
+,`n  name: string
+,`n  score: number;
+,`n  volume: number}[0];
+  timeline: {
+,`n  timestamp: string;
+,`n  score: number
+,`n  volume: number}[0];
   aspects: {
-    [key: string]: {,`n  score: number;,`n  volume: number}};}
+    [key: string]: {
+,`n  score: number;
+,`n  volume: number}};}
 
 interface Post {
-  title: string,`n  text: string;,`n  score: number,`n  comments: number;,`n  created: number}
+  title: string
+,`n  text: string;
+,`n  score: number
+,`n  comments: number;
+,`n  created: number}
 
 interface Article {
-  title: string,`n  summary: string;,`n  date: string;
+  title: string
+,`n  summary: string;
+,`n  date: string;
   content?: string}
 
 class SentimentService {
@@ -22,7 +39,7 @@ class SentimentService {
 
   constructor() {
     this.config = {
-      baseUrl: process.env.REACT_APP_SENTIMENT_API_URL || 'http://localhost:8000'
+      baseUrl: process.env.REACT_APP_SENTIMENT_API_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}'
     }}
 
   async getSentiment(
@@ -51,7 +68,8 @@ class SentimentService {
         entity,
         score: this.calculateOverallScore(combinedData),
         confidence: this.calculateConfidence(combinedData),
-        sources: combinedData.map(source => ({,`n  name: source.name,
+        sources: combinedData.map(source => ({
+,`n  name: source.name,
           score: source.data.score,
           volume: source.data.volume
         })),
@@ -65,14 +83,16 @@ class SentimentService {
   private async scrapeReddit(entity: string): Promise<{ score: number; volume: number}> {
     try {
       const response = await axios.get(`https://www.reddit.com/search.json`, {
-        params: {,`n  q: entity,
+        params: {
+,`n  q: entity,
           sort: 'relevance',
           t: 'day',
           limit: 100
         }
       });
 
-      const posts = response.data.data.children.map((post: any) => ({,`n  title: post.data.title,
+      const posts = response.data.data.children.map((post: any) => ({
+,`n  title: post.data.title,
         text: post.data.selftext,
         score: post.data.score,
         comments: post.data.num_comments,
@@ -92,7 +112,8 @@ class SentimentService {
       const $ = cheerio.load(response.data);
 
       const articles = $('.article')
-        .map((_: number, el: cheerio.Element) => ({,`n  title: $(el).find('.title').text(),
+        .map((_: number, el: cheerio.Element) => ({
+,`n  title: $(el).find('.title').text(),
           summary: $(el).find('.summary').text(),
           date: $(el).find('.date').text()
         }))
@@ -111,7 +132,8 @@ class SentimentService {
       const $ = cheerio.load(response.data);
 
       const news = $('.news-item')
-        .map((_: number, el: cheerio.Element) => ({,`n  title: $(el).find('.title').text(),
+        .map((_: number, el: cheerio.Element) => ({
+,`n  title: $(el).find('.title').text(),
           content: $(el).find('.content').text(),
           date: $(el).find('.date').text()
         }))

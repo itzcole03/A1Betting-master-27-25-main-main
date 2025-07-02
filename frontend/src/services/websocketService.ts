@@ -16,7 +16,7 @@
       this.ws = new WebSocket(url);
 
       this.ws.onopen = () => {
-        console.log('WebSocket connected');
+//         console.log('WebSocket connected');
         this.reconnectAttempts = 0;
         this.isConnecting = false;
         this.notifyListeners('connection', { status: 'connected'})};
@@ -25,11 +25,11 @@
         try {
           const data = JSON.parse(event.data);
           this.handleMessage(data);} catch (error) {
-          console.error('Failed to parse WebSocket message: ', error)}
+//           console.error('Failed to parse WebSocket message: ', error)}
       };
 
       this.ws.onclose = event => {
-        console.log('WebSocket disconnected:', event.code, event.reason);
+//         console.log('WebSocket disconnected:', event.code, event.reason);
         this.isConnecting = false;
         this.notifyListeners('connection', { status: 'disconnected', code: event.code});
 
@@ -38,10 +38,10 @@
       };
 
       this.ws.onerror = error => {
-        console.error('WebSocket error:', error);
+//         console.error('WebSocket error:', error);
         this.isConnecting = false;
         this.notifyListeners('error', { error});};} catch (error) {
-      console.error('Failed to connect WebSocket:', error);
+//       console.error('Failed to connect WebSocket:', error);
       this.isConnecting = false;
       this.attemptReconnect(url);}
   }
@@ -52,11 +52,11 @@
       const delay = this.reconnectInterval * Math.pow(2, this.reconnectAttempts - 1); // Exponential backoff
 
       setTimeout(() => {
-        console.log(
+//         console.log(
           `Attempting to reconnect... (${this.reconnectAttempts}/${this.maxReconnectAttempts})`
         );
         this.connect(url);}, delay);} else {
-      console.error('Max reconnection attempts reached');
+//       console.error('Max reconnection attempts reached');
       this.notifyListeners('connection', { status: 'failed', attempts: this.reconnectAttempts})}
   }
 
@@ -69,7 +69,7 @@
     listeners.forEach(listener => {
       try {
         listener(payload);} catch (error) {
-        console.error(`Error in WebSocket listener for ${eventType}:`, error);}
+//         console.error(`Error in WebSocket listener for ${eventType}:`, error);}
     });}
 
   subscribe(eventType: string, callback: Function) {
@@ -91,9 +91,9 @@
     if (this.ws && this.ws.readyState === WebSocket.OPEN) {
       try {
         this.ws.send(JSON.stringify({ type, payload}))} catch (error) {
-        console.error('Failed to send WebSocket message: ', error)}
+//         console.error('Failed to send WebSocket message: ', error)}
     } else {
-      console.warn('WebSocket is not connected. Cannot send message: ', { type, payload})}
+//       console.warn('WebSocket is not connected. Cannot send message: ', { type, payload})}
   }
 
   disconnect() {
@@ -112,7 +112,8 @@
         return 'connected';
       case WebSocket.CLOSING:
         return 'closing';
-      case WebSocket.CLOSED: return 'closed',`n  default: return 'unknown'}
+      case WebSocket.CLOSED: return 'closed'
+,`n  default: return 'unknown'}
   }
 
   // Get connection statistics

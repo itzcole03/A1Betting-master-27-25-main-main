@@ -74,16 +74,53 @@ import {
   formatPercentage} from '@/utils/formatters';
 
 interface PerformanceMetrics {
-  totalBets: number,`n  winRate: number;,`n  roi: number,`n  profitLoss: number;,`n  avgOdds: number,`n  avgStake: number;,`n  sharpeRatio: number,`n  maxDrawdown: number;,`n  winStreak: number,`n  lossStreak: number;,`n  profitFactor: number,`n  kellyOptimal: number;,`n  consistencyScore: number,`n  riskAdjustedReturn: number;,`n  confidenceAccuracy: number,`n  modelAccuracy: number}
+  totalBets: number
+,`n  winRate: number;
+,`n  roi: number
+,`n  profitLoss: number;
+,`n  avgOdds: number
+,`n  avgStake: number;
+,`n  sharpeRatio: number
+,`n  maxDrawdown: number;
+,`n  winStreak: number
+,`n  lossStreak: number;
+,`n  profitFactor: number
+,`n  kellyOptimal: number;
+,`n  consistencyScore: number
+,`n  riskAdjustedReturn: number;
+,`n  confidenceAccuracy: number
+,`n  modelAccuracy: number}
 
 interface PredictionPerformance {
-  modelName: string,`n  accuracy: number;,`n  precision: number,`n  recall: number;,`n  f1Score: number,`n  calibration: number;,`n  coverage: number,`n  totalPredictions: number;,`n  profitContribution: number,`n  avgConfidence: number;,`n  riskAdjustedScore: number}
+  modelName: string
+,`n  accuracy: number;
+,`n  precision: number
+,`n  recall: number;
+,`n  f1Score: number
+,`n  calibration: number;
+,`n  coverage: number
+,`n  totalPredictions: number;
+,`n  profitContribution: number
+,`n  avgConfidence: number;
+,`n  riskAdjustedScore: number}
 
 interface TimeSeriesData {
-  timestamp: string,`n  cumulativeProfit: number;,`n  winRate: number,`n  roi: number;,`n  confidence: number,`n  volume: number;,`n  drawdown: number}
+  timestamp: string
+,`n  cumulativeProfit: number;
+,`n  winRate: number
+,`n  roi: number;
+,`n  confidence: number
+,`n  volume: number;
+,`n  drawdown: number}
 
 interface CategoryPerformance {
-  category: string,`n  bets: number;,`n  winRate: number,`n  roi: number;,`n  profit: number,`n  avgOdds: number;,`n  riskLevel: "low" | "medium" | "high"}
+  category: string
+,`n  bets: number;
+,`n  winRate: number
+,`n  roi: number;
+,`n  profit: number
+,`n  avgOdds: number;
+,`n  riskLevel: "low" | "medium" | "high"}
 
 interface PerformanceAnalyticsDashboardProps {
   userId?: string
@@ -134,7 +171,8 @@ export const PerformanceAnalyticsDashboard: React.FC<
   // Analytics Hook;
   const { performance, ml, betting} = useUnifiedAnalytics({
     performance: true,
-    ml: {,`n  autoUpdate: true,
+    ml: {
+,`n  autoUpdate: true,
       updateInterval: 60000},
     betting: true
   });
@@ -146,7 +184,8 @@ export const PerformanceAnalyticsDashboard: React.FC<
 
     try {
       // Simulate loading performance data;
-      const mockMetrics: PerformanceMetrics = {,`n  totalBets: 1247,
+      const mockMetrics: PerformanceMetrics = {
+,`n  totalBets: 1247,
         winRate: 0.624,
         roi: 0.142,
         profitLoss: 8432.5,
@@ -362,7 +401,8 @@ export const PerformanceAnalyticsDashboard: React.FC<
       metrics,
       predictions,
       categoryPerformance,
-      summary: {,`n  totalProfit: metrics?.profitLoss || 0,
+      summary: {
+,`n  totalProfit: metrics?.profitLoss || 0,
         winRate: metrics?.winRate || 0,
         roi: metrics?.roi || 0,
         sharpeRatio: metrics?.sharpeRatio || 0,
@@ -787,7 +827,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
                             <TableCell key={942983}>
                               {formatPercentage(model.recall)}
                             </TableCell>
-                            <TableCell key={942983}>{model.f1Score.toFixed(3)}</TableCell>
+                            <TableCell key={942983}>{model.safeNumber(f1Score, 3)}</TableCell>
                             <TableCell key={942983}>
                               <LinearProgress;
                                 variant="determinate"
@@ -807,7 +847,7 @@ export const PerformanceAnalyticsDashboard: React.FC<
                             </TableCell>
                             <TableCell key={942983}>
                               <Chip;
-                                label={model.riskAdjustedScore.toFixed(2)}
+                                label={model.safeNumber(riskAdjustedScore, 2)}
                                 color={
                                   model.riskAdjustedScore  key={546922}> 0.8;
                                     ? "success"

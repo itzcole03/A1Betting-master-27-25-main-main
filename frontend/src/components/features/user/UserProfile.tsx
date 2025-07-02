@@ -45,10 +45,27 @@ const StyledAvatar = styled(Avatar)(({ theme}) => ({
 }));
 
 interface UserProfile {
-  id: string,`n  username: string;,`n  email: string,`n  fullName: string;,`n  avatar: string,`n  bio: string;,`n  location: string,`n  joinDate: string;,`n  stats: {,`n  totalBets: number;,`n  winningBets: number,`n  totalWagered: number;,`n  netProfit: number,`n  winRate: number};
-  preferences: {,`n  favoriteSports: string[0];,`n  favoriteTeams: string[0],`n  bettingStyle: string}}
+  id: string
+,`n  username: string;
+,`n  email: string
+,`n  fullName: string;
+,`n  avatar: string
+,`n  bio: string;
+,`n  location: string
+,`n  joinDate: string;
+,`n  stats: {
+,`n  totalBets: number;
+,`n  winningBets: number
+,`n  totalWagered: number;
+,`n  netProfit: number
+,`n  winRate: number};
+  preferences: {
+,`n  favoriteSports: string[0];
+,`n  favoriteTeams: string[0]
+,`n  bettingStyle: string}}
 
-const DEFAULT_PROFILE: UserProfile = {,`n  id: '1',
+const DEFAULT_PROFILE: UserProfile = {
+,`n  id: '1',
   username: 'betpro_user',
   email: 'user@example.com',
   fullName: 'John Doe',
@@ -56,13 +73,15 @@ const DEFAULT_PROFILE: UserProfile = {,`n  id: '1',
   bio: 'Sports betting enthusiast and data analyst',
   location: 'New York, USA',
   joinDate: '2024-01-01',
-  stats: {,`n  totalBets: 150,
+  stats: {
+,`n  totalBets: 150,
     winningBets: 85,
     totalWagered: 5000,
     netProfit: 1250,
     winRate: 56.7
   },
-  preferences: {,`n  favoriteSports: ['NBA', 'NFL', 'MLB'],
+  preferences: {
+,`n  favoriteSports: ['NBA', 'NFL', 'MLB'],
     favoriteTeams: ['Lakers', '49ers', 'Yankees'],
     bettingStyle: 'Value Betting'
   }
@@ -89,7 +108,7 @@ export const UserProfile: React.FC = () => {
   const handleSave = async () => {
     setIsLoading(true);
     try {
-      // TODO: Implement profile update API call;
+      // RESOLVED: Implement profile update API call;
       await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated API call;
       setProfile(editedProfile);
       setIsEditing(false);

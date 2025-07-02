@@ -24,7 +24,7 @@ export const ConfidenceBandChart: React.FC<ConfidenceBandChartProps key={309332}
         / key={718700}>
       </div>
       <div className="text-xs mt-1 text-gray-700" key={775831}>
-        {`[${lower.toFixed(2)} - ${upper.toFixed(2)}]`} (mean: {mean.toFixed(2)}, {Math.round(confidenceLevel * 100)}% CI)
+        {`[${safeNumber(lower, 2)} - ${safeNumber(upper, 2)}]`} (mean: {safeNumber(mean, 2)}, {Math.round(confidenceLevel * 100)}% CI)
       </div>
     </div>
   )};

@@ -24,7 +24,14 @@ import {
 } from 'lucide-react';
 
 interface FeatureCard {
-  title: string,`n  description: string;,`n  icon: React.ReactNode,`n  status: "active" | "beta" | "coming-soon";,`n  accuracy_boost: string,`n  href: string;,`n  gradient: string,`n  features: string[0]}
+  title: string
+,`n  description: string;
+,`n  icon: React.ReactNode
+,`n  status: "active" | "beta" | "coming-soon";
+,`n  accuracy_boost: string
+,`n  href: string;
+,`n  gradient: string
+,`n  features: string[0]}
 
 export const UltraAccuracyOverview: React.FC = () => {
   const [systemStats, setSystemStats] = useState({

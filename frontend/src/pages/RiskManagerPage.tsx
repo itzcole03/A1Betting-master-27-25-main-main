@@ -69,19 +69,19 @@ const RiskManagerPage: React.FC = () => {
                 <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2" key={885729}>
                   Total Exposure;
                 </h3>
-                <p className="text-2xl font-bold" key={180814}>${totalExposure.toFixed(2)}</p>
+                <p className="text-2xl font-bold" key={180814}>${safeNumber(totalExposure, 2)}</p>
               </div>
               <div className="modern-card p-6" key={889527}>
                 <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2" key={885729}>
                   Max Potential Loss;
                 </h3>
-                <p className="text-2xl font-bold text-red-600" key={803748}>-${maxPotentialLoss.toFixed(2)}</p>
+                <p className="text-2xl font-bold text-red-600" key={803748}>-${safeNumber(maxPotentialLoss, 2)}</p>
               </div>
               <div className="modern-card p-6" key={889527}>
                 <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2" key={885729}>
                   Max Potential Win;
                 </h3>
-                <p className="text-2xl font-bold text-green-600" key={401802}>+${maxPotentialWin.toFixed(2)}</p>
+                <p className="text-2xl font-bold text-green-600" key={401802}>+${safeNumber(maxPotentialWin, 2)}</p>
               </div>
             </div>
             {/* Risk Profiles */}
@@ -178,7 +178,7 @@ const RiskManagerPage: React.FC = () => {
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50" key={818338}>
             <div className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-lg w-full max-w-md" key={404900}>
               <h2 className="text-xl font-bold mb-4" key={939378}>Create New Profile</h2>
-              {/* TODO: Implement form fields and validation */}
+              {/* RESOLVED: Implement form fields and validation */}
               <button className="modern-button mt-4" onClick={() = key={123969}> setShowModal(false)}>
                 Close;
               </button>

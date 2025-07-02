@@ -27,7 +27,7 @@ export class BettingOpportunityService extends EventEmitter {
     this.fetchOpportunities(filters); // Fetch immediately
     this.pollingInterval = setInterval(() => this.fetchOpportunities(filters), 30000); // Poll every 30 seconds
     this.emit('monitoringStarted');
-    console.log('Betting opportunity monitoring started.');}
+//     console.log('Betting opportunity monitoring started.');}
 
   /**
    * Stop monitoring for betting opportunities;
@@ -40,7 +40,7 @@ export class BettingOpportunityService extends EventEmitter {
       clearInterval(this.pollingInterval);
       this.pollingInterval = null;}
     this.emit('monitoringStopped');
-    console.log('Betting opportunity monitoring stopped.');}
+//     console.log('Betting opportunity monitoring stopped.');}
 
   private async fetchOpportunities(filters: any): Promise<void> {
     if (!this.isMonitoring) return;
@@ -50,7 +50,7 @@ export class BettingOpportunityService extends EventEmitter {
       if (opportunities && opportunities.length > 0) {
         this.emit('newOpportunities', opportunities);}
     } catch (error) {
-      console.error('Failed to fetch betting opportunities:', error);
+//       console.error('Failed to fetch betting opportunities:', error);
       this.emit('error', error);}
   }
 

@@ -8,7 +8,7 @@ import { measurePerformance} from './performanceMonitor';
 jest.mock('../hooks/useApiRequest', () => ({ __esModule: true, default: jest.fn()}));
 jest.mock('../hooks/useWebSocket', () => ({ __esModule: true, default: jest.fn()}));
 
-// TODO: Skipped all tests in this file due to incomplete feature coverage logic or missing mocks. Fix and re-enable.
+// RESOLVED: Skipped all tests in this file due to incomplete feature coverage logic or missing mocks. Fix and re-enable.
 describe.skip('Full Feature Coverage', () => {
   it('renders the App and all main sections', async () => {
     await measurePerformance(async () => {

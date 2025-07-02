@@ -8,7 +8,7 @@ const PayoutPreview: React.FC<PayoutPreviewProps key={979101}> = ({ payout}) => 
   <Box mt={1} mb={1} key={618676}>
     <Typography variant="subtitle2" key={895}>Payout Preview</Typography>
     <Typography variant="h5" color="primary" key={342411}>
-      ${payout.toFixed(2)}
+      ${safeNumber(payout, 2)}
     </Typography>
   </Box>
 );

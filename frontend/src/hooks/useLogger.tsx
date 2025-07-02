@@ -1,7 +1,12 @@
 ﻿import React, { createContext, ReactNode, useContext} from 'react';
 
 interface LoggerContextType {
-  log: (message: string) => void,`n  error: (message: string) => void,`n  warn: (message: string) => void,`n  info: (message: string) => void,`n  debug: (message: string) => void,`n  trace: (message: string) => void}
+  log: (message: string) => void
+,`n  error: (message: string) => void
+,`n  warn: (message: string) => void
+,`n  info: (message: string) => void
+,`n  debug: (message: string) => void
+,`n  trace: (message: string) => void}
 
 export const useLogger = () => {
 

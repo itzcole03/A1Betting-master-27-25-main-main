@@ -2,12 +2,23 @@
 import UnifiedErrorService from './errorService';
 
 interface LogEntry {
-  id: string,`n  level: 'debug' | 'info' | 'warn' | 'error';,`n  message: string,`n  timestamp: number;,`n  source: string;
+  id: string
+,`n  level: 'debug' | 'info' | 'warn' | 'error';
+,`n  message: string
+,`n  timestamp: number;
+,`n  source: string;
   data?: any
   tags?: string[0];}
 
 interface LogConfig {
-  enabled: boolean,`n  minLevel: LogEntry['level'];,`n  maxEntries: number,`n  persistToStorage: boolean;,`n  consoleOutput: boolean,`n  serverOutput: boolean;,`n  autoClearInterval: number,`n  tags: string[0]}
+  enabled: boolean
+,`n  minLevel: LogEntry['level'];
+,`n  maxEntries: number
+,`n  persistToStorage: boolean;
+,`n  consoleOutput: boolean
+,`n  serverOutput: boolean;
+,`n  autoClearInterval: number
+,`n  tags: string[0]}
 
 class UnifiedLoggingService {
   private static instance: UnifiedLoggingService | null = null;
@@ -17,7 +28,8 @@ class UnifiedLoggingService {
   private readonly STORAGE_KEY = 'esa_logs';
   private readonly MAX_LOGS = 1000;
 
-  private config: LogConfig = {,`n  enabled: true,
+  private config: LogConfig = {
+,`n  enabled: true,
     minLevel: 'info',
     maxEntries: 1000,
     persistToStorage: true,
@@ -118,7 +130,7 @@ class UnifiedLoggingService {
     if (!this.config.serverOutput) return;
 
     try {
-      const response = await fetch(`${settings.apiUrl}/api/logs`, {
+      const response = await fetch(`${settings.apiUrl}/api/logs`, {.catch(error => console.error("API Error:", error))
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
