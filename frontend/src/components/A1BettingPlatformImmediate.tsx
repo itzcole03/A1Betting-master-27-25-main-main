@@ -1,44 +1,29 @@
-﻿import React, { useState, useEffect, useCallback, useMemo} from 'react'
-import { motion, AnimatePresence} from 'framer-motion'
+﻿import { AnimatePresence, motion } from 'framer-motion';
 import {
-  BarChart3,
-  Brain,
-  DollarSign,
-  Home,
-  Menu,
-  Settings as SettingsIcon,
-  Target,
-  TrendingUp,
-  User,
-  Zap,
-  Activity,
-  Trophy,
-  X,
-  Bell,
-  Search,
-  Calendar,
-  PieChart,
-  Layers,
-  Database,
-  Shield,
-  Cpu,
-  Wifi,
-  WifiOff,
-  CheckCircle,
-  AlertTriangle,
-  Clock,
-  Star,
-  ArrowUp,
-  ArrowDown,
-  RefreshCw,
-//   Gamepad2
+    Activity,
+    ArrowUp,
+    BarChart3,
+    Brain,
+    CheckCircle,
+    Cpu,
+    DollarSign,
+    Home,
+    Menu,
+    PieChart,
+    Star,
+    Target,
+    User,
+    X,
+    Zap
 } from 'lucide-react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 // Import components directly (no lazy loading for testing)
-import Dashboard from './Dashboard'
-import BettingInterface from './BettingInterface'
-import PredictionDisplay from './PredictionDisplay'
-import UserProfile from './UserProfile'
+import { CommandSummaryProvider, useCommandSummary } from '../contexts/CommandSummaryContext';
+import { BettingInterface } from './BettingInterface';
+import Dashboard from './Dashboard';
+import { PredictionDisplay } from './PredictionDisplay';
+import { UserProfile } from './UserProfile';
 
 /**
  * A1Betting Platform - Immediate Loading Version for Testing
@@ -46,26 +31,48 @@ import UserProfile from './UserProfile'
  */
 
 interface NavigationItem {
-  id: string
-,`n  label: string;
-,`n  icon: React.ReactNode
-,`n  component: React.ComponentType<any>;
-  badge?: string
+  id: string;
+  label: string;
+  icon: React.ReactNode;
+  component: React.ComponentType<any>;
+  badge?: string;
   description: string;
-  premium?: boolean}
+  premium?: boolean;
+}
 
 interface PlatformStats {
-  totalProfit: number
-,`n  winRate: number;
-,`n  accuracy: number
-,`n  activePredictions: number;
-,`n  portfolioValue: number
-,`n  todayPnL: number;
-,`n  sharpeRatio: number
-,`n  maxDrawdown: number;
-,`n  apiHealth: 'healthy' | 'degraded' | 'critical'
-,`n  opportunitiesFound: number;
-,`n  mlModelsActive: number}
+  totalProfit: number;
+  winRate: number;
+  accuracy: number;
+  activePredictions: number;
+  portfolioValue: number;
+  todayPnL: number;
+  sharpeRatio: number;
+  maxDrawdown: number;
+  apiHealth: 'healthy' | 'degraded' | 'critical';
+  opportunitiesFound: number;
+  mlModelsActive: number;
+  safeNumber?: (value: number, decimals: number) => string;
+}
+
+const CommandSummarySidebar: React.FC = () => {
+  const { commands, loading, error } = useCommandSummary();
+  return (
+    <aside style={{ width: 320, background: '#18181b', color: '#fff', borderLeft: '1px solid #333', padding: 16, overflowY: 'auto', position: 'fixed', right: 0, top: 0, height: '100vh', zIndex: 100 }}>
+      <h2 style={{ fontWeight: 700, fontSize: 20, marginBottom: 12 }}>Live Command Summary</h2>
+      {loading && <div>Loading commands...</div>}
+      {error && <div style={{ color: 'red' }}>{error}</div>}
+      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+        {commands.map(cmd => (
+          <li key={cmd.id} style={{ marginBottom: 16 }}>
+            <div style={{ fontWeight: 600 }}>{cmd.name}</div>
+            <div style={{ fontSize: 14, color: '#aaa' }}>{cmd.description}</div>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  );
+};
 
 const A1BettingPlatformImmediate: React.FC = () => {
   const [activeView, setActiveView] = useState<string>('dashboard');
@@ -83,11 +90,12 @@ const A1BettingPlatformImmediate: React.FC = () => {
     maxDrawdown: 2.3, // Conservative risk management as documented
     apiHealth: 'healthy',
     opportunitiesFound: 23,
-    mlModelsActive: 47
+    mlModelsActive: 47,
+    safeNumber: (value: number, decimals: number) => value.toFixed(decimals)
   });
 
   // Navigation structure
-  const navigationItems: NavigationItem[0] = useMemo(
+  const navigationItems: NavigationItem[] = useMemo(
     () => [
       {
         id: 'dashboard',
@@ -169,12 +177,13 @@ const A1BettingPlatformImmediate: React.FC = () => {
         description: 'Account management and preferences'
       },
     ],
-    [0]
+    []
   );
 
   const handleTabChange = useCallback((tab: string) => {
     setActiveView(tab);
-    setIsMobileMenuOpen(false)}, [0]);
+    setIsMobileMenuOpen(false);
+  }, []);
 
   const ActiveComponent =
     navigationItems.find(item => item.id === activeView)?.component || Dashboard;
@@ -188,7 +197,7 @@ const A1BettingPlatformImmediate: React.FC = () => {
           <div className='flex items-center space-x-3'>
             <h1 className='text-xl font-bold text-yellow-400'>A1 Betting</h1>
             <span className='text-xs px-2 py-1 rounded-full bg-green-500/20 border-green-500/30 text-green-400'>
-//               Live
+              Live
             </span>
           </div>
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -282,7 +291,7 @@ const A1BettingPlatformImmediate: React.FC = () => {
                               item.badge === 'Live' || item.badge === 'Auto'
                                 ? 'bg-green-500 text-white animate-pulse'
                                 : 'bg-blue-500 text-white'}`}
->`n                          >
+                          >
                             {item.badge === 'Live' || item.badge === 'Auto' ? '●' : item.badge}
                           </span>
                         )}
@@ -353,7 +362,7 @@ const A1BettingPlatformImmediate: React.FC = () => {
               <div className='text-right'>
                 <p className='text-xs text-gray-400'>Today's P&L</p>
                 <div className='flex items-center space-x-2'>
-                  <p className='font-semibold text-green-400'>+${stats.safeNumber(todayPnL, 2)}</p>
+                  <p className='font-semibold text-green-400'>+${stats.safeNumber?.(stats.todayPnL, 2) || stats.todayPnL.toFixed(2)}</p>
                   <ArrowUp className='w-4 h-4 text-green-400' />
                 </div>
               </div>
@@ -410,12 +419,15 @@ const A1BettingPlatformImmediate: React.FC = () => {
           <Target className='w-6 h-6 text-black' />
         </motion.button>
       </div>
+
+      {/* Inject live command summary sidebar */}
+      <CommandSummarySidebar />
     </div>
-  )};
+  );
+};
 
-export default A1BettingPlatformImmediate;
-
-
-
-
-`
+export default (props: any) => (
+  <CommandSummaryProvider>
+    <A1BettingPlatformImmediate {...props} />
+  </CommandSummaryProvider>
+);

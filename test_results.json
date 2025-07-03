@@ -1,0 +1,76 @@
+{
+  "timestamp": "2025-07-02T21:30:13.840480",
+  "total_tests": 13,
+  "passed": 12,
+  "failed": 0,
+  "warnings": 1,
+  "success_rate": 92.3076923076923,
+  "status": "READY",
+  "results": [
+    [
+      "PASS",
+      ".cursorrules",
+      "9738 bytes"
+    ],
+    [
+      "PASS",
+      ".cursor/modes.json",
+      "9805 bytes"
+    ],
+    [
+      "PASS",
+      ".cursor/settings.json",
+      "5301 bytes"
+    ],
+    [
+      "PASS",
+      "memory-bank/activeContext.md",
+      "7867 bytes"
+    ],
+    [
+      "PASS",
+      "memory-bank/progress.md",
+      "10485 bytes"
+    ],
+    [
+      "PASS",
+      "CURSOR_EFFICIENCY_GUIDE.md",
+      "11319 bytes"
+    ],
+    [
+      "PASS",
+      "JSON: .cursor/modes.json",
+      "Valid"
+    ],
+    [
+      "PASS",
+      "JSON: .cursor/settings.json",
+      "Valid"
+    ],
+    [
+      "PASS",
+      "Custom Agents",
+      "7 agents"
+    ],
+    [
+      "PASS",
+      "Memory: memory-bank/activeContext.md",
+      "Has context"
+    ],
+    [
+      "PASS",
+      "Memory: memory-bank/systemPatterns.md",
+      "Has context"
+    ],
+    [
+      "PASS",
+      "Memory: memory-bank/progress.md",
+      "Has context"
+    ],
+    [
+      "WARN",
+      "RIPER-5 Modes",
+      "Only 1 modes"
+    ]
+  ]
+}

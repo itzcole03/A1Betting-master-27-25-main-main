@@ -1,0 +1,14 @@
+{
+  "source_file": "supervisor_chats\\supervisor_summary_20250701_141554.txt",
+  "date": "20250702",
+  "type": "general",
+  "content": "Supervisor Chat Recovery Summary\n========================================\n\nRecovery Date: 2025-07-01 14:16:06\nTotal supervisor conversations found: 11765\nDatabases processed: 11\nTop 10 relevance scores: [148, 148, 106, 106, 106, 106, 106, 99, 98, 98]\n\nWhat to look for in these conversations:\n- AI coordination and supervision discussions\n- Multi-agent workflow management\n- Task delegation and orchestration\n- AI agent development guidance\n- Collaborative AI work patterns\n\nFiles created:\n- supervisor_conversations_20250701_141554.json (structured data)\n- supervisor_conversations_20250701_141554.txt (readable format)\n- supervisor_summary_20250701_141554.txt (this summary)\n",
+  "topics": [
+    "frontend",
+    "backend",
+    "architecture",
+    "agent"
+  ],
+  "summary": "Supervisor Chat Recovery Summary ======================================== Recovery Date: 2025-07-01 14:16:06",
+  "processed_at": "2025-07-02T21:27:35.252649"
+}

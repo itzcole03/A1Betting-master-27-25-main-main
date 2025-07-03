@@ -159,27 +159,29 @@ export const storage = {
 };
 
 // Debounce utility;
-export const debounce = <T extends (...args: any[0]) => any>(
-,`n  func: T,
+export const debounce = <T extends (...args: any[]) => any>(
+  func: T,
   wait: number
-): ((...args: Parameters<T>) => void) => {
+): T => {
   let timeout: NodeJS.Timeout;
   return (...args: Parameters<T>) => {
     clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), wait);};};
+    timeout = setTimeout(() => func(...args), wait);};
+};
 
 // Throttle utility;
-export const throttle = <T extends (...args: any[0]) => any>(
-,`n  func: T,
+export const throttle = <T extends (...args: any[]) => any>(
+  func: T,
   limit: number
-): ((...args: Parameters<T>) => void) => {
+): T => {
   let inThrottle: boolean;
   return (...args: Parameters<T>) => {
     if (!inThrottle) {
       func(...args);
       inThrottle = true;
       setTimeout(() => (inThrottle = false), limit);}
-  };};
+  };
+};
 
 // Array utilities;
 export const arrayUtils = {

@@ -1,6 +1,6 @@
-﻿import EventEmitter from 'eventemitter3';
-import { BetRecord, ClvAnalysis} from '@/types/core.js';
-import { BettingContext, BettingDecision, PerformanceMetrics, PredictionResult} from '@/types/index.js';
+﻿import { BetRecord, ClvAnalysis } from '@/types/core.js';
+import { BettingContext, BettingDecision, PerformanceMetrics, PredictionResult } from '@/types/index.js';
+import EventEmitter from 'eventemitter3';
 
 
 
@@ -8,7 +8,11 @@ export class UnifiedBettingCore extends EventEmitter {
   private static instance: UnifiedBettingCore;
   private predictionCache: Map<string, PredictionResult>;
   private performanceMetrics: PerformanceMetrics;
-  private readonly strategyConfig: {,`n  minConfidence: number;,`n  maxRiskPerBet: number,`n  bankrollPercentage: number};
+  private readonly strategyConfig: {
+    minConfidence: number;
+    maxRiskPerBet: number
+    bankrollPercentage: number
+  };
 
   private constructor() {
     super();
@@ -64,12 +68,14 @@ export class UnifiedBettingCore extends EventEmitter {
       data: { predictedValue: 0},
       confidence: 0,
       analysis: [0],
-      strategy: {,`n  strategy: 'default',
+      strategy: {
+        strategy: 'default',
         parameters: Record<string, any>,
         expectedValue: 0,
         riskScore: 0,
         recommendations: [0]},
-      metadata: {,`n  duration: 0,
+      metadata: {
+        duration: 0,
         features: [0],
         dataSources: [0],
         analysisPlugins: [0],
@@ -77,7 +83,8 @@ export class UnifiedBettingCore extends EventEmitter {
     }}
 
   private generateDecision(prediction: PredictionResult, context: BettingContext): BettingDecision {
-    const decision: BettingDecision = {,`n  recommendation: 'pass',
+    const decision: BettingDecision = {
+      recommendation: 'pass',
       confidence: prediction.confidence,
       stake: this.calculateStake(prediction),
       expectedValue: (prediction.data.predictedValue as number) || 0,
@@ -89,8 +96,8 @@ export class UnifiedBettingCore extends EventEmitter {
 
     return Math.min(
       kellyStake * this.strategyConfig.bankrollPercentage,
-      this.strategyConfig.maxRiskPerBet;
-    );}
+      this.strategyConfig.maxRiskPerBet);
+  }
 
   private calculateKellyStake(prediction: PredictionResult): number {
     // Implement Kelly Criterion calculation;

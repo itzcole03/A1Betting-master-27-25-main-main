@@ -44,7 +44,7 @@ from utils.error_handler import ErrorHandler, DataFetchError, ValidationError
 
 import httpx
 import uvicorn
-from fastapi import Depends, FastAPI, HTTPException, Request, status
+from fastapi import Depends, FastAPI, HTTPException, Request, status, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from pydantic import BaseModel, Field
@@ -662,6 +662,21 @@ async def get_comprehensive_projections():
             "error": str(e),
             "timestamp": datetime.now(timezone.utc).isoformat()
         }
+
+# ============================================================================
+# Autonomous Project Development Endpoint
+# ============================================================================
+
+from autonomous_project_development_handler import autonomous_project_development_handler
+
+@app.post("/api/autonomous/development")
+async def trigger_autonomous_development(background_tasks: BackgroundTasks):
+    """
+    Trigger the ultimate autonomous project development loop as a background task.
+    Returns immediately with a status message.
+    """
+    background_tasks.add_task(autonomous_project_development_handler)
+    return {"status": "Autonomous project development loop started."}
 
 # ============================================================================
 # APPLICATION ENTRY POINT

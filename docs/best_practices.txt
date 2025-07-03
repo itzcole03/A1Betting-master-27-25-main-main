@@ -1,0 +1,35 @@
+# A1Betting Platform - Best Practices
+
+## TypeScript Repair
+- Systematically address all TypeScript errors using autonomous repair cycles.
+- Prioritize critical adapters and components.
+- Validate after each repair with incremental testing.
+
+## Autonomous Mode
+- Enable multi-agent coordination for parallel repair and optimization.
+- Use memory bank for persistent context and progress tracking.
+- Continuously validate architecture and system health.
+
+## Testing Coverage
+- Ensure all new features/components have corresponding tests.
+- Use automated frameworks for continuous integration.
+- Target >90% coverage for critical modules.
+
+## Performance Optimization
+- Monitor build times and optimize for <30 seconds.
+- Profile and optimize backend and frontend performance.
+- Use caching and efficient data pipelines.
+
+## Memory Bank Updates
+- Regularly update memory bank with progress, context, and lessons learned.
+- Use memory bank for agent coordination and persistent learning.
+
+## Multi-Agent Coordination
+- Leverage multiple agents for parallel repair and development.
+- Use chat archives and codebase context for intelligent decision-making.
+- Validate all changes with quality assurance and incremental testing.
+
+## Additional Best Practices
+- Maintain architectural preservation during all repairs.
+- Document all changes and lessons learned.
+- Use audit reports and progress tracking for continuous improvement. 

@@ -4,10 +4,17 @@
  */
 
 interface ConnectionHealth {
-  isHealthy: boolean
-,`n  lastCheck: Date;
-,`n  errors: string[0]
-,`n  reconnectAttempts: number}
+  isHealthy: boolean;
+  lastCheck: Date;
+  errors: string[]
+  reconnectAttempts: number
+}
+
+interface HealthSummary {
+  healthyConnections: number;
+  unhealthyConnections: number
+  isOverallHealthy: boolean
+}
 
 class WebSocketHealthMonitor {
   private connections: Map<string, ConnectionHealth> = new Map();
@@ -67,18 +74,13 @@ class WebSocketHealthMonitor {
   removeConnection(url: string) {
     this.connections.delete(url)}
 
-  getOverallHealth(): {
-    totalConnections: number
-,`n  healthyConnections: number;
-,`n  unhealthyConnections: number
-,`n  isOverallHealthy: boolean} {
+  getOverallHealth(): HealthSummary {
     const healthy = Array.from(this.connections.values()).filter(h => h.isHealthy).length;
 
     return {
-      totalConnections: total,
       healthyConnections: healthy,
-      unhealthyConnections: unhealthy,
-      isOverallHealthy: unhealthy === 0
+      unhealthyConnections: this.connections.size - healthy,
+      isOverallHealthy: healthy === this.connections.size
     }}
 
   destroy() {

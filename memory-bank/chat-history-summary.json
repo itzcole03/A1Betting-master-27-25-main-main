@@ -1,0 +1,22 @@
+{
+  "total_conversations": 24,
+  "topic_distribution": {
+    "betting": 2,
+    "ml": 2,
+    "frontend": 3,
+    "backend": 3,
+    "security": 2,
+    "errors": 2,
+    "architecture": 3,
+    "integration": 2,
+    "performance": 2,
+    "agent": 3
+  },
+  "date_range": "141554 to 20250702",
+  "generated_at": "2025-07-02T21:27:35.260839",
+  "memory_bank_structure": {
+    "by_date": "memory-bank\\chat-archives\\by-date",
+    "by_topic": "memory-bank\\chat-archives\\by-topic",
+    "supervisor_coordination": "memory-bank\\chat-archives\\supervisor-coordination"
+  }
+}

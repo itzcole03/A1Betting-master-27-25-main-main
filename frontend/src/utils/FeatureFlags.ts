@@ -1,25 +1,47 @@
-﻿import { EventBus} from '@/core/EventBus';
-import { PerformanceMonitor} from '@/core/PerformanceMonitor';
-import { UnifiedConfigManager} from '@/core/UnifiedConfigManager';
+﻿import { UnifiedConfigManager } from '@/core/UnifiedConfigManager';
+import { UnifiedMonitor } from '@/core/UnifiedMonitor';
+import { EventBus } from '@/unified/EventBus';
 
 export interface Feature {
-  id: string,`n  name: string;,`n  description: string,`n  enabled: boolean;,`n  rolloutPercentage: number,`n  dependencies: string[0];,`n  tags: string[0],`n  metadata: Record<string, unknown>}
+  id: string;
+  name: string;
+  description: string;
+  enabled: boolean;
+  rolloutPercentage: number;
+  dependencies: string[];
+  tags: string[];
+  metadata: Record<string, unknown>;
+}
 
 export interface Experiment {
-  id: string,`n  name: string;,`n  description: string,`n  status: 'active' | 'inactive' | 'completed';,`n  variants: Array<{,`n  id: string;,`n  name: string,`n  weight: number}>;
-  audience: {,`n  percentage: number;
-    filters?: Record<string, unknown>;};
+  id: string;
+  name: string;
+  description: string;
+  status: 'active' | 'inactive' | 'completed';
+  variants: Array<{
+    id: string;
+    name: string;
+    weight: number;
+  }>;
+  audience: {
+    percentage: number;
+    filters?: Record<string, unknown>;
+  };
   startDate: number;
-  endDate?: number
-  metadata: Record<string, unknown>}
+  endDate?: number;
+  metadata: Record<string, unknown>;
+}
 
 export interface UserContext {
-  userId: string,`n  userGroups: string[0];,`n  attributes: Record<string, unknown>}
+  userId: string;
+  userGroups: string[];
+  attributes: Record<string, unknown>;
+}
 
 export class FeatureFlags {
   private static instance: FeatureFlags;
   private readonly eventBus: EventBus;
-  private readonly performanceMonitor: PerformanceMonitor;
+  private readonly monitor: UnifiedMonitor;
   private readonly configManager: UnifiedConfigManager;
   private readonly features: Map<string, Feature>;
   private readonly experiments: Map<string, Experiment>;
@@ -27,206 +49,190 @@ export class FeatureFlags {
 
   private constructor() {
     this.eventBus = EventBus.getInstance();
-    this.performanceMonitor = PerformanceMonitor.getInstance();
+    this.monitor = UnifiedMonitor.getInstance();
     this.configManager = UnifiedConfigManager.getInstance();
     this.features = new Map();
     this.experiments = new Map();
-    this.userAssignments = new Map();}
+    this.userAssignments = new Map();
+  }
 
   public static getInstance(): FeatureFlags {
     if (!FeatureFlags.instance) {
-      FeatureFlags.instance = new FeatureFlags();}
-    return FeatureFlags.instance;}
+      FeatureFlags.instance = new FeatureFlags();
+    }
+    return FeatureFlags.instance;
+  }
 
   public async initialize(): Promise<void> {
+    const trace = this.monitor.startTrace('feature-flags-init', 'feature.init', 'Initializing feature flags');
 
     try {
+      const config = await this.configManager.getConfig();
 
-      // Initialize features;
+      // Initialize features
       if (config.features) {
         const featuresArray = Array.isArray(config.features)
-          ? config.features;
+          ? config.features
           : Object.values(config.features);
         for (const feature of featuresArray) {
-          this.features.set(feature.id, feature);}
+          this.features.set(feature.id, feature);
+        }
       }
 
-      // Initialize experiments;
+      // Initialize experiments
       if (config.experiments) {
         const experimentsArray = Array.isArray(config.experiments)
-          ? config.experiments;
+          ? config.experiments
           : Object.values(config.experiments);
         for (const experiment of experimentsArray) {
-          this.experiments.set(experiment.id, experiment);}
+          this.experiments.set(experiment.id, experiment);
+        }
       }
 
-      this.performanceMonitor.endTrace(traceId);
-      this.eventBus.emit('featureFlags: initialized', null)} catch (error) {
-      this.performanceMonitor.endTrace(traceId);
-      this.eventBus.emit('featureFlags:initError', error);
-      throw error;}
+      this.monitor.endTrace(trace);
+      this.monitor.recordMetric('feature_flags_initialized', 1);
+    } catch (error) {
+      this.monitor.endTrace(trace, error as Error);
+      this.monitor.recordMetric('feature_flags_init_error', 1);
+      throw error;
+    }
   }
 
   public isFeatureEnabled(featureId: string, context?: UserContext): boolean {
-
+    const feature = this.features.get(featureId);
     if (!feature) return false;
 
-    // 1. Check dependencies;
+    // 1. Check dependencies
     if (feature.dependencies && feature.dependencies.length > 0) {
       for (const depId of feature.dependencies) {
-
+        const dep = this.features.get(depId);
         if (!dep || !dep.enabled) {
-          return false;}
-      }}
+          return false;
+        }
+      }
+    }
 
     // 2. Check rollout percentage (deterministic by userId)
-    if (feature.rolloutPercentage < 100 && context && context.userId) {
-
+    if (feature.rolloutPercentage < 100 && context?.userId) {
+      const hash = this.hashString(context.userId);
       if (hash >= feature.rolloutPercentage) {
-        return false;}
+        return false;
+      }
     }
 
     // 3. (Optional) Check tags vs userGroups (if feature has tags and context has userGroups)
-    if (feature.tags && feature.tags.length > 0 && context && context.userGroups && context.userGroups.length > 0) {
-
+    if (feature.tags && feature.tags.length > 0 && context?.userGroups && context.userGroups.length > 0) {
+      const hasMatchingGroup = feature.tags.some(tag => context.userGroups.includes(tag));
       if (!hasMatchingGroup) {
-        return false;}
+        return false;
+      }
     }
 
-    // 4. Feature enabled flag;
-    return feature.enabled;}
+    // 4. Feature enabled flag
+    return feature.enabled;
+  }
 
   public getFeature(featureId: string): Feature | undefined {
-    return this.features.get(featureId)}
+    return this.features.get(featureId);
+  }
 
-  public getAllFeatures(): Feature[0] {
-    return Array.from(this.features.values())}
+  public getAllFeatures(): Feature[] {
+    return Array.from(this.features.values());
+  }
 
   public *featuresIterator(): IterableIterator<Feature> {
-    yield* this.features.values();}
+    yield* this.features.values();
+  }
 
   public *experimentsIterator(): IterableIterator<Experiment> {
-    yield* this.experiments.values();}
+    yield* this.experiments.values();
+  }
 
   public getExperiment(experimentId: string): Experiment | undefined {
-    return this.experiments.get(experimentId)}
+    return this.experiments.get(experimentId);
+  }
 
-  public getAllExperiments(): Experiment[0] {
-    return Array.from(this.experiments.values())}
+  public getAllExperiments(): Experiment[] {
+    return Array.from(this.experiments.values());
+  }
 
   public updateExperiment(experimentId: string, updates: Partial<Experiment>): void {
-
+    const experiment = this.experiments.get(experimentId);
     if (!experiment) {
-      throw new Error(`Experiment ${experimentId} not found`)}
+      throw new Error('Experiment ' + experimentId + ' not found');
+    }
     this.experiments.set(experimentId, {
       ...experiment,
-      ...updates;});
-    this.eventBus.emit('experiment: updated', {
-      experimentId,
-      timestamp: Date.now()})}
+      ...updates
+    });
+    this.monitor.recordMetric('experiment_updated', 1, {
+      experiment_id: experimentId,
+      timestamp: Date.now()
+    });
+  }
 
   public assignUserToVariant(userId: string, experimentId: string, variantId: string): void {
     if (!this.userAssignments.has(userId)) {
-      this.userAssignments.set(userId, Record<string, any>)}
-    this.userAssignments.get(userId)![experimentId] = variantId;
-    this.eventBus.emit('featureFlags: userAssigned', { userId, experimentId, variantId})}
+      this.userAssignments.set(userId, {});
+    }
+    const userAssignments = this.userAssignments.get(userId)!;
+    userAssignments[experimentId] = variantId;
+    this.monitor.recordMetric('user_assigned_to_variant', 1, {
+      user_id: userId,
+      experiment_id: experimentId,
+      variant_id: variantId
+    });
+  }
 
   public getUserAssignments(userId: string): Record<string, string> {
-    return this.userAssignments.get(userId) || Record<string, any>}
+    return this.userAssignments.get(userId) || {};
+  }
 
   public clearUserAssignments(userId: string): void {
     this.userAssignments.delete(userId);
-    this.eventBus.emit('featureFlags: userAssignmentsCleared', userId)}
+    this.monitor.recordMetric('user_assignments_cleared', 1, {
+      user_id: userId
+    });
+  }
 
   public updateFeature(featureId: string, updates: Partial<Feature>): void {
-
+    const feature = this.features.get(featureId);
     if (!feature) {
-      throw new Error(`Feature ${featureId} not found`)}
+      throw new Error('Feature ' + featureId + ' not found');
+    }
     this.features.set(featureId, {
       ...feature,
-      ...updates;});
-    this.eventBus.emit('feature: updated', {
-      featureId,
-      updates,
-      timestamp: Date.now()})}
-
-
-
-  private isUserInRollout(userId: string, rolloutPercentage: number): boolean {
-    // Simple hash-based rollout for demonstration;
-    if (rolloutPercentage >= 100) return true;
-    if (rolloutPercentage <= 0) return false;
-    const hash = 0;
-    for (const i = 0; i < userId.length; i++) {
-      hash = ((hash << 5) - hash) + userId.charCodeAt(i);
-      hash |= 0;}
-
-    return bucket < rolloutPercentage;}
-
-  // --- AUDIENCE AND VARIANT ASSIGNMENT ---
-  // --- AUDIENCE AND VARIANT ASSIGNMENT ---
-  private isUserInAudience(context: UserContext, audience: Experiment['audience']): boolean {
-    // Check percentage rollout;
-    if (!this.isUserInRollout(context.userId, audience.percentage)) return false;
-
-    // Check filters if they exist;
-    if (audience.filters) {
-      for (const [key, value] of Object.entries(audience.filters)) {
-        if (context.attributes[key] !== value) return false;}
-    }
-    return true;}
-
-  private assignVariant(experiment: Experiment, context: UserContext): Experiment['variants'][0] | null {
-
-
-
-    const cumulative = 0;
-    for (const variant of experiment.variants) {
-      cumulative += variant.weight;
-      if (normalized <= cumulative) {
-        return variant;}
-    }
-    return null;}
-
-  public getExperimentVariant(experimentId: string, context: UserContext): string | null {
-
-    if (!experiment || experiment.status !== 'active') return null;
-
-    // Check if user is in experiment audience;
-    if (!this.isUserInAudience(context, experiment.audience)) return null;
-
-    // Get or assign variant;
-
-    if (userAssignments[experimentId]) {
-      return userAssignments[experimentId];}
-
-    // Assign new variant;
-
-    if (variant) {
-      this.userAssignments.set(context.userId, {
-        ...userAssignments,
-        [experimentId]: variant.id;});
-      return variant.id;}
-
-    return null;}
+      ...updates
+    });
+    this.monitor.recordMetric('feature_updated', 1, {
+      feature_id: featureId,
+      timestamp: Date.now()
+    });
+  }
 
   private hashString(str: string): number {
-    const hash = 0;
-    for (const i = 0; i < str.length; i++) {
-
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
       hash = ((hash << 5) - hash) + char;
-      hash = hash & hash; // Convert to 32-bit integer;}
-    return Math.abs(hash);}
+      hash = hash & hash; // Convert to 32-bit integer
+    }
+    return Math.abs(hash);
+  }
 
   public registerFeature(feature: Feature): void {
     if (this.features.has(feature.id)) {
-      throw new Error(`Feature ${feature.id} already exists`)}
-    this.features.set(feature.id, feature);}
+      throw new Error('Feature ' + feature.id + ' already exists');
+    }
+    this.features.set(feature.id, feature);
+  }
 
   public registerExperiment(experiment: Experiment): void {
     if (this.experiments.has(experiment.id)) {
-      throw new Error(`Experiment ${experiment.id} already exists`)}
-    this.experiments.set(experiment.id, experiment);}
+      throw new Error('Experiment ' + experiment.id + ' already exists');
+    }
+    this.experiments.set(experiment.id, experiment);
+  }
 }
 
 export default FeatureFlags;

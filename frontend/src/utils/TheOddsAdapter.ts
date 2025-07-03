@@ -1,30 +1,60 @@
-﻿import { DataSource} from '@/core/DataSource.js';
-import { EventBus} from '@/core/EventBus.js';
-import { PerformanceMonitor} from '@/core/PerformanceMonitor.js';
+﻿import { DataSource } from '@/core/DataSource.js';
+import { EventBus } from '@/core/EventBus.js';
+import { PerformanceMonitor } from '@/core/PerformanceMonitor.js';
 
 
 
 interface TheOddsConfig {
-  apiKey: string
-,`n  baseUrl: string;
-,`n  cacheTimeout: number}
+  apiKey: string;
+  baseUrl: string;
+  cacheTimeout: number
+}
+
+interface TheOddsEvent {
+  id: string;
+  sport: string
+  commence_time: string;
+  home_team: string
+  away_team: string;
+  bookmakers: Array<{
+    key: string;
+    title: string
+    markets: Array<{
+      key: string
+      outcomes: Array<{
+        name: string
+        price: number;
+        point?: number}>
+      }>
+    }>
+  }>
+}
 
 export interface TheOddsData {
   events: {
-,`n  id: string;
-,`n  sport: string
-,`n  commence_time: string;
-,`n  home_team: string
-,`n  away_team: string;
-,`n  bookmakers: Array<{
-,`n  key: string;
-,`n  title: string
-,`n  markets: Array<{
-,`n  key: string
-,`n  outcomes: Array<{
-,`n  name: string
-,`n  price: number;
-          point?: number}>;}>;}>;}[0];}
+    id: string;
+    sport: string
+    commence_time: string;
+    home_team: string
+    away_team: string;
+    bookmakers: Array<{
+      key: string;
+      title: string
+      markets: Array<{
+        key: string
+        outcomes: Array<{
+          name: string
+          price: number;
+          point?: number}>
+        }>
+      }>
+    }>
+}
+
+interface CachedResponse {
+  data: TheOddsData | null;
+  timestamp: number
+}
 
 export class TheOddsAdapter implements DataSource<TheOddsData> {
   public readonly id = 'the-odds';
@@ -33,9 +63,7 @@ export class TheOddsAdapter implements DataSource<TheOddsData> {
   private readonly eventBus: EventBus;
   private readonly performanceMonitor: PerformanceMonitor;
   private readonly config: TheOddsConfig;
-  private cache: {
-,`n  data: TheOddsData | null;
-,`n  timestamp: number};
+  private cache: CachedResponse;
 
   constructor(config: TheOddsConfig) {
     this.eventBus = EventBus.getInstance();

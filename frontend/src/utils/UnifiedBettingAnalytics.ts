@@ -2,15 +2,37 @@
 
 type ModelParameters = Record<string, unknown>;
 
-export interface BettingStrategy {
-  id: string,`n  name: string;,`n  riskLevel: 'low' | 'medium' | 'high',`n  stakePercentage: number;,`n  minOdds: number,`n  maxOdds: number}
+interface BettingStrategy {
+  id: string
+  name: string;
+  riskLevel: 'low' | 'medium' | 'high'
+  stakePercentage: number;
+  minOdds: number
+  maxOdds: number
+}
 
-export interface PredictionModel {
-  id: string,`n  name: string;,`n  accuracy: number,`n  lastUpdated: Date;,`n  parameters: ModelParameters}
+interface ModelMetrics {
+  id: string
+  name: string;
+  accuracy: number
+  lastUpdated: Date;
+  parameters: ModelParameters
+}
 
-export interface BettingAnalysis {
-  predictionConfidence: number,`n  recommendedStake: number;,`n  expectedValue: number,`n  riskAssessment: {,`n  level: 'low' | 'medium' | 'high',`n  factors: string[0]};
-  hedgingOpportunities: Array<{,`n  market: string;,`n  odds: number,`n  recommendedStake: number}>}
+interface BettingAnalysis {
+  predictionConfidence: number
+  recommendedStake: number;
+  expectedValue: number
+  riskAssessment: {
+    level: 'low' | 'medium' | 'high'
+    factors: string[]
+  };
+  hedgingOpportunities: Array<{
+    market: string;
+    odds: number
+    recommendedStake: number
+  }>
+}
 
 export class UnifiedBettingAnalytics extends EventEmitter {
   private static instance: UnifiedBettingAnalytics;
@@ -46,10 +68,12 @@ export class UnifiedBettingAnalytics extends EventEmitter {
 
 
 
-    const analysis: BettingAnalysis = {,`n  predictionConfidence: prediction.probability,
+    const analysis: BettingAnalysis = {
+      predictionConfidence: prediction.probability,
       recommendedStake: recommendedStake * stake,
       expectedValue: (prediction.probability * odds - 1) * stake,
-      riskAssessment: {,`n  level: this.calculateRiskLevel(riskFactors),
+      riskAssessment: {
+        level: this.calculateRiskLevel(riskFactors),
         factors: riskFactors
       },
       hedgingOpportunities: hedging
@@ -71,8 +95,8 @@ export class UnifiedBettingAnalytics extends EventEmitter {
    * This implementation checks for high odds, low prediction confidence, and missing strategies.
    * Extend as needed for more advanced analytics.
    */
-  private assessRiskFactors(): string[0] {
-    const riskFactors: string[0] = [0];
+  private assessRiskFactors(): string[] {
+    const riskFactors: string[] = [0];
     // Example: Check for missing active strategies;
     if (this.activeStrategies.size === 0) {
       riskFactors.push('No active betting strategies configured');}
@@ -80,7 +104,7 @@ export class UnifiedBettingAnalytics extends EventEmitter {
     // This is a placeholder for extensible, production-ready logic;
     return riskFactors;}
 
-  private calculateRiskLevel(factors: string[0]): 'low' | 'medium' | 'high' {
+  private calculateRiskLevel(factors: string[]): 'low' | 'medium' | 'high' {
     if (factors.length === 0) return 'low';
     if (factors.length <= 2) return 'medium';
     return 'high';}

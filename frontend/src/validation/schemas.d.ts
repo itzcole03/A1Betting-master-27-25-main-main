@@ -1,58 +1,142 @@
-﻿import { z} from '@/zod.ts';
+﻿import { z } from '@/zod.ts';
+import type { NextFunction, Request, Response } from 'express.ts';
+import type { ZodSchema, ZodTypeAny } from 'zod.ts';
 export declare const betSchema: z.ZodObject<
   {
-    id: z.ZodString,`n  userId: z.ZodString;,`n  eventId: z.ZodString,`n  amount: z.ZodNumber;,`n  odds: z.ZodNumber,`n  type: z.ZodEnum<['single', 'parlay', 'system']>;
-    placedAt: z.ZodString,`n  status: z.ZodEnum<['pending', 'won', 'lost', 'void']>},
+    id: z.ZodString
+    userId: z.ZodString;
+    eventId: z.ZodString
+    amount: z.ZodNumber;
+    odds: z.ZodNumber
+    type: z.ZodEnum<['single', 'parlay', 'system']>;
+    placedAt: z.ZodString
+    status: z.ZodEnum<['pending', 'won', 'lost', 'void']>
+  },
   'strip',
   z.ZodTypeAny,
   {
-    odds: number,`n  id: string;,`n  type: 'system' | 'single' | 'parlay',`n  status: 'pending' | 'won' | 'lost' | 'void';,`n  userId: string,`n  amount: number;,`n  placedAt: string,`n  eventId: string},
+    odds: number
+    id: string;
+    type: 'system' | 'single' | 'parlay'
+    status: 'pending' | 'won' | 'lost' | 'void';
+    userId: string
+    amount: number;
+    placedAt: string
+    eventId: string
+  },
   {
-    odds: number,`n  id: string;,`n  type: 'system' | 'single' | 'parlay',`n  status: 'pending' | 'won' | 'lost' | 'void';,`n  userId: string,`n  amount: number;,`n  placedAt: string,`n  eventId: string}
+    odds: number
+    id: string;
+    type: 'system' | 'single' | 'parlay'
+    status: 'pending' | 'won' | 'lost' | 'void';
+    userId: string
+    amount: number;
+    placedAt: string
+    eventId: string
+  }
 >;
 export declare const userSchema: z.ZodObject<
   {
-    id: z.ZodString,`n  username: z.ZodString;,`n  email: z.ZodString,`n  createdAt: z.ZodString;,`n  isActive: z.ZodBoolean},
+    id: z.ZodString
+    username: z.ZodString;
+    email: z.ZodString
+    createdAt: z.ZodString;
+    isActive: z.ZodBoolean
+  },
   'strip',
   z.ZodTypeAny,
   {
-    id: string,`n  email: string;,`n  username: string,`n  createdAt: string;,`n  isActive: boolean},
+    id: string
+    email: string;
+    username: string
+    createdAt: string;
+    isActive: boolean
+  },
   {
-    id: string,`n  email: string;,`n  username: string,`n  createdAt: string;,`n  isActive: boolean}
+    id: string
+    email: string;
+    username: string
+    createdAt: string;
+    isActive: boolean
+  }
 >;
 export declare const predictionSchema: z.ZodObject<
   {
-    id: z.ZodString,`n  betId: z.ZodString;,`n  model: z.ZodString,`n  prediction: z.ZodNumber;,`n  confidence: z.ZodNumber,`n  createdAt: z.ZodString},
+    id: z.ZodString
+    betId: z.ZodString;
+    model: z.ZodString
+    prediction: z.ZodNumber;
+    confidence: z.ZodNumber
+    createdAt: z.ZodString
+  },
   'strip',
   z.ZodTypeAny,
   {
-    confidence: number,`n  id: string;,`n  createdAt: string,`n  prediction: number;,`n  model: string,`n  betId: string},
+    confidence: number
+    id: string;
+    createdAt: string
+    prediction: number;
+    model: string
+    betId: string
+  },
   {
-    confidence: number,`n  id: string;,`n  createdAt: string,`n  prediction: number;,`n  model: string,`n  betId: string}
+    confidence: number
+    id: string;
+    createdAt: string
+    prediction: number;
+    model: string
+    betId: string
+  }
 >;
 export declare const marketSchema: z.ZodObject<
   {
-    id: z.ZodString,`n  name: z.ZodString;,`n  type: z.ZodString,`n  isActive: z.ZodBoolean},
+    id: z.ZodString
+    name: z.ZodString;
+    type: z.ZodString
+    isActive: z.ZodBoolean
+  },
   'strip',
   z.ZodTypeAny,
   {
-    id: string,`n  name: string;,`n  type: string,`n  isActive: boolean},
+    id: string
+    name: string;
+    type: string
+    isActive: boolean
+  },
   {
-    id: string,`n  name: string;,`n  type: string,`n  isActive: boolean}
+    id: string
+    name: string;
+    type: string
+    isActive: boolean
+  }
 >;
 export declare const eventSchema: z.ZodObject<
   {
-    id: z.ZodString,`n  name: z.ZodString;,`n  startTime: z.ZodString,`n  league: z.ZodString;,`n  venueId: z.ZodString},
+    id: z.ZodString
+    name: z.ZodString;
+    startTime: z.ZodString
+    league: z.ZodString;
+    venueId: z.ZodString
+  },
   'strip',
   z.ZodTypeAny,
   {
-    id: string,`n  name: string;,`n  venueId: string,`n  league: string;,`n  startTime: string},
+    id: string
+    name: string;
+    venueId: string
+    league: string;
+    startTime: string
+  },
   {
-    id: string,`n  name: string;,`n  venueId: string,`n  league: string;,`n  startTime: string}
+    id: string
+    name: string;
+    venueId: string
+    league: string;
+    startTime: string
+  }
 >;
-import type { Request, Response, NextFunction} from 'express.ts';
-import type { ZodSchema, ZodTypeAny} from 'zod.ts';
-export declare const validateRequest: (,`n  schema: ZodSchema<unknown> | ZodTypeAny
+export declare const validateRequest: (
+  schema: ZodSchema<unknown> | ZodTypeAny
 ) => (req: Request, res: Response, next: NextFunction) => Promise<any>;
 
 

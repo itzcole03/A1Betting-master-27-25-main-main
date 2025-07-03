@@ -1,5 +1,5 @@
-﻿import axios from 'axios'
-import { API_CONFIG} from '../config/api'
+﻿import axios from 'axios';
+import { API_CONFIG } from '../config/api';
 
 // Use unified API configuration
 const api = axios.create({
@@ -13,9 +13,12 @@ api.interceptors.request.use(config => {
   const token = localStorage.getItem('auth_token');
   if (token) {
     if (!config.headers) {
-      config.headers = Record<string, any>}
-    config.headers.Authorization = `Bearer ${token}`}
-  return config});
+      config.headers = {} as Record<string, any>;
+    }
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
 // Response interceptor for error handling
 api.interceptors.response.use(
@@ -25,12 +28,10 @@ api.interceptors.response.use(
       // Handle unauthorized access
       localStorage.removeItem('auth_token');
       localStorage.removeItem('refresh_token');
-      window.location.href = '/login'}
-    return Promise.reject(error)}
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
 );
 
 export default api;
-
-
-
-`

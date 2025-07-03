@@ -1,15 +1,10 @@
-﻿import React, { useState, useEffect} from 'react'
-import { motion} from 'framer-motion'
+﻿import { motion } from 'framer-motion';
 import {
-  DollarSign,
-  Target,
-  TrendingUp,
-  Clock,
-  Star,
-  Filter,
-  Search,
-//   RefreshCw
+    DollarSign,
+    Search,
+    Target
 } from 'lucide-react';
+import React, { useState } from 'react';
 
 interface Match {
   id: number
@@ -430,7 +425,7 @@ const BettingInterfaceWithMockData: React.FC = () => {
   )};
 
 export default BettingInterfaceWithMockData;
-export { BettingInterface}
+export { BettingInterface }
 
 
 

@@ -1,0 +1,542 @@
+# A1Betting Cursor AI Command Interface - Windows Forms GUI
+# Save as: cursor_ai_gui.ps1
+# Run with: pwsh -NoLogo -File .\cursor_ai_gui.ps1
+
+Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Drawing
+
+# Add at the very top after Add-Type lines
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+chcp 65001
+
+# Theme palettes
+$themes = @{
+    'Cyberpunk' = @{ BackColor = '#181824'; ForeColor = '#00fff7'; HeaderColor = '#00fff7'; ButtonBack = '#181824'; ButtonFore = '#00fff7'; Accent = '#ff00c8'; }; 
+    'Light'     = @{ BackColor = '#f8f8f8'; ForeColor = '#222'; HeaderColor = '#0078d7'; ButtonBack = '#fff'; ButtonFore = '#222'; Accent = '#0078d7'; };
+    'Dark'      = @{ BackColor = '#23272e'; ForeColor = '#e0e0e0'; HeaderColor = '#00bfff'; ButtonBack = '#23272e'; ButtonFore = '#e0e0e0'; Accent = '#00bfff'; }
+}
+$CurrentTheme = 'Cyberpunk'
+
+$toolTip = New-Object System.Windows.Forms.ToolTip
+$global:RecList = @(
+    @{ Text = '🔥 TypeScript error reduction in progress. Suggest: typescript repair, autonomous mode. (found 8 times)'; Color = 'Red' },
+    @{ Text = '🔥 Multi-agent coordination active. Suggest: agent mode, autonomous mode. (found 4 times)'; Color = 'Red' },
+    @{ Text = '🔥 Build system enhancement in progress. Suggest: build optimization. (found 2 times)'; Color = 'Red' },
+    @{ Text = '🔥 Performance/build optimization in progress. Suggest: performance check, build optimization. (found 2 times)'; Color = 'Red' },
+    @{ Text = '• Memory bank auto-updates in progress. Suggest: update memory.'; Color = 'Lime' },
+    @{ Text = '• Progress tracking active. Suggest: check progress.'; Color = 'Lime' },
+    @{ Text = '• Testing coverage is a short-term goal. Suggest: test implementation.'; Color = 'Lime' }
+)
+$global:FilteredRecList = $global:RecList
+
+# --- Global State ---
+$global:CommandHistory = @()
+$LogFilePath = "$env:TEMP/cursor_ai_gui_log.txt"
+if (Test-Path $LogFilePath) { Remove-Item $LogFilePath -Force }
+New-Item -Path $LogFilePath -ItemType File -Force | Out-Null
+
+function Write-Log {
+    param([string]$Message, [string]$Level = "INFO")
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    $logLine = "[$timestamp][$Level] $Message"
+    $global:StatusBox.AppendText($Message + "`r`n")
+    Add-Content -Path $LogFilePath -Value $logLine
+}
+
+function Get-Recommendations {
+    $progressFile = "memory-bank/progress.md"
+    $recommendations = @()
+    $contexts = @()
+    $diagnosticMsg = ""
+    if (-not (Test-Path $progressFile)) {
+        $diagnosticMsg = "No recommendations: memory-bank/progress.md not found."
+        return @{ Grouped = @(); Diagnostic = $diagnosticMsg }
+    }
+    $lines = Get-Content $progressFile
+    if ($lines.Count -eq 0) {
+        $diagnosticMsg = "No recommendations: progress.md is empty."
+        return @{ Grouped = @(); Diagnostic = $diagnosticMsg }
+    }
+    $lineNum = 0
+    foreach ($line in $lines) {
+        $lineNum++
+        if ($line -match "TypeScript Errors") {
+            $recommendations += "TypeScript error reduction in progress. Suggest: typescript repair, autonomous mode."
+            $contexts += "Line $($lineNum): $line"
+        }
+        if ($line -match "testing framework available") {
+            $recommendations += "Testing coverage is a short-term goal. Suggest: test implementation."
+            $contexts += "Line $($lineNum): $line"
+        }
+        if ($line -match "performance optimization") {
+            $recommendations += "Performance/build optimization in progress. Suggest: performance check, build optimization."
+            $contexts += "Line $($lineNum): $line"
+        }
+        if ($line -match "build system enhancement") {
+            $recommendations += "Build system enhancement in progress. Suggest: build optimization."
+            $contexts += "Line $($lineNum): $line"
+        }
+        if ($line -match "memory bank auto-updates") {
+            $recommendations += "Memory bank auto-updates in progress. Suggest: update memory."
+            $contexts += "Line $($lineNum): $line"
+        }
+        if ($line -match "multi-agent coordination") {
+            $recommendations += "Multi-agent coordination active. Suggest: agent mode, autonomous mode."
+            $contexts += "Line $($lineNum): $line"
+        }
+        if ($line -match "system health") {
+            $recommendations += "System health monitoring active. Suggest: system health."
+            $contexts += "Line $($lineNum): $line"
+        }
+        if ($line -match "check progress") {
+            $recommendations += "Progress tracking active. Suggest: check progress."
+            $contexts += "Line $($lineNum): $line"
+        }
+    }
+    if ($recommendations.Count -eq 0) {
+        $diagnosticMsg = "No recommendations: no matching lines found in progress.md. ($($lines.Count) lines checked)"
+        return @{ Grouped = @(); Diagnostic = $diagnosticMsg }
+    }
+    $grouped = $recommendations | Group-Object | Sort-Object Count -Descending
+    for ($i = 0; $i -lt $grouped.Count; $i++) {
+        $grouped[$i] | Add-Member -MemberType NoteProperty -Name Context -Value $contexts[$i]
+    }
+    $diagnosticMsg = "Loaded $($grouped.Count) recommendations from $progressFile ($($lines.Count) lines checked)"
+    return @{ Grouped = $grouped; Diagnostic = $diagnosticMsg }
+}
+
+# --- Recommendations Section Improvements ---
+
+# Function to load and format recommendations
+function Load-Recommendations {
+    $result = Get-Recommendations
+    $groupedRecs = $result.Grouped
+    $diagnosticMsg = $result.Diagnostic
+    $global:RecBox.Clear()
+    $global:RecLineContext = @{}
+    if ($diagnosticMsg -and $global:StatusBox -and $global:StatusBox.PSObject.Properties['Text']) { $global:StatusBox.Text = $diagnosticMsg }
+    $idx = 0
+    foreach ($g in $groupedRecs) {
+        $isUrgent = $g.Count -gt 1
+        $prefix = if ($isUrgent) { "🔥 " } else { "• " }
+        $item = if ($isUrgent) { "{0}{1} (found {2} times)" -f $prefix, $g.Name, $g.Count } else { "{0}{1}" -f $prefix, $g.Name }
+        Write-Host "Appending recommendation: $item"
+        $start = $global:RecBox.TextLength
+        $global:RecBox.AppendText($item + "`r`n")
+        $end = $global:RecBox.TextLength
+        $global:RecBox.Select($start, $end - $start)
+        if ($isUrgent) {
+            $global:RecBox.SelectionColor = $cyberUrgent
+            $global:RecBox.SelectionFont = $cyberRecFont
+        }
+        else {
+            $global:RecBox.SelectionColor = $cyberNormal
+            $global:RecBox.SelectionFont = $cyberRecFont
+        }
+        $global:RecBox.Select($global:RecBox.TextLength, 0) # Reset selection
+        $global:RecLineContext[$idx] = if ($g.Context) { $g.Context } else { $g.Name }
+        $idx++
+    }
+    if ($groupedRecs.Count -eq 0) {
+        $global:RecBox.AppendText($diagnosticMsg + "`r`n")
+        $global:RecLineContext[0] = $diagnosticMsg
+    }
+}
+
+# Cyber aesthetic colors
+$cyberBg = [System.Drawing.Color]::FromArgb(18, 18, 28) # near-black blue
+$cyberAccent = [System.Drawing.Color]::FromArgb(0, 255, 255) # neon cyan
+$cyberAccent2 = [System.Drawing.Color]::FromArgb(255, 0, 255) # neon magenta
+$cyberUrgent = [System.Drawing.Color]::FromArgb(255, 64, 64) # neon red
+$cyberNormal = [System.Drawing.Color]::FromArgb(0, 255, 128) # neon green
+$cyberButtonBg = [System.Drawing.Color]::FromArgb(28, 28, 48)
+$cyberButtonBorder = [System.Drawing.Color]::FromArgb(0, 255, 255)
+$cyberButtonHover = [System.Drawing.Color]::FromArgb(0, 255, 255)
+$cyberHeaderFont = New-Object System.Drawing.Font('Segoe UI', 16, [System.Drawing.FontStyle]::Bold)
+$cyberButtonFont = New-Object System.Drawing.Font('Segoe UI', 12, [System.Drawing.FontStyle]::Bold)
+$cyberRecFont = New-Object System.Drawing.Font('Consolas', 14, [System.Drawing.FontStyle]::Bold)
+
+# Form background
+$form = New-Object System.Windows.Forms.Form
+$form.Text = "A1Betting Cursor AI Command Interface"
+$form.Size = New-Object System.Drawing.Size(1000, 800)
+$form.StartPosition = "CenterScreen"
+$form.MinimumSize = New-Object System.Drawing.Size(1000, 800)
+$form.BackColor = [System.Drawing.Color]::White
+$form.AutoScaleMode = 'Font'
+$form.KeyPreview = $true
+
+# --- Global State ---
+$global:CommandHistory = @()
+$LogFilePath = "$env:TEMP/cursor_ai_gui_log.txt"
+if (Test-Path $LogFilePath) { Remove-Item $LogFilePath -Force }
+New-Item -Path $LogFilePath -ItemType File -Force | Out-Null
+
+function Write-Log {
+    param([string]$Message, [string]$Level = "INFO")
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    $logLine = "[$timestamp][$Level] $Message"
+    $global:StatusBox.AppendText($Message + "`r`n")
+    Add-Content -Path $LogFilePath -Value $logLine
+}
+
+function Get-Recommendations {
+    $progressFile = "memory-bank/progress.md"
+    $recommendations = @()
+    $contexts = @()
+    $diagnosticMsg = ""
+    if (-not (Test-Path $progressFile)) {
+        $diagnosticMsg = "No recommendations: memory-bank/progress.md not found."
+        return @{ Grouped = @(); Diagnostic = $diagnosticMsg }
+    }
+    $lines = Get-Content $progressFile
+    if ($lines.Count -eq 0) {
+        $diagnosticMsg = "No recommendations: progress.md is empty."
+        return @{ Grouped = @(); Diagnostic = $diagnosticMsg }
+    }
+    $lineNum = 0
+    foreach ($line in $lines) {
+        $lineNum++
+        if ($line -match "TypeScript Errors") {
+            $recommendations += "TypeScript error reduction in progress. Suggest: typescript repair, autonomous mode."
+            $contexts += "Line $($lineNum): $line"
+        }
+        if ($line -match "testing framework available") {
+            $recommendations += "Testing coverage is a short-term goal. Suggest: test implementation."
+            $contexts += "Line $($lineNum): $line"
+        }
+        if ($line -match "performance optimization") {
+            $recommendations += "Performance/build optimization in progress. Suggest: performance check, build optimization."
+            $contexts += "Line $($lineNum): $line"
+        }
+        if ($line -match "build system enhancement") {
+            $recommendations += "Build system enhancement in progress. Suggest: build optimization."
+            $contexts += "Line $($lineNum): $line"
+        }
+        if ($line -match "memory bank auto-updates") {
+            $recommendations += "Memory bank auto-updates in progress. Suggest: update memory."
+            $contexts += "Line $($lineNum): $line"
+        }
+        if ($line -match "multi-agent coordination") {
+            $recommendations += "Multi-agent coordination active. Suggest: agent mode, autonomous mode."
+            $contexts += "Line $($lineNum): $line"
+        }
+        if ($line -match "system health") {
+            $recommendations += "System health monitoring active. Suggest: system health."
+            $contexts += "Line $($lineNum): $line"
+        }
+        if ($line -match "check progress") {
+            $recommendations += "Progress tracking active. Suggest: check progress."
+            $contexts += "Line $($lineNum): $line"
+        }
+    }
+    if ($recommendations.Count -eq 0) {
+        $diagnosticMsg = "No recommendations: no matching lines found in progress.md. ($($lines.Count) lines checked)"
+        return @{ Grouped = @(); Diagnostic = $diagnosticMsg }
+    }
+    $grouped = $recommendations | Group-Object | Sort-Object Count -Descending
+    for ($i = 0; $i -lt $grouped.Count; $i++) {
+        $grouped[$i] | Add-Member -MemberType NoteProperty -Name Context -Value $contexts[$i]
+    }
+    $diagnosticMsg = "Loaded $($grouped.Count) recommendations from $progressFile ($($lines.Count) lines checked)"
+    return @{ Grouped = $grouped; Diagnostic = $diagnosticMsg }
+}
+
+# --- Recommendations Section Improvements ---
+
+# Function to load and format recommendations
+function Load-Recommendations {
+    $result = Get-Recommendations
+    $groupedRecs = $result.Grouped
+    $diagnosticMsg = $result.Diagnostic
+    $global:RecBox.Clear()
+    $global:RecLineContext = @{}
+    if ($diagnosticMsg -and $global:StatusBox -and $global:StatusBox.PSObject.Properties['Text']) { $global:StatusBox.Text = $diagnosticMsg }
+    $idx = 0
+    foreach ($g in $groupedRecs) {
+        $isUrgent = $g.Count -gt 1
+        $prefix = if ($isUrgent) { "🔥 " } else { "• " }
+        $item = if ($isUrgent) { "{0}{1} (found {2} times)" -f $prefix, $g.Name, $g.Count } else { "{0}{1}" -f $prefix, $g.Name }
+        Write-Host "Appending recommendation: $item"
+        $start = $global:RecBox.TextLength
+        $global:RecBox.AppendText($item + "`r`n")
+        $end = $global:RecBox.TextLength
+        $global:RecBox.Select($start, $end - $start)
+        if ($isUrgent) {
+            $global:RecBox.SelectionColor = $cyberUrgent
+            $global:RecBox.SelectionFont = $cyberRecFont
+        }
+        else {
+            $global:RecBox.SelectionColor = $cyberNormal
+            $global:RecBox.SelectionFont = $cyberRecFont
+        }
+        $global:RecBox.Select($global:RecBox.TextLength, 0) # Reset selection
+        $global:RecLineContext[$idx] = if ($g.Context) { $g.Context } else { $g.Name }
+        $idx++
+    }
+    if ($groupedRecs.Count -eq 0) {
+        $global:RecBox.AppendText($diagnosticMsg + "`r`n")
+        $global:RecLineContext[0] = $diagnosticMsg
+    }
+}
+
+# Cyber aesthetic colors
+$cyberBg = [System.Drawing.Color]::FromArgb(18, 18, 28) # near-black blue
+$cyberAccent = [System.Drawing.Color]::FromArgb(0, 255, 255) # neon cyan
+$cyberAccent2 = [System.Drawing.Color]::FromArgb(255, 0, 255) # neon magenta
+$cyberUrgent = [System.Drawing.Color]::FromArgb(255, 64, 64) # neon red
+$cyberNormal = [System.Drawing.Color]::FromArgb(0, 255, 128) # neon green
+$cyberButtonBg = [System.Drawing.Color]::FromArgb(28, 28, 48)
+$cyberButtonBorder = [System.Drawing.Color]::FromArgb(0, 255, 255)
+$cyberButtonHover = [System.Drawing.Color]::FromArgb(0, 255, 255)
+$cyberHeaderFont = New-Object System.Drawing.Font('Segoe UI', 16, [System.Drawing.FontStyle]::Bold)
+$cyberButtonFont = New-Object System.Drawing.Font('Segoe UI', 12, [System.Drawing.FontStyle]::Bold)
+$cyberRecFont = New-Object System.Drawing.Font('Consolas', 14, [System.Drawing.FontStyle]::Bold)
+
+# Form background
+$form.BackColor = $cyberBg
+$form.MinimumSize = New-Object System.Drawing.Size(1100, 900)
+
+# --- Cyberpunk Recommendations Panel ---
+$recPanel = New-Object System.Windows.Forms.Panel
+$recPanel.Location = New-Object System.Drawing.Point(20, 40)
+$recPanel.Size = New-Object System.Drawing.Size(1040, 270)
+$recPanel.BackColor = $cyberBg
+$recPanel.BorderStyle = 'FixedSingle'
+$recPanel.Anchor = 'Top,Left,Right'
+$form.Controls.Add($recPanel)
+$form.Controls.SetChildIndex($recPanel, 0) # Send to back
+
+$global:RecBox = New-Object System.Windows.Forms.RichTextBox
+$global:RecBox.Location = New-Object System.Drawing.Point(30, 50)
+$global:RecBox.Size = New-Object System.Drawing.Size(1020, 250)
+$global:RecBox.BorderStyle = 'None'
+$global:RecBox.Font = New-Object System.Drawing.Font('Consolas', 18, [System.Drawing.FontStyle]::Bold)
+$global:RecBox.ForeColor = $cyberNormal
+$global:RecBox.BackColor = [System.Drawing.Color]::FromArgb(28, 28, 48)
+$global:RecBox.Margin = '0,0,0,0'
+$global:RecBox.Padding = '24,24,24,24'
+$recPanel.Controls.Add($global:RecBox)
+
+# Attach tooltip event handler after RichTextBox is created
+$recToolTip = New-Object System.Windows.Forms.ToolTip
+$global:RecBox.Add_MouseMove({
+        $pt = $global:RecBox.PointToClient([System.Windows.Forms.Cursor]::Position)
+        $charIdx = $global:RecBox.GetCharIndexFromPosition($pt)
+        $lineIdx = $global:RecBox.GetLineFromCharIndex($charIdx)
+        if ($global:RecLineContext.ContainsKey($lineIdx)) {
+            $recToolTip.SetToolTip($global:RecBox, $global:RecLineContext[$lineIdx])
+        }
+        else {
+            $recToolTip.SetToolTip($global:RecBox, $null)
+        }
+    })
+
+# --- Refined, Responsive TableLayoutPanel Layout ---
+
+# Define all button groups and headers
+$buttonGroups = @(
+    @{ Header = 'System Modes'; Buttons = @(
+            @{Text = 'Plan Mode'; Command = 'plan'; Tip = 'Strategic planning with memory context.' },
+            @{Text = 'Agent Mode'; Command = 'agent'; Tip = 'Full AI agent execution.' },
+            @{Text = 'AUTONOMOUS MODE'; Command = 'autonomous mode'; Tip = 'Autonomous development mode.' }
+        )
+    },
+    @{ Header = 'Memory Context'; Buttons = @(
+            @{Text = 'Update Memory'; Command = 'update memory bank'; Tip = 'Comprehensive memory bank update.' },
+            @{Text = 'Review Context'; Command = 'review context'; Tip = 'Analyze current project state.' },
+            @{Text = 'Check Progress'; Command = 'check progress'; Tip = 'Review status and next steps.' },
+            @{Text = 'Memory Status'; Command = 'memory status'; Tip = 'Show memory bank status.' }
+        )
+    },
+    @{ Header = 'Diagnostics & System Health'; Buttons = @(
+            @{Text = 'System Health'; Command = 'system health'; Tip = 'Complete system health check.' },
+            @{Text = 'System Status'; Command = 'system status'; Tip = 'Show system status.' },
+            @{Text = 'Performance Check'; Command = 'performance check'; Tip = 'System performance analysis.' },
+            @{Text = 'Build Optimization'; Command = 'build optimization'; Tip = 'Build optimization.' }
+        )
+    },
+    @{ Header = 'ML & TypeScript'; Buttons = @(
+            @{Text = 'ML Model Check'; Command = 'ml model check'; Tip = 'ML model accuracy verification.' },
+            @{Text = 'TypeScript Repair'; Command = 'typescript repair'; Tip = 'TypeScript error scan and repair.' },
+            @{Text = 'TypeScript Types'; Command = 'typescript types'; Tip = 'Add TypeScript types for API responses.' }
+        )
+    },
+    @{ Header = 'Testing & Audit'; Buttons = @(
+            @{Text = 'Test Implementation'; Command = 'test implementation'; Tip = 'Add comprehensive test coverage.' },
+            @{Text = 'Run Audit Report'; Command = 'run audit report'; Tip = 'Execute audit_report.ipynb for full context.' },
+            @{Text = 'Error Handling'; Command = 'error handling'; Tip = 'Implement error handling for API calls.' },
+            @{Text = 'Security Audit'; Command = 'security audit'; Tip = 'Security compliance check.' }
+        )
+    },
+    @{ Header = 'Enhancements & Help'; Buttons = @(
+            @{Text = 'Ultimate Enhancement Cycle'; Command = 'ultimate enhancement cycle'; Tip = 'Run all enhancements in sequence.' },
+            @{Text = 'Help'; Command = 'help'; Tip = 'Show help and documentation.' }
+        )
+    }
+)
+
+# Calculate max columns needed
+$maxCols = ($buttonGroups | ForEach-Object { $_.Buttons.Count } | Measure-Object -Maximum).Maximum
+$headerFont = $cyberHeaderFont
+$buttonFont = New-Object System.Drawing.Font('Segoe UI Semibold', 16, [System.Drawing.FontStyle]::Bold)
+
+# Create a scrollable parent panel for the table
+$scrollPanel = New-Object System.Windows.Forms.Panel
+$scrollPanel.Location = New-Object System.Drawing.Point(20, 330)
+$scrollPanel.Size = New-Object System.Drawing.Size(1040, 600)
+$scrollPanel.Anchor = 'Top,Left,Right,Bottom'
+$scrollPanel.AutoScroll = $true
+$scrollPanel.BackColor = $cyberBg
+
+# Create TableLayoutPanel
+$table = New-Object System.Windows.Forms.TableLayoutPanel
+$table.Location = New-Object System.Drawing.Point(0, 0)
+$table.Size = New-Object System.Drawing.Size(1040, 600)
+$table.Anchor = 'Top,Left,Right,Bottom'
+$table.BackColor = $cyberBg
+$table.ColumnCount = [int]$maxCols
+$table.RowCount = 0
+$table.CellBorderStyle = 'None'
+$table.AutoSize = $true
+$table.AutoSizeMode = 'GrowAndShrink'
+$table.Padding = '10,10,10,10'
+$table.Margin = '0,0,0,0'
+$table.GrowStyle = 'AddRows'
+$table.ColumnStyles.Clear()
+for ($c = 0; $c -lt $maxCols; $c++) {
+    $table.ColumnStyles.Add((New-Object System.Windows.Forms.ColumnStyle([System.Windows.Forms.SizeType]::Percent, [int](100 / $maxCols))))
+}
+
+# Add groups to the table
+foreach ($group in $buttonGroups) {
+    # Add header row
+    $header = New-Object System.Windows.Forms.Label
+    $header.Text = $group.Header
+    $header.Font = New-Object System.Drawing.Font('Segoe UI', 20, [System.Drawing.FontStyle]::Bold)
+    $header.ForeColor = $cyberAccent
+    $header.BackColor = [System.Drawing.Color]::FromArgb(24, 24, 36)
+    $header.Dock = 'Fill'
+    $header.TextAlign = 'MiddleLeft'
+    $header.Padding = '16,0,0,0'
+    $header.Height = 48
+    $table.RowCount++
+    $table.RowStyles.Add((New-Object System.Windows.Forms.RowStyle([System.Windows.Forms.SizeType]::Absolute, 48)))
+    $table.Controls.Add($header, 0, $table.RowCount - 1)
+    $table.SetColumnSpan($header, $maxCols)
+    # Add button row
+    $table.RowCount++
+    $table.RowStyles.Add((New-Object System.Windows.Forms.RowStyle([System.Windows.Forms.SizeType]::Absolute, 72)))
+    for ($c = 0; $c -lt $maxCols; $c++) {
+        if ($c -lt $group.Buttons.Count) {
+            $btnDef = $group.Buttons[$c]
+            $btn = New-Object System.Windows.Forms.Button
+            $btn.Text = $btnDef.Text
+            $btn.Font = New-Object System.Drawing.Font('Segoe UI Semibold', 16, [System.Drawing.FontStyle]::Bold)
+            $btn.Dock = 'Fill'
+            $btn.MinimumSize = New-Object System.Drawing.Size(180, 56)
+            $btn.FlatStyle = 'Flat'
+            $btn.FlatAppearance.BorderSize = 3
+            $btn.FlatAppearance.BorderColor = $cyberButtonBorder
+            $btn.BackColor = $cyberBg
+            $btn.ForeColor = $cyberAccent
+            $btn.TextAlign = 'MiddleCenter'
+            $btn.Margin = '8,8,8,8'
+            $btn.TabStop = $false
+            $btn.Add_MouseEnter({
+                    if ($this -is [System.Windows.Forms.Button]) {
+                        $this.BackColor = $cyberAccent
+                        $this.ForeColor = $cyberBg
+                        $this.Font = New-Object System.Drawing.Font('Segoe UI Semibold', 18, [System.Drawing.FontStyle]::Bold)
+                    }
+                })
+            $btn.Add_MouseLeave({
+                    if ($this -is [System.Windows.Forms.Button]) {
+                        $this.BackColor = $cyberBg
+                        $this.ForeColor = $cyberAccent
+                        $this.Font = New-Object System.Drawing.Font('Segoe UI Semibold', 16, [System.Drawing.FontStyle]::Bold)
+                    }
+                })
+            $toolTip.SetToolTip($btn, $btnDef.Tip)
+            $btn.Add_Click( (New-ButtonClickHandler $btnDef.Text) )
+            $table.Controls.Add($btn, $c, $table.RowCount - 1)
+        }
+        else {
+            # Invisible placeholder
+            $ph = New-Object System.Windows.Forms.Label
+            $ph.Text = ''
+            $ph.Dock = 'Fill'
+            $ph.MinimumSize = New-Object System.Drawing.Size(180, 56)
+            $ph.BackColor = $cyberBg
+            $table.Controls.Add($ph, $c, $table.RowCount - 1)
+        }
+    }
+    # Add a separator row for extra vertical space between groups
+    $table.RowCount++
+    $table.RowStyles.Add((New-Object System.Windows.Forms.RowStyle([System.Windows.Forms.SizeType]::Absolute, 16)))
+    $sep = New-Object System.Windows.Forms.Label
+    $sep.Text = ''
+    $sep.Dock = 'Fill'
+    $sep.BackColor = $cyberBg
+    $table.Controls.Add($sep, 0, $table.RowCount - 1)
+    $table.SetColumnSpan($sep, $maxCols)
+}
+$scrollPanel.Controls.Add($table)
+$form.Controls.Add($scrollPanel)
+
+# After $form is created, add:
+$toolTip = New-Object System.Windows.Forms.ToolTip
+
+# Ensure this function is defined before button creation:
+function New-ButtonClickHandler {
+    param($ButtonText)
+    return {
+        [System.Windows.Forms.MessageBox]::Show("Button clicked: $ButtonText")
+    }
+}
+
+# Status/log area
+$statusLabel = New-Object System.Windows.Forms.Label
+$statusLabel.Text = "Status / Log:"
+$statusLabel.Font = New-Object System.Drawing.Font("Segoe UI", 12, [System.Drawing.FontStyle]::Bold)
+$statusLabel.Location = New-Object System.Drawing.Point(30, 510)
+$statusLabel.Size = New-Object System.Drawing.Size(940, 28)
+$statusLabel.Anchor = 'Top,Left,Right'
+$form.Controls.Add($statusLabel)
+
+$global:StatusBox = New-Object System.Windows.Forms.TextBox
+$global:StatusBox.Multiline = $true
+$global:StatusBox.ScrollBars = "Vertical"
+$global:StatusBox.Location = New-Object System.Drawing.Point(30, 540)
+$global:StatusBox.Size = New-Object System.Drawing.Size(940, 140)
+$global:StatusBox.Font = New-Object System.Drawing.Font("Consolas", 15)
+$global:StatusBox.ReadOnly = $true
+$global:StatusBox.Anchor = 'Top,Left,Right,Bottom'
+$form.Controls.Add($global:StatusBox)
+
+# Now call Load-Recommendations
+Load-Recommendations
+
+# Command history
+$historyLabel = New-Object System.Windows.Forms.Label
+$historyLabel.Text = "Recent Commands:"
+$historyLabel.Font = New-Object System.Drawing.Font("Segoe UI", 11, [System.Drawing.FontStyle]::Bold)
+$historyLabel.Location = New-Object System.Drawing.Point(30, 690)
+$historyLabel.Size = New-Object System.Drawing.Size(940, 24)
+$historyLabel.Anchor = 'Bottom,Left,Right'
+$form.Controls.Add($historyLabel)
+
+$global:HistoryBox = New-Object System.Windows.Forms.ListBox
+$global:HistoryBox.Location = New-Object System.Drawing.Point(30, 715)
+$global:HistoryBox.Size = New-Object System.Drawing.Size(940, 40)
+$global:HistoryBox.Font = New-Object System.Drawing.Font("Consolas", 13)
+$global:HistoryBox.Anchor = 'Bottom,Left,Right'
+$form.Controls.Add($global:HistoryBox)
+
+# Make window resizable and controls anchored
+$form.AutoSize = $false
+$form.FormBorderStyle = 'Sizable'
+
+# Show the form
+$form.Add_Shown({ $form.Activate() })
+[void]$form.ShowDialog() 

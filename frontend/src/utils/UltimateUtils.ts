@@ -15,16 +15,20 @@ export const CoreUtils = {
     return `${prefix}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`},
 
   // Debounce function;
-  debounce: <T extends (...args: any[0]) => any>(,`n  func: T,
+  debounce: <T extends (...args: any[]) => any>(
+    func: T,
     wait: number,
   ): ((...args: Parameters<T>) => void) => {
     let timeout: NodeJS.Timeout;
     return (...args: Parameters<T>) => {
       clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), wait);};},
+      timeout = setTimeout(() => func(...args), wait);
+    };
+  },
 
   // Throttle function;
-  throttle: <T extends (...args: any[0]) => any>(,`n  func: T,
+  throttle: <T extends (...args: any[]) => any>(
+    func: T,
     limit: number,
   ): ((...args: Parameters<T>) => void) => {
     let inThrottle: boolean;
@@ -32,8 +36,10 @@ export const CoreUtils = {
       if (!inThrottle) {
         func(...args);
         inThrottle = true;
-        setTimeout(() => (inThrottle = false), limit);}
-    };},
+        setTimeout(() => (inThrottle = false), limit);
+      }
+    };
+  },
 
   // Deep clone object;
   deepClone: <T>(obj: T): T => {
@@ -42,11 +48,14 @@ export const CoreUtils = {
     if (obj instanceof Array)
       return obj.map((item) => CoreUtils.deepClone(item)) as unknown as T;
     if (typeof obj === "object") {
-
+      const cloned = {} as T;
       Object.keys(obj).forEach((key) => {
-        (cloned as any)[key] = CoreUtils.deepClone((obj as any)[key]);});
-      return cloned;}
-    return obj;},
+        (cloned as any)[key] = CoreUtils.deepClone((obj as any)[key]);
+      });
+      return cloned;
+    }
+    return obj;
+  },
 
   // Safe JSON parse;
   safeJsonParse: <T = any>(json: string, fallback: T): T => {
@@ -108,45 +117,51 @@ export const OddsUtils = {
 
   // Calculate potential payout;
   calculatePayout: (stake: number, odds: number): number => {
-
-    return stake * decimal},
+    const decimal = OddsUtils.americanToDecimal(odds);
+    return stake * decimal;
+  },
 
   // Calculate profit;
   calculateProfit: (stake: number, odds: number): number => {
-    return OddsUtils.calculatePayout(stake, odds) - stake},
+    return OddsUtils.calculatePayout(stake, odds) - stake;
+  },
 
   // Calculate parlay odds;
-  calculateParlayOdds: (odds: number[0]): number => {
-
-
-    return OddsUtils.decimalToAmerican(combinedDecimal)},
+  calculateParlayOdds: (odds: number[]): number => {
+    const combinedDecimal = odds.reduce((sum, o) => sum + OddsUtils.americanToDecimal(o), 0);
+    return OddsUtils.decimalToAmerican(combinedDecimal);
+  },
 
   // Kelly Criterion calculator;
-  kellyStake: (,`n  bankroll: number,
+  kellyStake: (
+    bankroll: number,
     odds: number,
     winProbability: number,
   ): number => {
-
-
-    return Math.max(0, kellyFraction * bankroll)},
+    const kellyFraction = (odds * winProbability - 1) / (odds - 1);
+    return Math.max(0, kellyFraction * bankroll);
+  },
 
   // Calculate arbitrage opportunity;
-  calculateArbitrage: (,`n  odds1: number,
+  calculateArbitrage: (
+    odds1: number,
     odds2: number,
   ): {
-    isArbitrage: boolean,`n  profit: number;,`n  stakes: { bet1: number; bet2: number}} => {
-
-
-
-
+    isArbitrage: boolean
+    profit: number;
+    stakes: { bet1: number; bet2: number}
+  } => {
     const totalStake = 100; // Example $100 total;
-
-
+    const stake1 = totalStake * OddsUtils.americanToDecimal(odds1) / (OddsUtils.americanToDecimal(odds1) + OddsUtils.americanToDecimal(odds2));
+    const stake2 = totalStake - stake1;
+    const profit = OddsUtils.calculatePayout(stake1, odds1) + OddsUtils.calculatePayout(stake2, odds2) - totalStake;
+    const isArbitrage = profit > 0;
     return {
       isArbitrage,
       profit,
-      stakes: { bet1: stake1, bet2: stake2}
-    }}
+      stakes: { bet1: stake1, bet2: stake2 }
+    };
+  },
 };
 
 // ===============================
@@ -163,31 +178,34 @@ export const AnalyticsUtils = {
     return investment > 0 ? (profit / investment) * 100 : 0},
 
   // Calculate Sharpe ratio;
-  calculateSharpeRatio: (returns: number[0], riskFreeRate = 0.02): number => {
-
-    const variance =
-      returns.reduce((sum, r) => sum + Math.pow(r - avgReturn, 2), 0) /
-      returns.length;
-
-    return standardDeviation > 0;
-      ? (avgReturn - riskFreeRate) / standardDeviation;
-      : 0;},
+  calculateSharpeRatio: (returns: number[], riskFreeRate = 0.02): number => {
+    const avgReturn = returns.reduce((sum, r) => sum + r, 0) / returns.length;
+    const variance = returns.reduce((sum, r) => sum + Math.pow(r - avgReturn, 2), 0) / returns.length;
+    const standardDeviation = Math.sqrt(variance);
+    return standardDeviation > 0
+      ? (avgReturn - riskFreeRate) / standardDeviation
+      : 0;
+  },
 
   // Calculate maximum drawdown;
-  calculateMaxDrawdown: (values: number[0]): number => {
-    const maxDrawdown = 0;
-    const peak = values[0];
+  calculateMaxDrawdown: (values: number[]): number => {
+    let maxDrawdown = 0;
+    let peak = values[0];
 
     for (const value of values) {
       if (value > peak) {
-        peak = value;}
+        peak = value;
+      }
+      const drawdown = (peak - value) / peak;
+      maxDrawdown = Math.max(maxDrawdown, drawdown);
+    }
 
-      maxDrawdown = Math.max(maxDrawdown, drawdown);}
-
-    return maxDrawdown * 100;},
+    return maxDrawdown * 100;
+  },
 
   // Calculate streak (winning or losing)
-  calculateStreak: (,`n  results: boolean[0],
+  calculateStreak: (
+    results: boolean[],
   ): { current: number; max: number; type: "win" | "loss"} => {
     if (results.length === 0) return { current: 0, max: 0, type: "win"};
 
@@ -205,19 +223,19 @@ export const AnalyticsUtils = {
     return { current: currentStreak, max: maxStreak, type: currentType}},
 
   // Calculate confidence interval;
-  calculateConfidenceInterval: (,`n  data: number[0],
+  calculateConfidenceInterval: (
+    data: number[],
     confidence = 0.95,
   ): { lower: number; upper: number; mean: number} => {
-
-
-
-
-
+    const sorted = [...data].sort((a, b) => a - b);
+    const lowerIndex = Math.floor((1 - confidence) / 2 * data.length);
+    const upperIndex = Math.floor((confidence + (1 - confidence) / 2) * data.length);
     return {
       lower: sorted[lowerIndex],
       upper: sorted[upperIndex],
-//       mean
-    }}
+      mean: data.reduce((sum, d) => sum + d, 0) / data.length
+    };
+  },
 };
 
 // ===============================
@@ -227,7 +245,6 @@ export const AnalyticsUtils = {
 export const DateUtils = {
   // Format date for display;
   formatDate: (date: Date | string, format = "MMM dd, yyyy"): string => {
-
     const formats: { [key: string]: string} = {
       "MMM dd, yyyy": d.toLocaleDateString("en-US", {
         month: "short",
@@ -248,8 +265,8 @@ export const DateUtils = {
 
   // Format time;
   formatTime: (date: Date | string, includeSeconds = false): string => {
-
-    const options: Intl.DateTimeFormatOptions = {,`n  hour: "2-digit",
+    const options: Intl.DateTimeFormatOptions = {
+      hour: "2-digit",
       minute: "2-digit",
       ...(includeSeconds && { second: "2-digit"})
     };
@@ -257,11 +274,11 @@ export const DateUtils = {
 
   // Get relative time (e.g., "2 hours ago")
   getRelativeTime: (date: Date | string): string => {
-
-
-
-
-
+    const target = new Date(date);
+    const today = new Date();
+    const diffMinutes = Math.floor((today.getTime() - target.getTime()) / 60000);
+    const diffHours = Math.floor(diffMinutes / 60);
+    const diffDays = Math.floor(diffHours / 24);
 
     if (diffMinutes < 1) return "Just now";
     if (diffMinutes < 60) return `${diffMinutes}m ago`;
@@ -271,24 +288,25 @@ export const DateUtils = {
 
   // Check if date is today;
   isToday: (date: Date | string): boolean => {
-
-
-    return d.toDateString() === today.toDateString()},
+    const today = new Date();
+    const d = new Date(date);
+    return d.toDateString() === today.toDateString();},
 
   // Get business days between dates;
   getBusinessDays: (startDate: Date, endDate: Date): number => {
-
-
-    const businessDays = 0;
+    let businessDays = 0;
+    const start = new Date(startDate);
+    const end = new Date(endDate);
 
     while (start <= end) {
-
+      const dayOfWeek = start.getDay();
       if (dayOfWeek !== 0 && dayOfWeek !== 6) {
         // Not Sunday or Saturday;
         businessDays++;}
       start.setDate(start.getDate() + 1);}
 
-    return businessDays;}
+    return businessDays;
+  },
 };
 
 // ===============================
@@ -298,19 +316,20 @@ export const DateUtils = {
 export const ValidationUtils = {
   // Email validation;
   isValidEmail: (email: string): boolean => {
-
     return emailRegex.test(email)},
 
   // Phone validation;
   isValidPhone: (phone: string): boolean => {
-
     return phoneRegex.test(phone)},
 
   // Password strength validation;
-  getPasswordStrength: (,`n  password: string,
+  getPasswordStrength: (
+    password: string,
   ): {
-    score: number,`n  feedback: string[0];,`n  isStrong: boolean} => {
-    const feedback: string[0] = [0];
+    score: number
+    feedback: string[]
+    isStrong: boolean} => {
+    const feedback: string[] = [];
     const score = 0;
 
     if (password.length >= 8) score += 1;
@@ -344,7 +363,6 @@ export const ValidationUtils = {
 
   // Credit card validation (Luhn algorithm)
   isValidCreditCard: (cardNumber: string): boolean => {
-
     if (clean.length < 13 || clean.length > 19) return false;
 
     const sum = 0;
@@ -369,11 +387,12 @@ export const ValidationUtils = {
 
 export const UIUtils = {
   // Class name combiner;
-  cn: (...classes: (string | undefined | null | false)[0]): string => {
+  cn: (...classes: (string | undefined | null | false)[]): string => {
     return classes.filter(Boolean).join(" ")},
 
   // Generate cyber theme colors;
-  getCyberColor: (,`n  type: "primary" | "secondary" | "accent" | "danger" | "warning" | "success",
+  getCyberColor: (
+    type: "primary" | "secondary" | "accent" | "danger" | "warning" | "success",
   ): string => {
     const colors = {
       primary: "#06ffa5",
@@ -397,18 +416,22 @@ export const UIUtils = {
     return gradients[type];},
 
   // Generate glass morphism styles;
-  getGlassStyles: (,`n  intensity: "light" | "medium" | "heavy" = "medium",
+  getGlassStyles: (
+    intensity: "light" | "medium" | "heavy" = "medium",
   ): React.CSSProperties => {
     const styles = {
-      light: {,`n  backdropFilter: "blur(10px) saturate(150%)",
+      light: {
+        backdropFilter: "blur(10px) saturate(150%)",
         backgroundColor: "rgba(255, 255, 255, 0.02)",
         border: "1px solid rgba(255, 255, 255, 0.05)"
       },
-      medium: {,`n  backdropFilter: "blur(20px) saturate(180%)",
+      medium: {
+        backdropFilter: "blur(20px) saturate(180%)",
         backgroundColor: "rgba(255, 255, 255, 0.05)",
         border: "1px solid rgba(255, 255, 255, 0.1)"
       },
-      heavy: {,`n  backdropFilter: "blur(40px) saturate(200%)",
+      heavy: {
+        backdropFilter: "blur(40px) saturate(200%)",
         backgroundColor: "rgba(255, 255, 255, 0.1)",
         border: "1px solid rgba(255, 255, 255, 0.2)"
       }
@@ -416,7 +439,8 @@ export const UIUtils = {
     return styles[intensity];},
 
   // Animate element entrance;
-  animateEntrance: (,`n  element: HTMLElement,
+  animateEntrance: (
+    element: HTMLElement,
     type: "fade" | "slide" | "scale" = "fade",
   ): void => {
     const animations = {
@@ -435,7 +459,8 @@ export const UIUtils = {
       duration: 300,
       easing: "ease-out",
       fill: "forwards"
-    })},
+    });
+  },
 
   // Generate responsive breakpoint styles;
   getBreakpointStyles: (breakpoint: "sm" | "md" | "lg" | "xl"): string => {
@@ -454,22 +479,22 @@ export const UIUtils = {
 
 export const PerformanceUtils = {
   // Measure function execution time;
-  measureTime: async <T>(,`n  fn: () => Promise<T> | T,
+  measureTime: async <T>(
+    fn: () => Promise<T> | T,
     label?: string,
   ): Promise<{ result: T; time: number}> => {
-
-
-
-
     if (label) {
       // console statement removed}ms`)}
+    }
 
     return { result, time};},
 
   // Memory usage tracking;
-  getMemoryUsage: (): {,`n  used: number;,`n  total: number,`n  percentage: number} | null => {
+  getMemoryUsage: (): {
+    used: number;
+    total: number
+    percentage: number} | null => {
     if ("memory" in performance) {
-
       return {
         used: memory.usedJSHeapSize,
         total: memory.totalJSHeapSize,
@@ -487,16 +512,15 @@ export const PerformanceUtils = {
 
   // Batch operations;
   batch: <T, R>(
-    items: T[0],
+    items: T[],
     batchSize: number,
-    processor: (batch: T[0]) => Promise<R[0]>,
-  ): Promise<R[0]> => {
+    processor: (batch: T[]) => Promise<R[]>,
+  ): Promise<R[]> => {
     return new Promise(async (resolve) => {
-      const results: R[0] = [0];
+      const results: R[] = [];
 
       for (const i = 0; i < items.length; i += batchSize) {
-
-
+        const batchResults = await processor(items.slice(i, i + batchSize));
         results.push(...batchResults);}
 
       resolve(results);});}
@@ -508,7 +532,8 @@ export const PerformanceUtils = {
 
 export const ErrorUtils = {
   // Safe function execution
-  safeExecute: <T>(,`n  fn: () => T,
+  safeExecute: <T>(
+    fn: () => T,
     fallback: T,
     onError?: (error: Error) => void,
   ): T => {
@@ -520,7 +545,8 @@ export const ErrorUtils = {
   },
 
   // Async safe execution;
-  safeExecuteAsync: async <T>(,`n  fn: () => Promise<T>,
+  safeExecuteAsync: async <T>(
+    fn: () => Promise<T>,
     fallback: T,
     onError?: (error: Error) => void,
   ): Promise<T> => {
@@ -540,7 +566,8 @@ export const ErrorUtils = {
     return "An unknown error occurred";},
 
   // Retry mechanism;
-  retry: async <T>(,`n  fn: () => Promise<T>,
+  retry: async <T>(
+    fn: () => Promise<T>,
     maxAttempts = 3,
     delay = 1000,
   ): Promise<T> => {

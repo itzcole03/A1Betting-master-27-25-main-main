@@ -4,34 +4,48 @@ import {
     AlertTriangle,
     ArrowDown,
     ArrowUp,
+    BarChart3,
+    Brain,
     CheckCircle,
+    Cpu,
+    DollarSign,
+    Home,
+    Menu,
+    PieChart,
+    RefreshCw,
     Star,
     Target,
-    WifiOff
+    TrendingUp,
+    Trophy,
+    User,
+    WifiOff,
+    X,
+    Zap
 } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { CommandSummaryProvider, useCommandSummary } from '../contexts/CommandSummaryContext';
 import { safeNumber } from '../utils/UniversalUtils';
 
 // Lazy load major components for performance with fallbacks
 const Dashboard = React.lazy(() =>
   import('./Dashboard').catch(() => ({
     default: () => <div className='p-8 text-white'>Dashboard loading...</div>
-  }))
+  }) as any)
 );
 const BettingInterface = React.lazy(() =>
   import('./BettingInterface').catch(() => ({
     default: () => <div className='p-8 text-white'>Betting Interface loading...</div>
-  }))
+  }) as any)
 );
 const PredictionDisplay = React.lazy(() =>
   import('./PredictionDisplay').catch(() => ({
     default: () => <div className='p-8 text-white'>Predictions loading...</div>
-  }))
+  }) as any)
 );
 const UserProfile = React.lazy(() =>
   import('./UserProfile').catch(() => ({
     default: () => <div className='p-8 text-white'>Profile loading...</div>
-  }))
+  }) as any)
 );
 
 /**
@@ -53,51 +67,90 @@ const UserProfile = React.lazy(() =>
  */
 
 interface NavigationItem {
-  id: string
-,`n  label: string;
-,`n  icon: React.ReactNode
-,`n  component: React.ComponentType<any>;
-  badge?: string
+  id: string;
+  label: string;
+  icon: React.ReactNode;
+  component: React.ComponentType<any>;
+  badge?: string;
   description: string;
-  premium?: boolean}
+  premium?: boolean;
+}
 
 interface PlatformStats {
-  totalProfit: number
-,`n  winRate: number;
-,`n  accuracy: number
-,`n  activePredictions: number;
-,`n  portfolioValue: number
-,`n  todayPnL: number;
-,`n  sharpeRatio: number
-,`n  maxDrawdown: number;
-,`n  apiHealth: 'healthy' | 'degraded' | 'critical'
-,`n  opportunitiesFound: number;
-,`n  mlModelsActive: number}
+  totalProfit: number,
+  winRate: number,
+  accuracy: number,
+  activePredictions: number,
+  portfolioValue: number,
+  todayPnL: number,
+  sharpeRatio: number,
+  maxDrawdown: number,
+  apiHealth: 'healthy' | 'degraded' | 'critical',
+  opportunitiesFound: number,
+  mlModelsActive: number
+}
 
 interface LiveOpportunity {
-  id: string
-,`n  type: 'arbitrage' | 'value_bet' | 'prop_special' | 'live_edge';
-,`n  player: string
-,`n  sport: string;
-,`n  league: string
-,`n  line: number;
-,`n  odds: number
-,`n  confidence: number;
-,`n  expectedValue: number
-,`n  timeRemaining: number;
-,`n  source: string
-,`n  sharpMoney: boolean;
-,`n  marketInefficiency: number}
+  id: string,
+  type: 'arbitrage' | 'value_bet' | 'prop_special' | 'live_edge',
+  player: string,
+  sport: string,
+  league: string,
+  line: number,
+  odds: number,
+  confidence: number,
+  expectedValue: number,
+  timeRemaining: number,
+  source: string,
+  sharpMoney: boolean,
+  marketInefficiency: number
+}
 
 interface APIStatus {
-  sportsRadar: boolean
-,`n  theOdds: boolean;
-,`n  prizePicks: boolean
-,`n  espn: boolean;
-,`n  lastUpdate: string
-,`n  quotaUsage: {
-,`n  sportsRadar: number
-,`n  theOdds: number}}
+  sportsRadar: boolean,
+  theOdds: boolean,
+  prizePicks: boolean,
+  espn: boolean,
+  lastUpdate: string,
+  quotaUsage: {
+    sportsRadar: number,
+    theOdds: number
+  }
+}
+
+// TODO: Replace with actual import path for productionApiService
+// import { productionApiService } from '../services/productionApiService';
+const productionApiService = (window as any).productionApiService || {};
+
+const CommandSummarySidebar: React.FC = () => {
+  const { commands, loading, error, queue } = useCommandSummary();
+  return (
+    <aside style={{ width: 320, background: '#18181b', color: '#fff', borderLeft: '1px solid #333', padding: 16, overflowY: 'auto', position: 'fixed', right: 0, top: 0, height: '100vh', zIndex: 100 }}>
+      <h2 style={{ fontWeight: 700, fontSize: 20, marginBottom: 12 }}>Live Command Summary</h2>
+      {loading && <div>Loading commands...</div>}
+      {error && <div style={{ color: 'red' }}>{error}</div>}
+      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+        {commands.map(cmd => (
+          <li key={cmd.id} style={{ marginBottom: 16 }}>
+            <div style={{ fontWeight: 600 }}>{cmd.name}</div>
+            <div style={{ fontSize: 14, color: '#aaa' }}>{cmd.description}</div>
+          </li>
+        ))}
+      </ul>
+      <hr style={{ margin: '24px 0', border: 'none', borderTop: '1px solid #333' }} />
+      <h3 style={{ fontWeight: 700, fontSize: 16, marginBottom: 8 }}>Command Queue</h3>
+      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+        {queue.length === 0 && <li style={{ color: '#aaa' }}>No commands queued.</li>}
+        {queue.map(item => (
+          <li key={item.id} style={{ marginBottom: 10 }}>
+            <span style={{ fontWeight: 600 }}>{item.name}</span>
+            <span style={{ marginLeft: 8, color: '#0f0', fontSize: 13 }}>{item.status}</span>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  );
+};
 
 const A1BettingPlatform: React.FC = () => {
   const [activeView, setActiveView] = useState<string>('dashboard');
@@ -120,7 +173,7 @@ const A1BettingPlatform: React.FC = () => {
     mlModelsActive: 47
   });
 
-  const [liveOpportunities, setLiveOpportunities] = useState<LiveOpportunity[0]>([0]);
+  const [liveOpportunities, setLiveOpportunities] = useState<LiveOpportunity[]>([]);
   const [apiStatus, setApiStatus] = useState<APIStatus>({
     sportsRadar: true,
     theOdds: true,
@@ -128,13 +181,13 @@ const A1BettingPlatform: React.FC = () => {
     espn: true,
     lastUpdate: new Date().toISOString(),
     quotaUsage: {
-,`n  sportsRadar: 75,
+      sportsRadar: 75,
       theOdds: 45
     }
   });
 
   // Navigation structure based on comprehensive documentation
-  const navigationItems: NavigationItem[0] = useMemo(
+  const navigationItems: NavigationItem[] = useMemo(
     () => [
       {
         id: 'dashboard',
@@ -236,9 +289,9 @@ const A1BettingPlatform: React.FC = () => {
         ]);
 
         // Transform backend data to frontend format
-        const liveOpportunities: LiveOpportunity[0] = [
+        const liveOpportunities: LiveOpportunity[] = [
           ...bettingOpportunities.map((bet: any) => ({
-,`n  id: bet.id || Math.random().toString(),
+            id: bet.id || Math.random().toString(),
             type: 'value_bet',
             player: bet.player || 'Unknown Player',
             sport: bet.sport || 'Unknown Sport',
@@ -253,7 +306,7 @@ const A1BettingPlatform: React.FC = () => {
             marketInefficiency: bet.market_inefficiency || 0
           })),
           ...arbitrageOpportunities.map((arb: any) => ({
-,`n  id: arb.id || Math.random().toString(),
+            id: arb.id || Math.random().toString(),
             type: 'arbitrage',
             player: arb.player || 'Unknown Player',
             sport: arb.sport || 'Unknown Sport',
@@ -280,7 +333,7 @@ const A1BettingPlatform: React.FC = () => {
 //         console.error('Platform initialization error:', error);
         setStats(prev => ({ ...prev, apiHealth: 'critical'}));
         // Fallback to empty opportunities if API fails
-        setLiveOpportunities([0])} finally {
+        setLiveOpportunities([])} finally {
         setIsInitializing(false);
         // Small delay to ensure state updates are processed
         setTimeout(() => setIsLoading(false), 100)}
@@ -508,8 +561,8 @@ const A1BettingPlatform: React.FC = () => {
                           <span className={`absolute -top-2 -right-2 text-xs rounded-full w-5 h-5 flex items-center justify-center ${
                               item.badge === 'Live' || item.badge === 'Auto'
                                 ? 'bg-green-500 text-white animate-pulse'
-                                : 'bg-blue-500 text-white'}`}
->`n                          >
+                                : 'bg-blue-500 text-white'
+                            }`}>
                             {item.badge === 'Live' || item.badge === 'Auto' ? '●' : item.badge}
                           </span>
                         )}
@@ -538,8 +591,7 @@ const A1BettingPlatform: React.FC = () => {
                         <span className='text-xs text-gray-400'>
                           {safeNumber(apiStatus.quotaUsage.sportsRadar).toFixed(2)}%
                         </span>
-                        <span className={`w-2 h-2 rounded-full ${apiStatus.sportsRadar ? 'bg-green-400' : 'bg-red-400'}`}
->`n                        ></span>
+                        <span className={`w-2 h-2 rounded-full ${apiStatus.sportsRadar ? 'bg-green-400' : 'bg-red-400'}`}></span>
                       </div>
                     </div>
                     <div className='flex items-center justify-between'>
@@ -548,14 +600,12 @@ const A1BettingPlatform: React.FC = () => {
                         <span className='text-xs text-gray-400'>
                           {safeNumber(apiStatus.quotaUsage.theOdds).toFixed(2)}%
                         </span>
-                        <span className={`w-2 h-2 rounded-full ${apiStatus.theOdds ? 'bg-green-400' : 'bg-red-400'}`}
->`n                        ></span>
+                        <span className={`w-2 h-2 rounded-full ${apiStatus.theOdds ? 'bg-green-400' : 'bg-red-400'}`}></span>
                       </div>
                     </div>
                     <div className='flex items-center justify-between'>
                       <span className='text-xs text-gray-400'>PrizePicks API</span>
-                      <span className={`w-2 h-2 rounded-full ${apiStatus.prizePicks ? 'bg-green-400' : 'bg-red-400'}`}
->`n                      ></span>
+                      <span className={`w-2 h-2 rounded-full ${apiStatus.prizePicks ? 'bg-green-400' : 'bg-red-400'}`}></span>
                     </div>
                     <div className='flex items-center justify-between'>
                       <span className='text-xs text-gray-400'>ML Models</span>
@@ -610,8 +660,7 @@ const A1BettingPlatform: React.FC = () => {
               </div>
 
               {/* System Health Indicator */}
-              <div className={`flex items-center space-x-2 px-3 py-2 rounded-lg ${getApiHealthBackground()}`}
->`n              >
+              <div className={`flex items-center space-x-2 px-3 py-2 rounded-lg ${getApiHealthBackground()}`}>
                 {stats.apiHealth === 'healthy' ? (
                   <CheckCircle className='w-4 h-4' />
                 ) : stats.apiHealth === 'degraded' ? (
@@ -683,12 +732,14 @@ const A1BettingPlatform: React.FC = () => {
           <Target className='w-6 h-6 text-black' />
         </motion.button>
       </div>
+
+      {/* Inject live command summary sidebar */}
+      <CommandSummarySidebar />
     </div>
   )};
 
-export default A1BettingPlatform;
-
-
-
-
-`
+export default (props: any) => (
+  <CommandSummaryProvider>
+    <A1BettingPlatform {...props} />
+  </CommandSummaryProvider>
+);

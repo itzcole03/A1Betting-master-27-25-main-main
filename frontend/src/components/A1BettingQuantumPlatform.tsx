@@ -6,6 +6,7 @@
     useEffect,
     useState
 } from 'react';
+import { CommandSummaryProvider, useCommandSummary } from '../contexts/CommandSummaryContext';
 import { productionApiService } from '../services/productionApiServiceNew';
 import { safeNumber } from '../utils/UniversalUtils';
 import PropOllama from './user-friendly/PropOllama';
@@ -23,52 +24,55 @@ import PropOllama from './user-friendly/PropOllama';
 // ============================================
 
 interface Opportunity {
-  id: number
-,`n  game: string;
-,`n  market: string
-,`n  pick: string;
-,`n  odds: number
-,`n  confidence: number;
-,`n  ev: number
-,`n  source: string;
-,`n  time: string}
+  id: number;
+  game: string;
+  market: string;
+  pick: string;
+  odds: number;
+  confidence: number;
+  ev: number;
+  source: string;
+  time: string;
+}
 
 interface OpportunitiesData {
-  live: Opportunity[0]
-,`n  upcoming: Opportunity[0];
-,`n  value: Opportunity[0]
-,`n  arbitrage: Opportunity[0]}
+  live: Opportunity[];
+  upcoming: Opportunity[];
+  value: Opportunity[];
+  arbitrage: Opportunity[];
+}
 
 // ============================================
 // CONTEXT & STATE MANAGEMENT
 // ============================================
 
 interface AppContextType {
-  currentPage: string
-,`n  setCurrentPage: (page: string) => void
-,`n  realTimeData: any;
-,`n  setRealTimeData: (data: any) => void
-,`n  user: any;
-,`n  sidebarCollapsed: boolean
-,`n  setSidebarCollapsed: (collapsed: boolean) => void
-,`n  notifications: any[0];
-,`n  setNotifications: (notifications: any[0]) => void
-,`n  theme: string;
-,`n  setTheme: (theme: string) => void
-,`n  loading: Record<string, boolean>;
+  currentPage: string;
+  setCurrentPage: (page: string) => void;
+  realTimeData: any;
+  setRealTimeData: (data: any) => void;
+  user: any;
+  sidebarCollapsed: boolean;
+  setSidebarCollapsed: (collapsed: boolean) => void;
+  notifications: any[];
+  setNotifications: (notifications: any[]) => void;
+  theme: string;
+  setTheme: (theme: string) => void;
+  loading: Record<string, boolean>;
   setLoading: (loading: Record<string, boolean>) => void;
-  predictionEngine: any
-,`n  marketData: any;
-,`n  setMarketData: (data: any) => void}
+  predictionEngine: any;
+  marketData: any;
+  setMarketData: (data: any) => void;
+}
 
-const AppContext = createContext<AppContextType>(Record<string, any> as AppContextType);
+const AppContext = createContext<AppContextType>({} as AppContextType);
 
-const AppContextProvider: FC<{ children: ReactNode}> = ({ children}) => {
+const AppContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [currentPage, setCurrentPage] = useState('dashboard');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [notifications, setNotifications] = useState<any[0]>([0]);
+  const [notifications, setNotifications] = useState<any[]>([]);
   const [theme, setTheme] = useState('quantum-dark');
-  const [loading, setLoading] = useState(Record<string, any>);
+  const [loading, setLoading] = useState({} as Record<string, boolean>);
 
   // Real-time data from backend APIs with live fetching
   const [realTimeData, setRealTimeData] = useState({
@@ -142,7 +146,6 @@ const AppContextProvider: FC<{ children: ReactNode}> = ({ children}) => {
         // Calculate real-time metrics from backend data
         const totalProfit = bettingData.reduce(
           (sum: number, bet: any) => sum + bet.expected_value * 1000,
-//           0
         );
         const avgConfidence =
           predictionsData.length > 0
@@ -176,21 +179,23 @@ const AppContextProvider: FC<{ children: ReactNode}> = ({ children}) => {
         }));
 
         const hotGames = bettingData.slice(0, 3).map((bet: any) => ({
-,`n  game: bet.event,
+          game: bet.event,
           odds: bet.safeNumber(odds, 2),
           confidence: (bet.confidence * 100).toFixed(1),
           volume: bet.expected_value > 0.06 ? 'Massive' : 'High'
         }));
 
-        setMarketData({ trends, hotGames});} catch (error) {
-//         console.error('Error fetching real-time data:', error);
-        // Keep default loading state if backend is unavailable}
+        setMarketData({ trends, hotGames });
+      } catch (error) {
+        // Keep default loading state if backend is unavailable
+      }
     };
 
     fetchRealTimeData();
     const interval = setInterval(fetchRealTimeData, 30000); // Update every 30 seconds
 
-    return () => clearInterval(interval);}, [0]);
+    return () => clearInterval(interval);
+  }, []);
 
   const value = {
     currentPage,
@@ -208,10 +213,10 @@ const AppContextProvider: FC<{ children: ReactNode}> = ({ children}) => {
     setLoading,
     predictionEngine,
     marketData,
-//     setMarketData
   };
 
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;};
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+};
 
 // ============================================
 // UI COMPONENTS
@@ -221,11 +226,12 @@ interface ButtonProps {
   label: string;
   onClick?: () => void;
   variant?: 'primary' | 'secondary' | 'success' | 'danger' | 'ghost' | 'neural';
-  className?: string
-  icon?: string
+  className?: string;
+  icon?: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
-  disabled?: boolean
-  loading?: boolean}
+  disabled?: boolean;
+  loading?: boolean;
+}
 
 const Button: FC<ButtonProps> = ({
   label,
@@ -237,7 +243,7 @@ const Button: FC<ButtonProps> = ({
   disabled = false,
   loading = false
 }) => {
-  const variants: { [key: string]: string} = {
+  const variants: { [key: string]: string } = {
     primary:
       'bg-gradient-to-r from-green-400 via-electric-400 to-cyan-400 text-black font-black shadow-neon hover:shadow-neon-pink',
     secondary:
@@ -251,7 +257,7 @@ const Button: FC<ButtonProps> = ({
       'bg-purple-600/50 hover:bg-purple-700/50 text-white border-2 border-purple-500 backdrop-blur-20'
   };
 
-  const sizes: { [key: string]: string} = {
+  const sizes: { [key: string]: string } = {
     sm: 'px-4 py-2 text-sm',
     md: 'px-6 py-3',
     lg: 'px-8 py-4 text-lg',
@@ -262,21 +268,23 @@ const Button: FC<ButtonProps> = ({
     <button onClick={onClick}
       disabled={disabled || loading}
       className={`${sizes[size]} rounded-2xl font-bold transition-all duration-300 flex items-center justify-center space-x-2 ${variants[variant]} ${disabled || loading ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}
->`n    >
+    >
       {loading && (
         <div className='w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin' />
       )}
       {!loading && icon && <i className={`fas ${icon}`} />}
       <span>{label}</span>
     </button>
-  );};
+  );
+};
 
 interface CardProps {
-  title?: string
+  title?: string;
   children: ReactNode;
-  className?: string
-  glowing?: boolean
-  variant?: 'default' | 'glass' | 'neural' | 'success' | 'warning' | 'quantum';}
+  className?: string;
+  glowing?: boolean;
+  variant?: 'default' | 'glass' | 'neural' | 'success' | 'warning' | 'quantum';
+}
 
 const Card: FC<CardProps> = ({
   title,
@@ -285,7 +293,7 @@ const Card: FC<CardProps> = ({
   glowing = false,
   variant = 'default'
 }) => {
-  const variants: { [key: string]: string} = {
+  const variants: { [key: string]: string } = {
     default: 'quantum-card',
     glass: 'ultra-glass',
     neural: 'quantum-card border-purple-500/30',
@@ -306,16 +314,18 @@ const Card: FC<CardProps> = ({
       )}
       <div>{children}</div>
     </div>
-  );};
+  );
+};
 
 interface MetricCardProps {
-  label: string
-,`n  value: string;
-,`n  icon: string;
-  change?: string
+  label: string;
+  value: string;
+  icon: string;
+  change?: string;
   trend?: 'up' | 'down' | 'neutral';
-  live?: boolean
-  variant?: 'default' | 'neural' | 'quantum' | 'profit';}
+  live?: boolean;
+  variant?: 'default' | 'neural' | 'quantum' | 'profit';
+}
 
 const MetricCard: FC<MetricCardProps> = ({
   label,
@@ -331,7 +341,7 @@ const MetricCard: FC<MetricCardProps> = ({
   const trendIcon =
     trend === 'up' ? 'fa-arrow-up' : trend === 'down' ? 'fa-arrow-down' : 'fa-minus';
 
-  const variants: { [key: string]: string} = {
+  const variants: { [key: string]: string } = {
     default: 'quantum-card',
     neural: 'quantum-card border-purple-500/20',
     quantum: 'quantum-card border-blue-500/20',
@@ -339,16 +349,14 @@ const MetricCard: FC<MetricCardProps> = ({
   };
 
   return (
-    <div className={`${variants[variant]} rounded-2xl p-6 text-center hover: shadow-neon transition-all duration-500 transform hover:scale-105 hover:rotate-1`}
->`n    >
+    <div className={`${variants[variant]} rounded-2xl p-6 text-center hover: shadow-neon transition-all duration-500 transform hover:scale-105 hover:rotate-1`}>
       <div className='relative mb-4'>
         <div className='absolute inset-0 bg-electric-400/20 rounded-full blur-xl' />
         <div className={`relative text-4xl text-electric-400 ${live ? 'brain-pulse' : ''}`}>
           <i className={icon} />
         </div>
       </div>
-      <div className={`text-3xl font-black mb-2 text-white font-cyber ${live ? 'animate-cyber-pulse' : ''}`}
->`n      >
+      <div className={`text-3xl font-black mb-2 text-white font-cyber ${live ? 'animate-cyber-pulse' : ''}`}>
         {value}
       </div>
       <div className='text-gray-400 text-sm mb-3 uppercase tracking-wider'>{label}</div>
@@ -359,7 +367,8 @@ const MetricCard: FC<MetricCardProps> = ({
         </div>
       )}
     </div>
-  )};
+  );
+};
 
 // ============================================
 // HEADER COMPONENT
@@ -373,7 +382,6 @@ const Header: React.FC = () => {
     realTimeData,
     sidebarCollapsed,
     setSidebarCollapsed,
-//     notifications
   } = useContext(AppContext);
   const [showNotifications, setShowNotifications] = useState(false);
 
@@ -382,7 +390,8 @@ const Header: React.FC = () => {
     const currentIndex = themes.indexOf(theme);
     const nextTheme = themes[(currentIndex + 1) % themes.length];
     setTheme(nextTheme);
-    // applyTheme(nextTheme); // This function needs to be implemented in the context};
+    // applyTheme(nextTheme); // This function needs to be implemented in the context
+  };
 
   return (
     <header className='ultra-glass border-b border-white/10 sticky top-0 z-50 backdrop-blur-30'>
@@ -402,7 +411,7 @@ const Header: React.FC = () => {
                 strokeLinecap='round'
                 strokeLinejoin='round'
                 className='text-gray-300'
->`n              >
+              >
                 <path d='M4 12h16' />
                 <path d='M4 6h16' />
                 <path d='M4 18h16' />
@@ -417,7 +426,7 @@ const Header: React.FC = () => {
               </div>
               <div>
                 <div className='holographic text-2xl font-black tracking-tight font-cyber'>
-//                   A1BETTING
+                  A1BETTING
                 </div>
                 <div className='text-xs text-gray-400 uppercase tracking-widest font-mono'>
                   Ultimate Brain 🧠 QUANTUM ACTIVE
@@ -426,9 +435,9 @@ const Header: React.FC = () => {
               <div className='hidden xl:flex items-center space-x-3 bg-gradient-to-r from-green-500/10 to-electric-500/10 rounded-xl px-4 py-2 border border-green-500/20'>
                 <div className='w-3 h-3 bg-green-400 rounded-full animate-pulse'></div>
                 <span className='text-green-400 text-sm font-bold font-cyber'>NEURAL OPTIMAL</span>
-                <span className='text-green-300 text-sm font-mono'>{`${safeNumber(realTimeData.accuracy).toFixed(1)}% ACC`}</span>
+                <span className='text-green-300 text-sm font-mono'>{realTimeData.accuracy.toFixed(1)}% ACC</span>
                 <div className='w-px h-4 bg-green-400/30'></div>
-                <span className='text-blue-400 text-sm font-mono'>{`${safeNumber(realTimeData.quantumCoherence)}% COHERENCE`}</span>
+                <span className='text-blue-400 text-sm font-mono'>{realTimeData.quantumCoherence}% COHERENCE</span>
               </div>
             </div>
           </div>
@@ -437,23 +446,23 @@ const Header: React.FC = () => {
               <div className='flex items-center space-x-2'>
                 <i className='fas fa-microchip text-electric-400 animate-pulse'></i>
                 <span className='text-gray-400'>Processing:</span>
-                <span className='text-electric-400 font-mono font-bold'>{`${safeNumber(realTimeData.processingSpeed).toFixed(1)}ms`}</span>
+                <span className='text-electric-400 font-mono font-bold'>{realTimeData.processingSpeed.toFixed(1)}ms</span>
               </div>
               <div className='flex items-center space-x-2'>
                 <i className='fas fa-robot text-purple-400 animate-pulse'></i>
                 <span className='text-gray-400'>Bots:</span>
-                <span className='text-purple-400 font-mono font-bold'>{`${safeNumber(realTimeData.activeBots)}/47`}</span>
+                <span className='text-purple-400 font-mono font-bold'>{realTimeData.activeBots}/47</span>
               </div>
             </div>
             <button onClick={toggleTheme}
               className='p-3 rounded-xl hover:bg-gray-100/10 transition-all duration-300 hover:shadow-neon'
               aria-label='Toggle theme'
->`n            >
+            >
               <i className='fas fa-palette text-electric-400 text-lg'></i>
             </button>
             <button className='p-3 rounded-xl hover:bg-gray-100/10 transition-all duration-300 hover:shadow-neon'
               aria-label='Search'
->`n            >
+            >
               <svg width='20'
                 height='20'
                 viewBox='0 0 24 24'
@@ -463,7 +472,7 @@ const Header: React.FC = () => {
                 strokeLinecap='round'
                 strokeLinejoin='round'
                 className='text-gray-400'
->`n              >
+              >
                 <circle cx='11' cy='11' r='8' />
                 <path d='m21 21-4.35-4.35' />
               </svg>
@@ -482,7 +491,7 @@ const Header: React.FC = () => {
                   strokeLinecap='round'
                   strokeLinejoin='round'
                   className='text-gray-400'
->`n                >
+                >
                   <path d='M6 8A6 6 0 0 1 18 8c0 7 3 9 3 9H3s3-2 3-9' />
                   <path d='M13.73 21a2 2 0 0 1-3.46 0' />
                 </svg>
@@ -516,7 +525,7 @@ const Header: React.FC = () => {
               </div>
               <button className='relative w-12 h-12 bg-gradient-to-br from-electric-400 via-neon-blue to-neon-purple rounded-xl flex items-center justify-center hover:shadow-neon transition-all duration-300 transform hover:scale-105 hover:rotate-3'
                 aria-label='Profile'
->`n              >
+              >
                 <span className='text-black font-black text-lg font-cyber'>
                   {user.name.charAt(0)}
                 </span>
@@ -525,15 +534,17 @@ const Header: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
     </header>
-  )};
+  );
+};
 
 // ============================================
 // SIDEBAR COMPONENT
 // ============================================
 
 const Sidebar: React.FC = () => {
-  const { currentPage, setCurrentPage, realTimeData, sidebarCollapsed} =
+  const { currentPage, setCurrentPage, realTimeData, sidebarCollapsed } =
     useContext(AppContext);
 
   const navigation = [
@@ -626,7 +637,7 @@ const Sidebar: React.FC = () => {
     },
   ];
 
-  const categories: { [key: string]: string} = {
+  const categories: { [key: string]: string } = {
     main: 'Core Quantum Features',
     ai: 'AI & Neural Networks',
     insights: 'Intelligence & Analytics',
@@ -637,13 +648,13 @@ const Sidebar: React.FC = () => {
     (acc, item) => {
       if (!acc[item.category]) acc[item.category] = [0];
       acc[item.category].push(item);
-      return acc;},
+      return acc;
+    },
     Record<string, any> as Record<string, typeof navigation>
   );
 
   return (
-    <div className={`${sidebarCollapsed ? 'w-20' : 'w-96'} ultra-glass h-screen border-r border-white/10 flex flex-col transition-all duration-500 ease-in-out`}
->`n    >
+    <div className={`${sidebarCollapsed ? 'w-20' : 'w-96'} ultra-glass h-screen border-r border-white/10 flex flex-col transition-all duration-500 ease-in-out`}>
       <div className='p-6 border-b border-white/10'>
         {!sidebarCollapsed && (
           <div className='flex items-center space-x-4 mb-8'>
@@ -661,8 +672,7 @@ const Sidebar: React.FC = () => {
           <button onClick={() => setCurrentPage('dashboard')}
             className={`w-full flex items-center ${sidebarCollapsed ? 'justify-center' : 'justify-between'} px-4 py-4 rounded-2xl transition-all duration-300 ${currentPage === 'dashboard'
               ? 'bg-electric-500/20 border-2 border-electric-500/40 text-electric-400 shadow-neon'
-              : 'bg-gray-800/30 hover: bg-gray-800/50 text-gray-300 border-2 border-transparent hover:border-gray-600'}`}
-          >
+              : 'bg-gray-800/30 hover: bg-gray-800/50 text-gray-300 border-2 border-transparent hover:border-gray-600'}`}>
             <div className={`flex items-center ${sidebarCollapsed ? '' : 'space-x-4'}`}>
               <i className='fas fa-home text-xl' />
               {!sidebarCollapsed && <span className='font-bold'>Ultimate Dashboard</span>}
@@ -687,8 +697,7 @@ const Sidebar: React.FC = () => {
                     <button onClick={() => setCurrentPage(item.key)}
                       className={`w-full flex items-center ${sidebarCollapsed ? 'justify-center' : ''} space-x-4 px-4 py-3 rounded-2xl transition-all duration-300 ${currentPage === item.key
                         ? 'bg-electric-500/20 text-electric-400 shadow-neon'
-                        : 'hover:bg-gray-800/50 text-gray-300'}`}
-                    >
+                        : 'hover:bg-gray-800/50 text-gray-300'}`}>
                       <i className={`fas ${item.icon} ${item.color} text-lg w-6 text-center`} />
                       {!sidebarCollapsed && (
                         <span className='flex-1 text-left font-semibold'>{item.name}</span>
@@ -730,14 +739,15 @@ const Sidebar: React.FC = () => {
         </div>
       )}
     </div>
-  )};
+  );
+};
 
 // ============================================
 // DASHBOARD COMPONENT
 // ============================================
 
 const Dashboard: FC = () => {
-  const { realTimeData, marketData, setCurrentPage} = useContext(AppContext);
+  const { realTimeData, marketData, setCurrentPage } = useContext(AppContext);
 
   const gameCardStyles = [
     {
@@ -838,8 +848,7 @@ const Dashboard: FC = () => {
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
           {marketData.hotGames.map((game: any, index: number) => (
             <div key={index}
-              className={`quantum-card rounded-3xl p-6 bg-gradient-to-br ${gameCardStyles[index % 3].container} transform hover:scale-105 transition-transform duration-300`}
->`n            >
+              className={`quantum-card rounded-3xl p-6 bg-gradient-to-br ${gameCardStyles[index % 3].container} transform hover:scale-105 transition-transform duration-300`}>
               <div className='flex justify-between items-start mb-4'>
                 <div>
                   <h4 className={`text-lg font-bold ${gameCardStyles[index % 3].title}`}>{game.game}</h4>
@@ -848,7 +857,7 @@ const Dashboard: FC = () => {
                 <div className='relative'>
                   <div className={`absolute -inset-1 ${gameCardStyles[index % 3].pulseBg}/30 rounded-full animate-pulse`}></div>
                   <div className={`relative w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg ${gameCardStyles[index % 3].liveTracker}`}>
-//                     LIVE
+                    //                     LIVE
                   </div>
                 </div>
               </div>
@@ -858,8 +867,7 @@ const Dashboard: FC = () => {
               </div>
               <div className='w-full bg-gray-700/50 rounded-full h-2.5'>
                 <div className={`h-2.5 rounded-full ${gameCardStyles[index % 3].confidenceBar}`}
-                  style={{ width: `${game.confidence}%`}}
->`n                ></div>
+                  style={{ width: `${game.confidence}%` }}></div>
               </div>
               <div className='text-center mt-4'>
                 <p className='text-sm text-gray-400'>Market Volume</p>
@@ -896,13 +904,15 @@ const Dashboard: FC = () => {
         </div>
       </Card>
     </div>
-  )};
+  );
+};
 
 // ============================================
 // MONEY MAKER COMPONENT
 // ============================================
 
 const MoneyMaker: React.FC = () => {
+  const { realTimeData, setRealTimeData } = useContext(AppContext);
   const { realTimeData, setRealTimeData} = useContext(AppContext);
   const [activeTab, setActiveTab] = useState('live');
   const [opportunities, setOpportunities] = useState<OpportunitiesData>({
@@ -1310,7 +1320,30 @@ const PageContent: FC = () => {
     default: return <Dashboard />}
 };
 
-export default A1BettingQuantumPlatform;
+const CommandSummarySidebar: React.FC = () => {
+  const { commands, loading, error } = useCommandSummary();
+  return (
+    <aside style={{ width: 320, background: '#18181b', color: '#fff', borderLeft: '1px solid #333', padding: 16, overflowY: 'auto', position: 'fixed', right: 0, top: 0, height: '100vh', zIndex: 100 }}>
+      <h2 style={{ fontWeight: 700, fontSize: 20, marginBottom: 12 }}>Live Command Summary</h2>
+      {loading && <div>Loading commands...</div>}
+      {error && <div style={{ color: 'red' }}>{error}</div>}
+      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+        {commands.map(cmd => (
+          <li key={cmd.id} style={{ marginBottom: 16 }}>
+            <div style={{ fontWeight: 600 }}>{cmd.name}</div>
+            <div style={{ fontSize: 14, color: '#aaa' }}>{cmd.description}</div>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  );
+};
+
+export default (props: any) => (
+  <CommandSummaryProvider>
+    <A1BettingQuantumPlatform {...props} />
+  </CommandSummaryProvider>
+);
 
 
 

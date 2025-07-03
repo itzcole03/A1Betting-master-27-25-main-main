@@ -1,6 +1,5 @@
-import { DataSource } from '../unified/DataSource';
-import { EventBus } from '../unified/EventBus';
-import { PerformanceMonitor } from '../unified/PerformanceMonitor';
+import { DataSource } from '@/unified/DataSource';
+import { EventBus } from '@/unified/EventBus';
 
 export interface ESPNGame {
   id: string;
@@ -21,55 +20,64 @@ export interface ESPNData {
   headlines: ESPNHeadline[];
 }
 
+export interface ESPNAdapterConfig {
+  cacheTimeout?: number; // Milliseconds, e.g., 5 minutes
+  baseUrl?: string; // Optional: api.espn.com is default
+}
+
 export class ESPNAdapter implements DataSource<ESPNData> {
   public readonly id = 'espn';
   public readonly type = 'sports-news';
 
   private readonly eventBus: EventBus;
-  private readonly performanceMonitor: PerformanceMonitor;
+  private readonly config: ESPNAdapterConfig;
   private cache: {
     data: ESPNData | null;
     timestamp: number;
-  }
+  };
 
-  constructor() {
+  constructor(config: ESPNAdapterConfig = {}) {
     this.eventBus = EventBus.getInstance();
-    this.performanceMonitor = PerformanceMonitor.getInstance();
+    this.config = {
+      cacheTimeout: 5 * 60 * 1000, // Default 5 minutes
+      baseUrl: 'https://site.api.espn.com',
+      ...config
+    };
     this.cache = {
       data: null,
       timestamp: 0
-    }
+    };
   }
 
   public async isAvailable(): Promise<boolean> {
     return true;
   }
 
-  public async fetch(): Promise<ESPNData> {
-    const traceId = this.performanceMonitor.startTrace('espn-fetch', {
-      source: this.id,
-      type: this.type
-    });
-
+  public async fetchData(): Promise<ESPNData> {
+    const startTime = Date.now();
+    
     try {
       if (this.isCacheValid()) {
         return this.cache.data!;
       }
       
       const [games, headlines] = await Promise.all([this.fetchGames(), this.fetchHeadlines()]);
-      const data: ESPNData = { games, headlines }
+      const data: ESPNData = { games, headlines };
       
-      this.cache = { data, timestamp: Date.now() }
-      await this.eventBus.publish({
-        type: 'espn:data-updated',
-        payload: { data: { gameCount: games.length, headlineCount: headlines.length }, timestamp: Date.now() }
-      });
+      this.cache = { data, timestamp: Date.now() };
       
-      this.performanceMonitor.endTrace(traceId);
+      // Update game status for each game
+      for (const game of games) {
+        await this.eventBus.publish({
+          type: 'game:status',
+          payload: { game, timestamp: Date.now() }
+        });
+      }
+      
       return data;
-    } catch (error) {
-      this.performanceMonitor.endTrace(traceId, error as Error);
-      throw error;
+    } finally {
+      const duration = Date.now() - startTime;
+      // console.debug('[ESPNAdapter] Fetch completed in ' + duration + 'ms');
     }
   }
 
@@ -134,7 +142,7 @@ export class ESPNAdapter implements DataSource<ESPNData> {
   }
 
   private isCacheValid(): boolean {
-    const cacheTimeout = 5 * 60 * 1000; // 5 minutes
+    const cacheTimeout = this.config.cacheTimeout || 5 * 60 * 1000; // 5 minutes
     return this.cache.data !== null && Date.now() - this.cache.timestamp < cacheTimeout;
   }
 
@@ -148,4 +156,5 @@ export class ESPNAdapter implements DataSource<ESPNData> {
 
   public async disconnect(): Promise<void> {
     // Implementation for disconnection
+  }
 }

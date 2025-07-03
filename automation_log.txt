@@ -1,0 +1,101 @@
+[2025-07-02 21:03:24] [INFO] 🚀 A1BETTING CURSOR AI EFFICIENCY SYSTEM - FULL AUTOMATION
+[2025-07-02 21:03:24] [INFO] ======================================================================
+[2025-07-02 21:03:24] [INFO] 
+🔄 Executing: System Requirements
+[2025-07-02 21:03:24] [INFO] 🔧 Checking system requirements...
+[2025-07-02 21:03:24] [INFO] ✅ Python version: 3.12
+[2025-07-02 21:03:24] [INFO] ✅ Package available: json
+[2025-07-02 21:03:24] [INFO] ✅ Package available: pathlib
+[2025-07-02 21:03:24] [INFO] ✅ Package available: subprocess
+[2025-07-02 21:03:24] [INFO] ✅ Package available: datetime
+[2025-07-02 21:03:24] [INFO] ✅ System Requirements completed successfully
+[2025-07-02 21:03:24] [INFO] 
+🔄 Executing: Directory Structure
+[2025-07-02 21:03:24] [INFO] 🏗️  Creating directory structure...
+[2025-07-02 21:03:24] [INFO] ✅ Created directory: .cursor
+[2025-07-02 21:03:24] [INFO] ✅ Created directory: .cursor/rules
+[2025-07-02 21:03:24] [INFO] ✅ Created directory: .cursor/agents
+[2025-07-02 21:03:24] [INFO] ✅ Created directory: .cursor/docs
+[2025-07-02 21:03:24] [INFO] ✅ Created directory: memory-bank
+[2025-07-02 21:03:24] [INFO] ✅ Created directory: memory-bank/chat-archives
+[2025-07-02 21:03:24] [INFO] ✅ Created directory: memory-bank/chat-archives/by-date
+[2025-07-02 21:03:24] [INFO] ✅ Created directory: memory-bank/chat-archives/by-topic
+[2025-07-02 21:03:24] [INFO] ✅ Created directory: memory-bank/chat-archives/supervisor-coordination
+[2025-07-02 21:03:24] [INFO] ✅ Created directory: memory-bank/ingested-context
+[2025-07-02 21:03:24] [INFO] ✅ Created directory: tools
+[2025-07-02 21:03:24] [INFO] ✅ Directory Structure completed successfully
+[2025-07-02 21:03:24] [INFO] 
+🔄 Executing: Topic Directories
+[2025-07-02 21:03:24] [INFO] 📁 Setting up topic directories...
+[2025-07-02 21:03:24] [INFO] ✅ Created topic directory: betting
+[2025-07-02 21:03:24] [INFO] ✅ Created topic directory: ml
+[2025-07-02 21:03:24] [INFO] ✅ Created topic directory: frontend
+[2025-07-02 21:03:24] [INFO] ✅ Created topic directory: backend
+[2025-07-02 21:03:24] [INFO] ✅ Created topic directory: security
+[2025-07-02 21:03:24] [INFO] ✅ Created topic directory: errors
+[2025-07-02 21:03:24] [INFO] ✅ Created topic directory: architecture
+[2025-07-02 21:03:24] [INFO] ✅ Created topic directory: integration
+[2025-07-02 21:03:24] [INFO] ✅ Created topic directory: performance
+[2025-07-02 21:03:24] [INFO] ✅ Created topic directory: agent
+[2025-07-02 21:03:24] [INFO] ✅ Topic Directories completed successfully
+[2025-07-02 21:03:24] [INFO] 
+🔄 Executing: JSON Validation
+[2025-07-02 21:03:24] [INFO] 🔍 Validating JSON configuration files...
+[2025-07-02 21:03:24] [INFO] ✅ Valid JSON: .cursor/modes.json
+[2025-07-02 21:03:24] [INFO] ✅ Valid JSON: .cursor/settings.json
+[2025-07-02 21:03:24] [INFO] ✅ Valid JSON: memory-bank/chat-history-summary.json
+[2025-07-02 21:03:24] [INFO] ✅ JSON Validation completed successfully
+[2025-07-02 21:03:24] [INFO] 
+🔄 Executing: Memory Bank Integrity
+[2025-07-02 21:03:24] [INFO] 🧠 Verifying memory bank integrity...
+[2025-07-02 21:03:24] [INFO] ✅ Memory file verified: memory-bank/activeContext.md
+[2025-07-02 21:03:24] [INFO] ✅ Memory file verified: memory-bank/progress.md
+[2025-07-02 21:03:24] [INFO] ✅ Memory file verified: memory-bank/systemPatterns.md
+[2025-07-02 21:03:24] [INFO] ✅ Memory file verified: memory-bank/techContext.md
+[2025-07-02 21:03:24] [INFO] ✅ Memory file verified: memory-bank/productContext.md
+[2025-07-02 21:03:24] [INFO] ✅ Memory file verified: memory-bank/projectbrief.md
+[2025-07-02 21:03:24] [INFO] ✅ Memory file verified: memory-bank/README.md
+[2025-07-02 21:03:24] [INFO] ✅ Memory Bank Integrity completed successfully
+[2025-07-02 21:03:24] [INFO] 
+🔄 Executing: Cursor Optimization
+[2025-07-02 21:03:24] [INFO] ⚡ Optimizing Cursor IDE settings...
+[2025-07-02 21:03:24] [WARN] ⚠️  Missing optimizations: ['cursor.general.enableBackgroundAgent']
+[2025-07-02 21:03:24] [ERROR] ❌ Cursor Optimization failed
+[2025-07-02 21:03:24] [INFO] 
+🔄 Executing: Chat History Processing
+[2025-07-02 21:03:24] [INFO] 💬 Processing chat history...
+[2025-07-02 21:03:25] [ERROR] ❌ Chat history processing failed: Traceback (most recent call last):
+  File "C:\Users\bcmad\Downloads\A1Betting-master-27-25-main-main\A1Betting-master-27-25-main-main\tools\chat_history_processor.py", line 455, in <module>
+    main() 
+    ^^^^^^
+  File "C:\Users\bcmad\Downloads\A1Betting-master-27-25-main-main\A1Betting-master-27-25-main-main\tools\chat_history_processor.py", line 437, in main
+    print("\U0001f680 A1Betting Chat History Processor")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f680' in position 0: character maps to <undefined>
+
+[2025-07-02 21:03:25] [ERROR] ❌ Chat History Processing failed
+[2025-07-02 21:03:25] [INFO] 
+🔄 Executing: Test Suite Execution
+[2025-07-02 21:03:25] [INFO] 🧪 Running comprehensive test suite...
+[2025-07-02 21:03:25] [ERROR] ❌ Tests failed with exit code: 1
+[2025-07-02 21:03:25] [ERROR] Test errors: Traceback (most recent call last):
+  File "C:\Users\bcmad\Downloads\A1Betting-master-27-25-main-main\A1Betting-master-27-25-main-main\run_efficiency_tests.py", line 203, in <module>
+    success = test_system()
+              ^^^^^^^^^^^^^
+  File "C:\Users\bcmad\Downloads\A1Betting-master-27-25-main-main\A1Betting-master-27-25-main-main\run_efficiency_tests.py", line 15, in test_system
+    print("\U0001f9ea A1BETTING CURSOR AI EFFICIENCY SYSTEM - AUTOMATED TESTS")
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f9ea' in position 0: character maps to <undefined>
+
+[2025-07-02 21:03:25] [ERROR] ❌ Test Suite Execution failed
+[2025-07-02 21:03:25] [INFO] 📊 Generating system status report...
+[2025-07-02 21:03:25] [INFO] ✅ System status report generated
+[2025-07-02 21:03:25] [INFO] 
+======================================================================
+[2025-07-02 21:03:25] [WARN] ⚠️  AUTOMATION COMPLETED WITH ISSUES
+[2025-07-02 21:03:25] [INFO] 🔧 Review automation_log.txt for detailed error information
+[2025-07-02 21:03:25] [INFO] 🔄 Re-run automation after fixing issues

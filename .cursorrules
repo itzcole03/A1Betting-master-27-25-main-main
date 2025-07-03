@@ -1,101 +1,175 @@
-# A1Betting Platform - Cursor AI Configuration
+# A1Betting Platform - Cursor AI Master Rules
+# Version: 2.0.0 | Updated: 2025-01-19
+# Purpose: Comprehensive AI behavior control with persistent memory integration
 
-## PROJECT CONTEXT
+## CRITICAL SYSTEM INITIALIZATION
+BEFORE ANY INTERACTION, ALWAYS:
+1. 🧠 READ MEMORY BANK: Access @memory-bank/ directory for project context
+2. 📋 LOAD ACTIVE CONTEXT: Review @memory-bank/activeContext.md for current priorities
+3. 🎯 CHECK PROGRESS: Review @memory-bank/progress.md for status tracking
+4. 🔧 APPLY PATTERNS: Use @memory-bank/systemPatterns.md for architecture decisions
+5. 💡 LEVERAGE LESSONS: Check @memory-bank/chat-archives/ for previous solutions
 
-A1Betting: Sophisticated sports betting intelligence platform
+## MEMORY BANK INTEGRATION PROTOCOL
+### Automatic Memory Updates
+- UPDATE @memory-bank/progress.md after every significant change
+- LOG important decisions in @memory-bank/activeContext.md
+- CAPTURE lessons learned in @memory-bank/chat-archives/
+- MAINTAIN version control with [v2.0.0] format timestamps
+- CROSS-REFERENCE related files and decisions
 
-- React 18 + TypeScript frontend (QuantumSportsPlatform.tsx main component)
-- FastAPI backend with 96.4% accuracy ML models
-- Real-time PrizePicks API integration
-- 26,797 TypeScript errors requiring surgical repair
+### Memory Bank File Structure
+```
+memory-bank/
+├── projectbrief.md          # Core requirements & project scope
+├── productContext.md        # Business context & value proposition
+├── activeContext.md         # Current work focus & priorities
+├── systemPatterns.md        # Architecture patterns & decisions
+├── techContext.md           # Technology stack & constraints
+├── progress.md              # Status tracking & achievements
+├── codebase-context.md      # Comprehensive platform analysis
+└── chat-archives/           # Organized conversation history
+    ├── by-date/            # Chronological organization
+    ├── by-topic/           # 10 categories: betting, ML, frontend, etc.
+    └── supervisor-coordination/ # Multi-agent patterns
+```
 
-## CORE PRINCIPLES
+## DUAL-MODE OPERATION SYSTEM
+### 🎯 PLAN MODE (Default)
+**Trigger**: "plan" or new conversation start
+**Purpose**: Information gathering and strategic planning
+**Requirements**:
+- Parse user input against memory bank context
+- Cross-reference with @memory-bank/activeContext.md
+- Generate minimum 3 clarifying questions
+- Calculate confidence score (target: 95%)
+- Create structured task breakdown
+- Update @memory-bank/progress.md with planning phase
 
-1. PRESERVE sophisticated architecture - never simplify
-2. SURGICAL repair approach - fix corruption, not rewrite
-3. BETTING platform security - protect algorithms and user data
+### ⚡ AGENT MODE (Execution)
+**Trigger**: "agent" or 95% confidence achieved
+**Activation Requirements**:
+- 95% confidence level achieved
+- All critical questions answered
+- Tasks clearly defined with dependencies
+- No blocking issues identified
+- Requirements verified against memory bank
 
-## RULES (APPLY: ALWAYS)
+## A1BETTING PLATFORM SPECIFICATIONS
+### Core Architecture (NEVER MODIFY)
+- **Frontend**: React 18 + TypeScript with 4 main interfaces
+  - QuantumSportsPlatform.tsx (1320 lines, 47+ ML models)
+  - A1BettingPlatform.tsx (Enterprise interface, 73.8% win rate)
+  - A1BettingPlatformImmediate.tsx (Fast-loading testing)
+  - A1BettingQuantumPlatform.tsx (Quantum-enhanced neural networks)
+- **Backend**: FastAPI + Python 3.12 with 87+ files
+- **Database**: SQLite + PostgreSQL + Redis caching
+- **Performance**: 73.8% win rate, 18.5% ROI, 1.42 Sharpe ratio
 
-- Fix `,`n corruption patterns systematically
-- Maintain QuantumSportsPlatform.tsx structure (1320 lines)
-- Preserve ML model integration and real-time pipeline
-- Use environment variables for all secrets
-- Test financial calculations thoroughly
-- Document all changes in living documentation
+### Security & Compliance (MANDATORY)
+- NEVER expose betting algorithms or proprietary calculations
+- NEVER log API keys, secrets, or financial data
+- ALWAYS use environment variables for sensitive configuration
+- ALWAYS validate financial calculations with multiple methods
+- ALWAYS implement audit trails for betting operations
+- ALWAYS use type hints for financial functions
 
-## AUTONOMOUS BACKGROUND AGENTS CONFIGURATION
-Enable all background agents for autonomous operation:
+### ML Model Integration (PRESERVE)
+- Maintain 96.4% accuracy ML models
+- Preserve TensorFlow initialization and pipeline
+- Use async endpoints for all ML predictions
+- Implement proper error handling for model failures
+- Document any changes to model performance
 
-### TypeScript Error Monitor (AUTONOMOUS: TRUE)
-- Auto-fix `,`n corruption patterns without approval
-- Target: 26,797 → < 100 errors
-- Batch processing: 50 fixes per batch
-- Preserve logic and architecture
-- Real-time monitoring and repair
+## CODING STANDARDS & BEST PRACTICES
+### Code Quality Requirements
+- Follow SOLID principles and DRY methodology
+- Use clear, semantic naming conventions
+- Implement comprehensive error handling
+- Add thorough documentation with examples
+- Include proper TypeScript type definitions
+- Optimize for readability over performance
 
-### Build Status Monitor (AUTONOMOUS: TRUE)
-- Continuous build monitoring
-- Auto-retry on failures (3 attempts)
-- Monitor frontend and backend builds
-- Alert on performance degradation
-- Maintain < 30 second build times
+### Architecture Patterns
+- **Backend**: RESTful API, microservices, event-driven patterns
+- **Frontend**: Component-based architecture, state management
+- **Database**: Repository pattern, service layer abstraction
+- **Testing**: Unit, integration, end-to-end, performance testing
 
-### ML Model Performance Monitor (AUTONOMOUS: TRUE)
-- Monitor 96.4% accuracy threshold
-- Track prediction pipeline health
-- Alert on model degradation
-- Validate TensorFlow integration
-- Real-time performance metrics
+### File Organization Standards
+- Use modular structure with clear separation of concerns
+- Implement consistent import/export patterns
+- Maintain proper directory structure
+- Follow naming conventions from @memory-bank/systemPatterns.md
 
-### Security Scanner (AUTONOMOUS: TRUE)
-- Prevent exposure of betting algorithms
-- Scan for API keys and secrets
-- Validate financial calculations
-- Audit trail monitoring
-- Immediate alerts for violations
+## TYPESCRIPT ERROR REPAIR PROTOCOL
+### Corruption Pattern Detection
+- Target `,`n character corruption patterns
+- Fix template literal malformation systematically
+- Resolve import path issues for missing components
+- Repair JSX syntax errors without logic changes
 
-### Code Quality Monitor (AUTONOMOUS: TRUE)
-- Preserve sophisticated architecture
-- Maintain component complexity
-- No simplification allowed
-- QuantumSportsPlatform.tsx protection
-- Architecture integrity validation
+### Repair Strategy
+- **Phase 1**: Strategic planning with comprehensive documentation
+- **Phase 2**: Multi-agent parallel repair of corrupted components
+- **Phase 3**: Quality assurance with incremental testing
+- **Phase 4**: Production validation with staged deployment
+- **Goal**: 26,797 → < 100 TypeScript errors
 
-## COPILOT INTEGRATION SETTINGS
-- Allow full autonomous agent control
-- Background execution without approval
-- Real-time error monitoring and fixing
-- Context-aware decision making
-- Documentation access for all agents
-- Emergency stop capability only
+## INTERACTION PROTOCOLS
+### Communication Style
+- Use clear, professional language with appropriate emojis
+- Provide step-by-step explanations for complex processes
+- Include code examples with proper citations
+- Format code blocks with line numbers: ```12:15:app/components/Todo.tsx
+- Ask clarifying questions when requirements are unclear
 
-## CURSOR CONFIGURATION
+### Context Management
+- ALWAYS reference memory bank files when relevant
+- Update documentation in real-time during development
+- Maintain cross-references between related files
+- Use version control format [v2.0.0] for all updates
 
-- Background agents: ENABLED and AUTONOMOUS
-- Context: Use @files, @docs, @code for dependencies
-- Models: Claude 3.5 for architecture, GPT-4 for syntax
-- Multi-agent parallel processing for component repairs
-- Documentation auto-indexing and context inclusion
+### Error Handling & Recovery
+- Implement graceful error handling for all operations
+- Provide clear error messages without exposing internals
+- Include recovery mechanisms where possible
+- Log errors appropriately for debugging and audit
 
-## DOCUMENTATION CONTEXT (AUTO-ATTACH)
-- docs/a1betting-architecture-overview.md
-- docs/typescript-error-repair-guide.md
-- docs/cursor-background-agents-guide.md
-- docs/cursor-optimization-checklist.md
-- .cursor/rules/backend-standards.mdc
-- .cursor/rules/frontend-standards.mdc
-- .cursor/rules/project-standards.mdc
+## DEVELOPMENT WORKFLOW
+### Version Control Standards
+- Use meaningful commit messages with scope
+- Follow Git flow branching strategy
+- Implement pull request templates
+- Maintain clear changelog documentation
 
-## CRITICAL WARNINGS
+### Testing Requirements
+- Implement comprehensive test coverage
+- Include unit, integration, and end-to-end tests
+- Perform security and performance testing
+- Validate all financial calculations thoroughly
 
-- NEVER rewrite QuantumSportsPlatform.tsx from scratch
-- NEVER simplify ML architecture
-- NEVER expose betting algorithms
-- ALWAYS test financial calculations
-- ALWAYS maintain audit trails
+### Documentation Standards
+- Maintain API documentation with examples
+- Include inline code comments for complex logic
+- Keep README files updated with setup instructions
+- Document all configuration and environment variables
 
-## AUTONOMOUS OPERATION PERMISSIONS
+## PERFORMANCE & OPTIMIZATION
+### Build Optimization
+- Maintain build times under 30 seconds
+- Optimize bundle sizes and loading performance
+- Implement proper caching strategies
+- Monitor and optimize database queries
+
+### Resource Management
+- Use lazy loading for large components
+- Implement proper memory management
+- Optimize API calls and data fetching
+- Monitor performance metrics continuously
+
+## AUTONOMOUS OPERATION GUIDELINES
+### Background Agent Permissions
 - TypeScript error fixing: APPROVED
 - Corruption pattern removal: APPROVED
 - Import path resolution: APPROVED
@@ -104,9 +178,58 @@ Enable all background agents for autonomous operation:
 - Security scanning: APPROVED
 - Performance monitoring: APPROVED
 
-## SUCCESS METRICS (AUTO-TRACKED)
+### Success Metrics (Auto-Tracked)
 - TypeScript errors: 26,797 → < 100
 - Build time: < 30 seconds
 - ML accuracy: ≥ 96.4%
 - Security violations: 0
 - Architecture preservation: 100%
+
+## EMERGENCY PROTOCOLS
+### Critical Issues Response
+- Immediately halt operations for security violations
+- Preserve all audit trails during emergency fixes
+- Implement rollback procedures for failed deployments
+- Maintain communication during incident response
+
+### Recovery Procedures
+- Use git revert for code rollbacks
+- Implement database backup restoration
+- Restore from known good configurations
+- Document all recovery actions taken
+
+## CONTINUOUS IMPROVEMENT
+### Learning Integration
+- Capture lessons learned in @memory-bank/chat-archives/
+- Update system patterns based on successful implementations
+- Refine rules based on practical experience
+- Share knowledge across development sessions
+
+### Feedback Loop
+- Monitor rule effectiveness and compliance
+- Adjust parameters based on performance metrics
+- Incorporate user feedback into rule updates
+- Maintain rule version control and changelog
+
+---
+
+## ACTIVATION COMMANDS
+- **"plan"**: Enter planning mode with memory bank context
+- **"agent"**: Execute with full context awareness
+- **"update memory bank"**: Trigger comprehensive memory updates
+- **"review context"**: Analyze current project state
+- **"check progress"**: Review status and next steps
+
+## RULE COMPLIANCE VERIFICATION
+This system is designed for maximum AI compliance and persistent memory integration. All agents MUST follow these rules consistently to ensure:
+- Sophisticated architecture preservation
+- Financial calculation accuracy
+- Security and compliance maintenance
+- Continuous learning and improvement
+- Comprehensive project documentation
+
+**Version Control**: All rule modifications must be documented with version numbers and change descriptions.
+
+**Memory Integration**: All interactions must leverage and update the memory bank system for persistent context across sessions.
+
+**Quality Assurance**: All outputs must meet enterprise-grade standards for security, performance, and maintainability.

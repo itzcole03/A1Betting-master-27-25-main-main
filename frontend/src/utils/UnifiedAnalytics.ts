@@ -1,28 +1,31 @@
-﻿import { EventBus} from '@/core/EventBus.js';
-import { unifiedMonitor} from '@/core/UnifiedMonitor';
+﻿import { EventBus } from '@/core/EventBus.js';
+import { unifiedMonitor } from '@/core/UnifiedMonitor';
 
 type AnalyticsData = Record<string, unknown>;
 
 export interface AnalyticsEvent {
-  id: string
-,`n  type: string;
-,`n  timestamp: number
-,`n  data: AnalyticsData;
-  metadata?: AnalyticsData}
+  id: string;
+  type: string;
+  timestamp: number
+  data: AnalyticsData;
+  metadata?: AnalyticsData
+}
 
 interface AnalyticsMetrics {
   totalEvents: number
-,`n  eventsByType: Map<string, number>;
+  eventsByType: Map<string, number>;
   averageLatency: number
-,`n  errorRate: number;
-,`n  lastProcessed: number}
+  errorRate: number;
+  lastProcessed: number
+}
 
 interface AnalyticsConfig {
   enabled: boolean
-,`n  sampleRate: number;
-,`n  retentionPeriod: number
-,`n  batchSize: number;
-,`n  flushInterval: number}
+  sampleRate: number;
+  retentionPeriod: number
+  batchSize: number;
+  flushInterval: number
+}
 
 export class UnifiedAnalytics {
   private static instance: UnifiedAnalytics;
@@ -81,7 +84,7 @@ export class UnifiedAnalytics {
     if (Math.random() > this.config.sampleRate) return;
 
     const event: AnalyticsEvent = {
-,`n  id: `event_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      id: `event_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       type,
       timestamp: Date.now(),
       data,

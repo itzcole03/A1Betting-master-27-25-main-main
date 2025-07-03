@@ -76,10 +76,11 @@ const App: React.FC = () => {
                 <Route path="/*" element={<BuilderIntegration />} />
               </Routes>
             </Suspense>
+          </Router>
         </ThemeProvider>
       </QueryClientProvider>
     </ErrorBoundary>
-  )
+  );
 };
 
 export default App; 

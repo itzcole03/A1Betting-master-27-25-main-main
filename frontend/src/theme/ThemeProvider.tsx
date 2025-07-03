@@ -1,84 +1,144 @@
-﻿import React, { createContext, useContext, useState, useEffect} from 'react';
+﻿import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 
 // ============================================================================
 // THEME TYPES;
 // ============================================================================
 
 interface ThemeColors {
-  primary: string,`n  secondary: string;,`n  accent: string,`n  background: string;,`n  surface: string,`n  text: string;,`n  muted: string,`n  success: string;,`n  warning: string,`n  error: string;,`n  info: string}
+  primary: string;
+  secondary: string;
+  accent: string;
+  background: string;
+  surface: string;
+  text: string;
+  muted: string;
+  success: string;
+  warning: string;
+  error: string;
+  info: string;
+}
 
 interface Theme {
-  name: string,`n  colors: ThemeColors;,`n  spacing: {,`n  xs: string;,`n  sm: string,`n  md: string;,`n  lg: string,`n  xl: string;
-    "2xl": string;
-    "3xl": string;};
-  borderRadius: {,`n  sm: string;,`n  md: string,`n  lg: string;,`n  xl: string;
-    "2xl": string;
-    full: string};
-  shadows: {,`n  sm: string;,`n  md: string,`n  lg: string;,`n  xl: string;
-    "2xl": string;};
-  animations: {,`n  fast: string;,`n  normal: string,`n  slow: string}}
+  name: string;
+  colors: ThemeColors;
+  spacing: {
+    xs: string;
+    sm: string;
+    md: string;
+    lg: string;
+    xl: string;
+  };
+  borderRadius: {
+    sm: string;
+    md: string;
+    lg: string;
+    xl: string;
+  };
+  shadows: {
+    sm: string;
+    md: string;
+    lg: string;
+    xl: string;
+  };
+  animations: {
+    fast: string;
+    normal: string;
+    slow: string;
+  };
+}
 
 interface ThemeContextType {
-  theme: Theme,`n  isDark: boolean;,`n  toggleTheme: () => void,`n  setTheme: (theme: "light" | "dark") => void}
+  theme: Theme;
+  isDark: boolean;
+  toggleTheme: () => void;
+  setTheme: (theme: "light" | "dark") => void;
+}
+
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 // ============================================================================
 // THEME DEFINITIONS;
 // ============================================================================
 
-const lightTheme: Theme = {,`n  name: "light",
-  colors: {,`n  primary: "#2563eb",
-    secondary: "#7c3aed",
-    accent: "#06b6d4",
+const lightTheme: Theme = {
+  name: "light",
+  colors: {
+    primary: "#2563eb",
+    secondary: "#64748b",
+    accent: "#f59e0b",
     background: "#ffffff",
     surface: "#f8fafc",
-    text: "#1f2937",
-    muted: "#6b7280",
-    success: "#059669",
-    warning: "#d97706",
-    error: "#dc2626",
-    info: "#0284c7"
+    text: "#1e293b",
+    muted: "#64748b",
+    success: "#10b981",
+    warning: "#f59e0b",
+    error: "#ef4444",
+    info: "#3b82f6"
   },
-  spacing: {,`n  xs: "0.5rem",
-    sm: "1rem",
-    md: "1.5rem",
-    lg: "2rem",
-    xl: "3rem",
-    "2xl": "4rem",
-    "3xl": "6rem"
+  spacing: {
+    xs: "0.5rem",
+    sm: "0.75rem",
+    md: "1rem",
+    lg: "1.5rem",
+    xl: "2rem"
   },
-  borderRadius: {,`n  sm: "0.25rem",
-    md: "0.5rem",
-    lg: "0.75rem",
-    xl: "1rem",
-    "2xl": "1.5rem",
-    full: "9999px"
+  borderRadius: {
+    sm: "0.25rem",
+    md: "0.375rem",
+    lg: "0.5rem",
+    xl: "0.75rem"
   },
-  shadows: {,`n  sm: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-    md: "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
-    lg: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
-    xl: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)",
-    "2xl": "0 25px 50px -12px rgb(0 0 0 / 0.25)"
+  shadows: {
+    sm: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+    md: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
+    lg: "0 10px 15px -3px rgb(0 0 0 / 0.1)",
+    xl: "0 20px 25px -5px rgb(0 0 0 / 0.1)"
   },
-  animations: {,`n  fast: "0.15s ease",
+  animations: {
+    fast: "0.15s ease",
     normal: "0.3s ease",
-    slow: "0.6s ease"
+    slow: "0.5s ease"
   }
 };
 
 const darkTheme: Theme = {
-  ...lightTheme,
   name: "dark",
-  colors: {,`n  primary: "#3b82f6",
-    secondary: "#8b5cf6",
-    accent: "#06b6d4",
+  colors: {
+    primary: "#3b82f6",
+    secondary: "#94a3b8",
+    accent: "#fbbf24",
     background: "#0f172a",
     surface: "#1e293b",
     text: "#f1f5f9",
     muted: "#94a3b8",
-    success: "#10b981",
-    warning: "#f59e0b",
-    error: "#ef4444",
-    info: "#0ea5e9"
+    success: "#34d399",
+    warning: "#fbbf24",
+    error: "#f87171",
+    info: "#60a5fa"
+  },
+  spacing: {
+    xs: "0.5rem",
+    sm: "0.75rem",
+    md: "1rem",
+    lg: "1.5rem",
+    xl: "2rem"
+  },
+  borderRadius: {
+    sm: "0.25rem",
+    md: "0.375rem",
+    lg: "0.5rem",
+    xl: "0.75rem"
+  },
+  shadows: {
+    sm: "0 1px 2px 0 rgb(0 0 0 / 0.3)",
+    md: "0 4px 6px -1px rgb(0 0 0 / 0.3)",
+    lg: "0 10px 15px -3px rgb(0 0 0 / 0.3)",
+    xl: "0 20px 25px -5px rgb(0 0 0 / 0.3)"
+  },
+  animations: {
+    fast: "0.15s ease",
+    normal: "0.3s ease",
+    slow: "0.5s ease"
   }
 };
 
@@ -86,100 +146,87 @@ const darkTheme: Theme = {
 // THEME CONTEXT;
 // ============================================================================
 
-export const useTheme = () => {
-
+export const useTheme = (): ThemeContextType => {
+  const context = useContext(ThemeContext);
   if (context === undefined) {
-    throw new Error("useTheme must be used within a ThemeProvider");}
-  return context;};
+    throw new Error('useTheme must be used within a ThemeProvider');
+  }
+  return context;
+};
 
 // ============================================================================
 // THEME PROVIDER COMPONENT;
 // ============================================================================
 
 interface ThemeProviderProps {
-  children: React.ReactNode;
-  defaultTheme?: "light" | "dark";}
+  children: ReactNode;
+  defaultTheme?: "light" | "dark";
+}
 
-export const ThemeProvider: React.FC<ThemeProviderProps key={251000}> = ({
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   children,
   defaultTheme = "light"
 }) => {
-  const [isDark, setIsDark] = useState(defaultTheme === "dark");
+  const [isDark, setIsDark] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('theme');
+      return saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return defaultTheme === "dark";
+  });
 
-  // Load theme from localStorage on mount;
-  useEffect(() => {
-
-    if (savedTheme) {
-      setIsDark(savedTheme === "dark");} else {
-      // Check system preference;
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)",
-      ).matches;
-      setIsDark(prefersDark);}
-  }, [0]);
-
-  // Apply theme to document and save to localStorage;
-  useEffect(() => {
-
-    if (isDark) {
-      root.classList.add("dark");
-      localStorage.setItem("a1betting-theme", "dark");} else {
-      root.classList.remove("dark");
-      localStorage.setItem("a1betting-theme", "light");}
-
-    // Apply CSS custom properties for theme colors;
-
-    Object.entries(theme.colors).forEach(([key, value]) => {
-      root.style.setProperty(`--color-${key}`, value);});
-
-    Object.entries(theme.spacing).forEach(([key, value]) => {
-      root.style.setProperty(`--spacing-${key}`, value);});
-
-    Object.entries(theme.borderRadius).forEach(([key, value]) => {
-      root.style.setProperty(`--radius-${key}`, value);});
-
-    Object.entries(theme.shadows).forEach(([key, value]) => {
-      root.style.setProperty(`--shadow-${key}`, value);});
-
-    Object.entries(theme.animations).forEach(([key, value]) => {
-      root.style.setProperty(`--animation-${key}`, value);});}, [isDark]);
+  const theme = isDark ? darkTheme : lightTheme;
 
   const toggleTheme = () => {
-    setIsDark((prev) => !prev);};
+    setIsDark(!isDark);
+  };
 
-  const setTheme = (theme: "light" | "dark") => {
-    setIsDark(theme === "dark")};
+  const setTheme = (themeName: "light" | "dark") => {
+    setIsDark(themeName === "dark");
+  };
 
-  const value: ThemeContextType = {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      document.documentElement.classList.toggle('dark', isDark);
+    }
+  }, [isDark]);
+
+  const contextValue: ThemeContextType = {
     theme,
     isDark,
     toggleTheme,
-//     setTheme
+    setTheme
   };
 
   return (
-    <ThemeContext.Provider value={value} key={60497}>{children}</ThemeContext.Provider>
-  );};
+    <ThemeContext.Provider value={contextValue}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
 
 // ============================================================================
 // THEME UTILITIES;
 // ============================================================================
 
 export const getThemeColors = (isDark: boolean): ThemeColors => {
-  return isDark ? darkTheme.colors : lightTheme.colors};
+  return isDark ? darkTheme.colors : lightTheme.colors;
+};
 
 export const getThemeValue = (
   path: string,
   isDark: boolean = false,
 ): string => {
+  let value: any = isDark ? darkTheme : lightTheme;
 
-
-  let value: any = theme;
-
+  const keys = path.split('.');
   for (const key of keys) {
-    value = value?.[key];}
+    value = value?.[key];
+  }
 
-  return value || "";};
+  return value || "";
+};
 
 // CSS class utilities for common theme patterns;
 export const themeClasses = {

@@ -1,17 +1,17 @@
 import {
-  Atom,
-  BarChart3,
-  Bell,
-  Brain,
-  DollarSign,
-  Eye,
-  Home,
-  Menu,
-  Settings,
-  Shield,
-  Trophy,
-  X,
-  Zap
+    Atom,
+    BarChart3,
+    Bell,
+    Brain,
+    DollarSign,
+    Eye,
+    Home,
+    Menu,
+    Settings,
+    Shield,
+    Trophy,
+    X,
+    Zap
 } from 'lucide-react';
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 
@@ -43,6 +43,7 @@ const useClickOutside = (ref: React.RefObject<HTMLElement>, callback: () => void
 };
 
 // Import real services
+import { CommandSummaryProvider, useCommandSummary } from '../contexts/CommandSummaryContext';
 import { useAuth } from '../hooks/useAuth';
 import { useBettingData } from '../hooks/useBettingData';
 import { useRealtimeData } from '../hooks/useRealtimeData';
@@ -274,6 +275,25 @@ const PageRenderer: React.FC = () => {
   }
 };
 
+const CommandSummarySidebar: React.FC = () => {
+  const { commands, loading, error } = useCommandSummary();
+  return (
+    <aside style={{ width: 320, background: '#18181b', color: '#fff', borderLeft: '1px solid #333', padding: 16, overflowY: 'auto', position: 'fixed', right: 0, top: 0, height: '100vh', zIndex: 100 }}>
+      <h2 style={{ fontWeight: 700, fontSize: 20, marginBottom: 12 }}>Live Command Summary</h2>
+      {loading && <div>Loading commands...</div>}
+      {error && <div style={{ color: 'red' }}>{error}</div>}
+      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+        {commands.map(cmd => (
+          <li key={cmd.id} style={{ marginBottom: 16 }}>
+            <div style={{ fontWeight: 600 }}>{cmd.name}</div>
+            <div style={{ fontSize: 14, color: '#aaa' }}>{cmd.description}</div>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  );
+};
+
 const QuantumSportsPlatform: React.FC = () => {
   const [currentPage, setCurrentPage] = useState('prizepicks-pro');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -400,11 +420,16 @@ const QuantumSportsPlatform: React.FC = () => {
               </div>
             </footer>
           </div>
+          <CommandSummarySidebar />
         </div>
       </div>
     </AppContext.Provider>
   );
 };
 
-export default QuantumSportsPlatform;
+export default (props: any) => (
+  <CommandSummaryProvider>
+    <QuantumSportsPlatform {...props} />
+  </CommandSummaryProvider>
+);
 

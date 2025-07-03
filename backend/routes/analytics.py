@@ -9,6 +9,8 @@ import logging
 from typing import Any, Dict, List, Optional
 
 from fastapi import APIRouter, HTTPException, status
+from fastapi.responses import FileResponse
+import os
 
 from models.api_models import (
     MatchPredictionRequest,
@@ -379,4 +381,23 @@ async def get_predictions_shim(
         "sport": sport,
         "timestamp": "2024-01-16T12:00:00Z",
         "status": "success",
-    } 
+    }
+
+
+@router.get("/commands/summary", tags=["Commands"])
+def get_command_summary():
+    """
+    Get the latest live command summary for the A1Betting platform.
+    Returns the contents of memory-bank/command_summary.json as application/json.
+    ---
+    - **Purpose**: Provide a live, backend-driven summary of all available commands for frontend panels and analytics.
+    - **Response Format**: JSON array of command definitions and metadata.
+    - **Authentication**: None (read-only, public for platform UI)
+    - **Rate Limiting**: None (cached file, low load)
+    - **Error Handling**: Returns 404 if file is missing.
+    """
+    summary_path = os.path.join(os.path.dirname(__file__), '../../memory-bank/command_summary.json')
+    if not os.path.exists(summary_path):
+        from fastapi import HTTPException
+        raise HTTPException(status_code=404, detail="Command summary not found.")
+    return FileResponse(summary_path, media_type="application/json") 

@@ -1,8 +1,4 @@
-﻿import * as Sentry from '@sentry/react'; // For error tracking and some performance monitoring;
-import { Span, Transaction, MeasurementUnit, Primitive, SeverityLevel} from '@sentry/types';
-
-import type { User} from '@/types/core'; // Assuming User type might be used for context;
-// import { PerformanceTrackingService} from '@/services/performanceTracking'; // Uncomment if used;
+﻿// import { PerformanceTrackingService} from '@/services/performanceTracking'; // Uncomment if used;
 
 // src/core/UnifiedMonitor.ts;
 
@@ -24,64 +20,94 @@ import type { User} from '@/types/core'; // Assuming User type might be used for
  */
 
 export interface Metric {
-  name: string; // e.g., 'api_request_duration_ms', 'prediction_accuracy'
+  name: string;
   value: number;
-  tags?: Record<string, string | number | boolean>; // e.g., { endpoint: '/users', model: 'v2'}
-  timestamp?: Date}
+  tags?: Record<string, string | number | boolean>;
+  timestamp?: Date;
+}
+
+export interface TraceContext {
+  name: string;
+  type: string;
+  description?: string;
+  startTime: number;
+  duration?: number;
+  httpStatus?: number;
+  error?: Error;
+}
 
 export class UnifiedMonitor {
   private static instance: UnifiedMonitor;
+  private metrics: Map<string, { value: number; tags?: Record<string, string | number | boolean>; timestamp: number }>;
+  private traces: Map<string, TraceContext>;
+
+  private constructor() {
+    this.metrics = new Map();
+    this.traces = new Map();
+  }
 
   public static getInstance(): UnifiedMonitor {
     if (!UnifiedMonitor.instance) {
-      UnifiedMonitor.instance = new UnifiedMonitor();}
-    return UnifiedMonitor.instance;}
+      UnifiedMonitor.instance = new UnifiedMonitor();
+    }
+    return UnifiedMonitor.instance;
+  }
 
-  startTrace(name: string, type: string, description?: string) {
-    return {
+  public startTrace(name: string, type: string, description?: string): TraceContext {
+    const trace: TraceContext = {
       name,
       type,
       description,
-      startTime: Date.now(),
-      setHttpStatus: (status: number) => {
-//         console.debug(`[TRACE] ${name} HTTP Status: ${status}`)},
-      setDuration: (duration: number) => {
-//         console.debug(`[TRACE] ${name} Duration: ${duration}ms`)}
-    };}
+      startTime: Date.now()
+    };
+    this.traces.set(name, trace);
+    return trace;
+  }
 
-  endTrace(trace: any) Record<string, any>
+  public endTrace(trace: TraceContext, error?: Error): void {
+    if (error) {
+      trace.error = error;
+    }
+    trace.duration = Date.now() - trace.startTime;
+    this.traces.set(trace.name, trace);
+  }
 
-  reportError(error: any, context: any) {
-    // console statement removed}
+  public setTraceHttpStatus(trace: TraceContext, status: number): void {
+    trace.httpStatus = status;
+    this.traces.set(trace.name, trace);
+  }
 
-  recordMetric(name: string, value: number, tags?: Record<string, string | number | boolean>) {
-    // Simple implementation - in production this would integrate with monitoring services;
-    if (typeof console !== 'undefined') {
-//       console.debug(`[METRIC] ${name}: ${value}`, tags || Record<string, any>);}
+  public recordMetric(name: string, value: number, tags?: Record<string, string | number | boolean>): void {
+    this.metrics.set(name, { value, tags, timestamp: Date.now() });
+  }
 
-    // Store metrics for potential retrieval;
-    if (!this.metrics) {
-      this.metrics = new Map();}
-    this.metrics.set(name, { value, tags, timestamp: Date.now()})}
+  public captureMessage(message: string, level: string = 'info', extra?: Record<string, unknown>): void {
+    const logMessage = '[' + level.toUpperCase() + '] ' + message;
+    if (extra) {
+      // console.log(logMessage, extra);
+    } else {
+      // console.log(logMessage);
+    }
+  }
 
-  captureMessage(message: string, level: string = 'info', extra?: any) {
-    // console statement removed}] ${message}`, extra || Record<string, any>)}
+  public captureException(error: Error, context?: Record<string, unknown>): void {
+    const errorMessage = '[EXCEPTION] ' + error.message;
+    if (context) {
+      // console.error(errorMessage, context);
+    } else {
+      // console.error(errorMessage);
+    }
+  }
 
-  captureException(error: Error, context?: any) {
-    // console statement removed
-    this.reportError(error, context)}
-
-  trackEvent(eventName: string, data?: any) {
-//     console.debug(`[EVENT] ${eventName}`, data || Record<string, any>);
-    // In production, this would send events to analytics services;}
-
-  private metrics?: Map<
-    string,
-    {
-      value: number;
-      tags?: Record<string, string | number | boolean>;
-      timestamp: number}
-  >}
+  public trackEvent(eventName: string, data?: Record<string, unknown>): void {
+    const eventMessage = '[EVENT] ' + eventName;
+    if (data) {
+      // console.debug(eventMessage, data);
+    } else {
+      // console.debug(eventMessage);
+    }
+  }
+}
 
 export const unifiedMonitor = UnifiedMonitor.getInstance();
 

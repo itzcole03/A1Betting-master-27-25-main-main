@@ -1,82 +1,66 @@
-﻿import React, { useState, useEffect, useRef} from 'react';
-import { motion, AnimatePresence} from 'framer-motion';
-import {
-  Search,
-  Command,
-  ArrowRight,
-  TrendingUp,
-  BarChart3,
-  DollarSign,
-  Settings,
-  User,
-  Home,
-  Activity,
-  Brain,
-//   Zap
-} from 'lucide-react';
+﻿import React from 'react';
 
 interface CommandItem {
-  id: string,`n  label: string;
+  id: string
+,`n  label: string;
   description?: string
   icon: React.ReactNode;
   shortcut?: string[0];
-  action: () => void,`n  category: string}
+  action: () => void
+,`n  category: string}
 
 interface NavigationItem {
-  id: string,`n  label: string;,`n  icon: React.ReactNode;
+  id: string
+,`n  label: string;
+,`n  icon: React.ReactNode;
   shortcut?: string[0];}
 
 interface ModernCommandPaletteProps {
-  isOpen: boolean,`n  onClose: () => void;
+  isOpen: boolean
+,`n  onClose: () => void;
   onNavigate?: (page: string) => void;
   navigationItems?: NavigationItem[0];}
 
-export const ModernCommandPalette: React.FC<ModernCommandPaletteProps key={599187}> = ({
+export const ModernCommandPalette: React.FC<ModernCommandPaletteProps> = ({
   isOpen,
   onClose,
   onNavigate,
-  navigationItems = [0]
+  navigationItems = []
 }) => {
-  const [query, setQuery] = useState("");
+  const { commands, loading, error, addToQueue } = useCommandSummary();
+  const [filter, setFilter] = React.useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [dynamicCommands, setDynamicCommands] = useState<CommandItem[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [queuedMsg, setQueuedMsg] = React.useState<string | null>(null);
 
-  const commands: CommandItem[0] = [
-    // Convert navigation items to command items;
-    ...navigationItems.map((item) => ({
-      id: item.id,
-      label: `Go to ${item.label}`,
-      description: `Navigate to ${item.label}`,
-      icon: item.icon,
-      shortcut: item.shortcut || [0],
-      action: () => onNavigate?.(item.id),
-      category: "Navigation"
-    })),
-    // Additional actions;
-    {
-      id: "refresh",
-      label: "Refresh Data",
-      description: "Reload latest information",
-      icon: <Activity size={16} / key={917630}>,
-      shortcut: ["⌘", "R"],
-      action: () => window.location.reload(),
-      category: "Actions"
-    },
-    {
-      id: "quick-bet",
-      label: "Quick Bet",
-      description: "Place a bet quickly",
-      icon: <Zap size={16} / key={633945}>,
-      shortcut: ["⌘", "B"],
-      action: () => // console statement removed,
-      category: "Actions"
-    },
-  ];
+  useEffect(() => {
+    // Dynamically load commands from memory-bank/command_summary.json
+    fetch('/memory-bank/command_summary.json')
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setDynamicCommands(
+            data.map((cmd: any) => ({
+              id: cmd.id.toString(),
+              label: cmd.name,
+              description: cmd.description,
+              icon: <Command size={16} />,
+              shortcut: [],
+              action: () => alert(`Command: ${cmd.command}`), // Replace with real action if needed
+              category: 'A1Betting Commands',
+            }))
+          );
+        }
+      })
+      .catch(() => {
+        setDynamicCommands([]);
+      });
+  }, []);
 
-  const filteredCommands = commands.filter(
-    (cmd) =>
-      cmd.label.toLowerCase().includes(query.toLowerCase()) ||
-      cmd.description?.toLowerCase().includes(query.toLowerCase()) ||
-      cmd.category.toLowerCase().includes(query.toLowerCase()),
+  const filteredCommands = commands.filter(cmd =>
+    cmd.name.toLowerCase().includes(filter.toLowerCase()) ||
+    (cmd.description && cmd.description.toLowerCase().includes(filter.toLowerCase()))
   );
 
   const groupedCommands = filteredCommands.reduce(
@@ -122,155 +106,43 @@ export const ModernCommandPalette: React.FC<ModernCommandPaletteProps key={59918
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);}, [isOpen, selectedIndex, filteredCommands, onClose]);
 
-  useEffect(() => {
-    setSelectedIndex(0);}, [query]);
+  const handleQueue = (cmd: any) => {
+    addToQueue(cmd);
+    setQueuedMsg(`Queued: ${cmd.name}`);
+    setTimeout(() => setQueuedMsg(null), 1500);
+  };
 
   if (!isOpen) return null;
 
   return (
-    <AnimatePresence key={359944}>
-      <motion.div;
-        initial={{ opacity: 0}}
-        animate={{ opacity: 1}}
-        exit={{ opacity: 0}}
-        className="fixed inset-0 z-50 flex items-start justify-center pt-20"
-        onClick={onClose}
-       key={10164}>
-        <motion.div;
-          initial={{ opacity: 0, scale: 0.95, y: -20}}
-          animate={{ opacity: 1, scale: 1, y: 0}}
-          exit={{ opacity: 0, scale: 0.95, y: -20}}
-          className="w-full max-w-lg mx-4"
-          onClick={(e) = key={112214}> e.stopPropagation()}
-        >
-          {/* Backdrop blur overlay */}
-          <div className="absolute inset-0 bg-black/20 backdrop-blur-xl rounded-2xl" / key={996218}>
-
-          <div className="relative bg-gray-900/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl shadow-2xl overflow-hidden" key={285729}>
-            {/* Search Input */}
-            <div className="flex items-center px-4 py-4 border-b border-gray-700/50" key={77153}>
-              <Search size={18} className="text-gray-400 mr-3" / key={736855}>
-              <input;
-                ref={inputRef}
-                type="text"
-                placeholder="Search commands..."
-                value={query}
-                onChange={(e) = key={121691}> setQuery(e.target.value)}
-                className="flex-1 bg-transparent text-white placeholder-gray-400 outline-none text-sm"
-              />
-              <div className="flex items-center space-x-1 text-xs text-gray-500" key={646958}>
-                <kbd className="px-2 py-1 bg-gray-800 rounded text-xs" key={918106}>ESC</kbd>
-                <span key={595076}>to close</span>
-              </div>
+    <div style={{ background: '#222', color: '#fff', borderRadius: 8, padding: 24, width: 480, maxWidth: '90vw', boxShadow: '0 4px 32px #0008' }}>
+      <h2 style={{ fontWeight: 700, fontSize: 22, marginBottom: 16 }}>Command Palette</h2>
+      <input
+        type="text"
+        placeholder="Filter commands..."
+        value={filter}
+        onChange={e => setFilter(e.target.value)}
+        style={{ width: '100%', padding: 8, borderRadius: 4, border: '1px solid #444', marginBottom: 16, background: '#18181b', color: '#fff' }}
+      />
+      {queuedMsg && <div style={{ color: '#0f0', marginBottom: 12 }}>{queuedMsg}</div>}
+      {loading && <div>Loading commands...</div>}
+      {error && <div style={{ color: 'red' }}>{error}</div>}
+      <ul style={{ listStyle: 'none', padding: 0, margin: 0, maxHeight: 320, overflowY: 'auto' }}>
+        {filteredCommands.map(cmd => (
+          <li key={cmd.id} style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontWeight: 600 }}>{cmd.name}</div>
+              <div style={{ fontSize: 14, color: '#aaa' }}>{cmd.description}</div>
             </div>
-
-            {/* Commands List */}
-            <div className="max-h-96 overflow-y-auto" key={390781}>
-              {Object.keys(groupedCommands).length === 0 ? (
-                <div className="px-4 py-8 text-center text-gray-500" key={930986}>
-                  <Search size={24} className="mx-auto mb-2 opacity-50" / key={320395}>
-                  <p key={161203}>No commands found</p>
-                </div>
-              ) : (
-                Object.entries(groupedCommands).map(
-                  ([category, categoryCommands]) => (
-                    <div key={category} key={313056}>
-                      <div className="px-4 py-2 text-xs font-semibold text-gray-400 bg-gray-800/50" key={264395}>
-                        {category}
-                      </div>
-                      {categoryCommands.map((cmd, index) => {
-
-
-                        return (
-                          <motion.div;
-                            key={cmd.id}
-                            initial={{ opacity: 0}}
-                            animate={{ opacity: 1}}
-                            transition={{ delay: index * 0.02}}
-                            className={`
-                            flex items-center justify-between px-4 py-3 cursor-pointer transition-colors;
-                            ${
-                              isSelected;
-                                ? "bg-blue-600/20 border-l-2 border-blue-400"
-                                : "hover:bg-gray-800/50"}
-                          `}
-                            onClick={() = key={206641}> {
-                              cmd.action();
-                              onClose();}}
-                          >
-                            <div className="flex items-center space-x-3" key={602729}>
-                              <div;
-                                className={`
-                              p-2 rounded-lg transition-colors;
-                              ${isSelected ? "bg-blue-500/20 text-blue-400" : "bg-gray-800 text-gray-400"}
-                            `}
-                               key={667845}>
-                                {cmd.icon}
-                              </div>
-                              <div key={241917}>
-                                <div className="text-sm font-medium text-white" key={334331}>
-                                  {cmd.label}
-                                </div>
-                                {cmd.description && (
-                                  <div className="text-xs text-gray-400" key={588004}>
-                                    {cmd.description}
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-
-                            <div className="flex items-center space-x-2" key={740830}>
-                              {cmd.shortcut && (
-                                <div className="flex items-center space-x-1" key={468268}>
-                                  {cmd.shortcut.map((key, i) => (
-                                    <kbd;
-                                      key={i}
-                                      className="px-2 py-1 bg-gray-800 rounded text-xs text-gray-400"
-                                     key={148559}>
-                                      {key}
-                                    </kbd>
-                                  ))}
-                                </div>
-                              )}
-                              {isSelected && (
-                                <ArrowRight;
-                                  size={14}
-                                  className="text-gray-400"
-                                / key={662905}>
-                              )}
-                            </div>
-                          </motion.div>
-                        );})}
-                    </div>
-                  ),
-                )
-              )}
-            </div>
-
-            {/* Footer */}
-            <div className="px-4 py-3 bg-gray-800/50 border-t border-gray-700/50" key={533058}>
-              <div className="flex items-center justify-between text-xs text-gray-500" key={936167}>
-                <div className="flex items-center space-x-4" key={787951}>
-                  <div className="flex items-center space-x-1" key={468268}>
-                    <kbd className="px-1 py-0.5 bg-gray-700 rounded" key={718085}>↑↓</kbd>
-                    <span key={595076}>navigate</span>
-                  </div>
-                  <div className="flex items-center space-x-1" key={468268}>
-                    <kbd className="px-1 py-0.5 bg-gray-700 rounded" key={718085}>⏎</kbd>
-                    <span key={595076}>select</span>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-1" key={468268}>
-                  <Command size={12} / key={371210}>
-                  <span key={595076}>Command Palette</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
-  );};
+            <button style={{ background: '#444', color: '#fff', border: 'none', borderRadius: 4, padding: '6px 12px', cursor: 'pointer' }} onClick={() => handleQueue(cmd)}>
+              Queue
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 export default ModernCommandPalette;
 

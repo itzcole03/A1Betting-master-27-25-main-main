@@ -1,28 +1,35 @@
-﻿import React, { useState} from 'react';
-import { motion} from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import {
-  User,
-  Mail,
-  Phone,
-  MapPin,
-  Calendar,
-  Shield,
-  CreditCard,
-  Settings,
-  Bell,
-  Lock,
-  Eye,
-  EyeOff,
-//   Save
+    Bell,
+    Calendar,
+    CreditCard,
+    Eye,
+    EyeOff,
+    Lock,
+    Mail,
+    MapPin,
+    Phone,
+    Settings,
+    Shield,
+    User,
 } from 'lucide-react';
+import React, { useState } from 'react';
 
 interface User {
-  id: number,`n  email: string;,`n  username: string,`n  fullName: string;
+  id: number
+,`n  email: string;
+,`n  username: string
+,`n  fullName: string;
   phone?: string
   address?: string
   dateOfBirth?: string
   profilePicture?: string
-  tier: string,`n  memberSince: string;,`n  balance: number,`n  totalBets: number;,`n  totalWinnings: number,`n  winRate: number}
+  tier: string
+,`n  memberSince: string;
+,`n  balance: number
+,`n  totalBets: number;
+,`n  totalWinnings: number
+,`n  winRate: number}
 
 interface UpdateUserData {
   fullName?: string
@@ -32,12 +39,16 @@ interface UpdateUserData {
   dateOfBirth?: string
   password?: string
   notifications?: {
-    email: boolean,`n  sms: boolean;,`n  push: boolean};
+    email: boolean
+,`n  sms: boolean;
+,`n  push: boolean};
   privacy?: {
-    profileVisible: boolean,`n  showStats: boolean}}
+    profileVisible: boolean
+,`n  showStats: boolean}}
 
 interface UserProfileProps {
-  user: User,`n  onUpdateProfile: (data: UpdateUserData) => Promise<boolean>}
+  user: User
+,`n  onUpdateProfile: (data: UpdateUserData) => Promise<boolean>}
 
 const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile}) => {
   const [activeTab, setActiveTab] = useState<string>('profile');
@@ -52,11 +63,13 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile}) => {
     address: user.address || '',
     dateOfBirth: user.dateOfBirth || '',
     password: '',
-    notifications: {,`n  email: true,
+    notifications: {
+,`n  email: true,
       sms: false,
       push: true
     },
-    privacy: {,`n  profileVisible: true,
+    privacy: {
+,`n  profileVisible: true,
       showStats: true
     }
   });
@@ -148,7 +161,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile}) => {
         <div className='bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl mb-8'>
           <div className='flex border-b border-white/10'>
             {tabs.map(tab => (
-              <button key={tab.id}>`n                onClick={() => setActiveTab(tab.id)}
+              <button key={tab.id}
+>`n                onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center space-x-2 px-6 py-4 transition-all ${
                   activeTab === tab.id
                     ? 'text-yellow-400 border-b-2 border-yellow-400'
@@ -179,7 +193,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile}) => {
                     <div className='relative'>
                       <User className='absolute left-3 top-3 w-4 h-4 text-gray-400' />
                       <input type='text'
-                        value={formData.fullName}>`n                        onChange={e => setFormData({ ...formData, fullName: e.target.value})}
+                        value={formData.fullName}
+>`n                        onChange={e => setFormData({ ...formData, fullName: e.target.value})}
                         disabled={!isEditing}
                         className='w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50'
                       />
@@ -191,7 +206,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile}) => {
                     <div className='relative'>
                       <Mail className='absolute left-3 top-3 w-4 h-4 text-gray-400' />
                       <input type='email'
-                        value={formData.email}>`n                        onChange={e => setFormData({ ...formData, email: e.target.value})}
+                        value={formData.email}
+>`n                        onChange={e => setFormData({ ...formData, email: e.target.value})}
                         disabled={!isEditing}
                         className='w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50'
                       />
@@ -203,7 +219,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile}) => {
                     <div className='relative'>
                       <Phone className='absolute left-3 top-3 w-4 h-4 text-gray-400' />
                       <input type='tel'
-                        value={formData.phone}>`n                        onChange={e => setFormData({ ...formData, phone: e.target.value})}
+                        value={formData.phone}
+>`n                        onChange={e => setFormData({ ...formData, phone: e.target.value})}
                         disabled={!isEditing}
                         className='w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50'
                       />
@@ -215,7 +232,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile}) => {
                     <div className='relative'>
                       <Calendar className='absolute left-3 top-3 w-4 h-4 text-gray-400' />
                       <input type='date'
-                        value={formData.dateOfBirth}>`n                        onChange={e => setFormData({ ...formData, dateOfBirth: e.target.value})}
+                        value={formData.dateOfBirth}
+>`n                        onChange={e => setFormData({ ...formData, dateOfBirth: e.target.value})}
                         disabled={!isEditing}
                         className='w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50'
                       />
@@ -227,7 +245,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile}) => {
                     <div className='relative'>
                       <MapPin className='absolute left-3 top-3 w-4 h-4 text-gray-400' />
                       <input type='text'
-                        value={formData.address}>`n                        onChange={e => setFormData({ ...formData, address: e.target.value})}
+                        value={formData.address}
+>`n                        onChange={e => setFormData({ ...formData, address: e.target.value})}
                         disabled={!isEditing}
                         className='w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50'
                       />
@@ -273,7 +292,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile}) => {
                     </div>
                     <label className='relative inline-flex items-center cursor-pointer'>
                       <input type='checkbox'
-                        checked={formData.notifications?.email}>`n                        onChange={e =>
+                        checked={formData.notifications?.email}
+>`n                        onChange={e =>
                           setFormData({
                             ...formData,
                             notifications: { ...formData.notifications!, email: e.target.checked}
@@ -296,7 +316,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile}) => {
                     </div>
                     <label className='relative inline-flex items-center cursor-pointer'>
                       <input type='checkbox'
-                        checked={formData.notifications?.push}>`n                        onChange={e =>
+                        checked={formData.notifications?.push}
+>`n                        onChange={e =>
                           setFormData({
                             ...formData,
                             notifications: { ...formData.notifications!, push: e.target.checked}
@@ -320,11 +341,13 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile}) => {
                   <div className='relative'>
                     <Lock className='absolute left-3 top-3 w-4 h-4 text-gray-400' />
                     <input type={showPassword ? 'text' : 'password'}
-                      value={formData.password}>`n                      onChange={e => setFormData({ ...formData, password: e.target.value})}
+                      value={formData.password}
+>`n                      onChange={e => setFormData({ ...formData, password: e.target.value})}
                       placeholder='Enter new password'
                       className='w-full pl-10 pr-12 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400'
                     />
-                    <button type='button'>`n                      onClick={() => setShowPassword(!showPassword)}
+                    <button type='button'
+>`n                      onClick={() => setShowPassword(!showPassword)}
                       className='absolute right-3 top-3 text-gray-400 hover:text-white'
                     >
                       {showPassword ? <EyeOff className='w-4 h-4' /> : <Eye className='w-4 h-4' />}
@@ -351,7 +374,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ user, onUpdateProfile}) => {
 
 // Default component with mock data
 const UserProfileWithMockData: React.FC = () => {
-  const mockUser: User = {,`n  id: 1,
+  const mockUser: User = {
+,`n  id: 1,
     email: 'elite@example.com',
     username: 'elitebettor',
     fullName: 'Elite Bettor',
@@ -375,7 +399,7 @@ const UserProfileWithMockData: React.FC = () => {
   return <UserProfile user={mockUser} onUpdateProfile={handleUpdateProfile} />};
 
 export default UserProfileWithMockData;
-export { UserProfile};
+export { UserProfile };
 
 
 

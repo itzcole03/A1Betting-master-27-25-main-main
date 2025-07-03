@@ -3,31 +3,58 @@
  * Provides easy access to user settings throughout the application;
  */
 
-export interface UserSettings {
-  profile: {,`n  name: string;,`n  email: string,`n  timezone: string;,`n  currency: string};
-  notifications: {,`n  email: boolean;,`n  push: boolean,`n  sound: boolean};
-  display: {,`n  darkMode: boolean;,`n  compactView: boolean,`n  fontSize: number};
-  betting: {,`n  defaultStake: number;,`n  maxStake: number,`n  currency: string};
-  privacy: {,`n  sharePredictions: boolean;,`n  showStats: boolean}}
+interface UserSettings {
+  profile: {
+    name: string;
+    email: string
+    timezone: string;
+    currency: string
+  };
+  notifications: {
+    email: boolean;
+    push: boolean
+    sound: boolean
+  };
+  display: {
+    darkMode: boolean;
+    compactView: boolean
+    fontSize: number
+  };
+  betting: {
+    defaultStake: number;
+    maxStake: number
+    currency: string
+  };
+  privacy: {
+    sharePredictions: boolean;
+    showStats: boolean
+  }
+}
 
-export const DEFAULT_SETTINGS: UserSettings = {,`n  profile: {,`n  name: 'User',
+export const DEFAULT_SETTINGS: UserSettings = {
+  profile: {
+    name: 'User',
     email: 'user@a1betting.com',
     timezone: 'UTC-5',
     currency: 'USD'
   },
-  notifications: {,`n  email: true,
+  notifications: {
+    email: true,
     push: true,
     sound: false
   },
-  display: {,`n  darkMode: true,
+  display: {
+    darkMode: true,
     compactView: false,
     fontSize: 16
   },
-  betting: {,`n  defaultStake: 10,
+  betting: {
+    defaultStake: 10,
     maxStake: 100,
     currency: 'USD'
   },
-  privacy: {,`n  sharePredictions: false,
+  privacy: {
+    sharePredictions: false,
     showStats: true
   }
 };

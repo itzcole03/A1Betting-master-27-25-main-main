@@ -1,16 +1,41 @@
-﻿import React, { useState} from 'react'
-import { motion} from 'framer-motion'
-import { BarChart3, TrendingUp, Target, DollarSign, Activity, Brain} from 'lucide-react'
+﻿import { motion } from 'framer-motion'
+import { Activity, BarChart3, Brain, DollarSign, Target, TrendingUp } from 'lucide-react'
+import { CommandSummaryProvider } from '../contexts/CommandSummaryContext'
 
 interface AnalyticsData {
-  totalBets: number,`n  winRate: number;,`n  profit: number,`n  roi: number;,`n  avgOdds: number,`n  accuracy: number}
+  totalBets: number
+,`n  winRate: number;
+,`n  profit: number
+,`n  roi: number;
+,`n  avgOdds: number
+,`n  accuracy: number}
+
+const CommandSummarySidebar: React.FC = () => {
+  const { commands, loading, error } = useCommandSummary();
+  return (
+    <aside style={{ width: 320, background: '#18181b', color: '#fff', borderLeft: '1px solid #333', padding: 16, overflowY: 'auto', position: 'fixed', right: 0, top: 0, height: '100vh', zIndex: 100 }}>
+      <h2 style={{ fontWeight: 700, fontSize: 20, marginBottom: 12 }}>Live Command Summary</h2>
+      {loading && <div>Loading commands...</div>}
+      {error && <div style={{ color: 'red' }}>{error}</div>}
+      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+        {commands.map(cmd => (
+          <li key={cmd.id} style={{ marginBottom: 16 }}>
+            <div style={{ fontWeight: 600 }}>{cmd.name}</div>
+            <div style={{ fontSize: 14, color: '#aaa' }}>{cmd.description}</div>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  );
+};
 
 const Analytics: React.FC = () => {
   const [timeframe, setTimeframe] = useState('7d');
   const [activeTab, setActiveTab] = useState('overview');
 
   // Mock analytics data - would come from real services
-  const analyticsData: AnalyticsData = {,`n  totalBets: 1247,
+  const analyticsData: AnalyticsData = {
+,`n  totalBets: 1247,
     winRate: 87.3,
     profit: 24750,
     roi: 34.2,
@@ -53,7 +78,8 @@ const Analytics: React.FC = () => {
       <div className='quantum-card rounded-3xl p-6 mb-10'>
         <div className='flex flex-wrap gap-4'>
           {['24h', '7d', '30d', '90d', 'all'].map(period => (
-            <button key={period}>`n              onClick={() => setTimeframe(period)}
+            <button key={period}
+>`n              onClick={() => setTimeframe(period)}
               className={`px-6 py-3 rounded-2xl transition-all duration-300 font-bold font-cyber ${
                 timeframe === period
                   ? 'bg-electric-500/20 border-2 border-electric-500/40 text-electric-400 shadow-neon'
@@ -152,7 +178,8 @@ const Analytics: React.FC = () => {
           {tabs.map(tab => {
             const Icon = tab.icon;
             return (
-              <button key={tab.id}>`n                onClick={() => setActiveTab(tab.id)}
+              <button key={tab.id}
+>`n                onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center space-x-3 px-6 py-4 rounded-2xl transition-all duration-300 font-bold font-cyber ${
                   activeTab === tab.id
                     ? 'bg-electric-500/20 border-2 border-electric-500/40 text-electric-400 shadow-neon'
@@ -180,7 +207,8 @@ const Analytics: React.FC = () => {
                 {chartData.map((day, index) => (
                   <div key={day.name} className='flex flex-col items-center flex-1'>
                     <div className='w-full bg-gradient-to-t from-electric-400 to-neon-blue rounded-t-lg mb-2'
-                      style={{ height: `${(day.profit / 3200) * 100}%`}}>`n                    />
+                      style={{ height: `${(day.profit / 3200) * 100}%`}}
+>`n                    />
                     <div className='text-sm text-gray-400 font-mono'>{day.name}</div>
                     <div className='text-xs text-electric-400 font-bold'>${day.profit}</div>
                   </div>
@@ -251,10 +279,16 @@ const Analytics: React.FC = () => {
           </div>
         )}
       </div>
+      {/* Inject live command summary sidebar */}
+      <CommandSummarySidebar />
     </div>
   )};
 
-export default Analytics;
+export default (props: any) => (
+  <CommandSummaryProvider>
+    <Analytics {...props} />
+  </CommandSummaryProvider>
+);
 
 
 

@@ -1,24 +1,32 @@
-﻿import { RawPrizePicksProjection} from '@/api/PrizePicksAPI.js';
+﻿import { RawPrizePicksProjection } from '@/api/PrizePicksAPI.js';
 
 interface WorkerMessage {
-  type: 'GENERATE_COMBINATIONS',`n  data: {,`n  projections: RawPrizePicksProjection[0],`n  maxLegs: number}}
+  type: 'GENERATE_COMBINATIONS'
+  data: {
+    projections: RawPrizePicksProjection[]
+    maxLegs: number
+  }
+}
 
 self.onmessage = (event: MessageEvent<WorkerMessage>) => {
   if (event.data.type === 'GENERATE_COMBINATIONS') {
     const { projections, maxLegs} = event.data.data;
+    const combinations = generateCombinations(projections, maxLegs);
 
-    self.postMessage({ type: 'COMBINATIONS_READY', data: combinations})}
+    self.postMessage({ type: 'COMBINATIONS_READY', data: combinations})
+  }
 };
 
 function generateCombinations(
-  projections: RawPrizePicksProjection[0],
+  projections: RawPrizePicksProjection[],
   maxLegs: number
-): RawPrizePicksProjection[0][0] {
-  const results: RawPrizePicksProjection[0][0] = [0];
+): RawPrizePicksProjection[][] {
+  const results: RawPrizePicksProjection[][] = [];
+  const batchSize = 1000;
 
-  const batchCount = 0;
+  let batchCount = 0;
 
-  const combine = (current: RawPrizePicksProjection[0], start: number, legsLeft: number) => {
+  const combine = (current: RawPrizePicksProjection[], start: number, legsLeft: number) => {
     if (legsLeft === 0) {
       results.push([...current]);
       batchCount++;
@@ -27,31 +35,38 @@ function generateCombinations(
       if (batchCount % batchSize === 0) {
         self.postMessage({
           type: 'PROGRESS_UPDATE',
-          data: {,`n  combinationsGenerated: batchCount,
+          data: {
+            combinationsGenerated: batchCount,
             isComplete: false
           }
-        })}
-      return;}
+        })
+      }
+      return;
+    }
 
-    for (const i = start; i < projections.length; i++) {
+    for (let i = start; i < projections.length; i++) {
       current.push(projections[i]);
       combine(current, i + 1, legsLeft - 1);
-      current.pop();}
+      current.pop();
+    }
   };
 
   // Generate combinations for each number of legs;
-  for (const legs = 2; legs <= maxLegs; legs++) {
-    combine([0], 0, legs);}
+  for (let legs = 2; legs <= maxLegs; legs++) {
+    combine([], 0, legs);
+  }
 
   // Send final progress update;
   self.postMessage({
     type: 'PROGRESS_UPDATE',
-    data: {,`n  combinationsGenerated: results.length,
+    data: {
+      combinationsGenerated: results.length,
       isComplete: true
     }
   });
 
-  return results;}
+  return results;
+}
 
 
 

@@ -1,0 +1,28 @@
+=== A1Betting GUI Debug Launcher ===
+PowerShell Version: 5.1.26100.4061
+Execution Policy: Bypass
+Creating XAML with debugging...
+Loading XAML...
+バ. XAML loaded successfully
+
+Verifying controls...
+バ. Found: DashboardBtn
+バ. Found: AnalyticsBtn
+バ. Found: MLBtn
+バ. Found: SettingsBtn
+バ. Found: ExitBtn
+バ. Found: HeaderText
+バ. Found: ContentText
+バ. Found: StatusBox
+バ. All controls verified. Setting up event handlers...
+バ. All event handlers configured successfully
+
+dYs? Launching GUI window...
+Dashboard clicked
+Analytics clicked
+ML Dashboard clicked
+Settings clicked
+GUI closed with result: False
+
+=== GUI Session Complete ===
+^C

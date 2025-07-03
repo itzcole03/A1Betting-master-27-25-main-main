@@ -1,32 +1,22 @@
-﻿import React, { useState, useEffect, useMemo} from 'react';
-import { motion, AnimatePresence} from 'framer-motion';
+﻿import { AnimatePresence, motion } from 'framer-motion';
 import {
-  Trophy,
-  Target,
-  TrendingUp,
-  Brain,
-  Eye,
-  Download,
-  Trash2,
-  Play,
-  Calendar,
-  DollarSign,
-  BarChart3,
-  Zap,
-  CheckCircle,
-  XCircle,
-  Clock,
-  Filter,
-  Search,
-  Settings,
-  RefreshCw,
-  TrendingDown,
-//   Activity
+    BarChart3,
+    Brain,
+    Calendar,
+    DollarSign,
+    Download,
+    Play,
+    RefreshCw,
+    Search,
+    Target,
+    Trash2,
+    Trophy
 } from 'lucide-react';
-import { lineupTracker, SavedLineup, LineupStats} from '../../services/lineupTrackingService';
+import React, { useEffect, useMemo, useState } from 'react';
+import { LineupStats, SavedLineup, lineupTracker } from '../../services/lineupTrackingService';
 
 const SavedLineups: React.FC = () => {
-  const [savedLineups, setSavedLineups] = useState<SavedLineup[0]>([0]);
+  const [savedLineups, setSavedLineups] = useState<SavedLineup[]>([]);
   const [stats, setStats] = useState<LineupStats | null>(null);
   const [selectedType, setSelectedType] = useState<
     'all' | 'money-maker' | 'prizepicks' | 'propollama'
@@ -50,13 +40,16 @@ const SavedLineups: React.FC = () => {
     return () => {
       lineupTracker.off('lineupSaved', handleLineupUpdate);
       lineupTracker.off('lineupUpdated', handleLineupUpdate);
-      lineupTracker.off('lineupDeleted', handleLineupUpdate);};}, [0]);
+      lineupTracker.off('lineupDeleted', handleLineupUpdate);
+    };
+  }, []);
 
   const loadLineups = () => {
     const lineups = lineupTracker.getAllLineups();
     const statsData = lineupTracker.getStats();
     setSavedLineups(lineups);
-    setStats(statsData);};
+    setStats(statsData);
+  };
 
   const filteredAndSortedLineups = useMemo(() => {
     const filtered = savedLineups.filter(lineup => {
@@ -71,7 +64,8 @@ const SavedLineups: React.FC = () => {
             pick.description?.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
-      return typeMatch && statusMatch && searchMatch;});
+      return typeMatch && statusMatch && searchMatch;
+    });
 
     // Sort lineups
     switch (sortBy) {
@@ -85,9 +79,11 @@ const SavedLineups: React.FC = () => {
         filtered.sort((a, b) => b.projectedPayout - a.projectedPayout);
         break;
       default: // newest
-        filtered.sort((a, b) => new Date(b.savedAt).getTime() - new Date(a.savedAt).getTime())}
+        filtered.sort((a, b) => new Date(b.savedAt).getTime() - new Date(a.savedAt).getTime());
+    }
 
-    return filtered;}, [savedLineups, selectedType, selectedStatus, searchTerm, sortBy]);
+    return filtered;
+  }, [savedLineups, selectedType, selectedStatus, searchTerm, sortBy]);
 
   const getTypeColor = (type: string) => {
     switch (type) {
@@ -97,7 +93,9 @@ const SavedLineups: React.FC = () => {
         return 'text-yellow-400';
       case 'propollama':
         return 'text-blue-400';
-      default: return 'text-gray-400'}
+      default: 
+        return 'text-gray-400';
+    }
   };
 
   const getTypeIcon = (type: string) => {
@@ -108,7 +106,9 @@ const SavedLineups: React.FC = () => {
         return Trophy;
       case 'propollama':
         return Brain;
-      default: return Target}
+      default: 
+        return Target;
+    }
   };
 
   const getStatusColor = (status: string) => {
@@ -121,17 +121,21 @@ const SavedLineups: React.FC = () => {
         return 'text-yellow-400 bg-yellow-400/20';
       case 'cancelled':
         return 'text-red-400 bg-red-400/20';
-      default: return 'text-gray-400 bg-gray-400/20'}
+      default: 
+        return 'text-gray-400 bg-gray-400/20';
+    }
   };
 
   const getProgressPercentage = (lineup: SavedLineup): number => {
     if (!lineup.progress) return 0;
     return lineup.progress.totalPicks > 0
       ? (lineup.progress.settledPicks / lineup.progress.totalPicks) * 100
-      : 0;};
+      : 0;
+  };
 
   const deleteLineup = (id: string) => {
-    lineupTracker.deleteLineup(id)};
+    lineupTracker.deleteLineup(id);
+  };
 
   const duplicateLineup = (lineup: SavedLineup) => {
     lineupTracker.saveLineup({
@@ -142,7 +146,8 @@ const SavedLineups: React.FC = () => {
       projectedPayout: lineup.projectedPayout,
       status: 'pending',
       metadata: lineup.metadata
-    })};
+    });
+  };
 
   const exportLineups = () => {
     const data = lineupTracker.exportLineups({
@@ -150,13 +155,14 @@ const SavedLineups: React.FC = () => {
       status: selectedStatus !== 'all' ? selectedStatus : undefined
     });
 
-    const blob = new Blob([data], { type: 'application/json'});
+    const blob = new Blob([data], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     a.download = `saved-lineups-${selectedType}-${new Date().toISOString().split('T')[0]}.json`;
     a.click();
-    URL.revokeObjectURL(url);};
+    URL.revokeObjectURL(url);
+  };
 
   const formatTimeAgo = (date: Date) => {
     const now = new Date();
@@ -164,13 +170,19 @@ const SavedLineups: React.FC = () => {
 
     if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
     if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)}h ago`;
-    return `${Math.floor(diffInMinutes / 1440)}d ago`;};
+    return `${Math.floor(diffInMinutes / 1440)}d ago`;
+  };
+
+  const safeNumber = (value: number | undefined, decimals: number = 2): string => {
+    if (value === undefined || value === null || isNaN(value)) return '0';
+    return value.toFixed(decimals);
+  };
 
   const renderProgressBar = (lineup: SavedLineup) => {
     if (!lineup.progress) return null;
 
     const percentage = getProgressPercentage(lineup);
-    const { wonPicks, lostPicks, pushPicks, totalPicks} = lineup.progress;
+    const { wonPicks, lostPicks, pushPicks, totalPicks } = lineup.progress;
 
     return (
       <div className='space-y-2'>
@@ -181,9 +193,10 @@ const SavedLineups: React.FC = () => {
           <span>{safeNumber(percentage, 0)}%</span>
         </div>
         <div className='w-full bg-gray-700 rounded-full h-2'>
-          <div className='bg-gradient-to-r from-green-400 to-electric-400 h-2 rounded-full transition-all duration-300'
-            style={{ width: `${percentage}%`}}
->`n          />
+          <div 
+            className='bg-gradient-to-r from-green-400 to-electric-400 h-2 rounded-full transition-all duration-300'
+            style={{ width: `${percentage}%` }}
+          />
         </div>
         {lineup.progress.settledPicks > 0 && (
           <div className='flex justify-between text-xs'>
@@ -193,14 +206,15 @@ const SavedLineups: React.FC = () => {
           </div>
         )}
       </div>
-    )};
+    );
+  };
 
   return (
     <motion.div
       className='space-y-10 animate-slide-in-up'
-      initial={{ opacity: 0, y: 20}}
-      animate={{ opacity: 1, y: 0}}
-      transition={{ duration: 0.5}}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
     >
       {/* Header */}
       <div className='text-center'>
@@ -218,9 +232,9 @@ const SavedLineups: React.FC = () => {
       {stats && (
         <motion.div
           className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4'
-          initial={{ opacity: 0, scale: 0.9}}
-          animate={{ opacity: 1, scale: 1}}
-          transition={{ delay: 0.2}}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2 }}
         >
           <div className='quantum-card p-4 rounded-xl text-center'>
             <div className='text-2xl font-bold text-electric-400 font-cyber'>
@@ -241,21 +255,20 @@ const SavedLineups: React.FC = () => {
             <div className='text-xs text-gray-400 font-mono'>Winnings</div>
           </div>
           <div className='quantum-card p-4 rounded-xl text-center'>
-            <div className={`text-2xl font-bold font-cyber ${stats.roi >= 0 ? 'text-green-400' : 'text-red-400'}`}
-            >
-              {stats.safeNumber(roi, 1)}%
+            <div className={`text-2xl font-bold font-cyber ${stats.roi >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+              {safeNumber(stats.roi, 1)}%
             </div>
             <div className='text-xs text-gray-400 font-mono'>ROI</div>
           </div>
           <div className='quantum-card p-4 rounded-xl text-center'>
             <div className='text-2xl font-bold text-purple-400 font-cyber'>
-              {stats.safeNumber(winRate, 1)}%
+              {safeNumber(stats.winRate, 1)}%
             </div>
             <div className='text-xs text-gray-400 font-mono'>Win Rate</div>
           </div>
           <div className='quantum-card p-4 rounded-xl text-center'>
             <div className='text-2xl font-bold text-blue-400 font-cyber'>
-              {stats.safeNumber(averageConfidence, 1)}%
+              {safeNumber(stats.averageConfidence, 1)}%
             </div>
             <div className='text-xs text-gray-400 font-mono'>Avg Conf.</div>
           </div>
@@ -280,17 +293,19 @@ const SavedLineups: React.FC = () => {
           {/* Search */}
           <div className='relative flex-1 min-w-64'>
             <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4' />
-            <input type='text'
+            <input 
+              type='text'
               placeholder='Search lineups...'
               value={searchTerm}
->`n              onChange={e => setSearchTerm(e.target.value)}
+              onChange={e => setSearchTerm(e.target.value)}
               className='w-full pl-10 pr-4 py-2 bg-gray-800/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-electric-400 focus:outline-none'
             />
           </div>
 
           {/* Sort */}
-          <select value={sortBy}
->`n            onChange={e => setSortBy(e.target.value as any)}
+          <select 
+            value={sortBy}
+            onChange={e => setSortBy(e.target.value as any)}
             className='px-4 py-2 bg-gray-800/50 border border-gray-600 rounded-lg text-white focus:border-electric-400 focus:outline-none'
           >
             <option value='newest'>Newest First</option>
@@ -300,9 +315,10 @@ const SavedLineups: React.FC = () => {
           </select>
 
           {/* Export */}
-          <button onClick={exportLineups}
+          <button 
+            onClick={exportLineups}
             className='flex items-center space-x-2 px-4 py-2 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-lg hover:bg-blue-500/30 transition-all'
->`n          >
+          >
             <Download className='w-4 h-4' />
             <span>Export</span>
           </button>
@@ -314,12 +330,14 @@ const SavedLineups: React.FC = () => {
             <label className='text-sm text-gray-400 font-mono'>TYPE</label>
             <div className='flex gap-2'>
               {(['all', 'money-maker', 'prizepicks', 'propollama'] as const).map(type => (
-                <button key={type}
->`n                  onClick={() => setSelectedType(type)}
+                <button 
+                  key={type}
+                  onClick={() => setSelectedType(type)}
                   className={`px-4 py-2 rounded-lg font-bold transition-all text-sm ${
                     selectedType === type
                       ? 'bg-electric-500/20 text-electric-400 border border-electric-500/40'
-                      : 'bg-gray-800/50 text-gray-400 hover:text-gray-300'}`}
+                      : 'bg-gray-800/50 text-gray-400 hover:text-gray-300'
+                  }`}
                 >
                   {type === 'all' ? 'ALL' : type.toUpperCase().replace('-', ' ')}
                 </button>
@@ -332,12 +350,14 @@ const SavedLineups: React.FC = () => {
             <label className='text-sm text-gray-400 font-mono'>STATUS</label>
             <div className='flex gap-2'>
               {(['all', 'active', 'completed', 'pending', 'cancelled'] as const).map(status => (
-                <button key={status}
->`n                  onClick={() => setSelectedStatus(status)}
+                <button 
+                  key={status}
+                  onClick={() => setSelectedStatus(status)}
                   className={`px-4 py-2 rounded-lg font-bold transition-all text-sm ${
                     selectedStatus === status
                       ? 'bg-electric-500/20 text-electric-400 border border-electric-500/40'
-                      : 'bg-gray-800/50 text-gray-400 hover:text-gray-300'}`}
+                      : 'bg-gray-800/50 text-gray-400 hover:text-gray-300'
+                  }`}
                 >
                   {status.toUpperCase()}
                 </button>
@@ -357,13 +377,13 @@ const SavedLineups: React.FC = () => {
             return (
               <motion.div
                 key={lineup.id}
-//                 layout
-                initial={{ opacity: 0, scale: 0.9}}
-                animate={{ opacity: 1, scale: 1}}
-                exit={{ opacity: 0, scale: 0.9}}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
                 className='quantum-card rounded-2xl p-6 hover:border-electric-500/30 transition-all cursor-pointer'
                 onClick={() => setShowDetails(showDetails === lineup.id ? null : lineup.id)}
-                whileHover={{ scale: 1.02}}
+                whileHover={{ scale: 1.02 }}
               >
                 <div className='flex justify-between items-start mb-4'>
                   <div className='flex items-center space-x-3'>
@@ -375,8 +395,7 @@ const SavedLineups: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  <div className={`px-3 py-1 rounded-full text-xs font-bold ${getStatusColor(lineup.status)}`}
->`n                  >
+                  <div className={`px-3 py-1 rounded-full text-xs font-bold ${getStatusColor(lineup.status)}`}>
                     {lineup.status.toUpperCase()}
                   </div>
                 </div>
@@ -409,7 +428,7 @@ const SavedLineups: React.FC = () => {
                   <div className='flex items-center justify-between'>
                     <span className='text-sm text-gray-400'>Confidence:</span>
                     <span className='text-electric-400 font-bold'>
-                      {lineup.metadata.safeNumber(confidence, 1)}%
+                      {safeNumber(lineup.metadata.confidence, 1)}%
                     </span>
                   </div>
                 )}
@@ -418,9 +437,9 @@ const SavedLineups: React.FC = () => {
                 <AnimatePresence>
                   {showDetails === lineup.id && (
                     <motion.div
-                      initial={{ opacity: 0, height: 0}}
-                      animate={{ opacity: 1, height: 'auto'}}
-                      exit={{ opacity: 0, height: 0}}
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
                       className='mt-6 pt-4 border-t border-white/10'
                     >
                       <div className='space-y-2 mb-4'>
@@ -434,7 +453,7 @@ const SavedLineups: React.FC = () => {
                                 </div>
                                 {pick.confidence && (
                                   <div className='text-xs text-electric-400'>
-                                    {pick.safeNumber(confidence, 1)}% confidence
+                                    {safeNumber(pick.confidence, 1)}% confidence
                                   </div>
                                 )}
                               </div>
@@ -443,7 +462,7 @@ const SavedLineups: React.FC = () => {
                                 <div className='text-white'>{pick.description}</div>
                                 {pick.confidence && (
                                   <div className='text-xs text-electric-400'>
-                                    {pick.safeNumber(confidence, 1)}% confidence
+                                    {safeNumber(pick.confidence, 1)}% confidence
                                   </div>
                                 )}
                               </div>
@@ -453,18 +472,22 @@ const SavedLineups: React.FC = () => {
                       </div>
 
                       <div className='flex space-x-2'>
-                        <button onClick={e => {
+                        <button 
+                          onClick={e => {
                             e.stopPropagation();
-                            duplicateLineup(lineup);}}
+                            duplicateLineup(lineup);
+                          }}
                           className='flex-1 flex items-center justify-center space-x-2 px-4 py-2 bg-electric-500/20 text-electric-400 rounded-lg hover:bg-electric-500/30 transition-all'
                         >
                           <Play className='w-4 h-4' />
                           <span>Duplicate</span>
                         </button>
-                        <button onClick={e => {
+                        <button 
+                          onClick={e => {
                             e.stopPropagation();
-                            deleteLineup(lineup.id);}}
-                          className='flex items-center justify-center px-4 py-2 bg-red-500/20 text-red-400 rounded-lg hover: bg-red-500/30 transition-all'
+                            deleteLineup(lineup.id);
+                          }}
+                          className='flex items-center justify-center px-4 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 transition-all'
                         >
                           <Trash2 className='w-4 h-4' />
                         </button>
@@ -473,25 +496,28 @@ const SavedLineups: React.FC = () => {
                   )}
                 </AnimatePresence>
               </motion.div>
-            )})}
+            );
+          })}
         </AnimatePresence>
       </div>
 
       {filteredAndSortedLineups.length === 0 && (
         <motion.div
           className='quantum-card rounded-3xl p-12 text-center'
-          initial={{ opacity: 0}}
-          animate={{ opacity: 1}}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
         >
           <div className='text-6xl mb-4'>🔍</div>
           <h3 className='text-2xl font-bold text-white font-cyber mb-4'>NO LINEUPS FOUND</h3>
           <p className='text-gray-400 mb-6'>
             No lineups match your current filters. Try adjusting your search criteria.
           </p>
-          <button onClick={() => {
+          <button 
+            onClick={() => {
               setSelectedType('all');
               setSelectedStatus('all');
-              setSearchTerm('');}}
+              setSearchTerm('');
+            }}
             className='px-6 py-3 bg-electric-500/20 text-electric-400 rounded-lg hover:bg-electric-500/30 transition-all'
           >
             Clear Filters
@@ -502,28 +528,25 @@ const SavedLineups: React.FC = () => {
       {/* Action Panel */}
       <div className='quantum-card rounded-3xl p-8 text-center'>
         <h3 className='text-2xl font-bold text-white font-cyber mb-4'>
-          LINEUP INTELLIGENCE CENTER
+          QUANTUM LINEUP INTELLIGENCE
         </h3>
         <p className='text-gray-400 mb-6'>
-          Advanced analytics and management for your quantum-powered betting strategies
+          Advanced tracking and analysis for your betting strategies
         </p>
         <div className='flex justify-center space-x-4'>
-          <button onClick={exportLineups}
-            className='flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold rounded-xl hover:from-blue-400 hover:to-purple-400 transition-all duration-300 font-cyber'
->`n          >
-            <BarChart3 className='w-5 h-5' />
-            <span>EXPORT ANALYTICS</span>
+          <button className='px-6 py-3 bg-electric-500/20 text-electric-400 rounded-lg hover:bg-electric-500/30 transition-all'>
+            <RefreshCw className='w-4 h-4 inline mr-2' />
+            Refresh Data
           </button>
-          <button onClick={loadLineups}
-            className='flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-green-500 to-electric-500 text-black font-bold rounded-xl hover: from-green-400 hover:to-electric-400 transition-all duration-300 font-cyber'
->`n          >
-            <RefreshCw className='w-5 h-5' />
-            <span>REFRESH DATA</span>
+          <button className='px-6 py-3 bg-purple-500/20 text-purple-400 rounded-lg hover:bg-purple-500/30 transition-all'>
+            <BarChart3 className='w-4 h-4 inline mr-2' />
+            View Analytics
           </button>
         </div>
       </div>
     </motion.div>
-  )};
+  );
+};
 
 export default SavedLineups;
 

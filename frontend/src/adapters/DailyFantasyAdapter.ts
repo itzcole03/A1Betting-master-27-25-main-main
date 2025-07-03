@@ -1,6 +1,6 @@
-import { DataSource } from '../unified/DataSource';
-import { EventBus } from '../unified/EventBus';
-import { PerformanceMonitor } from '../unified/PerformanceMonitor';
+import { UnifiedMonitor } from '@/core/UnifiedMonitor';
+import { DataSource } from '@/unified/DataSource';
+import { EventBus } from '@/unified/EventBus';
 
 interface DailyFantasyConfig {
   apiKey: string;
@@ -31,7 +31,7 @@ export class DailyFantasyAdapter implements DataSource<DailyFantasyData> {
   public readonly type = 'sports-projections';
 
   private readonly eventBus: EventBus;
-  private readonly performanceMonitor: PerformanceMonitor;
+  private readonly monitor: UnifiedMonitor;
   private readonly config: DailyFantasyConfig;
   private cache: {
     data: DailyFantasyData | null;
@@ -40,7 +40,7 @@ export class DailyFantasyAdapter implements DataSource<DailyFantasyData> {
 
   constructor(config: DailyFantasyConfig) {
     this.eventBus = EventBus.getInstance();
-    this.performanceMonitor = PerformanceMonitor.getInstance();
+    this.monitor = UnifiedMonitor.getInstance();
     this.config = config;
     this.cache = {
       data: null,
@@ -53,43 +53,14 @@ export class DailyFantasyAdapter implements DataSource<DailyFantasyData> {
    * @returns DailyFantasyData with projections array.
    */
   public async fetchData(): Promise<DailyFantasyData> {
-    try {
-      const response = await fetch(`${this.config.baseUrl}/nba/projections`, {
-        headers: {
-          Authorization: `Bearer ${this.config.apiKey}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      
-      if (!response.ok) throw new Error('Failed to fetch projections');
-      
-      const data = await responseon();
-      return { projections: data.projections };
-    } catch (error) {
-      console.error("API Error:", error);
-      return { projections: [] };
-    }
-  }
-
-  public async isAvailable(): Promise<boolean> {
-    return Boolean(this.config.apiKey);
-  }
-
-  public async fetch(): Promise<DailyFantasyData> {
-    const traceId = this.performanceMonitor.startTrace('daily-fantasy-fetch', {
-      source: this.id,
-      type: this.type
-    });
+    const trace = this.monitor.startTrace('daily-fantasy-fetch', 'adapter.fetch', 'Fetching daily fantasy data');
 
     try {
       // Check cache first
       if (this.isCacheValid()) {
+        this.monitor.endTrace(trace);
         return this.cache.data!;
       }
-
-      const spanId = this.performanceMonitor.startSpan(traceId, 'api-request', {
-        url: `${this.config.baseUrl}/nba/projections`
-      });
 
       const response = await fetch(`${this.config.baseUrl}/nba/projections`, {
         headers: {
@@ -102,30 +73,49 @@ export class DailyFantasyAdapter implements DataSource<DailyFantasyData> {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await responseon();
-      this.performanceMonitor.endSpan(spanId);
-
+      const data = await response.json();
+      
       // Update cache
       this.cache = {
         data,
         timestamp: Date.now()
       };
 
-      // Publish event
-      await this.eventBus.publish({
-        type: 'daily-fantasy:data-updated',
-        payload: {
-          data: { projectionCount: data.projections.length } as Record<string, unknown>,
-          timestamp: Date.now()
-        }
-      });
+      // Update game status for each projection
+      for (const projection of data.projections) {
+        await this.eventBus.publish({
+          type: 'player:update',
+          payload: {
+            player: {
+              id: projection.name.toLowerCase().replace(/\s+/g, '-'),
+              name: projection.name,
+              team: projection.team,
+              position: projection.position,
+              stats: {
+                pts: projection.pts,
+                reb: projection.reb,
+                ast: projection.ast,
+                stl: projection.stl,
+                blk: projection.blk,
+                three_pt: projection.three_pt,
+                min: projection.min
+              }
+            },
+            timestamp: Date.now()
+          }
+        });
+      }
 
-      this.performanceMonitor.endTrace(traceId);
+      this.monitor.endTrace(trace);
       return data;
     } catch (error) {
-      this.performanceMonitor.endTrace(traceId, error as Error);
+      this.monitor.endTrace(trace, error as Error);
       throw error;
     }
+  }
+
+  public async isAvailable(): Promise<boolean> {
+    return Boolean(this.config.apiKey);
   }
 
   private isCacheValid(): boolean {

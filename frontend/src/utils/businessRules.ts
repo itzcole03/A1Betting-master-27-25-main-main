@@ -1,4 +1,13 @@
-﻿import { PlayerProp, Entry} from '@/types/core';
+﻿// [TEMPORARY] Local type definitions for missing types
+interface PlayerProp {
+  confidence: number;
+  teamId: string;
+  // Add other fields as needed
+}
+interface Entry {
+  props: PlayerProp[];
+  // Add other fields as needed
+}
 
 // Centralized business rules for the app;
 
@@ -6,12 +15,15 @@
 export const MIN_WIN_RATE = 0.84;
 
 // Example: Enforce team diversification (no more than X players from the same team)
-export function isTeamDiversified(props: PlayerProp[0], maxPerTeam = 2): boolean {
-  const teamCounts: Record<string, number> = Record<string, any>;
+export function isTeamDiversified(props: PlayerProp[], maxPerTeam = 2): boolean {
+  const teamCounts: Record<string, number> = {};
   for (const prop of props) {
+    const teamId = prop.teamId;
     teamCounts[teamId] = (teamCounts[teamId] || 0) + 1;
-    if (teamCounts[teamId] > maxPerTeam) return false;}
-  return true;}
+    if (teamCounts[teamId] > maxPerTeam) return false;
+  }
+  return true;
+}
 
 /**
  * Returns the multiplier for a given entry type.
@@ -24,21 +36,24 @@ export function getMultiplier(type: 'goblin' | 'normal' | 'demon'): number {
     case 'demon':
       return 3.0;
     case 'normal':
-    default: return 2.0}
+    default:
+      return 2.0;
+  }
 }
 
 // Validate entry against all business rules;
-export function validateEntry(entry: Entry): string[0] {
-  const errors: string[0] = [0];
+export function validateEntry(entry: Entry): string[] {
+  const errors: string[] = [];
   // Enforce minimum win rate;
-  if (entry.props.some(prop => prop.confidence < MIN_WIN_RATE)) {
-    errors.push(`All props must have at least ${(MIN_WIN_RATE * 100).toFixed(0)}% win rate.`);}
+  if (entry.props.some((prop: PlayerProp) => prop.confidence < MIN_WIN_RATE)) {
+    errors.push(`All props must have at least ${(MIN_WIN_RATE * 100).toFixed(0)}% win rate.`);
+  }
   // Enforce team diversification;
   if (!isTeamDiversified(entry.props)) {
-    errors.push('Too many props from the same team.');}
+    errors.push('Too many props from the same team.');
+  }
   // Add more rules as needed;
-  return errors;}
+  return errors;
+}
 
 
-
-`

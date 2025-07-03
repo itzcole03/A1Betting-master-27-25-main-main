@@ -60,7 +60,7 @@ const App: React.FC = () => {
   const checkBackendConnection = async () => {
     try {
       setConnectionStatus('connecting');
-      const response = await fetch('/health', {.catch(error => console.error("API Error:", error))
+      const response = await fetch('/health', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ const App: React.FC = () => {
 
   const fetchHealthData = async () => {
     try {
-      const response = await fetch('/api/health/comprehensive', {.catch(error => console.error("API Error:", error))
+      const response = await fetch('/api/health/comprehensive', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ const App: React.FC = () => {
   const fetchPredictions = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/v1/predictions/latest', {.catch(error => console.error("API Error:", error))
+      const response = await fetch('/api/v1/predictions/latest', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -125,7 +125,7 @@ const App: React.FC = () => {
 
   const testBackendEndpoint = async (endpoint: string, description: string) => {
     try {
-      const response = await fetch(endpoint, {.catch(error => console.error("API Error:", error))
+      const response = await fetch(endpoint, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -157,7 +157,7 @@ const App: React.FC = () => {
 
     for (const endpoint of endpoints) {
       try {
-        const response = await fetch(endpoint.url);.catch(error => console.error("API Error:", error))
+        const response = await fetch(endpoint.url);
         if (response.ok) {
           results.push(`✅ ${endpoint.name}: OK`);
         } else {
