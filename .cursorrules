@@ -1,0 +1,112 @@
+# A1Betting Platform - Cursor AI Configuration
+
+## PROJECT CONTEXT
+
+A1Betting: Sophisticated sports betting intelligence platform
+
+- React 18 + TypeScript frontend (QuantumSportsPlatform.tsx main component)
+- FastAPI backend with 96.4% accuracy ML models
+- Real-time PrizePicks API integration
+- 26,797 TypeScript errors requiring surgical repair
+
+## CORE PRINCIPLES
+
+1. PRESERVE sophisticated architecture - never simplify
+2. SURGICAL repair approach - fix corruption, not rewrite
+3. BETTING platform security - protect algorithms and user data
+
+## RULES (APPLY: ALWAYS)
+
+- Fix `,`n corruption patterns systematically
+- Maintain QuantumSportsPlatform.tsx structure (1320 lines)
+- Preserve ML model integration and real-time pipeline
+- Use environment variables for all secrets
+- Test financial calculations thoroughly
+- Document all changes in living documentation
+
+## AUTONOMOUS BACKGROUND AGENTS CONFIGURATION
+Enable all background agents for autonomous operation:
+
+### TypeScript Error Monitor (AUTONOMOUS: TRUE)
+- Auto-fix `,`n corruption patterns without approval
+- Target: 26,797 → < 100 errors
+- Batch processing: 50 fixes per batch
+- Preserve logic and architecture
+- Real-time monitoring and repair
+
+### Build Status Monitor (AUTONOMOUS: TRUE)
+- Continuous build monitoring
+- Auto-retry on failures (3 attempts)
+- Monitor frontend and backend builds
+- Alert on performance degradation
+- Maintain < 30 second build times
+
+### ML Model Performance Monitor (AUTONOMOUS: TRUE)
+- Monitor 96.4% accuracy threshold
+- Track prediction pipeline health
+- Alert on model degradation
+- Validate TensorFlow integration
+- Real-time performance metrics
+
+### Security Scanner (AUTONOMOUS: TRUE)
+- Prevent exposure of betting algorithms
+- Scan for API keys and secrets
+- Validate financial calculations
+- Audit trail monitoring
+- Immediate alerts for violations
+
+### Code Quality Monitor (AUTONOMOUS: TRUE)
+- Preserve sophisticated architecture
+- Maintain component complexity
+- No simplification allowed
+- QuantumSportsPlatform.tsx protection
+- Architecture integrity validation
+
+## COPILOT INTEGRATION SETTINGS
+- Allow full autonomous agent control
+- Background execution without approval
+- Real-time error monitoring and fixing
+- Context-aware decision making
+- Documentation access for all agents
+- Emergency stop capability only
+
+## CURSOR CONFIGURATION
+
+- Background agents: ENABLED and AUTONOMOUS
+- Context: Use @files, @docs, @code for dependencies
+- Models: Claude 3.5 for architecture, GPT-4 for syntax
+- Multi-agent parallel processing for component repairs
+- Documentation auto-indexing and context inclusion
+
+## DOCUMENTATION CONTEXT (AUTO-ATTACH)
+- docs/a1betting-architecture-overview.md
+- docs/typescript-error-repair-guide.md
+- docs/cursor-background-agents-guide.md
+- docs/cursor-optimization-checklist.md
+- .cursor/rules/backend-standards.mdc
+- .cursor/rules/frontend-standards.mdc
+- .cursor/rules/project-standards.mdc
+
+## CRITICAL WARNINGS
+
+- NEVER rewrite QuantumSportsPlatform.tsx from scratch
+- NEVER simplify ML architecture
+- NEVER expose betting algorithms
+- ALWAYS test financial calculations
+- ALWAYS maintain audit trails
+
+## AUTONOMOUS OPERATION PERMISSIONS
+- TypeScript error fixing: APPROVED
+- Corruption pattern removal: APPROVED
+- Import path resolution: APPROVED
+- Template literal repair: APPROVED
+- Build optimization: APPROVED
+- Security scanning: APPROVED
+- Performance monitoring: APPROVED
+
+## SUCCESS METRICS (AUTO-TRACKED)
+- TypeScript errors: 26,797 → < 100
+- Build time: < 30 seconds
+- ML accuracy: ≥ 96.4%
+- Security violations: 0
+- Architecture preservation: 100%

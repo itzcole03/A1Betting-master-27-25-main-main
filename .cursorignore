@@ -1,6 +1,76 @@
+# A1Betting Platform - Cursor Ignore Configuration
+
+# Legacy and backup files
 legacy-code/
+legacy_tests_backup/
+backups/
+
+# Logs and temporary files
 logs/
 *.log
 *.sqlite3
+*.db-journal
+*.tmp
+
+# Dependencies and build artifacts
 node_modules/
-venv/ 
+venv/
+.venv/
+dist/
+build/
+.next/
+.nuxt/
+
+# Large data files and models
+*.json.gz
+**/organized_chat_data_*.json
+**/extracted_chat_data_*.json
+model_metrics/
+*.h5
+*.pkl
+*.joblib
+
+# Environment and secrets
+.env
+.env.local
+.env.production
+.env.staging
+*.key
+*.pem
+
+# IDE and system files
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Test coverage and reports
+coverage/
+.nyc_output/
+junit.xml
+test-results/
+
+# Temporary development files
+*.temp
+*.bak
+*.orig
+debug.log
+error.log
+
+# Large autonomous reports (keep structure, ignore large files)
+AUTONOMOUS_REFACTOR_REPORT_*.json
+phase*_completion_report.json
+autonomous_*.json
+
+# ML model artifacts (include in context only when needed)
+*.model
+*.weights
+*.checkpoint
+
+# Documentation builds
+_site/
+.jekyll-cache/
+.docusaurus/ 
