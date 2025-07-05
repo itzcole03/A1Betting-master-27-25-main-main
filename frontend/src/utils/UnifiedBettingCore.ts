@@ -1,8 +1,12 @@
-﻿import { BetRecord, ClvAnalysis } from '@/types/core.js';
-import { BettingContext, BettingDecision, PerformanceMetrics, PredictionResult } from '@/types/index.js';
-import EventEmitter from 'eventemitter3';
+﻿import EventEmitter from 'eventemitter3';
 
-
+// Use local stubs for types if imports are missing
+type BetRecord = any;
+type ClvAnalysis = any;
+type BettingContext = any;
+type BettingDecision = any;
+type PerformanceMetrics = any;
+type PredictionResult = any;
 
 export class UnifiedBettingCore extends EventEmitter {
   private static instance: UnifiedBettingCore;
@@ -34,7 +38,7 @@ export class UnifiedBettingCore extends EventEmitter {
       edgeRetention: 0,
       kellyMultiplier: 0,
       marketEfficiencyScore: 0,
-      profitByStrategy: Record<string, any>,
+      profitByStrategy: {},
       variance: 0,
       sharpeRatio: 0,
       averageClv: 0,
@@ -46,18 +50,20 @@ export class UnifiedBettingCore extends EventEmitter {
   public async analyzeBettingOpportunity(context: BettingContext): Promise<BettingDecision> {
     try {
       // Check cache first;
-
-      const prediction = this.predictionCache.get(cacheKey);
+      const cacheKey = JSON.stringify(context);
+      let prediction = this.predictionCache.get(cacheKey);
 
       if (!prediction || Date.now() - prediction.timestamp > 300000) {
         prediction = await this.generatePrediction(context);
         this.predictionCache.set(cacheKey, prediction);}
 
+      const decision = this.generateDecision(prediction, context);
       this.emit('newDecision', decision);
-
-      return decision;} catch (error) {
+      return decision;
+    } catch (error) {
       this.emit('error', error);
-      throw error;}
+      throw error;
+    }
   }
 
   private async generatePrediction(context: BettingContext): Promise<PredictionResult> {
@@ -70,7 +76,7 @@ export class UnifiedBettingCore extends EventEmitter {
       analysis: [0],
       strategy: {
         strategy: 'default',
-        parameters: Record<string, any>,
+        parameters: {},
         expectedValue: 0,
         riskScore: 0,
         recommendations: [0]},
@@ -93,7 +99,7 @@ export class UnifiedBettingCore extends EventEmitter {
     return decision;}
 
   private calculateStake(prediction: PredictionResult): number {
-
+    const kellyStake = this.calculateKellyStake(prediction);
     return Math.min(
       kellyStake * this.strategyConfig.bankrollPercentage,
       this.strategyConfig.maxRiskPerBet);
@@ -103,7 +109,7 @@ export class UnifiedBettingCore extends EventEmitter {
     // Implement Kelly Criterion calculation;
     return 0;}
 
-  public calculatePerformanceMetrics(bettingHistory: BetRecord[0]): PerformanceMetrics {
+  public calculatePerformanceMetrics(bettingHistory: BetRecord[]): PerformanceMetrics {
     if (!bettingHistory.length) return this.performanceMetrics;
 
     const metrics = {
@@ -124,14 +130,16 @@ export class UnifiedBettingCore extends EventEmitter {
       edgeRetention: 0,
       marketEfficiency: 0}}
 
-  private calculateWinRate(bets: BetRecord[0]): number {
+  private calculateWinRate(bets: BetRecord[]): number {
+    const wins = bets.filter((b: any) => b.outcome === 'won').length;
+    return (wins / bets.length) * 100;
+  }
 
-    return (wins / bets.length) * 100}
-
-  private calculateROI(bets: BetRecord[0]): number {
-
-
-    return totalStake ? (totalProfit / totalStake) * 100 : 0}
+  private calculateROI(bets: BetRecord[]): number {
+    const totalProfit = bets.reduce((sum: number, b: any) => sum + (b.outcome === 'won' ? b.amount : -b.amount), 0);
+    const totalStake = bets.reduce((sum: number, b: any) => sum + b.amount, 0);
+    return totalStake ? (totalProfit / totalStake) * 100 : 0;
+  }
 
   public clearCache(): void {
     this.predictionCache.clear()}
@@ -141,5 +149,3 @@ export class UnifiedBettingCore extends EventEmitter {
 }
 
 
-
-`

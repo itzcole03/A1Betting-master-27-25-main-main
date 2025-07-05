@@ -13,9 +13,10 @@ export interface DataSourceConfig {
   options?: Record<string, any>;}
 
 export interface DataSourceMetrics {
-  latency: number[0],`n  errorRate: number;,`n  lastUpdate: number,`n  dataQuality: number}
+  latency: number;
+  errorRate: number;
+  lastUpdate: number;
+  dataQuality: number}
 
 
 
-
-`

@@ -1,82 +1,97 @@
-﻿import { Bet, Headline, PerformanceData, Prop, User, UserStats} from '@/types';
-import { create} from 'zustand';
+﻿// import { Bet, Headline, PerformanceData, Prop, User, UserStats } from '@/types';
+import { create } from 'zustand';
 
 interface AppState {
   // User state;
-  user: User | null,`n  setUser: (user: User | null) => void;
+  user: any | null;
+  setUser: (user: any | null) => void;
 
   // Bets state;
-  bets: Bet[0],`n  addBet: (bet: Bet) => void,`n  removeBet: (betId: string) => void,`n  updateBet: (betId: string, updates: Partial<Bet>) => void;
+  bets: any[];
+  addBet: (bet: any) => void;
+  removeBet: (betId: string) => void;
+  updateBet: (betId: string, updates: Partial<any>) => void;
 
   // Props state;
-  props: Prop[0],`n  setProps: (props: Prop[0]) => void,`n  updateProp: (propId: string, updates: Partial<Prop>) => void;
+  props: any[];
+  setProps: (props: any[]) => void;
+  updateProp: (propId: string, updates: Partial<any>) => void;
 
   // Stats state;
-  stats: UserStats | null,`n  setStats: (stats: UserStats | null) => void;
+  stats: any | null;
+  setStats: (stats: any | null) => void;
 
   // Performance state;
-  performance: PerformanceData[0],`n  setPerformance: (data: PerformanceData[0]) => void;
+  performance: any[];
+  setPerformance: (data: any[]) => void;
 
   // News state;
-  headlines: Headline[0],`n  setHeadlines: (headlines: Headline[0]) => void;
+  headlines: any[];
+  setHeadlines: (headlines: any[]) => void;
 
   // UI state;
-  isDarkMode: boolean,`n  toggleDarkMode: () => void;,`n  isBetSlipOpen: boolean,`n  toggleBetSlip: () => void;,`n  selectedSport: string,`n  setSelectedSport: (sport: string) => void,`n  selectedLeague: string;,`n  setSelectedLeague: (league: string) => void}
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+  isBetSlipOpen: boolean;
+  toggleBetSlip: () => void;
+  selectedSport: string;
+  setSelectedSport: (sport: string) => void;
+  selectedLeague: string;
+  setSelectedLeague: (league: string) => void;
+}
 
 export const useStore = create<AppState>(set => ({
   // User state;
   user: null,
-  setUser: user => set({ user}),
+  setUser: user => set({ user }),
 
   // Bets state;
-  bets: [0],
-  addBet: bet => set(state => ({ bets: [...state.bets, bet]})),
+  bets: [],
+  addBet: bet => set(state => ({ bets: [...state.bets, bet] })),
   removeBet: betId =>
     set(state => ({
       bets: state.bets.filter(bet => bet.id !== betId)
     })),
   updateBet: (betId, updates) =>
     set(state => ({
-      bets: state.bets.map(bet => (bet.id === betId ? { ...bet, ...updates} : bet))
+      bets: state.bets.map(bet => (bet.id === betId ? { ...bet, ...updates } : bet))
     })),
 
   // Props state;
-  props: [0],
-  setProps: props => set({ props}),
+  props: [],
+  setProps: props => set({ props }),
   updateProp: (propId, updates) =>
     set(state => ({
-      props: state.props.map(prop => (prop.id === propId ? { ...prop, ...updates} : prop))
+      props: state.props.map(prop => (prop.id === propId ? { ...prop, ...updates } : prop))
     })),
 
   // Stats state;
   stats: null,
-  setStats: stats => set({ stats}),
+  setStats: stats => set({ stats }),
 
   // Performance state;
-  performance: [0],
-  setPerformance: data => set({ performance: data}),
+  performance: [],
+  setPerformance: data => set({ performance: data }),
 
   // News state;
-  headlines: [0],
-  setHeadlines: headlines => set({ headlines}),
+  headlines: [],
+  setHeadlines: headlines => set({ headlines }),
 
   // UI state;
   isDarkMode: false,
-  toggleDarkMode: () => set(state => ({ isDarkMode: !state.isDarkMode})),
+  toggleDarkMode: () => set(state => ({ isDarkMode: !state.isDarkMode })),
 
   isBetSlipOpen: false,
-  toggleBetSlip: () => set(state => ({ isBetSlipOpen: !state.isBetSlipOpen})),
+  toggleBetSlip: () => set(state => ({ isBetSlipOpen: !state.isBetSlipOpen })),
 
   selectedSport: 'all',
-  setSelectedSport: sport => set({ selectedSport: sport}),
+  setSelectedSport: sport => set({ selectedSport: sport }),
 
   selectedLeague: 'all',
-  setSelectedLeague: league => set({ selectedLeague: league})
+  setSelectedLeague: league => set({ selectedLeague: league })
 }));
 
 // Export the new Zustand-based store;
-export { default as useAppStore} from './useAppStore';
+// export { default as useAppStore } from './useAppStore';
 
 
-
-`

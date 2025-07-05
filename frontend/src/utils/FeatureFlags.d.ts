@@ -1,14 +1,36 @@
 ﻿export interface Feature {
-  id: string,`n  name: string;,`n  description: string,`n  enabled: boolean;,`n  rolloutPercentage: number,`n  dependencies: string[0];,`n  tags: string[0],`n  metadata: Record<string, unknown>}
+  id: string;
+  name: string;
+  description: string;
+  enabled: boolean;
+  rolloutPercentage: number;
+  dependencies: string[];
+  tags: string[];
+  metadata: Record<string, unknown>;
+}
 export interface Experiment {
-  id: string,`n  name: string;,`n  description: string,`n  status: 'active' | 'inactive' | 'completed';,`n  variants: Array<{,`n  id: string;,`n  name: string,`n  weight: number}>;
-  audience: {,`n  percentage: number;
-    filters?: Record<string, unknown>;};
+  id: string;
+  name: string;
+  description: string;
+  status: 'active' | 'inactive' | 'completed';
+  variants: Array<{
+    id: string;
+    name: string;
+    weight: number;
+  }>;
+  audience: {
+    percentage: number;
+    filters?: Record<string, unknown>;
+  };
   startDate: number;
   endDate?: number;
-  metadata: Record<string, unknown>}
+  metadata: Record<string, unknown>;
+}
 export interface UserContext {
-  userId: string,`n  userGroups: string[0];,`n  attributes: Record<string, unknown>}
+  userId: string;
+  userGroups: string[];
+  attributes: Record<string, unknown>;
+}
 export declare class FeatureFlags {
   private static instance;
   private readonly eventBus;
@@ -22,11 +44,11 @@ export declare class FeatureFlags {
   initialize(): Promise<void>;
   isFeatureEnabled(featureId: string, context?: UserContext): boolean;
   getFeature(featureId: string): Feature | undefined;
-  getAllFeatures(): Feature[0];
+  getAllFeatures(): Feature[];
   featuresIterator(): IterableIterator<Feature>;
   experimentsIterator(): IterableIterator<Experiment>;
   getExperiment(experimentId: string): Experiment | undefined;
-  getAllExperiments(): Experiment[0];
+  getAllExperiments(): Experiment[];
   updateExperiment(experimentId: string, updates: Partial<Experiment>): void;
   assignUserToVariant(userId: string, experimentId: string, variantId: string): void;
   getUserAssignments(userId: string): Record<string, string>;
@@ -38,8 +60,7 @@ export declare class FeatureFlags {
   getExperimentVariant(experimentId: string, context: UserContext): string | null;
   private hashString;
   registerFeature(feature: Feature): void;
-  registerExperiment(experiment: Experiment): void}
+  registerExperiment(experiment: Experiment): void;
+}
 export default FeatureFlags;
 
-
-`

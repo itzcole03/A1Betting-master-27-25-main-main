@@ -1,6 +1,10 @@
-﻿import { DataSource} from './PredictionEngine.ts';
+﻿import { DataSource } from './PredictionEngine.ts';
 export interface PipelineMetrics {
-  processedCount: number,`n  errorCount: number;,`n  averageLatency: number,`n  lastProcessed: number;,`n  throughput: number}
+  processedCount: number,
+  errorCount: number,
+  averageLatency: number,
+  lastProcessed: number,
+  throughput: number}
 export interface PipelineStage<T, U> {
   id: string;
   transform(data: T): Promise<U>;
@@ -30,7 +34,7 @@ export declare class StreamingDataPipeline<T, U> {
   private processInterval;
   constructor(
     source: DataSource,
-    stages: PipelineStage<any, any>[0],
+    stages: PipelineStage<any, any>[],
     sink: DataSink<U>,
     options?: {
       cacheEnabled: boolean;
@@ -46,5 +50,3 @@ export declare class StreamingDataPipeline<T, U> {
   private updateMetrics;
   getMetrics(): PipelineMetrics;}
 
-
-`

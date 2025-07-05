@@ -29,10 +29,10 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Import from refactored modules
-from middleware.caching import TTLCache, retry_and_cache
-from middleware.rate_limit import RateLimitMiddleware
-from middleware.request_tracking import track_requests
-from routes import (
+from backend.middleware.caching import TTLCache, retry_and_cache
+from backend.middleware.rate_limit import RateLimitMiddleware
+from backend.middleware.request_tracking import track_requests
+from backend.routes import (
     health_router,
     betting_router,
     performance_router,
@@ -40,7 +40,7 @@ from routes import (
     prizepicks_router,
     analytics_router,
 )
-from utils.error_handler import ErrorHandler, DataFetchError, ValidationError
+from backend.utils.error_handler import ErrorHandler, DataFetchError, ValidationError
 
 import httpx
 import uvicorn
@@ -51,51 +51,46 @@ from pydantic import BaseModel, Field
 
 # Optional imports with fallbacks
 try:
-    from auth import AuthService  # type: ignore[import]
+    from backend.auth import AuthService  # type: ignore[import]
 except ImportError:
     # Production auth service implementation
-    from auth.user_service import UserService as AuthService  # type: ignore[import]
-    logger.info("✅ Production auth service loaded")
+    from backend.auth.user_service import UserService as AuthService  # type: ignore[import]
+    logger.info("\u2705 Production auth service loaded")
 
 try:
-    from config import config  # type: ignore[import]
+    from backend.config import config  # type: ignore[import]
 except ImportError:
     logger.warning("Config module not available, using defaults")
-
     class Config:
         cache_max_size: int = 1000
         cache_ttl: int = 300
         database_url: str = "sqlite:///a1betting.db"
         sportradar_api_key: Optional[str] = None
         odds_api_key: Optional[str] = None
-
     config = Config()
 
 try:
-    from database import create_tables, get_db  # type: ignore[import]
+    from backend.database import create_tables, get_db  # type: ignore[import]
 except ImportError:
     logger.warning("Database module not available, using mock implementation")
     create_tables = None
     get_db = None
 
 try:
-    from models.bet import Bet  # type: ignore[import]
+    from backend.models.bet import Bet  # type: ignore[import]
 except ImportError:
     logger.warning("Bet model not available, using mock implementation")
     Bet = None
 
 try:
-    from risk_management import KellyCriterionEngine, RiskLevel  # type: ignore[import]
+    from backend.risk_management import KellyCriterionEngine, RiskLevel  # type: ignore[import]
 except ImportError:
     logger.warning("Risk management module not available, using mock implementation")
-
     class MockKellyCriterionEngine:
         def __init__(self):
             self.risk_controls = {"max_kelly_fraction": 0.25}
-
         def calculate_kelly_fraction(self, *_args: Any, **_kwargs: Any) -> float:
             return 0.05
-
     KellyCriterionEngine = MockKellyCriterionEngine  # type: ignore[assignment,misc]
     RiskLevel = str  # type: ignore[assignment,misc]
 
@@ -106,7 +101,7 @@ except ImportError:
 from contextlib import asynccontextmanager
 
 # Add PrizePicks service import
-from services.comprehensive_prizepicks_service import start_prizepicks_service
+from backend.services.comprehensive_prizepicks_service import start_prizepicks_service
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -148,10 +143,10 @@ app = FastAPI(
 
 # Register prediction router (specialist models)
 try:
-    from prediction_engine import router as prediction_router  # type: ignore[import]
+    from backend.prediction_engine import router as prediction_router  # type: ignore[import]
 
     app.include_router(prediction_router, prefix="/api/v1")
-    logger.info("✅ Enhanced prediction engine router included")
+    logger.info("\u2705 Enhanced prediction engine router included")
 except ImportError:
     logger.warning("Prediction engine router not found, skipping.")
     prediction_router = None

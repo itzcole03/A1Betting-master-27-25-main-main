@@ -3,193 +3,193 @@
  * Complete integration with enhanced mathematical backend services;
  */
 
-import axios, { AxiosInstance, AxiosResponse} from 'axios';
-import { UnifiedLogger} from './UnifiedLogger';
-import { UnifiedCache} from './UnifiedCache';
-import { UnifiedErrorService} from './UnifiedErrorService';
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import { UnifiedCache } from './UnifiedCache';
+import { UnifiedErrorService } from './UnifiedErrorService';
+import { UnifiedLogger } from './UnifiedLogger';
 
 // Enhanced prediction request/response types;
 export interface EnhancedPredictionRequest {
-  event_id: string
-,`n  sport: string;
-,`n  features: Record<string, number>;
-
+  event_id: string;
+  sport: string;
+  features: Record<string, number>;
   // Mathematical rigor settings;
-  enable_neuromorphic: boolean
-,`n  neuromorphic_timesteps: number;
-,`n  enable_mamba: boolean
-,`n  mamba_sequence_length: number;
-,`n  enable_causal_inference: boolean
-,`n  causal_significance_level: number;
-,`n  enable_topological: boolean
-,`n  topological_max_dimension: number;
-,`n  enable_riemannian: boolean
-,`n  riemannian_manifold_dim: number;
-
+  enable_neuromorphic: boolean;
+  neuromorphic_timesteps: number;
+  enable_mamba: boolean;
+  mamba_sequence_length: number;
+  enable_causal_inference: boolean;
+  causal_significance_level: number;
+  enable_topological: boolean;
+  topological_max_dimension: number;
+  enable_riemannian: boolean;
+  riemannian_manifold_dim: number;
   // Advanced computation settings;
-  use_gpu: boolean
-,`n  numerical_precision: string;
-,`n  convergence_tolerance: number
-,`n  context: Record<string, any>}
+  use_gpu: boolean;
+  numerical_precision: string;
+  convergence_tolerance: number;
+  context: Record<string, any>;
+}
 
 export interface EnhancedPredictionResponse {
-  event_id: string
-,`n  strategy_used: string;
-
+  event_id: string;
+  strategy_used: string;
   // Core predictions with enhanced accuracy;
-  base_prediction: number
-,`n  neuromorphic_enhancement: number;
-,`n  mamba_temporal_refinement: number
-,`n  causal_adjustment: number;
-,`n  topological_smoothing: number
-,`n  riemannian_projection: number;
-,`n  final_prediction: number;
-
+  base_prediction: number;
+  neuromorphic_enhancement: number;
+  mamba_temporal_refinement: number;
+  causal_adjustment: number;
+  topological_smoothing: number;
+  riemannian_projection: number;
+  final_prediction: number;
   // Mathematical rigor metrics;
   neuromorphic_metrics: Record<string, any>;
   mamba_metrics: Record<string, any>;
   causal_metrics: Record<string, any>;
   topological_metrics: Record<string, any>;
   riemannian_metrics: Record<string, any>;
-
   // Advanced mathematical properties;
-  riemannian_curvature: number
-,`n  persistent_betti_numbers: Record<string, number>;
-  causal_graph_structure: Record<string, string[0]>;
-  mamba_eigenvalue_spectrum: number[0]
-,`n  neuromorphic_spike_statistics: Record<string, number>;
-  topological_persistence_barcode: number[0][0];
-
+  riemannian_curvature: number;
+  persistent_betti_numbers: Record<string, number>;
+  causal_graph_structure: Record<string, string[]>;
+  mamba_eigenvalue_spectrum: number[];
+  neuromorphic_spike_statistics: Record<string, number>;
+  topological_persistence_barcode: number[][];
   // Convergence and stability analysis;
-  convergence_rate: number
-,`n  stability_margin: number;
-,`n  lyapunov_exponent: number
-,`n  mathematical_guarantees: Record<string, boolean>;
-
+  convergence_rate: number;
+  stability_margin: number;
+  lyapunov_exponent: number;
+  mathematical_guarantees: Record<string, boolean>;
   // Computational complexity analysis;
   actual_complexity: Record<string, any>;
   runtime_analysis: Record<string, number>;
   memory_usage: Record<string, number>;
-
   // Uncertainty quantification;
-  prediction_confidence: number
-,`n  uncertainty_bounds: number[0];
-,`n  confidence_intervals: Record<string, number[0]>;
-
+  prediction_confidence: number;
+  uncertainty_bounds: number[];
+  confidence_intervals: Record<string, number[]>;
   // Performance metrics;
-  total_processing_time: number
-,`n  component_processing_times: Record<string, number>;
+  total_processing_time: number;
+  component_processing_times: Record<string, number>;
   timestamp: string;
-
   // Mathematical validation;
   numerical_stability: Record<string, boolean>;
   convergence_diagnostics: Record<string, any>;
-  theoretical_bounds_satisfied: boolean}
+  theoretical_bounds_satisfied: boolean;
+}
 
 export interface FeatureEngineeringRequest {
-  data: Record<string, number[0]>;
-  feature_types: string[0]
-,`n  enable_wavelet_transforms: boolean;
-,`n  enable_manifold_learning: boolean
-,`n  enable_information_theory: boolean;
-,`n  enable_graph_features: boolean;
-  target_dimensionality?: number}
+  data: Record<string, number[]>;
+  feature_types: string[];
+  enable_wavelet_transforms: boolean;
+  enable_manifold_learning: boolean;
+  enable_information_theory: boolean;
+  enable_graph_features: boolean;
+  target_dimensionality?: number;
+}
 
 export interface FeatureEngineeringResponse {
-  original_features: Record<string, number[0]>;
-  engineered_features: Record<string, number[0]>;
+  original_features: Record<string, number[]>;
+  engineered_features: Record<string, number[]>;
   feature_importance: Record<string, number>;
   dimensionality_reduction: {
-,`n  original_dim: number;
-,`n  reduced_dim: number
-,`n  explained_variance: number;
-,`n  intrinsic_dimension: number};
+    original_dim: number;
+    reduced_dim: number;
+    explained_variance: number;
+    intrinsic_dimension: number};
   manifold_properties: {
-,`n  curvature_estimates: number[0];
-,`n  topology_summary: Record<string, any>;
-    geodesic_distances: number[0][0]};
+    curvature_estimates: number[];
+    topology_summary: Record<string, any>;
+    geodesic_distances: number[][];
+  };
   information_theory_metrics: {
-,`n  mutual_information: Record<string, number>;
+    mutual_information: Record<string, number>;
     transfer_entropy: Record<string, number>;
     feature_relevance: Record<string, number>};
-  processing_time: number
-,`n  mathematical_validation: Record<string, boolean>}
+  processing_time: number;
+  mathematical_validation: Record<string, boolean>;
+}
 
 export interface RiskAssessmentRequest {
   portfolio: Record<string, number>;
-  market_data: Record<string, number[0]>;
-  risk_metrics: string[0]
-,`n  confidence_level: number;
-,`n  time_horizon: number}
+  market_data: Record<string, number[]>;
+  risk_metrics: string[];
+  confidence_level: number;
+  time_horizon: number;
+}
 
 export interface RiskAssessmentResponse {
   portfolio_risk: {
-,`n  value_at_risk: number;
-,`n  expected_shortfall: number
-,`n  maximum_drawdown: number;
-,`n  sharpe_ratio: number
-,`n  sortino_ratio: number};
+    value_at_risk: number;
+    expected_shortfall: number;
+    maximum_drawdown: number;
+    sharpe_ratio: number;
+    sortino_ratio: number};
   extreme_value_analysis: {
-,`n  gev_parameters: Record<string, number>;
+    gev_parameters: Record<string, number>;
     return_levels: Record<string, number>;
-    tail_index: number
-,`n  hill_estimator: number};
+    tail_index: number;
+    hill_estimator: number};
   copula_analysis: {
-,`n  dependence_structure: string;
-,`n  tail_dependence: Record<string, number>;
+    dependence_structure: string;
+    tail_dependence: Record<string, number>;
     model_selection: Record<string, number>};
   stress_testing: {
-,`n  scenarios: Record<string, number>;
+    scenarios: Record<string, number>;
     portfolio_impact: Record<string, number>;
     worst_case_loss: number};
   risk_decomposition: Record<string, number>;
-  processing_time: number
-,`n  model_validation: Record<string, boolean>}
+  processing_time: number;
+  model_validation: Record<string, boolean>;
+}
 
 export interface MathematicalAnalysisRequest {
   prediction_data: Array<Record<string, any>>;
-  analysis_depth: string
-,`n  include_stability_analysis: boolean;
-,`n  include_convergence_analysis: boolean
-,`n  include_sensitivity_analysis: boolean;
-,`n  include_robustness_analysis: boolean
-,`n  verify_theoretical_guarantees: boolean;
-,`n  check_mathematical_consistency: boolean}
+  analysis_depth: string;
+  include_stability_analysis: boolean;
+  include_convergence_analysis: boolean;
+  include_sensitivity_analysis: boolean;
+  include_robustness_analysis: boolean;
+  verify_theoretical_guarantees: boolean;
+  check_mathematical_consistency: boolean;
+}
 
 export interface MathematicalAnalysisResponse {
   mathematical_analysis: Record<string, any>;
-  analysis_depth: string
-,`n  data_dimensions: {
-,`n  num_samples: number
-,`n  num_features: number;
-,`n  has_outcomes: boolean};
+  analysis_depth: string;
+  data_dimensions: {
+    num_samples: number;
+    num_features: number;
+    has_outcomes: boolean};
   computational_performance: {
-,`n  analysis_time: number;
-,`n  samples_per_second: number};
-  mathematical_rigor_score: number
-,`n  timestamp: string}
+    analysis_time: number;
+    samples_per_second: number};
+  mathematical_rigor_score: number;
+  timestamp: string;
+}
 
 export interface ModelStatusResponse {
   models: Array<{
-,`n  id: string;
-,`n  name: string
-,`n  status: "active" | "training" | "error" | "updating";
-,`n  accuracy: number
-,`n  last_update: string;
-,`n  mathematical_properties: {
-,`n  convergence_verified: boolean;
-,`n  stability_guaranteed: boolean
-,`n  theoretical_bounds: boolean};
+    id: string;
+    name: string;
+    status: "active" | "training" | "error" | "updating";
+    accuracy: number;
+    last_update: string;
+    mathematical_properties: {
+      convergence_verified: boolean;
+      stability_guaranteed: boolean;
+      theoretical_bounds: boolean};
     performance_metrics: {
-,`n  prediction_speed: number;
-,`n  memory_usage: number
-,`n  computational_complexity: string}}>;
+      prediction_speed: number;
+      memory_usage: number;
+      computational_complexity: string}}>;
   system_health: {
-,`n  overall_status: string;
-,`n  component_status: Record<string, string>;
-    error_rate: number
-,`n  average_response_time: number};
-  mathematical_foundations: Record<string, any>}
+    overall_status: string;
+    component_status: Record<string, string>;
+    error_rate: number;
+    average_response_time: number};
+  mathematical_foundations: Record<string, any>;
+}
 
 class EnhancedBackendApiService {
   private static instance: EnhancedBackendApiService;
@@ -203,7 +203,7 @@ class EnhancedBackendApiService {
     this.logger = UnifiedLogger.getInstance();
     this.cache = UnifiedCache.getInstance();
     this.errorService = UnifiedErrorService.getInstance();
-    this.baseURL = import.meta.env.VITE_BACKEND_URL || "${process.env.REACT_APP_API_URL || "http://localhost:8000"}";
+    this.baseURL = import.meta.env.VITE_BACKEND_URL || process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
     this.client = axios.create({
       baseURL: this.baseURL,
@@ -413,18 +413,18 @@ class EnhancedBackendApiService {
 
   // Unified Prediction (orchestrates all services)
   async getUnifiedPrediction(request: {
-,`n  event_id: string;
-,`n  sport: string
-,`n  features: Record<string, number>;
-    include_all_enhancements: boolean
-,`n  processing_level: "basic" | "advanced" | "research_grade" | "revolutionary"}): Promise<{
+    event_id: string;
+    sport: string;
+    features: Record<string, number>;
+    include_all_enhancements: boolean;
+    processing_level: "basic" | "advanced" | "research_grade" | "revolutionary"}): Promise<{
     predictions: Record<string, number>;
-    enhanced_revolutionary: EnhancedPredictionResponse
-,`n  feature_engineering: FeatureEngineeringResponse;
-,`n  risk_assessment: RiskAssessmentResponse
-,`n  mathematical_analysis: MathematicalAnalysisResponse;
-,`n  unified_confidence: number
-,`n  processing_summary: Record<string, any>}> {
+    enhanced_revolutionary: EnhancedPredictionResponse;
+    feature_engineering: FeatureEngineeringResponse;
+    risk_assessment: RiskAssessmentResponse;
+    mathematical_analysis: MathematicalAnalysisResponse;
+    unified_confidence: number;
+    processing_summary: Record<string, any>}> {
     try {
 
       // Parallel processing for efficiency;
@@ -460,7 +460,7 @@ class EnhancedBackendApiService {
                 : "float32",
             convergence_tolerance: 1e-6,
             context: {
-,`n  processing_level: request.processing_level,
+              processing_level: request.processing_level,
               include_all_enhancements: request.include_all_enhancements
             }
           }),
@@ -528,7 +528,7 @@ class EnhancedBackendApiService {
 
       const result = {
         predictions: {
-,`n  enhanced_revolutionary: enhancedPrediction.final_prediction,
+          enhanced_revolutionary: enhancedPrediction.final_prediction,
           base_prediction: enhancedPrediction.base_prediction,
           neuromorphic_enhancement: enhancedPrediction.neuromorphic_enhancement,
           mamba_refinement: enhancedPrediction.mamba_temporal_refinement,
@@ -542,15 +542,14 @@ class EnhancedBackendApiService {
         mathematical_analysis: mathematicalAnalysis,
         unified_confidence: unifiedConfidence,
         processing_summary: {
-,`n  total_time_ms: totalTime,
+          total_time_ms: totalTime,
           processing_level: request.processing_level,
           mathematical_guarantees_met: Object.values(
             enhancedPrediction.mathematical_guarantees,
           ).filter(Boolean).length,
           rigor_score: mathematicalAnalysis.mathematical_rigor_score,
           stability_verified:
-            mathematicalAnalysis.mathematical_analysis.theoretical_guarantees;
-              ?.asymptotic_stability || false,
+            (mathematicalAnalysis.mathematical_analysis.theoretical_guarantees?.asymptotic_stability) || false,
           convergence_achieved: enhancedPrediction.convergence_rate > 0.8,
           numerical_stability: Object.values(
             enhancedPrediction.numerical_stability,
@@ -576,8 +575,8 @@ class EnhancedBackendApiService {
 
   // Health check;
   async healthCheck(): Promise<{
-    status: string
-,`n  services: Record<string, boolean>;
+    status: string;
+    services: Record<string, boolean>;
     mathematical_engines: Record<string, boolean>;
     response_time: number}> {
 
@@ -586,27 +585,25 @@ class EnhancedBackendApiService {
 
       return {
         status: "healthy",
-        services: response.data.services || Record<string, any>,
-        mathematical_engines: response.data.mathematical_engines || Record<string, any>,
+        services: response.data.services || {},
+        mathematical_engines: response.data.mathematical_engines || {},
         response_time: responseTime
-      }} catch (error) {
-
+      };
+    } catch (error) {
       this.logger.error("Backend health check failed", {
         error: error.message,
-//         responseTime
       });
-
       return {
         status: "unhealthy",
-        services: Record<string, any>,
-        mathematical_engines: Record<string, any>,
+        services: {},
+        mathematical_engines: {},
         response_time: responseTime
-      }}
-  }}
+      };
+    }
+  }
+}
 
 export default EnhancedBackendApiService;
 
 
 
-
-`

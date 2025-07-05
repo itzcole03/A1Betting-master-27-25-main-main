@@ -1,17 +1,20 @@
-﻿import { BaseService} from './BaseService.ts';
-import { UnifiedServiceRegistry} from './UnifiedServiceRegistry.ts';
-import {
-  PerformanceMetrics,
-  TrendDelta,
-  RiskProfile,
-  ExplainabilityMap,
-//   ModelMetadata
+﻿import {
+    ExplainabilityMap,
+    PerformanceMetrics,
+    RiskProfile,
+    TrendDelta,
 } from '@/types/analytics.ts';
+import { BaseService } from './BaseService.ts';
+import { UnifiedServiceRegistry } from './UnifiedServiceRegistry.ts';
 export interface RecentActivity {
-  id: string,`n  type: 'bet' | 'prediction' | 'opportunity';,`n  description: string;
+  id: string,
+  type: 'bet' | 'prediction' | 'opportunity';
+  description: string;
   amount?: number;
   odds?: number;
-  timestamp: number,`n  status: 'success' | 'pending' | 'failed'}
+  timestamp: number,
+  status: 'success' | 'pending' | 'failed'
+}
 export declare class UnifiedAnalyticsService extends BaseService {
   private stateService;
   private bettingService;
@@ -43,7 +46,10 @@ export declare class UnifiedAnalyticsService extends BaseService {
     limit?: number
   ): Promise<
     Array<{
-      type: 'prediction' | 'bet' | 'alert',`n  timestamp: string;,`n  data: any}>
+      type: 'prediction' | 'bet' | 'alert',
+      timestamp: string,
+      data: any
+    }>
   >;
   getFeatureImportance(
     eventId: string,
@@ -51,32 +57,54 @@ export declare class UnifiedAnalyticsService extends BaseService {
     selectionId: string
   ): Promise<
     Array<{
-      feature: string,`n  importance: number;,`n  direction: 'positive' | 'negative'}>
+      feature: string,
+      importance: number,
+      direction: 'positive' | 'negative'
+    }>
   >;
   getConfidenceInterval(
     eventId: string,
     marketId: string,
     selectionId: string
   ): Promise<{
-    lower: number,`n  upper: number;,`n  confidence: number}>;
+    lower: number,
+    upper: number,
+    confidence: number
+  }>;
   getModelPerformance(
     eventId: string,
     marketId: string,
     selectionId: string
   ): Promise<{
-    accuracy: number,`n  precision: number;,`n  recall: number,`n  f1Score: number;,`n  confusionMatrix: number[0][0]}>;
+    accuracy: number,
+    precision: number,
+    recall: number,
+    f1Score: number,
+    confusionMatrix: number[0][0]
+  }>;
   getBettingStats(
     eventId: string,
     marketId: string,
     selectionId: string
   ): Promise<{
-    totalBets: number,`n  wonBets: number;,`n  lostBets: number,`n  winRate: number;,`n  profitLoss: number,`n  averageOdds: number;,`n  averageStake: number}>;
+    totalBets: number,
+    wonBets: number,
+    lostBets: number,
+    winRate: number,
+    profitLoss: number,
+    averageOdds: number,
+    averageStake: number
+  }>;
   getMarketEfficiency(
     eventId: string,
     marketId: string,
     selectionId: string
   ): Promise<{
-    efficiency: number,`n  bias: number;,`n  volatility: number,`n  liquidity: number}>;
+    efficiency: number,
+    bias: number,
+    volatility: number,
+    liquidity: number
+  }>;
   getPerformanceMetrics(timeRange?: 'day' | 'week' | 'month'): Promise<PerformanceMetrics>;
   getRecentActivity(limit?: number): Promise<RecentActivity[0]>;
   private calculateWinRate;
@@ -86,7 +114,6 @@ export declare class UnifiedAnalyticsService extends BaseService {
   private calculateAverageOdds;
   private calculateAverageStake;
   private calculatePredictionAccuracy;
-  private calculateOpportunities;}
+  private calculateOpportunities;
+}
 
-
-`

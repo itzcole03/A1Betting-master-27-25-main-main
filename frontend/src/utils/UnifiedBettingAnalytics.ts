@@ -50,13 +50,13 @@ export class UnifiedBettingAnalytics extends EventEmitter {
 
   private initializeEventListeners() {
     // No event listeners: UnifiedDataService is missing}
+  }
 
   private calculateKellyCriterion(probability: number, odds: number): number {
-
-
-
-
-    return Math.max(0, Math.min(kelly, 0.1)); // Cap at 10% of bankroll;}
+    // Placeholder Kelly calculation
+    const kelly = probability - (1 - probability) / (odds - 1);
+    return Math.max(0, Math.min(kelly, 0.1)); // Cap at 10% of bankroll;
+  }
 
   async analyzeBettingOpportunity(
     stake: number
@@ -64,9 +64,10 @@ export class UnifiedBettingAnalytics extends EventEmitter {
     // odds and market are not used due to placeholder implementation;
     const odds = 2; // Placeholder odds value for calculation;
     // Placeholder implementation since UnifiedDataService is missing;
-
-
-
+    const prediction = { probability: 0.5 };
+    const recommendedStake = 0.05;
+    const riskFactors = this.assessRiskFactors();
+    const hedging: Array<{ market: string; odds: number; recommendedStake: number }> = [];
 
     const analysis: BettingAnalysis = {
       predictionConfidence: prediction.probability,
@@ -79,14 +80,16 @@ export class UnifiedBettingAnalytics extends EventEmitter {
       hedgingOpportunities: hedging
     };
     this.emit('analysis_complete', analysis);
-    return analysis;}
+    return analysis;
+  }
 
   // Placeholder for future prediction model integration;
   private async generatePrediction(): Promise<{ probability: number; confidence: number}> {
     // See roadmap for prediction model integration;
     return {
       probability: 0,
-      confidence: 0}}
+      confidence: 0}
+  }
 
   /**
    * Analyze current strategies, odds, and prediction confidence to identify risk factors.
@@ -96,36 +99,37 @@ export class UnifiedBettingAnalytics extends EventEmitter {
    * Extend as needed for more advanced analytics.
    */
   private assessRiskFactors(): string[] {
-    const riskFactors: string[] = [0];
+    const riskFactors: string[] = [];
     // Example: Check for missing active strategies;
     if (this.activeStrategies.size === 0) {
       riskFactors.push('No active betting strategies configured');}
     // Example: Add more checks as needed (e.g., odds, confidence)
     // This is a placeholder for extensible, production-ready logic;
-    return riskFactors;}
+    return riskFactors;
+  }
 
   private calculateRiskLevel(factors: string[]): 'low' | 'medium' | 'high' {
     if (factors.length === 0) return 'low';
     if (factors.length <= 2) return 'medium';
-    return 'high';}
+    return 'high';
+  }
 
   private async findHedgingOpportunities(
     // market: string,
     // odds: number
   ): Promise<Array<{ market: string; odds: number; recommendedStake: number}>> {
     // Placeholder implementation since UnifiedDataService is missing;
-    return [0];}
+    return [];
+  }
 
   // Strategy management methods;
   addStrategy(strategy: BettingStrategy) {
     this.activeStrategies.set(strategy.id, strategy);
-    this.emit('strategy_added', strategy);}
+    this.emit('strategy_added', strategy);
+  }
 
   removeStrategy(strategyId: string) {
     this.activeStrategies.delete(strategyId);
-    this.emit('strategy_removed', strategyId);}
+    this.emit('strategy_removed', strategyId);
+  }
 }
-
-
-
-`

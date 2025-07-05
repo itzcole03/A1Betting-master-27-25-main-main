@@ -10,11 +10,15 @@ export const api = axios.create({
 // Add request interceptor for authentication;
 api.interceptors.request.use(
   (config: any) => {
+    const token = localStorage.getItem('token');
     if (token && config.headers) {
-      config.headers.Authorization = `Bearer ${token}`}
-    return config;},
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
   (error: any) => {
-    return Promise.reject(error)}
+    return Promise.reject(error);
+  }
 );
 
 // Add response interceptor for error handling;
@@ -27,7 +31,3 @@ api.interceptors.response.use(
       window.location.href = '/login';}
     return Promise.reject(error);}
 );
-
-
-
-`

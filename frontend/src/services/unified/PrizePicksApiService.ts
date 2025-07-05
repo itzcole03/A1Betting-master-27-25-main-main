@@ -1,7 +1,8 @@
-﻿import axios from 'axios';
-import type { AxiosInstance} from 'axios';
-import { BaseApiService, ApiResponse} from './ApiService.js';
-import type { PrizePicksPlayer, Game, PrizePicksProjection} from '@/types/prizePicks.js';
+﻿// import type { Game, PrizePicksPlayer, PrizePicksProjection } from '@/types/prizePicks.js';
+import type { PrizePicksPlayer, PrizePicksProjection } from '@/types/prizePicks.js';
+import type { AxiosInstance } from 'axios';
+import axios from 'axios';
+import { ApiResponse, BaseApiService } from './ApiService.js';
 
 export class PrizePicksApiService extends BaseApiService {
   protected initializeClient(): AxiosInstance {
@@ -15,52 +16,59 @@ export class PrizePicksApiService extends BaseApiService {
 
   protected handleError(error: Error): void {
     this.emit('error', error);
-    // console statement removed}
+    // console statement removed
+  }
 
   protected handleResponse<T>(response: ApiResponse<T>): void {
-    this.emit('response', response)}
+    this.emit('response', response);
+  }
 
   public async get<T>(endpoint: string, params?: Record<string, unknown>): Promise<T> {
     try {
       this.emit('request', endpoint);
-
-      const apiResponse: ApiResponse<T> = {,`n  data: response.data,
+      const client = this.initializeClient();
+      const response = await client.get<T>(endpoint, { params });
+      const apiResponse: ApiResponse<T> = {
+        data: response.data,
         status: response.status,
         timestamp: Date.now()
       };
       this.handleResponse(apiResponse);
-      return response.data;} catch (error) {
+      return response.data;
+    } catch (error) {
       this.handleError(error as Error);
-      throw error;}
+      throw error;
+    }
   }
 
   public async post<T>(endpoint: string, data: unknown): Promise<T> {
     try {
       this.emit('request', endpoint);
-
-      const apiResponse: ApiResponse<T> = {,`n  data: response.data,
+      const client = this.initializeClient();
+      const response = await client.post<T>(endpoint, data);
+      const apiResponse: ApiResponse<T> = {
+        data: response.data,
         status: response.status,
         timestamp: Date.now()
       };
       this.handleResponse(apiResponse);
-      return response.data;} catch (error) {
+      return response.data;
+    } catch (error) {
       this.handleError(error as Error);
-      throw error;}
+      throw error;
+    }
   }
 
   // PrizePicks specific methods;
-  public async getAvailableProps(): Promise<PrizePicksProjection[0]> {
-    return this.get<PrizePicksProjection[0]>('/props/available');}
+  public async getAvailableProps(): Promise<PrizePicksProjection[]> {
+    return this.get<PrizePicksProjection[]>('/props/available');}
 
   public async getPlayerStats(playerId: string): Promise<PrizePicksPlayer> {
     // Returns player details and stats, strictly typed;
     return this.get<PrizePicksPlayer>(`/players/${playerId}/stats`);}
 
-  public async getGameDetails(gameId: string): Promise<Game> {
+  public async getGameDetails(gameId: string): Promise<any> {
     // Returns full game details, strictly typed;
-    return this.get<Game>(`/games/${gameId}`);}
+    return this.get<any>(`/games/${gameId}`);
+  }
 }
-
-
-
-`

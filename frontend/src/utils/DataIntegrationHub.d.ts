@@ -1,20 +1,36 @@
-﻿import { DataSource} from './DataSource.ts';
-import { SocialSentimentData} from '@/adapters/SocialSentimentAdapter.ts';
+﻿import { SocialSentimentData } from '@/adapters/SocialSentimentAdapter.ts';
+import { DataSource } from './DataSource.ts';
 export interface IntegratedData {
-  timestamp: number,`n  projections: {
-    [playerId: string]: {,`n  stats: Record<string, number>;
-      confidence: number,`n  lastUpdated: number};};
+  timestamp: number,
+  projections: {
+    [playerId: string]: {
+      stats: Record<string, number>;
+      confidence: number,
+      lastUpdated: number};};
   sentiment: {
     [playerId: string]: SocialSentimentData};
   odds: {
-    [eventId: string]: {,`n  markets: Record<string, number>;
-      movement: {,`n  direction: 'up' | 'down' | 'stable';,`n  magnitude: number};};};
+    [eventId: string]: {
+      markets: Record<string, number>;
+      movement: {
+        direction: 'up' | 'down' | 'stable';
+        magnitude: number};};};
   injuries: {
-    [playerId: string]: {,`n  status: string;,`n  details: string,`n  impact: number;,`n  timeline: string};};
+    [playerId: string]: {
+      status: string;
+      details: string;
+      impact: number;
+      timeline: string};};
   trends: {
-    [metric: string]: {,`n  value: number;,`n  change: number,`n  significance: number};};}
+    [metric: string]: {
+      value: number;
+      change: number;
+      significance: number};};}
 export interface DataSourceMetrics {
-  latency: number,`n  reliability: number;,`n  accuracy: number,`n  lastSync: number}
+  latency: number,
+  reliability: number;
+  accuracy: number;
+  lastSync: number}
 export declare class DataIntegrationHub {
   private static instance;
   private readonly eventBus;
@@ -56,5 +72,3 @@ export declare class DataIntegrationHub {
   getIntegratedData(): IntegratedData;
   getSourceMetrics(): Map<string, DataSourceMetrics>;}
 
-
-`

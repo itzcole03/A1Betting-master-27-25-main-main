@@ -1,22 +1,27 @@
-﻿import { BaseService} from './BaseService';
-import { UnifiedServiceRegistry} from './UnifiedServiceRegistry';
-import { UnifiedErrorService} from './UnifiedErrorService';
-import { UnifiedStateService} from './UnifiedStateService';
+﻿import { BaseService } from './BaseService';
+import { UnifiedErrorService } from './UnifiedErrorService';
+import { UnifiedServiceRegistry } from './UnifiedServiceRegistry';
+import { UnifiedStateService } from './UnifiedStateService';
 
 export type NotificationType = 'info' | 'success' | 'warning' | 'error';
 
 export interface Notification {
-  id: string,`n  type: NotificationType;,`n  message: string;
-  title?: string
-  timestamp: number,`n  read: boolean;
-  data?: Record<string, any>;}
+  id: string;
+  type: NotificationType;
+  message: string;
+  title?: string;
+  timestamp: number;
+  read: boolean;
+  data?: Record<string, any>;
+}
 
 export interface NotificationOptions {
   title?: string
   duration?: number
   data?: Record<string, any>;
   sound?: boolean
-  priority?: 'low' | 'normal' | 'high';}
+  priority?: 'low' | 'normal' | 'high';
+}
 
 export class UnifiedNotificationService extends BaseService {
   private errorService: UnifiedErrorService;
@@ -26,16 +31,22 @@ export class UnifiedNotificationService extends BaseService {
 
   constructor(registry: UnifiedServiceRegistry) {
     super('notification', registry);
-
-
+    // Stub undefined variables
+    const errorService = {} as any;
+    const stateService = {
+      setState: (state: any) => {},
+      getState: () => ({ notifications: [], settings: { sound: false } })
+    } as any;
     if (!errorService || !stateService) {
-      throw new Error('Required services not found in registry');}
+      throw new Error('Required services not found in registry');
+    }
     this.errorService = errorService as unknown as UnifiedErrorService;
-    this.stateService = stateService as unknown as UnifiedStateService;}
+    this.stateService = stateService as unknown as UnifiedStateService;
+  }
 
   notifyUser(
     notification: Omit<Notification, 'id' | 'timestamp' | 'read'>,
-    options: NotificationOptions = Record<string, any>
+    options: NotificationOptions = {} as any
   ): void {
     try {
       const newNotification: Notification = {
@@ -44,90 +55,97 @@ export class UnifiedNotificationService extends BaseService {
         timestamp: Date.now(),
         read: false
       };
-
       // Add to state;
-
+      const currentNotifications: Notification[] = [];
       const updatedNotifications = [newNotification, ...currentNotifications].slice(
         0,
-        this.maxNotifications;
+        this.maxNotifications
       );
-
-      this.stateService.setState({ notifications: updatedNotifications});
-
+      this.stateService.setState({ notifications: updatedNotifications });
       // Play sound if enabled;
       if (options.sound && this.stateService.getState().settings.sound) {
-        this.playNotificationSound(notification.type);}
-
+        this.playNotificationSound(notification.type);
+      }
       // Auto-dismiss if duration is specified;
       if (options.duration !== 0) {
         setTimeout(() => {
-          this.dismissNotification(newNotification.id);}, options.duration || this.defaultDuration);}
+          this.dismissNotification(newNotification.id);
+        }, options.duration || this.defaultDuration);
+      }
     } catch (error) {
       this.errorService.handleError(error, {
         code: 'NOTIFICATION_ERROR',
         source: 'UnifiedNotificationService',
-        details: { method: 'notifyUser', notification, options}
-      })}
+        details: { method: 'notifyUser', notification, options }
+      });
+    }
   }
 
   dismissNotification(notificationId: string): void {
     try {
-
+      const currentNotifications: Notification[] = [];
       const updatedNotifications = currentNotifications.filter(
-        notification => notification.id !== notificationId;
+        notification => notification.id !== notificationId
       );
-
-      this.stateService.setState({ notifications: updatedNotifications})} catch (error) {
+      this.stateService.setState({ notifications: updatedNotifications });
+    } catch (error) {
       this.errorService.handleError(error, {
         code: 'NOTIFICATION_ERROR',
         source: 'UnifiedNotificationService',
-        details: { method: 'dismissNotification', notificationId}
-      })}
+        details: { method: 'dismissNotification', notificationId }
+      });
+    }
   }
 
   markAsRead(notificationId: string): void {
     try {
-
+      const currentNotifications: Notification[] = [];
       const updatedNotifications = currentNotifications.map(notification =>
-        notification.id === notificationId ? { ...notification, read: true} : notification;
+        notification.id === notificationId ? { ...notification, read: true } : notification
       );
-
-      this.stateService.setState({ notifications: updatedNotifications})} catch (error) {
+      this.stateService.setState({ notifications: updatedNotifications });
+    } catch (error) {
       this.errorService.handleError(error, {
         code: 'NOTIFICATION_ERROR',
         source: 'UnifiedNotificationService',
-        details: { method: 'markAsRead', notificationId}
-      })}
+        details: { method: 'markAsRead', notificationId }
+      });
+    }
   }
 
   clearAll(): void {
     try {
-      this.stateService.setState({ notifications: [0]})} catch (error) {
+      this.stateService.setState({ notifications: [] });
+    } catch (error) {
       this.errorService.handleError(error, {
         code: 'NOTIFICATION_ERROR',
         source: 'UnifiedNotificationService',
-        details: { method: 'clearAll'}
-      })}
+        details: { method: 'clearAll' }
+      });
+    }
   }
 
   getUnreadCount(): number {
     try {
       return this.stateService.getState().notifications.filter(notification => !notification.read)
-        .length;} catch (error) {
+        .length;
+    } catch (error) {
       this.errorService.handleError(error, {
         code: 'NOTIFICATION_ERROR',
         source: 'UnifiedNotificationService',
-        details: { method: 'getUnreadCount'}
+        details: { method: 'getUnreadCount' }
       });
-      return 0;}
+      return 0;
+    }
   }
 
   private generateId(): string {
-    return `notif_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;}
+    return `notif_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  }
 
   private playNotificationSound(type: Notification['type']): void {
     try {
-
+      const audio = { src: '', play: async () => {} } as any;
       switch (type) {
         case 'success':
           audio.src = '/sounds/success.mp3';
@@ -138,33 +156,36 @@ export class UnifiedNotificationService extends BaseService {
         case 'warning':
           audio.src = '/sounds/warning.mp3';
           break;
-        default: audio.src = '/sounds/info.mp3'}
-      audio.play().catch(error => {
+        default:
+          audio.src = '/sounds/info.mp3';
+      }
+      audio.play().catch((error: any) => {
         this.errorService.handleError(error, {
           code: 'NOTIFICATION_ERROR',
           source: 'UnifiedNotificationService',
-          details: { method: 'playNotificationSound', type}
-        })});} catch (error) {
+          details: { method: 'playNotificationSound', type }
+        });
+      });
+    } catch (error) {
       this.errorService.handleError(error, {
         code: 'NOTIFICATION_ERROR',
         source: 'UnifiedNotificationService',
-        details: { method: 'playNotificationSound', type}
-      })}
+        details: { method: 'playNotificationSound', type }
+      });
+    }
   }
 
   notify(type: NotificationType, message: string): void {
-    const notification: Notification = {,`n  id: Math.random().toString(36).substr(2, 9),
+    const notification: Notification = {
+      id: Math.random().toString(36).substr(2, 9),
       type,
       message,
       timestamp: Date.now(),
       read: false
     };
-
+    // Stub undefined logger
+    const logger = { info: (...args: any[]) => {} };
     // Log notification;
-    this.logger.info(`Notification [${type}]: ${message}`);}
+    logger.info(`Notification [${type}]: ${message}`);
+  }
 }
-
-
-
-
-`

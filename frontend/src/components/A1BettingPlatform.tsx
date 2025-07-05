@@ -25,6 +25,7 @@ import {
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { CommandSummaryProvider, useCommandSummary } from '../contexts/CommandSummaryContext';
 import { safeNumber } from '../utils/UniversalUtils';
+import AnalyticsPage from './AnalyticsPage';
 
 // Lazy load major components for performance with fallbacks
 const Dashboard = React.lazy(() =>
@@ -233,7 +234,7 @@ const A1BettingPlatform: React.FC = () => {
         id: 'analytics',
         label: 'Performance Analytics',
         icon: <BarChart3 className='w-5 h-5' />,
-        component: Dashboard, // Will show analytics view
+        component: AnalyticsPage, // Will show analytics dashboard
         description: 'Advanced performance tracking and insights'
       },
       {

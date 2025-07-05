@@ -130,27 +130,22 @@ export class PrizePicksAPI {
       configInit.body = JSON.stringify(body);
     }
 
-    try {
-      const response = await fetch(url.toString(), configInit);
+    const response = await fetch(url.toString(), configInit);
 
-      if (!response.ok) {
-        const errorBody = await response.text();
-
-        throw new Error(
-          `PrizePicks API request failed to ${endpoint}: ${response.status} ${response.statusText} - ${errorBody}`
-        );
-      }
-
-      if (response.status === 204) {
-        // No Content
-        return null as T;
-      }
-
-      const responseData = await response.json();
-      return responseData as T;
-    } catch (error) {
-      throw error;
+    if (!response.ok) {
+      const errorBody = await response.text();
+      throw new Error(
+        `PrizePicks API request failed to ${endpoint}: ${response.status} ${response.statusText} - ${errorBody}`
+      );
     }
+
+    if (response.status === 204) {
+      // No Content
+      return null as T;
+    }
+
+    const responseData = await response.json();
+    return responseData as T;
   }
 
   public async fetchProjections(

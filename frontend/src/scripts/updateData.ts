@@ -1,16 +1,1 @@
-﻿import 'reflect-metadata';
-import { DataScrapingService} from '@/services/dataScrapingService';
-
-async function main() {
-  try {
-    // Log some sample data;
-    if (data.length > 0) Record<string, any>
-  } catch (error) {
-    // console statement removed}
-}
-
-main();
-
-
-
-
+export {}

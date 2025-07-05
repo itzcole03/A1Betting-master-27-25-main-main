@@ -206,8 +206,4 @@ export class AnalysisRegistry {
 
     return Math.max(0, Math.min(1, newConfidence));
   }
-} 
-
-
-
-`
+}

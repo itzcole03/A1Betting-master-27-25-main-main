@@ -82,7 +82,7 @@ const InteractiveSHAPDashboard: React.FC<InteractiveSHAPDashboardProps> = ({
 
   // Filter and sort SHAP values based on user preferences
   const filteredShapValues = useMemo(() => {
-    let filtered = explanation.shapValues.filter(sv => 
+    const filtered = explanation.shapValues.filter(sv => 
       sv.confidence >= confidenceThreshold &&
       (!showPositiveOnly || sv.shapValue > 0)
     );

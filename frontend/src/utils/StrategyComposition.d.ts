@@ -1,17 +1,39 @@
 ﻿export interface StrategyContext {
-  timestamp: number,`n  environment: string;,`n  parameters: StrategyParameters}
+  timestamp: number;
+  environment: string;
+  parameters: StrategyParameters;
+}
 type StrategyParameters = Record<string, string | number | boolean | object>;
 export interface StrategyComponent<T, U> {
-  id: string,`n  name: string;,`n  version: string,`n  priority: number;,`n  dependencies: string[0];
+  id: string;
+  name: string;
+  version: string;
+  priority: number;
+  dependencies: string[];
   evaluate(input: T, context: StrategyContext): Promise<U>;
   validate?(input: T): Promise<boolean>;
-  canHandle(input: T): boolean}
+  canHandle(input: T): boolean;
+}
 export interface StrategyResult<T> {
-  id: string,`n  timestamp: number;,`n  duration: number,`n  data: T;,`n  confidence: number,`n  metadata: {,`n  strategy: string,`n  version: string;,`n  parameters: Record<string, string | number | boolean | object>};
-  metrics: {,`n  accuracy: number;,`n  reliability: number,`n  performance: number};}
+  id: string;
+  timestamp: number;
+  duration: number;
+  data: T;
+  confidence: number;
+  metadata: {
+    strategy: string;
+    version: string;
+    parameters: Record<string, string | number | boolean | object>;
+  };
+  metrics: {
+    accuracy: number;
+    reliability: number;
+    performance: number;
+  };
+}
 export declare class StrategyRegistry {
-  private static instance;
-  private readonly strategies;
+  private static instance: StrategyRegistry;
+  private readonly strategies: Map<string, StrategyComponent<unknown, unknown>>;
   private readonly eventBus;
   private readonly performanceMonitor;
   private constructor();
@@ -23,7 +45,7 @@ export declare class StrategyRegistry {
     context: StrategyContext
   ): Promise<StrategyResult<U>>;
   evaluateWithPipeline<T, U>(
-    strategies: string[0],
+    strategies: string[],
     input: T,
     context: StrategyContext
   ): Promise<StrategyResult<U>>;
@@ -35,13 +57,17 @@ export declare class StrategyRegistry {
   private calculatePerformance;
   getStrategy<T, U>(strategyId: string): StrategyComponent<T, U> | undefined;
   listStrategies(): Array<{
-    id: string,`n  name: string;,`n  version: string}>;}
+    id: string;
+    name: string;
+    version: string;
+  }>;
+}
 export declare class ComposableStrategy<T, U> implements StrategyComponent<T, U> {
   readonly id: string;
   readonly name: string;
   readonly version: string;
   readonly priority: number;
-  readonly dependencies: string[0];
+  readonly dependencies: string[];
   private readonly evaluator;
   private readonly validator?;
   private readonly handler?;
@@ -50,7 +76,7 @@ export declare class ComposableStrategy<T, U> implements StrategyComponent<T, U>
     name: string,
     version: string,
     priority: number,
-    dependencies: string[0],
+    dependencies: string[],
     evaluator: (input: T, context: StrategyContext) => Promise<U>,
     validator?: ((input: T) => Promise<boolean>) | undefined,
     handler?: ((input: T) => boolean) | undefined
@@ -58,8 +84,6 @@ export declare class ComposableStrategy<T, U> implements StrategyComponent<T, U>
   evaluate(input: T, context: StrategyContext): Promise<U>;
   validate(input: T): Promise<boolean>;
   canHandle(input: T): boolean;
-  compose<V>(next: StrategyComponent<U, V>): StrategyComponent<T, V>}
-export Record<string, any>;
+  compose<V>(next: StrategyComponent<U, V>): StrategyComponent<T, V>;
+}
 
-
-`

@@ -41,8 +41,10 @@ export const handleAISearch = async (query?: string) => {
     setTimeout(() => {
       toast.success('🚀 Tip: Visit PropOllama tab for detailed AI analysis and real-time chat!', {
         duration: 4000,
-        icon: '💬'
-      })}, 3000);}, 1000);};
+        icon: '��'
+      })}, 3000);
+  }, 1000);
+};
 
 export const handleSmartSearch = (searchTerm: string) => {
   // Process search term with AI context;
@@ -80,8 +82,5 @@ export const handleSmartSearch = (searchTerm: string) => {
         duration: 3000,
         icon: '💎'
       }
-    )}, 1500);};
-
-
-
-`
+    )}, 1500);
+};

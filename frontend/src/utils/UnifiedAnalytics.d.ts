@@ -1,14 +1,27 @@
 ﻿type AnalyticsData = Record<string, unknown>;
 export interface AnalyticsEvent {
-  id: string,`n  type: string;,`n  timestamp: number,`n  data: AnalyticsData;
-  metadata?: AnalyticsData;}
+  id: string;
+  type: string;
+  timestamp: number;
+  data: AnalyticsData;
+  metadata?: AnalyticsData;
+}
 interface AnalyticsMetrics {
-  totalEvents: number,`n  eventsByType: Map<string, number>;
-  averageLatency: number,`n  errorRate: number;,`n  lastProcessed: number}
+  totalEvents: number;
+  eventsByType: Map<string, number>;
+  averageLatency: number;
+  errorRate: number;
+  lastProcessed: number;
+}
 interface AnalyticsConfig {
-  enabled: boolean,`n  sampleRate: number;,`n  retentionPeriod: number,`n  batchSize: number;,`n  flushInterval: number}
+  enabled: boolean;
+  sampleRate: number;
+  retentionPeriod: number;
+  batchSize: number;
+  flushInterval: number;
+}
 export declare class UnifiedAnalytics {
-  private static instance;
+  private static instance: UnifiedAnalytics;
   private readonly eventBus;
   private readonly monitor;
   private readonly eventQueue;
@@ -30,8 +43,6 @@ export declare class UnifiedAnalytics {
   private processEvents;
   getMetrics(): AnalyticsMetrics;
   updateConfig(updates: Partial<AnalyticsConfig>): void;
-  cleanup(): Promise<void>;}
-export Record<string, any>;
+  cleanup(): Promise<void>;
+}
 
-
-`

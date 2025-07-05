@@ -1,16 +1,23 @@
-﻿import EventEmitter from 'eventemitter3';
-import { AxiosInstance} from 'axios';
+﻿import { AxiosInstance } from 'axios';
+import EventEmitter from 'eventemitter3';
 
 export interface ApiResponse<T> {
-  data: T,`n  status: number;,`n  timestamp: number}
+  data: T;
+  status: number;
+  timestamp: number;
+}
 
 export interface ApiServiceConfig {
   baseURL: string;
-  timeout?: number
-  retryAttempts?: number}
+  timeout?: number;
+  retryAttempts?: number;
+}
 
 export interface ApiServiceEvents {
-  error: (error: Error) => void,`n  request: (endpoint: string) => void,`n  response: (response: ApiResponse<unknown>) => void}
+  error: (error: Error) => void;
+  request: (endpoint: string) => void;
+  response: (response: ApiResponse<unknown>) => void;
+}
 
 export abstract class BaseApiService extends EventEmitter<ApiServiceEvents> {
   protected readonly client: AxiosInstance;
@@ -19,7 +26,8 @@ export abstract class BaseApiService extends EventEmitter<ApiServiceEvents> {
   constructor(config: ApiServiceConfig) {
     super();
     this.config = config;
-    this.client = this.initializeClient();}
+    this.client = this.initializeClient();
+  }
 
   protected abstract initializeClient(): AxiosInstance;
 
@@ -29,9 +37,5 @@ export abstract class BaseApiService extends EventEmitter<ApiServiceEvents> {
 
   public abstract get<T>(endpoint: string, params?: Record<string, unknown>): Promise<T>;
 
-  public abstract post<T>(endpoint: string, data: unknown): Promise<T>}
-
-
-
-
-`
+  public abstract post<T>(endpoint: string, data: unknown): Promise<T>;
+}

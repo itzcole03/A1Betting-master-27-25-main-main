@@ -48,11 +48,10 @@ export interface AlertMetadata {
   teamId?: string
   impactScore?: number
   lineMovement?: {
-    from: number,`n  to: number;,`n  book: string};
+    from: number
+    to: number
+    book: string
+  }
   errorName?: string
-  stack?: string}
-
-
-
-
-`
+  stack?: string
+}

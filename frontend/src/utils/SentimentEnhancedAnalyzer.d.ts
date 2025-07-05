@@ -1,25 +1,43 @@
-﻿import { Analyzer} from '@/core/Analyzer.js';
-import { ProjectionAnalysis} from './ProjectionAnalyzer.js';
-import { SocialSentimentData} from '@/adapters/SocialSentimentAdapter.js';
-import { SportsRadarData} from '@/adapters/SportsRadarAdapter.js';
-import { TheOddsData} from '@/adapters/TheOddsAdapter.js';
+﻿import { SocialSentimentData } from '@/adapters/SocialSentimentAdapter.js';
+import { SportsRadarData } from '@/adapters/SportsRadarAdapter.js';
+import { TheOddsData } from '@/adapters/TheOddsAdapter.js';
+import { Analyzer } from '@/core/Analyzer.js';
+import { ProjectionAnalysis } from './ProjectionAnalyzer.js';
 export interface EnhancedAnalysis extends ProjectionAnalysis {
-  sentiment: {,`n  score: number;,`n  volume: number,`n  trending: boolean;,`n  keywords: string[0]};
-  marketData: {,`n  odds: {
+  sentiment: {
+    score: number;
+    volume: number;
+    trending: boolean;
+    keywords: string[];
+  };
+  marketData: {
+    odds: {
       moneyline?: number;
       spread?: number;
-      total?: number;};
-    consensus: {,`n  overPercentage: number;,`n  underPercentage: number};};
-  injuries: {,`n  player: string;,`n  status: string,`n  impact: number}[0];}
+      total?: number;
+    };
+    consensus: {
+      overPercentage: number;
+      underPercentage: number;
+    };
+  };
+  injuries: {
+    player: string;
+    status: string;
+    impact: number;
+  }[];
+}
 interface AnalysisInput {
-  projectionAnalysis: ProjectionAnalysis[0],`n  sentimentData: SocialSentimentData[0];,`n  sportsRadarData: SportsRadarData,`n  oddsData: TheOddsData}
-export declare class SentimentEnhancedAnalyzer
-  implements Analyzer<AnalysisInput, EnhancedAnalysis[0]>
-{
-  readonly id = 'sentiment-enhanced-analyzer';
-  readonly type = 'enhanced-analysis';
-  readonly name = 'Sentiment Enhanced Analyzer';
-  readonly description = 'Enhances projections with sentiment, odds, and injury data.';
+  projectionAnalysis: ProjectionAnalysis[];
+  sentimentData: SocialSentimentData[];
+  sportsRadarData: SportsRadarData;
+  oddsData: TheOddsData;
+}
+export declare class SentimentEnhancedAnalyzer implements Analyzer<AnalysisInput, EnhancedAnalysis> {
+  readonly id: string;
+  readonly type: string;
+  readonly name: string;
+  readonly description: string;
   private readonly eventBus;
   private readonly performanceMonitor;
   private readonly sentimentWeight;
@@ -27,8 +45,11 @@ export declare class SentimentEnhancedAnalyzer
   constructor(sentimentWeight?: number, injuryWeight?: number);
   validate(data: AnalysisInput): boolean;
   getMetrics(): {
-    accuracy: number,`n  latency: number;,`n  errorRate: number};
-  analyze(input: AnalysisInput): Promise<EnhancedAnalysis[0]>;
+    accuracy: number;
+    latency: number;
+    errorRate: number;
+  };
+  analyze(input: AnalysisInput): Promise<EnhancedAnalysis>;
   confidence(input: AnalysisInput): Promise<number>;
   private findPlayerSentiment;
   private findPlayerInjuries;
@@ -38,8 +59,6 @@ export declare class SentimentEnhancedAnalyzer
    */
   private findPlayerOdds;
   private calculateEnhancedConfidence;
-  private calculateInjuryImpact;}
-export Record<string, any>;
+  private calculateInjuryImpact;
+}
 
-
-`

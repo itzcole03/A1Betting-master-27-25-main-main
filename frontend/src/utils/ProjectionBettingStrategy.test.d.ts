@@ -1,4 +1,4 @@
-﻿export Record<string, any>;
+﻿export { };
 
 
 

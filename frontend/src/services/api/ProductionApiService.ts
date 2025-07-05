@@ -2,32 +2,34 @@
  * Production-ready API service with comprehensive error handling, retries, and caching;
  */
 
-import { logger} from '../../utils/logger';
 
 interface ApiConfig {
-  baseUrl: string
-,`n  timeout: number;
-,`n  retries: number
-,`n  retryDelay: number}
+  baseUrl: string;
+  timeout: number;
+  retries: number;
+  retryDelay: number;
+}
 
 interface ApiResponse<T> {
   success: boolean;
-  data?: T
-  error?: string
+  data?: T;
+  error?: string;
   timestamp: number;
-  cached?: boolean}
+  cached?: boolean;
+}
 
 interface CacheEntry<T> {
-  data: T
-,`n  timestamp: number;
-,`n  ttl: number}
+  data: T;
+  timestamp: number;
+  ttl: number;
+}
 
 export class ProductionApiService {
   private config: ApiConfig;
   private cache = new Map<string, CacheEntry<any>>();
   private abortControllers = new Map<string, AbortController>();
 
-  constructor(config: Partial<ApiConfig> = Record<string, any>) {
+  constructor(config: Partial<ApiConfig> = {}) {
     this.config = {
       baseUrl: import.meta.env.VITE_API_BASE_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}',
       timeout: 30000,
@@ -37,17 +39,22 @@ export class ProductionApiService {
     }}
 
   private generateCacheKey(endpoint: string, params?: Record<string, any>): string {
-    return `${endpoint}:${JSON.stringify(params || Record<string, any>)}`}
+    return `${endpoint}:${JSON.stringify(params || {})}`;
+  }
 
   private isValidCacheEntry<T>(entry: CacheEntry<T>): boolean {
     return Date.now() - entry.timestamp < entry.ttl}
 
   private getFromCache<T>(key: string): T | null {
+    const entry = this.cache.get(key);
     if (entry && this.isValidCacheEntry(entry)) {
-      return entry.data}
+      return entry.data;
+    }
     if (entry) {
-      this.cache.delete(key)}
-    return null;}
+      this.cache.delete(key);
+    }
+    return null;
+  }
 
   private setCache<T>(key: string, data: T, ttl: number = 300000): void {
     this.cache.set(key, { data, timestamp: Date.now(), ttl})}
@@ -57,83 +64,85 @@ export class ProductionApiService {
 
   private async fetchWithRetry<T>(
     url: string,
-    options: RequestInit = Record<string, any>,
+    options: RequestInit = {},
     retries: number = this.config.retries
   ): Promise<T> {
     let lastError: Error;
-
     for (let attempt = 0; attempt <= retries; attempt++) {
       try {
         const requestId = `${Date.now()}-${Math.random()}`;
         const controller = new AbortController();
-
         this.abortControllers.set(requestId, controller);
-
         const timeoutId = setTimeout(() => controller.abort(), this.config.timeout);
-
-        const response = await fetch(url, {.catch(error => console.error("API Error:", error))
+        const response = await fetch(url, {
           ...options,
           signal: controller.signal
         });
-
         clearTimeout(timeoutId);
         this.abortControllers.delete(requestId);
-
         if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);}
-
-        logger.apiResponse(url, options.method || 'GET', true, duration);
-        return data;} catch (error) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        return (await response.json()) as T;
+      } catch (error) {
         lastError = error as Error;
-
         if (attempt === retries) {
-          logger.apiResponse(url, options.method || 'GET', false, duration);
-          logger.error(lastError, `API request to ${url}`);
-          break;}
-
+          break;
+        }
         if (lastError.name !== 'AbortError') {
-          await this.delay(this.config.retryDelay * Math.pow(2, attempt));}
-      }}
-
-    throw lastError!;}
+          await this.delay(this.config.retryDelay * Math.pow(2, attempt));
+        }
+      }
+    }
+    throw lastError!;
+  }
 
   async get<T>(
     endpoint: string,
     params?: Record<string, any>,
-    options: { cache?: boolean cacheTtl?: number} = Record<string, any>
+    options: { cache?: boolean; cacheTtl?: number } = {}
   ): Promise<ApiResponse<T>> {
     try {
-      const { cache = true, cacheTtl = 300000} = options;
-
-      // Check cache first;
+      const { cache = true, cacheTtl = 300000 } = options;
+      // Construct URL
+      const url = new URL(this.config.baseUrl + endpoint);
+      if (params) {
+        Object.entries(params).forEach(([key, value]) => {
+          url.searchParams.append(key, String(value));
+        });
+      }
+      // Generate cache key
+      const cacheKey = this.generateCacheKey(endpoint, params);
+      // Check cache first
       if (cache) {
+        const cachedData = this.getFromCache<T>(cacheKey);
         if (cachedData) {
           return {
             success: true,
             data: cachedData,
             timestamp: Date.now(),
             cached: true
-          }}
+          };
+        }
       }
-
-      if (params) {
-        Object.entries(params).forEach(([key, value]) => {
-          url.searchParams.append(key, String(value));});}
-
-      // Cache successful responses;
+      // Fetch data
+      const data = await this.fetchWithRetry<T>(url.toString(), {}, this.config.retries);
+      // Cache successful responses
       if (cache) {
-        this.setCache(cacheKey, data, cacheTtl);}
-
+        this.setCache(cacheKey, data, cacheTtl);
+      }
       return {
         success: true,
         data,
         timestamp: Date.now()
-      }} catch (error) {
+      };
+    } catch (error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
         timestamp: Date.now()
-      }}
+      };
+    }
   }
 
   async post<T>(
@@ -142,25 +151,27 @@ export class ProductionApiService {
     headers?: Record<string, string>
   ): Promise<ApiResponse<T>> {
     try {
+      const url = new URL(this.config.baseUrl + endpoint);
       const data = await this.fetchWithRetry<T>(url.toString(), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          ...headers
+          ...(headers || {})
         },
         body: body ? JSON.stringify(body) : undefined
-      });
-
+      }, this.config.retries);
       return {
         success: true,
         data,
         timestamp: Date.now()
-      }} catch (error) {
+      };
+    } catch (error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
         timestamp: Date.now()
-      }}
+      };
+    }
   }
 
   async put<T>(
@@ -169,43 +180,47 @@ export class ProductionApiService {
     headers?: Record<string, string>
   ): Promise<ApiResponse<T>> {
     try {
+      const url = new URL(this.config.baseUrl + endpoint);
       const data = await this.fetchWithRetry<T>(url.toString(), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          ...headers
+          ...(headers || {})
         },
         body: body ? JSON.stringify(body) : undefined
-      });
-
+      }, this.config.retries);
       return {
         success: true,
         data,
         timestamp: Date.now()
-      }} catch (error) {
+      };
+    } catch (error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
         timestamp: Date.now()
-      }}
+      };
+    }
   }
 
   async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
     try {
+      const url = new URL(this.config.baseUrl + endpoint);
       const data = await this.fetchWithRetry<T>(url.toString(), {
         method: 'DELETE'
-      });
-
+      }, this.config.retries);
       return {
         success: true,
         data,
         timestamp: Date.now()
-      }} catch (error) {
+      };
+    } catch (error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
         timestamp: Date.now()
-      }}
+      };
+    }
   }
 
   // Abort all pending requests;
@@ -219,7 +234,7 @@ export class ProductionApiService {
     this.cache.clear();}
 
   // Get cache stats;
-  getCacheStats(): { size: number; keys: string[0]} {
+  getCacheStats(): { size: number; keys: string[] } {
     return {
       size: this.cache.size,
       keys: Array.from(this.cache.keys())
@@ -228,41 +243,48 @@ export class ProductionApiService {
   // Health check endpoint;
   async healthCheck(): Promise<boolean> {
     try {
-      return response.success;} catch {
-      return false;}
-  }}
+      // TODO: Implement actual health check logic
+      return true;
+    } catch {
+      return false;
+    }
+  }
+}
 
 // Create singleton instance;
 export const productionApiService = new ProductionApiService();
 
 // Specific API endpoints with proper typing;
 export interface User {
-  id: string
-,`n  name: string;
-,`n  email: string
-,`n  tier: string;
-,`n  balance: number
-,`n  winRate: number;
-,`n  totalProfit: number}
+  id: string;
+  name: string;
+  email: string;
+  tier: string;
+  balance: number;
+  winRate: number;
+  totalProfit: number;
+}
 
 export interface Prediction {
-  id: string
-,`n  event: string;
-,`n  outcome: string
-,`n  odds: number;
-,`n  confidence: number
-,`n  edge: number;
-,`n  modelProb: number
-,`n  commenceTime: string;
-,`n  sport: string
-,`n  league: string}
+  id: string;
+  event: string;
+  outcome: string;
+  odds: number;
+  confidence: number;
+  edge: number;
+  modelProb: number;
+  commenceTime: string;
+  sport: string;
+  league: string;
+}
 
 export interface SystemHealth {
-  status: 'online' | 'offline' | 'degraded'
-,`n  accuracy: number;
-,`n  activePredictions: number
-,`n  uptime: number;
-,`n  lastUpdate: string}
+  status: 'online' | 'offline' | 'degraded';
+  accuracy: number;
+  activePredictions: number;
+  uptime: number;
+  lastUpdate: string;
+}
 
 // Typed API methods;
 export const api = {
@@ -274,12 +296,11 @@ export const api = {
     return productionApiService.put<User>(`/users/${userId}`, userData)},
 
   // Prediction endpoints;
-  async getPredictions(sport?: string, league?: string): Promise<ApiResponse<Prediction[0]>> {
-    const params: Record<string, any> = Record<string, any>;
+  async getPredictions(sport?: string, league?: string): Promise<ApiResponse<Prediction[]>> {
+    const params: Record<string, any> = {};
     if (sport) params.sport = sport;
     if (league) params.league = league;
-
-    return productionApiService.get<Prediction[0]>('/predictions', params);},
+    return productionApiService.get<Prediction[]>('/predictions', params);},
 
   async getPrediction(predictionId: string): Promise<ApiResponse<Prediction>> {
     return productionApiService.get<Prediction>(`/predictions/${predictionId}`)},
@@ -303,23 +324,23 @@ export const api = {
   // PrizePicks specific endpoints;
   async getPrizePicksProps(params: {
     sport?: string
-    minConfidence?: number}): Promise<ApiResponse<any[0]>> {
-    return productionApiService.get<any[0]>('/api/prizepicks/props', params)},
+    minConfidence?: number}): Promise<ApiResponse<any[]>> {
+    return productionApiService.get<any[]>('/api/prizepicks/props', params)},
 
   async getPrizePicksRecommendations(params: {
     sport?: string
     strategy?: string
-    minConfidence?: number}): Promise<ApiResponse<any[0]>> {
-    return productionApiService.get<any[0]>('/api/prizepicks/recommendations', params)},
+    minConfidence?: number}): Promise<ApiResponse<any[]>> {
+    return productionApiService.get<any[]>('/api/prizepicks/recommendations', params)},
 
   // Money Maker Pro endpoints;
   async getBettingOpportunities(params?: {
     sport?: string
-    minEdge?: number}): Promise<ApiResponse<any[0]>> {
-    return productionApiService.get<any[0]>('/api/betting-opportunities', params);},
+    minEdge?: number}): Promise<ApiResponse<any[]>> {
+    return productionApiService.get<any[]>('/api/betting-opportunities', params);},
 
-  async getArbitrageOpportunities(): Promise<ApiResponse<any[0]>> {
-    return productionApiService.get<any[0]>('/api/arbitrage-opportunities');},
+  async getArbitrageOpportunities(): Promise<ApiResponse<any[]>> {
+    return productionApiService.get<any[]>('/api/arbitrage-opportunities');},
 
   async getPortfolioAnalysis(userId: string): Promise<ApiResponse<any>> {
     return productionApiService.get<any>(`/api/portfolio/${userId}/analysis`)},
@@ -331,8 +352,3 @@ export const api = {
 //       context
     })}
 };
-
-
-
-
-`

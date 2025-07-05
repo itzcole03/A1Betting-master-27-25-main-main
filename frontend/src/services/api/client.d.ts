@@ -1,10 +1,13 @@
 ﻿export interface ApiResponse<T> {
-  data: T,`n  status: number;
-  headers?: Record<string, string>;}
+  data: T;
+  status: number;
+  headers?: Record<string, string>;
+}
 export interface ApiRequestConfig {
   headers?: Record<string, string>;
   params?: Record<string, string>;
-  timeout?: number;}
+  timeout?: number;
+}
 declare class ApiClient {
   private baseUrl;
   private defaultHeaders;
@@ -14,16 +17,9 @@ declare class ApiClient {
   post<T>(endpoint: string, data?: unknown, config?: ApiRequestConfig): Promise<ApiResponse<T>>;
   put<T>(endpoint: string, data?: unknown, config?: ApiRequestConfig): Promise<ApiResponse<T>>;
   patch<T>(endpoint: string, data?: unknown, config?: ApiRequestConfig): Promise<ApiResponse<T>>;
-  delete<T>(endpoint: string, config?: ApiRequestConfig): Promise<ApiResponse<T>>}
+  delete<T>(endpoint: string, config?: ApiRequestConfig): Promise<ApiResponse<T>>;
+}
 export declare const apiClient: ApiClient;
-export declare const get: <T>(,`n  endpoint: string,
-  config?: ApiRequestConfig
-) => Promise<ApiResponse<T>>;
-export declare const post: <T>(,`n  endpoint: string,
-  data?: unknown,
-  config?: ApiRequestConfig
-) => Promise<ApiResponse<T>>;
-export Record<string, any>;
+export declare const get: <T>(endpoint: string, config?: ApiRequestConfig) => Promise<ApiResponse<T>>;
+export declare const post: <T>(endpoint: string, data?: unknown, config?: ApiRequestConfig) => Promise<ApiResponse<T>>;
 
-
-`

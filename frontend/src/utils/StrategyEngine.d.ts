@@ -1,9 +1,26 @@
-﻿import { StrategyRecommendation, RiskTolerance} from '@/types/core.ts';
+﻿import { RiskTolerance, StrategyRecommendation } from '@/types/core.ts';
 interface StrategyPerformance {
-  totalExecutions: number,`n  successRate: number;,`n  averageReturn: number,`n  riskProfile: {,`n  level: RiskTolerance,`n  factors: string[0]};
-  lastUpdated: number}
+  totalExecutions: number;
+  successRate: number;
+  averageReturn: number;
+  riskProfile: {
+    level: RiskTolerance;
+    factors: string[];
+  };
+  lastUpdated: number;
+}
 interface CompositeStrategy {
-  id: string,`n  name: string;,`n  strategies: string[0],`n  weights: number[0];,`n  performance: StrategyPerformance,`n  conditions: {,`n  minConfidence: number,`n  maxRisk: RiskTolerance;,`n  marketStates: string[0]};}
+  id: string;
+  name: string;
+  strategies: string[];
+  weights: number[];
+  performance: StrategyPerformance;
+  conditions: {
+    minConfidence: number;
+    maxRisk: RiskTolerance;
+    marketStates: string[];
+  };
+}
 export declare class StrategyEngine {
   /**
    * [ROADMAP] Feature flag manager for gating experimental/ensemble logic.
@@ -32,8 +49,8 @@ export declare class StrategyEngine {
   private setupPerformanceTracking;
   createCompositeStrategy(
     name: string,
-    strategies: string[0],
-    weights: number[0],
+    strategies: string[],
+    weights: number[],
     conditions: CompositeStrategy['conditions']
   ): string;
   analyzeOpportunity(playerId: string, metric: string): Promise<StrategyRecommendation | null>;
@@ -75,8 +92,6 @@ export declare class StrategyEngine {
   private findHedgingOpportunities;
   private calculateStopLoss;
   private calculateTakeProfit;
-  private determinePosition;}
-export Record<string, any>;
+  private determinePosition;
+}
 
-
-`

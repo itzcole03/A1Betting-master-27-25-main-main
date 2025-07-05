@@ -1,12 +1,11 @@
-﻿import {
-  RiskProfileType,
-  BettingMetrics,
-  BettingHistoryEntry,
-  BettingOpportunity,
-//   BetRecommendation
-} from '@/types/betting.ts';
+﻿// import { RiskProfileType, BettingMetrics, BettingHistoryEntry, BettingOpportunity } from '@/types/betting';
 interface BettingConfig {
-  minConfidence: number,`n  maxStakePercentage: number;,`n  riskProfile: RiskProfileType,`n  autoRefresh: boolean;,`n  refreshInterval: number}
+  minConfidence: number;
+  maxStakePercentage: number;
+  riskProfile: any;
+  autoRefresh: boolean;
+  refreshInterval: number;
+}
 declare class UnifiedBettingService {
   private static instance;
   private readonly wsService;
@@ -25,16 +24,15 @@ declare class UnifiedBettingService {
   private calculateWinRate;
   private calculateAverageOdds;
   private calculateROI;
-  getBettingOpportunities(): Promise<BettingOpportunity[0]>;
-  placeBet(bet: BetRecommendation): Promise<boolean>;
-  getBettingMetrics(): Promise<BettingMetrics>;
-  getBetHistory(): Promise<BettingHistoryEntry[0]>;
+  getBettingOpportunities(): Promise<any[]>;
+  placeBet(bet: any): Promise<boolean>;
+  getBettingMetrics(): Promise<any>;
+  getBetHistory(): Promise<any[]>;
   setConfig(newConfig: Partial<BettingConfig>): void;
   getConfig(): BettingConfig;
   private emit;
   get<T>(url: string): Promise<T>;
-  post<T>(url: string, data: unknown): Promise<T>}
+  post<T>(url: string, data: unknown): Promise<T>;
+}
 export default UnifiedBettingService;
 
-
-`

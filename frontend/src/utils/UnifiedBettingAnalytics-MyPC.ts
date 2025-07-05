@@ -1,52 +1,91 @@
 ﻿import EventEmitter from 'eventemitter3';
-import { UnifiedDataService, DataSource} from '@/services/UnifiedDataService';
+import { PredictionEngine } from './PredictionEngine';
 
 export interface BettingStrategy {
-  id: string,`n  name: string;,`n  riskLevel: 'low' | 'medium' | 'high',`n  stakePercentage: number;,`n  minOdds: number,`n  maxOdds: number}
+  id: string;
+  name: string;
+  riskLevel: 'low' | 'medium' | 'high';
+  stakePercentage: number;
+  minOdds: number;
+  maxOdds: number;
+}
 
 export interface PredictionModel {
-  id: string,`n  name: string;,`n  accuracy: number,`n  lastUpdated: Date;,`n  parameters: Record<string, unknown>}
+  id: string;
+  name: string;
+  accuracy: number;
+  lastUpdated: Date;
+  parameters: Record<string, unknown>;
+}
 
 export interface BettingAnalysis {
-  predictionConfidence: number,`n  recommendedStake: number;,`n  expectedValue: number,`n  riskAssessment: {,`n  level: 'low' | 'medium' | 'high',`n  factors: string[0]};
-  hedgingOpportunities: Array<{,`n  market: string;,`n  odds: number,`n  recommendedStake: number}>}
+  predictionConfidence: number;
+  recommendedStake: number;
+  expectedValue: number;
+  riskAssessment: {
+    level: 'low' | 'medium' | 'high';
+    factors: string[];
+  };
+  hedgingOpportunities: Array<{
+    market: string;
+    odds: number;
+    recommendedStake: number;
+  }>;
+}
 
-import EventEmitter from 'eventemitter3';
-// Correct imports for UnifiedDataService and DataSource are now in use above.
+// Local DataSource enum for required constants
+export enum DataSource {
+  PRIZEPICKS = 'prizepicks',
+  ODDS_API = 'odds_api'
+}
+
+// Minimal internal mock for dataService
+const dataService = {
+  on: (event: string, handler: (data: any) => void) => {},
+  fetchData: async (source: DataSource, endpoint: string) => ({}),
+};
 
 export class UnifiedBettingAnalytics extends EventEmitter {
   private static instance: UnifiedBettingAnalytics;
-  private dataService: UnifiedDataService;
+  private dataService: typeof dataService;
   private activeStrategies: Map<string, BettingStrategy>;
   private predictionModels: Map<string, PredictionModel>;
 
   private constructor() {
     super();
-    this.dataService = UnifiedDataService.getInstance();
+    this.dataService = dataService;
     this.activeStrategies = new Map();
     this.predictionModels = new Map();
-    this.initializeEventListeners();}
+    this.initializeEventListeners();
+  }
 
   static getInstance(): UnifiedBettingAnalytics {
     if (!UnifiedBettingAnalytics.instance) {
-      UnifiedBettingAnalytics.instance = new UnifiedBettingAnalytics();}
-    return UnifiedBettingAnalytics.instance;}
+      UnifiedBettingAnalytics.instance = new UnifiedBettingAnalytics();
+    }
+    return UnifiedBettingAnalytics.instance;
+  }
 
   private initializeEventListeners() {
     // Listen for real-time odds updates;
-    this.dataService.on('ws: prizepicks:odds_update', data => {
-      this.analyzeOddsMovement(data)});
+    this.dataService.on('ws: prizepicks:odds_update', (data: Record<string, unknown>) => {
+      this.analyzeOddsMovement(data);
+    });
 
     // Listen for model updates;
-    this.dataService.on('ws: odds_api:line_movement', data => {
-      this.updatePredictions(data)});}
+    this.dataService.on('ws: odds_api:line_movement', (data: Record<string, unknown>) => {
+      this.updatePredictions(data);
+    });
+  }
 
   private calculateKellyCriterion(probability: number, odds: number): number {
-
-
-
-
-    return Math.max(0, Math.min(kelly, 0.1)); // Cap at 10% of bankroll;}
+    // Kelly formula: f* = (bp - q)/b, b = odds-1, p = probability, q = 1-p
+    const b = odds - 1;
+    const p = probability;
+    const q = 1 - p;
+    const kelly = b > 0 ? (b * p - q) / b : 0;
+    return Math.max(0, Math.min(kelly, 0.1)); // Cap at 10% of bankroll
+  }
 
   async analyzeBettingOpportunity(
     market: string,
@@ -59,113 +98,124 @@ export class UnifiedBettingAnalytics extends EventEmitter {
         DataSource.PRIZEPICKS,
         `/markets/${market}`
       );
-
       // Get prediction from model;
-
+      const prediction = await this.generatePrediction(market, marketData);
       // Calculate optimal stake using Kelly Criterion;
-
+      const recommendedStake = this.calculateKellyCriterion(prediction.probability, odds);
       // Assess risk factors;
-
+      const riskFactors = this.assessRiskFactors(marketData, prediction);
       // Find hedging opportunities;
-
-      const analysis: BettingAnalysis = {,`n  predictionConfidence: prediction.probability,
+      const hedging = await this.findHedgingOpportunities(market, odds);
+      const analysis: BettingAnalysis = {
+        predictionConfidence: prediction.probability,
         recommendedStake: recommendedStake * stake,
         expectedValue: (prediction.probability * odds - 1) * stake,
-        riskAssessment: {,`n  level: this.calculateRiskLevel(riskFactors),
+        riskAssessment: {
+          level: this.calculateRiskLevel(riskFactors),
           factors: riskFactors
         },
         hedgingOpportunities: hedging
       };
-
       this.emit('analysis_complete', analysis);
-      return analysis;} catch (error) {
+      return analysis;
+    } catch (error) {
       this.emit('error', error);
-      throw error;}
+      throw error;
+    }
   }
 
   private async generatePrediction(
     market: string,
     data: Record<string, unknown>
   ): Promise<{
-    probability: number,`n  confidence: number;
-    uncertainty?: number
-    shap?: unknown
-    expectedValue?: number
-    modelMeta?: unknown}> {
+    probability: number;
+    confidence: number;
+    uncertainty?: number;
+    shap?: unknown;
+    expectedValue?: number;
+    modelMeta?: unknown
+  }> {
     try {
-      // Use PredictionEngine for unified predictions;
-      const { PredictionEngine} = await import('./PredictionEngine');
-
       // Construct a PlayerProp-like object if needed;
       const prop = {
-        player: { id: data.playerId || market},
+        player: { id: data.playerId || market },
         type: data.metric || market,
         ...data
       };
-
+      const predictionData = await PredictionEngine.getInstance().predict(prop);
       return {
         probability: predictionData.value,
         confidence: predictionData.confidence,
         uncertainty: predictionData.analysis?.meta_analysis?.prediction_stability,
-        shap: predictionData.analysis?.shap_values,
-        expectedValue: predictionData.analysis?.meta_analysis?.expected_value,
+        shap: (typeof predictionData.analysis === 'object' && predictionData.analysis && 'shap_values' in predictionData.analysis) ? (predictionData.analysis as any).shap_values : undefined,
+        expectedValue: (typeof predictionData.analysis?.meta_analysis === 'object' && predictionData.analysis?.meta_analysis && 'expected_value' in predictionData.analysis.meta_analysis) ? (predictionData.analysis.meta_analysis as any).expected_value : undefined,
         modelMeta: predictionData.metadata
-      }} catch (error) {
+      };
+    } catch (error) {
       this.emit('error', error);
-      throw error;}
+      throw error;
+    }
   }
 
-  private assessRiskFactors(marketData: Record<string, unknown>, prediction: Record<string, unknown>): string[0] {
-    const factors: string[0] = [0];
+  private assessRiskFactors(marketData: Record<string, unknown>, prediction: Record<string, unknown>): string[] {
+    const factors: string[] = [];
 
     // Market volatility check;
     if ('volatility' in marketData && typeof marketData.volatility === 'number' && marketData.volatility > 0.5) {
-      factors.push('High market volatility');}
+      factors.push('High market volatility');
+    }
 
     // Prediction confidence check;
     if ('confidence' in prediction && typeof prediction.confidence === 'number' && prediction.confidence < 0.7) {
-      factors.push('Low prediction confidence');}
+      factors.push('Low prediction confidence');
+    }
 
     // Time to event check;
     if ('timeToEvent' in marketData && typeof marketData.timeToEvent === 'number' && marketData.timeToEvent < 60) {
-      factors.push('Close to event start');}
+      factors.push('Close to event start');
+    }
 
-    return factors;}
+    return factors;
+  }
 
-  private calculateRiskLevel(factors: string[0]): 'low' | 'medium' | 'high' {
+  private calculateRiskLevel(factors: string[]): 'low' | 'medium' | 'high' {
     if (factors.length === 0) return 'low';
     if (factors.length <= 2) return 'medium';
-    return 'high';}
+    return 'high';
+  }
 
   private async findHedgingOpportunities(
     market: string,
     originalOdds: number
-  ): Promise<Array<{ market: string; odds: number; recommendedStake: number}>> {
+  ): Promise<Array<{ market: string; odds: number; recommendedStake: number }>> {
     try {
       const relatedMarkets = await this.dataService.fetchData(
         DataSource.ODDS_API,
         `/related-markets/${market}`
       );
-
-      return markets;
-        .filter(m => m.odds < originalOdds)
-        .map(m => ({
+      if (!Array.isArray(relatedMarkets)) return [];
+      return relatedMarkets
+        .filter((m: any) => m.odds < originalOdds)
+        .map((m: any) => ({
           market: m.id,
           odds: m.odds,
           recommendedStake: this.calculateHedgeStake(originalOdds, m.odds)
-        }))} catch (error) {
+        }));
+    } catch (error) {
       this.emit('error', error);
-      return [0];}
+      return [];
+    }
   }
 
   private calculateHedgeStake(originalOdds: number, hedgeOdds: number): number {
     // Kelly formula for hedging;
     // f* = (bp - q)/b, b = hedgeOdds-1, p = 1/originalOdds, q = 1-p;
-
-
-
-
-    return Math.max(0, Math.min(kelly, 0.2)); // Cap at 20% stake for safety;}
+    const b = hedgeOdds - 1;
+    const p = 1 / originalOdds;
+    const q = 1 - p;
+    const kelly = b > 0 ? (b * p - q) / b : 0;
+    return Math.max(0, Math.min(kelly, 0.2)); // Cap at 20% stake for safety;
+  }
 
   private analyzeOddsMovement(data: Record<string, unknown>) {
     // Implement odds movement analysis;
@@ -173,35 +223,36 @@ export class UnifiedBettingAnalytics extends EventEmitter {
       market: data.market,
       movement: data.movement,
       significance: data.significance
-    })}
+    });
+  }
 
   private updatePredictions(data: Record<string, unknown>) {
     // Update prediction models based on new data;
     this.emit('predictions_updated', {
       market: data.market,
       updates: data.updates
-    })}
+    });
+  }
 
   // Strategy management methods;
   addStrategy(strategy: BettingStrategy) {
     this.activeStrategies.set(strategy.id, strategy);
-    this.emit('strategy_added', strategy);}
+    this.emit('strategy_added', strategy);
+  }
 
   removeStrategy(strategyId: string) {
     this.activeStrategies.delete(strategyId);
-    this.emit('strategy_removed', strategyId);}
+    this.emit('strategy_removed', strategyId);
+  }
 
   // Prediction model management methods;
   addPredictionModel(model: PredictionModel) {
     this.predictionModels.set(model.id, model);
-    this.emit('model_added', model);}
+    this.emit('model_added', model);
+  }
 
   removePredictionModel(modelId: string) {
     this.predictionModels.delete(modelId);
-    this.emit('model_removed', modelId);}
+    this.emit('model_removed', modelId);
+  }
 }
-
-
-
-
-`

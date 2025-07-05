@@ -1,15 +1,51 @@
 ﻿export interface AnalysisResult {
-  playerId: string,`n  predictions: {
-    [metric: string]: {,`n  value: number;,`n  confidence: number,`n  factors: Array<{,`n  type: string,`n  impact: number;,`n  description: string}>;};};
+  playerId: string
+  predictions: {
+    [metric: string]: {
+      value: number;
+      confidence: number
+      factors: Array<{
+        type: string
+        impact: number;
+        description: string}>;
+    };
+  };
   trends: {
-    [metric: string]: {,`n  direction: 'up' | 'down' | 'stable';,`n  strength: number,`n  supporting_data: string[0]};};
+    [metric: string]: {
+      direction: 'up' | 'down' | 'stable';
+      strength: number
+      supporting_data: string[]};
+  };
   risks: {
-    [type: string]: {,`n  level: 'LOW' | 'MEDIUM' | 'HIGH';,`n  factors: string[0];
-      mitigation?: string;};};
-  opportunities: Array<{,`n  type: string;,`n  confidence: number,`n  expected_value: number;,`n  rationale: string[0]}>;
-  meta_analysis: {,`n  data_quality: number;,`n  prediction_stability: number,`n  market_efficiency: number;,`n  sentiment_alignment: number};}
+    [type: string]: {
+      level: 'LOW' | 'MEDIUM' | 'HIGH';
+      factors: string[];
+      mitigation?: string;
+    };
+  };
+  opportunities: Array<{
+    type: string;
+    confidence: number
+    expected_value: number;
+    rationale: string[]}>;
+  meta_analysis: {
+    data_quality: number;
+    prediction_stability: number
+    market_efficiency: number;
+    sentiment_alignment: number};
+}
+
 interface AnalysisConfig {
-  confidenceThreshold: number,`n  riskTolerance: number;,`n  timeHorizon: number,`n  weightings: {,`n  historical: number,`n  current: number;,`n  sentiment: number,`n  market: number};}
+  confidenceThreshold: number
+  riskTolerance: number;
+  timeHorizon: number
+  weightings: {
+    historical: number
+    current: number;
+    sentiment: number
+    market: number};
+}
+
 export declare class AdvancedAnalysisEngine {
   private static instance;
   private readonly eventBus;
@@ -41,8 +77,5 @@ export declare class AdvancedAnalysisEngine {
   private assessPredictionStability;
   private calculateFactorVariance;
   private assessMarketEfficiency;
-  private assessSentimentAlignment;}
-export Record<string, any>;
-
-
-`
+  private assessSentimentAlignment;
+}

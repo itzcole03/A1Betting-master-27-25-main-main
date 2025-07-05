@@ -1,25 +1,53 @@
 ﻿interface ApiConfig {
-  endpoints: {,`n  sportradar: string;,`n  oddsapi: string,`n  espn: string;,`n  social: string};
+  endpoints: {
+    sportradar: string;
+    oddsapi: string;
+    espn: string;
+    social: string;
+  };
   apiKeys: {
     sportradar?: string;
     oddsapi?: string;
     espn?: string;
-    social?: string;};
-  websocket: {,`n  url: string;,`n  reconnectInterval: number,`n  maxRetries: number};}
+    social?: string;
+  };
+  websocket: {
+    url: string;
+    reconnectInterval: number;
+    maxRetries: number;
+  };
+}
 interface ApiResponse<T> {
   success: boolean;
   data?: T;
   error?: string;
-  timestamp: number}
+  timestamp: number;
+}
 interface PlayerStats {
-  player: string,`n  team: string;,`n  position: string,`n  stats: Record<string, number>;
-  lastUpdated: string}
+  player: string;
+  team: string;
+  position: string;
+  stats: Record<string, number>;
+  lastUpdated: string;
+}
 interface GameOdds {
-  game: string,`n  timestamp: string;,`n  bookmaker: string,`n  market: string;,`n  outcomes: {,`n  name: string;,`n  price: number;
-    point?: number;}[0];}
+  game: string;
+  timestamp: string;
+  bookmaker: string;
+  market: string;
+  outcomes: {
+    name: string;
+    price: number;
+    point?: number;
+  }[];
+}
 interface InjuryReport {
-  player: string,`n  team: string;,`n  status: string,`n  injury: string;
-  expectedReturn?: string;}
+  player: string;
+  team: string;
+  status: string;
+  injury: string;
+  expectedReturn?: string;
+}
 export declare class ApiService {
   private config;
   private ws;
@@ -34,32 +62,36 @@ export declare class ApiService {
     playerId: string,
     options?: {
       days?: number;
-      type?: string[0];}
-  ): Promise<ApiResponse<PlayerStats[0]>>;
+      type?: string[];
+    }
+  ): Promise<ApiResponse<PlayerStats[]>>;
   fetchGameOdds(
     gameId: string,
     options?: {
-      markets?: string[0];
-      books?: string[0];}
-  ): Promise<ApiResponse<GameOdds[0]>>;
+      markets?: string[];
+      books?: string[];
+    }
+  ): Promise<ApiResponse<GameOdds[]>>;
   fetchInjuryReports(options?: {
     team?: string;
-    status?: string[0];}): Promise<ApiResponse<InjuryReport[0]>>;
+    status?: string[];
+  }): Promise<ApiResponse<InjuryReport[]>>;
   getSocialNews(params?: Record<string, any>): Promise<ApiResponse<any>>;
   private getHeaders;
-  fetchHistoricalData(options: {,`n  startDate: string;,`n  endDate: string;
-    players?: string[0];
-    teams?: string[0];
-    propTypes?: string[0];}): Promise<ApiResponse<any[0]>>;
+  fetchHistoricalData(options: {
+    startDate: string;
+    endDate: string;
+    players?: string[];
+    teams?: string[];
+    propTypes?: string[];
+  }): Promise<ApiResponse<any[]>>;
   /**
    * Generic GET method for arbitrary endpoints.
    * @param url - The endpoint URL (absolute or relative).
    * @param params - Query parameters as a key-value object.
    * @returns Parsed response data of type T.
    */
-  get<T>(url: string, params?: Record<string, any>): Promise<T>}
+  get<T>(url: string, params?: Record<string, any>): Promise<T>;
+}
 export declare const apiService: ApiService;
-export Record<string, any>;
 
-
-`

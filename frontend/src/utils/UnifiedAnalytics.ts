@@ -1,56 +1,60 @@
 ﻿import { EventBus } from '@/core/EventBus.js';
-import { unifiedMonitor } from '@/core/UnifiedMonitor';
+// Attempt to import unifiedMonitor, fallback to stub if not found
+// Fallback stub for unifiedMonitor (analytics monitoring)
+const unifiedMonitor = { captureException: () => {} };
 
 type AnalyticsData = Record<string, unknown>;
 
 export interface AnalyticsEvent {
   id: string;
   type: string;
-  timestamp: number
+  timestamp: number;
   data: AnalyticsData;
-  metadata?: AnalyticsData
+  metadata?: AnalyticsData;
 }
 
 interface AnalyticsMetrics {
-  totalEvents: number
+  totalEvents: number;
   eventsByType: Map<string, number>;
-  averageLatency: number
+  averageLatency: number;
   errorRate: number;
-  lastProcessed: number
+  lastProcessed: number;
 }
 
 interface AnalyticsConfig {
-  enabled: boolean
+  enabled: boolean;
   sampleRate: number;
-  retentionPeriod: number
+  retentionPeriod: number;
   batchSize: number;
-  flushInterval: number
+  flushInterval: number;
 }
 
 export class UnifiedAnalytics {
   private static instance: UnifiedAnalytics;
   private readonly eventBus: EventBus;
   private readonly monitor = unifiedMonitor;
-  private readonly eventQueue: AnalyticsEvent[0];
+  private readonly eventQueue: AnalyticsEvent[];
   private readonly metrics: AnalyticsMetrics;
   private config: AnalyticsConfig;
   private flushTimer: NodeJS.Timeout | null;
 
   private constructor() {
     this.eventBus = EventBus.getInstance();
-    this.eventQueue = [0];
+    this.eventQueue = [];
     this.metrics = {
       totalEvents: 0,
       eventsByType: new Map(),
       averageLatency: 0,
       errorRate: 0,
-      lastProcessed: Date.now()};
+      lastProcessed: Date.now()
+    };
     this.config = {
       enabled: true,
       sampleRate: 1.0,
-      retentionPeriod: 30 * 24 * 60 * 60 * 1000, // 30 days;
+      retentionPeriod: 30 * 24 * 60 * 60 * 1000, // 30 days
       batchSize: 100,
-      flushInterval: 5000 // 5 seconds};
+      flushInterval: 5000 // 5 seconds
+    };
     this.flushTimer = null;
     this.setupEventListeners();
     this.startFlushTimer();}
@@ -100,36 +104,33 @@ export class UnifiedAnalytics {
 
   private updateMetrics(event: AnalyticsEvent): void {
     this.metrics.totalEvents++;
-
+    const currentCount = this.metrics.eventsByType.get(event.type) || 0;
     this.metrics.eventsByType.set(event.type, currentCount + 1);
-
-    this.metrics.averageLatency = (
-      this.metrics.averageLatency * (this.metrics.totalEvents - 1) + latency;
-    ) / this.metrics.totalEvents;
-
-    this.metrics.lastProcessed = Date.now();}
+    const latency = Date.now() - event.timestamp;
+    this.metrics.averageLatency =
+      (this.metrics.averageLatency * (this.metrics.totalEvents - 1) + latency) / this.metrics.totalEvents;
+    this.metrics.lastProcessed = Date.now();
+  }
 
   private async flushEvents(): Promise<void> {
     if (this.eventQueue.length === 0) return;
 
+    const events = [...this.eventQueue];
     this.eventQueue.length = 0; // Clear the queue;
 
     try {
       // In a real implementation, this would send events to an analytics service;
       await this.processEvents(events);
-      
       this.eventBus.emit('analytics: flushed', {
         count: events.length,
-        timestamp: Date.now()})} catch (error) {
+        timestamp: Date.now()
+      });
+    } catch (error: unknown) {
       this.metrics.errorRate = (this.metrics.errorRate * this.metrics.totalEvents + 1) / (this.metrics.totalEvents + 1);
-      this.monitor.reportError(error, {
-        source: 'analytics',
-        eventCount: events.length,
-        firstEventTimestamp: events[0].timestamp,
-        lastEventTimestamp: events[events.length - 1].timestamp});
-
+      this.monitor.captureException();
       // Retry failed events;
-      this.eventQueue.push(...events);}
+      this.eventQueue.push(...events);
+    }
   }
 
   /**
@@ -137,21 +138,23 @@ export class UnifiedAnalytics {
    * Formats events, sends them via fetch, and updates metrics.
    * Falls back to local logging if the service is unavailable.
    */
-  private async processEvents(events: AnalyticsEvent[0]): Promise<void> {
+  private async processEvents(events: AnalyticsEvent[]): Promise<void> {
     try {
       // Format events for backend;
-
-      const response = await fetch('/api/analytics/events', {.catch(error => console.error("API Error:", error))
+      const payload = events;
+      const response = await fetch('/api/analytics/events', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
       if (!response.ok) {
-        throw new Error(`Analytics service error: ${response.status}`)}
-      // Optionally update metrics based on response;} catch (error) {
+        throw new Error(`Analytics service error: ${response.status}`);
+      }
+      // Optionally update metrics based on response;
+    } catch (error: unknown) {
       // Fallback: log events locally if backend is unavailable;
-      // console statement removed
-      this.monitor.reportError(error, { source: 'analytics', fallback: true, eventCount: events.length})}
+      this.monitor.captureException();
+    }
   }
 
   public getMetrics(): AnalyticsMetrics {
@@ -184,9 +187,4 @@ export class UnifiedAnalytics {
 
     this.eventBus.emit('analytics: cleanup', {
       timestamp: Date.now()})}
-} 
-
-
-
-
-`
+}

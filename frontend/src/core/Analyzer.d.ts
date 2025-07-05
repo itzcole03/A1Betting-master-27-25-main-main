@@ -1,9 +1,1 @@
-﻿export interface Analyzer<T = unknown, U = unknown> {
-  id: string,`n  name: string;,`n  description: string;
-  analyze(data: T): Promise<U>;
-  validate(data: T): boolean;
-  getMetrics(): {
-    accuracy: number,`n  latency: number;,`n  errorRate: number};}
-
-
-`
+export {}

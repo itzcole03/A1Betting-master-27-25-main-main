@@ -9,131 +9,143 @@
  * - Comprehensive error handling and retry logic;
  */
 
-import axios, { AxiosInstance, AxiosResponse} from 'axios';
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
 
 // ============================================================================
 // TYPES AND INTERFACES;
 // ============================================================================
 
 export interface PredictionRequest {
-    event_id: string
-,`n  sport: string;
-,`n  features: Record<string, number>;
-    models?: string[0];
-    require_explanations?: boolean
-    risk_tolerance?: number
-    bankroll?: number
-    metadata?: Record<string, any>;}
+    event_id: string;
+    sport: string;
+    features: Record<string, number>;
+    models?: string[];
+    require_explanations?: boolean;
+    risk_tolerance?: number;
+    bankroll?: number;
+    metadata?: Record<string, any>;
+}
 
 export interface ModelPrediction {
-    model_name: string
-,`n  model_type: string;
-,`n  value: number
-,`n  probability: number;
-,`n  confidence: number
-,`n  performance: Record<string, number>;
+    model_name: string;
+    model_type: string;
+    value: number;
+    probability: number;
+    confidence: number;
+    performance: Record<string, number>;
     shap_values: Record<string, number>;
     feature_importance: Record<string, number>;
-    prediction_time: number
-,`n  model_version: string}
+    prediction_time: number;
+    model_version: string;
+}
 
 export interface RiskAssessment {
-    kelly_fraction: number
-,`n  recommended_bet_size: number;
-,`n  max_bet_size: number
-,`n  risk_level: string;
-,`n  expected_value: number
-,`n  variance: number;
-,`n  sharpe_ratio: number}
+    kelly_fraction: number;
+    recommended_bet_size: number;
+    max_bet_size: number;
+    risk_level: string;
+    expected_value: number;
+    variance: number;
+    sharpe_ratio: number;
+}
 
 export interface MarketAnalysis {
-    market_efficiency: number
-,`n  arbitrage_opportunities: Array<{
-,`n  bookmaker_a: string
-,`n  bookmaker_b: string;
-,`n  odds_a: number
-,`n  odds_b: number;
-,`n  profit_margin: number
-,`n  required_stake: number}>;
+    market_efficiency: number;
+    arbitrage_opportunities: Array<{
+        bookmaker_a: string;
+        bookmaker_b: string;
+        odds_a: number;
+        odds_b: number;
+        profit_margin: number;
+        required_stake: number
+    }>;
     value_bets: Array<{
-,`n  market: string;
-,`n  predicted_odds: number
-,`n  market_odds: number;
-,`n  value_percentage: number
-,`n  confidence: number}>;
-    market_sentiment: string
-,`n  liquidity_score: number}
+        market: string;
+        predicted_odds: number;
+        market_odds: number;
+        value_percentage: number;
+        confidence: number
+    }>;
+    market_sentiment: string;
+    liquidity_score: number;
+}
 
 export interface PredictionResponse {
-    event_id: string
-,`n  sport: string;
-,`n  final_value: number
-,`n  win_probability: number;
-,`n  ensemble_confidence: number
-,`n  expected_payout: number;
-,`n  risk_assessment: RiskAssessment
-,`n  market_analysis: MarketAnalysis;
-,`n  model_breakdown: ModelPrediction[0]
-,`n  model_consensus: number;
-,`n  shap_values: Record<string, number>;
+    event_id: string;
+    sport: string;
+    final_value: number;
+    win_probability: number;
+    ensemble_confidence: number;
+    expected_payout: number;
+    risk_assessment: RiskAssessment;
+    market_analysis: MarketAnalysis;
+    model_breakdown: ModelPrediction[];
+    model_consensus: number;
+    shap_values: Record<string, number>;
     feature_importance: Record<string, number>;
     explanation: string;
     confidence_intervals?: Record<string, [number, number]>;
-    prediction_timestamp: string
-,`n  processing_time: number;
-,`n  model_versions: Record<string, string>;
-    data_quality_score: number}
+    prediction_timestamp: string;
+    processing_time: number;
+    model_versions: Record<string, string>;
+    data_quality_score: number;
+}
 
 export interface BettingOpportunity {
-    id: string
-,`n  sport: string;
-,`n  event: string
-,`n  market: string;
-,`n  odds: number
-,`n  probability: number;
-,`n  expected_value: number
-,`n  kelly_fraction: number;
-,`n  confidence: number
-,`n  risk_level: string;
-,`n  recommendation: string}
+    id: string;
+    sport: string;
+    event: string;
+    market: string;
+    odds: number;
+    probability: number;
+    expected_value: number;
+    kelly_fraction: number;
+    confidence: number;
+    risk_level: string;
+    recommendation: string;
+}
 
 export interface ArbitrageOpportunity {
-    id: string
-,`n  sport: string;
-,`n  event: string
-,`n  bookmaker_a: string;
-,`n  bookmaker_b: string
-,`n  odds_a: number;
-,`n  odds_b: number
-,`n  profit_margin: number;
-,`n  required_stake: number}
+    id: string;
+    sport: string;
+    event: string;
+    bookmaker_a: string;
+    bookmaker_b: string;
+    odds_a: number;
+    odds_b: number;
+    profit_margin: number;
+    required_stake: number;
+}
 
 export interface Transaction {
-    id: string
-,`n  type: string;
-,`n  amount: number
-,`n  description: string;
-,`n  timestamp: string
-,`n  status: string}
+    id: string;
+    type: string;
+    amount: number;
+    description: string;
+    timestamp: string;
+    status: string;
+}
 
 export interface RiskProfile {
-    id: string
-,`n  name: string;
-,`n  description: string
-,`n  max_bet_percentage: number;
-,`n  kelly_multiplier: number
-,`n  min_confidence: number}
+    id: string;
+    name: string;
+    description: string;
+    max_bet_percentage: number;
+    kelly_multiplier: number;
+    min_confidence: number;
+}
 
 export interface ActiveBet {
-    id: string
-,`n  event: string;
-,`n  market: string
-,`n  selection: string;
-,`n  odds: number
-,`n  stake: number;
-,`n  potential_return: number
-,`n  status: string;
-,`n  placed_at: string}
+    id: string;
+    event: string;
+    market: string;
+    selection: string;
+    odds: number;
+    stake: number;
+    potential_return: number;
+    status: string;
+    placed_at: string;
+}
 
 // ============================================================================
 // API SERVICE CLASS;
@@ -208,11 +220,11 @@ class EnhancedApiService {
         return new Promise(resolve => setTimeout(resolve, ms))}
 
     private handleApiError(error: any, context: string): never {
-
-
         // console statement removed
-
-        throw new Error(`${context} failed: ${message} (Status: ${status})`)}
+        const message = error?.message || 'Unknown error';
+        const status = error?.response?.status || 'N/A';
+        throw new Error(`${context} failed: ${message} (Status: ${status})`);
+    }
 
     // ============================================================================
     // PREDICTION ENDPOINTS;
@@ -227,31 +239,34 @@ class EnhancedApiService {
 
     async getModelStatus(): Promise<any> {
         try {
-
-            return response.data;} catch (error) {
-            this.handleApiError(error, 'Model status request');}
+            const response: AxiosResponse<any> = await this.api.get('/api/v2/model-status');
+            return response.data;
+        } catch (error) {
+            this.handleApiError(error, 'Model status request');
+        }
     }
 
     // ============================================================================
     // BETTING OPPORTUNITIES;
     // ============================================================================
 
-    async getBettingOpportunities(sport?: string, limit: number = 10): Promise<BettingOpportunity[0]> {
+    async getBettingOpportunities(sport?: string, limit: number = 10): Promise<BettingOpportunity[]> {
         try {
-
+            const params = new URLSearchParams();
             if (sport) params.append('sport', sport);
             params.append('limit', limit.toString());
-
-            const response: AxiosResponse<BettingOpportunity[0]> = await this.api.get(
+            const response: AxiosResponse<BettingOpportunity[]> = await this.api.get(
                 `/api/betting-opportunities?${params.toString()}`
             );
-            return response.data;} catch (error) {
-            this.handleApiError(error, 'Betting opportunities request');}
+            return response.data;
+        } catch (error) {
+            this.handleApiError(error, 'Betting opportunities request');
+        }
     }
 
-    async getArbitrageOpportunities(limit: number = 5): Promise<ArbitrageOpportunity[0]> {
+    async getArbitrageOpportunities(limit: number = 5): Promise<ArbitrageOpportunity[]> {
         try {
-            const response: AxiosResponse<ArbitrageOpportunity[0]> = await this.api.get(
+            const response: AxiosResponse<ArbitrageOpportunity[]> = await this.api.get(
                 `/api/arbitrage-opportunities?limit=${limit}`
             );
             return response.data;} catch (error) {
@@ -262,25 +277,31 @@ class EnhancedApiService {
     // BANKROLL MANAGEMENT;
     // ============================================================================
 
-    async getTransactions(): Promise<{ transactions: Transaction[0]; total_count: number}> {
+    async getTransactions(): Promise<{ transactions: Transaction[]; total_count: number}> {
         try {
-
-            return response.data} catch (error) {
-            this.handleApiError(error, 'Transactions request');}
+            const response: AxiosResponse<{ transactions: Transaction[]; total_count: number }> = await this.api.get('/api/v2/transactions');
+            return response.data;
+        } catch (error) {
+            this.handleApiError(error, 'Transactions request');
+        }
     }
 
-    async getRiskProfiles(): Promise<{ profiles: RiskProfile[0]}> {
+    async getRiskProfiles(): Promise<{ profiles: RiskProfile[]}> {
         try {
-
-            return response.data} catch (error) {
-            this.handleApiError(error, 'Risk profiles request');}
+            const response: AxiosResponse<{ profiles: RiskProfile[] }> = await this.api.get('/api/v2/risk-profiles');
+            return response.data;
+        } catch (error) {
+            this.handleApiError(error, 'Risk profiles request');
+        }
     }
 
-    async getActiveBets(): Promise<{ active_bets: ActiveBet[0]; total_count: number}> {
+    async getActiveBets(): Promise<{ active_bets: ActiveBet[]; total_count: number}> {
         try {
-
-            return response.data} catch (error) {
-            this.handleApiError(error, 'Active bets request');}
+            const response: AxiosResponse<{ active_bets: ActiveBet[]; total_count: number }> = await this.api.get('/api/v2/active-bets');
+            return response.data;
+        } catch (error) {
+            this.handleApiError(error, 'Active bets request');
+        }
     }
 
     // ============================================================================
@@ -289,16 +310,20 @@ class EnhancedApiService {
 
     async getHealthStatus(): Promise<any> {
         try {
-
-            return response.data;} catch (error) {
-            this.handleApiError(error, 'Health check request');}
+            const response: AxiosResponse<any> = await this.api.get('/api/v2/health');
+            return response.data;
+        } catch (error) {
+            this.handleApiError(error, 'Health check request');
+        }
     }
 
     async getPredictionEngineHealth(): Promise<any> {
         try {
-
-            return response.data;} catch (error) {
-            this.handleApiError(error, 'Prediction engine health check');}
+            const response: AxiosResponse<any> = await this.api.get('/api/v2/prediction-engine-health');
+            return response.data;
+        } catch (error) {
+            this.handleApiError(error, 'Prediction engine health check');
+        }
     }
 
     // ============================================================================
@@ -307,43 +332,47 @@ class EnhancedApiService {
 
     async subscribeToUpdates(callback: (data: any) => void): Promise<WebSocket | null> {
         try {
-
-
+            const ws = new WebSocket('ws://example.com'); // TODO: Replace with actual URL
             ws.onopen = () => {
-                // console statement removed};
-
+                // console statement removed
+            };
             ws.onmessage = (event) => {
                 try {
-
-                    callback(data);} catch (error) {
-                    // console statement removed}
+                    const data = JSON.parse(event.data);
+                    callback(data);
+                } catch (error) {
+                    // console statement removed
+                }
             };
-
             ws.onerror = (error) => {
-                // console statement removed};
-
+                // console statement removed
+            };
             ws.onclose = () => {
-                // console statement removed};
-
-            return ws;} catch (error) {
+                // console statement removed
+            };
+            return ws;
+        } catch (error) {
             // console statement removed
-            return null;}
+            return null;
+        }
     }
 
     // ============================================================================
     // BATCH OPERATIONS;
     // ============================================================================
 
-    async getBatchPredictions(requests: PredictionRequest[0]): Promise<PredictionResponse[0]> {
+    async getBatchPredictions(requests: PredictionRequest[]): Promise<PredictionResponse[]> {
         try {
-
-
-            return results;
+            // TODO: Implement actual batch prediction logic
+            const results: any[] = [];
+            return results
                 .filter((result): result is PromiseFulfilledResult<PredictionResponse> =>
                     result.status === 'fulfilled'
                 )
-                .map(result => result.value);} catch (error) {
-            this.handleApiError(error, 'Batch predictions request');}
+                .map(result => result.value);
+        } catch (error) {
+            this.handleApiError(error, 'Batch predictions request');
+        }
     }
 
     // ============================================================================
@@ -352,21 +381,24 @@ class EnhancedApiService {
 
     async getPerformanceMetrics(timeframe: string = '7d'): Promise<any> {
         try {
-
-            return response.data} catch (error) {
+            const response: AxiosResponse<any> = await this.api.get(`/api/v2/performance-metrics?timeframe=${timeframe}`);
+            return response.data;
+        } catch (error) {
             // Production error handling - no mock data fallbacks;
             // console statement removed
-            throw new Error('Performance metrics unavailable. Please try again later.');}
+            throw new Error('Performance metrics unavailable. Please try again later.');
+        }
     }
 
     async getMarketAnalytics(sport?: string): Promise<any> {
         try {
-
-
-            return response.data;} catch (error) {
+            const response: AxiosResponse<any> = await this.api.get(`/api/v2/market-analytics${sport ? `?sport=${sport}` : ''}`);
+            return response.data;
+        } catch (error) {
             // Production error handling - no mock data fallbacks;
             // console statement removed
-            throw new Error('Market analytics unavailable. Please try again later.');}
+            throw new Error('Market analytics unavailable. Please try again later.');
+        }
     }}
 
 // ============================================================================
@@ -375,8 +407,3 @@ class EnhancedApiService {
 
 export const apiService = new EnhancedApiService();
 export default apiService;
-
-
-
-
-`

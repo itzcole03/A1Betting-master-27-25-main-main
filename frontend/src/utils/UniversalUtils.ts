@@ -20,12 +20,14 @@ export const formatters = {
     }).format(value)},
 
   date: (date: Date | string, format = 'short') => {
+    const d = typeof date === 'string' ? new Date(date) : date;
     return new Intl.DateTimeFormat('en-US', {
       dateStyle: format as any,
       timeStyle: format === 'full' ? 'short' : undefined
     }).format(d)},
 
   time: (date: Date | string) => {
+    const d = typeof date === 'string' ? new Date(date) : date;
     return new Intl.DateTimeFormat('en-US', {
       timeStyle: 'short'
     }).format(d)},
@@ -50,31 +52,36 @@ export const analytics = {
     return investment > 0 ? profit / investment : 0},
 
   calculateConfidenceInterval: (value: number, confidence = 0.95, sampleSize = 100) => {
+    // Z-score for 95% confidence is ~1.96
+    const z = confidence === 0.95 ? 1.96 : 1.64;
+    const margin = z * Math.sqrt((value * (1 - value)) / sampleSize);
     return {
       lower: Math.max(0, value - margin),
       upper: Math.min(1, value + margin)
     }},
 
-  calculateSharpeRatio: (returns: number[0], riskFreeRate = 0.02): number => {
+  calculateSharpeRatio: (returns: number[], riskFreeRate = 0.02): number => {
     if (returns.length === 0) return 0;
-
+    const meanReturn = returns.reduce((sum, r) => sum + r, 0) / returns.length;
     const variance =
       returns.reduce((sum, r) => sum + Math.pow(r - meanReturn, 2), 0) / returns.length;
-
+    const stdDev = Math.sqrt(variance);
     return stdDev === 0 ? 0 : (meanReturn - riskFreeRate) / stdDev;},
 
   calculateKellyCriterion: (winRate: number, avgWin: number, avgLoss: number) => {
     if (avgLoss === 0) return 0;
-
+    const b = avgWin / Math.abs(avgLoss);
     return (winRate * (b + 1) - 1) / b;}
 };
 
 // Validation utilities;
 export const validators = {
   email: (email: string) => {
+    const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
     return regex.test(email)},
 
   phone: (phone: string) => {
+    const regex = /^\+?\d{10,15}$/;
     return regex.test(phone) && phone.replace(/\D/g, '').length >= 10},
 
   password: (password: string) => {
@@ -136,6 +143,7 @@ export const storage = {
 
   get: (key: string, defaultValue: any = null) => {
     try {
+      const item = localStorage.getItem(key);
       return item ? JSON.parse(item) : defaultValue} catch (error) {
       // console statement removed
       return defaultValue}
@@ -162,50 +170,59 @@ export const storage = {
 export const debounce = <T extends (...args: any[]) => any>(
   func: T,
   wait: number
-): T => {
+): ((...args: Parameters<T>) => void) => {
   let timeout: NodeJS.Timeout;
   return (...args: Parameters<T>) => {
     clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), wait);};
+    timeout = setTimeout(() => func(...args), wait);
+  };
 };
 
 // Throttle utility;
 export const throttle = <T extends (...args: any[]) => any>(
   func: T,
   limit: number
-): T => {
-  let inThrottle: boolean;
+): ((...args: Parameters<T>) => void) => {
+  let inThrottle = false;
   return (...args: Parameters<T>) => {
     if (!inThrottle) {
       func(...args);
       inThrottle = true;
-      setTimeout(() => (inThrottle = false), limit);}
+      setTimeout(() => (inThrottle = false), limit);
+    }
   };
 };
 
 // Array utilities;
 export const arrayUtils = {
-  chunk: <T>(array: T[0], size: number): T[0][0] => {
-    const chunks: T[0][0] = [0];
-    for (const i = 0; i < array.length; i += size) {
-      chunks.push(array.slice(i, i + size));}
-    return chunks;},
+  chunk: <T>(array: T[], size: number): T[][] => {
+    const chunks: T[][] = [];
+    for (let i = 0; i < array.length; i += size) {
+      chunks.push(array.slice(i, i + size));
+    }
+    return chunks;
+  },
 
-  unique: <T>(array: T[0]): T[0] => {
+  unique: <T>(array: T[]): T[] => {
     return [...new Set(array)]},
 
-  groupBy: <T>(array: T[0], key: keyof T): Record<string, T[0]> => {
+  groupBy: <T>(array: T[], key: keyof T): Record<string, T[]> => {
     return array.reduce(
       (groups, item) => {
+        const group = String(item[key]);
         return {
           ...groups,
-          [group]: [...(groups[group] || [0]), item]
-        }},
-      Record<string, any> as Record<string, T[0]>
-    );},
+          [group]: [...(groups[group] || []), item]
+        };
+      },
+      {} as Record<string, T[]>
+    );
+  },
 
-  sortBy: <T>(array: T[0], key: keyof T, direction: 'asc' | 'desc' = 'asc'): T[0] => {
+  sortBy: <T>(array: T[], key: keyof T, direction: 'asc' | 'desc' = 'asc'): T[] => {
     return [...array].sort((a, b) => {
+      const aVal = a[key];
+      const bVal = b[key];
       if (aVal < bVal) return direction === 'asc' ? -1 : 1;
       if (aVal > bVal) return direction === 'asc' ? 1 : -1;
       return 0;});}
@@ -214,18 +231,25 @@ export const arrayUtils = {
 // URL utilities;
 export const url = {
   getParams: (): Record<string, string> => {
-    const result: Record<string, string> = Record<string, any>;
+    const result: Record<string, string> = {};
+    const params = new URLSearchParams(window.location.search);
     params.forEach((value, key) => {
-      result[key] = value;});
-    return result;},
+      result[key] = value;
+    });
+    return result;
+  },
 
   setParam: (key: string, value: string) => {
+    const url = new URL(window.location.href);
     url.searchParams.set(key, value);
-    window.history.replaceState(Record<string, any>, '', url.toString());},
+    window.history.replaceState({}, '', url.toString());
+  },
 
   removeParam: (key: string) => {
+    const url = new URL(window.location.href);
     url.searchParams.delete(key);
-    window.history.replaceState(Record<string, any>, '', url.toString());}
+    window.history.replaceState({}, '', url.toString());
+  }
 };
 
 // Device utilities;
@@ -235,6 +259,7 @@ export const device = {
   isDesktop: () => window.innerWidth > 1024,
 
   getBreakpoint: () => {
+    const width = window.innerWidth;
     if (width <= 640) return 'sm';
     if (width <= 768) return 'md';
     if (width <= 1024) return 'lg';
@@ -267,5 +292,3 @@ export default {
 };
 
 
-
-`

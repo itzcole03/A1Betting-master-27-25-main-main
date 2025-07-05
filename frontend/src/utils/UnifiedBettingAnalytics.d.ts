@@ -1,14 +1,36 @@
-﻿import EventEmitter from 'eventemitter3.ts';
+﻿import EventEmitter from 'eventemitter3';
 type ModelParameters = Record<string, unknown>;
 export interface BettingStrategy {
-  id: string,`n  name: string;,`n  riskLevel: 'low' | 'medium' | 'high',`n  stakePercentage: number;,`n  minOdds: number,`n  maxOdds: number}
+  id: string;
+  name: string;
+  riskLevel: 'low' | 'medium' | 'high';
+  stakePercentage: number;
+  minOdds: number;
+  maxOdds: number;
+}
 export interface PredictionModel {
-  id: string,`n  name: string;,`n  accuracy: number,`n  lastUpdated: Date;,`n  parameters: ModelParameters}
+  id: string;
+  name: string;
+  accuracy: number;
+  lastUpdated: Date;
+  parameters: ModelParameters;
+}
 export interface BettingAnalysis {
-  predictionConfidence: number,`n  recommendedStake: number;,`n  expectedValue: number,`n  riskAssessment: {,`n  level: 'low' | 'medium' | 'high',`n  factors: string[0]};
-  hedgingOpportunities: Array<{,`n  market: string;,`n  odds: number,`n  recommendedStake: number}>;}
+  predictionConfidence: number;
+  recommendedStake: number;
+  expectedValue: number;
+  riskAssessment: {
+    level: 'low' | 'medium' | 'high';
+    factors: string[];
+  };
+  hedgingOpportunities: Array<{
+    market: string;
+    odds: number;
+    recommendedStake: number;
+  }>;
+}
 export declare class UnifiedBettingAnalytics extends EventEmitter {
-  private static instance;
+  private static instance: UnifiedBettingAnalytics;
   private activeStrategies;
   private constructor();
   static getInstance(): UnifiedBettingAnalytics;
@@ -27,8 +49,6 @@ export declare class UnifiedBettingAnalytics extends EventEmitter {
   private calculateRiskLevel;
   private findHedgingOpportunities;
   addStrategy(strategy: BettingStrategy): void;
-  removeStrategy(strategyId: string): void}
-export Record<string, any>;
+  removeStrategy(strategyId: string): void;
+}
 
-
-`

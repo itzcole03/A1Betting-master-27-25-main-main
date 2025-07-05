@@ -1,24 +1,17 @@
-﻿import React, { useState, useEffect} from 'react';
-import { motion, AnimatePresence} from 'framer-motion';
+﻿import { AnimatePresence, motion } from 'framer-motion';
 import {
-  BarChart3,
-  Bell,
-  Brain,
-  DollarSign,
-  Home,
-  Menu,
-  Search,
-  Settings as SettingsIcon,
-  Trophy,
-  TrendingUp,
-  User,
-  Zap,
-  Activity,
-  Target,
-  Shield,
-  Gamepad2,
-//   X
+    Activity,
+    BarChart3,
+    Brain,
+    DollarSign,
+    Home,
+    Menu,
+    Settings as SettingsIcon,
+    Target,
+    TrendingUp,
+    User
 } from 'lucide-react';
+import React, { useState } from 'react';
 
 // Simple dashboard component
 const SimpleDashboard: React.FC = () => {
@@ -39,7 +32,7 @@ const SimpleDashboard: React.FC = () => {
       </div>
 
       {/* Stats Grid */}
-      <div className='grid grid-cols-1 md: grid-cols-2 lg:grid-cols-4 gap-4'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
         <motion.div
           className='bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-6'
           whileHover={{ scale: 1.02}}
@@ -47,7 +40,7 @@ const SimpleDashboard: React.FC = () => {
           <div className='flex items-center justify-between'>
             <div>
               <p className='text-gray-400 text-sm'>Account Balance</p>
-              <p className='text-2xl font-bold text-white'>${stats.safeNumber(balance, 2)}</p>
+              <p className='text-2xl font-bold text-white'>${stats.balance.toFixed(2)}</p>
             </div>
             <DollarSign className='w-8 h-8 text-yellow-400' />
           </div>
@@ -60,7 +53,7 @@ const SimpleDashboard: React.FC = () => {
           <div className='flex items-center justify-between'>
             <div>
               <p className='text-gray-400 text-sm'>Today's Profit</p>
-              <p className='text-2xl font-bold text-green-400'>+${stats.safeNumber(todayProfit, 2)}</p>
+              <p className='text-2xl font-bold text-green-400'>+${stats.todayProfit.toFixed(2)}</p>
             </div>
             <TrendingUp className='w-8 h-8 text-green-400' />
           </div>
@@ -140,9 +133,9 @@ const SimpleDashboard: React.FC = () => {
             { teams: 'Cowboys vs Giants', odds: '1.85', prediction: 'Over 45.5', confidence: 78},
             { teams: 'Celtics vs Heat', odds: '2.05', prediction: 'Heat ML', confidence: 82},
           ].map((game, index) => (
-            <div key={index}
+            <div key={game.teams + '-' + index}
               className='flex items-center justify-between p-3 bg-white/5 rounded-lg'
->`n            >
+            >
               <div>
                 <p className='text-white font-medium'>{game.teams}</p>
                 <p className='text-gray-400 text-sm'>AI Prediction: {game.prediction}</p>
@@ -213,16 +206,17 @@ const SimpleSettings: React.FC = () => {
   )};
 
 interface NavItem {
-  id: string
-,`n  label: string;
-,`n  icon: React.ReactNode
-,`n  component: React.ComponentType}
+  id: string;
+  label: string;
+  icon: React.ReactNode;
+  component: React.ComponentType;
+}
 
 const UserFriendlyApp: React.FC = () => {
   const [activeView, setActiveView] = useState<string>('dashboard');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const navItems: NavItem[0] = [
+  const navItems: NavItem[] = [
     {
       id: 'dashboard',
       label: 'Dashboard',
@@ -239,7 +233,8 @@ const UserFriendlyApp: React.FC = () => {
       id: 'analytics',
       label: 'Analytics',
       icon: <BarChart3 className='w-5 h-5' />,
-      component: SimpleBetting, // Placeholder},
+      component: SimpleDashboard // Use SimpleDashboard as placeholder
+    },
     {
       id: 'profile',
       label: 'Profile',
@@ -297,7 +292,7 @@ const UserFriendlyApp: React.FC = () => {
                       className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all ${
                         activeView === item.id
                           ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
-                          : 'text-gray-300 hover: text-white hover:bg-white/10'}`}
+                          : 'text-gray-300 hover:text-white hover:bg-white/10'}`}
                       whileHover={{ scale: 1.02}}
                       whileTap={{ scale: 0.98}}
                     >
@@ -340,7 +335,3 @@ const UserFriendlyApp: React.FC = () => {
   )};
 
 export default UserFriendlyApp;
-
-
-
-`

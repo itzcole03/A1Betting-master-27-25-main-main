@@ -1,7 +1,19 @@
-﻿import { DataSource} from '@/core/DataSource.ts';
+﻿import { DataSource } from '@/core/DataSource.ts';
 export interface SocialSentimentData {
-  player: string,`n  sentiment: {,`n  score: number,`n  volume: number;,`n  sources: {,`n  twitter: number;,`n  reddit: number,`n  news: number};};
-  trending: boolean,`n  keywords: string[0];,`n  timestamp: number}
+  player: string,
+  sentiment: {
+    score: number,
+    volume: number,
+    sources: {
+      twitter: number,
+      reddit: number,
+      news: number
+    }
+  },
+  trending: boolean,
+  keywords: string[],
+  timestamp: number
+}
 export declare class SocialSentimentAdapter implements DataSource<SocialSentimentData[0]> {
   readonly id = 'social-sentiment';
   readonly type = 'sentiment-analysis';
@@ -20,5 +32,3 @@ export declare class SocialSentimentAdapter implements DataSource<SocialSentimen
   isConnected(): boolean;
   getMetadata(): Record<string, unknown>;}
 
-
-`

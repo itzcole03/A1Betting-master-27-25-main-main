@@ -38,9 +38,15 @@ export interface FeatureFlags {
 
 // ESPN Headline interface for newsService;
 export interface ESPNHeadline {
-  id: string,`n  title: string;,`n  summary: string,`n  link: string;,`n  publishedAt: string,`n  source: string;,`n  imageUrl: string,`n  category: string}
+  id: string
+  title: string
+  summary: string
+  link: string
+  publishedAt: string
+  source: string
+  imageUrl: string
+  category: string
+}
 
 
 
-
-`
