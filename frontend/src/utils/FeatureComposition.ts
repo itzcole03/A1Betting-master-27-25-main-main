@@ -42,11 +42,7 @@ export class ComposableFeature<T, U> implements FeatureComponent<T, U> {
   }
 
   async process(input: T, context: FeatureContext): Promise<U> {
-    const traceId = this.performanceMonitor.startTrace(`feature-${this.metadata.id}`, {
-      featureId: this.metadata.id,
-      category: this.metadata.category,
-      version: this.metadata.version
-    });
+    const traceId = this.performanceMonitor.startTrace(`feature-${this.metadata.id}`);
 
     try {
       if (this.validator && !(await this.validate(input))) {
@@ -182,4 +178,7 @@ export class FeatureRegistry {
     }
     return feature.process(input, context);
   }
-} 
+}
+
+export type { FeatureComponent };
+

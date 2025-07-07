@@ -2,6 +2,8 @@
 import { PredictionContext, UnifiedPredictionEngine } from '@/core/UnifiedPredictionEngine';
 import { BettingOpportunity, MarketUpdate } from '@/types/core';
 
+const traceHandler = jest.fn();
+
 describe('UnifiedPredictionEngine', () => {
   let predictionEngine: UnifiedPredictionEngine;
   let eventBus: EventBus;
@@ -40,6 +42,8 @@ describe('UnifiedPredictionEngine', () => {
         ]
       };
 
+      const opportunity = await predictionEngine.getPredictions(context);
+
       expect(opportunity).toBeDefined();
       expect(opportunity.id).toBeDefined();
       expect(opportunity.propId).toBe(`${context.playerId}:${context.metric}`);
@@ -68,7 +72,7 @@ describe('UnifiedPredictionEngine', () => {
         }
       };
 
-      await predictionEngine.generatePrediction(context);
+      await predictionEngine.getPredictions(context);
 
       expect(eventHandler).toHaveBeenCalled();
       const opportunity: BettingOpportunity = eventHandler.mock.calls[0][0];
@@ -115,7 +119,10 @@ describe('UnifiedPredictionEngine', () => {
         timestamp: Date.now()
       };
 
-      await expect(predictionEngine.generatePrediction(context)).rejects.toThrow();
+      const error = new Error('prediction_generation');
+      error.stack = 'mock stack';
+
+      await expect(predictionEngine.getPredictions(context)).rejects.toThrow(error);
     });
 
     it('should handle missing historical data gracefully', async () => {
@@ -129,6 +136,8 @@ describe('UnifiedPredictionEngine', () => {
           movement: 'up'
         }
       };
+
+      const opportunity = await predictionEngine.getPredictions(context);
 
       expect(opportunity).toBeDefined();
       expect(opportunity.confidence).toBeLessThan(0.8); // Lower confidence due to missing data;
@@ -154,7 +163,7 @@ describe('UnifiedPredictionEngine', () => {
         }
       });
 
-      await predictionEngine.generatePrediction(context);
+      await predictionEngine.getPredictions(context);
 
       expect(traceHandler).toHaveBeenCalled();
 

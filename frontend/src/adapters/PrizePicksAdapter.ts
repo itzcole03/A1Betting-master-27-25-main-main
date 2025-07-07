@@ -53,7 +53,7 @@ export class PrizePicksAdapter {
   }
 
   public async fetch(): Promise<PrizePicksData> {
-    const trace = unifiedMonitor.startTrace('PrizePicksAdapter.fetch', 'adapter.fetch');
+    const trace = unifiedMonitor.startTrace('PrizePicksAdapter.fetch', { category: 'adapter.fetch' });
     
     try {
       if (this.isCacheValid()) {

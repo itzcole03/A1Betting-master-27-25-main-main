@@ -1,5 +1,5 @@
 ﻿// Risk Assessment Service for variance, risk category, win expectancy;
-import { logError, logInfo} from '@/integrations/liveDataLogger';
+import { logError, logInfo } from '@/integrations/liveDataLogger';
 
 export class RiskAssessmentService {
   static assessRisk(prediction: any): any {
@@ -13,7 +13,14 @@ export class RiskAssessmentService {
       }} catch (err) {
       logError('Risk assessment failed', err);
       return null;}
-  }}
+  }
+
+  static classifyRisk(input: { score: number }): { riskCategory: string } {
+    if (input.score < 0.33) return { riskCategory: 'low' };
+    if (input.score < 0.66) return { riskCategory: 'medium' };
+    return { riskCategory: 'high' };
+  }
+}
 
 export default RiskAssessmentService;
 

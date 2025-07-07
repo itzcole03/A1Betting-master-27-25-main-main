@@ -1,0 +1,1000 @@
+Directory structure:
+└── itzcole03-a1betting-master-27-25-main-main/
+    ├── README.md
+    ├── ###old copilot's memory graph for the pr.json
+    ├── A1Betting-Live-Dev.code-workspace
+    ├── A1Betting.code-workspace
+    ├── A1Bettinglaptop.code-workspace
+    ├── activate_comprehensive_testing.sh
+    ├── ADVANCED_BEST_PRACTICES_SUCCESS_REPORT.md
+    ├── Agent
+    ├── ai_powerhouse.py
+    ├── ai_powerhouse_status.py
+    ├── API_CONSOLIDATION_PLAN.md
+    ├── audit_report.ipynb
+    ├── audit_workspace.py
+    ├── auto-launch.bat
+    ├── automate_cursor_efficiency.py
+    ├── AUTOMATED_LIVE_DEVELOPMENT_COMPLETE.md
+    ├── AUTOMATION_COMPLETE.md
+    ├── automation_health_analysis.txt
+    ├── automation_log.txt
+    ├── automation_master_plan.py
+    ├── AUTONOMOUS
+    ├── AUTONOMOUS_CONFIGURATION_COMPLETE.md
+    ├── AUTONOMOUS_DEVELOPMENT_MISSION_COMPLETE.md
+    ├── AUTONOMOUS_DEVELOPMENT_MODE.md
+    ├── autonomous_documentation.py
+    ├── autonomous_enhancements.json
+    ├── autonomous_feature_developer.py
+    ├── autonomous_health_check.py
+    ├── autonomous_health_log.json
+    ├── autonomous_log.txt
+    ├── autonomous_master.py
+    ├── autonomous_master_log.txt
+    ├── AUTONOMOUS_MISSION_STATUS_REPORT.md
+    ├── AUTONOMOUS_MODE_COMPLETE.md
+    ├── autonomous_operation_status.json
+    ├── autonomous_optimizations.json
+    ├── autonomous_optimizer.py
+    ├── autonomous_progress_report.json
+    ├── AUTONOMOUS_RECURSIVE_ORCHESTRATION_REPORT.json
+    ├── AUTONOMOUS_REFACTOR_CORRECTION_REPORT.md
+    ├── AUTONOMOUS_REFACTOR_REPORT_20250702_133327.json
+    ├── autonomous_test_results.json
+    ├── autonomous_tester.py
+    ├── AUTONOMOUS_USAGE_GUIDE.md
+    ├── AUTONOMOUS_WORK_SUMMARY.md
+    ├── BACKEND_CORS_SETUP.md
+    ├── BACKEND_FRONTEND_INTEGRATION_COMPLETE.md
+    ├── backend_main_analysis.txt
+    ├── BACKEND_PRODUCTIONIZATION_COMPLETE.md
+    ├── BACKEND_STATUS_REPORT.md
+    ├── beta_landing_page.html
+    ├── beta_user_onboarding.js
+    ├── Build
+    ├── build-react-app.js
+    ├── builder-live-dev.html
+    ├── builder.config.json
+    ├── BUILDER_IO_STYLE_DEVELOPMENT_COMPLETE.md
+    ├── chat_extraction_output.txt
+    ├── CHAT_RECOVERY_GUIDE.md
+    ├── Check
+    ├── check-status.bat
+    ├── CI_SETUP.md
+    ├── clean_cursor_ai.bat
+    ├── clean_history.js
+    ├── CLEANUP_SUMMARY.md
+    ├── CLOUD_INTEGRATION_SETUP.md
+    ├── codecov.yml
+    ├── COMMAND_SYSTEM_COMPLETE.md
+    ├── complete_audit_digest.txt
+    ├── COMPLETE_BEST_PRACTICES_MASTERY_REPORT.md
+    ├── COMPLETE_ENHANCED_SETUP_GUIDE.md
+    ├── COMPLETE_INTEGRATION_DOCUMENTATION.md
+    ├── COMPLETE_SYSTEM_ARCHITECTURE_REPORT.md
+    ├── COMPREHENSIVE_FINAL_AUDIT_REPORT.md
+    ├── COMPREHENSIVE_FRONTEND_AUDIT_COMPLETE.md
+    ├── COMPREHENSIVE_PLATFORM_DOCUMENTATION.md
+    ├── COMPREHENSIVE_QA_REPORT.md
+    ├── COMPREHENSIVE_RECURSIVE_DEEP_SCAN_COMPLETE.md
+    ├── COMPREHENSIVE_TEST_RESULTS.md
+    ├── config.json
+    ├── CONSOLIDATION_STATUS_FINAL.md
+    ├── context_manual_2025-06-30_09-32-52.txt
+    ├── context_manual_2025-06-30_09-52-20.txt
+    ├── context_manual_2025-06-30_09-58-17.txt
+    ├── COPILOT_PROMPT.md
+    ├── CORRECTED_PROJECT_STRUCTURE.md
+    ├── CRITICAL_FIXES_APPLIED.md
+    ├── cursor_ai.bat
+    ├── cursor_ai.ps1
+    ├── cursor_ai_enhanced.bat
+    ├── cursor_ai_gui.ps1
+    ├── cursor_ai_gui_enhanced.ps1
+    ├── cursor_ai_gui_final_fixed.ps1
+    ├── cursor_ai_gui_working.ps1
+    ├── cursor_chat_memory_integration_guide.md
+    ├── cursor_command_interface.py
+    ├── cursor_command_interface_clean.py
+    ├── CURSOR_COMMAND_SYSTEM.md
+    ├── CURSOR_EFFICIENCY_GUIDE.md
+    ├── CURSOR_FINAL_SETUP_INSTRUCTIONS.md
+    ├── CURSOR_OPTIMIZATION_SUMMARY.md
+    ├── CURSOR_WORKFLOW.md
+    ├── custom_commands.txt
+    ├── database_analysis.json
+    ├── debug_databases.py
+    ├── debug_output.txt
+    ├── deploy.sh
+    ├── deploy_autonomous_config.py
+    ├── DEPLOYMENT_AUDIT.md
+    ├── DEPLOYMENT_READY.md
+    ├── dev-start.bat
+    ├── DEVELOPMENT_GUIDE.md
+    ├── diagnose_cursor_ai.bat
+    ├── docker-compose.dev.yml
+    ├── docker-compose.prod.yml
+    ├── docker-compose.yml
+    ├── Dockerfile
+    ├── ENHANCED_CONSOLIDATION_COMPLETE.md
+    ├── ENHANCED_GUI_COMPLETE.md
+    ├── ENHANCED_GUI_DOCUMENTATION.md
+    ├── export_chats.py
+    ├── extract_chat_data.py
+    ├── extract_supervisor_chats.py
+    ├── FEATURE_DESIGN_CONSOLIDATION_AUDIT.md
+    ├── FEATURE_PRESERVATION_CHECKLIST.md
+    ├── FINAL_CONSOLIDATION_COMPLETE.md
+    ├── FINAL_LAUNCH_EXECUTION_REPORT.md
+    ├── FINAL_MISSION_ACCOMPLISHMENT_REPORT.md
+    ├── final_system_validation.py
+    ├── FINAL_VERIFICATION_REPORT.md
+    ├── FINAL_WORKSPACE_SUMMARY.md
+    ├── fix_xaml_duplicates.ps1
+    ├── fix_xaml_issues.ps1
+    ├── fix_xaml_method.ps1
+    ├── fix_xaml_now.ps1
+    ├── fix_xaml_ultimate.ps1
+    ├── FRONTEND_BACKEND_INTEGRATION_OPTIMIZATION.md
+    ├── frontend_component_docs.md
+    ├── FRONTEND_DEVELOPMENT_PLAN.md
+    ├── frontend_hooks_docs.md
+    ├── FRONTEND_LINTING_FIXES_REPORT.md
+    ├── FRONTEND_PRODUCTIONIZATION_COMPLETE.md
+    ├── FRONTEND_REFINEMENT_SUMMARY.md
+    ├── generate_docs.py
+    ├── gitingest.txt
+    ├── gitingest_backend.txt
+    ├── gitingest_frontend_src_components.txt
+    ├── gitingest_frontend_src_services.txt
+    ├── gitingest_validation_report.md
+    ├── gitingest_validation_report.py
+    ├── gitingest_validation_results.json
+    ├── gitingest_validation_summary.md
+    ├── how --name-status HEAD
+    ├── INSTANT-LAUNCH.bat
+    ├── instructions.md
+    ├── INTEGRATION_IMPLEMENTATION_COMPLETE.md
+    ├── INTEGRATION_TESTING_GUIDE.md
+    ├── INTELLIGENT_AUDIT_ANALYSIS.md
+    ├── intelligent_development_assistant.py
+    ├── launch_autonomous_zero_interruption.py
+    ├── launch_debug_gui.bat
+    ├── launch_powerhouse.py
+    ├── live-control-center.html
+    ├── live-dev-preview.html
+    ├── LIVE_API_INTEGRATION_COMPLETE.md
+    ├── LIVE_DEVELOPMENT_GUIDE.md
+    ├── Makefile
+    ├── MASTER_AUTOMATION_ORCHESTRATOR.md
+    ├── memory_bank_auto_updater.py
+    ├── MEMORY_BANK_COMPLETE.md
+    ├── MEMORY_STRENGTHENING_COMPLETE.md
+    ├── ML_MODEL_GAPS_ANALYSIS.md
+    ├── mock_inventory.txt
+    ├── mypy.ini
+    ├── nul@echo
+    ├── OPTIMIZATION_REPORT.md
+    ├── OPTIMIZATION_SUMMARY.md
+    ├── OUTSTANDING_ISSUES_RESOLUTION.md
+    ├── package.json
+    ├── pathtest.txt
+    ├── Performance
+    ├── phase10_production_monitor.py
+    ├── phase11_deployment_validation.py
+    ├── phase1_broad_search.json
+    ├── phase2_no_keywords.json
+    ├── PHASE_0_4_PROGRESS_REPORT.md
+    ├── PHASE_10_CONTINUOUS_IMPROVEMENT.md
+    ├── PHASE_10_PRODUCTION_LAUNCH_PLAN.md
+    ├── PHASE_11_HONEST_DEPLOYMENT_TESTING.md
+    ├── PHASE_1_COMPLETION_REPORT.md
+    ├── PHASE_2_PROGRESS_REPORT.md
+    ├── PHASE_5_COMPLETION_REPORT.md
+    ├── PHASE_5_FRONTEND_INTEGRATION_MISSION.md
+    ├── PHASE_5_INTEGRATION_TEST.ts
+    ├── PHASE_5_MISSION_COMPLETE_REPORT.md
+    ├── PHASE_6_COMPLETION_REPORT.md
+    ├── PHASE_7_COMPLETION_REPORT.md
+    ├── PHASE_7_SUPERVISOR_COORDINATION_SUCCESS.md
+    ├── PHASE_9_REALITY_ASSESSMENT.md
+    ├── PHASE_9B_QUALITY_IMPROVEMENTS.md
+    ├── plasmic.json
+    ├── poe-preview (8).html
+    ├── prizepicks_data.db
+    ├── PRIZEPICKS_POLISHER_REPORT.md
+    ├── process_large_chat_data.py
+    ├── production_api_analysis.txt
+    ├── PRODUCTION_DEPLOYMENT_GUIDE.md
+    ├── PRODUCTION_INTEGRATION_COMPLETE.md
+    ├── production_monitoring_system.js
+    ├── PRODUCTION_READINESS_REPORT.md
+    ├── project_audit_report.json
+    ├── PROJECT_FILE_USAGE_ANALYSIS.md
+    ├── pyproject.toml
+    ├── pyrightconfig.json
+    ├── quick-test.bat
+    ├── quick_start.bat
+    ├── QUICK_START_GUIDE.md
+    ├── QUICK_START_INTEGRATION_GUIDE.md
+    ├── README_CLEAN.md
+    ├── README_COMPLETE.md
+    ├── README_FUSION_GUIDE.md
+    ├── README_TESTING_AND_DOCS.md
+    ├── real_api_service_analysis.txt
+    ├── REAL_AUTONOMOUS_FIXES_REPORT.md
+    ├── REALTIME_MONEY_MAKING_AUDIT.md
+    ├── RELEASE_NOTES.md
+    ├── replace_with_working.ps1
+    ├── requirements.txt
+    ├── RESCUE_REPORT.md
+    ├── RESILIENCE_AUDIT.md
+    ├── REVOLUTIONARY_ACCURACY_SYSTEM_DOCUMENTATION.md
+    ├── roadmap.md
+    ├── run_efficiency_tests.py
+    ├── run_fixed_gui.bat
+    ├── run_gitingest.bat
+    ├── run_gitingest.py
+    ├── security_scan.py
+    ├── SERVICES_README.md
+    ├── SPORTSRADAR_INTEGRATION_GUIDE.md
+    ├── start-a1betting-final.bat
+    ├── start-a1betting-production.bat
+    ├── start-a1betting.bat
+    ├── start-backend.bat
+    ├── start-frontend.bat
+    ├── start-live-dev.bat
+    ├── start-live-dev.sh
+    ├── start.bat
+    ├── start_autonomous.py
+    ├── start_enhanced_gui.bat
+    ├── start_enhanced_gui.ps1
+    ├── start_working_gui.bat
+    ├── SUPERVISOR_ACTION_PLAN.md
+    ├── SUPERVISOR_PHASE_5_COORDINATION.md
+    ├── System
+    ├── SYSTEM_STATUS_REPORT.md
+    ├── Test
+    ├── test-integration.html
+    ├── test-production-integration.sh
+    ├── test.bat
+    ├── test.ps1
+    ├── TEST_AUDIT.md
+    ├── test_basic.bat
+    ├── test_command_system.py
+    ├── test_config.json
+    ├── test_config.py
+    ├── test_cursor_efficiency_system.py
+    ├── test_database.py
+    ├── test_enhanced_gui.ps1
+    ├── test_fixes.bat
+    ├── test_integration.js
+    ├── test_integration.sh
+    ├── test_results.json
+    ├── TODO_REMEDIATION_PLAN.md
+    ├── TypeScript
+    ├── ultimate_fix.ps1
+    ├── ULTIMATE_RECURSIVE_AUTONOMOUS_ACHIEVEMENT_REPORT.md
+    ├── ultra_accuracy_analysis.txt
+    ├── ULTRA_ACCURACY_DOCUMENTATION.md
+    ├── ULTRA_DEEP_RECURSIVE_ANALYSIS_COMPLETION_FINAL.md
+    ├── ULTRA_DEEP_RECURSIVE_ANALYSIS_FINAL_COMPLETION.md
+    ├── ULTRA_DEEP_RECURSIVE_AUDIT_FINAL_COMPLETION_REPORT.md
+    ├── UNIFIED_MONEY_MAKING_PLAN.md
+    ├── Update
+    ├── users.db
+    ├── validate-setup.bat
+    ├── validation_results.json
+    ├── VERIFICATION_TESTING_REPORT.md
+    ├── verify_rebuild.ps1
+    ├── verify_rebuild.sh
+    ├── VERSION.md
+    ├── WORKSPACE_CONSOLIDATION_COMPLETE.md
+    ├── WORKSPACE_INVENTORY.md
+    ├── .cursorignore
+    ├── .cursorrules
+    ├── .env.example
+    ├── .madgerc
+    ├── .pre-commit-config.yaml
+    ├── .ruff.toml
+    ├── .secrets.baseline
+    ├── A1Betting-app/
+    │   └── frontend/
+    │       └── src/
+    │           └── components/
+    │               └── strategy/
+    │                   └── UnifiedStrategyEngineDisplay.tsx
+    ├── A1Betting-master-27-25-main-main/
+    │   ├── start-working-platform.bat
+    │   └── frontend/
+    │       └── vite.config.ts
+    ├── automation/
+    │   ├── README.md
+    │   ├── config.yaml
+    │   ├── master_orchestrator.py
+    │   ├── requirements.txt
+    │   ├── reports/
+    │   │   ├── backend_performance_profile.json
+    │   │   ├── backend_performance_report.md
+    │   │   ├── bandit_security.json
+    │   │   ├── docker_security_scan_20250627_101308.json
+    │   │   ├── npm_security_audit.json
+    │   │   ├── sample_data.csv
+    │   │   ├── test_environment_setup.json
+    │   │   ├── api_docs/
+    │   │   │   ├── api_documentation.html
+    │   │   │   ├── api_documentation.md
+    │   │   │   ├── generation_summary.json
+    │   │   │   └── openapi_spec.json
+    │   │   └── frontend_unit_coverage/
+    │   │       └── coverage-final.json
+    │   └── scripts/
+    │       ├── analyze_app_completeness.py
+    │       ├── automation_health_checker.py
+    │       ├── autonomous_perfecter.py
+    │       ├── benchmark_ml_performance.py
+    │       ├── check_databases.py
+    │       ├── check_databases_backup.py
+    │       ├── check_gdpr_compliance.py
+    │       ├── check_services.py
+    │       ├── collaborative_ai.py
+    │       ├── collect_metrics.py
+    │       ├── complete_auth_system.py
+    │       ├── create_admin_user.py
+    │       ├── cursor_ai_gui_enhanced.ps1
+    │       ├── database_migration.py
+    │       ├── docker_security_scan.py
+    │       ├── enhanced_health_check.py
+    │       ├── enhanced_orchestrator.py
+    │       ├── enhanced_service_manager.py
+    │       ├── enhanced_service_manager.py.security_suggestions.txt
+    │       ├── enhanced_system_monitor.py
+    │       ├── final_automation_validation.py
+    │       ├── fix_backend_linting.py
+    │       ├── fix_environment.py
+    │       ├── fix_frontend_linting.py
+    │       ├── generate_api_docs.py
+    │       ├── generate_architecture_diagrams.py
+    │       ├── generate_code_docs.py
+    │       ├── generate_performance_report.py
+    │       ├── intelligent_scheduler.py
+    │       ├── optimize_cache.py
+    │       ├── optimize_database.py
+    │       ├── perfected_automation.py
+    │       ├── profile_backend.py
+    │       ├── profile_backend_advanced.py
+    │       ├── profile_database.py
+    │       ├── profile_database_performance.py
+    │       ├── profile_frontend.py
+    │       ├── profile_frontend_lighthouse.py
+    │       ├── run_accessibility_tests.py
+    │       ├── run_load_tests.py
+    │       ├── run_penetration_tests.py
+    │       ├── scan_docker_security.py
+    │       ├── security_scan.py
+    │       ├── setup_project.py
+    │       ├── setup_test_environment.py
+    │       ├── strategic_auth_integration.py
+    │       ├── test_database_integration.py
+    │       ├── validate_ml_data.py
+    │       ├── validate_model_accuracy.py
+    │       └── verify_backups.py
+    ├── autonomous_docs/
+    │   ├── AUTONOMOUS_DOCUMENTATION.md
+    │   └── comprehensive_documentation.json
+    ├── backend/
+    │   ├── README.md
+    │   ├── __init__.py
+    │   ├── admin_api.py
+    │   ├── advanced_best_practices_manager.py
+    │   ├── ADVANCED_BEST_PRACTICES_REPORT_20250701_151152.json
+    │   ├── advanced_feature_engineering.py
+    │   ├── agent_planner.py
+    │   ├── api_integration.py
+    │   ├── arbitrage_engine.py
+    │   ├── auth.py
+    │   ├── auth_service.py
+    │   ├── autonomous_project_development_handler.py
+    │   ├── autonomous_recursive_orchestrator.py
+    │   ├── backend_8001.py
+    │   ├── BACKEND_FILE_USAGE_ANALYSIS.md
+    │   ├── background_agents.py
+    │   ├── betting_opportunity_service.py
+    │   ├── cache_optimizer.py
+    │   ├── cleanup_console_statements.py
+    │   ├── command_registry.py
+    │   ├── complete_stub_endpoints.py
+    │   ├── config.py
+    │   ├── config_manager.py
+    │   ├── data_pipeline.py
+    │   ├── data_sources.py
+    │   ├── database.py
+    │   ├── deploy_production.py
+    │   ├── deploy_production.sh
+    │   ├── Dockerfile
+    │   ├── enhanced_api_routes.py
+    │   ├── enhanced_data_pipeline.py
+    │   ├── enhanced_ensemble_engine.py
+    │   ├── enhanced_feature_engineering.py
+    │   ├── enhanced_model_service.py
+    │   ├── enhanced_prediction_engine.py
+    │   ├── enhanced_realtime_system.py
+    │   ├── enhanced_requirements.txt
+    │   ├── enhanced_revolutionary_api.py
+    │   ├── enhanced_revolutionary_engine.py
+    │   ├── enhanced_risk_management.py
+    │   ├── ensemble_engine.py
+    │   ├── ensemble_optimizer.py
+    │   ├── eslint.config.js
+    │   ├── feature_cache.py
+    │   ├── feature_engineering.py
+    │   ├── feature_flags.py
+    │   ├── feature_logger.py
+    │   ├── feature_monitor.py
+    │   ├── feature_registry.py
+    │   ├── feature_selector.py
+    │   ├── feature_transformation.py
+    │   ├── feature_validator.py
+    │   ├── filtered_prediction_api.py
+    │   ├── fix_metrics.py
+    │   ├── health_monitor.py
+    │   ├── install_all_dependencies.py
+    │   ├── install_requirements.bat
+    │   ├── integration_test_meta_learning.py
+    │   ├── integration_test_nas.py
+    │   ├── integration_test_quantum.py
+    │   ├── integration_test_real_metrics.py
+    │   ├── llm_routes.py
+    │   ├── llm_toggle_api.py
+    │   ├── main.py
+    │   ├── main_backup.py
+    │   ├── main_complete.py
+    │   ├── main_enhanced_prod.py
+    │   ├── main_integrated.py
+    │   ├── memory_bank.py
+    │   ├── method_patch.txt
+    │   ├── model_service.py
+    │   ├── monitoring_service.py
+    │   ├── outdated-backend.json
+    │   ├── performance_test_meta_learning.py
+    │   ├── performance_test_nas.py
+    │   ├── performance_test_quantum.py
+    │   ├── performance_test_real_metrics.py
+    │   ├── phase8_integration_manager.py
+    │   ├── phase9_completion_report.json
+    │   ├── phase9_completion_report.py
+    │   ├── phase9_production_deployment.py
+    │   ├── PHASE_0_4_PROGRESS_REPORT.md
+    │   ├── PHASE_1_COMPLETION_REPORT.md
+    │   ├── PHASE_2_COMPLETION_REPORT.md
+    │   ├── PHASE_3_COMPLETION_REPORT.md
+    │   ├── PHASE_4_COMPLETION_REPORT.md
+    │   ├── phase_6_integration_test.py
+    │   ├── phase_6_test_results_20250701_143551.json
+    │   ├── phase_7_production_launch.py
+    │   ├── PHASE_9_REALITY_ASSESSMENT.md
+    │   ├── prediction_api.py
+    │   ├── prediction_engine.py
+    │   ├── prizepicks_data.db
+    │   ├── production_api.py
+    │   ├── production_operation_manager.py
+    │   ├── PRODUCTION_OPERATION_REPORT_20250701_145354.json
+    │   ├── pytest.ini
+    │   ├── quantum_enhanced_coordinator.py
+    │   ├── quick_backend.py
+    │   ├── real_arbitrage_engine.py
+    │   ├── real_data_validation_report.json
+    │   ├── real_prizepicks_backend.py
+    │   ├── real_training_data.db
+    │   ├── realtime_accuracy_monitor.py
+    │   ├── realtime_engine.py
+    │   ├── recursive_intelligence_coordinator.py
+    │   ├── REFACTORING_PLAN.md
+    │   ├── REFACTORING_PROGRESS.md
+    │   ├── requirements-minimal.txt
+    │   ├── requirements.txt
+    │   ├── requirements_complete.txt
+    │   ├── requirements_production.txt
+    │   ├── revolutionary_accuracy_engine.py
+    │   ├── revolutionary_api.py
+    │   ├── riai_coordinator.py
+    │   ├── RIAI_EVOLUTION_REPORT.json
+    │   ├── risk_management.py
+    │   ├── run_backend.py
+    │   ├── security_config.py
+    │   ├── security_hardening.py
+    │   ├── security_scanner.py
+    │   ├── self_modifying_engine.py
+    │   ├── shap_explainer.py
+    │   ├── simple_backend.py
+    │   ├── simple_celery_worker.py
+    │   ├── simple_healthy_backend.py
+    │   ├── simple_model_service.py
+    │   ├── simple_propollama_backend.py
+    │   ├── specialist_apis.py
+    │   ├── sports_expert_api.py
+    │   ├── start_cloud_integration.bat
+    │   ├── start_cloud_integration.py
+    │   ├── start_complete_backend.bat
+    │   ├── start_python_backend.bat
+    │   ├── start_python_backend.sh
+    │   ├── start_simple.bat
+    │   ├── system_monitor.py
+    │   ├── task_processor.py
+    │   ├── test_backend.py
+    │   ├── test_phase_2_complete.py
+    │   ├── test_phase_3.py
+    │   ├── test_real_integration.py
+    │   ├── tsc-errors.txt
+    │   ├── ultra_accuracy_engine.py
+    │   ├── ultra_accuracy_engine_simple.py
+    │   ├── ultra_accuracy_routes.py
+    │   ├── unified_feature_service.py
+    │   ├── user_models.py
+    │   ├── users.db
+    │   ├── validate_complete_integration.py
+    │   ├── validate_enhanced_engine.py
+    │   ├── working_backend.py
+    │   ├── ws.py
+    │   ├── .env.example
+    │   ├── auth/
+    │   │   ├── __init__.py
+    │   │   ├── security.py
+    │   │   └── user_service.py
+    │   ├── middleware/
+    │   │   ├── __init__.py
+    │   │   ├── advanced_rate_limiting.py
+    │   │   ├── caching.py
+    │   │   ├── rate_limit.py
+    │   │   └── request_tracking.py
+    │   ├── models/
+    │   │   ├── __init__.py
+    │   │   ├── api_models.py
+    │   │   ├── bet.py
+    │   │   ├── match.py
+    │   │   ├── model_performance.py
+    │   │   ├── prediction.py
+    │   │   ├── user.py
+    │   │   └── win_probability_model.pkl
+    │   ├── routes/
+    │   │   ├── __init__.py
+    │   │   ├── analytics.py
+    │   │   ├── auth.py
+    │   │   ├── betting.py
+    │   │   ├── health.py
+    │   │   ├── metrics.py
+    │   │   ├── performance.py
+    │   │   └── prizepicks.py
+    │   ├── services/
+    │   │   ├── __init__.py
+    │   │   ├── advanced_ensemble_service.py
+    │   │   ├── async_performance_optimizer.py
+    │   │   ├── calculations.py
+    │   │   ├── comprehensive_feature_engine.py
+    │   │   ├── comprehensive_prizepicks_service.py
+    │   │   ├── comprehensive_sportsbook_integration.py
+    │   │   ├── data_fetchers.py
+    │   │   ├── database_service.py
+    │   │   ├── enterprise_data_pipeline.py
+    │   │   ├── maximum_accuracy_prediction_api.py
+    │   │   ├── propollama_intelligence_service.py
+    │   │   ├── real_data_service.py
+    │   │   ├── real_ml_service.py
+    │   │   ├── real_ml_training_service.py
+    │   │   ├── real_prizepicks_service.py
+    │   │   ├── real_shap_service.py
+    │   │   ├── real_sportsbook_service.py
+    │   │   ├── real_time_performance_metrics.py
+    │   │   ├── real_time_prediction_engine.py
+    │   │   ├── real_ultra_accuracy_engine.py
+    │   │   └── transaction_service.py
+    │   ├── src/
+    │   │   └── auth.py
+    │   ├── testing/
+    │   │   └── comprehensive_test_framework.py
+    │   ├── tests/
+    │   │   ├── __init__.py
+    │   │   ├── test_api_v1.py
+    │   │   ├── test_endpoints.py
+    │   │   ├── test_meta_learning.py
+    │   │   ├── test_nas_implementation.py
+    │   │   ├── test_quantum_ensemble.py
+    │   │   └── test_real_metrics.py
+    │   └── utils/
+    │       ├── __init__.py
+    │       ├── error_handler.py
+    │       ├── llm_engine.py
+    │       ├── prediction_utils.py
+    │       └── serialization_utils.py
+    ├── cursor-ai-gui/
+    │   ├── README.md
+    │   ├── DEPLOYMENT.md
+    │   ├── Dockerfile
+    │   ├── FEATURES.md
+    │   ├── index.html
+    │   ├── nginx.conf
+    │   ├── package.json
+    │   ├── postcss.config.js
+    │   ├── start.sh
+    │   ├── tailwind.config.js
+    │   ├── tsconfig.json
+    │   ├── tsconfig.node.json
+    │   ├── vite.config.ts
+    │   ├── .env.example
+    │   └── src/
+    │       ├── App.tsx
+    │       ├── index.css
+    │       ├── main.tsx
+    │       ├── components/
+    │       │   ├── Header.tsx
+    │       │   ├── Layout.tsx
+    │       │   ├── LoadingScreen.tsx
+    │       │   ├── Sidebar.tsx
+    │       │   └── WorkspaceSelector.tsx
+    │       ├── hooks/
+    │       │   ├── useApi.ts
+    │       │   └── useKeyboardShortcuts.ts
+    │       ├── lib/
+    │       │   └── utils.ts
+    │       ├── pages/
+    │       │   ├── Agents.tsx
+    │       │   ├── Analytics.tsx
+    │       │   ├── Commands.tsx
+    │       │   ├── Dashboard.tsx
+    │       │   ├── Logs.tsx
+    │       │   ├── MemoryBank.tsx
+    │       │   ├── Performance.tsx
+    │       │   ├── Settings.tsx
+    │       │   └── TypeScriptRepair.tsx
+    │       ├── services/
+    │       │   ├── api.ts
+    │       │   ├── realtime.ts
+    │       │   └── websocket.ts
+    │       ├── store/
+    │       │   └── useAppStore.ts
+    │       ├── types/
+    │       │   └── index.ts
+    │       └── utils/
+    │           └── workspace.ts
+    ├── dev/
+    │   ├── copilot_roadmap.md
+    │   ├── done_deepsearch.flag
+    │   ├── done_integration.flag
+    │   ├── done_quality.flag
+    │   ├── eslint-hybrid-strategy.prompt.md
+    │   ├── orchestration_log.md
+    │   ├── QUALITY_REPORT.md
+    │   ├── roadmap.prompt.md
+    │   ├── context/
+    │   │   └── copilot_context.json
+    │   └── scripts/
+    │       ├── intelligent_orchestrator.sh
+    │       └── watchCopilot.js
+    ├── docs/
+    │   ├── a1betting-architecture-overview.md
+    │   ├── best_practices.txt
+    │   ├── cursor-background-agents-guide.md
+    │   ├── cursor-optimization-checklist.md
+    │   └── typescript-error-repair-guide.md
+    ├── frontend/
+    │   ├── README.md
+    │   ├── A1Betting-master-27-25-main-main.code-workspace
+    │   ├── after-repair.html
+    │   ├── all-tests-list.txt
+    │   ├── ARCHITECTURE.md
+    │   ├── ARCHITECTURE_CONNECTIONS_OVERVIEW.md
+    │   ├── babel.config.js
+    │   ├── baseline-before.html
+    │   ├── build-output.txt
+    │   ├── builder.config.json
+    │   ├── BUILDER_RESET_INSTRUCTIONS.md
+    │   ├── BUILDER_SETUP.md
+    │   ├── CHANGELOG.md
+    │   ├── component_audit.cjs
+    │   ├── component_audit.js
+    │   ├── component_audit_report.json
+    │   ├── COMPONENT_CONSOLIDATION_REPORT.md
+    │   ├── COMPREHENSIVE_CONSOLIDATION_SUMMARY.md
+    │   ├── COMPREHENSIVE_FRONTEND_AUDIT_REPORT.md
+    │   ├── CONSOLIDATION_COMPLETE.md
+    │   ├── CYBER_INTEGRATION_COMPLETE.md
+    │   ├── DECISIONS.md
+    │   ├── DEEP_COMPONENT_ANALYSIS.md
+    │   ├── DEPENDENCY_GRAPH.md
+    │   ├── Dockerfile
+    │   ├── ENHANCED_API_SETUP.md
+    │   ├── env.example
+    │   ├── eslint-after-batch-1.txt
+    │   ├── eslint-after-legacy-cleanup.txt
+    │   ├── eslint-batch-processor.sh
+    │   ├── eslint.config.js
+    │   ├── FEATURE_MATRIX.md
+    │   ├── files.txt
+    │   ├── FINAL_CONSOLIDATION_COMPLETE.md
+    │   ├── FINAL_WORKSPACE_SUMMARY.md
+    │   ├── fix-critical-syntax.cjs
+    │   ├── fix-critical-syntax.js
+    │   ├── fix-react-imports.cjs
+    │   ├── fix_phase4.ps1
+    │   ├── fix_phase5.ps1
+    │   ├── fix_phase6.ps1
+    │   ├── FRONTEND_CONSOLIDATION_REPORT.md
+    │   ├── FRONTEND_INVENTORY.md
+    │   ├── index.html
+    │   ├── index.minimal.html
+    │   ├── INTEGRATION_COMPLETE_REPORT.md
+    │   ├── jest.config.js
+    │   ├── lint-results.json
+    │   ├── MISSING_FEATURES_INTEGRATION_COMPLETE.md
+    │   ├── netlify.toml
+    │   ├── NEXT_FEATURES_PLAN.md
+    │   ├── nginx.conf
+    │   ├── package.json
+    │   ├── phase7a1.ps1
+    │   ├── phase7a2.ps1
+    │   ├── phase7a3.ps1
+    │   ├── phase7a4.ps1
+    │   ├── phase7a_triage.ps1
+    │   ├── phase9_production_fixes.ps1
+    │   ├── PHASE_2_DEEP_CONSOLIDATION_REPORT.md
+    │   ├── PHASE_3_FINAL_REPORT.md
+    │   ├── PHASE_9_FINAL_ASSESSMENT.md
+    │   ├── PHASE_9B_QUALITY_IMPROVEMENTS.md
+    │   ├── PLATFORM_OPTIMIZATION_COMPLETE.md
+    │   ├── prediction_backup.ts
+    │   ├── PRIZEPICKS_POLISHER_REPORT.md
+    │   ├── PROTOTYPE_INTEGRATION_COMPLETE.md
+    │   ├── QUANTUM_CONSOLIDATION_REPORT.md
+    │   ├── README_API.md
+    │   ├── README_TRACEABILITY.md
+    │   ├── ROADMAP.md
+    │   ├── ROUND_2_CLEANUP_ANALYSIS.md
+    │   ├── service-status-and-feature-flags.md
+    │   ├── setupTests.ts
+    │   ├── tailwind.config.js
+    │   ├── test-build.js
+    │   ├── test-production-integration.sh
+    │   ├── test-simple.html
+    │   ├── test-sportsradar.js
+    │   ├── test.html
+    │   ├── test_api.js
+    │   ├── TEST_AUDIT.md
+    │   ├── test_backend_integration.js
+    │   ├── TOP_LEVEL_FILE_USAGE_ANALYSIS.md
+    │   ├── tsconfig.app.tsbuildinfo
+    │   ├── tsconfig.jest.json
+    │   ├── tsconfig.json
+    │   ├── tsconfig.node.json
+    │   ├── tsconfig.sw.json
+    │   ├── tsconfig.tsbuildinfo
+    │   ├── vite-error.txt
+    │   ├── vite-output.txt
+    │   ├── vite.config.d.ts
+    │   ├── vite.config.minimal.ts
+    │   ├── vite.config.ts
+    │   ├── windsurf_deployment.yaml
+    │   ├── .env.example
+    │   ├── .prettierrc
+    │   ├── .tsbuildignore
+    │   ├── assets/
+    │   │   ├── index-DgRkwv5U.js
+    │   │   └── index-Engwe_yv.css
+    │   ├── Frontend/
+    │   │   └── src/
+    │   │       └── utils/
+    │   │           └── StrategyEngine.ts
+    │   ├── legacy/
+    │   │   ├── dashboards/
+    │   │   │   └── Dashboard.tsx
+    │   │   └── prototype/
+    │   │       └── components/
+    │   │           └── dashboard/
+    │   │               └── Dashboard.tsx
+    │   ├── public/
+    │   │   ├── manifest.json
+    │   │   ├── offline.html
+    │   │   └── sw.js
+    │   ├── scripts/
+    │   │   ├── analyze-component-features.js
+    │   │   ├── BUILDER_RESET_INSTRUCTIONS.md
+    │   │   └── reset-builder-auth.ps1
+    │   └── src/
+    │       ├── README.md
+    │       ├── App-backup.tsx
+    │       ├── App-Builder.tsx
+    │       ├── App-Simple.tsx
+    │       ├── App-Working.tsx
+    │       ├── App.css
+    │       ├── App.d.ts
+    │       ├── App.tsx
+    │       ├── App_UserFriendly.tsx
+    │       ├── AppMinimal.tsx
+    │       ├── builder.config.d.ts
+    │       ├── builder.config.ts
+    │       ├── components.css
+    │       ├── globals.css
+    │       ├── index.css
+    │       ├── index.d.ts
+    │       ├── index.tsx
+    │       ├── LoginPage.d.ts
+    │       ├── LoginPage.tsx
+    │       ├── main-minimal.tsx
+    │       ├── main.d.ts
+    │       ├── main.minimal.tsx
+    │       ├── main.py
+    │       ├── main.tsx
+    │       ├── modern.css
+    │       ├── setupTests.d.ts
+    │       ├── setupTests.ts
+    │       ├── shared.ts
+    │       ├── SRC_FILE_USAGE_ANALYSIS.md
+    │       ├── TestComponent.tsx
+    │       ├── theme.d.ts
+    │       ├── theme.ts
+    │       ├── types.d.ts
+    │       ├── types.ts
+    │       ├── vite-env.d.ts
+    │       ├── zod.d.ts
+    │       ├── zod.ts
+    │       ├── adapters/
+    │       │   ├── README.md
+    │       │   ├── ADAPTERS_FILE_USAGE_ANALYSIS.md
+    │       │   ├── DailyFantasyAdapter.d.ts
+    │       │   ├── DailyFantasyAdapter.ts
+    │       │   ├── DailyFantasyAdapter.ts.backup
+    │       │   ├── ESPNAdapter.d.ts
+    │       │   ├── ESPNAdapter.ts
+    │       │   ├── ESPNAdapter.ts.backup
+    │       │   ├── index.d.ts
+    │       │   ├── index.ts
+    │       │   ├── poeToApiAdapter.d.ts
+    │       │   ├── poeToApiAdapter.ts
+    │       │   ├── prizepicks.d.ts
+    │       │   ├── prizepicks.ts
+    │       │   ├── PrizePicksAdapter.d.ts
+    │       │   ├── PrizePicksAdapter.ts
+    │       │   ├── SocialSentimentAdapter.d.ts
+    │       │   ├── SocialSentimentAdapter.ts
+    │       │   ├── SportsRadarAdapter.d.ts
+    │       │   ├── SportsRadarAdapter.ts
+    │       │   ├── TheOddsAdapter.d.ts
+    │       │   ├── TheOddsAdapter.ts
+    │       │   ├── __tests__/
+    │       │   │   ├── SocialSentimentAdapter.test.d.ts
+    │       │   │   └── SocialSentimentAdapter.test.ts
+    │       │   └── poe/
+    │       │       ├── PoeToApiAdapter.d.ts
+    │       │       ├── PoeToApiAdapter.ts
+    │       │       ├── types.d.ts
+    │       │       ├── types.ts
+    │       │       └── types.ts.backup
+    │       ├── analysis/
+    │       │   ├── ANALYSIS_FILE_USAGE_ANALYSIS.md
+    │       │   ├── performance.py
+    │       │   ├── resources.py
+    │       │   └── security.py
+    │       ├── analytics/
+    │       │   ├── README.md
+    │       │   ├── ANALYTICS_FILE_USAGE_ANALYSIS.md
+    │       │   ├── FeatureEngineeringService.d.ts
+    │       │   ├── FeatureEngineeringService.ts
+    │       │   ├── FeatureRegistry.d.ts
+    │       │   ├── FeatureRegistry.ts
+    │       │   ├── FeatureSelector.d.ts
+    │       │   ├── FeatureSelector.ts
+    │       │   ├── UnifiedFeatureService.d.ts
+    │       │   └── UnifiedFeatureService.ts
+    │       ├── analyzers/
+    │       │   ├── ProjectionAnalyzer.d.ts
+    │       │   ├── ProjectionAnalyzer.ts
+    │       │   ├── SentimentEnhancedAnalyzer.d.ts
+    │       │   └── SentimentEnhancedAnalyzer.ts
+    │       ├── api/
+    │       │   ├── API_FILE_USAGE_ANALYSIS.md
+    │       │   ├── index.d.ts
+    │       │   ├── index.ts
+    │       │   ├── prediction.d.ts
+    │       │   ├── prediction.ts
+    │       │   ├── PrizePicksAPI.d.ts
+    │       │   ├── PrizePicksAPI.ts
+    │       │   ├── dailyfantasy/
+    │       │   │   ├── index.d.ts
+    │       │   │   └── index.ts
+    │       │   ├── predictions/
+    │       │   │   ├── generate.d.ts
+    │       │   │   └── generate.ts
+    │       │   └── routes/
+    │       │       ├── modelPerformance.d.ts
+    │       │       └── modelPerformance.ts
+    │       ├── assets/
+    │       │   └── ASSETS_FILE_USAGE_ANALYSIS.md
+    │       ├── auth/
+    │       │   └── AuthContext.jsx
+    │       ├── components/
+    │       │   ├── README.md
+    │       │   ├── A1BettingPlatform.tsx
+    │       │   ├── A1BettingPlatformImmediate.tsx
+    │       │   ├── A1BettingQuantumPlatform.tsx
+    │       │   ├── Accordion.d.ts
+    │       │   ├── Accordion.tsx
+    │       │   ├── Alert.d.ts
+    │       │   ├── Alert.tsx
+    │       │   ├── AllFeatures.test.d.ts
+    │       │   ├── AllFeatures.test.tsx
+    │       │   ├── Analytics.d.ts
+    │       │   ├── Analytics.tsx
+    │       │   ├── AnalyticsPage.d.ts
+    │       │   ├── AnalyticsPage.tsx
+    │       │   ├── ApiDebug.tsx
+    │       │   ├── ApiErrorBoundary.tsx
+    │       │   ├── ApiHealthIndicator.jsx
+    │       │   ├── AppInitializer.d.ts
+    │       │   ├── AppInitializer.tsx
+    │       │   ├── AppShell.d.ts
+    │       │   ├── AppShell.tsx
+    │       │   ├── Arbitrage.d.ts
+    │       │   ├── Arbitrage.tsx
+    │       │   ├── ArbitrageDetector.d.ts
+    │       │   ├── ArbitrageDetector.tsx
+    │       │   ├── ArbitrageOpportunities.d.ts
+    │       │   ├── ArbitrageOpportunities.tsx
+    │       │   ├── ArbitragePage.d.ts
+    │       │   ├── ArbitragePage.test.d.ts
+    │       │   ├── ArbitragePage.test.tsx
+    │       │   ├── ArbitragePage.tsx
+    │       │   ├── AuthLayout.d.ts
+    │       │   ├── AuthLayout.tsx
+    │       │   ├── AuthProvider.d.ts
+    │       │   ├── AuthProvider.tsx
+    │       │   ├── Avatar.d.ts
+    │       │   ├── Avatar.tsx
+    │       │   ├── BackendConnectionTest.tsx
+    │       │   ├── Badge.d.ts
+    │       │   ├── Badge.tsx
+    │       │   ├── BankrollManager.d.ts
+    │       │   ├── BankrollManager.tsx
+    │       │   ├── BankrollPage.d.ts
+    │       │   ├── BankrollPage.test.d.ts
+    │       │   ├── BankrollPage.test.tsx
+    │       │   ├── BankrollPage.tsx
+    │       │   ├── BetBuilder.d.ts
+    │       │   ├── BetBuilder.tsx
+    │       │   ├── BettingDashboard.d.ts
+    │       │   ├── BettingDashboard.tsx
+    │       │   ├── BettingInterface.tsx
+    │       │   ├── BettingOpportunities.d.ts
+    │       │   ├── BettingOpportunities.tsx
+    │       │   ├── BettingStats.d.ts
+    │       │   ├── BettingStats.tsx
+    │       │   ├── BookmakerAnalysis.d.ts
+    │       │   ├── BookmakerAnalysis.tsx
+    │       │   ├── Breadcrumb.d.ts
+    │       │   ├── Breadcrumb.tsx
+    │       │   ├── BuilderIntegration.tsx
+    │       │   ├── Button.d.ts
+    │       │   ├── Button.tsx
+    │       │   ├── Card.d.ts
+    │       │   ├── Card.tsx
+    │       │   ├── COMPONENTS_FILE_USAGE_ANALYSIS.md
+    │       │   ├── ConfidenceIndicator.d.ts
+    │       │   ├── ConfidenceIndicator.jsx
+    │       │   ├── ConfidenceIndicator.tsx
+    │       │   ├── ConnectionStatus.d.ts
+    │       │   ├── ConnectionStatus.tsx
+    │       │   ├── ConnectionTest.tsx
+    │       │   ├── DarkModeToggle.jsx
+    │       │   ├── Dashboard.d.ts
+    │       │   ├── Dashboard.tsx
+    │       │   ├── DebugApiStatus.tsx
+    │       │   ├── DebugPanel.d.ts
+    │       │   ├── DebugPanel.tsx
+    │       │   ├── DevelopmentGuide.tsx
+    │       │   ├── Dialog.d.ts
+    │       │   ├── Dialog.tsx
+    │       │   ├── Dropdown.d.ts
+    │       │   ├── Dropdown.tsx
+    │       │   ├── EnhancedFeaturesStatus.tsx
+    │       │   ├── EntryCard.d.ts
+    │       │   ├── EntryCard.tsx
+    │       │   ├── ErrorBoundary.d.ts

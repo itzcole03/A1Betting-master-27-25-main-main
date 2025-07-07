@@ -62,7 +62,7 @@ export class TheOddsAdapter implements DataSource<TheOddsData> {
   }
 
   public async fetchData(): Promise<TheOddsData> {
-    const trace = this.monitor.startTrace('the-odds-fetch', 'adapter.fetch', 'Fetching odds data');
+    const trace = this.monitor.startTrace('the-odds-fetch', { category: 'adapter.fetch', description: 'Fetching odds data' });
 
     try {
       if (this.isCacheValid()) {
@@ -79,18 +79,15 @@ export class TheOddsAdapter implements DataSource<TheOddsData> {
 
       // Update game status for each event
       for (const event of data.events) {
-        await this.eventBus.publish({
-          type: 'game:status',
-          payload: {
-            game: {
-              id: event.id,
-              homeTeam: event.home_team,
-              awayTeam: event.away_team,
-              startTime: event.commence_time,
-              status: 'scheduled'
-            },
-            timestamp: Date.now()
-          }
+        await this.eventBus.publish('game:status', {
+          game: {
+            id: event.id,
+            homeTeam: event.home_team,
+            awayTeam: event.away_team,
+            startTime: event.commence_time,
+            status: 'scheduled'
+          },
+          timestamp: Date.now()
         });
       }
 

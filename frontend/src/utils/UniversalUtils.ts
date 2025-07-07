@@ -4,7 +4,7 @@
 
 // Format utilities;
 export const formatters = {
-  currency: (amount: number, currency = 'USD') => {
+  currency: (amount: number, _currency = 'USD') => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
 //       currency

@@ -3,7 +3,7 @@
  * Supports TypeScript, React, and modern testing practices
  */
 
-export default {
+module.exports = {
   // Test environment;
   testEnvironment: 'jsdom',
 
@@ -14,11 +14,13 @@ export default {
   ],
 
   // TypeScript support;
-  preset: 'ts-jest',
+  preset: 'ts-jest/presets/js-with-babel',
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.(ts|tsx)$': 'babel-jest',
     '^.+\\.(js|jsx)$': 'babel-jest',
+    '^.+\\.(mjs|cjs)$': 'babel-jest',
   },
+  transformIgnorePatterns: ['node_modules/(?!(react|react-dom|@testing-library|@babel|@mui|@emotion|lucide-react)/)'],
 
   // Module resolution;
   moduleNameMapper: {

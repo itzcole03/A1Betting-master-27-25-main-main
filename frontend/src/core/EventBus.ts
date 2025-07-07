@@ -57,6 +57,13 @@ export class EventBus {
 
   public offAny(listener: (eventName: string, data: any) => void): void {
     this.emitter.offAny(listener)}
+
+  /**
+   * Publish an event (alias for emit). For compatibility with analytics modules.
+   */
+  public publish<K extends keyof EventTypes & (string | symbol)>(event: K, data: EventTypes[K]): void {
+    this.emit(event, data);
+  }
 }
 
 // Singleton instance for convenience;

@@ -53,7 +53,7 @@ export class DailyFantasyAdapter implements DataSource<DailyFantasyData> {
    * @returns DailyFantasyData with projections array.
    */
   public async fetchData(): Promise<DailyFantasyData> {
-    const trace = this.monitor.startTrace('daily-fantasy-fetch', 'adapter.fetch', 'Fetching daily fantasy data');
+    const trace = this.monitor.startTrace('daily-fantasy-fetch', { category: 'adapter.fetch', description: 'Fetching daily fantasy data' });
 
     try {
       // Check cache first

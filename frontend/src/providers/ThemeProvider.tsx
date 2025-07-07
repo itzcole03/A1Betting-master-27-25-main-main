@@ -1,1 +1,1 @@
-export {}
+export { ThemeProvider } from '../contexts/ThemeContext';

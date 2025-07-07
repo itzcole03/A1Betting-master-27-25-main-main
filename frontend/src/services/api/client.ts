@@ -34,10 +34,7 @@ class ApiClient {
     data?: unknown,
     config: ApiRequestConfig = {} as ApiRequestConfig
   ): Promise<ApiResponse<T>> {
-    const trace = unifiedMonitor.startTrace(
-      `api.${method.toLowerCase()}.${endpoint}`,
-      'http.client'
-    );
+    const trace = unifiedMonitor.startTrace('api-client-request', { category: 'api.client', description: 'API client request' });
     // Add query parameters;
     const url = new URL(this.baseUrl + endpoint);
     if (config.params) {

@@ -1,10 +1,13 @@
 ﻿// HistoricalPerformanceDashboard.tsx;
 // Visualizes user/model historical performance;
 
+import { useBetHistoryStore } from '@/store/slices/betHistorySlice';
 import React from 'react';
-import { useBetHistoryStore} from '@/store/slices/betHistorySlice';
+import { safeNumber } from '../../utils/UniversalUtils';
 
 export const HistoricalPerformanceDashboard: React.FC = () => {
+  // Get userHistory and modelHistory from the store
+  const { userHistory, modelHistory } = useBetHistoryStore();
   return (
     <section className='w-full p-4 bg-white shadow rounded mb-4' key={248874}>
       <h3 className='text-md font-bold mb-2' key={991499}>
@@ -20,28 +23,28 @@ export const HistoricalPerformanceDashboard: React.FC = () => {
               <thead key={851248}>
                 <tr className='bg-gray-100' key={236169}>
                   <th className='px-2 py-1' key={38082}>
-//                     Date
+                    Date
                   </th>
                   <th className='px-2 py-1' key={38082}>
-//                     Event
+                    Event
                   </th>
                   <th className='px-2 py-1' key={38082}>
                     Type
                   </th>
                   <th className='px-2 py-1' key={38082}>
-//                     Stake
+                    Stake
                   </th>
                   <th className='px-2 py-1' key={38082}>
-//                     Odds
+                    Odds
                   </th>
                   <th className='px-2 py-1' key={38082}>
-//                     Result
+                    Result
                   </th>
                   <th className='px-2 py-1' key={38082}>
-//                     Payout
+                    Payout
                   </th>
                   <th className='px-2 py-1' key={38082}>
-//                     Confidence
+                    Confidence
                   </th>
                   <th className='px-2 py-1' key={38082}>
                     Win Prob
@@ -61,20 +64,20 @@ export const HistoricalPerformanceDashboard: React.FC = () => {
                       {entry.betType}
                     </td>
                     <td className='px-2 py-1' key={865501}>
-                      ${entry.safeNumber(stake, 2)}
+                      ${safeNumber(entry.stake, 2)}
                     </td>
                     <td className='px-2 py-1' key={865501}>
-                      {entry.safeNumber(odds, 2)}
+                      {safeNumber(entry.odds, 2)}
                     </td>
                     <td className='px-2 py-1' key={865501}>
                       {entry.result}
                     </td>
                     <td className='px-2 py-1' key={865501}>
-                      ${entry.safeNumber(payout, 2)}
+                      ${safeNumber(entry.payout, 2)}
                     </td>
                     <td className='px-2 py-1' key={865501}>
-                      [{entry.confidenceBand.safeNumber(lower, 2)} -{' '}
-                      {entry.confidenceBand.safeNumber(upper, 2)}]
+                      [{safeNumber(entry.confidenceBand.lower, 2)} -{' '}
+                      {safeNumber(entry.confidenceBand.upper, 2)}]
                     </td>
                     <td className='px-2 py-1' key={865501}>
                       {(entry.winProbability.probability * 100).toFixed(1)}%
@@ -100,28 +103,28 @@ export const HistoricalPerformanceDashboard: React.FC = () => {
               <thead key={851248}>
                 <tr className='bg-gray-100' key={236169}>
                   <th className='px-2 py-1' key={38082}>
-//                     Model
+                    Model
                   </th>
                   <th className='px-2 py-1' key={38082}>
-//                     Market
+                    Market
                   </th>
                   <th className='px-2 py-1' key={38082}>
-//                     Date
+                    Date
                   </th>
                   <th className='px-2 py-1' key={38082}>
-//                     Prediction
+                    Prediction
                   </th>
                   <th className='px-2 py-1' key={38082}>
-//                     Actual
+                    Actual
                   </th>
                   <th className='px-2 py-1' key={38082}>
                     Won?
                   </th>
                   <th className='px-2 py-1' key={38082}>
-//                     Payout
+                    Payout
                   </th>
                   <th className='px-2 py-1' key={38082}>
-//                     Confidence
+                    Confidence
                   </th>
                   <th className='px-2 py-1' key={38082}>
                     Win Prob
@@ -142,20 +145,20 @@ export const HistoricalPerformanceDashboard: React.FC = () => {
                         {entry.date}
                       </td>
                       <td className='px-2 py-1' key={865501}>
-                        {entry.safeNumber(prediction, 2)}
+                        {safeNumber(entry.prediction, 2)}
                       </td>
                       <td className='px-2 py-1' key={865501}>
-                        {entry.safeNumber(actual, 2)}
+                        {safeNumber(entry.actual, 2)}
                       </td>
                       <td className='px-2 py-1' key={865501}>
                         {entry.won ? 'Yes' : 'No'}
                       </td>
                       <td className='px-2 py-1' key={865501}>
-                        ${entry.safeNumber(payout, 2)}
+                        ${safeNumber(entry.payout, 2)}
                       </td>
                       <td className='px-2 py-1' key={865501}>
-                        [{entry.confidenceBand.safeNumber(lower, 2)} -{' '}
-                        {entry.confidenceBand.safeNumber(upper, 2)}]
+                        [{safeNumber(entry.confidenceBand.lower, 2)} -{' '}
+                        {safeNumber(entry.confidenceBand.upper, 2)}]
                       </td>
                       <td className='px-2 py-1' key={865501}>
                         {(entry.winProbability.probability * 100).toFixed(1)}%
@@ -169,8 +172,5 @@ export const HistoricalPerformanceDashboard: React.FC = () => {
         </div>
       )}
     </section>
-  )};
-
-
-
-
+  );
+};

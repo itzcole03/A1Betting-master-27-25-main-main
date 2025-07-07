@@ -111,12 +111,9 @@ export class SentimentEnhancedAnalyzer implements Analyzer<AnalysisInput, Enhanc
         };
       });
 
-      this.eventBus.publish({
-        type: 'enhanced-analysis-completed',
-        payload: {
-          data: enhancedAnalyses as unknown as Record<string, unknown>,
-          timestamp: Date.now()
-        }
+      this.eventBus.publish('enhanced-analysis-completed', {
+        data: enhancedAnalyses as unknown as Record<string, unknown>,
+        timestamp: Date.now()
       });
 
       this.performanceMonitor.endTrace(traceId);

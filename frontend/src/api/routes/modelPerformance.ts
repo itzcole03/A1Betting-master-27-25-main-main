@@ -1,15 +1,20 @@
-﻿import express from 'express'
+﻿import { UnifiedLogger } from '@/core/UnifiedLogger';
+import { UnifiedMetrics } from '@/core/UnifiedMetrics';
 import {
-  ModelPerformanceMetrics,
-//   ModelPerformanceTracker
+    ModelPerformanceMetrics,
 } from '@/core/analytics/ModelPerformanceTracker';
-import { UnifiedLogger} from '@/core/UnifiedLogger'
-import { UnifiedMetrics} from '@/core/UnifiedMetrics'
+import express, { Request, Response } from 'express';
+
+// Add missing logger and performanceTracker definitions
+const logger = new UnifiedLogger();
+const performanceTracker = UnifiedMetrics.getInstance();
+
+const router = express.Router();
 
 // Initialize the performance tracker;
 
 // Get performance for a specific model;
-router.get('/:modelName', async (req: unknown, res: unknown) => {
+router.get('/:modelName', async (req, res) => {
   try {
     const { modelName} = req.params;
     const { timeframe = 'all'} = req.query;
@@ -18,6 +23,9 @@ router.get('/:modelName', async (req: unknown, res: unknown) => {
       modelName,
       timeframe as 'day' | 'week' | 'month' | 'all'
     );
+
+    // Define performance before using it
+    const performance = history && history.length > 0 ? history[0] : null;
 
     if (!performance) {
       return res.status(404).json({ error: 'Model performance data not found'})}
@@ -47,7 +55,7 @@ router.get('/top/:metric', async (req, res) => {
 });
 
 // Record a prediction outcome;
-router.post('/:modelName/outcome', async (req: unknown, res: unknown) => {
+router.post('/:modelName/outcome', async (req: Request, res: Response) => {
   try {
     const { modelName} = req.params;
     const { stake, payout, odds} = req.body;

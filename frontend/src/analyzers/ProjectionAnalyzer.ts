@@ -49,10 +49,7 @@ export class ProjectionAnalyzer implements Analyzer<DailyFantasyData, Projection
   }
 
   public async analyze(data: DailyFantasyData): Promise<ProjectionAnalysis[]> {
-    const traceId = this.performanceMonitor.startTrace('projection-analysis', {
-      analyzer: this.id,
-      projectionCount: data.projections.length
-    });
+    const traceId = this.performanceMonitor.startTrace('projection-analysis', { category: 'analysis.projection', description: 'Projection analysis' });
 
     try {
       const analyses: ProjectionAnalysis[] = [];
@@ -114,21 +111,18 @@ export class ProjectionAnalyzer implements Analyzer<DailyFantasyData, Projection
     };
 
     // Publish detailed analysis event
-    this.eventBus.publish({
-      type: 'projection:analyzed',
-      payload: {
-        data: {
-          player: projection.name,
-          confidence: baseConfidence,
-          predictions: Object.entries(analysis.predictions).map(([stat, metrics]) => ({
-            stat,
-            predicted: metrics.predicted,
-            confidence: metrics.confidence
-          }))
-        },
-        timestamp: Date.now()
-      }
-    } as any); // Type assertion to bypass strict type check if needed
+    this.eventBus.publish('projection:analyzed', {
+      data: {
+        player: projection.name,
+        confidence: baseConfidence,
+        predictions: Object.entries(analysis.predictions).map(([stat, metrics]) => ({
+          stat,
+          predicted: metrics.predicted,
+          confidence: metrics.confidence
+        }))
+      },
+      timestamp: Date.now()
+    });
 
     return analysis;
   }

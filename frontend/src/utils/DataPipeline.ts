@@ -104,13 +104,10 @@ export class StreamingDataPipeline<T, U> {
       this.options.processingInterval
     );
 
-    this.eventBus.publish({
-      type: 'pipeline:started',
-      payload: {
-        sourceId: this.source.id,
-        sinkId: this.sink.id,
-        timestamp: Date.now()
-      }
+    this.eventBus.publish('pipeline:started', {
+      sourceId: this.source.id,
+      sinkId: this.sink.id,
+      timestamp: Date.now()
     });
   }
 
@@ -127,22 +124,16 @@ export class StreamingDataPipeline<T, U> {
       await this.sink.flush();
     }
 
-    this.eventBus.publish({
-      type: 'pipeline:stopped',
-      payload: {
-        sourceId: this.source.id,
-        sinkId: this.sink.id,
-        timestamp: Date.now(),
-        metrics: this.metrics
-      }
+    this.eventBus.publish('pipeline:stopped', {
+      sourceId: this.source.id,
+      sinkId: this.sink.id,
+      timestamp: Date.now(),
+      metrics: this.metrics
     });
   }
 
   private async process(): Promise<void> {
-    const traceId = this.performanceMonitor.startTrace('pipeline-processing', {
-      sourceId: this.source.id,
-      sinkId: this.sink.id
-    });
+    const traceId = this.performanceMonitor.startTrace('pipeline-processing');
 
     try {
       // Fetch data from source
@@ -161,7 +152,7 @@ export class StreamingDataPipeline<T, U> {
       for (const stage of this.stages) {
         try {
           let isValid = true;
-          const stageTraceId = this.performanceMonitor.startTrace('stage-processing', { stageId: stage.id });
+          const stageTraceId = this.performanceMonitor.startTrace('stage-processing');
           if (stage.validate) {
             isValid = await stage.validate(transformed);
             if (!isValid) {
@@ -185,14 +176,11 @@ export class StreamingDataPipeline<T, U> {
 
       // Commented out eventBus.publish if not available
       if (typeof this.eventBus.publish === 'function') {
-        this.eventBus.publish({
-          type: 'pipeline:processed',
-          payload: {
-            sourceId: this.source.id,
-            sinkId: this.sink.id,
-            duration,
-            timestamp: Date.now()
-          }
+        this.eventBus.publish('pipeline:processed', {
+          sourceId: this.source.id,
+          sinkId: this.sink.id,
+          duration,
+          timestamp: Date.now()
         });
       }
 
@@ -201,14 +189,11 @@ export class StreamingDataPipeline<T, U> {
       this.metrics.errorCount++;
       this.performanceMonitor.endTrace(traceId, error as Error);
       if (typeof this.eventBus.publish === 'function') {
-        this.eventBus.publish({
-          type: 'pipeline:error',
-          payload: {
-            sourceId: this.source.id,
-            sinkId: this.sink.id,
-            error: error as Error,
-            timestamp: Date.now()
-          }
+        this.eventBus.publish('pipeline:error', {
+          sourceId: this.source.id,
+          sinkId: this.sink.id,
+          error: error as Error,
+          timestamp: Date.now()
         });
       }
     }

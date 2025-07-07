@@ -110,7 +110,7 @@ export class AnalysisRegistry {
       throw new Error('Plugin ' + pluginId + ' not found');
     }
 
-    const trace = this.monitor.startTrace('plugin-analysis', 'analysis.plugin', 'Running plugin analysis');
+    const trace = this.monitor.startTrace('plugin-analysis', { category: 'analysis.plugin', description: 'Running plugin analysis' });
 
     try {
       // Run analysis

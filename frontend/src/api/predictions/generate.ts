@@ -1,6 +1,6 @@
 ﻿import { NextApiRequest, NextApiResponse } from 'next';
-import { getLogger } from './../../core/logging/logger'; // Added .ts extension;
-import { getMetrics } from './../../core/metrics/metrics'; // Added .ts extension;
+import { getLogger } from './../../core/logging/logger';
+import { getMetrics } from './../../core/metrics/metrics';
 import { PredictionIntegrationService } from './../../services/prediction/PredictionIntegrationService';
 
 interface GeneratePredictionsRequest {

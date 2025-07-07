@@ -17,10 +17,7 @@ export class PoeToApiAdapter {
    * @returns An array of PrizePicksProps.
    */
   public transformPoeDataToPrizePicksProps(poeDataBlocks: PoeDataBlock[]): PrizePicksProps[] {
-    const trace = unifiedMonitor.startTrace(
-      'PoeToApiAdapter.transformPoeData',
-      'adapter.transform'
-    );
+    const trace = unifiedMonitor.startTrace('PoeToApiAdapter.transformPoeData', { category: 'adapter.transform' });
     const transformedProps: PrizePicksProps[] = [];
 
     try {
@@ -115,6 +112,7 @@ export class PoeToApiAdapter {
         ]
       };
 
+      const trace = unifiedMonitor.startTrace('poeToApiAdapter.fetch', { category: 'adapter.fetch' });
       return this.transformPoeDataToPrizePicksProps(realApiResponse.dataBlocks || []);
     } catch (error) {
       // console.error('Error fetching real API data:', error);

@@ -1,1 +1,6 @@
-export {}
+export interface BettingDashboardProps {
+  className?: string;
+}
+
+export { };
+

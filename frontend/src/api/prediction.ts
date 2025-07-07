@@ -1,15 +1,15 @@
-﻿import {
-  getArbitrageOpportunities,
-  getBettingOpportunities,
-  getMe,
-  getPerformanceStats,
-  getPrizePicksProps,
-  getUnifiedData,
-  login,
-//   register
-} from '@/api/prediction';
-import { PredictionIntegrationService} from '@/services/prediction/PredictionIntegrationService'
-import { Request, Response, Router} from 'express'
+﻿import { register } from '@/services/auth/register';
+import {
+    PredictionIntegrationService,
+    getArbitrageOpportunities,
+    getBettingOpportunities,
+    getMe,
+    getPerformanceStats,
+    getPrizePicksProps,
+    getUnifiedData,
+    login
+} from '@/services/prediction/PredictionIntegrationService';
+import { Request, Response, Router } from 'express';
 
 const router = Router();
 
@@ -174,7 +174,7 @@ router.get('/auth/me', async (_req: Request, res: Response) => {
     })}
 });
 
-export { router as predictionRouter}
+export { router as predictionRouter };
 
 
 

@@ -1,1 +1,1 @@
-export {}
+export type { Analyzer } from '../utils/Analyzer';

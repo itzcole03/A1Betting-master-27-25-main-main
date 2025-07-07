@@ -133,4 +133,11 @@ export class ESPNAdapter {
   public getMetadata(): Record<string, unknown> {
     return { id: this.id, type: this.type };
   }
+
+  /**
+   * Alias for fetch() to match DataSource interface.
+   */
+  public async fetchData(): Promise<ESPNData> {
+    return this.fetch();
+  }
 }

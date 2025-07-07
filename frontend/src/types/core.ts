@@ -62,7 +62,8 @@ export interface WeatherData {
     severity: string
     description: string;
     startTime: string
-    endTime: string}[0]}
+    endTime: string
+  }[]}
 
 /**
  * Represents a single bet placed by a user, with all analytics fields.
@@ -450,7 +451,8 @@ export interface WeatherData {
     severity: string
     description: string;
     startTime: string
-    endTime: string}[0]}
+    endTime: string
+  }[]}
 
 export type RiskTolerance = 'low' | 'medium' | 'high';
 export type RiskToleranceEnum = 'low' | 'medium' | 'high';
@@ -543,27 +545,27 @@ export interface EventMap {
   /**
    * Emitted when a game's status is updated from ESPNService.
    */
-  'game:status': { game: import('../services/ESPNService.js').ESPNGame; timestamp: number};
+  'game:status': { game: any; timestamp: number};
   /**
    * Emitted when a player's data is updated from ESPNService.
    */
-  'player:update': { player: import('../services/ESPNService.js').ESPNPlayer; timestamp: number};
+  'player:update': { player: any; timestamp: number};
   /**
    * Emitted when Sportradar injuries are updated.
    */
   'injury:update': {
-    injuries: import('../services/SportradarService.js').SportradarInjury[];
+    injuries: any[];
     timestamp: number};
   /**
    * Emitted when Sportradar match is updated.
    */
   'match:update': {
-    match: import('../services/SportradarService.js').SportradarMatchupData;
+    match: any;
     timestamp: number};
   /**
    * Emitted when news headlines are updated.
    */
-  'news:update': { headlines: import('../types.js').ESPNHeadline[]; timestamp: number};
+  'news:update': { headlines: any[]; timestamp: number};
   /**
    * Emitted when weather data is updated.
    */
@@ -674,7 +676,9 @@ export interface AppConfig {
       enabled: boolean;
       variants: string[];
       distribution: number[];
-      distribution: number}};}
+    };
+  };
+}
 
 export interface ConfigUpdate {
   section: string
@@ -694,7 +698,7 @@ export interface ExperimentConfig {
   name: string;
   description: string
   variants: string[];
-  distribution: Record<string, number>;
+  distribution: number[];
   startDate: number
   endDate: number;
   status: 'active' | 'inactive' | 'completed';
@@ -915,6 +919,18 @@ export interface ErrorDetails {
   predictionId?: string
   profileId?: string
   data?: unknown}
+
+/**
+ * PredictionResult: Result of a prediction, including confidence, analysis, and metadata.
+ * Re-exported from utils/PredictionEngine for type compatibility across the codebase.
+ */
+export type { PredictionResult } from '../utils/PredictionEngine';
+
+/**
+ * FeatureComponent: Interface for feature processing components in the prediction pipeline.
+ * Re-exported from utils/FeatureComposition for type compatibility across the codebase.
+ */
+export type { FeatureComponent } from '../utils/FeatureComposition';
 
 
 

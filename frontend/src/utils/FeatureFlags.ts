@@ -64,7 +64,7 @@ export class FeatureFlags {
   }
 
   public async initialize(): Promise<void> {
-    const trace = this.monitor.startTrace('feature-flags-init', 'feature.init', 'Initializing feature flags');
+    const trace = this.monitor.startTrace('feature-flags-init');
 
     try {
       const config = await this.configManager.getConfig();

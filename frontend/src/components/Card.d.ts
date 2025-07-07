@@ -1,11 +1,16 @@
-﻿import React from 'react.ts';
-import { MotionProps} from 'framer-motion.ts';
+﻿import { MotionProps } from 'framer-motion';
+import React from 'react';
+
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'glass' | 'premium';
-  hover?: boolean;
-  glow?: boolean;
-  loading?: boolean;
-  children: React.ReactNode}
+  children: React.ReactNode;
+  variant?: 'default' | 'glass' | 'outline';
+  hoverEffect?: boolean;
+}
+
+export type CardHeaderProps = React.HTMLAttributes<HTMLDivElement>;
+export type CardContentProps = React.HTMLAttributes<HTMLDivElement>;
+export type CardFooterProps = React.HTMLAttributes<HTMLDivElement>;
+
 export declare const Card: React.ForwardRefExoticComponent<
   CardProps & MotionProps & React.RefAttributes<HTMLDivElement>
 >;

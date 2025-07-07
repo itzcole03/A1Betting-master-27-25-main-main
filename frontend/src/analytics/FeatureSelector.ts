@@ -5,9 +5,10 @@
 
 export class FeatureSelector {
   // Minimal stub for build success;
-  // RESOLVED: Replace 'unknown[0]' with a more specific type if possible;
-  select(features: unknown[0]): unknown[0] {
-    return features}
+  // RESOLVED: Replace 'unknown[]' with a more specific type if possible;
+  select(features: unknown[]): unknown[] {
+    return features;
+  }
 }
 
 

@@ -10,7 +10,14 @@
  * is now available in the enhanced A1BettingPlatform component.
  */
 
-// Re-export the enhanced A1BettingPlatform for compatibility
-export { default} from './components/A1BettingPlatform';
+import { A1BettingPreview } from './components/A1BettingPreview';
+import { AppProvider } from './contexts/AppContext';
 
-
+export default function App_UserFriendly() {
+  return (
+    <AppProvider>
+      <A1BettingPreview />
+      {/* ... existing app content ... */}
+    </AppProvider>
+  );
+}

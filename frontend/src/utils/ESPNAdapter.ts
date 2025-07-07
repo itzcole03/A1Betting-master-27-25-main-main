@@ -102,4 +102,8 @@ export class ESPNAdapter implements DataSource<ESPNData> {
   public getMetadata(): Record<string, unknown> {
     return { id: this.id, type: this.type };
   }
+
+  public async fetchData(): Promise<ESPNData> {
+    return this.fetch();
+  }
 }

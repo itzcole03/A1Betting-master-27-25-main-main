@@ -39,16 +39,16 @@ export class ProjectionAnalyzer implements Analyzer<DailyFantasyData, Projection
 
   private readonly eventBus: EventBus;
   private readonly confidenceThreshold: number;
+  private readonly performanceMonitor: any;
 
   constructor(confidenceThreshold: number = 0.7) {
     this.eventBus = EventBus.getInstance();
     this.confidenceThreshold = confidenceThreshold;
+    this.performanceMonitor = (window as any).PerformanceMonitor?.getInstance?.() || { startTrace: () => '', endTrace: () => {}, startSpan: () => '', endSpan: () => {} };
   }
 
   public async analyze(data: DailyFantasyData): Promise<ProjectionAnalysis[]> {
-    const traceId = this.performanceMonitor.startTrace('projection-analysis', {
-      analyzer: this.id,
-      projectionCount: data.projections.length});
+    const traceId = this.performanceMonitor.startTrace('projection-analysis');
 
     try {
       const analyses: ProjectionAnalysis[] = [];

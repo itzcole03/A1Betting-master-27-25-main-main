@@ -96,7 +96,7 @@ export class AdvancedAnalysisEngine {
   }
 
   public async analyzePlayer(playerId: string): Promise<AnalysisResult> {
-    const trace = this.monitor.startTrace('analyze-player', 'analysis.player', 'Analyzing player data');
+    const trace = this.monitor.startTrace('analyze-player', { category: 'analysis.player', description: 'Analyzing player data' });
 
     try {
       const data = this.dataHub.getIntegratedData();
