@@ -390,6 +390,65 @@ const Analytics: React.FC = () => {
     }
   };
 
+  // Injury helper functions
+  const getSeverityColor = (severity: string) => {
+    switch (severity) {
+      case 'critical':
+        return 'text-red-600 border-red-600 bg-red-900/20';
+      case 'severe':
+        return 'text-red-400 border-red-400 bg-red-900/10';
+      case 'moderate':
+        return 'text-yellow-400 border-yellow-400 bg-yellow-900/10';
+      case 'minor':
+        return 'text-green-400 border-green-400 bg-green-900/10';
+      default:
+        return 'text-gray-400 border-gray-400';
+    }
+  };
+
+  const getInjuryStatusColor = (status: string) => {
+    switch (status) {
+      case 'out':
+      case 'ir':
+        return 'text-red-400 border-red-400';
+      case 'doubtful':
+        return 'text-orange-400 border-orange-400';
+      case 'questionable':
+        return 'text-yellow-400 border-yellow-400';
+      case 'healthy':
+        return 'text-green-400 border-green-400';
+      default:
+        return 'text-gray-400 border-gray-400';
+    }
+  };
+
+  const getSeverityIcon = (severity: string) => {
+    switch (severity) {
+      case 'critical':
+      case 'severe':
+        return <AlertTriangle className='w-4 h-4' />;
+      case 'moderate':
+        return <TrendingDown className='w-4 h-4' />;
+      case 'minor':
+        return <Activity className='w-4 h-4' />;
+      default:
+        return <Heart className='w-4 h-4' />;
+    }
+  };
+
+  // Filter injuries
+  const filteredInjuries = injuries.filter(injury => {
+    if (selectedSport !== 'all' && injury.sport !== selectedSport) return false;
+    if (selectedSeverity !== 'all' && injury.severity !== selectedSeverity) return false;
+    if (
+      searchQuery &&
+      !injury.player.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      !injury.team.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+      return false;
+    return true;
+  });
+
   return (
     <Layout
       title='ML Analytics'
