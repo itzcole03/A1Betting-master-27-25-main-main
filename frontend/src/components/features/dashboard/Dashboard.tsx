@@ -48,6 +48,61 @@ interface LiveOpportunity {
   expectedProfit: number;
 }
 
+interface SentimentData {
+  overall: number;
+  positive: number;
+  negative: number;
+  neutral: number;
+  confidence: number;
+  volume: number;
+  trend: 'bullish' | 'bearish' | 'neutral';
+}
+
+interface SocialPost {
+  id: string;
+  platform: 'twitter' | 'reddit' | 'discord' | 'telegram';
+  author: string;
+  content: string;
+  sentiment: number;
+  engagement: {
+    likes: number;
+    shares: number;
+    comments: number;
+  };
+  influence: number;
+  timestamp: Date;
+  gameId?: string;
+  players?: string[];
+  keywords: string[];
+}
+
+interface InfluencerInsight {
+  id: string;
+  name: string;
+  platform: string;
+  followers: number;
+  accuracy: number;
+  recentPicks: Array<{
+    game: string;
+    pick: string;
+    outcome?: 'won' | 'lost' | 'pending';
+    confidence: number;
+  }>;
+  sentiment: number;
+  influence: number;
+}
+
+interface TrendingTopic {
+  id: string;
+  keyword: string;
+  volume: number;
+  sentiment: number;
+  growth: number;
+  category: string;
+  relevantGames: string[];
+  impact: 'high' | 'medium' | 'low';
+}
+
 const Dashboard: React.FC = () => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [liveOpportunities, setLiveOpportunities] = useState<LiveOpportunity[]>([]);
