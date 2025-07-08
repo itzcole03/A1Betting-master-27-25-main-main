@@ -695,6 +695,38 @@ const Dashboard: React.FC = () => {
     );
   };
 
+  const getBankrollRiskColor = (risk: string) => {
+    switch (risk) {
+      case 'low':
+        return 'text-green-400 border-green-400';
+      case 'medium':
+        return 'text-yellow-400 border-yellow-400';
+      case 'high':
+        return 'text-red-400 border-red-400';
+      default:
+        return 'text-gray-400 border-gray-400';
+    }
+  };
+
+  const getStreakColor = (streak: number) => {
+    if (streak > 0) return 'text-green-400';
+    if (streak < 0) return 'text-red-400';
+    return 'text-gray-400';
+  };
+
+  const getRiskLevelColor = (level: string) => {
+    switch (level) {
+      case 'conservative':
+        return 'text-green-400 border-green-400';
+      case 'moderate':
+        return 'text-yellow-400 border-yellow-400';
+      case 'aggressive':
+        return 'text-red-400 border-red-400';
+      default:
+        return 'text-gray-400 border-gray-400';
+    }
+  };
+
   return (
     <Layout
       title='Command Center'
