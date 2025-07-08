@@ -538,6 +538,73 @@ const Dashboard: React.FC = () => {
     }
   };
 
+  const loadBankrollData = async () => {
+    try {
+      const startingBalance = 10000;
+      const currentBalance = startingBalance + (Math.random() * 15000 - 2500);
+      const totalProfit = currentBalance - startingBalance;
+
+      const mockBankrollData: BankrollData = {
+        currentBalance,
+        startingBalance,
+        totalProfit,
+        totalWagered: Math.floor(Math.random() * 50000 + 20000),
+        winRate: 55 + Math.random() * 20,
+        roi: (totalProfit / startingBalance) * 100,
+        sharpeRatio: 1.2 + Math.random() * 0.8,
+        maxDrawdown: Math.random() * 15 + 5,
+        streakData: {
+          currentStreak: Math.floor(Math.random() * 10) - 5,
+          longestWinStreak: Math.floor(Math.random() * 15) + 5,
+          longestLossStreak: Math.floor(Math.random() * 8) + 2,
+        },
+      };
+
+      const games = [
+        { game: 'Lakers vs Warriors', type: 'Spread' },
+        { game: 'Chiefs vs Bills', type: 'Total' },
+        { game: 'Yankees vs Red Sox', type: 'Moneyline' },
+        { game: 'Celtics vs Heat', type: 'Player Props' },
+        { game: 'Rangers vs Lightning', type: 'Puck Line' },
+      ];
+
+      const mockAllocations: BetAllocation[] = games.map((g, index) => {
+        const confidence = 60 + Math.random() * 35;
+        const kellyPercent = ((confidence - 50) / 10) * kellyFraction;
+
+        return {
+          id: `allocation-${index}`,
+          ...g,
+          confidence,
+          kellyPercent: Math.max(0, Math.min(kellyPercent, 5)),
+          recommendedStake: Math.max(0, (kellyPercent / 100) * currentBalance),
+          maxStake: (kellyPercent / 100) * currentBalance * 2,
+          expectedValue: confidence > 65 ? Math.random() * 8 + 2 : Math.random() * 4,
+          risk: confidence > 80 ? 'low' : confidence > 65 ? 'medium' : 'high',
+        };
+      });
+
+      const mockRiskMetrics: RiskMetrics = {
+        riskLevel,
+        maxBetSize: riskLevel === 'conservative' ? 2 : riskLevel === 'moderate' ? 5 : 8,
+        diversificationScore: 75 + Math.random() * 20,
+        volatility:
+          riskLevel === 'conservative'
+            ? 8 + Math.random() * 5
+            : riskLevel === 'moderate'
+              ? 12 + Math.random() * 8
+              : 18 + Math.random() * 12,
+        valueAtRisk: Math.random() * 15 + 5,
+      };
+
+      setBankrollData(mockBankrollData);
+      setBetAllocations(mockAllocations);
+      setRiskMetrics(mockRiskMetrics);
+    } catch (error) {
+      console.error('Failed to load bankroll data:', error);
+    }
+  };
+
   const handleRefresh = async () => {
     setIsRefreshing(true);
     console.log('✅ Refresh button clicked - functionality working!');
