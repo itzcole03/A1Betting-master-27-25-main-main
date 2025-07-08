@@ -122,13 +122,13 @@ class MasterServiceRegistry {
 
   private async initializeUnifiedServices(): Promise<void> {
     const unifiedServices = [
-      { name: 'api', service: new ApiService() },
-      { name: 'analytics', service: new UnifiedAnalyticsService() },
-      { name: 'betting', service: new UnifiedBettingService() },
-      { name: 'data', service: new UnifiedDataService() },
-      { name: 'predictions', service: new UnifiedPredictionService() },
-      { name: 'notifications', service: new UnifiedNotificationService() },
-      { name: 'state', service: new UnifiedStateService() },
+      { name: 'api', service: ApiService },
+      { name: 'analytics', service: UnifiedAnalyticsService.getInstance() },
+      { name: 'betting', service: UnifiedBettingService.getInstance() },
+      { name: 'data', service: UnifiedDataService.getInstance() },
+      { name: 'predictions', service: UnifiedPredictionService.getInstance() },
+      { name: 'notifications', service: UnifiedNotificationService.getInstance() },
+      { name: 'state', service: UnifiedStateService.getInstance() },
       { name: 'cache', service: UnifiedCache.getInstance() },
       { name: 'errors', service: UnifiedErrorService.getInstance() },
       { name: 'logger', service: UnifiedLogger.getInstance() },
