@@ -2,6 +2,9 @@ import React, { useState, Suspense } from 'react';
 import { AppShell } from './components/core/AppShell';
 import { RefreshCw } from 'lucide-react';
 
+// Import Master App for full integration
+const MasterApp = React.lazy(() => import('./MasterApp'));
+
 // Lazy load feature components
 const Dashboard = React.lazy(() => import('./components/features/dashboard/EnhancedDashboard'));
 const MoneyMaker = React.lazy(() => import('./components/features/moneymaker/MoneyMaker'));
@@ -94,20 +97,69 @@ const componentMap: Record<string, React.ComponentType> = {
 
 export default function App() {
   const [activeView, setActiveView] = useState('dashboard');
+  const [useMasterApp, setUseMasterApp] = useState(true); // Enable Master App by default
 
-  const ActiveComponent = componentMap[activeView] || Dashboard;
-
-  return (
-    <AppShell activeView={activeView} onNavigate={setActiveView}>
+  // Check if user wants to use enhanced Master App
+  if (useMasterApp) {
+    return (
       <Suspense
         fallback={
-          <div className='flex items-center justify-center h-96'>
-            <RefreshCw className='w-8 h-8 animate-spin text-purple-400' />
+          <div className='min-h-screen bg-slate-900 flex items-center justify-center'>
+            <div className='text-center'>
+              <RefreshCw className='w-16 h-16 animate-spin text-cyan-400 mx-auto mb-4' />
+              <div className='text-white text-xl mb-2'>Loading Master App...</div>
+              <div className='text-gray-400 text-sm'>Initializing all systems and services</div>
+              <button
+                onClick={() => setUseMasterApp(false)}
+                className='mt-4 px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors'
+              >
+                Use Basic App
+              </button>
+            </div>
           </div>
         }
       >
-        <ActiveComponent />
+        <MasterApp
+          enablePrototypeFeatures={true}
+          enableAdvancedAnalytics={true}
+          enableQuantumFeatures={true}
+          enableMLEnhancements={true}
+        />
       </Suspense>
-    </AppShell>
+    );
+  }
+
+  // Fallback to basic app
+  const ActiveComponent = componentMap[activeView] || Dashboard;
+
+  return (
+    <div className='min-h-screen bg-slate-900'>
+      <div className='p-4 bg-slate-800 border-b border-slate-700'>
+        <div className='flex items-center justify-between'>
+          <div>
+            <h1 className='text-white font-bold'>A1 Betting Platform (Basic Mode)</h1>
+            <p className='text-gray-400 text-sm'>Some features may be limited</p>
+          </div>
+          <button
+            onClick={() => setUseMasterApp(true)}
+            className='px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 rounded-lg text-white font-medium transition-all'
+          >
+            Enable Master App
+          </button>
+        </div>
+      </div>
+
+      <AppShell activeView={activeView} onNavigate={setActiveView}>
+        <Suspense
+          fallback={
+            <div className='flex items-center justify-center h-96'>
+              <RefreshCw className='w-8 h-8 animate-spin text-purple-400' />
+            </div>
+          }
+        >
+          <ActiveComponent />
+        </Suspense>
+      </AppShell>
+    </div>
   );
 }
