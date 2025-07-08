@@ -1,4 +1,4 @@
-﻿// import { UnifiedLogger } from '@/core/UnifiedLogger';
+// import { UnifiedLogger } from '@/core/UnifiedLogger';
 // import { UnifiedSettingsService } from './UnifiedSettingsService';
 // import { UnifiedErrorService } from './UnifiedErrorService';
 // import { UnifiedServiceRegistry } from '@/unified/UnifiedServiceRegistry';
@@ -61,7 +61,7 @@ export class UnifiedBackupService {
       includeLogs: this.settings.get('backup.includeLogs', true),
       compression: this.settings.get('backup.compression', true),
       encryption: this.settings.get('backup.encryption', true),
-      encryptionKey: this.settings.get('backup.encryptionKey', undefined)
+      encryptionKey: this.settings.get('backup.encryptionKey', undefined),
     };
   }
 
@@ -78,7 +78,7 @@ export class UnifiedBackupService {
         timestamp: Date.now(),
         backupPath: '',
         size: 0,
-        error: 'Backup service is disabled'
+        error: 'Backup service is disabled',
       };
     }
 
@@ -113,7 +113,7 @@ export class UnifiedBackupService {
         success: true,
         timestamp: Date.now(),
         backupPath: backupDir,
-        size: stats.size
+        size: stats.size,
       };
 
       this.logger.info('Backup completed successfully', 'backup', result);
@@ -126,7 +126,7 @@ export class UnifiedBackupService {
         timestamp: Date.now(),
         backupPath: '',
         size: 0,
-        error: errorMessage
+        error: errorMessage,
       };
     }
   }
@@ -136,7 +136,7 @@ export class UnifiedBackupService {
     const dbBackupDir = backupDir + '/db';
     const dbConfig = { postgres: null, redis: null };
     const execAsync = promisify(exec);
-    const env = process.env;
+    const env = typeof process !== 'undefined' ? process.env : {};
     const dumpFile = dbBackupDir + '/dump.sql';
     await fs.mkdir(dbBackupDir, { recursive: true });
 
