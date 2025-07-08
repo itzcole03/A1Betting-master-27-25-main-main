@@ -19,6 +19,8 @@ const SocialIntelligence = React.lazy(
 const SHAPAnalysis = React.lazy(() => import('./components/features/shap/SHAPAnalysis'));
 const QuantumAI = React.lazy(() => import('./components/features/quantum/QuantumAI'));
 const NewsHub = React.lazy(() => import('./components/features/news/NewsHub'));
+const WeatherStation = React.lazy(() => import('./components/features/weather/WeatherStation'));
+const InjuryTracker = React.lazy(() => import('./components/features/injuries/InjuryTracker'));
 
 // Placeholder components for features not yet implemented
 const PlaceholderComponent: React.FC<{ title: string; description: string }> = ({
@@ -55,38 +57,20 @@ const componentMap: Record<string, React.ComponentType> = {
   shap: SHAPAnalysis,
   quantum: QuantumAI,
   news: NewsHub,
+  weather: WeatherStation,
+  injuries: InjuryTracker,
   lineup: () => (
     <PlaceholderComponent title='Lineup Builder' description='Smart lineup optimization' />
   ),
   predictions: () => (
     <PlaceholderComponent title='AI Predictions' description='Advanced prediction algorithms' />
   ),
-  quantum: () => (
-    <PlaceholderComponent title='Quantum AI' description='Quantum-enhanced neural networks' />
-  ),
-  shap: () => (
-    <PlaceholderComponent title='SHAP Analysis' description='Model explainability & insights' />
-  ),
   historical: () => (
     <PlaceholderComponent title='Historical Data' description='Advanced historical analysis' />
-  ),
-  social: () => (
-    <PlaceholderComponent title='Social Intel' description='Social sentiment analysis' />
-  ),
-  news: () => <PlaceholderComponent title='News Hub' description='Real-time sports news' />,
-  weather: () => (
-    <PlaceholderComponent title='Weather Station' description='Weather impact analysis' />
-  ),
-  injuries: () => (
-    <PlaceholderComponent title='Injury Tracker' description='Player injury monitoring' />
   ),
   streaming: () => (
     <PlaceholderComponent title='Live Stream' description='HD streams & real-time data' />
   ),
-  bankroll: () => (
-    <PlaceholderComponent title='Bankroll Manager' description='Portfolio & risk management' />
-  ),
-  risk: () => <PlaceholderComponent title='Risk Engine' description='Advanced risk assessment' />,
   sportsbooks: () => <PlaceholderComponent title='Sportsbooks' description='Account management' />,
   automation: () => (
     <PlaceholderComponent title='Auto-Pilot' description='Betting automation & rules' />
