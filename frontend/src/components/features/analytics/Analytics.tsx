@@ -201,6 +201,56 @@ interface NewsImpactTopic {
   growth: number;
 }
 
+interface RiskAlert {
+  id: string;
+  type: 'portfolio' | 'bet' | 'market' | 'system';
+  severity: 'low' | 'medium' | 'high' | 'critical';
+  title: string;
+  description: string;
+  recommendation: string;
+  impact: number;
+  probability: number;
+  timeframe: string;
+  createdAt: Date;
+  dismissed: boolean;
+}
+
+interface RiskMetric {
+  id: string;
+  name: string;
+  value: number;
+  maxValue: number;
+  threshold: number;
+  status: 'safe' | 'warning' | 'danger';
+  trend: 'up' | 'down' | 'stable';
+  description: string;
+  category: string;
+}
+
+interface CorrelationMatrix {
+  pairs: Array<{
+    asset1: string;
+    asset2: string;
+    correlation: number;
+    risk: 'low' | 'medium' | 'high';
+  }>;
+}
+
+interface VaRAnalysis {
+  oneDay: {
+    confidence95: number;
+    confidence99: number;
+    expectedShortfall: number;
+  };
+  oneWeek: {
+    confidence95: number;
+    confidence99: number;
+    expectedShortfall: number;
+  };
+  historicalSimulation: number[];
+  monteCarloSimulation: number[];
+}
+
 const Analytics: React.FC = () => {
   const [models, setModels] = useState<ModelMetrics[]>([]);
   const [featureImportance, setFeatureImportance] = useState<FeatureImportance[]>([]);
