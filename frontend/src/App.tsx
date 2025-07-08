@@ -33,6 +33,8 @@ const PlaceholderComponent: React.FC<{ title: string; description: string }> = (
 const componentMap: Record<string, React.ComponentType> = {
   dashboard: Dashboard,
   moneymaker: MoneyMaker,
+  analytics: Analytics,
+  prizepicks: PrizePicks,
   arbitrage: () => (
     <PlaceholderComponent
       title='Arbitrage Scanner'
@@ -42,14 +44,8 @@ const componentMap: Record<string, React.ComponentType> = {
   livebetting: () => (
     <PlaceholderComponent title='Live Betting' description='Live betting opportunities' />
   ),
-  prizepicks: () => (
-    <PlaceholderComponent title='PrizePicks Pro' description='Daily fantasy optimization' />
-  ),
   lineup: () => (
     <PlaceholderComponent title='Lineup Builder' description='Smart lineup optimization' />
-  ),
-  analytics: () => (
-    <PlaceholderComponent title='ML Analytics' description='47+ machine learning models' />
   ),
   predictions: () => (
     <PlaceholderComponent title='AI Predictions' description='Advanced prediction algorithms' />
