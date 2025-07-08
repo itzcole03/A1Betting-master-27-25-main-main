@@ -21,10 +21,10 @@ import { injuryService } from './injuryService';
 import { lineupService } from './lineupService';
 
 // Import prototype services
-import { enhancedDataSources } from '../prototype/src/services/enhancedDataSources';
-import { realDataService } from '../prototype/src/services/realDataService';
-import { predictionEngine } from '../prototype/src/services/predictionEngine';
-import { realTimeDataAggregator } from '../prototype/src/services/realTimeDataAggregator';
+import { enhancedDataSources } from '../../../prototype/src/services/enhancedDataSources';
+import { realDataService } from '../../../prototype/src/services/realDataService';
+import { predictionEngine } from '../../../prototype/src/services/predictionEngine';
+import { realTimeDataAggregator } from '../../../prototype/src/services/realTimeDataAggregator';
 
 // Import individual specialized services
 import { AnalyticsService } from './AnalyticsService';
