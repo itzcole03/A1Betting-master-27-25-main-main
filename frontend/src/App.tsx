@@ -45,7 +45,7 @@ function App() {
 
   return (
     <div className='min-h-screen bg-gray-50'>
-      <AppShell activeView={activeView} onViewChange={setActiveView}>
+      <AppShell activeView={activeView} onNavigate={setActiveView}>
         <div className='p-6'>
           <ErrorBoundary>{renderComponent()}</ErrorBoundary>
         </div>
