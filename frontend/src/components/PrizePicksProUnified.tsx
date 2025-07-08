@@ -145,19 +145,107 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
 
   // Generate comprehensive mock data covering ALL PrizePicks sports
   const generateComprehensiveMockProjections = (): PrizePicksProjection[] => {
-    const players = [
+    const comprehensivePlayers = [
+      // NBA
       { name: 'LeBron James', team: 'LAL', position: 'F', sport: 'NBA', league: 'NBA' },
       { name: 'Stephen Curry', team: 'GSW', position: 'G', sport: 'NBA', league: 'NBA' },
       { name: 'Giannis Antetokounmpo', team: 'MIL', position: 'F', sport: 'NBA', league: 'NBA' },
       { name: 'Luka Doncic', team: 'DAL', position: 'G', sport: 'NBA', league: 'NBA' },
       { name: 'Jayson Tatum', team: 'BOS', position: 'F', sport: 'NBA', league: 'NBA' },
       { name: 'Nikola Jokic', team: 'DEN', position: 'C', sport: 'NBA', league: 'NBA' },
-      { name: 'Joel Embiid', team: 'PHI', position: 'C', sport: 'NBA', league: 'NBA' },
-      { name: 'Kevin Durant', team: 'PHX', position: 'F', sport: 'NBA', league: 'NBA' },
+
+      // WNBA
+      { name: "A'ja Wilson", team: 'LAS', position: 'F', sport: 'WNBA', league: 'WNBA' },
+      { name: 'Breanna Stewart', team: 'NY', position: 'F', sport: 'WNBA', league: 'WNBA' },
+      { name: 'Diana Taurasi', team: 'PHX', position: 'G', sport: 'WNBA', league: 'WNBA' },
+
+      // NFL
       { name: 'Josh Allen', team: 'BUF', position: 'QB', sport: 'NFL', league: 'NFL' },
       { name: 'Patrick Mahomes', team: 'KC', position: 'QB', sport: 'NFL', league: 'NFL' },
+      { name: 'Lamar Jackson', team: 'BAL', position: 'QB', sport: 'NFL', league: 'NFL' },
+      { name: 'Travis Kelce', team: 'KC', position: 'TE', sport: 'NFL', league: 'NFL' },
+      { name: 'Tyreek Hill', team: 'MIA', position: 'WR', sport: 'NFL', league: 'NFL' },
+
+      // MLB
       { name: 'Shohei Ohtani', team: 'LAD', position: 'DH', sport: 'MLB', league: 'MLB' },
       { name: 'Aaron Judge', team: 'NYY', position: 'OF', sport: 'MLB', league: 'MLB' },
+      { name: 'Mookie Betts', team: 'LAD', position: 'OF', sport: 'MLB', league: 'MLB' },
+      { name: 'Ronald Acuña Jr.', team: 'ATL', position: 'OF', sport: 'MLB', league: 'MLB' },
+
+      // NHL
+      { name: 'Connor McDavid', team: 'EDM', position: 'C', sport: 'NHL', league: 'NHL' },
+      { name: 'Nathan MacKinnon', team: 'COL', position: 'C', sport: 'NHL', league: 'NHL' },
+      { name: 'Auston Matthews', team: 'TOR', position: 'C', sport: 'NHL', league: 'NHL' },
+
+      // MLS
+      { name: 'Lorenzo Insigne', team: 'TOR', position: 'M', sport: 'MLS', league: 'MLS' },
+      { name: 'Carlos Vela', team: 'LAFC', position: 'F', sport: 'MLS', league: 'MLS' },
+
+      // College Football (NCAAF)
+      { name: 'Caleb Williams', team: 'USC', position: 'QB', sport: 'NCAAF', league: 'NCAAF' },
+      { name: 'Shedeur Sanders', team: 'COL', position: 'QB', sport: 'NCAAF', league: 'NCAAF' },
+
+      // College Basketball (NCAAB)
+      { name: 'Zach Edey', team: 'PUR', position: 'C', sport: 'NCAAB', league: 'NCAAB' },
+      { name: 'Tyler Kolek', team: 'MAR', position: 'G', sport: 'NCAAB', league: 'NCAAB' },
+
+      // Premier League (EPL)
+      { name: 'Erling Haaland', team: 'MCI', position: 'F', sport: 'EPL', league: 'EPL' },
+      { name: 'Mohamed Salah', team: 'LIV', position: 'F', sport: 'EPL', league: 'EPL' },
+      { name: 'Harry Kane', team: 'BAY', position: 'F', sport: 'EPL', league: 'EPL' },
+
+      // La Liga
+      {
+        name: 'Robert Lewandowski',
+        team: 'BAR',
+        position: 'F',
+        sport: 'LA_LIGA',
+        league: 'LA_LIGA',
+      },
+      { name: 'Vinícius Jr.', team: 'RMA', position: 'F', sport: 'LA_LIGA', league: 'LA_LIGA' },
+
+      // Champions League
+      {
+        name: 'Kylian Mbappé',
+        team: 'PSG',
+        position: 'F',
+        sport: 'UEFA_CHAMPIONS_LEAGUE',
+        league: 'UEFA_CHAMPIONS_LEAGUE',
+      },
+      {
+        name: 'Kevin De Bruyne',
+        team: 'MCI',
+        position: 'M',
+        sport: 'UEFA_CHAMPIONS_LEAGUE',
+        league: 'UEFA_CHAMPIONS_LEAGUE',
+      },
+
+      // Golf (PGA)
+      { name: 'Scottie Scheffler', team: 'USA', position: 'GOLFER', sport: 'PGA', league: 'PGA' },
+      { name: 'Rory McIlroy', team: 'NIR', position: 'GOLFER', sport: 'PGA', league: 'PGA' },
+      { name: 'Jon Rahm', team: 'ESP', position: 'GOLFER', sport: 'LIV_GOLF', league: 'LIV_GOLF' },
+
+      // Tennis
+      { name: 'Novak Djokovic', team: 'SRB', position: 'PLAYER', sport: 'TENNIS', league: 'ATP' },
+      { name: 'Iga Świątek', team: 'POL', position: 'PLAYER', sport: 'TENNIS', league: 'WTA' },
+
+      // UFC
+      { name: 'Jon Jones', team: 'USA', position: 'HW', sport: 'UFC', league: 'UFC' },
+      { name: 'Islam Makhachev', team: 'RUS', position: 'LW', sport: 'UFC', league: 'UFC' },
+
+      // NASCAR
+      { name: 'Kyle Larson', team: 'HMS', position: 'DRIVER', sport: 'NASCAR', league: 'NASCAR' },
+      {
+        name: 'Christopher Bell',
+        team: 'JGR',
+        position: 'DRIVER',
+        sport: 'NASCAR',
+        league: 'NASCAR',
+      },
+
+      // Formula 1
+      { name: 'Max Verstappen', team: 'RBR', position: 'DRIVER', sport: 'F1', league: 'F1' },
+      { name: 'Lewis Hamilton', team: 'MER', position: 'DRIVER', sport: 'F1', league: 'F1' },
     ];
 
     const statTypes = {
