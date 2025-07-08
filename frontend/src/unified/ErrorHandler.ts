@@ -174,6 +174,48 @@ export class ErrorHandler {
   }
 
   /**
+   * Handle WebSocket-specific errors with graceful degradation
+   * @param error - The WebSocket error
+   * @param context - Additional context about the WebSocket operation
+   */
+  public handleWebSocketError(error: Error, context: string = 'websocket_operation'): void {
+    // Check if this is a known non-critical WebSocket error
+    const nonCriticalErrors = [
+      'WebSocket closed without opened',
+      'WebSocket connection timeout',
+      'WebSocket connection failed',
+      'Connection refused',
+    ];
+
+    const isNonCritical = nonCriticalErrors.some(
+      pattern => error.message?.includes(pattern) || error.toString().includes(pattern)
+    );
+
+    if (isNonCritical) {
+      // Log as warning instead of error
+      console.warn(`[WebSocket] ${context}:`, error.message);
+
+      // Update metrics but don't notify error listeners
+      this.updateErrorMetrics(error, `websocket_${context}`);
+
+      // In development, provide additional debugging info
+      if (process.env.NODE_ENV === 'development') {
+        console.group(`WebSocket Warning - ${context}`);
+        console.warn(
+          'This is typically caused by network connectivity issues or server unavailability'
+        );
+        console.warn(
+          'The application will continue to function with reduced real-time capabilities'
+        );
+        console.groupEnd();
+      }
+    } else {
+      // Handle as regular error for unknown WebSocket issues
+      this.handleError(error, `websocket_${context}`);
+    }
+  }
+
+  /**
    * Destroy the error handler and clean up
    */
   public destroy(): void {
