@@ -16,8 +16,15 @@ import {
   ChevronUp,
   Filter,
   Download,
+  Heart,
+  Clock,
+  User,
+  Search,
 } from 'lucide-react';
 import { Layout } from '../../core/Layout';
+import { Badge } from '../../ui/badge';
+import { Button } from '../../ui/button';
+import { Card } from '../../ui/card';
 
 interface ModelMetrics {
   id: string;
