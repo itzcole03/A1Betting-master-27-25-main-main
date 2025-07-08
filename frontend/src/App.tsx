@@ -42,6 +42,7 @@ const componentMap: Record<string, React.ComponentType> = {
   backtesting: ComingSoon,
   education: ComingSoon,
   community: ComingSoon,
+  settings: ComingSoon,
 };
 
 const LoadingSpinner = () => (
