@@ -1,3 +1,5 @@
+/* Import Enhanced Aesthetic Styles */
+@import './styles/globals-enhanced.css';
 /* Import Beautiful Cyber Theme */
 @import './styles/cyber-theme.css';
 
