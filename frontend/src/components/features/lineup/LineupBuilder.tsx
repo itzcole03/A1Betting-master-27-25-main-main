@@ -26,81 +26,13 @@ import {
   Percent,
 } from 'lucide-react';
 import { Layout } from '../../core/Layout';
-
-interface Player {
-  id: string;
-  name: string;
-  team: string;
-  position: string;
-  salary: number;
-  projectedPoints: number;
-  ownership: number;
-  value: number;
-  matchup: string;
-  gameTime: Date;
-  isLocked: boolean;
-  recentForm: number[];
-  ceiling: number;
-  floor: number;
-  consistency: number;
-  news: string[];
-  stats: {
-    avgPoints: number;
-    gamesPlayed: number;
-    totalPoints: number;
-    bestGame: number;
-    worstGame: number;
-  };
-  tags: string[];
-  tier: 'elite' | 'solid' | 'value' | 'punt';
-}
-
-interface LineupOptimization {
-  lineup: Player[];
-  totalSalary: number;
-  projectedPoints: number;
-  ownership: number;
-  ceiling: number;
-  floor: number;
-  variance: number;
-  correlation: number;
-  uniqueness: number;
-  confidence: number;
-}
-
-interface Contest {
-  id: string;
-  name: string;
-  entryFee: number;
-  totalPrizes: number;
-  entries: number;
-  maxEntries: number;
-  payoutStructure: 'top_heavy' | 'flat' | 'winner_take_all';
-  sport: string;
-  slate: string;
-  startTime: Date;
-  positions: {
-    [key: string]: number;
-  };
-  salaryCap: number;
-}
-
-interface LineupStrategy {
-  id: string;
-  name: string;
-  description: string;
-  settings: {
-    exposureTargets: { [playerId: string]: number };
-    stackingRules: Array<{
-      type: 'team' | 'position' | 'game';
-      minPlayers: number;
-      maxPlayers: number;
-    }>;
-    diversificationLevel: number;
-    varianceTarget: 'low' | 'medium' | 'high';
-    contestType: 'cash' | 'gpp' | 'tournament';
-  };
-}
+import {
+  lineupService,
+  Player,
+  Contest,
+  LineupOptimization,
+  LineupStrategy,
+} from '../../../services/lineupService';
 
 const LineupBuilder: React.FC = () => {
   const [players, setPlayers] = useState<Player[]>([]);
@@ -120,155 +52,22 @@ const LineupBuilder: React.FC = () => {
   const [exposureSettings, setExposureSettings] = useState<{ [playerId: string]: number }>({});
 
   useEffect(() => {
-    loadPlayerData();
     loadContests();
     loadStrategies();
   }, []);
 
+  useEffect(() => {
+    loadPlayerData();
+  }, [selectedContest, filterPosition]);
+
   const loadPlayerData = async () => {
+    if (!selectedContest) return;
+
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      const mockPlayers: Player[] = [
-        {
-          id: 'player-001',
-          name: 'Josh Allen',
-          team: 'BUF',
-          position: 'QB',
-          salary: 8500,
-          projectedPoints: 23.5,
-          ownership: 18.2,
-          value: 2.76,
-          matchup: 'vs KC',
-          gameTime: new Date(Date.now() + 3 * 60 * 60 * 1000),
-          isLocked: false,
-          recentForm: [28.4, 19.8, 31.2, 26.7, 22.1],
-          ceiling: 35.8,
-          floor: 12.4,
-          consistency: 85,
-          news: ['Full practice participation', 'No injury concerns'],
-          stats: {
-            avgPoints: 24.2,
-            gamesPlayed: 16,
-            totalPoints: 387.2,
-            bestGame: 42.8,
-            worstGame: 8.9,
-          },
-          tags: ['Elite', 'Safe', 'High Ceiling'],
-          tier: 'elite',
-        },
-        {
-          id: 'player-002',
-          name: 'Patrick Mahomes',
-          team: 'KC',
-          position: 'QB',
-          salary: 8800,
-          projectedPoints: 24.8,
-          ownership: 22.7,
-          value: 2.82,
-          matchup: '@ BUF',
-          gameTime: new Date(Date.now() + 3 * 60 * 60 * 1000),
-          isLocked: false,
-          recentForm: [32.1, 18.9, 29.4, 27.8, 25.3],
-          ceiling: 38.2,
-          floor: 14.1,
-          consistency: 88,
-          news: ['Probable with shoulder strain', 'Expected to play without limitations'],
-          stats: {
-            avgPoints: 25.6,
-            gamesPlayed: 15,
-            totalPoints: 384.0,
-            bestGame: 45.2,
-            worstGame: 11.3,
-          },
-          tags: ['Elite', 'High Upside', 'Injury Risk'],
-          tier: 'elite',
-        },
-        {
-          id: 'player-003',
-          name: 'Cooper Kupp',
-          team: 'LAR',
-          position: 'WR',
-          salary: 7200,
-          projectedPoints: 18.4,
-          ownership: 15.8,
-          value: 2.56,
-          matchup: 'vs ARI',
-          gameTime: new Date(Date.now() + 5 * 60 * 60 * 1000),
-          isLocked: false,
-          recentForm: [24.1, 12.3, 19.8, 16.7, 21.2],
-          ceiling: 28.9,
-          floor: 8.2,
-          consistency: 72,
-          news: ['Questionable with ankle injury', 'Expected to play limited snaps'],
-          stats: {
-            avgPoints: 17.8,
-            gamesPlayed: 14,
-            totalPoints: 249.2,
-            bestGame: 31.7,
-            worstGame: 4.8,
-          },
-          tags: ['Value', 'Injury Risk', 'Target Heavy'],
-          tier: 'solid',
-        },
-        {
-          id: 'player-004',
-          name: 'Christian McCaffrey',
-          team: 'SF',
-          position: 'RB',
-          salary: 8000,
-          projectedPoints: 20.8,
-          ownership: 12.4,
-          value: 2.6,
-          matchup: '@ SEA',
-          gameTime: new Date(Date.now() + 6 * 60 * 60 * 1000),
-          isLocked: false,
-          recentForm: [28.7, 15.2, 23.4, 19.8, 26.1],
-          ceiling: 32.5,
-          floor: 9.8,
-          consistency: 78,
-          news: ['Full practice all week', 'No injury concerns'],
-          stats: {
-            avgPoints: 21.3,
-            gamesPlayed: 16,
-            totalPoints: 340.8,
-            bestGame: 38.4,
-            worstGame: 6.2,
-          },
-          tags: ['Elite', 'Versatile', 'Consistent'],
-          tier: 'elite',
-        },
-        {
-          id: 'player-005',
-          name: 'Jalen Hurts',
-          team: 'PHI',
-          position: 'QB',
-          salary: 7800,
-          projectedPoints: 21.2,
-          ownership: 9.7,
-          value: 2.72,
-          matchup: 'vs DAL',
-          gameTime: new Date(Date.now() + 4 * 60 * 60 * 1000),
-          isLocked: false,
-          recentForm: [19.8, 24.3, 17.9, 22.1, 26.4],
-          ceiling: 33.1,
-          floor: 11.5,
-          consistency: 75,
-          news: ['Cleared concussion protocol', 'Full practice participation'],
-          stats: {
-            avgPoints: 22.1,
-            gamesPlayed: 15,
-            totalPoints: 331.5,
-            bestGame: 39.2,
-            worstGame: 7.8,
-          },
-          tags: ['Value', 'Rushing Upside', 'Low Owned'],
-          tier: 'solid',
-        },
-      ];
-
-      setPlayers(mockPlayers);
+      const players = await lineupService.getPlayerPool(selectedContest.id, {
+        position: filterPosition === 'all' ? undefined : filterPosition,
+      });
+      setPlayers(players);
     } catch (error) {
       console.error('Failed to load player data:', error);
     }
@@ -276,53 +75,11 @@ const LineupBuilder: React.FC = () => {
 
   const loadContests = async () => {
     try {
-      const mockContests: Contest[] = [
-        {
-          id: 'contest-001',
-          name: 'NFL Sunday Million',
-          entryFee: 20,
-          totalPrizes: 4000000,
-          entries: 175000,
-          maxEntries: 200000,
-          payoutStructure: 'top_heavy',
-          sport: 'NFL',
-          slate: 'Main',
-          startTime: new Date(Date.now() + 3 * 60 * 60 * 1000),
-          positions: {
-            QB: 1,
-            RB: 2,
-            WR: 3,
-            TE: 1,
-            FLEX: 1,
-            DST: 1,
-          },
-          salaryCap: 50000,
-        },
-        {
-          id: 'contest-002',
-          name: 'NFL Cash Game',
-          entryFee: 5,
-          totalPrizes: 10000,
-          entries: 800,
-          maxEntries: 1000,
-          payoutStructure: 'flat',
-          sport: 'NFL',
-          slate: 'Main',
-          startTime: new Date(Date.now() + 3 * 60 * 60 * 1000),
-          positions: {
-            QB: 1,
-            RB: 2,
-            WR: 3,
-            TE: 1,
-            FLEX: 1,
-            DST: 1,
-          },
-          salaryCap: 50000,
-        },
-      ];
-
-      setAvailableContests(mockContests);
-      setSelectedContest(mockContests[0]);
+      const contests = await lineupService.getContests('NFL');
+      setAvailableContests(contests);
+      if (contests.length > 0) {
+        setSelectedContest(contests[0]);
+      }
     } catch (error) {
       console.error('Failed to load contests:', error);
     }
@@ -330,52 +87,37 @@ const LineupBuilder: React.FC = () => {
 
   const loadStrategies = async () => {
     try {
-      const mockStrategies: LineupStrategy[] = [
-        {
-          id: 'strategy-001',
-          name: 'Tournament GPP',
-          description: 'High variance lineup for large field tournaments',
-          settings: {
-            exposureTargets: {},
-            stackingRules: [
-              { type: 'team', minPlayers: 2, maxPlayers: 4 },
-              { type: 'game', minPlayers: 2, maxPlayers: 5 },
-            ],
-            diversificationLevel: 0.3,
-            varianceTarget: 'high',
-            contestType: 'tournament',
-          },
-        },
-        {
-          id: 'strategy-002',
-          name: 'Cash Game Safe',
-          description: 'Low variance lineup for cash games and 50/50s',
-          settings: {
-            exposureTargets: {},
-            stackingRules: [],
-            diversificationLevel: 0.8,
-            varianceTarget: 'low',
-            contestType: 'cash',
-          },
-        },
-      ];
-
-      setStrategies(mockStrategies);
-      setSelectedStrategy(mockStrategies[0]);
+      const strategies = await lineupService.getStrategies();
+      setStrategies(strategies);
+      if (strategies.length > 0) {
+        setSelectedStrategy(strategies[0]);
+      }
     } catch (error) {
       console.error('Failed to load strategies:', error);
     }
   };
 
   const optimizeLineup = async () => {
+    if (!selectedContest || !selectedStrategy) return;
+
     setIsOptimizing(true);
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      const constraints = {
+        lockedPlayers: Array.from(lockedPlayers),
+        excludedPlayers: Array.from(excludedPlayers),
+      };
 
-      // Advanced lineup optimization algorithm
-      const optimizedLineup = generateOptimalLineup();
-      setOptimizedLineups([optimizedLineup]);
-      setCurrentLineup(optimizedLineup.lineup);
+      const optimizations = await lineupService.optimizeLineup(
+        selectedContest.id,
+        selectedStrategy,
+        constraints,
+        { numLineups: 1 }
+      );
+
+      setOptimizedLineups(optimizations);
+      if (optimizations.length > 0) {
+        setCurrentLineup(optimizations[0].lineup);
+      }
     } catch (error) {
       console.error('Failed to optimize lineup:', error);
     } finally {
