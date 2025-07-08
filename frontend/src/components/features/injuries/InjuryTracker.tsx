@@ -20,77 +20,13 @@ import {
   XCircle,
 } from 'lucide-react';
 import { Layout } from '../../core/Layout';
-
-interface PlayerInjury {
-  id: string;
-  playerId: string;
-  playerName: string;
-  team: string;
-  position: string;
-  sport: string;
-  injuryType: string;
-  bodyPart: string;
-  severity: 'minor' | 'moderate' | 'major' | 'season_ending';
-  status: 'questionable' | 'doubtful' | 'out' | 'probable' | 'healthy';
-  injuryDate: Date;
-  estimatedReturn: Date | null;
-  actualReturn: Date | null;
-  gamesAffected: number;
-  description: string;
-  progressNotes: Array<{
-    date: Date;
-    note: string;
-    source: string;
-  }>;
-  marketImpact: {
-    playerProps: number;
-    teamPerformance: number;
-    spreadMovement: number;
-    totalMovement: number;
-  };
-  replacementPlayer?: {
-    name: string;
-    projectedPerformance: number;
-  };
-  upcomingGames: string[];
-}
-
-interface InjuryReport {
-  id: string;
-  team: string;
-  gameId: string;
-  reportDate: Date;
-  injuries: Array<{
-    playerId: string;
-    playerName: string;
-    status: string;
-    probability: number;
-  }>;
-  teamImpact: number;
-  reliability: number;
-}
-
-interface InjuryTrend {
-  bodyPart: string;
-  sport: string;
-  totalInjuries: number;
-  avgRecoveryTime: number;
-  trend: 'increasing' | 'decreasing' | 'stable';
-  seasonComparison: number;
-}
-
-interface HealthAlert {
-  id: string;
-  type: 'new_injury' | 'status_change' | 'return_update' | 'market_impact';
-  playerId: string;
-  playerName: string;
-  team: string;
-  message: string;
-  severity: 'low' | 'medium' | 'high' | 'critical';
-  timestamp: Date;
-  affectedMarkets: string[];
-  dismissed: boolean;
-}
+import {
+  injuryService,
+  PlayerInjury,
+  InjuryReport,
+  InjuryTrend,
+  HealthAlert,
+} from '../../../services/injuryService';
 
 const InjuryTracker: React.FC = () => {
   const [injuries, setInjuries] = useState<PlayerInjury[]>([]);
@@ -112,213 +48,21 @@ const InjuryTracker: React.FC = () => {
   const loadInjuryData = async () => {
     setIsLoading(true);
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Load data from real services
+      const [injuriesData, reportsData, trendsData, alertsData] = await Promise.all([
+        injuryService.getInjuries({
+          sport: selectedSport === 'all' ? undefined : selectedSport,
+          severity: selectedSeverity === 'all' ? undefined : selectedSeverity,
+        }),
+        injuryService.getInjuryReports(),
+        injuryService.getInjuryTrends(selectedSport === 'all' ? undefined : selectedSport),
+        injuryService.getHealthAlerts(false), // Get non-dismissed alerts
+      ]);
 
-      const mockInjuries: PlayerInjury[] = [
-        {
-          id: 'injury-001',
-          playerId: 'lebron-james',
-          playerName: 'LeBron James',
-          team: 'Lakers',
-          position: 'SF',
-          sport: 'NBA',
-          injuryType: 'Ankle Sprain',
-          bodyPart: 'Left Ankle',
-          severity: 'moderate',
-          status: 'questionable',
-          injuryDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
-          estimatedReturn: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
-          actualReturn: null,
-          gamesAffected: 2,
-          description:
-            'Grade 2 ankle sprain sustained during practice. Player is responding well to treatment.',
-          progressNotes: [
-            {
-              date: new Date(Date.now() - 24 * 60 * 60 * 1000),
-              note: 'Limited practice participation, increasing mobility',
-              source: 'Team Medical Staff',
-            },
-            {
-              date: new Date(Date.now() - 12 * 60 * 60 * 1000),
-              note: 'Pain levels decreased significantly, cleared for light shooting',
-              source: 'ESPN',
-            },
-          ],
-          marketImpact: {
-            playerProps: -25,
-            teamPerformance: -8,
-            spreadMovement: 2.5,
-            totalMovement: -3,
-          },
-          replacementPlayer: {
-            name: 'Austin Reaves',
-            projectedPerformance: 65,
-          },
-          upcomingGames: ['Lakers vs Warriors', 'Lakers vs Clippers'],
-        },
-        {
-          id: 'injury-002',
-          playerId: 'patrick-mahomes',
-          playerName: 'Patrick Mahomes',
-          team: 'Chiefs',
-          position: 'QB',
-          sport: 'NFL',
-          injuryType: 'Shoulder Strain',
-          bodyPart: 'Right Shoulder',
-          severity: 'minor',
-          status: 'probable',
-          injuryDate: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
-          estimatedReturn: new Date(Date.now() + 24 * 60 * 60 * 1000),
-          actualReturn: null,
-          gamesAffected: 0,
-          description: 'Minor shoulder strain from contact. Expected to play with no limitations.',
-          progressNotes: [
-            {
-              date: new Date(Date.now() - 24 * 60 * 60 * 1000),
-              note: 'Full practice participation, throwing with normal velocity',
-              source: 'KC Star',
-            },
-          ],
-          marketImpact: {
-            playerProps: -5,
-            teamPerformance: -2,
-            spreadMovement: 0.5,
-            totalMovement: 0,
-          },
-          upcomingGames: ['Chiefs vs Bills'],
-        },
-        {
-          id: 'injury-003',
-          playerId: 'jayson-tatum',
-          playerName: 'Jayson Tatum',
-          team: 'Celtics',
-          position: 'SF',
-          sport: 'NBA',
-          injuryType: 'Back Tightness',
-          bodyPart: 'Lower Back',
-          severity: 'minor',
-          status: 'probable',
-          injuryDate: new Date(Date.now() - 24 * 60 * 60 * 1000),
-          estimatedReturn: new Date(Date.now() + 12 * 60 * 60 * 1000),
-          actualReturn: null,
-          gamesAffected: 0,
-          description: "Mild lower back tightness. Listed as probable for tonight's game.",
-          progressNotes: [
-            {
-              date: new Date(Date.now() - 6 * 60 * 60 * 1000),
-              note: 'Completed full shootaround, feeling much better',
-              source: 'Boston Herald',
-            },
-          ],
-          marketImpact: {
-            playerProps: -10,
-            teamPerformance: -3,
-            spreadMovement: 1,
-            totalMovement: -1,
-          },
-          upcomingGames: ['Celtics vs Heat'],
-        },
-      ];
-
-      const mockReports: InjuryReport[] = [
-        {
-          id: 'report-001',
-          team: 'Lakers',
-          gameId: 'Lakers vs Warriors',
-          reportDate: new Date(),
-          injuries: [
-            {
-              playerId: 'lebron-james',
-              playerName: 'LeBron James',
-              status: 'Questionable',
-              probability: 0.6,
-            },
-            {
-              playerId: 'anthony-davis',
-              playerName: 'Anthony Davis',
-              status: 'Probable',
-              probability: 0.9,
-            },
-          ],
-          teamImpact: -12,
-          reliability: 0.85,
-        },
-        {
-          id: 'report-002',
-          team: 'Chiefs',
-          gameId: 'Chiefs vs Bills',
-          reportDate: new Date(Date.now() - 2 * 60 * 60 * 1000),
-          injuries: [
-            {
-              playerId: 'patrick-mahomes',
-              playerName: 'Patrick Mahomes',
-              status: 'Probable',
-              probability: 0.95,
-            },
-          ],
-          teamImpact: -2,
-          reliability: 0.92,
-        },
-      ];
-
-      const mockTrends: InjuryTrend[] = [
-        {
-          bodyPart: 'Ankle',
-          sport: 'NBA',
-          totalInjuries: 47,
-          avgRecoveryTime: 12,
-          trend: 'increasing',
-          seasonComparison: 15,
-        },
-        {
-          bodyPart: 'Shoulder',
-          sport: 'NFL',
-          totalInjuries: 23,
-          avgRecoveryTime: 8,
-          trend: 'stable',
-          seasonComparison: -2,
-        },
-        {
-          bodyPart: 'Knee',
-          sport: 'NBA',
-          totalInjuries: 34,
-          avgRecoveryTime: 21,
-          trend: 'decreasing',
-          seasonComparison: -8,
-        },
-      ];
-
-      const mockAlerts: HealthAlert[] = [
-        {
-          id: 'alert-001',
-          type: 'status_change',
-          playerId: 'lebron-james',
-          playerName: 'LeBron James',
-          team: 'Lakers',
-          message: "Status upgraded from Doubtful to Questionable for tonight's game",
-          severity: 'high',
-          timestamp: new Date(Date.now() - 30 * 60 * 1000),
-          affectedMarkets: ['Player Props', 'Team Spread', 'Game Total'],
-          dismissed: false,
-        },
-        {
-          id: 'alert-002',
-          type: 'new_injury',
-          playerId: 'jayson-tatum',
-          playerName: 'Jayson Tatum',
-          team: 'Celtics',
-          message: 'New injury reported: Lower back tightness',
-          severity: 'medium',
-          timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
-          affectedMarkets: ['Player Props'],
-          dismissed: false,
-        },
-      ];
-
-      setInjuries(mockInjuries);
-      setInjuryReports(mockReports);
-      setInjuryTrends(mockTrends);
-      setHealthAlerts(mockAlerts);
+      setInjuries(injuriesData);
+      setInjuryReports(reportsData);
+      setInjuryTrends(trendsData);
+      setHealthAlerts(alertsData);
     } catch (error) {
       console.error('Failed to load injury data:', error);
     } finally {
@@ -326,10 +70,17 @@ const InjuryTracker: React.FC = () => {
     }
   };
 
-  const dismissAlert = (alertId: string) => {
-    setHealthAlerts(alerts =>
-      alerts.map(alert => (alert.id === alertId ? { ...alert, dismissed: true } : alert))
-    );
+  const dismissAlert = async (alertId: string) => {
+    try {
+      const success = await injuryService.dismissAlert(alertId);
+      if (success) {
+        setHealthAlerts(alerts =>
+          alerts.map(alert => (alert.id === alertId ? { ...alert, dismissed: true } : alert))
+        );
+      }
+    } catch (error) {
+      console.error('Failed to dismiss alert:', error);
+    }
   };
 
   const getSeverityColor = (severity: string) => {
