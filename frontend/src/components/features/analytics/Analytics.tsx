@@ -141,6 +141,37 @@ interface QuantumMetrics {
   errorRate: number;
 }
 
+interface WeatherData {
+  gameId: string;
+  game: string;
+  sport: string;
+  venue: string;
+  city: string;
+  gameTime: string;
+  current: {
+    temperature: number;
+    humidity: number;
+    windSpeed: number;
+    windDirection: string;
+    visibility: number;
+    condition: string;
+    pressure: number;
+  };
+  forecast: {
+    temperature: number;
+    precipitation: number;
+    windSpeed: number;
+    condition: string;
+  };
+  impact: {
+    overall: 'high' | 'medium' | 'low';
+    passing: number;
+    kicking: number;
+    visibility: number;
+    player_comfort: number;
+  };
+}
+
 const Analytics: React.FC = () => {
   const [models, setModels] = useState<ModelMetrics[]>([]);
   const [featureImportance, setFeatureImportance] = useState<FeatureImportance[]>([]);
