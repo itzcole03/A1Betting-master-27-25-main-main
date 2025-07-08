@@ -101,6 +101,13 @@ const Analytics: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showDetails, setShowDetails] = useState<Record<string, boolean>>({});
 
+  // Injury tracking state
+  const [injuries, setInjuries] = useState<InjuryReport[]>([]);
+  const [teamImpacts, setTeamImpacts] = useState<TeamImpact[]>([]);
+  const [selectedSport, setSelectedSport] = useState<string>('all');
+  const [selectedSeverity, setSelectedSeverity] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
   useEffect(() => {
     loadAnalyticsData();
   }, [selectedModel, timeRange]);
