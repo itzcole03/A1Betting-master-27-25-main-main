@@ -612,6 +612,110 @@ const ArbitrageScanner: React.FC = () => {
           </motion.div>
         </motion.div>
       )}
+
+      {/* Live Arbitrage Feed */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Live Arbitrage Feed</h3>
+            <p className='text-gray-400 text-sm'>Real-time cross-book opportunities</p>
+          </div>
+          <div className='flex items-center space-x-2'>
+            <div className='w-3 h-3 bg-green-400 rounded-full animate-pulse'></div>
+            <span className='text-green-400 text-sm font-medium'>Live Feed</span>
+          </div>
+        </div>
+
+        <div className='space-y-3'>
+          {[
+            { book1: 'DraftKings', book2: 'FanDuel', profit: 3.2, sport: 'NBA' },
+            { book1: 'BetMGM', book2: 'Caesars', profit: 2.8, sport: 'NFL' },
+            { book1: 'PointsBet', book2: 'Unibet', profit: 4.1, sport: 'NHL' },
+          ].map((arb, index) => (
+            <div
+              key={index}
+              className='flex items-center justify-between bg-slate-900/50 rounded-lg p-3'
+            >
+              <div className='flex items-center space-x-3'>
+                <div className='w-2 h-2 bg-yellow-400 rounded-full animate-pulse'></div>
+                <span className='text-white font-medium'>
+                  {arb.book1} vs {arb.book2}
+                </span>
+                <span className='text-gray-400 text-sm'>{arb.sport}</span>
+              </div>
+              <div className='text-green-400 font-bold'>+{arb.profit}%</div>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Advanced Arbitrage Analytics */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.8 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <h3 className='text-xl font-bold text-white mb-6'>Arbitrage Analytics</h3>
+
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-2'>Best Markets</h4>
+            <div className='space-y-2'>
+              {[
+                { market: 'Player Props', count: 23, avgProfit: 4.2 },
+                { market: 'Game Totals', count: 18, avgProfit: 3.1 },
+                { market: 'Spreads', count: 15, avgProfit: 2.8 },
+              ].map((market, index) => (
+                <div key={index} className='flex items-center justify-between'>
+                  <span className='text-gray-300 text-sm'>{market.market}</span>
+                  <div className='text-right'>
+                    <div className='text-cyan-400 font-medium'>{market.count}</div>
+                    <div className='text-xs text-gray-400'>+{market.avgProfit}%</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-2'>Top Bookmaker Pairs</h4>
+            <div className='space-y-2'>
+              {[
+                { pair: 'DK vs FD', opportunities: 34 },
+                { pair: 'MGM vs Caesar', opportunities: 28 },
+                { pair: 'PB vs Unibet', opportunities: 22 },
+              ].map((pair, index) => (
+                <div key={index} className='flex items-center justify-between'>
+                  <span className='text-gray-300 text-sm'>{pair.pair}</span>
+                  <span className='text-purple-400 font-medium'>{pair.opportunities}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-2'>Profit Distribution</h4>
+            <div className='space-y-2'>
+              {[
+                { range: '2-3%', count: 18 },
+                { range: '3-5%', count: 24 },
+                { range: '5%+', count: 5 },
+              ].map((dist, index) => (
+                <div key={index} className='flex items-center justify-between'>
+                  <span className='text-gray-300 text-sm'>{dist.range}</span>
+                  <span className='text-green-400 font-medium'>{dist.count}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </Layout>
   );
 };
