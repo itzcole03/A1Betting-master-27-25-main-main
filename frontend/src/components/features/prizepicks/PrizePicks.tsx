@@ -1105,6 +1105,80 @@ const PrizePicks: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Save Lineup Modal */}
+      {showSaveModal && (
+        <div className='fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4'>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className='bg-slate-800 border border-slate-700 rounded-xl p-6 w-full max-w-md'
+          >
+            <h3 className='text-xl font-bold text-white mb-4'>Save Lineup</h3>
+            <div className='space-y-4'>
+              <div>
+                <label className='block text-sm text-gray-400 mb-2'>Lineup Name</label>
+                <input
+                  type='text'
+                  value={lineupName}
+                  onChange={e => setLineupName(e.target.value)}
+                  placeholder='Enter lineup name...'
+                  className='w-full px-3 py-2 bg-slate-900/50 border border-slate-700/50 rounded-lg text-white'
+                />
+              </div>
+              <div className='grid grid-cols-2 gap-4 text-sm'>
+                <div>
+                  <span className='text-gray-400'>Picks:</span>
+                  <span className='text-white ml-2'>{selectedProps.length}</span>
+                </div>
+                <div>
+                  <span className='text-gray-400'>Entry:</span>
+                  <span className='text-white ml-2'>${entryAmount}</span>
+                </div>
+                <div>
+                  <span className='text-gray-400'>Multiplier:</span>
+                  <span className='text-cyan-400 ml-2'>{lineupStats.multiplier}x</span>
+                </div>
+                <div>
+                  <span className='text-gray-400'>Payout:</span>
+                  <span className='text-green-400 ml-2'>
+                    ${(entryAmount * lineupStats.multiplier).toFixed(2)}
+                  </span>
+                </div>
+              </div>
+              <div className='flex space-x-3'>
+                <button
+                  onClick={saveLineup}
+                  className='flex-1 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-lg text-white font-medium transition-all'
+                >
+                  Save Lineup
+                </button>
+                <button
+                  onClick={() => setShowSaveModal(false)}
+                  className='px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-white font-medium transition-all'
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
+
+      {/* Success Message */}
+      {showSuccess && (
+        <div className='fixed top-4 right-4 z-50'>
+          <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            className='bg-green-500/20 border border-green-500/30 rounded-lg p-4 flex items-center space-x-2'
+          >
+            <CheckCircle className='w-5 h-5 text-green-400' />
+            <span className='text-green-300 font-medium'>Lineup saved successfully!</span>
+          </motion.div>
+        </div>
+      )}
     </Layout>
   );
 };
