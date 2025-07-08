@@ -1,7 +1,6 @@
-﻿/**
+/**
  * Production-ready API service with comprehensive error handling, retries, and caching;
  */
-
 
 interface ApiConfig {
   baseUrl: string;
@@ -31,19 +30,21 @@ export class ProductionApiService {
 
   constructor(config: Partial<ApiConfig> = {}) {
     this.config = {
-      baseUrl: import.meta.env.VITE_API_BASE_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}',
+      baseUrl: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000',
       timeout: 30000,
       retries: 3,
       retryDelay: 1000,
-      ...config
-    }}
+      ...config,
+    };
+  }
 
   private generateCacheKey(endpoint: string, params?: Record<string, any>): string {
     return `${endpoint}:${JSON.stringify(params || {})}`;
   }
 
   private isValidCacheEntry<T>(entry: CacheEntry<T>): boolean {
-    return Date.now() - entry.timestamp < entry.ttl}
+    return Date.now() - entry.timestamp < entry.ttl;
+  }
 
   private getFromCache<T>(key: string): T | null {
     const entry = this.cache.get(key);
@@ -57,10 +58,12 @@ export class ProductionApiService {
   }
 
   private setCache<T>(key: string, data: T, ttl: number = 300000): void {
-    this.cache.set(key, { data, timestamp: Date.now(), ttl})}
+    this.cache.set(key, { data, timestamp: Date.now(), ttl });
+  }
 
   private async delay(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms))}
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
   private async fetchWithRetry<T>(
     url: string,
@@ -76,7 +79,7 @@ export class ProductionApiService {
         const timeoutId = setTimeout(() => controller.abort(), this.config.timeout);
         const response = await fetch(url, {
           ...options,
-          signal: controller.signal
+          signal: controller.signal,
         });
         clearTimeout(timeoutId);
         this.abortControllers.delete(requestId);
@@ -121,7 +124,7 @@ export class ProductionApiService {
             success: true,
             data: cachedData,
             timestamp: Date.now(),
-            cached: true
+            cached: true,
           };
         }
       }
@@ -134,13 +137,13 @@ export class ProductionApiService {
       return {
         success: true,
         data,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
     } catch (error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
     }
   }
@@ -152,24 +155,28 @@ export class ProductionApiService {
   ): Promise<ApiResponse<T>> {
     try {
       const url = new URL(this.config.baseUrl + endpoint);
-      const data = await this.fetchWithRetry<T>(url.toString(), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(headers || {})
+      const data = await this.fetchWithRetry<T>(
+        url.toString(),
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(headers || {}),
+          },
+          body: body ? JSON.stringify(body) : undefined,
         },
-        body: body ? JSON.stringify(body) : undefined
-      }, this.config.retries);
+        this.config.retries
+      );
       return {
         success: true,
         data,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
     } catch (error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
     }
   }
@@ -181,24 +188,28 @@ export class ProductionApiService {
   ): Promise<ApiResponse<T>> {
     try {
       const url = new URL(this.config.baseUrl + endpoint);
-      const data = await this.fetchWithRetry<T>(url.toString(), {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(headers || {})
+      const data = await this.fetchWithRetry<T>(
+        url.toString(),
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(headers || {}),
+          },
+          body: body ? JSON.stringify(body) : undefined,
         },
-        body: body ? JSON.stringify(body) : undefined
-      }, this.config.retries);
+        this.config.retries
+      );
       return {
         success: true,
         data,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
     } catch (error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
     }
   }
@@ -206,19 +217,23 @@ export class ProductionApiService {
   async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
     try {
       const url = new URL(this.config.baseUrl + endpoint);
-      const data = await this.fetchWithRetry<T>(url.toString(), {
-        method: 'DELETE'
-      }, this.config.retries);
+      const data = await this.fetchWithRetry<T>(
+        url.toString(),
+        {
+          method: 'DELETE',
+        },
+        this.config.retries
+      );
       return {
         success: true,
         data,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
     } catch (error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
     }
   }
@@ -226,19 +241,23 @@ export class ProductionApiService {
   // Abort all pending requests;
   abortAllRequests(): void {
     this.abortControllers.forEach(controller => {
-      controller.abort();});
-    this.abortControllers.clear();}
+      controller.abort();
+    });
+    this.abortControllers.clear();
+  }
 
   // Clear cache;
   clearCache(): void {
-    this.cache.clear();}
+    this.cache.clear();
+  }
 
   // Get cache stats;
   getCacheStats(): { size: number; keys: string[] } {
     return {
       size: this.cache.size,
-      keys: Array.from(this.cache.keys())
-    }}
+      keys: Array.from(this.cache.keys()),
+    };
+  }
 
   // Health check endpoint;
   async healthCheck(): Promise<boolean> {
@@ -290,65 +309,82 @@ export interface SystemHealth {
 export const api = {
   // User endpoints;
   async getUser(userId: string): Promise<ApiResponse<User>> {
-    return productionApiService.get<User>(`/users/${userId}`)},
+    return productionApiService.get<User>(`/users/${userId}`);
+  },
 
   async updateUser(userId: string, userData: Partial<User>): Promise<ApiResponse<User>> {
-    return productionApiService.put<User>(`/users/${userId}`, userData)},
+    return productionApiService.put<User>(`/users/${userId}`, userData);
+  },
 
   // Prediction endpoints;
   async getPredictions(sport?: string, league?: string): Promise<ApiResponse<Prediction[]>> {
     const params: Record<string, any> = {};
     if (sport) params.sport = sport;
     if (league) params.league = league;
-    return productionApiService.get<Prediction[]>('/predictions', params);},
+    return productionApiService.get<Prediction[]>('/predictions', params);
+  },
 
   async getPrediction(predictionId: string): Promise<ApiResponse<Prediction>> {
-    return productionApiService.get<Prediction>(`/predictions/${predictionId}`)},
+    return productionApiService.get<Prediction>(`/predictions/${predictionId}`);
+  },
 
   // System health;
   async getSystemHealth(): Promise<ApiResponse<SystemHealth>> {
-    return productionApiService.get<SystemHealth>('/health');},
+    return productionApiService.get<SystemHealth>('/health');
+  },
 
   async getAccuracyMetrics(): Promise<
-    ApiResponse<{ overall_accuracy: number; daily_accuracy: number}>
+    ApiResponse<{ overall_accuracy: number; daily_accuracy: number }>
   > {
-    return productionApiService.get('/metrics/accuracy')},
+    return productionApiService.get('/metrics/accuracy');
+  },
 
-  async getUserAnalytics(userId: string): Promise<ApiResponse<{ yearly: Record<number, number>}>> {
-    return productionApiService.get(`/analytics/users/${userId}`)},
+  async getUserAnalytics(userId: string): Promise<ApiResponse<{ yearly: Record<number, number> }>> {
+    return productionApiService.get(`/analytics/users/${userId}`);
+  },
 
   // Health check;
   async healthCheck(): Promise<boolean> {
-    return productionApiService.healthCheck();},
+    return productionApiService.healthCheck();
+  },
 
   // PrizePicks specific endpoints;
   async getPrizePicksProps(params: {
-    sport?: string
-    minConfidence?: number}): Promise<ApiResponse<any[]>> {
-    return productionApiService.get<any[]>('/api/prizepicks/props', params)},
+    sport?: string;
+    minConfidence?: number;
+  }): Promise<ApiResponse<any[]>> {
+    return productionApiService.get<any[]>('/api/prizepicks/props', params);
+  },
 
   async getPrizePicksRecommendations(params: {
-    sport?: string
-    strategy?: string
-    minConfidence?: number}): Promise<ApiResponse<any[]>> {
-    return productionApiService.get<any[]>('/api/prizepicks/recommendations', params)},
+    sport?: string;
+    strategy?: string;
+    minConfidence?: number;
+  }): Promise<ApiResponse<any[]>> {
+    return productionApiService.get<any[]>('/api/prizepicks/recommendations', params);
+  },
 
   // Money Maker Pro endpoints;
   async getBettingOpportunities(params?: {
-    sport?: string
-    minEdge?: number}): Promise<ApiResponse<any[]>> {
-    return productionApiService.get<any[]>('/api/betting-opportunities', params);},
+    sport?: string;
+    minEdge?: number;
+  }): Promise<ApiResponse<any[]>> {
+    return productionApiService.get<any[]>('/api/betting-opportunities', params);
+  },
 
   async getArbitrageOpportunities(): Promise<ApiResponse<any[]>> {
-    return productionApiService.get<any[]>('/api/arbitrage-opportunities');},
+    return productionApiService.get<any[]>('/api/arbitrage-opportunities');
+  },
 
   async getPortfolioAnalysis(userId: string): Promise<ApiResponse<any>> {
-    return productionApiService.get<any>(`/api/portfolio/${userId}/analysis`)},
+    return productionApiService.get<any>(`/api/portfolio/${userId}/analysis`);
+  },
 
   // PropOllama chat endpoint;
   async sendChatMessage(message: string, context?: any): Promise<ApiResponse<any>> {
     return productionApiService.post<any>('/api/propollama/chat', {
       message,
-//       context
-    })}
+      //       context
+    });
+  },
 };
