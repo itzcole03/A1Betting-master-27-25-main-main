@@ -211,6 +211,15 @@ const Dashboard: React.FC = () => {
   const [autoPilotStats, setAutoPilotStats] = useState<AutoPilotStats | null>(null);
   const [isGlobalAutoPilotActive, setIsGlobalAutoPilotActive] = useState(false);
 
+  // Bankroll Manager state
+  const [bankrollData, setBankrollData] = useState<BankrollData | null>(null);
+  const [betAllocations, setBetAllocations] = useState<BetAllocation[]>([]);
+  const [riskMetrics, setRiskMetrics] = useState<RiskMetrics | null>(null);
+  const [riskLevel, setRiskLevel] = useState<'conservative' | 'moderate' | 'aggressive'>(
+    'moderate'
+  );
+  const [kellyFraction, setKellyFraction] = useState<number>(0.25);
+
   // Mock data - replace with real API calls
   const keyMetrics: MetricCard[] = [
     {
