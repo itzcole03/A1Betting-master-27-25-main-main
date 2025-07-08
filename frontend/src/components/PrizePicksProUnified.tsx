@@ -132,6 +132,116 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
     'F1',
   ];
 
+  // Generate comprehensive mock data for development/demo
+  const generateMockProjections = (): PrizePicksProjection[] => {
+    const players = [
+      { name: 'LeBron James', team: 'LAL', position: 'F', sport: 'NBA', league: 'NBA' },
+      { name: 'Stephen Curry', team: 'GSW', position: 'G', sport: 'NBA', league: 'NBA' },
+      { name: 'Giannis Antetokounmpo', team: 'MIL', position: 'F', sport: 'NBA', league: 'NBA' },
+      { name: 'Luka Doncic', team: 'DAL', position: 'G', sport: 'NBA', league: 'NBA' },
+      { name: 'Jayson Tatum', team: 'BOS', position: 'F', sport: 'NBA', league: 'NBA' },
+      { name: 'Nikola Jokic', team: 'DEN', position: 'C', sport: 'NBA', league: 'NBA' },
+      { name: 'Joel Embiid', team: 'PHI', position: 'C', sport: 'NBA', league: 'NBA' },
+      { name: 'Kevin Durant', team: 'PHX', position: 'F', sport: 'NBA', league: 'NBA' },
+      { name: 'Damian Lillard', team: 'MIL', position: 'G', sport: 'NBA', league: 'NBA' },
+      { name: 'Anthony Davis', team: 'LAL', position: 'F', sport: 'NBA', league: 'NBA' },
+      // NFL Players
+      { name: 'Josh Allen', team: 'BUF', position: 'QB', sport: 'NFL', league: 'NFL' },
+      { name: 'Patrick Mahomes', team: 'KC', position: 'QB', sport: 'NFL', league: 'NFL' },
+      { name: 'Lamar Jackson', team: 'BAL', position: 'QB', sport: 'NFL', league: 'NFL' },
+      { name: 'Travis Kelce', team: 'KC', position: 'TE', sport: 'NFL', league: 'NFL' },
+      { name: 'Tyreek Hill', team: 'MIA', position: 'WR', sport: 'NFL', league: 'NFL' },
+      // MLB Players
+      { name: 'Shohei Ohtani', team: 'LAD', position: 'DH', sport: 'MLB', league: 'MLB' },
+      { name: 'Aaron Judge', team: 'NYY', position: 'OF', sport: 'MLB', league: 'MLB' },
+      { name: 'Mookie Betts', team: 'LAD', position: 'OF', sport: 'MLB', league: 'MLB' },
+      // NHL Players
+      { name: 'Connor McDavid', team: 'EDM', position: 'C', sport: 'NHL', league: 'NHL' },
+      { name: 'Nathan MacKinnon', team: 'COL', position: 'C', sport: 'NHL', league: 'NHL' },
+    ];
+
+    const statTypes = {
+      NBA: ['Points', 'Assists', 'Rebounds', '3-Pointers', 'Steals', 'Blocks'],
+      NFL: ['Passing Yards', 'Rushing Yards', 'Receiving Yards', 'Touchdowns', 'Receptions'],
+      MLB: ['Hits', 'Home Runs', 'RBIs', 'Stolen Bases', 'Strikeouts'],
+      NHL: ['Goals', 'Assists', 'Points', 'Shots', 'Saves'],
+    };
+
+    return players.map((player, index) => {
+      const availableStats = statTypes[player.sport as keyof typeof statTypes] || statTypes.NBA;
+      const statType = availableStats[index % availableStats.length];
+      const baseValue = 15 + index * 3 + Math.random() * 10;
+      const confidence = 70 + Math.random() * 25;
+      const prediction = baseValue + (Math.random() - 0.5) * 6;
+
+      return {
+        id: `proj_${index + 1}`,
+        player_id: `player_${index + 1}`,
+        player_name: player.name,
+        team: player.team,
+        position: player.position,
+        league: player.league,
+        sport: player.sport,
+        stat_type: statType,
+        line_score: Math.round(baseValue * 2) / 2, // Round to nearest 0.5
+        over_odds: -110,
+        under_odds: -110,
+        start_time: new Date(Date.now() + Math.random() * 86400000).toISOString(),
+        status: 'active',
+        description: `${player.name} ${statType} prop`,
+        rank: index + 1,
+        is_promo: Math.random() > 0.8,
+        confidence: Math.round(confidence),
+        market_efficiency: 0.1 + Math.random() * 0.2,
+        ml_prediction: {
+          prediction: Math.round(prediction * 2) / 2,
+          confidence: Math.round(confidence),
+          ensemble_score: 0.8 + Math.random() * 0.2,
+          model_weights: {
+            xgboost: 0.3,
+            lightgbm: 0.25,
+            neural_net: 0.2,
+            ensemble: 0.25,
+          },
+          factors: {
+            recent_form: 0.7 + Math.random() * 0.3,
+            matchup: 0.6 + Math.random() * 0.4,
+            injury_status: 0.9,
+            rest_days: 0.8 + Math.random() * 0.2,
+          },
+          risk_assessment: {
+            level: (['low', 'medium', 'high'] as const)[Math.floor(Math.random() * 3)],
+            score: 20 + Math.random() * 60,
+            factors: ['Form variance', 'Injury concerns', 'Matchup difficulty'],
+          },
+        },
+        shap_values: {
+          base_value: baseValue,
+          shap_values: {
+            recent_avg: 0.1 + Math.random() * 0.15,
+            opponent_def: -0.05 + Math.random() * 0.1,
+            home_away: Math.random() > 0.5 ? 0.03 : -0.02,
+            rest_days: 0.01 + Math.random() * 0.02,
+            season_avg: 0.08 + Math.random() * 0.08,
+          },
+          feature_importance: {
+            recent_avg: 0.35,
+            opponent_def: 0.25,
+            home_away: 0.15,
+            rest_days: 0.15,
+            season_avg: 0.1,
+          },
+          explanation:
+            Math.random() > 0.5
+              ? `Model predicts higher than line based on recent strong form and favorable matchup analysis.`
+              : `Model suggests lower than line due to defensive matchup concerns and recent performance variance.`,
+        },
+        value_rating: 2 + Math.random() * 18,
+        kelly_percentage: 1 + Math.random() * 12,
+      };
+    });
+  };
+
   // Fetch projections from API
   const fetchProjections = useCallback(async () => {
     setIsLoading(true);
