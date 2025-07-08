@@ -57,6 +57,7 @@ const componentMap: Record<string, React.ComponentType> = {
   livebetting: LiveBetting,
   prizepicks: PrizePicksProUnified,
   lineup: PrizePicksProUnified, // Merged with PrizePicks as requested
+  'prizepicks-test': PrizePicksProTestPage, // Test page for development
 
   // AI Engine
   analytics: Analytics,
