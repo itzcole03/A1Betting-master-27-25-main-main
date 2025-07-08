@@ -150,6 +150,18 @@ const Analytics: React.FC = () => {
   const [selectedSeverity, setSelectedSeverity] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
+  // Quantum AI state
+  const [quantumNodes, setQuantumNodes] = useState<QuantumNode[]>([]);
+  const [quantumConnections, setQuantumConnections] = useState<QuantumConnection[]>([]);
+  const [quantumPredictions, setQuantumPredictions] = useState<QuantumPrediction[]>([]);
+  const [quantumMetrics, setQuantumMetrics] = useState<QuantumMetrics | null>(null);
+  const [isQuantumActive, setIsQuantumActive] = useState(true);
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState<'grover' | 'shor' | 'qaoa' | 'vqe'>(
+    'qaoa'
+  );
+  const [quantumDepth, setQuantumDepth] = useState(8);
+  const [simulationSpeed, setSimulationSpeed] = useState(1);
+
   useEffect(() => {
     loadAnalyticsData();
     loadInjuryData();
