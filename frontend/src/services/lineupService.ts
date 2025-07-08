@@ -149,7 +149,7 @@ class LineupService {
   private readonly CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
   constructor() {
-    this.apiService = new ApiService();
+    this.apiService = ApiService;
   }
 
   private getCacheKey(method: string, params?: any): string {
