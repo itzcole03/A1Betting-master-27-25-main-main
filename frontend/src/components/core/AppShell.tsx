@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Search, Menu, X, Settings, User, Bell, TrendingUp } from 'lucide-react';
 import { Navigation } from './Navigation';
 import { cn } from '../../lib/utils';
+import { HolographicText, CyberButton, GlowCard, ParticleField } from '../ui';
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -60,8 +61,11 @@ export const AppShell: React.FC<AppShellProps> = ({ children, activeView, onNavi
   };
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white'>
-      {/* Cyber Background Effects */}
+    <div className='min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white relative'>
+      {/* Enhanced Cyber Background Effects */}
+      <div className='fixed inset-0 z-0 pointer-events-none'>
+        <ParticleField variant='cyber' density='medium' speed='slow' interactive={true} />
+      </div>
       <div className='fixed inset-0 z-0 pointer-events-none'>
         <div
           className='absolute inset-0 opacity-30'
@@ -93,30 +97,34 @@ export const AppShell: React.FC<AppShellProps> = ({ children, activeView, onNavi
             >
               {isMobileMenuOpen ? <X className='w-6 h-6' /> : <Menu className='w-6 h-6' />}
             </button>
-            <h1 className='text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent'>
-              A1Betting
-            </h1>
+            <HolographicText size='lg' intensity='medium' glow={true}>
+              A1BETTING
+            </HolographicText>
           </div>
 
           <div className='flex items-center space-x-2'>
-            <button
-              className='p-2 rounded-lg text-gray-400 hover:text-white transition-colors'
+            <CyberButton
+              variant='primary'
+              size='sm'
+              glow={true}
               onClick={() => {
                 // Handle notifications
                 console.log('Notifications clicked');
               }}
             >
               <Bell className='w-5 h-5' />
-            </button>
-            <button
-              className='p-2 rounded-lg text-gray-400 hover:text-white transition-colors'
+            </CyberButton>
+            <CyberButton
+              variant='neon'
+              size='sm'
+              glow={true}
               onClick={() => {
                 // Handle user menu
                 console.log('User menu clicked');
               }}
             >
               <User className='w-5 h-5' />
-            </button>
+            </CyberButton>
           </div>
         </div>
       </header>
@@ -132,9 +140,9 @@ export const AppShell: React.FC<AppShellProps> = ({ children, activeView, onNavi
                   <TrendingUp className='w-6 h-6 text-white' />
                 </div>
                 <div>
-                  <h1 className='text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent'>
-                    A1Betting
-                  </h1>
+                  <HolographicText size='xl' intensity='high' glow={true}>
+                    A1BETTING
+                  </HolographicText>
                   <p className='text-xs text-gray-400'>Ultimate Sports Intelligence Platform</p>
                 </div>
               </div>
@@ -192,8 +200,11 @@ export const AppShell: React.FC<AppShellProps> = ({ children, activeView, onNavi
               </div>
 
               <div className='flex items-center space-x-2'>
-                <button
-                  className='p-2 rounded-lg text-gray-400 hover:text-white transition-colors relative'
+                <CyberButton
+                  variant='primary'
+                  size='sm'
+                  glow={true}
+                  className='relative'
                   onClick={() => {
                     // Handle notifications
                     console.log('Notifications clicked');
@@ -203,10 +214,12 @@ export const AppShell: React.FC<AppShellProps> = ({ children, activeView, onNavi
                   <span className='absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full text-xs flex items-center justify-center'>
                     3
                   </span>
-                </button>
+                </CyberButton>
 
-                <button
-                  className='p-2 rounded-lg text-gray-400 hover:text-white transition-colors'
+                <CyberButton
+                  variant='secondary'
+                  size='sm'
+                  glow={true}
                   onClick={() => {
                     // Handle settings
                     if (onNavigate) {
@@ -216,7 +229,7 @@ export const AppShell: React.FC<AppShellProps> = ({ children, activeView, onNavi
                   }}
                 >
                   <Settings className='w-5 h-5' />
-                </button>
+                </CyberButton>
 
                 <div className='flex items-center space-x-3 ml-2'>
                   <div className='w-8 h-8 rounded-full bg-gradient-to-r from-cyan-400 to-purple-400 flex items-center justify-center'>
@@ -258,7 +271,17 @@ export const AppShell: React.FC<AppShellProps> = ({ children, activeView, onNavi
           </AnimatePresence>
 
           {/* Page Content */}
-          <div className='p-6 lg:p-8'>{children}</div>
+          <div className='p-6 lg:p-8'>
+            <GlowCard
+              variant='cyber'
+              intensity='medium'
+              animate={true}
+              hover={false}
+              className='min-h-full'
+            >
+              {children}
+            </GlowCard>
+          </div>
         </main>
       </div>
     </div>
