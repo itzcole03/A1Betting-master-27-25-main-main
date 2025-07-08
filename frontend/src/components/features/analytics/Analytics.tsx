@@ -417,6 +417,178 @@ const Analytics: React.FC = () => {
     }
   };
 
+  const loadQuantumData = async () => {
+    try {
+      const { nodes: networkNodes, connections: networkConnections } = generateQuantumNetwork();
+      setQuantumNodes(networkNodes);
+      setQuantumConnections(networkConnections);
+      setQuantumPredictions(generateQuantumPredictions());
+      setQuantumMetrics(generateQuantumMetrics());
+    } catch (error) {
+      console.error('Failed to load quantum data:', error);
+    }
+  };
+
+  const generateQuantumNetwork = (): { nodes: QuantumNode[]; connections: QuantumConnection[] } => {
+    const networkNodes: QuantumNode[] = [];
+    const networkConnections: QuantumConnection[] = [];
+
+    // Input layer
+    for (let i = 0; i < 4; i++) {
+      networkNodes.push({
+        id: `input-${i}`,
+        type: 'input',
+        position: { x: 50, y: 100 + i * 80 },
+        value: Math.random(),
+      });
+    }
+
+    // Quantum layers
+    for (let layer = 0; layer < 3; layer++) {
+      for (let i = 0; i < 6; i++) {
+        networkNodes.push({
+          id: `quantum-${layer}-${i}`,
+          type: 'quantum',
+          position: { x: 200 + layer * 150, y: 50 + i * 60 },
+          value: Math.random(),
+          qubits: Math.floor(Math.random() * 4) + 2,
+          entangled: Math.random() > 0.5,
+          superposition: Math.random() > 0.3,
+        });
+      }
+    }
+
+    // Neural processing layer
+    for (let i = 0; i < 4; i++) {
+      networkNodes.push({
+        id: `neural-${i}`,
+        type: 'neural',
+        position: { x: 650, y: 100 + i * 80 },
+        value: Math.random(),
+      });
+    }
+
+    // Output layer
+    for (let i = 0; i < 2; i++) {
+      networkNodes.push({
+        id: `output-${i}`,
+        type: 'output',
+        position: { x: 800, y: 150 + i * 80 },
+        value: Math.random(),
+      });
+    }
+
+    // Generate connections between layers
+    networkNodes.forEach(node => {
+      if (node.type === 'input') {
+        const quantumNodes = networkNodes.filter(n => n.id.startsWith('quantum-0-'));
+        quantumNodes.forEach(qNode => {
+          networkConnections.push({
+            from: node.id,
+            to: qNode.id,
+            strength: Math.random(),
+            type: 'quantum',
+            entanglement: Math.random() > 0.7,
+          });
+        });
+      }
+    });
+
+    return { nodes: networkNodes, connections: networkConnections };
+  };
+
+  const generateQuantumPredictions = (): QuantumPrediction[] => {
+    const games = [
+      { game: 'Lakers vs Warriors', sport: 'NBA' },
+      { game: 'Chiefs vs Bills', sport: 'NFL' },
+      { game: 'Celtics vs Heat', sport: 'NBA' },
+      { game: 'Yankees vs Red Sox', sport: 'MLB' },
+      { game: 'Rangers vs Lightning', sport: 'NHL' },
+    ];
+
+    return games.map((g, index) => {
+      const classicalProb = 0.5 + (Math.random() - 0.5) * 0.3;
+      const quantumAdv = Math.random() * 0.15;
+
+      return {
+        id: `qpred-${index}`,
+        game: g.game,
+        sport: g.sport,
+        prediction: `${Math.random() > 0.5 ? 'Over' : 'Under'} ${(Math.random() * 10 + 20).toFixed(1)}`,
+        confidence: 75 + Math.random() * 20,
+        quantumStates: Math.floor(Math.random() * 512) + 256,
+        superpositions: Math.floor(Math.random() * 32) + 16,
+        entanglements: Math.floor(Math.random() * 16) + 8,
+        classicalProbability: classicalProb,
+        quantumAdvantage: quantumAdv,
+        timestamp: `${Math.floor(Math.random() * 2) + 1}h ago`,
+      };
+    });
+  };
+
+  const generateQuantumMetrics = (): QuantumMetrics => ({
+    coherenceTime: 50 + Math.random() * 50,
+    fidelity: 0.95 + Math.random() * 0.04,
+    entanglementDegree: Math.random() * 0.8 + 0.2,
+    quantumVolume: Math.floor(Math.random() * 64) + 32,
+    errorRate: Math.random() * 0.02 + 0.001,
+  });
+
+  const runQuantumSimulation = () => {
+    if (!isQuantumActive) return;
+
+    setQuantumNodes(prev =>
+      prev.map(node => ({
+        ...node,
+        value:
+          node.type === 'quantum'
+            ? node.superposition
+              ? Math.random()
+              : Math.sin(Date.now() * 0.001 + node.position.x * 0.01)
+            : node.value + (Math.random() - 0.5) * 0.1,
+      }))
+    );
+
+    setQuantumMetrics(generateQuantumMetrics());
+  };
+
+  const getNodeColor = (node: QuantumNode) => {
+    switch (node.type) {
+      case 'input':
+        return '#3B82F6';
+      case 'quantum':
+        if (node.superposition) return '#A855F7';
+        if (node.entangled) return '#06B6D4';
+        return '#8B5CF6';
+      case 'neural':
+        return '#10B981';
+      case 'output':
+        return '#F59E0B';
+      default:
+        return '#6B7280';
+    }
+  };
+
+  const getConnectionColor = (connection: QuantumConnection) => {
+    if (connection.entanglement) return '#EC4899';
+    return connection.type === 'quantum' ? '#8B5CF6' : '#6B7280';
+  };
+
+  const getAlgorithmDescription = (algorithm: string) => {
+    switch (algorithm) {
+      case 'grover':
+        return 'Quantum search algorithm for unstructured databases';
+      case 'shor':
+        return 'Quantum factoring algorithm for cryptographic analysis';
+      case 'qaoa':
+        return 'Quantum Approximate Optimization Algorithm';
+      case 'vqe':
+        return 'Variational Quantum Eigensolver for optimization';
+      default:
+        return 'Advanced quantum computing algorithm';
+    }
+  };
+
   const toggleDetails = (modelId: string) => {
     setShowDetails(prev => ({
       ...prev,
