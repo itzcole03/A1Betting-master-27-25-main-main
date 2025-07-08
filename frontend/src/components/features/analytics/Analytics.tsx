@@ -3222,6 +3222,272 @@ const Analytics: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Weather Intelligence Station */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2.8 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white flex items-center gap-2'>
+              <Cloud className='w-6 h-6 text-cyan-400' />
+              Weather Intelligence Station
+            </h3>
+            <p className='text-gray-400 text-sm'>
+              Environmental impact analysis for outdoor sports
+            </p>
+          </div>
+          <div className='grid grid-cols-4 gap-4 text-center text-sm'>
+            <div>
+              <div className='text-lg font-bold text-cyan-400'>{weatherData.length}</div>
+              <div className='text-gray-400 text-xs'>Games Tracked</div>
+            </div>
+            <div>
+              <div className='text-lg font-bold text-red-400'>
+                {weatherData.filter(w => w.impact.overall === 'high').length}
+              </div>
+              <div className='text-gray-400 text-xs'>High Impact</div>
+            </div>
+            <div>
+              <div className='text-lg font-bold text-blue-400'>
+                {weatherData.filter(w => w.forecast.precipitation > 50).length}
+              </div>
+              <div className='text-gray-400 text-xs'>Rain Expected</div>
+            </div>
+            <div>
+              <div className='text-lg font-bold text-gray-400'>
+                {weatherData.filter(w => w.current.windSpeed > 15).length}
+              </div>
+              <div className='text-gray-400 text-xs'>Windy Games</div>
+            </div>
+          </div>
+        </div>
+
+        <div className='grid grid-cols-1 xl:grid-cols-3 gap-6'>
+          {/* Games Weather List */}
+          <div>
+            <h4 className='text-lg font-medium text-white mb-4'>Games Today</h4>
+            <div className='space-y-3 max-h-96 overflow-y-auto'>
+              {weatherData.map((weather, index) => (
+                <motion.div
+                  key={weather.gameId}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                  className={`bg-slate-900/50 rounded-lg p-3 cursor-pointer transition-all ${
+                    selectedWeatherGame?.gameId === weather.gameId
+                      ? 'border-cyan-500/50 bg-cyan-900/10'
+                      : 'border-gray-700/50 hover:border-cyan-500/30'
+                  }`}
+                  onClick={() => setSelectedWeatherGame(weather)}
+                >
+                  <div className='flex items-start justify-between mb-2'>
+                    <div>
+                      <h5 className='font-bold text-white text-sm'>{weather.game}</h5>
+                      <p className='text-gray-400 text-xs'>{weather.venue}</p>
+                      <p className='text-gray-400 text-xs'>{weather.gameTime}</p>
+                    </div>
+                    <div className='flex items-center gap-2'>
+                      {getWeatherIcon(weather.current.condition)}
+                      <Badge
+                        variant='outline'
+                        className={getWeatherImpactColor(weather.impact.overall)}
+                      >
+                        {weather.impact.overall}
+                      </Badge>
+                    </div>
+                  </div>
+
+                  <div className='grid grid-cols-3 gap-2 text-xs'>
+                    <div className='text-center'>
+                      <div className='text-cyan-400 font-bold'>
+                        {weather.current.temperature.toFixed(0)}°F
+                      </div>
+                      <div className='text-gray-400'>Temp</div>
+                    </div>
+                    <div className='text-center'>
+                      <div className='text-blue-400 font-bold'>
+                        {weather.current.windSpeed.toFixed(0)} mph
+                      </div>
+                      <div className='text-gray-400'>Wind</div>
+                    </div>
+                    <div className='text-center'>
+                      <div className='text-purple-400 font-bold'>
+                        {weather.current.humidity.toFixed(0)}%
+                      </div>
+                      <div className='text-gray-400'>Humidity</div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Current Conditions */}
+          <div>
+            {selectedWeatherGame && (
+              <div className='bg-slate-900/50 rounded-lg p-4'>
+                <h4 className='text-lg font-medium text-white mb-4 flex items-center gap-2'>
+                  {getWeatherIcon(selectedWeatherGame.current.condition)}
+                  Current Conditions - {selectedWeatherGame.city}
+                </h4>
+
+                <div className='grid grid-cols-2 gap-4 mb-4'>
+                  <div className='text-center'>
+                    <Thermometer className='w-6 h-6 text-red-400 mx-auto mb-2' />
+                    <div className='text-xl font-bold text-red-400'>
+                      {selectedWeatherGame.current.temperature.toFixed(0)}°F
+                    </div>
+                    <div className='text-sm text-gray-400'>Temperature</div>
+                  </div>
+
+                  <div className='text-center'>
+                    <Wind className='w-6 h-6 text-blue-400 mx-auto mb-2' />
+                    <div className='text-xl font-bold text-blue-400'>
+                      {selectedWeatherGame.current.windSpeed.toFixed(0)} mph
+                    </div>
+                    <div className='text-sm text-gray-400'>
+                      Wind {selectedWeatherGame.current.windDirection}
+                    </div>
+                  </div>
+
+                  <div className='text-center'>
+                    <Droplets className='w-6 h-6 text-purple-400 mx-auto mb-2' />
+                    <div className='text-xl font-bold text-purple-400'>
+                      {selectedWeatherGame.current.humidity.toFixed(0)}%
+                    </div>
+                    <div className='text-sm text-gray-400'>Humidity</div>
+                  </div>
+
+                  <div className='text-center'>
+                    <Eye className='w-6 h-6 text-green-400 mx-auto mb-2' />
+                    <div className='text-xl font-bold text-green-400'>
+                      {selectedWeatherGame.current.visibility.toFixed(1)} mi
+                    </div>
+                    <div className='text-sm text-gray-400'>Visibility</div>
+                  </div>
+                </div>
+
+                <div className='space-y-2'>
+                  <div className='flex justify-between text-sm'>
+                    <span className='text-gray-400'>Condition:</span>
+                    <span className='text-white'>{selectedWeatherGame.current.condition}</span>
+                  </div>
+                  <div className='flex justify-between text-sm'>
+                    <span className='text-gray-400'>Pressure:</span>
+                    <span className='text-white'>
+                      {selectedWeatherGame.current.pressure.toFixed(2)} inHg
+                    </span>
+                  </div>
+                  <div className='flex justify-between text-sm'>
+                    <span className='text-gray-400'>Precipitation:</span>
+                    <span className='text-blue-400'>
+                      {selectedWeatherGame.forecast.precipitation.toFixed(0)}%
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Impact Analysis */}
+          <div>
+            {selectedWeatherGame && (
+              <div className='bg-slate-900/50 rounded-lg p-4'>
+                <h4 className='text-lg font-medium text-white mb-4'>Impact Analysis</h4>
+
+                <div className='space-y-4'>
+                  <div>
+                    <div className='flex justify-between text-sm mb-2'>
+                      <span className='text-gray-400'>Overall Impact</span>
+                      <Badge
+                        variant='outline'
+                        className={getWeatherImpactColor(selectedWeatherGame.impact.overall)}
+                      >
+                        {selectedWeatherGame.impact.overall.toUpperCase()}
+                      </Badge>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className='flex justify-between text-sm mb-1'>
+                      <span className='text-gray-400'>Passing Conditions</span>
+                      <span className='text-green-400 font-bold'>
+                        {selectedWeatherGame.impact.passing.toFixed(0)}%
+                      </span>
+                    </div>
+                    <div className='w-full bg-gray-700 rounded-full h-2'>
+                      <div
+                        className='bg-green-400 h-2 rounded-full'
+                        style={{ width: `${selectedWeatherGame.impact.passing}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className='flex justify-between text-sm mb-1'>
+                      <span className='text-gray-400'>Kicking Conditions</span>
+                      <span className='text-blue-400 font-bold'>
+                        {selectedWeatherGame.impact.kicking.toFixed(0)}%
+                      </span>
+                    </div>
+                    <div className='w-full bg-gray-700 rounded-full h-2'>
+                      <div
+                        className='bg-blue-400 h-2 rounded-full'
+                        style={{ width: `${selectedWeatherGame.impact.kicking}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className='flex justify-between text-sm mb-1'>
+                      <span className='text-gray-400'>Visibility</span>
+                      <span className='text-cyan-400 font-bold'>
+                        {selectedWeatherGame.impact.visibility.toFixed(0)}%
+                      </span>
+                    </div>
+                    <div className='w-full bg-gray-700 rounded-full h-2'>
+                      <div
+                        className='bg-cyan-400 h-2 rounded-full'
+                        style={{ width: `${selectedWeatherGame.impact.visibility}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className='flex justify-between text-sm mb-1'>
+                      <span className='text-gray-400'>Player Comfort</span>
+                      <span className='text-purple-400 font-bold'>
+                        {selectedWeatherGame.impact.player_comfort.toFixed(0)}%
+                      </span>
+                    </div>
+                    <div className='w-full bg-gray-700 rounded-full h-2'>
+                      <div
+                        className='bg-purple-400 h-2 rounded-full'
+                        style={{ width: `${selectedWeatherGame.impact.player_comfort}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className='mt-4 p-3 bg-slate-800/50 rounded-lg'>
+                    <h5 className='text-sm font-bold text-white mb-2'>Weather Recommendation</h5>
+                    <p className='text-xs text-gray-400'>
+                      {selectedWeatherGame.impact.overall === 'high'
+                        ? 'Significant weather impact expected. Consider under bets and reduced scoring.'
+                        : selectedWeatherGame.impact.overall === 'medium'
+                          ? 'Moderate weather impact. Monitor conditions closely.'
+                          : 'Minimal weather impact expected. Normal betting conditions.'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </motion.div>
     </Layout>
   );
 };
