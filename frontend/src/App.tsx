@@ -13,6 +13,7 @@ const ArbitrageScanner = React.lazy(
   () => import('./components/features/arbitrage/ArbitrageScanner')
 );
 const PrizePicksProUnified = React.lazy(() => import('./components/PrizePicksProUnified'));
+const PrizePicksProTestPage = React.lazy(() => import('./components/PrizePicksProTestPage'));
 const LiveBetting = React.lazy(() => import('./components/features/livebetting/LiveBetting'));
 
 // Analytics & AI components
