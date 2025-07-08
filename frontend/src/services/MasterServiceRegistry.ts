@@ -130,9 +130,9 @@ class MasterServiceRegistry {
       { name: 'notifications', service: new UnifiedNotificationService() },
       { name: 'state', service: new UnifiedStateService() },
       { name: 'cache', service: UnifiedCache.getInstance() },
-      { name: 'errors', service: new UnifiedErrorService() },
-      { name: 'logger', service: new UnifiedLogger() },
-      { name: 'websocket', service: new UnifiedWebSocketService() },
+      { name: 'errors', service: UnifiedErrorService.getInstance() },
+      { name: 'logger', service: UnifiedLogger.getInstance() },
+      { name: 'websocket', service: UnifiedWebSocketService.getInstance() },
     ];
 
     for (const { name, service } of unifiedServices) {
