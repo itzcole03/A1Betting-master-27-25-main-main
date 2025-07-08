@@ -248,6 +248,7 @@ const Analytics: React.FC = () => {
     loadInjuryData();
     loadQuantumData();
     loadWeatherData();
+    loadNewsData();
   }, [selectedModel, timeRange]);
 
   useEffect(() => {
