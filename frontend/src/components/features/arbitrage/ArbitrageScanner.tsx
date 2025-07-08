@@ -1012,6 +1012,291 @@ const ArbitrageScanner: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Event-Driven Analytics Engine */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Event-Driven Analytics Engine</h3>
+            <p className='text-gray-400 text-sm'>
+              Real-time event processing with automated strategy coordination
+            </p>
+          </div>
+          <Activity className='w-6 h-6 text-cyan-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Live Event Stream</h4>
+            <div className='space-y-2'>
+              {[
+                {
+                  type: 'market_update',
+                  timestamp: '2s ago',
+                  data: 'Lakers -5.5 → -6.0',
+                  priority: 'high',
+                  processed: true,
+                },
+                {
+                  type: 'prediction_update',
+                  timestamp: '8s ago',
+                  data: 'LeBron Over 25.5 Pts: 89.4%',
+                  priority: 'medium',
+                  processed: true,
+                },
+                {
+                  type: 'risk_violation',
+                  timestamp: '15s ago',
+                  data: 'Portfolio heat: 24.7%',
+                  priority: 'high',
+                  processed: true,
+                },
+                {
+                  type: 'system_alert',
+                  timestamp: '32s ago',
+                  data: 'Model accuracy: 94.2%',
+                  priority: 'low',
+                  processed: true,
+                },
+                {
+                  type: 'arbitrage_found',
+                  timestamp: '1m ago',
+                  data: 'Warriors ML: 3.2% edge',
+                  priority: 'high',
+                  processed: true,
+                },
+              ].map((event, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-2'>
+                  <div className='flex items-center justify-between mb-1'>
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${
+                        event.priority === 'high'
+                          ? 'bg-red-500/20 text-red-400'
+                          : event.priority === 'medium'
+                            ? 'bg-yellow-500/20 text-yellow-400'
+                            : 'bg-green-500/20 text-green-400'
+                      }`}
+                    >
+                      {event.type.replace('_', ' ')}
+                    </span>
+                    <span className='text-gray-400 text-xs'>{event.timestamp}</span>
+                  </div>
+                  <div className='text-white text-xs'>{event.data}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Analytics Metrics</h4>
+            <div className='space-y-3'>
+              <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                <div className='text-2xl font-bold text-cyan-400 mb-1'>23,847</div>
+                <div className='text-xs text-gray-400'>Total Events Processed</div>
+              </div>
+              <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                <div className='text-2xl font-bold text-green-400 mb-1'>47ms</div>
+                <div className='text-xs text-gray-400'>Avg Processing Latency</div>
+              </div>
+              <div className='space-y-2'>
+                {[
+                  { type: 'Market Updates', count: 8934, rate: '99.8%' },
+                  { type: 'Predictions', count: 4567, rate: '98.7%' },
+                  { type: 'Risk Events', count: 1234, rate: '100%' },
+                  { type: 'System Alerts', count: 567, rate: '99.9%' },
+                ].map((metric, index) => (
+                  <div key={index} className='flex items-center justify-between text-xs'>
+                    <span className='text-gray-400'>{metric.type}</span>
+                    <div className='text-right'>
+                      <span className='text-white'>{metric.count}</span>
+                      <div className='text-green-400'>{metric.rate}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Event Processing Config</h4>
+            <div className='space-y-3'>
+              {[
+                { setting: 'Sample Rate', value: '100%', status: 'Active' },
+                { setting: 'Batch Size', value: '100 events', status: 'Optimal' },
+                { setting: 'Flush Interval', value: '5s', status: 'Active' },
+                { setting: 'Retention Period', value: '30 days', status: 'Configured' },
+              ].map((config, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-1'>
+                    <span className='text-white text-sm font-medium'>{config.setting}</span>
+                    <span className='text-green-400 text-xs'>{config.status}</span>
+                  </div>
+                  <div className='text-cyan-400 text-xs'>{config.value}</div>
+                </div>
+              ))}
+
+              <div className='bg-slate-800/50 rounded-lg p-3'>
+                <div className='text-center'>
+                  <div className='text-lg font-bold text-purple-400 mb-1'>0.03%</div>
+                  <div className='text-xs text-gray-400'>Error Rate</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Unified Betting Coordination */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.3 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Unified Betting Coordination</h3>
+            <p className='text-gray-400 text-sm'>
+              Advanced betting analysis with hedging opportunities and risk assessment
+            </p>
+          </div>
+          <Target className='w-6 h-6 text-green-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Betting Analysis Results</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  id: 'analysis-001',
+                  market: 'Lakers vs Warriors ML',
+                  predictionConfidence: 87.4,
+                  recommendedStake: 420,
+                  expectedValue: 18.7,
+                  riskLevel: 'medium',
+                  riskFactors: ['High volatility market', 'Injury report pending'],
+                },
+                {
+                  id: 'analysis-002',
+                  market: 'LeBron Over 25.5 Pts',
+                  predictionConfidence: 94.2,
+                  recommendedStake: 525,
+                  expectedValue: 23.4,
+                  riskLevel: 'low',
+                  riskFactors: ['Optimal matchup', 'Strong recent form'],
+                },
+                {
+                  id: 'analysis-003',
+                  market: 'Game Total Under 219.5',
+                  predictionConfidence: 79.8,
+                  recommendedStake: 315,
+                  expectedValue: 12.1,
+                  riskLevel: 'high',
+                  riskFactors: ['Weather dependency', 'Line movement active'],
+                },
+              ].map((analysis, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{analysis.market}</span>
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${
+                        analysis.riskLevel === 'low'
+                          ? 'bg-green-500/20 text-green-400'
+                          : analysis.riskLevel === 'medium'
+                            ? 'bg-yellow-500/20 text-yellow-400'
+                            : 'bg-red-500/20 text-red-400'
+                      }`}
+                    >
+                      {analysis.riskLevel} risk
+                    </span>
+                  </div>
+                  <div className='grid grid-cols-2 gap-2 text-xs mb-2'>
+                    <div className='text-gray-400'>
+                      Confidence:{' '}
+                      <span className='text-cyan-400'>{analysis.predictionConfidence}%</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Stake: <span className='text-yellow-400'>${analysis.recommendedStake}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Expected Value:{' '}
+                      <span className='text-green-400'>+{analysis.expectedValue}%</span>
+                    </div>
+                  </div>
+                  <div className='text-xs text-gray-400'>
+                    Risk Factors: {analysis.riskFactors.join(', ')}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Hedging Opportunities</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  primaryMarket: 'Lakers ML',
+                  hedgeMarket: 'Warriors +6.5',
+                  hedgeOdds: 1.95,
+                  recommendedStake: 180,
+                  guaranteedProfit: 67,
+                  riskReduction: '78%',
+                },
+                {
+                  primaryMarket: 'Over 219.5',
+                  hedgeMarket: 'Under 220.5 (Alt)',
+                  hedgeOdds: 2.1,
+                  recommendedStake: 140,
+                  guaranteedProfit: 43,
+                  riskReduction: '65%',
+                },
+                {
+                  primaryMarket: 'LeBron Over 25.5',
+                  hedgeMarket: 'LeBron Under 28.5',
+                  hedgeOdds: 1.87,
+                  recommendedStake: 95,
+                  guaranteedProfit: 28,
+                  riskReduction: '45%',
+                },
+              ].map((hedge, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='text-white font-medium text-sm mb-2'>
+                    {hedge.primaryMarket} → {hedge.hedgeMarket}
+                  </div>
+                  <div className='grid grid-cols-2 gap-2 text-xs'>
+                    <div className='text-gray-400'>
+                      Hedge Odds: <span className='text-white'>{hedge.hedgeOdds}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Stake: <span className='text-yellow-400'>${hedge.recommendedStake}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Guaranteed: <span className='text-green-400'>${hedge.guaranteedProfit}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Risk Reduction: <span className='text-purple-400'>{hedge.riskReduction}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              <div className='bg-slate-800/50 rounded-lg p-3'>
+                <div className='text-center'>
+                  <div className='text-lg font-bold text-green-400 mb-1'>$138</div>
+                  <div className='text-xs text-gray-400'>Total Hedging Profit</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </Layout>
   );
 };
