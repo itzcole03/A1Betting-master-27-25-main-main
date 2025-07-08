@@ -21,6 +21,7 @@ const QuantumAI = React.lazy(() => import('./components/features/quantum/Quantum
 const NewsHub = React.lazy(() => import('./components/features/news/NewsHub'));
 const WeatherStation = React.lazy(() => import('./components/features/weather/WeatherStation'));
 const InjuryTracker = React.lazy(() => import('./components/features/injuries/InjuryTracker'));
+const LineupBuilder = React.lazy(() => import('./components/features/lineup/LineupBuilder'));
 
 // Placeholder components for features not yet implemented
 const PlaceholderComponent: React.FC<{ title: string; description: string }> = ({
@@ -59,9 +60,7 @@ const componentMap: Record<string, React.ComponentType> = {
   news: NewsHub,
   weather: WeatherStation,
   injuries: InjuryTracker,
-  lineup: () => (
-    <PlaceholderComponent title='Lineup Builder' description='Smart lineup optimization' />
-  ),
+  lineup: LineupBuilder,
   predictions: () => (
     <PlaceholderComponent title='AI Predictions' description='Advanced prediction algorithms' />
   ),
