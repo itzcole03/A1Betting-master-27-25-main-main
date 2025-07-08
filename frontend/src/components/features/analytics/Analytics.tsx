@@ -176,6 +176,31 @@ interface WeatherData {
   };
 }
 
+interface NewsArticle {
+  id: string;
+  title: string;
+  summary: string;
+  source: string;
+  author: string;
+  timestamp: string;
+  category: 'breaking' | 'injury' | 'trade' | 'analysis' | 'prediction';
+  sport: string;
+  team?: string;
+  player?: string;
+  impact: 'high' | 'medium' | 'low';
+  credibility: number;
+  engagement: number;
+  url: string;
+  imageUrl?: string;
+}
+
+interface NewsImpactTopic {
+  topic: string;
+  mentions: number;
+  sentiment: 'positive' | 'negative' | 'neutral';
+  growth: number;
+}
+
 const Analytics: React.FC = () => {
   const [models, setModels] = useState<ModelMetrics[]>([]);
   const [featureImportance, setFeatureImportance] = useState<FeatureImportance[]>([]);
