@@ -233,6 +233,16 @@ const Analytics: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
   const [selectedWeatherGame, setSelectedWeatherGame] = useState<WeatherData | null>(null);
 
+  // News Hub state
+  const [newsArticles, setNewsArticles] = useState<NewsArticle[]>([]);
+  const [newsTopics, setNewsTopics] = useState<NewsImpactTopic[]>([]);
+  const [selectedNewsCategory, setSelectedNewsCategory] = useState<string>('all');
+  const [selectedNewsSport, setSelectedNewsSport] = useState<string>('all');
+  const [newsSearchQuery, setNewsSearchQuery] = useState<string>('');
+  const [newsSortBy, setNewsSortBy] = useState<
+    'timestamp' | 'impact' | 'credibility' | 'engagement'
+  >('timestamp');
+
   useEffect(() => {
     loadAnalyticsData();
     loadInjuryData();
