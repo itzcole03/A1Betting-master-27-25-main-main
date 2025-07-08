@@ -551,6 +551,294 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Strategy Automation Engine */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.0 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Strategy Automation Engine</h3>
+            <p className='text-gray-400 text-sm'>
+              Automated strategy execution with adaptive risk management
+            </p>
+          </div>
+          <div className='flex items-center space-x-2'>
+            <div className='w-3 h-3 bg-yellow-400 rounded-full animate-pulse'></div>
+            <span className='text-yellow-400 text-sm font-medium'>Auto-Trading</span>
+          </div>
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Active Strategies</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  name: 'Momentum Arbitrage',
+                  status: 'Running',
+                  trades: 23,
+                  pnl: '+$2,847',
+                  winRate: 89.1,
+                  active: true,
+                },
+                {
+                  name: 'Value Line Hunter',
+                  status: 'Running',
+                  trades: 18,
+                  pnl: '+$1,923',
+                  winRate: 83.3,
+                  active: true,
+                },
+                {
+                  name: 'Correlation Fade',
+                  status: 'Paused',
+                  trades: 7,
+                  pnl: '+$456',
+                  winRate: 71.4,
+                  active: false,
+                },
+                {
+                  name: 'Live Betting Edge',
+                  status: 'Running',
+                  trades: 31,
+                  pnl: '+$3,122',
+                  winRate: 87.1,
+                  active: true,
+                },
+              ].map((strategy, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <div className='flex items-center space-x-2'>
+                      <div
+                        className={`w-2 h-2 rounded-full ${strategy.active ? 'bg-green-400' : 'bg-gray-400'}`}
+                      ></div>
+                      <span className='text-white font-medium text-sm'>{strategy.name}</span>
+                    </div>
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${
+                        strategy.status === 'Running'
+                          ? 'bg-green-500/20 text-green-400'
+                          : 'bg-yellow-500/20 text-yellow-400'
+                      }`}
+                    >
+                      {strategy.status}
+                    </span>
+                  </div>
+                  <div className='grid grid-cols-2 gap-2 text-xs'>
+                    <div className='text-gray-400'>
+                      Trades: <span className='text-white'>{strategy.trades}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      P&L: <span className='text-green-400'>{strategy.pnl}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Win Rate: <span className='text-cyan-400'>{strategy.winRate}%</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Risk Controls</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  control: 'Max Position Size',
+                  current: '$2,500',
+                  limit: '$5,000',
+                  status: 'Safe',
+                },
+                { control: 'Daily Drawdown', current: '-1.2%', limit: '-5%', status: 'Safe' },
+                { control: 'Correlation Limit', current: '0.23', limit: '0.40', status: 'Safe' },
+                { control: 'Volatility Filter', current: '18.4%', limit: '25%', status: 'Safe' },
+              ].map((control, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{control.control}</span>
+                    <span className='text-green-400 text-xs'>{control.status}</span>
+                  </div>
+                  <div className='flex items-center justify-between text-xs'>
+                    <span className='text-gray-400'>
+                      Current: <span className='text-white'>{control.current}</span>
+                    </span>
+                    <span className='text-gray-400'>
+                      Limit: <span className='text-red-400'>{control.limit}</span>
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Performance Metrics</h4>
+            <div className='space-y-3'>
+              <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                <div className='text-2xl font-bold text-green-400 mb-1'>+18.7%</div>
+                <div className='text-xs text-gray-400'>Total Return (MTD)</div>
+              </div>
+              <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                <div className='text-2xl font-bold text-cyan-400 mb-1'>2.34</div>
+                <div className='text-xs text-gray-400'>Sharpe Ratio</div>
+              </div>
+              <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                <div className='text-2xl font-bold text-purple-400 mb-1'>-3.2%</div>
+                <div className='text-xs text-gray-400'>Max Drawdown</div>
+              </div>
+              <div className='space-y-2'>
+                {[
+                  { metric: 'Win Rate', value: '84.2%' },
+                  { metric: 'Avg Trade', value: '+$247' },
+                  { metric: 'Profit Factor', value: '2.86' },
+                ].map((item, index) => (
+                  <div key={index} className='flex items-center justify-between text-xs'>
+                    <span className='text-gray-400'>{item.metric}</span>
+                    <span className='text-white font-medium'>{item.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Portfolio Intelligence Hub */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.1 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Portfolio Intelligence Hub</h3>
+            <p className='text-gray-400 text-sm'>
+              AI-driven portfolio optimization and rebalancing recommendations
+            </p>
+          </div>
+          <Brain className='w-6 h-6 text-purple-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Optimization Signals</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  signal: 'Rebalance NBA Exposure',
+                  priority: 'HIGH',
+                  action: 'Reduce by 5%',
+                  reason: 'Season ending, volatility increasing',
+                  impact: '+2.3% expected return',
+                  confidence: 91,
+                },
+                {
+                  signal: 'Increase Arbitrage Allocation',
+                  priority: 'MEDIUM',
+                  action: 'Add $2,500',
+                  reason: 'Market inefficiencies detected',
+                  impact: '+1.8% expected return',
+                  confidence: 87,
+                },
+                {
+                  signal: 'Diversify Sport Exposure',
+                  priority: 'LOW',
+                  action: 'Add NHL props',
+                  reason: 'Low correlation to current holdings',
+                  impact: '+0.9% risk reduction',
+                  confidence: 73,
+                },
+              ].map((signal, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{signal.signal}</span>
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${
+                        signal.priority === 'HIGH'
+                          ? 'bg-red-500/20 text-red-400'
+                          : signal.priority === 'MEDIUM'
+                            ? 'bg-yellow-500/20 text-yellow-400'
+                            : 'bg-green-500/20 text-green-400'
+                      }`}
+                    >
+                      {signal.priority}
+                    </span>
+                  </div>
+                  <div className='text-cyan-400 text-sm mb-2'>{signal.action}</div>
+                  <div className='text-gray-400 text-xs mb-2'>{signal.reason}</div>
+                  <div className='flex items-center justify-between'>
+                    <span className='text-green-400 text-xs'>{signal.impact}</span>
+                    <span className='text-purple-400 text-xs'>{signal.confidence}% confidence</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Smart Alerts</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  type: 'Market Opportunity',
+                  message: 'Lakers-Warriors line movement creating arbitrage',
+                  timestamp: '2 minutes ago',
+                  severity: 'info',
+                  action: 'Execute arbitrage strategy',
+                },
+                {
+                  type: 'Risk Warning',
+                  message: 'Correlation spike detected in NBA props',
+                  timestamp: '5 minutes ago',
+                  severity: 'warning',
+                  action: 'Reduce position sizing',
+                },
+                {
+                  type: 'Performance Alert',
+                  message: 'Value strategy outperforming by 15%',
+                  timestamp: '12 minutes ago',
+                  severity: 'success',
+                  action: 'Consider increasing allocation',
+                },
+                {
+                  type: 'System Update',
+                  message: 'New ML model deployed successfully',
+                  timestamp: '1 hour ago',
+                  severity: 'info',
+                  action: 'Review model performance',
+                },
+              ].map((alert, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span
+                      className={`text-sm font-medium ${
+                        alert.severity === 'success'
+                          ? 'text-green-400'
+                          : alert.severity === 'warning'
+                            ? 'text-yellow-400'
+                            : alert.severity === 'error'
+                              ? 'text-red-400'
+                              : 'text-cyan-400'
+                      }`}
+                    >
+                      {alert.type}
+                    </span>
+                    <span className='text-gray-400 text-xs'>{alert.timestamp}</span>
+                  </div>
+                  <div className='text-white text-sm mb-2'>{alert.message}</div>
+                  <div className='text-purple-400 text-xs'>{alert.action}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </Layout>
   );
 };
