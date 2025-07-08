@@ -775,6 +775,183 @@ const Analytics: React.FC = () => {
     }
   };
 
+  const loadNewsData = async () => {
+    try {
+      const sports = ['NBA', 'NFL', 'MLB', 'NHL', 'Soccer'];
+      const categories = ['breaking', 'injury', 'trade', 'analysis', 'prediction'] as const;
+      const sources = [
+        'ESPN',
+        'The Athletic',
+        'Bleacher Report',
+        'Yahoo Sports',
+        'CBS Sports',
+        'NBC Sports',
+      ];
+
+      const sampleNews = [
+        {
+          title: "Star Player Questionable for Tonight's Game",
+          summary:
+            'Team officials report that the All-Star player is dealing with a minor injury that could affect availability for the crucial matchup tonight.',
+        },
+        {
+          title: 'Trade Deadline Approaching: Teams Making Final Moves',
+          summary:
+            'Multiple teams are reportedly in talks for last-minute trades that could reshape the playoff picture.',
+        },
+        {
+          title: 'Weather Forecast Could Impact Outdoor Games',
+          summary:
+            'Meteorologists predict adverse conditions that may affect several games scheduled for this weekend.',
+        },
+        {
+          title: 'Record-Breaking Performance Lights Up Social Media',
+          summary:
+            "Fans and analysts are buzzing about a historic achievement that happened in last night's game.",
+        },
+        {
+          title: 'Coaching Change Rumored After Poor Start',
+          summary:
+            'Sources close to the organization suggest management is considering major changes following recent struggles.',
+        },
+        {
+          title: 'Rookie Sensation Continues Impressive Campaign',
+          summary:
+            'The first-year player has exceeded all expectations and is now in the conversation for major awards.',
+        },
+        {
+          title: 'Vegas Lines Moving Significantly on Upcoming Matchup',
+          summary:
+            'Sharp money appears to be influencing odds on what was expected to be a straightforward game.',
+        },
+        {
+          title: 'International Player Visa Issues Cause Uncertainty',
+          summary:
+            'Administrative complications could sideline key international talent for several games.',
+        },
+      ];
+
+      const newsData: NewsArticle[] = Array.from({ length: 12 }, (_, index) => {
+        const category = categories[Math.floor(Math.random() * categories.length)];
+        const sport = sports[Math.floor(Math.random() * sports.length)];
+        const newsItem = sampleNews[Math.floor(Math.random() * sampleNews.length)];
+
+        return {
+          id: `news-${index}`,
+          title: newsItem.title,
+          summary: newsItem.summary,
+          source: sources[Math.floor(Math.random() * sources.length)],
+          author: `Reporter ${Math.floor(Math.random() * 100)}`,
+          timestamp: `${Math.floor(Math.random() * 12) + 1}h ago`,
+          category,
+          sport,
+          team: Math.random() > 0.5 ? `Team ${Math.floor(Math.random() * 30) + 1}` : undefined,
+          player: Math.random() > 0.6 ? `Player ${Math.floor(Math.random() * 100) + 1}` : undefined,
+          impact: Math.random() > 0.7 ? 'high' : Math.random() > 0.4 ? 'medium' : 'low',
+          credibility: 70 + Math.random() * 30,
+          engagement: Math.floor(Math.random() * 10000),
+          url: `https://example.com/article-${index}`,
+          imageUrl:
+            Math.random() > 0.5 ? `https://picsum.photos/300/200?random=${index}` : undefined,
+        };
+      });
+
+      const topics = [
+        'Trade Deadline',
+        'Playoff Race',
+        'MVP Candidates',
+        'Injury Updates',
+        'Rookie Records',
+        'Coaching Changes',
+        'Contract Extensions',
+        'Draft Prospects',
+      ];
+
+      const topicsData: NewsImpactTopic[] = topics.map(topic => ({
+        topic,
+        mentions: Math.floor(Math.random() * 5000 + 1000),
+        sentiment: Math.random() > 0.5 ? 'positive' : Math.random() > 0.5 ? 'neutral' : 'negative',
+        growth: (Math.random() - 0.5) * 200,
+      }));
+
+      setNewsArticles(newsData);
+      setNewsTopics(topicsData);
+    } catch (error) {
+      console.error('Failed to load news data:', error);
+    }
+  };
+
+  const getNewsCategoryIcon = (category: string) => {
+    switch (category) {
+      case 'breaking':
+        return <AlertTriangle className='w-4 h-4' />;
+      case 'injury':
+        return <Heart className='w-4 h-4' />;
+      case 'trade':
+        return <Users className='w-4 h-4' />;
+      case 'analysis':
+        return <Brain className='w-4 h-4' />;
+      case 'prediction':
+        return <Target className='w-4 h-4' />;
+      default:
+        return <BookOpen className='w-4 h-4' />;
+    }
+  };
+
+  const getNewsImpactColor = (impact: string) => {
+    switch (impact) {
+      case 'high':
+        return 'text-red-400 border-red-400';
+      case 'medium':
+        return 'text-yellow-400 border-yellow-400';
+      case 'low':
+        return 'text-green-400 border-green-400';
+      default:
+        return 'text-gray-400 border-gray-400';
+    }
+  };
+
+  const getNewsSentimentColor = (sentiment: string) => {
+    switch (sentiment) {
+      case 'positive':
+        return 'text-green-400';
+      case 'negative':
+        return 'text-red-400';
+      case 'neutral':
+        return 'text-gray-400';
+      default:
+        return 'text-gray-400';
+    }
+  };
+
+  // Filter and sort news articles
+  const filteredNewsArticles = newsArticles
+    .filter(article => {
+      if (selectedNewsCategory !== 'all' && article.category !== selectedNewsCategory) return false;
+      if (selectedNewsSport !== 'all' && article.sport !== selectedNewsSport) return false;
+      if (
+        newsSearchQuery &&
+        !article.title.toLowerCase().includes(newsSearchQuery.toLowerCase()) &&
+        !article.summary.toLowerCase().includes(newsSearchQuery.toLowerCase())
+      )
+        return false;
+      return true;
+    })
+    .sort((a, b) => {
+      switch (newsSortBy) {
+        case 'impact':
+          const impactOrder = { high: 3, medium: 2, low: 1 };
+          return impactOrder[b.impact] - impactOrder[a.impact];
+        case 'credibility':
+          return b.credibility - a.credibility;
+        case 'engagement':
+          return b.engagement - a.engagement;
+        case 'timestamp':
+        default:
+          return 0; // Mock timestamp sorting
+      }
+    });
+
   const toggleDetails = (modelId: string) => {
     setShowDetails(prev => ({
       ...prev,
