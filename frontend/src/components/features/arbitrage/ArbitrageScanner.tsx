@@ -716,6 +716,300 @@ const ArbitrageScanner: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Arbitrage Intelligence Hub */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.0 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Arbitrage Intelligence Hub</h3>
+            <p className='text-gray-400 text-sm'>
+              Advanced market analysis and opportunity prediction
+            </p>
+          </div>
+          <Brain className='w-6 h-6 text-purple-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Market Inefficiency Tracker</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  market: 'NBA Player Props',
+                  inefficiency: 8.7,
+                  trend: 'increasing',
+                  opportunities: 47,
+                },
+                {
+                  market: 'NFL Game Totals',
+                  inefficiency: 5.2,
+                  trend: 'stable',
+                  opportunities: 23,
+                },
+                {
+                  market: 'NHL Moneylines',
+                  inefficiency: 6.9,
+                  trend: 'decreasing',
+                  opportunities: 31,
+                },
+                {
+                  market: 'MLB Run Lines',
+                  inefficiency: 4.1,
+                  trend: 'increasing',
+                  opportunities: 18,
+                },
+              ].map((market, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{market.market}</span>
+                    <span className='text-green-400 font-bold text-sm'>{market.inefficiency}%</span>
+                  </div>
+                  <div className='flex items-center justify-between'>
+                    <div className='flex items-center space-x-2'>
+                      <span
+                        className={`text-xs ${
+                          market.trend === 'increasing'
+                            ? 'text-green-400'
+                            : market.trend === 'decreasing'
+                              ? 'text-red-400'
+                              : 'text-gray-400'
+                        }`}
+                      >
+                        {market.trend === 'increasing'
+                          ? '↗'
+                          : market.trend === 'decreasing'
+                            ? '↘'
+                            : '→'}
+                      </span>
+                      <span className='text-gray-400 text-xs'>{market.trend}</span>
+                    </div>
+                    <span className='text-cyan-400 text-xs'>{market.opportunities} opps</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Bookmaker Correlation Matrix</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  book1: 'DraftKings',
+                  book2: 'FanDuel',
+                  correlation: 0.23,
+                  arbs: 34,
+                  avgProfit: 3.2,
+                },
+                { book1: 'BetMGM', book2: 'Caesars', correlation: 0.18, arbs: 28, avgProfit: 4.1 },
+                {
+                  book1: 'PointsBet',
+                  book2: 'Unibet',
+                  correlation: 0.31,
+                  arbs: 19,
+                  avgProfit: 5.7,
+                },
+                {
+                  book1: 'Barstool',
+                  book2: 'WynnBET',
+                  correlation: 0.15,
+                  arbs: 42,
+                  avgProfit: 2.9,
+                },
+              ].map((pair, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>
+                      {pair.book1} × {pair.book2}
+                    </span>
+                    <span className='text-purple-400 text-xs'>
+                      {pair.correlation.toFixed(2)} corr
+                    </span>
+                  </div>
+                  <div className='grid grid-cols-2 gap-2 text-xs'>
+                    <div className='text-gray-400'>Arbs: {pair.arbs}</div>
+                    <div className='text-green-400'>Avg: {pair.avgProfit}%</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Opportunity Prediction</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  timeframe: 'Next Hour',
+                  predicted: 23,
+                  confidence: 87,
+                  type: 'High Volume Expected',
+                },
+                {
+                  timeframe: 'Next 4 Hours',
+                  predicted: 89,
+                  confidence: 82,
+                  type: 'Line Movement Phase',
+                },
+                { timeframe: 'Today', predicted: 247, confidence: 79, type: 'Game Day Volatility' },
+                {
+                  timeframe: 'This Week',
+                  predicted: 1340,
+                  confidence: 74,
+                  type: 'Normal Activity',
+                },
+              ].map((pred, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{pred.timeframe}</span>
+                    <span className='text-cyan-400 font-bold text-sm'>{pred.predicted}</span>
+                  </div>
+                  <div className='flex items-center justify-between mb-1'>
+                    <span className='text-gray-400 text-xs'>Confidence: {pred.confidence}%</span>
+                    <div className='w-16 bg-slate-700 rounded-full h-1'>
+                      <div
+                        className='h-1 bg-cyan-400 rounded-full'
+                        style={{ width: `${pred.confidence}%` }}
+                      />
+                    </div>
+                  </div>
+                  <div className='text-yellow-400 text-xs'>{pred.type}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Advanced Risk Management */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.1 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Advanced Risk Management</h3>
+            <p className='text-gray-400 text-sm'>
+              Multi-layer risk assessment for arbitrage opportunities
+            </p>
+          </div>
+          <Shield className='w-6 h-6 text-orange-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Risk Factors Matrix</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  factor: 'Bookmaker Reliability',
+                  level: 'LOW',
+                  score: 92,
+                  details: ['Grade A+ operators', 'Fast payouts', 'High limits'],
+                },
+                {
+                  factor: 'Market Volatility',
+                  level: 'MEDIUM',
+                  score: 67,
+                  details: ['Active line movement', 'High betting volume', 'News sensitivity'],
+                },
+                {
+                  factor: 'Time to Game',
+                  level: 'HIGH',
+                  score: 34,
+                  details: [
+                    'Game starts in 45 mins',
+                    'Limited execution time',
+                    'Increased variance',
+                  ],
+                },
+                {
+                  factor: 'Position Size Risk',
+                  level: 'LOW',
+                  score: 89,
+                  details: ['Within bankroll limits', 'Diversified exposure', 'Appropriate sizing'],
+                },
+              ].map((risk, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{risk.factor}</span>
+                    <div className='flex items-center space-x-2'>
+                      <span className='text-cyan-400 text-xs'>{risk.score}/100</span>
+                      <span
+                        className={`text-xs px-2 py-1 rounded-full ${
+                          risk.level === 'LOW'
+                            ? 'bg-green-500/20 text-green-400'
+                            : risk.level === 'MEDIUM'
+                              ? 'bg-yellow-500/20 text-yellow-400'
+                              : 'bg-red-500/20 text-red-400'
+                        }`}
+                      >
+                        {risk.level}
+                      </span>
+                    </div>
+                  </div>
+                  <ul className='text-gray-400 text-xs space-y-1'>
+                    {risk.details.map((detail, i) => (
+                      <li key={i}>• {detail}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Portfolio Risk Metrics</h4>
+            <div className='space-y-4'>
+              <div className='grid grid-cols-2 gap-4'>
+                <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                  <div className='text-2xl font-bold text-green-400 mb-1'>$47,230</div>
+                  <div className='text-xs text-gray-400'>Total Exposure</div>
+                </div>
+                <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                  <div className='text-2xl font-bold text-cyan-400 mb-1'>0.23</div>
+                  <div className='text-xs text-gray-400'>Portfolio Beta</div>
+                </div>
+              </div>
+
+              <div className='space-y-3'>
+                <div className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white text-sm'>Value at Risk (95%)</span>
+                    <span className='text-red-400 font-bold'>$2,341</span>
+                  </div>
+                  <div className='text-gray-400 text-xs'>Maximum expected loss in 1 day</div>
+                </div>
+
+                <div className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white text-sm'>Sharpe Ratio</span>
+                    <span className='text-green-400 font-bold'>2.87</span>
+                  </div>
+                  <div className='text-gray-400 text-xs'>Risk-adjusted return measure</div>
+                </div>
+
+                <div className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white text-sm'>Correlation to Market</span>
+                    <span className='text-purple-400 font-bold'>0.12</span>
+                  </div>
+                  <div className='text-gray-400 text-xs'>
+                    Low correlation = good diversification
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </Layout>
   );
 };
