@@ -1,6 +1,6 @@
-﻿/**
+/**
  * 🚀 PHASE 5: Real-time Data Hook
- * 
+ *
  * Implements real WebSocket connections to backend for live data:
  * - Real WebSocket connection to localhost:8000/ws
  * - Live performance metrics and system status
@@ -54,13 +54,13 @@ interface RealtimeData {
   activeBots: number;
   winStreak: number;
   marketAnalysis: string;
-  
+
   // Performance data
   systemLoad: number;
   memoryUsage: number;
   cpuUsage: number;
   responseTime: number;
-  
+
   // API status
   apiStatus: {
     backend: 'online' | 'offline' | 'degraded';
@@ -68,7 +68,7 @@ interface RealtimeData {
     sportsradar: 'online' | 'offline' | 'degraded';
     odds: 'online' | 'offline' | 'degraded';
   };
-  
+
   // Live alerts
   alerts: Array<{
     id: string;
@@ -76,7 +76,7 @@ interface RealtimeData {
     message: string;
     timestamp: string;
   }>;
-  
+
   // Real-time updates
   lastUpdated: string;
   updateFrequency: number;
@@ -94,11 +94,10 @@ export function useRealtimeData<T = RealtimeData>({
   heartbeatInterval = 30000,
   subscriptions = ['system_metrics', 'performance_data', 'alerts'],
 }: UseRealtimeDataOptions<T> = {}): UseRealtimeDataResult<T> {
-  
   const [data, setData] = useState<T | null>(initialData);
   const [isConnected, setIsConnected] = useState(false);
   const [error, setError] = useState<Error | null>(null);
-  
+
   const wsRef = useRef<WebSocket | null>(null);
   const reconnectCountRef = useRef(0);
   const heartbeatIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -142,8 +141,8 @@ export function useRealtimeData<T = RealtimeData>({
    */
   const fetchInitialData = useCallback(async () => {
     try {
-//       console.log('📊 Fetching initial real-time data from API...');
-      
+      //       console.log('📊 Fetching initial real-time data from API...');
+
       const [healthResponse, analyticsResponse, metricsResponse] = await Promise.allSettled([
         apiService.healthCheck(),
         apiService.getAnalyticsSummary(),
@@ -155,8 +154,8 @@ export function useRealtimeData<T = RealtimeData>({
       // Process health check data
       if (healthResponse.status === 'fulfilled') {
         const healthData = healthResponse.value.data;
-//         console.log('✅ Health data received:', healthData);
-        
+        //         console.log('✅ Health data received:', healthData);
+
         combinedData = {
           ...combinedData,
           apiStatus: {
@@ -174,8 +173,8 @@ export function useRealtimeData<T = RealtimeData>({
       // Process analytics data
       if (analyticsResponse.status === 'fulfilled') {
         const analyticsData = analyticsResponse.value.data;
-//         console.log('✅ Analytics data received:', analyticsData);
-        
+        //         console.log('✅ Analytics data received:', analyticsData);
+
         combinedData = {
           ...combinedData,
           accuracy: analyticsData.accuracy || 0,
@@ -187,8 +186,8 @@ export function useRealtimeData<T = RealtimeData>({
       // Process metrics data
       if (metricsResponse.status === 'fulfilled') {
         const metricsData = metricsResponse.value.data;
-//         console.log('✅ Metrics data received:', metricsData);
-        
+        //         console.log('✅ Metrics data received:', metricsData);
+
         combinedData = {
           ...combinedData,
           activeBots: metricsData.active_models || 0,
@@ -198,10 +197,9 @@ export function useRealtimeData<T = RealtimeData>({
       }
 
       setData(combinedData);
-//       console.log('🎉 Initial real-time data loaded:', combinedData);
-
+      //       console.log('🎉 Initial real-time data loaded:', combinedData);
     } catch (error) {
-//       console.error('❌ Failed to fetch initial real-time data:', error);
+      //       console.error('❌ Failed to fetch initial real-time data:', error);
       setData(initializeDefaultData());
     }
   }, [initializeDefaultData]);
@@ -211,10 +209,12 @@ export function useRealtimeData<T = RealtimeData>({
    */
   const sendHeartbeat = useCallback(() => {
     if (wsRef.current?.readyState === WebSocket.OPEN) {
-      wsRef.current.send(JSON.stringify({
-        type: 'heartbeat',
-        timestamp: Date.now(),
-      }));
+      wsRef.current.send(
+        JSON.stringify({
+          type: 'heartbeat',
+          timestamp: Date.now(),
+        })
+      );
     }
   }, []);
 
@@ -225,140 +225,152 @@ export function useRealtimeData<T = RealtimeData>({
     if (heartbeatIntervalRef.current) {
       clearInterval(heartbeatIntervalRef.current);
     }
-    
+
     heartbeatIntervalRef.current = setInterval(sendHeartbeat, heartbeatInterval);
   }, [sendHeartbeat, heartbeatInterval]);
 
   /**
    * Handle incoming WebSocket messages
    */
-  const handleMessage = useCallback((event: MessageEvent) => {
-    try {
-      const message: WebSocketMessage<any> = JSON.parse(event.data);
-      
-      // Update data based on message type
-      switch (message.type) {
-        case 'system_metrics':
-          setData(prevData => ({
-            ...prevData,
-            ...message.data,
-            lastUpdated: new Date().toISOString(),
-          }));
-          break;
-          
-        case 'performance_update':
-          setData(prevData => ({
-            ...prevData,
-            systemLoad: message.data.cpu_usage,
-            memoryUsage: message.data.memory_usage,
-            responseTime: message.data.response_time,
-            lastUpdated: new Date().toISOString(),
-          }));
-          break;
-          
-        case 'alert':
-          setData(prevData => ({
-            ...prevData,
-            alerts: [
-              {
-                id: Date.now().toString(),
-                type: message.data.level,
-                message: message.data.message,
-                timestamp: new Date().toISOString(),
-              },
-              ...(prevData?.alerts || []).slice(0, 9), // Keep last 10 alerts
-            ],
-            lastUpdated: new Date().toISOString(),
-          }));
-          break;
-          
-        case 'api_status':
-          setData(prevData => ({
-            ...prevData,
-            apiStatus: message.data,
-            lastUpdated: new Date().toISOString(),
-          }));
-          break;
-          
-        default:
-//           console.log('📨 Received WebSocket message:', message.type, message.data);
-      }
+  const handleMessage = useCallback(
+    (event: MessageEvent) => {
+      try {
+        const message: WebSocketMessage<any> = JSON.parse(event.data);
 
-      // Call custom message handler if provided
-      if (onMessage) {
-        onMessage(message);
-      }
+        // Update data based on message type
+        switch (message.type) {
+          case 'system_metrics':
+            setData(prevData => ({
+              ...prevData,
+              ...message.data,
+              lastUpdated: new Date().toISOString(),
+            }));
+            break;
 
-    } catch (error) {
-//       console.error('❌ Failed to parse WebSocket message:', error);
-    }
-  }, [onMessage]);
+          case 'performance_update':
+            setData(prevData => ({
+              ...prevData,
+              systemLoad: message.data.cpu_usage,
+              memoryUsage: message.data.memory_usage,
+              responseTime: message.data.response_time,
+              lastUpdated: new Date().toISOString(),
+            }));
+            break;
+
+          case 'alert':
+            setData(prevData => ({
+              ...prevData,
+              alerts: [
+                {
+                  id: Date.now().toString(),
+                  type: message.data.level,
+                  message: message.data.message,
+                  timestamp: new Date().toISOString(),
+                },
+                ...(prevData?.alerts || []).slice(0, 9), // Keep last 10 alerts
+              ],
+              lastUpdated: new Date().toISOString(),
+            }));
+            break;
+
+          case 'api_status':
+            setData(prevData => ({
+              ...prevData,
+              apiStatus: message.data,
+              lastUpdated: new Date().toISOString(),
+            }));
+            break;
+
+          default:
+          //           console.log('📨 Received WebSocket message:', message.type, message.data);
+        }
+
+        // Call custom message handler if provided
+        if (onMessage) {
+          onMessage(message);
+        }
+      } catch (error) {
+        //       console.error('❌ Failed to parse WebSocket message:', error);
+      }
+    },
+    [onMessage]
+  );
 
   /**
    * Connect to WebSocket
    */
   const connect = useCallback(() => {
     try {
-//       console.log('🔌 Connecting to WebSocket:', url);
-      
+      //       console.log('🔌 Connecting to WebSocket:', url);
+
       wsRef.current = new WebSocket(url);
 
       wsRef.current.onopen = () => {
-//         console.log('✅ WebSocket connected');
+        //         console.log('✅ WebSocket connected');
         setIsConnected(true);
         setError(null);
         reconnectCountRef.current = 0;
-        
+
         // Subscribe to channels
         subscriptionsRef.current.forEach(channel => {
-          wsRef.current?.send(JSON.stringify({
-            type: 'subscribe',
-            channel,
-          }));
+          wsRef.current?.send(
+            JSON.stringify({
+              type: 'subscribe',
+              channel,
+            })
+          );
         });
 
         setupHeartbeat();
-        
+
         if (onConnected) onConnected();
       };
 
       wsRef.current.onmessage = handleMessage;
 
       wsRef.current.onclose = () => {
-//         console.log('🔌 WebSocket disconnected');
+        //         console.log('🔌 WebSocket disconnected');
         setIsConnected(false);
-        
+
         if (heartbeatIntervalRef.current) {
           clearInterval(heartbeatIntervalRef.current);
         }
-        
+
         if (onDisconnected) onDisconnected();
-        
+
         // Attempt reconnection
         if (reconnectCountRef.current < reconnectAttempts) {
           reconnectCountRef.current++;
-//           console.log(`🔄 Reconnecting... (${reconnectCountRef.current}/${reconnectAttempts})`);
+          //           console.log(`🔄 Reconnecting... (${reconnectCountRef.current}/${reconnectAttempts})`);
           setTimeout(connect, reconnectDelay * reconnectCountRef.current);
         } else {
-//           console.error('❌ Max reconnection attempts reached');
+          //           console.error('❌ Max reconnection attempts reached');
           setError(new Error('Failed to maintain WebSocket connection'));
         }
       };
 
-      wsRef.current.onerror = (error) => {
-//         console.error('❌ WebSocket error:', error);
+      wsRef.current.onerror = error => {
+        //         console.error('❌ WebSocket error:', error);
         const wsError = new Error('WebSocket connection error');
         setError(wsError);
         if (onError) onError(wsError);
       };
-
     } catch (error) {
-//       console.error('❌ Failed to create WebSocket connection:', error);
+      //       console.error('❌ Failed to create WebSocket connection:', error);
       const connectionError = error instanceof Error ? error : new Error('Failed to connect');
       setError(connectionError);
       if (onError) onError(connectionError);
     }
-  }, [url, onConnected, onDisconnected, onError, handleMessage, setupHeartbeat, reconnectAttempts, reconnectDelay]);
+  }, [
+    url,
+    onConnected,
+    onDisconnected,
+    onError,
+    handleMessage,
+    setupHeartbeat,
+    reconnectAttempts,
+    reconnectDelay,
+  ]);
 
   /**
    * Disconnect WebSocket
@@ -367,12 +379,23 @@ export function useRealtimeData<T = RealtimeData>({
     if (heartbeatIntervalRef.current) {
       clearInterval(heartbeatIntervalRef.current);
     }
-    
+
     if (wsRef.current) {
-      wsRef.current.close();
+      // Check WebSocket state before closing
+      const readyState = wsRef.current.readyState;
+
+      if (readyState === WebSocket.OPEN || readyState === WebSocket.CONNECTING) {
+        try {
+          wsRef.current.close();
+        } catch (error) {
+          // Ignore errors when closing WebSocket - it might already be closed
+          console.warn('WebSocket close warning:', error);
+        }
+      }
+
       wsRef.current = null;
     }
-    
+
     setIsConnected(false);
   }, []);
 
@@ -383,25 +406,31 @@ export function useRealtimeData<T = RealtimeData>({
     if (wsRef.current?.readyState === WebSocket.OPEN) {
       wsRef.current.send(JSON.stringify(message));
     } else {
-//       console.warn('⚠️ WebSocket not connected, cannot send message');
+      //       console.warn('⚠️ WebSocket not connected, cannot send message');
     }
   }, []);
 
   /**
    * Subscribe to a channel
    */
-  const subscribe = useCallback((channel: string) => {
-    subscriptionsRef.current.add(channel);
-    send({ type: 'subscribe', channel });
-  }, [send]);
+  const subscribe = useCallback(
+    (channel: string) => {
+      subscriptionsRef.current.add(channel);
+      send({ type: 'subscribe', channel });
+    },
+    [send]
+  );
 
   /**
    * Unsubscribe from a channel
    */
-  const unsubscribe = useCallback((channel: string) => {
-    subscriptionsRef.current.delete(channel);
-    send({ type: 'unsubscribe', channel });
-  }, [send]);
+  const unsubscribe = useCallback(
+    (channel: string) => {
+      subscriptionsRef.current.delete(channel);
+      send({ type: 'unsubscribe', channel });
+    },
+    [send]
+  );
 
   /**
    * Manual reconnection
@@ -440,5 +469,3 @@ export const useRealtimeData = () => useRealtimeData<RealtimeData>();
 
 // Export types
 export type { RealtimeData, UseRealtimeDataOptions, UseRealtimeDataResult, WebSocketMessage };
-
-
