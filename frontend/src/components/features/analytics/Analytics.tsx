@@ -200,6 +200,10 @@ const Analytics: React.FC = () => {
   const [quantumDepth, setQuantumDepth] = useState(8);
   const [simulationSpeed, setSimulationSpeed] = useState(1);
 
+  // Weather Station state
+  const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
+  const [selectedWeatherGame, setSelectedWeatherGame] = useState<WeatherData | null>(null);
+
   useEffect(() => {
     loadAnalyticsData();
     loadInjuryData();
