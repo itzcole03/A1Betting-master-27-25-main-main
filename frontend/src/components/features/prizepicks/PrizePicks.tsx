@@ -1179,6 +1179,189 @@ const PrizePicks: React.FC = () => {
           </motion.div>
         </div>
       )}
+
+      {/* Advanced Performance Tracking */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Advanced Performance Tracking</h3>
+            <p className='text-gray-400 text-sm'>
+              Comprehensive analytics with streak monitoring and bet history analysis
+            </p>
+          </div>
+          <BarChart3 className='w-6 h-6 text-purple-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-4 gap-4 mb-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+            <div className='text-2xl font-bold text-green-400 mb-1'>$42,730</div>
+            <div className='text-sm text-gray-400'>Total Winnings</div>
+            <div className='text-xs text-green-300 mt-1'>All time</div>
+          </div>
+          <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+            <div className='text-2xl font-bold text-cyan-400 mb-1'>2.89</div>
+            <div className='text-sm text-gray-400'>Avg Odds</div>
+            <div className='text-xs text-cyan-300 mt-1'>Per lineup</div>
+          </div>
+          <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+            <div className='text-2xl font-bold text-yellow-400 mb-1'>$47</div>
+            <div className='text-sm text-gray-400'>Avg Stake</div>
+            <div className='text-xs text-yellow-300 mt-1'>Kelly optimized</div>
+          </div>
+          <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+            <div className='text-2xl font-bold text-purple-400 mb-1'>$2,847</div>
+            <div className='text-sm text-gray-400'>Best Win</div>
+            <div className='text-xs text-purple-300 mt-1'>6-pick lineup</div>
+          </div>
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Lineup Performance by Type</h4>
+            <div className='space-y-3'>
+              {[
+                { type: '2-Pick Power', lineups: 89, winRate: 94.4, avgPayout: 3.0, profit: 8420 },
+                { type: '3-Pick Flex', lineups: 67, winRate: 85.1, avgPayout: 5.0, profit: 6730 },
+                { type: '4-Pick Power', lineups: 34, winRate: 76.5, avgPayout: 10.0, profit: 4890 },
+                { type: '5-Pick Flex', lineups: 18, winRate: 66.7, avgPayout: 20.0, profit: 3240 },
+                { type: '6-Pick Power', lineups: 7, winRate: 57.1, avgPayout: 50.0, profit: 1450 },
+              ].map((type, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{type.type}</span>
+                    <span className='text-green-400 text-sm'>{type.winRate}%</span>
+                  </div>
+                  <div className='grid grid-cols-2 gap-2 text-xs'>
+                    <div className='text-gray-400'>
+                      Lineups: <span className='text-white'>{type.lineups}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Avg Payout: <span className='text-cyan-400'>{type.avgPayout}x</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Profit: <span className='text-green-400'>${type.profit}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Recent Betting History</h4>
+            <div className='space-y-2'>
+              {[
+                {
+                  id: 'bet-001',
+                  date: '2 hours ago',
+                  lineup: 'LeBron + Curry + Luka (3-pick)',
+                  stake: 25,
+                  odds: 5.0,
+                  status: 'Won',
+                  payout: 125,
+                  profit: 100,
+                },
+                {
+                  id: 'bet-002',
+                  date: '1 day ago',
+                  lineup: 'Tatum + Brown (2-pick)',
+                  stake: 50,
+                  odds: 3.0,
+                  status: 'Won',
+                  payout: 150,
+                  profit: 100,
+                },
+                {
+                  id: 'bet-003',
+                  date: '2 days ago',
+                  lineup: 'Giannis + Embiid + KD + Butler (4-pick)',
+                  stake: 15,
+                  odds: 10.0,
+                  status: 'Lost',
+                  payout: 0,
+                  profit: -15,
+                },
+                {
+                  id: 'bet-004',
+                  date: '3 days ago',
+                  lineup: 'Jokic + Murray + MPJ (3-pick)',
+                  stake: 30,
+                  odds: 5.0,
+                  status: 'Won',
+                  payout: 150,
+                  profit: 120,
+                },
+              ].map((bet, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-2'>
+                  <div className='flex items-center justify-between mb-1'>
+                    <span className='text-white text-xs font-medium'>{bet.lineup}</span>
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${
+                        bet.status === 'Won'
+                          ? 'bg-green-500/20 text-green-400'
+                          : bet.status === 'Lost'
+                            ? 'bg-red-500/20 text-red-400'
+                            : 'bg-yellow-500/20 text-yellow-400'
+                      }`}
+                    >
+                      {bet.status}
+                    </span>
+                  </div>
+                  <div className='grid grid-cols-3 gap-1 text-xs'>
+                    <div className='text-gray-400'>
+                      Stake: <span className='text-white'>${bet.stake}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Odds: <span className='text-cyan-400'>{bet.odds}x</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      P&L:{' '}
+                      <span className={bet.profit > 0 ? 'text-green-400' : 'text-red-400'}>
+                        {bet.profit > 0 ? '+' : ''}${bet.profit}
+                      </span>
+                    </div>
+                  </div>
+                  <div className='text-gray-400 text-xs mt-1'>{bet.date}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Performance Insights</h4>
+            <div className='space-y-3'>
+              <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                <div className='text-2xl font-bold text-green-400 mb-1'>17</div>
+                <div className='text-xs text-gray-400'>Current Win Streak</div>
+              </div>
+              <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                <div className='text-2xl font-bold text-yellow-400 mb-1'>29</div>
+                <div className='text-xs text-gray-400'>Longest Win Streak</div>
+              </div>
+              <div className='space-y-2'>
+                {[
+                  { period: 'Today', profit: '+$275', bets: 7 },
+                  { period: 'This Week', profit: '+$1,420', bets: 34 },
+                  { period: 'This Month', profit: '+$4,830', bets: 127 },
+                ].map((period, index) => (
+                  <div key={index} className='flex items-center justify-between text-sm'>
+                    <span className='text-gray-400'>{period.period}</span>
+                    <div className='text-right'>
+                      <span className='text-green-400 font-medium'>{period.profit}</span>
+                      <div className='text-gray-400 text-xs'>{period.bets} lineups</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </Layout>
   );
 };
