@@ -2784,6 +2784,298 @@ const Analytics: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Quantum AI Engine */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2.6 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white flex items-center gap-2'>
+              <Cpu className='w-6 h-6 text-purple-400' />
+              Quantum AI Engine
+            </h3>
+            <p className='text-gray-400 text-sm'>
+              Quantum computing enhanced prediction algorithms
+            </p>
+          </div>
+          <div className='flex items-center space-x-2'>
+            <div
+              className={`w-3 h-3 rounded-full ${isQuantumActive ? 'bg-purple-400 animate-pulse' : 'bg-gray-400'}`}
+            ></div>
+            <span
+              className={`text-sm font-medium ${isQuantumActive ? 'text-purple-400' : 'text-gray-400'}`}
+            >
+              {isQuantumActive ? 'Quantum Active' : 'Classical Mode'}
+            </span>
+          </div>
+        </div>
+
+        {/* Quantum Controls */}
+        <div className='bg-slate-900/50 rounded-lg p-4 mb-6'>
+          <div className='grid grid-cols-1 lg:grid-cols-4 gap-4'>
+            <div>
+              <label className='block text-sm text-gray-400 mb-2'>Quantum Algorithm</label>
+              <select
+                value={selectedAlgorithm}
+                onChange={e => setSelectedAlgorithm(e.target.value as any)}
+                className='w-full p-2 bg-gray-800 border border-gray-700 rounded-lg text-white text-sm'
+              >
+                <option value='qaoa'>QAOA</option>
+                <option value='grover'>Grover's Search</option>
+                <option value='shor'>Shor's Algorithm</option>
+                <option value='vqe'>VQE</option>
+              </select>
+              <p className='text-xs text-gray-500 mt-1'>
+                {getAlgorithmDescription(selectedAlgorithm)}
+              </p>
+            </div>
+
+            <div>
+              <label className='block text-sm text-gray-400 mb-2'>
+                Quantum Depth: {quantumDepth}
+              </label>
+              <input
+                type='range'
+                min='4'
+                max='16'
+                value={quantumDepth}
+                onChange={e => setQuantumDepth(parseInt(e.target.value))}
+                className='w-full'
+              />
+            </div>
+
+            <div>
+              <label className='block text-sm text-gray-400 mb-2'>
+                Simulation Speed: {simulationSpeed}x
+              </label>
+              <input
+                type='range'
+                min='0.5'
+                max='4'
+                step='0.5'
+                value={simulationSpeed}
+                onChange={e => setSimulationSpeed(parseFloat(e.target.value))}
+                className='w-full'
+              />
+            </div>
+
+            <div className='flex items-end gap-2'>
+              <Button
+                onClick={() => setIsQuantumActive(!isQuantumActive)}
+                className={`flex-1 ${
+                  isQuantumActive
+                    ? 'bg-gradient-to-r from-purple-500 to-cyan-600 hover:from-purple-600 hover:to-cyan-700'
+                    : 'bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700'
+                }`}
+              >
+                {isQuantumActive ? 'Active' : 'Inactive'}
+              </Button>
+              <Button onClick={loadQuantumData} variant='outline'>
+                <RotateCcw className='w-4 h-4' />
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <div className='grid grid-cols-1 xl:grid-cols-3 gap-6'>
+          {/* Quantum Network Visualization */}
+          <div className='xl:col-span-2'>
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-lg font-medium text-white mb-4 flex items-center gap-2'>
+                <GitBranch className='w-5 h-5 text-purple-400' />
+                Quantum Neural Network
+              </h4>
+
+              <div
+                className='relative bg-slate-800/50 rounded-lg p-4 overflow-hidden'
+                style={{ height: '400px' }}
+              >
+                <svg width='100%' height='100%' className='absolute inset-0'>
+                  {/* Render connections */}
+                  {quantumConnections.map((connection, index) => {
+                    const fromNode = quantumNodes.find(n => n.id === connection.from);
+                    const toNode = quantumNodes.find(n => n.id === connection.to);
+
+                    if (!fromNode || !toNode) return null;
+
+                    return (
+                      <motion.line
+                        key={`connection-${index}`}
+                        x1={fromNode.position.x}
+                        y1={fromNode.position.y}
+                        x2={toNode.position.x}
+                        y2={toNode.position.y}
+                        stroke={getConnectionColor(connection)}
+                        strokeWidth={connection.strength * 3 + 1}
+                        strokeOpacity={connection.entanglement ? 0.8 : 0.4}
+                        strokeDasharray={connection.type === 'quantum' ? '5,5' : 'none'}
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ duration: 2, delay: index * 0.02 }}
+                      />
+                    );
+                  })}
+
+                  {/* Render nodes */}
+                  {quantumNodes.map((node, index) => (
+                    <motion.g key={node.id}>
+                      <motion.circle
+                        cx={node.position.x}
+                        cy={node.position.y}
+                        r={node.type === 'quantum' ? 8 : 6}
+                        fill={getNodeColor(node)}
+                        stroke={node.entangled ? '#EC4899' : 'none'}
+                        strokeWidth={2}
+                        strokeDasharray={node.superposition ? '3,3' : 'none'}
+                        initial={{ scale: 0 }}
+                        animate={{
+                          scale: 1,
+                          opacity: node.superposition ? [0.6, 1, 0.6] : 1,
+                        }}
+                        transition={{
+                          duration: 0.5,
+                          delay: index * 0.02,
+                          opacity: { duration: 2, repeat: Infinity },
+                        }}
+                      />
+
+                      {/* Quantum indicators */}
+                      {node.type === 'quantum' && node.qubits && (
+                        <text
+                          x={node.position.x}
+                          y={node.position.y - 15}
+                          textAnchor='middle'
+                          fontSize='10'
+                          fill='#A855F7'
+                        >
+                          Q{node.qubits}
+                        </text>
+                      )}
+                    </motion.g>
+                  ))}
+                </svg>
+
+                {/* Legend */}
+                <div className='absolute bottom-4 left-4 space-y-1 text-xs'>
+                  <div className='flex items-center gap-2'>
+                    <div className='w-2 h-2 bg-blue-500 rounded-full'></div>
+                    <span className='text-gray-300'>Input</span>
+                  </div>
+                  <div className='flex items-center gap-2'>
+                    <div className='w-2 h-2 bg-purple-500 rounded-full border border-pink-400'></div>
+                    <span className='text-gray-300'>Quantum (Entangled)</span>
+                  </div>
+                  <div className='flex items-center gap-2'>
+                    <div className='w-2 h-2 bg-green-500 rounded-full'></div>
+                    <span className='text-gray-300'>Neural</span>
+                  </div>
+                  <div className='flex items-center gap-2'>
+                    <div className='w-2 h-2 bg-amber-500 rounded-full'></div>
+                    <span className='text-gray-300'>Output</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Quantum Metrics & Predictions */}
+          <div className='space-y-4'>
+            {/* Quantum Metrics */}
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-lg font-medium text-white mb-4 flex items-center gap-2'>
+                <Activity className='w-5 h-5 text-cyan-400' />
+                Quantum Metrics
+              </h4>
+
+              {quantumMetrics && (
+                <div className='space-y-3'>
+                  <div className='grid grid-cols-2 gap-3 text-sm'>
+                    <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                      <div className='text-lg font-bold text-purple-400'>
+                        {quantumMetrics.quantumVolume}
+                      </div>
+                      <div className='text-xs text-gray-400'>Quantum Volume</div>
+                    </div>
+                    <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                      <div className='text-lg font-bold text-cyan-400'>
+                        {(quantumMetrics.fidelity * 100).toFixed(1)}%
+                      </div>
+                      <div className='text-xs text-gray-400'>Fidelity</div>
+                    </div>
+                    <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                      <div className='text-lg font-bold text-blue-400'>
+                        {quantumMetrics.coherenceTime.toFixed(0)}μs
+                      </div>
+                      <div className='text-xs text-gray-400'>Coherence</div>
+                    </div>
+                    <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                      <div className='text-lg font-bold text-pink-400'>
+                        {(quantumMetrics.entanglementDegree * 100).toFixed(0)}%
+                      </div>
+                      <div className='text-xs text-gray-400'>Entanglement</div>
+                    </div>
+                  </div>
+
+                  <div className='space-y-2'>
+                    <div className='flex justify-between text-xs'>
+                      <span className='text-gray-400'>Error Rate</span>
+                      <span className='text-red-400'>
+                        {(quantumMetrics.errorRate * 100).toFixed(3)}%
+                      </span>
+                    </div>
+                    <div className='w-full bg-gray-700 rounded-full h-1'>
+                      <div
+                        className='bg-red-400 h-1 rounded-full'
+                        style={{ width: `${(quantumMetrics.errorRate / 0.02) * 100}%` }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Quantum Predictions */}
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-lg font-medium text-white mb-4'>Quantum Predictions</h4>
+              <div className='space-y-3 max-h-64 overflow-y-auto'>
+                {quantumPredictions.slice(0, 5).map((pred, index) => (
+                  <div key={pred.id} className='bg-slate-800/50 rounded-lg p-3'>
+                    <div className='flex items-start justify-between mb-2'>
+                      <div>
+                        <h5 className='font-bold text-white text-sm'>{pred.game}</h5>
+                        <p className='text-gray-400 text-xs'>{pred.prediction}</p>
+                      </div>
+                      <div className='text-right'>
+                        <div className='text-purple-400 font-bold text-sm'>
+                          {pred.confidence.toFixed(0)}%
+                        </div>
+                        <div className='text-xs text-gray-400'>Confidence</div>
+                      </div>
+                    </div>
+
+                    <div className='grid grid-cols-2 gap-2 text-xs'>
+                      <div>
+                        <span className='text-gray-400'>Q-States:</span>
+                        <div className='text-cyan-400 font-bold'>{pred.quantumStates}</div>
+                      </div>
+                      <div>
+                        <span className='text-gray-400'>Advantage:</span>
+                        <div className='text-green-400 font-bold'>
+                          +{(pred.quantumAdvantage * 100).toFixed(1)}%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </Layout>
   );
 };
