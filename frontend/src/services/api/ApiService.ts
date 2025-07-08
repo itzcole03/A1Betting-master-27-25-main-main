@@ -1,19 +1,19 @@
-﻿/**
+/**
  * Comprehensive API Service Layer for A1Betting Frontend
  * Provides typed interfaces to all backend endpoints with proper error handling.
  */
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
 // Define base URL from environment variables
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || '${process.env.REACT_APP_API_URL || "http://localhost:8000"}';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
 
 // Create axios instance with default configuration
 const apiClient = axios.create({
   baseURL: BASE_URL,
   timeout: 30000,
   headers: {
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+  },
 });
 
 // --- Request Interceptor ---
@@ -43,7 +43,8 @@ apiClient.interceptors.response.use(
     if (import.meta.env.DEV) {
       // console.log(`[API Response] ${response.config.method?.toUpperCase()} ${response.config.url}`, response.status, response.data);
     }
-    return response;},
+    return response;
+  },
   (error: AxiosError) => {
     // console.error(`[API Response Error] ${error.config?.method?.toUpperCase()} ${error.config?.url}`, error.response?.status, error.response?.data);
     if (error.response?.status === 401) {
@@ -51,7 +52,8 @@ apiClient.interceptors.response.use(
       // window.location.href = '/login';
     }
     // Return a structured error to be handled by the calling code
-    return Promise.reject(error.response || error.message);}
+    return Promise.reject(error.response || error.message);
+  }
 );
 
 /**
@@ -105,4 +107,3 @@ export class ApiService {
 // Export a singleton instance
 export const api = ApiService;
 export default ApiService;
-
