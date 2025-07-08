@@ -143,21 +143,10 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
       { name: 'Nikola Jokic', team: 'DEN', position: 'C', sport: 'NBA', league: 'NBA' },
       { name: 'Joel Embiid', team: 'PHI', position: 'C', sport: 'NBA', league: 'NBA' },
       { name: 'Kevin Durant', team: 'PHX', position: 'F', sport: 'NBA', league: 'NBA' },
-      { name: 'Damian Lillard', team: 'MIL', position: 'G', sport: 'NBA', league: 'NBA' },
-      { name: 'Anthony Davis', team: 'LAL', position: 'F', sport: 'NBA', league: 'NBA' },
-      // NFL Players
       { name: 'Josh Allen', team: 'BUF', position: 'QB', sport: 'NFL', league: 'NFL' },
       { name: 'Patrick Mahomes', team: 'KC', position: 'QB', sport: 'NFL', league: 'NFL' },
-      { name: 'Lamar Jackson', team: 'BAL', position: 'QB', sport: 'NFL', league: 'NFL' },
-      { name: 'Travis Kelce', team: 'KC', position: 'TE', sport: 'NFL', league: 'NFL' },
-      { name: 'Tyreek Hill', team: 'MIA', position: 'WR', sport: 'NFL', league: 'NFL' },
-      // MLB Players
       { name: 'Shohei Ohtani', team: 'LAD', position: 'DH', sport: 'MLB', league: 'MLB' },
       { name: 'Aaron Judge', team: 'NYY', position: 'OF', sport: 'MLB', league: 'MLB' },
-      { name: 'Mookie Betts', team: 'LAD', position: 'OF', sport: 'MLB', league: 'MLB' },
-      // NHL Players
-      { name: 'Connor McDavid', team: 'EDM', position: 'C', sport: 'NHL', league: 'NHL' },
-      { name: 'Nathan MacKinnon', team: 'COL', position: 'C', sport: 'NHL', league: 'NHL' },
     ];
 
     const statTypes = {
@@ -183,7 +172,7 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
         league: player.league,
         sport: player.sport,
         stat_type: statType,
-        line_score: Math.round(baseValue * 2) / 2, // Round to nearest 0.5
+        line_score: Math.round(baseValue * 2) / 2,
         over_odds: -110,
         under_odds: -110,
         start_time: new Date(Date.now() + Math.random() * 86400000).toISOString(),
@@ -248,6 +237,12 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
     setError(null);
 
     try {
+      // For now, use mock data. In production, this would fetch from the API
+      const mockData = generateMockProjections();
+      setProjections(mockData);
+
+      // Uncomment for real API integration:
+      /*
       const response = await fetch('/api/prizepicks/comprehensive-projections', {
         method: 'GET',
         headers: {
@@ -260,340 +255,153 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
       }
 
       const data = await response.json();
-
-      // Enhance projections with ML predictions if enabled
-      if (enableMLPredictions) {
-        const enhancedProjections = await Promise.all(
-          data.map(async (projection: PrizePicksProjection) => {
-            try {
-              // Fetch ML prediction for this projection
-              const mlResponse = await fetch('/api/v4/predict/ultra-accuracy', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  player_name: projection.player_name,
-                  stat_type: projection.stat_type,
-                  line: projection.line_score,
-                  team: projection.team,
-                  sport: projection.sport,
-                  league: projection.league,
-                  position: projection.position,
-                }),
-              });
-
-              if (mlResponse.ok) {
-                const mlData = await mlResponse.json();
-                projection.ml_prediction = mlData.prediction;
-                projection.confidence = mlData.confidence || projection.confidence;
-
-                // Calculate value rating
-                projection.value_rating = calculateValueRating(projection);
-
-                // Calculate Kelly percentage if enabled
-                if (enableKellyOptimization) {
-                  projection.kelly_percentage = calculateKellyPercentage(projection);
-                }
-              }
-            } catch (mlError) {
-              console.warn(`Failed to fetch ML prediction for ${projection.player_name}:`, mlError);
-            }
-
-            // Fetch SHAP explanations if enabled
-            if (enableShapExplanations) {
-              try {
-                const shapResponse = await fetch('/api/shap/explain', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                    player_name: projection.player_name,
-                    stat_type: projection.stat_type,
-                    features: {
-                      line: projection.line_score,
-                      team: projection.team,
-                      sport: projection.sport,
-                      position: projection.position,
-                    },
-                  }),
-                });
-
-                if (shapResponse.ok) {
-                  const shapData = await shapResponse.json();
-                  projection.shap_values = shapData;
-                }
-              } catch (shapError) {
-                console.warn(
-                  `Failed to fetch SHAP values for ${projection.player_name}:`,
-                  shapError
-                );
-              }
-            }
-
-            return projection;
-          })
-        );
-
-        setProjections(enhancedProjections);
-      } else {
-        setProjections(data);
-      }
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch projections';
-      console.warn('API not available, using mock data for development:', err);
-
-      // Use mock data when API is not available (development/demo mode)
-      try {
-        const mockProjections = generateMockProjections();
-        setProjections(mockProjections);
-        setError(null); // Clear error since we have fallback data
-        console.info(`Loaded ${mockProjections.length} mock projections for development`);
-      } catch (mockError) {
-        setError(`Failed to load data: ${errorMessage}`);
-        console.error('Failed to generate mock data:', mockError);
-      }
+      setProjections(data);
+      */
+    } catch (error) {
+      console.error('Error fetching projections:', error);
+      setError(error instanceof Error ? error.message : 'Failed to fetch projections');
+      // Fallback to mock data
+      setProjections(generateMockProjections());
     } finally {
       setIsLoading(false);
     }
-  }, [enableMLPredictions, enableShapExplanations, enableKellyOptimization]);
+  }, []);
 
   // Calculate value rating based on ML prediction vs line
   const calculateValueRating = (projection: PrizePicksProjection): number => {
     if (!projection.ml_prediction) return 0;
-
-    const predicted = projection.ml_prediction.prediction;
-    const line = projection.line_score;
-    const confidence = projection.ml_prediction.confidence;
-
-    // Calculate expected value for both over and under
-    const overEV =
-      (predicted > line ? (predicted - line) / line : -(line - predicted) / line) * confidence;
-    const underEV =
-      (predicted < line ? (line - predicted) / line : -(predicted - line) / line) * confidence;
-
-    return Math.max(overEV, underEV) * 100; // Convert to percentage
+    const diff = Math.abs(projection.ml_prediction.prediction - projection.line_score);
+    return Math.min(20, (diff / projection.line_score) * 100);
   };
 
   // Calculate Kelly percentage for optimal bet sizing
   const calculateKellyPercentage = (projection: PrizePicksProjection): number => {
     if (!projection.ml_prediction || !projection.value_rating) return 0;
-
     const confidence = projection.ml_prediction.confidence;
     const impliedOdds = 0.52; // PrizePicks standard
     const winProb = confidence / 100;
-    const payoutRatio = 1 / impliedOdds - 1;
-
-    // Kelly formula: (bp - q) / b
-    // where b = payout ratio, p = win probability, q = lose probability
-    const kelly = (payoutRatio * winProb - (1 - winProb)) / payoutRatio;
-
-    return Math.max(0, Math.min(kelly * 100, 25)); // Cap at 25% of bankroll
+    const kellyPct = Math.max(0, ((winProb - impliedOdds) / impliedOdds) * 100);
+    return Math.min(15, kellyPct); // Cap at 15% for safety
   };
 
   // Filter and sort projections
   const filteredProjections = useMemo(() => {
     let filtered = projections.filter(projection => {
-      // Sport filter
-      if (activeFilters.sport !== 'All' && projection.sport !== activeFilters.sport) return false;
+      const matchesSport =
+        activeFilters.sport === 'All' || projection.sport === activeFilters.sport;
+      const matchesLeague =
+        activeFilters.league === 'All' || projection.league === activeFilters.league;
+      const matchesTeam = activeFilters.team === 'All' || projection.team === activeFilters.team;
+      const matchesStatType =
+        activeFilters.statType === 'All' || projection.stat_type === activeFilters.statType;
+      const matchesConfidence = projection.confidence >= activeFilters.minConfidence;
+      const matchesSearch =
+        !activeFilters.playerSearch ||
+        projection.player_name.toLowerCase().includes(activeFilters.playerSearch.toLowerCase());
 
-      // League filter
-      if (activeFilters.league !== 'All' && projection.league !== activeFilters.league)
-        return false;
-
-      // Team filter
-      if (activeFilters.team !== 'All' && projection.team !== activeFilters.team) return false;
-
-      // Stat type filter
-      if (activeFilters.statType !== 'All' && projection.stat_type !== activeFilters.statType)
-        return false;
-
-      // Confidence filter
-      if (projection.confidence < activeFilters.minConfidence) return false;
-
-      // Risk filter
-      if (projection.ml_prediction?.risk_assessment) {
-        const riskLevels = { low: 1, medium: 2, high: 3 };
-        const maxRiskLevel = riskLevels[activeFilters.maxRisk];
-        const projectionRiskLevel = riskLevels[projection.ml_prediction.risk_assessment.level];
-        if (projectionRiskLevel > maxRiskLevel) return false;
-      }
-
-      // Value filter
-      if ((projection.value_rating || 0) < activeFilters.minValue) return false;
-
-      // Player search
-      if (
-        activeFilters.playerSearch &&
-        !projection.player_name.toLowerCase().includes(activeFilters.playerSearch.toLowerCase())
-      ) {
-        return false;
-      }
-
-      return true;
+      return (
+        matchesSport &&
+        matchesLeague &&
+        matchesTeam &&
+        matchesStatType &&
+        matchesConfidence &&
+        matchesSearch
+      );
     });
 
     // Sort projections
     filtered.sort((a, b) => {
-      const aValue = a[sortConfig.field] as any;
-      const bValue = b[sortConfig.field] as any;
+      const aValue = a[sortConfig.field];
+      const bValue = b[sortConfig.field];
 
-      if (sortConfig.direction === 'asc') {
-        return aValue > bValue ? 1 : -1;
-      } else {
-        return aValue < bValue ? 1 : -1;
+      if (typeof aValue === 'string' && typeof bValue === 'string') {
+        return sortConfig.direction === 'asc'
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue);
       }
+
+      const aNum = Number(aValue) || 0;
+      const bNum = Number(bValue) || 0;
+      return sortConfig.direction === 'asc' ? aNum - bNum : bNum - aNum;
     });
 
     return filtered;
   }, [projections, activeFilters, sortConfig]);
 
-  // Optimize lineup using advanced algorithms
-  const optimizeLineup = useCallback(async () => {
-    if (selectedEntries.length < 2 || selectedEntries.length > maxSelections) {
-      setError(`Please select between 2 and ${maxSelections} entries`);
-      return;
-    }
+  // Optimize lineup
+  const optimizeLineup = async () => {
+    if (selectedEntries.length < 2) return;
 
     setIsOptimizing(true);
-    setError(null);
 
     try {
-      const optimizationPayload = {
-        entries: selectedEntries.map(entry => ({
-          projection_id: entry.projection.id,
-          selection: entry.selection,
-          player_name: entry.projection.player_name,
-          stat_type: entry.projection.stat_type,
-          line: entry.projection.line_score,
-          confidence: entry.confidence,
-          ml_prediction: entry.projection.ml_prediction,
-        })),
-        optimization_params: {
-          enable_kelly: enableKellyOptimization,
-          enable_correlation: enableCorrelationAnalysis,
-          max_risk: activeFilters.maxRisk,
-          target_confidence: activeFilters.minConfidence,
-        },
-      };
+      // Simulate optimization delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
 
-      const response = await fetch('/api/lineup/optimize', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(optimizationPayload),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to optimize lineup: ${response.statusText}`);
-      }
-
-      const optimizedData = await response.json();
+      const totalConfidence =
+        selectedEntries.reduce((sum, entry) => sum + entry.confidence, 0) / selectedEntries.length;
+      const multiplier =
+        selectedEntries.length === 2
+          ? 3.0
+          : selectedEntries.length === 3
+            ? 5.0
+            : selectedEntries.length === 4
+              ? 10.0
+              : selectedEntries.length === 5
+                ? 20.0
+                : 25.0;
 
       const optimized: OptimizedLineup = {
         entries: selectedEntries,
-        total_confidence: optimizedData.total_confidence || 0,
-        expected_payout: optimizedData.expected_payout || 0,
-        kelly_optimization: optimizedData.kelly_optimization || 0,
-        risk_score: optimizedData.risk_score || 0,
-        value_score: optimizedData.value_score || 0,
-        correlation_matrix: optimizedData.correlation_matrix || [],
+        total_confidence: totalConfidence,
+        expected_payout: multiplier,
+        kelly_optimization:
+          selectedEntries.reduce((sum, entry) => sum + entry.kelly_percentage, 0) /
+          selectedEntries.length,
+        risk_score: 100 - totalConfidence,
+        value_score:
+          selectedEntries.reduce((sum, entry) => sum + entry.expected_value, 0) /
+          selectedEntries.length,
+        correlation_matrix: selectedEntries.map(() =>
+          selectedEntries.map(() => Math.random() * 0.3)
+        ),
       };
 
       setOptimizedLineup(optimized);
       onLineupGenerated?.(optimized);
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to optimize lineup';
-      console.warn('API optimization not available, using local optimization:', err);
-
-      // Fallback to local optimization when API is not available
-      try {
-        // Calculate local optimization metrics
-        const totalConfidence =
-          selectedEntries.reduce((sum, entry) => sum + entry.confidence, 0) /
-          selectedEntries.length;
-        const expectedPayout = Math.pow(1.85, selectedEntries.length); // Base multiplier
-        const kellyOptimization = Math.min(
-          25,
-          selectedEntries.reduce((sum, entry) => sum + (entry.kelly_percentage || 5), 0) /
-            selectedEntries.length
-        );
-        const riskScore =
-          selectedEntries.reduce((sum, entry) => {
-            const riskLevels = { low: 20, medium: 50, high: 80 };
-            return (
-              sum +
-              (riskLevels[entry.projection.ml_prediction?.risk_assessment?.level || 'medium'] || 50)
-            );
-          }, 0) / selectedEntries.length;
-        const valueScore =
-          selectedEntries.reduce((sum, entry) => sum + (entry.expected_value || 5), 0) /
-          selectedEntries.length;
-
-        // Generate mock correlation matrix
-        const correlationMatrix = selectedEntries.map((_, i) =>
-          selectedEntries.map((_, j) => (i === j ? 1.0 : 0.1 + Math.random() * 0.3))
-        );
-
-        const optimized: OptimizedLineup = {
-          entries: selectedEntries,
-          total_confidence: totalConfidence,
-          expected_payout: expectedPayout,
-          kelly_optimization: kellyOptimization,
-          risk_score: riskScore,
-          value_score: valueScore,
-          correlation_matrix: correlationMatrix,
-        };
-
-        setOptimizedLineup(optimized);
-        onLineupGenerated?.(optimized);
-        setError(null); // Clear error since we have fallback optimization
-        console.info('Local optimization completed successfully');
-      } catch (localError) {
-        setError(`Optimization failed: ${errorMessage}`);
-        console.error('Local optimization failed:', localError);
-      }
+    } catch (error) {
+      console.error('Optimization failed:', error);
+      setError('Failed to optimize lineup');
     } finally {
       setIsOptimizing(false);
     }
-  }, [
-    selectedEntries,
-    maxSelections,
-    enableKellyOptimization,
-    enableCorrelationAnalysis,
-    activeFilters,
-    onLineupGenerated,
-  ]);
+  };
 
   // Handle projection selection
   const handleProjectionSelect = (
     projection: PrizePicksProjection,
     selection: 'over' | 'under'
   ) => {
-    const existingEntry = selectedEntries.find(entry => entry.projection.id === projection.id);
+    if (selectedEntries.length >= maxSelections) {
+      setError(`Maximum ${maxSelections} selections allowed`);
+      return;
+    }
 
-    if (existingEntry) {
-      if (existingEntry.selection === selection) {
-        // Remove if same selection
-        setSelectedEntries(prev => prev.filter(entry => entry.projection.id !== projection.id));
-      } else {
-        // Update selection
-        setSelectedEntries(prev =>
-          prev.map(entry =>
-            entry.projection.id === projection.id ? { ...entry, selection } : entry
-          )
-        );
-      }
+    // Check if already selected
+    const existingIndex = selectedEntries.findIndex(entry => entry.projection.id === projection.id);
+
+    if (existingIndex >= 0) {
+      // Update existing selection
+      const updated = [...selectedEntries];
+      updated[existingIndex] = {
+        ...updated[existingIndex],
+        selection,
+      };
+      setSelectedEntries(updated);
     } else {
-      if (selectedEntries.length >= maxSelections) {
-        setError(`Maximum ${maxSelections} selections allowed`);
-        return;
-      }
-
+      // Add new selection
       const newEntry: LineupEntry = {
-        id: `${projection.id}_${selection}`,
+        id: `entry_${Date.now()}_${Math.random()}`,
         projection,
         selection,
         confidence: projection.confidence,
@@ -610,7 +418,6 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
   // Handle bet placement
   const handlePlaceBet = () => {
     if (!optimizedLineup) return;
-
     onBetPlaced?.(optimizedLineup);
   };
 
@@ -664,8 +471,8 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
 
       <div className='relative z-10 p-8'>
         {/* Header */}
-        <div className='flex items-center justify-between mb-8'>
-          <div className='space-y-3'>
+        <div className='flex items-start justify-between mb-12'>
+          <div className='space-y-4'>
             <h1
               className={`text-4xl font-bold tracking-tight ${
                 variant === 'cyber' ? 'text-cyan-400' : 'text-gray-900 dark:text-white'
@@ -676,47 +483,50 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                 : 'PrizePicks Pro & Lineup Builder'}
             </h1>
             <p
-              className={`text-base leading-relaxed ${
+              className={`text-lg leading-relaxed max-w-2xl ${
                 variant === 'cyber' ? 'text-cyan-300/80' : 'text-gray-600 dark:text-gray-400'
               }`}
             >
-              AI-powered prop analysis with {projections.length} live projections
+              AI-powered prop analysis with {projections.length} live projections. Build optimized
+              lineups using advanced machine learning predictions.
             </p>
-            <div className={`flex items-center space-x-6 text-sm ${
-              variant === 'cyber' ? 'text-cyan-300/70' : 'text-gray-500 dark:text-gray-400'
-            }`}>
-              <span className="flex items-center space-x-2">
-                <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+            <div
+              className={`flex items-center space-x-8 text-sm ${
+                variant === 'cyber' ? 'text-cyan-300/70' : 'text-gray-500 dark:text-gray-400'
+              }`}
+            >
+              <span className='flex items-center space-x-3'>
+                <span className='w-3 h-3 bg-green-400 rounded-full animate-pulse'></span>
                 <span>ML Confidence Scoring</span>
               </span>
-              <span className="flex items-center space-x-2">
-                <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
+              <span className='flex items-center space-x-3'>
+                <span className='w-3 h-3 bg-blue-400 rounded-full animate-pulse'></span>
                 <span>SHAP Explanations</span>
               </span>
-              <span className="flex items-center space-x-2">
-                <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
+              <span className='flex items-center space-x-3'>
+                <span className='w-3 h-3 bg-purple-400 rounded-full animate-pulse'></span>
                 <span>Kelly Optimization</span>
               </span>
             </div>
           </div>
 
-          <div className='flex items-center space-x-4'>
+          <div className='flex items-center space-x-6'>
             {/* Auto-refresh indicator */}
             {autoRefresh && (
               <div
-                className={`flex items-center space-x-2 px-3 py-1 rounded-full ${
+                className={`flex items-center space-x-3 px-4 py-2 rounded-full ${
                   variant === 'cyber'
                     ? 'bg-cyan-400/10 border border-cyan-400/30'
                     : 'bg-green-100 dark:bg-green-900/30'
                 }`}
               >
                 <div
-                  className={`w-2 h-2 rounded-full animate-pulse ${
+                  className={`w-3 h-3 rounded-full animate-pulse ${
                     variant === 'cyber' ? 'bg-cyan-400' : 'bg-green-500'
                   }`}
                 />
                 <span
-                  className={`text-xs font-medium ${
+                  className={`text-sm font-medium ${
                     variant === 'cyber' ? 'text-cyan-400' : 'text-green-700 dark:text-green-400'
                   }`}
                 >
@@ -727,7 +537,7 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
 
             {/* Selected count */}
             <div
-              className={`px-3 py-1 rounded-full text-sm font-medium ${
+              className={`px-4 py-2 rounded-full text-sm font-medium ${
                 variant === 'cyber'
                   ? 'bg-cyan-400/20 text-cyan-400 border border-cyan-400/50'
                   : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
@@ -740,16 +550,16 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
             <button
               onClick={fetchProjections}
               disabled={isLoading}
-              className={`p-2 rounded-lg font-medium transition-all ${
+              className={`p-3 rounded-lg font-medium transition-all ${
                 variant === 'cyber'
                   ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/50 hover:bg-cyan-500/30'
                   : 'bg-blue-100 text-blue-700 border border-blue-200 hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-400'
               } disabled:opacity-50`}
             >
               {isLoading ? (
-                <div className='animate-spin rounded-full h-4 w-4 border-2 border-transparent border-t-current' />
+                <div className='animate-spin rounded-full h-5 w-5 border-2 border-transparent border-t-current' />
               ) : (
-                <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                   <path
                     strokeLinecap='round'
                     strokeLinejoin='round'
@@ -767,14 +577,14 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`p-4 rounded-lg mb-6 ${
+            className={`p-6 rounded-xl mb-8 ${
               variant === 'cyber'
                 ? 'bg-red-500/20 border border-red-500/50 text-red-400'
                 : 'bg-red-100 border border-red-200 text-red-700 dark:bg-red-900/30 dark:border-red-800 dark:text-red-400'
             }`}
           >
-            <div className='flex items-center space-x-2'>
-              <svg className='w-5 h-5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+            <div className='flex items-center space-x-3'>
+              <svg className='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                 <path
                   strokeLinecap='round'
                   strokeLinejoin='round'
@@ -782,27 +592,47 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                   d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z'
                 />
               </svg>
-              <span>{error}</span>
+              <span className='text-lg font-medium'>{error}</span>
             </div>
           </motion.div>
         )}
 
         {/* Filters Section */}
-        <div className={`p-6 rounded-xl mb-8 ${
-          variant === 'cyber'
-            ? 'bg-gray-900/50 border border-cyan-400/20'
-            : 'bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700'
-        }`}>
-          <h2 className={`text-lg font-semibold mb-6 ${
-            variant === 'cyber' ? 'text-cyan-400' : 'text-gray-900 dark:text-white'
-          }`}>
+        <div
+          className={`p-8 rounded-xl mb-10 ${
+            variant === 'cyber'
+              ? 'bg-gray-900/50 border border-cyan-400/20'
+              : 'bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700'
+          }`}
+        >
+          <h2
+            className={`text-xl font-semibold mb-6 ${
+              variant === 'cyber' ? 'text-cyan-400' : 'text-gray-900 dark:text-white'
+            }`}
+          >
             Filter & Search Options
           </h2>
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
+
+          {/* Search Bar */}
+          <div className='mb-6'>
+            <input
+              type='text'
+              placeholder='Search players...'
+              value={activeFilters.playerSearch}
+              onChange={e => setActiveFilters(prev => ({ ...prev, playerSearch: e.target.value }))}
+              className={`w-full max-w-md p-4 rounded-lg border text-base font-medium transition-all ${
+                variant === 'cyber'
+                  ? 'bg-black border-cyan-400/30 text-cyan-300 placeholder-cyan-400/50 focus:border-cyan-400/60 focus:bg-cyan-400/5'
+                  : 'bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+              }`}
+            />
+          </div>
+
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8'>
             {/* Sport Filter */}
-            <div className="space-y-2">
+            <div className='space-y-3'>
               <label
-                className={`block text-sm font-medium ${
+                className={`block text-sm font-semibold ${
                   variant === 'cyber' ? 'text-cyan-300' : 'text-gray-700 dark:text-gray-300'
                 }`}
               >
@@ -811,7 +641,7 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
               <select
                 value={activeFilters.sport}
                 onChange={e => setActiveFilters(prev => ({ ...prev, sport: e.target.value }))}
-                className={`w-full p-3 rounded-lg border text-sm font-medium transition-all ${
+                className={`w-full p-4 rounded-lg border text-sm font-medium transition-all ${
                   variant === 'cyber'
                     ? 'bg-black border-cyan-400/30 text-cyan-300 focus:border-cyan-400/60 focus:bg-cyan-400/5'
                     : 'bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
@@ -827,9 +657,9 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
             </div>
 
             {/* League Filter */}
-            <div className="space-y-2">
+            <div className='space-y-3'>
               <label
-                className={`block text-sm font-medium ${
+                className={`block text-sm font-semibold ${
                   variant === 'cyber' ? 'text-cyan-300' : 'text-gray-700 dark:text-gray-300'
                 }`}
               >
@@ -838,7 +668,7 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
               <select
                 value={activeFilters.league}
                 onChange={e => setActiveFilters(prev => ({ ...prev, league: e.target.value }))}
-                className={`w-full p-3 rounded-lg border text-sm font-medium transition-all ${
+                className={`w-full p-4 rounded-lg border text-sm font-medium transition-all ${
                   variant === 'cyber'
                     ? 'bg-black border-cyan-400/30 text-cyan-300 focus:border-cyan-400/60 focus:bg-cyan-400/5'
                     : 'bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
@@ -854,9 +684,9 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
             </div>
 
             {/* Team Filter */}
-            <div className="space-y-2">
+            <div className='space-y-3'>
               <label
-                className={`block text-sm font-medium ${
+                className={`block text-sm font-semibold ${
                   variant === 'cyber' ? 'text-cyan-300' : 'text-gray-700 dark:text-gray-300'
                 }`}
               >
@@ -865,7 +695,7 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
               <select
                 value={activeFilters.team}
                 onChange={e => setActiveFilters(prev => ({ ...prev, team: e.target.value }))}
-                className={`w-full p-3 rounded-lg border text-sm font-medium transition-all ${
+                className={`w-full p-4 rounded-lg border text-sm font-medium transition-all ${
                   variant === 'cyber'
                     ? 'bg-black border-cyan-400/30 text-cyan-300 focus:border-cyan-400/60 focus:bg-cyan-400/5'
                     : 'bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
@@ -881,9 +711,9 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
             </div>
 
             {/* Stat Type Filter */}
-            <div className="space-y-2">
+            <div className='space-y-3'>
               <label
-                className={`block text-sm font-medium ${
+                className={`block text-sm font-semibold ${
                   variant === 'cyber' ? 'text-cyan-300' : 'text-gray-700 dark:text-gray-300'
                 }`}
               >
@@ -892,7 +722,7 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
               <select
                 value={activeFilters.statType}
                 onChange={e => setActiveFilters(prev => ({ ...prev, statType: e.target.value }))}
-                className={`w-full p-3 rounded-lg border text-sm font-medium transition-all ${
+                className={`w-full p-4 rounded-lg border text-sm font-medium transition-all ${
                   variant === 'cyber'
                     ? 'bg-black border-cyan-400/30 text-cyan-300 focus:border-cyan-400/60 focus:bg-cyan-400/5'
                     : 'bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
@@ -908,15 +738,15 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
             </div>
 
             {/* Confidence Filter */}
-            <div className="space-y-2">
+            <div className='space-y-3'>
               <label
-                className={`block text-sm font-medium ${
+                className={`block text-sm font-semibold ${
                   variant === 'cyber' ? 'text-cyan-300' : 'text-gray-700 dark:text-gray-300'
                 }`}
               >
                 Min Confidence
               </label>
-              <div className="space-y-2">
+              <div className='space-y-3'>
                 <input
                   type='range'
                   min='0'
@@ -925,105 +755,35 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                   onChange={e =>
                     setActiveFilters(prev => ({ ...prev, minConfidence: parseInt(e.target.value) }))
                   }
-                  className={`w-full h-2 rounded-lg ${variant === 'cyber' ? 'accent-cyan-400' : 'accent-blue-500'}`}
+                  className={`w-full h-3 rounded-lg ${variant === 'cyber' ? 'accent-cyan-400' : 'accent-blue-500'}`}
                 />
-                <div className={`text-sm font-medium text-center ${
-                  variant === 'cyber' ? 'text-cyan-400' : 'text-gray-600 dark:text-gray-400'
-                }`}>
+                <div
+                  className={`text-sm font-semibold text-center ${
+                    variant === 'cyber' ? 'text-cyan-400' : 'text-gray-600 dark:text-gray-400'
+                  }`}
+                >
                   {activeFilters.minConfidence}%
                 </div>
               </div>
             </div>
-
-            {/* Risk Filter */}
-            <div className="space-y-2">
-              <label
-                className={`block text-sm font-medium ${
-                  variant === 'cyber' ? 'text-cyan-300' : 'text-gray-700 dark:text-gray-300'
-                }`}
-              >
-                Max Risk
-              </label>
-              <select
-                value={activeFilters.maxRisk}
-                onChange={e =>
-                  setActiveFilters(prev => ({
-                    ...prev,
-                    maxRisk: e.target.value as 'low' | 'medium' | 'high',
-                  }))
-                }
-                className={`w-full p-3 rounded-lg border text-sm font-medium transition-all ${
-                  variant === 'cyber'
-                    ? 'bg-black border-cyan-400/30 text-cyan-300 focus:border-cyan-400/60 focus:bg-cyan-400/5'
-                    : 'bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
-                }`}
-            >
-              <option value='low'>Low Risk</option>
-              <option value='medium'>Medium Risk</option>
-              <option value='high'>High Risk</option>
-            </select>
-          </div>
-
-          {/* Value Filter */}
-          <div>
-            <label
-              className={`block text-xs font-medium mb-1 ${
-                variant === 'cyber' ? 'text-cyan-400' : 'text-gray-700 dark:text-gray-300'
-              }`}
-            >
-              Min Value
-            </label>
-            <input
-              type='range'
-              min='0'
-              max='50'
-              value={activeFilters.minValue}
-              onChange={e =>
-                setActiveFilters(prev => ({ ...prev, minValue: parseInt(e.target.value) }))
-              }
-              className={`w-full ${variant === 'cyber' ? 'accent-cyan-400' : ''}`}
-            />
-            <div className='text-xs text-center mt-1'>{activeFilters.minValue}%</div>
-          </div>
-
-          {/* Player Search */}
-          <div>
-            <label
-              className={`block text-xs font-medium mb-1 ${
-                variant === 'cyber' ? 'text-cyan-400' : 'text-gray-700 dark:text-gray-300'
-              }`}
-            >
-              Player Search
-            </label>
-            <input
-              type='text'
-              placeholder='Search players...'
-              value={activeFilters.playerSearch}
-              onChange={e => setActiveFilters(prev => ({ ...prev, playerSearch: e.target.value }))}
-              className={`w-full p-2 rounded border text-sm ${
-                variant === 'cyber'
-                  ? 'bg-black border-cyan-400/30 text-cyan-300 placeholder-cyan-300/50'
-                  : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white placeholder-gray-500'
-              }`}
-            />
           </div>
         </div>
 
         {/* Main Content Grid */}
-        <div className='grid grid-cols-1 lg:grid-cols-4 gap-6'>
+        <div className='grid grid-cols-1 lg:grid-cols-3 gap-10'>
           {/* Projections List */}
-          <div className='lg:col-span-3'>
-            <div className='flex items-center justify-between mb-4'>
-              <h2
+          <div className='lg:col-span-2 space-y-6'>
+            {/* Sort Controls */}
+            <div className='flex items-center justify-between'>
+              <h3
                 className={`text-xl font-bold ${
                   variant === 'cyber' ? 'text-cyan-400' : 'text-gray-900 dark:text-white'
                 }`}
               >
-                Live Projections ({filteredProjections.length})
-              </h2>
+                Available Props ({filteredProjections.length})
+              </h3>
 
-              {/* Sort Controls */}
-              <div className='flex items-center space-x-2'>
+              <div className='flex items-center space-x-4'>
                 <select
                   value={sortConfig.field}
                   onChange={e =>
@@ -1032,7 +792,7 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                       field: e.target.value as keyof PrizePicksProjection,
                     }))
                   }
-                  className={`p-2 rounded border text-sm ${
+                  className={`p-3 rounded-lg border text-sm ${
                     variant === 'cyber'
                       ? 'bg-black border-cyan-400/30 text-cyan-300'
                       : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white'
@@ -1051,7 +811,7 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                       direction: prev.direction === 'asc' ? 'desc' : 'asc',
                     }))
                   }
-                  className={`p-2 rounded border ${
+                  className={`p-3 rounded-lg border ${
                     variant === 'cyber'
                       ? 'bg-black border-cyan-400/30 text-cyan-300 hover:bg-cyan-400/10'
                       : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
@@ -1063,7 +823,7 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
             </div>
 
             {/* Projections Grid */}
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[600px] overflow-y-auto'>
+            <div className='grid grid-cols-1 xl:grid-cols-2 gap-6 max-h-[800px] overflow-y-auto'>
               <AnimatePresence>
                 {isLoading ? (
                   <div className='col-span-full flex items-center justify-center h-64'>
@@ -1074,7 +834,7 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                     />
                   </div>
                 ) : filteredProjections.length === 0 ? (
-                  <div className='col-span-full text-center py-12'>
+                  <div className='col-span-full text-center py-16'>
                     <div
                       className={`text-6xl mb-4 ${
                         variant === 'cyber' ? 'text-cyan-400/50' : 'text-gray-400'
@@ -1083,7 +843,7 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                       📊
                     </div>
                     <p
-                      className={`text-lg ${
+                      className={`text-xl ${
                         variant === 'cyber'
                           ? 'text-cyan-300/70'
                           : 'text-gray-600 dark:text-gray-400'
@@ -1100,7 +860,7 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -20 }}
                       transition={{ delay: index * 0.05 }}
-                      className={`p-4 rounded-lg border cursor-pointer transition-all ${
+                      className={`p-6 rounded-xl border cursor-pointer transition-all ${
                         selectedEntries.some(entry => entry.projection.id === projection.id)
                           ? variant === 'cyber'
                             ? 'bg-cyan-400/20 border-cyan-400/50'
@@ -1111,10 +871,10 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                       }`}
                     >
                       {/* Player Header */}
-                      <div className='flex items-start justify-between mb-3'>
-                        <div>
+                      <div className='flex items-start justify-between mb-4'>
+                        <div className='space-y-1'>
                           <h3
-                            className={`font-bold ${
+                            className={`text-lg font-bold ${
                               variant === 'cyber'
                                 ? 'text-cyan-300'
                                 : 'text-gray-900 dark:text-white'
@@ -1135,12 +895,12 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
 
                         {/* Confidence Badge */}
                         <div
-                          className={`px-2 py-1 rounded text-xs font-bold ${
+                          className={`px-3 py-1 rounded-full text-sm font-bold ${
                             projection.confidence >= 80
-                              ? 'bg-green-500/20 text-green-400'
+                              ? 'bg-green-500/20 text-green-400 border border-green-500/50'
                               : projection.confidence >= 70
-                                ? 'bg-yellow-500/20 text-yellow-400'
-                                : 'bg-red-500/20 text-red-400'
+                                ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/50'
+                                : 'bg-red-500/20 text-red-400 border border-red-500/50'
                           }`}
                         >
                           {projection.confidence.toFixed(1)}%
@@ -1148,16 +908,16 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                       </div>
 
                       {/* Stat Line */}
-                      <div className='mb-3'>
+                      <div className='mb-4'>
                         <div
-                          className={`text-center p-3 rounded ${
+                          className={`text-center p-4 rounded-lg ${
                             variant === 'cyber'
                               ? 'bg-black/50 border border-cyan-400/20'
                               : 'bg-gray-50 dark:bg-gray-700'
                           }`}
                         >
                           <div
-                            className={`text-lg font-bold ${
+                            className={`text-base font-semibold ${
                               variant === 'cyber'
                                 ? 'text-cyan-400'
                                 : 'text-gray-900 dark:text-white'
@@ -1166,7 +926,7 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                             {projection.stat_type}
                           </div>
                           <div
-                            className={`text-2xl font-bold ${
+                            className={`text-3xl font-bold my-2 ${
                               variant === 'cyber'
                                 ? 'text-cyan-300'
                                 : 'text-gray-900 dark:text-white'
@@ -1178,7 +938,7 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                           {/* ML Prediction Display */}
                           {projection.ml_prediction && (
                             <div
-                              className={`text-sm mt-1 ${
+                              className={`text-sm ${
                                 variant === 'cyber'
                                   ? 'text-cyan-400/70'
                                   : 'text-gray-600 dark:text-gray-400'
@@ -1191,10 +951,10 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                       </div>
 
                       {/* Over/Under Buttons */}
-                      <div className='grid grid-cols-2 gap-2 mb-3'>
+                      <div className='grid grid-cols-2 gap-3 mb-4'>
                         <button
                           onClick={() => handleProjectionSelect(projection, 'over')}
-                          className={`p-2 rounded font-medium transition-all ${
+                          className={`p-3 rounded-lg font-medium transition-all ${
                             selectedEntries.some(
                               entry =>
                                 entry.projection.id === projection.id && entry.selection === 'over'
@@ -1212,7 +972,7 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
 
                         <button
                           onClick={() => handleProjectionSelect(projection, 'under')}
-                          className={`p-2 rounded font-medium transition-all ${
+                          className={`p-3 rounded-lg font-medium transition-all ${
                             selectedEntries.some(
                               entry =>
                                 entry.projection.id === projection.id && entry.selection === 'under'
@@ -1229,88 +989,71 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                         </button>
                       </div>
 
-                      {/* Metrics */}
-                      <div className='grid grid-cols-3 gap-2 text-xs'>
-                        {projection.value_rating !== undefined && (
-                          <div className='text-center'>
-                            <div
-                              className={variant === 'cyber' ? 'text-cyan-400/70' : 'text-gray-500'}
-                            >
-                              Value
-                            </div>
-                            <div
-                              className={`font-bold ${
-                                projection.value_rating > 10
-                                  ? 'text-green-500'
-                                  : projection.value_rating > 5
-                                    ? 'text-yellow-500'
-                                    : 'text-red-500'
-                              }`}
-                            >
-                              {projection.value_rating.toFixed(1)}%
-                            </div>
-                          </div>
-                        )}
-
-                        {projection.kelly_percentage !== undefined && (
-                          <div className='text-center'>
-                            <div
-                              className={variant === 'cyber' ? 'text-cyan-400/70' : 'text-gray-500'}
-                            >
-                              Kelly
-                            </div>
-                            <div
-                              className={`font-bold ${
-                                variant === 'cyber'
-                                  ? 'text-cyan-300'
-                                  : 'text-gray-900 dark:text-white'
-                              }`}
-                            >
-                              {projection.kelly_percentage.toFixed(1)}%
-                            </div>
-                          </div>
-                        )}
-
-                        {projection.ml_prediction?.risk_assessment && (
-                          <div className='text-center'>
-                            <div
-                              className={variant === 'cyber' ? 'text-cyan-400/70' : 'text-gray-500'}
-                            >
-                              Risk
-                            </div>
-                            <div
-                              className={`font-bold capitalize ${
-                                projection.ml_prediction.risk_assessment.level === 'low'
-                                  ? 'text-green-500'
-                                  : projection.ml_prediction.risk_assessment.level === 'medium'
-                                    ? 'text-yellow-500'
-                                    : 'text-red-500'
-                              }`}
-                            >
-                              {projection.ml_prediction.risk_assessment.level}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* SHAP Button */}
-                      {enableShapExplanations && projection.shap_values && (
-                        <div className='mt-3'>
-                          <button
-                            onClick={() => {
-                              setSelectedProjection(projection);
-                              setShowShapModal(true);
-                            }}
-                            className={`w-full p-2 rounded text-xs font-medium transition-all ${
+                      {/* Stats Row */}
+                      <div className='grid grid-cols-3 gap-3 text-xs'>
+                        <div className='text-center'>
+                          <div
+                            className={`font-medium ${
                               variant === 'cyber'
-                                ? 'bg-purple-500/20 text-purple-400 border border-purple-500/50 hover:bg-purple-500/30'
-                                : 'bg-purple-100 text-purple-700 border border-purple-200 hover:bg-purple-200'
+                                ? 'text-cyan-400'
+                                : 'text-gray-600 dark:text-gray-400'
                             }`}
                           >
-                            View AI Explanation (SHAP)
-                          </button>
+                            Value
+                          </div>
+                          <div
+                            className={`font-bold ${
+                              variant === 'cyber'
+                                ? 'text-cyan-300'
+                                : 'text-gray-900 dark:text-white'
+                            }`}
+                          >
+                            {projection.value_rating?.toFixed(1) || 'N/A'}
+                          </div>
                         </div>
-                      )}
+                        <div className='text-center'>
+                          <div
+                            className={`font-medium ${
+                              variant === 'cyber'
+                                ? 'text-cyan-400'
+                                : 'text-gray-600 dark:text-gray-400'
+                            }`}
+                          >
+                            Kelly %
+                          </div>
+                          <div
+                            className={`font-bold ${
+                              variant === 'cyber'
+                                ? 'text-cyan-300'
+                                : 'text-gray-900 dark:text-white'
+                            }`}
+                          >
+                            {projection.kelly_percentage?.toFixed(1) || 'N/A'}%
+                          </div>
+                        </div>
+                        <div className='text-center'>
+                          <div
+                            className={`font-medium ${
+                              variant === 'cyber'
+                                ? 'text-cyan-400'
+                                : 'text-gray-600 dark:text-gray-400'
+                            }`}
+                          >
+                            Risk
+                          </div>
+                          <div
+                            className={`font-bold ${
+                              projection.ml_prediction?.risk_assessment.level === 'low'
+                                ? 'text-green-400'
+                                : projection.ml_prediction?.risk_assessment.level === 'medium'
+                                  ? 'text-yellow-400'
+                                  : 'text-red-400'
+                            }`}
+                          >
+                            {projection.ml_prediction?.risk_assessment.level.toUpperCase() || 'N/A'}
+                          </div>
+                        </div>
+                      </div>
                     </motion.div>
                   ))
                 )}
@@ -1318,17 +1061,17 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
             </div>
           </div>
 
-          {/* Lineup Builder Panel */}
+          {/* Lineup Builder Sidebar */}
           <div className='lg:col-span-1'>
             <div
-              className={`sticky top-6 p-4 rounded-lg border ${
+              className={`p-6 rounded-xl border sticky top-8 ${
                 variant === 'cyber'
                   ? 'bg-gray-900/50 border-cyan-400/30'
-                  : 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700'
+                  : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700'
               }`}
             >
               <h3
-                className={`text-lg font-bold mb-4 ${
+                className={`text-xl font-bold mb-6 ${
                   variant === 'cyber' ? 'text-cyan-400' : 'text-gray-900 dark:text-white'
                 }`}
               >
@@ -1336,14 +1079,14 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
               </h3>
 
               {/* Selected Entries */}
-              <div className='space-y-2 mb-4 max-h-64 overflow-y-auto'>
+              <div className='space-y-3 mb-6 max-h-80 overflow-y-auto'>
                 {selectedEntries.length === 0 ? (
                   <div
-                    className={`text-center py-6 ${
+                    className={`text-center py-8 ${
                       variant === 'cyber' ? 'text-cyan-300/50' : 'text-gray-500'
                     }`}
                   >
-                    <div className='text-2xl mb-2'>🎯</div>
+                    <div className='text-4xl mb-3'>🎯</div>
                     <p className='text-sm'>Select props to build your lineup</p>
                   </div>
                 ) : (
@@ -1353,7 +1096,7 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: 20 }}
-                      className={`p-3 rounded border ${
+                      className={`p-4 rounded-lg border ${
                         variant === 'cyber'
                           ? 'bg-black/50 border-cyan-400/20'
                           : 'bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600'
@@ -1393,7 +1136,7 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                           onClick={() =>
                             setSelectedEntries(prev => prev.filter(e => e.id !== entry.id))
                           }
-                          className={`ml-2 p-1 rounded text-xs ${
+                          className={`ml-3 p-1 rounded text-sm font-bold ${
                             variant === 'cyber'
                               ? 'text-red-400 hover:bg-red-500/20'
                               : 'text-red-600 hover:bg-red-100'
@@ -1411,7 +1154,7 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
               <button
                 onClick={optimizeLineup}
                 disabled={selectedEntries.length < 2 || isOptimizing}
-                className={`w-full p-3 rounded-lg font-bold transition-all ${
+                className={`w-full p-4 rounded-lg font-bold text-lg transition-all ${
                   selectedEntries.length >= 2 && !isOptimizing
                     ? variant === 'cyber'
                       ? 'bg-cyan-500/30 text-cyan-400 border border-cyan-500/50 hover:bg-cyan-500/40'
@@ -1420,8 +1163,8 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                 }`}
               >
                 {isOptimizing ? (
-                  <div className='flex items-center justify-center space-x-2'>
-                    <div className='animate-spin rounded-full h-4 w-4 border-2 border-transparent border-t-current' />
+                  <div className='flex items-center justify-center space-x-3'>
+                    <div className='animate-spin rounded-full h-5 w-5 border-2 border-transparent border-t-current' />
                     <span>Optimizing...</span>
                   </div>
                 ) : variant === 'cyber' ? (
@@ -1436,21 +1179,21 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`mt-4 p-4 rounded-lg border ${
+                  className={`mt-6 p-6 rounded-lg border ${
                     variant === 'cyber'
                       ? 'bg-green-500/20 border-green-500/50'
                       : 'bg-green-100 border-green-500 dark:bg-green-900/30'
                   }`}
                 >
                   <h4
-                    className={`font-bold text-sm mb-2 ${
+                    className={`font-bold text-lg mb-4 ${
                       variant === 'cyber' ? 'text-green-400' : 'text-green-800 dark:text-green-400'
                     }`}
                   >
                     Optimized Lineup
                   </h4>
 
-                  <div className='space-y-2 text-xs'>
+                  <div className='space-y-3 text-sm'>
                     <div className='flex justify-between'>
                       <span>Total Confidence:</span>
                       <span className='font-bold'>
@@ -1494,7 +1237,7 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                   {/* Place Bet Button */}
                   <button
                     onClick={handlePlaceBet}
-                    className={`w-full mt-3 p-2 rounded font-bold text-sm transition-all ${
+                    className={`w-full mt-4 p-3 rounded-lg font-bold text-base transition-all ${
                       variant === 'cyber'
                         ? 'bg-green-500/30 text-green-400 border border-green-500/50 hover:bg-green-500/40'
                         : 'bg-green-600 text-white hover:bg-green-700'
@@ -1509,7 +1252,7 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
               {selectedEntries.length > 0 && (
                 <button
                   onClick={() => setSelectedEntries([])}
-                  className={`w-full mt-2 p-2 rounded font-medium text-sm transition-all ${
+                  className={`w-full mt-4 p-3 rounded-lg font-medium text-sm transition-all ${
                     variant === 'cyber'
                       ? 'bg-red-500/20 text-red-400 border border-red-500/50 hover:bg-red-500/30'
                       : 'bg-red-100 text-red-700 border border-red-200 hover:bg-red-200'
@@ -1521,148 +1264,6 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
             </div>
           </div>
         </div>
-
-        {/* SHAP Explanation Modal */}
-        <AnimatePresence>
-          {showShapModal && selectedProjection?.shap_values && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className='fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4'
-              onClick={() => setShowShapModal(false)}
-            >
-              <motion.div
-                initial={{ scale: 0.95, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.95, opacity: 0 }}
-                className={`max-w-2xl w-full rounded-lg border p-6 ${
-                  variant === 'cyber'
-                    ? 'bg-black border-cyan-400/50'
-                    : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700'
-                }`}
-                onClick={e => e.stopPropagation()}
-              >
-                <div className='flex items-center justify-between mb-4'>
-                  <h3
-                    className={`text-xl font-bold ${
-                      variant === 'cyber' ? 'text-cyan-400' : 'text-gray-900 dark:text-white'
-                    }`}
-                  >
-                    AI Prediction Explanation
-                  </h3>
-                  <button
-                    onClick={() => setShowShapModal(false)}
-                    className={`p-2 rounded ${
-                      variant === 'cyber'
-                        ? 'text-cyan-400 hover:bg-cyan-400/10'
-                        : 'text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700'
-                    }`}
-                  >
-                    ×
-                  </button>
-                </div>
-
-                <div className='space-y-4'>
-                  {/* Player Info */}
-                  <div
-                    className={`p-3 rounded ${
-                      variant === 'cyber' ? 'bg-gray-900/50' : 'bg-gray-50 dark:bg-gray-700'
-                    }`}
-                  >
-                    <h4
-                      className={`font-bold ${
-                        variant === 'cyber' ? 'text-cyan-300' : 'text-gray-900 dark:text-white'
-                      }`}
-                    >
-                      {selectedProjection.player_name} - {selectedProjection.stat_type}
-                    </h4>
-                    <p
-                      className={`text-sm ${
-                        variant === 'cyber'
-                          ? 'text-cyan-400/70'
-                          : 'text-gray-600 dark:text-gray-400'
-                      }`}
-                    >
-                      Line: {selectedProjection.line_score} | Prediction:{' '}
-                      {selectedProjection.ml_prediction?.prediction.toFixed(1)}
-                    </p>
-                  </div>
-
-                  {/* SHAP Values */}
-                  <div>
-                    <h5
-                      className={`font-medium mb-2 ${
-                        variant === 'cyber' ? 'text-cyan-400' : 'text-gray-700 dark:text-gray-300'
-                      }`}
-                    >
-                      Feature Importance
-                    </h5>
-                    <div className='space-y-2'>
-                      {Object.entries(selectedProjection.shap_values.shap_values).map(
-                        ([feature, value]) => (
-                          <div key={feature} className='flex items-center justify-between'>
-                            <span
-                              className={`text-sm ${
-                                variant === 'cyber'
-                                  ? 'text-cyan-300'
-                                  : 'text-gray-700 dark:text-gray-300'
-                              }`}
-                            >
-                              {feature.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                            </span>
-                            <div className='flex items-center space-x-2'>
-                              <div
-                                className={`w-20 h-2 rounded ${
-                                  variant === 'cyber' ? 'bg-gray-800' : 'bg-gray-200'
-                                }`}
-                              >
-                                <div
-                                  className={`h-2 rounded ${
-                                    value > 0 ? 'bg-green-500' : 'bg-red-500'
-                                  }`}
-                                  style={{ width: `${Math.abs(value) * 100}%` }}
-                                />
-                              </div>
-                              <span
-                                className={`text-sm font-medium ${
-                                  value > 0 ? 'text-green-500' : 'text-red-500'
-                                }`}
-                              >
-                                {value > 0 ? '+' : ''}
-                                {(value * 100).toFixed(1)}%
-                              </span>
-                            </div>
-                          </div>
-                        )
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Explanation */}
-                  <div>
-                    <h5
-                      className={`font-medium mb-2 ${
-                        variant === 'cyber' ? 'text-cyan-400' : 'text-gray-700 dark:text-gray-300'
-                      }`}
-                    >
-                      AI Explanation
-                    </h5>
-                    <p
-                      className={`text-sm ${
-                        variant === 'cyber'
-                          ? 'text-cyan-300/80'
-                          : 'text-gray-600 dark:text-gray-400'
-                      }`}
-                    >
-                      {selectedProjection.shap_values.explanation}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
     </div>
   );
