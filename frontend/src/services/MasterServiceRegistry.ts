@@ -20,20 +20,20 @@ import { UnifiedWebSocketService } from './unified/UnifiedWebSocketService';
 import { injuryService } from './injuryService';
 import { lineupService } from './lineupService';
 
-// Import prototype services
-import { enhancedDataSources } from '../../../prototype/src/services/enhancedDataSources';
-import { realDataService } from '../../../prototype/src/services/realDataService';
-import { predictionEngine } from '../../../prototype/src/services/predictionEngine';
-import { realTimeDataAggregator } from '../../../prototype/src/services/realTimeDataAggregator';
+// Import prototype services (temporarily commented out for debugging)
+// import { enhancedDataSources } from '../../../prototype/src/services/enhancedDataSources';
+// import { realDataService } from '../../../prototype/src/services/realDataService';
+// import { predictionEngine } from '../../../prototype/src/services/predictionEngine';
+// import { realTimeDataAggregator } from '../../../prototype/src/services/realTimeDataAggregator';
 
-// Import individual specialized services
-import { AnalyticsService } from './AnalyticsService';
-import { BettingService } from './BettingService';
-import { CacheService } from './CacheService';
-import { PredictionService } from './predictionService';
-import { NotificationService } from './notificationService';
-import { PerformanceTrackingService } from './PerformanceTrackingService';
-import { SecurityService } from './SecurityService';
+// Import individual specialized services (temporarily commented out for debugging)
+// import { AnalyticsService } from './AnalyticsService';
+// import { BettingService } from './BettingService';
+// import { CacheService } from './CacheService';
+// import { PredictionService } from './predictionService';
+// import { NotificationService } from './notificationService';
+// import { PerformanceTrackingService } from './PerformanceTrackingService';
+// import { SecurityService } from './SecurityService';
 
 export interface ServiceHealth {
   name: string;
