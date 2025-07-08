@@ -110,6 +110,7 @@ const Analytics: React.FC = () => {
 
   useEffect(() => {
     loadAnalyticsData();
+    loadInjuryData();
   }, [selectedModel, timeRange]);
 
   const loadAnalyticsData = async () => {
