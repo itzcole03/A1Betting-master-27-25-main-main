@@ -3,7 +3,7 @@ import { AppShell } from './components/core/AppShell';
 import { RefreshCw } from 'lucide-react';
 
 // Lazy load feature components
-const Dashboard = React.lazy(() => import('./components/features/dashboard/Dashboard'));
+const Dashboard = React.lazy(() => import('./components/features/dashboard/EnhancedDashboard'));
 const MoneyMaker = React.lazy(() => import('./components/features/moneymaker/MoneyMaker'));
 const Analytics = React.lazy(() => import('./components/features/analytics/Analytics'));
 const PrizePicks = React.lazy(() => import('./components/features/prizepicks/PrizePicks'));
