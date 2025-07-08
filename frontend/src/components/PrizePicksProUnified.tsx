@@ -1,84 +1,14 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-// Interfaces for comprehensive data handling
-export interface PrizePicksProjection {
-  id: string;
-  player_id: string;
-  player_name: string;
-  team: string;
-  position: string;
-  league: string;
-  sport: string;
-  stat_type: string;
-  line_score: number;
-  over_odds: number;
-  under_odds: number;
-  start_time: string;
-  status: string;
-  description: string;
-  rank: number;
-  is_promo: boolean;
-  confidence: number;
-  market_efficiency: number;
-  ml_prediction?: MLPrediction;
-  shap_values?: ShapValues;
-  value_rating?: number;
-  kelly_percentage?: number;
-}
-
-export interface MLPrediction {
-  prediction: number;
-  confidence: number;
-  ensemble_score: number;
-  model_weights: Record<string, number>;
-  factors: Record<string, number>;
-  risk_assessment: {
-    level: 'low' | 'medium' | 'high';
-    score: number;
-    factors: string[];
-  };
-}
-
-export interface ShapValues {
-  base_value: number;
-  shap_values: Record<string, number>;
-  feature_importance: Record<string, number>;
-  explanation: string;
-}
-
-export interface LineupEntry {
-  id: string;
-  projection: PrizePicksProjection;
-  selection: 'over' | 'under';
-  confidence: number;
-  expected_value: number;
-  kelly_percentage: number;
-}
-
-export interface OptimizedLineup {
-  entries: LineupEntry[];
-  total_confidence: number;
-  expected_payout: number;
-  kelly_optimization: number;
-  risk_score: number;
-  value_score: number;
-  correlation_matrix: number[][];
-}
-
-export interface PrizePicksProUnifiedProps {
-  variant?: 'default' | 'cyber' | 'pro' | 'minimal';
-  className?: string;
-  maxSelections?: number;
-  enableMLPredictions?: boolean;
-  enableShapExplanations?: boolean;
-  enableKellyOptimization?: boolean;
-  enableCorrelationAnalysis?: boolean;
-  autoRefresh?: boolean;
-  refreshInterval?: number;
-  onLineupGenerated?: (lineup: OptimizedLineup) => void;
-  onBetPlaced?: (lineup: OptimizedLineup) => void;
-}
+import {
+  PrizePicksProjection,
+  MLPrediction,
+  ShapValues,
+  LineupEntry,
+  OptimizedLineup,
+  PrizePicksProUnifiedProps,
+  transformToProjection,
+} from '../types/prizePicksUnified';
 
 export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
   variant = 'cyber',
