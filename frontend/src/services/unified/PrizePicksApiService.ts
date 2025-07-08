@@ -1,5 +1,4 @@
-﻿// import type { Game, PrizePicksPlayer, PrizePicksProjection } from '@/types/prizePicks.js';
-import type { PrizePicksPlayer, PrizePicksProjection } from '@/types/prizePicks.js';
+import type { PrizePicksPlayer, PrizePicksProjection } from '@/types/prizePicksUnified.js';
 import type { AxiosInstance } from 'axios';
 import axios from 'axios';
 import { ApiResponse, BaseApiService } from './ApiService.js';
@@ -10,9 +9,10 @@ export class PrizePicksApiService extends BaseApiService {
       baseURL: this.config.baseURL,
       timeout: this.config.timeout || 10000,
       headers: {
-        'Content-Type': 'application/json'
-      }
-    })}
+        'Content-Type': 'application/json',
+      },
+    });
+  }
 
   protected handleError(error: Error): void {
     this.emit('error', error);
@@ -31,7 +31,7 @@ export class PrizePicksApiService extends BaseApiService {
       const apiResponse: ApiResponse<T> = {
         data: response.data,
         status: response.status,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
       this.handleResponse(apiResponse);
       return response.data;
@@ -49,7 +49,7 @@ export class PrizePicksApiService extends BaseApiService {
       const apiResponse: ApiResponse<T> = {
         data: response.data,
         status: response.status,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
       this.handleResponse(apiResponse);
       return response.data;
@@ -61,11 +61,13 @@ export class PrizePicksApiService extends BaseApiService {
 
   // PrizePicks specific methods;
   public async getAvailableProps(): Promise<PrizePicksProjection[]> {
-    return this.get<PrizePicksProjection[]>('/props/available');}
+    return this.get<PrizePicksProjection[]>('/props/available');
+  }
 
   public async getPlayerStats(playerId: string): Promise<PrizePicksPlayer> {
     // Returns player details and stats, strictly typed;
-    return this.get<PrizePicksPlayer>(`/players/${playerId}/stats`);}
+    return this.get<PrizePicksPlayer>(`/players/${playerId}/stats`);
+  }
 
   public async getGameDetails(gameId: string): Promise<any> {
     // Returns full game details, strictly typed;
