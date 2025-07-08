@@ -29,6 +29,10 @@ import {
   Sun,
   Thermometer,
   Wind,
+  Newspaper,
+  ExternalLink,
+  Star,
+  BookOpen,
 } from 'lucide-react';
 import { Layout } from '../../core/Layout';
 import { Badge } from '../../ui/badge';
