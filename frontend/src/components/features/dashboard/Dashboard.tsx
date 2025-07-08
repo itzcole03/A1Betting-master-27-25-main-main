@@ -2215,6 +2215,202 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* AutoPilot Engine */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.9 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white flex items-center gap-2'>
+              <Zap className='w-6 h-6 text-purple-400' />
+              AutoPilot Engine
+            </h3>
+            <p className='text-gray-400 text-sm'>Automated betting rules and execution engine</p>
+          </div>
+          <div className='flex items-center space-x-4'>
+            <div className='flex items-center space-x-2'>
+              <div
+                className={`w-3 h-3 rounded-full ${isGlobalAutoPilotActive ? 'bg-green-400 animate-pulse' : 'bg-gray-400'}`}
+              ></div>
+              <span
+                className={`text-sm font-medium ${isGlobalAutoPilotActive ? 'text-green-400' : 'text-gray-400'}`}
+              >
+                {isGlobalAutoPilotActive ? 'ACTIVE' : 'INACTIVE'}
+              </span>
+            </div>
+            <Button
+              onClick={() => setIsGlobalAutoPilotActive(!isGlobalAutoPilotActive)}
+              className={`${
+                isGlobalAutoPilotActive
+                  ? 'bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700'
+                  : 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700'
+              }`}
+            >
+              {isGlobalAutoPilotActive ? 'Disable' : 'Enable'}
+            </Button>
+          </div>
+        </div>
+
+        {/* AutoPilot Stats */}
+        {autoPilotStats && (
+          <div className='bg-slate-900/50 rounded-lg p-4 mb-6'>
+            <div className='grid grid-cols-2 lg:grid-cols-4 gap-4'>
+              <div className='text-center'>
+                <div className='text-2xl font-bold text-purple-400'>
+                  {autoPilotStats.rulesActive}
+                </div>
+                <div className='text-sm text-gray-400'>Active Rules</div>
+              </div>
+              <div className='text-center'>
+                <div className='text-2xl font-bold text-blue-400'>{autoPilotStats.betsToday}</div>
+                <div className='text-sm text-gray-400'>Bets Today</div>
+              </div>
+              <div className='text-center'>
+                <div className='text-2xl font-bold text-cyan-400'>
+                  ${autoPilotStats.totalStaked}
+                </div>
+                <div className='text-sm text-gray-400'>Total Staked</div>
+              </div>
+              <div className='text-center'>
+                <div
+                  className={`text-2xl font-bold ${autoPilotStats.profitLoss >= 0 ? 'text-green-400' : 'text-red-400'}`}
+                >
+                  {autoPilotStats.profitLoss >= 0 ? '+' : ''}${autoPilotStats.profitLoss}
+                </div>
+                <div className='text-sm text-gray-400'>P&L Today</div>
+              </div>
+            </div>
+
+            <div className='mt-4 flex items-center justify-between text-sm'>
+              <div className='text-gray-400'>
+                Win Rate:{' '}
+                <span className='text-green-400 font-bold'>{autoPilotStats.winRate}%</span>
+              </div>
+              <div className='text-gray-400'>
+                Last Executed: <span className='text-white'>{autoPilotStats.lastExecuted}</span>
+              </div>
+              <div className='text-gray-400'>
+                Safety Status:{' '}
+                <span
+                  className={`font-bold ${getSafetyStatusColor(autoPilotStats.safetyStatus).split(' ')[0]}`}
+                >
+                  {autoPilotStats.safetyStatus.toUpperCase()}
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+          {/* Active Rules */}
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Betting Rules</h4>
+            <div className='space-y-3'>
+              {autoPilotRules.map((rule, index) => (
+                <div
+                  key={rule.id}
+                  className='bg-slate-800/50 rounded-lg p-3 border border-slate-700/30'
+                >
+                  <div className='flex items-start justify-between mb-2'>
+                    <div>
+                      <h5 className='font-bold text-white text-sm'>{rule.name}</h5>
+                      <p className='text-gray-400 text-xs'>
+                        {rule.sport} • {rule.action.betType}
+                      </p>
+                    </div>
+                    <div className='flex items-center gap-2'>
+                      <Badge
+                        variant='outline'
+                        className={
+                          rule.isActive
+                            ? 'text-green-400 border-green-400'
+                            : 'text-gray-400 border-gray-400'
+                        }
+                      >
+                        {rule.isActive ? 'ACTIVE' : 'INACTIVE'}
+                      </Badge>
+                      <Button
+                        size='sm'
+                        variant='outline'
+                        onClick={() => toggleAutoPilotRule(rule.id)}
+                        className='text-xs'
+                      >
+                        Toggle
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className='text-xs space-y-1'>
+                    <div className='text-gray-400'>
+                      Condition: <span className='text-white'>{getConditionText(rule)}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Stake:{' '}
+                      <span className='text-cyan-400'>
+                        {rule.action.amount}% {rule.action.stakeType}
+                      </span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Max Daily:{' '}
+                      <span className='text-yellow-400'>${rule.safetyLimits.maxDailyStake}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Recent Executions */}
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Recent Executions</h4>
+            <div className='space-y-3 max-h-96 overflow-y-auto'>
+              {autoPilotExecutions.slice(0, 6).map((execution, index) => (
+                <div
+                  key={execution.id}
+                  className='bg-slate-800/50 rounded-lg p-3 border border-slate-700/30'
+                >
+                  <div className='flex items-start justify-between mb-2'>
+                    <div>
+                      <h5 className='font-bold text-white text-sm'>{execution.game}</h5>
+                      <p className='text-gray-400 text-xs'>
+                        {execution.betType} • ${execution.stake}
+                      </p>
+                    </div>
+                    <Badge
+                      variant='outline'
+                      className={`text-xs ${getExecutionStatusColor(execution.status)}`}
+                    >
+                      {execution.status.toUpperCase()}
+                    </Badge>
+                  </div>
+
+                  <div className='grid grid-cols-2 gap-2 text-xs mb-2'>
+                    <div>
+                      <span className='text-gray-400'>Odds:</span>
+                      <div className='text-white font-bold'>{execution.odds}</div>
+                    </div>
+                    <div>
+                      <span className='text-gray-400'>Confidence:</span>
+                      <div className='text-green-400 font-bold'>
+                        {execution.confidence.toFixed(0)}%
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className='text-xs text-gray-400'>
+                    {execution.timestamp} • Rule:{' '}
+                    {autoPilotRules.find(r => r.id === execution.ruleId)?.name}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </Layout>
   );
 };
