@@ -1,6 +1,6 @@
-import { UnifiedLogger } from '@/core/UnifiedLogger';
-import { UnifiedCache } from '@/unified/UnifiedCache';
-import { UnifiedConfig } from '@/unified/UnifiedConfig';
+import { UnifiedLogger } from './UnifiedLogger';
+import { UnifiedCache } from './UnifiedCache';
+import { UnifiedConfig } from './UnifiedConfig';
 import type { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import axios from 'axios';
 import { UnifiedServiceRegistry } from './UnifiedServiceRegistry';
