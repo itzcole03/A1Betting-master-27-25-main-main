@@ -158,6 +158,42 @@ interface AutoPilotStats {
   safetyStatus: 'safe' | 'warning' | 'critical';
 }
 
+interface BankrollData {
+  currentBalance: number;
+  startingBalance: number;
+  totalProfit: number;
+  totalWagered: number;
+  winRate: number;
+  roi: number;
+  sharpeRatio: number;
+  maxDrawdown: number;
+  streakData: {
+    currentStreak: number;
+    longestWinStreak: number;
+    longestLossStreak: number;
+  };
+}
+
+interface BetAllocation {
+  id: string;
+  game: string;
+  type: string;
+  confidence: number;
+  kellyPercent: number;
+  recommendedStake: number;
+  maxStake: number;
+  expectedValue: number;
+  risk: 'low' | 'medium' | 'high';
+}
+
+interface RiskMetrics {
+  riskLevel: 'conservative' | 'moderate' | 'aggressive';
+  maxBetSize: number;
+  diversificationScore: number;
+  volatility: number;
+  valueAtRisk: number;
+}
+
 const Dashboard: React.FC = () => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [liveOpportunities, setLiveOpportunities] = useState<LiveOpportunity[]>([]);
