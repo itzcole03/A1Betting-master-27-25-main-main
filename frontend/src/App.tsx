@@ -56,7 +56,7 @@ const componentMap: Record<string, React.ComponentType> = {
   arbitrage: ArbitrageScanner,
   livebetting: LiveBetting,
   prizepicks: PrizePicks,
-  lineup: LineupBuilder,
+  lineup: PrizePicks, // Merged with PrizePicks as requested
 
   // AI Engine
   analytics: Analytics,
