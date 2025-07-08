@@ -105,7 +105,18 @@ export class UnifiedWebSocketService extends BaseService {
 
   disconnect(): void {
     if (this.ws) {
-      this.ws.close(1000, 'Client disconnect');
+      // Check WebSocket state before closing
+      const readyState = this.ws.readyState;
+
+      if (readyState === WebSocket.OPEN || readyState === WebSocket.CONNECTING) {
+        try {
+          this.ws.close(1000, 'Client disconnect');
+        } catch (error) {
+          // Ignore errors when closing WebSocket - it might already be closed
+          this.logger.warn('WebSocket close warning:', error);
+        }
+      }
+
       this.ws = null;
     }
     this.setConnectionState(WebSocketConnectionState.DISCONNECTED);
