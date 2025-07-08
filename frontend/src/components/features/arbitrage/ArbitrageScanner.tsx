@@ -16,6 +16,8 @@ import {
   Copy,
   CheckCircle,
   Timer,
+  Shield,
+  Brain,
 } from 'lucide-react';
 import { Layout } from '../../core/Layout';
 
