@@ -265,7 +265,7 @@ export class UnifiedWebSocketService extends BaseService {
 
   private getWebSocketUrl(): string {
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const host = process.env.REACT_APP_WS_HOST || window.location.host;
+    const host = import.meta.env.VITE_WS_HOST || window.location.host;
     return `${protocol}//${host}/ws`;
   }
 
