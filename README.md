@@ -58,7 +58,7 @@ FastAPI 4.0.0 + Python 3.11+ + SQLite/PostgreSQL
 ├── 🔐 Authentication System (JWT + Security)
 ├── 🚀 Caching Layer (Redis + TTL Cache)
 ├── 📊 Health Monitoring (Comprehensive Checks)
-├── 🔄 Background Services (Data Processing)
+���── 🔄 Background Services (Data Processing)
 └── 🌐 WebSocket Infrastructure (Real-time Updates)
 ```
 
@@ -166,6 +166,11 @@ npx serve dist -l 4000
 ```
 
 **Dashboard URL:** `http://localhost:4000`
+
+**🎯 Access PrizePicks Pro/Lineup Builder:**
+
+- **Direct URL:** `http://localhost:4000#prizepicks` or `http://localhost:4000#lineup`
+- **Test Page:** `http://localhost:4000#prizepicks-test` (for development)
 
 ### **2. Launch Backend API**
 
