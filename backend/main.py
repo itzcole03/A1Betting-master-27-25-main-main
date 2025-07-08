@@ -255,6 +255,7 @@ app.include_router(betting_router)
 app.include_router(performance_router)
 app.include_router(auth_router)
 app.include_router(prizepicks_router)
+app.include_router(shap_router)
 app.include_router(analytics_router)
 
 logger.info("✅ All refactored routers included successfully")
