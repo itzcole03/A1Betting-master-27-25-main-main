@@ -99,10 +99,22 @@ export const AppShell: React.FC<AppShellProps> = ({ children, activeView, onNavi
           </div>
 
           <div className='flex items-center space-x-2'>
-            <button className='p-2 rounded-lg text-gray-400 hover:text-white transition-colors'>
+            <button
+              className='p-2 rounded-lg text-gray-400 hover:text-white transition-colors'
+              onClick={() => {
+                // Handle notifications
+                console.log('Notifications clicked');
+              }}
+            >
               <Bell className='w-5 h-5' />
             </button>
-            <button className='p-2 rounded-lg text-gray-400 hover:text-white transition-colors'>
+            <button
+              className='p-2 rounded-lg text-gray-400 hover:text-white transition-colors'
+              onClick={() => {
+                // Handle user menu
+                console.log('User menu clicked');
+              }}
+            >
               <User className='w-5 h-5' />
             </button>
           </div>
