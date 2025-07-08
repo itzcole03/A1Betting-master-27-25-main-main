@@ -165,7 +165,13 @@ const Analytics: React.FC = () => {
   useEffect(() => {
     loadAnalyticsData();
     loadInjuryData();
+    loadQuantumData();
   }, [selectedModel, timeRange]);
+
+  useEffect(() => {
+    const interval = setInterval(runQuantumSimulation, 1000 / simulationSpeed);
+    return () => clearInterval(interval);
+  }, [isQuantumActive, simulationSpeed]);
 
   const loadAnalyticsData = async () => {
     setIsLoading(true);
