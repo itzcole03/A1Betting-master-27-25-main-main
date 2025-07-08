@@ -129,7 +129,7 @@ class MasterServiceRegistry {
       { name: 'predictions', service: new UnifiedPredictionService() },
       { name: 'notifications', service: new UnifiedNotificationService() },
       { name: 'state', service: new UnifiedStateService() },
-      { name: 'cache', service: new UnifiedCacheService() },
+      { name: 'cache', service: UnifiedCache.getInstance() },
       { name: 'errors', service: new UnifiedErrorService() },
       { name: 'logger', service: new UnifiedLogger() },
       { name: 'websocket', service: new UnifiedWebSocketService() },
