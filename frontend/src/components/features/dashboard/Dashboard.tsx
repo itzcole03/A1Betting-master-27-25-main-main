@@ -534,6 +534,52 @@ const Dashboard: React.FC = () => {
     return 'bg-red-500/20';
   };
 
+  const getExecutionStatusColor = (status: string) => {
+    switch (status) {
+      case 'placed':
+        return 'text-green-400 border-green-400';
+      case 'pending':
+        return 'text-yellow-400 border-yellow-400';
+      case 'failed':
+        return 'text-red-400 border-red-400';
+      case 'cancelled':
+        return 'text-gray-400 border-gray-400';
+      default:
+        return 'text-gray-400 border-gray-400';
+    }
+  };
+
+  const getSafetyStatusColor = (status: string) => {
+    switch (status) {
+      case 'safe':
+        return 'text-green-400 border-green-400';
+      case 'warning':
+        return 'text-yellow-400 border-yellow-400';
+      case 'critical':
+        return 'text-red-400 border-red-400';
+      default:
+        return 'text-gray-400 border-gray-400';
+    }
+  };
+
+  const getConditionText = (rule: AutoBetRule) => {
+    const { condition } = rule;
+    const typeText = {
+      confidence: 'Confidence',
+      odds: 'Odds',
+      value: 'Expected Value',
+      composite: 'Composite Score',
+    }[condition.type];
+
+    return `${typeText} ${condition.operator} ${condition.threshold}${condition.type === 'confidence' || condition.type === 'composite' ? '%' : ''}`;
+  };
+
+  const toggleAutoPilotRule = (ruleId: string) => {
+    setAutoPilotRules(prev =>
+      prev.map(rule => (rule.id === ruleId ? { ...rule, isActive: !rule.isActive } : rule))
+    );
+  };
+
   return (
     <Layout
       title='Command Center'
