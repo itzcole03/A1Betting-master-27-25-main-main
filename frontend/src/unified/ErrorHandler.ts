@@ -30,6 +30,18 @@ export class ErrorHandler {
     // Handle unhandled promise rejections
     if (typeof window !== 'undefined') {
       window.addEventListener('unhandledrejection', event => {
+        // Special handling for WebSocket errors
+        if (
+          event.reason &&
+          (event.reason.message?.includes('WebSocket closed without opened') ||
+            event.reason.toString?.().includes('WebSocket closed without opened'))
+        ) {
+          // Log WebSocket errors but don't treat them as critical
+          console.warn('WebSocket connection issue (handled):', event.reason);
+          event.preventDefault(); // Prevent the error from being logged as unhandled
+          return;
+        }
+
         this.handleError(
           new Error(`Unhandled Promise Rejection: ${event.reason}`),
           'unhandled_promise_rejection'
