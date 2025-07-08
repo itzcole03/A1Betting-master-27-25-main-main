@@ -957,10 +957,6 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                     ? 'bg-black border-cyan-400/30 text-cyan-300 focus:border-cyan-400/60 focus:bg-cyan-400/5'
                     : 'bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
                 }`}
-                variant === 'cyber'
-                  ? 'bg-black border-cyan-400/30 text-cyan-300'
-                  : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white'
-              }`}
             >
               <option value='low'>Low Risk</option>
               <option value='medium'>Medium Risk</option>
