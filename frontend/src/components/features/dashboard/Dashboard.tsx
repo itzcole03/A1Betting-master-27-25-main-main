@@ -324,11 +324,206 @@ const Dashboard: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* System Status */}
+      {/* What-If Simulation Engine */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.7 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>What-If Simulation Engine</h3>
+            <p className='text-gray-400 text-sm'>Test scenarios and optimize strategies</p>
+          </div>
+          <Calculator className='w-6 h-6 text-purple-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <div className='space-y-4'>
+            <div>
+              <label className='block text-sm font-medium text-gray-400 mb-2'>
+                Scenario Settings
+              </label>
+              <div className='space-y-3'>
+                <div className='flex items-center justify-between bg-slate-900/50 rounded-lg p-3'>
+                  <span className='text-white'>Bankroll Size</span>
+                  <select className='bg-slate-700 text-white rounded px-2 py-1 text-sm'>
+                    <option>$10,000</option>
+                    <option>$25,000</option>
+                    <option>$50,000</option>
+                    <option>$100,000</option>
+                  </select>
+                </div>
+                <div className='flex items-center justify-between bg-slate-900/50 rounded-lg p-3'>
+                  <span className='text-white'>Risk Level</span>
+                  <select className='bg-slate-700 text-white rounded px-2 py-1 text-sm'>
+                    <option>Conservative</option>
+                    <option>Moderate</option>
+                    <option>Aggressive</option>
+                  </select>
+                </div>
+                <div className='flex items-center justify-between bg-slate-900/50 rounded-lg p-3'>
+                  <span className='text-white'>Time Horizon</span>
+                  <select className='bg-slate-700 text-white rounded px-2 py-1 text-sm'>
+                    <option>1 Week</option>
+                    <option>1 Month</option>
+                    <option>3 Months</option>
+                    <option>1 Year</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className='space-y-4'>
+            <div>
+              <label className='block text-sm font-medium text-gray-400 mb-2'>
+                Simulation Results
+              </label>
+              <div className='space-y-3'>
+                <div className='bg-slate-900/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-gray-400 text-sm'>Expected Return</span>
+                    <span className='text-green-400 font-bold'>+24.7%</span>
+                  </div>
+                  <div className='w-full bg-slate-700 rounded-full h-2'>
+                    <div
+                      className='bg-gradient-to-r from-green-400 to-cyan-400 h-2 rounded-full'
+                      style={{ width: '75%' }}
+                    ></div>
+                  </div>
+                </div>
+                <div className='bg-slate-900/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-gray-400 text-sm'>Win Probability</span>
+                    <span className='text-cyan-400 font-bold'>78.3%</span>
+                  </div>
+                  <div className='w-full bg-slate-700 rounded-full h-2'>
+                    <div
+                      className='bg-gradient-to-r from-cyan-400 to-purple-400 h-2 rounded-full'
+                      style={{ width: '78%' }}
+                    ></div>
+                  </div>
+                </div>
+                <div className='bg-slate-900/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-gray-400 text-sm'>Max Drawdown</span>
+                    <span className='text-yellow-400 font-bold'>-5.2%</span>
+                  </div>
+                  <div className='w-full bg-slate-700 rounded-full h-2'>
+                    <div
+                      className='bg-gradient-to-r from-yellow-400 to-orange-400 h-2 rounded-full'
+                      style={{ width: '25%' }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className='mt-6 flex space-x-3'>
+          <button className='flex-1 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-lg text-white font-medium transition-all'>
+            Run Simulation
+          </button>
+          <button className='px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-white transition-colors'>
+            Export Results
+          </button>
+        </div>
+      </motion.div>
+
+      {/* Live Portfolio Optimization */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.8 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Live Portfolio Optimization</h3>
+            <p className='text-gray-400 text-sm'>AI-powered real-time portfolio adjustments</p>
+          </div>
+          <Brain className='w-6 h-6 text-cyan-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Current Allocation</h4>
+            <div className='space-y-2'>
+              {[
+                { category: 'NBA Props', allocation: 35, change: '+2%' },
+                { category: 'NFL Spreads', allocation: 25, change: '-1%' },
+                { category: 'Arbitrage', allocation: 20, change: '+3%' },
+                { category: 'Live Betting', allocation: 15, change: '0%' },
+                { category: 'Cash', allocation: 5, change: '-4%' },
+              ].map((item, index) => (
+                <div key={index} className='flex items-center justify-between'>
+                  <span className='text-gray-300 text-sm'>{item.category}</span>
+                  <div className='flex items-center space-x-2'>
+                    <span className='text-white font-medium'>{item.allocation}%</span>
+                    <span
+                      className={`text-xs ${
+                        item.change.startsWith('+')
+                          ? 'text-green-400'
+                          : item.change.startsWith('-')
+                            ? 'text-red-400'
+                            : 'text-gray-400'
+                      }`}
+                    >
+                      {item.change}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>AI Recommendations</h4>
+            <div className='space-y-2'>
+              {[
+                { action: 'Increase NBA Props', confidence: 92, impact: '+3.2%' },
+                { action: 'Reduce NFL Exposure', confidence: 87, impact: '-1.8%' },
+                { action: 'Add MLB Arbitrage', confidence: 85, impact: '+2.1%' },
+              ].map((rec, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-2'>
+                  <div className='flex items-center justify-between mb-1'>
+                    <span className='text-white text-sm font-medium'>{rec.action}</span>
+                    <span className='text-cyan-400 text-xs'>{rec.confidence}%</span>
+                  </div>
+                  <div className='text-green-400 text-xs'>{rec.impact} impact</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Risk Metrics</h4>
+            <div className='space-y-3'>
+              <div className='text-center'>
+                <div className='text-2xl font-bold text-green-400'>1.47</div>
+                <div className='text-xs text-gray-400'>Sharpe Ratio</div>
+              </div>
+              <div className='text-center'>
+                <div className='text-2xl font-bold text-yellow-400'>2.3%</div>
+                <div className='text-xs text-gray-400'>VaR (95%)</div>
+              </div>
+              <div className='text-center'>
+                <div className='text-2xl font-bold text-purple-400'>0.89</div>
+                <div className='text-xs text-gray-400'>Beta</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* System Status */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.9 }}
         className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6'
       >
         <h3 className='text-xl font-bold text-white mb-4'>System Status</h3>
