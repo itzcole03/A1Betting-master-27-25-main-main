@@ -1,7 +1,7 @@
 /**
  * Real-Time Prediction Service
  * PHASE 6: END-TO-END INTEGRATION & TESTING
- * 
+ *
  * Integrates frontend with Phase 5 Real-Time Prediction Engine API.
  * Provides real-time predictions, confidence scores, and SHAP explanations.
  */
@@ -76,7 +76,7 @@ class RealTimePredictionService {
 
   constructor() {
     // Use the Phase 5 prediction API endpoint
-    this.baseUrl = '${process.env.REACT_APP_API_URL || "http://localhost:8000"}';
+    this.baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
     this.timeout = 10000; // 10 seconds timeout
   }
 
@@ -86,8 +86,8 @@ class RealTimePredictionService {
    */
   async getLivePredictions(request: PredictionRequest = {}): Promise<RealTimePrediction[]> {
     try {
-//       console.log('🎯 Fetching real-time predictions...', request);
-      
+      //       console.log('🎯 Fetching real-time predictions...', request);
+
       const params = new URLSearchParams();
       if (request.sport) params.append('sport', request.sport);
       if (request.limit) params.append('limit', request.limit.toString());
@@ -97,18 +97,21 @@ class RealTimePredictionService {
         { timeout: this.timeout }
       );
 
-//       console.log(`✅ Received ${response.data.length} real-time predictions`);
+      //       console.log(`✅ Received ${response.data.length} real-time predictions`);
       return response.data;
-
     } catch (error) {
-//       console.error('❌ Error fetching live predictions:', error);
-      
+      //       console.error('❌ Error fetching live predictions:', error);
+
       // Check if the API is running
       if (axios.isAxiosError(error) && error.code === 'ECONNREFUSED') {
-        throw new Error('Prediction API is not running. Please start the backend service on port 8003.');
+        throw new Error(
+          'Prediction API is not running. Please start the backend service on port 8003.'
+        );
       }
-      
-      throw new Error(`Failed to fetch live predictions: ${error instanceof Error ? error.message : 'Unknown error'}`);
+
+      throw new Error(
+        `Failed to fetch live predictions: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -123,10 +126,11 @@ class RealTimePredictionService {
       );
 
       return response.data;
-
     } catch (error) {
-//       console.error('❌ Error fetching system health:', error);
-      throw new Error(`Failed to fetch system health: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      //       console.error('❌ Error fetching system health:', error);
+      throw new Error(
+        `Failed to fetch system health: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -141,28 +145,33 @@ class RealTimePredictionService {
       );
 
       return response.data;
-
     } catch (error) {
-//       console.error('❌ Error fetching prediction explanation:', error);
-      throw new Error(`Failed to fetch explanation: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      //       console.error('❌ Error fetching prediction explanation:', error);
+      throw new Error(
+        `Failed to fetch explanation: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
   /**
    * Get information about loaded ML models
    */
-  async getLoadedModels(): Promise<{ models_loaded: number; models: ModelInfo[]; timestamp: string }> {
+  async getLoadedModels(): Promise<{
+    models_loaded: number;
+    models: ModelInfo[];
+    timestamp: string;
+  }> {
     try {
-      const response = await axios.get(
-        `${this.baseUrl}/api/predictions/prizepicks/models`,
-        { timeout: this.timeout }
-      );
+      const response = await axios.get(`${this.baseUrl}/api/predictions/prizepicks/models`, {
+        timeout: this.timeout,
+      });
 
       return response.data;
-
     } catch (error) {
-//       console.error('❌ Error fetching model info:', error);
-      throw new Error(`Failed to fetch model info: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      //       console.error('❌ Error fetching model info:', error);
+      throw new Error(
+        `Failed to fetch model info: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -177,10 +186,11 @@ class RealTimePredictionService {
       );
 
       return response.data;
-
     } catch (error) {
-//       console.error('❌ Error fetching prediction stats:', error);
-      throw new Error(`Failed to fetch stats: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      //       console.error('❌ Error fetching prediction stats:', error);
+      throw new Error(
+        `Failed to fetch stats: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -196,10 +206,11 @@ class RealTimePredictionService {
       );
 
       return response.data;
-
     } catch (error) {
-//       console.error('❌ Error triggering model training:', error);
-      throw new Error(`Failed to trigger training: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      //       console.error('❌ Error triggering model training:', error);
+      throw new Error(
+        `Failed to trigger training: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -208,15 +219,11 @@ class RealTimePredictionService {
    */
   async checkApiHealth(): Promise<boolean> {
     try {
-      const response = await axios.get(
-        `${this.baseUrl}/health`,
-        { timeout: 5000 }
-      );
+      const response = await axios.get(`${this.baseUrl}/health`, { timeout: 5000 });
 
       return response.status === 200;
-
     } catch (error) {
-//       console.warn('⚠️ Prediction API health check failed:', error);
+      //       console.warn('⚠️ Prediction API health check failed:', error);
       return false;
     }
   }
@@ -226,16 +233,14 @@ class RealTimePredictionService {
    */
   async getApiInfo(): Promise<Record<string, any>> {
     try {
-      const response = await axios.get(
-        `${this.baseUrl}/`,
-        { timeout: this.timeout }
-      );
+      const response = await axios.get(`${this.baseUrl}/`, { timeout: this.timeout });
 
       return response.data;
-
     } catch (error) {
-//       console.error('❌ Error fetching API info:', error);
-      throw new Error(`Failed to fetch API info: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      //       console.error('❌ Error fetching API info:', error);
+      throw new Error(
+        `Failed to fetch API info: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -244,13 +249,13 @@ class RealTimePredictionService {
    */
   formatConfidenceLevel(level: string): string {
     const levels = {
-      'very_low': 'Very Low',
-      'low': 'Low',
-      'medium': 'Medium',
-      'high': 'High',
-      'very_high': 'Very High'
+      very_low: 'Very Low',
+      low: 'Low',
+      medium: 'Medium',
+      high: 'High',
+      very_high: 'Very High',
     };
-    
+
     return levels[level as keyof typeof levels] || level;
   }
 
@@ -259,13 +264,13 @@ class RealTimePredictionService {
    */
   formatRecommendation(recommendation: string): string {
     const recommendations = {
-      'STRONG_BUY': 'Strong Buy',
-      'BUY': 'Buy',
-      'HOLD': 'Hold',
-      'WEAK_SELL': 'Weak Sell',
-      'STRONG_SELL': 'Strong Sell'
+      STRONG_BUY: 'Strong Buy',
+      BUY: 'Buy',
+      HOLD: 'Hold',
+      WEAK_SELL: 'Weak Sell',
+      STRONG_SELL: 'Strong Sell',
     };
-    
+
     return recommendations[recommendation as keyof typeof recommendations] || recommendation;
   }
 
@@ -274,13 +279,13 @@ class RealTimePredictionService {
    */
   getConfidenceColor(level: string): string {
     const colors = {
-      'very_low': '#ef4444',    // red-500
-      'low': '#f97316',         // orange-500
-      'medium': '#eab308',      // yellow-500
-      'high': '#22c55e',        // green-500
-      'very_high': '#16a34a'    // green-600
+      very_low: '#ef4444', // red-500
+      low: '#f97316', // orange-500
+      medium: '#eab308', // yellow-500
+      high: '#22c55e', // green-500
+      very_high: '#16a34a', // green-600
     };
-    
+
     return colors[level as keyof typeof colors] || '#6b7280'; // gray-500
   }
 
@@ -289,13 +294,13 @@ class RealTimePredictionService {
    */
   getRecommendationColor(recommendation: string): string {
     const colors = {
-      'STRONG_BUY': '#16a34a',  // green-600
-      'BUY': '#22c55e',         // green-500
-      'HOLD': '#eab308',        // yellow-500
-      'WEAK_SELL': '#f97316',   // orange-500
-      'STRONG_SELL': '#ef4444'  // red-500
+      STRONG_BUY: '#16a34a', // green-600
+      BUY: '#22c55e', // green-500
+      HOLD: '#eab308', // yellow-500
+      WEAK_SELL: '#f97316', // orange-500
+      STRONG_SELL: '#ef4444', // red-500
     };
-    
+
     return colors[recommendation as keyof typeof colors] || '#6b7280'; // gray-500
   }
 }
@@ -304,4 +309,4 @@ class RealTimePredictionService {
 export const realTimePredictionService = new RealTimePredictionService();
 
 // Export default for easier imports
-export default realTimePredictionService; 
+export default realTimePredictionService;
