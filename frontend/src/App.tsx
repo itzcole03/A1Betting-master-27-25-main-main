@@ -11,6 +11,8 @@ const ArbitrageScanner = React.lazy(
   () => import('./components/features/arbitrage/ArbitrageScanner')
 );
 const LiveBetting = React.lazy(() => import('./components/features/livebetting/LiveBetting'));
+const BankrollManager = React.lazy(() => import('./components/features/bankroll/BankrollManager'));
+const RiskEngine = React.lazy(() => import('./components/features/risk/RiskEngine'));
 
 // Placeholder components for features not yet implemented
 const PlaceholderComponent: React.FC<{ title: string; description: string }> = ({
