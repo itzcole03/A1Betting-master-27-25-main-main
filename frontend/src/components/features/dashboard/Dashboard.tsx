@@ -2558,6 +2558,308 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Bankroll Management Hub */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2.1 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white flex items-center gap-2'>
+              <DollarSign className='w-6 h-6 text-green-400' />
+              Bankroll Management Hub
+            </h3>
+            <p className='text-gray-400 text-sm'>
+              Advanced portfolio management and Kelly criterion optimization
+            </p>
+          </div>
+          <div className='flex items-center space-x-4'>
+            <select
+              value={riskLevel}
+              onChange={e => setRiskLevel(e.target.value as any)}
+              className='px-3 py-2 bg-slate-800/50 border border-slate-700/50 rounded-lg text-white text-sm'
+            >
+              <option value='conservative'>Conservative</option>
+              <option value='moderate'>Moderate</option>
+              <option value='aggressive'>Aggressive</option>
+            </select>
+            <Badge variant='outline' className={getRiskLevelColor(riskLevel)}>
+              {riskLevel.toUpperCase()}
+            </Badge>
+          </div>
+        </div>
+
+        {/* Bankroll Overview */}
+        {bankrollData && (
+          <div className='bg-slate-900/50 rounded-lg p-4 mb-6'>
+            <div className='grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4'>
+              <div className='text-center'>
+                <div className='text-2xl font-bold text-green-400'>
+                  ${bankrollData.currentBalance.toLocaleString()}
+                </div>
+                <div className='text-sm text-gray-400'>Current Balance</div>
+              </div>
+              <div className='text-center'>
+                <div
+                  className={`text-2xl font-bold ${bankrollData.totalProfit >= 0 ? 'text-green-400' : 'text-red-400'}`}
+                >
+                  {bankrollData.totalProfit >= 0 ? '+' : ''}$
+                  {bankrollData.totalProfit.toLocaleString()}
+                </div>
+                <div className='text-sm text-gray-400'>Total Profit</div>
+              </div>
+              <div className='text-center'>
+                <div className='text-2xl font-bold text-blue-400'>
+                  {bankrollData.roi.toFixed(1)}%
+                </div>
+                <div className='text-sm text-gray-400'>ROI</div>
+              </div>
+              <div className='text-center'>
+                <div className='text-2xl font-bold text-purple-400'>
+                  {bankrollData.sharpeRatio.toFixed(2)}
+                </div>
+                <div className='text-sm text-gray-400'>Sharpe Ratio</div>
+              </div>
+            </div>
+
+            <div className='grid grid-cols-2 lg:grid-cols-4 gap-4 text-sm'>
+              <div className='text-center'>
+                <div className='text-cyan-400 font-bold'>{bankrollData.winRate.toFixed(1)}%</div>
+                <div className='text-gray-400'>Win Rate</div>
+              </div>
+              <div className='text-center'>
+                <div className='text-yellow-400 font-bold'>
+                  {bankrollData.maxDrawdown.toFixed(1)}%
+                </div>
+                <div className='text-gray-400'>Max Drawdown</div>
+              </div>
+              <div className='text-center'>
+                <div
+                  className={`font-bold ${getStreakColor(bankrollData.streakData.currentStreak)}`}
+                >
+                  {bankrollData.streakData.currentStreak >= 0 ? '+' : ''}
+                  {bankrollData.streakData.currentStreak}
+                </div>
+                <div className='text-gray-400'>Current Streak</div>
+              </div>
+              <div className='text-center'>
+                <div className='text-gray-400'>Total Wagered:</div>
+                <div className='text-white font-bold'>
+                  ${bankrollData.totalWagered.toLocaleString()}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+          {/* Bet Allocations */}
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Smart Bet Allocation</h4>
+            <div className='space-y-3'>
+              <div className='flex items-center justify-between text-sm mb-3'>
+                <span className='text-gray-400'>Kelly Fraction:</span>
+                <div className='flex items-center gap-2'>
+                  <input
+                    type='range'
+                    min='0.1'
+                    max='1.0'
+                    step='0.05'
+                    value={kellyFraction}
+                    onChange={e => setKellyFraction(parseFloat(e.target.value))}
+                    className='w-20'
+                  />
+                  <span className='text-cyan-400 font-bold'>{kellyFraction.toFixed(2)}</span>
+                </div>
+              </div>
+
+              {betAllocations.map((allocation, index) => (
+                <div
+                  key={allocation.id}
+                  className='bg-slate-800/50 rounded-lg p-3 border border-slate-700/30'
+                >
+                  <div className='flex items-start justify-between mb-2'>
+                    <div>
+                      <h5 className='font-bold text-white text-sm'>{allocation.game}</h5>
+                      <p className='text-gray-400 text-xs'>{allocation.type}</p>
+                    </div>
+                    <Badge variant='outline' className={getBankrollRiskColor(allocation.risk)}>
+                      {allocation.risk.toUpperCase()}
+                    </Badge>
+                  </div>
+
+                  <div className='grid grid-cols-2 gap-3 text-xs mb-2'>
+                    <div>
+                      <span className='text-gray-400'>Confidence:</span>
+                      <div className='text-green-400 font-bold'>
+                        {allocation.confidence.toFixed(0)}%
+                      </div>
+                    </div>
+                    <div>
+                      <span className='text-gray-400'>Kelly %:</span>
+                      <div className='text-cyan-400 font-bold'>
+                        {allocation.kellyPercent.toFixed(2)}%
+                      </div>
+                    </div>
+                    <div>
+                      <span className='text-gray-400'>Recommended:</span>
+                      <div className='text-yellow-400 font-bold'>
+                        ${allocation.recommendedStake.toFixed(0)}
+                      </div>
+                    </div>
+                    <div>
+                      <span className='text-gray-400'>Expected Value:</span>
+                      <div className='text-purple-400 font-bold'>
+                        {allocation.expectedValue.toFixed(1)}%
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className='mt-2'>
+                    <div className='flex justify-between text-xs mb-1'>
+                      <span className='text-gray-400'>Kelly Allocation</span>
+                      <span className='text-cyan-400'>{allocation.kellyPercent.toFixed(2)}%</span>
+                    </div>
+                    <div className='w-full bg-gray-700 rounded-full h-2'>
+                      <div
+                        className='bg-cyan-400 h-2 rounded-full'
+                        style={{ width: `${Math.min(allocation.kellyPercent * 20, 100)}%` }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Risk Metrics */}
+          <div className='space-y-4'>
+            {/* Risk Overview */}
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-lg font-medium text-white mb-4'>Risk Metrics</h4>
+
+              {riskMetrics && (
+                <div className='space-y-3'>
+                  <div className='grid grid-cols-2 gap-3'>
+                    <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                      <div className='text-lg font-bold text-red-400'>
+                        {riskMetrics.maxBetSize}%
+                      </div>
+                      <div className='text-xs text-gray-400'>Max Bet Size</div>
+                    </div>
+                    <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                      <div className='text-lg font-bold text-green-400'>
+                        {riskMetrics.diversificationScore.toFixed(0)}
+                      </div>
+                      <div className='text-xs text-gray-400'>Diversification</div>
+                    </div>
+                    <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                      <div className='text-lg font-bold text-yellow-400'>
+                        {riskMetrics.volatility.toFixed(1)}%
+                      </div>
+                      <div className='text-xs text-gray-400'>Volatility</div>
+                    </div>
+                    <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                      <div className='text-lg font-bold text-purple-400'>
+                        {riskMetrics.valueAtRisk.toFixed(1)}%
+                      </div>
+                      <div className='text-xs text-gray-400'>Value at Risk</div>
+                    </div>
+                  </div>
+
+                  <div className='space-y-2'>
+                    <div className='flex justify-between text-sm'>
+                      <span className='text-gray-400'>Risk Level</span>
+                      <Badge variant='outline' className={getRiskLevelColor(riskMetrics.riskLevel)}>
+                        {riskMetrics.riskLevel.toUpperCase()}
+                      </Badge>
+                    </div>
+
+                    <div>
+                      <div className='flex justify-between text-xs mb-1'>
+                        <span className='text-gray-400'>Portfolio Diversification</span>
+                        <span className='text-green-400'>
+                          {riskMetrics.diversificationScore.toFixed(0)}%
+                        </span>
+                      </div>
+                      <div className='w-full bg-gray-700 rounded-full h-2'>
+                        <div
+                          className='bg-green-400 h-2 rounded-full'
+                          style={{ width: `${riskMetrics.diversificationScore}%` }}
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className='flex justify-between text-xs mb-1'>
+                        <span className='text-gray-400'>Volatility Risk</span>
+                        <span className='text-yellow-400'>
+                          {riskMetrics.volatility.toFixed(1)}%
+                        </span>
+                      </div>
+                      <div className='w-full bg-gray-700 rounded-full h-2'>
+                        <div
+                          className='bg-yellow-400 h-2 rounded-full'
+                          style={{ width: `${Math.min(riskMetrics.volatility * 2, 100)}%` }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Streak Analysis */}
+            {bankrollData && (
+              <div className='bg-slate-900/50 rounded-lg p-4'>
+                <h4 className='text-lg font-medium text-white mb-4'>Performance Streaks</h4>
+                <div className='space-y-3'>
+                  <div className='flex items-center justify-between'>
+                    <span className='text-gray-400 text-sm'>Current Streak:</span>
+                    <div
+                      className={`font-bold ${getStreakColor(bankrollData.streakData.currentStreak)}`}
+                    >
+                      {bankrollData.streakData.currentStreak >= 0 ? '+' : ''}
+                      {bankrollData.streakData.currentStreak}
+                      <span className='text-xs ml-1'>
+                        {bankrollData.streakData.currentStreak >= 0 ? 'wins' : 'losses'}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className='flex items-center justify-between'>
+                    <span className='text-gray-400 text-sm'>Best Win Streak:</span>
+                    <div className='text-green-400 font-bold'>
+                      +{bankrollData.streakData.longestWinStreak} wins
+                    </div>
+                  </div>
+
+                  <div className='flex items-center justify-between'>
+                    <span className='text-gray-400 text-sm'>Longest Loss Streak:</span>
+                    <div className='text-red-400 font-bold'>
+                      -{bankrollData.streakData.longestLossStreak} losses
+                    </div>
+                  </div>
+
+                  <div className='mt-3 p-3 bg-slate-800/50 rounded-lg'>
+                    <h5 className='text-sm font-bold text-white mb-2'>Bankroll Recommendation</h5>
+                    <p className='text-xs text-gray-400'>
+                      {bankrollData.streakData.currentStreak >= 3
+                        ? 'Strong winning streak detected. Consider maintaining current bet sizing.'
+                        : bankrollData.streakData.currentStreak <= -2
+                          ? 'Recent losses detected. Consider reducing bet sizes temporarily.'
+                          : 'Normal variance detected. Continue with Kelly-optimized sizing.'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </motion.div>
     </Layout>
   );
 };
