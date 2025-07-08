@@ -167,6 +167,12 @@ const Dashboard: React.FC = () => {
   const [trendingTopics, setTrendingTopics] = useState<TrendingTopic[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
+  // AutoPilot state
+  const [autoPilotRules, setAutoPilotRules] = useState<AutoBetRule[]>([]);
+  const [autoPilotExecutions, setAutoPilotExecutions] = useState<AutoBetExecution[]>([]);
+  const [autoPilotStats, setAutoPilotStats] = useState<AutoPilotStats | null>(null);
+  const [isGlobalAutoPilotActive, setIsGlobalAutoPilotActive] = useState(false);
+
   // Mock data - replace with real API calls
   const keyMetrics: MetricCard[] = [
     {
