@@ -52,6 +52,9 @@ const componentMap: Record<string, React.ComponentType> = {
   bankroll: BankrollManager,
   risk: RiskEngine,
   social: SocialIntelligence,
+  shap: SHAPAnalysis,
+  quantum: QuantumAI,
+  news: NewsHub,
   lineup: () => (
     <PlaceholderComponent title='Lineup Builder' description='Smart lineup optimization' />
   ),
