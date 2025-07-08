@@ -12,8 +12,7 @@ const UltimateMoneyMaker = React.lazy(() => import('./components/MoneyMaker/Ulti
 const ArbitrageScanner = React.lazy(
   () => import('./components/features/arbitrage/ArbitrageScanner')
 );
-const PrizePicks = React.lazy(() => import('./components/features/prizepicks/PrizePicks'));
-const LineupBuilder = React.lazy(() => import('./components/features/lineup/LineupBuilder'));
+const PrizePicksProUnified = React.lazy(() => import('./components/PrizePicksProUnified'));
 const LiveBetting = React.lazy(() => import('./components/features/livebetting/LiveBetting'));
 
 // Analytics & AI components
