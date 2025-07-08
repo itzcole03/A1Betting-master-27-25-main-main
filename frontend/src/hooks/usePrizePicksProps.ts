@@ -1,12 +1,6 @@
 import { useEffect, useState } from 'react';
 import { PrizePicksApiService } from '../services/unified/PrizePicksApiService';
-import type { PrizePicksProjection } from '../types/prizePicks';
-
-interface UsePrizePicksPropsResult {
-  data: PrizePicksProjection[];
-  loading: boolean;
-  error: string | null;
-}
+import type { PrizePicksProjection, UsePrizePicksPropsResult } from '../types/prizePicksUnified';
 
 export function usePrizePicksProps(): UsePrizePicksPropsResult {
   const [data, setData] = useState<PrizePicksProjection[]>([]);
@@ -18,21 +12,24 @@ export function usePrizePicksProps(): UsePrizePicksPropsResult {
     const service = new PrizePicksApiService({ baseURL: '/api/prizepicks' });
     setLoading(true);
     setError(null);
-    service.getAvailableProps()
-      .then((projections) => {
+    service
+      .getAvailableProps()
+      .then(projections => {
         if (isMounted) {
           setData(projections || []);
           setLoading(false);
         }
       })
-      .catch((err) => {
+      .catch(err => {
         if (isMounted) {
           setError(err?.message || 'Failed to load PrizePicks props');
           setLoading(false);
         }
       });
-    return () => { isMounted = false; };
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return { data, loading, error };
-} 
+}
