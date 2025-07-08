@@ -7,7 +7,7 @@ export class UnifiedConfig {
   private config: ConfigStore = {};
   private defaults: ConfigStore = {
     api: {
-      baseUrl: process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001',
+      baseUrl: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001',
       timeout: 10000,
       retries: 3,
     },
