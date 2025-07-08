@@ -1033,6 +1033,245 @@ const Analytics: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Advanced Betting Intelligence */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.6 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Advanced Betting Intelligence</h3>
+            <p className='text-gray-400 text-sm'>
+              Unified betting core with CLV analysis and performance optimization
+            </p>
+          </div>
+          <Brain className='w-6 h-6 text-cyan-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Closing Line Value (CLV)</h4>
+            <div className='text-center mb-4'>
+              <div className='text-3xl font-bold text-green-400'>+4.2%</div>
+              <div className='text-xs text-gray-400'>Average CLV</div>
+            </div>
+            <div className='space-y-3'>
+              {[
+                { book: 'DraftKings', clv: '+5.7%', bets: 47, color: 'text-green-400' },
+                { book: 'FanDuel', clv: '+3.8%', bets: 34, color: 'text-green-400' },
+                { book: 'BetMGM', clv: '+2.1%', bets: 28, color: 'text-green-400' },
+                { book: 'Caesars', clv: '-0.3%', bets: 12, color: 'text-red-400' },
+              ].map((item, index) => (
+                <div key={index} className='flex items-center justify-between'>
+                  <span className='text-gray-300 text-sm'>{item.book}</span>
+                  <div className='text-right'>
+                    <span className={`font-bold text-sm ${item.color}`}>{item.clv}</span>
+                    <div className='text-xs text-gray-400'>{item.bets} bets</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Kelly Criterion Analysis</h4>
+            <div className='space-y-3'>
+              {[
+                { metric: 'Optimal Kelly %', value: '2.8%', status: 'Optimal' },
+                { metric: 'Current Sizing', value: '1.9%', status: 'Conservative' },
+                { metric: 'Kelly Multiplier', value: '0.68x', status: 'Safe' },
+                { metric: 'Edge Retention', value: '87.3%', status: 'Excellent' },
+              ].map((item, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-1'>
+                    <span className='text-white text-sm font-medium'>{item.metric}</span>
+                    <span className='text-cyan-400 text-sm'>{item.value}</span>
+                  </div>
+                  <div className='text-gray-400 text-xs'>{item.status}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Market Efficiency Score</h4>
+            <div className='text-center mb-4'>
+              <div className='text-3xl font-bold text-purple-400'>82.4</div>
+              <div className='text-xs text-gray-400'>Efficiency Rating</div>
+            </div>
+            <div className='space-y-2'>
+              {[
+                { market: 'Player Props', efficiency: 79, opportunities: 'High' },
+                { market: 'Game Totals', efficiency: 84, opportunities: 'Medium' },
+                { market: 'Spreads', efficiency: 87, opportunities: 'Low' },
+                { market: 'Live Betting', efficiency: 76, opportunities: 'Very High' },
+              ].map((item, index) => (
+                <div key={index} className='flex items-center justify-between'>
+                  <span className='text-gray-300 text-xs'>{item.market}</span>
+                  <div className='text-right'>
+                    <span className='text-white text-xs'>{item.efficiency}</span>
+                    <div
+                      className={`text-xs ${
+                        item.opportunities === 'Very High' || item.opportunities === 'High'
+                          ? 'text-green-400'
+                          : item.opportunities === 'Medium'
+                            ? 'text-yellow-400'
+                            : 'text-red-400'
+                      }`}
+                    >
+                      {item.opportunities}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Performance Optimization Engine */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.7 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Performance Optimization Engine</h3>
+            <p className='text-gray-400 text-sm'>
+              Advanced strategy optimization with edge retention analysis
+            </p>
+          </div>
+          <TrendingUp className='w-6 h-6 text-green-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Strategy Performance</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  strategy: 'Value Line Hunter',
+                  roi: '+23.7%',
+                  sharpe: '2.14',
+                  variance: '12.3%',
+                  bets: 124,
+                  winRate: 67.8,
+                  avgEdge: '+4.2%',
+                },
+                {
+                  strategy: 'Arbitrage Scanner',
+                  roi: '+8.9%',
+                  sharpe: '4.87',
+                  variance: '2.1%',
+                  bets: 89,
+                  winRate: 100.0,
+                  avgEdge: '+2.8%',
+                },
+                {
+                  strategy: 'Live Betting Edge',
+                  roi: '+31.2%',
+                  sharpe: '1.89',
+                  variance: '18.7%',
+                  bets: 67,
+                  winRate: 72.4,
+                  avgEdge: '+6.1%',
+                },
+              ].map((strat, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='text-white font-medium text-sm mb-2'>{strat.strategy}</div>
+                  <div className='grid grid-cols-3 gap-2 text-xs'>
+                    <div className='text-gray-400'>
+                      ROI: <span className='text-green-400'>{strat.roi}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Sharpe: <span className='text-cyan-400'>{strat.sharpe}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Variance: <span className='text-yellow-400'>{strat.variance}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Bets: <span className='text-white'>{strat.bets}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Win Rate: <span className='text-purple-400'>{strat.winRate}%</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Avg Edge: <span className='text-green-400'>{strat.avgEdge}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Optimization Recommendations</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  optimization: 'Increase Kelly Multiplier',
+                  current: '0.68x',
+                  recommended: '0.85x',
+                  impact: '+12% expected growth',
+                  risk: 'Low',
+                  confidence: 89,
+                },
+                {
+                  optimization: 'Expand Live Betting',
+                  current: '15% allocation',
+                  recommended: '25% allocation',
+                  impact: '+8% portfolio return',
+                  risk: 'Medium',
+                  confidence: 83,
+                },
+                {
+                  optimization: 'Reduce NBA Concentration',
+                  current: '45% exposure',
+                  recommended: '35% exposure',
+                  impact: '-18% portfolio variance',
+                  risk: 'Low',
+                  confidence: 91,
+                },
+                {
+                  optimization: 'Add MLB Props',
+                  current: '0% allocation',
+                  recommended: '10% allocation',
+                  impact: '+5% diversification benefit',
+                  risk: 'Low',
+                  confidence: 76,
+                },
+              ].map((opt, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{opt.optimization}</span>
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${
+                        opt.risk === 'Low'
+                          ? 'bg-green-500/20 text-green-400'
+                          : opt.risk === 'Medium'
+                            ? 'bg-yellow-500/20 text-yellow-400'
+                            : 'bg-red-500/20 text-red-400'
+                      }`}
+                    >
+                      {opt.risk} Risk
+                    </span>
+                  </div>
+                  <div className='text-gray-400 text-xs mb-1'>
+                    Current: {opt.current} → Recommended: {opt.recommended}
+                  </div>
+                  <div className='text-green-400 text-xs mb-1'>{opt.impact}</div>
+                  <div className='text-purple-400 text-xs'>{opt.confidence}% confidence</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </Layout>
   );
 };
