@@ -103,6 +103,20 @@ export class UnifiedWebSocketService extends BaseService {
         this.ws.onerror = error => {
           this.setConnectionState(WebSocketConnectionState.ERROR);
           this.logger.error('WebSocket error', error);
+
+          // Use enhanced error handling for WebSocket errors
+          try {
+            const { ErrorHandler } = require('../../unified/ErrorHandler');
+            const errorHandler = ErrorHandler.getInstance();
+            errorHandler.handleWebSocketError(
+              new Error('WebSocket connection failed'),
+              'connection'
+            );
+          } catch (e) {
+            // Fallback if ErrorHandler is not available
+            console.warn('WebSocket connection failed:', error);
+          }
+
           reject(new Error('WebSocket connection failed'));
         };
 
