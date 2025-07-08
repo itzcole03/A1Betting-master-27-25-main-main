@@ -1,4 +1,4 @@
-﻿import { APIError, AppError } from '@/core/UnifiedError.js';
+import { APIError, AppError } from '@/core/UnifiedError.js';
 import { unifiedMonitor } from '@/core/UnifiedMonitor.js';
 
 export interface ApiResponse<T> {
@@ -10,7 +10,7 @@ export interface ApiResponse<T> {
 export interface ApiRequestConfig {
   headers?: Record<string, string>;
   params?: Record<string, string>;
-  timeout?: number
+  timeout?: number;
 }
 
 class ApiClient {
@@ -21,9 +21,12 @@ class ApiClient {
   constructor() {
     // TODO: Replace with actual config manager
     const config: any = { get: () => 'http://localhost:8000' };
-    this.baseUrl = (config.get('api.baseUrl') as string || (process.env.REACT_APP_API_URL || 'http://localhost:8000')) + '/api';
+    this.baseUrl =
+      ((config.get('api.baseUrl') as string) ||
+        import.meta.env.VITE_API_URL ||
+        'http://localhost:8000') + '/api';
     this.defaultHeaders = {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     };
     this.defaultTimeout = 30000; // 30 seconds;
   }
@@ -34,7 +37,10 @@ class ApiClient {
     data?: unknown,
     config: ApiRequestConfig = {} as ApiRequestConfig
   ): Promise<ApiResponse<T>> {
-    const trace = unifiedMonitor.startTrace('api-client-request', { category: 'api.client', description: 'API client request' });
+    const trace = unifiedMonitor.startTrace('api-client-request', {
+      category: 'api.client',
+      description: 'API client request',
+    });
     // Add query parameters;
     const url = new URL(this.baseUrl + endpoint);
     if (config.params) {
@@ -44,14 +50,14 @@ class ApiClient {
     }
     const headers = {
       ...this.defaultHeaders,
-      ...config.headers
+      ...config.headers,
     };
     try {
       const response = await fetch(url.toString(), {
         method,
         headers,
         body: data ? JSON.stringify(data) : undefined,
-        signal: config.timeout ? AbortSignal.timeout(config.timeout) : undefined
+        signal: config.timeout ? AbortSignal.timeout(config.timeout) : undefined,
       });
       const responseData = await response.json();
       // Utility to safely convert Headers to Record<string, string>
@@ -76,12 +82,18 @@ class ApiClient {
       return {
         data: responseData,
         status: response.status,
-        headers: headersToObject(response.headers)
+        headers: headersToObject(response.headers),
       };
     } catch (error: unknown) {
       if (trace) {
         let errStatus = 500;
-        if (typeof error === 'object' && error !== null && 'response' in error && typeof (error as Record<string, unknown>).response === 'object' && (error as { response?: { status?: number } }).response?.status) {
+        if (
+          typeof error === 'object' &&
+          error !== null &&
+          'response' in error &&
+          typeof (error as Record<string, unknown>).response === 'object' &&
+          (error as { response?: { status?: number } }).response?.status
+        ) {
           errStatus = (error as { response?: { status?: number } }).response!.status!;
         }
         (trace as any).httpStatus = errStatus;
@@ -89,7 +101,12 @@ class ApiClient {
       }
       if (error instanceof APIError) throw error;
       // If error is an AbortError;
-      if (typeof error === 'object' && error !== null && 'name' in error && (error as { name: string }).name === 'AbortError') {
+      if (
+        typeof error === 'object' &&
+        error !== null &&
+        'name' in error &&
+        (error as { name: string }).name === 'AbortError'
+      ) {
         throw new AppError('Request timeout', { status: 408 }, error);
       }
       // Type guard for error with response.status;
@@ -103,11 +120,7 @@ class ApiClient {
           typeof (err as { response: { status: unknown } }).response.status === 'number'
         );
       }
-      throw new AppError(
-        'API request failed',
-        { status: 500, endpoint, method },
-        error
-      );
+      throw new AppError('API request failed', { status: 500, endpoint, method }, error);
     }
   }
 
@@ -115,15 +128,27 @@ class ApiClient {
     return this.request<T>('GET', endpoint, undefined, config);
   }
 
-  async post<T>(endpoint: string, data?: unknown, config?: ApiRequestConfig): Promise<ApiResponse<T>> {
+  async post<T>(
+    endpoint: string,
+    data?: unknown,
+    config?: ApiRequestConfig
+  ): Promise<ApiResponse<T>> {
     return this.request<T>('POST', endpoint, data, config);
   }
 
-  async put<T>(endpoint: string, data?: unknown, config?: ApiRequestConfig): Promise<ApiResponse<T>> {
+  async put<T>(
+    endpoint: string,
+    data?: unknown,
+    config?: ApiRequestConfig
+  ): Promise<ApiResponse<T>> {
     return this.request<T>('PUT', endpoint, data, config);
   }
 
-  async patch<T>(endpoint: string, data?: unknown, config?: ApiRequestConfig): Promise<ApiResponse<T>> {
+  async patch<T>(
+    endpoint: string,
+    data?: unknown,
+    config?: ApiRequestConfig
+  ): Promise<ApiResponse<T>> {
     return this.request<T>('PATCH', endpoint, data, config);
   }
 
