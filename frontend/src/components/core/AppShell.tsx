@@ -192,14 +192,29 @@ export const AppShell: React.FC<AppShellProps> = ({ children, activeView, onNavi
               </div>
 
               <div className='flex items-center space-x-2'>
-                <button className='p-2 rounded-lg text-gray-400 hover:text-white transition-colors relative'>
+                <button
+                  className='p-2 rounded-lg text-gray-400 hover:text-white transition-colors relative'
+                  onClick={() => {
+                    // Handle notifications
+                    console.log('Notifications clicked');
+                  }}
+                >
                   <Bell className='w-5 h-5' />
                   <span className='absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full text-xs flex items-center justify-center'>
                     3
                   </span>
                 </button>
 
-                <button className='p-2 rounded-lg text-gray-400 hover:text-white transition-colors'>
+                <button
+                  className='p-2 rounded-lg text-gray-400 hover:text-white transition-colors'
+                  onClick={() => {
+                    // Handle settings
+                    if (onNavigate) {
+                      onNavigate('settings');
+                    }
+                    console.log('Settings clicked');
+                  }}
+                >
                   <Settings className='w-5 h-5' />
                 </button>
 
