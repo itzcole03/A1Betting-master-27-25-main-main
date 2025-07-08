@@ -1,15 +1,15 @@
-﻿import {
-    PrizePicksData,
-    PrizePicksLeague,
-    PrizePicksPlayer,
-    PrizePicksProjection
-} from '@/types/prizePicks'; // Updated import path (adjust as needed)
 import {
-    PrizePicksAPI,
-    PrizePicksAPIResponse,
-    RawPrizePicksIncludedLeague,
-    RawPrizePicksIncludedPlayer,
-    RawPrizePicksProjection
+  PrizePicksData,
+  PrizePicksLeague,
+  PrizePicksPlayer,
+  PrizePicksProjection,
+} from '@/types/prizePicksUnified';
+import {
+  PrizePicksAPI,
+  PrizePicksAPIResponse,
+  RawPrizePicksIncludedLeague,
+  RawPrizePicksIncludedPlayer,
+  RawPrizePicksProjection,
 } from './../api/PrizePicksAPI'; // Updated import path
 import { unifiedMonitor } from './../core/UnifiedMonitor'; // Updated import path
 
@@ -35,15 +35,15 @@ export class PrizePicksAdapter {
     this.config = {
       cacheTimeout: 300000, // Default 5 minutes
       apiKey: '', // Explicitly pass empty string if not provided
-      ...config
+      ...config,
     };
     this.prizePicksApi = new PrizePicksAPI({
       apiKey: this.config.apiKey, // This will be an empty string if not in .env
-      baseUrl: this.config.baseUrl || 'https://api.prizepicks.com'
+      baseUrl: this.config.baseUrl || 'https://api.prizepicks.com',
     });
     this.cache = {
       data: null,
-      timestamp: 0
+      timestamp: 0,
     };
   }
 
@@ -53,8 +53,10 @@ export class PrizePicksAdapter {
   }
 
   public async fetch(): Promise<PrizePicksData> {
-    const trace = unifiedMonitor.startTrace('PrizePicksAdapter.fetch', { category: 'adapter.fetch' });
-    
+    const trace = unifiedMonitor.startTrace('PrizePicksAdapter.fetch', {
+      category: 'adapter.fetch',
+    });
+
     try {
       if (this.isCacheValid()) {
         return this.cache.data!;
@@ -66,7 +68,7 @@ export class PrizePicksAdapter {
 
       this.cache = {
         data: transformedData,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
 
       unifiedMonitor.endTrace(trace);
@@ -92,14 +94,14 @@ export class PrizePicksAdapter {
             name: rawPlayer.attributes.name,
             team: rawPlayer.attributes.team_name,
             position: rawPlayer.attributes.position,
-            image_url: rawPlayer.attributes.image_url
+            image_url: rawPlayer.attributes.image_url,
           });
         } else if (item.type === 'league') {
           const rawLeague = item as RawPrizePicksIncludedLeague;
           includedLeaguesMap.set(rawLeague.id, {
             id: rawLeague.id,
             name: rawLeague.attributes.name,
-            sport: rawLeague.attributes.sport
+            sport: rawLeague.attributes.sport,
           });
         }
       });
@@ -108,7 +110,7 @@ export class PrizePicksAdapter {
     const projections: PrizePicksProjection[] = apiResponse.data.map(rawProj => {
       const playerId = rawProj.relationships?.new_player?.data?.id || '';
       const playerDetail = includedPlayersMap.get(playerId);
-      
+
       return {
         id: rawProj.id,
         playerId: playerId,
@@ -116,7 +118,7 @@ export class PrizePicksAdapter {
         statType: rawProj.attributes.stat_type,
         line: rawProj.attributes.line_score,
         description: rawProj.attributes.description,
-        startTime: rawProj.attributes.start_time
+        startTime: rawProj.attributes.start_time,
       };
     });
 
@@ -124,7 +126,7 @@ export class PrizePicksAdapter {
       projections: projections,
       players: Array.from(includedPlayersMap.values()),
       leagues: Array.from(includedLeaguesMap.values()),
-      lastUpdated: new Date().toISOString()
+      lastUpdated: new Date().toISOString(),
     };
   }
 
@@ -141,11 +143,11 @@ export class PrizePicksAdapter {
   public async connect(): Promise<void> {
     /* No-op */
   }
-  
+
   public async disconnect(): Promise<void> {
     /* No-op */
   }
-  
+
   public async getData(): Promise<PrizePicksData> {
     if (!this.cache.data) {
       // Attempt to fetch if no data is available, common for initial load or if cache cleared
@@ -153,17 +155,17 @@ export class PrizePicksAdapter {
     }
     return this.cache.data;
   }
-  
+
   public isConnected(): boolean {
     return true;
   }
-  
+
   public getMetadata(): Record<string, unknown> {
     return {
       id: this.id,
       type: this.type,
       description: 'Adapter for PrizePicks projection data',
-      defaultLeagueId: this.config.defaultLeagueId
+      defaultLeagueId: this.config.defaultLeagueId,
     };
   }
 }
