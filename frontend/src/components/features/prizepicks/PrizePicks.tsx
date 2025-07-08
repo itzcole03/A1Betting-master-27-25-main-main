@@ -58,6 +58,9 @@ interface Lineup {
   multiplier: number;
   cost: number;
   createdAt: Date;
+  validated: boolean;
+  projectedPayout: number;
+  entryAmount: number;
 }
 
 interface PrizePicksStats {
@@ -83,6 +86,11 @@ const PrizePicks: React.FC = () => {
     maxRisk: 'high',
   });
   const [activeTab, setActiveTab] = useState<'props' | 'lineups' | 'stats'>('props');
+  const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  const [showSaveModal, setShowSaveModal] = useState(false);
+  const [lineupName, setLineupName] = useState('');
+  const [entryAmount, setEntryAmount] = useState(25);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
     loadPrizePicksData();
@@ -187,15 +195,43 @@ const PrizePicks: React.FC = () => {
     }
   };
 
+  const validateLineup = (props: PlayerProp[]) => {
+    const errors: string[] = [];
+    if (props.length < 2) errors.push('Minimum 2 picks required for PrizePicks lineup');
+    if (props.length > 6) errors.push('Maximum 6 picks allowed in PrizePicks');
+    if (entryAmount < 5) errors.push('Minimum entry amount is $5');
+    if (entryAmount > 1000) errors.push('Maximum entry amount is $1000');
+
+    // Check for duplicate players in same game
+    const gamePlayerCombos = props.map(p => `${p.matchup}-${p.playerName}`);
+    const duplicates = gamePlayerCombos.filter(
+      (combo, index) => gamePlayerCombos.indexOf(combo) !== index
+    );
+    if (duplicates.length > 0) {
+      errors.push('Cannot select multiple props for same player in same game');
+    }
+
+    // Validate confidence thresholds
+    const avgConfidence = props.reduce((sum, p) => sum + p.confidence, 0) / props.length;
+    if (avgConfidence < 60) errors.push('Average confidence below recommended 60% threshold');
+
+    setValidationErrors(errors);
+    return errors.length === 0;
+  };
+
   const addToLineup = (prop: PlayerProp) => {
     if (selectedProps.length >= 6) return;
     if (selectedProps.find(p => p.id === prop.id)) return;
 
-    setSelectedProps([...selectedProps, prop]);
+    const newProps = [...selectedProps, prop];
+    setSelectedProps(newProps);
+    validateLineup(newProps);
   };
 
   const removeFromLineup = (propId: string) => {
-    setSelectedProps(selectedProps.filter(p => p.id !== propId));
+    const newProps = selectedProps.filter(p => p.id !== propId);
+    setSelectedProps(newProps);
+    validateLineup(newProps);
   };
 
   const calculateLineupStats = () => {
@@ -206,34 +242,73 @@ const PrizePicks: React.FC = () => {
     const totalValue = selectedProps.reduce((sum, prop) => sum + prop.value, 0);
     const avgConfidence =
       selectedProps.reduce((sum, prop) => sum + prop.confidence, 0) / selectedProps.length;
-    const multiplier = Math.pow(1.9, selectedProps.length);
+
+    // Official PrizePicks multipliers
+    const prizePicksMultipliers: Record<number, number> = {
+      2: 3.0, // 2-pick Power Play
+      3: 5.0, // 3-pick Flex Play
+      4: 10.0, // 4-pick Power Play
+      5: 20.0, // 5-pick Flex Play
+      6: 50.0, // 6-pick Power Play
+    };
+
+    const multiplier = prizePicksMultipliers[selectedProps.length] || 1;
 
     let risk: 'low' | 'medium' | 'high' = 'low';
-    if (avgConfidence < 70) risk = 'high';
-    else if (avgConfidence < 80) risk = 'medium';
+    if (avgConfidence < 65) risk = 'high';
+    else if (avgConfidence < 75) risk = 'medium';
+
+    // Factor in correlation risk
+    const correlationRisk = selectedProps.some(prop =>
+      selectedProps.some(
+        other =>
+          other.id !== prop.id &&
+          other.matchup === prop.matchup &&
+          other.gameTime.getTime() === prop.gameTime.getTime()
+      )
+    );
+
+    if (correlationRisk && risk === 'low') risk = 'medium';
 
     return { totalValue, avgConfidence, multiplier, risk };
   };
 
   const createLineup = () => {
-    if (selectedProps.length < 2) return;
+    if (!validateLineup(selectedProps)) {
+      return;
+    }
+    setShowSaveModal(true);
+  };
+
+  const saveLineup = () => {
+    if (!lineupName.trim()) {
+      setValidationErrors(['Please enter a lineup name']);
+      return;
+    }
 
     const lineupStats = calculateLineupStats();
     const newLineup: Lineup = {
       id: `lineup-${Date.now()}`,
-      name: `Lineup ${lineups.length + 1}`,
+      name: lineupName,
       picks: [...selectedProps],
       totalValue: lineupStats.totalValue,
       expectedReturn: lineupStats.multiplier * 0.85, // Accounting for PrizePicks edge
       risk: lineupStats.risk,
       confidence: lineupStats.avgConfidence,
       multiplier: lineupStats.multiplier,
-      cost: 5, // Standard PrizePicks entry
+      cost: entryAmount,
       createdAt: new Date(),
+      validated: true,
+      projectedPayout: entryAmount * lineupStats.multiplier,
+      entryAmount: entryAmount,
     };
 
     setLineups([newLineup, ...lineups]);
     setSelectedProps([]);
+    setShowSaveModal(false);
+    setLineupName('');
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 3000);
   };
 
   const getConfidenceColor = (confidence: number) => {
@@ -460,15 +535,43 @@ const PrizePicks: React.FC = () => {
             >
               <div className='flex items-center justify-between mb-4'>
                 <h3 className='text-lg font-bold text-white'>Current Lineup</h3>
-                <button
-                  onClick={createLineup}
-                  disabled={selectedProps.length < 2}
-                  className='flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-lg text-white font-medium transition-all disabled:opacity-50'
-                >
-                  <Plus className='w-4 h-4' />
-                  <span>Create Lineup</span>
-                </button>
+                <div className='flex items-center space-x-3'>
+                  <div className='flex items-center space-x-2'>
+                    <label className='text-sm text-gray-300'>Entry:</label>
+                    <input
+                      type='number'
+                      min='5'
+                      max='1000'
+                      value={entryAmount}
+                      onChange={e => setEntryAmount(Number(e.target.value))}
+                      className='w-20 px-2 py-1 bg-slate-900/50 border border-slate-700/50 rounded text-white text-sm'
+                    />
+                  </div>
+                  <button
+                    onClick={createLineup}
+                    disabled={selectedProps.length < 2 || validationErrors.length > 0}
+                    className='flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-lg text-white font-medium transition-all disabled:opacity-50'
+                  >
+                    <Plus className='w-4 h-4' />
+                    <span>Save Lineup</span>
+                  </button>
+                </div>
               </div>
+
+              {/* Validation Errors */}
+              {validationErrors.length > 0 && (
+                <div className='mb-4 p-3 bg-red-500/20 border border-red-500/30 rounded-lg'>
+                  <div className='flex items-center space-x-2 mb-2'>
+                    <AlertCircle className='w-4 h-4 text-red-400' />
+                    <span className='text-red-400 font-medium'>Validation Issues</span>
+                  </div>
+                  <ul className='text-red-300 text-sm space-y-1'>
+                    {validationErrors.map((error, index) => (
+                      <li key={index}>• {error}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               <div className='grid grid-cols-1 md:grid-cols-4 gap-4 mb-4'>
                 <div className='text-center'>
