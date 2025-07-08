@@ -350,27 +350,42 @@ class EnhancedApiService {
 
   async subscribeToUpdates(callback: (data: any) => void): Promise<WebSocket | null> {
     try {
-      const ws = new WebSocket('ws://example.com'); // TODO: Replace with actual URL
+      // TODO: Replace with actual WebSocket URL - currently disabled
+      // const ws = new WebSocket('ws://example.com');
+
+      // Return null to indicate WebSocket not available
+      // This prevents the "WebSocket closed without opened" error
+      console.warn('WebSocket subscriptions not implemented yet - returning null');
+      return null;
+
+      /* WebSocket implementation disabled until proper URL is configured
+      const ws = new WebSocket('ws://example.com');
+
       ws.onopen = () => {
-        // console statement removed
+        console.log('WebSocket connected for updates');
       };
+
       ws.onmessage = event => {
         try {
           const data = JSON.parse(event.data);
           callback(data);
         } catch (error) {
-          // console statement removed
+          console.error('Failed to parse WebSocket message:', error);
         }
       };
+
       ws.onerror = error => {
-        // console statement removed
+        console.error('WebSocket error:', error);
       };
-      ws.onclose = () => {
-        // console statement removed
+
+      ws.onclose = (event) => {
+        console.log('WebSocket closed:', event.code, event.reason);
       };
+
       return ws;
+      */
     } catch (error) {
-      // console statement removed
+      console.error('Failed to create WebSocket subscription:', error);
       return null;
     }
   }
