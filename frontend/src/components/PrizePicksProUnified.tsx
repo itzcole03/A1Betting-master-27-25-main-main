@@ -102,8 +102,49 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
     'AAA_BASEBALL',
   ];
 
-  // Generate comprehensive mock data for development/demo
-  const generateMockProjections = (): PrizePicksProjection[] => {
+  // Transform raw PrizePicks API response to our unified format
+  const transformRawProjection = (rawProjection: any, included: any[]): PrizePicksProjection => {
+    const player = included.find(
+      item =>
+        item.type === 'new_player' && item.id === rawProjection.relationships?.new_player?.data?.id
+    );
+    const league = included.find(
+      item => item.type === 'league' && item.id === rawProjection.relationships?.league?.data?.id
+    );
+
+    return {
+      id: rawProjection.id,
+      player_id: rawProjection.relationships?.new_player?.data?.id || '',
+      player_name: player?.attributes?.name || 'Unknown Player',
+      team: player?.attributes?.team_name || player?.attributes?.team_nickname || 'Unknown Team',
+      position: player?.attributes?.position || '',
+      league: league?.attributes?.name || league?.attributes?.abbreviation || '',
+      sport: league?.attributes?.sport || '',
+      stat_type:
+        rawProjection.attributes?.stat_type || rawProjection.attributes?.display_stat || '',
+      line_score: rawProjection.attributes?.line_score || 0,
+      over_odds: -110, // PrizePicks standard
+      under_odds: -110, // PrizePicks standard
+      start_time: rawProjection.attributes?.start_time || new Date().toISOString(),
+      status: rawProjection.attributes?.status || 'active',
+      description: rawProjection.attributes?.description || '',
+      rank: rawProjection.attributes?.rank || 0,
+      is_promo: rawProjection.attributes?.is_promo || false,
+      confidence: 75 + Math.random() * 20, // Default confidence range
+      market_efficiency: 0.1 + Math.random() * 0.2,
+      custom_image_url: rawProjection.attributes?.custom_image_url,
+      flash_sale_line_score: rawProjection.attributes?.flash_sale_line_score,
+      odds_type: rawProjection.attributes?.odds_type,
+      projection_type: rawProjection.attributes?.projection_type,
+      refundable: rawProjection.attributes?.refundable,
+      source: rawProjection.attributes?.source,
+      updated_at: rawProjection.attributes?.updated_at,
+      relationships: rawProjection.relationships,
+    };
+  };
+
+  // Generate comprehensive mock data covering ALL PrizePicks sports
+  const generateComprehensiveMockProjections = (): PrizePicksProjection[] => {
     const players = [
       { name: 'LeBron James', team: 'LAL', position: 'F', sport: 'NBA', league: 'NBA' },
       { name: 'Stephen Curry', team: 'GSW', position: 'G', sport: 'NBA', league: 'NBA' },
