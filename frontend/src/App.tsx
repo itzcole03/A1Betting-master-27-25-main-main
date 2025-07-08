@@ -6,9 +6,42 @@ import { RefreshCw } from 'lucide-react';
 // Simple component imports without complex dependencies
 const Dashboard = React.lazy(() => import('./components/features/dashboard/Dashboard'));
 
+// Fallback component for features not yet implemented
+const ComingSoon = () => (
+  <div className='flex items-center justify-center h-64'>
+    <div className='text-center'>
+      <h2 className='text-2xl font-semibold text-cyan-400 mb-4'>Coming Soon</h2>
+      <p className='text-gray-400'>This feature is under development</p>
+    </div>
+  </div>
+);
+
 // Navigation and component mapping
 const componentMap: Record<string, React.ComponentType> = {
   dashboard: Dashboard,
+  moneymaker: ComingSoon,
+  arbitrage: ComingSoon,
+  livebetting: ComingSoon,
+  prizepicks: ComingSoon,
+  lineup: ComingSoon,
+  analytics: ComingSoon,
+  predictions: ComingSoon,
+  quantum: ComingSoon,
+  shap: ComingSoon,
+  historical: ComingSoon,
+  social: ComingSoon,
+  news: ComingSoon,
+  weather: ComingSoon,
+  injuries: ComingSoon,
+  streaming: ComingSoon,
+  bankroll: ComingSoon,
+  risk: ComingSoon,
+  sportsbooks: ComingSoon,
+  automation: ComingSoon,
+  alerts: ComingSoon,
+  backtesting: ComingSoon,
+  education: ComingSoon,
+  community: ComingSoon,
 };
 
 const LoadingSpinner = () => (
