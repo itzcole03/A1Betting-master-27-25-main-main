@@ -1272,6 +1272,260 @@ const Analytics: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Unified Analytics Engine */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.8 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Unified Analytics Engine</h3>
+            <p className='text-gray-400 text-sm'>
+              Comprehensive performance tracking with model analysis and trend forecasting
+            </p>
+          </div>
+          <BarChart3 className='w-6 h-6 text-green-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-4 gap-6 mb-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+            <div className='text-2xl font-bold text-green-400 mb-1'>2,847</div>
+            <div className='text-sm text-gray-400'>Total Bets</div>
+          </div>
+          <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+            <div className='text-2xl font-bold text-cyan-400 mb-1'>84.2%</div>
+            <div className='text-sm text-gray-400'>Win Rate</div>
+          </div>
+          <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+            <div className='text-2xl font-bold text-purple-400 mb-1'>+23.7%</div>
+            <div className='text-sm text-gray-400'>ROI</div>
+          </div>
+          <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+            <div className='text-2xl font-bold text-yellow-400 mb-1'>$18,420</div>
+            <div className='text-sm text-gray-400'>Total Profit</div>
+          </div>
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Model Performance Analysis</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  model: 'XGBoost Ensemble',
+                  accuracy: 94.7,
+                  precision: 92.3,
+                  recall: 89.1,
+                  f1Score: 90.7,
+                  predictions: 1847,
+                },
+                {
+                  model: 'Neural Network',
+                  accuracy: 92.3,
+                  precision: 90.1,
+                  recall: 88.7,
+                  f1Score: 89.4,
+                  predictions: 1456,
+                },
+                {
+                  model: 'LSTM Predictor',
+                  accuracy: 91.8,
+                  precision: 89.5,
+                  recall: 87.2,
+                  f1Score: 88.3,
+                  predictions: 1234,
+                },
+              ].map((model, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{model.model}</span>
+                    <span className='text-green-400 text-sm'>{model.accuracy}%</span>
+                  </div>
+                  <div className='grid grid-cols-2 gap-2 text-xs'>
+                    <div className='text-gray-400'>
+                      Precision: <span className='text-cyan-400'>{model.precision}%</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Recall: <span className='text-purple-400'>{model.recall}%</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      F1-Score: <span className='text-yellow-400'>{model.f1Score}%</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Predictions: <span className='text-white'>{model.predictions}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Sport Performance Breakdown</h4>
+            <div className='space-y-3'>
+              {[
+                { sport: 'NBA', bets: 1247, winRate: 87.3, roi: 28.4, profit: 8420 },
+                { sport: 'NFL', bets: 834, winRate: 82.1, roi: 19.7, profit: 5630 },
+                { sport: 'MLB', bets: 456, winRate: 79.8, roi: 15.2, profit: 2890 },
+                { sport: 'NHL', bets: 310, winRate: 85.5, roi: 22.1, profit: 1480 },
+              ].map((sport, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{sport.sport}</span>
+                    <span className='text-green-400 text-sm'>+{sport.roi}%</span>
+                  </div>
+                  <div className='grid grid-cols-2 gap-2 text-xs'>
+                    <div className='text-gray-400'>
+                      Bets: <span className='text-white'>{sport.bets}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Win Rate: <span className='text-cyan-400'>{sport.winRate}%</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Profit: <span className='text-green-400'>${sport.profit}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Market Analysis</h4>
+            <div className='space-y-3'>
+              {[
+                { market: 'Player Props', volume: 1456, accuracy: 89.7, avgValue: 3.2 },
+                { market: 'Game Totals', volume: 734, accuracy: 85.3, avgValue: 2.8 },
+                { market: 'Spreads', volume: 456, accuracy: 82.1, avgValue: 2.1 },
+                { market: 'Live Betting', volume: 201, accuracy: 91.4, avgValue: 4.7 },
+              ].map((market, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{market.market}</span>
+                    <span className='text-purple-400 text-sm'>{market.avgValue}</span>
+                  </div>
+                  <div className='grid grid-cols-2 gap-2 text-xs'>
+                    <div className='text-gray-400'>
+                      Volume: <span className='text-white'>{market.volume}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Accuracy: <span className='text-green-400'>{market.accuracy}%</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Advanced Trend Analysis */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.9 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Advanced Trend Analysis</h3>
+            <p className='text-gray-400 text-sm'>
+              Time-series analysis with predictive modeling and streak tracking
+            </p>
+          </div>
+          <TrendingUp className='w-6 h-6 text-cyan-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Performance Streaks</h4>
+            <div className='space-y-4'>
+              <div className='bg-slate-800/50 rounded-lg p-4 text-center'>
+                <div className='text-3xl font-bold text-green-400 mb-1'>12</div>
+                <div className='text-sm text-gray-400'>Current Win Streak</div>
+              </div>
+              <div className='bg-slate-800/50 rounded-lg p-4 text-center'>
+                <div className='text-3xl font-bold text-yellow-400 mb-1'>23</div>
+                <div className='text-sm text-gray-400'>Longest Win Streak</div>
+              </div>
+              <div className='space-y-2'>
+                {[
+                  { timeframe: 'Today', profit: '+$847', bets: 23 },
+                  { timeframe: 'This Week', profit: '+$3,120', bets: 89 },
+                  { timeframe: 'This Month', profit: '+$8,420', bets: 247 },
+                ].map((period, index) => (
+                  <div key={index} className='flex items-center justify-between text-sm'>
+                    <span className='text-gray-400'>{period.timeframe}</span>
+                    <div className='text-right'>
+                      <span className='text-green-400 font-medium'>{period.profit}</span>
+                      <div className='text-gray-400 text-xs'>{period.bets} bets</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Predictive Insights</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  insight: 'NBA Win Rate Trending Up',
+                  confidence: 94,
+                  prediction: '+3.2% increase expected',
+                  timeframe: 'Next 7 days',
+                  impact: 'High',
+                },
+                {
+                  insight: 'Player Props Volume Surge',
+                  confidence: 87,
+                  prediction: '+15% volume increase',
+                  timeframe: 'Next 3 days',
+                  impact: 'Medium',
+                },
+                {
+                  insight: 'Live Betting Accuracy Peak',
+                  confidence: 91,
+                  prediction: '92%+ accuracy window',
+                  timeframe: 'Next 24 hours',
+                  impact: 'High',
+                },
+                {
+                  insight: 'Market Efficiency Decline',
+                  confidence: 78,
+                  prediction: 'More opportunities available',
+                  timeframe: 'Next 2 weeks',
+                  impact: 'Medium',
+                },
+              ].map((insight, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{insight.insight}</span>
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${
+                        insight.impact === 'High'
+                          ? 'bg-green-500/20 text-green-400'
+                          : 'bg-yellow-500/20 text-yellow-400'
+                      }`}
+                    >
+                      {insight.impact}
+                    </span>
+                  </div>
+                  <div className='text-cyan-400 text-sm mb-1'>{insight.prediction}</div>
+                  <div className='flex items-center justify-between text-xs'>
+                    <span className='text-gray-400'>{insight.timeframe}</span>
+                    <span className='text-purple-400'>{insight.confidence}% confidence</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </Layout>
   );
 };
