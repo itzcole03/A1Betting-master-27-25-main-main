@@ -1,4 +1,4 @@
-import { ApiService } from './unified/ApiService';
+import ApiService from './unified/ApiService';
 
 export interface Player {
   id: string;
