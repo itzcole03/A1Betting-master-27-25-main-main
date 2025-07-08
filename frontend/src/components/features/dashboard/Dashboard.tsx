@@ -228,6 +228,110 @@ const Dashboard: React.FC = () => {
     }
   }, []);
 
+  const loadSocialData = async () => {
+    setIsAnalyzing(true);
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      const mockSentiment: Record<string, SentimentData> = {
+        'Lakers vs Warriors': {
+          overall: 0.72,
+          positive: 0.68,
+          negative: 0.12,
+          neutral: 0.2,
+          confidence: 0.89,
+          volume: 2847,
+          trend: 'bullish',
+        },
+        'Celtics vs Heat': {
+          overall: 0.45,
+          positive: 0.34,
+          negative: 0.31,
+          neutral: 0.35,
+          confidence: 0.76,
+          volume: 1923,
+          trend: 'neutral',
+        },
+      };
+
+      const mockPosts: SocialPost[] = [
+        {
+          id: 'post-1',
+          platform: 'twitter',
+          author: '@SportsBetExpert',
+          content: 'LeBron looking unstoppable tonight. Over 25.5 points is free money 🚀',
+          sentiment: 0.85,
+          engagement: { likes: 247, shares: 89, comments: 34 },
+          influence: 0.78,
+          timestamp: new Date(Date.now() - 300000),
+          gameId: 'lakers-warriors',
+          players: ['LeBron James'],
+          keywords: ['LeBron', 'over', 'points'],
+        },
+        {
+          id: 'post-2',
+          platform: 'reddit',
+          author: 'u/NBAPropKing',
+          content: 'Warriors defense has been leaky lately. Expecting high scoring game.',
+          sentiment: 0.62,
+          engagement: { likes: 156, shares: 23, comments: 67 },
+          influence: 0.65,
+          timestamp: new Date(Date.now() - 600000),
+          gameId: 'lakers-warriors',
+          keywords: ['Warriors', 'defense', 'high scoring'],
+        },
+      ];
+
+      const mockInfluencers: InfluencerInsight[] = [
+        {
+          id: 'inf-1',
+          name: 'Sharp Sports Analyst',
+          platform: 'Twitter',
+          followers: 125000,
+          accuracy: 0.73,
+          recentPicks: [
+            { game: 'Lakers vs Warriors', pick: 'Lakers +2.5', outcome: 'won', confidence: 0.85 },
+            { game: 'Celtics vs Heat', pick: 'Under 218.5', outcome: 'pending', confidence: 0.72 },
+          ],
+          sentiment: 0.68,
+          influence: 0.82,
+        },
+      ];
+
+      const mockTrending: TrendingTopic[] = [
+        {
+          id: 'trend-1',
+          keyword: 'LeBron injury concern',
+          volume: 1240,
+          sentiment: -0.32,
+          growth: 0.89,
+          category: 'injury',
+          relevantGames: ['lakers-warriors'],
+          impact: 'high',
+        },
+        {
+          id: 'trend-2',
+          keyword: 'Warriors defense struggles',
+          volume: 856,
+          sentiment: 0.45,
+          growth: 0.67,
+          category: 'team_analysis',
+          relevantGames: ['lakers-warriors'],
+          impact: 'medium',
+        },
+      ];
+
+      setSentimentData(mockSentiment);
+      setRecentPosts(mockPosts);
+      setInfluencers(mockInfluencers);
+      setTrendingTopics(mockTrending);
+    } catch (error) {
+      console.error('Failed to load social data:', error);
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
   const handleRefresh = async () => {
     setIsRefreshing(true);
     console.log('✅ Refresh button clicked - functionality working!');
