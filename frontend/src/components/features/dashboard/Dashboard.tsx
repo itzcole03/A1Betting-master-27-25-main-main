@@ -103,6 +103,59 @@ interface TrendingTopic {
   impact: 'high' | 'medium' | 'low';
 }
 
+interface AutoBetRule {
+  id: string;
+  name: string;
+  sport: string;
+  condition: {
+    type: 'confidence' | 'odds' | 'value' | 'composite';
+    operator: '>' | '<' | '=' | '>=' | '<=';
+    threshold: number;
+  };
+  action: {
+    betType: 'moneyline' | 'spread' | 'total' | 'prop';
+    stakeType: 'fixed' | 'percentage' | 'kelly';
+    amount: number;
+    maxStake: number;
+  };
+  filters: {
+    minOdds: number;
+    maxOdds: number;
+    leagues: string[];
+    timeWindow: string;
+  };
+  isActive: boolean;
+  safetyLimits: {
+    maxDailyStake: number;
+    maxConsecutiveLosses: number;
+    cooldownPeriod: number;
+  };
+}
+
+interface AutoBetExecution {
+  id: string;
+  ruleId: string;
+  game: string;
+  betType: string;
+  stake: number;
+  odds: string;
+  confidence: number;
+  status: 'pending' | 'placed' | 'failed' | 'cancelled';
+  timestamp: string;
+  reasoning: string;
+}
+
+interface AutoPilotStats {
+  isActive: boolean;
+  rulesActive: number;
+  betsToday: number;
+  totalStaked: number;
+  profitLoss: number;
+  winRate: number;
+  lastExecuted: string;
+  safetyStatus: 'safe' | 'warning' | 'critical';
+}
+
 const Dashboard: React.FC = () => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [liveOpportunities, setLiveOpportunities] = useState<LiveOpportunity[]>([]);
