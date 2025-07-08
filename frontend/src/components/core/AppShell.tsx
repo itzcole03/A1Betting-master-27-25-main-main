@@ -208,6 +208,8 @@ export const AppShell: React.FC<AppShellProps> = ({ children, activeView, onNavi
         <Navigation
           isMobileMenuOpen={isMobileMenuOpen}
           onCloseMobileMenu={() => setIsMobileMenuOpen(false)}
+          activeView={activeView}
+          onNavigate={onNavigate}
         />
 
         {/* Main Content Area */}
