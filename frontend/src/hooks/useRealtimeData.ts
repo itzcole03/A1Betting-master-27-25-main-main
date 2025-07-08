@@ -300,8 +300,26 @@ export function useRealtimeData<T = RealtimeData>({
    * Connect to WebSocket
    */
   const connect = useCallback(() => {
+    // Don't create new connection if one already exists and is connecting/open
+    if (
+      wsRef.current &&
+      (wsRef.current.readyState === WebSocket.CONNECTING ||
+        wsRef.current.readyState === WebSocket.OPEN)
+    ) {
+      return;
+    }
+
     try {
       //       console.log('🔌 Connecting to WebSocket:', url);
+
+      // Clean up any existing connection first
+      if (wsRef.current) {
+        try {
+          wsRef.current.close();
+        } catch (e) {
+          // Ignore close errors
+        }
+      }
 
       wsRef.current = new WebSocket(url);
 
