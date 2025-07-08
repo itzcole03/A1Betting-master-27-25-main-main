@@ -39,7 +39,7 @@ export interface BackendControlProps {
   realTimeUpdates?: boolean;
 }
 
-const BackendControl: React.FC<BackendControlProps> = ({
+export const BackendControl: React.FC<BackendControlProps> = ({
   variant = 'default',
   services = [],
   metrics,
