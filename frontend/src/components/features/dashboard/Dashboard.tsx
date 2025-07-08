@@ -186,6 +186,8 @@ const Dashboard: React.FC = () => {
   ];
 
   useEffect(() => {
+    loadSocialData();
+
     // Simulate live opportunities
     const mockOpportunities: LiveOpportunity[] = [
       {
