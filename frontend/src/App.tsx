@@ -5,6 +5,8 @@ import { RefreshCw } from 'lucide-react';
 // Lazy load feature components
 const Dashboard = React.lazy(() => import('./components/features/dashboard/Dashboard'));
 const MoneyMaker = React.lazy(() => import('./components/features/moneymaker/MoneyMaker'));
+const Analytics = React.lazy(() => import('./components/features/analytics/Analytics'));
+const PrizePicks = React.lazy(() => import('./components/features/prizepicks/PrizePicks'));
 
 // Placeholder components for features not yet implemented
 const PlaceholderComponent: React.FC<{ title: string; description: string }> = ({
