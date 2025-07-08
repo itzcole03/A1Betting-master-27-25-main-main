@@ -47,11 +47,7 @@ function App() {
     <div className='min-h-screen bg-gray-50'>
       <AppShell activeView={activeView} onViewChange={setActiveView}>
         <div className='p-6'>
-          <React.ErrorBoundary
-            fallback={<ErrorFallback error={new Error('Component failed to load')} />}
-          >
-            {renderComponent()}
-          </React.ErrorBoundary>
+          <ErrorBoundary>{renderComponent()}</ErrorBoundary>
         </div>
       </AppShell>
     </div>
