@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A1Betting Test</title>
+    <style>
+      body {
+        background: linear-gradient(to br, #1e293b, #7c3aed, #1e293b);
+        color: white;
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        min-height: 100vh;
+        margin: 0;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .status {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🎯 A1Betting Platform Test</h1>
+      <p>If you can see this page, the basic server is working!</p>
+
+      <div class="status">
+        <h3>✅ Server Status: Online</h3>
+        <p>Port: 3001</p>
+        <p>Time: <span id="time"></span></p>
+      </div>
+
+      <p>The React app should load here once all dependencies are resolved.</p>
+    </div>
+
+    <script>
+      document.getElementById('time').textContent = new Date().toLocaleTimeString();
+      setInterval(() => {
+        document.getElementById('time').textContent = new Date().toLocaleTimeString();
+      }, 1000);
+    </script>
+  </body>
+</html>

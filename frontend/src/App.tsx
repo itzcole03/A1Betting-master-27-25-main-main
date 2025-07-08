@@ -1,5 +1,5 @@
-﻿import QuantumSportsPlatform from './components/QuantumSportsPlatform';
+﻿import A1BettingPlatform from './components/A1BettingPlatformSimple';
 
 export default function App() {
-  return <QuantumSportsPlatform />;
+  return <A1BettingPlatform />;
 }

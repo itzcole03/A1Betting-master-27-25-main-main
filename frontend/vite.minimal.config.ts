@@ -1,23 +1,23 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
-// Disable Console Ninja to prevent startup issues
+// Disable Console Ninja
 process.env.DISABLE_CONSOLE_NINJA = 'true';
+process.env.CONSOLE_NINJA_DISABLE = 'true';
 
+// Minimal config to get server running
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 3001,
     host: '0.0.0.0',
+    port: 3000,
     strictPort: false,
+    open: false,
   },
   define: {
     'process.env.DISABLE_CONSOLE_NINJA': '"true"',
   },
-  optimizeDeps: {
-    include: ['react', 'react-dom', 'lucide-react'],
-  },
-  build: {
-    target: 'es2020',
+  esbuild: {
+    logLevel: 'silent',
   },
 });
