@@ -293,6 +293,14 @@ const Analytics: React.FC = () => {
     'timestamp' | 'impact' | 'credibility' | 'engagement'
   >('timestamp');
 
+  // Risk Engine state
+  const [riskAlerts, setRiskAlerts] = useState<RiskAlert[]>([]);
+  const [riskMetrics, setRiskMetrics] = useState<RiskMetric[]>([]);
+  const [correlationMatrix, setCorrelationMatrix] = useState<CorrelationMatrix | null>(null);
+  const [varAnalysis, setVarAnalysis] = useState<VaRAnalysis | null>(null);
+  const [selectedRiskCategory, setSelectedRiskCategory] = useState<string>('all');
+  const [expandedRiskAlert, setExpandedRiskAlert] = useState<string | null>(null);
+
   useEffect(() => {
     loadAnalyticsData();
     loadInjuryData();
