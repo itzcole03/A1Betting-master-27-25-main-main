@@ -19,59 +19,12 @@ import {
   Plus,
 } from 'lucide-react';
 import { Layout } from '../../core/Layout';
-
-interface PlayerProp {
-  id: string;
-  playerId: string;
-  playerName: string;
-  team: string;
-  position: string;
-  stat: string;
-  line: number;
-  over: number;
-  under: number;
-  projection: number;
-  confidence: number;
-  value: number;
-  edge: number;
-  recentAvg: number;
-  seasonAvg: number;
-  matchup: string;
-  gameTime: Date;
-  weather?: string;
-  injury?: string;
-  trends: {
-    last5: number[];
-    homeAway: { home: number; away: number };
-    vsOpponent: number;
-  };
-}
-
-interface Lineup {
-  id: string;
-  name: string;
-  picks: PlayerProp[];
-  totalValue: number;
-  expectedReturn: number;
-  risk: 'low' | 'medium' | 'high';
-  confidence: number;
-  multiplier: number;
-  cost: number;
-  createdAt: Date;
-  validated: boolean;
-  projectedPayout: number;
-  entryAmount: number;
-}
-
-interface PrizePicksStats {
-  totalLineups: number;
-  winRate: number;
-  avgMultiplier: number;
-  totalWinnings: number;
-  bestStreak: number;
-  currentStreak: number;
-  avgConfidence: number;
-}
+import {
+  PlayerProp,
+  Lineup,
+  PrizePicksStats,
+  transformToProjection,
+} from '../../../types/prizePicksUnified';
 
 const PrizePicks: React.FC = () => {
   const [props, setProps] = useState<PlayerProp[]>([]);
