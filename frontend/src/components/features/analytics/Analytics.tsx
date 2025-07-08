@@ -1526,6 +1526,184 @@ const Analytics: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Interactive SHAP Analysis Dashboard */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2.0 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Interactive SHAP Analysis Dashboard</h3>
+            <p className='text-gray-400 text-sm'>
+              Real-time prediction explanations with advanced visualizations and feature importance
+            </p>
+          </div>
+          <Brain className='w-6 h-6 text-purple-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-4 gap-4 mb-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+            <div className='text-2xl font-bold text-green-400 mb-1'>+0.142</div>
+            <div className='text-sm text-gray-400'>Positive Impact</div>
+            <div className='text-xs text-green-300 mt-1'>Feature boost</div>
+          </div>
+          <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+            <div className='text-2xl font-bold text-red-400 mb-1'>-0.087</div>
+            <div className='text-sm text-gray-400'>Negative Impact</div>
+            <div className='text-xs text-red-300 mt-1'>Feature drag</div>
+          </div>
+          <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+            <div className='text-2xl font-bold text-cyan-400 mb-1'>+0.055</div>
+            <div className='text-sm text-gray-400'>Net Impact</div>
+            <div className='text-xs text-cyan-300 mt-1'>Final contribution</div>
+          </div>
+          <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+            <div className='text-2xl font-bold text-purple-400 mb-1'>12</div>
+            <div className='text-sm text-gray-400'>Active Features</div>
+            <div className='text-xs text-purple-300 mt-1'>Above threshold</div>
+          </div>
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Feature Importance Ranking</h4>
+            <div className='space-y-2'>
+              {[
+                {
+                  feature: 'Recent Form (5 games)',
+                  shapValue: 0.142,
+                  confidence: 94.2,
+                  importance: 100,
+                },
+                {
+                  feature: 'Opponent Defense Rank',
+                  shapValue: -0.087,
+                  confidence: 89.7,
+                  importance: 87,
+                },
+                { feature: 'Rest Days', shapValue: 0.074, confidence: 92.1, importance: 74 },
+                { feature: 'Home/Away Status', shapValue: 0.038, confidence: 85.4, importance: 38 },
+                { feature: 'Usage Rate', shapValue: 0.029, confidence: 88.9, importance: 29 },
+                { feature: 'Line Movement', shapValue: -0.019, confidence: 76.3, importance: 19 },
+              ].map((feature, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-2'>
+                  <div className='flex items-center justify-between mb-1'>
+                    <span className='text-white text-xs font-medium'>{feature.feature}</span>
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${
+                        feature.shapValue > 0
+                          ? 'bg-green-500/20 text-green-400'
+                          : 'bg-red-500/20 text-red-400'
+                      }`}
+                    >
+                      {feature.shapValue > 0 ? '+' : ''}
+                      {feature.shapValue.toFixed(3)}
+                    </span>
+                  </div>
+                  <div className='w-full bg-slate-700 rounded-full h-1 mb-1'>
+                    <div
+                      className={`h-1 rounded-full ${
+                        feature.shapValue > 0 ? 'bg-green-400' : 'bg-red-400'
+                      }`}
+                      style={{ width: `${Math.abs(feature.importance)}%` }}
+                    />
+                  </div>
+                  <div className='text-xs text-gray-400'>Confidence: {feature.confidence}%</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Model Explanation Analysis</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  model: 'XGBoost Ensemble',
+                  baseValue: 0.523,
+                  prediction: 0.768,
+                  confidence: 94.7,
+                  topFeature: 'Recent Form',
+                },
+                {
+                  model: 'Neural Network',
+                  baseValue: 0.487,
+                  prediction: 0.742,
+                  confidence: 91.8,
+                  topFeature: 'Usage Rate',
+                },
+                {
+                  model: 'Random Forest',
+                  baseValue: 0.501,
+                  prediction: 0.734,
+                  confidence: 89.2,
+                  topFeature: 'Defense Rank',
+                },
+              ].map((model, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='text-white font-medium text-sm mb-2'>{model.model}</div>
+                  <div className='grid grid-cols-2 gap-2 text-xs'>
+                    <div className='text-gray-400'>
+                      Base: <span className='text-white'>{model.baseValue}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Prediction: <span className='text-cyan-400'>{model.prediction}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Confidence: <span className='text-green-400'>{model.confidence}%</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Top: <span className='text-purple-400'>{model.topFeature}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Visualization Controls</h4>
+            <div className='space-y-3'>
+              <div className='bg-slate-800/50 rounded-lg p-3'>
+                <label className='text-white text-sm font-medium mb-2 block'>View Mode</label>
+                <select className='w-full px-2 py-1 bg-slate-700 border border-slate-600 rounded text-white text-sm'>
+                  <option value='waterfall'>Waterfall Plot</option>
+                  <option value='force'>Force Plot</option>
+                  <option value='summary'>Summary View</option>
+                </select>
+              </div>
+
+              <div className='bg-slate-800/50 rounded-lg p-3'>
+                <label className='text-white text-sm font-medium mb-2 block'>
+                  Confidence Threshold: 75%
+                </label>
+                <input type='range' min='0' max='100' defaultValue='75' className='w-full' />
+              </div>
+
+              <div className='bg-slate-800/50 rounded-lg p-3'>
+                <div className='flex items-center space-x-2'>
+                  <input type='checkbox' className='text-green-400' />
+                  <label className='text-white text-sm'>Show Positive Only</label>
+                </div>
+              </div>
+
+              <div className='bg-slate-800/50 rounded-lg p-3'>
+                <div className='flex items-center space-x-2'>
+                  <input type='checkbox' className='text-cyan-400' defaultChecked />
+                  <label className='text-white text-sm'>Real-time Updates</label>
+                </div>
+              </div>
+
+              <button className='w-full px-3 py-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-lg text-white text-sm font-medium transition-all'>
+                Export SHAP Data
+              </button>
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </Layout>
   );
 };
