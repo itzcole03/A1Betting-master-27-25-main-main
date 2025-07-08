@@ -1,5 +1,5 @@
-﻿export { UltimateMoneyMaker as MoneyMaker} from './UltimateMoneyMaker';
-export { ConsolidatedUniversalMoneyMaker} from './ConsolidatedUniversalMoneyMaker';
-export { CleanMoneyMaker} from './CleanMoneyMaker';
-
-
+export {
+  UltimateMoneyMaker as MoneyMaker,
+  UltimateMoneyMaker as default,
+} from './UltimateMoneyMaker';
+export { ConsolidatedUniversalMoneyMaker } from './ConsolidatedUniversalMoneyMaker';
