@@ -349,6 +349,33 @@ const Dashboard: React.FC = () => {
     return null;
   };
 
+  const getPlatformIcon = (platform: string) => {
+    switch (platform) {
+      case 'twitter':
+        return <Twitter className='w-4 h-4 text-blue-400' />;
+      case 'reddit':
+        return <MessageSquare className='w-4 h-4 text-orange-400' />;
+      case 'discord':
+        return <Users className='w-4 h-4 text-purple-400' />;
+      case 'telegram':
+        return <Share2 className='w-4 h-4 text-cyan-400' />;
+      default:
+        return <MessageSquare className='w-4 h-4 text-gray-400' />;
+    }
+  };
+
+  const getSentimentColor = (sentiment: number) => {
+    if (sentiment > 0.6) return 'text-green-400';
+    if (sentiment > 0.4) return 'text-yellow-400';
+    return 'text-red-400';
+  };
+
+  const getSentimentBg = (sentiment: number) => {
+    if (sentiment > 0.6) return 'bg-green-500/20';
+    if (sentiment > 0.4) return 'bg-yellow-500/20';
+    return 'bg-red-500/20';
+  };
+
   return (
     <Layout
       title='Command Center'
