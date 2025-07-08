@@ -23,6 +23,7 @@ const WeatherStation = React.lazy(() => import('./components/features/weather/We
 const InjuryTracker = React.lazy(() => import('./components/features/injuries/InjuryTracker'));
 const LineupBuilder = React.lazy(() => import('./components/features/lineup/LineupBuilder'));
 const Settings = React.lazy(() => import('./components/features/settings/Settings'));
+const SportsManager = React.lazy(() => import('./components/features/sports/SportsManager'));
 
 // Placeholder components for features not yet implemented
 const PlaceholderComponent: React.FC<{ title: string; description: string }> = ({
@@ -88,6 +89,7 @@ const componentMap: Record<string, React.ComponentType> = {
     <PlaceholderComponent title='Community Hub' description='Social trading & leaderboards' />
   ),
   settings: Settings,
+  sports: SportsManager,
 };
 
 export default function App() {
