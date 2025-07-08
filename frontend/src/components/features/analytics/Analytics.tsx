@@ -22,6 +22,13 @@ import {
   Search,
   GitBranch,
   RotateCcw,
+  Cloud,
+  CloudRain,
+  Droplets,
+  Snowflake,
+  Sun,
+  Thermometer,
+  Wind,
 } from 'lucide-react';
 import { Layout } from '../../core/Layout';
 import { Badge } from '../../ui/badge';
