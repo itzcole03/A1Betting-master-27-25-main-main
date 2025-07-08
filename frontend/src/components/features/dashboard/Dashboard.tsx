@@ -107,6 +107,13 @@ const Dashboard: React.FC = () => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [liveOpportunities, setLiveOpportunities] = useState<LiveOpportunity[]>([]);
 
+  // Social Intelligence state
+  const [sentimentData, setSentimentData] = useState<Record<string, SentimentData>>({});
+  const [recentPosts, setRecentPosts] = useState<SocialPost[]>([]);
+  const [influencers, setInfluencers] = useState<InfluencerInsight[]>([]);
+  const [trendingTopics, setTrendingTopics] = useState<TrendingTopic[]>([]);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+
   // Mock data - replace with real API calls
   const keyMetrics: MetricCard[] = [
     {
