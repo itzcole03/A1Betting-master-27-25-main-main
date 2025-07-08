@@ -657,5 +657,3 @@ export const BackendControl: React.FC<BackendControlProps> = ({
     </div>
   );
 };
-
-export default BackendControl;
