@@ -54,7 +54,7 @@ export class UnifiedConfig {
   private readonly eventBus: SimpleEventEmitter;
 
   private constructor() {
-    this.eventBus = new EventEmitter();
+    this.eventBus = new SimpleEventEmitter();
     // Optionally initialize defaultConfig here
   }
 
