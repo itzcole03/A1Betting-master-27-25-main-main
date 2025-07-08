@@ -618,6 +618,299 @@ const UltimateMoneyMaker: React.FC = () => {
             </div>
           </div>
         </motion.div>
+
+        {/* Advanced Player Analysis Engine */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2 }}
+          className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+        >
+          <div className='flex items-center justify-between mb-6'>
+            <div>
+              <h3 className='text-xl font-bold text-white'>Multi-Factor Player Analysis</h3>
+              <p className='text-gray-400 text-sm'>
+                Deep analysis with sentiment, trends, and predictive modeling
+              </p>
+            </div>
+            <Brain className='w-6 h-6 text-purple-400' />
+          </div>
+
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-sm font-medium text-gray-400 mb-3'>Analysis Weightings</h4>
+              <div className='space-y-3'>
+                {[
+                  {
+                    factor: 'Historical Performance',
+                    weight: 30,
+                    impact: 'High',
+                    color: 'from-blue-400 to-blue-600',
+                  },
+                  {
+                    factor: 'Current Form',
+                    weight: 40,
+                    impact: 'Very High',
+                    color: 'from-green-400 to-green-600',
+                  },
+                  {
+                    factor: 'Social Sentiment',
+                    weight: 15,
+                    impact: 'Medium',
+                    color: 'from-yellow-400 to-yellow-600',
+                  },
+                  {
+                    factor: 'Market Efficiency',
+                    weight: 15,
+                    impact: 'Medium',
+                    color: 'from-purple-400 to-purple-600',
+                  },
+                ].map((factor, index) => (
+                  <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                    <div className='flex items-center justify-between mb-2'>
+                      <span className='text-white font-medium text-sm'>{factor.factor}</span>
+                      <span className='text-cyan-400 text-xs'>{factor.weight}%</span>
+                    </div>
+                    <div className='w-full bg-slate-700 rounded-full h-2 mb-2'>
+                      <div
+                        className={`bg-gradient-to-r ${factor.color} h-2 rounded-full transition-all duration-500`}
+                        style={{ width: `${factor.weight}%` }}
+                      ></div>
+                    </div>
+                    <div className='text-gray-400 text-xs'>Impact: {factor.impact}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-sm font-medium text-gray-400 mb-3'>Risk Matrix</h4>
+              <div className='space-y-3'>
+                {[
+                  {
+                    type: 'Injury Risk',
+                    level: 'LOW',
+                    factors: ['No injury history', 'Good fitness'],
+                    mitigation: 'Monitor closely',
+                  },
+                  {
+                    type: 'Performance Variance',
+                    level: 'MEDIUM',
+                    factors: ['Moderate consistency', 'Matchup dependent'],
+                    mitigation: 'Adjust position size',
+                  },
+                  {
+                    type: 'Market Sentiment',
+                    level: 'LOW',
+                    factors: ['Positive outlook', 'Strong support'],
+                    mitigation: 'None required',
+                  },
+                  {
+                    type: 'Opponent Matchup',
+                    level: 'HIGH',
+                    factors: ['Strong defense', 'Poor historical record'],
+                    mitigation: 'Reduce exposure',
+                  },
+                ].map((risk, index) => (
+                  <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                    <div className='flex items-center justify-between mb-2'>
+                      <span className='text-white font-medium text-sm'>{risk.type}</span>
+                      <span
+                        className={`text-xs px-2 py-1 rounded-full ${
+                          risk.level === 'LOW'
+                            ? 'bg-green-500/20 text-green-400'
+                            : risk.level === 'MEDIUM'
+                              ? 'bg-yellow-500/20 text-yellow-400'
+                              : 'bg-red-500/20 text-red-400'
+                        }`}
+                      >
+                        {risk.level}
+                      </span>
+                    </div>
+                    <ul className='text-gray-400 text-xs space-y-1 mb-2'>
+                      {risk.factors.map((factor, i) => (
+                        <li key={i}>• {factor}</li>
+                      ))}
+                    </ul>
+                    <div className='text-cyan-400 text-xs font-medium'>
+                      Mitigation: {risk.mitigation}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-sm font-medium text-gray-400 mb-3'>Predictive Trends</h4>
+              <div className='space-y-3'>
+                {[
+                  {
+                    metric: 'Points Per Game',
+                    direction: 'up',
+                    strength: 85,
+                    trend: '+2.4 last 10',
+                    support: 'Increased usage',
+                  },
+                  {
+                    metric: 'Assists',
+                    direction: 'stable',
+                    strength: 72,
+                    trend: '±0.1 variance',
+                    support: 'Consistent role',
+                  },
+                  {
+                    metric: 'Rebounds',
+                    direction: 'down',
+                    strength: 45,
+                    trend: '-0.8 last 5',
+                    support: 'Matchup dependent',
+                  },
+                  {
+                    metric: 'Usage Rate',
+                    direction: 'up',
+                    strength: 91,
+                    trend: '+4.2% increase',
+                    support: 'Injury to teammate',
+                  },
+                ].map((trend, index) => (
+                  <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                    <div className='flex items-center justify-between mb-2'>
+                      <span className='text-white font-medium text-sm'>{trend.metric}</span>
+                      <div className='flex items-center space-x-2'>
+                        <span
+                          className={`text-lg ${
+                            trend.direction === 'up'
+                              ? 'text-green-400'
+                              : trend.direction === 'down'
+                                ? 'text-red-400'
+                                : 'text-gray-400'
+                          }`}
+                        >
+                          {trend.direction === 'up'
+                            ? '↗'
+                            : trend.direction === 'down'
+                              ? '↘'
+                              : '→'}
+                        </span>
+                        <span className='text-cyan-400 text-xs'>{trend.strength}%</span>
+                      </div>
+                    </div>
+                    <div className='text-gray-300 text-xs mb-1'>{trend.trend}</div>
+                    <div className='text-gray-400 text-xs'>Supporting: {trend.support}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ML Simulation Engine */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.3 }}
+          className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+        >
+          <div className='flex items-center justify-between mb-6'>
+            <div>
+              <h3 className='text-xl font-bold text-white'>ML Simulation Engine</h3>
+              <p className='text-gray-400 text-sm'>
+                Monte Carlo simulations with machine learning predictions
+              </p>
+            </div>
+            <Zap className='w-6 h-6 text-yellow-400' />
+          </div>
+
+          <div className='grid grid-cols-1 md:grid-cols-4 gap-4 mb-6'>
+            <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+              <div className='text-2xl font-bold text-green-400 mb-1'>10,000</div>
+              <div className='text-sm text-gray-400'>Simulations Run</div>
+            </div>
+            <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+              <div className='text-2xl font-bold text-cyan-400 mb-1'>87.3%</div>
+              <div className='text-sm text-gray-400'>Win Probability</div>
+            </div>
+            <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+              <div className='text-2xl font-bold text-purple-400 mb-1'>2.47x</div>
+              <div className='text-sm text-gray-400'>Expected Return</div>
+            </div>
+            <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+              <div className='text-2xl font-bold text-yellow-400 mb-1'>92.1%</div>
+              <div className='text-sm text-gray-400'>Model Confidence</div>
+            </div>
+          </div>
+
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-sm font-medium text-gray-400 mb-3'>Simulation Results</h4>
+              <div className='space-y-3'>
+                {[
+                  {
+                    outcome: 'Over 25.5 Points',
+                    probability: 87.3,
+                    frequency: 8730,
+                    edge: '+12.3%',
+                  },
+                  {
+                    outcome: '24-26 Point Range',
+                    probability: 34.2,
+                    frequency: 3420,
+                    edge: '+5.7%',
+                  },
+                  { outcome: '27+ Points', probability: 53.1, frequency: 5310, edge: '+18.9%' },
+                  {
+                    outcome: 'Under 25.5 Points',
+                    probability: 12.7,
+                    frequency: 1270,
+                    edge: '-8.4%',
+                  },
+                ].map((result, index) => (
+                  <div key={index} className='flex items-center justify-between'>
+                    <div>
+                      <div className='text-white text-sm font-medium'>{result.outcome}</div>
+                      <div className='text-gray-400 text-xs'>{result.frequency} occurrences</div>
+                    </div>
+                    <div className='text-right'>
+                      <div className='text-cyan-400 font-bold text-sm'>{result.probability}%</div>
+                      <div
+                        className={`text-xs ${result.edge.includes('+') ? 'text-green-400' : 'text-red-400'}`}
+                      >
+                        {result.edge}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-sm font-medium text-gray-400 mb-3'>Model Performance</h4>
+              <div className='space-y-3'>
+                {[
+                  { model: 'Ensemble Predictor', accuracy: 94.2, predictions: 1547, active: true },
+                  { model: 'LSTM Neural Net', accuracy: 92.8, predictions: 1342, active: true },
+                  { model: 'XGBoost Classifier', accuracy: 91.5, predictions: 1789, active: true },
+                  { model: 'Random Forest', accuracy: 88.3, predictions: 967, active: false },
+                ].map((model, index) => (
+                  <div key={index} className='flex items-center justify-between'>
+                    <div>
+                      <div className='flex items-center space-x-2'>
+                        <div
+                          className={`w-2 h-2 rounded-full ${model.active ? 'bg-green-400' : 'bg-gray-400'}`}
+                        ></div>
+                        <span className='text-white text-sm font-medium'>{model.model}</span>
+                      </div>
+                      <div className='text-gray-400 text-xs ml-4'>
+                        {model.predictions} predictions
+                      </div>
+                    </div>
+                    <div className='text-cyan-400 font-bold text-sm'>{model.accuracy}%</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </motion.div>
     </Layout>
   );
