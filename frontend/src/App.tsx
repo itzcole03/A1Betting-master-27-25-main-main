@@ -7,6 +7,9 @@ const Dashboard = React.lazy(() => import('./components/features/dashboard/Dashb
 const MoneyMaker = React.lazy(() => import('./components/features/moneymaker/MoneyMaker'));
 const Analytics = React.lazy(() => import('./components/features/analytics/Analytics'));
 const PrizePicks = React.lazy(() => import('./components/features/prizepicks/PrizePicks'));
+const ArbitrageScanner = React.lazy(
+  () => import('./components/features/arbitrage/ArbitrageScanner')
+);
 
 // Placeholder components for features not yet implemented
 const PlaceholderComponent: React.FC<{ title: string; description: string }> = ({
