@@ -1,5 +1,6 @@
 import React, { useState, Suspense } from 'react';
 import { AppShell } from './components/core/AppShell';
+import { ErrorBoundary } from './components/core/ErrorBoundary';
 import { RefreshCw } from 'lucide-react';
 
 // Simple component imports without complex dependencies
