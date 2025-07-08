@@ -146,6 +146,13 @@ const Dashboard: React.FC = () => {
       },
     ];
     setLiveOpportunities(mockOpportunities);
+
+    // Run functionality test in development
+    if (process.env.NODE_ENV === 'development') {
+      import('../../../utils/testFunctionality').then(({ logFunctionalityTest }) => {
+        logFunctionalityTest();
+      });
+    }
   }, []);
 
   const handleRefresh = async () => {
