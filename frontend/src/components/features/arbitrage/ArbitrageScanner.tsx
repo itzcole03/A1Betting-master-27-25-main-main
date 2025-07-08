@@ -1584,6 +1584,362 @@ const ArbitrageScanner: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Advanced Risk Modeling Engine */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.6 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Advanced Risk Modeling Engine</h3>
+            <p className='text-gray-400 text-sm'>
+              Multi-factor risk models with stress testing and scenario analysis
+            </p>
+          </div>
+          <Shield className='w-6 h-6 text-red-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-4 gap-4 mb-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+            <div className='text-2xl font-bold text-red-400 mb-1'>$2,847</div>
+            <div className='text-sm text-gray-400'>Value at Risk (95%)</div>
+            <div className='text-xs text-red-300 mt-1'>1-day horizon</div>
+          </div>
+          <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+            <div className='text-2xl font-bold text-yellow-400 mb-1'>$4,230</div>
+            <div className='text-sm text-gray-400'>Expected Shortfall</div>
+            <div className='text-xs text-yellow-300 mt-1'>Conditional VaR</div>
+          </div>
+          <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+            <div className='text-2xl font-bold text-purple-400 mb-1'>0.23</div>
+            <div className='text-sm text-gray-400'>Portfolio Beta</div>
+            <div className='text-xs text-purple-300 mt-1'>Market correlation</div>
+          </div>
+          <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+            <div className='text-2xl font-bold text-cyan-400 mb-1'>97.3%</div>
+            <div className='text-sm text-gray-400'>Model Confidence</div>
+            <div className='text-xs text-cyan-300 mt-1'>Risk prediction</div>
+          </div>
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Factor Risk Decomposition</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  factor: 'Market Risk',
+                  contribution: 34.7,
+                  volatility: 12.3,
+                  correlation: 0.67,
+                  betaExposure: 0.23,
+                  type: 'Systematic',
+                },
+                {
+                  factor: 'Sport-Specific Risk',
+                  contribution: 28.9,
+                  volatility: 18.7,
+                  correlation: 0.34,
+                  betaExposure: 0.41,
+                  type: 'Systematic',
+                },
+                {
+                  factor: 'Bookmaker Risk',
+                  contribution: 19.4,
+                  volatility: 8.9,
+                  correlation: 0.12,
+                  betaExposure: 0.18,
+                  type: 'Idiosyncratic',
+                },
+                {
+                  factor: 'Liquidity Risk',
+                  contribution: 12.8,
+                  volatility: 15.2,
+                  correlation: 0.28,
+                  betaExposure: 0.09,
+                  type: 'Idiosyncratic',
+                },
+                {
+                  factor: 'Model Risk',
+                  contribution: 4.2,
+                  volatility: 6.1,
+                  correlation: 0.05,
+                  betaExposure: 0.03,
+                  type: 'Idiosyncratic',
+                },
+              ].map((factor, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{factor.factor}</span>
+                    <span className='text-red-400 text-sm'>{factor.contribution}%</span>
+                  </div>
+                  <div className='w-full bg-slate-700 rounded-full h-2 mb-2'>
+                    <div
+                      className='h-2 bg-red-400 rounded-full'
+                      style={{ width: `${factor.contribution}%` }}
+                    />
+                  </div>
+                  <div className='grid grid-cols-2 gap-2 text-xs'>
+                    <div className='text-gray-400'>
+                      Volatility: <span className='text-yellow-400'>{factor.volatility}%</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Correlation: <span className='text-cyan-400'>{factor.correlation}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Beta: <span className='text-purple-400'>{factor.betaExposure}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Type: <span className='text-green-400'>{factor.type}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Stress Testing Scenarios</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  scenario: 'Market Crash (-30%)',
+                  portfolioImpact: -8.7,
+                  worstPosition: 'NBA Props (-23.4%)',
+                  hedgeEffectiveness: 73.2,
+                  recoveryTime: '14 days',
+                },
+                {
+                  scenario: 'Sportsbook Closure',
+                  portfolioImpact: -12.3,
+                  worstPosition: 'Cross-book Arbs (-45.7%)',
+                  hedgeEffectiveness: 56.8,
+                  recoveryTime: '7 days',
+                },
+                {
+                  scenario: 'Regulation Change',
+                  portfolioImpact: -15.9,
+                  worstPosition: 'Live Betting (-67.2%)',
+                  hedgeEffectiveness: 41.5,
+                  recoveryTime: '21 days',
+                },
+                {
+                  scenario: 'Model Breakdown',
+                  portfolioImpact: -6.4,
+                  worstPosition: 'AI Props (-18.9%)',
+                  hedgeEffectiveness: 82.7,
+                  recoveryTime: '3 days',
+                },
+              ].map((stress, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='text-white font-medium text-sm mb-2'>{stress.scenario}</div>
+                  <div className='grid grid-cols-2 gap-2 text-xs mb-2'>
+                    <div className='text-gray-400'>
+                      Impact: <span className='text-red-400'>{stress.portfolioImpact}%</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Recovery: <span className='text-cyan-400'>{stress.recoveryTime}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Hedge Eff:{' '}
+                      <span className='text-green-400'>{stress.hedgeEffectiveness}%</span>
+                    </div>
+                  </div>
+                  <div className='text-yellow-400 text-xs'>{stress.worstPosition}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Risk Metrics Dashboard</h4>
+            <div className='space-y-3'>
+              <div className='grid grid-cols-1 gap-3'>
+                <div className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='text-white text-sm font-medium mb-1'>Sharpe Ratio</div>
+                  <div className='text-2xl font-bold text-green-400'>2.87</div>
+                  <div className='text-xs text-gray-400'>Risk-adjusted return</div>
+                </div>
+                <div className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='text-white text-sm font-medium mb-1'>Sortino Ratio</div>
+                  <div className='text-2xl font-bold text-cyan-400'>3.42</div>
+                  <div className='text-xs text-gray-400'>Downside deviation</div>
+                </div>
+                <div className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='text-white text-sm font-medium mb-1'>Calmar Ratio</div>
+                  <div className='text-2xl font-bold text-purple-400'>4.67</div>
+                  <div className='text-xs text-gray-400'>Return/max drawdown</div>
+                </div>
+              </div>
+
+              <div className='space-y-2'>
+                {[
+                  { metric: 'Information Ratio', value: '1.89', benchmark: 'vs Market' },
+                  { metric: 'Treynor Ratio', value: '0.47', benchmark: 'per Beta' },
+                  { metric: 'Jensen Alpha', value: '+12.4%', benchmark: 'CAPM excess' },
+                ].map((metric, index) => (
+                  <div key={index} className='flex items-center justify-between text-sm'>
+                    <span className='text-gray-400'>{metric.metric}</span>
+                    <div className='text-right'>
+                      <span className='text-white font-medium'>{metric.value}</span>
+                      <div className='text-gray-400 text-xs'>{metric.benchmark}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Real-Time Execution Analytics */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.7 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Real-Time Execution Analytics</h3>
+            <p className='text-gray-400 text-sm'>
+              Transaction cost analysis, slippage modeling, and execution optimization
+            </p>
+          </div>
+          <Activity className='w-6 h-6 text-green-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Execution Performance</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  timeframe: 'Last Hour',
+                  orders: 47,
+                  filled: 46,
+                  avgSlippage: 0.03,
+                  avgLatency: 234,
+                  costSaved: 420,
+                },
+                {
+                  timeframe: 'Last 4 Hours',
+                  orders: 189,
+                  filled: 184,
+                  avgSlippage: 0.05,
+                  avgLatency: 267,
+                  costSaved: 1680,
+                },
+                {
+                  timeframe: 'Today',
+                  orders: 567,
+                  filled: 551,
+                  avgSlippage: 0.07,
+                  avgLatency: 298,
+                  costSaved: 4230,
+                },
+                {
+                  timeframe: 'This Week',
+                  orders: 2847,
+                  filled: 2769,
+                  avgSlippage: 0.08,
+                  avgLatency: 312,
+                  costSaved: 18420,
+                },
+              ].map((execution, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='text-white font-medium text-sm mb-2'>{execution.timeframe}</div>
+                  <div className='grid grid-cols-3 gap-2 text-xs'>
+                    <div className='text-gray-400'>
+                      Orders: <span className='text-white'>{execution.orders}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Filled: <span className='text-green-400'>{execution.filled}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Fill Rate:{' '}
+                      <span className='text-cyan-400'>
+                        {((execution.filled / execution.orders) * 100).toFixed(1)}%
+                      </span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Slippage: <span className='text-yellow-400'>{execution.avgSlippage}%</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Latency: <span className='text-purple-400'>{execution.avgLatency}ms</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Saved: <span className='text-green-400'>${execution.costSaved}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Market Impact Analysis</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  orderSize: 'Small ($0-500)',
+                  orders: 1847,
+                  avgImpact: 0.01,
+                  temporaryImpact: 0.008,
+                  permanentImpact: 0.002,
+                  costBps: 0.7,
+                },
+                {
+                  orderSize: 'Medium ($500-2000)',
+                  orders: 734,
+                  avgImpact: 0.03,
+                  temporaryImpact: 0.021,
+                  permanentImpact: 0.009,
+                  costBps: 2.1,
+                },
+                {
+                  orderSize: 'Large ($2000-5000)',
+                  orders: 156,
+                  avgImpact: 0.07,
+                  temporaryImpact: 0.048,
+                  permanentImpact: 0.022,
+                  costBps: 4.9,
+                },
+                {
+                  orderSize: 'XL ($5000+)',
+                  orders: 32,
+                  avgImpact: 0.15,
+                  temporaryImpact: 0.098,
+                  permanentImpact: 0.052,
+                  costBps: 10.3,
+                },
+              ].map((impact, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='text-white font-medium text-sm mb-2'>{impact.orderSize}</div>
+                  <div className='grid grid-cols-2 gap-2 text-xs mb-2'>
+                    <div className='text-gray-400'>
+                      Orders: <span className='text-white'>{impact.orders}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Avg Impact: <span className='text-red-400'>{impact.avgImpact}%</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Temporary: <span className='text-yellow-400'>{impact.temporaryImpact}%</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Permanent: <span className='text-orange-400'>{impact.permanentImpact}%</span>
+                    </div>
+                  </div>
+                  <div className='text-cyan-400 text-xs'>Cost: {impact.costBps} bps</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </Layout>
   );
 };
