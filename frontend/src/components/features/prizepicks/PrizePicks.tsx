@@ -286,11 +286,81 @@ const PrizePicks: React.FC = () => {
         </div>
       }
     >
+      {/* Stats Overview */}
+      {stats && (
+        <div className='grid grid-cols-1 md:grid-cols-4 gap-6 mb-6'>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6'
+          >
+            <div className='flex items-center justify-between'>
+              <div>
+                <p className='text-gray-400 text-sm'>Win Rate</p>
+                <p className='text-2xl font-bold text-green-400'>{stats.winRate}%</p>
+                <p className='text-xs text-green-300 mt-1'>{stats.totalLineups} lineups</p>
+              </div>
+              <Trophy className='w-8 h-8 text-green-400' />
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6'
+          >
+            <div className='flex items-center justify-between'>
+              <div>
+                <p className='text-gray-400 text-sm'>Total Winnings</p>
+                <p className='text-2xl font-bold text-purple-400'>
+                  ${stats.totalWinnings.toLocaleString()}
+                </p>
+                <p className='text-xs text-purple-300 mt-1'>All time</p>
+              </div>
+              <DollarSign className='w-8 h-8 text-purple-400' />
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6'
+          >
+            <div className='flex items-center justify-between'>
+              <div>
+                <p className='text-gray-400 text-sm'>Avg Multiplier</p>
+                <p className='text-2xl font-bold text-cyan-400'>{stats.avgMultiplier}x</p>
+                <p className='text-xs text-cyan-300 mt-1'>Per lineup</p>
+              </div>
+              <Zap className='w-8 h-8 text-cyan-400' />
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6'
+          >
+            <div className='flex items-center justify-between'>
+              <div>
+                <p className='text-gray-400 text-sm'>Current Streak</p>
+                <p className='text-2xl font-bold text-yellow-400'>{stats.currentStreak}</p>
+                <p className='text-xs text-yellow-300 mt-1'>Best: {stats.bestStreak}</p>
+              </div>
+              <Star className='w-8 h-8 text-yellow-400' />
+            </div>
+          </motion.div>
+        </div>
+      )}
+
       {/* Tab Navigation */}
       <div className='flex items-center space-x-1 mb-6 bg-slate-800/50 rounded-lg p-1'>
         {[
           { id: 'props', label: 'Player Props', icon: Target },
-          { id: 'lineups', label: 'Lineups', icon: Trophy },
+          { id: 'lineups', label: 'Lineup Builder', icon: Trophy },
           { id: 'stats', label: 'Performance', icon: BarChart3 },
         ].map(tab => (
           <button
