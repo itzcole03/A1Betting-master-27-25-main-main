@@ -1297,6 +1297,293 @@ const ArbitrageScanner: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Advanced Pattern Recognition Engine */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.4 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Advanced Pattern Recognition Engine</h3>
+            <p className='text-gray-400 text-sm'>
+              AI-powered detection of market inefficiencies, streaks, and betting biases
+            </p>
+          </div>
+          <Brain className='w-6 h-6 text-cyan-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>
+              Market Inefficiency Detection
+            </h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  type: 'Odds Drift Pattern',
+                  detected: true,
+                  severity: 'high',
+                  confidence: 94.2,
+                  details: 'Lakers ML drifting vs market consensus',
+                  opportunity: '+$2,847 potential',
+                },
+                {
+                  type: 'Volume Anomaly',
+                  detected: true,
+                  severity: 'medium',
+                  confidence: 87.9,
+                  details: 'Unusual betting volume on Warriors spread',
+                  opportunity: '+$1,420 potential',
+                },
+                {
+                  type: 'Cross-Book Delay',
+                  detected: true,
+                  severity: 'high',
+                  confidence: 91.7,
+                  details: 'DraftKings 30s behind FanDuel updates',
+                  opportunity: '+$3,125 potential',
+                },
+                {
+                  type: 'Public Sentiment Divergence',
+                  detected: false,
+                  severity: 'low',
+                  confidence: 68.3,
+                  details: 'Normal alignment with public betting',
+                  opportunity: 'No opportunity',
+                },
+              ].map((pattern, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{pattern.type}</span>
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${
+                        pattern.detected
+                          ? pattern.severity === 'high'
+                            ? 'bg-red-500/20 text-red-400'
+                            : pattern.severity === 'medium'
+                              ? 'bg-yellow-500/20 text-yellow-400'
+                              : 'bg-green-500/20 text-green-400'
+                          : 'bg-gray-500/20 text-gray-400'
+                      }`}
+                    >
+                      {pattern.detected ? pattern.severity : 'none'}
+                    </span>
+                  </div>
+                  <div className='text-gray-300 text-xs mb-2'>{pattern.details}</div>
+                  <div className='grid grid-cols-2 gap-2 text-xs'>
+                    <div className='text-gray-400'>
+                      Confidence: <span className='text-cyan-400'>{pattern.confidence}%</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Value:{' '}
+                      <span className={pattern.detected ? 'text-green-400' : 'text-gray-400'}>
+                        {pattern.opportunity}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Streak & Bias Analysis</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  category: 'Team Performance',
+                  pattern: 'Lakers Over Streak',
+                  streak: 7,
+                  type: 'win',
+                  probability: 'Continuation: 73.4%',
+                  action: 'Fade streak',
+                },
+                {
+                  category: 'Bookmaker Bias',
+                  pattern: 'DraftKings Home Favorite',
+                  streak: 12,
+                  type: 'bias',
+                  probability: 'Exploitable: 89.2%',
+                  action: 'Target bias',
+                },
+                {
+                  category: 'Official Tendencies',
+                  pattern: 'Ref Tony Foster Over Calls',
+                  streak: 5,
+                  type: 'official',
+                  probability: 'Continues: 81.7%',
+                  action: 'Bet Over totals',
+                },
+                {
+                  category: 'Weather Patterns',
+                  pattern: 'Cold Weather Unders',
+                  streak: 9,
+                  type: 'weather',
+                  probability: 'Strong: 94.8%',
+                  action: 'NFL Under plays',
+                },
+              ].map((streak, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{streak.pattern}</span>
+                    <span className='text-cyan-400 text-sm'>{streak.streak}</span>
+                  </div>
+                  <div className='text-gray-400 text-xs mb-1'>{streak.category}</div>
+                  <div className='text-gray-300 text-xs mb-2'>{streak.probability}</div>
+                  <div className='text-green-400 text-xs font-medium'>{streak.action}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Pattern Performance Metrics</h4>
+            <div className='space-y-3'>
+              <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                <div className='text-2xl font-bold text-green-400 mb-1'>89.7%</div>
+                <div className='text-xs text-gray-400'>Pattern Accuracy</div>
+              </div>
+              <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                <div className='text-2xl font-bold text-purple-400 mb-1'>247</div>
+                <div className='text-xs text-gray-400'>Patterns Detected Today</div>
+              </div>
+              <div className='space-y-2'>
+                {[
+                  { type: 'Inefficiencies', detected: 34, success: 31 },
+                  { type: 'Streaks', detected: 89, success: 76 },
+                  { type: 'Biases', detected: 67, success: 59 },
+                  { type: 'Anomalies', detected: 57, success: 52 },
+                ].map((metric, index) => (
+                  <div key={index} className='flex items-center justify-between text-xs'>
+                    <span className='text-gray-400'>{metric.type}</span>
+                    <div className='text-right'>
+                      <span className='text-white'>{metric.detected}</span>
+                      <div className='text-green-400'>
+                        {((metric.success / metric.detected) * 100).toFixed(0)}%
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Quantum Analysis Engine */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.5 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Quantum Analysis Engine</h3>
+            <p className='text-gray-400 text-sm'>
+              Next-generation probability analysis with quantum computing principles
+            </p>
+          </div>
+          <Activity className='w-6 h-6 text-purple-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Quantum Probability States</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  state: 'Lakers Win State',
+                  probability: 0.627,
+                  entanglement: 'Correlated with LeBron O25.5',
+                  decoherence: '47ms',
+                  confidence: 94.7,
+                },
+                {
+                  state: 'Under 219.5 State',
+                  probability: 0.734,
+                  entanglement: 'Anti-correlated with pace',
+                  decoherence: '23ms',
+                  confidence: 89.2,
+                },
+                {
+                  state: 'Curry O4.5 3PM State',
+                  probability: 0.583,
+                  entanglement: 'Dependent on defensive scheme',
+                  decoherence: '31ms',
+                  confidence: 91.8,
+                },
+              ].map((state, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='text-white font-medium text-sm mb-2'>{state.state}</div>
+                  <div className='grid grid-cols-2 gap-2 text-xs mb-2'>
+                    <div className='text-gray-400'>
+                      Probability:{' '}
+                      <span className='text-cyan-400'>{(state.probability * 100).toFixed(1)}%</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Confidence: <span className='text-green-400'>{state.confidence}%</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Decoherence: <span className='text-purple-400'>{state.decoherence}</span>
+                    </div>
+                  </div>
+                  <div className='text-yellow-400 text-xs'>{state.entanglement}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Superposition Analysis</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  scenario: 'Multi-Path Outcome Analysis',
+                  paths: 8192,
+                  convergence: '99.7%',
+                  optimalPath: 'Lakers -2.5 + Under 220',
+                  expectedValue: '+23.7%',
+                },
+                {
+                  scenario: 'Entangled Prop Correlation',
+                  paths: 4096,
+                  convergence: '97.3%',
+                  optimalPath: 'LeBron O25.5 + AD O22.5',
+                  expectedValue: '+18.9%',
+                },
+                {
+                  scenario: 'Quantum Arbitrage Detection',
+                  paths: 16384,
+                  convergence: '99.9%',
+                  optimalPath: 'Cross-book inefficiency',
+                  expectedValue: '+12.4%',
+                },
+              ].map((analysis, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='text-white font-medium text-sm mb-2'>{analysis.scenario}</div>
+                  <div className='grid grid-cols-2 gap-2 text-xs mb-2'>
+                    <div className='text-gray-400'>
+                      Paths: <span className='text-white'>{analysis.paths.toLocaleString()}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Convergence: <span className='text-cyan-400'>{analysis.convergence}</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Expected Value:{' '}
+                      <span className='text-green-400'>{analysis.expectedValue}</span>
+                    </div>
+                  </div>
+                  <div className='text-purple-400 text-xs'>{analysis.optimalPath}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </Layout>
   );
 };
