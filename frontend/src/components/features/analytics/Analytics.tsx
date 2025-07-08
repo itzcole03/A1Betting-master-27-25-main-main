@@ -61,6 +61,37 @@ interface PredictionMetrics {
   }>;
 }
 
+interface InjuryReport {
+  id: string;
+  player: string;
+  team: string;
+  sport: string;
+  position: string;
+  injury: string;
+  bodyPart: string;
+  severity: 'minor' | 'moderate' | 'severe' | 'critical';
+  status: 'questionable' | 'doubtful' | 'out' | 'ir' | 'healthy';
+  expectedReturn: string;
+  impact: {
+    team: number;
+    fantasy: number;
+    betting: number;
+  };
+  timeline: string;
+  reportedDate: string;
+  source: string;
+  reliability: number;
+}
+
+interface TeamImpact {
+  team: string;
+  sport: string;
+  totalInjuries: number;
+  keyPlayerInjuries: number;
+  projectedImpact: number;
+  affectedPositions: string[];
+}
+
 const Analytics: React.FC = () => {
   const [models, setModels] = useState<ModelMetrics[]>([]);
   const [featureImportance, setFeatureImportance] = useState<FeatureImportance[]>([]);
