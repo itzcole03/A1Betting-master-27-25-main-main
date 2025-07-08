@@ -346,8 +346,8 @@ export function useRealtimeData<T = RealtimeData>({
 
       wsRef.current.onmessage = handleMessage;
 
-      wsRef.current.onclose = () => {
-        //         console.log('🔌 WebSocket disconnected');
+      wsRef.current.onclose = event => {
+        //         console.log('🔌 WebSocket disconnected', { code: event.code, reason: event.reason });
         setIsConnected(false);
 
         if (heartbeatIntervalRef.current) {
@@ -356,12 +356,12 @@ export function useRealtimeData<T = RealtimeData>({
 
         if (onDisconnected) onDisconnected();
 
-        // Attempt reconnection
-        if (reconnectCountRef.current < reconnectAttempts) {
+        // Only attempt reconnection for unexpected closures (not normal closure code 1000)
+        if (event.code !== 1000 && reconnectCountRef.current < reconnectAttempts) {
           reconnectCountRef.current++;
           //           console.log(`🔄 Reconnecting... (${reconnectCountRef.current}/${reconnectAttempts})`);
           setTimeout(connect, reconnectDelay * reconnectCountRef.current);
-        } else {
+        } else if (event.code !== 1000) {
           //           console.error('❌ Max reconnection attempts reached');
           setError(new Error('Failed to maintain WebSocket connection'));
         }
