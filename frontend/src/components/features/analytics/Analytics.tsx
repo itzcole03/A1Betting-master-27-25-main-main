@@ -20,6 +20,8 @@ import {
   Clock,
   User,
   Search,
+  GitBranch,
+  RotateCcw,
 } from 'lucide-react';
 import { Layout } from '../../core/Layout';
 import { Badge } from '../../ui/badge';
