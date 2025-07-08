@@ -16,6 +16,14 @@ import {
   ChevronUp,
   ChevronDown,
   Calculator,
+  MessageSquare,
+  Heart,
+  Share2,
+  Twitter,
+  Users,
+  ThumbsUp,
+  ThumbsDown,
+  Eye,
 } from 'lucide-react';
 import { Layout } from '../../core/Layout';
 
