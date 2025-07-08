@@ -4,14 +4,14 @@
  */
 
 // Import ALL unified services
-import { ApiService } from './unified/ApiService';
+import ApiService from './unified/ApiService';
 import { UnifiedAnalyticsService } from './unified/UnifiedAnalyticsService';
 import { UnifiedBettingService } from './unified/UnifiedBettingService';
 import { UnifiedDataService } from './unified/UnifiedDataService';
 import { UnifiedPredictionService } from './unified/UnifiedPredictionService';
 import { UnifiedNotificationService } from './unified/UnifiedNotificationService';
 import { UnifiedStateService } from './unified/UnifiedStateService';
-import { UnifiedCacheService } from './unified/UnifiedCache';
+import { UnifiedCache } from './unified/UnifiedCache';
 import { UnifiedErrorService } from './unified/UnifiedErrorService';
 import { UnifiedLogger } from './unified/UnifiedLogger';
 import { UnifiedWebSocketService } from './unified/UnifiedWebSocketService';
