@@ -94,6 +94,46 @@ interface TeamImpact {
   affectedPositions: string[];
 }
 
+interface QuantumNode {
+  id: string;
+  type: 'input' | 'quantum' | 'neural' | 'output';
+  position: { x: number; y: number };
+  value: number;
+  qubits?: number;
+  entangled?: boolean;
+  superposition?: boolean;
+}
+
+interface QuantumConnection {
+  from: string;
+  to: string;
+  strength: number;
+  type: 'quantum' | 'classical';
+  entanglement?: boolean;
+}
+
+interface QuantumPrediction {
+  id: string;
+  game: string;
+  sport: string;
+  prediction: string;
+  confidence: number;
+  quantumStates: number;
+  superpositions: number;
+  entanglements: number;
+  classicalProbability: number;
+  quantumAdvantage: number;
+  timestamp: string;
+}
+
+interface QuantumMetrics {
+  coherenceTime: number;
+  fidelity: number;
+  entanglementDegree: number;
+  quantumVolume: number;
+  errorRate: number;
+}
+
 const Analytics: React.FC = () => {
   const [models, setModels] = useState<ModelMetrics[]>([]);
   const [featureImportance, setFeatureImportance] = useState<FeatureImportance[]>([]);
