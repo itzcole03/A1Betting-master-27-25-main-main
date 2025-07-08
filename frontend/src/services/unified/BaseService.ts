@@ -1,11 +1,7 @@
-﻿import { UnifiedLogger } from '@/core/UnifiedLogger';
+import { UnifiedLogger } from '@/core/UnifiedLogger';
 import { UnifiedCache } from '@/unified/UnifiedCache';
 import { UnifiedConfig } from '@/unified/UnifiedConfig';
-import type {
-    AxiosError,
-    AxiosInstance,
-    AxiosResponse,
-} from 'axios';
+import type { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import axios from 'axios';
 import { UnifiedServiceRegistry } from './UnifiedServiceRegistry';
 
@@ -57,8 +53,8 @@ export abstract class BaseService extends EventEmitter {
       baseURL: this.config.getApiUrl(),
       timeout: 10000,
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     });
 
     this.setupInterceptors();
@@ -92,14 +88,14 @@ export abstract class BaseService extends EventEmitter {
   protected handleError(error: any, serviceError: ServiceError): void {
     this.logger.error(`Error in ${serviceError.source}: ${error.message}`, this.name, {
       error,
-//       serviceError
+      //       serviceError
     });
 
     // Emit error event;
     this.serviceRegistry.emit('error', {
       ...serviceError,
       error: error.message,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     });
   }
 
@@ -109,7 +105,7 @@ export abstract class BaseService extends EventEmitter {
     delay: number = 1000
   ): Promise<T> {
     let lastError: any;
-    for (const i = 0; i < maxRetries; i++) {
+    for (let i = 0; i < maxRetries; i++) {
       try {
         return await operation();
       } catch (error) {
