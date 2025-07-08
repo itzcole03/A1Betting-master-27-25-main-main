@@ -1,7 +1,7 @@
-import { FeatureFlagManager } from '../utils/FeatureFlags';
+import { FeatureFlags } from '../utils/FeatureFlags';
 
 // Initialize the feature flag manager
-const featureFlagManager = new FeatureFlagManager();
+const featureFlagManager = FeatureFlags.getInstance();
 
 // Initialize feature flags (this could be done elsewhere in the app startup)
 featureFlagManager.initialize().catch(console.error);
