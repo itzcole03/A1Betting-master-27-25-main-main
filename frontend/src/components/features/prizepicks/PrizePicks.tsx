@@ -762,6 +762,246 @@ const PrizePicks: React.FC = () => {
           ))}
         </div>
       )}
+
+      {/* Real-Time Strategy Optimizer */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.0 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Real-Time Strategy Optimizer</h3>
+            <p className='text-gray-400 text-sm'>
+              AI-powered lineup optimization with live market data
+            </p>
+          </div>
+          <Brain className='w-6 h-6 text-purple-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Market Sentiment</h4>
+            <div className='space-y-3'>
+              {[
+                { player: 'LeBron James', sentiment: 'Bullish', confidence: 94, volume: 'High' },
+                { player: 'Stephen Curry', sentiment: 'Neutral', confidence: 78, volume: 'Medium' },
+                { player: 'Luka Dončić', sentiment: 'Bearish', confidence: 82, volume: 'Low' },
+              ].map((market, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{market.player}</span>
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${
+                        market.sentiment === 'Bullish'
+                          ? 'bg-green-500/20 text-green-400'
+                          : market.sentiment === 'Bearish'
+                            ? 'bg-red-500/20 text-red-400'
+                            : 'bg-gray-500/20 text-gray-400'
+                      }`}
+                    >
+                      {market.sentiment}
+                    </span>
+                  </div>
+                  <div className='flex items-center justify-between text-xs'>
+                    <span className='text-gray-400'>Confidence: {market.confidence}%</span>
+                    <span className='text-cyan-400'>Volume: {market.volume}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Optimization Signals</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  signal: 'Injury Report Update',
+                  impact: 'High',
+                  action: 'Fade Embiid Props',
+                  time: '2m ago',
+                },
+                {
+                  signal: 'Line Movement Alert',
+                  impact: 'Medium',
+                  action: 'Boost Tatum Points',
+                  time: '5m ago',
+                },
+                {
+                  signal: 'Weather Update',
+                  impact: 'Low',
+                  action: 'Adjust NFL Totals',
+                  time: '12m ago',
+                },
+              ].map((signal, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-1'>
+                    <span className='text-white font-medium text-sm'>{signal.signal}</span>
+                    <span
+                      className={`text-xs ${
+                        signal.impact === 'High'
+                          ? 'text-red-400'
+                          : signal.impact === 'Medium'
+                            ? 'text-yellow-400'
+                            : 'text-green-400'
+                      }`}
+                    >
+                      {signal.impact}
+                    </span>
+                  </div>
+                  <div className='text-cyan-400 text-xs mb-1'>{signal.action}</div>
+                  <div className='text-gray-400 text-xs'>{signal.time}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Live Performance</h4>
+            <div className='space-y-3'>
+              <div className='text-center'>
+                <div className='text-2xl font-bold text-green-400 mb-1'>87.3%</div>
+                <div className='text-xs text-gray-400'>Today's Win Rate</div>
+              </div>
+
+              <div className='bg-slate-800/50 rounded-lg p-3'>
+                <div className='text-center'>
+                  <div className='text-lg font-bold text-purple-400 mb-1'>+$2,847</div>
+                  <div className='text-xs text-gray-400'>Live P&L</div>
+                </div>
+              </div>
+
+              <div className='bg-slate-800/50 rounded-lg p-3'>
+                <div className='text-center'>
+                  <div className='text-lg font-bold text-cyan-400 mb-1'>34</div>
+                  <div className='text-xs text-gray-400'>Active Positions</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Advanced Correlation Analysis */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.1 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Correlation & Stack Analysis</h3>
+            <p className='text-gray-400 text-sm'>Optimize lineup correlation for maximum upside</p>
+          </div>
+          <BarChart3 className='w-6 h-6 text-green-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <div>
+            <h4 className='text-lg font-medium text-white mb-4'>Player Correlations</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  player1: 'LeBron James',
+                  player2: 'Anthony Davis',
+                  correlation: 0.73,
+                  recommendation: 'Stack',
+                },
+                {
+                  player1: 'Curry',
+                  player2: 'Thompson',
+                  correlation: 0.68,
+                  recommendation: 'Stack',
+                },
+                { player1: 'Luka', player2: 'Irving', correlation: -0.34, recommendation: 'Avoid' },
+                {
+                  player1: 'Tatum',
+                  player2: 'Brown',
+                  correlation: 0.45,
+                  recommendation: 'Neutral',
+                },
+              ].map((corr, index) => (
+                <div
+                  key={index}
+                  className='flex items-center justify-between bg-slate-900/50 rounded-lg p-3'
+                >
+                  <div>
+                    <div className='text-white font-medium text-sm'>
+                      {corr.player1} + {corr.player2}
+                    </div>
+                    <div className='text-gray-400 text-xs'>Correlation: {corr.correlation}</div>
+                  </div>
+                  <span
+                    className={`text-xs px-2 py-1 rounded-full ${
+                      corr.recommendation === 'Stack'
+                        ? 'bg-green-500/20 text-green-400'
+                        : corr.recommendation === 'Avoid'
+                          ? 'bg-red-500/20 text-red-400'
+                          : 'bg-gray-500/20 text-gray-400'
+                    }`}
+                  >
+                    {corr.recommendation}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h4 className='text-lg font-medium text-white mb-4'>Stack Recommendations</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  stack: 'Lakers Core',
+                  players: ['LeBron', 'AD', 'Reaves'],
+                  upside: '+28%',
+                  risk: 'Medium',
+                  confidence: 89,
+                },
+                {
+                  stack: 'Warriors Splash',
+                  players: ['Curry', 'Thompson', 'Poole'],
+                  upside: '+31%',
+                  risk: 'High',
+                  confidence: 76,
+                },
+                {
+                  stack: 'Celtics Wings',
+                  players: ['Tatum', 'Brown', 'Smart'],
+                  upside: '+22%',
+                  risk: 'Low',
+                  confidence: 94,
+                },
+              ].map((stack, index) => (
+                <div key={index} className='bg-slate-900/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{stack.stack}</span>
+                    <span className='text-green-400 font-bold text-sm'>{stack.upside}</span>
+                  </div>
+                  <div className='text-gray-300 text-xs mb-2'>{stack.players.join(' + ')}</div>
+                  <div className='flex items-center justify-between text-xs'>
+                    <span
+                      className={`px-2 py-1 rounded-full ${
+                        stack.risk === 'Low'
+                          ? 'bg-green-500/20 text-green-400'
+                          : stack.risk === 'Medium'
+                            ? 'bg-yellow-500/20 text-yellow-400'
+                            : 'bg-red-500/20 text-red-400'
+                      }`}
+                    >
+                      {stack.risk} Risk
+                    </span>
+                    <span className='text-cyan-400'>{stack.confidence}% Confidence</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </Layout>
   );
 };
