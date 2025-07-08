@@ -51,10 +51,28 @@ export class UnifiedWebSocketService extends BaseService {
       return;
     }
 
+    // Don't create new connection if one already exists and is connecting/open
+    if (
+      this.ws &&
+      (this.ws.readyState === WebSocket.CONNECTING || this.ws.readyState === WebSocket.OPEN)
+    ) {
+      this.logger.info('WebSocket connection already in progress or connected');
+      return;
+    }
+
     this.setConnectionState(WebSocketConnectionState.CONNECTING);
 
     return new Promise((resolve, reject) => {
       try {
+        // Clean up any existing connection first
+        if (this.ws) {
+          try {
+            this.ws.close();
+          } catch (e) {
+            // Ignore close errors
+          }
+        }
+
         this.ws = new WebSocket(wsUrl);
 
         this.ws.onopen = () => {
