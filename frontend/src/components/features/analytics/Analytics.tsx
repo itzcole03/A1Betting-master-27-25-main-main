@@ -2298,6 +2298,260 @@ const Analytics: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Injury Impact Analytics */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2.4 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white flex items-center gap-2'>
+              <Heart className='w-6 h-6 text-orange-400' />
+              Injury Impact Analytics
+            </h3>
+            <p className='text-gray-400 text-sm'>
+              Real-time player health monitoring and impact assessment
+            </p>
+          </div>
+          <div className='grid grid-cols-4 gap-4 text-center text-sm'>
+            <div>
+              <div className='text-lg font-bold text-orange-400'>{injuries.length}</div>
+              <div className='text-gray-400 text-xs'>Total Injuries</div>
+            </div>
+            <div>
+              <div className='text-lg font-bold text-red-400'>
+                {injuries.filter(i => i.severity === 'severe').length}
+              </div>
+              <div className='text-gray-400 text-xs'>Severe</div>
+            </div>
+            <div>
+              <div className='text-lg font-bold text-yellow-400'>
+                {injuries.filter(i => i.status === 'questionable').length}
+              </div>
+              <div className='text-gray-400 text-xs'>Questionable</div>
+            </div>
+            <div>
+              <div className='text-lg font-bold text-blue-400'>{teamImpacts.length}</div>
+              <div className='text-gray-400 text-xs'>Teams Affected</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Injury Filters */}
+        <div className='bg-slate-900/50 rounded-lg p-4 mb-6'>
+          <div className='grid grid-cols-1 lg:grid-cols-4 gap-4'>
+            <div>
+              <label className='block text-sm text-gray-400 mb-2'>Sport</label>
+              <select
+                value={selectedSport}
+                onChange={e => setSelectedSport(e.target.value)}
+                className='w-full p-2 bg-gray-800 border border-gray-700 rounded-lg text-white text-sm'
+              >
+                <option value='all'>All Sports</option>
+                <option value='NBA'>NBA</option>
+                <option value='NFL'>NFL</option>
+                <option value='MLB'>MLB</option>
+                <option value='NHL'>NHL</option>
+              </select>
+            </div>
+
+            <div>
+              <label className='block text-sm text-gray-400 mb-2'>Severity</label>
+              <select
+                value={selectedSeverity}
+                onChange={e => setSelectedSeverity(e.target.value)}
+                className='w-full p-2 bg-gray-800 border border-gray-700 rounded-lg text-white text-sm'
+              >
+                <option value='all'>All Severities</option>
+                <option value='critical'>Critical</option>
+                <option value='severe'>Severe</option>
+                <option value='moderate'>Moderate</option>
+                <option value='minor'>Minor</option>
+              </select>
+            </div>
+
+            <div>
+              <label className='block text-sm text-gray-400 mb-2'>Search</label>
+              <div className='relative'>
+                <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400' />
+                <input
+                  type='text'
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  placeholder='Player or team...'
+                  className='w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white text-sm'
+                />
+              </div>
+            </div>
+
+            <div className='flex items-end'>
+              <Button
+                onClick={loadInjuryData}
+                className='w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700'
+              >
+                Refresh Data
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <div className='grid grid-cols-1 xl:grid-cols-3 gap-6'>
+          {/* Active Injury Reports */}
+          <div className='xl:col-span-2'>
+            <div className='space-y-4'>
+              <h4 className='text-lg font-medium text-white'>Active Injury Reports</h4>
+
+              <div className='space-y-3 max-h-96 overflow-y-auto'>
+                {filteredInjuries.slice(0, 6).map((injury, index) => (
+                  <motion.div
+                    key={injury.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                    className='bg-slate-900/50 rounded-lg p-4 border border-slate-700/30'
+                  >
+                    <div className='flex items-start justify-between mb-3'>
+                      <div className='flex items-center gap-3'>
+                        <div className='w-8 h-8 bg-gradient-to-r from-orange-400 to-red-500 rounded-full flex items-center justify-center'>
+                          <User className='w-4 h-4 text-white' />
+                        </div>
+                        <div>
+                          <h5 className='font-bold text-white text-sm'>{injury.player}</h5>
+                          <p className='text-gray-400 text-xs'>
+                            {injury.team} • {injury.position}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className='flex items-center gap-2'>
+                        <Badge
+                          variant='outline'
+                          className={`text-xs ${getSeverityColor(injury.severity)}`}
+                        >
+                          {getSeverityIcon(injury.severity)}
+                          {injury.severity}
+                        </Badge>
+                        <Badge
+                          variant='outline'
+                          className={`text-xs ${getInjuryStatusColor(injury.status)}`}
+                        >
+                          {injury.status.toUpperCase()}
+                        </Badge>
+                      </div>
+                    </div>
+
+                    <div className='grid grid-cols-2 gap-3 mb-3'>
+                      <div>
+                        <div className='text-xs text-gray-400 mb-1'>Injury Details</div>
+                        <div className='text-xs space-y-1'>
+                          <div className='text-white'>{injury.injury}</div>
+                          <div className='text-gray-400'>Return: {injury.expectedReturn}</div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className='text-xs text-gray-400 mb-1'>Impact Analysis</div>
+                        <div className='space-y-1'>
+                          <div className='flex justify-between text-xs'>
+                            <span className='text-gray-400'>Team:</span>
+                            <span className='text-orange-400 font-bold'>
+                              {injury.impact.team.toFixed(0)}%
+                            </span>
+                          </div>
+                          <div className='flex justify-between text-xs'>
+                            <span className='text-gray-400'>Fantasy:</span>
+                            <span className='text-purple-400 font-bold'>
+                              {injury.impact.fantasy.toFixed(0)}%
+                            </span>
+                          </div>
+                          <div className='flex justify-between text-xs'>
+                            <span className='text-gray-400'>Betting:</span>
+                            <span className='text-blue-400 font-bold'>
+                              {injury.impact.betting.toFixed(0)}%
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className='flex items-center justify-between text-xs text-gray-400 pt-2 border-t border-gray-700'>
+                      <span>Source: {injury.source}</span>
+                      <div className='flex items-center gap-1'>
+                        <Clock className='w-3 h-3' />
+                        <span>{injury.timeline}</span>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Team Impact Rankings */}
+          <div>
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-lg font-medium text-white mb-4 flex items-center gap-2'>
+                <AlertTriangle className='w-5 h-5 text-orange-400' />
+                Team Impact Rankings
+              </h4>
+
+              <div className='space-y-3 max-h-96 overflow-y-auto'>
+                {teamImpacts.slice(0, 8).map((team, index) => (
+                  <motion.div
+                    key={`${team.team}-${team.sport}`}
+                    initial={{ opacity: 0, x: 10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className='p-3 bg-slate-800/50 rounded-lg border border-slate-700/50'
+                  >
+                    <div className='flex items-start justify-between mb-2'>
+                      <div>
+                        <h5 className='font-bold text-white text-sm'>{team.team}</h5>
+                        <p className='text-gray-400 text-xs'>{team.sport}</p>
+                      </div>
+                      <div className='text-right'>
+                        <div className='text-orange-400 font-bold text-sm'>
+                          {team.projectedImpact.toFixed(0)}%
+                        </div>
+                        <div className='text-xs text-gray-400'>Impact</div>
+                      </div>
+                    </div>
+
+                    <div className='grid grid-cols-2 gap-2 text-xs mb-2'>
+                      <div>
+                        <span className='text-gray-400'>Total:</span>
+                        <div className='text-red-400 font-bold'>{team.totalInjuries}</div>
+                      </div>
+                      <div>
+                        <span className='text-gray-400'>Key Players:</span>
+                        <div className='text-yellow-400 font-bold'>{team.keyPlayerInjuries}</div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className='text-xs text-gray-400 mb-1'>Affected Positions:</div>
+                      <div className='flex flex-wrap gap-1'>
+                        {team.affectedPositions.slice(0, 4).map((pos, i) => (
+                          <Badge
+                            key={i}
+                            variant='outline'
+                            className='text-xs text-gray-400 border-gray-600'
+                          >
+                            {pos}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </Layout>
   );
 };
