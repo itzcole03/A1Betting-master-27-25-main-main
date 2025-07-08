@@ -1011,6 +1011,167 @@ const Analytics: React.FC = () => {
       }
     });
 
+  const loadRiskData = async () => {
+    try {
+      const mockAlerts: RiskAlert[] = [
+        {
+          id: 'alert-001',
+          type: 'portfolio',
+          severity: 'high',
+          title: 'Concentration Risk Detected',
+          description:
+            'Over 40% of portfolio allocated to NBA props, exceeding safe diversification limits',
+          recommendation: 'Reduce NBA exposure by 15% and increase allocation to NFL markets',
+          impact: 8.5,
+          probability: 0.72,
+          timeframe: 'Next 7 days',
+          createdAt: new Date(Date.now() - 30 * 60 * 1000),
+          dismissed: false,
+        },
+        {
+          id: 'alert-002',
+          type: 'bet',
+          severity: 'medium',
+          title: 'Correlated Bets Warning',
+          description: 'Multiple bets on Lakers players may create unwanted correlation exposure',
+          recommendation: 'Consider hedging with opposing team props or reducing position sizes',
+          impact: 5.2,
+          probability: 0.65,
+          timeframe: 'Game time: 3 hours',
+          createdAt: new Date(Date.now() - 15 * 60 * 1000),
+          dismissed: false,
+        },
+        {
+          id: 'alert-003',
+          type: 'market',
+          severity: 'critical',
+          title: 'Volatility Spike Detected',
+          description:
+            'Unusual betting pattern detected in Chiefs vs Bills game - possible insider activity',
+          recommendation: 'Avoid placing additional bets on this game until market stabilizes',
+          impact: 9.8,
+          probability: 0.89,
+          timeframe: 'Immediate',
+          createdAt: new Date(Date.now() - 5 * 60 * 1000),
+          dismissed: false,
+        },
+      ];
+
+      const mockMetrics: RiskMetric[] = [
+        {
+          id: 'var-95',
+          name: 'Value at Risk (95%)',
+          value: 2.3,
+          maxValue: 5.0,
+          threshold: 3.0,
+          status: 'safe',
+          trend: 'stable',
+          description: 'Maximum expected loss over 1 day with 95% confidence',
+          category: 'VaR',
+        },
+        {
+          id: 'max-drawdown',
+          name: 'Maximum Drawdown',
+          value: 8.7,
+          maxValue: 15.0,
+          threshold: 12.0,
+          status: 'safe',
+          trend: 'down',
+          description: 'Largest peak-to-trough decline in portfolio value',
+          category: 'Drawdown',
+        },
+        {
+          id: 'concentration',
+          name: 'Concentration Risk',
+          value: 42.3,
+          maxValue: 100.0,
+          threshold: 35.0,
+          status: 'warning',
+          trend: 'up',
+          description: 'Percentage of portfolio in single strategy/sport',
+          category: 'Diversification',
+        },
+      ];
+
+      const mockCorrelations: CorrelationMatrix = {
+        pairs: [
+          { asset1: 'NBA Props', asset2: 'NBA Spreads', correlation: 0.85, risk: 'high' },
+          { asset1: 'NFL Totals', asset2: 'Weather Props', correlation: 0.72, risk: 'medium' },
+          { asset1: 'MLB Player Props', asset2: 'MLB Team Totals', correlation: 0.45, risk: 'low' },
+        ],
+      };
+
+      const mockVaR: VaRAnalysis = {
+        oneDay: {
+          confidence95: -1247,
+          confidence99: -2156,
+          expectedShortfall: -2847,
+        },
+        oneWeek: {
+          confidence95: -4523,
+          confidence99: -7891,
+          expectedShortfall: -9245,
+        },
+        historicalSimulation: [-500, -1200, -890, -2100, -1567, -945, -1834],
+        monteCarloSimulation: [-623, -1456, -1023, -1789, -1334, -876, -1945],
+      };
+
+      setRiskAlerts(mockAlerts);
+      setRiskMetrics(mockMetrics);
+      setCorrelationMatrix(mockCorrelations);
+      setVarAnalysis(mockVaR);
+    } catch (error) {
+      console.error('Failed to load risk data:', error);
+    }
+  };
+
+  const getRiskSeverityColor = (severity: string) => {
+    switch (severity) {
+      case 'critical':
+        return 'border-red-500/50 bg-red-500/10 text-red-400';
+      case 'high':
+        return 'border-orange-500/50 bg-orange-500/10 text-orange-400';
+      case 'medium':
+        return 'border-yellow-500/50 bg-yellow-500/10 text-yellow-400';
+      case 'low':
+        return 'border-blue-500/50 bg-blue-500/10 text-blue-400';
+      default:
+        return 'border-gray-500/50 bg-gray-500/10 text-gray-400';
+    }
+  };
+
+  const getRiskStatusColor = (status: string) => {
+    switch (status) {
+      case 'safe':
+        return 'text-green-400';
+      case 'warning':
+        return 'text-yellow-400';
+      case 'danger':
+        return 'text-red-400';
+      default:
+        return 'text-gray-400';
+    }
+  };
+
+  const getRiskTrendIcon = (trend: string) => {
+    switch (trend) {
+      case 'up':
+        return <TrendingUp className='w-4 h-4 text-red-400' />;
+      case 'down':
+        return <TrendingDown className='w-4 h-4 text-green-400' />;
+      case 'stable':
+        return <Activity className='w-4 h-4 text-gray-400' />;
+      default:
+        return null;
+    }
+  };
+
+  const dismissRiskAlert = (alertId: string) => {
+    setRiskAlerts(prev =>
+      prev.map(alert => (alert.id === alertId ? { ...alert, dismissed: true } : alert))
+    );
+  };
+
   const toggleDetails = (modelId: string) => {
     setShowDetails(prev => ({
       ...prev,
