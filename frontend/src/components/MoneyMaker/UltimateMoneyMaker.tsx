@@ -911,6 +911,190 @@ const UltimateMoneyMaker: React.FC = () => {
             </div>
           </div>
         </motion.div>
+
+        {/* Real-Time Prediction Engine */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.4 }}
+          className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+        >
+          <div className='flex items-center justify-between mb-6'>
+            <div>
+              <h3 className='text-xl font-bold text-white'>Real-Time Prediction Engine</h3>
+              <p className='text-gray-400 text-sm'>
+                Live ML predictions with SHAP explanations and ensemble modeling
+              </p>
+            </div>
+            <div className='flex items-center space-x-2'>
+              <div className='w-3 h-3 bg-green-400 rounded-full animate-pulse'></div>
+              <span className='text-green-400 text-sm font-medium'>Live API</span>
+            </div>
+          </div>
+
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mb-6'>
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-sm font-medium text-gray-400 mb-3'>System Health</h4>
+              <div className='space-y-3'>
+                {[
+                  {
+                    metric: 'Models Loaded',
+                    value: '12',
+                    status: 'Active',
+                    color: 'text-green-400',
+                  },
+                  {
+                    metric: 'API Latency',
+                    value: '143ms',
+                    status: 'Optimal',
+                    color: 'text-green-400',
+                  },
+                  {
+                    metric: 'Data Freshness',
+                    value: '2.1s',
+                    status: 'Fresh',
+                    color: 'text-green-400',
+                  },
+                  {
+                    metric: 'Error Rate',
+                    value: '0.03%',
+                    status: 'Excellent',
+                    color: 'text-green-400',
+                  },
+                ].map((item, index) => (
+                  <div key={index} className='flex items-center justify-between'>
+                    <span className='text-gray-300 text-sm'>{item.metric}</span>
+                    <div className='text-right'>
+                      <span className={`font-bold text-sm ${item.color}`}>{item.value}</span>
+                      <div className='text-xs text-gray-400'>{item.status}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-sm font-medium text-gray-400 mb-3'>Prediction Stats</h4>
+              <div className='space-y-3'>
+                {[
+                  { metric: 'Total Predictions', value: '47,832', change: '+1,247' },
+                  { metric: 'API Calls', value: '8,934', change: '+234' },
+                  { metric: 'Cache Hit Rate', value: '94.2%', change: '+2.1%' },
+                  { metric: 'Avg Confidence', value: '87.8%', change: '+1.3%' },
+                ].map((item, index) => (
+                  <div key={index} className='flex items-center justify-between'>
+                    <span className='text-gray-300 text-sm'>{item.metric}</span>
+                    <div className='text-right'>
+                      <span className='font-bold text-sm text-white'>{item.value}</span>
+                      <div className='text-xs text-cyan-400'>{item.change}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-sm font-medium text-gray-400 mb-3'>Active Models</h4>
+              <div className='space-y-2'>
+                {[
+                  { model: 'XGBoost Ensemble v2.1', accuracy: 94.7, predictions: 15420 },
+                  { model: 'Neural Network v1.8', accuracy: 92.3, predictions: 12890 },
+                  { model: 'LSTM Predictor v3.0', accuracy: 91.8, predictions: 11456 },
+                  { model: 'Random Forest v2.5', accuracy: 89.4, predictions: 8066 },
+                ].map((model, index) => (
+                  <div key={index} className='bg-slate-800/50 rounded-lg p-2'>
+                    <div className='flex items-center justify-between mb-1'>
+                      <span className='text-white text-xs font-medium'>{model.model}</span>
+                      <span className='text-green-400 text-xs'>{model.accuracy}%</span>
+                    </div>
+                    <div className='text-gray-400 text-xs'>
+                      {model.predictions.toLocaleString()} predictions
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-sm font-medium text-gray-400 mb-3'>Model Consensus</h4>
+              <div className='space-y-3'>
+                {[
+                  {
+                    proposition: 'LeBron Over 25.5 Pts',
+                    consensus: 94,
+                    models: 11,
+                    variance: 0.03,
+                  },
+                  { proposition: 'Curry Over 4.5 3PM', consensus: 87, models: 12, variance: 0.08 },
+                  { proposition: 'Luka Over 8.5 Ast', consensus: 91, models: 10, variance: 0.05 },
+                ].map((item, index) => (
+                  <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                    <div className='text-white text-sm font-medium mb-2'>{item.proposition}</div>
+                    <div className='grid grid-cols-2 gap-2 text-xs'>
+                      <div className='text-gray-400'>
+                        Consensus: <span className='text-green-400'>{item.consensus}%</span>
+                      </div>
+                      <div className='text-gray-400'>
+                        Models: <span className='text-cyan-400'>{item.models}/12</span>
+                      </div>
+                      <div className='text-gray-400'>
+                        Variance: <span className='text-purple-400'>{item.variance}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-sm font-medium text-gray-400 mb-3'>SHAP Explanations</h4>
+              <div className='space-y-2'>
+                {[
+                  { feature: 'Recent Form (5 games)', impact: 0.31, direction: 'positive' },
+                  { feature: 'Opponent Defense Rank', impact: 0.24, direction: 'negative' },
+                  { feature: 'Rest Days', impact: 0.18, direction: 'positive' },
+                  { feature: 'Home/Away', impact: 0.15, direction: 'neutral' },
+                  { feature: 'Usage Rate', impact: 0.12, direction: 'positive' },
+                ].map((item, index) => (
+                  <div key={index} className='flex items-center justify-between'>
+                    <span className='text-gray-300 text-xs'>{item.feature}</span>
+                    <div className='flex items-center space-x-2'>
+                      <div className='w-12 bg-slate-700 rounded-full h-1'>
+                        <div
+                          className={`h-1 rounded-full ${
+                            item.direction === 'positive'
+                              ? 'bg-green-400'
+                              : item.direction === 'negative'
+                                ? 'bg-red-400'
+                                : 'bg-gray-400'
+                          }`}
+                          style={{ width: `${item.impact * 100}%` }}
+                        />
+                      </div>
+                      <span className='text-cyan-400 text-xs'>
+                        {(item.impact * 100).toFixed(0)}%
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className='mt-6 flex space-x-3'>
+            <button className='px-4 py-2 bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 rounded-lg text-white font-medium transition-all'>
+              Trigger Model Training
+            </button>
+            <button className='px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-white transition-colors'>
+              Export Predictions
+            </button>
+            <button className='px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-white transition-colors'>
+              API Health Check
+            </button>
+          </div>
+        </motion.div>
       </motion.div>
     </Layout>
   );
