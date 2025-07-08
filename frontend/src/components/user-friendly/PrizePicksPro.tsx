@@ -2,27 +2,11 @@ import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { usePrizePicksProps } from '../../hooks/usePrizePicksProps';
 // import { useQuantumPredictions } from '../../hooks/useQuantumPredictions'; // Uncomment if quantum predictions are available
-import type { PrizePicksProjection } from '../../types/prizePicks';
-
-interface SelectedProp {
-  propId: string;
-  choice: 'over' | 'under';
-}
-
-interface SavedLineup {
-  id: string;
-  name: string;
-  picks: Array<{
-    player: string;
-    stat: string;
-    line: number;
-    choice: 'over' | 'under';
-    confidence: number;
-  }>;
-  entryAmount: number;
-  projectedPayout: number;
-  savedAt: Date;
-}
+import type {
+  PrizePicksProjection,
+  SelectedProp,
+  SavedLineup,
+} from '../../types/prizePicksUnified';
 
 const PrizePicksPro: React.FC = () => {
   const { data, loading, error } = usePrizePicksProps();
@@ -80,7 +64,7 @@ const PrizePicksPro: React.FC = () => {
       3: 'Flex Play (3 picks)',
       4: 'Power Play (4 picks)',
       5: 'Flex Play (5 picks)',
-      6: 'Power Play (6 picks)'
+      6: 'Power Play (6 picks)',
     };
     return requirements[count] || `Select ${Math.max(0, 2 - count)} more`;
   };
@@ -97,7 +81,7 @@ const PrizePicksPro: React.FC = () => {
         stat: prop.statType,
         line: prop.line,
         choice: pick.choice,
-        confidence: 0 // Add real confidence if available
+        confidence: 0, // Add real confidence if available
       };
     });
     const lineup: SavedLineup = {
@@ -106,7 +90,7 @@ const PrizePicksPro: React.FC = () => {
       picks,
       entryAmount,
       projectedPayout: calculatePayout(),
-      savedAt: new Date()
+      savedAt: new Date(),
     };
     setSavedLineups(prev => [...prev, lineup]);
     setShowSaveModal(false);
@@ -114,34 +98,37 @@ const PrizePicksPro: React.FC = () => {
     setTimeout(() => setShowSuccess(false), 2000);
   };
 
-  if (loading) return <div className="ppro-loading">Loading PrizePicks props...</div>;
-  if (error) return <div className="ppro-error">Error: {error}</div>;
-  if (!allProps || allProps.length === 0) return <div className="ppro-empty">No PrizePicks props available.</div>;
+  if (loading) return <div className='ppro-loading'>Loading PrizePicks props...</div>;
+  if (error) return <div className='ppro-error'>Error: {error}</div>;
+  if (!allProps || allProps.length === 0)
+    return <div className='ppro-empty'>No PrizePicks props available.</div>;
 
   return (
-    <div className="ppro-container">
+    <div className='ppro-container'>
       <h2>PrizePicks Props</h2>
-      <div className="ppro-controls">
+      <div className='ppro-controls'>
         <input
-          type="number"
+          type='number'
           min={5}
           max={1000}
           value={entryAmount}
           onChange={e => setEntryAmount(Number(e.target.value))}
-          placeholder="Entry Amount ($)"
+          placeholder='Entry Amount ($)'
         />
         <button onClick={() => setShowSaveModal(true)} disabled={selectedProps.size < 2}>
           Save Lineup
         </button>
         {validationErrors.length > 0 && (
-          <div className="ppro-validation-errors">
+          <div className='ppro-validation-errors'>
             {validationErrors.map((err, i) => (
-              <div key={i} className="ppro-error-message">{err}</div>
+              <div key={i} className='ppro-error-message'>
+                {err}
+              </div>
             ))}
           </div>
         )}
       </div>
-      <table className="ppro-table">
+      <table className='ppro-table'>
         <thead>
           <tr>
             <th>Player</th>
@@ -168,26 +155,28 @@ const PrizePicksPro: React.FC = () => {
           ))}
         </tbody>
       </table>
-      <div className="ppro-summary">
-        <div>Selected: {selectedProps.size} | {getPickRequirements()}</div>
+      <div className='ppro-summary'>
+        <div>
+          Selected: {selectedProps.size} | {getPickRequirements()}
+        </div>
         <div>Potential Payout: ${calculatePayout().toFixed(2)}</div>
       </div>
       {showSaveModal && (
-        <div className="ppro-modal">
-          <div className="ppro-modal-content">
+        <div className='ppro-modal'>
+          <div className='ppro-modal-content'>
             <h3>Save Lineup</h3>
             <input
-              type="text"
+              type='text'
               value={lineupName}
               onChange={e => setLineupName(e.target.value)}
-              placeholder="Lineup Name"
+              placeholder='Lineup Name'
             />
             <button onClick={saveLineup}>Save</button>
             <button onClick={() => setShowSaveModal(false)}>Cancel</button>
           </div>
         </div>
       )}
-      {showSuccess && <div className="ppro-success">Lineup saved!</div>}
+      {showSuccess && <div className='ppro-success'>Lineup saved!</div>}
     </div>
   );
 };
