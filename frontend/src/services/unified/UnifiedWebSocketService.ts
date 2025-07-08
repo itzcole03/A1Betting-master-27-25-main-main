@@ -123,7 +123,32 @@ export class UnifiedWebSocketService extends BaseService {
         // Timeout for connection
         setTimeout(() => {
           if (this.connectionState === WebSocketConnectionState.CONNECTING) {
-            this.ws?.close();
+            try {
+              if (
+                this.ws &&
+                (this.ws.readyState === WebSocket.CONNECTING ||
+                  this.ws.readyState === WebSocket.OPEN)
+              ) {
+                this.ws.close();
+              }
+            } catch (closeError) {
+              // Ignore errors when closing on timeout
+              this.logger.warn('Error closing WebSocket on timeout:', closeError);
+            }
+
+            // Use enhanced error handling for timeout
+            try {
+              const { ErrorHandler } = require('../../unified/ErrorHandler');
+              const errorHandler = ErrorHandler.getInstance();
+              errorHandler.handleWebSocketError(
+                new Error('WebSocket connection timeout'),
+                'timeout'
+              );
+            } catch (e) {
+              // Fallback if ErrorHandler is not available
+              console.warn('WebSocket connection timeout');
+            }
+
             reject(new Error('WebSocket connection timeout'));
           }
         }, 10000);
