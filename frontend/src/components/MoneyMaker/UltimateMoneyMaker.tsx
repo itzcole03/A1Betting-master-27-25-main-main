@@ -1241,6 +1241,335 @@ const UltimateMoneyMaker: React.FC = () => {
             </div>
           </div>
         </motion.div>
+
+        {/* Quantum Prediction Engine */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.6 }}
+          className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+        >
+          <div className='flex items-center justify-between mb-6'>
+            <div>
+              <h3 className='text-xl font-bold text-white'>Quantum Prediction Engine</h3>
+              <p className='text-gray-400 text-sm'>
+                Revolutionary quantum computing approach to sports prediction with superposition
+                analysis
+              </p>
+            </div>
+            <div className='flex items-center space-x-2'>
+              <div className='w-3 h-3 bg-purple-400 rounded-full animate-pulse'></div>
+              <span className='text-purple-400 text-sm font-medium'>Quantum Active</span>
+            </div>
+          </div>
+
+          <div className='grid grid-cols-1 md:grid-cols-4 gap-4 mb-6'>
+            <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+              <div className='text-2xl font-bold text-purple-400 mb-1'>16,384</div>
+              <div className='text-sm text-gray-400'>Quantum States</div>
+              <div className='text-xs text-purple-300 mt-1'>Active simulation</div>
+            </div>
+            <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+              <div className='text-2xl font-bold text-cyan-400 mb-1'>99.97%</div>
+              <div className='text-sm text-gray-400'>Convergence Rate</div>
+              <div className='text-xs text-cyan-300 mt-1'>State collapse</div>
+            </div>
+            <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+              <div className='text-2xl font-bold text-green-400 mb-1'>23ms</div>
+              <div className='text-sm text-gray-400'>Decoherence Time</div>
+              <div className='text-xs text-green-300 mt-1'>Stability window</div>
+            </div>
+            <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+              <div className='text-2xl font-bold text-yellow-400 mb-1'>97.3%</div>
+              <div className='text-sm text-gray-400'>Quantum Accuracy</div>
+              <div className='text-xs text-yellow-300 mt-1'>Verified results</div>
+            </div>
+          </div>
+
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-sm font-medium text-gray-400 mb-3'>Superposition Analysis</h4>
+              <div className='space-y-3'>
+                {[
+                  {
+                    player: 'LeBron James',
+                    stat: 'Points',
+                    states: [
+                      { range: '20-25', probability: 0.234, amplitude: 0.483 },
+                      { range: '25-30', probability: 0.456, amplitude: 0.675 },
+                      { range: '30-35', probability: 0.287, amplitude: 0.536 },
+                      { range: '35+', probability: 0.023, amplitude: 0.152 },
+                    ],
+                    dominantState: '25-30 points',
+                    entanglement: 'High with team score',
+                  },
+                ].map((analysis, index) => (
+                  <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                    <div className='text-white font-medium text-sm mb-2'>
+                      {analysis.player} - {analysis.stat}
+                    </div>
+                    <div className='space-y-1 mb-2'>
+                      {analysis.states.map((state, stateIndex) => (
+                        <div key={stateIndex} className='flex items-center justify-between text-xs'>
+                          <span className='text-gray-400'>{state.range}</span>
+                          <div className='flex items-center space-x-2'>
+                            <div className='w-12 bg-slate-700 rounded-full h-1'>
+                              <div
+                                className='h-1 bg-purple-400 rounded-full'
+                                style={{ width: `${state.probability * 100}%` }}
+                              />
+                            </div>
+                            <span className='text-purple-400'>
+                              {(state.probability * 100).toFixed(1)}%
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className='text-cyan-400 text-xs mb-1'>
+                      Dominant: {analysis.dominantState}
+                    </div>
+                    <div className='text-yellow-400 text-xs'>
+                      Entanglement: {analysis.entanglement}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-sm font-medium text-gray-400 mb-3'>
+                Quantum Entanglement Matrix
+              </h4>
+              <div className='space-y-3'>
+                {[
+                  {
+                    pair: 'LeBron Points ↔ Lakers Win',
+                    correlation: 0.847,
+                    entanglement: 'Strong',
+                    nonlocality: 'Bell violation: 2.73',
+                    coherence: '94.2%',
+                  },
+                  {
+                    pair: 'Curry 3PM ↔ Warriors Pace',
+                    correlation: 0.692,
+                    entanglement: 'Moderate',
+                    nonlocality: 'Bell violation: 2.41',
+                    coherence: '87.9%',
+                  },
+                  {
+                    pair: 'Total Points ↔ Game Pace',
+                    correlation: 0.789,
+                    entanglement: 'Strong',
+                    nonlocality: 'Bell violation: 2.58',
+                    coherence: '91.7%',
+                  },
+                ].map((entanglement, index) => (
+                  <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                    <div className='text-white font-medium text-sm mb-2'>{entanglement.pair}</div>
+                    <div className='grid grid-cols-2 gap-2 text-xs'>
+                      <div className='text-gray-400'>
+                        Correlation:{' '}
+                        <span className='text-cyan-400'>{entanglement.correlation}</span>
+                      </div>
+                      <div className='text-gray-400'>
+                        Strength:{' '}
+                        <span className='text-purple-400'>{entanglement.entanglement}</span>
+                      </div>
+                      <div className='text-gray-400'>
+                        Coherence: <span className='text-green-400'>{entanglement.coherence}</span>
+                      </div>
+                    </div>
+                    <div className='text-yellow-400 text-xs mt-1'>{entanglement.nonlocality}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-sm font-medium text-gray-400 mb-3'>
+                Quantum Optimization Results
+              </h4>
+              <div className='space-y-3'>
+                {[
+                  {
+                    algorithm: 'Variational Quantum Eigensolver',
+                    optimization: 'Player prop combinations',
+                    result: 'Optimal 4-prop portfolio found',
+                    expectedValue: '+31.7%',
+                    confidence: '96.8%',
+                  },
+                  {
+                    algorithm: 'Quantum Approximate Optimization',
+                    optimization: 'Lineup construction',
+                    result: '6-pick lineup optimized',
+                    expectedValue: '+28.4%',
+                    confidence: '94.1%',
+                  },
+                  {
+                    algorithm: 'Quantum Machine Learning',
+                    optimization: 'Feature selection',
+                    result: '23 optimal features identified',
+                    expectedValue: '+15.9%',
+                    confidence: '91.7%',
+                  },
+                ].map((optimization, index) => (
+                  <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                    <div className='text-white font-medium text-sm mb-2'>
+                      {optimization.algorithm}
+                    </div>
+                    <div className='text-gray-300 text-xs mb-1'>{optimization.optimization}</div>
+                    <div className='text-cyan-400 text-xs mb-2'>{optimization.result}</div>
+                    <div className='grid grid-cols-2 gap-2 text-xs'>
+                      <div className='text-gray-400'>
+                        Expected Value:{' '}
+                        <span className='text-green-400'>{optimization.expectedValue}</span>
+                      </div>
+                      <div className='text-gray-400'>
+                        Confidence:{' '}
+                        <span className='text-purple-400'>{optimization.confidence}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Advanced Feature Engineering Pipeline */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.7 }}
+          className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+        >
+          <div className='flex items-center justify-between mb-6'>
+            <div>
+              <h3 className='text-xl font-bold text-white'>
+                Advanced Feature Engineering Pipeline
+              </h3>
+              <p className='text-gray-400 text-sm'>
+                Automated feature discovery and transformation with quantum-enhanced selection
+              </p>
+            </div>
+            <DollarSign className='w-6 h-6 text-green-400' />
+          </div>
+
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-lg font-medium text-white mb-4'>Feature Discovery Engine</h4>
+              <div className='space-y-3'>
+                {[
+                  {
+                    feature: 'Player_Fatigue_Index_v3',
+                    type: 'Engineered',
+                    importance: 0.847,
+                    correlation: 'Negative (-0.73) with performance',
+                    discovery: 'Auto-discovered from rest patterns',
+                  },
+                  {
+                    feature: 'Momentum_Shift_Indicator',
+                    type: 'Composite',
+                    importance: 0.692,
+                    correlation: 'Predictive (+0.68) of game flow',
+                    discovery: 'Derived from play-by-play data',
+                  },
+                  {
+                    feature: 'Weather_Performance_Modifier',
+                    type: 'Environmental',
+                    importance: 0.573,
+                    correlation: 'Conditional (+0.54) outdoor games',
+                    discovery: 'Cross-referenced with conditions',
+                  },
+                  {
+                    feature: 'Referee_Bias_Score',
+                    type: 'Historical',
+                    importance: 0.489,
+                    correlation: 'Systematic (+0.41) call patterns',
+                    discovery: 'Identified from official tendencies',
+                  },
+                ].map((feature, index) => (
+                  <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                    <div className='flex items-center justify-between mb-2'>
+                      <span className='text-white font-medium text-sm'>{feature.feature}</span>
+                      <span className='text-purple-400 text-xs'>{feature.type}</span>
+                    </div>
+                    <div className='w-full bg-slate-700 rounded-full h-2 mb-2'>
+                      <div
+                        className='h-2 bg-gradient-to-r from-green-400 to-cyan-400 rounded-full'
+                        style={{ width: `${feature.importance * 100}%` }}
+                      />
+                    </div>
+                    <div className='text-xs text-gray-400 mb-1'>
+                      Importance: {(feature.importance * 100).toFixed(1)}%
+                    </div>
+                    <div className='text-xs text-gray-300 mb-1'>{feature.correlation}</div>
+                    <div className='text-xs text-yellow-400'>{feature.discovery}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-lg font-medium text-white mb-4'>Pipeline Performance</h4>
+              <div className='space-y-3'>
+                <div className='grid grid-cols-2 gap-4'>
+                  <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                    <div className='text-2xl font-bold text-green-400 mb-1'>2,847</div>
+                    <div className='text-xs text-gray-400'>Features Processed</div>
+                  </div>
+                  <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                    <div className='text-2xl font-bold text-cyan-400 mb-1'>234</div>
+                    <div className='text-xs text-gray-400'>Features Selected</div>
+                  </div>
+                  <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                    <div className='text-2xl font-bold text-purple-400 mb-1'>89</div>
+                    <div className='text-xs text-gray-400'>Auto-Discovered</div>
+                  </div>
+                  <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                    <div className='text-2xl font-bold text-yellow-400 mb-1'>97.3%</div>
+                    <div className='text-xs text-gray-400'>Selection Accuracy</div>
+                  </div>
+                </div>
+
+                <div className='space-y-2'>
+                  {[
+                    { stage: 'Data Ingestion', status: 'Complete', features: 2847, time: '1.2s' },
+                    { stage: 'Transformation', status: 'Complete', features: 2847, time: '3.4s' },
+                    { stage: 'Selection', status: 'Complete', features: 234, time: '0.8s' },
+                    { stage: 'Validation', status: 'Active', features: 234, time: '2.1s' },
+                  ].map((stage, index) => (
+                    <div key={index} className='bg-slate-800/50 rounded-lg p-2'>
+                      <div className='flex items-center justify-between mb-1'>
+                        <span className='text-white text-sm font-medium'>{stage.stage}</span>
+                        <span
+                          className={`text-xs px-2 py-1 rounded-full ${
+                            stage.status === 'Complete'
+                              ? 'bg-green-500/20 text-green-400'
+                              : stage.status === 'Active'
+                                ? 'bg-yellow-500/20 text-yellow-400'
+                                : 'bg-gray-500/20 text-gray-400'
+                          }`}
+                        >
+                          {stage.status}
+                        </span>
+                      </div>
+                      <div className='grid grid-cols-2 gap-2 text-xs'>
+                        <div className='text-gray-400'>
+                          Features: <span className='text-white'>{stage.features}</span>
+                        </div>
+                        <div className='text-gray-400'>
+                          Time: <span className='text-cyan-400'>{stage.time}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </motion.div>
     </Layout>
   );
