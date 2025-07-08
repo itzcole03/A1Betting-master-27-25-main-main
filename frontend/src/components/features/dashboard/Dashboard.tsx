@@ -392,6 +392,104 @@ const Dashboard: React.FC = () => {
     }
   };
 
+  const loadAutoPilotData = async () => {
+    try {
+      const mockRules: AutoBetRule[] = [
+        {
+          id: 'rule-1',
+          name: 'High Confidence NBA Totals',
+          sport: 'NBA',
+          condition: {
+            type: 'confidence',
+            operator: '>=',
+            threshold: 85,
+          },
+          action: {
+            betType: 'total',
+            stakeType: 'kelly',
+            amount: 2.5,
+            maxStake: 250,
+          },
+          filters: {
+            minOdds: -120,
+            maxOdds: 120,
+            leagues: ['NBA'],
+            timeWindow: '2h',
+          },
+          isActive: true,
+          safetyLimits: {
+            maxDailyStake: 500,
+            maxConsecutiveLosses: 3,
+            cooldownPeriod: 30,
+          },
+        },
+        {
+          id: 'rule-2',
+          name: 'NFL Value Spreads',
+          sport: 'NFL',
+          condition: {
+            type: 'value',
+            operator: '>',
+            threshold: 3.5,
+          },
+          action: {
+            betType: 'spread',
+            stakeType: 'percentage',
+            amount: 1.5,
+            maxStake: 200,
+          },
+          filters: {
+            minOdds: -115,
+            maxOdds: 115,
+            leagues: ['NFL'],
+            timeWindow: '24h',
+          },
+          isActive: true,
+          safetyLimits: {
+            maxDailyStake: 400,
+            maxConsecutiveLosses: 2,
+            cooldownPeriod: 60,
+          },
+        },
+      ];
+
+      const mockExecutions: AutoBetExecution[] = Array.from({ length: 8 }, (_, index) => ({
+        id: `exec-${index}`,
+        ruleId: `rule-${Math.floor(Math.random() * 2) + 1}`,
+        game: ['Lakers vs Warriors', 'Chiefs vs Bills', 'Yankees vs Red Sox'][
+          Math.floor(Math.random() * 3)
+        ],
+        betType: ['total', 'spread', 'moneyline', 'prop'][Math.floor(Math.random() * 4)],
+        stake: Math.floor(Math.random() * 200) + 50,
+        odds:
+          Math.random() > 0.5
+            ? `+${Math.floor(Math.random() * 150) + 100}`
+            : `-${Math.floor(Math.random() * 150) + 100}`,
+        confidence: 70 + Math.random() * 25,
+        status: ['placed', 'pending', 'failed'][Math.floor(Math.random() * 3)] as any,
+        timestamp: `${Math.floor(Math.random() * 6) + 1}h ago`,
+        reasoning: 'High confidence prediction with favorable value proposition',
+      }));
+
+      const mockStats: AutoPilotStats = {
+        isActive: isGlobalAutoPilotActive,
+        rulesActive: 2,
+        betsToday: 7,
+        totalStaked: 850,
+        profitLoss: 125,
+        winRate: 65.5,
+        lastExecuted: '15 min ago',
+        safetyStatus: 'safe',
+      };
+
+      setAutoPilotRules(mockRules);
+      setAutoPilotExecutions(mockExecutions);
+      setAutoPilotStats(mockStats);
+    } catch (error) {
+      console.error('Failed to load AutoPilot data:', error);
+    }
+  };
+
   const handleRefresh = async () => {
     setIsRefreshing(true);
     console.log('✅ Refresh button clicked - functionality working!');
