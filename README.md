@@ -169,8 +169,9 @@ npx serve dist -l 4000
 
 **🎯 Access PrizePicks Pro/Lineup Builder:**
 
-- **Direct URL:** `http://localhost:4000#prizepicks` or `http://localhost:4000#lineup`
+- **Direct URL:** `http://localhost:4000#prizepicks` (unified interface)
 - **Test Page:** `http://localhost:4000#prizepicks-test` (for development)
+- **Note:** Consolidated into single tab - no separate lineup builder tab needed
 
 ### **2. Launch Backend API**
 
