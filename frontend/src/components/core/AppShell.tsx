@@ -156,6 +156,9 @@ export const AppShell: React.FC<AppShellProps> = ({ children, activeView, onNavi
                         className='w-full px-4 py-3 text-left hover:bg-slate-700/50 border-b border-slate-700/30 last:border-b-0 transition-colors'
                         onClick={() => {
                           // Handle navigation to result
+                          if (onNavigate) {
+                            onNavigate(result.id);
+                          }
                           setIsSearchOpen(false);
                           setSearchQuery('');
                         }}
