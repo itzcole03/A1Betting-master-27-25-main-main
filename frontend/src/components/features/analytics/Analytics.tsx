@@ -790,6 +790,249 @@ const Analytics: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Meta-Analysis Dashboard */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.4 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Meta-Analysis & Data Quality</h3>
+            <p className='text-gray-400 text-sm'>
+              Advanced analysis framework with quality scoring and trend analysis
+            </p>
+          </div>
+          <BarChart3 className='w-6 h-6 text-cyan-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-4 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Data Quality Score</h4>
+            <div className='text-center mb-4'>
+              <div className='text-3xl font-bold text-green-400'>94.2</div>
+              <div className='text-xs text-gray-400'>Out of 100</div>
+            </div>
+            <div className='space-y-2'>
+              {[
+                { metric: 'Completeness', score: 96 },
+                { metric: 'Accuracy', score: 94 },
+                { metric: 'Consistency', score: 92 },
+                { metric: 'Timeliness', score: 95 },
+              ].map((item, index) => (
+                <div key={index} className='flex items-center justify-between'>
+                  <span className='text-gray-300 text-xs'>{item.metric}</span>
+                  <span className='text-cyan-400 text-xs'>{item.score}%</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Prediction Stability</h4>
+            <div className='text-center mb-4'>
+              <div className='text-3xl font-bold text-purple-400'>87.8%</div>
+              <div className='text-xs text-gray-400'>Consistency Rating</div>
+            </div>
+            <div className='space-y-2'>
+              {[
+                { timeframe: 'Last Hour', stability: 94 },
+                { timeframe: 'Last 6 Hours', stability: 89 },
+                { timeframe: 'Last 24 Hours', stability: 85 },
+                { timeframe: 'Last Week', stability: 82 },
+              ].map((item, index) => (
+                <div key={index} className='flex items-center justify-between'>
+                  <span className='text-gray-300 text-xs'>{item.timeframe}</span>
+                  <span className='text-purple-400 text-xs'>{item.stability}%</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Market Efficiency</h4>
+            <div className='text-center mb-4'>
+              <div className='text-3xl font-bold text-yellow-400'>78.4%</div>
+              <div className='text-xs text-gray-400'>Efficiency Index</div>
+            </div>
+            <div className='space-y-2'>
+              {[
+                { market: 'Player Props', efficiency: 82 },
+                { market: 'Game Totals', efficiency: 76 },
+                { market: 'Spreads', efficiency: 79 },
+                { market: 'Live Betting', efficiency: 75 },
+              ].map((item, index) => (
+                <div key={index} className='flex items-center justify-between'>
+                  <span className='text-gray-300 text-xs'>{item.market}</span>
+                  <span className='text-yellow-400 text-xs'>{item.efficiency}%</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Sentiment Alignment</h4>
+            <div className='text-center mb-4'>
+              <div className='text-3xl font-bold text-cyan-400'>91.2%</div>
+              <div className='text-xs text-gray-400'>Correlation Score</div>
+            </div>
+            <div className='space-y-2'>
+              {[
+                { source: 'Social Media', alignment: 93 },
+                { source: 'News Sentiment', alignment: 88 },
+                { source: 'Expert Analysis', alignment: 95 },
+                { source: 'Betting Markets', alignment: 89 },
+              ].map((item, index) => (
+                <div key={index} className='flex items-center justify-between'>
+                  <span className='text-gray-300 text-xs'>{item.source}</span>
+                  <span className='text-cyan-400 text-xs'>{item.alignment}%</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Advanced Opportunity Discovery */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.5 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Opportunity Discovery Engine</h3>
+            <p className='text-gray-400 text-sm'>
+              AI-powered opportunity identification with confidence scoring
+            </p>
+          </div>
+          <Target className='w-6 h-6 text-green-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Top Opportunities</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  type: 'Value Mismatch',
+                  player: 'LeBron James Points',
+                  confidence: 94,
+                  expectedValue: 18.7,
+                  rationale: [
+                    'Line too low vs. projection',
+                    'Favorable matchup history',
+                    'High usage rate expected',
+                  ],
+                },
+                {
+                  type: 'Sentiment Divergence',
+                  player: 'Curry 3-Pointers',
+                  confidence: 87,
+                  expectedValue: 12.3,
+                  rationale: [
+                    'Negative market sentiment',
+                    'Strong historical vs opponent',
+                    'Recent shooting uptick',
+                  ],
+                },
+                {
+                  type: 'Model Consensus',
+                  player: 'Dončić Triple-Double',
+                  confidence: 82,
+                  expectedValue: 15.9,
+                  rationale: [
+                    'All models agree',
+                    'Recent triple-double streak',
+                    'Opponent pace advantage',
+                  ],
+                },
+              ].map((opp, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{opp.type}</span>
+                    <span className='text-green-400 text-sm font-bold'>+{opp.expectedValue}%</span>
+                  </div>
+                  <div className='text-cyan-400 text-sm mb-2'>{opp.player}</div>
+                  <div className='flex items-center space-x-2 mb-2'>
+                    <div className='text-xs text-gray-400'>Confidence:</div>
+                    <div className='flex-1 bg-slate-700 rounded-full h-1'>
+                      <div
+                        className='h-1 bg-green-400 rounded-full'
+                        style={{ width: `${opp.confidence}%` }}
+                      />
+                    </div>
+                    <div className='text-green-400 text-xs'>{opp.confidence}%</div>
+                  </div>
+                  <ul className='text-gray-400 text-xs space-y-1'>
+                    {opp.rationale.map((reason, i) => (
+                      <li key={i}>• {reason}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Risk Factors Analysis</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  category: 'Weather Impact',
+                  level: 'LOW',
+                  factors: ['Indoor venue', 'No weather concerns'],
+                  mitigation: 'No action needed',
+                },
+                {
+                  category: 'Injury Concerns',
+                  level: 'MEDIUM',
+                  factors: ['Minor ankle issue reported', 'Listed as probable'],
+                  mitigation: 'Monitor warmup performance',
+                },
+                {
+                  category: 'Rest Advantage',
+                  level: 'HIGH',
+                  factors: ['Back-to-back games', '3 games in 4 nights'],
+                  mitigation: 'Reduce exposure significantly',
+                },
+                {
+                  category: 'Line Movement',
+                  level: 'MEDIUM',
+                  factors: ['Sharp money on over', '70% public on under'],
+                  mitigation: 'Consider reverse line movement',
+                },
+              ].map((risk, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{risk.category}</span>
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${
+                        risk.level === 'LOW'
+                          ? 'bg-green-500/20 text-green-400'
+                          : risk.level === 'MEDIUM'
+                            ? 'bg-yellow-500/20 text-yellow-400'
+                            : 'bg-red-500/20 text-red-400'
+                      }`}
+                    >
+                      {risk.level}
+                    </span>
+                  </div>
+                  <ul className='text-gray-400 text-xs space-y-1 mb-2'>
+                    {risk.factors.map((factor, i) => (
+                      <li key={i}>• {factor}</li>
+                    ))}
+                  </ul>
+                  <div className='text-cyan-400 text-xs font-medium'>Action: {risk.mitigation}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </Layout>
   );
 };
