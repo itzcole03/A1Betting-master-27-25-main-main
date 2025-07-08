@@ -4,14 +4,37 @@
 //
 // @see UnifiedConfig.d.ts for type definitions
 
-import { EventEmitter } from 'events';
+// Browser-compatible event emitter implementation
+class SimpleEventEmitter {
+  private listeners: { [event: string]: Function[] } = {};
+
+  emit(event: string, data?: any): void {
+    const eventListeners = this.listeners[event];
+    if (eventListeners) {
+      eventListeners.forEach(listener => listener(data));
+    }
+  }
+
+  on(event: string, listener: Function): void {
+    if (!this.listeners[event]) {
+      this.listeners[event] = [];
+    }
+    this.listeners[event].push(listener);
+  }
+
+  off(event: string, listener: Function): void {
+    const eventListeners = this.listeners[event];
+    if (eventListeners) {
+      const index = eventListeners.indexOf(listener);
+      if (index > -1) {
+        eventListeners.splice(index, 1);
+      }
+    }
+  }
+}
 
 export type ConfigLeaf = string | number | boolean | null;
-export type ConfigValue =
-  | ConfigLeaf
-  | ConfigLeaf[]
-  | { [key: string]: ConfigValue }
-  | undefined;
+export type ConfigValue = ConfigLeaf | ConfigLeaf[] | { [key: string]: ConfigValue } | undefined;
 
 /**
  * UnifiedConfig
