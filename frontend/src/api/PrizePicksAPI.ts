@@ -1,93 +1,30 @@
-﻿import { EventBus } from '@/core/EventBus'; // Corrected import path
+import { EventBus } from '@/core/EventBus';
+import {
+  RawPrizePicksProjection,
+  RawPrizePicksIncludedPlayer,
+  RawPrizePicksIncludedLeague,
+  RawPrizePicksIncludedStatType,
+  PrizePicksIncludedResource,
+  PrizePicksAPIResponse,
+} from '@/types/prizePicksUnified';
 
 const API_BASE_URL = 'https://api.prizepicks.com';
 
 export interface PrizePicksAPIConfig {
   apiKey?: string;
   baseUrl?: string;
-  eventBus?: EventBus; // Keep for potential future use or other events
+  eventBus?: EventBus;
 }
 
-export interface RawPrizePicksProjection {
-  id: string;
-  type: 'projection';
-  attributes: {
-    description: string;
-    display_stat: string;
-    flash_sale_line_score?: number; // Optional for flash sales
-    is_promo: boolean;
-    line_score: number;
-    odds_type: string;
-    promotion_id?: string | null; // Optional
-    projection_type: string; // e.g., "over_under"
-    pt_old?: string | null; // Optional
-    rank: number;
-    refundable: boolean;
-    source: string;
-    start_time: string; // ISO 8601 date string
-    stat_type: string; // e.g., "Rebounds", "Points"
-    status: string; // e.g., "active"
-    custom_image_url?: string | null; // Optional
-    updated_at: string; // ISO 8601 date string
-  };
-  relationships: {
-    league: { data: { id: string; type: 'league' } };
-    new_player: { data: { id: string; type: 'new_player' } };
-    stat_type: { data: { id: string; type: 'stat_type' } };
-  };
-}
-
-export interface RawPrizePicksIncludedPlayer {
-  id: string;
-  type: 'new_player';
-  attributes: {
-    name: string;
-    display_name: string;
-    short_name: string;
-    position: string;
-    team_name: string;
-    team_nickname: string;
-    image_url: string;
-  };
-}
-
-export interface RawPrizePicksIncludedLeague {
-  id: string;
-  type: 'league';
-  attributes: {
-    name: string;
-    sport: string;
-    abbreviation: string;
-    active: boolean;
-  };
-}
-
-export interface RawPrizePicksIncludedStatType {
-  id: string;
-  type: 'stat_type';
-  attributes: {
-    name: string;
-    display_name: string;
-    abbreviation: string;
-  };
-}
-
-export type PrizePicksIncludedResource =
-  | RawPrizePicksIncludedPlayer 
-  | RawPrizePicksIncludedLeague 
-  | RawPrizePicksIncludedStatType;
-
-export interface PrizePicksAPIResponse<T> {
-  data: T[];
-  included?: PrizePicksIncludedResource[];
-  links?: {
-    first?: string;
-    last?: string;
-    next?: string | null;
-    prev?: string | null;
-  };
-  meta?: Record<string, unknown>;
-}
+// Re-export types for convenience
+export {
+  RawPrizePicksProjection,
+  RawPrizePicksIncludedPlayer,
+  RawPrizePicksIncludedLeague,
+  RawPrizePicksIncludedStatType,
+  PrizePicksIncludedResource,
+  PrizePicksAPIResponse,
+};
 
 export class PrizePicksAPI {
   private apiKey?: string;
@@ -114,7 +51,7 @@ export class PrizePicksAPI {
     const headers: HeadersInit = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      ...additionalHeaders
+      ...additionalHeaders,
     };
 
     if (this.apiKey) {
@@ -123,7 +60,7 @@ export class PrizePicksAPI {
 
     const configInit: RequestInit = {
       method,
-      headers
+      headers,
     };
 
     if (body && (method === 'POST' || method === 'PUT')) {
@@ -198,7 +135,9 @@ export class PrizePicksAPI {
   }
 
   // Convenience method for the adapter
-  public async getProjections(leagueId?: string): Promise<PrizePicksAPIResponse<RawPrizePicksProjection>> {
+  public async getProjections(
+    leagueId?: string
+  ): Promise<PrizePicksAPIResponse<RawPrizePicksProjection>> {
     return this.fetchProjections(leagueId);
   }
 }
