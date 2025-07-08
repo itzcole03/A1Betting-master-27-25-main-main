@@ -682,21 +682,19 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
             >
               AI-powered prop analysis with {projections.length} live projections
             </p>
-            <div
-              className={`flex items-center space-x-6 text-sm ${
-                variant === 'cyber' ? 'text-cyan-300/70' : 'text-gray-500 dark:text-gray-400'
-              }`}
-            >
-              <span className='flex items-center space-x-2'>
-                <span className='w-2 h-2 bg-green-400 rounded-full'></span>
+            <div className={`flex items-center space-x-6 text-sm ${
+              variant === 'cyber' ? 'text-cyan-300/70' : 'text-gray-500 dark:text-gray-400'
+            }`}>
+              <span className="flex items-center space-x-2">
+                <span className="w-2 h-2 bg-green-400 rounded-full"></span>
                 <span>ML Confidence Scoring</span>
               </span>
-              <span className='flex items-center space-x-2'>
-                <span className='w-2 h-2 bg-blue-400 rounded-full'></span>
+              <span className="flex items-center space-x-2">
+                <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
                 <span>SHAP Explanations</span>
               </span>
-              <span className='flex items-center space-x-2'>
-                <span className='w-2 h-2 bg-purple-400 rounded-full'></span>
+              <span className="flex items-center space-x-2">
+                <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
                 <span>Kelly Optimization</span>
               </span>
             </div>
@@ -789,26 +787,36 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
           </motion.div>
         )}
 
-        {/* Filters */}
-        <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 mb-6'>
-          {/* Sport Filter */}
-          <div>
-            <label
-              className={`block text-xs font-medium mb-1 ${
-                variant === 'cyber' ? 'text-cyan-400' : 'text-gray-700 dark:text-gray-300'
-              }`}
-            >
-              Sport
-            </label>
-            <select
-              value={activeFilters.sport}
-              onChange={e => setActiveFilters(prev => ({ ...prev, sport: e.target.value }))}
-              className={`w-full p-2 rounded border text-sm ${
-                variant === 'cyber'
-                  ? 'bg-black border-cyan-400/30 text-cyan-300'
-                  : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white'
-              }`}
-            >
+        {/* Filters Section */}
+        <div className={`p-6 rounded-xl mb-8 ${
+          variant === 'cyber'
+            ? 'bg-gray-900/50 border border-cyan-400/20'
+            : 'bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700'
+        }`}>
+          <h2 className={`text-lg font-semibold mb-4 ${
+            variant === 'cyber' ? 'text-cyan-400' : 'text-gray-900 dark:text-white'
+          }`}>
+            Filter & Search Options
+          </h2>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-6'>
+            {/* Sport Filter */}
+            <div className="space-y-2">
+              <label
+                className={`block text-sm font-medium ${
+                  variant === 'cyber' ? 'text-cyan-300' : 'text-gray-700 dark:text-gray-300'
+                }`}
+              >
+                Sport
+              </label>
+              <select
+                value={activeFilters.sport}
+                onChange={e => setActiveFilters(prev => ({ ...prev, sport: e.target.value }))}
+                className={`w-full p-3 rounded-lg border text-sm font-medium transition-all ${
+                  variant === 'cyber'
+                    ? 'bg-black border-cyan-400/30 text-cyan-300 focus:border-cyan-400/60 focus:bg-cyan-400/5'
+                    : 'bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                }`}
+              >
               <option value='All'>All Sports</option>
               {filterOptions.sports.map(sport => (
                 <option key={sport} value={sport}>
