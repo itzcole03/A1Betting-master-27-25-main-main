@@ -201,41 +201,131 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
     });
   };
 
-  // Fetch projections from API
+  // Fetch projections from all available PrizePicks sports
   const fetchProjections = useCallback(async () => {
     setIsLoading(true);
     setError(null);
 
     try {
-      // For now, use mock data. In production, this would fetch from the API
-      const mockData = generateMockProjections();
-      setProjections(mockData);
+      // Attempt to fetch from real PrizePicks API for ALL sports
+      const allProjections: PrizePicksProjection[] = [];
 
-      // Uncomment for real API integration:
-      /*
-      const response = await fetch('/api/prizepicks/comprehensive-projections', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      // Try to fetch comprehensive projections from our backend first
+      try {
+        const response = await fetch('/api/prizepicks/comprehensive-projections', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
 
-      if (!response.ok) {
-        throw new Error(`Failed to fetch projections: ${response.statusText}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (Array.isArray(data) && data.length > 0) {
+            // Enhance projections with ML predictions if enabled
+            const enhancedProjections = await Promise.all(
+              data.map(async (projection: PrizePicksProjection) => {
+                if (enableMLPredictions) {
+                  try {
+                    // Fetch ML prediction for this projection
+                    const mlResponse = await fetch('/api/v4/predict/ultra-accuracy', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        player_name: projection.player_name,
+                        stat_type: projection.stat_type,
+                        line: projection.line_score,
+                        team: projection.team,
+                        sport: projection.sport,
+                        league: projection.league,
+                        position: projection.position,
+                      }),
+                    });
+
+                    if (mlResponse.ok) {
+                      const mlData = await mlResponse.json();
+                      projection.ml_prediction = mlData.prediction;
+                      projection.confidence = mlData.confidence || projection.confidence;
+
+                      // Calculate value rating
+                      projection.value_rating = calculateValueRating(projection);
+
+                      // Calculate Kelly percentage if enabled
+                      if (enableKellyOptimization) {
+                        projection.kelly_percentage = calculateKellyPercentage(projection);
+                      }
+                    }
+                  } catch (mlError) {
+                    console.warn('ML prediction failed for projection:', projection.id, mlError);
+                  }
+                }
+                return projection;
+              })
+            );
+
+            setProjections(enhancedProjections);
+            return;
+          }
+        }
+      } catch (apiError) {
+        console.warn('Comprehensive API failed, trying direct PrizePicks API:', apiError);
       }
 
-      const data = await response.json();
-      setProjections(data);
-      */
+      // Fallback: Try to fetch directly from PrizePicks API for each sport
+      const directApiPromises = ALL_PRIZEPICKS_SPORTS.map(async sport => {
+        try {
+          const response = await fetch(
+            `https://api.prizepicks.com/projections?league_id=${sport}&single_stat=true`,
+            {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+              },
+            }
+          );
+
+          if (response.ok) {
+            const data = await response.json();
+            if (data?.data && Array.isArray(data.data)) {
+              return data.data.map((rawProjection: any) =>
+                transformRawProjection(rawProjection, data.included || [])
+              );
+            }
+          }
+        } catch (sportError) {
+          console.warn(`Failed to fetch ${sport} projections:`, sportError);
+        }
+        return [];
+      });
+
+      const sportResults = await Promise.allSettled(directApiPromises);
+      sportResults.forEach((result, index) => {
+        if (result.status === 'fulfilled' && result.value.length > 0) {
+          allProjections.push(...result.value);
+        }
+      });
+
+      if (allProjections.length > 0) {
+        setProjections(allProjections);
+      } else {
+        // Last resort: use enhanced mock data with all sports
+        console.warn('All API attempts failed, using enhanced mock data');
+        setProjections(generateComprehensiveMockProjections());
+      }
     } catch (error) {
       console.error('Error fetching projections:', error);
-      setError(error instanceof Error ? error.message : 'Failed to fetch projections');
-      // Fallback to mock data
-      setProjections(generateMockProjections());
+      setError(
+        error instanceof Error ? error.message : 'Failed to fetch projections, using demo data'
+      );
+      // Fallback to comprehensive mock data
+      setProjections(generateComprehensiveMockProjections());
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [enableMLPredictions, enableKellyOptimization]);
 
   // Calculate value rating based on ML prediction vs line
   const calculateValueRating = (projection: PrizePicksProjection): number => {
