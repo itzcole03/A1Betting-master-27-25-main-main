@@ -381,8 +381,10 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
       AAA_BASEBALL: ['Hits', 'Home Runs', 'RBIs', 'Stolen Bases', 'Strikeouts', 'Walks'],
     };
 
-    return players.map((player, index) => {
-      const availableStats = statTypes[player.sport as keyof typeof statTypes] || statTypes.NBA;
+    return comprehensivePlayers.map((player, index) => {
+      const availableStats =
+        comprehensiveStatTypes[player.sport as keyof typeof comprehensiveStatTypes] ||
+        comprehensiveStatTypes.NBA;
       const statType = availableStats[index % availableStats.length];
       const baseValue = 15 + index * 3 + Math.random() * 10;
       const confidence = 70 + Math.random() * 25;
