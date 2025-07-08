@@ -662,27 +662,44 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
         </div>
       )}
 
-      <div className='relative z-10 p-6'>
+      <div className='relative z-10 p-8'>
         {/* Header */}
-        <div className='flex items-center justify-between mb-6'>
-          <div>
+        <div className='flex items-center justify-between mb-8'>
+          <div className='space-y-3'>
             <h1
-              className={`text-3xl font-bold ${
+              className={`text-4xl font-bold tracking-tight ${
                 variant === 'cyber' ? 'text-cyan-400' : 'text-gray-900 dark:text-white'
               }`}
             >
               {variant === 'cyber'
-                ? 'PRIZEPICKS PRO // QUANTUM LINEUP BUILDER'
+                ? 'PRIZEPICKS PRO // LINEUP BUILDER'
                 : 'PrizePicks Pro & Lineup Builder'}
             </h1>
             <p
-              className={`text-sm mt-1 ${
-                variant === 'cyber' ? 'text-cyan-300/70' : 'text-gray-600 dark:text-gray-400'
+              className={`text-base leading-relaxed ${
+                variant === 'cyber' ? 'text-cyan-300/80' : 'text-gray-600 dark:text-gray-400'
               }`}
             >
-              AI-powered prop analysis with {projections.length} live projections • ML confidence
-              scoring • SHAP explanations
+              AI-powered prop analysis with {projections.length} live projections
             </p>
+            <div
+              className={`flex items-center space-x-6 text-sm ${
+                variant === 'cyber' ? 'text-cyan-300/70' : 'text-gray-500 dark:text-gray-400'
+              }`}
+            >
+              <span className='flex items-center space-x-2'>
+                <span className='w-2 h-2 bg-green-400 rounded-full'></span>
+                <span>ML Confidence Scoring</span>
+              </span>
+              <span className='flex items-center space-x-2'>
+                <span className='w-2 h-2 bg-blue-400 rounded-full'></span>
+                <span>SHAP Explanations</span>
+              </span>
+              <span className='flex items-center space-x-2'>
+                <span className='w-2 h-2 bg-purple-400 rounded-full'></span>
+                <span>Kelly Optimization</span>
+              </span>
+            </div>
           </div>
 
           <div className='flex items-center space-x-4'>
