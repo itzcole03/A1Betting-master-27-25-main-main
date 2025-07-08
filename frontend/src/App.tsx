@@ -16,6 +16,9 @@ const RiskEngine = React.lazy(() => import('./components/features/risk/RiskEngin
 const SocialIntelligence = React.lazy(
   () => import('./components/features/social/SocialIntelligence')
 );
+const SHAPAnalysis = React.lazy(() => import('./components/features/shap/SHAPAnalysis'));
+const QuantumAI = React.lazy(() => import('./components/features/quantum/QuantumAI'));
+const NewsHub = React.lazy(() => import('./components/features/news/NewsHub'));
 
 // Placeholder components for features not yet implemented
 const PlaceholderComponent: React.FC<{ title: string; description: string }> = ({
