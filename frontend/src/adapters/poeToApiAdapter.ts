@@ -1,6 +1,10 @@
-﻿import { unifiedMonitor } from '@/core/UnifiedMonitor';
-import { PrizePicksProps } from '@/shared/prizePicks';
-import { PoeApiResponse, PoeDataBlock, PoePropCardContent } from '@/types/index';
+import { unifiedMonitor } from '@/core/UnifiedMonitor';
+import {
+  PrizePicksProps,
+  PoeApiResponse,
+  PoeDataBlock,
+  PoePropCardContent,
+} from '@/types/prizePicksUnified';
 
 /**
  * Adapts data from a "Poe-like" source (structured as PoeDataBlock)
@@ -17,7 +21,9 @@ export class PoeToApiAdapter {
    * @returns An array of PrizePicksProps.
    */
   public transformPoeDataToPrizePicksProps(poeDataBlocks: PoeDataBlock[]): PrizePicksProps[] {
-    const trace = unifiedMonitor.startTrace('PoeToApiAdapter.transformPoeData', { category: 'adapter.transform' });
+    const trace = unifiedMonitor.startTrace('PoeToApiAdapter.transformPoeData', {
+      category: 'adapter.transform',
+    });
     const transformedProps: PrizePicksProps[] = [];
 
     try {
@@ -83,9 +89,9 @@ export class PoeToApiAdapter {
               line: 25.5,
               overOdds: -115,
               underOdds: -105,
-              lastUpdated: new Date().toISOString()
+              lastUpdated: new Date().toISOString(),
             } as PoePropCardContent,
-            metadata: { source: 'RealApiService' }
+            metadata: { source: 'RealApiService' },
           },
           {
             id: 'real_prop_2',
@@ -98,21 +104,23 @@ export class PoeToApiAdapter {
               line: 285.5,
               overOdds: -110,
               underOdds: -110,
-              lastUpdated: new Date().toISOString()
+              lastUpdated: new Date().toISOString(),
             } as PoePropCardContent,
-            metadata: { source: 'RealApiService' }
+            metadata: { source: 'RealApiService' },
           },
           {
             id: 'real_news_1',
             type: 'news_feed',
             title: 'General Sports News',
             content: { articles: [] },
-            metadata: { source: 'RealApiService' }
+            metadata: { source: 'RealApiService' },
           },
-        ]
+        ],
       };
 
-      const trace = unifiedMonitor.startTrace('poeToApiAdapter.fetch', { category: 'adapter.fetch' });
+      const trace = unifiedMonitor.startTrace('poeToApiAdapter.fetch', {
+        category: 'adapter.fetch',
+      });
       return this.transformPoeDataToPrizePicksProps(realApiResponse.dataBlocks || []);
     } catch (error) {
       // console.error('Error fetching real API data:', error);
