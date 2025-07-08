@@ -331,12 +331,14 @@ export function useRealtimeData<T = RealtimeData>({
 
         // Subscribe to channels
         subscriptionsRef.current.forEach(channel => {
-          wsRef.current?.send(
-            JSON.stringify({
-              type: 'subscribe',
-              channel,
-            })
-          );
+          if (wsRef.current?.readyState === WebSocket.OPEN) {
+            wsRef.current.send(
+              JSON.stringify({
+                type: 'subscribe',
+                channel,
+              })
+            );
+          }
         });
 
         setupHeartbeat();
