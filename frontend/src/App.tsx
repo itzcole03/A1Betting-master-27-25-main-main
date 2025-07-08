@@ -38,12 +38,7 @@ const componentMap: Record<string, React.ComponentType> = {
   moneymaker: MoneyMaker,
   analytics: Analytics,
   prizepicks: PrizePicks,
-  arbitrage: () => (
-    <PlaceholderComponent
-      title='Arbitrage Scanner'
-      description='Real-time arbitrage opportunities'
-    />
-  ),
+  arbitrage: ArbitrageScanner,
   livebetting: () => (
     <PlaceholderComponent title='Live Betting' description='Live betting opportunities' />
   ),
