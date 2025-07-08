@@ -40,6 +40,7 @@ from backend.routes import (
     prizepicks_router,
     analytics_router,
 )
+from backend.routes.shap import router as shap_router
 from backend.utils.error_handler import ErrorHandler, DataFetchError, ValidationError
 
 import httpx
@@ -111,16 +112,16 @@ async def lifespan(app: FastAPI):
     logger.info("✅ Fast startup mode - deferring model training")
     logger.info("🎯 A1Betting Backend server is now running!")
     logger.info("📊 Background services initializing...")
-    
+
     # Start PrizePicks real-time data ingestion
     logger.info("🏀 Starting PrizePicks real-time data service...")
     prizepicks_task = asyncio.create_task(start_prizepicks_service())
-    
+
     # Start background initialization
     background_task = asyncio.create_task(background_initialization())
-    
+
     yield
-    
+
     # Shutdown
     logger.info("🔄 Shutting down A1Betting Backend...")
     # Cancel background tasks
@@ -199,10 +200,10 @@ async def track_requests(
         f"Request: {request.method} {request.url.path} - "
         f"Client: {request.client.host if request.client else 'unknown'}"
     )
-    
+
     # Process request
     response = await call_next(request)
-    
+
     # Calculate processing time
     process_time = time.time() - start_time
 
@@ -211,10 +212,10 @@ async def track_requests(
         f"Response: {response.status_code} - "
         f"Process Time: {process_time:.3f}s"
     )
-    
+
     # Add processing time to response headers
     response.headers["X-Process-Time"] = str(process_time)
-    
+
     return response
 
 # ============================================================================
@@ -230,7 +231,7 @@ async def background_initialization():
         if create_tables:
             create_tables()
             logger.info("✅ Database tables ensured")
-        
+
         # Initialize model service
         try:
             from model_service import ModelService  # type: ignore[import]
@@ -238,9 +239,9 @@ async def background_initialization():
             logger.info("✅ Model service initialized")
         except ImportError:
             logger.warning("database modules not available, using mock implementations")
-        
+
         logger.info("✅ Background initialization completed")
-        
+
     except Exception as e:
         logger.error(f"❌ Background initialization failed: {e}")
 
@@ -287,35 +288,35 @@ async def comprehensive_health_check():
             "timestamp": datetime.now().isoformat(),
             "uptime": time.time() - app_start_time
         }
-        
+
         # Add performance metrics
         performance = {
             "memory_usage": "normal",
             "cpu_usage": "normal",
             "response_time": "fast"
         }
-        
+
         # Add model status
         models = {
             "prediction_engine": "initialized",
             "ultra_accuracy_engine": "initialized",
             "quantum_ensemble": "ready"
         }
-        
+
         # Add API metrics
         api_metrics = {
             "total_requests": 0,
             "success_rate": 100.0,
             "average_response_time": 0.1
         }
-        
+
         return {
             **basic_health,
             "performance": performance,
             "models": models,
             "api_metrics": api_metrics
         }
-        
+
     except Exception as e:
         logger.error(f"Health check failed: {e}")
         return {
@@ -334,10 +335,10 @@ async def get_prizepicks_props():
     try:
         # Import from services
         from services.data_fetchers import fetch_prizepicks_props_internal
-        
+
         props = await fetch_prizepicks_props_internal()
         return props
-        
+
     except Exception as e:
         ErrorHandler.log_error(e, "fetching PrizePicks props")
         return []
@@ -363,22 +364,22 @@ async def extract_features(request: FeatureRequest):
     try:
         # Extract features from the request data
         features = {}
-        
+
         # Add team stats
         features.update(request.team_stats)
-        
+
         # Add player stats
         features.update(request.player_stats)
-        
+
         # Add derived features
         if "points" in request.team_stats:
             features["points_per_game"] = request.team_stats["points"]
-        
+
         if "rebounds" in request.team_stats:
             features["rebounds_per_game"] = request.team_stats["rebounds"]
-        
+
         return FeatureResponse(features=features)
-        
+
     except Exception as e:
         ErrorHandler.log_error(e, "extracting features from request data")
         raise HTTPException(
@@ -392,23 +393,23 @@ async def make_prediction(request: FeatureRequest):
     try:
         # Simple prediction logic - in production this would use ML models
         base_prediction = 100.0
-        
+
         # Adjust based on team stats
         if "points" in request.team_stats:
             base_prediction += request.team_stats["points"] * 0.1
-        
+
         if "rebounds" in request.team_stats:
             base_prediction += request.team_stats["rebounds"] * 0.5
-        
+
         # Adjust based on player stats
         for stat_name, stat_value in request.player_stats.items():
             if "points" in stat_name.lower():
                 base_prediction += stat_value * 0.2
             elif "fgm" in stat_name.lower():
                 base_prediction += stat_value * 0.3
-        
+
         return PredictionResponse(prediction=base_prediction)
-        
+
     except Exception as e:
         logger.error(f"Error making prediction: {e}")
         raise HTTPException(
@@ -480,12 +481,12 @@ async def get_unified_data(
             fetch_performance_stats_internal,
             fetch_prizepicks_props_internal,
         )
-        
+
         # Fetch all data sources
         betting_opportunities = await fetch_betting_opportunities_internal()
         performance_stats = await fetch_performance_stats_internal()
         prizepicks_props = await fetch_prizepicks_props_internal()
-        
+
         # Mock other data sources
         news_headlines = ["Breaking: Major trade announced", "Injury update released"]
         injuries = [{"player": "LeBron James", "status": "questionable"}]
@@ -501,7 +502,7 @@ async def get_unified_data(
                 status="final"
             )
         ]
-        
+
         return UnifiedFeed(
             betting_opportunities=betting_opportunities,
             performance_stats=performance_stats,
@@ -510,7 +511,7 @@ async def get_unified_data(
             injuries=injuries,
             historical=historical
         )
-        
+
     except Exception as e:
         logger.error(f"Error fetching unified data: {e}")
         raise HTTPException(
@@ -535,9 +536,9 @@ async def get_sport_radar_games(sport: str, date: Optional[str] = None):
                 status="scheduled"
             )
         ]
-        
+
         return games
-        
+
     except Exception as e:
         logger.error(f"Error fetching SportRadar games: {e}")
         raise HTTPException(
@@ -563,9 +564,9 @@ async def get_event_odds(event_id: str, market: Optional[str] = None):
                 timestamp=time.time()
             )
         ]
-        
+
         return odds
-        
+
     except Exception as e:
         logger.error(f"Error fetching odds: {e}")
         raise HTTPException(
@@ -595,7 +596,7 @@ async def legacy_ultra_accuracy_endpoint(request: Request):
     """Legacy ultra-accuracy endpoint for backward compatibility"""
     return {"message": "Use /api/v1/ultra-accuracy endpoints instead"}
 
-@app.post("/api/v4/predict/ultra-accuracy") 
+@app.post("/api/v4/predict/ultra-accuracy")
 async def legacy_ultra_accuracy_post(request: Request):
     """Legacy ultra-accuracy POST endpoint for backward compatibility"""
     return {"message": "Use /api/v1/ultra-accuracy endpoints instead"}
@@ -611,19 +612,19 @@ async def get_comprehensive_projections():
     """Get comprehensive PrizePicks projections with advanced analysis"""
     try:
         from services.comprehensive_prizepicks_service import ComprehensivePrizePicksService
-        
+
         # Get the service instance (should be running from startup)
         service = ComprehensivePrizePicksService()
-        
+
         # Get current projections
         projections = await service.get_current_projections()
-        
+
         # Get high-value opportunities
         high_value = await service.get_high_value_opportunities(min_value=0.05, min_confidence=0.7)
-        
+
         # Get service statistics
         stats = service.get_service_stats()
-        
+
         return {
             "projections": [
                 {
@@ -646,7 +647,7 @@ async def get_comprehensive_projections():
             "total_projections": len(projections),
             "timestamp": datetime.now(timezone.utc).isoformat()
         }
-        
+
     except Exception as e:
         logger.error(f"Error fetching comprehensive projections: {e}")
         return {
