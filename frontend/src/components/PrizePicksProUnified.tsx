@@ -793,12 +793,12 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
             ? 'bg-gray-900/50 border border-cyan-400/20'
             : 'bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700'
         }`}>
-          <h2 className={`text-lg font-semibold mb-4 ${
+          <h2 className={`text-lg font-semibold mb-6 ${
             variant === 'cyber' ? 'text-cyan-400' : 'text-gray-900 dark:text-white'
           }`}>
             Filter & Search Options
           </h2>
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-6'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
             {/* Sport Filter */}
             <div className="space-y-2">
               <label
@@ -817,136 +817,146 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
                     : 'bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
                 }`}
               >
-              <option value='All'>All Sports</option>
-              {filterOptions.sports.map(sport => (
-                <option key={sport} value={sport}>
-                  {sport}
-                </option>
-              ))}
-            </select>
-          </div>
+                <option value='All'>All Sports</option>
+                {filterOptions.sports.map(sport => (
+                  <option key={sport} value={sport}>
+                    {sport}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          {/* League Filter */}
-          <div>
-            <label
-              className={`block text-xs font-medium mb-1 ${
-                variant === 'cyber' ? 'text-cyan-400' : 'text-gray-700 dark:text-gray-300'
-              }`}
-            >
-              League
-            </label>
-            <select
-              value={activeFilters.league}
-              onChange={e => setActiveFilters(prev => ({ ...prev, league: e.target.value }))}
-              className={`w-full p-2 rounded border text-sm ${
-                variant === 'cyber'
-                  ? 'bg-black border-cyan-400/30 text-cyan-300'
-                  : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white'
-              }`}
-            >
-              <option value='All'>All Leagues</option>
-              {filterOptions.leagues.map(league => (
-                <option key={league} value={league}>
-                  {league}
-                </option>
-              ))}
-            </select>
-          </div>
+            {/* League Filter */}
+            <div className="space-y-2">
+              <label
+                className={`block text-sm font-medium ${
+                  variant === 'cyber' ? 'text-cyan-300' : 'text-gray-700 dark:text-gray-300'
+                }`}
+              >
+                League
+              </label>
+              <select
+                value={activeFilters.league}
+                onChange={e => setActiveFilters(prev => ({ ...prev, league: e.target.value }))}
+                className={`w-full p-3 rounded-lg border text-sm font-medium transition-all ${
+                  variant === 'cyber'
+                    ? 'bg-black border-cyan-400/30 text-cyan-300 focus:border-cyan-400/60 focus:bg-cyan-400/5'
+                    : 'bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                }`}
+              >
+                <option value='All'>All Leagues</option>
+                {filterOptions.leagues.map(league => (
+                  <option key={league} value={league}>
+                    {league}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          {/* Team Filter */}
-          <div>
-            <label
-              className={`block text-xs font-medium mb-1 ${
-                variant === 'cyber' ? 'text-cyan-400' : 'text-gray-700 dark:text-gray-300'
-              }`}
-            >
-              Team
-            </label>
-            <select
-              value={activeFilters.team}
-              onChange={e => setActiveFilters(prev => ({ ...prev, team: e.target.value }))}
-              className={`w-full p-2 rounded border text-sm ${
-                variant === 'cyber'
-                  ? 'bg-black border-cyan-400/30 text-cyan-300'
-                  : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white'
-              }`}
-            >
-              <option value='All'>All Teams</option>
-              {filterOptions.teams.map(team => (
-                <option key={team} value={team}>
-                  {team}
-                </option>
-              ))}
-            </select>
-          </div>
+            {/* Team Filter */}
+            <div className="space-y-2">
+              <label
+                className={`block text-sm font-medium ${
+                  variant === 'cyber' ? 'text-cyan-300' : 'text-gray-700 dark:text-gray-300'
+                }`}
+              >
+                Team
+              </label>
+              <select
+                value={activeFilters.team}
+                onChange={e => setActiveFilters(prev => ({ ...prev, team: e.target.value }))}
+                className={`w-full p-3 rounded-lg border text-sm font-medium transition-all ${
+                  variant === 'cyber'
+                    ? 'bg-black border-cyan-400/30 text-cyan-300 focus:border-cyan-400/60 focus:bg-cyan-400/5'
+                    : 'bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                }`}
+              >
+                <option value='All'>All Teams</option>
+                {filterOptions.teams.map(team => (
+                  <option key={team} value={team}>
+                    {team}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          {/* Stat Type Filter */}
-          <div>
-            <label
-              className={`block text-xs font-medium mb-1 ${
-                variant === 'cyber' ? 'text-cyan-400' : 'text-gray-700 dark:text-gray-300'
-              }`}
-            >
-              Stat Type
-            </label>
-            <select
-              value={activeFilters.statType}
-              onChange={e => setActiveFilters(prev => ({ ...prev, statType: e.target.value }))}
-              className={`w-full p-2 rounded border text-sm ${
-                variant === 'cyber'
-                  ? 'bg-black border-cyan-400/30 text-cyan-300'
-                  : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white'
-              }`}
-            >
-              <option value='All'>All Stats</option>
-              {filterOptions.statTypes.map(statType => (
-                <option key={statType} value={statType}>
-                  {statType}
-                </option>
-              ))}
-            </select>
-          </div>
+            {/* Stat Type Filter */}
+            <div className="space-y-2">
+              <label
+                className={`block text-sm font-medium ${
+                  variant === 'cyber' ? 'text-cyan-300' : 'text-gray-700 dark:text-gray-300'
+                }`}
+              >
+                Stat Type
+              </label>
+              <select
+                value={activeFilters.statType}
+                onChange={e => setActiveFilters(prev => ({ ...prev, statType: e.target.value }))}
+                className={`w-full p-3 rounded-lg border text-sm font-medium transition-all ${
+                  variant === 'cyber'
+                    ? 'bg-black border-cyan-400/30 text-cyan-300 focus:border-cyan-400/60 focus:bg-cyan-400/5'
+                    : 'bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                }`}
+              >
+                <option value='All'>All Stats</option>
+                {filterOptions.statTypes.map(statType => (
+                  <option key={statType} value={statType}>
+                    {statType}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          {/* Confidence Filter */}
-          <div>
-            <label
-              className={`block text-xs font-medium mb-1 ${
-                variant === 'cyber' ? 'text-cyan-400' : 'text-gray-700 dark:text-gray-300'
-              }`}
-            >
-              Min Confidence
-            </label>
-            <input
-              type='range'
-              min='0'
-              max='100'
-              value={activeFilters.minConfidence}
-              onChange={e =>
-                setActiveFilters(prev => ({ ...prev, minConfidence: parseInt(e.target.value) }))
-              }
-              className={`w-full ${variant === 'cyber' ? 'accent-cyan-400' : ''}`}
-            />
-            <div className='text-xs text-center mt-1'>{activeFilters.minConfidence}%</div>
-          </div>
+            {/* Confidence Filter */}
+            <div className="space-y-2">
+              <label
+                className={`block text-sm font-medium ${
+                  variant === 'cyber' ? 'text-cyan-300' : 'text-gray-700 dark:text-gray-300'
+                }`}
+              >
+                Min Confidence
+              </label>
+              <div className="space-y-2">
+                <input
+                  type='range'
+                  min='0'
+                  max='100'
+                  value={activeFilters.minConfidence}
+                  onChange={e =>
+                    setActiveFilters(prev => ({ ...prev, minConfidence: parseInt(e.target.value) }))
+                  }
+                  className={`w-full h-2 rounded-lg ${variant === 'cyber' ? 'accent-cyan-400' : 'accent-blue-500'}`}
+                />
+                <div className={`text-sm font-medium text-center ${
+                  variant === 'cyber' ? 'text-cyan-400' : 'text-gray-600 dark:text-gray-400'
+                }`}>
+                  {activeFilters.minConfidence}%
+                </div>
+              </div>
+            </div>
 
-          {/* Risk Filter */}
-          <div>
-            <label
-              className={`block text-xs font-medium mb-1 ${
-                variant === 'cyber' ? 'text-cyan-400' : 'text-gray-700 dark:text-gray-300'
-              }`}
-            >
-              Max Risk
-            </label>
-            <select
-              value={activeFilters.maxRisk}
-              onChange={e =>
-                setActiveFilters(prev => ({
-                  ...prev,
-                  maxRisk: e.target.value as 'low' | 'medium' | 'high',
-                }))
-              }
-              className={`w-full p-2 rounded border text-sm ${
+            {/* Risk Filter */}
+            <div className="space-y-2">
+              <label
+                className={`block text-sm font-medium ${
+                  variant === 'cyber' ? 'text-cyan-300' : 'text-gray-700 dark:text-gray-300'
+                }`}
+              >
+                Max Risk
+              </label>
+              <select
+                value={activeFilters.maxRisk}
+                onChange={e =>
+                  setActiveFilters(prev => ({
+                    ...prev,
+                    maxRisk: e.target.value as 'low' | 'medium' | 'high',
+                  }))
+                }
+                className={`w-full p-3 rounded-lg border text-sm font-medium transition-all ${
+                  variant === 'cyber'
+                    ? 'bg-black border-cyan-400/30 text-cyan-300 focus:border-cyan-400/60 focus:bg-cyan-400/5'
+                    : 'bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                }`}
                 variant === 'cyber'
                   ? 'bg-black border-cyan-400/30 text-cyan-300'
                   : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white'
