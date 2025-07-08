@@ -294,6 +294,7 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     loadSocialData();
     loadAutoPilotData();
+    loadBankrollData();
 
     // Simulate live opportunities
     const mockOpportunities: LiveOpportunity[] = [
