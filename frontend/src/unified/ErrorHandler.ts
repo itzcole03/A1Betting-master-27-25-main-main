@@ -80,16 +80,14 @@ export class ErrorHandler {
     const key = `${context}_${error.name}`;
     const existing = this.errorMetrics.get(key) || {
       count: 0,
-      lastOccurrence: new Date(),
-      context,
-      errorType: error.name,
-      message: error.message,
+      lastError: error,
+      timestamp: Date.now(),
     };
 
     this.errorMetrics.set(key, {
-      ...existing,
       count: existing.count + 1,
-      lastOccurrence: new Date(),
+      lastError: error,
+      timestamp: Date.now(),
     });
   }
 
