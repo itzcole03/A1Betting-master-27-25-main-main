@@ -106,7 +106,7 @@ FastAPI 4.0.0 + Python 3.11+ + SQLite/PostgreSQL
 
 #### **Specialized Application Components**
 
-- ��� **BankrollTracker** - Betting bankroll management with entry tracking
+- ✅ **BankrollTracker** - Betting bankroll management with entry tracking
 - ✅ **BetSimulationTool** - Betting scenario simulation with Kelly Criterion
 - ✅ **PredictionExplanationOverlay** - AI prediction explanations with factor analysis
 - ✅ **MetricCard** - Metrics display with trend indicators
@@ -181,11 +181,13 @@ cd backend
 # Install Python dependencies
 pip install -r requirements.txt
 
-# Start the FastAPI server
+# Start the FastAPI server with PrizePicks Pro support
 python main.py
 ```
 
 **API URL:** `http://localhost:8000`
+**PrizePicks API:** `http://localhost:8000/api/prizepicks/comprehensive-projections`
+**SHAP Explanations:** `http://localhost:8000/api/shap/explain`
 
 ---
 
