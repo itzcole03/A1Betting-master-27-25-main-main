@@ -58,7 +58,7 @@ FastAPI 4.0.0 + Python 3.11+ + SQLite/PostgreSQL
 ├── 🔐 Authentication System (JWT + Security)
 ├── 🚀 Caching Layer (Redis + TTL Cache)
 ├── 📊 Health Monitoring (Comprehensive Checks)
-���── 🔄 Background Services (Data Processing)
+├── 🔄 Background Services (Data Processing)
 └── 🌐 WebSocket Infrastructure (Real-time Updates)
 ```
 
@@ -106,7 +106,7 @@ FastAPI 4.0.0 + Python 3.11+ + SQLite/PostgreSQL
 
 #### **Specialized Application Components**
 
-- ✅ **BankrollTracker** - Betting bankroll management with entry tracking
+- ��� **BankrollTracker** - Betting bankroll management with entry tracking
 - ✅ **BetSimulationTool** - Betting scenario simulation with Kelly Criterion
 - ✅ **PredictionExplanationOverlay** - AI prediction explanations with factor analysis
 - ✅ **MetricCard** - Metrics display with trend indicators
@@ -316,6 +316,16 @@ GET  /api/prizepicks/comprehensive-projections # Advanced projections
 GET  /api/v1/sr/games                        # SportsRadar games
 GET  /api/v1/odds/{event_id}                 # Event odds data
 GET  /api/v4/predict/ultra-accuracy          # Ultra-accuracy predictions
+```
+
+### **PrizePicks Pro/Lineup Builder**
+
+```
+GET  /api/prizepicks/comprehensive-projections  # Full projections with ML
+POST /api/prizepicks/lineup/optimize           # Lineup optimization
+POST /api/shap/explain                         # SHAP explanations
+GET  /api/shap/features                        # Available features
+POST /api/shap/batch-explain                   # Batch explanations
 ```
 
 ### **Analytics & Performance**
