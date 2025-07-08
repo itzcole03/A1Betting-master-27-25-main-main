@@ -632,6 +632,109 @@ const Analytics: React.FC = () => {
     }
   };
 
+  const loadWeatherData = async () => {
+    try {
+      const weatherGames = [
+        { game: 'Chiefs vs Bills', sport: 'NFL', venue: 'Arrowhead Stadium', city: 'Kansas City' },
+        { game: 'Yankees vs Red Sox', sport: 'MLB', venue: 'Yankee Stadium', city: 'New York' },
+        { game: 'Lakers vs Warriors', sport: 'NBA', venue: 'Staples Center', city: 'Los Angeles' },
+        {
+          game: 'Rangers vs Lightning',
+          sport: 'NHL',
+          venue: 'Madison Square Garden',
+          city: 'New York',
+        },
+        {
+          game: 'Patriots vs Dolphins',
+          sport: 'NFL',
+          venue: 'Gillette Stadium',
+          city: 'Foxborough',
+        },
+      ];
+
+      const weatherDataGenerated: WeatherData[] = weatherGames.map((g, index) => {
+        const temp = 32 + Math.random() * 68;
+        const windSpeed = Math.random() * 25;
+        const humidity = 30 + Math.random() * 50;
+
+        return {
+          gameId: `weather-${index}`,
+          ...g,
+          gameTime: `${6 + Math.floor(Math.random() * 6)}:00 PM ET`,
+          current: {
+            temperature: temp,
+            humidity,
+            windSpeed,
+            windDirection: ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'][
+              Math.floor(Math.random() * 8)
+            ],
+            visibility: 5 + Math.random() * 5,
+            condition: ['Clear', 'Partly Cloudy', 'Cloudy', 'Light Rain', 'Heavy Rain', 'Snow'][
+              Math.floor(Math.random() * 6)
+            ],
+            pressure: 29.5 + Math.random() * 1.5,
+          },
+          forecast: {
+            temperature: temp + (Math.random() - 0.5) * 10,
+            precipitation: Math.random() * 100,
+            windSpeed: windSpeed + (Math.random() - 0.5) * 10,
+            condition: ['Clear', 'Cloudy', 'Rain', 'Snow'][Math.floor(Math.random() * 4)],
+          },
+          impact: {
+            overall:
+              windSpeed > 15 || humidity > 80
+                ? 'high'
+                : windSpeed > 10 || humidity > 60
+                  ? 'medium'
+                  : 'low',
+            passing: Math.max(0, Math.min(100, 90 - windSpeed * 2)),
+            kicking: Math.max(0, Math.min(100, 95 - windSpeed * 3)),
+            visibility: Math.max(0, Math.min(100, humidity < 80 ? 95 : 70)),
+            player_comfort: Math.max(0, Math.min(100, temp > 45 && temp < 75 ? 90 : 60)),
+          },
+        };
+      });
+
+      setWeatherData(weatherDataGenerated);
+      setSelectedWeatherGame(weatherDataGenerated[0]);
+    } catch (error) {
+      console.error('Failed to load weather data:', error);
+    }
+  };
+
+  const getWeatherIcon = (condition: string) => {
+    switch (condition.toLowerCase()) {
+      case 'clear':
+        return <Sun className='w-5 h-5 text-yellow-400' />;
+      case 'partly cloudy':
+        return <Cloud className='w-5 h-5 text-gray-400' />;
+      case 'cloudy':
+        return <Cloud className='w-5 h-5 text-gray-500' />;
+      case 'light rain':
+      case 'rain':
+        return <CloudRain className='w-5 h-5 text-blue-400' />;
+      case 'heavy rain':
+        return <CloudRain className='w-5 h-5 text-blue-600' />;
+      case 'snow':
+        return <Snowflake className='w-5 h-5 text-white' />;
+      default:
+        return <Cloud className='w-5 h-5 text-gray-400' />;
+    }
+  };
+
+  const getWeatherImpactColor = (impact: string) => {
+    switch (impact) {
+      case 'high':
+        return 'text-red-400 border-red-400';
+      case 'medium':
+        return 'text-yellow-400 border-yellow-400';
+      case 'low':
+        return 'text-green-400 border-green-400';
+      default:
+        return 'text-gray-400 border-gray-400';
+    }
+  };
+
   const toggleDetails = (modelId: string) => {
     setShowDetails(prev => ({
       ...prev,
