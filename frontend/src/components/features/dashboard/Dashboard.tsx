@@ -15,6 +15,7 @@ import {
   RefreshCw,
   ChevronUp,
   ChevronDown,
+  Calculator,
 } from 'lucide-react';
 import { Layout } from '../../core/Layout';
 
