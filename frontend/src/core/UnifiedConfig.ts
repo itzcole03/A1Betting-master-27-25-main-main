@@ -51,7 +51,7 @@ export class UnifiedConfig {
   private static instance: UnifiedConfig;
   private config: Record<string, ConfigValue> = {};
   private readonly defaultConfig: Record<string, ConfigValue> = {};
-  private readonly eventBus: EventEmitter;
+  private readonly eventBus: SimpleEventEmitter;
 
   private constructor() {
     this.eventBus = new EventEmitter();
