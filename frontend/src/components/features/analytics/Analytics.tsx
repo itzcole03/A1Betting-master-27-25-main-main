@@ -528,6 +528,268 @@ const Analytics: React.FC = () => {
           )}
         </motion.div>
       </div>
+      {/* Model Performance Monitoring */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.8 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <h3 className='text-xl font-bold text-white mb-6'>Real-Time Model Monitoring</h3>
+
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <div>
+            <h4 className='text-lg font-medium text-white mb-4'>Performance Trends</h4>
+            <div className='space-y-3'>
+              {[
+                { metric: 'Accuracy Trend', value: '+2.3%', status: 'up', period: '7 days' },
+                { metric: 'ROI Performance', value: '+15.2%', status: 'up', period: '30 days' },
+                { metric: 'Prediction Volume', value: '1,247', status: 'stable', period: 'today' },
+                { metric: 'Error Rate', value: '-0.8%', status: 'down', period: '7 days' },
+              ].map((metric, index) => (
+                <div
+                  key={index}
+                  className='flex items-center justify-between bg-slate-900/50 rounded-lg p-3'
+                >
+                  <div>
+                    <div className='text-white font-medium'>{metric.metric}</div>
+                    <div className='text-gray-400 text-sm'>{metric.period}</div>
+                  </div>
+                  <div className='text-right'>
+                    <div
+                      className={`font-bold ${
+                        metric.status === 'up'
+                          ? 'text-green-400'
+                          : metric.status === 'down'
+                            ? 'text-red-400'
+                            : 'text-yellow-400'
+                      }`}
+                    >
+                      {metric.value}
+                    </div>
+                    <div
+                      className={`text-xs ${
+                        metric.status === 'up'
+                          ? 'text-green-300'
+                          : metric.status === 'down'
+                            ? 'text-red-300'
+                            : 'text-yellow-300'
+                      }`}
+                    >
+                      {metric.status === 'up' ? '↗' : metric.status === 'down' ? '↘' : '→'}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h4 className='text-lg font-medium text-white mb-4'>Model Health Status</h4>
+            <div className='space-y-3'>
+              {[
+                { model: 'XGBoost Ensemble', health: 98, issues: 0 },
+                { model: 'Neural Network', health: 95, issues: 1 },
+                { model: 'LSTM Predictor', health: 92, issues: 0 },
+                { model: 'Random Forest', health: 89, issues: 2 },
+              ].map((model, index) => (
+                <div key={index} className='bg-slate-900/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium'>{model.model}</span>
+                    <span
+                      className={`text-sm font-bold ${
+                        model.health >= 95
+                          ? 'text-green-400'
+                          : model.health >= 85
+                            ? 'text-yellow-400'
+                            : 'text-red-400'
+                      }`}
+                    >
+                      {model.health}%
+                    </span>
+                  </div>
+                  <div className='flex items-center justify-between'>
+                    <div className='flex-1 bg-slate-700 rounded-full h-2 mr-3'>
+                      <div
+                        className={`h-2 rounded-full ${
+                          model.health >= 95
+                            ? 'bg-green-400'
+                            : model.health >= 85
+                              ? 'bg-yellow-400'
+                              : 'bg-red-400'
+                        }`}
+                        style={{ width: `${model.health}%` }}
+                      />
+                    </div>
+                    <span className='text-xs text-gray-400'>{model.issues} issues</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Advanced Feature Engineering */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.9 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Feature Engineering Pipeline</h3>
+            <p className='text-gray-400 text-sm'>Automated feature discovery and optimization</p>
+          </div>
+          <Brain className='w-6 h-6 text-purple-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Top Generated Features</h4>
+            <div className='space-y-2'>
+              {[
+                { feature: 'Home_Away_Performance_Ratio', impact: 0.24 },
+                { feature: 'Weather_Adjusted_Total', impact: 0.19 },
+                { feature: 'Injury_Impact_Score', impact: 0.17 },
+                { feature: 'Line_Movement_Velocity', impact: 0.15 },
+              ].map((feat, index) => (
+                <div key={index} className='flex items-center justify-between'>
+                  <span className='text-gray-300 text-xs'>{feat.feature}</span>
+                  <span className='text-cyan-400 text-sm font-medium'>
+                    {(feat.impact * 100).toFixed(0)}%
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Feature Categories</h4>
+            <div className='space-y-2'>
+              {[
+                { category: 'Player Stats', count: 147, active: 89 },
+                { category: 'Team Metrics', count: 98, active: 76 },
+                { category: 'Environmental', count: 45, active: 32 },
+                { category: 'Market Data', count: 67, active: 54 },
+              ].map((cat, index) => (
+                <div key={index} className='flex items-center justify-between'>
+                  <span className='text-gray-300 text-xs'>{cat.category}</span>
+                  <span className='text-green-400 text-sm'>
+                    {cat.active}/{cat.count}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Pipeline Status</h4>
+            <div className='space-y-2'>
+              {[
+                { stage: 'Data Ingestion', status: 'Active', color: 'green' },
+                { stage: 'Feature Generation', status: 'Processing', color: 'yellow' },
+                { stage: 'Model Training', status: 'Queued', color: 'blue' },
+                { stage: 'Deployment', status: 'Ready', color: 'green' },
+              ].map((stage, index) => (
+                <div key={index} className='flex items-center justify-between'>
+                  <span className='text-gray-300 text-xs'>{stage.stage}</span>
+                  <div className='flex items-center space-x-2'>
+                    <div
+                      className={`w-2 h-2 rounded-full ${
+                        stage.color === 'green'
+                          ? 'bg-green-400'
+                          : stage.color === 'yellow'
+                            ? 'bg-yellow-400'
+                            : 'bg-blue-400'
+                      }`}
+                    ></div>
+                    <span
+                      className={`text-xs ${
+                        stage.color === 'green'
+                          ? 'text-green-400'
+                          : stage.color === 'yellow'
+                            ? 'text-yellow-400'
+                            : 'text-blue-400'
+                      }`}
+                    >
+                      {stage.status}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Ensemble Model Insights */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.0 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <h3 className='text-xl font-bold text-white mb-6'>Ensemble Model Analysis</h3>
+
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <div>
+            <h4 className='text-lg font-medium text-white mb-4'>Model Contributions</h4>
+            <div className='space-y-3'>
+              {[
+                { model: 'XGBoost', contribution: 35, predictions: 1247, accuracy: 97.2 },
+                { model: 'Neural Net', contribution: 30, predictions: 1189, accuracy: 96.8 },
+                { model: 'LSTM', contribution: 20, predictions: 998, accuracy: 95.1 },
+                { model: 'Random Forest', contribution: 15, predictions: 876, accuracy: 94.6 },
+              ].map((model, index) => (
+                <div key={index} className='bg-slate-900/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium'>{model.model}</span>
+                    <span className='text-cyan-400 font-bold'>{model.contribution}%</span>
+                  </div>
+                  <div className='grid grid-cols-2 gap-2 text-xs'>
+                    <div className='text-gray-400'>Predictions: {model.predictions}</div>
+                    <div className='text-green-400'>Accuracy: {model.accuracy}%</div>
+                  </div>
+                  <div className='mt-2 bg-slate-700 rounded-full h-1'>
+                    <div
+                      className='h-1 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full'
+                      style={{ width: `${model.contribution}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h4 className='text-lg font-medium text-white mb-4'>Consensus Metrics</h4>
+            <div className='space-y-4'>
+              <div className='bg-slate-900/50 rounded-lg p-4'>
+                <div className='text-center'>
+                  <div className='text-3xl font-bold text-green-400 mb-1'>96.4%</div>
+                  <div className='text-gray-400 text-sm'>Ensemble Accuracy</div>
+                </div>
+              </div>
+
+              <div className='bg-slate-900/50 rounded-lg p-4'>
+                <div className='text-center'>
+                  <div className='text-3xl font-bold text-purple-400 mb-1'>1.85</div>
+                  <div className='text-gray-400 text-sm'>Sharpe Ratio</div>
+                </div>
+              </div>
+
+              <div className='bg-slate-900/50 rounded-lg p-4'>
+                <div className='text-center'>
+                  <div className='text-3xl font-bold text-cyan-400 mb-1'>23.7%</div>
+                  <div className='text-gray-400 text-sm'>Average ROI</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </Layout>
   );
 };
