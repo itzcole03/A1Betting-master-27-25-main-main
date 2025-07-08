@@ -26,6 +26,8 @@ import {
   Eye,
 } from 'lucide-react';
 import { Layout } from '../../core/Layout';
+import { Button } from '../../ui/button';
+import { Badge } from '../../ui/badge';
 
 interface MetricCard {
   id: string;
