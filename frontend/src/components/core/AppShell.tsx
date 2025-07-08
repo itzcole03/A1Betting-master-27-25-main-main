@@ -6,6 +6,8 @@ import { cn } from '../../lib/utils';
 
 interface AppShellProps {
   children: React.ReactNode;
+  activeView?: string;
+  onNavigate?: (viewId: string) => void;
 }
 
 export const AppShell: React.FC<AppShellProps> = ({ children }) => {
