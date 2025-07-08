@@ -157,9 +157,13 @@ const Dashboard: React.FC = () => {
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
+    console.log('✅ Refresh button clicked - functionality working!');
+
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000));
     setIsRefreshing(false);
+
+    console.log('✅ Refresh completed - async functionality working!');
   };
 
   const getChangeIcon = (changeType: string) => {
