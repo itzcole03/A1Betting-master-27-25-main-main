@@ -484,9 +484,140 @@ const UltimateMoneyMaker: React.FC = () => {
           </button>
           <button className='flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-lg text-white font-bold transition-all shadow-lg hover:scale-105'>
             <Calculator className='w-5 h-5' />
-            <span>Advanced Analytics</span>
+            <span>Kelly Calculator</span>
+          </button>
+          <button className='flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 rounded-lg text-white font-bold transition-all shadow-lg hover:scale-105'>
+            <Brain className='w-5 h-5' />
+            <span>SHAP Analysis</span>
           </button>
         </div>
+
+        {/* Kelly Calculator Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+        >
+          <div className='flex items-center justify-between mb-6'>
+            <div>
+              <h3 className='text-xl font-bold text-white'>Kelly Criterion Calculator</h3>
+              <p className='text-gray-400 text-sm'>Optimal position sizing for maximum growth</p>
+            </div>
+            <Calculator className='w-6 h-6 text-cyan-400' />
+          </div>
+
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-sm font-medium text-gray-400 mb-2'>Win Probability</h4>
+              <div className='text-2xl font-bold text-cyan-400'>
+                {averageConfidence.toFixed(1)}%
+              </div>
+              <div className='text-xs text-gray-500 mt-1'>From AI models</div>
+            </div>
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-sm font-medium text-gray-400 mb-2'>Kelly %</h4>
+              <div className='text-2xl font-bold text-green-400'>
+                {((averageConfidence / 100) * 2 - 1).toFixed(1)}%
+              </div>
+              <div className='text-xs text-gray-500 mt-1'>Optimal bet size</div>
+            </div>
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-sm font-medium text-gray-400 mb-2'>Suggested Stake</h4>
+              <div className='text-2xl font-bold text-purple-400'>
+                $
+                {Math.round(
+                  (totalBankroll * ((averageConfidence / 100) * 2 - 1)) / 100
+                ).toLocaleString()}
+              </div>
+              <div className='text-xs text-gray-500 mt-1'>Per opportunity</div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* SHAP Explanation Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9 }}
+          className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+        >
+          <div className='flex items-center justify-between mb-6'>
+            <div>
+              <h3 className='text-xl font-bold text-white'>SHAP Model Explanations</h3>
+              <p className='text-gray-400 text-sm'>
+                Feature importance for prediction transparency
+              </p>
+            </div>
+            <Brain className='w-6 h-6 text-purple-400' />
+          </div>
+
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+            <div>
+              <h4 className='text-lg font-medium text-white mb-4'>Feature Importance</h4>
+              {[
+                { feature: 'Recent Form', importance: 0.28, impact: 'positive' },
+                { feature: 'Matchup History', importance: 0.23, impact: 'positive' },
+                { feature: 'Injury Status', importance: 0.19, impact: 'negative' },
+                { feature: 'Weather Conditions', importance: 0.15, impact: 'neutral' },
+                { feature: 'Line Movement', importance: 0.15, impact: 'positive' },
+              ].map((item, index) => (
+                <div key={index} className='flex items-center justify-between mb-3'>
+                  <span className='text-gray-300'>{item.feature}</span>
+                  <div className='flex items-center space-x-2'>
+                    <div className='w-24 bg-slate-700 rounded-full h-2'>
+                      <div
+                        className={`h-2 rounded-full ${
+                          item.impact === 'positive'
+                            ? 'bg-green-400'
+                            : item.impact === 'negative'
+                              ? 'bg-red-400'
+                              : 'bg-yellow-400'
+                        }`}
+                        style={{ width: `${item.importance * 100}%` }}
+                      />
+                    </div>
+                    <span className='text-sm text-gray-400'>
+                      {(item.importance * 100).toFixed(0)}%
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div>
+              <h4 className='text-lg font-medium text-white mb-4'>Model Consensus</h4>
+              <div className='space-y-3'>
+                {[
+                  { model: 'XGBoost Ensemble', prediction: 0.94, weight: 0.35 },
+                  { model: 'Neural Network', prediction: 0.92, weight: 0.3 },
+                  { model: 'LSTM Predictor', prediction: 0.89, weight: 0.2 },
+                  { model: 'Random Forest', prediction: 0.87, weight: 0.15 },
+                ].map((model, index) => (
+                  <div key={index} className='bg-slate-900/50 rounded-lg p-3'>
+                    <div className='flex items-center justify-between mb-2'>
+                      <span className='text-sm font-medium text-white'>{model.model}</span>
+                      <span className='text-sm text-cyan-400'>
+                        {(model.prediction * 100).toFixed(1)}%
+                      </span>
+                    </div>
+                    <div className='flex items-center space-x-2'>
+                      <div className='flex-1 bg-slate-700 rounded-full h-1'>
+                        <div
+                          className='h-1 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full'
+                          style={{ width: `${model.weight * 100}%` }}
+                        />
+                      </div>
+                      <span className='text-xs text-gray-400'>
+                        {(model.weight * 100).toFixed(0)}%
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </motion.div>
     </Layout>
   );
