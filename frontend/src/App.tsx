@@ -102,7 +102,7 @@ export default function App() {
   const ActiveComponent = componentMap[activeView] || Dashboard;
 
   return (
-    <AppShell>
+    <AppShell activeView={activeView} onNavigate={setActiveView}>
       <Suspense
         fallback={
           <div className='flex items-center justify-center h-96'>
