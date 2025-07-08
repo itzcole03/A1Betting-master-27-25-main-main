@@ -220,6 +220,143 @@ const Analytics: React.FC = () => {
     }
   };
 
+  const loadInjuryData = async () => {
+    try {
+      // Generate mock injury data
+      const sports = ['NBA', 'NFL', 'MLB', 'NHL'];
+      const teams = {
+        NBA: ['Lakers', 'Warriors', 'Celtics', 'Heat', 'Nets', 'Knicks'],
+        NFL: ['Chiefs', 'Bills', 'Cowboys', 'Patriots', 'Packers', 'Ravens'],
+        MLB: ['Yankees', 'Red Sox', 'Dodgers', 'Astros', 'Giants', 'Mets'],
+        NHL: ['Rangers', 'Lightning', 'Bruins', 'Kings', 'Penguins', 'Capitals'],
+      };
+
+      const positions = {
+        NBA: ['PG', 'SG', 'SF', 'PF', 'C'],
+        NFL: ['QB', 'RB', 'WR', 'TE', 'OL', 'DL', 'LB', 'CB', 'S', 'K'],
+        MLB: ['P', 'C', '1B', '2B', '3B', 'SS', 'OF'],
+        NHL: ['C', 'LW', 'RW', 'D', 'G'],
+      };
+
+      const injuries = [
+        'Ankle Sprain',
+        'Knee Injury',
+        'Hamstring Strain',
+        'Shoulder Injury',
+        'Concussion',
+        'Back Spasms',
+        'Groin Strain',
+        'Wrist Injury',
+        'Hip Injury',
+        'Calf Strain',
+        'Neck Injury',
+        'Foot Injury',
+      ];
+
+      const bodyParts = [
+        'Ankle',
+        'Knee',
+        'Hamstring',
+        'Shoulder',
+        'Head',
+        'Back',
+        'Groin',
+        'Wrist',
+        'Hip',
+        'Calf',
+        'Neck',
+        'Foot',
+      ];
+
+      const injuryData: InjuryReport[] = Array.from({ length: 15 }, (_, index) => {
+        const sport = sports[Math.floor(Math.random() * sports.length)];
+        const team = teams[sport][Math.floor(Math.random() * teams[sport].length)];
+        const severity =
+          Math.random() > 0.7 ? 'severe' : Math.random() > 0.4 ? 'moderate' : 'minor';
+
+        return {
+          id: `injury-${index}`,
+          player: `Player ${Math.floor(Math.random() * 100) + 1}`,
+          team,
+          sport,
+          position: positions[sport][Math.floor(Math.random() * positions[sport].length)],
+          injury: injuries[Math.floor(Math.random() * injuries.length)],
+          bodyPart: bodyParts[Math.floor(Math.random() * bodyParts.length)],
+          severity,
+          status: severity === 'severe' ? 'out' : Math.random() > 0.5 ? 'questionable' : 'doubtful',
+          expectedReturn:
+            severity === 'severe'
+              ? '4-6 weeks'
+              : severity === 'moderate'
+                ? '1-2 weeks'
+                : '3-5 days',
+          impact: {
+            team:
+              severity === 'severe'
+                ? 80 + Math.random() * 20
+                : severity === 'moderate'
+                  ? 50 + Math.random() * 30
+                  : 20 + Math.random() * 30,
+            fantasy:
+              severity === 'severe'
+                ? 90 + Math.random() * 10
+                : severity === 'moderate'
+                  ? 60 + Math.random() * 30
+                  : 30 + Math.random() * 40,
+            betting:
+              severity === 'severe'
+                ? 70 + Math.random() * 30
+                : severity === 'moderate'
+                  ? 40 + Math.random() * 40
+                  : 15 + Math.random() * 35,
+          },
+          timeline: `${Math.floor(Math.random() * 12) + 1}h ago`,
+          reportedDate: `${Math.floor(Math.random() * 7) + 1} days ago`,
+          source: ['Team Report', 'Beat Reporter', 'Medical Staff', 'Player Statement'][
+            Math.floor(Math.random() * 4)
+          ],
+          reliability: 70 + Math.random() * 30,
+        };
+      });
+
+      // Generate team impacts
+      const teamMap = new Map<string, InjuryReport[]>();
+      injuryData.forEach(injury => {
+        const key = `${injury.team}-${injury.sport}`;
+        if (!teamMap.has(key)) {
+          teamMap.set(key, []);
+        }
+        teamMap.get(key)!.push(injury);
+      });
+
+      const teamImpactData: TeamImpact[] = Array.from(teamMap.entries())
+        .map(([key, teamInjuries]) => {
+          const [team, sport] = key.split('-');
+          const keyPlayerInjuries = teamInjuries.filter(
+            i => i.severity === 'severe' || i.severity === 'moderate'
+          ).length;
+
+          return {
+            team,
+            sport,
+            totalInjuries: teamInjuries.length,
+            keyPlayerInjuries,
+            projectedImpact: Math.min(
+              100,
+              teamInjuries.reduce((sum, i) => sum + i.impact.team, 0) / 3
+            ),
+            affectedPositions: [...new Set(teamInjuries.map(i => i.position))],
+          };
+        })
+        .sort((a, b) => b.projectedImpact - a.projectedImpact);
+
+      setInjuries(injuryData);
+      setTeamImpacts(teamImpactData);
+    } catch (error) {
+      console.error('Failed to load injury data:', error);
+    }
+  };
+
   const toggleDetails = (modelId: string) => {
     setShowDetails(prev => ({
       ...prev,
