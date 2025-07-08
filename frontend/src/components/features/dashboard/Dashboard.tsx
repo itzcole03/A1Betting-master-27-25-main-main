@@ -28,6 +28,7 @@ import {
 import { Layout } from '../../core/Layout';
 import { Button } from '../../ui/button';
 import { Badge } from '../../ui/badge';
+import { HolographicText, CyberButton, GlowCard, LoadingWave, GlassCard } from '../../ui';
 
 interface MetricCard {
   id: string;
