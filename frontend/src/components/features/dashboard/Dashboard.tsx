@@ -1734,6 +1734,283 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Social Intelligence Hub */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.7 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white flex items-center gap-2'>
+              <MessageSquare className='w-6 h-6 text-blue-400' />
+              Social Intelligence Hub
+            </h3>
+            <p className='text-gray-400 text-sm'>
+              Real-time sentiment analysis and social media insights
+            </p>
+          </div>
+          <div className='flex items-center space-x-2'>
+            <div
+              className={`w-3 h-3 rounded-full ${isAnalyzing ? 'bg-yellow-400 animate-pulse' : 'bg-green-400'}`}
+            ></div>
+            <span
+              className={`text-sm font-medium ${isAnalyzing ? 'text-yellow-400' : 'text-green-400'}`}
+            >
+              {isAnalyzing ? 'Analyzing' : 'Live'}
+            </span>
+          </div>
+        </div>
+
+        <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
+          {/* Sentiment Overview */}
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Sentiment Overview</h4>
+            <div className='space-y-3'>
+              {Object.entries(sentimentData).map(([game, data], index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-3'>
+                    <h5 className='font-bold text-white text-sm'>{game}</h5>
+                    <div
+                      className={`px-2 py-1 rounded text-xs font-medium ${getSentimentBg(data.overall)} ${getSentimentColor(data.overall)}`}
+                    >
+                      {data.trend.toUpperCase()}
+                    </div>
+                  </div>
+
+                  <div className='grid grid-cols-2 gap-2 text-xs mb-3'>
+                    <div>
+                      <span className='text-gray-400'>Overall:</span>
+                      <div className={`font-bold ${getSentimentColor(data.overall)}`}>
+                        {(data.overall * 100).toFixed(1)}%
+                      </div>
+                    </div>
+                    <div>
+                      <span className='text-gray-400'>Volume:</span>
+                      <div className='text-white font-bold'>{data.volume.toLocaleString()}</div>
+                    </div>
+                    <div>
+                      <span className='text-gray-400'>Confidence:</span>
+                      <div className='text-cyan-400 font-bold'>
+                        {(data.confidence * 100).toFixed(0)}%
+                      </div>
+                    </div>
+                    <div>
+                      <span className='text-gray-400'>Positive:</span>
+                      <div className='text-green-400 font-bold'>
+                        {(data.positive * 100).toFixed(0)}%
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className='space-y-1'>
+                    <div className='flex justify-between text-xs'>
+                      <span className='text-green-400'>Positive</span>
+                      <span className='text-green-400'>{(data.positive * 100).toFixed(0)}%</span>
+                    </div>
+                    <div className='w-full bg-gray-700 rounded-full h-1'>
+                      <div
+                        className='bg-green-400 h-1 rounded-full'
+                        style={{ width: `${data.positive * 100}%` }}
+                      />
+                    </div>
+
+                    <div className='flex justify-between text-xs'>
+                      <span className='text-yellow-400'>Neutral</span>
+                      <span className='text-yellow-400'>{(data.neutral * 100).toFixed(0)}%</span>
+                    </div>
+                    <div className='w-full bg-gray-700 rounded-full h-1'>
+                      <div
+                        className='bg-yellow-400 h-1 rounded-full'
+                        style={{ width: `${data.neutral * 100}%` }}
+                      />
+                    </div>
+
+                    <div className='flex justify-between text-xs'>
+                      <span className='text-red-400'>Negative</span>
+                      <span className='text-red-400'>{(data.negative * 100).toFixed(0)}%</span>
+                    </div>
+                    <div className='w-full bg-gray-700 rounded-full h-1'>
+                      <div
+                        className='bg-red-400 h-1 rounded-full'
+                        style={{ width: `${data.negative * 100}%` }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Recent Social Posts */}
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Recent Social Activity</h4>
+            <div className='space-y-3 max-h-96 overflow-y-auto'>
+              {recentPosts.map((post, index) => (
+                <div
+                  key={post.id}
+                  className='bg-slate-800/50 rounded-lg p-3 border border-slate-700/30'
+                >
+                  <div className='flex items-start justify-between mb-2'>
+                    <div className='flex items-center gap-2'>
+                      {getPlatformIcon(post.platform)}
+                      <span className='text-gray-400 text-xs font-medium'>{post.author}</span>
+                    </div>
+                    <div
+                      className={`px-2 py-1 rounded text-xs font-medium ${getSentimentBg(post.sentiment)} ${getSentimentColor(post.sentiment)}`}
+                    >
+                      {(post.sentiment * 100).toFixed(0)}%
+                    </div>
+                  </div>
+
+                  <p className='text-white text-sm mb-3 line-clamp-3'>{post.content}</p>
+
+                  <div className='flex items-center justify-between text-xs text-gray-400'>
+                    <div className='flex items-center gap-3'>
+                      <div className='flex items-center gap-1'>
+                        <Heart className='w-3 h-3' />
+                        <span>{post.engagement.likes}</span>
+                      </div>
+                      <div className='flex items-center gap-1'>
+                        <Share2 className='w-3 h-3' />
+                        <span>{post.engagement.shares}</span>
+                      </div>
+                      <div className='flex items-center gap-1'>
+                        <MessageSquare className='w-3 h-3' />
+                        <span>{post.engagement.comments}</span>
+                      </div>
+                    </div>
+                    <div className='flex items-center gap-1'>
+                      <Eye className='w-3 h-3' />
+                      <span>Influence: {(post.influence * 100).toFixed(0)}%</span>
+                    </div>
+                  </div>
+
+                  {post.keywords.length > 0 && (
+                    <div className='mt-2 flex flex-wrap gap-1'>
+                      {post.keywords.slice(0, 3).map((keyword, i) => (
+                        <span
+                          key={i}
+                          className='px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded'
+                        >
+                          #{keyword}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Influencer Insights & Trending Topics */}
+          <div className='space-y-4'>
+            {/* Top Influencers */}
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-lg font-medium text-white mb-4'>Top Influencers</h4>
+              <div className='space-y-3'>
+                {influencers.slice(0, 3).map((influencer, index) => (
+                  <div key={influencer.id} className='bg-slate-800/50 rounded-lg p-3'>
+                    <div className='flex items-start justify-between mb-2'>
+                      <div>
+                        <h5 className='font-bold text-white text-sm'>{influencer.name}</h5>
+                        <p className='text-gray-400 text-xs'>
+                          {influencer.platform} • {(influencer.followers / 1000).toFixed(0)}K
+                          followers
+                        </p>
+                      </div>
+                      <div className='text-right'>
+                        <div className='text-green-400 font-bold text-sm'>
+                          {(influencer.accuracy * 100).toFixed(0)}%
+                        </div>
+                        <div className='text-xs text-gray-400'>Accuracy</div>
+                      </div>
+                    </div>
+
+                    <div className='space-y-1'>
+                      {influencer.recentPicks.slice(0, 2).map((pick, i) => (
+                        <div key={i} className='text-xs'>
+                          <div className='flex justify-between'>
+                            <span className='text-gray-400'>{pick.game}</span>
+                            <span
+                              className={`font-medium ${
+                                pick.outcome === 'won'
+                                  ? 'text-green-400'
+                                  : pick.outcome === 'lost'
+                                    ? 'text-red-400'
+                                    : 'text-yellow-400'
+                              }`}
+                            >
+                              {pick.outcome?.toUpperCase() || 'PENDING'}
+                            </span>
+                          </div>
+                          <div className='text-white'>{pick.pick}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Trending Topics */}
+            <div className='bg-slate-900/50 rounded-lg p-4'>
+              <h4 className='text-lg font-medium text-white mb-4'>Trending Topics</h4>
+              <div className='space-y-2'>
+                {trendingTopics.slice(0, 4).map((topic, index) => (
+                  <div key={topic.id} className='bg-slate-800/50 rounded-lg p-3'>
+                    <div className='flex items-start justify-between mb-1'>
+                      <h5 className='font-bold text-white text-sm'>{topic.keyword}</h5>
+                      <div
+                        className={`px-2 py-1 rounded text-xs font-medium ${
+                          topic.impact === 'high'
+                            ? 'bg-red-500/20 text-red-400'
+                            : topic.impact === 'medium'
+                              ? 'bg-yellow-500/20 text-yellow-400'
+                              : 'bg-gray-500/20 text-gray-400'
+                        }`}
+                      >
+                        {topic.impact.toUpperCase()}
+                      </div>
+                    </div>
+
+                    <div className='grid grid-cols-2 gap-2 text-xs'>
+                      <div>
+                        <span className='text-gray-400'>Volume:</span>
+                        <div className='text-white font-bold'>{topic.volume}</div>
+                      </div>
+                      <div>
+                        <span className='text-gray-400'>Growth:</span>
+                        <div className='text-cyan-400 font-bold'>
+                          +{(topic.growth * 100).toFixed(0)}%
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className='mt-2'>
+                      <div className={`flex justify-between text-xs mb-1`}>
+                        <span className='text-gray-400'>Sentiment</span>
+                        <span className={`font-bold ${getSentimentColor(topic.sentiment)}`}>
+                          {topic.sentiment > 0 ? '+' : ''}
+                          {(topic.sentiment * 100).toFixed(0)}%
+                        </span>
+                      </div>
+                      <div className='w-full bg-gray-700 rounded-full h-1'>
+                        <div
+                          className={`h-1 rounded-full ${topic.sentiment > 0 ? 'bg-green-400' : 'bg-red-400'}`}
+                          style={{ width: `${Math.abs(topic.sentiment) * 100}%` }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </Layout>
   );
 };
