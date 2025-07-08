@@ -1194,6 +1194,342 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Advanced Portfolio Analytics */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.4 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Advanced Portfolio Analytics</h3>
+            <p className='text-gray-400 text-sm'>
+              Multi-dimensional portfolio analysis with quantum-enhanced optimization
+            </p>
+          </div>
+          <BarChart3 className='w-6 h-6 text-cyan-400' />
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-4 gap-4 mb-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+            <div className='text-2xl font-bold text-green-400 mb-1'>$247,830</div>
+            <div className='text-sm text-gray-400'>Total Portfolio</div>
+            <div className='text-xs text-green-300 mt-1'>+18.7% YTD</div>
+          </div>
+          <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+            <div className='text-2xl font-bold text-purple-400 mb-1'>0.23</div>
+            <div className='text-sm text-gray-400'>Portfolio Beta</div>
+            <div className='text-xs text-purple-300 mt-1'>Low correlation</div>
+          </div>
+          <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+            <div className='text-2xl font-bold text-cyan-400 mb-1'>2.89</div>
+            <div className='text-sm text-gray-400'>Sharpe Ratio</div>
+            <div className='text-xs text-cyan-300 mt-1'>Risk-adjusted</div>
+          </div>
+          <div className='bg-slate-900/50 rounded-lg p-4 text-center'>
+            <div className='text-2xl font-bold text-yellow-400 mb-1'>$3,420</div>
+            <div className='text-sm text-gray-400'>Max Drawdown</div>
+            <div className='text-xs text-yellow-300 mt-1'>-1.4% of portfolio</div>
+          </div>
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>
+              Asset Allocation Optimization
+            </h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  asset: 'NBA Player Props',
+                  current: 35,
+                  optimal: 38,
+                  variance: 2.1,
+                  expectedReturn: 24.7,
+                  recommendation: 'Increase by 3%',
+                },
+                {
+                  asset: 'NFL Spreads',
+                  current: 25,
+                  optimal: 22,
+                  variance: 3.8,
+                  expectedReturn: 18.9,
+                  recommendation: 'Reduce by 3%',
+                },
+                {
+                  asset: 'Arbitrage Positions',
+                  current: 20,
+                  optimal: 24,
+                  variance: 1.2,
+                  expectedReturn: 12.4,
+                  recommendation: 'Increase by 4%',
+                },
+                {
+                  asset: 'Live Betting',
+                  current: 15,
+                  optimal: 12,
+                  variance: 4.7,
+                  expectedReturn: 31.2,
+                  recommendation: 'Reduce by 3%',
+                },
+                {
+                  asset: 'Cash Reserve',
+                  current: 5,
+                  optimal: 4,
+                  variance: 0.0,
+                  expectedReturn: 2.1,
+                  recommendation: 'Deploy 1%',
+                },
+              ].map((asset, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{asset.asset}</span>
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${
+                        asset.current < asset.optimal
+                          ? 'bg-green-500/20 text-green-400'
+                          : asset.current > asset.optimal
+                            ? 'bg-red-500/20 text-red-400'
+                            : 'bg-gray-500/20 text-gray-400'
+                      }`}
+                    >
+                      {asset.current}% → {asset.optimal}%
+                    </span>
+                  </div>
+                  <div className='grid grid-cols-2 gap-2 text-xs mb-2'>
+                    <div className='text-gray-400'>
+                      Return: <span className='text-green-400'>{asset.expectedReturn}%</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Variance: <span className='text-purple-400'>{asset.variance}%</span>
+                    </div>
+                  </div>
+                  <div className='text-cyan-400 text-xs'>{asset.recommendation}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Risk Decomposition Analysis</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  factor: 'Market Risk',
+                  contribution: 0.234,
+                  percentage: 34.7,
+                  type: 'Systematic',
+                  mitigation: 'Diversification across sports',
+                },
+                {
+                  factor: 'Model Risk',
+                  contribution: 0.187,
+                  percentage: 27.8,
+                  type: 'Systematic',
+                  mitigation: 'Ensemble approach',
+                },
+                {
+                  factor: 'Liquidity Risk',
+                  contribution: 0.142,
+                  percentage: 21.1,
+                  type: 'Idiosyncratic',
+                  mitigation: 'Limit position sizes',
+                },
+                {
+                  factor: 'Concentration Risk',
+                  contribution: 0.089,
+                  percentage: 13.2,
+                  type: 'Idiosyncratic',
+                  mitigation: 'Correlation limits',
+                },
+                {
+                  factor: 'Operational Risk',
+                  contribution: 0.022,
+                  percentage: 3.2,
+                  type: 'Idiosyncratic',
+                  mitigation: 'System redundancy',
+                },
+              ].map((risk, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='flex items-center justify-between mb-2'>
+                    <span className='text-white font-medium text-sm'>{risk.factor}</span>
+                    <span className='text-red-400 text-sm'>{risk.percentage.toFixed(1)}%</span>
+                  </div>
+                  <div className='w-full bg-slate-700 rounded-full h-2 mb-2'>
+                    <div
+                      className='h-2 bg-red-400 rounded-full'
+                      style={{ width: `${risk.percentage}%` }}
+                    />
+                  </div>
+                  <div className='text-xs text-gray-400 mb-1'>{risk.type} Risk</div>
+                  <div className='text-xs text-cyan-400'>{risk.mitigation}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-sm font-medium text-gray-400 mb-3'>Performance Attribution</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  source: 'Asset Selection',
+                  contribution: 8.47,
+                  benchmark: 5.23,
+                  alpha: 3.24,
+                  description: 'Superior prop identification',
+                },
+                {
+                  source: 'Timing',
+                  contribution: 4.29,
+                  benchmark: 2.18,
+                  alpha: 2.11,
+                  description: 'Market entry optimization',
+                },
+                {
+                  source: 'Risk Management',
+                  contribution: 3.67,
+                  benchmark: -1.84,
+                  alpha: 5.51,
+                  description: 'Downside protection',
+                },
+                {
+                  source: 'Diversification',
+                  contribution: 2.23,
+                  benchmark: 0.89,
+                  alpha: 1.34,
+                  description: 'Cross-sport correlation',
+                },
+              ].map((attribution, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='text-white font-medium text-sm mb-2'>{attribution.source}</div>
+                  <div className='grid grid-cols-2 gap-2 text-xs mb-2'>
+                    <div className='text-gray-400'>
+                      Return: <span className='text-green-400'>{attribution.contribution}%</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Benchmark: <span className='text-white'>{attribution.benchmark}%</span>
+                    </div>
+                    <div className='text-gray-400'>
+                      Alpha: <span className='text-purple-400'>{attribution.alpha}%</span>
+                    </div>
+                  </div>
+                  <div className='text-cyan-400 text-xs'>{attribution.description}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Quantum Trading Engine */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.5 }}
+        className='bg-slate-800/50 backdrop-blur-lg border border-slate-700/50 rounded-xl p-6 mt-8'
+      >
+        <div className='flex items-center justify-between mb-6'>
+          <div>
+            <h3 className='text-xl font-bold text-white'>Quantum Trading Engine</h3>
+            <p className='text-gray-400 text-sm'>
+              Quantum-enhanced execution with superposition-based order optimization
+            </p>
+          </div>
+          <div className='flex items-center space-x-2'>
+            <div className='w-3 h-3 bg-purple-400 rounded-full animate-pulse'></div>
+            <span className='text-purple-400 text-sm font-medium'>Quantum Trading</span>
+          </div>
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Quantum Execution States</h4>
+            <div className='space-y-3'>
+              {[
+                {
+                  order: 'Lakers -2.5 Spread',
+                  states: 'Superposition: 8 execution paths',
+                  optimalPath: 'Path 3: DraftKings @ 1.91',
+                  probability: 'Execution probability: 94.7%',
+                  slippage: 'Expected slippage: 0.03%',
+                  timing: 'Optimal window: 47s',
+                },
+                {
+                  order: 'LeBron Over 25.5 Points',
+                  states: 'Superposition: 12 execution paths',
+                  optimalPath: 'Path 7: FanDuel @ 1.87',
+                  probability: 'Execution probability: 89.2%',
+                  slippage: 'Expected slippage: 0.07%',
+                  timing: 'Optimal window: 23s',
+                },
+                {
+                  order: 'Warriors Team Total Over',
+                  states: 'Superposition: 6 execution paths',
+                  optimalPath: 'Path 2: BetMGM @ 1.95',
+                  probability: 'Execution probability: 91.8%',
+                  slippage: 'Expected slippage: 0.05%',
+                  timing: 'Optimal window: 67s',
+                },
+              ].map((execution, index) => (
+                <div key={index} className='bg-slate-800/50 rounded-lg p-3'>
+                  <div className='text-white font-medium text-sm mb-2'>{execution.order}</div>
+                  <div className='space-y-1 text-xs'>
+                    <div className='text-purple-400'>{execution.states}</div>
+                    <div className='text-cyan-400'>{execution.optimalPath}</div>
+                    <div className='text-green-400'>{execution.probability}</div>
+                    <div className='text-yellow-400'>{execution.slippage}</div>
+                    <div className='text-gray-400'>{execution.timing}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='bg-slate-900/50 rounded-lg p-4'>
+            <h4 className='text-lg font-medium text-white mb-4'>Execution Performance</h4>
+            <div className='space-y-3'>
+              <div className='grid grid-cols-2 gap-4'>
+                <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                  <div className='text-2xl font-bold text-green-400 mb-1'>97.3%</div>
+                  <div className='text-xs text-gray-400'>Fill Rate</div>
+                </div>
+                <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                  <div className='text-2xl font-bold text-cyan-400 mb-1'>0.04%</div>
+                  <div className='text-xs text-gray-400'>Avg Slippage</div>
+                </div>
+                <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                  <div className='text-2xl font-bold text-purple-400 mb-1'>234ms</div>
+                  <div className='text-xs text-gray-400'>Avg Execution</div>
+                </div>
+                <div className='bg-slate-800/50 rounded-lg p-3 text-center'>
+                  <div className='text-2xl font-bold text-yellow-400 mb-1'>$1,247</div>
+                  <div className='text-xs text-gray-400'>Slippage Saved</div>
+                </div>
+              </div>
+
+              <div className='space-y-2'>
+                {[
+                  { metric: 'Orders Executed', value: '2,847', period: 'Today' },
+                  { metric: 'Quantum Advantage', value: '+12.7%', period: 'vs Classical' },
+                  { metric: 'Latency Reduction', value: '-67%', period: 'Path optimization' },
+                  { metric: 'Cost Savings', value: '$4,230', period: 'This month' },
+                ].map((metric, index) => (
+                  <div key={index} className='flex items-center justify-between text-sm'>
+                    <span className='text-gray-400'>{metric.metric}</span>
+                    <div className='text-right'>
+                      <span className='text-white font-medium'>{metric.value}</span>
+                      <div className='text-gray-400 text-xs'>{metric.period}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </Layout>
   );
 };
