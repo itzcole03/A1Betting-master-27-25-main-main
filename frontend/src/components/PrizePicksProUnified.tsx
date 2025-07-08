@@ -47,19 +47,59 @@ export const PrizePicksProUnified: React.FC<PrizePicksProUnifiedProps> = ({
   const [showShapModal, setShowShapModal] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Available sports configuration
-  const SUPPORTED_SPORTS = [
+  // Complete PrizePicks sports configuration (based on their actual API)
+  const ALL_PRIZEPICKS_SPORTS = [
+    // Major US Sports
     'NBA',
     'WNBA',
     'NFL',
     'MLB',
     'NHL',
     'MLS',
+    // College Sports
     'NCAAF',
     'NCAAB',
+    'NCAAM',
+    'NCAAW',
+    // International Sports
+    'EPL',
+    'UEFA_CHAMPIONS_LEAGUE',
+    'UEFA_EUROPA_LEAGUE',
+    'LA_LIGA',
+    'BUNDESLIGA',
+    'SERIE_A',
+    'LIGUE_1',
+    'PREMIER_LEAGUE',
+    'CHAMPIONSHIP',
+    'LIGA_MX',
+    // Other Popular Sports
     'PGA',
+    'LIV_GOLF',
     'NASCAR',
     'F1',
+    'UFC',
+    'BOXING',
+    'TENNIS',
+    'GOLF_MAJOR',
+    'OLYMPICS',
+    // Esports (if available)
+    'LOL',
+    'CSGO',
+    'VALORANT',
+    'DOTA2',
+    // Additional Sports
+    'CRICKET',
+    'RUGBY',
+    'AUSSIE_RULES',
+    'CFL',
+    // International Basketball
+    'EUROLEAGUE',
+    'NBL',
+    'FIBA',
+    // Minor Leagues
+    'G_LEAGUE',
+    'AHL',
+    'AAA_BASEBALL',
   ];
 
   // Generate comprehensive mock data for development/demo
